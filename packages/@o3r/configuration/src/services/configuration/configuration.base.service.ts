@@ -98,34 +98,7 @@ export class ConfigurationBaseService {
    */
   public getComponentConfig<T extends Configuration>(id: string, defaultValue: T) {
     return (source: Observable<Partial<T> | undefined>): Observable <T> => {
-      const componentConfigurationFromStore$ =
-      combineLatest([
-        this.store.pipe(
-          select(selectConfigurationEntities),
-          map((storedConfigs) => {
-            const globalConfigId = 'global';
-            const componentConfig = storedConfigs[id];
-            const globalConfig = storedConfigs[globalConfigId];
-            if (id !== globalConfigId && globalConfig) {
-              return {
-                ...globalConfig,
-                ...(componentConfig || {})
-              };
-            }
-            return componentConfig || null;
-          }),
-          distinctUntilChanged((prev, current) => JSON.stringify(prev) === JSON.stringify(current))
-        ), this.store.pipe(
-          select(selectComponentOverrideConfig(id))
-        )]
-      ).pipe(
-        map(([storeConfig, storeOverrideConfig]) => {
-          return {
-            ...storeConfig,
-            ...storeOverrideConfig
-          };
-        })
-      );
+      const componentConfigurationFromStore$ = this.getConfig(id) as Observable<T>;
 
       return source.pipe(
         switchMap((overrideConfig) => componentConfigurationFromStore$.pipe(
@@ -136,5 +109,40 @@ export class ConfigurationBaseService {
         ))
       );
     };
+  }
+
+  /**
+   * Get an observable of the configuration from store for a given component and merge it with the global config + the config overrides from the rules engine
+   *
+   * @param id Id of the component
+   */
+  public getConfig(id: string): Observable<any> {
+    return combineLatest([
+      this.store.pipe(
+        select(selectConfigurationEntities),
+        map((storedConfigs) => {
+          const globalConfigId = 'global';
+          const componentConfig = storedConfigs[id];
+          const globalConfig = storedConfigs[globalConfigId];
+          if (id !== globalConfigId && globalConfig) {
+            return {
+              ...globalConfig,
+              ...(componentConfig || {})
+            };
+          }
+          return componentConfig || null;
+        }),
+        distinctUntilChanged((prev, current) => JSON.stringify(prev) === JSON.stringify(current))
+      ), this.store.pipe(
+        select(selectComponentOverrideConfig(id))
+      )]
+    ).pipe(
+      map(([storeConfig, storeOverrideConfig]) => {
+        return {
+          ...storeConfig,
+          ...storeOverrideConfig
+        };
+      })
+    );
   }
 }
