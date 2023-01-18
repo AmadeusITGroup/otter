@@ -1,0 +1,21 @@
+{
+  "modelPackage" : "com.amadeus.dapi",
+  "apiPackage"   : "com.amadeus.dapi",
+  "invokerPackage" : "com.amadeus.dapi.resteasy",
+  "generateApiTests": "false",
+  "groupId" : "com.amadeus.dapi",
+  "artifactId"  : "dapi-resteasy-client-sdk",
+  "library" :  "resteasy",
+  "dateLibrary" : "java8",
+  "java8": true,
+  "hideGenerationTimestamp": true,
+  "additionalProperties": {
+    "implementationLibraryName": "resteasy",
+    "restEasyPackage": "com.amadeus.dapi.resteasy",
+    "restEasyApiImplPackage": "com.amadeus.dapi.resteasy.api",
+    "authenticationPackage": "com.amadeus.dapi.security.auth",
+    "endpointsPackage": "com.amadeus.dapi.model.endpoints",
+    "basePackage": "com.amadeus.dapi.model.base",
+    "corePackage": "com.amadeus.dapi.model.core"
+  }
+}

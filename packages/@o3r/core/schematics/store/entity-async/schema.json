@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateEntityAsyncStoreSchematicsSchema",
+  "title": "Generate Entity Async Otter Store",
+  "description": "ng generate Entity Async Otter Store",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Name of the project",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "storeName": {
+      "type": "string",
+      "description": "Name of the Store",
+      "x-prompt": "Store name? ",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "sdkPackage": {
+      "type": "string",
+      "description": "Sdk package",
+      "x-prompt": "From which SDK your models come from? (ex: @api/sdk)"
+    },
+    "modelName": {
+      "type": "string",
+      "description": "The SDK Model to use as store item (e.g. Example):",
+      "x-prompt": "The SDK Model to use as store item (e.g. Example):",
+      "minLength": 1
+    },
+    "modelIdPropName": {
+      "type": "string",
+      "description": "The property name that identifies the model:",
+      "x-prompt": "The property name that identifies the model:",
+      "minLength": 1,
+      "default": "id"
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the stores"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    },
+    "testFramework": {
+      "type": "string",
+      "enum": ["jest", "jasmine"],
+      "description": "Test framework used",
+      "default": "jasmine"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "storeName",
+    "modelName",
+    "modelIdPropName"
+  ]
+}

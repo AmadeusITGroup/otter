@@ -1,0 +1,9 @@
+**/node_modules/**
+dist/
+test/
+tmp/
+generated-doc/
+/{packages,apps}/@*/*/dist*/**
+/packages/@*/*/**/templates/**
+/.pnp.js
+/.vscode

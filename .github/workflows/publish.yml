@@ -1,0 +1,77 @@
+name: Publish Packages
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: Version of the artifact to publish
+      prerelease:
+        type: boolean
+        default: false
+        required: false
+        description: Version of the artifact to publish
+    secrets:
+      AZ_AR_PASSWORD:
+        required: true
+      NPM_TOKEN:
+        required: false
+        description: PAT to publish on npmjs.org
+      AZURE_AUTH_TOKEN:
+        required: false
+        description: Token of the user publishing on Azure Feeds for PR Artifacts
+      AZURE_USERNAME:
+        required: false
+        description: Name of the user publishing on Azure Feeds for PR Artifacts
+      AZURE_EMAIL:
+        required: false
+        description: Email of the user publishing on Azure Feeds for PR Artifacts
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get version
+        id: get-version
+        uses: actions/github-script@v6
+        env:
+          tagName: ${{ inputs.version || github.ref_name }}
+        with:
+          script: |
+            const version = process.env.tagName.replace(/^v/i, '');
+            core.setOutput('version', version)
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'true'
+          install-jdk: 'true'
+      - name: Build Swagger CodeGen
+        run: yarn build:swagger-gen
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Build
+        run: yarn build
+      - name: Set new version
+        run: yarn set:version ${{ steps.get-version.outputs.version }}
+      - name: Get tag name
+        id: get-npm-tag
+        uses: ./.github/actions/get-npm-tag
+        with:
+          is-prerelease: ${{ inputs.prerelease || (github.event.release && github.event.release.prerelease) }}
+          version: ${{ steps.get-version.outputs.version }}
+      - name: Publish
+        run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}}
+        env:
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
+          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}

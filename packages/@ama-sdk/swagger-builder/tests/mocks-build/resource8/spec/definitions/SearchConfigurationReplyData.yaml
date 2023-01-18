@@ -1,0 +1,17 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: SearchConfigurationReplyData
+  description: Definition for the DAPI model SearchConfigurationReplyData
+paths: {}
+definitions:
+  SearchConfigurationReplyData:
+    type: object
+    description: >-
+      Reply containing the configuration to use for next api calls
+    properties:
+      officeId:
+        description: >-
+          Office Id determined by business rules.
+        type: string
+        pattern: '[A-Z0-9]{9}'

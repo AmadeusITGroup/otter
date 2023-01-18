@@ -1,0 +1,41 @@
+<% if (componentStructure === 'full') { %>import {Component} from '@angular/core';
+<% } %>import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {BrowserModule} from '@angular/platform-browser';
+<% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';<% } %>
+import {<%= componentName %>} from './<%= name %>.component';
+<% if (useComponentFixtures) {%>import {<%= componentFixture %>Component} from './<%= name %>.fixture';<% } %>
+
+<% if (componentStructure === 'full') { %>@Component({
+  selector: '<%= componentSelector %>-pres',
+  template: ''<% if (useOtterConfig) { %>,
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['config']<% } %>
+})
+class Mock<%= blockName %>PresComponent {}
+
+<% } %>describe('<%= componentName %>', () => {
+  let component: <%= componentName %>;<% if (useComponentFixtures) {%>
+  let componentFixture: <%= componentFixture %>Component;<% } %>
+  let fixture: ComponentFixture<<%= componentName %>>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [<%= componentName %><% if (componentStructure === 'full') { %>, Mock<%= blockName %>PresComponent <% } %>],
+      imports: [BrowserModule],
+      providers: []
+    }).compileComponents()
+  });
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(<%= componentName %>);
+    component = fixture.componentInstance;<% if (useComponentFixtures) {%>
+    componentFixture = new <%= componentFixture %>Component(new O3rElement(fixture.debugElement));<% } %>
+  });
+
+  it('should define objects', () => {
+    fixture.detectChanges();
+    expect(component).toBeDefined();<% if (useComponentFixtures) {%>
+    expect(componentFixture).toBeDefined();<% }
+    %>
+  });
+});

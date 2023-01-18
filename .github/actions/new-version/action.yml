@@ -1,0 +1,24 @@
+name: 'New version'
+description: 'Compute the next-version of your branch'
+inputs:
+  defaultBranchPrereleaseName:
+    description: 'Default branch pre-release tag (eg. alpha)'
+  defaultBranch:
+    description: 'Master branch name in master centric repository'
+  defaultBranchVersionMask:
+    description: 'Version mask for default master branch in a master centric repository'
+  prPreReleaseTag:
+    description: 'Tag for pull request version'
+    default: 'pr'
+  logLevel:
+    description: 'Logging level - info, verbose, error, warn, debug..'
+    default: 'verbose'
+  releaseBranchRegExp:
+    description: 'Versioned release branch regular expression'
+    default: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
+outputs:
+  nextVersionTag:
+    description: 'Next version tag'
+runs:
+  using: 'node16'
+  main: './new-version.mjs'

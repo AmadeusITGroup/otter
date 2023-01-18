@@ -1,0 +1,89 @@
+{
+  "name": "configuration",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/configuration/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@o3r/configuration/ng-package.json",
+        "tsConfig": "packages/@o3r/configuration/tsconfig.build.json"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      },
+      "outputs": [
+        "{projectRoot}/dist/middlewares",
+        "{projectRoot}/dist/builders.json",
+        "{projectRoot}/dist/migration.json",
+        "{projectRoot}/dist/collection.json",
+        "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/templates"
+      ],
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/configuration/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/configuration/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/configuration/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/configuration/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,100 @@
+{
+  "name": "testing",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/testing/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile",
+        "build-schematics",
+        "build-tools"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/testing/src/public_api.ts",
+        "tsConfig": "packages/@o3r/testing/tsconfig.build.json",
+        "outputPath": "packages/@o3r/testing/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-schematics": {
+      "executor": "nx:run-script",
+      "dependsOn": [
+        "^build",
+        "compile",
+        "prepare-build-builders"
+      ],
+      "options": {
+        "script": "build:schematics"
+      },
+      "inputs": ["schematics", "^source"],
+      "outputs": [
+        "{projectRoot}/dist/schematics"
+      ]
+    },
+    "build-tools": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist-tools/src/tools/protractor"
+      ],
+      "options": {
+        "script": "build:tools"
+      },
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/testing/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/testing/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/testing/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/testing/dist"
+      }
+    }
+  },
+  "tags": []
+}

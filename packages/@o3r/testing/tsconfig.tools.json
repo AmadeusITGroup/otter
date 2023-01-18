@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo.tools",
+    "outDir": "./dist/src",
+    "types": [
+      "node"
+    ],
+    "rootDir": "src",
+    "importHelpers": false,
+    "target": "ES5",
+    "module": "CommonJS",
+  },
+  "files": [
+    "src/tools/protractor/fetch-manager/_fetch-manager.ts",
+    "src/tools/protractor/post-message-interceptor/_post-message-interceptor.ts"
+  ],
+  "include": [],
+  "exclude": [
+    "**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

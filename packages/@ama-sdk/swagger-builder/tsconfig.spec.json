@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "include": [
+    "./tests/**/*.spec.ts"
+  ],
+  "exclude": [],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {from, of} from 'rxjs';
+import {catchError, map, mergeMap} from 'rxjs/operators';
+import {fromApiEffectSwitchMap} from '@o3r/core';
+import {
+  cancel<%= storeName %>Request,
+  fail<%= storeName %>,
+  set<%= storeName %>, set<%= storeName %>FromApi,
+  update<%= storeName %>, update<%= storeName %>FromApi
+} from './<%= fileName %>.actions';
+
+/**
+ * Service to handle async <%= storeName %> actions
+ */
+@Injectable()
+export class <%= storeName %>Effect {
+  /**
+   * Set the state with the reply content, dispatch fail<%= storeName %> if it catches a failure
+   */
+  public setFromApi$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(set<%= storeName %>FromApi),
+      fromApiEffectSwitchMap(
+        (reply, action) => set<%= storeName %>({model: reply, requestId: action.requestId}),
+        (error, action) => of(fail<%= storeName %>({error, requestId: action.requestId})),
+        cancel<%= storeName %>Request
+      )
+    )
+  );
+
+  /**
+   * Update the state with the reply content, dispatch fail<%= storeName %> if it catches a failure
+   */
+  public updateFromApi$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(update<%= storeName %>FromApi),
+      mergeMap((payload) =>
+        from(payload.call).pipe(
+          map((reply) => update<%= storeName %>({model: reply, requestId: payload.requestId})),
+          catchError((err) => of(fail<%= storeName %>({error: err, requestId: payload.requestId})))
+        )
+      )
+    )
+  );
+
+  constructor(protected actions$: Actions) {}
+}

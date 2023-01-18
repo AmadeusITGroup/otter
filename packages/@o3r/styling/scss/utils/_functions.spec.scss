@@ -1,0 +1,22 @@
+@use 'sass-true/sass/true' as sass-true;
+@use './functions' as utils-functions;
+
+// Do not fail on error but return error message
+$test-mode-enabled: true;
+
+// Get mandatory tests
+
+@include sass-true.describe('get-mandatory [function]') {
+  @include sass-true.it('should return the requested key value') {
+    @include sass-true.assert-equal(
+      utils-functions.get-mandatory((test: 'test-value'), test, 'map'),
+      'test-value'
+    );
+  }
+  @include sass-true.it('should fail if the key is no included in the map') {
+    @include sass-true.assert-equal(
+      utils-functions.get-mandatory((test: 'test-value'), missing-key, 'map'),
+      '[Error] Missing mandatory `missing-key` in `map`'
+    );
+  }
+}

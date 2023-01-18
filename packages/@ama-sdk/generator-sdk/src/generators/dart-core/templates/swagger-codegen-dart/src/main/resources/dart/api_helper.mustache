@@ -1,0 +1,85 @@
+part of {{pubName}}.sdk;
+
+const Map<String, String/* ? */> _delimiters = const {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};
+
+// port from Java version
+Map<String, String/* ? */> convertParametersForCollectionFormat(
+  String collectionFormat, String name, dynamic value) {
+  Map<String, String/* ? */> params = {} as Map<String, String/* ? */>;
+
+  // preconditions
+  if (name == null || name.isEmpty || value == null) return params;
+
+  if (value is! List) {
+    params[name] = parameterToString(value);
+    return params;
+  }
+
+  List values = value;
+
+  // get the collection format
+  collectionFormat = (collectionFormat == null || collectionFormat.isEmpty)
+                     ? "csv"
+                     : collectionFormat; // default: csv
+
+  if (collectionFormat == "multi") {
+    return new Map<String, String/* ? */>.fromEntries(
+      values.map((v) => new MapEntry<String, String/* ? */>(name, parameterToString(v)))
+    );
+  }
+
+  String delimiter = _delimiters[collectionFormat] ?? ",";
+
+  params[name] = values.map((v) => parameterToString(v)).join(delimiter);
+  return params;
+}
+
+/// Format the given parameter object into string.
+String parameterToString(dynamic value) {
+  if (value == null) {
+    return '';
+  } else if (value is DateTime) {
+    return value.toUtc().toIso8601String();
+  } else if (value is List) {
+    return value.join(',');
+  {{#models}}
+    {{#model}}
+      {{#isEnum}}
+  } else if (value is {{classname}}) {
+    return {{classname}}.encode(value).toString();
+      {{/isEnum}}
+    {{/model}}
+  {{/models}}
+  } else {
+    return value.toString();
+  }
+}
+
+typedef ReviverType<T> = T Function (dynamic data, [Map<String, dynamic> dictionaries]);
+
+/// Used in case of arrays: It will call the reviveWithType for each element of the array.
+List<T> reviveArray<T>(List<dynamic>/* ? */ data, Map<String, dynamic>/* ? */ dictionaries, ReviverType<T> reviver) {
+  final List<T> ret = [];
+  for (var i = 0; i < (data?.length ?? 0); i++) {
+    ret.add(reviver(data[i], dictionaries));
+  }
+  return ret;
+}
+
+/// Used in case of map: It will call the reviveWithType for each element of the map.
+Map<String, T> reviveMap<T>(Map<String, dynamic>/* ? */ data, Map<String, dynamic>/* ? */ dictionaries, ReviverType<T> reviver) {
+  final Map<String, T> ret = <String, T>{};
+  if (data?.isNotEmpty ?? false) {
+    ret.addAll(data.map((key, value) => new MapEntry<String, T>(key, reviver(value, dictionaries))));
+  }
+  return ret;
+}
+
+Map<String, T> reviveDictionarizedArray<T>(List<String> items, Map<String, dynamic> dictionarizedItems, Map<String, dynamic>/* ? */ dictionaries, ReviverType<T> reviver) {
+  final Map<String, T> ret = <String, T>{};
+  ret.addEntries(
+    items
+      .where((item) => dictionarizedItems.containsKey(item))
+      .map((item) => new MapEntry<String, T>(item, reviver(dictionarizedItems[item], dictionaries))));
+  return ret;
+}

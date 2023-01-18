@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "SetupIvyPostInstallBuilderSchema",
+  "title": "Setup Ivy PostInstall builder",
+  "description": "Setup Ivy PostInstall builder options",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "x-prompt": "Name of the CLI module:"
+    },
+    "basePath": {
+      "type": "string",
+      "description": "Path where generate the repository",
+      "default": "/"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "name"
+  ]
+}

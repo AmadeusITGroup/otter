@@ -1,0 +1,14 @@
+parameters:
+  -  name: 'DIST_WORKSPACE'
+     default: '$(System.DefaultWorkingDirectory)/dist'
+     type: string
+  -  name: 'DIST_ARTIFACT_NAME'
+     default: 'dist'
+     type: string
+
+steps:
+  - task: DownloadPipelineArtifact@2
+    inputs:
+      source: current
+      artifact: ${{ parameters.DIST_ARTIFACT_NAME }}
+      path: ${{ parameters.DIST_WORKSPACE }}

@@ -1,0 +1,77 @@
+{
+  "name": "dynamic-content",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/dynamic-content/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@o3r/dynamic-content/ng-package.json",
+        "tsConfig": "packages/@o3r/dynamic-content/tsconfig.build.json"
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "packages/@o3r/dynamic-content/dist/middlewares",
+        "packages/@o3r/dynamic-content/dist/schematics"
+      ],
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/dynamic-content/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/dynamic-content/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/dynamic-content/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/dynamic-content/dist"
+      }
+    }
+  },
+  "tags": []
+}

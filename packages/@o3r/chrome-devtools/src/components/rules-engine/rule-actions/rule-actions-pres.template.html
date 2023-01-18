@@ -1,0 +1,72 @@
+<div class="ruleset-panel-category-title">Output Actions</div>
+<div *ngIf="actions.length === 0 && runtimeOutputs.length === 0" class="ruleset-panel-category-body empty">
+  No action
+</div>
+<ul class="ruleset-panel-category-body">
+  <li *ngFor="let action of actions">
+    <ng-container *ngIf="action.actionType">
+      <ng-container [ngSwitch]="action.actionType">
+        <div *ngSwitchCase="'SET_FACT'">
+          <div>Set Fact</div>
+          <div>
+            <o3r-rule-key-value-pres
+              [key]="action.fact | fallbackTo: 'Missing \'fact\''"
+              [value]="action.value | fallbackTo"
+              [type]="'assignment'"></o3r-rule-key-value-pres>
+          </div>
+        </div>
+        <div *ngSwitchCase="'UPDATE_CONFIG'">
+          <div>Update Config {{action.component}} {{action.library}}</div>
+          <div>
+            <o3r-rule-key-value-pres
+              [key]="action.property | fallbackTo: 'Missing \'property\''"
+              [value]="action.value | fallbackTo"
+              [type]="'assignment'"></o3r-rule-key-value-pres>
+          </div>
+        </div>
+        <div *ngSwitchCase="'UPDATE_ASSET'">
+          <div>Update Asset:</div>
+          <div>
+            <o3r-rule-key-value-pres
+              [oldValue]="action.asset | fallbackTo: 'Missing \'asset\''"
+              [value]="action.value | fallbackTo"
+              [type]="'state'"></o3r-rule-key-value-pres>
+          </div>
+        </div>
+        <div *ngSwitchCase="'UPDATE_LOCALISATION'">
+          <div>Update localization:</div>
+          <div>
+            <o3r-rule-key-value-pres
+              [oldValue]="action.key | fallbackTo: 'Missing \'key\''"
+              [value]="action.value | fallbackTo"
+              [type]="'state'"></o3r-rule-key-value-pres>
+          </div>
+        </div>
+        <div
+          *ngSwitchCase="'UPDATE_PLACEHOLDER'"
+          [class.error]="!action.placeholderId">
+          <div>Update placeholder in {{action.component}} {{action.library}}</div>
+          <div>
+            <o3r-rule-key-value-pres
+              [oldValue]="action.placeholderId | fallbackTo: 'Missing \'placeholderId\''"
+              [value]="action.value"
+              [type]="'state'"></o3r-rule-key-value-pres>
+          </div>
+        </div>
+        <div *ngSwitchDefault class="error">
+          <div>Unrecognized action</div>
+          <div>{{action | json}}</div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </li>
+  <li *ngFor="let runtimeOutput of runtimeOutputs">
+    <div>Set temporary fact</div>
+    <div>
+      <o3r-rule-key-value-pres
+        [key]="runtimeOutput | fallbackTo: 'Missing \'fact\''"
+        [value]="temporaryFacts[runtimeOutput] | fallbackTo"
+        [type]="'assignment'"></o3r-rule-key-value-pres>
+    </div>
+  </li>
+</ul>

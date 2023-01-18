@@ -1,0 +1,46 @@
+@use 'sass:map';
+@use 'sass:meta';
+
+@use './functions' as theme-functions;
+@use '../utils/functions' as utils-functions;
+
+@mixin _apply-theme($o3r-theme, $root-name) {
+  @if (meta.type-of($o3r-theme) != map) {
+    $logged: utils-functions.log-variable($root-name, $o3r-theme, 'theme');
+    @if ($o3r-theme != null) {
+      --#{$root-name}: #{$o3r-theme};
+    }
+  } @else {
+    @if (theme-functions.is-variable($o3r-theme)) {
+      @include _apply-theme(map.get($o3r-theme, value), $root-name)
+    } @else {
+      @each $key, $value in $o3r-theme {
+        $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
+        @include _apply-theme($value, $new-key);
+      }
+    }
+  }
+}
+
+/**
+ * Apply an Otter theme to your application
+ * @params $o3r-theme Otter theme
+ */
+@mixin apply-theme($o3r-theme: ()) {
+  :root {
+    @include _apply-theme($o3r-theme, '');
+  }
+}
+
+/**
+ * Override an Otter theme at runtime
+ * @params $variable-map Map of variable/override value to override
+ */
+@mixin override-theme($variable-map) {
+  :root {
+    @each $key, $value in $variable-map {
+      --#{$key}: #{$value};
+    }
+  }
+}
+

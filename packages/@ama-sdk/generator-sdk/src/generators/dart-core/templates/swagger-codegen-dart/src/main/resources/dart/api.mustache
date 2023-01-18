@@ -1,0 +1,84 @@
+part of {{pubName}}.sdk;
+
+{{#operations}}
+
+
+class {{classname}} {
+  final ApiClient apiClient;
+
+  {{classname}}([ApiClient/* ? */ apiClient]) : this.apiClient = apiClient ?? defaultApiClient;
+
+  {{#operation}}
+  /// {{summary}}
+  ///
+  /// {{notes}}
+  {{#returnType}}Future<{{{returnType}}}> {{/returnType}}{{^returnType}}Future<void> {{/returnType}}{{nickname}}({ {{#allParams}}{{#required}}@required {{/required}}{{{dataType}}}{{^required}}/* ? */{{/required}} {{paramName}}{{#hasMore}}, {{/hasMore}}{{/allParams}} }) async {
+    Object/* ? */ postBody{{#bodyParam}} = {{paramName}}{{/bodyParam}};
+
+    // create path and map variables
+    final String path = '{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}';
+
+    // query params
+    final Map<String, String/* ? */> queryParams = { {{#queryParams}}
+      '{{baseName}}': parameterToString({{paramName}}){{#hasMore}},{{/hasMore}}{{/queryParams}}
+    };
+    Map<String, String> formParams = {};
+
+    const Map<String, String> headerParams = {
+      {{#bodyParam}}'Content-Type': 'application/json',{{/bodyParam}}{{#headerParams}}
+      '{{baseName}}': {{baseName}}{{#hasMore}},{{/hasMore}}{{/headerParams}}
+    };
+
+    List<String> contentTypes = [{{#consumes}}"{{{mediaType}}}"{{#hasMore}},{{/hasMore}}{{/consumes}}];
+
+    String contentType = contentTypes.isNotEmpty ? contentTypes[0] : "application/json";
+
+    {{#hasFormParams}}if(contentType.startsWith("multipart/form-data")) {
+      bool hasFields = false;
+      MultipartRequest mp = new MultipartRequest('', new Uri());
+      {{#formParams}}{{#notFile}}
+      if ({{paramName}} != null) {
+        hasFields = true;
+        mp.fields['{{baseName}}'] = parameterToString({{paramName}});
+      }
+      {{/notFile}}{{#isFile}}
+      if ({{paramName}} != null) {
+        hasFields = true;
+        mp.fields['{{baseName}}'] = {{paramName}}.field;
+        mp.files.add({{paramName}});
+      }
+      {{/isFile}}{{/formParams}}
+      if(hasFields)
+        postBody = mp;
+    }
+    else {
+      {{#formParams}}{{#notFile}}if ({{paramName}} != null)
+        formParams['{{baseName}}'] = parameterToString({{paramName}});{{/notFile}}
+      {{/formParams}}
+    }{{/hasFormParams}}
+
+    var response = await apiClient.invokeAPI(path, '{{httpMethod}}', queryParams, postBody, headerParams, formParams, contentType);
+
+    if(response.statusCode >= 400) {
+      throw new ApiException(response.statusCode, response.body);
+    } else if(response.body != null) {
+      return
+      {{#isListContainer}}
+        {{#returnType}}(await apiClient.deserialize<List>(response.body, '{{{returnType}}}', {{#tags.0.vendorExtensions.x-api-type}}ApiTypes.{{tags.0.vendorExtensions.x-api-type}}{{/tags.0.vendorExtensions.x-api-type}}{{^tags.0.vendorExtensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.vendorExtensions.x-api-type}}, response)).map((item) => item as {{returnBaseType}}).toList();{{/returnType}}
+      {{/isListContainer}}
+      {{^isListContainer}}
+        {{#isMapContainer}}
+          {{#returnType}}new {{{returnType}}}.from(await apiClient.deserialize<dynamic>(response.body, '{{{returnType}}}', {{#tags.0.vendorExtensions.x-api-type}}ApiTypes.{{tags.0.vendorExtensions.x-api-type}}{{/tags.0.vendorExtensions.x-api-type}}{{^tags.0.vendorExtensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.vendorExtensions.x-api-type}}, response)) {{/returnType}};
+        {{/isMapContainer}}
+        {{^isMapContainer}}
+          {{#returnType}}await apiClient.deserialize<{{{returnType}}}>(response.body, '{{{returnType}}}', {{#tags.0.vendorExtensions.x-api-type}}ApiTypes.{{tags.0.vendorExtensions.x-api-type}}{{/tags.0.vendorExtensions.x-api-type}}{{^tags.0.vendorExtensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.vendorExtensions.x-api-type}}, response) {{/returnType}};
+        {{/isMapContainer}}
+      {{/isListContainer}}
+    } else {
+      {{#returnType}}await this.apiClient.runResponsePlugins(apiType: ApiTypes.DAPI, isFailure: true);
+      throw new EmptyResponseError(response.statusCode);{{/returnType}}{{^returnType}}return;{{/returnType}}
+    }
+  }
+  {{/operation}}
+}
+{{/operations}}

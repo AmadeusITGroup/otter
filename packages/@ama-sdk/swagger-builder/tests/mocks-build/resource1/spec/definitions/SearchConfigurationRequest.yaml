@@ -1,0 +1,15 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: SearchConfigurationRequest
+  description: Definition for the DAPI model SearchConfigurationRequest
+paths: {}
+definitions:
+  SearchConfigurationRequest:
+    type: object
+    description: >-
+      Request to get the configuraton to use based on the provided facts
+    properties:
+      fact:
+        description: The fact object determine the office ID to be used
+        $ref: './Fact.yaml#/definitions/Fact'

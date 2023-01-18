@@ -1,0 +1,153 @@
+<section>
+  <h4 class="mb-4">Ruleset Execution History</h4>
+  <ng-template #noRulesEngine>
+    <div class="alert alert-danger m-2" role="alert">
+      The Rules Engine is not configured on this page.
+    </div>
+  </ng-template>
+  <ul *ngIf="rulesetExecutions; else noRulesEngine" class="rulesets">
+    <li *ngFor="let execution of rulesetExecutions" class="ruleset">
+      <div class="ruleset-panel-title ruleset-expansion-action"
+        [class.error]="execution.type === 'RulesetExecutionError'"
+        (click)="toggleExpansion(execution.executionId, 'ruleset')">
+        <div>{{execution.executionCounter}} - {{execution.rulesetName | titlecase }}
+          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponent as linkedComponent">
+            {{linkedComponent.name}} {{linkedComponent.library}}
+          </div>
+          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.validityRange as validityRange">
+            Date range: {{validityRange.from}} - {{validityRange.to}}
+          </div>
+        </div>
+        <div class="ruleset-panel-title-aside">
+          <span class="error capsule" *ngIf="execution.status === 'Error'">Error</span>
+          <span class="success capsule" *ngIf="execution.status === 'Active'">Applied</span>
+          <span class="inactive capsule" *ngIf="execution.status === 'Deactivated'">Deactivated</span>
+          <span class="warn capsule" *ngIf="execution.status === 'NoEffect'">No effect</span>
+          <span class="time capsule">
+            <span>{{execution.timestamp | date: 'HH:mm:ss SSS'}}</span>
+            <span>({{execution.duration | number: executionDurationFormat}}ms)</span>
+          </span>
+          <button
+            class="icon"
+            [class.icon-caret-down]="!expansionStatus[execution.executionId]?.ruleset"
+            [class.icon-caret-up]="expansionStatus[execution.executionId]?.ruleset">
+          </button>
+        </div>
+      </div>
+      <div class="ruleset-panel-description" *ngIf="expansionStatus[execution.executionId]?.ruleset">
+        <ng-container [ngTemplateOutlet]="rules"
+                      [ngTemplateOutletContext]="{
+                        rules: execution.rulesetInformation.rules,
+                        expansionID: execution.executionId
+                      }"></ng-container>
+        <ng-container [ngTemplateOutlet]="inputs"
+                      [ngTemplateOutletContext]="{
+                        inputs: execution.inputFacts
+                      }"></ng-container>
+        <ng-container *ngIf="execution.type === 'RulesetExecutionError'; else success">
+          <div class="ruleset-panel-category-title">Rules:</div>
+          <ul class="ruleset-panel-category-body rule-description">
+            <li *ngFor="let ruleEvaluation of execution.rulesEvaluations; let index=index;">
+              <ng-container>
+                <div class="ruleset-panel-title" [class.error]="ruleEvaluation.error">
+                  <span>{{ruleEvaluation.rule.name | titlecase}} </span>
+                  <span class="capsule error" *ngIf="ruleEvaluation.error">Error</span>
+                </div>
+                <div>
+                  <ng-container *ngIf="ruleEvaluation.error">
+                    <span class="ruleset-panel-category-title">Error:</span>
+                    <span class="ruleset-panel-category-body error">{{ruleEvaluation.error.message}}</span>
+                  </ng-container>
+                  <ng-container [ngTemplateOutlet]="inputs"
+                                [ngTemplateOutletContext]="{
+                                  inputs: execution.inputFacts,
+                                  runtimeInputs: execution.rulesetInformation?.rules[index]?.inputRuntimeFacts
+                                }"></ng-container>
+                  <o3r-rule-actions-pres *ngIf="!ruleEvaluation.error"
+                    [temporaryFacts]="ruleEvaluation.temporaryFacts"
+                    [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts"
+                  ></o3r-rule-actions-pres>
+                </div>
+              </ng-container>
+            </li>
+          </ul>
+        </ng-container>
+        <ng-template #success>
+          <o3r-rule-actions-pres [actions]="execution.outputActions"></o3r-rule-actions-pres>
+          <div class="ruleset-panel-category-title">Executed Rules</div>
+          <ul class="rule-description ruleset-panel-category-body">
+            <li *ngFor="let ruleEvaluation of execution.rulesEvaluations; let index=index;">
+              <div class="ruleset-panel-title">
+                <span>{{ruleEvaluation.rule.name | titlecase}}</span>
+                <span class="capsule inactive" *ngIf="ruleEvaluation.cached">Cached</span>
+                <span class="capsule">({{ruleEvaluation.duration | number: executionDurationFormat}}ms)</span>
+              </div>
+              <div>
+                <ng-container [ngTemplateOutlet]="triggers"
+                              [ngTemplateOutletContext]="{triggers: (ruleEvaluation.triggers[ruleEvaluation.rule.id])}"></ng-container>
+                <o3r-rule-actions-pres
+                  [actions]="ruleEvaluation.outputActions"
+                  [temporaryFacts]="ruleEvaluation.temporaryFacts"
+                  [runtimeOutputs]="execution.rulesetInformation?.rules[index]?.outputRuntimeFacts">
+                </o3r-rule-actions-pres>
+              </div>
+            </li>
+          </ul>
+        </ng-template>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<ng-template let-triggers="triggers" #triggers>
+  <div class="ruleset-panel-category-title">Basefacts Triggers</div>
+  <ul class="ruleset-panel-category-body triggers">
+    <ng-container *ngFor="let trigger of (triggers | keyvalue)">
+      <li *ngIf="trigger.value?.factName">
+        <o3r-rule-key-value-pres
+          [key]="trigger.value.factName"
+          [oldValue]="trigger.value.oldValue | fallbackTo"
+          [value]="trigger.value.newValue | fallbackTo"
+          [type]="'state'"></o3r-rule-key-value-pres>
+      </li>
+    </ng-container>
+  </ul>
+</ng-template>
+
+<ng-template let-rules="rules" let-expansionID="expansionID" #rules>
+  <div class="ruleset-panel-category-title ruleset-expansion-action"
+    (click)="toggleExpansion(expansionID, 'rulesOverview')">
+    <span>Rules Overview</span>
+    <button class="icon"
+            [class.icon-caret-down]="!expansionStatus[expansionID]?.rulesOverview"
+            [class.icon-caret-up]="expansionStatus[expansionID]?.rulesOverview">
+    </button>
+  </div>
+  <ng-container *ngIf="expansionStatus[expansionID]?.rulesOverview">
+    <div *ngIf="rules?.length === 0" class="ruleset-panel-category-body empty">No rule</div>
+    <ul class="ruleset-panel-category-body" *ngIf="rules?.length > 0">
+      <li *ngFor="let rule of rules">
+        <o3r-rule-tree-pres [name]="rule.name"
+                            [condition]="rule?.rootElement?.condition"
+                            [blockType]="rule?.rootElement?.blockType"
+                            [successElements]="rule?.rootElement?.successElements"
+                            [failureElements]="rule?.rootElement?.failureElements">
+        </o3r-rule-tree-pres>
+      </li>
+    </ul>
+  </ng-container>
+</ng-template>
+
+<ng-template let-inputs="inputs" let-runtimeInputs="runtimeInputs" #inputs>
+  <div class="ruleset-panel-category-title">Inputs snapshot</div>
+  <div *ngIf="inputs?.length === 0" class="ruleset-panel-category-body empty">No inputs</div>
+  <ul class="ruleset-panel-category-body" *ngIf="inputs?.length > 0">
+    <li *ngFor="let input of inputs">
+      <o3r-rule-key-value-pres
+        [key]="input.factName"
+        [value]="input.value | fallbackTo"
+        [type]="'state'"></o3r-rule-key-value-pres>
+    </li>
+    <li *ngFor="let input of runtimeInputs">{{input}} (scope limited to ruleset)</li>
+  </ul>
+</ng-template>

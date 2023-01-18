@@ -1,0 +1,115 @@
+{
+  "name": "storybook",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/storybook/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-builders",
+        "compile",
+        "build-wrapper",
+        "build-react"
+      ]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/storybook/src/public_api.ts",
+        "tsConfig": "packages/@o3r/storybook/tsconfig.build.json",
+        "outputPath": "packages/@o3r/storybook/dist",
+        "assets": [
+          "packages/@o3r/storybook/{builders,collection,migration}.json",
+          {
+            "input": "packages/@o3r/storybook/dist-modules/addon",
+            "glob": "**",
+            "output": "./addon"
+          },
+          {
+            "input": "packages/@o3r/storybook/dist-modules/component-wrapper",
+            "glob": "**",
+            "output": "./component-wrapper"
+          }
+        ]
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build-wrapper": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/component-wrapper"
+      ],
+      "options": {
+        "script": "build:wrapper"
+      },
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
+    },
+    "build-react": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/addon"
+      ],
+      "options": {
+        "script": "build:react"
+      },
+      "dependsOn": [
+        "^build",
+        "compile"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/storybook/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/storybook/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/storybook/dist"
+      }
+    }
+  },
+  "tags": []
+}

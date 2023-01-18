@@ -1,0 +1,5 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  field2: test2
+otherField: test field

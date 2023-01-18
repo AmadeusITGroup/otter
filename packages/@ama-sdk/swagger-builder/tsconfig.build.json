@@ -1,0 +1,21 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "lib": ["es2019"],
+    "module": "commonjs",
+    "outDir": "./dist",
+    "noEmitHelpers": false,
+    "importHelpers": false,
+    "composite": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "tsBuildInfoFile": "./build/.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

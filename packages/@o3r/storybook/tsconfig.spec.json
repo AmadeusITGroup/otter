@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "lib": ["ES2020", "dom"],
+  },
+  "include": [
+    "./src/**/*.spec.ts"
+  ],
+  "exclude": []
+}

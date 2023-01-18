@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/architect/src/builders-schema.json",
+  "builders": {
+    "extractor": {
+      "implementation": "./builders/component-extractor/",
+      "schema": "./builders/component-extractor/schema.json",
+      "description": "Extract the component metadata (configuration and class) from an Otter project"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "NgcBuilderSchema",
+  "title": "Ngc builder",
+  "description": "Perform a ngc build",
+  "properties": {
+    "tsConfig": {
+      "type": "string",
+      "description": "The path to tsconfig file.",
+      "default": null
+    },
+    "watch" : {
+      "type": "boolean",
+      "description": "Enable watch mode.",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": ["tsConfig"]
+}

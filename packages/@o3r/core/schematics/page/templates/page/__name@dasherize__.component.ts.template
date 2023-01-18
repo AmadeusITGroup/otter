@@ -1,0 +1,53 @@
+import {ChangeDetectionStrategy, Component, <% if (useOtterConfig || useLocalization) { %>Input, <% } %>OnDestroy, <% if (useOtterConfig) { %>Optional, <% } %>ViewEncapsulation} from '@angular/core';
+import {O3rComponent} from '@o3r/core';
+<% if (useOtterConfig) { %>import {ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable} from '@o3r/configuration';
+<% } %><% if (useLocalization) { %>import {Localization} from '@o3r/localization';
+<% } %>import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
+<% if (useOtterConfig) { %>import {<%= scuPageName %>_CONFIG_ID, <%= scuPageName %>_DEFAULT_CONFIG, <%= className %>Config} from './<%= dasherize(name) %>.config';
+<% } %><% if (useLocalization) { %>import {<%= className %>ComponentTranslation, translations} from './<%= dasherize(name) %>.translation';
+<% } %>
+@O3rComponent({
+  componentType: 'Page'
+})
+@Component({
+  selector: '<%= prefix %>-<%= dasherize(name) %>',
+  styleUrls: ['./<%= dasherize(name) %>.style.scss'],
+  templateUrl: './<%= dasherize(name) %>.template.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
+})
+export class <%= className %>Component implements <% if (useOtterConfig) { %>DynamicConfigurable<<%= className %>Config>, <% } %>OnDestroy {
+  <% if (useLocalization) { %>/**
+   * Localization of the component
+   */
+  @Input()
+  @Localization('./<%= dasherize(name) %>.localization.json')
+  public translations: <%= className %>ComponentTranslation;
+
+  <% } %><% if (useOtterConfig) { %>/** Input configuration to override the default configuration of the component */
+  @Input()
+  public config: Partial<<%= className %>Config> | undefined;
+
+  /** Dynamic configuration based on the input override configuration and the configuration service if used by the application */
+  @ConfigObserver()
+  private dynamicConfig$: ConfigurationObserver<<%= className %>Config>;
+
+  /** Configuration stream based on the input and the stored configuration */
+  public config$: Observable<<%= className %>Config>;
+
+  <% } %>/**
+   * List of subscriptions to unsubscribe on destroy
+   */
+  protected subscriptions: Subscription[] = [];
+
+  constructor(<% if (useOtterConfig) { %>@Optional() configurationService?: ConfigurationBaseService<% } %>) {<% if (useOtterConfig) { %>
+    this.dynamicConfig$ = new ConfigurationObserver<<%= className %>Config>(<%= scuPageName %>_CONFIG_ID, <%= scuPageName %>_DEFAULT_CONFIG, configurationService);
+    this.config$ = this.dynamicConfig$.asObservable();<% } %><% if (useLocalization) { %>
+    this.translations = translations;<% } %>
+  }
+
+  public ngOnDestroy() {
+    // clean the subscriptions
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+}

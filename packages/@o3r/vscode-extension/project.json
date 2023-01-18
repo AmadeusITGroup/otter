@@ -1,0 +1,66 @@
+{
+  "name": "vscode-extension",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/vscode-extension/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/vscode-extension/src/extension.ts",
+        "tsConfig": "packages/@o3r/vscode-extension/tsconfig.build.json",
+        "outputPath": "packages/@o3r/vscode-extension/dist",
+        "assets": [
+          "packages/@o3r/vscode-extension/assets/**"
+        ]
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/vscode-extension/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/vscode-extension/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/vscode-extension/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/vscode-extension/dist"
+      }
+    }
+  },
+  "tags": []
+}

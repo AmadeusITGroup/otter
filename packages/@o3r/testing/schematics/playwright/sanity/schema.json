@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGeneratePlaywrightSanitySchematicsSchema",
+  "title": "Generate Playwright sanity",
+  "description": "ng generate Playwright sanity",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Sanity name",
+      "x-prompt": "Sanity name?",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the playwright sanity"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name"
+  ]
+}

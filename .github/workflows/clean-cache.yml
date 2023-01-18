@@ -1,0 +1,35 @@
+name: Clean branch cache
+
+on:
+  workflow_dispatch :
+    inputs:
+      branch:
+        description: 'Name of the branch for which removing the cache'
+        required: true
+  delete:
+    branches:
+      - '**'
+
+jobs:
+  clean-cache:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Clean Branch Cache
+        if: inputs.branch || github.event.ref_type == 'branch'
+        uses: actions/github-script@v6
+        env:
+          branchName: ${{ inputs.branch || github.event.ref }}
+          hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
+        with:
+          script: |
+            const globalKey = '${{ runner.os }}-build-' + process.env.hash + '-global-' + process.env.branchName;
+            const testKey = '${{ runner.os }}-build-' + process.env.hash + '-test-' + process.env.branchName;
+            const lintKey = '${{ runner.os }}-build-' + process.env.hash + '-lint-' + process.env.branchName;
+            const [owner, repo] = '${{ github.repository }}'.split('/');
+            github.rest.actions.deleteActionsCacheByKey({key: globalKey, owner, repo}).catch((e) => console.error(e));
+            github.rest.actions.deleteActionsCacheByKey({key: testKey, owner, repo}).catch((e) => console.error(e));
+            github.rest.actions.deleteActionsCacheByKey({key: lintKey, owner, repo}).catch((e) => console.error(e));

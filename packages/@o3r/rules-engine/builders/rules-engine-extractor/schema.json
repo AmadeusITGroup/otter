@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "RulesEngineExtractorBuilderSchema",
+  "title": "rules engine extractor builder",
+  "description": "rules engine extractor builder options",
+  "properties": {
+    "tsConfig": {
+      "type": "string",
+      "description": "Typescript configuration file to build the application",
+      "default": "tsconfig.json"
+    },
+    "libraries": {
+      "type": "array",
+      "description": "List of libraries imported",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "outputFactsDirectory": {
+      "type": "string",
+      "description": "Path to directory to output the facts metadata file",
+      "default": ""
+    },
+    "outputOperatorsDirectory": {
+      "type": "string",
+      "description": "Path to directory to output the operators metadata file",
+      "default": ""
+    },
+    "factFilePatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "List of patterns of the source files containing the facts definitions"
+    },
+    "operatorFilePatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "List of patterns of the source files containing the operators definitions"
+    },
+    "ignoreFactsFromLibraries": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "Will ignore all facts coming from the libraries listed"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "tsConfig"
+  ]
+}

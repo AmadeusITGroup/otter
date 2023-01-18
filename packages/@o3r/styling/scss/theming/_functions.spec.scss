@@ -1,0 +1,111 @@
+@use 'sass-true/sass/true' as sass-true;
+@use './functions' as theme-functions;
+@use '../utils/functions' as utils-functions;
+
+// Do not fail on error but return error message
+$test-mode-enabled: true;
+
+$theme: (
+  primary: (),
+  accent: (),
+  warn: (),
+  application: (
+    corner-border-radius: 20px,
+    outline-border-radius: 0,
+  )
+);
+
+@include sass-true.describe('multi-map-merge [function]') {
+  @include sass-true.it('should merge the list of map into one map') {
+    @include sass-true.assert-equal(
+      utils-functions.multi-map-merge((a: 'a'), (b: 'b'), (a: 'c')),
+      (a: 'c', b: 'b')
+    )
+  }
+  @include sass-true.it ('should return empty if sass-true.it is called wsass-true.ithout arguments') {
+    @include sass-true.assert-equal(
+      utils-functions.multi-map-merge(),
+      ()
+    )
+  }
+}
+
+$palette: (
+  50: #FFF,
+  contrast: (50: #000)
+);
+$reverted-palette: (
+  50: #000,
+  contrast: (50: #FFF)
+);
+
+@include sass-true.describe('revert-palette [function]') {
+  @include sass-true.it('should return the palette reverted') {
+    @include sass-true.assert-equal(
+      theme-functions.revert-palette($palette),
+      $reverted-palette
+    )
+  }
+}
+
+
+@include sass-true.describe('o3r-var') {
+  @include sass-true.it('should generate a variable') {
+    @include sass-true.assert-equal(
+      theme-functions.variable('test-ok', #000),
+      var(--test-ok, #000)
+    )
+  }
+}
+
+@include sass-true.describe('o3r-get') {
+  @include sass-true.it('should get a variable wsass-true.ith value') {
+    @include sass-true.assert-equal(
+      theme-functions.get((variable: 'test-ok', value: #000)),
+      var(--test-ok, #000)
+    )
+  }
+
+  @include sass-true.it('should get a variable wsass-true.ithout value') {
+    @include sass-true.assert-equal(
+      theme-functions.get((variable: 'test-ok')),
+      var(--test-ok)
+    )
+  }
+}
+
+$fake-palette: (500: (variable: 'test-500', value: #000), default: (variable: 'test-default', value: #fff));
+
+@include sass-true.describe('o3r-color') {
+  @include sass-true.it('should get a variable wsass-true.ith value') {
+    @include sass-true.assert-equal(
+      theme-functions.color($fake-palette, 500),
+      var(--test-500, #000)
+    )
+  }
+
+  @include sass-true.it('should fallback to default value') {
+    @include sass-true.assert-equal(
+      theme-functions.color($fake-palette, 800),
+      var(--test-default, #fff)
+    )
+  }
+}
+
+$fake-palette: (contrast: (500: (variable: 'test-500', value: #000), default: (variable: 'test-default', value: #fff)));
+
+@include sass-true.describe('o3r-contrast') {
+  @include sass-true.it('should get a variable wsass-true.ith value') {
+    @include sass-true.assert-equal(
+      theme-functions.contrast($fake-palette, 500),
+      var(--test-500, #000)
+    )
+  }
+
+  @include sass-true.it('should fallback to default value') {
+    @include sass-true.assert-equal(
+      theme-functions.contrast($fake-palette, 800),
+      var(--test-default, #fff)
+    )
+  }
+}

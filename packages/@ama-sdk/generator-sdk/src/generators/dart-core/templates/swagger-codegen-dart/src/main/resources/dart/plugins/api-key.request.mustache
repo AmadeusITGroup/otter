@@ -1,0 +1,17 @@
+part of {{pubName}}.sdk;
+
+class ApiKeyRequestPlugin implements RequestPlugin {
+
+  String apiKey;
+  String apiKeyHeader;
+
+  ApiKeyRequestPlugin(this.apiKey, [this.apiKeyHeader = 'apiKey']);
+
+  @override
+  Future<RequestPluginInput> transformRequest(RequestPluginInput requestParameter) async {
+    requestParameter.headerParams[this.apiKeyHeader] = this.apiKey;
+    return requestParameter;
+  }
+
+}
+

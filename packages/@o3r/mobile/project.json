@@ -1,0 +1,84 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "name": "mobile",
+  "root": "packages/@o3r/mobile",
+  "sourceRoot": "packages/@o3r/mobile/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "packages/@o3r/mobile/ng-package.json",
+        "tsConfig": "packages/@o3r/mobile/tsconfig.build.json"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "dependsOn": [
+        "^build",
+        "compile"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/pcloudy",
+        "{projectRoot}/dist/builders.json",
+        "{projectRoot}/dist/migration.json",
+        "{projectRoot}/dist/collection.json",
+        "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/templates"
+      ],
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/mobile/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/mobile/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/mobile/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/mobile/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    }
+  },
+  "tags": []
+}

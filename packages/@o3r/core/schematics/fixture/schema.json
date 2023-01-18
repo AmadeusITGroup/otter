@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddFunctionsToFixtureSchematicsSchema",
+  "title": "Generate Otter Fixture",
+  "description": "ng generate Otter fixture based on a selector and default methods",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path of the fixture file"
+    },
+    "methods": {
+      "type": "array",
+      "description": "List of method types to generate",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "clickOnButton",
+          "getText",
+          "getInputValue",
+          "setInputValue",
+          "getTextInList",
+          "clickButtonInList",
+          "getNumberOfItems"
+        ]
+      }
+    },
+    "selector": {
+      "type": "string",
+      "description": "Query selector"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": ["path", "methods", "selector"]
+}

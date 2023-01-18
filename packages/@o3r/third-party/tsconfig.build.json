@@ -1,0 +1,11 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "types": ["node"],
+    "rootDir": "src"
+  },
+  "files": ["src/index.ts"],
+  "include": [],
+  "exclude": ["*.spec.ts"]
+}

@@ -1,0 +1,26 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "strictNullChecks": false,
+    "strictPropertyInitialization":false,
+    "noImplicitAny": false,
+    "incremental": false,
+    "composite": true,
+    "declarationMap": false,
+    "strict": false,
+    "skipLibCheck": true,
+    "module": "ES2020",
+    "target": "ES2020"
+  },
+  "include": [
+    "./src/**/*.spec.ts"
+  ],
+  "exclude": [
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ]
+}

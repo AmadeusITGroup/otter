@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "I18nBuilderSchema",
+  "title": "I18n builder",
+  "description": "I18n builder options",
+  "properties": {
+    "localizationConfigs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "localizationFiles": {
+            "type": "array",
+            "description": "Glob to define how to find localization json files",
+            "items": {
+              "type": "string"
+            }
+          },
+          "i18nFolderPath": {
+            "type": "string",
+            "description": "Folder path for the i18n folder relative to the localization json file",
+            "default": "i18n"
+          }
+        }
+      }
+    },
+    "defaultLanguageFile": {
+      "type": "string",
+      "description": "Name of the file for the default language",
+      "default": "en-GB.json"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["localizationConfigs"]
+}

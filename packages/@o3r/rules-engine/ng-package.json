@@ -1,0 +1,13 @@
+
+{
+  "$schema": "https://raw.githubusercontent.com/ng-packagr/ng-packagr/master/src/ng-package.schema.json",
+  "dest": "./dist",
+  "deleteDestPath": false,
+  "assets": [
+    "schemas/*.json"
+  ],
+
+  "lib": {
+    "entryFile": "src/public_api.ts"
+  }
+}

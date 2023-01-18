@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateSotrybookComponentSchematicsSchema",
+  "title": "Generate Otter Storybook Component",
+  "description": "ng generate Otter Storybook component",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "relativePathToComponentDir": {
+      "type": "string",
+      "description": "Path to component directory",
+      "x-prompt": "Relative path to component directory to create the story (ex: ./src/components/my-component-pres)",
+      "default": ""
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+  ]
+}

@@ -1,0 +1,21 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: KeyValuePair
+  description: Definition for the DAPI model KeyValuePair
+paths: {}
+definitions:
+  KeyValuePair:
+    type: object
+    description: >-
+     Key Value Pair
+    required:
+    - key
+    - value
+    properties:
+      key:
+        description: Key
+        type: string
+      value:
+        description: Value associated to the key
+        type: string

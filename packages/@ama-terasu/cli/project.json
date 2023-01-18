@@ -1,0 +1,68 @@
+{
+  "name": "amaterasu-cli",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-terasu/cli/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{projectRoot}/dist/src",
+        "{projectRoot}/build/.tsbuildinfo"
+      ],
+      "options": {
+        "main": "packages/@ama-terasu/cli/src/public_api.ts",
+        "tsConfig": "packages/@ama-terasu/cli/tsconfig.build.json",
+        "outputPath": "packages/@ama-terasu/cli/dist"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-terasu/cli/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-terasu/cli/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-terasu/cli/jest.config.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-terasu/cli/dist"
+      }
+    }
+  },
+  "tags": []
+}

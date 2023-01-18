@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateMockSchematicsSchema",
+  "title": "Generate Mock",
+  "description": "ng generate mock",
+  "properties": {
+    "apiModel": {
+      "type": "string",
+      "description": "Name of the api model to generate",
+      "x-prompt": "Your api model name",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "identified": {
+      "type": "boolean",
+      "description": "True if the api model has a property id",
+      "x-prompt": "Does the model have an id ? ",
+      "$default": {
+        "$source": "argv",
+        "index": 1
+      }
+    },
+    "packageName": {
+      "type": "string",
+      "description": "Package name of the sdk",
+      "x-prompt": "Your sdk package name"
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory in which the mock-factory will be created",
+      "x-prompt": "Destination path of the mock-factory ?"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "apiModel",
+    "path",
+    "packageName"
+  ]
+}

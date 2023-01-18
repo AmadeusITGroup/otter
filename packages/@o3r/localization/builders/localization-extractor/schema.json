@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "LocalizationExtractorBuilderSchema",
+  "title": "Localization builder",
+  "description": "Localization builder options",
+  "properties": {
+    "tsConfig": {
+      "type": "string",
+      "description": "Typescript configuration file to build the application",
+      "default": "tsconfig.json"
+    },
+    "extraFilePatterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Path patterns of files to add to the generated metadata",
+      "default": []
+    },
+    "ignoreDuplicateKeys": {
+      "type": "boolean",
+      "description": "If true, extraction process is not interrupted in case of duplicate keys",
+      "default": false
+    },
+    "libraries": {
+      "type": "array",
+      "description": "List of libraries imported",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "outputFile": {
+      "type": "string",
+      "description": "Path to the output file",
+      "default": "localisation.metadata.json"
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Enable watch mode",
+      "default": false
+    },
+    "inline": {
+      "type": "boolean",
+      "description": "Write metadata inline",
+      "default": false
+    },
+    "sortKeys": {
+      "type": "boolean",
+      "description": "Sort metadata alphabetically by keys",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}

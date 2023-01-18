@@ -1,0 +1,8 @@
+/* eslint-disable no-console */
+const appVersion = process.argv[2];
+
+let majorMinor = appVersion.split('.');
+majorMinor.pop();
+majorMinor = majorMinor.join('.');
+console.log(majorMinor);
+

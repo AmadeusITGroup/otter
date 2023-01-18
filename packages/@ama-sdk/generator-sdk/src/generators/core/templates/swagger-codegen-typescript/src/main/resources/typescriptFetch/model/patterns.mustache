@@ -1,0 +1,6 @@
+{{#noEmptyExport}}
+{{#models}}{{#model}}{{#removeBrackets}}export { {{#trimComma}}{{#vars}}{{#pattern}}{{baseName}}Pattern as {{classname}}{{#uppercaseFirst}}{{baseName}}{{/uppercaseFirst}}Pattern, {{/pattern}}{{/vars}}{{/trimComma}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
+{{/removeBrackets}}{{/model}}{{/models}}{{/noEmptyExport}}
+
+/** Validation regex for a API field name */
+export const dapiFieldNamePattern = /^[a-z][a-zA-Z0-9\[\]_]*$/;

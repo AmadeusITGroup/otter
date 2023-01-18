@@ -1,0 +1,42 @@
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+/**
+ * {{^description}}Gets or Sets {{{name}}}{{/description}}{{#description}}{{description}}{{/description}}
+ */
+public enum {{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}} {
+  {{#allowableValues}}{{#enumVars}}
+  {{{name}}}({{{value}}}){{^-last}},
+  {{/-last}}{{#-last}};{{/-last}}{{/enumVars}}{{/allowableValues}}
+
+  private {{{dataType}}} value;
+
+  {{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}}({{{dataType}}} value) {
+    this.value = value;
+  }
+
+{{#jackson}}
+  @JsonValue
+{{/jackson}}
+  public {{{dataType}}} getValue() {
+    return value;
+  }
+
+  @Override
+  public String toString() {
+    return String.valueOf(value);
+  }
+
+{{#jackson}}
+  @JsonCreator
+{{/jackson}}
+  public static {{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}} fromValue{{#jackson}}({{{dataType}}} value){{/jackson}}{{^jackson}}(String text){{/jackson}} {
+    for ({{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}} b : {{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}}.values()) {
+      if ({{#jackson}}b.value.equals(value){{/jackson}}{{^jackson}}String.valueOf(b.value).equals(text){{/jackson}}) {
+        return b;
+      }
+    }
+    {{^errorOnUnknownEnum}}return null;{{/errorOnUnknownEnum}}{{#errorOnUnknownEnum}}throw new IllegalArgumentException("Unexpected value '" + {{#jackson}}value{{/jackson}}{{^jackson}}text{{/jackson}} + "' for '{{#datatypeWithEnum}}{{{.}}}{{/datatypeWithEnum}}{{^datatypeWithEnum}}{{{classname}}}{{frontendModelSuffix}}{{/datatypeWithEnum}}' enum.");{{/errorOnUnknownEnum}}
+  }
+}

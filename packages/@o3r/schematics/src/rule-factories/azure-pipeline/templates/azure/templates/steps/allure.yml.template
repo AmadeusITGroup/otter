@@ -1,0 +1,24 @@
+parameters:
+  - name: 'version'
+    type: string
+    default: '2.15.0'
+  - name: 'source'
+    type: string
+    default: '$(System.DefaultWorkingDirectory)/playwright-reports/allure-results'
+  - name: 'output'
+    type: string
+    default: '$(System.DefaultWorkingDirectory)/playwright-reports/allure'
+
+steps:
+  - script: |
+      mkdir allure-install
+      wget  --output-document ./allure-install/allure-commandline.tgz https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${{parameters.version}}/allure-commandline-${{parameters.version}}.tgz
+      tar -xf ./allure-install/allure-commandline.tgz --strip-components=1 --directory allure-install
+      ./allure-install/bin/allure generate ${{parameters.source}} --clean -o ${{parameters.output}}
+      rm -rf ./allure-install
+    displayName: 'Install and run allure'
+    condition: succeededOrFailed()
+
+  - publish: ${{ parameters.output }}
+    condition: succeededOrFailed()
+    artifact: 'allure-report'

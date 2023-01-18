@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "StyleExtractorBuilderSchema",
+  "title": "Style builder",
+  "description": "Style builder options",
+  "properties": {
+    "filePatterns": {
+      "type": "array",
+      "description": "List of libraries imported",
+      "items": {
+        "type": "string"
+      },
+      "default": ["src/**/*.style.scss"]
+    },
+    "outputFile": {
+      "type": "string",
+      "description": "Path to the output file",
+      "default": "style.metadata.json"
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Enable watch mode",
+      "default": false
+    },
+    "libraries": {
+      "type": "array",
+      "description": "List of libraries imported",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "inline": {
+      "type": "boolean",
+      "description": "Write metadata inline",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}

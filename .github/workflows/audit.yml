@@ -1,0 +1,33 @@
+name: NPM Audit
+
+on:
+  workflow_call:
+  push:
+    branches:
+      - main
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'false'
+      - name: Audit
+        id: audit
+        uses: ./.github/actions/audit
+        with:
+          severity: critical
+          allWorkspaces: true
+          recursive: true
+          environment: all
+      - name: Summary
+        run: echo "${{ steps.audit.outputs.reportMarkdown }}" >> $GITHUB_STEP_SUMMARY
+

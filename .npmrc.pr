@@ -1,0 +1,14 @@
+# NPM config file use to publish packages
+registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
+@ama-sdk:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
+@ama-terasu:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
+@o3r:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
+
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:username=${AZURE_USERNAME}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:_password=${AZURE_AUTH_TOKEN}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:email=${AZURE_EMAIL}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:username=${AZURE_USERNAME}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:_password=${AZURE_AUTH_TOKEN}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:email=${AZURE_EMAIL}
+
+always-auth=true

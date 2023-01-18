@@ -1,0 +1,73 @@
+{{#description}}
+/// {{{description}}}{{/description}}
+/// Do not use this class directly, use [{{classname}}] instead which contains additional helpers
+class _{{classname}}{{#parent}} extends {{{parent}}}{{/parent}} {
+  {{#vars}}{{#description}}/// {{{description}}}{{/description}}{{#allowableValues}}
+  {{#min}}/// range from {{min}} to {{max}}{{/min}}///{{^min}}enum {{name}}Enum { {{#values}} {{.}}, {{/values}} };{{/min}}{{/allowableValues}}
+  {{{datatype}}}{{^required}}/* ? */{{/required}} {{name}}{{#removeEqualsNullLambda}}{{^required}} = {{{defaultValue}}}{{/required}}{{/removeEqualsNullLambda}};
+  {{/vars}}
+
+  {{#vars}}{{#vendorExtensions}}{{#x-field-name}}
+  /// Dictionary extraction for {{baseName}}
+  {{#readOnly}}final {{/readOnly}}{{x-field-type}}{{^required}}/* ? */{{/required}} {{x-field-name}};
+  {{/x-field-name}}{{/vendorExtensions}}{{/vars}}
+  {{#vars}}{{#vendorExtensions}}{{#x-map-name}}
+  /// Dictionary extraction for {{baseName}}
+  {{#readOnly}}final {{/readOnly}}Map<String, {{x-field-type}}/* ? */>{{^required}}/* ? */{{/required}} {{x-map-name}};
+  {{/x-map-name}}{{/vendorExtensions}}{{/vars}}
+
+  _{{classname}}({
+    {{#vars}}{{#required}}@required {{/required}}this.{{name}}{{^required}}{{#removeEqualsNullLambda}} = const {{{defaultValue}}}{{/removeEqualsNullLambda}}{{/required}}{{#hasMore}}, {{/hasMore}}{{/vars}}
+    {{#vars}}{{#vendorExtensions}}{{#x-field-name}}
+    ,{{#required}}@required {{/required}}this.{{x-field-name}}
+    {{/x-field-name}}{{/vendorExtensions}}{{/vars}}
+    {{#vars}}{{#vendorExtensions}}{{#x-map-name}}
+    ,{{#required}}@required {{/required}} this.{{x-map-name}}
+    {{/x-map-name}}{{/vendorExtensions}}{{/vars}}
+  });
+
+  _{{classname}}.fromJson(Map<String, dynamic> json, [Map<String, dynamic> dictionaries]):
+  {{#vars}}
+  {{#isDateTime}}
+    {{name}} = json['{{name}}'] == null ? null : DateTime.parse(json['{{name}}']){{/isDateTime}}
+  {{^isDateTime}}
+    {{#isDate}}{{name}} = json['{{name}}'] == null ? null : DateTime.parse(json['{{name}}']){{/isDate}}
+    {{^isDate}}
+    {{name}} =
+    {{#complexType}}
+      {{#isListContainer}}{{^required}}json['{{name}}'] == null ? null : {{/required}}reviveArray<{{complexType}}>(json['{{name}}'], dictionaries, (dynamic data, [Map<String, dynamic> dictionaries]) => new {{complexType}}.fromJson(data, dictionaries)){{/isListContainer}}{{^isListContainer}}
+      {{#isMapContainer}}{{^required}}json['{{name}}'] == null ? null : {{/required}}reviveMap<{{complexType}}>(json['{{name}}'], dictionaries, (dynamic data, [Map<String, dynamic> dictionaries]) => new {{complexType}}.fromJson(data, dictionaries)){{/isMapContainer}}
+      {{^isMapContainer}}{{^required}}json['{{name}}'] == null ? null : {{/required}}new {{complexType}}.fromJson(json['{{name}}'], dictionaries){{/isMapContainer}}{{/isListContainer}}
+    {{/complexType}}
+    {{^complexType}}
+      {{#isListContainer}}
+        {{^required}}json['{{name}}'] == null ? null : {{/required}}(json['{{name}}'] as List).map((item) => item as {{items.datatype}}).toList()
+      {{/isListContainer}}{{^isListContainer}}
+        {{#isMapContainer}}{{^required}}json['{{name}}'] == null ? null : {{/required}}{{{datatype}}}.from(json['{{name}}'])
+        {{/isMapContainer}}{{^isMapContainer}}
+        json['{{name}}']
+      {{/isMapContainer}}{{/isListContainer}}
+    {{/complexType}}
+  {{/isDate}}{{/isDateTime}}{{#hasMore}},{{/hasMore}}
+  {{/vars}}
+  {{#vars}}{{#vendorExtensions}}{{#x-field-name}}
+  ,{{x-field-name}} = {{^required}}dictionaries['{{x-dictionary-name}}'] == null || dictionaries['{{x-dictionary-name}}'][json['{{baseName}}']] == null ? null : {{/required}}{{^x-field-is-primitive}}new {{x-field-type}}.fromJson(dictionaries['{{x-dictionary-name}}'][json['{{baseName}}']], dictionaries){{/x-field-is-primitive}}{{#x-field-is-primitive}}dictionaries['{{x-dictionary-name}}'][json['{{baseName}}']]{{/x-field-is-primitive}}
+  {{/x-field-name}}{{/vendorExtensions}}{{/vars}}
+  {{#vars}}{{#vendorExtensions}}{{#x-map-name}}
+  ,{{x-map-name}} = {{^required}}dictionaries['{{x-dictionary-name}}'] == null ? null : {{/required}}reviveDictionarizedArray<{{x-field-type}}>(json['{{baseName}}'], dictionaries['{{x-dictionary-name}}'], dictionaries, (dynamic data, [Map<String, dynamic> dictionaries]) => new {{x-field-type}}.fromJson(data, dictionaries))
+  {{/x-map-name}}{{/vendorExtensions}}{{/vars}}
+  ;
+
+  @override
+  String toString() {
+    return '{{classname}}[{{#vars}}{{name}}=${{name}}, {{/vars}}]';
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+    {{#vars}}
+      {{#isDateTime}}'{{name}}': this.{{name}} == null ? '' : this.{{name}}.toUtc().toIso8601String(){{^-last}},{{/-last}}{{/isDateTime}}{{^isDateTime}}'{{name}}': this.{{name}}{{^-last}},{{/-last}}{{/isDateTime}}
+    {{/vars}}
+     }..removeWhere((key, value) => value == null);
+  }
+}

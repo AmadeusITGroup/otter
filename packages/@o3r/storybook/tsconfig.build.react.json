@@ -1,0 +1,24 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "jsx": "react",
+    "module": "ESNext",
+    "tsBuildInfoFile": "build/.tsbuildinfo.react",
+    "allowSyntheticDefaultImports": true
+  },
+  "include": [
+    "addon/*.tsx",
+    "addon/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "tsconfig.build.json"
+    }
+  ]
+}

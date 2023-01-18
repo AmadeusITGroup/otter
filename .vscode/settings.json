@@ -1,0 +1,43 @@
+{
+  "search.exclude": {
+    "**/.yarn": true,
+    "**/.pnp.*": true,
+    "**/dist/": true,
+    "**/node_modules": true,
+    "**/.cache": true
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true
+  },
+  "npm.packageManager": "yarn",
+  "eslint.packageManager": "yarn",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "jest.jestCommandLine": "yarn jest",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
+    "tsconfig.json": "tsconfig.*.json",
+    "tsconfig.base.json": "tsconfig.*.json",
+    "package.json": "ng-package.json, project.json, yarn.lock",
+    "nx.json": "workspace.json, .nxignore",
+    ".yarnrc.yml": ".npmrc, .npmrc.*",
+    ".eslintrc.*": ".eslintignore"
+  },
+  "stylelint.validate": [
+    "css",
+    "scss",
+    "source.css.styled",
+    "source.markdown.math",
+    "styled-css"
+  ]
+}

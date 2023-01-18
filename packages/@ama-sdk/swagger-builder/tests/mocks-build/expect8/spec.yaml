@@ -1,0 +1,99 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Core Configuration API
+  description: >-
+    Component file dedicated to all operations related to the product Core
+    Configuration API
+  field1: test1
+  field2: test2
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTP` and `HTTPS`
+otherField: test field
+tags:
+  - name: Configuration
+    description: Configuration operations
+    x-api-type: DAPI
+parameters: {}
+paths:
+  /configuration/digital/settings:
+    post:
+      summary: Determine the configuration to use for subsequent API transaction.
+      description: >
+        Determine the configuration to use for subsequent API calls.
+
+        The endpoint determines the configuration to use based on a set of
+        business rules defined in a rules engine.
+
+        The facts used by the rules engine are key value pairs (KVPs) provided
+        in the body of the request.
+
+        The end point returns the point of sale id that should be used to build
+        the new authorization header.
+      operationId: determineConfiguration
+      parameters:
+        - name: searchConfigurationRequest
+          description: Request to determine configuration to apply for next api calls
+          in: body
+          schema:
+            $ref: '#/definitions/SearchConfigurationRequest'
+      tags:
+        - Configuration
+      responses:
+        default:
+          description: configuration
+          schema:
+            $ref: '#/definitions/SearchConfigurationReply'
+definitions:
+  SearchConfigurationRequest:
+    type: object
+    description: Request to get the configuraton to use based on the provided facts
+    properties:
+      fact:
+        description: The fact object determine the office ID to be used
+        $ref: '#/definitions/Fact'
+  SearchConfigurationReply:
+    type: object
+    description: Reply containing the configuration to use based on business rules
+    required:
+      - data
+    properties:
+      data:
+        $ref: '#/definitions/SearchConfigurationReplyData'
+  Fact:
+    type: object
+    description: Fact containing key value pairs
+    properties:
+      factType:
+        type: string
+        description: Type of fact used for creating the access token for Digital Commerce
+        enum:
+          - Airline
+      keyValuePairs:
+        type: array
+        description: Key value pairs to search for the point of sale configuration to use
+        items:
+          $ref: '#/definitions/KeyValuePair'
+  SearchConfigurationReplyData:
+    type: object
+    description: Reply containing the configuration to use for next api calls
+    properties:
+      officeId:
+        description: Office Id determined by business rules.
+        type: string
+        pattern: '[A-Z0-9]{9}'
+  KeyValuePair:
+    type: object
+    description: Key Value Pair
+    required:
+      - key
+      - value
+    properties:
+      key:
+        description: Key
+        type: string
+      value:
+        description: Value associated to the key
+        type: string

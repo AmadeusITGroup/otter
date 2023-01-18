@@ -1,0 +1,16 @@
+// imports update test
+@import '~@o3r/styling/scss/theming/functions';
+@import '~@otter/styling/scss/styling';
+
+$palette-accent: get-mandatory($theme, 'accent');
+$palette-highlight: get-mandatory($theme, 'highlight');
+$palette-warn: get-mandatory($theme, 'warn');
+$palette-primary: get-mandatory($theme, 'primary');
+
+// var/color/contrast tests
+$red: o3r-var('red', o3r-color($palette-warn, 900) ) !default;
+$white: o3r-var('white', o3r-contrast($palette-highlight, 400) ) !default;
+$light-shadow: o3r-var('light-shadow', o3r-color($palette-highlight, 100) ) !default;
+$background-color: o3r-var('background-color', o3r-contrast($palette-highlight, 500) ) !default;
+$default-color: o3r-var('default-color', o3r-color($palette-accent, 900) ) !default;
+$default-color-contrast: o3r-var('default-color-contrast', o3r-contrast($palette-accent, 900) ) !default;

@@ -1,0 +1,177 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ConfigurationMetadataSchema",
+  "description": "Schema of Component configurations",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "library",
+      "name",
+      "path",
+      "type",
+      "properties"
+    ],
+    "properties": {
+      "library": {
+        "type": "string",
+        "description": "Library name"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name of the component configuration"
+      },
+      "title": {
+        "type": "string",
+        "description": "Title of the component configuration"
+      },
+      "description": {
+        "type": "string",
+        "description": "Description of the component configuration"
+      },
+      "path": {
+        "type": "string",
+        "description": "Path to the configuration file"
+      },
+      "type": {
+        "type": "string",
+        "description": "Type of the component",
+        "enum": [
+          "BLOCK",
+          "COMPONENT",
+          "APPLICATION",
+          "PAGE",
+          "GLOBAL",
+          "NESTED_ELEMENT",
+          "EXPOSED_COMPONENT"
+        ]
+      },
+      "tags": {
+        "type": "array",
+        "description": "List of tags associated to the configuration.",
+        "items": {
+          "type": "string"
+        }
+      },
+      "categories": {
+        "type": "array",
+        "description": "List of categories with description",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "label"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Configuration category name"
+            },
+            "label": {
+              "type": "string",
+              "description": "Configuration category description"
+            }
+          }
+        }
+      },
+      "properties": {
+        "type": "array",
+        "description": "List of configuration properties",
+        "items": {
+          "type": "object",
+          "required": [
+            "name",
+            "type"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Configuration property name"
+            },
+            "description": {
+              "type": "string",
+              "description": "Description of the configuration property"
+            },
+            "type": {
+              "type": "string",
+              "description": "type of the configuration",
+              "enum": [
+                "boolean",
+                "number",
+                "string",
+                "string[]",
+                "element[]",
+                "enum",
+                "enum[]"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "description": "Value of the property"
+            },
+            "values": {
+              "type": "array",
+              "description": "Structured configuration array of string",
+              "items": {
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "object",
+                    "patternProperties": {
+                      ".*": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "reference": {
+              "library": "string",
+              "name": "string"
+            },
+            "label": {
+              "type": "string",
+              "description": "Name of the property to display"
+            },
+            "category": {
+              "type": "string",
+              "description": "The category for a configuration property"
+            },
+            "choices": {
+              "type": "array",
+              "description": "The choices for the enum",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": { "type": { "anyOf": [{ "const": "string[]" }, { "const": "element[]" }, { "const": "enum[]" }] } }
+              },
+              "then": {
+                "required": ["values"]
+              },
+              "else": {
+                "required": ["value"]
+              }
+            },
+            {
+              "if": {
+                "properties": { "type": { "anyOf": [{ "const": "enum" }, { "const": "enum[]" }] } }
+              },
+              "then": {
+                "required": ["choices"]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: SearchConfigurationReply
+  description: Definition for the DAPI model SearchConfigurationReply
+paths: {}
+definitions:
+  SearchConfigurationReply:
+    type: object
+    description: Reply containing the configuration to use based on business rules
+    required:
+      - data
+    properties:
+      data:
+        $ref: './SearchConfigurationReplyData.yaml#/definitions/SearchConfigurationReplyData'

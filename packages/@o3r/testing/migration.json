@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v4_4": {
+      "version": "4.4.0-alpha.0",
+      "description": "Updates of the Otter Library to v4.4.x",
+      "factory": "./updates/v4.4/index#update"
+    }
+  }
+}

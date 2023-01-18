@@ -1,0 +1,23 @@
+{{#noUnusedImport}}{{#imports}}import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
+{{/imports}}
+
+{{#operations}}
+import { {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}{{#operation}}, {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{/operation}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
+
+{{#description}}
+/**
+ * Fixtures of {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}
+ */
+{{/description}}
+export class {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture implements Partial<Readonly<{{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}>> {
+
+  /** @inheritDoc */
+  public readonly apiName = "{{classname}}";
+
+  {{#operation}}/**
+   * Fixture associated to function {{nickname}}
+   */
+  public {{nickname}}: jest.Mock<Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>, [{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData]> = jest.fn();
+  {{/operation}}
+}
+{{/operations}}{{/noUnusedImport}}

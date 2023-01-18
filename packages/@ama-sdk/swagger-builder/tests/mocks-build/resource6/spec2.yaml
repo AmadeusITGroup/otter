@@ -1,0 +1,41 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Example API
+basePath: /v2
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: Configuration
+    description: Configuration operations
+    x-api-type: DAPI
+parameters: {}
+paths:
+  /example/point2:
+    post:
+      tags:
+        - Configuration
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ExampleMessages'
+      security:
+        - basicAuth: []
+definitions:
+  ExampleMessages:
+    type: object
+    allOf:
+      - $ref: './spec1.yaml#/definitions/ExampleMessages'
+      - type: object
+        properties:
+          otherErrors:
+            description: >-
+              I do merge
+            type: array
+            items:
+              type: string

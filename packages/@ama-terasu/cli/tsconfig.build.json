@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true
+  },
+  "include": [
+    "package.json",
+    "src/**/*.ts"
+  ]
+}

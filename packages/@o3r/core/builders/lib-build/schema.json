@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "LibBuilderSchema",
+  "title": "Library builder",
+  "description": "Perform a library build",
+  "properties": {
+    "target": {
+      "type": "string",
+      "description": "The target build to launch."
+    },
+    "skipJasmineFixtureWorkaround": {
+      "type": "boolean",
+      "description": "Skip the workaround for the Jasmine fixture issue.",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": ["target"]
+}

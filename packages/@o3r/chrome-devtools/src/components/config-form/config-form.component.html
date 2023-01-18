@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <ng-container *ngFor="let item of controlsType | keyvalue">
+    <div class="mb-2" [ngClass]="item.value === 'boolean' ? 'form-check' : 'form-group'" *ngIf="item.key !== 'id'">
+      <ng-container [ngSwitch]="item.value">
+        <ng-container *ngSwitchCase="'boolean'">
+          <input class="form-check-input" [formControlName]="item.key" type="checkbox" [id]="item.key" />
+          <label class="form-check-label" [for]="item.key">{{item.key}}</label>
+        </ng-container>
+        <ng-container *ngSwitchCase="'number'">
+          <label [for]="item.key">{{item.key}}</label>
+          <input class="form-control" [formControlName]="item.key" type="number" [id]="item.key" />
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <label [for]="item.key">{{item.key}}</label>
+          <input class="form-control" [formControlName]="item.key" type="text" [id]="item.key" />
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+  <button type="submit" class="btn btn-primary" (click)="onSubmit()">Update config</button>
+</form>

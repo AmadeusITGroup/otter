@@ -1,0 +1,28 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0",
+  "description": "Ama-terasu module",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "files": [
+    "dist/"
+  ],
+  "devDependencies": {
+    "@ama-terasu/core": "^<%= version %>",
+    "@types/node": "^14.0.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "tslib": "^2.3.1",
+  }
+  "peerDependencies": {
+    "@ama-terasu/core": "^<%= version %>"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.22.0"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "StyleMetadataSchema",
+  "description": "Schema of Application style",
+  "type": "object",
+  "additionalProperties": {
+    "$ref": "#/definitions/StyleMetadataValueSchema"
+  },
+
+  "definitions": {
+    "StyleMetadataValueSchema": {
+      "type": "object",
+      "required": [
+        "defaultValue"
+      ],
+      "properties": {
+        "defaultValue": {
+          "type": "string",
+          "description": "Default value of the variable"
+        },
+        "tags": {
+          "type": "array",
+          "description": "List of tags associated to the variable",
+          "items": {
+            "type": "string"
+          }
+        },
+        "references": {
+          "type": "array",
+          "description": "List of CSS variables used in the value expression",
+          "items": {
+            "$ref": "#/definitions/StyleMetadataValueSchema"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "@o3r/stylelint-plugin",
+  "version": "0.0.0-placeholder",
+  "description": "Stylelint Otter Plugin",
+  "main": "dist/index.js",
+  "keywords": [
+    "stylelint",
+    "stylelint-plugin",
+    "otter",
+    "amadeus",
+    "linter"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build stylelint-plugin",
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  },
+  "peerDependencies": {
+    "jest-preset-stylelint": "~5.0.4",
+    "postcss": "^8.4.4",
+    "stylelint": "^14.1.0"
+  },
+  "devDependencies": {
+    "@angular-eslint/eslint-plugin": "~15.1.0",
+    "@angular-eslint/template-parser": "~15.1.0",
+    "@angular/compiler": "~15.0.4",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-config-otter": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "jest": "~28.1.1",
+    "jest-preset-stylelint": "~5.0.4",
+    "nx": "^15.3.3",
+    "postcss": "^8.4.4",
+    "rimraf": "^3.0.2",
+    "stylelint": "^14.1.0",
+    "ts-jest": "^28.0.5",
+    "typescript": "~4.8.4"
+  }
+}

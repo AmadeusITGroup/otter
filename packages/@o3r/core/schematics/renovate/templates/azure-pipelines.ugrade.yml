@@ -1,0 +1,45 @@
+schedules:
+  - cron: '0 1 * * *' # every day
+    displayName: 'Daily renovate upgrade'
+    branches:
+      include: [master]
+    always: true
+
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: 'Token Library'
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '16.x'
+    displayName: 'Install Node.js'
+
+  - task: Cache@2
+    inputs:
+      key: renovate | $(Agent.OS) | .renovate/config.js
+      path: '.cache/renovate'
+      restoreKeys: |
+        renovate | $(Agent.OS)
+        renovate
+    continueOnError: true
+    displayName: 'Cache Renovate'
+
+  - script: |
+      git config --global user.email 'bot@renovateapp.com'
+      git config --global user.name 'Renovate Bot'
+      git config --global core.longpaths true
+      cd .renovate
+      npx renovate@31.94.0 --log-file ./log.json
+    env:
+      TOKEN: $(System.AccessToken)
+      GITHUB_COM_TOKEN: $(github.token.reader)
+      LOG_LEVEL: info
+    displayName: 'Running Renovate'
+
+  - publish: '$(System.DefaultWorkingDirectory)/.renovate/log.json'
+    artifact: RenovateDebugLogs

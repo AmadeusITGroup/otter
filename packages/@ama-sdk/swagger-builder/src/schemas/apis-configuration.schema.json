@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "apis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "swaggerTemplate": {
+            "anyOf": [
+              {
+                "type": "object",
+                "description": "Swagger spec template object, envelop of the API specifications"
+              },
+              {
+                "type": "string",
+                "description": "Path to a Swagger spec template, envelop of the API specifications"
+              },
+              {
+                "type": "array",
+                "description": "Paths to Swagger spec templates, envelop of the API specifications. The templates will be merged in the array order",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "products": {
+            "type": "array",
+            "description": "List of products to include into the API",
+            "items": {
+              "type": "string",
+              "description": "Api product"
+            }
+          },
+          "pathsBlackList": {
+            "type": "array",
+            "description": "List of black listed paths to remove from the final swagger specification",
+            "items": {
+              "type": "string",
+              "description": "Black listed path"
+            }
+          },
+          "pathsWhiteList": {
+            "type": "array",
+            "description": "List of white listed paths to keep to the final swagger specification",
+            "items": {
+              "type": "string",
+              "description": "White listed path"
+            }
+          },
+          "artifact": {
+            "type": "string",
+            "description": "Name of the generated artifact. Keep it undefined to not generate package.json file"
+          },
+          "setVersion": {
+            "type": "string",
+            "description": "Set a version to the file Swagger specification"
+          },
+          "setVersionAuto": {
+            "type": "boolean",
+            "description": "If enabled, the version from the current package.json will be applied to the final swagger specification"
+          },
+          "output": {
+            "type": "string",
+            "description": "Path to the file generate the Swagger specification"
+          },
+          "outputFormat": {
+            "type": "string",
+            "description": "Format of the generated Swagger Specification",
+            "enum": [
+              "yaml",
+              "split"
+            ]
+          },
+          "validation": {
+            "type": "boolean",
+            "description": "Determine if we validate the Swagger after generation"
+          },
+          "awsCompat": {
+            "type": "boolean",
+            "description": "Enable the AWS compatibility mode"
+          },
+          "flagDefinition": {
+            "type": "boolean",
+            "description": "Flag all definition with a vendor extension x-api-ref: {Definition name}"
+          },
+          "flattenConflictedDefinition": {
+            "type": "boolean",
+            "description": "Merge based interface with new override in case of definition name conflict"
+          },
+          "ignoreConflict": {
+            "type": "boolean",
+            "description": "Determine if the path conflict should be ignored"
+          },
+          "productFolders": {
+            "type": "array",
+            "description": "List of additional product folders",
+            "items": {
+              "type": "string"
+            }
+          },
+          "additionalSpecs": {
+            "type": "array",
+            "description": "List of additional specifications paths",
+            "items": {
+              "type": "string",
+              "description": "Swagger Specification file"
+            }
+          }
+        },
+        "required": [
+          "swaggerTemplate",
+          "products",
+          "output"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "apis"
+  ]
+}

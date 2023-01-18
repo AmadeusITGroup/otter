@@ -1,0 +1,193 @@
+{
+  "name": "@o3r/framework",
+  "private": true,
+  "version": "0.0.0-placeholder",
+  "description": "Otter Framework",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "amaterasu": "node packages/@ama-terasu/cli/dist/src/cli/ama.js",
+    "get:cpus-number": "node -e 'process.stdout.write(`${Math.max(require(\"os\").cpus().length - 1, 2)}`);'",
+    "get:current-dir": "node -e 'process.stdout.write(process.cwd());'",
+    "build": "yarn nx run-many --target=build --parallel $(yarn get:cpus-number)",
+    "build:affected": "yarn nx affected --target=build --parallel $(yarn get:cpus-number) --output-style stream",
+    "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,dev-tools --parallel $(yarn get:cpus-number)",
+    "build:swagger-gen": "yarn nx run ama-sdk-generator-sdk:build-swagger",
+    "publish": "yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
+    "lint": "yarn nx run-many --target=lint --parallel $(yarn get:cpus-number)",
+    "lint:affected": "yarn nx affected --target=lint --parallel $(yarn get:cpus-number)",
+    "test": "yarn nx run-many --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
+    "test:affected": "yarn nx affected --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
+    "test:int": "yarn nx run-many --target=test:int --parallel 2",
+    "postinstall": "husky install && yarn build:tools && yarn version-harmonize && yarn in-source-dep-check && yarn setup:generators && yarn yarn:harmonization",
+    "yarn:harmonization": "node scripts/yarn-harmonize.js",
+    "setup:generators": "yarn artifact-retriever --repository-manager \"Azure Artifacts\" --organization AmadeusDigitalAirline --project DES-SDKs --feed des-sdks -u \"AmadeusDigitalAirline\" -g \"io.swagger\" -a \"swagger-codegen-cli\" -v \"2.4.0-AMADEUS\" --out ./packages/@ama-sdk/generator-sdk/src/generators/resources/swagger-codegen-cli.jar || true",
+    "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
+    "clear": "rimraf './{packages,tools,apps}/@*/{amaterasu/,}*/{dist,build}/'",
+    "set:version": "yarn set-version --placeholder 0.0.0-placeholder",
+    "doc:generate": "rimraf ./generated-doc && yarn doc:summary-update && yarn compodoc && node ./scripts/doc-links.js",
+    "doc:generate:json": "yarn doc:summary-update && yarn compodoc -e json -d .",
+    "doc:summary-update": "node scripts/update-doc-summary.js",
+    "start:modules": "yarn run build:dev:modules && yarn run watch:modules",
+    "storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && start-storybook -p 6006",
+    "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --quiet --fix"
+    ],
+    "*": [
+      "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
+    ]
+  },
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
+  "license": "BSD-3-Clause",
+  "contributors": [
+    {
+      "name": "Yannick Adam",
+      "email": "yannickadam@users.noreply.github.com"
+    },
+    {
+      "name": "Kilian Panot",
+      "email": "kpanot@users.noreply.github.com"
+    },
+    {
+      "name": "Jeremy Bourgeois",
+      "email": "jbourgeois-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Pierre Henri Ginoux",
+      "email": "pginoux-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Mircea Vasile Rednic",
+      "email": "mrednic-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Stephane Dalle",
+      "email": "sdalle-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Nicolas Hoffmann",
+      "email": "nhoffmann-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Victor Scaiceanu",
+      "email": "vscaiceanu-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Florian Paul",
+      "email": "fpaul-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Corinne Paulve",
+      "email": "cpaulve-1A@users.noreply.github.com"
+    },
+    {
+      "name": "Matthieu Crouzet",
+      "email": "matthieu-crouzet@users.noreply.github.com"
+    },
+    {
+      "name": "Salome Do",
+      "email": "sdo-1A@users.noreply.github.com"
+    }
+  ],
+  "resolutions": {
+    "@angular-devkit/core/rxjs": "^7.4.0",
+    "@angular-devkit/schematics/rxjs": "^7.4.0",
+    "@nrwl/angular/jasmine-marbles": "^0.9.2",
+    "@nrwl/webpack/loader-utils": "^1.4.0",
+    "jasmine-marbles/rxjs": "^7.4.0",
+    "git-url-parse": "^13.1.0",
+    "gonzales-pe-sl/minimist": "^1.2.0"
+  },
+  "dependencies": {
+    "@angular/common": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/platform-browser": "~15.0.4",
+    "rxjs": "^7.4.0",
+    "tslib": "^2.4.1",
+    "zone.js": "^0.12.0"
+  },
+  "devDependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^5.1.1",
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular-devkit/build-angular": "~15.0.4",
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-eslint/builder": "~15.1.0",
+    "@angular-eslint/eslint-plugin": "~15.1.0",
+    "@angular-eslint/eslint-plugin-template": "~15.1.0",
+    "@angular-eslint/template-parser": "~15.1.0",
+    "@angular/cli": "~15.0.4",
+    "@angular/common": "~15.0.4",
+    "@angular/compiler": "~15.0.4",
+    "@angular/compiler-cli": "~15.0.4",
+    "@babel/core": "~7.20.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@nrwl/angular": "^15.3.3",
+    "@nrwl/cli": "^15.3.3",
+    "@nrwl/js": "^15.3.3",
+    "@nrwl/linter": "^15.3.3",
+    "@nrwl/workspace": "^15.3.3",
+    "@o3r/dev-tools": "workspace:^",
+    "@o3r/eslint-config-otter": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "babel-loader": "^8.2.2",
+    "browserslist": "^4.21.4",
+    "concurrently": "^7.0.0",
+    "cpy-cli": "^4.2.0",
+    "editorconfig-checker": "^3.3.0",
+    "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "globby": "^11.1.0",
+    "husky": "^6.0.0",
+    "isomorphic-fetch": "~2.2.1",
+    "jest": "~28.1.1",
+    "js-yaml": "^4.1.0",
+    "lint-staged": "^10.4.0",
+    "minimist": "^1.2.6",
+    "ng-packagr": "~15.0.1",
+    "npm-run-all": "^4.1.5",
+    "nx": "^15.3.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rimraf": "^3.0.2",
+    "sass": "~1.57.0",
+    "sass-loader": "^13.1.0",
+    "semver": "^7.3.2",
+    "standard-version": "^9.0.0",
+    "stylelint": "^14.1.0",
+    "stylelint-scss": "^4.0.0",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^6.0.0",
+    "tsickle": "^0.46.3",
+    "typescript": "~4.8.4",
+    "webpack": "~5.75.0"
+  },
+  "engines": {
+    "npm": "please-use-yarn",
+    "node": ">=14.0.0",
+    "yarn": ">=3.1.0 <4.0.0",
+    "vscode": "^1.22.0"
+  },
+  "workspaces": [
+    "packages/@*/*",
+    "packages/@o3r/amaterasu/*",
+    "tools/@*/*",
+    "apps/@*/*"
+  ],
+  "packageManager": "yarn@3.3.1"
+}

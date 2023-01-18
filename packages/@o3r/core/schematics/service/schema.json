@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateServiceSchematicsSchema",
+  "title": "Generate Otter Service",
+  "description": "ng generate Otter Service",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Service name",
+      "x-prompt": "Service name?",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "featureName": {
+      "type": "string",
+      "description": "Name of the service feature",
+      "default": "base",
+      "x-prompt": "Service feature name?"
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the services"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name"
+  ]
+}

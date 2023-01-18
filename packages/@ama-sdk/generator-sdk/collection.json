@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "mock": {
+      "description": "Generate an api mock into the project.",
+      "factory": "./src/schematics/mock/index#ngGenerateMock",
+      "schema": "./src/schematics/mock/schema.json"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Example API
+basePath: /v2
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: Configuration
+    description: Configuration operations
+    x-api-type: DAPI
+parameters: {}
+paths:
+  /example/point:
+    post:
+      tags:
+        - Configuration
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ExampleMessages'
+      security:
+        - basicAuth: []
+definitions:
+  ExampleMessages:
+    type: object
+    properties:
+      errors:
+        description: I do Override
+        type: array
+        items:
+          type: string

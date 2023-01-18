@@ -1,0 +1,89 @@
+{
+  "name": "@o3r/dynamic-content",
+  "version": "0.0.0-placeholder",
+  "description": "dynamic-content of the Otter Framework",
+  "keywords": [
+    "dynamic-content",
+    "otter"
+  ],
+  "exports": {
+    "./middlewares": {
+      "default": "./middlewares/index.js"
+    }
+  },
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build": "yarn nx build dynamic-content",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+  },
+  "peerDependencies": {
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular/compiler-cli": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/platform-browser-dynamic": "~15.0.4",
+    "@ngrx/store": "^15.0.0",
+    "@o3r/core": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "cheerio": "^1.0.0-rc.10",
+    "express-interceptor": "^1.2.0",
+    "rxjs": "^7.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular-eslint/template-parser": {
+      "optional": true
+    },
+    "cheerio": {
+      "optional": true
+    },
+    "express-interceptor": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular-devkit/build-angular": "~15.0.4",
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
+    "@angular/common": "~15.0.4",
+    "@angular/compiler": "~15.0.4",
+    "@angular/compiler-cli": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/platform-browser": "~15.0.4",
+    "@angular/platform-browser-dynamic": "~15.0.4",
+    "@ngrx/store": "^15.0.0",
+    "@nrwl/cli": "^15.3.3",
+    "@nrwl/js": "^15.3.3",
+    "@nrwl/linter": "^15.3.3",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/core": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "@o3r/eslint-config-otter": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "cpy-cli": "^4.2.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "jest": "~28.1.1",
+    "jest-junit": "^14.0.0",
+    "jest-preset-angular": "^12.2.3",
+    "nx": "^15.3.3",
+    "rxjs": "^7.4.0",
+    "typescript": "~4.8.4",
+    "zone.js": "^0.12.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "schematics": "./collection.json"
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "module": "CommonJS",
+    "outDir": "./dist/plugins",
+    "rootDir": "plugins",
+    "tsBuildInfoFile": "build/plugins/.tsbuildinfo"
+  },
+  "include": [
+    "plugins/**/*.ts"
+  ]
+}

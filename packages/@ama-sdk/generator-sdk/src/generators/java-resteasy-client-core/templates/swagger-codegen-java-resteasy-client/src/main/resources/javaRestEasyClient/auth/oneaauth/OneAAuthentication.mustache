@@ -1,0 +1,84 @@
+package {{authenticationPackage}}.oneaauth;
+
+import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.client.ClientRequestFilter;
+import javax.ws.rs.core.MultivaluedMap;
+import java.io.IOException;
+
+/**
+* @deprecated please use OneAAuthentication under com.amadeus.dapi.resteasy.filters.auth package instead
+*/
+public class OneAAuthentication implements ClientRequestFilter {
+
+    // Attributes if you wish to configure a direct SI connection
+    private String dapiUser;
+    private String dapiPwd;
+    private String dapiOrganisation;
+    private String dapiOffice;
+
+    /**
+     * Implement the filter class from the ClientRequestFilter interface to add authorization headers
+     * It will generate authorization for a direct SI connection if the correct credentials are passed,
+     * otherwise you will get an exception.
+     */
+    public void filter(ClientRequestContext requestContext) throws IOException {
+        MultivaluedMap<String, Object> headers = requestContext.getHeaders();
+        String authToken = "";
+        try {
+            if (dapiUser.length() > 0  && (dapiOrganisation.length() > 0 || dapiOffice.length() > 0) && dapiPwd != null) {
+                authToken = OneAAuthTokenGenerator.generateAuthToken(dapiUser, dapiPwd, dapiOrganisation, dapiOffice);
+            } else {
+                throw new IllegalArgumentException("Verify the parameters of your authentication token");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e);
+        }
+        headers.add("Authorization", authToken);
+    }
+
+    public static class AuthenticatorBuilder {
+        // Defaults to direct SI connection
+        private String dapiUser  = "";
+        private String dapiPwd = "";
+        private String dapiOrganisation = "";
+        private String dapiOffice = "";
+
+        public AuthenticatorBuilder() {}
+
+        public AuthenticatorBuilder dapiUser(String user) {
+            this.dapiUser = user;
+            return this;
+        }
+
+        /**
+         * Password set
+         * @param pwd The password should be a SHA1 string
+         * @return
+         */
+        public AuthenticatorBuilder dapiPwd(String pwd) {
+            this.dapiPwd = pwd;
+            return this;
+        }
+
+        public AuthenticatorBuilder dapiOrganisation(String organisation) {
+            this.dapiOrganisation = organisation;
+            return this;
+        }
+
+        public AuthenticatorBuilder dapiOffice(String office) {
+            this.dapiOffice = office;
+            return this;
+        }
+
+        public OneAAuthentication build() {
+            return new OneAAuthentication(this){};
+        }
+    }
+
+    private OneAAuthentication(AuthenticatorBuilder authBuilder) {
+        this.dapiUser = authBuilder.dapiUser;
+        this.dapiPwd = authBuilder.dapiPwd;
+        this.dapiOrganisation = authBuilder.dapiOrganisation;
+        this.dapiOffice = authBuilder.dapiOffice;
+    }
+}

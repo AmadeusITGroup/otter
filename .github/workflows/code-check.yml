@@ -1,0 +1,71 @@
+name: Code check
+
+on:
+  workflow_call:
+    inputs:
+      affected:
+        type: boolean
+        required: false
+        default: false
+        description: Run test only on affective packages if true
+    secrets:
+      AZ_AR_PASSWORD:
+        required: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.affected && '0' || '1' }}
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'false'
+          install-jdk: 'true'
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Cache Jest
+        uses: actions/cache@v3
+        env:
+          hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
+        with:
+          path: .cache/jest
+          key: ${{ runner.os }}-jest-${{ env.hash }}-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-jest-${{ env.hash }}-${{ github.event_name == 'pull_request' && github.base_ref || 'main' }}
+            ${{ runner.os }}-jest-${{ env.hash }}-
+            ${{ runner.os }}-jest-
+            ${{ runner.os }}-
+      - name: Build swagger generator
+        run: yarn nx run ama-sdk-generator-sdk:build-swagger
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Test
+        env:
+          testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
+        run: yarn ${{ env.testCmd }}
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.affected && '0' || '1' }}
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'false'
+      - name: Cache Eslint
+        uses: actions/cache@v3
+        with:
+          path: .cache/eslint
+          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}-${{ github.ref_name }}
+          restore-keys: |
+            ${{ runner.os }}-eslint-${{ env.hash }}-${{ github.event_name == 'pull_request' && github.base_ref || 'main' }}
+            ${{ runner.os }}-eslint-${{ env.hash }}-
+            ${{ runner.os }}-eslint-
+            ${{ runner.os }}-
+      - name: Lint
+        env:
+          lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
+        run: yarn ${{ env.lintCmd }} --configuration ci

@@ -1,0 +1,7 @@
+<%= gitIgnoreContent %>
+
+# Otter dev files
+/<%= devResourcesFolder %>
+
+# CMS adapters generated files
+/*.metadata.json

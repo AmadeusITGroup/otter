@@ -1,0 +1,14 @@
+@use '@o3r/styling' as o3r;
+// imports update test
+$palette-accent: o3r.get-mandatory($theme, 'accent');
+$palette-highlight: o3r.get-mandatory($theme, 'highlight');
+$palette-warn: o3r.get-mandatory($theme, 'warn');
+$palette-primary: o3r.get-mandatory($theme, 'primary');
+
+// var/color/contrast tests
+$red: o3r.variable('red', o3r.color($palette-warn, 900) ) !default;
+$white: o3r.variable('white', o3r.contrast($palette-highlight, 400) ) !default;
+$light-shadow: o3r.variable('light-shadow', o3r.color($palette-highlight, 100) ) !default;
+$background-color: o3r.variable('background-color', o3r.contrast($palette-highlight, 500) ) !default;
+$default-color: o3r.variable('default-color', o3r.color($palette-accent, 900) ) !default;
+$default-color-contrast: o3r.variable('default-color-contrast', o3r.contrast($palette-accent, 900) ) !default;

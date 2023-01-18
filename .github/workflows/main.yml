@@ -1,0 +1,72 @@
+name: Main CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACT_NAME: application-package
+    outputs:
+      artifactName: ${{ env.ARTIFACT_NAME }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+        with:
+          enable-build-cache: 'true'
+          install-jdk: 'true'
+      - name: Build Swagger CodeGen
+        run: yarn build:swagger-gen
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Build
+        run: yarn build
+  version:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    outputs:
+      nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/setup
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: New Version
+        id: newVersion
+        uses: ./.github/actions/new-version
+        with:
+          defaultBranch: main
+          defaultBranchPrereleaseName: alpha
+      - name: Create release
+        if: github.event_name != 'pull_request'
+        run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  checks:
+    uses: ./.github/workflows/code-check.yml
+    secrets: inherit
+    with:
+      affected: ${{ github.event_name == 'pull_request' }}
+  publish-packages:
+    uses: ./.github/workflows/publish.yml
+    permissions:
+      packages: write
+      contents: read
+    secrets: inherit
+    needs: [version, build, checks]
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+      prerelease: ${{ github.event_name == 'pull_request' }}

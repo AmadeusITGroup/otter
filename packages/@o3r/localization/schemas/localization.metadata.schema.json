@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "LocalizationMetadataSchema",
+  "description": "Schema of Localizations",
+  "type": "array",
+  "uniqueItems": true,
+  "items": {
+    "anyOf": [
+      {
+        "type": "object",
+        "required": [
+          "key",
+          "ref",
+          "description"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key of the localized string"
+          },
+          "ref": {
+            "type": "string",
+            "description": "Reference to a local localization",
+            "pattern": "^[^/]*$"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the key. Used to give some context to the translators"
+          }
+        }
+      },
+      {
+        "type": "object",
+        "required": [
+          "key",
+          "description",
+          "dictionary"
+        ],
+        "if": { "properties": { "dictionary": { "const": false } } },
+        "then": { "required": ["key", "description", "dictionary"] },
+        "else": { "required": ["key", "description", "dictionary", "value"] },
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "Key of the localized string"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the key. Used to give some context to the translators"
+          },
+          "dictionary": {
+            "type": "boolean",
+            "description": "Means that the key will be mapped to a dictionary in the CMS. In this case the key is just a prefix and the CMS will concatenate to this prefix a code coming from a dictionary in the CMS"
+          },
+          "value": {
+            "type": "string",
+            "description": "Default value for EN language. It is mandatory if dictionary is set to false"
+          },
+          "tags": {
+            "type": "array",
+            "description": "tags used to filter, categorize",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    ]
+  }
+}

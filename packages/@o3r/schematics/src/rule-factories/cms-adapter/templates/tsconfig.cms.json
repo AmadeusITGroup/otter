@@ -1,0 +1,23 @@
+{
+  "extends": "<%= buildTsConfig %>",
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "lib": [
+      "dom",
+      "es2020",
+      "scripthost"
+    ]
+  },
+  "include": [
+    "<%= sourceRoot %>/**/*.ts"
+  ],
+  "exclude": [
+    "<%= sourceRoot %>/**/*.spec.ts",
+    "<%= sourceRoot %>/**/*.int-spec.ts",
+    "<%= sourceRoot %>/**/*.fixture.ts",
+    "<%= sourceRoot %>/**/fixtures.ts"
+  ]
+}

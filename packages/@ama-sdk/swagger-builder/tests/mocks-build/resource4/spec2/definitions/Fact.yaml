@@ -1,0 +1,23 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Fact
+  description: Definition for the DAPI model Fact
+paths: {}
+definitions:
+  Fact:
+    type: object
+    description: >-
+      Fact containing key value pairs
+    properties:
+      factType:
+        type: string
+        description: Type of fact used for creating the access token for Digital Commerce
+        enum:
+        - Airline
+      keyValuePairs:
+        type: array
+        description: >-
+          Key value pairs to search for the point of sale configuration to use
+        items:
+          $ref: './KeyValuePair.yaml#/definitions/KeyValuePair'

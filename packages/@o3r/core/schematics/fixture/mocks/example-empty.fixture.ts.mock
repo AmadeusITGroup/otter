@@ -1,0 +1,8 @@
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+} from '@o3r/testing/core';
+
+export interface ExampleFixture extends ComponentFixtureProfile {}
+
+export class ExampleFixtureComponent extends O3rComponentFixture implements ExampleFixture {}

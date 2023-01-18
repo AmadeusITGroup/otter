@@ -1,0 +1,45 @@
+{
+  "configurations": [
+    {
+      "type": "node",
+      "name": "vscode-jest-tests",
+      "request": "launch",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "disableOptimisticBPs": true,
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "yarn",
+      "args": [
+        "jest",
+        "--runInBand",
+        "--watchAll=false"
+      ]
+    },
+    {
+      "name": "vscode-run-extension",
+      "type": "extensionHost",
+      "request": "launch",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}/packages/@o3r/vscode-extension/dist"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/packages/@o3r/vscode-extension/dist/**/*.js"
+      ],
+      "preLaunchTask": "watch-vscode-extension"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Otter Demo Application debug",
+      "url": "http://localhost:3030",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node-terminal",
+      "name": "Run Script: test:playwright",
+      "request": "launch",
+      "command": "yarn run test:playwright",
+      "cwd": "${workspaceFolder}"
+    }
+  ]
+}

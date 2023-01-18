@@ -1,0 +1,39 @@
+{
+  "name": "@ama-terasu/core",
+  "main": "dist/src/public_api.js",
+  "typings": "dist/src/public_api.d.ts",
+  "version": "0.0.0-placeholder",
+  "description": "Command Line Interface to administrate a DES project",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build amaterasu-core",
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+  },
+  "devDependencies": {
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^17.0.23",
+    "@types/yargs": "^17.0.10",
+    "jest": "~28.1.1",
+    "loglevel": "^1.8.0",
+    "nx": "^15.3.3",
+    "ts-jest": "^28.0.5",
+    "typescript": "~4.8.4",
+    "yargs": "^17.4.1"
+  },
+  "dependencies": {
+    "tslib": "^2.4.1"
+  },
+  "peerDependencies": {
+    "loglevel": "^1.7.1",
+    "yargs": "^17.1.0"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.22.0"
+  }
+}

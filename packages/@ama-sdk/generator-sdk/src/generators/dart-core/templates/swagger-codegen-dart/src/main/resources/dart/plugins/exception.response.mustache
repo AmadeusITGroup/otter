@@ -1,0 +1,32 @@
+part of {{pubName}}.sdk;
+
+class RequestFailedError extends ApiException{
+  RequestFailedError(int code, [String message = 'HTTP Request failure']):
+    super(code, message);
+}
+
+class ExceptionResponsePlugin extends ResponsePlugin {
+
+  @override
+  Future<dynamic> transformResponse({Response/* ? */ response, dynamic/* ? */ value, String/* ? */ targetType, @required ApiTypes apiType}) async {
+
+    if (response != null && apiType == ApiTypes.DAPI && response.statusCode == 200 && (value == null || (value as Map<String, dynamic>)['data'] == null )) {
+      throw new EmptyResponseError(response.statusCode, response.reasonPhrase, value);
+    }
+
+    if (response != null && (response.statusCode < 200 || response.statusCode >= 400)) {
+      throw new RequestFailedError(response.statusCode, response.reasonPhrase);
+    }
+
+    if (value == null) {
+      if (response != null && response.statusCode == 204) {
+        return value;
+      }
+      throw new EmptyResponseError(0);
+    }
+
+    return value;
+  }
+
+  ExceptionResponsePlugin(): super(false);
+}

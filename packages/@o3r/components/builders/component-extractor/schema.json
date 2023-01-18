@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "ComponentExtractorBuilderSchema",
+  "title": "Component extractor builder",
+  "description": "Component extractor builder options",
+  "properties": {
+    "tsConfig": {
+      "type": "string",
+      "description": "Typescript configuration file to build the application",
+      "default": "tsconfig.json"
+    },
+    "libraries": {
+      "type": "array",
+      "description": "List of libraries imported",
+      "items": {
+        "type": "string"
+      },
+      "default": []
+    },
+    "name": {
+      "type": "string",
+      "description": "Library/Application name to be assigned into metadata",
+      "default": ""
+    },
+    "filePattern": {
+      "type": "string",
+      "description": "Path pattern to watch for component files",
+      "default": "src/**/*.(component|config|module).ts"
+    },
+    "componentOutputFile": {
+      "type": "string",
+      "description": "Path to the component data output file",
+      "default": "component.class.metadata.json"
+    },
+    "configOutputFile": {
+      "type": "string",
+      "description": "Path to the configuration data file",
+      "default": "component.config.metadata.json"
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Enable watch mode",
+      "default": false
+    },
+    "inline": {
+      "type": "boolean",
+      "description": "Write metadata inline",
+      "default": false
+    },
+    "strictMode": {
+      "type": "boolean",
+      "description": "If activated, this option will fail when any property not supported by the CMS is found, it will be ignored if not activated",
+      "default": false
+    },
+    "exposedComponentSupport": {
+      "type": "boolean",
+      "description": "Includes components flagged as ExposedComponent coming from a library",
+      "default": false
+    },
+    "placeholdersMetadataFilePath" : {
+      "type": "string",
+      "description": "Path to the placeholders data file",
+      "default": "placeholders.metadata.json"
+    }
+  },
+  "additionalProperties": false,
+  "required": []
+}

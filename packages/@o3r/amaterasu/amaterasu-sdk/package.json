@@ -1,0 +1,39 @@
+{
+  "name": "@o3r/amaterasu-sdk",
+  "version": "0.0.0-placeholder",
+  "main": "dist/src/index.js",
+  "typings": "dist/src/index.d.ts",
+  "description": "Ama-terasu module for DES SDK generation",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build amaterasu-sdk",
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+  },
+  "keywords": [
+    "amaterasu-module",
+    "sdk",
+    "des"
+  ],
+  "devDependencies": {
+    "@ama-terasu/core": "workspace:^",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^17.0.23",
+    "nx": "^15.3.3",
+    "typescript": "~4.8.4"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "tslib": "^2.4.1"
+  },
+  "peerDependencies": {
+    "@ama-terasu/core": "workspace:^"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.22.0"
+  }
+}

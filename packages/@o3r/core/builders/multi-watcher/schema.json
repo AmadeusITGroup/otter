@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "MultiWatcherBuilderSchema",
+  "title": "Multi Watcher builder",
+  "description": "Multi Watcher builder options",
+  "properties": {
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of target with watch options.",
+      "default": []
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "targets"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "displayStacktrace": "none",
+  "displayFailuresSummary": true,
+  "displayPendingSummary": true,
+  "displaySuccessesSummary": false,
+  "displaySuccessfulSpec": true,
+  "displayFailedSpec": true,
+  "displayPendingSpec": true,
+  "displaySpecDuration": false,
+  "displaySuiteNumber": false,
+  "colors": {
+    "success": "green",
+    "failure": "red",
+    "pending": "yellow"
+  },
+  "prefixes": {
+    "success": "✓ ",
+    "failure": "✗ ",
+    "pending": "* "
+  },
+  "customProcessors": []
+}

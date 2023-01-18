@@ -1,0 +1,40 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Example API
+basePath: /v2
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+tags:
+  - name: Configuration
+    description: Configuration operations
+    x-api-type: DAPI
+parameters: {}
+paths:
+  /example/point:
+    post:
+      tags:
+        - Configuration
+      responses:
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/ExampleMessages'
+      security:
+        - basicAuth: []
+definitions:
+  ExampleMessages:
+    type: object
+    properties:
+      errors:
+        description: >-
+          Array of error messages. If at least one error occurs, no data will be
+          returned and the HTTP Status code is 200 for POST and DELETE, instead
+          of 201 and 204 when the operation went well
+        type: array
+        items:
+          type: string

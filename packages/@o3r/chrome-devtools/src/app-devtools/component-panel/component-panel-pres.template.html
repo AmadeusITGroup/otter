@@ -1,0 +1,18 @@
+<div class="d-flex p-2 border-bottom align-items-center gap-2">
+  <i (click)="toggleInspector()" class="bi bi-box-arrow-in-up-left" [class.text-primary]="inspectorRunning"></i>
+  <button *ngIf="(isLookingToContainer$ | async) || (selectedComponentInfo$ | async)?.container" class="btn btn-primary" (click)="toggleContainerPresenter()">
+    Switch to {{(isLookingToContainer$ | async) ? 'Presenter' : 'Container'}}
+  </button>
+</div>
+<ng-container *ngIf="selectedComponentInfo$ | async as selectedComponentInfo; else noSelectedComponent">
+  <app-otter-component
+    [config]="config$ | async"
+    [rulesetExecutions]="rulesetExecutions$ | async"
+    [componentName]="selectedComponentInfo.componentName"
+    [translations]="selectedComponentInfo.translations"
+    [analytics]="selectedComponentInfo.analytics">
+  </app-otter-component>
+</ng-container>
+<ng-template #noSelectedComponent>
+  <h3>No selected component</h3>
+</ng-template>

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.base",
+  "exclude": [
+    "**/*reducer.ts",
+    "**/*.fixture.ts"
+  ],
+  "include": [
+    "packages/@o3r/*/src/**/*.ts"
+  ]
+}

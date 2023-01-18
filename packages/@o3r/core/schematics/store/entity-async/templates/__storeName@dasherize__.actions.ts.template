@@ -1,0 +1,77 @@
+import {
+  asyncProps,
+  AsyncRequest,
+  FromApiActionPayload,
+  SetAsyncStoreItemEntitiesActionPayload,
+  UpdateAsyncStoreItemEntitiesActionPayload<% if(!hasCustomId) {%>WithId<% } %>,
+  FailAsyncStoreItemEntitiesActionPayload,
+  SetActionPayload,
+  UpdateActionPayload
+} from '@o3r/core';
+<% if (hasSDK) {%>import {<%= payloadModelName %>} from '<%= sdkPackage %>';<% } %>
+import {createAction, props} from '@ngrx/store';
+<% if (!hasSDK) {%>import {<%= payloadModelName %>} from './<%= fileName %>.state';
+<% } %>import {<%= storeName %>StateDetails} from './<%= fileName %>.state';
+
+/** StateDetailsActions */
+const ACTION_SET = '[<%= storeName %>] set';
+const ACTION_UPDATE = '[<%= storeName %>] update';
+const ACTION_RESET = '[<%= storeName %>] reset';
+const ACTION_CANCEL_REQUEST = '[<%= storeName %>] cancel request';
+
+/** Entity Actions */
+const ACTION_CLEAR_ENTITIES = '[<%= storeName %>] clear entities';
+const ACTION_UPDATE_ENTITIES = '[<%= storeName %>] update entities';
+const ACTION_UPSERT_ENTITIES = '[<%= storeName %>] upsert entities';
+const ACTION_SET_ENTITIES = '[<%= storeName %>] set entities';
+const ACTION_FAIL_ENTITIES = '[<%= storeName %>] fail entities';
+
+/** Async Actions */
+const ACTION_SET_ENTITIES_FROM_API = '[<%= storeName %>] set entities from api';
+const ACTION_UPDATE_ENTITIES_FROM_API = '[<%= storeName %>] update entities from api';
+const ACTION_UPSERT_ENTITIES_FROM_API = '[<%= storeName %>] upsert entities from api';
+
+/** Action to clear the StateDetails of the store and replace it */
+export const set<%= storeName %> = createAction(ACTION_SET, props<SetActionPayload<<%= storeName %>StateDetails>>());
+
+/** Action to change a part or the whole object in the store. */
+export const update<%= storeName %> = createAction(ACTION_UPDATE, props<UpdateActionPayload<<%= storeName %>StateDetails>>());
+
+/** Action to reset the whole state, by returning it to initial state. */
+export const reset<%= storeName %> = createAction(ACTION_RESET);
+
+/** Action to cancel a Request ID registered in the store. Can happen from effect based on a switchMap for instance */
+export const cancel<%= storeName %>Request = createAction(ACTION_CANCEL_REQUEST, props<AsyncRequest>());
+
+/** Action to clear all <%= cStoreName %> and fill the store with the payload */
+export const set<%= storeName %>Entities  = createAction(ACTION_SET_ENTITIES, props<SetAsyncStoreItemEntitiesActionPayload<<%= payloadModelName %>>>());
+
+/** Action to update <%= cStoreName %> with known IDs, ignore the new ones */
+export const update<%= storeName %>Entities = createAction(ACTION_UPDATE_ENTITIES, props<UpdateAsyncStoreItemEntitiesActionPayload<% if(!hasCustomId) {%>WithId<% } %><<%= payloadModelName %><% if(hasCustomId) {%>, '<%=modelIdPropName%>'<% } %>>>());
+
+/** Action to update <%= cStoreName %> with known IDs, insert the new ones */
+export const upsert<%= storeName %>Entities = createAction(ACTION_UPSERT_ENTITIES, props<SetAsyncStoreItemEntitiesActionPayload<<%= payloadModelName %>>>());
+
+/** Action to empty the list of entities, keeping the global state */
+export const clear<%= storeName %>Entities = createAction(ACTION_CLEAR_ENTITIES);
+
+/** Action to update failureStatus for every <%= payloadModelName %> */
+export const fail<%= storeName %>Entities = createAction(ACTION_FAIL_ENTITIES, props<FailAsyncStoreItemEntitiesActionPayload<any>>());
+
+/**
+ * Action to put the global status of the store in a pending state. Call SET action with the list of <%= payloadModelName %>s received, when this action resolves.
+ * If the call fails, dispatch FAIL_ENTITIES action
+ */
+export const set<%= storeName %>EntitiesFromApi = createAction(ACTION_SET_ENTITIES_FROM_API, asyncProps<FromApiActionPayload<<%= payloadModelName %>[]>>());
+
+/**
+ * Action to change isPending status of elements to be updated with a request. Call UPDATE action with the list of <%= payloadModelName %>s received, when this action resolves.
+ * If the call fails, dispatch FAIL_ENTITIES action
+ */
+export const update<%= storeName %>EntitiesFromApi = createAction(ACTION_UPDATE_ENTITIES_FROM_API, asyncProps<FromApiActionPayload<<%= payloadModelName %>[]> & { ids: string[] }>());
+
+/**
+ * Action to put global status of the store in a pending state. Call UPSERT action with the list of <%= payloadModelName %>s received, when this action resolves.
+ * If the call fails, dispatch FAIL_ENTITIES action
+ */
+export const upsert<%= storeName %>EntitiesFromApi = createAction(ACTION_UPSERT_ENTITIES_FROM_API, asyncProps<FromApiActionPayload<<%= payloadModelName %>[]>>());

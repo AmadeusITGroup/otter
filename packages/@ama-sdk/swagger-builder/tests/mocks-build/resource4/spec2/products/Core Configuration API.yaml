@@ -1,0 +1,42 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: Core Configuration API
+  description: >-
+    Component file dedicated to all operations related to the product Core Configuration API
+tags:
+  - name: Configuration
+    description: Configuration operations
+    x-api-type: DAPI
+securityDefinitions:
+  basicAuth:
+    type: basic
+    description: HTTP Basic Authentication. Works over `HTTP` and `HTTPS`
+paths:
+  '/configuration/digital/settings':
+    post:
+      summary: Determine the configuration to use for subsequent API transaction.
+      description: >
+        Determine the configuration to use for subsequent API calls.
+
+        The endpoint determines the configuration to use based on a set of business rules
+        defined in a rules engine.
+
+        The facts used by the rules engine are key value pairs (KVPs) provided in the body of the request.
+
+        The end point returns the point of sale id that should be used to build the new authorization header.
+      operationId: determineConfiguration
+      parameters:
+        - name: searchConfigurationRequest
+          description: Request to determine configuration to apply for next api calls
+          in: body
+          schema:
+            $ref: >-
+              ../definitions/SearchConfigurationRequest.yaml#/definitions/SearchConfigurationRequest
+      tags:
+        - Configuration
+      responses:
+        default:
+          description: configuration
+          schema:
+            $ref: '../definitions/SearchConfigurationReply.yaml#/definitions/SearchConfigurationReply'

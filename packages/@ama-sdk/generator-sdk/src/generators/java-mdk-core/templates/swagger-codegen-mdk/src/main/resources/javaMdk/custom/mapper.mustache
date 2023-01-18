@@ -1,0 +1,97 @@
+{{#models}}{{#model}}
+package {{package}}.mapper;
+
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.ValueMappings;
+import org.mapstruct.ValueMapping;
+
+import javax.inject.Inject;
+
+import {{package}}.mapper.delegate.{{backendReference}}MapperDelegate;
+import {{package}}.mapper.delegate.{{classname}}{{frontendModelSuffix}}MapperDelegate;
+
+import {{dapiSdkClientPackage}}.{{backendReference}};
+{{#frontendRefs}}
+import {{package}}.model.core.{{classname}}{{frontendModelSuffix}};
+{{/frontendRefs}}
+{{#childrenMappers}}
+import {{dapiSdkClientPackage}}.{{classname}};
+import {{package}}.model.core.{{classname}}{{frontendModelSuffix}};
+{{/childrenMappers}}
+
+@Mapper(
+uses = {
+{{#nestedMappers}}
+  {{classname}}.class,
+{{/nestedMappers}}
+})
+public abstract class {{classname}}Mapper {
+
+  private @Inject {{backendReference}}MapperDelegate viewToBackendMapperDelegate;
+
+  private @Inject {{classname}}{{frontendModelSuffix}}MapperDelegate backendTo{{frontendModelSuffix}}MapperDelegate;
+
+  {{#childrenMappers}}
+  private @Inject {{classname}}Mapper inner{{classname}}Mapper;
+  {{/childrenMappers}}
+
+  {{#hasChildrenMappers}}
+  public {{backendReference}} create({{classname}}{{frontendModelSuffix}} viewBean) {
+     {{#childrenMappers}}
+     if (viewBean instanceof {{classname}}{{frontendModelSuffix}}) {
+       return inner{{classname}}Mapper.create(({{classname}}{{frontendModelSuffix}})viewBean);
+     }
+     {{/childrenMappers}}
+     return new {{backendReference}}();
+  }
+
+  public {{classname}}{{frontendModelSuffix}} create({{backendReference}} backendBean){
+     {{#childrenMappers}}
+     if (backendBean instanceof {{classname}}) {
+        return inner{{classname}}Mapper.create(({{classname}})backendBean);
+     }
+     {{/childrenMappers}}
+     return new {{classname}}{{frontendModelSuffix}}();
+  }
+  {{/hasChildrenMappers}}
+
+  {{^hasChildrenMappers}}
+  public abstract {{backendReference}} create({{classname}}{{frontendModelSuffix}} viewBean);
+
+  public abstract {{classname}}{{frontendModelSuffix}} create({{backendReference}} backendBean);
+  {{/hasChildrenMappers}}
+
+  {{#vars}}{{#isEnum}}
+  {{^isContainer}}
+  @ValueMappings({@ValueMapping( source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL )})
+  public abstract {{classname}}{{frontendModelSuffix}}.{{{datatypeWithEnum}}} create({{backendReference}}.{{{datatypeWithEnum}}} backendBean);
+
+  @ValueMappings({@ValueMapping( source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL )})
+  public abstract {{backendReference}}.{{{datatypeWithEnum}}} create({{classname}}{{frontendModelSuffix}}.{{{datatypeWithEnum}}} backendBean);
+  {{/isContainer}}
+  {{#isContainer}}
+  @ValueMappings({@ValueMapping( source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL )})
+  public abstract {{classname}}{{frontendModelSuffix}}.{{{items.datatypeWithEnum}}} create({{backendReference}}.{{{items.datatypeWithEnum}}} backendBean);
+
+  @ValueMappings({@ValueMapping( source = MappingConstants.ANY_REMAINING, target = MappingConstants.NULL )})
+  public abstract {{backendReference}}.{{{items.datatypeWithEnum}}} create({{classname}}{{frontendModelSuffix}}.{{{items.datatypeWithEnum}}} viewBean);
+  {{/isContainer}}
+  {{/isEnum}}{{/vars}}
+
+  {{#frontendRefs}}
+  @AfterMapping
+  protected void customize(@MappingTarget {{backendReference}} target, {{classname}}{{frontendModelSuffix}} source) {
+    viewToBackendMapperDelegate.customize(target, source);
+  }
+  {{/frontendRefs}}
+
+  @AfterMapping
+  protected void customize(@MappingTarget {{classname}}{{frontendModelSuffix}} target, {{backendReference}} source) {
+    backendTo{{frontendModelSuffix}}MapperDelegate.customize(target, source);
+  }
+
+}
+{{/model}}{{/models}}

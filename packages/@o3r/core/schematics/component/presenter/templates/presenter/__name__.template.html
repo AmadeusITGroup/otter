@@ -1,0 +1,8 @@
+<!-- Your component template -->
+<span><%= componentName %>, works!</span>
+<% if (activateDummy) { %><% if (useLocalization) { %><div>Localization: {{ translations.dummyLoc1 | translate }}</div><% } %>
+<% if (useOtterAnalytics) { %><button trackClick [trackEventContextConstructor]="analyticsEvents.dummyEvent"></button>
+<button trackClick
+        [trackEventContextConstructor]="analyticsEvents.runtimeDummyEvent"
+        [trackEventContextConstructorParameters]="{runtimedata: 'runtimedata'}">
+</button><% } %><% } %>

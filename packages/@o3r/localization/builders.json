@@ -1,0 +1,20 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/architect/src/builders-schema.json",
+  "builders": {
+    "i18n": {
+      "implementation": "./builders/i18n/",
+      "schema": "./builders/i18n/schema.json",
+      "description": "Generate the i18n"
+    },
+    "extractor": {
+      "implementation": "./builders/localization-extractor/",
+      "schema": "./builders/localization-extractor/schema.json",
+      "description": "Extract the localization keys from an Otter project"
+    },
+    "localization": {
+      "implementation": "./builders/localization/",
+      "schema": "./builders/localization/schema.json",
+      "description": "Generate the localizations"
+    }
+  }
+}

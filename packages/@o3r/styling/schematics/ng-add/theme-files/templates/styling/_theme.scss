@@ -1,0 +1,20 @@
+@use '@o3r/styling' as o3r;
+
+// Generate Material Design Theme
+$meta-theme: o3r.generate-otter-theme() !default;
+
+// Example of usage with RefX palettes :
+// @import '~@o3r/styling/scss/theming/palettes/refx';
+// @use '@angular/material' as mat;
+// $mat-theme: generate-otter-dark-theme(
+//   $primary: mat.define-palette($refx-primary),
+//   $highlight: mat.define-palette($refx-highlight),
+//   $warn: mat.define-palette($refx-warn),
+//   $accent: mat.define-palette($refx-accent),
+// ) !default;
+
+// Convert Meta theme to Otter
+$theme: o3r.meta-theme-to-otter($meta-theme) !default;
+
+// Convert Meta theme to Material Design Theme
+$mat-theme: o3r.meta-theme-to-material($meta-theme) !default;
