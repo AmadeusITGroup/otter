@@ -1,0 +1,36 @@
+/* eslint-disable no-console */
+const https = require('https');
+const appInfoUrl = process.argv[2];
+
+/**
+ * Retrieve application information
+ *
+ * @param {string} appConfUrl
+ */
+const getAppVersion = (appConfUrl) => new Promise((resolve, reject) => {
+  const req = https.request(appConfUrl, {
+    method: 'GET'
+  }, (res) => {
+
+    let chunks = '';
+    res.on('data', (chunk) => chunks += chunk);
+    res.on('error', (err) => reject(err));
+    res.on('end', () => resolve(JSON.parse(chunks)));
+  });
+
+  req.on('error', (err) => reject(err));
+
+  req.end();
+});
+
+getAppVersion(appInfoUrl).then(
+  (res) => {
+    const split = res.dist.path.split('/').filter((item) => !!item);
+    const appVersion = split.pop();
+    console.log(appVersion);
+  },
+  (err) => {
+    console.error(err);
+    process.exit(1);
+  }
+);

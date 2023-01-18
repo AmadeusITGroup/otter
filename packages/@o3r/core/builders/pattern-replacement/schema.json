@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "PatternReplacementBuilderSchema",
+  "title": "Pattern replacement builder",
+  "description": "Replace a given pattern in a list of files",
+  "properties": {
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of files where to replace the pattern",
+      "default": []
+    },
+    "searchValue": {
+      "type": "string",
+      "description": "The RegExp that has to be replaced by replaceValue",
+      "default": ""
+    },
+    "replaceValue": {
+      "type": "string",
+      "description": "A string containing the text to replace for every successful match of searchValue in this string.",
+      "default": ""
+    }
+  },
+  "additionalProperties": false,
+  "required": ["files", "searchValue", "replaceValue"]
+}

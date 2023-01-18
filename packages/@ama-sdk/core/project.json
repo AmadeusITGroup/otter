@@ -1,0 +1,90 @@
+{
+  "name": "ama-sdk-core",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/core/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "packages/@ama-sdk/core/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild",
+        "outputPath": "{projectRoot}/dist/package.json"
+      },
+      "dependsOn": [
+        "compile",
+        "build-esm2015",
+        "build-cjs"
+      ]
+    },
+    "build-esm2015": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:esm2015"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/esm2015"
+      ]
+    },
+    "build-cjs": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cjs"
+      },
+      "dependsOn": [
+        "compile"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/cjs"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{projectRoot}/dist/src",
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/build/.tsbuildinfo"
+      ],
+      "options": {
+        "main": "packages/@ama-sdk/core/src/public_api.ts",
+        "tsConfig": "packages/@ama-sdk/core/tsconfig.esm2020.json",
+        "outputPath": "packages/@ama-sdk/core/dist"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/core/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/core/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-sdk/core/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/core/dist"
+      }
+    }
+  },
+  "tags": []
+}

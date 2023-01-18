@@ -1,0 +1,8 @@
+steps:
+  - task: cascading-plugin@1
+    continueOnError: true
+    inputs:
+      repositoryUrl: $(Build.Repository.Uri)
+      currentBranch: $(Build.SourceBranch)
+      accessToken: $(System.AccessToken)
+      defaultBranch: 'master'

@@ -1,0 +1,123 @@
+@import '../shared/shared-mixin';
+
+o3r-ruleset-history-pres {
+  @include rule-debug-structure;
+
+  .rulesets {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    ul {
+      margin: 0;
+      padding-left: 2rem;
+    }
+
+    li.ruleset:nth-child(odd) {
+      background: #fbfbfb;
+    }
+  }
+
+  .ruleset-panel-category-body li {
+    list-style: disc;
+  }
+
+  li:empty {
+    display: none;
+  }
+
+  .ruleset {
+    border-bottom: 1px solid #dddddd;
+
+    .ruleset-panel-description {
+      padding: 0 1rem 0 2rem;
+      margin-bottom: 2em;
+    }
+
+    &:first-child {
+      border-top: 1px solid #dddddd;
+    }
+  }
+
+  .ruleset-panel-title.ruleset-expansion-action {
+    padding: 0.5rem 1rem;
+  }
+
+  .empty {
+    font-style: italic;
+    padding-left: 1.5rem;
+  }
+
+  .ruleset-panel-category-body:empty.triggers:after {
+    content: "No trigger for this rule";
+    display: block;
+    font-style: italic;
+    padding-bottom: .5rem;
+  }
+
+  .ruleset-panel-title-aside {
+    padding-left: 1rem;
+  }
+
+  .rule-description .capsule {
+    font-size: .8rem;
+    padding: .1rem .5rem;
+    margin: 0 .5rem;
+  }
+
+  .icon {
+    background: none;
+    border: none;
+    font-size: 1rem;
+  }
+
+  .capsule {
+    padding: .3rem;
+    margin: .5rem;
+    font-size: .875rem;
+    min-width: 6rem;
+    text-align: center;
+
+    &.time {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .success {
+    background-color: $ruleset-success-color;
+    color: white;
+  }
+
+  .inactive {
+    background-color: $ruleset-deactivated-color;
+    color: white;
+  }
+
+  .error {
+    color: $ruleset-error-color;
+
+    .capsule.error {
+      background-color: $ruleset-error-color;
+      color: white;
+    }
+  }
+
+  .warn {
+    background-color: $ruleset-warn-color;
+    color: white;
+  }
+
+  .input-key {
+    color: $ruleset-variable-key-color;
+  }
+
+  .input-value {
+    color: $ruleset-variable-value-color;
+  }
+
+  .input-key, .input-value {
+    font-family: monospace;
+  }
+
+}

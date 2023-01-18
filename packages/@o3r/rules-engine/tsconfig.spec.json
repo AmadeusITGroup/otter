@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "composite": true,
+    "outDir": "test",
+    "rootDir": ".",
+    "emitDecoratorMetadata": false
+  },
+  "include": [
+    "./src/**/*.spec.ts",
+    "./testing/mocks/**/*.ts"
+  ],
+  "exclude": []
+}

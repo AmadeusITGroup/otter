@@ -1,0 +1,24 @@
+steps:
+  - template: setup.yml
+
+  - script: |
+      git config user.email $(Build.RequestedForEmail)
+      git config user.name $(Build.QueuedBy)
+    displayName: 'Set git credentials'
+
+  # Generates the CHANGELOG_Major.Minor.md file
+  - script: |
+      filename=$(echo CHANGELOG_$(Build.SourceBranchName).md)
+      echo "Creation of filename $filename"
+      yarn set:version "$(Build.BuildNumber)"
+
+      mkdir change-logs
+      echo "Run changelog on change-logs/$filename"
+      yarn run tools:changelog -i change-logs/$filename
+    displayName: 'Generate change log'
+
+  # Call the publish artifact, using change-logs as workspace, and changelog-artifact as artifact name
+  - template: publish.yml
+    parameters:
+      DIST_WORKSPACE: 'change-logs'
+      DIST_ARTIFACT_NAME: 'changelog-artifact'

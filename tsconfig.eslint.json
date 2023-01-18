@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.base",
+  "include": [
+    ".github/**/*.mjs",
+    ".eslintrc.js",
+    "jest.config.js",
+    "testing/*",
+    "scripts/**/*.js",
+    "scripts/**/*.mjs",
+    ".storybook/**/*.js",
+    "{apps,packages}/@*/*/{builders,schematics,src}/**/*.ts",
+    "{apps,packages,tools}/@*/*/scripts/**/*.js"
+  ]
+}

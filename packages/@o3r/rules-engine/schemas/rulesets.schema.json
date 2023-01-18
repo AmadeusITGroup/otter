@@ -1,0 +1,494 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "RulesEngineRulesets",
+  "type": "object",
+  "properties": {
+    "rulesets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RulesEngineRuleset"
+      }
+    }
+  },
+  "additionalItems": true,
+  "definitions": {
+    "RulesEngineRuleset": {
+      "type": "object",
+      "description": "Interface of a ruleset as it's specified in the json file",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique id associated to a ruleset"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the ruleset"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional ruleset description"
+        },
+        "rules": {
+          "type": "array",
+          "description": "List of rules associated to the ruleset",
+          "items": {
+            "$ref": "#/definitions/RulesEngineRule"
+          }
+        },
+        "validityRange": {
+          "type": "object",
+          "description": "Optional date range where the ruleset will be executed",
+          "properties": {
+            "from": {
+              "type": "string",
+              "description": "Start date of the validity range"
+            },
+            "to": {
+              "type": "string",
+              "description": "End date of the validity range"
+            }
+          },
+          "additionalItems": false
+        },
+        "linkedComponent": {
+          "type": "object",
+          "description": "Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription",
+          "properties": {
+            "library": {
+              "type": "string",
+              "description": "Name of the component library"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the component"
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "library",
+            "name"
+          ]
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "id",
+        "name",
+        "rules"
+      ]
+    },
+    "RulesEngineRule": {
+      "type": "object",
+      "description": "Base for the Rule definition",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique id associated to a rule"
+        },
+        "inputRuntimeFacts": {
+          "type": "array",
+          "description": "Runtime facts that are needed for the rule execution (sent by the CMS)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "inputFacts": {
+          "type": "array",
+          "description": "Facts that are needed for the rule execution (sent by the CMS)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "outputRuntimeFacts": {
+          "type": "array",
+          "description": "Runtime facts that are created/updated by the rule",
+          "items": {
+            "type": "string"
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the rule"
+        },
+        "rootElement": {
+          "$ref": "#/definitions/RulesEngineAllBlock",
+          "description": "rootElement of the rule, that contains either a block, either an action list"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "inputRuntimeFacts",
+        "inputFacts",
+        "outputRuntimeFacts",
+        "rootElement"
+      ]
+    },
+    "RulesEngineAllBlock": {
+      "oneOf": [
+        {
+          "$ref": "#/definitions/RulesEngineActionBlock"
+        },
+        {
+          "$ref": "#/definitions/RulesEngineIfElseBlock"
+        }
+      ]
+    },
+    "RulesEngineActionBlock": {
+      "allOf": [
+        {
+          "type": "object",
+          "properties": {
+            "elementType": {
+              "type": "string",
+              "description": "Type of the block, must be 'ACTION'",
+              "const": "ACTION"
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "elementType"
+          ]
+        },
+        {
+          "oneOf": [
+            {
+              "$ref": "#/definitions/RulesActionSetTemporaryFactBlock"
+            },
+            {
+              "$ref": "#/definitions/RulesActionUpdateConfigBlock"
+            },
+            {
+              "$ref": "#/definitions/RulesActionUpdateAssetBlock"
+            },
+            {
+              "$ref": "#/definitions/RulesActionUpdateLocalisationBlock"
+            },
+            {
+              "$ref": "#/definitions/ActionUpdatePlaceholderBlock"
+            }
+          ]
+        }
+      ]
+    },
+    "ActionUpdatePlaceholderBlock": {
+      "type": "object",
+      "description": "Content of action that updates a placeholder",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "const": "UPDATE_PLACEHOLDER"
+        },
+        "placeholderId": {
+          "type": "string",
+          "description": "Id of the placeholder to update"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "actionType",
+        "placeholderId",
+        "value"
+      ]
+    },
+    "RulesActionUpdateLocalisationBlock": {
+      "type": "object",
+      "description": "Content of action that updates the localizations",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "const": "UPDATE_LOCALISATION"
+        },
+        "key": {
+          "type": "string",
+          "description": "key of the location to update"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "actionType",
+        "key",
+        "value"
+      ]
+    },
+    "RulesActionUpdateAssetBlock": {
+      "type": "object",
+      "description": "Content of action that updates the assets",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "const": "UPDATE_ASSET"
+        },
+        "asset": {
+          "type": "string",
+          "description": "asset to update"
+        },
+        "value": {
+          "type": "string"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "actionType",
+        "asset",
+        "value"
+      ]
+    },
+    "RulesActionSetTemporaryFactBlock": {
+      "type": "object",
+      "description": "Content of action that updates the runtime facts",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "const": "SET_FACT"
+        },
+        "fact": {
+          "type": "string",
+          "description": "Fact to update"
+        },
+        "value": {}
+      },
+      "additionalItems": false,
+      "required": [
+        "actionType",
+        "fact",
+        "value"
+      ]
+    },
+    "RulesActionUpdateConfigBlock": {
+      "type": "object",
+      "description": "Content of action that updates the configuration",
+      "properties": {
+        "actionType": {
+          "type": "string",
+          "description": "Action Type",
+          "const": "UPDATE_CONFIG"
+        },
+        "library": {
+          "type": "string",
+          "description": "Library of the component"
+        },
+        "component": {
+          "type": "string",
+          "description": "name of the component"
+        },
+        "property": {
+          "type": "string",
+          "description": "name of the config property to update"
+        },
+        "value": {}
+      },
+      "additionalItems": false,
+      "required": [
+        "elementType",
+        "actionType",
+        "library",
+        "component",
+        "property",
+        "value"
+      ]
+    },
+    "RulesEngineIfElseBlock": {
+      "type": "object",
+      "description": "Block representing an 'if else' condition. If no condition specified it will execute success elements onlyk",
+      "properties": {
+        "elementType": {
+          "type": "string",
+          "description": "Type of the element, must be 'RULE_BLOCK'",
+          "const": "RULE_BLOCK"
+        },
+        "blockType": {
+          "type": "string",
+          "description": "Type of the block, must be 'IF_ELSE'",
+          "const": "IF_ELSE"
+        },
+        "condition": {
+          "$ref": "#/definitions/RulesEngineCondition",
+          "description": "Condition to be evaluated by the rule engine"
+        },
+        "successElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RulesEngineAllBlock"
+          },
+          "description": "Block to be executed if the condition is true"
+        },
+        "failureElements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RulesEngineAllBlock"
+          },
+          "description": "Block to be executed if the condition is false"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "elementType",
+        "blockType",
+        "successElements",
+        "failureElements"
+      ]
+    },
+    "RulesEngineCondition": {
+      "anyOf": [
+        {
+          "type": "object",
+          "description": "All Condition",
+          "properties": {
+            "all": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RulesEngineNestedCondition"
+              }
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "all"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Any Condition",
+          "properties": {
+            "any": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RulesEngineNestedCondition"
+              }
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "any"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Not Condition",
+          "properties": {
+            "not": {
+              "$ref": "#/definitions/RulesEngineNestedCondition"
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "not"
+          ]
+        }
+      ]
+    },
+    "RulesEngineNestedCondition": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/RulesEngineCondition"
+        },
+        {
+          "$ref": "#/definitions/RulesEngineOperation"
+        }
+      ]
+    },
+    "RulesEngineOperation": {
+      "type": "object",
+      "properties": {
+        "operator": {
+          "type": "string",
+          "description": "Operator"
+        },
+        "lhs": {
+          "$ref": "#/definitions/RulesEnginOperand"
+        },
+        "rhs": {
+          "$ref": "#/definitions/RulesEnginOperand"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "operator",
+        "lhs"
+      ]
+    },
+    "RulesEnginOperand": {
+      "anyOf": [
+        {
+          "type": "object",
+          "description": "Fact Operand",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "FACT"
+            },
+            "value": {
+              "type": "string"
+            },
+            "path": {
+              "description": "JSONPath to deep read the fact value",
+              "type": "string"
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "type",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Runtime Fact Operand",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "RUNTIME_FACT"
+            },
+            "value": {
+              "type": "string"
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "type",
+            "value"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Literal Operand",
+          "properties": {
+            "type": {
+              "type": "string",
+              "const": "LITERAL"
+            },
+            "value": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          },
+          "additionalItems": false,
+          "required": [
+            "type",
+            "value"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "references": [
+    {
+      "path": "./tsconfig.source.json"
+    },
+    {
+      "path": "./tsconfig.jest.json"
+    },
+    {
+      "path": "./tsconfig.jasmine.json"
+    }
+  ]
+}

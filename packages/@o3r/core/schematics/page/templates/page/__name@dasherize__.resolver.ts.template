@@ -1,0 +1,11 @@
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, Resolve} from '@angular/router';
+
+@Injectable()
+export class <%= className %>Resolver implements Resolve<any> {
+  constructor() {}
+
+  public resolve(route: ActivatedRouteSnapshot): any {
+    return route.queryParams;
+  }
+}

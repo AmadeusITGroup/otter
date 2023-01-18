@@ -1,0 +1,60 @@
+{
+  "name": "schematics",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/schematics/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/schematics/src/public_api.ts",
+        "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
+        "outputPath": "packages/@o3r/schematics/dist",
+        "assets": [
+          "packages/@o3r/schematics/src/**/templates/**"
+        ]}
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/schematics/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/schematics/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/schematics/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/schematics/dist"
+      }
+    }
+  },
+  "tags": []
+}

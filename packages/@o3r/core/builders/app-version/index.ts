@@ -1,0 +1,57 @@
+import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+
+import { AppVersionBuilderSchema } from './schema';
+
+export * from './schema';
+
+const PACKAGE_JSON_NOT_FOUND: BuilderOutput = {
+  error: 'package.json not found',
+  success: false
+};
+
+const PACKAGE_JSON_INCORRECT: BuilderOutput = {
+  error: 'package.json incorrect',
+  success: false
+};
+
+/** Maximum number of steps */
+const STEP_NUMBER = 2;
+
+export default createBuilder<AppVersionBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+  context.reportRunning();
+  context.reportProgress(1, STEP_NUMBER, 'Find current version');
+  const packageJsonFile = path.resolve(context.workspaceRoot, 'package.json');
+  if (!fs.existsSync(packageJsonFile)) {
+    return PACKAGE_JSON_NOT_FOUND;
+  }
+  const packageJson = await new Promise<string>((resolve, reject) =>
+    fs.readFile(
+      packageJsonFile,
+      {encoding: 'utf-8'},
+      (err, data) => err ? reject(err) : resolve(data)
+    )
+  );
+  let version: string;
+  try {
+    version = JSON.parse(packageJson).version;
+    context.logger.info(`Current version: ${version}`);
+  } catch {
+    return PACKAGE_JSON_INCORRECT;
+  }
+
+  context.reportProgress(2, STEP_NUMBER, 'Running @o3r/core:pattern-replacement');
+  const builderName = '@o3r/core:pattern-replacement';
+  const buildOptions = await context.validateOptions({
+    files: [options.file],
+    searchValue: options.versionToReplace,
+    replaceValue: version
+  }, builderName);
+  const build = await context.scheduleBuilder(builderName, buildOptions);
+
+  // Stop pattern-replacement build if app-version stops
+  context.addTeardown(async () => await build.stop());
+
+  return build.result;
+});

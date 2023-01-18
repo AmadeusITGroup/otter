@@ -1,0 +1,61 @@
+{
+  "name": "@ama-terasu/cli",
+  "version": "0.0.0-placeholder",
+  "description": "Command Line Interface to administrate a Digital Experience Suite projects",
+  "main": "dist/src/cli/ama.js",
+  "license": "MIT",
+  "repository": "https://github.com/amadeus-digital/Otter",
+  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build amaterasu-cli",
+    "postbuild": "patch-package-json-main",
+    "start": "tsc --declaration --declarationMap --watch --pretty"
+  },
+  "cliModules": [
+    "@ama-des/amaterasu-desapp"
+  ],
+  "bin": {
+    "ama": "dist/scr/cli/ama.js"
+  },
+  "devDependencies": {
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/minimist": "^1.2.2",
+    "@types/node": "^17.0.23",
+    "@types/progress": "^2.0.5",
+    "@types/prompts": "^2.0.14",
+    "@types/yargs": "^17.0.10",
+    "chalk": "^4.1.2",
+    "jest": "~28.1.1",
+    "jsonschema": "~1.4.1",
+    "loglevel": "^1.8.0",
+    "minimist": "^1.2.6",
+    "nx": "^15.3.3",
+    "ora": "~5.4.1",
+    "progress": "^2.0.3",
+    "prompts": "^2.4.2",
+    "ts-jest": "^28.0.5",
+    "ts-loader": "^9.2.6",
+    "tslib": "^2.4.1",
+    "typescript": "~4.8.4",
+    "webpack": "~5.75.0",
+    "webpack-cli": "~4.10.0"
+  },
+  "dependencies": {
+    "@ama-des/amaterasu-desapp": "latest",
+    "@ama-terasu/core": "workspace:^",
+    "@o3r/amaterasu-dapi-spec": "workspace:^",
+    "@o3r/amaterasu-dodo": "workspace:^",
+    "@o3r/amaterasu-otter": "workspace:^",
+    "@o3r/amaterasu-sdk": "workspace:^",
+    "tslib": "^2.4.1",
+    "yargs": "^17.4.1"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.22.0"
+  }
+}

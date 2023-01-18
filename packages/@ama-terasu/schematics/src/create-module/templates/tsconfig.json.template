@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "importHelpers": true,
+    "outDir": "./dist",
+    "strict": true,
+  },
+  "files": [
+    "./src/index.ts"
+  ]
+}

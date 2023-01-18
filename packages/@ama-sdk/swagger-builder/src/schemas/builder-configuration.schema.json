@@ -1,0 +1,96 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "pathsBlackList": {
+      "type": "array",
+      "description": "List of black listed paths to remove from the final swagger specification",
+      "items": {
+        "type": "string",
+        "description": "Black listed path"
+      }
+    },
+    "pathsWhiteList": {
+      "type": "array",
+      "description": "List of white listed paths to keep to the final swagger specification",
+      "items": {
+        "type": "string",
+        "description": "White listed path"
+      }
+    },
+    "artifact": {
+      "type": "string",
+      "description": "Name of the generated artifact. Keep it undefined to not generate package.json file"
+    },
+    "setVersion": {
+      "type": "string",
+      "description": "Set a version to the file Swagger specification"
+    },
+    "setVersionAuto": {
+      "type": "boolean",
+      "description": "If enabled, the version from the current package.json will be applied to the final swagger specification"
+    },
+    "specs": {
+      "type": "array",
+      "description": "List of swagger spec to merge. This will be completed with the list given as argument",
+      "items": {
+        "type": "string",
+        "description": "Swagger specification to be merged"
+      }
+    },
+    "output": {
+      "type": "string",
+      "description": "Path to the file generate the Swagger specification"
+    },
+    "outputFormat": {
+      "type": "string",
+      "description": "Format of the generated Swagger Specification",
+      "enum": [
+        "yaml",
+        "split",
+        "json"
+      ]
+    },
+    "validation": {
+      "type": "boolean",
+      "description": "Determine if we validate the Swagger after generation"
+    },
+    "flagDefinition": {
+      "type": "boolean",
+      "description": "Flag all definition with a vendor extension x-api-ref: {Definition name}"
+    },
+    "flattenConflictedDefinition": {
+      "type": "boolean",
+      "description": "Merge based interface with new override in case of definition name conflict"
+    },
+    "buildMdkSpec": {
+      "type": "boolean",
+      "description": "Build the swagger spec to be MDK compliant"
+    },
+    "awsCompat": {
+      "type": "boolean",
+      "description": "Enable the AWS compatibility mode"
+    },
+    "treeShaking": {
+      "type": "boolean",
+      "description": "Enable Tree Shaking of the swagger spec"
+    },
+    "treeShakingStrategy": {
+      "type": "string",
+      "description": "Change tree shaking strategy",
+      "enum": [
+        "bottom-up",
+        "top-down"
+      ],
+      "default": "bottom-up"
+    },
+    "ignoreConflict": {
+      "type": "boolean",
+      "description": "Determine if the path conflict should be ignored"
+    }
+  },
+  "required": [
+    "output",
+    "outputFormat"
+  ]
+}

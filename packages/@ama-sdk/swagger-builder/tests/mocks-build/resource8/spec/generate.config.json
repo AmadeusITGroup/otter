@@ -1,0 +1,7 @@
+{
+  "$schema": "../../../src/schemas/api-configuration.schema.json",
+  "swaggerTemplate": ["./templates/template1.yaml", "./templates/template2.yaml"],
+  "products": [
+    "Core Configuration API"
+  ]
+}

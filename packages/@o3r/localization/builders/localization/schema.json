@@ -1,0 +1,82 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "LocalizationBuilderSchema",
+  "title": "Localization builder",
+  "description": "Localization builder options",
+  "properties": {
+    "browserTarget": {
+      "type": "string",
+      "description": "Target to build."
+    },
+    "localizationExtracterTarget": {
+      "type": "string",
+      "description": "Target translation extracter."
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Output path to localization bundles",
+      "default": "."
+    },
+    "locales": {
+      "type": "array",
+      "description": "List of languages to generate",
+      "default": ["en-GB"],
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaultLanguageMapping": {
+      "type": "object",
+      "description": "Map that associates to a locale, the other locale / language that should be used as default values",
+      "default": {},
+      "additionalProperties": { "type":  "string" }
+    },
+    "useMetadataAsDefault": {
+      "type": "boolean",
+      "description": "Should missing translations for a given language be filled from the default values from the metadata or not",
+      "default": true
+    },
+    "ignoreReferencesIfNotDefault": {
+      "type": "boolean",
+      "description": "Do not resolve references when the value of the child key has been customized (eg. is neither undefined or the default value)",
+      "default": false
+    },
+    "assets": {
+      "oneOf": [
+        {
+          "type": "string",
+          "default": null
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": null
+        }
+      ],
+      "description": "Asset folder containing the package translations",
+      "default": null
+    },
+    "checkUnusedTranslation": {
+      "type": "boolean",
+      "description": "Check if a translation from the asset folder is not a registered translation",
+      "default": true
+    },
+    "watch": {
+      "type": "boolean",
+      "description": "Enable watch mode",
+      "default": false
+    },
+    "failIfMissingMetadata": {
+      "type": "boolean",
+      "description": "Throws an error if there is missing metadata",
+      "default": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "localizationExtracterTarget",
+    "browserTarget"
+  ]
+}

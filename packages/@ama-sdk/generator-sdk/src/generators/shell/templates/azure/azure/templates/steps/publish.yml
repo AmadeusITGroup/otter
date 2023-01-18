@@ -1,0 +1,12 @@
+parameters:
+  -  name: 'DIST_WORKSPACE'
+     default: '$(System.DefaultWorkingDirectory)/dist'
+     type: string
+  -  name: 'DIST_ARTIFACT_NAME'
+     default: 'dist'
+     type: string
+
+steps:
+  - publish: ${{ parameters.DIST_WORKSPACE }}
+    condition: succeeded()
+    artifact: ${{ parameters.DIST_ARTIFACT_NAME }}

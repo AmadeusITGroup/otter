@@ -1,0 +1,22 @@
+$private-dark-default: (
+  panel-background: #000,
+  light-graphical-line-color: #090909,
+  medium-graphical-line-color: rgb(33, 33, 34)
+);
+
+
+$otter-dark-default: (
+  // Panels
+  primary-background: #050505,
+
+  // Validation / progress bar colors
+  success-color: #0AA937,
+  progress-filter: linear-gradient(to left, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
+
+  // Borders / separators
+  dark-graphical-line: #61688F,
+  focus-outline-color: rgb(0, 75, 124),
+
+  // Shadow
+  shadow-color: rgba(0, 0, 0, 0.22),
+);

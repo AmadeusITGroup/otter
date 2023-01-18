@@ -1,0 +1,25 @@
+{
+  "name": "eslint-config-otter",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/eslint-config-otter",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist"
+      ],
+      "options": {
+        "script": "build"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/eslint-config-otter/dist"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "AppVersionBuilderSchema",
+  "title": "App version builder",
+  "description": "Set the app version",
+  "properties": {
+    "file": {
+      "type": "string",
+      "description": "File where to replace the version",
+      "default": "src/environments/environment.prod.ts"
+    },
+    "versionToReplace": {
+      "type": "string",
+      "description": "String to be replaced by the version",
+      "default": "%VERSION%"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["file", "versionToReplace"]
+}

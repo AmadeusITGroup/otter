@@ -1,0 +1,83 @@
+import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, <% if (useOtterConfig) { %>Input, <% } %>OnDestroy, OnChanges, OnInit, <% if (useOtterConfig) { %>Optional, <% } %>SimpleChanges, ViewChild, ViewEncapsulation} from '@angular/core';
+import {O3rComponent} from '@o3r/core';
+<% if (useOtterConfig) { %>import {ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable} from '@o3r/configuration';
+<% } %>import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
+import {generateIFrameContent, IframeBridge} from '@o3r/third-party';<% if (useOtterConfig) { %>
+import {<%=configKey%>_DEFAULT_CONFIG, <%=configKey%>_CONFIG_ID, <%= componentConfig %>} from './<%= name %>.config';<% } %>
+
+@O3rComponent({
+  componentType: <%= componentType %>
+})
+@Component({
+  selector: '<%= componentSelector %>',
+  templateUrl: './<%= name %>.template.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
+})
+export class <%= componentName %> implements
+  OnInit,
+  OnChanges,
+  OnDestroy,
+  AfterViewInit<% if (useOtterConfig) { %>,
+  DynamicConfigurable<<%=componentConfig%>><% } %> {
+
+  <% if (useOtterConfig) { %>/** Input configuration to override the default configuration of the component */
+  @Input()
+  public config: Partial<<%=componentConfig%>> | undefined;
+
+  /** Dynamic configuration based on the input override configuration and the configuration service if used by the application */
+  @ConfigObserver()
+  private dynamicConfig$: ConfigurationObserver<<%=componentConfig%>>;
+
+  /** Configuration stream based on the input and the stored configuration */
+  public config$: Observable<<%=componentConfig%>>;
+
+  <% } %>// Iframe object template reference
+  @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
+
+  // List of subscriptions to unsubscribe on destroy
+  private subscriptions: Subscription[] = [];
+
+  // object that exposes an easy abstraction layer to communicate between a Host and an IFrame
+  private bridge: IframeBridge;
+
+  constructor(<% if (useOtterConfig) { %>@Optional() configurationService?: ConfigurationBaseService<% } %>) {<% if (useOtterConfig) { %>
+    this.dynamicConfig$ = new ConfigurationObserver<<%=componentConfig%>>(<%= configKey %>_CONFIG_ID, <%= configKey %>_DEFAULT_CONFIG, configurationService);
+    this.config$ = this.dynamicConfig$.asObservable();<% } %>
+  }
+
+  public ngOnInit() {
+    // Run on component initialization
+  }
+
+  public ngAfterViewInit() {
+    if (this.frame.nativeElement.contentDocument) {
+      this.frame.nativeElement.contentDocument.write(generateIFrameContent('' /* third-party-script-url */, '' /* third-party-html-headers-to-add */));
+      this.frame.nativeElement.contentDocument.close();
+    }
+    if (this.frame.nativeElement.contentWindow) {
+      this.bridge = new IframeBridge(window, this.frame.nativeElement);
+      this.subscriptions.push(
+        this.bridge.messages$.subscribe((message) => {
+          switch (message.action) {
+            /* custom logic based on received message */
+            default:
+              console.warn('Received unsupported action: ', message.action);
+          }
+        })
+      );
+    }
+  }
+
+  public ngOnChanges(change: SimpleChanges) {
+    // Run on every change of inputs<% if (useOtterConfig) { %>
+    if (change.config) {
+      this.dynamicConfig$.next(this.config);
+    }<% } %>
+  }
+
+  public ngOnDestroy() {
+    // clean the subscriptions
+    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+  }
+}

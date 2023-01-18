@@ -1,0 +1,210 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
+  "npmScope": "o3r",
+  "affected": {
+    "defaultBase": "remotes/origin/main"
+  },
+  "cli": {
+    "defaultCollection": "@o3r/core",
+    "analytics": false,
+    "packageManager": "yarn",
+    "cache": {
+      "enable": true,
+      "environment": "all",
+      "path": ".cache/angular"
+    }
+  },
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.base.json": "*",
+    "tsconfig.build.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "useDaemonProcess": false,
+        "cacheableOperations": [
+          "prepare",
+          "compile",
+          "build",
+          "build-cjs",
+          "build-esm2015",
+          "build-react",
+          "build-panel",
+          "build-wrapper",
+          "build-source",
+          "build-builders",
+          "build-schematics",
+          "build-extension",
+          "build-components",
+          "build-tools",
+          "build-plugins",
+          "extract-translations",
+          "extract-components",
+          "extract-style",
+          "extract-rules-engine",
+          "lint",
+          "prepare-build-builders",
+          "test",
+          "build-swagger"
+        ],
+        "cacheDirectory": ".cache/nx"
+      }
+    }
+  },
+  "namedInputs": {
+    "builders": [
+      "{projectRoot}/builders.json",
+      "{projectRoot}/builders/**/*",
+      "{projectRoot}/package.json"
+    ],
+    "schematics": [
+      "{projectRoot}/migration.json",
+      "{projectRoot}/collection.json",
+      "{projectRoot}/schematics/**/*",
+      "{projectRoot}/package.json"
+    ],
+    "lint": [
+      "default",
+      "{workspaceRoot}/.eslintrc.json",
+      "{workspaceRoot}/.eslintignore"
+    ],
+    "specs": [
+      "default"
+    ],
+    "source": [
+      "default",
+      "!{projectRoot}/plugins/**/*",
+      "!{projectRoot}/builders.json",
+      "!{projectRoot}/builders/**/*",
+      "!{projectRoot}/migration.json",
+      "!{projectRoot}/collection.json",
+      "!{projectRoot}/schematics/**/*",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/testing/**/*",
+      "!{projectRoot}/mocks/**/*",
+      "!{projectRoot}/jest.config.*",
+      "{projectRoot}/package.json"
+    ],
+    "plugins": [
+      "{projectRoot}/plugins/**/*",
+      "{projectRoot}/package.json"
+    ]
+  },
+  "targetDefaults": {
+    "lint": {
+      "inputs": ["lint"]
+    },
+    "test": {
+      "inputs": ["specs", "^specs"]
+    },
+    "publish":  {},
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": []
+    },
+    "compile": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "source",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/"
+      ]
+    },
+    "prepare-build-builders": {
+      "dependsOn": [
+        "compile"
+      ],
+      "inputs": [
+        "builders",
+        "schematics",
+        "source",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/builders.json",
+        "{projectRoot}/dist/migration.json",
+        "{projectRoot}/dist/collection.json",
+        "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/templates"
+      ]
+    },
+    "build-builders": {
+      "dependsOn": [
+        "^build",
+        "compile",
+        "prepare-build-builders"
+      ],
+      "inputs": [
+        "builders",
+        "schematics",
+        "source",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/builders",
+        "{projectRoot}/dist/schematics",
+        "{projectRoot}/build"
+      ]
+    },
+    "build-plugins": {
+      "dependsOn": [
+        "^build",
+        "compile"
+      ],
+      "inputs": [
+        "plugins"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/plugins",
+        "{projectRoot}/build/plugins"
+      ]
+    }
+  },
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@o3r/components:iframe-component": {
+      "path": "apps/@o3r/demo/src/components"
+    },
+    "@o3r/core:component": {
+      "path": "apps/@o3r/demo/src/components",
+      "useStorybook": true
+    },
+    "@o3r/core:service": {
+      "path": "apps/@o3r/demo/src/services"
+    },
+    "@o3r/core:store": {
+      "path": "apps/@o3r/demo/src/stores",
+      "testFramework": "jest"
+    },
+    "@o3r/core:page": {
+      "path": "apps/@o3r/demo/src/app",
+      "appRoutingModulePath": "apps/@o3r/demo/src/app/app.routing.module.ts"
+    },
+    "@o3r/testing:playwright-sanity": {
+      "path": "apps/@o3r/demo/src/e2e-playwright/sanity"
+    },
+    "@o3r/testing:playwright-scenario": {
+      "path": "apps/@o3r/demo/src/e2e-playwright/scenarios"
+    }
+  },
+  "defaultProject": "core",
+  "workspaceLayout": {
+    "libsDir": "packages",
+    "appsDir": "apps"
+  }
+}

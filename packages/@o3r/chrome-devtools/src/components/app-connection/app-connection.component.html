@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="appState$ | async">
+  <div *ngSwitchCase="'loading'" class="alert alert-warning m-2" role="alert">
+    Waiting for the application to connect to the Otter Chrome DevTools...
+  </div>
+
+  <div *ngSwitchCase="'timeout'" class="alert alert-danger m-2" role="alert">
+    The application does not seem to be compatible with the Otter Chrome DevTools.
+  </div>
+
+  <ng-container *ngSwitchCase="'connected'">
+    <ng-content></ng-content>
+  </ng-container>
+</ng-container>

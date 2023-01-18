@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGeneratePlaywrightScenarioSchematicsSchema",
+  "title": "Generate Playwright scenario",
+  "description": "ng generate Playwright scenario",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "name": {
+      "type": "string",
+      "description": "Scenario name",
+      "x-prompt": "Scenario name?",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the playwright scenarios"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name"
+  ]
+}

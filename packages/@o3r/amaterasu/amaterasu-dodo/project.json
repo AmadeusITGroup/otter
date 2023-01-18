@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "name": "amaterasu-dodo",
+  "root": "packages/@o3r/amaterasu/amaterasu-dodo",
+  "sourceRoot": "packages/@o3r/amaterasu/amaterasu-dodo/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/amaterasu/amaterasu-dodo/src/index.ts",
+        "tsConfig": "packages/@o3r/amaterasu/amaterasu-dodo/tsconfig.build.json",
+        "outputPath": "packages/@o3r/amaterasu/amaterasu-dodo/dist",
+        "assets": [
+          "packages/@o3r/amaterasu/amaterasu-dodo/{builders,extractors,schematics}/**/templates/**",
+          "packages/@o3r/amaterasu/amaterasu-dodo/{builders,collection,migration}.json",
+          "packages/@o3r/amaterasu/amaterasu-dodo/cli/*"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-dodo/.eslintrc.js",
+        "lintFilePatterns": ["packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/amaterasu/amaterasu-dodo/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/amaterasu/amaterasu-dodo/dist"
+      }
+    }
+  },
+  "tags": []
+}

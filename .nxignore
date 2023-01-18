@@ -1,0 +1,4 @@
+**/src/package.json
+packages/@*/*/{builders,schematics}/**/templates/**
+packages/@*/*/{builders,schematics}/**/mocks/**
+packages/@*/*/build/**

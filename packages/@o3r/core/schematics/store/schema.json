@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateStoreSchematicsSchema",
+  "title": "Generate Otter Store",
+  "description": "ng generate Otter Store",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Name of the project",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "storeType": {
+      "type": "string",
+      "enum": [
+        "entity-async",
+        "simple-async",
+        "entity-sync",
+        "simple-sync"
+      ],
+      "description": "Type of the store",
+      "x-prompt": "Which type of store do you want to create ? \n The entity store contains a collection of items in the state, while the simple one contains only one.\n The async store is designed to interact with an api, and handles the asynchronous call via effects.",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the stores"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    },
+
+    "storeName": {
+      "type": "string",
+      "description": "Name of the Store",
+      "minLength": 1
+    },
+    "sdkPackage": {
+      "type": "string",
+      "description": "Sdk package"
+    },
+    "modelName": {
+      "type": "string",
+      "description": "The SDK Model to use as store item (e.g. AirOffer):"
+    },
+    "modelIdPropName": {
+      "type": "string",
+      "description": "The property name that identifies the model:"
+    },
+    "testFramework": {
+      "type": "string",
+      "enum": [
+        "jest",
+        "jasmine"
+      ],
+      "description": "Test framework used",
+      "default": "jasmine"
+    }
+
+  },
+  "additionalProperties": true,
+  "required": [
+    "storeType"
+  ]
+}

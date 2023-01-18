@@ -1,0 +1,64 @@
+{
+  "name": "ama-sdk-swagger-builder",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/swagger-builder/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{projectRoot}/dist/src"
+      ],
+      "options": {
+        "main": "packages/@ama-sdk/swagger-builder/src/cli/build.ts",
+        "tsConfig": "packages/@ama-sdk/swagger-builder/tsconfig.build.json",
+        "outputPath": "packages/@ama-sdk/swagger-builder/dist",
+        "assets": [
+          "packages/@ama-sdk/swagger-builder/src/schemas/*.json"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/swagger-builder/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/swagger-builder/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-sdk/swagger-builder/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/swagger-builder/dist"
+      }
+    }
+  },
+  "tags": []
+}

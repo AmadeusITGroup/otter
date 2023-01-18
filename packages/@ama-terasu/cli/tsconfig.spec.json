@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "include": [
+    "src/**/*.spec.ts"
+  ],
+  "exclude": []
+}

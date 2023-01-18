@@ -1,0 +1,160 @@
+trigger:
+- release/*
+- master
+
+pr:
+  branches:
+    include:
+    - release/*
+    - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  AZURE_FEED_RELEASE: ''
+  AZURE_FEED_PR: ''
+  isPR: $[eq(variables['Build.Reason'], 'PullRequest')]
+
+stages:
+- stage: versioning
+  jobs:
+    - job: versioning
+      steps:
+        - template: azure/templates/steps/versioning.yml
+
+- stage: build
+  dependsOn: [versioning]
+  jobs:
+  - job: build
+    steps:
+    - template: azure/templates/steps/setup.yml
+
+    - script: |
+        yarn set:version "$(Build.BuildNumber)"
+      displayName: 'Set production version'
+
+    - script: yarn build
+      displayName: 'Build'
+
+    - template: azure/templates/steps/publish.yml
+
+- stage: Test
+  dependsOn: []
+  jobs:
+  - job: test
+    steps:
+      - template: azure/templates/steps/setup.yml
+
+      - template: azure/templates/steps/test.yml
+  - job: lint
+    steps:
+      - checkout: self
+        persistCredentials: true
+        clean: false
+
+      - template: azure/templates/steps/setup.yml
+
+      - bash: |
+          export TIMING=1
+          yarn lint:ci
+        displayName: 'Lint Full Source Code'
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Linter Results'
+        inputs:
+          testResultsFiles: 'dist-lint/*.xml'
+          searchFolder: '$(System.DefaultWorkingDirectory)/'
+          failTaskOnFailedTests: true
+          testRunTitle: '@<%=projectName%>/<%=projectPackageName%> - Linter'
+        condition: succeededOrFailed()
+
+- stage: GenerateDoc
+  dependsOn: []
+  jobs:
+    - job: generateTypeDoc
+      steps:
+        - checkout: self
+          persistCredentials: true
+          clean: false
+
+        - template: azure/templates/steps/setup.yml
+
+        - bash: yarn doc:generate
+
+        - template: azure/templates/steps/publish.yml
+          parameters:
+            DIST_WORKSPACE: '$(System.DefaultWorkingDirectory)/generated-typedoc'
+            DIST_ARTIFACT_NAME: 'typedoc'
+
+- stage: Audit
+  dependsOn: []
+  jobs:
+    - job: audit
+      steps:
+        - template: azure/templates/steps/setup.yml
+
+        - task: yarn-audit-task@1
+          inputs:
+            path: '$(System.DefaultWorkingDirectory)'
+            level: 'critical'
+
+- stage: ChangeLog
+  dependsOn: [versioning]
+  condition: ne(variables['Build.Reason'], 'PullRequest')
+  jobs:
+    - job: ChangeLog
+      steps:
+        - template: azure/templates/steps/change-log-generate.yml
+
+- stage: RepositoryUpdate
+  dependsOn: [versioning, build, Test, ChangeLog, GenerateDoc]
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+    - job: RepositoryReporting
+      steps:
+        - checkout: self
+          persistCredentials: true
+          clean: false
+
+        - template: azure/templates/steps/change-log-publish.yml
+
+        - template: azure/templates/steps/set-version-tag.yml
+          parameters:
+            semVer: $(Build.BuildNumber)
+
+- stage: Publish
+  dependsOn: [RepositoryUpdate]
+  condition: succeeded()
+  jobs:
+    - job: Publish
+      steps:
+        - checkout: none
+          persistCredentials: true
+
+        - template: azure/templates/steps/retrieve.yml
+
+        - script: |
+            prerelease=$(echo "$(Build.BuildNumber)" | grep -o '[A-z]*')
+            prerelease=$([ -z "$prerelease" ] && echo "latest" || echo "$prerelease")
+            echo "##vso[task.setvariable variable=prerelease;isSecret=false;isOutput=true;]$prerelease"
+          displayName: 'Compute release type'
+          name: releaseType
+
+        - script: |
+            if [ "$(isPR)" = 'True' ]; then
+                feed="$(AZURE_FEED_PR)"
+            else
+                feed="$(AZURE_FEED_RELEASE)"
+            fi;
+            organization=$(basename "$(System.CollectionUri)")
+            touch .npmrc
+            echo "registry=https://pkgs.dev.azure.com/${organization}/$(System.TeamProject)/_packaging/${feed}/npm/registry/" >> .npmrc
+            echo "always-auth=true" >> .npmrc
+
+        - task: npmAuthenticate@0
+          inputs:
+            workingFile: "$(System.DefaultWorkingDirectory)/.npmrc"
+
+        - script: npm publish ./dist --tag $(releaseType.prerelease) --userconfig "$(System.DefaultWorkingDirectory)/.npmrc"
+          displayName: 'Publish NPM Package'

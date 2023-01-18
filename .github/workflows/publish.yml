@@ -1,0 +1,59 @@
+name: Publish Packages
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+        description: Version of the artifact to publish
+      prerelease:
+        type: boolean
+        default: false
+        required: false
+        description: Version of the artifact to publish
+    secrets:
+      AZ_AR_PASSWORD:
+        required: true
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get version
+        id: get-version
+        uses: actions/github-script@v6
+        env:
+          tagName: ${{ inputs.version || github.ref_name }}
+        with:
+          script: |
+            const version = process.env.tagName.replace(/^v/i, '');
+            core.setOutput('version', version)
+      - name: Setup
+        uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'true'
+          install-jdk: 'true'
+      - name: Build
+        run: yarn build:local-swagger-gen
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Set new version
+        run: yarn set:version ${{ steps.get-version.outputs.version }}
+      - name: Get tag name
+        id: get-npm-tag
+        uses: ./.github/actions/get-npm-tag
+        with:
+          is-prerelease: ${{ inputs.prerelease || (github.event.release && github.event.release.prerelease) }}
+          version: ${{ steps.get-version.outputs.version }}
+      - name: Publish
+        run: yarn run publish --tag=${{ steps.get-npm-tag.outputs.tag }} --userconfig=./.npmrc.publish
+        env:
+          GITHUB_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}

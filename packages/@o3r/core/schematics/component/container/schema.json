@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateComponentContainerSchematicsSchema",
+  "title": "Generate Otter Container Component",
+  "description": "ng generate Otter Container Component",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "componentName": {
+      "type": "string",
+      "description": "Component name",
+      "x-prompt": "Your component name?",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the components"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Prefix of your component selector"
+    },
+    "componentStructure": {
+      "type": "string",
+      "enum": [
+        "full",
+        "container"
+      ],
+      "description": "Structure of the component you want to generate ('full' | 'container')",
+      "default": "container"
+    },
+    "useComponentFixtures": {
+      "type": "boolean",
+      "description": "Generate component fixtures for tests",
+      "default": true,
+      "x-prompt": "Generate component fixtures for tests?"
+    },
+    "useOtterConfig": {
+      "type": "boolean",
+      "description": "Generate component with Otter configuration",
+      "default": true
+    },
+    "useContext": {
+      "type": "boolean",
+      "description": "Generate component context",
+      "default": true
+    },
+    "description": {
+      "type": "string",
+      "description": "Component description",
+      "x-prompt": "Your container description?"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "componentName"
+  ]
+}

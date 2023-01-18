@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "mapRoot": "./src",
+    "incremental": true,
+    "lib": ["ES2020", "dom"],
+    "types": ["chrome"],
+    "outDir": "dist",
+    "module": "ES2020",
+    "moduleResolution": "Node"
+  },
+  "include": [
+    "src/extension/**/*.ts"
+  ]
+}

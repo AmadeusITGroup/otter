@@ -1,0 +1,98 @@
+import { RootContext } from '@ama-terasu/core';
+import * as chalk from 'chalk';
+import * as logger from 'loglevel';
+import { EOL } from 'node:os';
+import * as ora from 'ora';
+import ProgressBar from 'progress';
+import { Arguments, Argv, terminalWidth } from 'yargs';
+import { error } from 'loglevel';
+import { formatHelpMessage } from '../helpers';
+
+/**
+ * Generate a formatted usage message
+ *
+ * @param moduleName Nome of the module
+ * @param command CLI Command
+ * @param longDescription Long description of the command to add additional information
+ * @param cmdParameters Parameters of the command
+ * @param baseCommand Argument of the cli
+ */
+export const generateUsageMessage = (moduleName: string, command?: string, longDescription?: string, cmdParameters = '[options]', baseCommand = '$0') => {
+  return `${chalk.grey('Usage:')} ${baseCommand} ${chalk.cyan(moduleName)}${command ? ' ' + command : ''} ${chalk.grey(cmdParameters)}` +
+    (longDescription ? `${EOL}${EOL}${chalk.grey('Description:')}${EOL}${longDescription}` : '');
+};
+
+/**
+ * Show Help message
+ *
+ * @param amaYargs instance of current Yarg
+ * @param arg Argument of the command
+ */
+export const showHelpMessage = (amaYargs: Argv, arg: Arguments) => {
+  amaYargs.showHelp((message) => error(formatHelpMessage(message, arg)));
+  process.exit(0);
+};
+
+/**
+ * Base context of a CLI module
+ */
+export const baseContext: RootContext = {
+  generateUsageMessage,
+
+  showHelpMessage,
+
+  getContext: (config) => {
+    const newLogger = logger.getLogger(config._.join('-'));
+    newLogger.setLevel(config.verbose ? logger.levels.DEBUG : logger.levels.INFO);
+    return {
+      logger: newLogger,
+      getProgressBar: (total, initialLabel) => {
+        const progress = new ProgressBar(`[:bar] ${chalk.grey('(:current/:total)')} :label`, {
+          total,
+          width: Math.floor(terminalWidth() / 4),
+          incomplete: chalk.gray('-')
+        });
+
+        progress.render({ label: initialLabel });
+
+        return {
+          complete: () => {
+            progress.update(1);
+            progress.terminate();
+          },
+          tick: (update) => {
+            const { label, value } = update || {};
+            if (typeof value !== 'undefined') {
+              return progress.update(progress.total / value, { label });
+            }
+            progress.tick({ label });
+          }
+        };
+      },
+      getSpinner: (initialLabel) => {
+        const spinner = ora({
+          color: 'cyan',
+          text: initialLabel,
+          interval: 500
+        });
+
+        return {
+          start: () => !spinner.isSpinning && spinner.start(),
+          updateLabel: (label) => { spinner.text = label; },
+          fail: (text) => spinner.isSpinning && spinner.fail(text),
+          succeed: (text) => spinner.isSpinning && spinner.succeed(text),
+          fromPromise: (promise, successLabel, failureLabel) => {
+            const chainPromise = promise.then(
+              // eslint-disable-next-line no-use-before-define
+              successLabel ? (res) => { pSpinner.text = successLabel; return res; } : undefined,
+              // eslint-disable-next-line no-use-before-define
+              failureLabel ? (e) => { pSpinner.text = failureLabel; pSpinner.render(); throw e; } : undefined
+            );
+            const pSpinner = ora.promise(chainPromise, initialLabel);
+            return chainPromise as typeof promise;
+          }
+        };
+      }
+    };
+  }
+};

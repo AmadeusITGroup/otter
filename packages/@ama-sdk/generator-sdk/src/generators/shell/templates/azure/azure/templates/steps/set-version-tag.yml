@@ -1,0 +1,12 @@
+parameters:
+  - name: 'semVer'
+    type: string
+    default: ''
+
+steps:
+  - script: |
+      git config --global user.email "$(Build.RequestedForEmail)"
+      git config --global user.name "$(Build.QueuedBy)"
+      git tag -a "${{parameters.semVer}}" -m "v${{parameters.semVer}}"
+      git push --verbose --tags
+    displayName: 'Set Version'

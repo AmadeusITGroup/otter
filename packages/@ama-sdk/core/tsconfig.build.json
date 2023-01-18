@@ -1,0 +1,22 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "rootDir": "./src",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "scripthost",
+      "es2017.object",
+      "esnext"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

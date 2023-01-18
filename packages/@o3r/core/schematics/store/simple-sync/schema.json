@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateSimpleSyncStoreSchematicsSchema",
+  "title": "Generate Simple Sync Otter Store",
+  "description": "ng generate Simple Sync Otter Store",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Name of the project",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "storeName": {
+      "type": "string",
+      "description": "Name of the Store",
+      "x-prompt": "Store name? ",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the stores"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "storeName"
+  ]
+}

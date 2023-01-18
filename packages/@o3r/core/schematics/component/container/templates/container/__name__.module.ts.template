@@ -1,0 +1,12 @@
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {<%= componentName %>} from './<%= name %>.component';
+<% if (componentStructure === 'full') { %>import {<%= blockName %>PresModule} from '../presenter/<%= kebabCaseBlockName %>-pres.module';
+<% } %>
+@NgModule({
+  imports: [CommonModule<% if (componentStructure === 'full') { %>, <%= blockName %>PresModule<% } %>],
+  declarations: [<%= componentName %>],
+  exports: [<%= componentName %>],
+  providers: []
+})
+export class <%= moduleName %> {}

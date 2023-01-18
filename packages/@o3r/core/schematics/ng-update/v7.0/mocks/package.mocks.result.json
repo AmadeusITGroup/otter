@@ -1,0 +1,10 @@
+{
+  "name": "test-project",
+  "version": "0.0.0",
+  "description": "Test project",
+  "scripts": {
+    "build": "yarn generate:translations",
+    "generate:translations": "ng run test-project:generate-translations:production",
+    "generate:translations:dev": "ng run test-project:generate-translations"
+  }
+}

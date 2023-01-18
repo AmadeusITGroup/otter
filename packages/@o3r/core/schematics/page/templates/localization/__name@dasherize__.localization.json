@@ -1,0 +1,10 @@
+{
+  "<%= prefix %>-<%= dasherize(name) %>.dummy1": {
+    "description": "Dummy 1 description",
+    "defaultValue": "Dummy 1"
+  },
+  "<%= prefix %>-<%= dasherize(name) %>.dummy2": {
+    "description": "Dummy 2 description",
+    "defaultValue": "Dummy 2"
+  }
+}

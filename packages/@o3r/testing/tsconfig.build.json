@@ -1,0 +1,34 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "composite": true,
+    "incremental": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "outDir": "./dist",
+    "types": [
+      "node"
+    ],
+    "rootDir": ".",
+    "inlineSources": true,
+    "target": "ES5",
+    "module": "CommonJS",
+  },
+  "include": [
+    "src/core/**/*.ts",
+    "src/core/angular/**/*.ts",
+    "src/core/protractor/**/*.ts",
+    "src/core/playwright/**/*.ts",
+    "src/localization/**/*.ts",
+    "src/mocks/**/*.ts",
+    "src/store/**/*.ts",
+    "src/tools/**/*.ts",
+    "src/visual-test/**/*.ts",
+    "src/errors/**/*.ts",
+    "src/public_api.ts",
+    "updates/**/*.ts",
+  ],
+  "exclude": [
+    "src/tools/protractor/*/_*.ts",
+    "**/*.spec.ts"
+  ]
+}

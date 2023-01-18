@@ -1,0 +1,12 @@
+<app-connection>
+  <app-otter-component *ngIf="selectedComponentInfo$ | async as info; else noSelectedComponent"
+    [config]="config$ | async"
+    [rulesetExecutions]="rulesetExecutions$ | async"
+    [componentName]="info.componentName"
+    [translations]="info.translations"
+    [analytics]="info.analytics">
+  </app-otter-component>
+  <ng-template #noSelectedComponent>
+    <h3>No selected component</h3>
+  </ng-template>
+</app-connection>

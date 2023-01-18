@@ -1,0 +1,74 @@
+@use 'sass:math';
+
+$ruleset-font-title: 1rem;
+$ruleset-font-category: .95rem;
+$ruleset-rule-ratio: math.div($ruleset-font-category, $ruleset-font-title) - .01;
+$ruleset-success-color: #16aa32;
+$ruleset-error-color: #c02020;
+$ruleset-warn-color: #bb9922;
+$ruleset-deactivated-color: #aaaaaa;
+$ruleset-variable-key-color: #2266cc;
+$ruleset-variable-value-color: #cc2299;
+
+@mixin rule-debug-structure() {
+  .ruleset-panel-title,
+  .ruleset-panel-category-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .ruleset-panel-title {
+    font-size: $ruleset-font-title;
+    padding: .5rem 0 .1rem;
+  }
+
+  .ruleset-expansion-action,
+  .icon-caret-down,
+  .icon-caret-up {
+    cursor: pointer;
+  }
+
+  .ruleset-panel-subtitle {
+    font-size: .75rem;
+  }
+
+  .ruleset-panel-title-aside {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: fit-content;
+  }
+
+  .ruleset-panel-category-title {
+    font-size: $ruleset-font-category;
+    background: #eeeeee;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .rule-description {
+    .ruleset-panel-category-title {
+      font-size: calc(#{$ruleset-font-category * $ruleset-rule-ratio});
+      cursor: default;
+    }
+
+    .ruleset-panel-title {
+      font-size: calc(#{$ruleset-font-title * $ruleset-rule-ratio});
+    }
+
+    .ruleset-panel-category-body {
+      padding-bottom: .5rem;
+      padding-left: 1.5rem;
+
+      &:empty {
+        margin: 0;
+        padding: 0 0 0 1.5rem;
+      }
+    }
+  }
+}
+
+

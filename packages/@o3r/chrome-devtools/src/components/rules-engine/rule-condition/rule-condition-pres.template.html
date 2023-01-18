@@ -1,0 +1,19 @@
+<ng-container *ngIf="!condition; else displayConditions">
+  <span class="input-value">true</span>
+</ng-container>
+<ng-template #displayConditions>
+  <ng-container *ngIf="!$any(condition).all && !$any(condition).any && !$any(condition).not">
+    <span class="input-key">{{ lhs }}</span> {{ $any(condition).operator }} <span class="input-value">{{ rhs }}</span>
+  </ng-container>
+  <ng-container *ngIf="$any(condition).all || $any(condition).any || $any(condition).not">
+    <span *ngIf="$any(condition).all">ALL</span>
+    <span *ngIf="$any(condition).any">ANY</span>
+    <span *ngIf="$any(condition).not">NOT</span>
+    <span>(
+    <ng-container *ngFor="let cond of $any(condition).all || $any(condition).any || [$any(condition).not]; let last = last;">
+      <o3r-rule-condition-pres [condition]="cond"></o3r-rule-condition-pres>
+      <span *ngIf="!last">, </span>
+    </ng-container>
+  )</span>
+  </ng-container>
+</ng-template>

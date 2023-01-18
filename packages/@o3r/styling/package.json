@@ -1,0 +1,143 @@
+{
+  "name": "@o3r/styling",
+  "version": "0.0.0-placeholder",
+  "description": "styling module of the Otter framework",
+  "keywords": [
+    "styling",
+    "otter"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "test": "yarn nx test styling",
+    "copy:templates": "yarn cpy 'schematics/**/templates/**/*.scss' dist/schematics",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build": "yarn nx build styling"
+  },
+  "repository": "https://github.com/amadeus-digital/Otter",
+  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "contributors": [
+    {
+      "name": "Yannick Adam",
+      "email": "yadam@amadeus.com"
+    },
+    {
+      "name": "Kilian Panot",
+      "email": "kilian.panot@amadeus.com"
+    },
+    {
+      "name": "Jeremy Bourgeois",
+      "email": "jeremy.bourgeois@amadeus.com"
+    },
+    {
+      "name": "Pierre Henri Ginoux",
+      "email": "pierre-henri.ginoux@amadeus.com"
+    },
+    {
+      "name": "Mircea Vasile Rednic",
+      "email": "mircea.rednic@amadeus.com"
+    },
+    {
+      "name": "Stephane Dalle",
+      "email": "stephane.dalle@amadeus.com"
+    },
+    {
+      "name": "Nicolas Hoffmann",
+      "email": "nicolas.hoffmann@amadeus.com"
+    },
+    {
+      "name": "Victor Scaiceanu",
+      "email": "victor.scaiceanu@amadeus.com"
+    },
+    {
+      "name": "Florian Paul",
+      "email": "florian.paul@amadeus.com"
+    },
+    {
+      "name": "Corinne Paulve",
+      "email": "corinne.paulve@amadeus.com"
+    },
+    {
+      "name": "Matthieu Crouzet",
+      "email": "matthieu.crouzet@amadeus.com"
+    },
+    {
+      "name": "Salome Do",
+      "email": "salome.do@amadeus.com"
+    }
+  ],
+  "license": "BSD-3-Clause",
+  "exports": {
+    ".": {
+      "sass": "./_index.scss"
+    }
+  },
+  "peerDependencies": {
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/material": "~15.0.4",
+    "@o3r/core": "workspace:^",
+    "@o3r/dynamic-content": "workspace:^",
+    "@o3r/extractors": "workspace:^"
+  },
+  "dependencies": {
+    "@o3r/dev-tools": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "tslib": "^2.4.1"
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular-devkit/build-angular": "~15.0.4",
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
+    "@angular/animations": "~15.0.4",
+    "@angular/cdk": "~15.0.4",
+    "@angular/common": "~15.0.4",
+    "@angular/compiler": "~15.0.4",
+    "@angular/compiler-cli": "~15.0.4",
+    "@angular/core": "~15.0.4",
+    "@angular/forms": "~15.0.4",
+    "@angular/material": "~15.0.4",
+    "@angular/platform-browser": "~15.0.4",
+    "@angular/platform-browser-dynamic": "~15.0.4",
+    "@nrwl/cli": "^15.3.3",
+    "@nrwl/js": "^15.3.3",
+    "@nrwl/linter": "^15.3.3",
+    "@o3r/core": "workspace:^",
+    "@o3r/dynamic-content": "workspace:^",
+    "@o3r/eslint-config-otter": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/extractors": "workspace:^",
+    "@o3r/styling": "workspace:^",
+    "@types/jest": "~28.1.2",
+    "@types/node": "^17.0.23",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "chokidar": "^3.5.2",
+    "cpy-cli": "^4.2.0",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "globby": "^11.1.0",
+    "jest": "~28.1.1",
+    "jest-junit": "^14.0.0",
+    "jest-preset-angular": "^12.2.3",
+    "nx": "^15.3.3",
+    "rxjs": "^7.4.0",
+    "sass": "~1.57.0",
+    "sass-true": "^6.0.0",
+    "stylelint": "^14.1.0",
+    "stylelint-scss": "^4.0.0",
+    "typescript": "~4.8.4",
+    "zone.js": "^0.12.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "builders": "./builders.json",
+  "schematics": "./collection.json"
+}

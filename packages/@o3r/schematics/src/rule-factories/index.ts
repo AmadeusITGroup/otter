@@ -1,0 +1,22 @@
+export * from './additional-modules/index';
+export * from './cms-adapter/index';
+export * from './dependencies/index';
+export * from './differential-loading/index';
+export * from './eslint-fix/index';
+export * from './fixture/index';
+export * from './interfaces';
+export * from './linter/index';
+export * from './npm-registry/index';
+export * from './otter-environment/index';
+export * from './playwright/index';
+export * from './prefetch/index';
+export * from './renovate/index';
+export * from './sdk/index';
+export * from './store/index';
+export * from './azure-pipeline/index';
+export * from './check-packages-peers/index';
+export * from './ng-add/index';
+
+export { updatePrefetchBuilderConfiguration } from './prefetch/migrations/updateV3_4/index';
+export { updateCustomizationEnvironment } from './customization-environment/migrations/updateV3_2/index';
+export { updateCustomizationCmsAdapter } from './customization-environment/migrations/updateV3_3/index';

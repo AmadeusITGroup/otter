@@ -1,0 +1,62 @@
+{
+  "name": "eslint-plugin",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/eslint-plugin/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@o3r/eslint-plugin/src/public_api.ts",
+        "tsConfig": "packages/@o3r/eslint-plugin/tsconfig.build.json",
+        "outputPath": "packages/@o3r/eslint-plugin/dist",
+        "assets": [
+          "packages/@o3r/eslint-plugin/schemas/*.json"
+        ]
+      },
+      "dependsOn": []
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@o3r/eslint-plugin/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/eslint-plugin/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/eslint-plugin/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/eslint-plugin/dist"
+      }
+    }
+  },
+  "tags": []
+}

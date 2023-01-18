@@ -1,0 +1,17 @@
+// Angular Material Import
+@use '@angular/material' as mat;
+@use '@angular/cdk';
+@use '@o3r/styling' as o3r;
+
+// Import the application styling
+@import './styling';
+
+// The theme to apply to the whole application
+@include o3r.apply-theme(o3r.$default-theme);
+
+// See https://material.angular.io/guide/theming for details
+@include mat.core($typography);
+@include mat.all-component-typographies($typography);
+@include mat.all-component-themes($mat-theme);
+
+@include cdk.text-field-autofill();

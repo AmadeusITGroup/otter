@@ -1,0 +1,23 @@
+import {
+  ComponentFixtureProfile,
+  O3rComponentFixture,
+} from '@o3r/testing/core';
+
+export interface ExampleFixture extends ComponentFixtureProfile {
+  /**
+   * Example method
+   */
+  exampleMethod(index: number): Promise<void>;
+}
+
+export class ExampleFixtureComponent extends O3rComponentFixture implements ExampleFixture {
+  protected readonly SELECTOR_EXAMPLE = '.example';
+
+  /**
+   * @inheritdoc
+   */
+  public async exampleMethod(index: number): Promise<void> {
+    const elements = await this.queryAll(this.SELECTOR_EXAMPLE);
+    return this.throwOnUndefined(elements[index]).click();
+  }
+}

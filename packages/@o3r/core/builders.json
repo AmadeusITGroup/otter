@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/architect/src/builders-schema.json",
+  "builders": {
+    "app-version": {
+      "implementation": "./builders/app-version/",
+      "schema": "./builders/app-version/schema.json",
+      "description": "Generate the app version"
+    },
+    "multi-watcher": {
+      "implementation": "./builders/multi-watcher/",
+      "schema": "./builders/multi-watcher/schema.json",
+      "description": "Run multi watcher in parallel"
+    },
+    "pattern-replacement": {
+      "implementation": "./builders/pattern-replacement/",
+      "schema": "./builders/pattern-replacement/schema.json",
+      "description": "Replace a given pattern in a list of files"
+    },
+    "lib-build": {
+      "implementation": "./builders/lib-build/",
+      "schema": "./builders/lib-build/schema.json",
+      "description": "Perform a library build"
+    },
+    "ngc": {
+      "implementation": "./builders/ngc/",
+      "schema": "./builders/ngc/schema.json",
+      "description": "Perform a ngc build"
+    }
+  }
+}

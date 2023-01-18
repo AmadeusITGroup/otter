@@ -1,0 +1,157 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":dependencyDashboard",
+    "group:allNonMajor",
+    "group:monorepos",
+    "group:recommended",
+    "group:test",
+    "group:linters",
+    "schedule:nonOfficeHours"
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/templates/**"
+  ],
+  "hostRules": [
+    {
+      "timeout": 240000
+    }
+  ],
+  "timezone": "Europe/Paris",
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
+  "baseBranches": [
+    "main"
+  ],
+  "enabledManagers": [
+    "npm"
+  ],
+  "npm": {
+    "stabilityDays": 0
+  },
+  "labels": [
+    "upgrade"
+  ],
+  "updateInternalDeps": true,
+  "postUpdateOptions": [
+    "yarnDedupeHighest"
+  ],
+  "automerge": true,
+  "platformAutomerge": true,
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "@angular/core",
+        "@o3r/*"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "**"
+        ]
+      }
+    },
+    {
+      "matchPackagePrefixes": [
+        "@o3r"
+      ],
+      "groupName": "Otter dependencies",
+      "groupSlug": "otter-dependencies"
+    },
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "automerge": true,
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchPackagePrefixes": [
+        "@o3r"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "rangeStrategy": "auto",
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    },
+    {
+      "matchPackagePatterns": [
+        "^@angular",
+        "^ng-packagr",
+        "^@schematics",
+        "angular",
+        "^@ngrx",
+        "^zone.js"
+      ],
+      "groupName": "Angular dependencies",
+      "groupSlug": "angular-dependencies"
+    },
+    {
+      "matchPackagePatterns": [
+        "typescript",
+        "tslib"
+      ],
+      "groupName": "Typescript dependencies",
+      "groupSlug": "typescript-dependencies"
+    },
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "rangeStrategy": "in-range-only"
+    },
+
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "main",
+        "/^release/"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchBaseBranches": [
+        "/^release/"
+      ],
+      "enabled": false
+    },
+
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "groupName": "Major dependencies",
+      "groupSlug": "major-dependencies",
+      "enabled": true
+    }
+  ]
+}

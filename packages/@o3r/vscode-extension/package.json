@@ -1,0 +1,199 @@
+{
+  "name": "@o3r/vscode-extension",
+  "displayName": "otter",
+  "description": "Otter Framework toolings for Visual Studio Code",
+  "version": "0.0.0-placeholder",
+  "publisher": "Otter",
+  "engines": {
+    "vscode": "^1.67.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "activationEvents": [
+    "workspaceContains:**/angular.json",
+    "onCommand:otter.generate.component",
+    "onCommand:otter.generate.service",
+    "onCommand:otter.generate.store",
+    "onCommand:otter.generate.fixture",
+    "onCommand:otter.menu.generate.fixture",
+    "onCommand:otter.menu.generate.component",
+    "onCommand:otter.menu.generate.service",
+    "onCommand:otter.menu.generate.store"
+  ],
+  "contributes": {
+    "configuration": {
+      "title": "Otter",
+      "properties": {
+        "otter.generate.skipLinter": {
+          "type": "boolean",
+          "default": false,
+          "definition": "Skip the linter process"
+        },
+        "otter.generate.component.activateDummy": {
+          "type": "boolean",
+          "default": false,
+          "description": "Generate dummy I/O, localization and analytics events"
+        },
+        "otter.generate.component.useContext": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component context"
+        },
+        "otter.generate.component.useOtterTheming": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component with Otter theming architecture"
+        },
+        "otter.generate.component.useComponentFixtures": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use component fixtures for testing"
+        },
+        "otter.generate.component.useOtterConfig": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component with Otter configuration"
+        },
+        "otter.generate.component.useOtterAnalytics": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component with Otter analytics architecture"
+        },
+        "otter.generate.component.useStorybook": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component stories for storybook"
+        },
+        "otter.generate.component.useLocalization": {
+          "type": "boolean",
+          "default": true,
+          "description": "Generate component with localization"
+        },
+        "otter.generate.store.testFramework": {
+          "type": "string",
+          "enum": [
+            "jest",
+            "jasmine"
+          ],
+          "default": "jest",
+          "description": "Test framework used"
+        },
+        "otter.generate.store.sdkPackage": {
+          "type": "string",
+          "default": "@dapi/sdk",
+          "description": "Sdk package name"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "otter.generate.component",
+        "title": "Otter: Generate Component"
+      },
+      {
+        "command": "otter.generate.service",
+        "title": "Otter: Generate Service"
+      },
+      {
+        "command": "otter.generate.store",
+        "title": "Otter: Generate Store"
+      },
+      {
+        "command": "otter.generate.fixture",
+        "title": "Otter: Generate fixture"
+      },
+      {
+        "command": "otter.menu.generate.fixture",
+        "title": "Generate fixture"
+      },
+      {
+        "command": "otter.menu.generate.component",
+        "title": "Generate Component"
+      },
+      {
+        "command": "otter.menu.generate.service",
+        "title": "Generate Service"
+      },
+      {
+        "command": "otter.menu.generate.store",
+        "title": "Generate Store"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "otter.editor.context.submenu"
+        }
+      ],
+      "explorer/context": [
+        {
+          "submenu": "otter.explorer.context.submenu"
+        }
+      ],
+      "otter.editor.context.submenu": [
+        {
+          "command": "otter.menu.generate.fixture",
+          "when": "editorHasSelection && resourceFilename =~ /template.html$/"
+        }
+      ],
+      "otter.explorer.context.submenu": [
+        {
+          "command": "otter.menu.generate.component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.menu.generate.service",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.menu.generate.store",
+          "group": "otter.generate.group"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "label": "Otter",
+        "id": "otter.explorer.context.submenu",
+        "icon": "./assets/otter-logo.svg"
+      },
+      {
+        "label": "Otter",
+        "id": "otter.editor.context.submenu",
+        "icon": "$(otter-logo)"
+      }
+    ],
+    "icons": {
+      "otter-logo": {
+        "description": "Otter Logo",
+        "default": {
+          "fontPath": "./assets/logo-font.woff",
+          "fontCharacter": "\\e800"
+        }
+      }
+    }
+  },
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "icon": "./assets/logo-128x128.png",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build vscode-extension",
+    "watch": "yarn nx run vscode-extension:compile:watch"
+  },
+  "devDependencies": {
+    "@o3r/dev-tools": "workspace:^",
+    "@types/glob": "^7.2.0",
+    "@types/node": "^17.0.23",
+    "@types/vscode": "^1.67.0",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "eslint": "^8.22.0",
+    "nx": "^15.3.3",
+    "typescript": "~4.8.4"
+  }
+}

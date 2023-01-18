@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "create-module": {
+      "description": "Create a module for Ama-terasu.",
+      "factory": "./src/create-module/index#generateAmaterasuModule",
+      "schema": "./src/create-module/schema.json"
+    }
+  }
+}

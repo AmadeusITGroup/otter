@@ -1,0 +1,19 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "lib": ["es5", "es6", "scripthost"],
+    "types": ["node"],
+    "outDir": "dist",
+    "module": "CommonJS",
+    "moduleResolution": "node"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

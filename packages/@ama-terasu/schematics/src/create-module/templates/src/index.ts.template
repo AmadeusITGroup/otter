@@ -1,0 +1,12 @@
+import { AmaCliModule } from '@ama-terasu/core';
+
+const name = '<%= name %>';
+
+module.exports = {
+  name,
+  description: 'Commands relative to <%= name %> module',
+  init: (yargs, _baseContext) => {
+    // customize yargs commands:
+    return yargs;
+  }
+} as AmaCliModule;

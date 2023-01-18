@@ -1,0 +1,37 @@
+{
+  "jira": {
+    "baseUrl": "https://rndwww.nce.amadeus.net/agile"
+  },
+
+  "bitbucket": {
+    "baseUrl": "https://rndwww.nce.amadeus.net/git"
+  },
+
+  "sectionMapping": {
+    "Added": [
+      "New Feature",
+      "Improvement"
+    ],
+    "Changed": [
+      "Story",
+      "Improvement",
+      "Task"
+    ],
+    "Fixed": [
+      "Bug"
+    ]
+  },
+
+  "completeStatus": [
+    "In Test",
+    "Done",
+    "Completed",
+    "Accepted",
+    "Resolved",
+    "Closed"
+  ],
+
+  "ignoredLabels": [
+    "hotfix"
+  ]
+}

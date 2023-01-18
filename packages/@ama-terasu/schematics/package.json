@@ -1,0 +1,32 @@
+{
+  "name": "@ama-terasu/schematics",
+  "version": "0.0.0-placeholder",
+  "description": "Schematics for Ama-terasu",
+  "license": "MIT",
+  "repository": "https://github.com/amadeus-digital/Otter",
+  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build amaterasu-cli",
+    "postbuild": "patch-package-json-main"
+  },
+  "schematics": "./dist/collection.json",
+  "engines": {
+    "node": ">=14.0.0",
+    "vscode": "^1.22.0"
+  },
+  "dependencies": {
+    "@angular-devkit/architect": "~0.1500.4",
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
+    "tslib": "^2.4.1"
+  },
+  "devDependencies": {
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
+    "@types/node": "^17.0.23",
+    "nx": "^15.3.3",
+    "typescript": "~4.8.4"
+  }
+}

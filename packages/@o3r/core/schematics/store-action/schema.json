@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateStoreActionSchematicsSchema",
+  "title": "Generate Otter Store Action",
+  "description": "ng generate Otter Store Action",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "actionName": {
+      "type": "string",
+      "description": "Name of the action to create",
+      "x-prompt": "Name of the action",
+      "minLength": 1
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the action",
+      "x-prompt": "Description of the action"
+    },
+    "storeName": {
+      "type": "string",
+      "description": "Name of the Store in which to add the new action",
+      "x-prompt": "Name of the Store to edit?",
+      "minLength": 1
+    },
+    "actionType": {
+      "type": "string",
+      "enum": [
+        "set",
+        "set-entities",
+        "upsert-entities",
+        "update",
+        "update-entities",
+        "fail",
+        "clear",
+        "-custom-"
+      ],
+      "description": "The type of the action to create",
+      "x-prompt": "Type of the new action?",
+      "default": "-custom-"
+    },
+    "isCallAction": {
+      "type": "boolean",
+      "description": "Determine if the action is an HTTP call",
+      "x-prompt": "Is the action from an HTTP call?",
+      "default": false
+    },
+    "storeDirectory": {
+      "type": "string",
+      "description": "Directory containing the stores"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    }
+  },
+  "additionalProperties": true,
+  "required": ["actionName", "storeName", "actionType", "isCallAction"]
+}

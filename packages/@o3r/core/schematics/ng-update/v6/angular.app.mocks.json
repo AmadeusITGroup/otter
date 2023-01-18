@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "newProjectRoot": ".",
+  "projects": {
+    "test-project": {
+      "projectType": "application",
+      "root": ".",
+      "sourceRoot": "./src",
+      "prefix": "tst",
+      "architect": {
+        "build": {
+          "builder": "",
+          "options": {
+            "tsConfig": "tsconfig.json"
+          }
+        },
+        "prefetch": {
+          "builder": "@otter/ng-tools:prefetch",
+          "options": {
+            "tsConfig": "tsconfig.json"
+          }
+        },
+        "i18n": {
+          "builder": "@otter/ng-tools:i18n",
+          "options": {
+            "localizationFiles": [
+              "modules/@otter/components/src/**/*.localization.json"
+            ]
+          },
+          "configurations": {
+            "global": {
+              "i18nFolderPath": "i18n/global"
+            }
+          }
+        }
+      }
+    }
+  }
+}

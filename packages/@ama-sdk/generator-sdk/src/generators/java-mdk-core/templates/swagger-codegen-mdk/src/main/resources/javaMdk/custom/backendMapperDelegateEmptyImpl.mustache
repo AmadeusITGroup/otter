@@ -1,0 +1,18 @@
+{{#models}}{{#model}}
+package {{package}}.mapper.delegate;
+
+import javax.inject.Named;
+
+{{#frontendRefs}}
+import {{package}}.model.core.{{classname}}{{frontendModelSuffix}};
+{{/frontendRefs}}
+import {{dapiSdkClientPackage}}.{{backendReference}};
+
+@Named
+public class {{backendReference}}EmptyMapperDelegateImpl implements {{backendReference}}MapperDelegate {
+  {{#frontendRefs}}
+  public void customize({{backendReference}} target{{backendReference}}Bean, {{classname}}{{frontendModelSuffix}} source{{classname}}{{frontendModelSuffix}}Bean) {}
+
+  {{/frontendRefs}}
+}
+{{/model}}{{/models}}

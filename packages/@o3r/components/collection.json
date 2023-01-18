@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "iframe-component": {
+      "description": "Generate an iframe component for third party script integration",
+      "factory": "./schematics/iframe/index#ngGenerateIframeComponent",
+      "schema": "./schematics/iframe/schema.json"
+    }
+  }
+}

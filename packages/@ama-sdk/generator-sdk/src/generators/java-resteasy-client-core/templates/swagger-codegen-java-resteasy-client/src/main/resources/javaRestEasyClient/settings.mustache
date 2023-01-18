@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+    http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <mirrors>
+    <mirror>
+      <url>https://digitalforairlines.jfrog.io/digitalforairlines/mvn-otter</url>
+      <id>external.repository</id>
+      <name>External Repository</name>
+      <mirrorOf>external.repo</mirrorOf>
+    </mirror>
+  </mirrors>
+  <servers>
+    <server>
+      <id>external.repository</id>
+      <username>${env.AR_USER}</username>
+      <password>${env.AR_PASSWORD}</password>
+    </server>
+  </servers>
+</settings>

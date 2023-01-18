@@ -1,0 +1,77 @@
+{
+  "name": "ama-sdk-generator-sdk",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/generator-sdk/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "executor": "nx:run-script",
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "build-swagger": {
+      "executor": "nx:run-commands",
+      "inputs": [
+        "{projectRoot}/src/generators/**/templates"
+      ],
+      "outputs": [
+        "{projectRoot}/src/**/target/*.jar"
+      ],
+      "options": {
+        "command": "yarn build:swagger"
+      }
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@ama-sdk/generator-sdk/src/generators/sdk-generator.ts",
+        "tsConfig": "packages/@ama-sdk/generator-sdk/tsconfig.build.json",
+        "outputPath": "packages/@ama-sdk/generator-sdk/dist",
+        "assets": [
+          "packages/@ama-sdk/generator-sdk/src/**/swagger-codegen-cli.jar",
+          "packages/@ama-sdk/generator-sdk/src/generators/*/templates/**",
+          "packages/@ama-sdk/generator-sdk/src/schematics/*/schema.json",
+          "packages/@ama-sdk/generator-sdk/collection.json"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/generator-sdk/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/generator-sdk/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "dependsOn": ["^build"],
+      "options": {
+        "jestConfig": "packages/@ama-sdk/generator-sdk/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/generator-sdk/dist"
+      }
+    }
+  },
+  "tags": []
+}

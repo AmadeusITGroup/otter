@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/@compodoc/compodoc/src/config/schema.json",
+  "name": "Otter Demo App",
+  "output": "./generated-doc",
+  "tsconfig": "./tsconfig.doc.json",
+  "theme": "material",
+  "maxSearchResults": 0,
+  "disableLifeCycleHooks": true,
+  "disablePrivate": true,
+  "disableProtected": true,
+  "disableInternal": true,
+  "disableCoverage": true,
+  "hideGenerator": true
+}

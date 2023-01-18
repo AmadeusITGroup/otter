@@ -1,0 +1,14 @@
+parameters:
+  DIST_FOLDER: $(System.DefaultWorkingDirectory)/dist
+  DIST_ARTIFACT_NAME: dist
+  ROOT_FOLDER: $(System.DefaultWorkingDirectory)/
+  SOURCE_ARTIFACT_NAME: source
+
+steps:
+  - publish: ${{ parameters.DIST_FOLDER }}
+    condition: succeeded()
+    artifact: ${{ parameters.DIST_ARTIFACT_NAME }}
+
+  - publish: ${{ parameters.ROOT_FOLDER }}
+    condition: succeeded()
+    artifact: ${{ parameters.SOURCE_ARTIFACT_NAME }}

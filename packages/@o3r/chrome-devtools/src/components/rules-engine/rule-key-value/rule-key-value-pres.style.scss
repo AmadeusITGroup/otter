@@ -1,0 +1,37 @@
+@import '../shared/shared-mixin';
+
+o3r-rule-key-value-pres {
+  @include rule-debug-structure;
+
+  position: relative;
+
+  .limit-characters {
+    display: inline-block;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 38rem;
+    vertical-align: bottom;
+  }
+
+  .input-value {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  button {
+    background: none;
+    border: 0;
+    appearance: none;
+  }
+
+  .notification {
+    position: absolute;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    background: #444444;
+    color: #eeeeee;
+    right: 0;
+    z-index: 1;
+  }
+}

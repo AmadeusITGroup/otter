@@ -1,0 +1,20 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "lib": ["ES2020", "dom"],
+    "outDir": "dist",
+    "target": "ES2020",
+    "module": "CommonJS"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "component-wrapper/**/*.ts",
+    "addon/**"
+  ]
+}

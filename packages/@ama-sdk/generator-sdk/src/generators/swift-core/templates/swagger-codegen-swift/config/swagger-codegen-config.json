@@ -1,0 +1,9 @@
+{
+  "projectName": "DapiSwiftSDK",
+  "podVersion": "1.0",
+  "podAuthors": "Amadeus",
+  "podSummary": "iOS SDK for Amadeus Digital API",
+  "podDescription": "iOS SDK for Amadeus Digital API",
+  "podHomepage": "http://e-travel.mkt.amadeus.net/digitalapi/redoc/specs/release_0.14/index.html",
+  "podDocumentationURL": "http://e-travel.mkt.amadeus.net/digitalapi/redoc/specs/release_0.14/index.html"
+}

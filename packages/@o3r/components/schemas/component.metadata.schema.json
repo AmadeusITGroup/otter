@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ComponentMetadataSchema",
+  "description": "Schema of Component class",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "library",
+      "name",
+      "path",
+      "templatePath",
+      "moduleName",
+      "modulePath",
+      "selector",
+      "type",
+      "linkableToRuleset"
+    ],
+    "properties": {
+      "library": {
+        "type": "string",
+        "description": "Library name"
+      },
+      "name": {
+        "type": "string",
+        "description": "Name of the component"
+      },
+      "path": {
+        "type": "string",
+        "description": "Path to the component file"
+      },
+      "templatePath": {
+        "type": "string",
+        "description": "Path to the component template file"
+      },
+      "moduleName": {
+        "type": "string",
+        "description": "Name of the module that declares the component"
+      },
+      "modulePath": {
+        "type": "string",
+        "description": "Path to the component module file"
+      },
+      "selector": {
+        "type": "string",
+        "description": "Selector of the component"
+      },
+      "type": {
+        "type": "string",
+        "description": "Type of the component",
+        "enum": [
+          "BLOCK",
+          "COMPONENT",
+          "APPLICATION",
+          "PAGE",
+          "GLOBAL",
+          "EXPOSED_COMPONENT"
+        ]
+      },
+      "context": {
+        "type": "object",
+        "description": "Context of the component",
+        "items": {
+          "type": "object",
+          "required": [
+            "library"
+          ],
+          "properties": {
+            "library": {
+              "type": "string",
+              "description": "Context library name"
+            },
+            "name": {
+              "type": "string",
+              "description": "Context class name"
+            }
+          }
+        }
+      },
+      "config": {
+        "type": "object",
+        "description": "Configuration of the component",
+        "items": {
+          "type": "object",
+          "required": [
+            "library",
+            "name"
+          ],
+          "properties": {
+            "library": {
+              "type": "string",
+              "description": "Configuration library name"
+            },
+            "name": {
+              "type": "string",
+              "description": "Configuration class name"
+            }
+          }
+        }
+      },
+      "placeholders" : {
+        "type": "array",
+        "description": "List of placeholders available for the component",
+        "items": {
+          "type": "object",
+          "required": [
+            "id",
+            "description"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Placeholder id"
+            },
+            "description": {
+              "type": "string",
+              "description": "Placeholder description"
+            }
+          }
+        }
+      },
+      "linkableToRuleset": {
+        "type": "boolean",
+        "description": "Determine if the component is activating a ruleset"
+      }
+    }
+  }
+}

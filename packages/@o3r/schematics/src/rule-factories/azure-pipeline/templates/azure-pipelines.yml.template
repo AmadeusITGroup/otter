@@ -1,0 +1,251 @@
+trigger:
+  batch: true
+  branches:
+    include:
+    - release/*
+
+pr:
+  branches:
+    include:
+    - release/*
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  - name: YARN_CACHE_FOLDER
+    value: $(Pipeline.Workspace)/.cache/yarn
+  - name: PACKAGE_NAME
+    value: "<%= projectName %>" # Name of the created blueprint, could be different from the project name
+  - group: "variables for <%= projectName %>"
+  - name: DS_PRIVATE_KEY
+    value: "private-DS_KEY_6X_CICD_PDT_01.pem" # TODO: replace with airline specific private key file
+  - name: DS_KEY_ID
+    value: "DS_KEY_6X_CICD_PDT_01" # TODO: replace with airline specific private key ID
+  - name: DS_URL
+    value: "https://test.airlines.api.amadeus.com"
+  - name: DS_DEPLOY_URL
+    value: "dev.digital.airline.amadeus.com"
+  - name: AIRLINE_CODE
+    value: "<%= projectName %>"
+  - name: APPLICATION_NAME
+    value: "demo-app"
+  - name: DEPLOY_ENV
+    value: "DEV"
+  - name: IS_PR
+    value: 'true'
+  - name: YARN_CACHE_FOLDER
+    value: $(Pipeline.Workspace)/.cache/yarn
+
+stages:
+- stage: versioning
+  jobs:
+  - job: versioning
+    steps:
+    - template: azure/templates/steps/versioning.yml
+
+- stage: build
+  dependsOn: [versioning]
+  jobs:
+
+  - job: build
+    steps:
+
+    - template: azure/templates/steps/setup.yml
+
+    - script: yarn version --new-version $(Build.BuildNumber) --no-git-tag-version
+      displayName: 'Set version'
+
+    - script: yarn build:prod
+      displayName: 'Build production'
+
+    - script: yarn cms-adapters:metadata
+      displayName: 'Extract metadata'
+
+    - template: azure/templates/steps/publish.yml
+
+    - script: yarn pack -f package.tgz
+      displayName: 'Package application'
+
+    - publish: package.tgz
+      condition: succeeded()
+      artifact: packagedApp
+<% if (enableStorybook) { %>
+- stage: Storybook
+  dependsOn: []
+  jobs:
+    - job: storybook
+      steps:
+        - template: azure/templates/steps/setup.yml
+
+        - script: yarn cms-adapters:metadata
+          displayName: 'Extract metadata'
+
+        - script: yarn storybook
+          displayName: 'Build Storybook'
+
+        - task: PublishBuildArtifacts@1
+          displayName: 'Publish Storybook static files'
+          condition: succeeded()
+          inputs:
+            pathToPublish: $(System.DefaultWorkingDirectory)/storybook-static
+            artifactName: storybook
+<% } %>
+- stage: Test
+  dependsOn: []
+  jobs:
+  - job: test
+    steps:
+      - template: azure/templates/steps/setup.yml
+
+      - script: yarn test
+        displayName: 'Unit Test'
+
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results'
+        inputs:
+          testResultsFiles: '**/*.xml'
+          searchFolder: '$(System.DefaultWorkingDirectory)/dist-test'
+          failTaskOnFailedTests: true
+          testRunTitle: '<%= projectName %> - Unit Tests'
+        condition: succeededOrFailed()
+
+- stage: RepositoryUpdate
+  dependsOn: [build, Test, Storybook]
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  jobs:
+    - job: RepositoryReporting
+      steps:
+        - checkout: self
+          persistCredentials: true
+          clean: false
+
+        - template: azure/templates/steps/set-version-tag.yml
+          parameters:
+            semVer: $(Build.BuildNumber)
+
+- stage: Deploy
+  dependsOn: [build, Test]
+  condition: succeeded()
+  jobs:
+    - job: retrieveArtifact
+      steps:
+        - checkout: none
+
+        - task: DownloadPipelineArtifact@2
+          inputs:
+            source: current
+            artifact: 'packagedApp'
+            path: '$(System.DefaultWorkingDirectory)'
+
+        - script: ls -la $(System.DefaultWorkingDirectory)
+          displayName: 'check content'
+
+        - script: echo "##vso[task.setvariable variable=IS_PR]false"
+          condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+          displayName: 'check if not a pull request'
+
+        - task: deployment-service-plugin-appdeploy@3
+          name: 'deploymentservice'
+          displayName: 'Deploy Application'
+          inputs:
+            clientSecret: '$(DS_PDT_CLIENT_SECRET)'
+            secureFile: '$(DS_PRIVATE_KEY)'
+            clientID: '$(DS_PDT_CLIENT_ID)'
+            dsKEYID: '$(DS_KEY_ID)'
+            environment: '$(DEPLOY_ENV)'
+            blueprintName: '$(PACKAGE_NAME)'
+            airlineCode: '$(AIRLINE_CODE)'
+            applicationName: '$(APPLICATION_NAME)'
+            deployUrl: '$(DS_DEPLOY_URL)'
+            sourcePath: '$(System.DefaultWorkingDirectory)/package.tgz'
+            isdeployPR: $(IS_PR)
+            isactivateRelease: true
+          env:
+            RELEASE_REQUESTEDFOR: $(Build.RequestedFor)
+
+    - job: commentPr
+      dependsOn: [retrieveArtifact]
+      condition: and(succeeded(), eq(variables['Build.Reason'], 'PullRequest'))
+      variables:
+        deploymentURL: $[ dependencies.retrieveArtifact.outputs['deploymentservice.deploymentURL'] ]
+      steps:
+        - checkout: self
+          clean: false
+          persistCredentials: true
+
+        - template: azure/templates/steps/setup.yml
+
+        - script: |
+            yarn comment-pr "[App deployed]($(deploymentURL))" -s Closed -I app-link -m Replace -T $(System.AccessToken)
+          displayName: Comment PR
+          continueOnError: true
+
+- stage: E2eSanity
+  dependsOn: [Deploy]
+  pool:
+    vmImage: 'ubuntu-20.04'
+  condition: succeeded()
+  jobs:
+    - job: Test
+      steps:
+        - checkout: self
+          clean: false
+          persistCredentials: true
+
+        - template: azure/templates/steps/setup.yml
+
+        - script: |
+            yarn playwright install
+            yarn playwright install-deps
+          displayName: 'Prepare playwright'
+
+        - script: |
+            appUrl=$(yarn --silent node azure/scripts/e2e/compute-deployment-service-url.js --isPR "$(IS_PR)" --buildNumber $(Build.BuildNumber) --deployUrl $(DS_DEPLOY_URL) --airlineCode $(AIRLINE_CODE) --appName $(APPLICATION_NAME))
+            echo "##vso[task.setvariable variable=appUrl;isOutput=true]$appUrl"
+          name: targetUrl
+          displayName: 'Compute target URL'
+
+        - script: |
+            yarn run test:playwright:sanity
+          env:
+            PLAYWRIGHT_TARGET_URL: "$(targetUrl.appUrl)"
+          displayName: 'Run e2e scenarios'
+          name: runTests
+          continueOnError: true
+
+        - template: azure/templates/steps/allure.yml
+
+        - publish: '$(System.DefaultWorkingDirectory)/playwright-reports/html'
+          condition: succeededOrFailed()
+          artifact: 'html-report'
+
+        - script: |
+            echo "##vso[task.logissue type=error;]Sanity e2e failed. Please check the report to identify the reasons ( published items > allure-report)."
+          condition: eq(variables['Agent.JobStatus'], 'SucceededWithIssues')
+
+        - task: PublishTestResults@2
+          condition: succeededOrFailed()
+          inputs:
+            testResultsFiles: 'reporter.xml'
+            testRunTitle: '<%= projectName %> - sanity e2e'
+            searchFolder: '$(System.DefaultWorkingDirectory)/playwright-reports/junit'
+
+        - script: |
+            cd $(System.DefaultWorkingDirectory)/playwright-reports
+            mkdir to-attach
+            zip -r to-attach/allure-report.zip allure/*
+            zip -r to-attach/html.zip html/*
+            cd $(System.DefaultWorkingDirectory)
+            organization=$(basename "$(System.CollectionUri)")
+            yarn node azure/scripts/e2e/attach-files-to-test-results.js --organization ${organization} --project $(System.TeamProject) --pat $(System.AccessToken) --runName '<%= projectName %> - sanity e2e' --reportsFolder '$(System.DefaultWorkingDirectory)/playwright-reports/to-attach'
+          displayName: Zip and attach files to tests
+          condition: succeededOrFailed()
+
+- stage: Cascading
+  condition: ne(variables['Build.Reason'], 'PullRequest')
+  dependsOn: [RepositoryUpdate]
+  jobs:
+  - job: cascading
+    steps:
+      - template: azure/templates/steps/cascading.yml

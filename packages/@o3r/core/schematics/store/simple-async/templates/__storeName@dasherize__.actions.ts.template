@@ -1,0 +1,51 @@
+import {asyncProps, AsyncRequest, FromApiActionPayload, WithRequestId} from '@o3r/core';
+<% if (hasSDK) {%>import {<%= payloadModelName %>} from '<%= sdkPackage %>';
+<% } %>import {createAction, props} from '@ngrx/store';
+<% if (!hasSDK) {%>import {<%= payloadModelName %>} from './<%= fileName %>.state';
+<% } %>import {<%= storeName %>Model} from './<%= fileName %>.state';
+
+/** StateDetailsActions */
+const ACTION_SET = '[<%= storeName %>] set';
+const ACTION_UPDATE = '[<%= storeName %>] update';
+const ACTION_RESET = '[<%= storeName %>] reset';
+const ACTION_FAIL = '[<%= storeName %>] fail';
+const ACTION_CANCEL_REQUEST = '[<%= storeName %>] cancel request';
+
+/** Async Actions */
+const ACTION_SET_FROM_API = '[<%= storeName %>] set from api';
+const ACTION_UPDATE_FROM_API = '[<%= storeName %>] update from api';
+
+/**
+ * Clear the current store object and replace it with the new one,
+ * update isFailure to false, and update isPending with the boolean given as parameter if defined
+ */
+export const set<%= storeName %> = createAction(ACTION_SET, props<WithRequestId<<%= storeName %>Model>>());
+
+/**
+ * Change a part or the whole object in the store and update isFailure to false. The pendingUpdate boolean,
+ * if set to true or false, will update the isPending property from the StateDetails
+ */
+export const update<%= storeName %> = createAction(ACTION_UPDATE, props<WithRequestId<Partial<<%= storeName %>Model>>>());
+
+/**
+ * Clear the whole state, return to the initial one
+ */
+export const reset<%= storeName %> = createAction(ACTION_RESET);
+
+/** Action to cancel a Request ID registered in the store. Can happen from effect based on a switchMap for instance */
+export const cancel<%= storeName %>Request = createAction(ACTION_CANCEL_REQUEST, props<AsyncRequest>());
+
+/**
+ * Update isPending from the StateDetails to false, and isFailure to true
+ */
+export const fail<%= storeName %> = createAction(ACTION_FAIL, props<WithRequestId<{error: any}>>());
+
+/**
+ * Update isPending to true, triggers setFromApi Effect
+ */
+export const set<%= storeName %>FromApi = createAction(ACTION_SET_FROM_API, asyncProps<FromApiActionPayload<<%= payloadModelName %>>>());
+
+/**
+ * Update isPending to true, triggers updateFromApi Effect
+ */
+export const update<%= storeName %>FromApi = createAction(ACTION_UPDATE_FROM_API, asyncProps<FromApiActionPayload<<%= payloadModelName %>>>());

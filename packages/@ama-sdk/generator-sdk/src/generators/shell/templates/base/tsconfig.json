@@ -1,0 +1,17 @@
+/* IDE usage only */
+{
+  "references": [
+    {
+      "path": "./testing/tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfigs/tsconfig.source.json"
+    },
+    {
+      "path": "./tsconfigs/tsconfig.jest.json"
+    },
+    {
+      "path": "./tsconfigs/tsconfig.jasmine.json"
+    }
+  ]
+}

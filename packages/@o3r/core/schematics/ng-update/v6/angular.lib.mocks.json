@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "newProjectRoot": ".",
+  "projects": {
+    "test-project": {
+      "projectType": "library",
+      "root": ".",
+      "sourceRoot": "./src",
+      "prefix": "tst",
+      "architect": {
+        "build": {
+          "builder": "",
+          "options": {
+            "tsConfig": "tsconfig.json"
+          }
+        },
+        "prefetch": {
+          "builder": "@otter/ng-tools:prefetch",
+          "options": {
+            "tsConfig": "tsconfig.json"
+          }
+        }
+      }
+    }
+  }
+}

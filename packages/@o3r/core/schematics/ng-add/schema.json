@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter library",
+  "description": "ngAdd Otter library",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "enableLocalization": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Otter localization",
+      "x-prompt": "Activate Otter localization?"
+    },
+    "enableStorybook": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Storybook configurations",
+      "x-prompt": "Add storybook setup?"
+    },
+    "isSymlinksNeeded": {
+      "type": "boolean",
+      "description": "Install NPM links to work on Otter Library",
+      "default": false,
+      "x-prompt": "Work on Otter with symlinks?"
+    },
+    "isDefaultGenerator": {
+      "type": "boolean",
+      "description": "Set the Otter Generator as default ngCLI generator",
+      "default": true,
+      "x-prompt": "Set Otter as default ngCLI generator?"
+    },
+    "generateAzurePipeline": {
+      "type": "boolean",
+      "description": "Generate the Azure Pipeline for the new project",
+      "default": false,
+      "x-prompt": "Generate the Azure Pipeline for the new project?"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+  ]
+}

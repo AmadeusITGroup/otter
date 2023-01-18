@@ -1,0 +1,86 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add Otter Library to the project.",
+      "factory": "./schematics/ng-add/index#ngAdd",
+      "schema": "./schematics/ng-add/schema.json",
+      "aliases": ["install", "i"]
+    },
+    "page": {
+      "description": "Generate a page into the project.",
+      "factory": "./schematics/page/index#ngGeneratePage",
+      "schema": "./schematics/page/schema.json"
+    },
+    "component": {
+      "description": "Generate an Otter component into the project.",
+      "factory": "./schematics/component/index#ngGenerateComponent",
+      "schema": "./schematics/component/schema.json"
+    },
+    "component-container": {
+      "description": "Generate an Otter container component into the project.",
+      "factory": "./schematics/component/container/index#ngGenerateComponentContainer",
+      "schema": "./schematics/component/container/schema.json"
+    },
+    "component-presenter": {
+      "description": "Generate an Otter presenter component into the project.",
+      "factory": "./schematics/component/presenter/index#ngGenerateComponentPresenter",
+      "schema": "./schematics/component/presenter/schema.json"
+    },
+    "fixture": {
+      "description": "Adding functions to an Otter fixture based on a selector and default methods",
+      "factory": "./schematics/fixture/index#ngAddFunctionsToFixture",
+      "schema": "./schematics/fixture/schema.json"
+    },
+    "service": {
+      "description": "Generate an Otter service into the project.",
+      "factory": "./schematics/service/index#ngGenerateService",
+      "schema": "./schematics/service/schema.json"
+    },
+    "store": {
+      "description": "Generate an Otter store into the project.",
+      "factory": "./schematics/store/index#ngGenerateStore",
+      "schema": "./schematics/store/schema.json"
+    },
+    "store-entity-async": {
+      "description": "Generate an Entity Async Otter Store.",
+      "factory": "./schematics/store/entity-async/index#ngGenerateEntityAsyncStore",
+      "schema": "./schematics/store/entity-async/schema.json"
+    },
+    "store-entity-sync": {
+      "description": "Generate an Entity Sync Otter Store.",
+      "factory": "./schematics/store/entity-sync/index#ngGenerateEntitySyncStore",
+      "schema": "./schematics/store/entity-sync/schema.json"
+    },
+    "store-simple-async": {
+      "description": "Generate a Simple Async Otter Store.",
+      "factory": "./schematics/store/simple-async/index#ngGenerateSimpleAsyncStore",
+      "schema": "./schematics/store/simple-async/schema.json"
+    },
+    "store-simple-sync": {
+      "description": "Generate an Simple Sync Otter Store.",
+      "factory": "./schematics/store/simple-sync/index#ngGenerateSimpleSyncStore",
+      "schema": "./schematics/store/simple-sync/schema.json"
+    },
+    "store-action": {
+      "description": "Generate an Otter store action into an existing store.",
+      "factory": "./schematics/store-action/index#ngGenerateStoreAction",
+      "schema": "./schematics/store-action/schema.json"
+    },
+    "schematics-update": {
+      "description": "Generate an new ng-update function for the current version",
+      "factory": "./schematics/schematics-update/index#ngGenerateUpdate",
+      "schema": "./schematics/schematics-update/schema.json"
+    },
+    "renovate-bot": {
+      "description": "Generate a Renovate basic bot repository",
+      "factory": "./schematics/renovate/index#ngGenerateRenovateBotComponent",
+      "schema": "./schematics/renovate/schema.json"
+    },
+    "storybook-component": {
+      "description": "Generate an storybook file in an existing component folder",
+      "factory": "./schematics/storybook/index#ngGenerateStorybookComponent",
+      "schema": "./schematics/storybook/schema.json"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateRenovateBotSchematicsSchema",
+  "title": "Generate Renovate Bot",
+  "description": "ng generate Renovate bot",
+  "properties": {
+    "organizationName": {
+      "type": "string",
+      "x-prompt": "Azure Organization name?",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      },
+      "description": "The name of the Azure Organization to create the bot in."
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "organizationName"
+  ]
+}

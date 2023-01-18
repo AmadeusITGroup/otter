@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.build",
+  "include": [
+    ".eslintrc.js"
+  ],
+  "exclude": [
+    "node_modules/**"
+  ]
+}

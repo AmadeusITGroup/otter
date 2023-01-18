@@ -1,0 +1,13 @@
+{
+  "skip": {
+    "bump": true,
+    "commit": true,
+    "tag": true
+  },
+  "header": "",
+  "tag-prefix": "",
+  "commitUrlFormat": "https://github.com/amadeus-digital/Otter/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/amadeus-digital/Otter/releases/tag/{{currentTag}}",
+  "issueUrlFormat": "https://github.com/amadeus-digital/Otter/issues/{{id}}",
+  "issuePrefixes": "'#'"
+}

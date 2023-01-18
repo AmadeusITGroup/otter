@@ -1,0 +1,62 @@
+{
+  "name": "amaterasu-schematics",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-terasu/schematics/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/@ama-terasu/schematics/src/public_api.ts",
+        "tsConfig": "packages/@ama-terasu/schematics/tsconfig.build.json",
+        "outputPath": "packages/@ama-terasu/schematics/dist",
+        "assets": [
+          "packages/@ama-terasu/schematics/schematics/**/templates/**",
+          "packages/@ama-terasu/schematics/collection.json"
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-terasu/schematics/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-terasu/schematics/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-terasu/schematics/dist"
+      }
+    }
+  },
+  "tags": []
+}

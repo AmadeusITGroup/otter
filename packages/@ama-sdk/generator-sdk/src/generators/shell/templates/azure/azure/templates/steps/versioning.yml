@@ -1,0 +1,10 @@
+steps:
+  - task: new-version-plugin@2
+    inputs:
+      accessToken: $(System.AccessToken)
+      defaultBranch: 'master'
+      logLevel: 'debug'
+
+  - script: |
+      echo "##vso[build.updatebuildnumber]$(Versioning.nextVersionTag)"
+    displayName: 'Set build artifacts version'

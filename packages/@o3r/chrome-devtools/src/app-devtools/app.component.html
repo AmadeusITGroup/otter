@@ -1,0 +1,36 @@
+<app-connection>
+  <ul ngbNav #nav="ngbNav" class="nav-tabs px-2 pt-2 navbar-light bg-light">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>General</a>
+      <ng-template ngbNavContent>
+        <o3r-debug-panel-pres></o3r-debug-panel-pres>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink>Rules Engine</a>
+      <ng-template ngbNavContent>
+        <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="3">
+      <a ngbNavLink>Configuration</a>
+      <ng-template ngbNavContent>
+        <o3r-config-panel-pres></o3r-config-panel-pres>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="4">
+      <a ngbNavLink>Component</a>
+      <ng-template ngbNavContent>
+        <o3r-component-panel-pres></o3r-component-panel-pres>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="5">
+      <a ngbNavLink>Theming</a>
+      <ng-template ngbNavContent>
+        Coming soon...
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2 px-2"></div>
+</app-connection>

@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "angular.ng-template",
+    "Orta.vscode-jest",
+    "arcanis.vscode-zipfs",
+    "stylelint.vscode-stylelint",
+    "nrwl.angular-console",
+    "esbenp.prettier-vscode",
+    "GitHub.codespaces",
+    "GitHub.vscode-pull-request-github"
+  ]
+}

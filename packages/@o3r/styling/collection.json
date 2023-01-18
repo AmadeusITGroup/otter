@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add Otter styling to the project.",
+      "factory": "./schematics/ng-add/index#ngAdd",
+      "aliases": ["install", "i"]
+    }
+  }
+}

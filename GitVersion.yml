@@ -1,0 +1,66 @@
+tag-prefix: '[vV]?'
+mode: ContinuousDelivery
+increment: Inherit
+continuous-delivery-fallback-tag: ci
+
+branches:
+  release-next:
+    regex: releases?[/-].*-next$
+    mode: ContinuousDelivery
+    tag: next
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+    source-branches: ['release']
+  release-alpha:
+    regex: releases?[/-].*-alpha$
+    mode: ContinuousDelivery
+    tag: alpha
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+    source-branches: ['release']
+  release-rc:
+    regex: releases?[/-].*-rc$
+    mode: ContinuousDelivery
+    tag: rc
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+    source-branches: ['release']
+  release:
+    regex: releases?[/-]
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: true
+    source-branches: ['release']
+  feature:
+    regex: features?[/-]
+    mode: ContinuousDelivery
+    tag: feat
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['feature']
+  bugfix:
+    regex: bugfix[/-]
+    mode: ContinuousDelivery
+    tag: fix
+    increment: Patch
+    prevent-increment-of-merged-branch-version: true
+    track-merge-target: false
+    tracks-release-branches: false
+    is-release-branch: false
+    source-branches: ['bugfix']

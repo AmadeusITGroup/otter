@@ -1,0 +1,14 @@
+// Angular Material Imports
+// @use '@angular/material' as mat;
+
+// Import the application styling
+@import './styling/theme';
+@import './styling/global-styles';
+
+// Apply theming to Google Material components
+// See https://material.angular.io/guide/theming for details
+// @include mat.core($typography);
+// @include angular-material-typography($typography);
+// @include angular-material-theme($mat-theme);
+
+<%= currentStyleFile %>

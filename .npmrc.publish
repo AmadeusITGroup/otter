@@ -1,0 +1,4 @@
+# NPM config file use to publish packages
+//npm.pkg.github.com/:_authToken=${GITHUB_AUTH_TOKEN}
+
+always-auth=true

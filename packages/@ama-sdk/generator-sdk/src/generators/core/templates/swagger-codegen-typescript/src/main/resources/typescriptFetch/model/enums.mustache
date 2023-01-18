@@ -1,0 +1,5 @@
+{{#replaceWithEmptyExportIfNeeded}}
+{{#noEmptyExport}}
+{{#models}}{{#model}}{{#hasEnums}}{{#removeBrackets}}export type { {{#trimComma}}{{#vars}}{{#isEnum}}{{{datatypeWithEnum}}} as {{classname}}{{{datatypeWithEnum}}}, {{/isEnum}}{{/vars}}{{/trimComma}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}/{{#kebabCase}}{{classname}}{{/kebabCase}}';
+{{/removeBrackets}}{{/hasEnums}}{{/model}}{{/models}}{{/noEmptyExport}}
+{{/replaceWithEmptyExportIfNeeded}}

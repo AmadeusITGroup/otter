@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "lib": ["es2020", "dom"],
+    "types": ["chrome"],
+    "outDir": "dist/",
+    "module": "es2020",
+    "moduleResolution": "node",
+    "incremental": true
+  },
+  "angularCompilerOptions": {
+    "compilationMode": "full"
+  }
+}
