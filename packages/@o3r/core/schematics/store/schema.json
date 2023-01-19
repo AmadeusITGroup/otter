@@ -48,7 +48,7 @@
     },
     "modelName": {
       "type": "string",
-      "description": "The SDK Model to use as store item (e.g. AirOffer):"
+      "description": "The SDK Model to use as store item (e.g. Example):"
     },
     "modelIdPropName": {
       "type": "string",

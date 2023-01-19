@@ -71,6 +71,7 @@
   "default": "./src/public_api.js",
   "types": "./src/public_api.d.ts",
   "peerDependencies": {
+    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1500.4",
     "@angular-devkit/core": "~15.0.4",
     "@angular-devkit/schematics": "~15.0.4",
@@ -79,7 +80,6 @@
     "@angular/core": "~15.0.4",
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@angular/router": "~15.0.4",
-    "@dapi/sdk-core": "~3.4.0",
     "@ngrx/effects": "^15.0.0",
     "@ngrx/entity": "^15.0.0",
     "@ngrx/store": "^15.0.0",
@@ -111,8 +111,6 @@
     "uuid": "^8.3.2"
   },
   "generatorDependencies": {
-    "@dapi/sdk": "~2.52.0",
-    "@dapi/sdk-core": "~3.4.0",
     "@formatjs/intl-numberformat": "^8.0.2",
     "@ngrx/effects": "^15.0.0",
     "@ngrx/entity": "^15.0.0",
@@ -127,6 +125,7 @@
     "ngrx-store-localstorage": "^15.0.0"
   },
   "devDependencies": {
+    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1500.4",
     "@angular-devkit/build-angular": "~15.0.4",
     "@angular-devkit/core": "~15.0.4",
@@ -139,7 +138,6 @@
     "@angular/platform-browser": "~15.0.4",
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@angular/router": "~15.0.4",
-    "@dapi/sdk-core": "~3.4.0",
     "@ngrx/effects": "^15.0.0",
     "@ngrx/entity": "^15.0.0",
     "@ngrx/store": "^15.0.0",

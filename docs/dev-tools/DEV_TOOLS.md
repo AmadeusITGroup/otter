@@ -179,12 +179,12 @@ Options:
   --verbose                          Display debug log message
   --silent                           Do not exit with error in case of metadata fetch error
 
-Example : peer-dependencies-updater "@dapi/sdk@~2.21.0" "@o3r/core" 
+Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core" 
 ```
 
 ## Scripts
 
-This package provide generic helpers to support the build chain of Otter and Dapi packages
+This package provide generic helpers to support the build chain of Otter and Ama sdk packages
 
 ### Scripts available
 
@@ -245,8 +245,7 @@ The configuration can be provided in the package.json file as following:
     "versionHarmonize": {
       "ignore": [
         "typescript",
-        "webpack",
-        "@dapi/.*"
+        "webpack"
       ]
     }
   }

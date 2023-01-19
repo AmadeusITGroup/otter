@@ -1,4 +1,4 @@
-import {utils} from '@dapi/sdk-core';
+import {utils} from '@ama-sdk/core';
 
 /**
  * Check if an object is a date

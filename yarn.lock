@@ -221,7 +221,7 @@ __metadata:
   dependencies:
     "@ama-des/amaterasu-desapp": latest
     "@ama-terasu/core": "workspace:^"
-    "@o3r/amaterasu-dapi-spec": "workspace:^"
+    "@o3r/amaterasu-api-spec": "workspace:^"
     "@o3r/amaterasu-dodo": "workspace:^"
     "@o3r/amaterasu-otter": "workspace:^"
     "@o3r/amaterasu-sdk": "workspace:^"
@@ -2884,21 +2884,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dapi/sdk-core@npm:~3.4.0":
-  version: 3.4.5
-  resolution: "@dapi/sdk-core@npm:3.4.5"
-  dependencies:
-    tslib: ^2.0.0
-    uuid: ^8.3.2
-  peerDependencies:
-    isomorphic-fetch: ^2.2.1
-  peerDependenciesMeta:
-    isomorphic-fetch:
-      optional: true
-  checksum: 4c1dd5582487a073e9407df3dd960031802e211300abc4abe82907d35491566d92c97c2824675ce7e9f3163d6669a25a962f181fb89ac6f5ef1d6e471ed3adc0
-  languageName: node
-  linkType: hard
-
 "@discoveryjs/json-ext@npm:0.5.7, @discoveryjs/json-ext@npm:^0.5.0, @discoveryjs/json-ext@npm:^0.5.3":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
@@ -5180,9 +5165,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@o3r/amaterasu-dapi-spec@workspace:^, @o3r/amaterasu-dapi-spec@workspace:packages/@o3r/amaterasu/amaterasu-dapi-spec":
+"@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
   version: 0.0.0-use.local
-  resolution: "@o3r/amaterasu-dapi-spec@workspace:packages/@o3r/amaterasu/amaterasu-dapi-spec"
+  resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -5263,6 +5248,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/analytics@workspace:packages/@o3r/analytics"
   dependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/build-angular": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
@@ -5271,7 +5257,6 @@ __metadata:
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
     "@angular/router": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/store": ^15.0.0
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
@@ -5298,12 +5283,12 @@ __metadata:
     webpack: ~5.75.0
     zone.js: ^0.12.0
   peerDependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular/common": ^15.0.2
     "@angular/core": ^15.0.2
     "@angular/platform-browser": ^15.0.2
     "@angular/platform-browser-dynamic": ^15.0.2
     "@angular/router": ^15.0.2
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/store": ^15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -5323,6 +5308,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/apis-manager@workspace:packages/@o3r/apis-manager"
   dependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/build-angular": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
@@ -5330,7 +5316,6 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
@@ -5351,9 +5336,9 @@ __metadata:
     typescript: ~4.8.4
     zone.js: ^0.12.0
   peerDependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular/common": ^15.0.2
     "@angular/core": ^15.0.2
-    "@dapi/sdk-core": ~3.4.0
     "@o3r/dev-tools": "workspace:^"
     rxjs: ^7.4.0
   languageName: unknown
@@ -5370,7 +5355,6 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
@@ -5397,7 +5381,6 @@ __metadata:
   peerDependencies:
     "@angular/common": ^15.0.2
     "@angular/core": ^15.0.2
-    "@dapi/sdk-core": ~3.4.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -5443,7 +5426,6 @@ __metadata:
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
     "@angular/router": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ng-bootstrap/ng-bootstrap": ^14.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
@@ -5497,7 +5479,6 @@ __metadata:
     "@angular/forms": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
     "@o3r/analytics": "workspace:^"
@@ -5528,7 +5509,6 @@ __metadata:
     "@angular/forms": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
     "@o3r/configuration": "workspace:^"
@@ -5613,6 +5593,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/architect": ~0.1500.4
     "@angular-devkit/build-angular": ~15.0.4
     "@angular-devkit/core": ~15.0.4
@@ -5625,7 +5606,6 @@ __metadata:
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
     "@angular/router": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/effects": ^15.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
@@ -5664,6 +5644,7 @@ __metadata:
     uuid: ^8.3.2
     zone.js: ^0.12.0
   peerDependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/architect": ~0.1500.4
     "@angular-devkit/core": ~15.0.4
     "@angular-devkit/schematics": ~15.0.4
@@ -5672,7 +5653,6 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
     "@angular/router": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/effects": ^15.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
@@ -5774,7 +5754,6 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/store": ^15.0.0
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
@@ -5807,7 +5786,6 @@ __metadata:
     "@angular/compiler-cli": ~15.0.4
     "@angular/core": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/store": ^15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -5920,7 +5898,6 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@microsoft/tsdoc": ~0.14.1
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
@@ -5964,6 +5941,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/build-angular": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
@@ -5972,7 +5950,6 @@ __metadata:
     "@angular/forms": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
     "@nrwl/cli": ^15.3.3
@@ -5999,10 +5976,10 @@ __metadata:
     typescript: ~4.8.4
     zone.js: ^0.12.0
   peerDependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular/common": ^15.0.2
     "@angular/core": ^15.0.2
     "@angular/forms": ^15.0.2
-    "@dapi/sdk-core": ~3.4.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
     "@o3r/core": "workspace:^"

@@ -81,7 +81,6 @@
         },
         "otter.generate.store.sdkPackage": {
           "type": "string",
-          "default": "@dapi/sdk",
           "description": "Sdk package name"
         }
       }

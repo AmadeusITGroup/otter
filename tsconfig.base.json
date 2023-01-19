@@ -56,7 +56,7 @@
       "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/src"],
       "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/src"],
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/src"],
-      "@o3r/amaterasu-dapi-spec": ["packages/@o3r/amaterasu/amaterasu-dapi-spec/src"],
+      "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/src"],
       "@ama-sdk/core": ["packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/src"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-builder/src"],

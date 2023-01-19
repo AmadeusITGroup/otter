@@ -1,5 +1,5 @@
+import { utils } from '@ama-sdk/core';
 import { FormControl } from '@angular/forms';
-import { utils } from '@dapi/sdk-core';
 
 import { MinDateValidator } from './min-date.directive';
 

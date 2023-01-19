@@ -1,4 +1,4 @@
-import {utils} from '@dapi/sdk-core';
+import {utils} from '@ama-sdk/core';
 import {deepFill, immutablePrimitive, isDate, isObject} from './deep-fill';
 
 describe('Deep fill function', () => {

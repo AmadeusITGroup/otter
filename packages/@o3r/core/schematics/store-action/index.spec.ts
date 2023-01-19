@@ -17,10 +17,10 @@ describe('Store Action generator', () => {
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
     initialTree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-entity-async', {
-      storeName: 'AirOffers',
-      modelName: 'AirOffer',
+      storeName: 'Example',
+      modelName: 'Example',
       modelIdPropName: 'id',
-      sdkPackage: '@dapi/sdk',
+      sdkPackage: '@api/sdk',
       path: './'
     }, initialTree));
   });
@@ -28,7 +28,7 @@ describe('Store Action generator', () => {
   it('should add a set action', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-action', {
-      storeName: 'AirOffers',
+      storeName: 'Example',
       actionName: 'dummyTest',
       actionGroup: 'testGroup',
       actionType: 'set',
@@ -37,10 +37,10 @@ describe('Store Action generator', () => {
       description: 'dummy description'
     }, initialTree));
 
-    expect(tree.readContent('/air-offers/air-offers.actions.ts').replace(/\n/g, '')).toMatch(/export const setDummyTest/);
-    expect(tree.readContent('/air-offers/air-offers.actions.ts').replace(/\n/g, '')).toMatch(/const ACTION_SET_DUMMY_TEST =/);
+    expect(tree.readContent('/example/example.actions.ts').replace(/\n/g, '')).toMatch(/export const setDummyTest/);
+    expect(tree.readContent('/example/example.actions.ts').replace(/\n/g, '')).toMatch(/const ACTION_SET_DUMMY_TEST =/);
 
-    expect(tree.readContent('/air-offers/air-offers.reducer.ts').replace(/\n/g, '')).toMatch(/on\(actions\.setDummyTest, \(state, _payload\)/);
+    expect(tree.readContent('/example/example.reducer.ts').replace(/\n/g, '')).toMatch(/on\(actions\.setDummyTest, \(state, _payload\)/);
   });
 
 });

@@ -1,6 +1,6 @@
 # SDK models hierarchy
 
-The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@dapi/generator-sdk](../packages/@dapi/generator-sdk) generator.
+The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@ama-sdk/generator-sdk](../packages/@ama-sdk/generator-sdk/) generator.
 
 ## Overview
 
@@ -40,7 +40,7 @@ The core model factory can be defined, in the SDK creating the core model, as in
 ```typescript
 // in the models/core/my-model/my-model.ts
 import type { MyModel } from '../../base/my-model/my-model';
-import type { IgnoreEnum } from '@dapi/sdk-core';
+import type { IgnoreEnum } from '@ama-sdk/core';
 
 export type MyModelCoreIfy<T extends IgnoreEnum<MyModel>> = T & {
   /** A additional new field */

@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Context, promiseSpawn } from '@ama-terasu/core';
-import { dump, load } from 'js-yaml';
-import { existsSync, promises as fs } from 'node:fs';
+import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
-import { generateBasicNpmrc } from './commands.helpers';
 
 /** Option to create an application */
 export interface CreateTypescriptSdkOptions {
@@ -19,8 +17,6 @@ export interface CreateTypescriptSdkOptions {
    * @default false
    */
   yes?: boolean;
-  /** Azure PAT */
-  'azure-token': string;
   /** Path to the specification used to generate the SDK */
   'specification'?: string;
 }
@@ -40,18 +36,9 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    '@dapi/generator-sdk': version !== '0.0.0' ? version : 'latest',
+    '@ama-sdk/generator-sdk': version !== '0.0.0-placeholder' ? version : 'latest',
     yo: 'latest'
   };
-  const azureRegistryUrls = [
-    '//pkgs.dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_packaging/des-sdks/npm/registry/',
-    '//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/registry/'
-  ];
-
-  await context.getSpinner('Adding Otter/Dapi registry...').fromPromise(
-    fs.writeFile(resolve(cwd, npmrcFile), generateBasicNpmrc(options['azure-token'])),
-    'Registry file created'
-  );
 
   await context.getSpinner('Generating SDK package...').fromPromise(
     (async () => {
@@ -65,37 +52,6 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     // promiseSpawn(`npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:shell --projectName "${options.name}" --projectPackageName sdk --projectDescription "${options.name} SDK" --projectHosting "Azure DevOps"`, { cwd, stderrLogger: logger.debug, logger }),
     `SDK Shell generated (in ${inPackageCwd})`
   );
-
-  const npmrcFilePath = resolve(inPackageCwd, '.npmrc');
-  if (existsSync(npmrcFilePath)) {
-    const updateNpmrcTask = context.getSpinner('Updating generated .npmrc file...');
-    updateNpmrcTask.start();
-    const generatedNpmrc = await fs.readFile(npmrcFilePath, { encoding: 'utf-8' });
-    const azurePatBase64 = Buffer.from(options['azure-token']).toString('base64');
-    const newNpmrcContent = generatedNpmrc
-      .replace(/_password=.*/gm, `$1=${azurePatBase64}`);
-    await fs.writeFile(npmrcFilePath, newNpmrcContent);
-    updateNpmrcTask.succeed('.npmrc file updated');
-  }
-
-  const yarnrcFilePath = resolve(inPackageCwd, '.yarnrc.yml');
-  if (existsSync(yarnrcFilePath)) {
-    const updateYarnrcTask = context.getSpinner('Updating generated .yarn.yml file...');
-    updateYarnrcTask.start();
-
-    const yarnrc: any = load(await fs.readFile(yarnrcFilePath, {encoding: 'utf8'}));
-    if (yarnrc) {
-      const azurePatIdentBase64 = Buffer.from(`AmadeusDigitalAirline:${options['azure-token']}`).toString('base64');
-      yarnrc.npmRegistries ||= {};
-      azureRegistryUrls.forEach((url) => {
-        yarnrc.npmRegistries[url] ||= {};
-        yarnrc.npmRegistries[url].npmAuthIdent = azurePatIdentBase64;
-        yarnrc.npmRegistries[url].npmAlwaysAuth = true;
-      });
-      await fs.writeFile(yarnrcFilePath, dump(yarnrc));
-    }
-    updateYarnrcTask.succeed('.yarnrc.yml file updated');
-  }
 
   await context.getSpinner('Clean up setup materials').fromPromise(
     Promise.all([

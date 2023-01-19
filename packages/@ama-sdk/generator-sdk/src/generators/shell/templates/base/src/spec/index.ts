@@ -1,3 +1,3 @@
 export * from './operation-adapter';
-export * from './dapi-mock';
+export * from './api-mock';
 export * from './mock-factory/index';

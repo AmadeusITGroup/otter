@@ -34,7 +34,7 @@
       "@o3r/mobile": ["packages/@o3r/mobile/dist", "packages/@o3r/mobile/src/public_api"],
       "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/dist", "packages/@o3r/amaterasu/amaterasu-sdk/src"],
       "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/dist", "packages/@o3r/amaterasu/amaterasu-otter/src"],
-      "@o3r/amaterasu-dapi-spec": ["packages/@o3r/amaterasu/amaterasu-dapi-spec/dist", "packages/@o3r/amaterasu/amaterasu-dapi-spec/src"],
+      "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/dist", "packages/@o3r/amaterasu/amaterasu-api-spec/src"],
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/dist", "packages/@o3r/amaterasu/amaterasu-dodo/src"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],

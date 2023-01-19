@@ -1,5 +1,5 @@
+import { Api, ApiClient, ApiName } from '@ama-sdk/core';
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { Api, ApiClient, ApiName } from '@dapi/sdk-core';
 import { ApiManager } from './api-manager';
 import { INTERNAL_API_TOKEN } from './api-manager.token';
 

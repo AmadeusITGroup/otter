@@ -69,7 +69,7 @@ public class TypescriptfetchGenerator extends AbstractTypeScriptClientCodegen {
     addSupportingFile("api/fixtures.jasmine.mustache", apiPackage, "fixtures.jasmine.ts");
     addSupportingFile("api/fixtures.jest.mustache", apiPackage, "fixtures.jest.ts");
     addSupportingFile("api/enums.mustache", apiPackage, "enums.ts");
-    addSupportingFile("spec/dapi-mock.mustache", "src/spec", "dapi-mock.ts");
+    addSupportingFile("spec/api-mock.mustache", "src/spec", "api-mock.ts");
 
     /**
      * Template Location.  This is the location which templates will be read from.  The generator

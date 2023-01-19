@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
+import { Mark } from '@ama-sdk/core';
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { Mark } from '@dapi/sdk-core';
 import { BehaviorSubject, combineLatest, fromEvent, Observable, ReplaySubject } from 'rxjs';
 import { delay, filter, skip, skipWhile, take, takeWhile, withLatestFrom } from 'rxjs/operators';
 import { CustomEventMarks, CustomEventPayload, EventTiming, FirstLoadDataPayload, PerfEventPayload, ServerCallMetric, UiEventPayload } from '../../contracts';

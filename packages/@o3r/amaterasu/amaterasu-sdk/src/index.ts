@@ -18,12 +18,6 @@ module.exports = {
           default: '.',
           description: 'Path to the generated package'
         })
-        .option(EXTRA_COMMON_OPTIONS.azureToken, {
-          ...MODULE_OPTIONS.azureToken,
-          type: 'string',
-          description: 'Azure registry Personal Access Token',
-          demandOption: 'Azure registry PAT is mandatory'
-        })
         .command('typescript <name>', 'Generate a typescript SDK package (empty if no specification given)', (yargsInstanceTs) => yargsInstanceTs
           .positional('name', {
             type: 'string',

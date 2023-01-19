@@ -1,6 +1,6 @@
+import {utils} from '@ama-sdk/core';
 import {Directive, forwardRef, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
-import {utils} from '@dapi/sdk-core';
 
 /**
  * A directive which installs the `MinDateValidator` for any `formControlName,

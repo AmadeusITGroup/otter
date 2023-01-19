@@ -1,7 +1,7 @@
+import { Mark } from '@ama-sdk/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NavigationEnd, Router } from '@angular/router';
-import { Mark } from '@dapi/sdk-core';
 import { firstValueFrom, Observable } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { EVENT_TRACK_SERVICE_CONFIGURATION } from './event-track.configuration';

@@ -28,8 +28,6 @@ The scope of these tests is:
 
 For the functional validation part, the tests must use/cover every actions possible to be done on the block and any data retrieval that may be used by e2e tests later on, to assure all required fixtures (component objects) are created and maintained through the component tests.
 
-  [contact]: <mailto:dapi.opensource@amadeus.com>
-
 ## 2 - Making changes
 
 Please ensure that you are submitting quality code, specifically make sure that:
@@ -41,9 +39,8 @@ Please ensure that you are submitting quality code, specifically make sure that:
 
 To help you with this, we are providing a set of:
   * [Editors configuration](.editorconfig)
-  * [Linters configuration](https://rndwww.nce.amadeus.net/git/projects/DZ/repos/eslint-config-aek/browse/index.js)
-  * [Deleveloper guide](DEVELOPER.md)
-  * [Component generator](https://rndwww.nce.amadeus.net/git/projects/DZ/repos/generator-otter/browse) (and more)
+  * [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
+  * [Component generator](./docs/core/OTTER_ANGULAR_TOOLS.md#schematics) (and more)
 
 ## 3 - Style guide
 
@@ -56,7 +53,6 @@ A description comment must use the pattern `/** [Your comment] */` |
 Linter tasks must pass |
 Tests must pass |
 Unless exceptions, your changes should include / update unit tests. If you don't, you will need to justify if a reviewer asks for |
-Always check the [List of technologies](https://rndwww.nce.amadeus.net/confluence/display/OTTER/List+of+technologies) before choosing a library / framework |
 If your code is temporary, add a TODO or NOTE indicating when this should be reverted (link with a github issue or other tracking tool) |
 New changes should be tested running a JIT build and AoT build |
 Any change should be followed by changes in the generator whenever it's applicable | 
@@ -71,7 +67,7 @@ Properties should have the most restricted type possible | <code>// Wrong privat
 
 Our purpose is to fix all the issues as soon as possible. In order to facilitate this we want to implement a standard process for bug opening.
 
-Before you submit an issue, please make sure the issue is not already in our [issues backlog](https://dev.azure.com/AmadeusDigitalAirline/Otter/_dashboards/dashboard/1c236383-3aad-4f3e-a40d-5d43655d4ad6). Maybe an issue for your problem already exists and the discussion might inform you of workarounds 
+Before you submit an issue, please make sure the issue is not already in our [issues backlog](https://github.com/AmadeusITGroup/otter/issues). Maybe an issue for your problem already exists and the discussion might inform you of workarounds 
 already available.
 
 A minimal set of information will be required when an issue is opened:
