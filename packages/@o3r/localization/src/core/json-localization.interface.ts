@@ -6,6 +6,8 @@ export interface JSONLocalization {
   description: string;
   /** True means that the key will be mapped to a dictionary in the CMS. */
   dictionary: boolean;
+  /** True means that the value has to be overriden in the CMS. */
+  referenceData: boolean;
   /** Tags used to filter/categorize localization strings */
   tags?: string[];
   /** The default value for EN language. It is mandatory if dictionary is set to false. */
