@@ -35,12 +35,14 @@ describe('Localization helper', () => {
         {
           key: 'keyTest',
           description: 'ok description',
-          dictionary: false
+          dictionary: false,
+          referenceData: false
         },
         {
           key: 'keyTest-2',
           description: 'nok description',
-          dictionary: false
+          dictionary: false,
+          referenceData: false
         }
       ]);
 
@@ -57,13 +59,15 @@ describe('Localization helper', () => {
           key: 'test',
           value: 'test value 1',
           description: 'ok description',
-          dictionary: false
+          dictionary: false,
+          referenceData: false
         },
         {
           key: 'test-2',
           description: 'other description',
           value: 'test value 2',
-          dictionary: false
+          dictionary: false,
+          referenceData: false
         }
       ]);
 

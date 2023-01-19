@@ -20,6 +20,8 @@ export interface LocalizationJsonValue {
   description: string;
   /** Determine if the item can have multiple extensions */
   dictionary?: boolean;
+  /** Determine if the value has to be overriden */
+  referenceData?: boolean;
   /** Localization default value */
   defaultValue?: string;
   /** Tags used for filtering/categorizing */
@@ -191,6 +193,7 @@ export class LocalizationExtractor {
     const res: JSONLocalization = {
       description: loc.description,
       dictionary: !!loc.dictionary,
+      referenceData: !!loc.referenceData,
       key
     };
 
