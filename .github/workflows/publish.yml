@@ -41,10 +41,12 @@ jobs:
         with:
           enable-build-cache: 'true'
           install-jdk: 'true'
-      - name: Build
-        run: yarn build:local-swagger-gen
+      - name: Build Swagger CodeGen
+        run: yarn build:swagger-gen
         env:
           AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Build
+        run: yarn build
       - name: Set new version
         run: yarn set:version ${{ steps.get-version.outputs.version }}
       - name: Get tag name
@@ -54,6 +56,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease || (github.event.release && github.event.release.prerelease) }}
           version: ${{ steps.get-version.outputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ steps.get-npm-tag.outputs.tag }} --userconfig=./.npmrc.publish
+        run: yarn run publish --tag=${{ steps.get-npm-tag.outputs.tag }}
         env:
-          GITHUB_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
