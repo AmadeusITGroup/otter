@@ -94,7 +94,7 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
     this.startRulesEngineReport();
 
     this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isRulesEngineMessage)).subscribe(this.handleEvents)
+      fromEvent(window, 'message').pipe(filterMessageContent(isRulesEngineMessage)).subscribe((e) => this.handleEvents(e))
     );
   }
 

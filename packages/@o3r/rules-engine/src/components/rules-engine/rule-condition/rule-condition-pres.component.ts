@@ -5,7 +5,7 @@ import type {
   OperandFact,
   TopLevelCondition,
   UnaryOperation
-} from '@o3r/rules-engine';
+} from '../../../engine';
 
 @Component({
   selector: 'o3r-rule-condition-pres',

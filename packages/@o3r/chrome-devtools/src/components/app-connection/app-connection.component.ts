@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { catchError, map, startWith, take, timeout } from 'rxjs/operators';
 import { ChromeExtensionConnectionService, isRuleEngineEventsMessage } from '../../services/connection.service';
-import { RulesetHistoryService } from '../rules-engine/ruleset-history/ruleset-history.service';
+import { RulesetHistoryService } from '../../services/ruleset-history.service';
 
 type AppState = 'loading' | 'timeout' | 'connected';
 

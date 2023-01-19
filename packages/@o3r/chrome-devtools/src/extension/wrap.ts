@@ -31,7 +31,7 @@ if ((globalThis as any).localMessageListener) {
   } catch {
     // ignore invalid JSON
   }
-  if (message?.type === 'otter-chrome-devtools' && message.to !== 'app' && message.content) {
+  if (message?.type === 'otter' && message.to !== 'app' && message.content) {
     try {
       void chrome.runtime.sendMessage(message);
     } catch {

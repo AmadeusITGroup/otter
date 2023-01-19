@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import type { OtterLikeComponentInfo } from '@o3r/components';
 import { ConfigurationModel } from '@o3r/configuration';
+import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
-import { RulesetExecutionDebug, RulesetHistoryService } from '../../components/rules-engine/ruleset-history/ruleset-history.service';
+import { RulesetHistoryService } from '../../services/ruleset-history.service';
 import { ChromeExtensionConnectionService, isSelectedComponentInfoMessage } from '../../services/connection.service';
 
 @Component({

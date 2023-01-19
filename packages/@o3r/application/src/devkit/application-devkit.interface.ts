@@ -68,7 +68,7 @@ export type AvailableApplicationMessageContents =
  */
 export const isApplicationMessage = (message: any): message is AvailableApplicationMessageContents => {
   return message && (
-    message.dataType === 'toggleInspector' ||
+    message.dataType === 'toggleVisualTesting' ||
     message.dataType === 'applicationInformation' ||
     message.dataType === 'requestMessages' ||
     message.dataType === 'connect');

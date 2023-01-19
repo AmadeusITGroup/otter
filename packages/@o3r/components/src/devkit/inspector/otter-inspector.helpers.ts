@@ -100,7 +100,7 @@ export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyt
       }
     });
   });
-  if (component) {
+  if (component && component[otterComponentInfoPropertyName]) {
     const componentName: string = component.constructor.name;
     const componentEvents: string[] = Object.values<any>(component.analyticsEvents || {}).map((eventConstructor) => eventConstructor.name);
     if (componentEvents.length) {

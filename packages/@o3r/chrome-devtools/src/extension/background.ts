@@ -1,6 +1,6 @@
 import type { InjectContentMessage, OtterMessage, otterMessageType } from '@o3r/core';
 import type { scriptToInject as ScriptToInject } from '../services/connection.service';
-import { ExtensionMessage } from './interface';
+import type { ExtensionMessage } from './interface';
 
 /** Type of a message exchanged with the Otter Chrome DevTools extension */
 const postMessageType: typeof otterMessageType = 'otter';

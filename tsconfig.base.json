@@ -51,7 +51,6 @@
       "@o3r/vscode-extension": ["packages/@o3r/vscode-extension/src"],
       "@o3r/storybook": ["packages/@o3r/storybook/src/public_api"],
       "@o3r/third-party": ["packages/@o3r/third-party/src"],
-      "@o3r/chrome-devtools": ["packages/@o3r/chrome-devtools/src"],
       "@o3r/mobile": ["packages/@o3r/mobile/src"],
       "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/src"],
       "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/src"],

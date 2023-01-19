@@ -15,6 +15,12 @@ export class ConfigPanelPresComponent {
   public configs$: Observable<Dictionary<ConfigurationModel>>;
 
   constructor(connectionService: ChromeExtensionConnectionService) {
+    connectionService.sendMessage(
+      'requestMessages',
+      {
+        only: 'configurations'
+      }
+    );
     this.configs$ = connectionService.message$.pipe(
       filter(isConfigurationsMessage),
       map((message) => message.configurations)

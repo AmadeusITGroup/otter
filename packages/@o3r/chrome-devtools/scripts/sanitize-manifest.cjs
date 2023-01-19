@@ -17,7 +17,7 @@ const { version } = require('../package.json');
 const removeSchema = async (file) => {
   if (existsSync(file)) {
     const content = JSON.parse(await readFile(file, { encoding: 'utf8' }));
-    content.version = version;
+    content.version = version.replace(/[a-zA-Z\-]/g, '');
     if (content.$schema) {
       delete content.$schema;
     }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, Pipe, PipeTransform, SimpleChanges } from '@angular/core';
 import type { OtterLikeComponentInfo } from '@o3r/components';
 import type { ConfigurationModel } from '@o3r/configuration';
-import type { RulesetExecutionDebug } from '../rules-engine/ruleset-history/ruleset-history.service';
+import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 
 
 @Component({
@@ -50,15 +50,15 @@ const isRecordOfArray = (value?: object | null): value is Record<string, any[]> 
   name: 'nbProp'
 })
 export class NbPropPipe implements PipeTransform {
-  public transform(value: any[] | object | null | undefined) {
+  public transform(value: any[] | object | null | undefined, ignoredKeys: string[] = []) {
     if (Array.isArray(value)) {
       return value.length;
     }
     if (isRecordOfArray(value)) {
-      return Object.values(value)
-        .reduce((acc: number, curr: any[]) => acc + curr.length, 0);
+      return Object.entries(value)
+        .reduce((acc: number, [key, curr]: [string, any[]]) => acc + (ignoredKeys.includes(key) ? 0 : curr.length), 0);
     }
-    return Object.keys(value || {}).length;
+    return Object.keys(value || {}).filter((key) => !ignoredKeys.includes(key)).length;
   }
 }
 

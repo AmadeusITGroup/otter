@@ -3,7 +3,7 @@
     <a ngbNavLink class="d-flex align-items-center gap-1">
       Configuration
       <span class="badge rounded-pill bg-info">
-        {{config | nbProp}}
+        {{config | nbProp : ['id']}}
       </span>
     </a>
     <ng-template ngbNavContent>

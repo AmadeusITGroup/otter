@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import type { AllBlock, Facts } from '@o3r/rules-engine';
+import type { AllBlock, Facts } from '../../../engine';
 
 @Component({
   selector: 'o3r-rule-actions-pres',

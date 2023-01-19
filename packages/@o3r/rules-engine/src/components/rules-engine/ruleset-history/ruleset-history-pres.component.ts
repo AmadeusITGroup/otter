@@ -1,5 +1,13 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, ViewEncapsulation } from '@angular/core';
-import type { RulesetExecutionDebug } from './ruleset-history.service';
+import type { Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../../../engine';
+/**
+ * Model of a RulesetExecution with more information for debug purpose
+ */
+export type RulesetExecutionDebug = (RulesetExecutionEvent | RulesetExecutionErrorEvent) & {
+  isActive: boolean;
+  status: 'Error' | 'Active' | 'Deactivated' | 'NoEffect';
+  rulesetInformation: Ruleset | undefined;
+};
 
 
 @Component({

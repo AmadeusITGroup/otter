@@ -12,9 +12,10 @@ import type {
   OtterComponentInfo,
   otterComponentInfoPropertyName
 } from '@o3r/core';
+import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
-import { RulesetExecutionDebug, RulesetHistoryService } from '../components/rules-engine/ruleset-history/ruleset-history.service';
+import { RulesetHistoryService } from '../services/ruleset-history.service';
 import { ChromeExtensionConnectionService } from '../services/connection.service';
 
 const otterInfoPropertyName: typeof otterComponentInfoPropertyName = '__otter-info__';

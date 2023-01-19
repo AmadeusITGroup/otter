@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import type { AllBlock, TopLevelCondition } from '@o3r/rules-engine';
+import type { AllBlock, TopLevelCondition } from '../../../engine';
 
 @Component({
   selector: 'o3r-rule-tree-pres',

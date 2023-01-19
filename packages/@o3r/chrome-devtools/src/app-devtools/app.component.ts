@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { ChromeExtensionConnectionService, isApplicationInformationMessage } from '../services/connection.service';
 import { DebugPanelService } from './debug-panel/debug-panel.service';
-import { RulesetExecutionDebug, RulesetHistoryService } from '../components/rules-engine/ruleset-history/ruleset-history.service';
+import { RulesetHistoryService } from '../services/ruleset-history.service';
 
 @Component({
   selector: 'app-root',
