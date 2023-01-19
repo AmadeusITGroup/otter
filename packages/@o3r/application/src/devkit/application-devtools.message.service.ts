@@ -94,7 +94,7 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
   /** @inheritDoc */
   public activate() {
     this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe(this.handleEvents)
+      fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe((e) => this.handleEvents(e))
     );
   }
 

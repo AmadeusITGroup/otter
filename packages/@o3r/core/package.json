@@ -69,7 +69,7 @@
     "@typescript-eslint/parser": "^5.19.0",
     "css-vars-ponyfill": "^2.0.0",
     "eslint": "^8.22.0",
-    "intl-messageformat": "~10.2.0",
+    "intl-messageformat": "~10.3.0",
     "ngrx-store-localstorage": "^15.0.0"
   },
   "devDependencies": {

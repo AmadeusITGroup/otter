@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.build",
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "**/*.spec.ts",
+    "src/app-components*.ts",
+    "src/app-components/**/*.ts",
+    "src/extension/**/*.ts",
+    "src/environments/**/*.ts",
+    "src/app-devtools/**/*.ts"
+  ]
+}

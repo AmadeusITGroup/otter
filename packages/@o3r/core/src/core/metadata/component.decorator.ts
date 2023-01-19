@@ -1,4 +1,4 @@
-import type { Translation } from '../interfaces';
+import type {Translation} from '../interfaces';
 
 /** Type of component */
 export type ComponentType = 'Block' | 'Page' | 'ExposedComponent' | 'Component';
@@ -36,9 +36,9 @@ export const otterComponentInfoPropertyName = '__otter-info__';
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function O3rComponent(info: OtterComponentInfoToProvide) {
-  return (component: any) => {
-    const componentName = component.constructor.name;
-    component[otterComponentInfoPropertyName] = { ...info, componentName };
-    return component;
+  return <T extends new (...args: any[]) => object>(constructor: T) => {
+    const componentName = constructor.name;
+    constructor.prototype[otterComponentInfoPropertyName] = {...info, componentName};
+    return constructor;
   };
 }
