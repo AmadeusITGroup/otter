@@ -15,8 +15,8 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build": "yarn nx build styling"
   },
-  "repository": "https://github.com/amadeus-digital/Otter",
-  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "contributors": [
     {
       "name": "Yannick Adam",

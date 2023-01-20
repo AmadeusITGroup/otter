@@ -75,7 +75,7 @@ The _submitTrigger$_ observable is passed as input to the container.
   }
   ```
   * In the container we receive the observable as an input, and each time the observable emits we execute the submit logic.  
-  Note that we have put in place an [@AsyncInput](https://github.com/amadeus-digital/Otter/blob/main/packages/%40o3r/forms/src/annotations/async-input.ts) decorator in __@o3r/forms__ to make sure that we will not have unhandled subscriptions if the reference of the input observable changes.
+  Note that we have put in place an [@AsyncInput](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/annotations/async-input.ts) decorator in __@o3r/forms__ to make sure that we will not have unhandled subscriptions if the reference of the input observable changes.
   ```typescript
   ...
   import { AsyncInput ...} from '@o3r/forms';   
@@ -189,7 +189,7 @@ We need to __register a function__ to be called __to mark the controls__ from th
     });
   }
 ```
-We have provided a helper called [markAllControlsDirtyAndTouched](https://github.com/amadeus-digital/Otter/blob/main/packages/@o3r/forms/src/core/helpers.ts) in __@o3r/forms__ to mark the interaction with the form.
+We have provided a helper called [markAllControlsDirtyAndTouched](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/forms/src/core/helpers.ts) in __@o3r/forms__ to mark the interaction with the form.
 
 * Container component
 ```typescript

@@ -6,8 +6,8 @@
   },
   "header": "",
   "tag-prefix": "",
-  "commitUrlFormat": "https://github.com/amadeus-digital/Otter/commit/{{hash}}",
-  "compareUrlFormat": "https://github.com/amadeus-digital/Otter/releases/tag/{{currentTag}}",
-  "issueUrlFormat": "https://github.com/amadeus-digital/Otter/issues/{{id}}",
+  "commitUrlFormat": "https://github.com/AmadeusITGroup/otter/commit/{{hash}}",
+  "compareUrlFormat": "https://github.com/AmadeusITGroup/otter/releases/tag/{{currentTag}}",
+  "issueUrlFormat": "https://github.com/AmadeusITGroup/otter/issues/{{id}}",
   "issuePrefixes": "'#'"
 }

@@ -55,7 +55,7 @@
       "yarn eslint --quiet --fix --global fast"
     ]
   },
-  "repository": "https://github.com/amadeus-digital/Otter",
+  "repository": "https://github.com/AmadeusITGroup/otter",
   "contributors": [
     {
       "name": "Yannick Adam",

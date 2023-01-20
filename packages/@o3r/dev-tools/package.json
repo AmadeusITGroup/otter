@@ -10,8 +10,8 @@
     "build": "yarn nx build dev-tools",
     "postbuild": "patch-package-json-main"
   },
-  "repository": "https://github.com/amadeus-digital/Otter",
-  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "bin": {
     "artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",
     "artifact-retriever": "./dist/src/cli/artifact-retriever.js",

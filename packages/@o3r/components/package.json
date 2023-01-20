@@ -14,8 +14,8 @@
     "build": "yarn nx build components",
     "postbuild": "patch-package-json-main"
   },
-  "repository": "https://github.com/amadeus-digital/Otter",
-  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "contributors": [
     {
       "name": "Yannick Adam",

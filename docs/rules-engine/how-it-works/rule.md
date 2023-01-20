@@ -1,7 +1,7 @@
 # Rule
 
 A rule is a group of conditions that will output a list of actions after processing. A unique id identifies each rule.   
-The default action types and their object structure definitions can be found in [structure definition file](https://github.com/amadeus-digital/Otter/blob/main/packages/@o3r/rules-engine/src/engine/structure.ts). 
+The default action types and their object structure definitions can be found in [structure definition file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/engine/structure.ts). 
 To see more about conditions, have a look at [nested conditions example](../../rules-engine-core/examples/nested-conditions.md).  
 
 
@@ -41,7 +41,7 @@ Example:
                 "type": "FACT",
                 "value": "isMobileDevice"
               },
-              "operator": "equal",  // see all default operators in [engine operators section](https://github.com/amadeus-digital/Otter/blob/main/packages/%40o3r/rules-engine/src/engine/operator/operators/index.ts)
+              "operator": "equal",  // see all default operators in [engine operators section](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/src/engine/operator/operators/index.ts)
               "rhs": {
                 "type": "LITERAL",
                 "value": true

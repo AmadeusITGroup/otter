@@ -43,7 +43,7 @@ Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of cond
 
 ## Versioning
 
-We are currently in the process of defining how to handle versioning for our product.
+Please refer to [Security file](./SECURITY.md).
 
 ## License
 
@@ -52,7 +52,7 @@ Please refer to the [License file](./LICENSE).
 ## Acknowledgments
 
 The [Otter Team](https://github.com/orgs/amadeus-digital/teams/otter) is responsible for the review of the code of this repository.
-Any bug of feature request can be addressed via [issue](https://github.com/amadeus-digital/Otter/issues/new/choose) report.
+Any bug of feature request can be addressed via [issue](https://github.com/AmadeusITGroup/otter/issues/new/choose) report.
 
 ## Developer
 
@@ -104,11 +104,11 @@ following products on your development machine:
 
 Clone the Otter repository:
 
-1. Login to [Github enterprise](https://github.com/amadeus-digital/Otter) using your P-Account.
+1. Login to [Github enterprise](https://github.com/AmadeusITGroup/otter) using your P-Account.
 2. Clone the project using the button `Code` or using the following git command
 
 ```shell
-git clone https://github.com/amadeus-digital/Otter.git
+git clone https://github.com/AmadeusITGroup/otter.git
 ```
 
 #### Installing NPM Modules

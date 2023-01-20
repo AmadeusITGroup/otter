@@ -40,8 +40,8 @@
       "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
     ]
   },
-  "repository": "https://github.com/amadeus-digital/Otter",
-  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "contributors": [
     {
       "name": "Yannick Adam",
