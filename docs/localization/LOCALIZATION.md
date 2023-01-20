@@ -35,7 +35,7 @@ Localization module is built on top of an open source [ngx-translate](https://gi
 
 
 
-We provide in [library](https://github.com/amadeus-digital/Otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) an angular module called **LocalizationModule** which comes with translations loader.
+We provide in [library](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) an angular module called **LocalizationModule** which comes with translations loader.
 
 - **In your AppModule** you need to **import** the **LocalizationModule** and **TranslateModule**. The LocalizationModule could be imported calling `forRoot` with a custom configuration __factory__ to specify the language of the application. This configuration is of type **LocalizationConfiguration** and describes your endpoint URL, supported locales, list of RTL languages, the language of your application and your fallback language.
 

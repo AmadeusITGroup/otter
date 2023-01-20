@@ -5,8 +5,8 @@
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
   "license": "MIT",
-  "repository": "https://github.com/amadeus-digital/Otter",
-  "bugs": "https://github.com/amadeus-digital/Otter/issues",
+  "repository": "https://github.com/AmadeusITGroup/otter",
+  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
