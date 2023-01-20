@@ -2,15 +2,20 @@ import { SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NgAddPackageOptions, NodePackageNgAddTask } from '../../tasks/index';
 
 /**
- * Ng add the packages
+ * Install via `ng add` a list of npm packages.
  *
- * @param packages
- * @param tree
- * @param context
+ * @param packages List of packages to be installed via `ng add`
+ * @param options install options
  */
 export function ngAddPackages(packages: string[], options?: NgAddPackageOptions) {
   return (tree: Tree, context: SchematicContext): Tree => {
-    packages.forEach((packageName) => context.addTask(new NodePackageNgAddTask(packageName, options)));
+    if (packages.length > 0) {
+      context.logger.info(`'${options?.parentPackageInfo || ''}' - 'ng add' has been launched for the following packages:`);
+      packages.forEach((packageName) => {
+        context.logger.info(`Running ng add for: ${packageName}`);
+        return context.addTask(new NodePackageNgAddTask(packageName, options));
+      });
+    }
     return tree;
   };
 }

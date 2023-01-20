@@ -1,0 +1,24 @@
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+/**
+ * Add Otter eslint-config to an Angular Project
+ *
+ * @param options
+ */
+export function ngAdd(): Rule {
+  /* ng add rules */
+  return async (_tree: Tree, context: SchematicContext) => {
+    try {
+      const { ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
+      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+
+      return ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: depsInfo.packageName });
+
+    } catch (e) {
+      // eslint-config-otter needs o3r/core as peer dep. o3r/core will install o3r/schematics
+      context.logger.error(`[ERROR]: Adding @o3r/eslint-config-otter has failed.
+      You need to install '@o3r/schematics' package to be able to use the eslint-config-otter package. Please run 'ng add @o3r/schematics' .`);
+      throw (e);
+    }
+  };
+}

@@ -8,6 +8,7 @@ module.exports = {
     'project': [
       'tsconfig.build.json',
       'tsconfig.spec.json',
+      'tsconfig.builders.json',
       'tsconfig.eslint.json'
     ],
     'sourceType': 'module'
