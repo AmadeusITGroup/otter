@@ -1,5 +1,5 @@
 import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { getProjectFromTree, getTemplateFolder, readAngularJson, writeAngularJson } from '@o3r/schematics';
 
@@ -10,25 +10,30 @@ import { getProjectFromTree, getTemplateFolder, readAngularJson, writeAngularJso
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateStyling(options: { projectName: string | null }, rootPath: string): Rule {
-  const createThemingFiles: Rule = (tree: Tree, context: SchematicContext) => {
+export function updateThemeFiles(rootPath: string): Rule {
+  return (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree);
 
     let currentStyleFile = '';
     let mainStyleName = 'styles.scss';
     let mainStyleFolder = 'src/';
     if (workspaceProject.architect &&
-        workspaceProject.architect.build &&
-        workspaceProject.architect.build.options &&
-        workspaceProject.architect.build.options.styles &&
-        workspaceProject.architect.build.options.styles[0] &&
-        tree.exists(workspaceProject.architect.build.options.styles[0])) {
+      workspaceProject.architect.build &&
+      workspaceProject.architect.build.options &&
+      workspaceProject.architect.build.options.styles &&
+      workspaceProject.architect.build.options.styles[0] &&
+      tree.exists(workspaceProject.architect.build.options.styles[0])) {
+
       const mainStylePath = workspaceProject.architect.build.options.styles[0];
       mainStyleName = path.basename(mainStyleName, '.scss').replace(/\.scss$/i, '');
       mainStyleFolder = path.dirname(mainStylePath);
       currentStyleFile = tree.read(mainStylePath)!.toString();
+      if (currentStyleFile.indexOf('./styling/theme') > -1) {
+        return tree;
+      }
       tree.delete(mainStylePath);
     }
+
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
         ...strings,
@@ -46,31 +51,33 @@ export function updateStyling(options: { projectName: string | null }, rootPath:
     return rule(tree, context);
   };
 
-  const updateAngularJson: Rule = (tree: Tree, context: SchematicContext) => {
+}
+
+/**
+ * Update assets list in angular.json for styling
+ *
+ * @param options
+ * @returns
+ */
+export function removeV7OtterAssetsInAngularJson(options: { projectName: string | null }): Rule {
+
+  return (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName);
 
     // exit if not an application
     if (workspaceProject.projectType !== 'application') {
-      context.logger.debug('Add translation extraction only on application project');
+      context.logger.debug('This is not an application project. No need to search and remove old v7 otter styling assets reference.');
       return tree;
     }
 
-    if (workspaceProject.architect && workspaceProject.architect.build) {
-      workspaceProject.architect.build.options.assets.push({
-        glob: '**/*',
-        input: 'node_modules/@o3r/styling/assets',
-        output: '/assets'
-      });
+    if (workspaceProject?.architect?.build?.options?.assets) {
+      workspaceProject.architect.build.options.assets =
+        workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => a.input.indexOf('node_modules/@otter/styling/assets') === -1);
     }
 
     workspace.projects[projectName] = workspaceProject;
     return writeAngularJson(tree, workspace);
   };
-
-  return chain([
-    createThemingFiles,
-    updateAngularJson
-  ]);
 }

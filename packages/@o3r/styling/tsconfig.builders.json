@@ -14,5 +14,12 @@
   ],
   "exclude": [
     "**/*.spec.ts",
+    "builders/**/templates/**",
+    "schematics/**/templates/**"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    }
   ]
 }

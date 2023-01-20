@@ -6,5 +6,6 @@
 
   "lib": {
     "entryFile": "src/public_api.ts"
-  }
+  },
+  "allowedNonPeerDependencies": ["tslib", "@o3r/schematics", "comment-json"]
 }

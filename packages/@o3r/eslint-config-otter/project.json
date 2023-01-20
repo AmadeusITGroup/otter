@@ -12,7 +12,21 @@
       ],
       "options": {
         "script": "build"
+      },
+      "dependsOn": []
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
       }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      },
+      "dependsOn": []
     },
     "publish": {
       "executor": "nx:run-commands",

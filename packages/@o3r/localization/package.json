@@ -93,7 +93,6 @@
     }
   },
   "dependencies": {
-    "@o3r/dev-tools": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "tslib": "^2.4.1"
   },
@@ -115,6 +114,7 @@
     "@nrwl/js": "^15.3.3",
     "@nrwl/linter": "^15.3.3",
     "@o3r/core": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",

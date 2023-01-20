@@ -9,14 +9,17 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { findFirstNodeOfKind, getAppModuleFilePath, getDefaultProjectName, getExternalDependenciesVersionRange, getNodeDependencyList,
-  getProjectFromTree, getTemplateFolder, ignorePatterns, readAngularJson, readPackageJson, writeAngularJson } from '@o3r/schematics';
+import {
+  findFirstNodeOfKind, getAppModuleFilePath, getDefaultProjectName, getExternalDependenciesVersionRange, getNodeDependencyList,
+  getProjectFromTree, getTemplateFolder, ignorePatterns, readAngularJson, readPackageJson, writeAngularJson
+} from '@o3r/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 import {
   addImportToModule,
   addProviderToModule,
   getDecoratorMetadata,
-  insertImport
+  insertImport,
+  isImported
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -51,6 +54,9 @@ export function updateLocalization(options: { projectName: string | null }, root
     let gitIgnoreContent = '';
     if (tree.exists('.gitignore')) {
       gitIgnoreContent = tree.read('.gitignore')!.toString();
+      if (gitIgnoreContent.indexOf('/*.metadata.json')) {
+        return tree;
+      }
       tree.delete('.gitignore');
     }
 
@@ -98,7 +104,7 @@ export function updateLocalization(options: { projectName: string | null }, root
       workspaceProject.architect = {};
     }
 
-    workspaceProject.architect['generate-translations'] = {
+    workspaceProject.architect['generate-translations'] ||= {
       builder: '@o3r/localization:localization',
       options: {
         browserTarget: `${projectName}:build`,
@@ -117,19 +123,28 @@ export function updateLocalization(options: { projectName: string | null }, root
     };
 
     if (workspaceProject.architect.build) {
-      workspaceProject.architect.build.options.assets.push({
-        glob: '**/*.json',
-        input: `${devResourcesFolder}/localizations`,
-        output: '/localizations'
-      });
+      const alreadyExistingBuildOption =
+        workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === 'localizations');
+
+      if (!alreadyExistingBuildOption) {
+        workspaceProject.architect.build.options.assets.push({
+          glob: '**/*.json',
+          input: `${devResourcesFolder}/localizations`,
+          output: '/localizations'
+        });
+      }
     }
 
     if (workspaceProject.architect.test) {
-      workspaceProject.architect.test.options.assets.push({
-        glob: '**/*.json',
-        input: `${devResourcesFolder}/localizations`,
-        output: '/localizations'
-      });
+      const alreadyExistingTestOption =
+        workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === 'localizations');
+      if (!alreadyExistingTestOption) {
+        workspaceProject.architect.test.options.assets.push({
+          glob: '**/*.json',
+          input: `${devResourcesFolder}/localizations`,
+          output: '/localizations'
+        });
+      }
     }
 
     const targets = [
@@ -173,15 +188,17 @@ export function updateLocalization(options: { projectName: string | null }, root
 
     packageJson.scripts = packageJson.scripts || {};
     if (packageJson.scripts && packageJson.scripts.start && packageJson.scripts.start !== `ng run ${projectName}:run`) {
-      packageJson.scripts['start:no-translation'] = packageJson.scripts.start;
+      packageJson.scripts['start:no-translation'] ||= packageJson.scripts.start;
     }
     if (packageJson.scripts.watch) {
       delete packageJson.scripts.watch;
     }
-    packageJson.scripts.start = `ng run ${projectName}:run`;
-    packageJson.scripts.build = `yarn generate:translations && ${packageJson.scripts.build as string}`;
-    packageJson.scripts['generate:translations:dev'] = `ng run ${projectName}:generate-translations`;
-    packageJson.scripts['generate:translations'] = `ng run ${projectName}:generate-translations:production`;
+    packageJson.scripts.start ||= `ng run ${projectName}:run`;
+    if (packageJson.scripts.build?.indexOf('generate:translations') === -1) {
+      packageJson.scripts.build = `yarn generate:translations && ${packageJson.scripts.build}`;
+    }
+    packageJson.scripts['generate:translations:dev'] ||= `ng run ${projectName}:generate-translations`;
+    packageJson.scripts['generate:translations'] ||= `ng run ${projectName}:generate-translations:production`;
 
     tree.overwrite(`${workspaceProject.root}/package.json`, JSON.stringify(packageJson, null, 2));
   };
@@ -204,6 +221,11 @@ export function updateLocalization(options: { projectName: string | null }, root
       ts.ScriptTarget.ES2015,
       true
     );
+
+    // avoid overriding app module if Localization module is already imported
+    if (isImported(sourceFile, 'LocalizationModule', '@otter/common') || isImported(sourceFile, 'LocalizationModule', '@o3r/localization')) {
+      return tree;
+    }
 
     const recorder = tree.beginUpdate(moduleFilePath);
     const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
@@ -337,6 +359,11 @@ export function updateLocalization(options: { projectName: string | null }, root
       true
     );
 
+    // avoid overriding app component file if Localization service is already imported
+    if (isImported(sourceFile, 'LocalizationService', '@otter/common') || isImported(sourceFile, 'LocalizationService', '@o3r/localization')) {
+      return tree;
+    }
+
     const recorder = tree.beginUpdate(componentFilePath);
 
     const insertImportToComponentFile = (name: string, file: string, isDefault?: boolean) => {
@@ -392,6 +419,11 @@ export function updateLocalization(options: { projectName: string | null }, root
       ts.ScriptTarget.ES2015,
       true
     );
+
+    // avoid overriding app component spec file if Localization mock is already imported
+    if (isImported(sourceFile, 'mockTranslationModules', '@otter/common') || isImported(sourceFile, 'mockTranslationModules', '@o3r/testing/localization')) {
+      return tree;
+    }
 
     const recorder = tree.beginUpdate(componentSpecFilePath);
 
@@ -476,7 +508,7 @@ export function updateI18n(): Rule {
     }
 
     if (!workspaceProject.architect.i18n) {
-      workspaceProject.architect.i18n = {
+      workspaceProject.architect.i18n ||= {
         builder: '@o3r/localization:i18n',
         options: {
           localizationConfigs: [{

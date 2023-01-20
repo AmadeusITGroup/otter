@@ -68,8 +68,6 @@
     }
   ],
   "license": "BSD-3-Clause",
-  "default": "./src/public_api.js",
-  "types": "./src/public_api.d.ts",
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1500.4",
@@ -83,7 +81,6 @@
     "@ngrx/effects": "^15.0.0",
     "@ngrx/entity": "^15.0.0",
     "@ngrx/store": "^15.0.0",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~15.0.1",
     "chokidar": "^3.5.2",
     "comment-json": "^4.1.0",
@@ -107,6 +104,7 @@
     }
   },
   "dependencies": {
+    "@o3r/schematics": "workspace:^",
     "tslib": "^2.4.1",
     "uuid": "^8.3.2"
   },
@@ -146,7 +144,6 @@
     "@nrwl/linter": "^15.3.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~15.0.4",
     "@types/jest": "~28.1.2",
     "@types/pid-from-port": "^1.1.0",

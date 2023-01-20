@@ -6,7 +6,7 @@ module.exports = {
   displayName: require('../package.json').name,
   preset: 'ts-jest',
   rootDir: '..',
-  moduleNameMapper: getJestModuleNameMapper(resolve(__dirname, '..'), resolve(__dirname, '..', '..', '..', '..', 'tsconfig.base.json')),
+  moduleNameMapper: getJestModuleNameMapper(resolve(__dirname, '..'), resolve(__dirname, '..', '..', '..', '..', 'tsconfig.testing.json')),
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*'
   ],

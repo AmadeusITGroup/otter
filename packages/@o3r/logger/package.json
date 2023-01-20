@@ -84,7 +84,7 @@
     "logrocket": {
       "optional": true
     },
-    "logrockett-ngrx": {
+    "logrocket-ngrx": {
       "optional": true
     },
     "smartlook-client": {

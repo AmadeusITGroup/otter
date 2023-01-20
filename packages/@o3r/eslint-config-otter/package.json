@@ -12,7 +12,9 @@
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "scripts": {
-    "build": "yarn cpy . !dist/ dist"
+    "build": "yarn cpy . !dist/ dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "contributors": [
     {
@@ -86,6 +88,8 @@
     "typescript": "^4.6.4"
   },
   "devDependencies": {
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular-eslint/eslint-plugin-template": "~15.1.0",
     "@angular/compiler": "~15.0.4",
@@ -110,5 +114,6 @@
     "typescript": {
       "optional": true
     }
-  }
+  },
+  "schematics": "./collection.json"
 }

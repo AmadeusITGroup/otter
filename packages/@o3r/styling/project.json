@@ -8,6 +8,7 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
+        "^build",
         "build-builders",
         "compile"
       ]
@@ -17,19 +18,28 @@
       "options": {
         "project": "packages/@o3r/styling/ng-package.json",
         "tsConfig": "packages/@o3r/styling/tsconfig.build.json"
-      }
+      },
+      "dependsOn": [
+        "^build",
+        "build-builders"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:build:builders"
-      }
+      },
+      "dependsOn": []
     },
     "build-builders": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      }
+      },
+      "dependsOn": [
+        "^build",
+        "prepare-build-builders"
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
