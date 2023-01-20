@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter rules-engine ",
+  "description": "ngAdd Otter rules-engine ",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+  ]
+}

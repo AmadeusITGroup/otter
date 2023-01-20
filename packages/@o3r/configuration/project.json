@@ -23,22 +23,25 @@
       "options": {
         "project": "packages/@o3r/configuration/ng-package.json",
         "tsConfig": "packages/@o3r/configuration/tsconfig.build.json"
-      },
-      "dependsOn": [
-        "^build",
-        "build-builders"
-      ]
+      }
     },
     "build-builders": {
       "executor": "nx:run-script",
-      "outputs": [
-        "packages/@o3r/configuration/dist/middlewares/"
-      ],
       "options": {
         "script": "build:builders"
       },
+      "outputs": [
+        "{projectRoot}/dist/middlewares",
+        "{projectRoot}/dist/builders.json",
+        "{projectRoot}/dist/migration.json",
+        "{projectRoot}/dist/collection.json",
+        "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/templates"
+      ],
       "dependsOn": [
-        "^build"
+        "^build",
+        "compile"
       ]
     },
     "lint": {
@@ -67,6 +70,12 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npm publish packages/@o3r/configuration/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
       }
     }
   },

@@ -33,7 +33,9 @@
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfig.esm2020.json",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "patch-package-json-main",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
@@ -117,6 +119,7 @@
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "copyfiles": "^2.4.1",
+    "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
@@ -133,5 +136,6 @@
     "node": ">=14.0.0",
     "npm": ">=4",
     "yarn": "<4.0.0"
-  }
+  },
+  "schematics": "./collection.json"
 }

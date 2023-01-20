@@ -138,7 +138,6 @@
   ],
   "license": "BSD-3-Clause",
   "peerDependencies": {
-    "@angular-devkit/core": "~15.0.4",
     "@angular-devkit/schematics": "~15.0.4",
     "@angular/common": "~15.0.4",
     "@angular/core": "~15.0.4",

@@ -15,6 +15,7 @@
         "outputPath": "{projectRoot}/dist/package.json"
       },
       "dependsOn": [
+        "build-builders",
         "compile",
         "build-esm2015",
         "build-cjs"
@@ -83,6 +84,18 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npm publish packages/@ama-sdk/core/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
       }
     }
   },

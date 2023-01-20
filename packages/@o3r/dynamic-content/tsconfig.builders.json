@@ -10,7 +10,7 @@
   },
   "include": [
     "middlewares/**/*.ts",
-    "schematics/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

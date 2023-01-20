@@ -9,9 +9,11 @@
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "middlewares/**/*.ts"
+    "middlewares/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
-    "**/*.spec.ts"
+    "**/*.spec.ts",
+    "schematics/**/templates/**"
   ]
 }

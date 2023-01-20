@@ -14,8 +14,9 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build:builders": "tsc -p ./tsconfig.pcloudy.json",
-    "build": "yarn nx build routing"
+    "build:builders": "tsc -p ./tsconfig.pcloudy.json && tsc -b tsconfig.builders.json --pretty",
+    "build": "yarn nx build mobile",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist"
   },
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
@@ -90,6 +91,8 @@
     }
   },
   "devDependencies": {
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular/cli": "~15.0.4",
     "@angular/common": "~15.0.4",
@@ -112,6 +115,7 @@
     "@types/node-fetch": "^2.6.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
@@ -128,5 +132,6 @@
   "license": "BSD-3-Clause",
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "schematics": "./collection.json"
 }

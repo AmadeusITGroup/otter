@@ -1,4 +1,4 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { JsonObject } from '@angular-devkit/core';
 import { NgGenerateEntityAsyncStoreSchematicsSchema } from './entity-async/schema';
 import { NgGenerateEntitySyncStoreSchematicsSchema } from './entity-sync/schema';
 import { NgGenerateSimpleAsyncStoreSchematicsSchema } from './simple-async/schema';

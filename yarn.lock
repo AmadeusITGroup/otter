@@ -91,6 +91,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     copyfiles: ^2.4.1
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5264,6 +5265,8 @@ __metadata:
   resolution: "@o3r/analytics@workspace:packages/@o3r/analytics"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -5283,6 +5286,7 @@ __metadata:
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5310,8 +5314,6 @@ __metadata:
     rxjs: ^7.4.0
     webpack: ~5.75.0
   peerDependenciesMeta:
-    "@angular-devkit/core":
-      optional: true
     "@angular-eslint/template-parser":
       optional: true
     webpack:
@@ -5364,6 +5366,8 @@ __metadata:
   resolution: "@o3r/application@workspace:packages/@o3r/application"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -5382,6 +5386,7 @@ __metadata:
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5520,8 +5525,6 @@ __metadata:
     zone.js: ^0.12.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1500.4
-    "@angular-devkit/core": ~15.0.4
-    "@angular-devkit/schematics": ~15.0.4
     "@angular/cdk": ^15.0.3
     "@angular/common": ~15.0.4
     "@angular/core": ~15.0.4
@@ -5557,6 +5560,8 @@ __metadata:
   resolution: "@o3r/configuration@workspace:packages/@o3r/configuration"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -5577,6 +5582,7 @@ __metadata:
     "@types/node": ^17.0.23
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5802,8 +5808,6 @@ __metadata:
     zone.js: ^0.12.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1500.4
-    "@angular-devkit/core": ~15.0.4
-    "@angular-devkit/schematics": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
     "@angular/core": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
@@ -5815,8 +5819,6 @@ __metadata:
     express-interceptor: ^1.2.0
     rxjs: ^7.4.0
   peerDependenciesMeta:
-    "@angular-devkit/core":
-      optional: true
     "@angular-eslint/template-parser":
       optional: true
     cheerio:
@@ -5955,7 +5957,6 @@ __metadata:
     zone.js: ^0.12.0
   peerDependencies:
     "@angular-devkit/core": ~15.0.4
-    "@angular-devkit/schematics": ~15.0.4
     "@o3r/core": "workspace:^"
   languageName: unknown
   linkType: soft
@@ -5965,6 +5966,8 @@ __metadata:
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -5986,6 +5989,7 @@ __metadata:
     "@types/node": ^17.0.23
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -6140,7 +6144,6 @@ __metadata:
   peerDependencies:
     "@angular-devkit/architect": ^0.1500.2
     "@angular-devkit/core": ~15.0.4
-    "@angular-devkit/schematics": ~15.0.4
     "@angular/cdk": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/core": ~15.0.4
@@ -6205,8 +6208,6 @@ __metadata:
     typescript: ~4.8.4
     zone.js: ^0.12.0
   peerDependencies:
-    "@angular-devkit/core": ~15.0.4
-    "@angular-devkit/schematics": ~15.0.4
     "@angular/core": ^15.0.2
     "@angular/platform-browser-dynamic": ^15.0.2
     "@fullstory/browser": ^1.2.1
@@ -6231,6 +6232,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/mobile@workspace:packages/@o3r/mobile"
   dependencies:
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular/cli": ~15.0.4
     "@angular/common": ~15.0.4
@@ -6254,6 +6257,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     commander: ^9.0.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -6294,6 +6298,8 @@ __metadata:
   resolution: "@o3r/routing@workspace:packages/@o3r/routing"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -6318,6 +6324,7 @@ __metadata:
     "@types/node": ^17.0.23
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -6353,6 +6360,7 @@ __metadata:
     "@angular-devkit/architect": ~0.1500.4
     "@angular-devkit/build-angular": ~15.0.4
     "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -6401,7 +6409,6 @@ __metadata:
     zone.js: ^0.12.0
   peerDependencies:
     "@angular-devkit/architect": ^0.1500.2
-    "@angular-devkit/core": ^15.0.2
     "@angular/core": ^15.0.2
     "@angular/platform-browser-dynamic": ^15.0.2
     "@ngrx/effects": ^15.0.0
@@ -6697,7 +6704,6 @@ __metadata:
     typescript: ~4.8.4
     zone.js: ^0.12.0
   peerDependencies:
-    "@angular-devkit/core": ~15.0.4
     "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/core": ~15.0.4
@@ -6726,6 +6732,7 @@ __metadata:
   resolution: "@o3r/third-party@workspace:packages/@o3r/third-party"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular/cli": ~15.0.4
     "@angular/common": ~15.0.4
@@ -6742,6 +6749,7 @@ __metadata:
     "@types/uuid": ^8.3.1
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
