@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 // FIXME: The interface has been removed in angular 11 https://github.com/angular/angular-cli/commit/df70c7a85770fe50cc4c2d67589dc2d37f27d0b1
-import {
+import type {
   Projects as NgWorkspaceProject,
   Schema as NgWorkspaceSchema,
   SchematicOptions

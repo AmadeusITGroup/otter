@@ -3,14 +3,11 @@
 
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
-  install,
-  updateCustomizationCmsAdapter,
-  updateCustomizationEnvironment,
-  updateDependencies,
-  updateDifferentialLoading,
-  updatePlaywright,
-  updatePrefetchBuilderConfiguration
+  install
 } from '@o3r/schematics';
+import { updateCustomizationEnvironment } from '../rule-factories/customization-environment';
+import { updateDifferentialLoading } from '../rule-factories/differential-loading';
+import { updatePlaywright } from '../rule-factories/playwright';
 import { updateStoreReducerInterface } from './v4.2/store-reducer-interface';
 import { updateSassFile } from './v4.3/material-theme-cssvar';
 import { updatePlaywrightEnvironment } from './v4.3/playwright-update';
@@ -24,7 +21,6 @@ import { useNgxPrefetch } from './v6.1/use-ngx-prefetch';
 import { updateRenovateConfig } from './v6.3/update-renovate-config';
 import { updatePrefetchTargetBuild } from './v6/update-angular-json';
 import { updateLocalizationGeneration } from './v7.0/update-localization-generation';
-
 /**
  * update of Otter library V3.*
  */
@@ -33,7 +29,6 @@ export function updateV3(): Rule {
 
     const updateRules: Rule[] = [
       updateCustomizationEnvironment(__dirname),
-      updateDependencies({isSymlinksNeeded: false, projectName: null}, __dirname),
       install
     ];
 
@@ -49,36 +44,7 @@ export function updateV3_2(): Rule {
 
     const updateRules: Rule[] = [
       updateCustomizationEnvironment(__dirname),
-      updateDependencies({isSymlinksNeeded: false, projectName: null}, __dirname),
       install
-    ];
-
-    return chain(updateRules)(tree, context);
-  };
-}
-
-/**
- * update of Otter library V3.3.*
- */
-export function updateV3_3(): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-
-    const updateRules: Rule[] = [
-      updateCustomizationCmsAdapter()
-    ];
-
-    return chain(updateRules)(tree, context);
-  };
-}
-
-/**
- * update of Otter library V3.4.*
- */
-export function updateV3_4(): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-
-    const updateRules: Rule[] = [
-      updatePrefetchBuilderConfiguration()
     ];
 
     return chain(updateRules)(tree, context);
@@ -154,20 +120,6 @@ export function updateV5_0(): Rule {
 
     const updateRules: Rule[] = [
       updateFixtureImport()
-    ];
-
-    return chain(updateRules)(tree, context);
-  };
-}
-
-/**
- * update of Otter library V5.2.*
- */
-export function updateV5_2(): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-
-    const updateRules: Rule[] = [
-      updateDependencies({ isSymlinksNeeded: false, projectName: null }, __dirname)
     ];
 
     return chain(updateRules)(tree, context);

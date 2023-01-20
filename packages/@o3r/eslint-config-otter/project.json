@@ -12,6 +12,13 @@
       ],
       "options": {
         "script": "build"
+      },
+      "dependsOn": []
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
       }
     },
     "prepare-publish": {
@@ -19,6 +26,13 @@
       "options": {
         "script": "prepare:publish"
       }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      },
+      "dependsOn": []
     },
     "publish": {
       "executor": "nx:run-commands",

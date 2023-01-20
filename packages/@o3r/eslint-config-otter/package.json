@@ -11,7 +11,9 @@
   ],
   "scripts": {
     "build": "yarn cpy . !dist/ dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "files": [
     "index.js",
@@ -33,6 +35,8 @@
     "typescript": "^4.6.4"
   },
   "devDependencies": {
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular-eslint/eslint-plugin-template": "~15.1.0",
     "@angular/compiler": "~15.0.4",
@@ -58,5 +62,6 @@
     "typescript": {
       "optional": true
     }
-  }
+  },
+  "schematics": "./collection.json"
 }

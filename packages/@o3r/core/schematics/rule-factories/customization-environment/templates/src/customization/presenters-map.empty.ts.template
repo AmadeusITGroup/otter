@@ -1,0 +1,12 @@
+import {EntryCustomComponents} from '@o3r/components';
+
+export function registerCustomComponents(): Map<string, any> {
+  return new Map();
+}
+
+export function initializeEntryComponents(): EntryCustomComponents  {
+  return {
+    customComponents: [],
+    customComponentsModules: []
+  };
+}

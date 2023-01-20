@@ -79,6 +79,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -108,9 +109,7 @@ __metadata:
   peerDependencies:
     isomorphic-fetch: ^2.2.1
   peerDependenciesMeta:
-    "@angular-eslint/template-parser":
-      optional: true
-    "@angular/compiler":
+    isomorphic-fetch:
       optional: true
   languageName: unknown
   linkType: soft
@@ -5312,6 +5311,8 @@ __metadata:
   dependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ~15.0.4
     "@angular/compiler": ~15.0.4
     "@angular/compiler-cli": ~15.0.4
@@ -5323,9 +5324,13 @@ __metadata:
     "@nrwl/linter": ^15.3.3
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.0.4
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
+    comment-json: ^4.1.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5340,9 +5345,10 @@ __metadata:
     zone.js: ^0.12.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
+    "@angular-devkit/schematics": ~15.0.4
     "@angular/common": ^15.0.2
     "@angular/core": ^15.0.2
-    "@o3r/dev-tools": "workspace:^"
+    "@schematics/angular": ~15.0.4
     rxjs: ^7.4.0
   languageName: unknown
   linkType: soft
@@ -5665,7 +5671,6 @@ __metadata:
     "@ngrx/effects": ^15.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
-    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~15.0.1
     chokidar: ^3.5.2
     comment-json: ^4.1.0
@@ -5814,6 +5819,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-config-otter@workspace:packages/@o3r/eslint-config-otter"
   dependencies:
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular-eslint/eslint-plugin-template": ~15.1.0
     "@angular/compiler": ~15.0.4
@@ -5855,6 +5862,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-plugin@workspace:packages/@o3r/eslint-plugin"
   dependencies:
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular-eslint/template-parser": ~15.1.0
     "@angular-eslint/utils": ~15.1.0
@@ -5867,6 +5876,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/experimental-utils": ^5.3.0
     "@typescript-eslint/parser": ^5.19.0
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-plugin-jest: ^26.1.4
     eslint-plugin-jsdoc: ^39.3.6
@@ -5882,7 +5892,6 @@ __metadata:
     "@angular-eslint/template-parser": ~15.1.0
     "@angular-eslint/utils": ~15.1.0
     "@angular/compiler": ~15.0.2
-    "@o3r/dev-tools": "workspace:^"
     "@typescript-eslint/eslint-plugin": ^5.9.0
     "@typescript-eslint/parser": ^5.9.0
     eslint: ^8.22.0
@@ -6208,7 +6217,7 @@ __metadata:
       optional: true
     logrocket:
       optional: true
-    logrockett-ngrx:
+    logrocket-ngrx:
       optional: true
     smartlook-client:
       optional: true
@@ -6465,7 +6474,6 @@ __metadata:
   peerDependencies:
     "@angular-devkit/core": ~15.0.4
     "@angular-devkit/schematics": ~15.0.4
-    "@angular/cli": ~15.0.4
     "@o3r/dev-tools": "workspace:^"
     "@schematics/angular": ~15.0.4
     comment-json: ^4.1.0

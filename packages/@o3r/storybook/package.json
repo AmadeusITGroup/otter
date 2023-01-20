@@ -37,7 +37,6 @@
     }
   },
   "dependencies": {
-    "@o3r/dev-tools": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "color": "^3.1.3",
     "react": "^17.0.2",
@@ -79,6 +78,7 @@
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
     "@o3r/core": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/localization": "workspace:^",

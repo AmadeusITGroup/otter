@@ -8,6 +8,7 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
+        "build-builders",
         "compile"
       ]
     },
@@ -16,6 +17,21 @@
       "options": {
         "project": "packages/@o3r/apis-manager/ng-package.json",
         "tsConfig": "packages/@o3r/apis-manager/tsconfig.build.json"
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
       }
     },
     "lint": {

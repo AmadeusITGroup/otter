@@ -11,29 +11,71 @@
         "$source": "projectName"
       }
     },
+    "enablePrefetchBuilder": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install prefetch builder",
+      "x-prompt": "Activate prefetch builder to generate prefetcher JavaScript file ?"
+    },
+    "enablePlaywright": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install playwright",
+      "x-prompt": "Activate playwright as E2E test system ?"
+    },
+    "enableCustomization": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Otter customization",
+      "x-prompt": "Add Otter customization mechanism to override presenter and injectable for external application"
+    },
+    "enableAnalytics": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Otter analytics",
+      "x-prompt": "Activate Otter analytics ?"
+    },
+    "enableCms": {
+      "type": "boolean",
+      "default": true,
+      "description": "Activate full CMS compatibility",
+      "x-prompt": "Add otter packages ('@o3r/{localization,styling,components,configuration}') to make the aplication CMS compatible ?"
+    },
+    "enableStyling": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install Otter theming and styling extractor",
+      "x-prompt": "Add Otter styling setup?"
+    },
+    "enableConfiguration": {
+      "type": "boolean",
+      "default": true,
+      "description": "Install otter configuration package and config extractor setup",
+      "x-prompt": "Add Otter configuration setup ?"
+    },
     "enableLocalization": {
       "type": "boolean",
       "default": true,
-      "description": "Install Otter localization",
-      "x-prompt": "Activate Otter localization?"
+      "description": "Localization generation setup and localization extractor",
+      "x-prompt": "Add Otter localization setup ?"
     },
     "enableStorybook": {
       "type": "boolean",
       "default": true,
       "description": "Install Storybook configurations",
-      "x-prompt": "Add storybook setup?"
+      "x-prompt": "Add storybook setup ?"
     },
-    "isSymlinksNeeded": {
+    "enableApisManager": {
       "type": "boolean",
-      "description": "Install NPM links to work on Otter Library",
-      "default": false,
-      "x-prompt": "Work on Otter with symlinks?"
+      "default": true,
+      "description": "Install otter apis manager",
+      "x-prompt": "Add APIs manager setup providing the SDK via injectable ?"
     },
     "isDefaultGenerator": {
       "type": "boolean",
       "description": "Set the Otter Generator as default ngCLI generator",
       "default": true,
-      "x-prompt": "Set Otter as default ngCLI generator?"
+      "x-prompt": "Set Otter as default ngCLI generator ?"
     },
     "generateAzurePipeline": {
       "type": "boolean",
@@ -41,13 +83,27 @@
       "default": false,
       "x-prompt": "Generate the Azure Pipeline for the new project?"
     },
+    "testingFramework": {
+      "type": "string",
+      "description": "The testing framework to use",
+      "default": "jest",
+      "enum": [
+        "jest",
+        "jasmine"
+      ],
+      "x-prompt": "Which testing framework would you like to use?"
+    },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
       "default": true
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip the install process",
+      "default": true
     }
   },
-  "additionalProperties": false,
   "required": [
   ]
 }

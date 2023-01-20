@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as commentJson from 'comment-json';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
@@ -24,15 +24,18 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
 
     // update gitignore
     if (tree.exists('/.gitignore')) {
-      const gitignore = tree.read('/.gitignore')!.toString() +
-        `
+      let gitignoreContent = tree.read('/.gitignore')!.toString();
+      if (gitignoreContent.indexOf('/storybook-static') === -1) {
+        gitignoreContent +=
+          `
 
 # Storybook
 /.storybook/style.metadata.json
 /documentation.json
 /storybook-static
 `;
-      tree.overwrite('/.gitignore', gitignore);
+        tree.overwrite('/.gitignore', gitignoreContent);
+      }
     }
 
     // update tsconfig
@@ -99,62 +102,66 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
 
-    // add dependencies
-    const storybookVersion = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', '..', '..', 'storybook', 'package.json')).toString()).peerDependencies['@storybook/components'];
-    const currentPackageJson = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', '..', 'package.json')).toString());
-    const angularVersion = currentPackageJson.devDependencies['@angular/cli'];
-    const mainPackageJson = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', '..', '..', '..', '..', 'package.json')).toString());
-    const sassLoaderVerion = mainPackageJson.devDependencies['sass-loader'];
-    const babelLoaderVerion = mainPackageJson.devDependencies['babel-loader'];
-    const storybookPresetSCSSVersion = mainPackageJson.devDependencies['@storybook/preset-scss'];
-    addPackageJsonDependency(tree, { name: '@angular/localize', version: angularVersion, type: NodeDependencyType.Dev, overwrite: true });
-    addPackageJsonDependency(tree, { name: '@compodoc/compodoc', version: '^1.1.11', type: NodeDependencyType.Dev, overwrite: true });
-    addPackageJsonDependency(tree, { name: '@storybook/addon-actions', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/addon-docs', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/addon-essentials', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/addon-links', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/addons', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/angular', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/cli', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/builder-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/manager-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: '@storybook/preset-scss', version: storybookPresetSCSSVersion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: 'babel-loader', version: babelLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
-    addPackageJsonDependency(tree, { name: 'sass-loader', version: sassLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
+    if (!getPackageJsonDependency(tree, '@storybook/angular', '/package.json')) {
+      // add dependencies
+      const storybookVersion = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json')).toString()).peerDependencies['@storybook/components'];
+      const currentPackageJson = JSON.parse(tree.read('/package.json')!.toString());
+      const angularVersion = currentPackageJson.devDependencies['@angular/cli'];
+      const sassLoaderVerion = currentPackageJson.devDependencies['sass-loader'];
+      const babelLoaderVerion = currentPackageJson.devDependencies['babel-loader'];
+      const storybookPresetSCSSVersion = currentPackageJson.devDependencies['@storybook/preset-scss'];
+      addPackageJsonDependency(tree, { name: '@angular/localize', version: angularVersion, type: NodeDependencyType.Dev, overwrite: true });
+      addPackageJsonDependency(tree, { name: '@compodoc/compodoc', version: '^1.1.11', type: NodeDependencyType.Dev, overwrite: true });
+      addPackageJsonDependency(tree, { name: '@storybook/addon-actions', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/addon-docs', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/addon-essentials', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/addon-links', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/addons', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/angular', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/cli', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/builder-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/manager-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/preset-scss', version: storybookPresetSCSSVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: 'babel-loader', version: babelLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: 'sass-loader', version: sassLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
+    }
 
-    // Generate files
-    Object.values(workspace.projects)
-      .forEach((project) => {
-        if (project.architect) {
-          Object.values(project.architect)
-            .forEach((build) => {
-              switch (build.builder as string) {
-                case '@o3r/localization:extractor':
-                  localizationMetadata = build.options?.outputFile && `../${build.options?.outputFile as string}` || localizationMetadata;
-                  break;
-                case '@o3r/components:extractor':
-                  configMetadata = build.options?.configOutputFile && `../${build.options?.configOutputFile as string}` || configMetadata;
-                  break;
-                case '@o3r/styling:extractor':
-                  styleMetadata = !workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}` || styleMetadata;
-                  break;
-              }
-            });
-        }
-      });
-    const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
-      template({
-        ...strings,
-        localizationMetadata,
-        configMetadata,
-        styleMetadata,
-        isLibrary,
-        dot: '.'
-      }),
-      renameTemplateFiles()
-    ]);
+    if (!tree.exists('.storybook/main.js')) {
+      // Generate files
+      Object.values(workspace.projects)
+        .forEach((project) => {
+          if (project.architect) {
+            Object.values(project.architect)
+              .forEach((build) => {
+                switch (build.builder as string) {
+                  case '@o3r/localization:extractor':
+                    localizationMetadata = build.options?.outputFile && `../${build.options?.outputFile as string}` || localizationMetadata;
+                    break;
+                  case '@o3r/components:extractor':
+                    configMetadata = build.options?.configOutputFile && `../${build.options?.configOutputFile as string}` || configMetadata;
+                    break;
+                  case '@o3r/styling:extractor':
+                    styleMetadata = !workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}` || styleMetadata;
+                    break;
+                }
+              });
+          }
+        });
+      const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
+        template({
+          ...strings,
+          localizationMetadata,
+          configMetadata,
+          styleMetadata,
+          isLibrary,
+          dot: '.'
+        }),
+        renameTemplateFiles()
+      ]);
 
-    const rule = mergeWith(templateSource, MergeStrategy.AllowCreationConflict);
-    return rule(tree, context);
+      const rule = mergeWith(templateSource, MergeStrategy.AllowCreationConflict);
+      return rule(tree, context);
+    }
+    return tree;
   };
 }

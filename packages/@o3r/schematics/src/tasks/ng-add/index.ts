@@ -10,6 +10,9 @@ export interface NgAddPackageOptions {
 
   /** working dir */
   workingDirectory?: string;
+
+  /** The package which launched the ng add for the current one */
+  parentPackageInfo?: string;
 }
 
 export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {

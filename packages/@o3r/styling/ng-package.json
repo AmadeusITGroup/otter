@@ -14,5 +14,5 @@
     "assets/**",
     "_index.scss"
   ],
-  "allowedNonPeerDependencies": ["tslib", "@o3r/dev-tools", "@o3r/schematics"]
+  "allowedNonPeerDependencies": ["tslib", "@o3r/schematics"]
 }
