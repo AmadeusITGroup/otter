@@ -38,7 +38,8 @@ const formatHelpOptionsBlocks = (initialMessage: string, groups: string[]) => {
             .replace(/(([^- ,][^ ,]*)+)/g, chalk.cyan('$1'))
             .replace(/( -+)/g, chalk.white('$1')) +
             line.substring(indexSep)
-              .replace(/ (\[.+\])[\s]*$/, ' ' + chalk.grey('$1'));
+              .replace(/ (\[.+\])[\s]*$/, ' ' + chalk.grey('$1'))
+              .replace(/(\[required])(.+)$/g, chalk.red('$1') + chalk.grey('$2'));
         }).join(EOL);
     }
     return message
@@ -119,7 +120,7 @@ const findOptionGroups = (message: string) => {
 
 const cleanProvidedOptionReported = (message: string) => {
   let optionWithDescription = false;
-  return message.split(/\n\r?/)
+  const lines = message.split(/\n\r?/)
     .reverse()
     .filter((line) => {
       if (line === '') {
@@ -129,7 +130,19 @@ const cleanProvidedOptionReported = (message: string) => {
         optionWithDescription = !/^ +-/.test(line) || /^ +-[^ ]+ +[^ ]+/.test(line);
       }
       return optionWithDescription;
-    })
+    });
+
+  // clean empty blocks
+  let sliceEmptyBlock = 0;
+  let i = 0;
+  while (lines[i] === '' || i === 0) {
+    if (lines[++i].includes('Options:')) {
+      sliceEmptyBlock = i + 1;
+    }
+  }
+
+  return lines
+    .slice(sliceEmptyBlock)
     .reverse()
     .join(EOL);
 };
