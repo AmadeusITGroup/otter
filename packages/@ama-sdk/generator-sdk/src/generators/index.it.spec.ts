@@ -28,7 +28,7 @@ describe('@ama-sdk/sdk:create', () => {
       .run(path.join(__dirname, 'shell'))
       .inTmpDir((dir) => tmpDir = dir)
       .withPrompts({
-        projectName: 'dapiTest',
+        projectName: 'apiTest',
         projectPackageName: 'sdkTest',
         projectDescription: 'test description',
         projectHosting: 'Other'

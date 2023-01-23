@@ -47,7 +47,7 @@
   "dependencies": {
     "@ama-des/amaterasu-desapp": "latest",
     "@ama-terasu/core": "workspace:^",
-    "@o3r/amaterasu-dapi-spec": "workspace:^",
+    "@o3r/amaterasu-api-spec": "workspace:^",
     "@o3r/amaterasu-dodo": "workspace:^",
     "@o3r/amaterasu-otter": "workspace:^",
     "@o3r/amaterasu-sdk": "workspace:^",

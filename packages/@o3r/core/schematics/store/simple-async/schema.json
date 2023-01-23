@@ -24,13 +24,12 @@
     "sdkPackage": {
       "type": "string",
       "description": "Sdk package",
-      "x-prompt": "From which SDK your models come from?",
-      "default": "@dapi/sdk"
+      "x-prompt": "From which SDK your models come from?"
     },
     "modelName": {
       "type": "string",
-      "description": "The SDK Model to use as store item (e.g. AirOffer):",
-      "x-prompt": "The SDK Model to use as store item (e.g. AirOffer):",
+      "description": "The SDK Model to use as store item (e.g. Example):",
+      "x-prompt": "The SDK Model to use as store item (e.g. Example):",
       "minLength": 1
     },
     "path": {

@@ -52,7 +52,7 @@ const dependencyParser = (value: string): Dependency | undefined => {
 /**
  * Update a package.json with the given dependencies versions and their respective peer dependencies.
  * Relies on npm info to retrieve package information.
- * Example: updatePeerDependencies(['@dapi/sdk@~2.21.0', '@o3r/core'], './package.json')
+ * Example: updatePeerDependencies(['@random/package@~2.21.0', '@o3r/core'], './package.json')
  *
  * @param dependencies
  * @param packageJsonPath

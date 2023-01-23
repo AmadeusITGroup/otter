@@ -1,5 +1,5 @@
+import { utils } from '@ama-sdk/core';
 import { FormControl } from '@angular/forms';
-import { utils } from '@dapi/sdk-core';
 
 import { MaxDateValidator } from './max-date.directive';
 

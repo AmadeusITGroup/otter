@@ -7,7 +7,7 @@ export interface ExtraFormattedProperties {
   /** Camelize name of the store to ensure consistency */
   storeName?: string;
 
-  /** Camelized model name ex: airOffers */
+  /** Camelized model name ex: example */
   cStoreName?: string;
 
   /** Indicates if the store interacts with an API */
@@ -31,7 +31,7 @@ export interface ExtraFormattedProperties {
   /** Name of the model used in the action payloads */
   payloadModelName: string;
 
-  /** Snake Case Upper class name ex: AIR_OFFERS */
+  /** Snake Case Upper class name ex: EXAMPLE */
   scuClassName?: string;
 
   /** SDK reviver function */

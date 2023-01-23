@@ -1,4 +1,4 @@
-import { ApiClient, ApiFetchClient } from '@dapi/sdk-core';
+import { ApiClient, ApiFetchClient } from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API

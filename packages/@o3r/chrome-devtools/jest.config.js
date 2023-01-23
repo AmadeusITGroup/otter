@@ -31,8 +31,7 @@ module.exports = {
   },
   testEnvironmentOptions: {
     // workaround for:
-    // - @dapi/sdk
-    // - @dapi/sdk-core
+    // - @ama-sdk/core
     customExportConditions: ['require', 'node']
   }
 };

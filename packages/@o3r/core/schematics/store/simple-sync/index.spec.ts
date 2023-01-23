@@ -3,10 +3,10 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
-import { syncSimpleActionsContent } from './mocks/air-offers-actions';
-import { syncSimpleReducerContent } from './mocks/air-offers-reducer';
-import { syncSimpleReducerSpecContent } from './mocks/air-offers-reducer-spec';
-import { syncSimpleStateContent } from './mocks/air-offers-state';
+import { syncSimpleActionsContent } from './mocks/example-actions';
+import { syncSimpleReducerContent } from './mocks/example-reducer';
+import { syncSimpleReducerSpecContent } from './mocks/example-reducer-spec';
+import { syncSimpleStateContent } from './mocks/example-state';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
@@ -24,13 +24,13 @@ describe('Store simple sync generator', () => {
   it('should generate sync simple store', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-simple-sync', {
-      storeName: 'AirOffers',
+      storeName: 'Example',
       path: './'
     }, initialTree));
 
-    expect(tree.readContent('/air-offers/air-offers.actions.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleActionsContent.replace(/\s|\n/g, ''));
-    expect(tree.readContent('/air-offers/air-offers.reducer.spec.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleReducerSpecContent.replace(/\s|\n/g, ''));
-    expect(tree.readContent('/air-offers/air-offers.reducer.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleReducerContent.replace(/\s|\n/g, ''));
-    expect(tree.readContent('/air-offers/air-offers.state.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleStateContent.replace(/\s|\n/g, ''));
+    expect(tree.readContent('/example/example.actions.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleActionsContent.replace(/\s|\n/g, ''));
+    expect(tree.readContent('/example/example.reducer.spec.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleReducerSpecContent.replace(/\s|\n/g, ''));
+    expect(tree.readContent('/example/example.reducer.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleReducerContent.replace(/\s|\n/g, ''));
+    expect(tree.readContent('/example/example.state.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleStateContent.replace(/\s|\n/g, ''));
   });
 });

@@ -104,7 +104,7 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 A code generator is provided to generate an extension of the **Amadeus Digital Experience API**.
 
 ```bash
-yarn yo @ama-sdk/sdk:dapi-extension
+yarn yo @ama-sdk/sdk:api-extension
 ```
 
 > More information on [Generators documentation](../../../readme.md).

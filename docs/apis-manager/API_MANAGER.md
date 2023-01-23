@@ -94,7 +94,7 @@ class MyClass {
 
 ### Enforce custom Api usage
 
-Some user may want to enforce existing components or services to use a specific Sdk instead of default Dapi Public SDK.
+Some user may want to enforce existing components or services to use a specific Sdk instead of default API SDK.
 To do so the **INITIAL_APIS_TOKEN** will allow to indicate to the **ApiFactory** the class they will need to use (instead of default ones).
 
 In the AppModule:

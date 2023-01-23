@@ -90,7 +90,6 @@
     "@angular/core": "~15.0.4",
     "@angular/platform-browser": "~15.0.4",
     "@angular/platform-browser-dynamic": "~15.0.4",
-    "@dapi/sdk-core": "~3.4.0",
     "@nrwl/cli": "^15.3.3",
     "@nrwl/js": "^15.3.3",
     "@nrwl/linter": "^15.3.3",

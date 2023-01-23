@@ -449,15 +449,9 @@ module.exports = {
     'no-redeclare': 'error',
     'no-regex-spaces': 'error',
     'no-restricted-imports': ['error', {
-      'paths': [{
-        'name': '@dapi/sdk/models',
-        'message': 'Please use @dapi/sdk instead.'
-      }],
       'patterns': [
         'rxjs/internal/*',
-        '@dapi/sdk/helpers/*',
-        '@dapi/sdk/models/*',
-        '@dapi/sdk-core/*'
+        '@ama-sdk/core/*'
       ]
     }],
     'no-self-assign': 'error',

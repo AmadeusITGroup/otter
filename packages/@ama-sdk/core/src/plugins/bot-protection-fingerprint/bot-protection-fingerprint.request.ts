@@ -219,7 +219,7 @@ export interface BotProtectionFingerprintRequestOptions {
  *
  * @example Reusing the same instance
  *
- * export function dapiFactory(eventTrackService: EventTrackService): ApiManager {
+ * export function apiFactory(eventTrackService: EventTrackService): ApiManager {
  *   const botProtection = new BotProtectionFingerprintRequest({
  *     destinationHeaderName: 'X-D-Token',
  *     fingerprintRetriever: impervaProtectionRetrieverFactory(200, 200)

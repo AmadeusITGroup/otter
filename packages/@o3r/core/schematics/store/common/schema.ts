@@ -16,7 +16,7 @@ export interface NgGenerateCommonStoreSchematicsSchema extends JsonObject {
   /** Sdk package */
   sdkPackage: string;
 
-  /** The SDK Model to use as store item (e.g. AirOffer) */
+  /** The SDK Model to use as store item (e.g. Example) */
   modelName: string;
 
   /** Skip the linter process */

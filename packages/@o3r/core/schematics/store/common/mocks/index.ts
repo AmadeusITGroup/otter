@@ -1,8 +1,8 @@
-export const commonIndexContent = `export * from './air-offers.actions';
-export * from './air-offers.effect';
-export * from './air-offers.module';
-export * from './air-offers.reducer';
-export * from './air-offers.selectors';
-export * from './air-offers.state';
-export * from './air-offers.sync';
+export const commonIndexContent = `export * from './example.actions';
+export * from './example.effect';
+export * from './example.module';
+export * from './example.reducer';
+export * from './example.selectors';
+export * from './example.state';
+export * from './example.sync';
 `;
