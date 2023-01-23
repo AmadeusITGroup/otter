@@ -1,4 +1,4 @@
-import {EventEmitter} from '@angular/core';
+import type { EventEmitter } from '@angular/core';
 
 /**
  * Custom wrapped input must implement this interface

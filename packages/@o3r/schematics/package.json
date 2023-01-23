@@ -79,9 +79,6 @@
   "peerDependenciesMeta": {
     "@angular-devkit/core": {
       "optional": true
-    },
-    "@angular-eslint/template-parser": {
-      "optional": true
     }
   },
   "dependencies": {
@@ -91,6 +88,7 @@
     "@angular-devkit/build-angular": "~15.0.4",
     "@angular-devkit/core": "~15.0.4",
     "@angular-devkit/schematics": "~15.0.4",
+    "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular/cli": "~15.0.4",
     "@angular/common": "~15.0.4",
     "@angular/compiler": "~15.0.4",
@@ -113,6 +111,7 @@
     "@typescript-eslint/parser": "^5.19.0",
     "comment-json": "^4.1.0",
     "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",

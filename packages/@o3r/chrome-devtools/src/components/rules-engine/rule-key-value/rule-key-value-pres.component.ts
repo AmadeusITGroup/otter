@@ -1,5 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {delay, merge, of, Subject, switchMap} from 'rxjs';
+import {merge, of, Subject} from 'rxjs';
+import { delay, switchMap } from 'rxjs/operators';
 
 /**
  * Duration of the notification for clipboard feature (in milliseconds)

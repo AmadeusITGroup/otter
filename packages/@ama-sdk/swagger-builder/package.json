@@ -72,14 +72,6 @@
   },
   "author": "Otter Core Team",
   "license": "BSD-3-Clause",
-  "peerDependenciesMeta": {
-    "@angular-eslint/template-parser": {
-      "optional": true
-    },
-    "@angular/compiler": {
-      "optional": true
-    }
-  },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.0",
     "commander": "^9.0.0",
@@ -108,6 +100,7 @@
     "concurrently": "^7.0.0",
     "copyfiles": "^2.4.1",
     "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",

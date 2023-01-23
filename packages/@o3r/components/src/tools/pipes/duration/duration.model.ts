@@ -1,12 +1,12 @@
 /** Time object to format duration */
 export interface TimeUnit {
-  /** character definining the time unit */
+  /** character defining the time unit */
   formatCharacter: string;
   /** divider to get the time unit value */
   divider: number;
   /**
    * modulo for the time unit
-   * If not provided, it will either use the immediatly higher unit time divider
+   * If not provided, it will either use the immediately higher unit time divider
    * or Number.MAX_SAFE_INTEGER for the highest one
    */
   modulo?: number;
