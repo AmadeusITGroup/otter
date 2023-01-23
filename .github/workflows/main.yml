@@ -60,14 +60,13 @@ jobs:
     secrets: inherit
     with:
       affected: ${{ github.event_name == 'pull_request' }}
-  # TODO: uncomment
-  # publish-packages:
-  #   uses: ./.github/workflows/publish.yml
-  #   permissions:
-  #     packages: write
-  #     contents: read
-  #   secrets: inherit
-  #   needs: [version, build, checks]
-  #   with:
-  #     version: ${{ needs.version.outputs.nextVersionTag }}
-
+  publish-packages:
+    uses: ./.github/workflows/publish.yml
+    permissions:
+      packages: write
+      contents: read
+    secrets: inherit
+    needs: [version, build, checks]
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+      prerelease: ${{ github.event_name == 'pull_request' }}
