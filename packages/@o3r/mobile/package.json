@@ -70,6 +70,7 @@
     "commander": "^9.0.0",
     "form-data": "^4.0.0",
     "node-fetch": "^2.6.7",
+    "tslib": "^2.4.1",
     "winston": "^3.8.2"
   },
   "peerDependencies": {

@@ -79,6 +79,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
+    "@angular-devkit/core": ~15.1.0
+    "@angular-devkit/schematics": ~15.1.0
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -488,6 +490,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular-devkit/core@npm:15.1.2, @angular-devkit/core@npm:~15.1.0":
+  version: 15.1.2
+  resolution: "@angular-devkit/core@npm:15.1.2"
+  dependencies:
+    ajv: 8.12.0
+    ajv-formats: 2.1.1
+    jsonc-parser: 3.2.0
+    rxjs: 6.6.7
+    source-map: 0.7.4
+  peerDependencies:
+    chokidar: ^3.5.2
+  peerDependenciesMeta:
+    chokidar:
+      optional: true
+  checksum: 17debe0fb95edcd2503202e47079b361ecc9b369dd09d7bff7e9d28c63cb44a3d76f6d75f0422e2b998cccccca5f10b8e120a9e20659aa105653bd705abef4eb
+  languageName: node
+  linkType: hard
+
 "@angular-devkit/schematics@npm:15.0.4":
   version: 15.0.4
   resolution: "@angular-devkit/schematics@npm:15.0.4"
@@ -524,6 +544,19 @@ __metadata:
     ora: 5.4.1
     rxjs: 6.6.7
   checksum: e55ba28b391dc46c490bf14cbe42be3b9b07023898ab785f3e5c8597b69f8c636f76dd97aa2d92a5ba7c775f7d646ed27d27864bd6455ff7e3bf5fe134bfa364
+  languageName: node
+  linkType: hard
+
+"@angular-devkit/schematics@npm:~15.1.0":
+  version: 15.1.2
+  resolution: "@angular-devkit/schematics@npm:15.1.2"
+  dependencies:
+    "@angular-devkit/core": 15.1.2
+    jsonc-parser: 3.2.0
+    magic-string: 0.27.0
+    ora: 5.4.1
+    rxjs: 6.6.7
+  checksum: c9c485e00712e27e89c290772786d3a9e39d668ec36ded4ef0818a0f4a8d43041e1f0f99dfb4cbeb3ec1960a2e35aba0e0bb257595f3fbfe22ee7f354ed7c6ce
   languageName: node
   linkType: hard
 
@@ -5269,6 +5302,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@types/jest": ~28.1.2
+    "@types/node": ^17.0.23
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     cpy-cli: ^4.2.0
@@ -5623,6 +5657,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~15.0.4
     "@types/jest": ~28.1.2
+    "@types/minimist": ^1.2.2
     "@types/pid-from-port": ^1.1.0
     "@types/uuid": ^8.3.1
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -6066,6 +6101,39 @@ __metadata:
     typescript: ~4.8.4
     webpack: ~5.75.0
     zone.js: ^0.12.0
+  dependenciesMeta:
+    "@angular-devkit/architect@0.1500.4":
+      unplugged: true
+    "@angular-devkit/architect@0.1500.5":
+      unplugged: true
+    "@angular-devkit/build-angular@15.0.4":
+      unplugged: true
+    "@angular-devkit/build-webpack@0.1500.4":
+      unplugged: true
+    "@angular-devkit/core@13.3.10":
+      unplugged: true
+    "@angular-devkit/core@15.0.4":
+      unplugged: true
+    "@angular-devkit/core@15.0.5":
+      unplugged: true
+    "@angular-devkit/schematics@13.3.10":
+      unplugged: true
+    "@angular-devkit/schematics@15.0.4":
+      unplugged: true
+    "@angular-devkit/schematics@15.0.5":
+      unplugged: true
+    "@angular/cli@15.0.4":
+      unplugged: true
+    "@angular/common@15.0.4":
+      unplugged: true
+    "@angular/compiler-cli@15.0.4":
+      unplugged: true
+    "@angular/compiler@15.0.4":
+      unplugged: true
+    "@angular/core@15.0.4":
+      unplugged: true
+    "@angular/platform-browser@15.0.4":
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -6249,6 +6317,7 @@ __metadata:
     nx: ^15.3.3
     rxjs: ^7.4.0
     ts-jest: ^28.0.5
+    tslib: ^2.4.1
     typescript: ~4.8.4
     winston: ^3.8.2
     zone.js: ^0.12.0
@@ -6434,6 +6503,7 @@ __metadata:
     "@schematics/angular": ~15.0.4
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.23
+    "@types/semver": ^7.3.13
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     comment-json: ^4.1.0
@@ -6508,6 +6578,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     color: ^3.1.3
+    comment-json: ^4.1.0
     concurrently: ^7.0.0
     cpy-cli: ^4.2.0
     eslint: ^8.22.0
@@ -6540,7 +6611,11 @@ __metadata:
     "@storybook/angular": ^6.5.14
     "@storybook/api": ^6.5.14
     "@storybook/components": ^6.5.14
+    comment-json: ^4.1.0
     rxjs: ^7.4.0
+  peerDependenciesMeta:
+    comment-json:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -6711,6 +6786,7 @@ __metadata:
   resolution: "@o3r/third-party@workspace:packages/@o3r/third-party"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
     "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular/cli": ~15.0.4
@@ -8765,7 +8841,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:^7.3.12, @types/semver@npm:^7.3.8":
+"@types/semver@npm:^7.3.12, @types/semver@npm:^7.3.13, @types/semver@npm:^7.3.8":
   version: 7.3.13
   resolution: "@types/semver@npm:7.3.13"
   checksum: 00c0724d54757c2f4bc60b5032fe91cda6410e48689633d5f35ece8a0a66445e3e57fa1d6e07eb780f792e82ac542948ec4d0b76eb3484297b79bd18b8cf1cb0
@@ -9958,6 +10034,18 @@ __metadata:
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
   checksum: 5e0ff226806763be73e93dd7805b634f6f5921e3e90ca04acdf8db81eed9d8d3f0d4c5f1213047f45ebbf8047ffe0c840fa1ef2ec42c3a644899f69aa72b5bef
+  languageName: node
+  linkType: hard
+
+"ajv@npm:8.12.0":
+  version: 8.12.0
+  resolution: "ajv@npm:8.12.0"
+  dependencies:
+    fast-deep-equal: ^3.1.1
+    json-schema-traverse: ^1.0.0
+    require-from-string: ^2.0.2
+    uri-js: ^4.2.2
+  checksum: 4dc13714e316e67537c8b31bc063f99a1d9d9a497eb4bbd55191ac0dcd5e4985bbb71570352ad6f1e76684fb6d790928f96ba3b2d4fd6e10024be9612fe3f001
   languageName: node
   linkType: hard
 
@@ -21587,7 +21675,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"magic-string@npm:^0.27.0":
+"magic-string@npm:0.27.0, magic-string@npm:^0.27.0":
   version: 0.27.0
   resolution: "magic-string@npm:0.27.0"
   dependencies:

@@ -9,6 +9,13 @@
     "incremental": true
   },
   "angularCompilerOptions": {
-    "compilationMode": "full"
+    "compilationMode": "full",
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": true,
+    "strictMetadataEmit": false,
+    "strictInjectionParameters": false,
+    "fullTemplateTypeCheck": false,
+    "annotateForClosureCompiler": false,
+    "enableResourceInlining": false,
   }
 }

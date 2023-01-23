@@ -52,6 +52,6 @@
     "fullTemplateTypeCheck": true,
     "annotateForClosureCompiler": true,
     "enableResourceInlining": true,
-    "compilationMode": "partial"
+    "compilationMode": "partial",
   }
 }
