@@ -16,7 +16,7 @@
   },
   "npm.packageManager": "yarn",
   "eslint.packageManager": "yarn",
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
   "jest.jestCommandLine": "yarn jest",
   "jest.autoRun": {
@@ -39,5 +39,7 @@
     "source.css.styled",
     "source.markdown.math",
     "styled-css"
-  ]
+  ],
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

@@ -244,7 +244,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["browserslist", "npm:4.21.4"],\
             ["concurrently", "npm:7.6.0"],\
             ["cpy-cli", "npm:4.2.0"],\
-            ["editorconfig-checker", "npm:3.3.0"],\
+            ["editorconfig-checker", "npm:5.0.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
             ["eslint-plugin-jest", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#npm:26.9.0"],\
@@ -377,8 +377,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@ama-sdk-core-virtual-2854854a81/1/packages/@ama-sdk/core/",\
           "packageDependencies": [\
             ["@ama-sdk/core", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@ama-sdk/core"],\
-            ["@angular-devkit/core", "virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2"],\
-            ["@angular-devkit/schematics", "npm:15.1.2"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
             ["@angular-eslint/eslint-plugin", "virtual:0412df73c593500a0904d2ece4417dfaa31264b0ef304f9208cbcb6c0411d56db570c828ff8ae30585a636e70f3859dd42e42915c9b40e82c14aceaae99e23f0#npm:15.1.0"],\
             ["@angular-eslint/template-parser", null],\
             ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
@@ -424,8 +424,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/__virtual__/@ama-sdk-core-virtual-bcb5a7e99d/1/packages/@ama-sdk/core/",\
           "packageDependencies": [\
             ["@ama-sdk/core", "virtual:60dcba7dbd4432af0e16e024135fa107b25c5859e3a1c1ad0d117ae24afae2c76d3ea9014bf0a304672c6c34be90d2ad306d26c0ba4b2b7b77c454aae5100d46#workspace:packages/@ama-sdk/core"],\
-            ["@angular-devkit/core", "virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2"],\
-            ["@angular-devkit/schematics", "npm:15.1.2"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
             ["@angular-eslint/eslint-plugin", "virtual:0412df73c593500a0904d2ece4417dfaa31264b0ef304f9208cbcb6c0411d56db570c828ff8ae30585a636e70f3859dd42e42915c9b40e82c14aceaae99e23f0#npm:15.1.0"],\
             ["@angular-eslint/template-parser", null],\
             ["@angular/compiler", null],\
@@ -472,8 +472,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/@ama-sdk/core/",\
           "packageDependencies": [\
             ["@ama-sdk/core", "workspace:packages/@ama-sdk/core"],\
-            ["@angular-devkit/core", "virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2"],\
-            ["@angular-devkit/schematics", "npm:15.1.2"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
             ["@angular-eslint/eslint-plugin", "virtual:0412df73c593500a0904d2ece4417dfaa31264b0ef304f9208cbcb6c0411d56db570c828ff8ae30585a636e70f3859dd42e42915c9b40e82c14aceaae99e23f0#npm:15.1.0"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
             ["@o3r/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:packages/@o3r/eslint-plugin"],\
@@ -1206,13 +1206,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["npm:15.1.2", {\
-          "packageLocation": "./.yarn/cache/@angular-devkit-core-npm-15.1.2-c4f1436e32-17debe0fb9.zip/node_modules/@angular-devkit/core/",\
-          "packageDependencies": [\
-            ["@angular-devkit/core", "npm:15.1.2"]\
-          ],\
-          "linkType": "SOFT"\
-        }],\
         ["virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5", {\
           "packageLocation": "./.yarn/unplugged/@angular-devkit-core-virtual-b5648fe9d5/node_modules/@angular-devkit/core/",\
           "packageDependencies": [\
@@ -1220,24 +1213,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/chokidar", null],\
             ["ajv", "npm:8.11.0"],\
             ["ajv-formats", "virtual:b5648fe9d5f1aed9551db3ef6a03cf78c806d43ca70f23d259403f44c979aca458e5edd2652035c5f2e5f0839ec93304c54411cbad496d69b2a9e444022ad31e#npm:2.1.1"],\
-            ["chokidar", null],\
-            ["jsonc-parser", "npm:3.2.0"],\
-            ["rxjs", "npm:7.6.0"],\
-            ["source-map", "npm:0.7.4"]\
-          ],\
-          "packagePeers": [\
-            "@types/chokidar",\
-            "chokidar"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2", {\
-          "packageLocation": "./.yarn/__virtual__/@angular-devkit-core-virtual-b3851420d9/0/cache/@angular-devkit-core-npm-15.1.2-c4f1436e32-17debe0fb9.zip/node_modules/@angular-devkit/core/",\
-          "packageDependencies": [\
-            ["@angular-devkit/core", "virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2"],\
-            ["@types/chokidar", null],\
-            ["ajv", "npm:8.12.0"],\
-            ["ajv-formats", "virtual:b3851420d9a4204d09ea28d3ff21e9578b97146cc2d4bf1e2ff7b24caa31ff9ef95434678575ad50b506ae64707a4f7d62daa300a295f7da24cf57be1bec1232#npm:2.1.1"],\
             ["chokidar", null],\
             ["jsonc-parser", "npm:3.2.0"],\
             ["rxjs", "npm:7.6.0"],\
@@ -1355,18 +1330,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
             ["jsonc-parser", "npm:3.2.0"],\
             ["magic-string", "npm:0.26.7"],\
-            ["ora", "npm:5.4.1"],\
-            ["rxjs", "npm:7.6.0"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["npm:15.1.2", {\
-          "packageLocation": "./.yarn/cache/@angular-devkit-schematics-npm-15.1.2-75395bd34b-c9c485e007.zip/node_modules/@angular-devkit/schematics/",\
-          "packageDependencies": [\
-            ["@angular-devkit/schematics", "npm:15.1.2"],\
-            ["@angular-devkit/core", "virtual:75395bd34b62ee4be6483e943d9eccd70b65eaa22330849ad071e8859a03d1dfb33986ad6734c1e94d4976a06657f4d9900e74b718b76829b0150ac66dec82d2#npm:15.1.2"],\
-            ["jsonc-parser", "npm:3.2.0"],\
-            ["magic-string", "npm:0.27.0"],\
             ["ora", "npm:5.4.1"],\
             ["rxjs", "npm:7.6.0"]\
           ],\
@@ -14624,7 +14587,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["browserslist", "npm:4.21.4"],\
             ["concurrently", "npm:7.6.0"],\
             ["cpy-cli", "npm:4.2.0"],\
-            ["editorconfig-checker", "npm:3.3.0"],\
+            ["editorconfig-checker", "npm:5.0.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
             ["eslint-plugin-jest", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#npm:26.9.0"],\
@@ -22247,17 +22210,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["npm:8.12.0", {\
-          "packageLocation": "./.yarn/cache/ajv-npm-8.12.0-3bf6e30741-4dc13714e3.zip/node_modules/ajv/",\
-          "packageDependencies": [\
-            ["ajv", "npm:8.12.0"],\
-            ["fast-deep-equal", "npm:3.1.3"],\
-            ["json-schema-traverse", "npm:1.0.0"],\
-            ["require-from-string", "npm:2.0.2"],\
-            ["uri-js", "npm:4.4.1"]\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["npm:8.9.0", {\
           "packageLocation": "./.yarn/cache/ajv-npm-8.9.0-d7480193a9-756c048bfa.zip/node_modules/ajv/",\
           "packageDependencies": [\
@@ -22328,19 +22280,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ajv-formats", "virtual:4b7d8bb1684f7f69bf042a03dae4d118ab00edf0e34f409e5270fb3cce9e5fcf8ce9581b8f5bc8597c1e50c52a23eba5d4eadeede8c58ab0be3187e2389e11d5#npm:2.1.1"],\
             ["@types/ajv", null],\
             ["ajv", "npm:8.11.2"]\
-          ],\
-          "packagePeers": [\
-            "@types/ajv",\
-            "ajv"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:b3851420d9a4204d09ea28d3ff21e9578b97146cc2d4bf1e2ff7b24caa31ff9ef95434678575ad50b506ae64707a4f7d62daa300a295f7da24cf57be1bec1232#npm:2.1.1", {\
-          "packageLocation": "./.yarn/__virtual__/ajv-formats-virtual-35fe7d9b82/0/cache/ajv-formats-npm-2.1.1-3cec02eae9-4a287d937f.zip/node_modules/ajv-formats/",\
-          "packageDependencies": [\
-            ["ajv-formats", "virtual:b3851420d9a4204d09ea28d3ff21e9578b97146cc2d4bf1e2ff7b24caa31ff9ef95434678575ad50b506ae64707a4f7d62daa300a295f7da24cf57be1bec1232#npm:2.1.1"],\
-            ["@types/ajv", null],\
-            ["ajv", "npm:8.12.0"]\
           ],\
           "packagePeers": [\
             "@types/ajv",\
@@ -27892,13 +27831,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["editorconfig-checker", [\
-        ["npm:3.3.0", {\
-          "packageLocation": "./.yarn/cache/editorconfig-checker-npm-3.3.0-fdbc9e6d18-37261e24d9.zip/node_modules/editorconfig-checker/",\
+        ["npm:5.0.1", {\
+          "packageLocation": "./.yarn/cache/editorconfig-checker-npm-5.0.1-20992cc038-25b54d7188.zip/node_modules/editorconfig-checker/",\
           "packageDependencies": [\
-            ["editorconfig-checker", "npm:3.3.0"],\
-            ["https-proxy-agent", "npm:5.0.1"],\
-            ["node-fetch", "virtual:25a5f5382d53dbf298bf7a1191760bc2e0a523a619eeb0e667b99a8649e8ad183f9e2e0b45f6fb831b92f4078b61622aa567cf79565f6aa5af9597e3c84864f6#npm:2.6.7"],\
-            ["tar", "npm:6.1.12"]\
+            ["editorconfig-checker", "npm:5.0.1"]\
           ],\
           "linkType": "HARD"\
         }]\
