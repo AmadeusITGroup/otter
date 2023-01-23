@@ -128,8 +128,30 @@ export function updateOtterEnvironmentAdapter(
     return tree;
   };
 
+  const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
+    const envBasePath = 'src/environments';
+    const envDevFilePath = `${envBasePath}/environment.development.ts`;
+    const envProdFilePath = `${envBasePath}/environment.prod.ts`;
+    const envDefaultFilePath = `${envBasePath}/environment.ts`;
+    if (tree.exists(envProdFilePath)) {
+      tree.rename(envDefaultFilePath, envDevFilePath);
+      tree.rename(envProdFilePath, envDefaultFilePath);
+    }
+    const addProductionBoolean = (envFilePath: string, value: boolean) => {
+      let envContent = tree.readText(envFilePath);
+      if (!/production['"]?:\s*(true|false)/.test(envContent)) {
+        envContent = envContent.replace(/(const environment = {)/, `$1\n  production: ${String(value)},\n`);
+        tree.overwrite(envFilePath, envContent);
+      }
+    };
+    addProductionBoolean(envDefaultFilePath, true);
+    addProductionBoolean(envDevFilePath, false);
+    return tree;
+  };
+
   return chain([
     editAngularJson,
-    editTsConfigJson
+    editTsConfigJson,
+    editEnvironmentFiles
   ]);
 }

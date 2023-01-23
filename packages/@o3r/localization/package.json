@@ -44,6 +44,12 @@
     "@o3r/schematics": "workspace:^",
     "tslib": "^2.4.1"
   },
+  "generatorDependencies": {
+    "@angular/cdk": "~15.0.4",
+    "@formatjs/intl-numberformat": "^8.0.2",
+    "@ngx-translate/core": "~14.0.0",
+    "intl-messageformat": "~10.2.0"
+  },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1500.4",
     "@angular-devkit/build-angular": "~15.0.4",

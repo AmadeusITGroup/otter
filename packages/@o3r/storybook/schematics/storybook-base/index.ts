@@ -109,7 +109,6 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
       const angularVersion = currentPackageJson.devDependencies['@angular/cli'];
       const sassLoaderVerion = currentPackageJson.devDependencies['sass-loader'];
       const babelLoaderVerion = currentPackageJson.devDependencies['babel-loader'];
-      const storybookPresetSCSSVersion = currentPackageJson.devDependencies['@storybook/preset-scss'];
       addPackageJsonDependency(tree, { name: '@angular/localize', version: angularVersion, type: NodeDependencyType.Dev, overwrite: true });
       addPackageJsonDependency(tree, { name: '@compodoc/compodoc', version: '^1.1.11', type: NodeDependencyType.Dev, overwrite: true });
       addPackageJsonDependency(tree, { name: '@storybook/addon-actions', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
@@ -121,7 +120,7 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
       addPackageJsonDependency(tree, { name: '@storybook/cli', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
       addPackageJsonDependency(tree, { name: '@storybook/builder-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
       addPackageJsonDependency(tree, { name: '@storybook/manager-webpack5', version: storybookVersion, type: NodeDependencyType.Dev, overwrite: false });
-      addPackageJsonDependency(tree, { name: '@storybook/preset-scss', version: storybookPresetSCSSVersion, type: NodeDependencyType.Dev, overwrite: false });
+      addPackageJsonDependency(tree, { name: '@storybook/preset-scss', version: '^1.0.3', type: NodeDependencyType.Dev, overwrite: false });
       addPackageJsonDependency(tree, { name: 'babel-loader', version: babelLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
       addPackageJsonDependency(tree, { name: 'sass-loader', version: sassLoaderVerion, type: NodeDependencyType.Dev, overwrite: false });
     }

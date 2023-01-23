@@ -29,7 +29,10 @@
       "options": {
         "script": "build:builders"
       },
-      "dependsOn": []
+      "dependsOn": [
+        "compile",
+        "prepare-build-builders"
+      ]
     },
     "compile": {
       "executor": "@nrwl/js:tsc",

@@ -138,7 +138,6 @@
       "inputs": [
         "builders",
         "schematics",
-        "source",
         "^source"
       ],
       "outputs": [
@@ -159,7 +158,6 @@
       "inputs": [
         "builders",
         "schematics",
-        "source",
         "^source"
       ],
       "outputs": [

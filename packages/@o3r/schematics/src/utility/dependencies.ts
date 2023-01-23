@@ -17,7 +17,7 @@ export function getExternalDependenciesVersionRange(packageNames: string[], pack
     }, {});
   } catch (e) {
     // eslint-disable-next-line no-console
-    console.error('failed to parse package.json');
+    console.error('failed to parse package.json', e);
     return {};
   }
 }

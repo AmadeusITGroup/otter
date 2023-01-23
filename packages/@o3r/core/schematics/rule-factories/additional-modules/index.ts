@@ -6,7 +6,7 @@ import { InsertChange } from '@schematics/angular/utility/change';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
+const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -118,8 +118,11 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
-    if (!envDevFilePath) {
+    let envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
+    if (!tree.exists(envDevFilePath)) {
+      envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+    }
+    if (!tree.exists(envDevFilePath)) {
       return tree;
     }
 
@@ -169,8 +172,11 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
-    if (!envProdFilePath) {
+    let envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
+    if (!tree.exists(envProdFilePath)) {
+      envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+    }
+    if (!tree.exists(envProdFilePath)) {
       return tree;
     }
 

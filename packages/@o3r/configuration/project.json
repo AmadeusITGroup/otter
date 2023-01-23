@@ -32,16 +32,7 @@
       },
       "outputs": [
         "{projectRoot}/dist/middlewares",
-        "{projectRoot}/dist/builders.json",
-        "{projectRoot}/dist/migration.json",
-        "{projectRoot}/dist/collection.json",
-        "{projectRoot}/dist/builders/**/*.json",
-        "{projectRoot}/dist/schematics/**/*.json",
-        "{projectRoot}/dist/schematics/**/templates"
-      ],
-      "dependsOn": [
-        "^build",
-        "compile"
+        "{projectRoot}/dist/schematics"
       ]
     },
     "lint": {

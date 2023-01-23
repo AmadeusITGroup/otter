@@ -56,6 +56,7 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
         }, {});
       }
       const subFolder = options.testingFramework === 'jasmine' ? 'karma' : 'angular';
+      tsconfigCompilerOptions.paths ||= {};
       tsconfigCompilerOptions.paths['@o3r/testing/core'] = [`node_modules/@o3r/testing/core/${subFolder}`];
       tsconfigCompilerOptions.paths['@o3r/testing/core/*'] = [`node_modules/@o3r/testing/core/${subFolder}/*`];
       tree.overwrite(tsconfig, commentJson.stringify(tsconfigFile, null, 2));

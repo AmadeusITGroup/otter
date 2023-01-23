@@ -66,10 +66,11 @@
         "script": "prepare:publish"
       }
     },
-    "test:int": {
-      "builder": "@nrwl/jest:jest",
+    "test-int": {
+      "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/core/jest.config.it.js"
+        "jestConfig": "packages/@o3r/core/testing/jest.config.it.js",
+        "silent": false
       }
     },
     "publish": {

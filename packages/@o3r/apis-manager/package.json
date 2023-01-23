@@ -60,6 +60,9 @@
     "typescript": "~4.8.4",
     "zone.js": "^0.12.0"
   },
+  "generatorDependencies": {
+    "@ama-sdk/core": "workspace:^"
+  },
   "schematics": "./collection.json",
   "engines": {
     "node": ">=14.0.0"

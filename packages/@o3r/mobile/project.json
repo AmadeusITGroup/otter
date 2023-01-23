@@ -24,16 +24,12 @@
       "executor": "nx:run-script",
       "dependsOn": [
         "^build",
+        "prepare-build-builders",
         "compile"
       ],
       "outputs": [
         "{projectRoot}/dist/pcloudy",
-        "{projectRoot}/dist/builders.json",
-        "{projectRoot}/dist/migration.json",
-        "{projectRoot}/dist/collection.json",
-        "{projectRoot}/dist/builders/**/*.json",
-        "{projectRoot}/dist/schematics/**/*.json",
-        "{projectRoot}/dist/schematics/**/templates"
+        "{projectRoot}/dist/schematics"
       ],
       "options": {
         "script": "build:builders"

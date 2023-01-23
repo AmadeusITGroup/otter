@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import { getAppModuleFilePath, getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree, isApplicationThatUsesRouterModule } from '@o3r/schematics';
 import { InsertChange } from '@schematics/angular/utility/change';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
+const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
