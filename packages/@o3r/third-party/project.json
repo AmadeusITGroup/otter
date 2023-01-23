@@ -11,6 +11,7 @@
     "build": {
       "executor": "nx:noop",
       "dependsOn": [
+        "build-builders",
         "compile"
       ]
     },
@@ -47,6 +48,18 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npm publish packages/@o3r/third-party/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
       }
     }
   },

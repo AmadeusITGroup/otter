@@ -8,23 +8,36 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["compile"]
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
         "project": "packages/@o3r/mobile/ng-package.json",
         "tsConfig": "packages/@o3r/mobile/tsconfig.build.json"
-      },
-      "dependsOn": ["^build", "build-builders"]
+      }
     },
     "build-builders": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/pcloudy"],
+      "dependsOn": [
+        "^build",
+        "compile"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/pcloudy",
+        "{projectRoot}/dist/builders.json",
+        "{projectRoot}/dist/migration.json",
+        "{projectRoot}/dist/collection.json",
+        "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/templates"
+      ],
       "options": {
         "script": "build:builders"
-      },
-      "dependsOn": ["^build"]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -36,7 +49,9 @@
       },
       "options": {
         "eslintConfig": "packages/@o3r/mobile/.eslintrc.js",
-        "lintFilePatterns": ["packages/@o3r/mobile/src/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/@o3r/mobile/src/**/*.ts"
+        ]
       }
     },
     "test": {
@@ -50,6 +65,12 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npm publish packages/@o3r/mobile/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
       }
     }
   },

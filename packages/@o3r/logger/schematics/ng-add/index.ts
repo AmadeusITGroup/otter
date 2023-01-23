@@ -1,4 +1,4 @@
-import { chain, Rule } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
 
 /**
  * Add Otter logger to an Angular Project
@@ -6,7 +6,6 @@ import { chain, Rule } from '@angular-devkit/schematics';
  * @param options
  */
 export function ngAdd(): Rule {
-  return chain([
-    /* ng add rules */
-  ]);
+  /* ng add rules */
+  return () => {};
 }

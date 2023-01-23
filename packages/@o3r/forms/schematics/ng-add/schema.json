@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter forms ",
+  "description": "ngAdd Otter forms ",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+  ]
+}

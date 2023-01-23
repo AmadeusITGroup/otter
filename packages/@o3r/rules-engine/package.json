@@ -9,7 +9,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'builders.json' dist",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'builders.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build rules-engine"
@@ -69,7 +69,6 @@
   "license": "BSD-3-Clause",
   "peerDependencies": {
     "@angular-devkit/architect": "^0.1500.2",
-    "@angular-devkit/core": "^15.0.2",
     "@angular/core": "^15.0.2",
     "@angular/platform-browser-dynamic": "^15.0.2",
     "@ngrx/effects": "^15.0.0",
@@ -97,6 +96,7 @@
     "@angular-devkit/architect": "~0.1500.4",
     "@angular-devkit/build-angular": "~15.0.4",
     "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular/common": "~15.0.4",
     "@angular/compiler": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
@@ -153,5 +153,6 @@
     "configurationFilePath": "./component.config.metadata.json",
     "styleFilePath": "./style.metadata.json",
     "rulesEngineOperatorsFilePath": "./rules.operators.metadata.json"
-  }
+  },
+  "schematics": "./collection.json"
 }

@@ -1,4 +1,4 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { JsonObject } from '@angular-devkit/core';
 
 export interface NgGenerateStorybookComponentSchematicsSchema extends JsonObject {
   /** Project name */

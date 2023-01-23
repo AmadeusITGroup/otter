@@ -1,5 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { JsonObject } from '@angular-devkit/core';
+import type { JsonObject } from '@angular-devkit/core';
 import { promises as fs } from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';

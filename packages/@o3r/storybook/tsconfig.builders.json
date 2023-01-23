@@ -3,13 +3,13 @@
   "compilerOptions": {
     "incremental": true,
     "composite": true,
-    "outDir": "./dist/",
+    "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "schematics/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

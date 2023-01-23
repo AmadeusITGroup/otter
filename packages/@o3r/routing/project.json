@@ -14,6 +14,7 @@
         "script": "postbuild"
       },
       "dependsOn": [
+        "build-builders",
         "compile"
       ]
     },
@@ -49,6 +50,18 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npm publish packages/@o3r/routing/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
       }
     }
   },

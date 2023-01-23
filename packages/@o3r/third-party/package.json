@@ -10,7 +10,9 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build thrid-party"
+    "build": "yarn nx build thrid-party",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
@@ -71,6 +73,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular/cli": "~15.0.4",
     "@angular/common": "~15.0.4",
@@ -87,6 +90,7 @@
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
@@ -102,5 +106,6 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "schematics": "./collection.json"
 }

@@ -1,4 +1,4 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { JsonObject } from '@angular-devkit/core';
 import { MethodType } from './models';
 
 export interface NgAddFunctionsToFixtureSchematicsSchema extends JsonObject {

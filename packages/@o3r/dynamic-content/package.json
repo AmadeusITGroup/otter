@@ -73,8 +73,6 @@
   "license": "BSD-3-Clause",
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1500.4",
-    "@angular-devkit/core": "~15.0.4",
-    "@angular-devkit/schematics": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
     "@angular/core": "~15.0.4",
     "@angular/platform-browser-dynamic": "~15.0.4",
@@ -86,9 +84,6 @@
     "rxjs": "^7.4.0"
   },
   "peerDependenciesMeta": {
-    "@angular-devkit/core": {
-      "optional": true
-    },
     "@angular-eslint/template-parser": {
       "optional": true
     },

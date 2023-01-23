@@ -69,8 +69,6 @@
   "license": "BSD-3-Clause",
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1500.4",
-    "@angular-devkit/core": "~15.0.4",
-    "@angular-devkit/schematics": "~15.0.4",
     "@angular/cdk": "^15.0.3",
     "@angular/common": "~15.0.4",
     "@angular/core": "~15.0.4",
@@ -139,6 +137,6 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "schematics": "./dist/collection.json",
-  "builders": "./dist/builders.json"
+  "schematics": "./collection.json",
+  "builders": "./builders.json"
 }
