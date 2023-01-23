@@ -18,7 +18,19 @@ inputs:
     default: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
 outputs:
   nextVersionTag:
-    description: 'Next version tag'
+    description: 'Next version Tag'
+    value: ${{ steps.new-version.outputs.nextVersionTag }}
+
 runs:
-  using: 'node16'
-  main: './new-version.mjs'
+  using: 'composite'
+  steps:
+    - id: new-version
+      run: 'yarn node .github/actions/new-version/new-version.mjs'
+      shell: bash
+      env:
+        INPUT_DEFAULTBRANCHPRERELEASENAME: ${{ inputs.defaultBranchPrereleaseName }}
+        INPUT_DEFAULTBRANCH: ${{ inputs.defaultBranch }}
+        INPUT_DEFAULTBRANCHVERSIONMASK: ${{ inputs.defaultBranchVersionMask }}
+        INPUT_PRPRERELEASETAG: ${{ inputs.prPreReleaseTag }}
+        INPUT_LOGLEVEL: ${{ inputs.logLevel }}
+        INPUT_RELEASEBRANCHREGEXP: ${{ inputs.releaseBranchRegExp }}

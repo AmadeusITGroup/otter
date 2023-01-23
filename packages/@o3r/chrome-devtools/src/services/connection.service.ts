@@ -1,10 +1,10 @@
 import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
-import { Dictionary } from '@ngrx/entity';
-import { ConfigurationModel } from '@o3r/configuration';
+import type { Dictionary } from '@ngrx/entity';
+import type { ConfigurationModel } from '@o3r/configuration';
 import { otterMessageType } from '@o3r/core';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { debounceTime, filter, map } from 'rxjs/operators';
-import { AvailableMessageContents } from './message.interface';
+import type { AvailableMessageContents } from './message.interface';
 
 import type { ApplicationInformationContentMessage } from '@o3r/application';
 import type { SelectedComponentInfoMessage } from '@o3r/components';

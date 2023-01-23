@@ -126,7 +126,7 @@ export function getFilesInFolderFromWorkspaceProjects(tree: Tree, folderInProjec
 export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderInProject: string, extension: string) {
   const workspace = readAngularJson(tree);
   const projectSources = Object.values(workspace.projects)
-    .map((project) => path
+    .map((project) => path.posix
       .join(project.root, folderInProject, '**', `*.${extension}`)
       .replace(/([^*])\*([^*]|$)/g, '$1[^/]*$2')
       .replace(/\*\*/g, '.*')

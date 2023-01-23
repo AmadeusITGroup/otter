@@ -1,5 +1,9 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
 
+globalThis.ngJest = {
+  skipNgcc: true
+};
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
@@ -28,10 +32,5 @@ module.exports = {
         inspectedWindow: {}
       }
     }
-  },
-  testEnvironmentOptions: {
-    // workaround for:
-    // - @ama-sdk/core
-    customExportConditions: ['require', 'node']
   }
 };

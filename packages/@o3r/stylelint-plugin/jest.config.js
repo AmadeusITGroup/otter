@@ -2,7 +2,7 @@
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',
-  setupFiles: ['<rootDir>/testing/jest.setup.js'],
+  setupFiles: ['<rootDir>/testing/jest.setup.ts'],
   testEnvironment: 'node',
   rootDir: '.',
   globals: {

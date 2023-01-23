@@ -1,4 +1,6 @@
-declare function stylelintTestRule(...x: any[]): void;
+import type { TestRule } from 'jest-preset-stylelint';
+
+declare const stylelintTestRule: TestRule;
 
 import { messages, messagesAlias, ruleName } from './o3r-var-parameter-equal-variable';
 
@@ -8,19 +10,19 @@ stylelintTestRule({
   fix: true,
   accept: [
     {
-      describe: 'import otter styling with alias',
+      description: 'import otter styling with alias',
       code: `@use '@o3r/styling' as otter;
       $test: otter.variable('test', 0);`
     },
     {
-      describe: 'import otter styling with alias another alias',
+      description: 'import otter styling with alias another alias',
       code:
 `@use '@o3r/styling' as o3r;
 
 $more-complex-test-case-1: o3r.variable('more-complex-test-case-1', 0);`
     },
     {
-      describe: 'o3r styling not imported, the rule will not be executed on the declaration',
+      description: 'o3r styling not imported, the rule will not be executed on the declaration',
       code: '$test: o3r.variable(\'test-valid\', 0);'
     }
   ],
@@ -42,7 +44,6 @@ stylelintTestRule({
   config: [true],
   reject: [
     {
-      fix: false,
       code: `@use '@o3r/styling' as o3r;
 
       $more-complex-test-case-1: otter.variable('more-complex-test-case-1', 0);`,

@@ -1,7 +1,7 @@
-import { Api, ApiClient, ApiName } from '@ama-sdk/core';
+import type { Api, ApiClient, ApiName } from '@ama-sdk/core';
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
 import { ApiManager } from './api-manager';
-import { INTERNAL_API_TOKEN } from './api-manager.token';
+import { API_TOKEN } from './api-manager.token';
 
 /** Type of the Class of an SDK Api */
 export type ApiClassType<T extends Api = Api> = (new (client: ApiClient) => T) & ApiName;
@@ -17,7 +17,7 @@ export class ApiFactoryService {
   /** Map of loaded APIs */
   private loadedApis: Record<string, Api> = {};
 
-  constructor(@Inject(INTERNAL_API_TOKEN) private apiManager: ApiManager, @Optional() @Inject(INITIAL_APIS_TOKEN) apis?: (Api | ApiClassType)[]) {
+  constructor(@Inject(API_TOKEN) private apiManager: ApiManager, @Optional() @Inject(INITIAL_APIS_TOKEN) apis?: (Api | ApiClassType)[]) {
     if (apis) {
       this.updateApiMapping(apis);
     }
