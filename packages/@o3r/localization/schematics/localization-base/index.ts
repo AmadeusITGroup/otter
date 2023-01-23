@@ -455,18 +455,18 @@ export function updateLocalization(options: { projectName: string | null }, root
    * @param tree
    * @param _context
    */
-  const addDependencies: Rule = (tree: Tree, _context: SchematicContext) => {
+  const addDependencies: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree);
     const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
+    const generatorDependencies = [ngxTranslateCoreDep, intlMessageFormatDep, formatjsIntlNumberformatDep, angularCdkDep];
 
-    const depsRecord = getExternalDependenciesVersionRange(
-      [ngxTranslateCoreDep, intlMessageFormatDep, formatjsIntlNumberformatDep, angularCdkDep],
-      packageJsonPath
-    );
-
-    const dependencies: NodeDependency[] = getNodeDependencyList(depsRecord, type);
-
-    dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    try {
+      const depsRecord = getExternalDependenciesVersionRange(generatorDependencies, packageJsonPath);
+      const dependencies: NodeDependency[] = getNodeDependencyList(depsRecord, type);
+      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    } catch (e: any) {
+      context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
+    }
 
     return tree;
   };

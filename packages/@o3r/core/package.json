@@ -58,20 +58,6 @@
     "tslib": "^2.4.1",
     "uuid": "^8.3.2"
   },
-  "generatorDependencies": {
-    "@formatjs/intl-numberformat": "^8.0.2",
-    "@ngrx/effects": "^15.0.0",
-    "@ngrx/entity": "^15.0.0",
-    "@ngrx/router-store": "^15.0.0",
-    "@ngrx/store": "^15.0.0",
-    "@ngrx/store-devtools": "^15.0.0",
-    "@ngx-translate/core": "~14.0.0",
-    "@typescript-eslint/parser": "^5.19.0",
-    "css-vars-ponyfill": "^2.0.0",
-    "eslint": "^8.22.0",
-    "intl-messageformat": "~10.3.0",
-    "ngrx-store-localstorage": "^15.0.0"
-  },
   "devDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1501.3",
@@ -103,6 +89,7 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^17.0.45",
     "@types/pid-from-port": "^1.1.0",
+    "@types/semver": "^7.3.13",
     "@types/uuid": "^8.3.1",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",

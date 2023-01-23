@@ -25,7 +25,8 @@
         "main": "packages/@o3r/testing/src/public_api.ts",
         "tsConfig": "packages/@o3r/testing/tsconfig.build.json",
         "outputPath": "packages/@o3r/testing/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       }
     },
     "prepare-build-builders": {

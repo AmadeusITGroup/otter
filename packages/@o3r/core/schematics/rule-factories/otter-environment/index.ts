@@ -1,5 +1,6 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
+import generateEnvironments from '@schematics/angular/environments/index';
 import { getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 
@@ -128,8 +129,47 @@ export function updateOtterEnvironmentAdapter(
     return tree;
   };
 
+  /**
+   * Use Angular CLI generator to create environment files
+   *
+   * @param tree
+   * @param context
+   */
+  const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
+    const envBasePath = 'src/environments';
+    const envDevFilePath = `${envBasePath}/environment.development.ts`;
+    if (!tree.exists(envDevFilePath)) {
+      return chain([generateEnvironments({project: options.projectName || ''})])(tree, context);
+    }
+    return tree;
+  };
+
+  /**
+   * Update environment files to add `production` boolean
+   *
+   * @param tree
+   * @param _context
+   */
+  const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
+    const envBasePath = 'src/environments';
+    const envDevFilePath = `${envBasePath}/environment.development.ts`;
+    const envDefaultFilePath = `${envBasePath}/environment.ts`;
+    const addProductionBoolean = (envFilePath: string, value: boolean) => {
+      let envContent = tree.readText(envFilePath);
+      if (!/production['"]?:\s*(true|false)/.test(envContent)) {
+        envContent = envContent.replace(/(const environment = {)/, `$1\n  production: ${String(value)},\n`);
+        tree.overwrite(envFilePath, envContent);
+      }
+    };
+    addProductionBoolean(envDefaultFilePath, true);
+    addProductionBoolean(envDevFilePath, false);
+    return tree;
+  };
+
   return chain([
     editAngularJson,
-    editTsConfigJson
+    editTsConfigJson,
+    generateEnvironmentFiles,
+    editEnvironmentFiles
   ]);
 }

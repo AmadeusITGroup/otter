@@ -23,17 +23,13 @@
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:build:builders"
-      },
-      "dependsOn": []
+      }
     },
     "build-builders": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      },
-      "dependsOn": [
-        "prepare-build-builders"
-      ]
+      }
     },
     "compile": {
       "executor": "@nrwl/js:tsc",
@@ -44,7 +40,8 @@
         "assets": [
           "packages/@o3r/eslint-plugin/schemas/*.json"
         ],
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       },
       "dependsOn": []
     },

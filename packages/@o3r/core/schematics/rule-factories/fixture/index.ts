@@ -47,14 +47,12 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
         return libs;
       }, []);
 
-      if (tsconfigCompilerOptions.paths) {
-        tsconfigCompilerOptions.paths = Object.keys(tsconfigCompilerOptions.paths).reduce((acc, p) => {
-          if (oldPaths.indexOf(p) === -1) {
-            acc[p] = tsconfigCompilerOptions.paths[p];
-          }
-          return acc;
-        }, {});
-      }
+      tsconfigCompilerOptions.paths = Object.entries(tsconfigCompilerOptions.paths || {}).reduce((acc, [key, value]) => {
+        if (oldPaths.indexOf(key) === -1) {
+          acc[key] = value;
+        }
+        return acc;
+      }, {});
       const subFolder = options.testingFramework === 'jasmine' ? 'karma' : 'angular';
       tsconfigCompilerOptions.paths['@o3r/testing/core'] = [`node_modules/@o3r/testing/core/${subFolder}`];
       tsconfigCompilerOptions.paths['@o3r/testing/core/*'] = [`node_modules/@o3r/testing/core/${subFolder}/*`];

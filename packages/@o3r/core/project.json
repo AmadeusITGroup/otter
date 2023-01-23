@@ -66,6 +66,13 @@
         "script": "prepare:publish"
       }
     },
+    "test-int": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/core/testing/jest.config.it.js",
+        "silent": true
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {

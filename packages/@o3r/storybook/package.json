@@ -21,19 +21,19 @@
   },
   "exports": {
     ".": {
-      "default": "./src/public_api.js",
-      "typings": "./src/public_api.d.ts"
+      "typings": "./src/public_api.d.ts",
+      "default": "./src/public_api.js"
     },
     "./package.json": {
       "default": "./package.json"
     },
     "./component-wrapper": {
-      "default": "./component-wrapper/index.js",
-      "typings": "./component-wrapper/index.d.ts"
+      "typings": "./component-wrapper/index.d.ts",
+      "default": "./component-wrapper/index.js"
     },
     "./addon": {
-      "default": "./addon/index.js",
-      "typings": "./addon/index.d.ts"
+      "typings": "./addon/index.d.ts",
+      "default": "./addon/index.js"
     }
   },
   "dependencies": {

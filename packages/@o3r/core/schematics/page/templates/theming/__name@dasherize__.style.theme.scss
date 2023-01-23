@@ -1,10 +1,9 @@
-@import '~@o3r/styling/scss/theming/functions';
-@import '~@o3r/styling/scss/styling';
+@use '@o3r/styling' as o3r;
 
-$palette: get-mandatory($theme, 'highlight');
-$palette-primary: get-mandatory($theme, 'primary');
+$palette: o3r.get-mandatory(o3r.$default-theme, 'highlight');
+$palette-primary: o3r.get-mandatory(o3r.$default-theme, 'primary');
 
 // list of variables used by the component
 // The variables will be exposed by the CMS and should default on the theme
 // Example of variable
-$<%=dasherize(name)%>-color: o3r-var('<%=dasherize(name)%>-color', o3r-color($palette-primary, 700)) !default;
+$<%=dasherize(name)%>-color: o3r.variable('<%=dasherize(name)%>-color', o3r.color($palette-primary, 700)) !default;

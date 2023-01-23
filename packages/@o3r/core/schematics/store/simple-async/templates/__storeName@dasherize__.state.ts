@@ -5,7 +5,7 @@ import {AsyncStoreItem} from '@o3r/core';
  * <%= storeName %> model
  */
 export interface <%= storeName %>Model {
-  <% if(hasSDK) { %>model: <%= modelName  %> | null;<% } %>
+  model: <%= payloadModelName  %> | null;
 }
 
 /**
@@ -32,3 +32,10 @@ export interface <%= storeName %>Store {
   /** <%= storeName %> state */
   [<%= scuStoreName %>_STORE_NAME]: <%= storeName %>State;
 }
+
+<% if (!hasSDK) { %>/**
+ *
+ */
+export interface <%= payloadModelName %> {
+
+}<% } %>

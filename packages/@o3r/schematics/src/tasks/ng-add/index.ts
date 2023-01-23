@@ -16,6 +16,9 @@ export interface NgAddPackageOptions {
 
   /** The package which launched the ng add for the current one */
   parentPackageInfo?: string;
+
+  /** Name of the project **/
+  projectName?: string | null;
 }
 
 export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
@@ -24,13 +27,17 @@ export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePack
   constructor(public packageName: string, public options?: NgAddPackageOptions) {}
 
   public toConfiguration(): TaskConfiguration<NodePackageTaskOptions> {
+    const cmdArguments = [
+      this.options?.skipConfirmation ? '--skip-confirmation' : '',
+      this.options?.projectName ? `--projectName=${this.options.projectName}` : ''
+    ];
     return {
       name: NodePackageName,
       options: {
         command: 'ng add',
         quiet: this.quiet,
         workingDirectory: this.options?.workingDirectory,
-        packageName: `ng add ${this.packageName}${this.options?.version ? '@' + this.options.version : ''}${this.options?.skipConfirmation ? ' --skip-confirmation' : ''}`,
+        packageName: `ng add ${this.packageName}${this.options?.version ? '@' + this.options.version : ''} ${cmdArguments.join(' ')}`,
         packageManager: 'yarn'
       }
     };

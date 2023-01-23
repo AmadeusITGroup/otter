@@ -17,7 +17,7 @@ export interface RuntimeDummyEventConstructorAnalyticsEventParameters extends Co
   /**
    * Example of runtime data
    */
-  runtimeData: string;
+  runtimeData?: string;
 }
 
 /**
@@ -32,8 +32,8 @@ export class RuntimeDummyEvent implements AnalyticsEvent {
   /** @inheritdoc */
   public attributes: Attribute[]
 
-  constructor(parameters: RuntimeDummyEventConstructorAnalyticsEventParameters) {
-    this.attributes = [{key: 'runtimeData', value: parameters.runtimeData}]
+  constructor(parameters?: RuntimeDummyEventConstructorAnalyticsEventParameters) {
+    this.attributes = parameters?.runtimeData ? [{key: 'runtimeData', value: parameters.runtimeData}] : [];
   }
 }
 <% } %>

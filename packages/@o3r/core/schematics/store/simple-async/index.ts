@@ -28,8 +28,8 @@ export function ngGenerateSimpleAsyncStore(options: NgGenerateSimpleAsyncStoreSc
       cStoreName: strings.camelize(options.storeName),
       scuStoreName: strings.underscore(options.storeName).toUpperCase(),
       hasSDK: !!options.sdkPackage,
-      storeModelName: options.sdkPackage ? `${strings.classify(options.modelName)}Model` : `${strings.classify(options.modelName)}Model`,
-      payloadModelName: options.sdkPackage ? options.modelName : options.storeName,
+      storeModelName: `${strings.classify(options.modelName)}Model`,
+      payloadModelName: options.sdkPackage ? options.modelName : strings.classify(options.storeName),
       reviverModelName: `revive${options.modelName}`,
       fileName: strings.dasherize(options.storeName)
     };

@@ -30,10 +30,6 @@
     },
     "build-builders": {
       "executor": "nx:run-script",
-      "outputs": [
-        "packages/@o3r/dynamic-content/dist/middlewares",
-        "packages/@o3r/dynamic-content/dist/schematics"
-      ],
       "options": {
         "script": "build:builders"
       }

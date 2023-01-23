@@ -8,18 +8,12 @@ import {NodeDependency, NodeDependencyType} from '@schematics/angular/utility/de
  *  @param packageJsonPath Path to the package.json to refer to
  *  @returns The version range value retrieved from the provided package.json file
  */
-export function getExternalDependenciesVersionRange(packageNames: string[], packageJsonPath: string): Record<string, string> {
-  try {
-    const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
-    return packageNames.reduce((acc: Record<string, string>, packageName: string) => {
-      acc[packageName] = packageJsonContent.generatorDependencies[packageName];
-      return acc;
-    }, {});
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.error('failed to parse package.json');
-    return {};
-  }
+export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string): Record<T, string> {
+  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
+  return packageNames.reduce((acc: Partial<Record<T, string>>, packageName: string) => {
+    acc[packageName] = packageJsonContent.peerDependencies?.[packageName] || packageJsonContent.generatorDependencies?.[packageName];
+    return acc;
+  }, {}) as Record<T, string>;
 }
 
 /**
@@ -29,6 +23,6 @@ export function getExternalDependenciesVersionRange(packageNames: string[], pack
  * @param type node type of the dependency
  * @returns the list of node dependencies to be installed
  */
-export function getNodeDependencyList(dependenciesVersions: Record<string, string>, type: NodeDependencyType): NodeDependency[] {
-  return Object.entries(dependenciesVersions).map(([name, version]) => ({name, version, type, overwrite: true}));
+export function getNodeDependencyList<T extends string>(dependenciesVersions: Record<T, string>, type: NodeDependencyType): NodeDependency[] {
+  return Object.entries<string>(dependenciesVersions).map(([name, version]) => ({name, version, type, overwrite: true}));
 }

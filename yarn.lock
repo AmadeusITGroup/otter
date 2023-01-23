@@ -6068,6 +6068,7 @@ __metadata:
     "@types/minimist": ^1.2.2
     "@types/node": ^17.0.45
     "@types/pid-from-port": ^1.1.0
+    "@types/semver": ^7.3.13
     "@types/uuid": ^8.3.1
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -6610,6 +6611,7 @@ __metadata:
     "@angular/common": ~15.1.2
     "@angular/core": ~15.1.2
     "@angular/platform-browser-dynamic": ~15.1.2
+    "@formatjs/intl-numberformat": ^8.0.2
     "@ngrx/store": ^15.0.0
     "@ngx-translate/core": ~14.0.0
     "@o3r/core": "workspace:^"
