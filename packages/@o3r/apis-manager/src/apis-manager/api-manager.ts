@@ -1,4 +1,4 @@
-import { ApiClient, ApiFetchClient } from '@ama-sdk/core';
+import { ApiClient } from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API
@@ -24,7 +24,7 @@ export class ApiManager {
    *
    * @param defaultConfiguration
    */
-  constructor(defaultConfiguration: ApiClient = new ApiFetchClient(), apiConfigurations: { [key: string]: ApiClient } = {}) {
+  constructor(defaultConfiguration: ApiClient, apiConfigurations: { [key: string]: ApiClient } = {}) {
     this.defaultConfiguration = defaultConfiguration;
     this.apiConfigurations = apiConfigurations;
   }

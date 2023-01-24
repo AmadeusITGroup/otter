@@ -1,8 +1,8 @@
 /* eslint-disable no-redeclare */
 /* eslint-disable camelcase, @typescript-eslint/naming-convention */
 
-import { Api, ApiClient, ApiFetchClient, ApiTypes } from '../../fwk/index';
-
+import type { Api, ApiClient } from '../../fwk/index';
+import { ApiTypes } from '../../fwk/index';
 /** Token name */
 export type TypeEnum = 'amadeusOAuth2Token';
 /** Token type */
@@ -104,7 +104,7 @@ export class Oauth2Api implements Api {
    * @param apiClient
    * @params apiClient Client used to process call to the API
    */
-  constructor(apiClient: ApiClient = new ApiFetchClient()) {
+  constructor(apiClient: ApiClient) {
     this.client = apiClient;
   }
 

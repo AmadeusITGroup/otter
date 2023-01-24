@@ -98,7 +98,8 @@ export interface PiiTokenizerRequestPluginOptions {
 
   /**
    * Payload's properties appended to the header for the JWE generation.
-   * If key is specified and public properties is undefined, it will be defaulted to ['iss','sub'] */
+   * If key is specified and public properties is undefined, it will be defaulted to ['iss','sub']
+   */
   publicProperties?: string[];
 
   /**
@@ -140,7 +141,6 @@ export interface PiiTokenizerRequestPluginOptions {
  *     new PiiTokenizerRequest({applicationId: 'EXAMPLE_JWE', key: {publickKey: myPublicKey, keyId: myKeyId}})
  *   ]
  * })
- *
  * @example JWE with publicProperties
  *
  * const client = new ApiFetchClient({
@@ -150,7 +150,6 @@ export interface PiiTokenizerRequestPluginOptions {
  *     new PiiTokenizerRequest({applicationId: 'EXAMPLE_JWE', key: {publickKey: myPublicKey, keyId: myKeyId}, publicProperties: ['iss', 'sub', 'myPublicProperty']})
  *   ]
  * })
- *
  * @example DeepLink
  *
  * const client = new ApiFetchClient({

@@ -9,8 +9,8 @@ import { API_TOKEN, INTERNAL_API_TOKEN } from './api-manager.token';
  *
  * @param config
  */
-export function defaultConfig(config?: ApiManager): ApiManager {
-  return config || new ApiManager();
+export function defaultConfig(config: ApiManager): ApiManager {
+  return config;
 }
 
 // Module that needs to be imported by the application to instantiate an SDK configuration.
