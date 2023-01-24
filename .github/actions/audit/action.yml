@@ -21,8 +21,18 @@ inputs:
 outputs:
   reportJSON:
     description: 'The report in JSON format'
+    value: ${{ steps.audit.outputs.reportJSON }}
   reportMarkdown:
     description: 'The report in MarkDown format'
+    value: ${{ steps.audit.outputs.reportMarkdown }}
 runs:
-  using: 'node16'
-  main: 'yarn-audit.mjs'
+  using: 'composite'
+  steps:
+    - id: audit
+      run: 'yarn node ./.github/actions/audit/yarn-audit.mjs'
+      shell: bash
+      env:
+        INPUT_SEVERITY: ${{ inputs.severity }}
+        INPUT_ALLWORKSPACES: ${{ inputs.allWorkspaces }}
+        INPUT_RECURSIVE: ${{ inputs.recursive }}
+        INPUT_ENVIRONMENT: ${{ inputs.environment }}
