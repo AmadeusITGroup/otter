@@ -6160,6 +6160,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6189,6 +6190,7 @@ __metadata:
     "@angular/platform-browser-dynamic": ^15.0.2
     "@fullstory/browser": ^1.2.1
     "@ngrx/store": ^15.0.0
+    "@o3r/core": "workspace:^"
     logrocket: ^0.6
     logrocket-ngrx: ^0.1.1
     rxjs: ^7.4.0

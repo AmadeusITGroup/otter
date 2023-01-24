@@ -89,6 +89,7 @@ ${vulnerabilities.warnings
   .sort(sortVulnerabilityBySeverity)
   .map(formatVulnerability)
   .join(os.EOL)
+  .replaceAll('${', '&#36;{')
 }
 
 </details>
