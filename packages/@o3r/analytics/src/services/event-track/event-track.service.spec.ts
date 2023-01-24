@@ -1,4 +1,4 @@
-import { Mark } from '@ama-sdk/core';
+import type { Mark } from '@ama-sdk/core';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { NavigationEnd, Router } from '@angular/router';

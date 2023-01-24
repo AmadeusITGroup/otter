@@ -20,7 +20,16 @@ inputs:
 
 outputs:
   tag:
-    description: 'NPM Tag to apply '
+    description: 'NPM Tag to apply'
+
 runs:
-  using: 'node16'
-  main: 'get-prelease.mjs'
+  using: 'composite'
+  steps:
+    - id: get-npm-tag
+      run: 'yarn node .github/actions/get-npm-tag/get-prerelease.mjs'
+      shell: bash
+      env:
+        INPUT_IS-PRERELEASE: ${{ inputs.is-prerelease }}
+        INPUT_VERSION: ${{ inputs.version }}
+        INPUT_TOKEN: ${{ inputs.token }}
+        INPUT_REPOSITORY: ${{ inputs.repository }}

@@ -280,6 +280,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["webpack", "virtual:9aa29269b76584cf0ff40774d694e13e7345dec1263c09f3cd34ec856ebab4466b79db1bda504a218aca4409553d19ee97d1e402d1130681d50303f616ca3fed#npm:5.75.0"],\
+            ["winston", "npm:3.8.2"],\
             ["zone.js", "npm:0.12.0"]\
           ],\
           "linkType": "SOFT"\
@@ -15251,6 +15252,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["webpack", "virtual:9aa29269b76584cf0ff40774d694e13e7345dec1263c09f3cd34ec856ebab4466b79db1bda504a218aca4409553d19ee97d1e402d1130681d50303f616ca3fed#npm:5.75.0"],\
+            ["winston", "npm:3.8.2"],\
             ["zone.js", "npm:0.12.0"]\
           ],\
           "linkType": "SOFT"\

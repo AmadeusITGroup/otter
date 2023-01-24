@@ -1,22 +1,11 @@
-import { ModuleWithProviders, NgModule, Optional } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ApiFactoryService } from './api-factory.service';
 import { ApiManager } from './api-manager';
-import { API_TOKEN, INTERNAL_API_TOKEN } from './api-manager.token';
-
-
-/**
- * Generate a default API manager
- *
- * @param config
- */
-export function defaultConfig(config?: ApiManager): ApiManager {
-  return config || new ApiManager();
-}
+import { API_TOKEN } from './api-manager.token';
 
 // Module that needs to be imported by the application to instantiate an SDK configuration.
 @NgModule({
   providers: [
-    { provide: INTERNAL_API_TOKEN, useFactory: defaultConfig, deps: [[new Optional(), API_TOKEN]]},
     ApiFactoryService
   ]
 })

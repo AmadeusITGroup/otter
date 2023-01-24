@@ -29,7 +29,7 @@ runs:
   using: 'composite'
   steps:
     - id: audit
-      run: 'yarn node ./.github/actions/audit/yarn-audit.mjs'
+      run: 'yarn node .github/actions/audit/yarn-audit.mjs'
       shell: bash
       env:
         INPUT_SEVERITY: ${{ inputs.severity }}
