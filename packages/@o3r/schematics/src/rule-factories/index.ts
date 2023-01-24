@@ -6,7 +6,6 @@ export * from './eslint-fix/index';
 export * from './fixture/index';
 export * from './interfaces';
 export * from './linter/index';
-export * from './npm-registry/index';
 export * from './otter-environment/index';
 export * from './playwright/index';
 export * from './prefetch/index';

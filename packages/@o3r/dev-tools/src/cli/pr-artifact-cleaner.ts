@@ -7,7 +7,7 @@ import * as winston from 'winston';
 
 program
   .description('Clean pr artifacts from artifactory repositories')
-  .option('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL', /.*/, 'https://repository.rnd.amadeus.net/')
+  .requiredOption('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL', /.*/)
   .option('-d, --duration-kept <numberOfDays>', 'Only artifacts which are older and have not been downloaded during this duration (in days) will be deleted.', /[0-9]+/, '1')
   .option('-pr, --pr-versions <prVersions>', 'Number of pr versions that will be kept.', /[0-9]+/, '1')
   .option('-r, --repository <repositoryName>', 'Artifact repository to clean up.', /.*/, 'dga-maven-built-adt-nce')

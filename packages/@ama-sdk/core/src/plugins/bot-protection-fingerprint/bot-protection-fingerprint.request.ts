@@ -225,7 +225,7 @@ export interface BotProtectionFingerprintRequestOptions {
  *     fingerprintRetriever: impervaProtectionRetrieverFactory(200, 200)
  *   });
  *   const gateway = createAmadeusGatewayTokenRequest({
- *     gatewayUrl: 'https://test.airlines.api.amadeus.com/v1/security/oauth2',
+ *     gatewayUrl: 'https://my-gateway.com/v1/security/oauth2',
  *     gatewayClientId: '***',
  *     gatewayClientPrivate: '***',
  *     customApiClientOptions: {
@@ -234,7 +234,7 @@ export interface BotProtectionFingerprintRequestOptions {
  *   });
  *
  *   const apiConfig: BaseApiConstructor = {
- *     basePath: 'https://test.airlines.api.amadeus.com/v2',
+ *     basePath: 'https://my-gateway.com/v2',
  *     requestPlugins: [botProtection, gateway],
  *     fetchPlugins: [new PerformanceMetricPlugin({
  *       onMarkComplete: (m: Mark) => eventTrackService.addSDKServerCallMark(m)

@@ -22,7 +22,7 @@ export interface GavcResponse {
   /** Ex : 2018-07-06T17:14:14.031Z */
   lastUpdated: string;
 
-  /** Ex : https://repository.rnd.amadeus.net/mvn-built/io/swagger/typescriptFetch-swagger-codegen/1.0.0/typescriptFetch-swagger-codegen-1.0.0.jar */
+  /** Ex : https://jfrog.io/mvn-built/io/swagger/typescriptFetch-swagger-codegen/1.0.0/typescriptFetch-swagger-codegen-1.0.0.jar */
   downloadUri: string;
 
   /** Ex : application/java-archive */
@@ -49,6 +49,6 @@ export interface GavcResponse {
    */
   originalChecksums: { sha1: string; md5: string };
 
-  /** Ex : https://repository.rnd.amadeus.net/api/storage/mvn-built/io/swagger/typescriptFetch-swagger-codegen/1.0.0/typescriptFetch-swagger-codegen-1.0.0.jar */
+  /** Ex : https://jfrog.io/api/storage/mvn-built/io/swagger/typescriptFetch-swagger-codegen/1.0.0/typescriptFetch-swagger-codegen-1.0.0.jar */
   uri: string;
 }

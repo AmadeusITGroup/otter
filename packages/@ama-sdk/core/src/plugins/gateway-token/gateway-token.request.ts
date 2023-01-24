@@ -13,7 +13,7 @@ import {Oauth2Api, Response} from './gateway-authentication';
  * When configuring the ApiManager
  * ```typescript
  * const defaultGatewayAPIConfig = {
- *   baseUrl: 'https://test.airlines.api.amadeus.com',
+ *   baseUrl: 'https://my-gateway.com',
  *   gatewayClientId: 'RgquoWaPkKmZ7acKUu1A2meEYVo94az7',
  *   gatewayClientSecret: 'AdUgFh4hu1dUUIE1'
  * };

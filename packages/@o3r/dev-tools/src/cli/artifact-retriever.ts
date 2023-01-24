@@ -14,7 +14,7 @@ const SUPPORTED_REPOSITORY_MANAGERS = ['JFrog', 'Azure Artifacts'];
 
 program
   .description('Get an artifact from an Artifact repository manager')
-  .option('--registry <url>', 'Registry URL. It is ignored for Azure Artifacts.', /.*/, 'https://repository.rnd.amadeus.net/')
+  .requiredOption('--registry <url>', 'Registry URL. It is ignored for Azure Artifacts.', /.*/)
   .option('--repository-manager <manager>', `Artifact repository manager. Supported managers are ${SUPPORTED_REPOSITORY_MANAGERS.join(', ')}`, /.*/, 'JFrog')
   .option('--organization <organization>', 'Azure Artifacts organization', /.*/, undefined)
   .option('--project <project>', 'Azure Artifacts project', /.*/, undefined)

@@ -1,24 +1,9 @@
 swagger: '2.0'
 info:
   version: 0.0.0
-  title: Amadeus Digital Experience API
-  x-logo:
-    url: 'http://e-travel.mkt.amadeus.net/digitalapi/dapi_logo.png'
-    backgroundColor: '#FFFFFF'
+  title: API information
   description: >
     # API information
-
-    The document aims at describing the Amadeus Digital Experience API.
-
-
-    Through Digital API, an end user is able to search air offers and related
-    services, add all necessary information to complete a booking, display a
-    seatmap and select seats, add traveler preferences such as meal and finally
-    finalize a booking (creation of an order). API also allows retrieving an
-    existing order.
-
-    Since the API is REST, operations are not flow related.
-
 
     ## CRUD operations
 
@@ -86,19 +71,15 @@ info:
 
     Each dictionary contains:
 
-    - localized data : it's possible to request for a specific code (e.g.
+    - localized data: it's possible to request for a specific code (e.g.
     location code) the translation in the language code specified as query
     parameter. The translation applies as well to the related information: in
-    case of location code, type of location (airport or city), corresponding
-    city (for airport location), state, country, etc.)
+    case of location code, type of location (country or city), corresponding
+    city, state, country, etc.
 
-    - dictionarized data : information used on different parts of the message
-    can be defined once and referenced via an id. It that case, the id makes the
+    - dictionarized data: information used on different parts of the message
+    can be defined once and referenced via an ID. It that case, the id makes the
     connection between dictionary and data information
-
-    Dictionary structure is available on page [Maps in dictionary
-    documentation](http://e-travel.mkt.amadeus.net/digitalapi/swagger-ui/display/documentation.html#/Maps/get_).
-
 
     ### Example of request/response
 
@@ -107,7 +88,7 @@ info:
 
     ```
 
-    GET /carts/{cartId}/travelers/{travelerId} HTTP/1.1
+    GET /carts/{cartId}/product/{productId} HTTP/1.1
 
     Accept: application/json
 
@@ -134,7 +115,7 @@ info:
         {
           "code": "36986",
           "source": { "pointer": "/0/dateOfBirth" },
-          "detail": "Date of birth '2018-07-01' should be in the past",
+          "detail": "Date of birth '2042-07-01' should be in the past",
           "title": "INVALID DATA RECEIVED"
         },
       ]
@@ -169,103 +150,6 @@ info:
     codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes) apply. As
     such they are not all mentioned below.
 
-
-    ## Top resources
-
-    ### Cart
-
-    The central resource is the `Cart` (shopping cart) used at shopping time to
-    prepare a journey (shopping, booking and pricing) and later on to perform
-    servicing on an already booked reservation. A `Cart` gather `AirOffer`s,
-    `Traveler`s as well as `Service`s, `Seat`s, `FrequentFlyerCard`s and
-    `Contact`s. It can be associated to zero, one or more users. At checkout
-    time, an `Order` is created based on content selected from the `Cart`.
-
-
-    ### AirCalendar
-
-    `Air Calendar` provides the best price per day based on input parameters.
-
-
-    ### AirBound
-
-    `Air Bound` provides the bound-by-bound shopping proposal based on input
-    parameters.
-
-    ### AirOffer
-
-    An `Air Offer` is the result of a shopping proposal. It is a collection of
-    `OfferItem`s, each offer item containing flights.
-
-
-    ### Service
-
-    The ``Service`` resource allows to access the list of free and/or chargeable
-    services.
-
-
-    ### Seatmap
-
-    ``Seatmap`` refers to display of the air seat map, allowing the end user to
-    identify the seat to be booked for free or at a charge.
-
-
-    ### Order
-
-    An ``Order`` corresponds to a reservation record (Amadeus PNRs). The order
-    can contain flights, services and seats, as well as travel documents
-    (E-Tickets and/or EMDs) in case the order has been paid and related tickets
-    issued.
-
-
-    ### Payment Method
-
-    A `Payment Method` refers to a payment method that be used to pay an order.
-    The following payment methods are supported by DAPI: Payment cards,
-    External  payment, Miles payment and Alternative Payment Method.
-
-
-    ## Secondary resources (main ones)
-
-    ### Traveler
-
-    A ``Traveler`` is an individual involved in the booking and taking part in a
-    journey.
-
-    ### Seat
-
-    A ``Seat`` refers to the seat that the end user can select as part of the
-    booking.
-
-    ### Frequent Flyer
-
-    ``Frequent Flyer`` contains frequent flyer cards either to accrue miles or
-    redeem miles (only accrual supported initially).
-
-    ### Contact
-
-    ``Contact`` refers to emails, phone numbers and addresses.
-
-    ### Travel Document
-
-    A ``Travel Document`` refers to the tickets (E-Tickets and/or EMDs) issued
-    for flights or services.
-
-    ### Payment Record
-
-    A `Payment Record` contains the details of the payment transaction for an
-    order. It includes the payment method used for the order payment, as well
-    additional information such as the approval code for a Credit Card payment.
-
-    ## Limitations
-
-    - Only air related content booking is supported.
-
-    - Only one order is created at a time from the cart.
-
-    - A cart can only contain one single airOffer.
-
-
     ## Miscellaneous
 
     ### Temporary id (tid)
@@ -282,8 +166,6 @@ info:
 
     In all cases, a tid is only valid for the time of the transaction
 
-
-
     ### Output filtering
 
     JSON output can be filtered using ``-fields`` and ``fields`` query
@@ -299,19 +181,19 @@ info:
 
     ```
 
-    GET /carts/{cartId}?-fields=data.travelers
+    GET /carts/{cartId}?-fields=data.products
 
     ```
 
-    will filter all travelers out of the response
+    will filter all products out of the response
 
     ```
 
-    GET /carts/{cartId}?fields=data.travelers.age
+    GET /carts/{cartId}?fields=data.products.price
 
     ```
 
-    will keep only age of the travelers in response
+    will keep only the price of the products in response
 
 
     Any questions, suggestions or feedbacks, thank you for contacting the DxAPI
@@ -377,7 +259,7 @@ info:
 
   contact:
     email: noreply@<%= name %>.com
-host: nodeA1.test.api.amadeus.com
+host: your.api.endpoint.com
 basePath: /v2
 schemes:
   - https

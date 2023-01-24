@@ -1,7 +1,7 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
 import { applyEsLintFix, createAzurePipeline, generateRenovateConfig, ngAddPackages, updateAdditionalModules, updateCmsAdapter,
   updateCustomizationEnvironment, updateDapiDependencies, updateDependencies, updateDifferentialLoading, updateFixtureConfig,
-  updateLinter, updateNpmrcRegistry, updateOtterEnvironmentAdapter, updatePlaywright,
+  updateLinter, updateOtterEnvironmentAdapter, updatePlaywright,
   updatePrefetchBuilder, updateStore } from '@o3r/schematics';
 import { updateComponentDecorators } from './component-decorator/index';
 import { NgAddSchematicsSchema } from './schema';
@@ -21,7 +21,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     updateDependencies(options, __dirname),
     updateDapiDependencies(options, __dirname),
     updateCmsAdapter(options, __dirname),
-    updateNpmrcRegistry(options, __dirname),
     updateOtterEnvironmentAdapter(options, __dirname),
     updateStore(options, __dirname),
     updateFixtureConfig(options, __dirname),
