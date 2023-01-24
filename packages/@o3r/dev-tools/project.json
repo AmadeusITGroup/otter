@@ -48,7 +48,8 @@
       "options": {
         "jestConfig": "packages/@o3r/dev-tools/jest.config.js",
         "silent": true
-      }
+      },
+      "dependsOn": ["build"]
     },
     "publish": {
       "executor": "nx:run-commands",

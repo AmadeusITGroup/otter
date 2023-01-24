@@ -134,6 +134,7 @@
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@babel/core": "~7.20.0",
     "@ngrx/store": "^15.0.0",
+    "@nrwl/jest": "^15.3.3",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
     "@o3r/core": "workspace:^",
