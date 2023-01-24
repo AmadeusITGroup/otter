@@ -83,6 +83,7 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
    * @param gatewayUrl The URL of the gateway
    * @param gatewayClientId The client id to authenticate to the gateway
    * @param gatewayClientPrivate The client private to authenticate to the gateway
+   * @param basePath API Gateway base path (when targeting a proxy or middleware)
    * @param guestOfficeId used to override the default office ID
    * @param storageTokenKey
    */
@@ -90,6 +91,7 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
     gatewayUrl: string | Promise<string>,
     gatewayClientId: string | Promise<string>,
     gatewayClientPrivate: string | Promise<string>,
+    basePath: string,
     guestOfficeId?: (() => Promise<string | undefined>) | Promise<string | undefined> | string,
     private storageTokenKey: string = 'gateway-auth-tokens'
   ) {
@@ -97,7 +99,7 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
     this.gatewayClientId = Promise.resolve(gatewayClientId);
     this.gatewayClientPrivate = Promise.resolve(gatewayClientPrivate);
     this.guestOfficeId = guestOfficeId;
-    this.apiClient = new ApiFetchClient({requestPlugins: [new FetchCredentialsRequest()], replyPlugins: [new ExceptionReply()] });
+    this.apiClient = new ApiFetchClient({requestPlugins: [new FetchCredentialsRequest()], replyPlugins: [new ExceptionReply()], basePath });
   }
 
   /**

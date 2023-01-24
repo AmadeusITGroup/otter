@@ -10,7 +10,6 @@ export type BotProtectionFingerprintRetriever = () => string | undefined | Promi
  * Creates a reused RegExp based on the cookieName and tries to extract its value from document.cookie.
  *
  * @param cookieName Name of the cookie to search for
- *
  * @deprecated Imperva integration should rely on the latest impervaProtectionRetrieverFactory
  */
 export function cookieRetrieverFactory(cookieName: string): BotProtectionFingerprintRetriever {
@@ -126,10 +125,9 @@ export function akamaiTelemetryRetrieverFactory(bmakOpt?: AkamaiObject): BotProt
  *
  * @param storageKey The name of the property in local storage where the fingerprint is saved
  * @param ignoreExpired Return the fingerprint even if it is expired. Default: false
- *
  * @deprecated Imperva integration should rely on the latest impervaProtectionRetrieverFactory
  */
-export function impervaLocalStorageRetrieverFactory(storageKey: string, ignoreExpired: boolean = false): BotProtectionFingerprintRetriever {
+export function impervaLocalStorageRetrieverFactory(storageKey: string, ignoreExpired = false): BotProtectionFingerprintRetriever {
   return () => {
     if (typeof localStorage === 'undefined') {
       throw new Error('[SDK][Plug-in][BotProtectionFingerprintRequest] Trying to use localStorageRetrieverFactory but localStorage is not defined.');
@@ -244,21 +242,18 @@ export interface BotProtectionFingerprintRequestOptions {
  *     LoggingApi: {basePath: '/api'}
  *   });
  * }
- *
  * @example Using a custom FingerprintRetriever
  *
  * const botProtection = new BotProtectionFingerprintRequest({
  *   destinationHeaderName: 'X-D-Token',
  *   fingerprintRetriever: () => 'test'
  * });
- *
  * @example For akamai
  *
  * const botProtection = new BotProtectionFingerprintRequest({
  *   destinationHeaderName: 'Akamai-BM-Telemetry',
  *   fingerprintRetriever: akamaiTelemetryRetrieverFactory()
  * });
- *
  */
 export class BotProtectionFingerprintRequest implements RequestPlugin {
   /**

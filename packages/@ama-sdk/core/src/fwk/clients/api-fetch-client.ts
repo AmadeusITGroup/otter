@@ -12,6 +12,7 @@ import { ExceptionReply } from '../../plugins/exception';
 import { ReviverReply } from '../../plugins/reviver';
 import { ApiTypes } from '../api';
 import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../api.helpers';
+import { PartialExcept } from '../api.interface';
 import { ApiClient } from '../core/api-client';
 import { BaseApiClientOptions } from '../core/base-api-constructor';
 import { CanceledCallError, EmptyResponseError, ResponseJSONParseError } from '../errors';
@@ -23,14 +24,16 @@ export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
   fetchPlugins: FetchPlugin[];
 }
 
+
+
 /** @see BaseApiConstructor */
-export interface BaseApiFetchClientConstructor extends Partial<BaseApiFetchClientOptions> {
+export interface BaseApiFetchClientConstructor extends PartialExcept<BaseApiFetchClientOptions, 'basePath'> {
+    /** API Gateway base path (when targeting a proxy or middleware) */
+    basePath: string;
 }
 
-const BASE_PATH = 'https://nodeA1.test.api.amadeus.com/V1';
 
-const DEFAULT_OPTIONS: BaseApiFetchClientOptions = {
-  basePath: BASE_PATH,
+const DEFAULT_OPTIONS: Omit<BaseApiFetchClientOptions, 'basePath'> = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
   fetchPlugins: [],
   requestPlugins: [],
@@ -41,20 +44,18 @@ const DEFAULT_OPTIONS: BaseApiFetchClientOptions = {
 export class ApiFetchClient implements ApiClient {
 
   /** @inheritdoc */
-  public options = DEFAULT_OPTIONS;
+  public options: BaseApiFetchClientOptions;
 
   /**
    * Initialize your API Client instance
    *
    * @param options Configuration of the API Client
    */
-  constructor(options?: BaseApiFetchClientConstructor) {
-    if (options) {
-      this.options = {
-        ...DEFAULT_OPTIONS,
-        ...options
-      };
-    }
+  constructor(options: BaseApiFetchClientConstructor) {
+    this.options = {
+      ...DEFAULT_OPTIONS,
+      ...options
+    };
   }
 
   /** @inheritdoc */

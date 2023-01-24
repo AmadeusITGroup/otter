@@ -16,3 +16,5 @@ export interface Api extends ApiName {
 export interface ApiConstructor<T extends Api = Api> extends ApiName {
   new (client: ApiClient): T;
 }
+
+export type PartialExcept<T, K extends keyof T> = Partial<T> & Pick<T, K>;
