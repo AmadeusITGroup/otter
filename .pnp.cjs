@@ -677,15 +677,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:200182e6366cb5dde54edb00760964d8344fa11ff23d4031a7869ed6bf7b1352021ac3283cade27e3c3681451dd6d9f7438d4372abc45fe9a632881bc5c906c5#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
           ],\
@@ -10116,7 +10119,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -10657,8 +10660,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__platform-browser-dynamic", null],\
             ["@types/chokidar", null],\
             ["@types/globby", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__entity", null],\
             ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
             ["@types/o3r__configuration", null],\
             ["@types/o3r__core", null],\
             ["@types/o3r__dev-tools", null],\
@@ -10674,13 +10679,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cpy-cli", "npm:4.2.0"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
-            ["jest-preset-angular", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -10766,8 +10771,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__platform-browser-dynamic", null],\
             ["@types/chokidar", null],\
             ["@types/globby", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__entity", null],\
             ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
             ["@types/o3r__configuration", null],\
             ["@types/o3r__core", null],\
             ["@types/o3r__dev-tools", null],\
@@ -10783,7 +10790,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cpy-cli", "npm:4.2.0"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
@@ -10874,8 +10881,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__platform-browser-dynamic", null],\
             ["@types/chokidar", null],\
             ["@types/globby", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__entity", null],\
             ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
             ["@types/o3r__configuration", null],\
             ["@types/o3r__core", null],\
             ["@types/o3r__dev-tools", null],\
@@ -10891,13 +10900,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cpy-cli", "npm:4.2.0"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
-            ["jest-preset-angular", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -10972,19 +10981,21 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@o3r/testing", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/testing"],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/node", "npm:17.0.45"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["chokidar", "npm:3.5.3"],\
             ["cpy-cli", "npm:4.2.0"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
-            ["jest-preset-angular", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -11131,7 +11142,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -11455,6 +11466,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -11572,6 +11584,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -11687,6 +11700,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -11802,6 +11816,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -11920,6 +11935,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12031,13 +12047,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["minimist", "npm:1.2.7"],\
             ["ngrx-store-localstorage", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#npm:15.0.0"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12154,6 +12171,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12263,13 +12281,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["minimist", "npm:1.2.7"],\
             ["ngrx-store-localstorage", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#npm:15.0.0"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12385,6 +12404,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12499,6 +12519,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12613,6 +12634,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12725,6 +12747,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12839,6 +12862,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -12937,6 +12961,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["pid-from-port", "npm:1.1.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["semver", "npm:7.3.8"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
             ["tslib", "npm:2.4.1"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
             ["uuid", "npm:8.3.2"],\
@@ -13052,7 +13077,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -13211,7 +13236,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -13451,7 +13476,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -14092,7 +14117,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["cpy-cli", "npm:4.2.0"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:200182e6366cb5dde54edb00760964d8344fa11ff23d4031a7869ed6bf7b1352021ac3283cade27e3c3681451dd6d9f7438d4372abc45fe9a632881bc5c906c5#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:53e0d971763bf98a4656534d9b6a1654db81f7ddc72ec6204967080cbd797d5de1b530bf38410b7d56828e42f449ba0993ef474b267c037c33c4fad5c88ae62e#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
@@ -14111,7 +14136,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14120,7 +14144,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14140,12 +14163,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "packagePeers": [\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14163,7 +14184,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:27024b553540ad3251198205eb0fac3379e2d78162ddf0380ea3f0601302edae305b276c3553934fe1a9221a5518ff54752b2b1b2f498bc190bbea4a8aed040a#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:27024b553540ad3251198205eb0fac3379e2d78162ddf0380ea3f0601302edae305b276c3553934fe1a9221a5518ff54752b2b1b2f498bc190bbea4a8aed040a#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14172,7 +14192,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14194,12 +14213,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular-eslint/template-parser",\
             "@angular-eslint/utils",\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14217,7 +14234,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14226,7 +14242,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14248,12 +14263,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular-eslint/template-parser",\
             "@angular-eslint/utils",\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14271,7 +14284,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14280,7 +14292,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14304,7 +14315,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14322,7 +14332,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:27024b553540ad3251198205eb0fac3379e2d78162ddf0380ea3f0601302edae305b276c3553934fe1a9221a5518ff54752b2b1b2f498bc190bbea4a8aed040a#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:27024b553540ad3251198205eb0fac3379e2d78162ddf0380ea3f0601302edae305b276c3553934fe1a9221a5518ff54752b2b1b2f498bc190bbea4a8aed040a#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14331,7 +14340,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14356,7 +14364,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14374,7 +14381,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:3974719a9ff2d70674a9fcb8dd1fd3c14ab315c0c6f88e0c0c33aa5bd1e047447ae21e6a7f1d25cba86b172be8ca81037c3df0c22d4fca33fef08c242dab0343#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14383,7 +14389,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14404,12 +14409,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@angular-eslint/template-parser",\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14427,7 +14430,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14436,7 +14438,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14455,12 +14456,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
           ],\
           "packagePeers": [\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14478,7 +14477,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:fc4605de3f3ee3ab00f366fde0f983f0f144863d267a4bf85c531b44f07e30047ee8cc7e9ec3a602c74908593f1eaf30d18b8382e1e8b6ed478f85584ed5c0a8#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:fc4605de3f3ee3ab00f366fde0f983f0f144863d267a4bf85c531b44f07e30047ee8cc7e9ec3a602c74908593f1eaf30d18b8382e1e8b6ed478f85584ed5c0a8#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14487,7 +14485,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14509,12 +14506,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular-eslint/template-parser",\
             "@angular-eslint/utils",\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14532,7 +14527,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:fd0a5d979797ca8d0faefefa3f354d443512d2dc4dbaec33a100fc19e3f8f2318064c1565a143a863af1e8a12363884563fb16250ad5fc5139469d136a781409#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/angular-eslint__template-parser", null],\
@@ -14541,7 +14535,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/eslint", null],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
-            ["@types/o3r__dev-tools", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
             ["@types/typescript-eslint__parser", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -14563,12 +14556,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular-eslint/template-parser",\
             "@angular-eslint/utils",\
             "@angular/compiler",\
-            "@o3r/dev-tools",\
             "@types/angular-eslint__template-parser",\
             "@types/angular-eslint__utils",\
             "@types/angular__compiler",\
             "@types/eslint",\
-            "@types/o3r__dev-tools",\
             "@types/typescript-eslint__eslint-plugin",\
             "@types/typescript-eslint__parser",\
             "@typescript-eslint/eslint-plugin",\
@@ -14586,7 +14577,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@angular/compiler", "virtual:acb263b4cb1db5d4d5afbd0bf59fd9e25875a1045f6510fe31c99d3d1c635844bd898c8eb88bc983d8d900fdc3cb32523df199ff6971aaf43f7489dcb1ce7a51#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/build-helpers", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:tools/@o3r/build-helpers"],\
-            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:fc4605de3f3ee3ab00f366fde0f983f0f144863d267a4bf85c531b44f07e30047ee8cc7e9ec3a602c74908593f1eaf30d18b8382e1e8b6ed478f85584ed5c0a8#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:fc4605de3f3ee3ab00f366fde0f983f0f144863d267a4bf85c531b44f07e30047ee8cc7e9ec3a602c74908593f1eaf30d18b8382e1e8b6ed478f85584ed5c0a8#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/jest", "npm:28.1.8"],\
@@ -15326,6 +15316,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -15426,10 +15417,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -15520,6 +15512,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -15619,6 +15612,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -15714,6 +15708,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -15811,10 +15806,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rxjs", "npm:7.6.0"],\
             ["tslib", "npm:2.4.1"],\
@@ -15910,6 +15906,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -16009,6 +16006,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -16093,6 +16091,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
             ["intl-messageformat", "npm:10.2.5"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -16813,10 +16812,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
+            ["jest-preset-angular", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3"],\
             ["jsonpath-plus", "npm:7.2.0"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
             ["rimraf", "npm:3.0.2"],\
@@ -16907,6 +16907,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["globby", "npm:11.1.0"],\
+            ["isomorphic-fetch", "npm:2.2.1"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-junit", "npm:14.0.1"],\
@@ -17880,6 +17881,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -17898,7 +17900,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -17968,6 +17970,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -17986,7 +17989,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18059,6 +18062,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -18077,7 +18081,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18150,6 +18154,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -18168,7 +18173,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18237,6 +18242,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -18255,7 +18261,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18328,6 +18334,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__forms", null],\
             ["@types/angular__platform-browser", null],\
             ["@types/comment-json", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/ngrx__store", null],\
             ["@types/ngx-translate__core", null],\
             ["@types/node", "npm:17.0.45"],\
@@ -18346,7 +18353,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18413,6 +18420,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/localization", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#workspace:packages/@o3r/localization"],\
             ["@o3r/schematics", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#workspace:packages/@o3r/schematics"],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
             ["@types/pixelmatch", "npm:5.2.4"],\
             ["@types/pngjs", "npm:6.0.1"],\
@@ -18424,7 +18432,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["esbuild", "npm:0.16.10"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["isomorphic-fetch", "npm:2.2.1"],\
@@ -18496,24 +18504,37 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./packages/@o3r/vscode-extension/",\
           "packageDependencies": [\
             ["@o3r/vscode-extension", "workspace:packages/@o3r/vscode-extension"],\
+            ["@angular-devkit/build-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
             ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
-            ["@o3r/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#workspace:packages/@o3r/eslint-plugin"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@types/glob", "npm:7.2.0"],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
             ["@types/vscode", "npm:1.73.1"],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
             ["eslint", "npm:8.29.0"],\
             ["eslint-import-resolver-node", "npm:0.3.6"],\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
             ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
             ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
             ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
             ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
-            ["ts-jest", "virtual:f804ca76d71663762f0d1b8f91c5454e530f7f917b5d07f7d056bb1c3b980e81f9e60072a11a8f422393d78f4f553e9ce6a12f01d36178af726f8272e0ec9b14#npm:28.0.8"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
+            ["rxjs", "npm:7.6.0"],\
+            ["ts-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.0.8"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -29585,10 +29606,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:200182e6366cb5dde54edb00760964d8344fa11ff23d4031a7869ed6bf7b1352021ac3283cade27e3c3681451dd6d9f7438d4372abc45fe9a632881bc5c906c5#npm:26.9.0", {\
-          "packageLocation": "./.yarn/__virtual__/eslint-plugin-jest-virtual-aad7d22665/0/cache/eslint-plugin-jest-npm-26.9.0-865b788669-6d5fd5c953.zip/node_modules/eslint-plugin-jest/",\
+        ["virtual:53e0d971763bf98a4656534d9b6a1654db81f7ddc72ec6204967080cbd797d5de1b530bf38410b7d56828e42f449ba0993ef474b267c037c33c4fad5c88ae62e#npm:26.9.0", {\
+          "packageLocation": "./.yarn/__virtual__/eslint-plugin-jest-virtual-a5b98ce644/0/cache/eslint-plugin-jest-npm-26.9.0-865b788669-6d5fd5c953.zip/node_modules/eslint-plugin-jest/",\
           "packageDependencies": [\
-            ["eslint-plugin-jest", "virtual:200182e6366cb5dde54edb00760964d8344fa11ff23d4031a7869ed6bf7b1352021ac3283cade27e3c3681451dd6d9f7438d4372abc45fe9a632881bc5c906c5#npm:26.9.0"],\
+            ["eslint-plugin-jest", "virtual:53e0d971763bf98a4656534d9b6a1654db81f7ddc72ec6204967080cbd797d5de1b530bf38410b7d56828e42f449ba0993ef474b267c037c33c4fad5c88ae62e#npm:26.9.0"],\
             ["@types/eslint", null],\
             ["@types/jest", null],\
             ["@types/typescript-eslint__eslint-plugin", null],\
@@ -29596,28 +29617,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@typescript-eslint/utils", "virtual:7e1acc7dc259ace33fb847cd839b4eefc3542900d7b8febc06508d9cf5240de2ba22a58d7dd1a42f1ed3af1ca668b90bbb0e61d0921a2edca8837179374ab188#npm:5.45.1"],\
             ["eslint", "npm:8.29.0"],\
             ["jest", null]\
-          ],\
-          "packagePeers": [\
-            "@types/eslint",\
-            "@types/jest",\
-            "@types/typescript-eslint__eslint-plugin",\
-            "@typescript-eslint/eslint-plugin",\
-            "eslint",\
-            "jest"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0", {\
-          "packageLocation": "./.yarn/__virtual__/eslint-plugin-jest-virtual-b8f0a755f1/0/cache/eslint-plugin-jest-npm-26.9.0-865b788669-6d5fd5c953.zip/node_modules/eslint-plugin-jest/",\
-          "packageDependencies": [\
-            ["eslint-plugin-jest", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:26.9.0"],\
-            ["@types/eslint", null],\
-            ["@types/jest", null],\
-            ["@types/typescript-eslint__eslint-plugin", null],\
-            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
-            ["@typescript-eslint/utils", "virtual:7e1acc7dc259ace33fb847cd839b4eefc3542900d7b8febc06508d9cf5240de2ba22a58d7dd1a42f1ed3af1ca668b90bbb0e61d0921a2edca8837179374ab188#npm:5.45.1"],\
-            ["eslint", "npm:8.29.0"],\
-            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"]\
           ],\
           "packagePeers": [\
             "@types/eslint",\
@@ -34795,7 +34794,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__compiler-cli", null],\
             ["@types/angular__core", null],\
             ["@types/angular__platform-browser-dynamic", null],\
-            ["@types/jest", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/typescript", null],\
             ["bs-logger", "npm:0.2.6"],\
             ["esbuild", "npm:0.16.10"],\
@@ -34804,7 +34803,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-util", "npm:28.1.3"],\
             ["pretty-format", "npm:28.1.3"],\
-            ["ts-jest", "virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8"],\
+            ["ts-jest", "virtual:503b87f910ac4e5f90358efd5397817b9cbcd45c657787d933c229648b7c3e9420363ea5a0aa4b795b4e74972c8c574543510c08354638aa49a59bdedec39745#npm:28.0.8"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
           ],\
           "packagePeers": [\
@@ -34903,14 +34902,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3", {\
-          "packageLocation": "./.yarn/__virtual__/jest-preset-angular-virtual-d78c2bf832/0/cache/jest-preset-angular-npm-12.2.3-ca78501e94-344913a22e.zip/node_modules/jest-preset-angular/",\
+        ["virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:12.2.3", {\
+          "packageLocation": "./.yarn/__virtual__/jest-preset-angular-virtual-3677f3d35f/0/cache/jest-preset-angular-npm-12.2.3-ca78501e94-344913a22e.zip/node_modules/jest-preset-angular/",\
           "packageDependencies": [\
-            ["jest-preset-angular", "virtual:b1cf5239cc6aaf1084b708b8dd9aee8b592015564e8f9093ae2c148a4e8b4cd5b6704271ccc3dd8606144dc3dee2aeb219f7f03f311221aba08c1ada0294f9f9#npm:12.2.3"],\
-            ["@angular-devkit/build-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.4"],\
+            ["jest-preset-angular", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:12.2.3"],\
+            ["@angular-devkit/build-angular", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:15.0.4"],\
             ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@angular/platform-browser-dynamic", "virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@types/angular-devkit__build-angular", null],\
             ["@types/angular__compiler-cli", null],\
             ["@types/angular__core", null],\
@@ -34943,46 +34942,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "HARD"\
         }],\
-        ["virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:12.2.3", {\
-          "packageLocation": "./.yarn/__virtual__/jest-preset-angular-virtual-3677f3d35f/0/cache/jest-preset-angular-npm-12.2.3-ca78501e94-344913a22e.zip/node_modules/jest-preset-angular/",\
-          "packageDependencies": [\
-            ["jest-preset-angular", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:12.2.3"],\
-            ["@angular-devkit/build-angular", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#npm:15.0.4"],\
-            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@types/angular-devkit__build-angular", null],\
-            ["@types/angular__compiler-cli", null],\
-            ["@types/angular__core", null],\
-            ["@types/angular__platform-browser-dynamic", null],\
-            ["@types/jest", null],\
-            ["@types/typescript", null],\
-            ["bs-logger", "npm:0.2.6"],\
-            ["esbuild", "npm:0.16.10"],\
-            ["esbuild-wasm", "npm:0.16.10"],\
-            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
-            ["jest-environment-jsdom", "npm:28.1.3"],\
-            ["jest-util", "npm:28.1.3"],\
-            ["pretty-format", "npm:28.1.3"],\
-            ["ts-jest", "virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
-          ],\
-          "packagePeers": [\
-            "@angular-devkit/build-angular",\
-            "@angular/compiler-cli",\
-            "@angular/core",\
-            "@angular/platform-browser-dynamic",\
-            "@types/angular-devkit__build-angular",\
-            "@types/angular__compiler-cli",\
-            "@types/angular__core",\
-            "@types/angular__platform-browser-dynamic",\
-            "@types/jest",\
-            "@types/typescript",\
-            "jest",\
-            "typescript"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#npm:12.2.3", {\
           "packageLocation": "./.yarn/__virtual__/jest-preset-angular-virtual-53f736e44f/0/cache/jest-preset-angular-npm-12.2.3-ca78501e94-344913a22e.zip/node_modules/jest-preset-angular/",\
           "packageDependencies": [\
@@ -34995,7 +34954,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/angular__compiler-cli", null],\
             ["@types/angular__core", null],\
             ["@types/angular__platform-browser-dynamic", null],\
-            ["@types/jest", null],\
+            ["@types/jest", "npm:28.1.8"],\
             ["@types/typescript", null],\
             ["bs-logger", "npm:0.2.6"],\
             ["esbuild", "npm:0.16.10"],\
@@ -35004,47 +34963,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest-environment-jsdom", "npm:28.1.3"],\
             ["jest-util", "npm:28.1.3"],\
             ["pretty-format", "npm:28.1.3"],\
-            ["ts-jest", "virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
-          ],\
-          "packagePeers": [\
-            "@angular-devkit/build-angular",\
-            "@angular/compiler-cli",\
-            "@angular/core",\
-            "@angular/platform-browser-dynamic",\
-            "@types/angular-devkit__build-angular",\
-            "@types/angular__compiler-cli",\
-            "@types/angular__core",\
-            "@types/angular__platform-browser-dynamic",\
-            "@types/jest",\
-            "@types/typescript",\
-            "jest",\
-            "typescript"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#npm:12.2.3", {\
-          "packageLocation": "./.yarn/__virtual__/jest-preset-angular-virtual-5f84653e78/0/cache/jest-preset-angular-npm-12.2.3-ca78501e94-344913a22e.zip/node_modules/jest-preset-angular/",\
-          "packageDependencies": [\
-            ["jest-preset-angular", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#npm:12.2.3"],\
-            ["@angular-devkit/build-angular", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.4"],\
-            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
-            ["@types/angular-devkit__build-angular", null],\
-            ["@types/angular__compiler-cli", null],\
-            ["@types/angular__core", null],\
-            ["@types/angular__platform-browser-dynamic", null],\
-            ["@types/jest", null],\
-            ["@types/typescript", null],\
-            ["bs-logger", "npm:0.2.6"],\
-            ["esbuild", "npm:0.16.10"],\
-            ["esbuild-wasm", "npm:0.16.10"],\
-            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
-            ["jest-environment-jsdom", "npm:28.1.3"],\
-            ["jest-util", "npm:28.1.3"],\
-            ["pretty-format", "npm:28.1.3"],\
-            ["ts-jest", "virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8"],\
+            ["ts-jest", "virtual:503b87f910ac4e5f90358efd5397817b9cbcd45c657787d933c229648b7c3e9420363ea5a0aa4b795b4e74972c8c574543510c08354638aa49a59bdedec39745#npm:28.0.8"],\
             ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"]\
           ],\
           "packagePeers": [\
@@ -45903,47 +45822,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8", {\
-          "packageLocation": "./.yarn/__virtual__/ts-jest-virtual-1fdf4b101f/0/cache/ts-jest-npm-28.0.8-eeca582fd6-c72e929270.zip/node_modules/ts-jest/",\
-          "packageDependencies": [\
-            ["ts-jest", "virtual:3677f3d35f81e3f1c7afd608cb94b08153c8a2d653941c304b65291571d1ef3a85b95bdc5556bb292f0ee82c5ba14c630144026961c20eaedee43d8ab47b07d9#npm:28.0.8"],\
-            ["@babel/core", null],\
-            ["@jest/types", null],\
-            ["@types/babel-jest", null],\
-            ["@types/babel__core", null],\
-            ["@types/esbuild", null],\
-            ["@types/jest", null],\
-            ["@types/jest__types", null],\
-            ["@types/typescript", null],\
-            ["babel-jest", null],\
-            ["bs-logger", "npm:0.2.6"],\
-            ["esbuild", "npm:0.16.10"],\
-            ["fast-json-stable-stringify", "npm:2.1.0"],\
-            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
-            ["jest-util", "npm:28.1.3"],\
-            ["json5", "npm:2.2.1"],\
-            ["lodash.memoize", "npm:4.1.2"],\
-            ["make-error", "npm:1.3.6"],\
-            ["semver", "npm:7.3.8"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
-            ["yargs-parser", "npm:21.1.1"]\
-          ],\
-          "packagePeers": [\
-            "@babel/core",\
-            "@jest/types",\
-            "@types/babel-jest",\
-            "@types/babel__core",\
-            "@types/esbuild",\
-            "@types/jest",\
-            "@types/jest__types",\
-            "@types/typescript",\
-            "babel-jest",\
-            "esbuild",\
-            "jest",\
-            "typescript"\
-          ],\
-          "linkType": "HARD"\
-        }],\
         ["virtual:503b87f910ac4e5f90358efd5397817b9cbcd45c657787d933c229648b7c3e9420363ea5a0aa4b795b4e74972c8c574543510c08354638aa49a59bdedec39745#npm:28.0.8", {\
           "packageLocation": "./.yarn/__virtual__/ts-jest-virtual-9570758def/0/cache/ts-jest-npm-28.0.8-eeca582fd6-c72e929270.zip/node_modules/ts-jest/",\
           "packageDependencies": [\
@@ -46036,47 +45914,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/babel__core", null],\
             ["@types/esbuild", null],\
             ["@types/jest", "npm:28.1.8"],\
-            ["@types/jest__types", null],\
-            ["@types/typescript", null],\
-            ["babel-jest", null],\
-            ["bs-logger", "npm:0.2.6"],\
-            ["esbuild", null],\
-            ["fast-json-stable-stringify", "npm:2.1.0"],\
-            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
-            ["jest-util", "npm:28.1.3"],\
-            ["json5", "npm:2.2.1"],\
-            ["lodash.memoize", "npm:4.1.2"],\
-            ["make-error", "npm:1.3.6"],\
-            ["semver", "npm:7.3.8"],\
-            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
-            ["yargs-parser", "npm:21.1.1"]\
-          ],\
-          "packagePeers": [\
-            "@babel/core",\
-            "@jest/types",\
-            "@types/babel-jest",\
-            "@types/babel__core",\
-            "@types/esbuild",\
-            "@types/jest",\
-            "@types/jest__types",\
-            "@types/typescript",\
-            "babel-jest",\
-            "esbuild",\
-            "jest",\
-            "typescript"\
-          ],\
-          "linkType": "HARD"\
-        }],\
-        ["virtual:f804ca76d71663762f0d1b8f91c5454e530f7f917b5d07f7d056bb1c3b980e81f9e60072a11a8f422393d78f4f553e9ce6a12f01d36178af726f8272e0ec9b14#npm:28.0.8", {\
-          "packageLocation": "./.yarn/__virtual__/ts-jest-virtual-0d0426accb/0/cache/ts-jest-npm-28.0.8-eeca582fd6-c72e929270.zip/node_modules/ts-jest/",\
-          "packageDependencies": [\
-            ["ts-jest", "virtual:f804ca76d71663762f0d1b8f91c5454e530f7f917b5d07f7d056bb1c3b980e81f9e60072a11a8f422393d78f4f553e9ce6a12f01d36178af726f8272e0ec9b14#npm:28.0.8"],\
-            ["@babel/core", null],\
-            ["@jest/types", null],\
-            ["@types/babel-jest", null],\
-            ["@types/babel__core", null],\
-            ["@types/esbuild", null],\
-            ["@types/jest", null],\
             ["@types/jest__types", null],\
             ["@types/typescript", null],\
             ["babel-jest", null],\

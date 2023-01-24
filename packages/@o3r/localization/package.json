@@ -133,6 +133,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "globby": "^11.1.0",
     "intl-messageformat": "~10.2.0",
+    "isomorphic-fetch": "~2.2.1",
     "jest": "~28.1.1",
     "jest-environment-jsdom": "~28.1.1",
     "jest-junit": "^14.0.0",

@@ -2,6 +2,6 @@
   "extends": "../../../tsconfig.jest",
   "include": [
     ".eslintrc.js",
-    "testing/jest.setup.js"
+    "testing/jest.setup.ts"
   ]
 }

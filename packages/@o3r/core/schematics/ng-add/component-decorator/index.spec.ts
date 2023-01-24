@@ -1,6 +1,6 @@
 import { callRule, Tree } from '@angular-devkit/schematics';
-import { readFileSync } from 'fs';
-import { join } from 'path';
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { firstValueFrom } from 'rxjs';
 import { updateComponentDecorators } from './index';
 
