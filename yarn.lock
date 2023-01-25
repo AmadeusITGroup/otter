@@ -79,6 +79,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
+    "@angular-devkit/core": ~15.0.4
+    "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -106,11 +108,10 @@ __metadata:
     typescript: ~4.8.4
     uuid: ^8.3.2
   peerDependencies:
+    "@angular-devkit/schematics": ~15.0.4
     isomorphic-fetch: ^2.2.1
   peerDependenciesMeta:
-    "@angular-eslint/template-parser":
-      optional: true
-    "@angular/compiler":
+    isomorphic-fetch:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6518,6 +6519,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     color: ^3.1.3
+    comment-json: ^4.1.0
     concurrently: ^7.0.0
     cpy-cli: ^4.2.0
     eslint: ^8.22.0
@@ -6722,6 +6724,7 @@ __metadata:
   resolution: "@o3r/third-party@workspace:packages/@o3r/third-party"
   dependencies:
     "@angular-devkit/build-angular": ~15.0.4
+    "@angular-devkit/core": ~15.0.4
     "@angular-devkit/schematics": ~15.0.4
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular/cli": ~15.0.4
@@ -13083,9 +13086,9 @@ __metadata:
   linkType: hard
 
 "cookiejar@npm:^2.1.3":
-  version: 2.1.3
-  resolution: "cookiejar@npm:2.1.3"
-  checksum: 88259983ebc52ceb23cdacfa48762b6a518a57872eff1c7ed01d214fff5cf492e2660d7d5c04700a28f1787a76811df39e8639f8e17670b3cf94ecd86e161f07
+  version: 2.1.4
+  resolution: "cookiejar@npm:2.1.4"
+  checksum: c4442111963077dc0e5672359956d6556a195d31cbb35b528356ce5f184922b99ac48245ac05ed86cf993f7df157c56da10ab3efdadfed79778a0d9b1b092d5b
   languageName: node
   linkType: hard
 
@@ -20646,13 +20649,13 @@ __metadata:
   linkType: hard
 
 "json5@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "json5@npm:1.0.1"
+  version: 1.0.2
+  resolution: "json5@npm:1.0.2"
   dependencies:
     minimist: ^1.2.0
   bin:
     json5: lib/cli.js
-  checksum: e76ea23dbb8fc1348c143da628134a98adf4c5a4e8ea2adaa74a80c455fc2cdf0e2e13e6398ef819bfe92306b610ebb2002668ed9fc1af386d593691ef346fc3
+  checksum: 866458a8c58a95a49bef3adba929c625e82532bcff1fe93f01d29cb02cac7c3fe1f4b79951b7792c2da9de0b32871a8401a6e3c5b36778ad852bf5b8a61165d7
   languageName: node
   linkType: hard
 
