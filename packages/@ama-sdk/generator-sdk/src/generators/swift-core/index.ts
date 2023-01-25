@@ -73,9 +73,9 @@ module.exports = class extends SdkGenerator {
 
   public install() {
     this.log('Remove previously generated sdk files');
-    rimraf.sync(path.resolve(this.destinationPath(), 'DapiSwiftSDK', 'Classes', 'Swaggers', '*.swift'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'DapiSwiftSDK', 'Classes', 'Swaggers', 'APIs', '**'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'DapiSwiftSDK', 'Classes', 'Swaggers', 'Models', '*Private.swift'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', '*.swift'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'APIs', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'Models', '*Private.swift'));
 
     this.spawnCommandSync('java', [
       '-cp',

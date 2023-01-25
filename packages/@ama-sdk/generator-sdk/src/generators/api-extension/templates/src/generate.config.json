@@ -1,6 +1,6 @@
 {
   "$schema": "../node_modules/@ama-sdk/swagger-builder/dist/schemas/api-configuration.schema.json",
-  "swaggerTemplate": "./DAPI_swagger_template.yaml",
+  "swaggerTemplate": "./API_swagger_template.yaml",
   "additionalSpecs": [
     "./override/*.yaml"
   ],

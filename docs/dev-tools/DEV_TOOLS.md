@@ -15,7 +15,7 @@ Get an artifact from Artifactory, artifact-group, artifact-name and artifact-ver
 
 Options:
 
-  --registry <url>                     Registry URL. It is ignored for Azure Artifacts. (default: https://repository.rnd.amadeus.net/)
+  --registry <url>                     Registry URL. It is ignored for Azure Artifacts.
   --repository-manager <manager>       Artifact repository manager. Supported managers are JFrog, Azure Artifacts (default: JFrog)
   --organization <organization>        Azure Artifacts organization
   --project <project>                  Azure Artifacts project
@@ -150,7 +150,7 @@ Clean old artifacts from artifactory repositories, base 64 encoding of username:
 
 Options:
 
-  -u, --artifactory-url <artifactoryUrl>   Artifact URL (Default: https://repository.rnd.amadeus.net/)
+  -u, --artifactory-url <artifactoryUrl>   Artifact URL
   -d, --duration-kept <durationKept>   Only artifacts which are older than this value (in days) will be deleted. (Default to 1 day)
   -r, --repository <repository>        Artifact repository to clean up. (Default to dga-maven-built-adt-nce)
   -pr, --pr-versions <prVersions>      Number of pr versions that will be kept. (Default to 2 last versions)

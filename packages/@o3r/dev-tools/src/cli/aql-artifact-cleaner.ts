@@ -7,7 +7,7 @@ import * as winston from 'winston';
 
 program
   .description('Clean artifacts older and not downloaded for a certain amount of time from artifactory repositories')
-  .option('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL', 'https://repository.rnd.amadeus.net/')
+  .requiredOption('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL')
   .option('-d, --duration-kept <numberOfDays>', 'Only artifacts which are older and have not been downloaded during this duration (in days) will be deleted.', /[0-9]+/, '7')
   .option('-o, --offset <number>', 'Minimal number of artifacts you want to keep (newest will be kept)', /[0-9]+/, '10')
   .option('-r, --repository <repositoryName>', 'Artifact repository to clean up.', 'dga-docker-built-adt-nce')
