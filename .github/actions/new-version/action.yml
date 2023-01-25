@@ -19,6 +19,7 @@ inputs:
 outputs:
   nextVersionTag:
     description: 'Next version Tag'
+    value: ${{ steps.new-version.outputs.nextVersionTag }}
 
 runs:
   using: 'composite'
