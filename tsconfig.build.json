@@ -38,10 +38,10 @@
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/dist", "packages/@o3r/amaterasu/amaterasu-dodo/src"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
-      "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src"],
-      "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src"],
-      "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk/src"],
-      "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder/src"]
+      "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src/public_api"],
+      "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
+      "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
+      "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"]
     }
   },
   "angularCompilerOptions": {

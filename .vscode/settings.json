@@ -18,6 +18,8 @@
   "eslint.packageManager": "yarn",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "angular.disableAutomaticNgcc": true,
   "jest.jestCommandLine": "yarn jest",
   "jest.autoRun": {
     "watch": false,

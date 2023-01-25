@@ -189,7 +189,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ["@o3r/forms", ["workspace:packages/@o3r/forms"]],\
       ["@o3r/framework", ["workspace:."]],\
       ["@o3r/localization", ["virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/localization", "virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#workspace:packages/@o3r/localization", "virtual:abec0a0a0d93ae28c606fdc24c1e3ae8125d1992fd93d591545c85e27b4c671c0c6e795e27a7501600a2fdd83b0f85077245c9f79008c4dfbf735d6b7fbe7e0e#workspace:packages/@o3r/localization", "virtual:bdb9d561d050510e9232bde60f4b3eeacc70160e1ccfc062774fba7072f44a63d6c508d1ec8c5f8883c62156cf9116e40f27297a42de1372638c2d855faed374#workspace:packages/@o3r/localization", "virtual:c35186c72ddf7d102619019002f5f3899cd6b5d1239d49b2ac428a3de4eb1e42677fb1708bc69f6a48af850c12eb27d17257a7dff2e214da5f8e5837c0dadac6#workspace:packages/@o3r/localization", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/localization", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/localization", "virtual:fb5fc1da6675c72aba6a34579d4c5028943faa3f5bd5b0e7c670a3d44ac3e24451934bfe1f86f52d08fa3e1ae3e504d504ebd439a12c06de2628d214f2aeb079#workspace:packages/@o3r/localization", "workspace:packages/@o3r/localization"]],\
-      ["@o3r/logger", ["virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/logger", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger", "workspace:packages/@o3r/logger"]],\
+      ["@o3r/logger", ["virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger", "virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger", "virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/logger", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/logger", "virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/logger", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger", "virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger", "workspace:packages/@o3r/logger"]],\
       ["@o3r/mobile", ["workspace:packages/@o3r/mobile"]],\
       ["@o3r/routing", ["virtual:6adba0ba209d2fa1f7985b7a071ab36c7d240e0d2c91b4a1c44b80cfdcde14708cfdd43b0d3a12fa631d3db15d7ed5f047041227e252f68de104af8f6064492a#workspace:packages/@o3r/routing", "virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/routing", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/routing", "workspace:packages/@o3r/routing"]],\
       ["@o3r/rules-engine", ["virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#workspace:packages/@o3r/rules-engine", "workspace:packages/@o3r/rules-engine"]],\
@@ -10013,7 +10013,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@types/ama-sdk__core", null],\
             ["@types/angular__common", null],\
             ["@types/angular__core", null],\
@@ -10177,7 +10177,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger"],\
             ["@types/ama-sdk__core", null],\
             ["@types/angular__common", null],\
             ["@types/angular__core", null],\
@@ -10259,7 +10259,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@types/ama-sdk__core", null],\
             ["@types/angular__common", null],\
             ["@types/angular__core", null],\
@@ -10430,7 +10430,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/logger"],\
             ["@o3r/routing", "virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/routing"],\
             ["@o3r/testing", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/testing"],\
             ["@types/angular__common", null],\
@@ -10649,7 +10649,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/extractors"],\
             ["@o3r/localization", "virtual:fb5fc1da6675c72aba6a34579d4c5028943faa3f5bd5b0e7c670a3d44ac3e24451934bfe1f86f52d08fa3e1ae3e504d504ebd439a12c06de2628d214f2aeb079#workspace:packages/@o3r/localization"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@o3r/testing", "virtual:fb5fc1da6675c72aba6a34579d4c5028943faa3f5bd5b0e7c670a3d44ac3e24451934bfe1f86f52d08fa3e1ae3e504d504ebd439a12c06de2628d214f2aeb079#workspace:packages/@o3r/testing"],\
             ["@types/angular-devkit__architect", null],\
@@ -10870,7 +10870,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:abec0a0a0d93ae28c606fdc24c1e3ae8125d1992fd93d591545c85e27b4c671c0c6e795e27a7501600a2fdd83b0f85077245c9f79008c4dfbf735d6b7fbe7e0e#workspace:packages/@o3r/extractors"],\
             ["@o3r/localization", "virtual:abec0a0a0d93ae28c606fdc24c1e3ae8125d1992fd93d591545c85e27b4c671c0c6e795e27a7501600a2fdd83b0f85077245c9f79008c4dfbf735d6b7fbe7e0e#workspace:packages/@o3r/localization"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#workspace:packages/@o3r/schematics"],\
             ["@o3r/testing", "virtual:abec0a0a0d93ae28c606fdc24c1e3ae8125d1992fd93d591545c85e27b4c671c0c6e795e27a7501600a2fdd83b0f85077245c9f79008c4dfbf735d6b7fbe7e0e#workspace:packages/@o3r/testing"],\
             ["@types/angular-devkit__architect", null],\
@@ -10979,7 +10979,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/extractors"],\
             ["@o3r/localization", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/localization"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@o3r/testing", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/testing"],\
             ["@types/jest", "npm:28.1.8"],\
@@ -11031,7 +11031,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@o3r/testing", "virtual:0814594185790ecd1ddd5130ab661e6e27b5328a6dfdd1aded4ee987385efd9e67e8625828ae7ef30af9171170a9072d7dc60759a6ac523dff64683174e71886#workspace:packages/@o3r/testing"],\
             ["@types/angular__core", null],\
             ["@types/angular__platform-browser-dynamic", null],\
@@ -11198,7 +11198,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@o3r/testing", "virtual:0814594185790ecd1ddd5130ab661e6e27b5328a6dfdd1aded4ee987385efd9e67e8625828ae7ef30af9171170a9072d7dc60759a6ac523dff64683174e71886#workspace:packages/@o3r/testing"],\
             ["@types/angular__core", null],\
             ["@types/angular__platform-browser-dynamic", null],\
@@ -11280,7 +11280,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger"],\
             ["@o3r/testing", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/testing"],\
             ["@types/angular__core", null],\
             ["@types/angular__platform-browser-dynamic", null],\
@@ -11365,7 +11365,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/logger"],\
             ["@o3r/testing", "virtual:0814594185790ecd1ddd5130ab661e6e27b5328a6dfdd1aded4ee987385efd9e67e8625828ae7ef30af9171170a9072d7dc60759a6ac523dff64683174e71886#workspace:packages/@o3r/testing"],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
@@ -15287,7 +15287,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -15483,7 +15483,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:abec0a0a0d93ae28c606fdc24c1e3ae8125d1992fd93d591545c85e27b4c671c0c6e795e27a7501600a2fdd83b0f85077245c9f79008c4dfbf735d6b7fbe7e0e#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -15583,7 +15583,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -15679,7 +15679,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:9e0ee2563ee631dac488f31de955909a32cbdfbd2cedec4ad9bcce2d430a013666a6f0e4ad23fe11687642eb0b1b9ebc79bbe577c1cb007aa64c5e320da18d19#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -15877,7 +15877,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -15977,7 +15977,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/angular-devkit__architect", null],\
@@ -16077,7 +16077,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/extractors"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/logger"],\
             ["@o3r/schematics", "virtual:d84f9f97b6a13bfc81efe1f0e53af9574e31b194f76ea48fd8733ff0e2a715d3c77a5ab29476246cefef0aea13bf9f5b49ba7c2e1b91b233c53b13ab3f6d8862#workspace:packages/@o3r/schematics"],\
             ["@schematics/angular", "npm:15.0.4"],\
             ["@types/jest", "npm:28.1.8"],\
@@ -16108,10 +16108,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]\
       ]],\
       ["@o3r/logger", [\
-        ["virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger", {\
-          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-1c5acb3643/1/packages/@o3r/logger/",\
+        ["virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-475cad5d0b/1/packages/@o3r/logger/",\
           "packageDependencies": [\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
             ["@angular-devkit/schematics", "npm:15.0.5"],\
@@ -16128,6 +16128,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@nrwl/js", "npm:15.3.3"],\
             ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
@@ -16140,6 +16141,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/logrockett-ngrx", null],\
             ["@types/ngrx__store", null],\
             ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
             ["@types/rxjs", null],\
             ["@types/smartlook-client", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -16169,6 +16171,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular/core",\
             "@angular/platform-browser-dynamic",\
             "@ngrx/store",\
+            "@o3r/core",\
             "@types/angular__core",\
             "@types/angular__platform-browser-dynamic",\
             "@types/fullstory__browser",\
@@ -16176,6 +16179,322 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/logrocket",\
             "@types/logrockett-ngrx",\
             "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-1c5acb3643/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-ded698b37a/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:18371a80ee9c67742a3551b4c5967db3e241f70c554c6e3f01ecb13ff0129077176e2db26528d5089c40489cdf361b1c9cd586e34a6b32239963a18681f47b2e#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-c528caed5e/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:3d1301d25a7bf138ad2e1b2a43b10b338063182f207a1860b50a06cc015a5d4881fb811e2d6d40e1d75b6bb490b1cceb21cf87a7df4c503883721d580575f395#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-af27ea7921/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:d13a53e66312465ccf534d703bacac3e3d1305b2cfdc35a878df42002c56985bbfbc87963fd2f03f4b0d13f505f0e53d2a12a1a3c00234b0f3e4fb047f4edd75#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
             "@types/rxjs",\
             "@types/smartlook-client",\
             "logrockett-ngrx",\
@@ -16203,6 +16522,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@nrwl/js", "npm:15.3.3"],\
             ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:7eca7a2ad0b4df9ced2197b98005591545358bf569983a599c727b02deecef5dfc069c81748fe663137045e3dd59e34b371038f0b2df23c151293ae1a5208f24#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
@@ -16215,6 +16535,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/logrockett-ngrx", null],\
             ["@types/ngrx__store", null],\
             ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
             ["@types/rxjs", null],\
             ["@types/smartlook-client", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -16244,6 +16565,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@angular/core",\
             "@angular/platform-browser-dynamic",\
             "@ngrx/store",\
+            "@o3r/core",\
             "@types/angular__core",\
             "@types/angular__platform-browser-dynamic",\
             "@types/fullstory__browser",\
@@ -16251,6 +16573,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/logrocket",\
             "@types/logrockett-ngrx",\
             "@types/ngrx__store",\
+            "@types/o3r__core",\
             "@types/rxjs",\
             "@types/smartlook-client",\
             "logrockett-ngrx",\
@@ -16258,10 +16581,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],\
           "linkType": "SOFT"\
         }],\
-        ["virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger", {\
-          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-0a004c5cc7/1/packages/@o3r/logger/",\
+        ["virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-da07d0c948/1/packages/@o3r/logger/",\
           "packageDependencies": [\
-            ["@o3r/logger", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/logger"],\
             ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
             ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
             ["@angular-devkit/schematics", "npm:15.0.5"],\
@@ -16278,6 +16601,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@nrwl/js", "npm:15.3.3"],\
             ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:dc4ec14a56b4324c658249f26e2a5a27afe621054bb0b26ec769cb80ac0de6da88b5e89e6c80674a911bb64954102baf99194031a9b5900d6054994bab32aa86#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
@@ -16290,6 +16614,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/logrockett-ngrx", null],\
             ["@types/ngrx__store", null],\
             ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
             ["@types/rxjs", null],\
             ["@types/smartlook-client", null],\
             ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
@@ -16318,6 +16643,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packagePeers": [\
             "@angular/core",\
             "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
             "@types/angular__core",\
             "@types/angular__platform-browser-dynamic",\
             "@types/fullstory__browser",\
@@ -16325,6 +16652,243 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "@types/logrocket",\
             "@types/logrockett-ngrx",\
             "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-0a004c5cc7/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:f1a73e64e98c5460a5d1fd1e25ebb03b4795c93398e5f6707e6aa9e9aab548ada25a282889c362436200a6fa80a2e13bbf523cd0be67199abcf522601c734460#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-aa3c99a04c/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
+            "@types/rxjs",\
+            "@types/smartlook-client",\
+            "logrockett-ngrx",\
+            "rxjs"\
+          ],\
+          "linkType": "SOFT"\
+        }],\
+        ["virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger", {\
+          "packageLocation": "./.yarn/__virtual__/@o3r-logger-virtual-d3de3cde35/1/packages/@o3r/logger/",\
+          "packageDependencies": [\
+            ["@o3r/logger", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/logger"],\
+            ["@angular-devkit/build-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular-devkit/core", "virtual:3f5d89fec1fbd84632409cc5231b2ec1f73b82506a66fc2b342a14bfb0bc77842f83c7525636ae294709be7efa3670f220b5902e6642c182f475551d77652624#npm:15.0.5"],\
+            ["@angular-devkit/schematics", "npm:15.0.5"],\
+            ["@angular-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:15.1.0"],\
+            ["@angular/common", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/compiler-cli", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/core", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@angular/platform-browser-dynamic", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.4"],\
+            ["@fullstory/browser", "npm:1.6.2"],\
+            ["@ngrx/store", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#npm:15.0.0"],\
+            ["@nrwl/cli", "npm:15.3.3"],\
+            ["@nrwl/jest", "npm:15.5.3"],\
+            ["@nrwl/js", "npm:15.3.3"],\
+            ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:f97c20fd2c86a728d5758465dd97041f6e59fc8419fcf95499a73ab8e37c862069a12860831e3c22c92138cb52cc5a09c3a8083da81361c301dc5ca9292ac41b#workspace:packages/@o3r/core"],\
+            ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
+            ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
+            ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
+            ["@types/angular__core", null],\
+            ["@types/angular__platform-browser-dynamic", null],\
+            ["@types/fullstory__browser", null],\
+            ["@types/jest", "npm:28.1.8"],\
+            ["@types/logrocket", null],\
+            ["@types/logrocket-ngrx", null],\
+            ["@types/logrockett-ngrx", null],\
+            ["@types/ngrx__store", null],\
+            ["@types/node", "npm:17.0.45"],\
+            ["@types/o3r__core", null],\
+            ["@types/rxjs", null],\
+            ["@types/smartlook-client", null],\
+            ["@typescript-eslint/eslint-plugin", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["@typescript-eslint/parser", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:5.45.1"],\
+            ["cpy-cli", "npm:4.2.0"],\
+            ["eslint", "npm:8.29.0"],\
+            ["eslint-import-resolver-node", "npm:0.3.6"],\
+            ["eslint-plugin-jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:26.9.0"],\
+            ["eslint-plugin-jsdoc", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:39.6.4"],\
+            ["eslint-plugin-prefer-arrow", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:1.2.3"],\
+            ["jest", "virtual:e7b06640756b7982222cffc5000e4a5e87f0b1df1a3d684b8acab2a8ff497388627e1cdecdd724cadd96e1ba14748b7b0d629453a209614236bb4912ad3ec4f8#npm:28.1.3"],\
+            ["jest-environment-jsdom", "npm:28.1.3"],\
+            ["jest-junit", "npm:14.0.1"],\
+            ["jest-preset-angular", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:12.2.3"],\
+            ["logrocket", "npm:0.6.21"],\
+            ["logrocket-ngrx", "virtual:1c5acb364347ee8fcfc93d424a26e47e1569433f3f60ac9cd5a1c088d29aab13acddee53feb1122850fafc19d99708e8d50e607fabca16e554c4480160a2e98b#npm:0.1.1"],\
+            ["logrockett-ngrx", null],\
+            ["ng-packagr", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.0.3"],\
+            ["nx", "virtual:645a59cc8b049e28c325d9c612482bbe70d762b8ad174ef65c4c838b58fcdd3541d16c6bf1bfd710a6a25b9fc553ec0554246362dee654d10503e6de1aaec808#npm:15.3.3"],\
+            ["rxjs", "npm:7.6.0"],\
+            ["smartlook-client", "npm:4.6.1"],\
+            ["tslib", "npm:2.4.1"],\
+            ["typescript", "patch:typescript@npm%3A4.8.4#~builtin<compat/typescript>::version=4.8.4&hash=0102e9"],\
+            ["zone.js", "npm:0.12.0"]\
+          ],\
+          "packagePeers": [\
+            "@angular/core",\
+            "@angular/platform-browser-dynamic",\
+            "@ngrx/store",\
+            "@o3r/core",\
+            "@types/angular__core",\
+            "@types/angular__platform-browser-dynamic",\
+            "@types/fullstory__browser",\
+            "@types/logrocket-ngrx",\
+            "@types/logrocket",\
+            "@types/logrockett-ngrx",\
+            "@types/ngrx__store",\
+            "@types/o3r__core",\
             "@types/rxjs",\
             "@types/smartlook-client",\
             "logrockett-ngrx",\
@@ -16352,6 +16916,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@nrwl/jest", "npm:15.5.3"],\
             ["@nrwl/js", "npm:15.3.3"],\
             ["@nrwl/linter", "virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:15.3.3"],\
+            ["@o3r/core", "virtual:e6f4632bb93c80dc7dca1d567c325ad84fed0a401ef20d702de446923062fd4fd6fa79861678a7ac0a31cc64db54cdae2b4c167c1964dd5256c8c6328a27378e#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-config-otter", "virtual:f68b797656e563e77464833021cdad800e9597e1d233f6f43abdd6acd8728a5c34d099f2bebe864b65e92dfc5ce80c3cecf600961b5cd73013f1269ef9dd1d60#workspace:packages/@o3r/eslint-config-otter"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
@@ -16410,7 +16975,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/core", "virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/core"],\
             ["@o3r/dev-tools", "workspace:packages/@o3r/dev-tools"],\
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:f24050d59b37d3dfcdea3c777c034559849aea33b37ebdea058051b71542a842874f7b1d5786c9c121734d5ca3f9ea63db21105367f94b7f52245877655f0c94#workspace:packages/@o3r/logger"],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\
             ["@types/node-fetch", "npm:2.6.2"],\
@@ -16896,7 +17461,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@o3r/eslint-plugin", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/eslint-plugin"],\
             ["@o3r/extractors", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/extractors"],\
             ["@o3r/localization", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/localization"],\
-            ["@o3r/logger", "virtual:1037ef1d44279c77207b8aab4147b93f819a4177ed70fe4ef58ab90a2f121575f930217c98dda3f0641892b957546f6c99e93cfec433106db2b6ff3f454cfa66#workspace:packages/@o3r/logger"],\
+            ["@o3r/logger", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/logger"],\
             ["@o3r/styling", "virtual:0d41790280f3c6318b571ac760605cd0dae43f6f73050e410c2e1ee3473f4acffe8913cf5e16b308ec5b1388f663e17231811ebf512c96d318c907b0ccf890a4#workspace:packages/@o3r/styling"],\
             ["@types/jest", "npm:28.1.8"],\
             ["@types/node", "npm:17.0.45"],\

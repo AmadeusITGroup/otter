@@ -32,10 +32,5 @@ module.exports = {
         inspectedWindow: {}
       }
     }
-  },
-  testEnvironmentOptions: {
-    // workaround for:
-    // - @ama-sdk/core
-    customExportConditions: ['require', 'node']
   }
 };
