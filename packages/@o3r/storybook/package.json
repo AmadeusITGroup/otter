@@ -111,6 +111,7 @@
     "@storybook/angular": "^6.5.14",
     "@storybook/api": "^6.5.14",
     "@storybook/components": "^6.5.14",
+    "comment-json": "^4.1.0",
     "rxjs": "^7.4.0"
   },
   "devDependencies": {
@@ -145,6 +146,7 @@
     "@types/react": "^17.0.37",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "comment-json": "^4.1.0",
     "concurrently": "^7.0.0",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",

@@ -92,6 +92,7 @@
     }
   },
   "dependencies": {
+    "@o3r/core": "workspace:^",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
