@@ -1,5 +1,9 @@
 name: NPM Audit
 
+concurrency:
+  group: ci-${{ github.ref }}-audit
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 on:
   workflow_call:
   push:
