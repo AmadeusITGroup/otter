@@ -10,68 +10,15 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build ama-sdk-swagger-builder",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
-  "contributors": [
-    {
-      "name": "Yannick Adam",
-      "email": "yadam@amadeus.com"
-    },
-    {
-      "name": "Kilian Panot",
-      "email": "kilian.panot@amadeus.com"
-    },
-    {
-      "name": "Jeremy Bourgeois",
-      "email": "jeremy.bourgeois@amadeus.com"
-    },
-    {
-      "name": "Pierre Henri Ginoux",
-      "email": "pierre-henri.ginoux@amadeus.com"
-    },
-    {
-      "name": "Mircea Vasile Rednic",
-      "email": "mircea.rednic@amadeus.com"
-    },
-    {
-      "name": "Stephane Dalle",
-      "email": "stephane.dalle@amadeus.com"
-    },
-    {
-      "name": "Nicolas Hoffmann",
-      "email": "nicolas.hoffmann@amadeus.com"
-    },
-    {
-      "name": "Victor Scaiceanu",
-      "email": "victor.scaiceanu@amadeus.com"
-    },
-    {
-      "name": "Florian Paul",
-      "email": "florian.paul@amadeus.com"
-    },
-    {
-      "name": "Corinne Paulve",
-      "email": "corinne.paulve@amadeus.com"
-    },
-    {
-      "name": "Matthieu Crouzet",
-      "email": "matthieu.crouzet@amadeus.com"
-    },
-    {
-      "name": "Salome Do",
-      "email": "salome.do@amadeus.com"
-    }
-  ],
   "bin": {
     "swagger-build": "./dist/src/cli/build.js",
     "swagger-dictionary-check": "./dist/src/cli/dictionary-check.js",
     "swagger-multi-success-check": "./dist/src/cli/multi-success-check.js",
     "swagger-operation-id-check": "./dist/src/cli/operation-id-check.js"
   },
-  "author": "Otter Core Team",
-  "license": "BSD-3-Clause",
   "peerDependenciesMeta": {
     "@angular-eslint/template-parser": {
       "optional": true

@@ -21,7 +21,7 @@ if (!packageJson.exports) {
 packageJson.exports = Object.entries(packageJson.exports)
   .reduce((acc, [exportPath, value]) => {
     const newPath = exportPath.replace(srcPrefixRegExp, './');
-    return { ...acc, [newPath]: value }
+    return { ...acc, [newPath]: value };
   }, {});
 
 writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));

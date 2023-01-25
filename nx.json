@@ -103,7 +103,16 @@
     "test": {
       "inputs": ["specs", "^specs"]
     },
-    "publish":  {},
+    "prepare-publish": {
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ]
+    },
+    "publish":  {
+      "dependsOn": [
+        "prepare-publish"
+      ]
+    },
     "build": {
       "dependsOn": [
         "^build"

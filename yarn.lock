@@ -5321,6 +5321,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -5362,6 +5363,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -5410,6 +5412,7 @@ __metadata:
     cp-assets: ./scripts/cp-assets.mjs
     cp-build: ./scripts/cp-build.mjs
     cp-package-json: ./scripts/cp-package-json.mjs
+    dispatch-package-json-fields: ./scripts/dispatch-package-json-fields.mjs
     patch-package-json-exports: ./scripts/patch-package-json-exports.mjs
     patch-package-json-main: ./scripts/patch-package-json-main.mjs
   languageName: unknown
@@ -5764,6 +5767,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -5813,6 +5817,7 @@ __metadata:
     "@angular-eslint/eslint-plugin": ~15.1.0
     "@angular-eslint/eslint-plugin-template": ~15.1.0
     "@angular/compiler": ~15.0.4
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -5958,6 +5963,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -6089,6 +6095,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -6160,6 +6167,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -6227,6 +6235,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -6487,6 +6496,7 @@ __metadata:
     "@angular/platform-browser-dynamic": ~15.0.4
     "@babel/core": ~7.20.0
     "@ngrx/store": ^15.0.0
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -6598,6 +6608,7 @@ __metadata:
     "@nrwl/cli": ^15.3.3
     "@nrwl/js": ^15.3.3
     "@nrwl/linter": ^15.3.3
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -6720,6 +6731,7 @@ __metadata:
     "@angular/core": ~15.0.4
     "@angular/platform-browser": ~15.0.4
     "@angular/platform-browser-dynamic": ~15.0.4
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6750,6 +6762,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/vscode-extension@workspace:packages/@o3r/vscode-extension"
   dependencies:
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@types/glob": ^7.2.0
     "@types/node": ^17.0.23

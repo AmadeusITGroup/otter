@@ -14,7 +14,7 @@ export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
 export interface BaseApiBeaconClientConstructor extends Partial<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>> {
 }
 
-const BASE_PATH = 'https://nodeA1.test.api.amadeus.com/V1';
+const BASE_PATH = 'https://swapi.dev/api/';
 
 const DEFAULT_OPTIONS: BaseApiBeaconClientOptions = {
   basePath: BASE_PATH,

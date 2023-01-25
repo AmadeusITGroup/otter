@@ -63,6 +63,12 @@
         "silent": true
       }
     },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {

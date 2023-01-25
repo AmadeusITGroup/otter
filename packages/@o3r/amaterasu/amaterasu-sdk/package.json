@@ -4,14 +4,12 @@
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
   "description": "Ama-terasu module for DES SDK generation",
-  "license": "MIT",
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-sdk",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
   "keywords": [
     "amaterasu-module",

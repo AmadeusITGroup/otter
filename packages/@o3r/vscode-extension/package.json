@@ -182,9 +182,11 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build vscode-extension",
-    "watch": "yarn nx run vscode-extension:compile:watch"
+    "watch": "yarn nx run vscode-extension:compile:watch",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
   "devDependencies": {
+    "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@types/glob": "^7.2.0",
     "@types/node": "^17.0.23",

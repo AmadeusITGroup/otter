@@ -13,61 +13,9 @@
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build analytics",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
-  "contributors": [
-    {
-      "name": "Yannick Adam",
-      "email": "yadam@amadeus.com"
-    },
-    {
-      "name": "Kilian Panot",
-      "email": "kilian.panot@amadeus.com"
-    },
-    {
-      "name": "Jeremy Bourgeois",
-      "email": "jeremy.bourgeois@amadeus.com"
-    },
-    {
-      "name": "Pierre Henri Ginoux",
-      "email": "pierre-henri.ginoux@amadeus.com"
-    },
-    {
-      "name": "Mircea Vasil Rednic",
-      "email": "mircea.rednic@amadeus.com"
-    },
-    {
-      "name": "Stephane Dalle",
-      "email": "stephane.dalle@amadeus.com"
-    },
-    {
-      "name": "Nicolas Hoffmann",
-      "email": "nicolas.hoffmann@amadeus.com"
-    },
-    {
-      "name": "Victor Scaiceanu",
-      "email": "victor.scaiceanu@amadeus.com"
-    },
-    {
-      "name": "Florian Paul",
-      "email": "florian.paul@amadeus.com"
-    },
-    {
-      "name": "Corinne Paulve",
-      "email": "corinne.paulve@amadeus.com"
-    },
-    {
-      "name": "Matthieu Crouzet",
-      "email": "matthieu.crouzet@amadeus.com"
-    },
-    {
-      "name": "Salome Do",
-      "email": "salome.do@amadeus.com"
-    }
-  ],
-  "license": "BSD-3-Clause",
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@angular/common": "^15.0.2",

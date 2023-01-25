@@ -3,15 +3,13 @@
   "version": "0.0.0-placeholder",
   "description": "Command Line Interface to administrate a Digital Experience Suite projects",
   "main": "dist/src/cli/ama.js",
-  "license": "MIT",
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-cli",
     "postbuild": "patch-package-json-main",
-    "start": "tsc --declaration --declarationMap --watch --pretty"
+    "start": "tsc --declaration --declarationMap --watch --pretty",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
   "cliModules": [
     "@ama-des/amaterasu-desapp"

@@ -42,58 +42,57 @@
   },
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
+  "license": "BSD-3-Clause",
   "contributors": [
     {
       "name": "Yannick Adam",
-      "email": "yadam@amadeus.com"
+      "email": "yannickadam@users.noreply.github.com"
     },
     {
       "name": "Kilian Panot",
-      "email": "kilian.panot@amadeus.com"
+      "email": "kpanot@users.noreply.github.com"
     },
     {
       "name": "Jeremy Bourgeois",
-      "email": "jeremy.bourgeois@amadeus.com"
+      "email": "jbourgeois-1A@users.noreply.github.com"
     },
     {
       "name": "Pierre Henri Ginoux",
-      "email": "pierre-henri.ginoux@amadeus.com"
+      "email": "pginoux-1A@users.noreply.github.com"
     },
     {
       "name": "Mircea Vasile Rednic",
-      "email": "mircea.rednic@amadeus.com"
+      "email": "mrednic-1A@users.noreply.github.com"
     },
     {
       "name": "Stephane Dalle",
-      "email": "stephane.dalle@amadeus.com"
+      "email": "sdalle-1A@users.noreply.github.com"
     },
     {
       "name": "Nicolas Hoffmann",
-      "email": "nicolas.hoffmann@amadeus.com"
+      "email": "nhoffmann-1A@users.noreply.github.com"
     },
     {
       "name": "Victor Scaiceanu",
-      "email": "victor.scaiceanu@amadeus.com"
+      "email": "vscaiceanu-1A@users.noreply.github.com"
     },
     {
       "name": "Florian Paul",
-      "email": "florian.paul@amadeus.com"
+      "email": "fpaul-1A@users.noreply.github.com"
     },
     {
       "name": "Corinne Paulve",
-      "email": "corinne.paulve@amadeus.com"
+      "email": "cpaulve-1A@users.noreply.github.com"
     },
     {
       "name": "Matthieu Crouzet",
-      "email": "matthieu.crouzet@amadeus.com"
+      "email": "matthieu-crouzet@users.noreply.github.com"
     },
     {
       "name": "Salome Do",
-      "email": "salome.do@amadeus.com"
+      "email": "sdo-1A@users.noreply.github.com"
     }
   ],
-  "author": "Yannick Adam <yadam@amadeus.com>",
-  "license": "BSD-3-Clause",
   "resolutions": {
     "@angular-devkit/core/rxjs": "^7.4.0",
     "@angular-devkit/schematics/rxjs": "^7.4.0",

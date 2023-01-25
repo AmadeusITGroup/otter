@@ -19,7 +19,7 @@ class FakeHeader {
 }
 
 const jsonAuthTokenOptions: MicroGatewayMiddlewareAuthenticationRequestConstructor = {
-  applicationId: '6X_MG__tester@amadeus.com__PDT',
+  applicationId: '6X_MG__tester@test.com__PDT',
   apiKey: 'dummy4P1K3Y',
   expIntervalInSec: 60,
   secret: 'super-secret',

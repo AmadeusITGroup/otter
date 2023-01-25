@@ -4,11 +4,11 @@ registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter
 @ama-terasu:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
 @o3r:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/
 
-//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:username=AmadeusDigitalAirline
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:username=${AZURE_USERNAME}
 //pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:_password=${AZURE_AUTH_TOKEN}
-//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:email=AmadeusDigitalAirline@amadeus.com
-//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:username=AmadeusDigitalAirline
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/:email=${AZURE_EMAIL}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:username=${AZURE_USERNAME}
 //pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:_password=${AZURE_AUTH_TOKEN}
-//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:email=AmadeusDigitalAirline@amadeus.com
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/:email=${AZURE_EMAIL}
 
 always-auth=true

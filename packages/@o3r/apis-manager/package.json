@@ -9,61 +9,9 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build apis-manager"
+    "build": "yarn nx build apis-manager",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
-  "contributors": [
-    {
-      "name": "Yannick Adam",
-      "email": "yadam@amadeus.com"
-    },
-    {
-      "name": "Kilian Panot",
-      "email": "kilian.panot@amadeus.com"
-    },
-    {
-      "name": "Jeremy Bourgeois",
-      "email": "jeremy.bourgeois@amadeus.com"
-    },
-    {
-      "name": "Pierre Henri Ginoux",
-      "email": "pierre-henri.ginoux@amadeus.com"
-    },
-    {
-      "name": "Mircea Vasile Rednic",
-      "email": "mircea.rednic@amadeus.com"
-    },
-    {
-      "name": "Stephane Dalle",
-      "email": "stephane.dalle@amadeus.com"
-    },
-    {
-      "name": "Nicolas Hoffmann",
-      "email": "nicolas.hoffmann@amadeus.com"
-    },
-    {
-      "name": "Victor Scaiceanu",
-      "email": "victor.scaiceanu@amadeus.com"
-    },
-    {
-      "name": "Florian Paul",
-      "email": "florian.paul@amadeus.com"
-    },
-    {
-      "name": "Corinne Paulve",
-      "email": "corinne.paulve@amadeus.com"
-    },
-    {
-      "name": "Matthieu Crouzet",
-      "email": "matthieu.crouzet@amadeus.com"
-    },
-    {
-      "name": "Salome Do",
-      "email": "salome.do@amadeus.com"
-    }
-  ],
-  "license": "BSD-3-Clause",
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@angular/common": "^15.0.2",
@@ -86,6 +34,7 @@
     "@nrwl/cli": "^15.3.3",
     "@nrwl/js": "^15.3.3",
     "@nrwl/linter": "^15.3.3",
+    "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@types/jest": "~28.1.2",
     "@typescript-eslint/eslint-plugin": "^5.19.0",

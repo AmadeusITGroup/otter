@@ -19,13 +19,13 @@ variables:
     value: "<%= projectName %>" # Name of the created blueprint, could be different from the project name
   - group: "variables for <%= projectName %>"
   - name: DS_PRIVATE_KEY
-    value: "private-DS_KEY_6X_CICD_PDT_01.pem" # TODO: replace with airline specific private key file
+    value: "private-DS_KEY_<code>_CICD_<env>_01.pem" # TODO: replace with airline specific private key file
   - name: DS_KEY_ID
-    value: "DS_KEY_6X_CICD_PDT_01" # TODO: replace with airline specific private key ID
+    value: "DS_KEY<code>_CICD_<env>_01" # TODO: replace with airline specific private key ID
   - name: DS_URL
-    value: "https://test.airlines.api.amadeus.com"
+    value: "<Deployment Service URL>"
   - name: DS_DEPLOY_URL
-    value: "dev.digital.airline.amadeus.com"
+    value: "<Deploy URL>"
   - name: AIRLINE_CODE
     value: "<%= projectName %>"
   - name: APPLICATION_NAME

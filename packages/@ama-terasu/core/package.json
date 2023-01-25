@@ -4,14 +4,12 @@
   "typings": "dist/src/public_api.d.ts",
   "version": "0.0.0-placeholder",
   "description": "Command Line Interface to administrate a DES project",
-  "license": "MIT",
-  "repository": "https://github.com/AmadeusITGroup/otter",
-  "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-core",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
   },
   "devDependencies": {
     "@o3r/build-helpers": "workspace:^",

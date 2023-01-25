@@ -17,8 +17,16 @@ on:
         required: true
       NPM_TOKEN:
         required: false
+        description: PAT to publish on npmjs.org
       AZURE_AUTH_TOKEN:
         required: false
+        description: Token of the user publishing on Azure Feeds for PR Artifacts
+      AZURE_USERNAME:
+        required: false
+        description: Name of the user publishing on Azure Feeds for PR Artifacts
+      AZURE_EMAIL:
+        required: false
+        description: Email of the user publishing on Azure Feeds for PR Artifacts
   release:
     types: [published]
 
@@ -65,3 +73,5 @@ jobs:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
+          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}

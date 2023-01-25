@@ -27,7 +27,7 @@ export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
 export interface BaseApiFetchClientConstructor extends Partial<BaseApiFetchClientOptions> {
 }
 
-const BASE_PATH = 'https://nodeA1.test.api.amadeus.com/V1';
+const BASE_PATH = 'https://swapi.dev/api/';
 
 const DEFAULT_OPTIONS: BaseApiFetchClientOptions = {
   basePath: BASE_PATH,
