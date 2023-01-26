@@ -61,7 +61,8 @@ describe('Gateway token plugin', () => {
     const gatewayPlugin = new GatewayTokenRequestPlugin(
       `${defaultGatewayAPIConfig.baseUrl}/v1/security/oauth2`,
       defaultGatewayAPIConfig.gatewayClientId,
-      defaultGatewayAPIConfig.gatewayClientSecret
+      defaultGatewayAPIConfig.gatewayClientSecret,
+      defaultUrl
     );
 
     const spy = jest.spyOn(Oauth2Api.prototype, 'postAccessToken');
@@ -76,7 +77,8 @@ describe('Gateway token plugin', () => {
     const gatewayPlugin = new GatewayTokenRequestPlugin(
       `${defaultGatewayAPIConfig.baseUrl}/v1/security/oauth2`,
       defaultGatewayAPIConfig.gatewayClientId,
-      defaultGatewayAPIConfig.gatewayClientSecret
+      defaultGatewayAPIConfig.gatewayClientSecret,
+      defaultUrl
     );
     const accessToken = '1234567890';
     const sessionStorageKey = `${defaultGatewayAPIConfig.gatewayClientId}-default`;
@@ -103,7 +105,8 @@ describe('Gateway token plugin', () => {
     const gatewayPlugin = new GatewayTokenRequestPlugin(
       `${defaultGatewayAPIConfig.baseUrl}/v1/security/oauth2`,
       defaultGatewayAPIConfig.gatewayClientId,
-      defaultGatewayAPIConfig.gatewayClientSecret
+      defaultGatewayAPIConfig.gatewayClientSecret,
+      defaultUrl
     );
     const sessionStorageKey = `${defaultGatewayAPIConfig.gatewayClientId}-default`;
     sessionStorage.setItem('gateway-auth-tokens', JSON.stringify({
@@ -138,6 +141,7 @@ describe('Gateway token plugin', () => {
       `${defaultGatewayAPIConfig.baseUrl}/v1/security/oauth2`,
       defaultGatewayAPIConfig.gatewayClientId,
       defaultGatewayAPIConfig.gatewayClientSecret,
+      defaultUrl,
       guestOfficeId
     );
 
@@ -170,6 +174,7 @@ describe('Gateway token plugin', () => {
       `${defaultGatewayAPIConfig.baseUrl}/v1/security/oauth2`,
       defaultGatewayAPIConfig.gatewayClientId,
       defaultGatewayAPIConfig.gatewayClientSecret,
+      defaultUrl,
       guestOfficeIdRule
     );
 

@@ -1,6 +1,7 @@
 import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../../plugins';
 import type { ApiTypes } from '../api';
 import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../api.helpers';
+import type { PartialExcept } from '../api.interface';
 import type { ApiClient } from '../core/api-client';
 import type { BaseApiClientOptions } from '../core/base-api-constructor';
 
@@ -11,13 +12,10 @@ export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
 }
 
 /** @see BaseApiConstructor */
-export interface BaseApiBeaconClientConstructor extends Partial<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>> {
+export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>, 'basePath'> {
 }
 
-const BASE_PATH = 'https://swapi.dev/api/';
-
-const DEFAULT_OPTIONS: BaseApiBeaconClientOptions = {
-  basePath: BASE_PATH,
+const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
   replyPlugins: [] as never[],
   requestPlugins: [],
   enableTokenization: false
@@ -37,25 +35,23 @@ const isPromise = <T>(value: T | Promise<T>): value is Promise<T> => value && ty
 export class ApiBeaconClient implements ApiClient {
 
   /** @inheritdoc */
-  public options = DEFAULT_OPTIONS;
+  public options: BaseApiBeaconClientOptions;
 
   /**
    * Initialize your API Client instance
    *
    * @param options Configuration of the API Client
    */
-  constructor(options?: BaseApiBeaconClientConstructor) {
+  constructor(options: BaseApiBeaconClientConstructor) {
 
     if (typeof navigator === 'undefined' || !navigator.sendBeacon) {
       throw new Error('Beacon API is not supported in this context');
     }
 
-    if (options) {
-      this.options = {
-        ...DEFAULT_OPTIONS,
-        ...options
-      };
-    }
+    this.options = {
+      ...DEFAULT_OPTIONS,
+      ...options
+    };
   }
 
   /** @inheritdoc */
