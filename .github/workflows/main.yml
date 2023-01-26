@@ -9,6 +9,7 @@ on:
     branches:
       - main
       - 'release/*'
+  workflow_dispatch: #Necessary to allow API based trigger of the workflow
 
 jobs:
   build:
@@ -70,3 +71,19 @@ jobs:
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ github.event_name == 'pull_request' }}
+  cascading:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Setup
+        uses: ./.github/actions/setup
+        env:
+          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Cascading
+        uses: ./.github/actions/cascading
+        with:
+          defaultBranch: main
+          logLevel: debug
+
