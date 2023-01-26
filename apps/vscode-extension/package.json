@@ -1,9 +1,9 @@
 {
-  "name": "@o3r/vscode-extension",
+  "name": "otter-devtools",
   "displayName": "otter",
   "description": "Otter Framework toolings for Visual Studio Code",
   "version": "0.0.0-placeholder",
-  "publisher": "Otter",
+  "publisher": "AmadeusITGroup",
   "engines": {
     "vscode": "^1.67.0"
   },
@@ -177,12 +177,13 @@
     "ui",
     "workspace"
   ],
-  "icon": "./assets/logo-128x128.png",
+  "icon": "assets/logo-128x128.png",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build vscode-extension",
-    "watch": "yarn nx run vscode-extension:compile:watch"
+    "watch": "yarn nx run vscode-extension:compile:watch",
+    "publish-to-market": "vsce -i ./dist"
   },
   "devDependencies": {
     "@o3r/dev-tools": "workspace:^",
@@ -191,6 +192,7 @@
     "@types/vscode": "^1.67.0",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "@vscode/vsce": "^2.16.0",
     "eslint": "^8.22.0",
     "nx": "^15.3.3",
     "typescript": "~4.8.4"

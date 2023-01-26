@@ -14,6 +14,7 @@
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,dev-tools --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run ama-sdk-generator-sdk:build-swagger",
     "publish": "yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
+    "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "lint": "yarn nx run-many --target=lint --parallel $(yarn get:cpus-number)",
     "lint:affected": "yarn nx affected --target=lint --parallel $(yarn get:cpus-number)",
     "test": "yarn nx run-many --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
@@ -112,6 +113,7 @@
     "zone.js": "^0.12.0"
   },
   "devDependencies": {
+    "@vscode/vsce": "^2.16.0",
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^5.1.1",
@@ -188,7 +190,7 @@
     "packages/@*/*",
     "packages/@o3r/amaterasu/*",
     "tools/@*/*",
-    "apps/@*/*"
+    "apps/*"
   ],
   "packageManager": "yarn@3.3.1"
 }

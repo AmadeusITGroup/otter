@@ -103,7 +103,8 @@
     "test": {
       "inputs": ["specs", "^specs"]
     },
-    "publish":  {},
+    "publish": {},
+    "publish-extension": {},
     "build": {
       "dependsOn": [
         "^build"

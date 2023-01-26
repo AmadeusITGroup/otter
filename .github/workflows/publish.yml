@@ -13,6 +13,9 @@ on:
         required: false
         description: Version of the artifact to publish
     secrets:
+      AZURE_VSC_EXT_TOKEN:
+        required: false
+        description: Token to publish Visual Studio Code extension
       AZ_AR_PASSWORD:
         required: true
       NPM_TOKEN:
@@ -65,3 +68,8 @@ jobs:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
+      - name: Publish Extensions
+        if: '!inputs.prerelease'
+        run: yarn run publish:extensions
+        env:
+          VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}
