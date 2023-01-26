@@ -17,7 +17,7 @@
     "build:react": "tsc -p tsconfig.build.react.json",
     "build:source": "tsc -b tsconfig.build.json",
     "build:wrapper": "ngc -p tsconfig.component-wrapper.json",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "exports": {
     ".": {

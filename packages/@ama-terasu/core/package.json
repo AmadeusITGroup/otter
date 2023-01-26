@@ -9,7 +9,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-core",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~15.1.0",

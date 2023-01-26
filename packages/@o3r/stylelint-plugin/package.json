@@ -15,7 +15,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build stylelint-plugin",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "tslib": "^2.4.1"

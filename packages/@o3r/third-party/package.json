@@ -13,7 +13,7 @@
     "build": "yarn nx build thrid-party",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "tslib": "^2.4.1",

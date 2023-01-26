@@ -12,7 +12,7 @@
     "build": "yarn nx build core",
     "test": "yarn nx test core",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection,migration}.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json",
+    "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-main"
   },

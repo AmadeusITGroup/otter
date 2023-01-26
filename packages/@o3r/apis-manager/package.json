@@ -10,7 +10,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build apis-manager",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",

@@ -9,7 +9,7 @@
     "build": "yarn nx build amaterasu-cli",
     "postbuild": "patch-package-json-main",
     "start": "tsc --declaration --declarationMap --watch --pretty",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "cliModules": [
     "@ama-des/amaterasu-desapp"

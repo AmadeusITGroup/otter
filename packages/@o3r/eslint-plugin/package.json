@@ -15,7 +15,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build eslint-plugin",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^5.3.0",

@@ -80,7 +80,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build testing",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates' dist/schematics && yarn cpy '{collection,migration}.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json",
+    "prepare:publish": "prepare-publish ./dist",
     "build:schematics": "tsc -b tsconfig.schematics.json --pretty",
     "build:tools": "tsc -b tsconfig.tools.json --pretty",
     "postbuild": "patch-package-json-main"
