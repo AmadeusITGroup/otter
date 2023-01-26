@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.jest",
+  "extends": "../../tsconfig.jest",
   "compilerOptions": {
     "outDir": "test",
     "rootDir": ".",
