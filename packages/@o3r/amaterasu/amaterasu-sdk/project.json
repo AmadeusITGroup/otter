@@ -22,7 +22,8 @@
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-sdk/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-sdk/tsconfig.build.json",
-        "outputPath": "packages/@o3r/amaterasu/amaterasu-sdk/dist"
+        "outputPath": "packages/@o3r/amaterasu/amaterasu-sdk/dist",
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

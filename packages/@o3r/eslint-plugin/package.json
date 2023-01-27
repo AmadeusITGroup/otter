@@ -29,7 +29,7 @@
   "peerDependencies": {
     "@angular-eslint/template-parser": "~15.1.0",
     "@angular-eslint/utils": "~15.1.0",
-    "@angular/compiler": "~15.0.2",
+    "@angular/compiler": "~15.1.2",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.22.0"
@@ -38,13 +38,13 @@
     "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular-eslint/template-parser": "~15.1.0",
     "@angular-eslint/utils": "~15.1.0",
-    "@angular/compiler": "~15.0.4",
-    "@nrwl/jest": "^15.3.3",
+    "@angular/compiler": "~15.1.2",
+    "@nrwl/jest": "^15.6.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@types/jest": "~28.1.2",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.45",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.22.0",
@@ -53,9 +53,9 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "jest": "~28.1.1",
     "jest-junit": "^14.0.0",
-    "nx": "^15.3.3",
+    "nx": "^15.6.3",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
-    "typescript": "~4.8.4"
+    "typescript": "~4.9.4"
   }
 }

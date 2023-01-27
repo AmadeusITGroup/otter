@@ -5,7 +5,7 @@ import { PluginRunner, ReplyPlugin, ReplyPluginContext } from '../core';
 /**
  * Plugin to fire an exception on wrong response / data
  */
-export class ExceptionReply<V extends { [key: string]: any } | undefined = { [key: string]: any }> implements ReplyPlugin<V | Record<string, unknown>, V> {
+export class ExceptionReply<V extends Record<string, any> | undefined = Record<string, any>> implements ReplyPlugin<V | Record<string, unknown>, V> {
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<V | Record<string, unknown>, V> {
     return {
@@ -23,7 +23,7 @@ export class ExceptionReply<V extends { [key: string]: any } | undefined = { [ke
         if (
           context.apiType === ApiTypes.DAPI &&
             context.response.status === 200 &&
-            (!res || (!res.data && 'errors' in res)) // Some DAPI replies have data as optional, so we only throw if response contains errors
+            (!res || (!res.data && typeof res.errors !== 'undefined')) // Some DAPI replies have data as optional, so we only throw if response contains errors
         ) {
           throw new EmptyResponseError<V>(context.response.statusText, res, errorContext);
         }

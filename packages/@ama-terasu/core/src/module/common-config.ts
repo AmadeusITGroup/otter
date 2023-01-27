@@ -1,4 +1,4 @@
-import yargs, { Arguments, Argv } from 'yargs';
+import yargs, { ArgumentsCamelCase, Argv } from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 /** global CLI options */
@@ -23,7 +23,7 @@ export const yargsAmaCli = yargs(hideBin(process.argv))
   .config('config', 'Path to the configuration file');
 
 /** Type helper to retrieve configuration from module */
-export type CommonOptions = (typeof yargsAmaCli) extends Argv<infer X> ? Arguments<X> : never;
+export type CommonOptions = (typeof yargsAmaCli) extends Argv<infer X> ? ArgumentsCamelCase<X> : never;
 
 /**
  * Module Option common default properties

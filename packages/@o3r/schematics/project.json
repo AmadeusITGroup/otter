@@ -25,7 +25,9 @@
         "outputPath": "packages/@o3r/schematics/dist",
         "assets": [
           "packages/@o3r/schematics/src/**/templates/**"
-        ]}
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

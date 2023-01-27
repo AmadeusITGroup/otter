@@ -35,7 +35,8 @@
       "options": {
         "main": "packages/@o3r/extractors/src/public_api.ts",
         "tsConfig": "packages/@o3r/extractors/tsconfig.build.json",
-        "outputPath": "packages/@o3r/extractors/dist"
+        "outputPath": "packages/@o3r/extractors/dist",
+        "updateBuildableProjectDepsInPackageJson": false
       },
       "dependsOn": [
         "^build"

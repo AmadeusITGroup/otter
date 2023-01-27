@@ -44,7 +44,8 @@
             "glob": "**",
             "output": "./component-wrapper"
           }
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       },
       "dependsOn": [
         "^build"
