@@ -17,6 +17,6 @@ module.exports = {
     'sourceType': 'module'
   },
   'extends': [
-    '../../../.eslintrc.js'
+    '../../.eslintrc.js'
   ]
 };

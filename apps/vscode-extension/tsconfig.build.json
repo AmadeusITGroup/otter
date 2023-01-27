@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../tsconfig.build",
   "compilerOptions": {
     "incremental": true,
     "declaration": true,
