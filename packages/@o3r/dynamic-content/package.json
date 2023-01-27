@@ -32,9 +32,6 @@
     "rxjs": "^7.4.0"
   },
   "peerDependenciesMeta": {
-    "@angular-eslint/template-parser": {
-      "optional": true
-    },
     "cheerio": {
       "optional": true
     },
@@ -50,6 +47,7 @@
     "@angular-devkit/build-angular": "~15.0.4",
     "@angular-devkit/core": "~15.0.4",
     "@angular-devkit/schematics": "~15.0.4",
+    "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular/common": "~15.0.4",
     "@angular/compiler": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
@@ -58,6 +56,7 @@
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@ngrx/store": "^15.0.0",
     "@nrwl/cli": "^15.3.3",
+    "@nrwl/jest": "^15.3.3",
     "@nrwl/js": "^15.3.3",
     "@nrwl/linter": "^15.3.3",
     "@o3r/build-helpers": "workspace:^",
@@ -71,10 +70,12 @@
     "@typescript-eslint/parser": "^5.19.0",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "jest": "~28.1.1",
+    "jest-environment-jsdom": "~28.1.1",
     "jest-junit": "^14.0.0",
     "jest-preset-angular": "^12.2.3",
     "nx": "^15.3.3",

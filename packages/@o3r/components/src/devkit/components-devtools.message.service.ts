@@ -1,7 +1,8 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
-import { filter, firstValueFrom, fromEvent, Subscription } from 'rxjs';
+import { firstValueFrom, fromEvent, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { AvailableComponentsMessageContents, ComponentsDevtoolsServiceOptions, ComponentsMessageDataTypes, isComponentsMessage } from './components-devkit.interface';
 import { OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, OTTER_COMPONENTS_DEVTOOLS_OPTIONS } from './components-devtools.token';
 import { OtterInspectorService, OtterLikeComponentInfo } from './inspector';

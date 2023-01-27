@@ -2,12 +2,12 @@
   "name": "@ama-sdk/core",
   "version": "0.0.0-placeholder",
   "description": "Digital API - SDK Core",
-  "main": "dist/cjs/public_api.js",
-  "module": "dist/src/public_api.js",
+  "require": "dist/cjs/public_api.js",
+  "module": "dist/cjs/public_api.js",
+  "es2020": "dist/cjs/public_api.js",
   "esm2015": "dist/esm2015/public_api.js",
   "esm2020": "dist/src/public_api.js",
   "typings": "dist/src/public_api.d.ts",
-  "homepage": "https://dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_git/sdk-tools",
   "sideEffects": false,
   "exports": {
     "./package.json": {
@@ -15,11 +15,10 @@
     },
     ".": {
       "module": "./dist/src/public_api.js",
-      "es2020": "./dist/src/public_api.js",
       "esm2020": "./dist/src/public_api.js",
-      "es2015": "./dist/esm2015/public_api.js",
       "esm2015": "./dist/esm2015/public_api.js",
-      "default": "./dist/src/public_api.js",
+      "es2020": "./dist/cjs/public_api.js",
+      "default": "./dist/cjs/public_api.js",
       "typings": "./dist/src/public_api.d.ts",
       "import": "./dist/src/public_api.js",
       "node": "./dist/cjs/public_api.js",
@@ -43,19 +42,14 @@
     "tslib": "^2.4.1",
     "uuid": "^8.3.2"
   },
-  "peerDependenciesMeta": {
-    "@angular-eslint/template-parser": {
-      "optional": true
-    },
-    "@angular/compiler": {
-      "optional": true
-    }
-  },
   "peerDependencies": {
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {
+    "@angular-devkit/core": "~15.0.4",
+    "@angular-devkit/schematics": "~15.0.4",
     "@angular-eslint/eslint-plugin": "~15.1.0",
+    "@nrwl/jest": "^15.3.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@swc/cli": "^0.1.57",
@@ -68,6 +62,7 @@
     "copyfiles": "^2.4.1",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",

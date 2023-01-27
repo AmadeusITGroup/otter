@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Mark } from '@ama-sdk/core';
+import type { Mark } from '@ama-sdk/core';
 import { Inject, Injectable, NgZone, Optional } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, combineLatest, fromEvent, Observable, ReplaySubject } from 'rxjs';

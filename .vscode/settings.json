@@ -16,8 +16,10 @@
   },
   "npm.packageManager": "yarn",
   "eslint.packageManager": "yarn",
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "angular.disableAutomaticNgcc": true,
   "jest.jestCommandLine": "yarn jest",
   "jest.autoRun": {
     "watch": false,
@@ -39,5 +41,7 @@
     "source.css.styled",
     "source.markdown.math",
     "styled-css"
-  ]
+  ],
+  "eslint.nodePath": ".yarn/sdks",
+  "typescript.enablePromptUseWorkspaceTsdk": true
 }

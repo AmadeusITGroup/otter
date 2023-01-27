@@ -1,5 +1,9 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
 
+globalThis.ngJest = {
+  skipNgcc: true
+};
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
@@ -7,9 +11,11 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
   rootDir: '.',
   moduleNameMapper: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@o3r/testing/core$': ['<rootDir>/../../@o3r/testing/src/core/angular'],
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     '^@o3r/testing/core/(.*)$': ['<rootDir>/../../@o3r/testing/src/core/angular/$1'],
-    ...getJestModuleNameMapper(__dirname),
+    ...getJestModuleNameMapper(__dirname)
   },
   testPathIgnorePatterns: [
     '<rootDir>/dist',

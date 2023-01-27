@@ -450,8 +450,7 @@ module.exports = {
     'no-regex-spaces': 'error',
     'no-restricted-imports': ['error', {
       'patterns': [
-        'rxjs/internal/*',
-        '@ama-sdk/core/*'
+        'rxjs/internal/*'
       ]
     }],
     'no-self-assign': 'error',

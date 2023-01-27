@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
-      isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request'}}
+      isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup
@@ -74,4 +74,4 @@ jobs:
     needs: [version, build, checks]
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
-      prerelease: ${{ needs.version.outputs.isPreRelease }}
+      prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}

@@ -59,13 +59,20 @@
     "@storybook/angular": "^6.5.14",
     "@storybook/api": "^6.5.14",
     "@storybook/components": "^6.5.14",
+    "comment-json": "^4.1.0",
     "rxjs": "^7.4.0"
+  },
+  "peerDependenciesMeta": {
+    "comment-json": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1500.4",
     "@angular-devkit/build-angular": "~15.0.4",
     "@angular-devkit/core": "~15.0.4",
     "@angular-devkit/schematics": "~15.0.4",
+    "@angular-eslint/eslint-plugin": "~15.1.0",
     "@angular/common": "~15.0.4",
     "@angular/compiler": "~15.0.4",
     "@angular/compiler-cli": "~15.0.4",
@@ -75,6 +82,7 @@
     "@angular/platform-browser-dynamic": "~15.0.4",
     "@babel/core": "~7.20.0",
     "@ngrx/store": "^15.0.0",
+    "@nrwl/jest": "^15.3.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
@@ -94,9 +102,11 @@
     "@types/react": "^17.0.37",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
+    "comment-json": "^4.1.0",
     "concurrently": "^7.0.0",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
+    "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",

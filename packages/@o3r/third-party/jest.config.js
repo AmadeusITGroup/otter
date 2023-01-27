@@ -1,5 +1,9 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
 
+globalThis.ngJest = {
+  skipNgcc: true
+};
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
@@ -20,7 +24,7 @@ module.exports = {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
+      stringifyContentPathRegex: '\\.html$'
     }
   },
   testEnvironmentOptions: {

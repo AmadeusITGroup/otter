@@ -16,7 +16,6 @@ module.exports = {
     'default',
     'github-actions'
   ],
-  globalSetup: 'jest-preset-angular/global-setup',
   globals: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     'ts-jest': {

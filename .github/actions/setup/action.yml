@@ -20,8 +20,19 @@ runs:
   steps:
     - uses: actions/setup-node@v3
       with:
-        node-version: 16
-        cache: yarn
+        node-version: 18
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          .yarn/cache
+          .yarn/unplugged
+          .pnp.cjs
+          .pnp.loader.mjs
+        key: ${{ runner.os }}-deps-${{ hashFiles('yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-deps-
+          ${{ runner.os }}-
     - name: Cache build
       if: inputs.enable-build-cache == 'true'
       uses: actions/cache@v3

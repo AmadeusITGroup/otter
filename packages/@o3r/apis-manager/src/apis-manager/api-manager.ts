@@ -1,4 +1,4 @@
-import { ApiClient } from '@ama-sdk/core';
+import type { ApiClient } from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API
