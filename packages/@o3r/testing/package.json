@@ -152,7 +152,7 @@
     "jest-preset-angular": "^12.2.3",
     "nx": "^15.3.3",
     "pixelmatch": "^5.2.1",
-    "playwright": "~1.29.0",
+    "playwright": "~1.30.0",
     "pngjs": "^4.0.1",
     "protractor": "^7.0.0",
     "rxjs": "^7.4.0",
