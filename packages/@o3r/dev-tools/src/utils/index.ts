@@ -5,3 +5,4 @@ export * from './new-version';
 export * from './check-peer-deps';
 export * from './package-manager';
 export * from './is-package-installed';
+export * from './cascading';
