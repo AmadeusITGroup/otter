@@ -6,7 +6,12 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as winston from 'winston';
 
+const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json'];
+
 const collect = (pattern: string, patterns: string[]) => {
+  if (patterns === defaultIncludedFiles && pattern) {
+    patterns = [];
+  }
   patterns.push(pattern);
   return patterns;
 };
@@ -16,7 +21,7 @@ program
   .arguments('<version>')
   .description('Replace the packages version in a monorepos')
   .option('-p, --placeholder <placeholder>', 'Pattern of the version placeholder', '0.0.0(-placeholder)?')
-  .option('--include <file>', 'Add files pattern to apply the version replacement', collect, ['*/lerna.json', '**/package.json', '!**/node_modules/**/{package,lerna}.json'])
+  .option('--include <file>', 'Add files pattern to apply the version replacement', collect, defaultIncludedFiles)
   .option('-v, --verbose', 'Display debug logs')
   .action((version: string) => {
     replaceVersion = version;
