@@ -25,7 +25,7 @@
     "setup:generators": "yarn artifact-retriever --repository-manager \"Azure Artifacts\" --organization AmadeusDigitalAirline --project DES-SDKs --feed des-sdks -u \"AmadeusDigitalAirline\" -g \"io.swagger\" -a \"swagger-codegen-cli\" -v \"2.4.0-AMADEUS\" --out ./packages/@ama-sdk/generator-sdk/src/generators/resources/swagger-codegen-cli.jar || true",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf './{packages,tools,apps}/@*/{amaterasu/,}*/{dist,build}/'",
-    "set:version": "yarn set-version --placeholder 0.0.0-placeholder",
+    "set:version": "yarn set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
     "doc:generate": "rimraf ./generated-doc && yarn doc:summary-update && yarn compodoc && node ./scripts/doc-links.js",
     "doc:generate:json": "yarn doc:summary-update && yarn compodoc -e json -d .",
     "doc:summary-update": "node scripts/update-doc-summary.js",
