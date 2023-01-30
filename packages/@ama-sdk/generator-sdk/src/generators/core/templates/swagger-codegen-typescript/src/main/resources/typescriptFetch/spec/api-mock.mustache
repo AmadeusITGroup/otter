@@ -1,5 +1,5 @@
 {{#apiInfo}}
-import { ApiClient, ApiFetchClient, BaseApiConstructor, isApiClient } from '@ama-sdk/core';
+import { ApiClient, ApiFetchClient, BaseApiFetchClientConstructor, isApiClient } from '@ama-sdk/core';
 
 import * as api from '../api';
 
@@ -28,7 +28,7 @@ export const myApi: Api = {
  *
  * @param config configuration of the Api Client
  */
-export function getMockedDapi(config?: string | BaseApiConstructor | ApiClient): Api {
+export function getMockedApi(config?: string | BaseApiFetchClientConstructor | ApiClient): Api {
   let apiConfigObj: ApiClient = MOCK_SERVER;
   if (typeof config === 'string') {
     apiConfigObj = new ApiFetchClient({basePath: config});
