@@ -15,7 +15,7 @@
     "postbuild": "patch-package-json-main",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular-devkit/core": "~15.0.4",

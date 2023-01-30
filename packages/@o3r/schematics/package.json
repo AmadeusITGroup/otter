@@ -12,7 +12,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build schematics",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular-devkit/core": "~15.0.4",

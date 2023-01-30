@@ -12,7 +12,7 @@
     "build": "yarn nx build application",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular/common": "^15.0.2",

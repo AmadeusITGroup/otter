@@ -9,7 +9,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build dev-tools",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "bin": {
     "artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",

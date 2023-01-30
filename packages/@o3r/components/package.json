@@ -10,7 +10,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection}.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json",
+    "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build": "yarn nx build components",
     "postbuild": "patch-package-json-main"

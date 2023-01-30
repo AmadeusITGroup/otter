@@ -15,9 +15,9 @@
     "cp-assets": "./scripts/cp-assets.mjs",
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
-    "dispatch-package-json-fields": "./scripts/dispatch-package-json-fields.mjs",
     "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
-    "patch-package-json-main": "./scripts/patch-package-json-main.mjs"
+    "patch-package-json-main": "./scripts/patch-package-json-main.mjs",
+    "prepare-publish": "./scripts/prepare-publish.mjs"
   },
   "dependencies": {
     "globby": "^13.1.2",

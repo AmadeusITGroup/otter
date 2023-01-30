@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "build": "yarn cpy . !dist/ dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "files": [
     "index.js",

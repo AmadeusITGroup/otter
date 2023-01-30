@@ -17,7 +17,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build": "yarn nx build dynamic-content",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1500.4",

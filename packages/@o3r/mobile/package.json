@@ -17,7 +17,7 @@
     "build:builders": "tsc -p ./tsconfig.pcloudy.json && tsc -b tsconfig.builders.json --pretty",
     "build": "yarn nx build mobile",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "commander": "^9.0.0",

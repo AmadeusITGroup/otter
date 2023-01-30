@@ -7,7 +7,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build amaterasu-cli",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "schematics": "./dist/collection.json",
   "engines": {

@@ -14,7 +14,7 @@
     "build": "yarn nx build analytics",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",

@@ -21,7 +21,7 @@
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build configuration",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular/core": "^15.0.2",

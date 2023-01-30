@@ -49,7 +49,7 @@
     "generate:mock": "schematics @ama-sdk/generator-sdk:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
     "tools:changelog": "standard-version",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "lint-staged": {
     "**/*.(js|ts)": [

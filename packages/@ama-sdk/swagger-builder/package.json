@@ -11,7 +11,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build ama-sdk-swagger-builder",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "bin": {
     "swagger-build": "./dist/src/cli/build.js",

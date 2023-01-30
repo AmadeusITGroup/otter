@@ -13,7 +13,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build rules-engine",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
     "@angular-devkit/architect": "^0.1500.2",

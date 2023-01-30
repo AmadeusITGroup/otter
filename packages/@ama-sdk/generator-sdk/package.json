@@ -15,7 +15,7 @@
     "build:swagger-java-mdk-gen": "mvn -s ./src/generators/java-mdk-core/templates/swagger-codegen-mdk/settings.xml clean package -f ./src/generators/java-mdk-core/templates/swagger-codegen-mdk/pom.xml",
     "build:swagger-java-resteasy-gen": "mvn -s ./src/generators/java-resteasy-client-core/templates/swagger-codegen-java-resteasy-client/settings.xml clean package -f ./src/generators/java-resteasy-client-core/templates/swagger-codegen-java-resteasy-client/pom.xml",
     "build:swagger-java-swift-gen": "mvn -s ./src/generators/swift-core/templates/swagger-codegen-swift/settings.xml clean package -f ./src/generators/swift-core/templates/swagger-codegen-swift/pom.xml",
-    "prepare:publish": "dispatch-package-json-fields ./dist/package.json"
+    "prepare:publish": "prepare-publish ./dist"
   },
   "schematics": "./dist/collection.json",
   "keywords": [
