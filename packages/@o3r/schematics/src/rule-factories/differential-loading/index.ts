@@ -27,8 +27,8 @@ export function updateDifferentialLoading(options?: { projectName: string | null
       tsconfig.compilerOptions = tsconfig.compilerOptions || {};
       tsconfig.compilerOptions.target = tsconfig.compilerOptions.target || 'es2015';
 
-      workspaceProject.architect!.build.configurations = workspaceProject.architect!.build!.configurations || {};
-      workspaceProject.architect!.build.configurations.production = workspaceProject.architect!.build!.configurations.production || {};
+      workspaceProject.architect!.build.configurations = workspaceProject.architect!.build.configurations || {};
+      workspaceProject.architect!.build.configurations.production = workspaceProject.architect!.build.configurations.production || {};
       workspaceProject.architect!.build.configurations.production.tsConfig = tsconfigProdPath;
 
       const projectName = options?.projectName || getDefaultProjectName(tree);

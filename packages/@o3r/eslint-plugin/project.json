@@ -25,7 +25,8 @@
         "outputPath": "packages/@o3r/eslint-plugin/dist",
         "assets": [
           "packages/@o3r/eslint-plugin/schemas/*.json"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       },
       "dependsOn": []
     },

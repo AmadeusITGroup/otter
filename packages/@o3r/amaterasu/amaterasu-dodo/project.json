@@ -24,7 +24,8 @@
           "packages/@o3r/amaterasu/amaterasu-dodo/{builders,extractors,schematics}/**/templates/**",
           "packages/@o3r/amaterasu/amaterasu-dodo/{builders,collection,migration}.json",
           "packages/@o3r/amaterasu/amaterasu-dodo/cli/*"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {

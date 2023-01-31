@@ -25,7 +25,8 @@
         "outputPath": "packages/@o3r/dev-tools/dist",
         "assets": [
           "packages/@o3r/dev-tools/configs/*.json"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {
