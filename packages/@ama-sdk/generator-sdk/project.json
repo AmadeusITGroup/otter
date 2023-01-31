@@ -38,16 +38,12 @@
         "outputPath": "packages/@ama-sdk/generator-sdk/dist",
         "assets": [
           "packages/@ama-sdk/generator-sdk/src/**/swagger-codegen-cli.jar",
-          "packages/@ama-sdk/generator-sdk/src/generators/*/templates/**",
+          "packages/@ama-sdk/generator-sdk/src/generators/**/target/*.jar",
           "packages/@ama-sdk/generator-sdk/src/schematics/*/schema.json",
           "packages/@ama-sdk/generator-sdk/collection.json"
         ],
         "updateBuildableProjectDepsInPackageJson": false
-      },
-      "dependsOn": [
-        "^build",
-        "build-swagger"
-      ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
