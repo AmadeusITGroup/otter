@@ -26,7 +26,8 @@
       "options": {
         "main": "packages/@ama-terasu/cli/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/cli/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/cli/dist"
+        "outputPath": "packages/@ama-terasu/cli/dist",
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {
