@@ -57,7 +57,7 @@
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "intl-messageformat": "~10.2.0",
+    "intl-messageformat": "~10.3.0",
     "jest": "~28.1.1",
     "jest-junit": "^14.0.0",
     "nx": "^15.6.3",
