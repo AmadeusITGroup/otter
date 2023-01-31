@@ -1,7 +1,7 @@
 {{#noUnusedImport}}{{#imports}}import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
 import { revive{{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/{{#kebabCase}}{{import}}{{/kebabCase}}.reviver';
 {{/imports}}
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata, utils } from '@ama-sdk/core';
 
 {{#operations}}{{#operation}}{{#allParams}}{{#isEnum}}export type {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
 {{/isEnum}}{{/allParams}}{{/operation}}{{#operation}}
