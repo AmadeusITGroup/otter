@@ -47,7 +47,7 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~15.1.0",
+    "@angular-eslint/eslint-plugin": "~15.2.0",
     "@nrwl/jest": "^15.6.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
