@@ -45,7 +45,7 @@
     "@angular-devkit/build-angular": "~15.1.3",
     "@angular-devkit/core": "~15.1.3",
     "@angular-devkit/schematics": "~15.1.3",
-    "@angular-eslint/eslint-plugin": "~15.1.0",
+    "@angular-eslint/eslint-plugin": "~15.2.0",
     "@angular/common": "~15.1.2",
     "@angular/compiler": "~15.1.2",
     "@angular/compiler-cli": "~15.1.2",
