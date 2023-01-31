@@ -41,7 +41,8 @@
           "packages/@ama-sdk/generator-sdk/src/generators/*/templates/**",
           "packages/@ama-sdk/generator-sdk/src/schematics/*/schema.json",
           "packages/@ama-sdk/generator-sdk/collection.json"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       },
       "dependsOn": [
         "^build",

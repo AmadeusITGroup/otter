@@ -28,7 +28,8 @@
         "outputPath": "packages/@ama-sdk/swagger-builder/dist",
         "assets": [
           "packages/@ama-sdk/swagger-builder/src/schemas/*.json"
-        ]
+        ],
+        "updateBuildableProjectDepsInPackageJson": false
       }
     },
     "lint": {
