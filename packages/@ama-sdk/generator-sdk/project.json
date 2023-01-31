@@ -20,7 +20,8 @@
     "build-swagger": {
       "executor": "nx:run-commands",
       "inputs": [
-        "{projectRoot}/src/generators/**/templates"
+        "{projectRoot}/src/generators/**",
+        "!{projectRoot}/src/generators/**/target/**"
       ],
       "outputs": [
         "{projectRoot}/src/**/target/*.jar"
@@ -41,7 +42,11 @@
           "packages/@ama-sdk/generator-sdk/src/schematics/*/schema.json",
           "packages/@ama-sdk/generator-sdk/collection.json"
         ]
-      }
+      },
+      "dependsOn": [
+        "^build",
+        "build-swagger"
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
