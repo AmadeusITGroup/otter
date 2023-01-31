@@ -9,17 +9,8 @@
     "importHelpers": true,
     "lib": [
       "dom",
-      "es2015.promise",
-      "es2015.core",
-      "es2015.iterable",
-      "es2015.collection",
-      "es2015.symbol",
-      "es2015.symbol.wellknown",
-      "es2017",
-      "es2017.object",
-      "es5",
       "scripthost",
-      "es2019.array"
+      "ES2021"
     ],
     "module": "es2020",
     "moduleResolution": "node",
