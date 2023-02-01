@@ -92,7 +92,7 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
   /** @inheritDoc */
   public activate() {
     this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isComponentsMessage)).subscribe(this.handleEvents)
+      fromEvent(window, 'message').pipe(filterMessageContent(isComponentsMessage)).subscribe((e) => this.handleEvents(e))
     );
 
     this.inspectorService.prepareInspector();

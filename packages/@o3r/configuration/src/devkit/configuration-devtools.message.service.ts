@@ -90,7 +90,7 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
   /** @inheritDoc */
   public activate() {
     this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isConfigurationMessage)).subscribe(this.handleEvents)
+      fromEvent(window, 'message').pipe(filterMessageContent(isConfigurationMessage)).subscribe((e) => this.handleEvents(e))
     );
 
     this.subscriptions.add(

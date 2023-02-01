@@ -27,7 +27,6 @@
       "@o3r/logger": ["packages/@o3r/logger/dist", "packages/@o3r/logger/src/public_api"],
       "@o3r/storybook": ["packages/@o3r/storybook/dist", "packages/@o3r/storybook/src/public_api"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
-      "@o3r/chrome-devtools": ["packages/@o3r/chrome-devtools/dist", "packages/@o3r/chrome-devtools/src/public_api"],
       "@o3r/apis-manager": ["packages/@o3r/apis-manager/dist", "packages/@o3r/apis-manager/src/public_api"],
       "@o3r/application": ["packages/@o3r/application/dist", "packages/@o3r/application/src/public_api"],
       "@o3r/mobile": ["packages/@o3r/mobile/dist", "packages/@o3r/mobile/src/public_api"],
@@ -38,7 +37,7 @@
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
       "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src/public_api"],
-      "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
+      "@ama-sdk/core": ["packages/@ama-sdk/core/dist/cjs/public_api"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"]
     }

@@ -42,7 +42,8 @@ export class OtterInspectorService {
     if (!this.selectedComponent || !this.angularDevTools) {
       return;
     }
-    const parent = this.angularDevTools.getOwningComponent(this.selectedComponent.component);
+    const parentElement = this.selectedComponent.host.parentElement;
+    const parent = parentElement && (this.angularDevTools.getComponent(parentElement) || this.angularDevTools.getOwningComponent(parentElement));
     const parentHost = parent && this.angularDevTools.getHostElement(parent);
     const container = isContainer(parentHost)
       ? getOtterLikeComponentInfo(parent, parentHost)
@@ -59,8 +60,8 @@ export class OtterInspectorService {
 
   private isOtterLikeComponent(info: OtterLikeComponentInfo) {
     const hasConfigId = !!info.configId;
-    const hasTranslations = !!info.translations?.size;
-    const hasAnalytics = !!info.analytics?.size;
+    const hasTranslations = !!info.translations?.length;
+    const hasAnalytics = !!Object.keys(info.analytics || {}).length;
     return hasConfigId || hasTranslations || hasAnalytics;
   }
 

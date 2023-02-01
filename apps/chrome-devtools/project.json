@@ -1,0 +1,220 @@
+{
+  "name": "chrome-devtools",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "apps/chrome-devtools/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/manifest.json",
+        "{projectRoot}/dist/extension",
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/devtools.html"
+      ],
+      "options": {
+        "script": "postbuild:patch"
+      },
+      "dependsOn": [
+        "^build",
+        "build-panel",
+        "build-components",
+        "build-extension"
+      ]
+    },
+    "build-components": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{projectRoot}/dist/components"
+      ],
+      "options": {
+        "baseHref": "components",
+        "outputPath": "apps/chrome-devtools/dist/components",
+        "index": "apps/chrome-devtools/src/app-components.html",
+        "main": "apps/chrome-devtools/src/app-components.main.ts",
+        "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
+        "fileReplacements": [
+          {
+            "replace": "apps/chrome-devtools/src/environments/environment.ts",
+            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
+          }
+        ],
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": true,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
+        "buildOptimizer": true,
+        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/chrome-devtools/src/assets",
+            "output": "/.."
+          },
+          {
+            "glob": "manifest.json",
+            "input": "apps/chrome-devtools/src",
+            "output": "/.."
+          },
+          {
+            "glob": "devtools.html",
+            "input": "apps/chrome-devtools/src",
+            "output": "/.."
+          }
+        ],
+        "styles": [
+          {
+            "inject": true,
+            "input": "apps/chrome-devtools/src/styles/index.scss"
+          }
+        ],
+        "sourceMap": {
+          "styles": true,
+          "scripts": true,
+          "vendor": true
+        },
+        "preserveSymlinks": true,
+        "serviceWorker": false,
+        "extractLicenses": false,
+        "aot": true
+      },
+      "configurations": {
+        "dev": {
+          "baseHref": "components",
+          "outputPath": "apps/chrome-devtools/dist/components",
+          "index": "apps/chrome-devtools/src/app-components.html",
+          "main": "apps/chrome-devtools/src/app-components.main.ts",
+          "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
+          "aot": false,
+          "optimization": false,
+          "buildOptimizer": false
+        }
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build-panel": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": [
+        "{projectRoot}/dist/panel"
+      ],
+      "options": {
+        "baseHref": "panel",
+        "outputPath": "apps/chrome-devtools/dist/panel",
+        "index": "apps/chrome-devtools/src/app-devtools.html",
+        "main": "apps/chrome-devtools/src/app-devtools.main.ts",
+        "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
+        "fileReplacements": [
+          {
+            "replace": "apps/chrome-devtools/src/environments/environment.ts",
+            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
+          }
+        ],
+        "optimization": {
+          "scripts": true,
+          "styles": {
+            "minify": true,
+            "inlineCritical": false
+          },
+          "fonts": true
+        },
+        "buildOptimizer": true,
+        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/chrome-devtools/src/assets",
+            "output": "/.."
+          },
+          {
+            "glob": "manifest.json",
+            "input": "apps/chrome-devtools/src",
+            "output": "/.."
+          },
+          {
+            "glob": "devtools.html",
+            "input": "apps/chrome-devtools/src",
+            "output": "/.."
+          }
+        ],
+        "styles": [
+          {
+            "inject": true,
+            "input": "apps/chrome-devtools/src/styles/index.scss"
+          }
+        ],
+        "sourceMap": {
+          "styles": true,
+          "scripts": true,
+          "vendor": true
+        },
+        "preserveSymlinks": true,
+        "serviceWorker": false,
+        "extractLicenses": false,
+        "aot": true
+      },
+      "configurations": {
+        "dev": {
+          "baseHref": "panel",
+          "outputPath": "apps/chrome-devtools/dist/panel",
+          "index": "apps/chrome-devtools/src/app-devtools.html",
+          "main": "apps/chrome-devtools/src/app-devtools.main.ts",
+          "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
+          "aot": false,
+          "optimization": false,
+          "buildOptimizer": false
+        }
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "build-extension": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/extension"
+      ],
+      "options": {
+        "script": "build:extension"
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "apps/chrome-devtools/.eslintrc.js",
+        "lintFilePatterns": [
+          "apps/chrome-devtools/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/chrome-devtools/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish-extension": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "publish-to-market"
+      }
+    }
+  },
+  "tags": []
+}

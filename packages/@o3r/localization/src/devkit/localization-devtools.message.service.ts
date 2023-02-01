@@ -59,7 +59,7 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
   /** @inheritDoc */
   public activate() {
     this.subscriptions.add(
-      fromEvent(window, 'message').pipe(filterMessageContent(isLocalizationMessage)).subscribe(this.handleEvents)
+      fromEvent(window, 'message').pipe(filterMessageContent(isLocalizationMessage)).subscribe((e) => this.handleEvents(e))
     );
   }
 

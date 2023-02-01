@@ -83,3 +83,6 @@ jobs:
         run: yarn run publish:extensions
         env:
           VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_EXT_ID: ${{ secrets.CHROME_EXT_ID }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}

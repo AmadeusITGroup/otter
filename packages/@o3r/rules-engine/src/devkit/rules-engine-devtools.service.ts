@@ -8,7 +8,7 @@ import { RulesetsStore, selectRulesetsEntities } from '../stores';
 import { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
 import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class OtterRulesEngineDevtools {
 
   /** Stream of rules engine report */
