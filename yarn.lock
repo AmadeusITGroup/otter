@@ -5835,6 +5835,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@popperjs/core": ^2.11.5
     "@types/chrome": ^0.0.210
     "@types/jest": ~28.1.2
@@ -6552,7 +6553,6 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/logger": "workspace:^"
-    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~15.1.3
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
@@ -6587,9 +6587,11 @@ __metadata:
     "@ngrx/store": ^15.0.0
     "@ngx-translate/core": ~14.0.0
     "@o3r/core": "workspace:^"
+    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/logger": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~15.1.3
     intl-messageformat: ~10.3.0
     rxjs: ^7.4.0
@@ -6880,6 +6882,7 @@ __metadata:
     "@o3r/extractors": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     globby: ^11.1.0
     jsonpath-plus: ^7.0.0
@@ -6977,7 +6980,6 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
-    "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@schematics/angular": ~15.1.3
     "@storybook/addons": ^6.5.15
@@ -7018,7 +7020,9 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
+    "@o3r/dev-tools": "workspace:^"
     "@o3r/localization": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@schematics/angular": ~15.1.3
     "@storybook/addons": ^6.5.14
@@ -7098,7 +7102,6 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/extractors": "workspace:^"
-    "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
@@ -7131,6 +7134,7 @@ __metadata:
     "@angular/core": ~15.1.2
     "@angular/material": ~15.1.2
     "@o3r/core": "workspace:^"
+    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
   languageName: unknown
