@@ -11,7 +11,7 @@
 The **Otter** Project has the goal to provide a common platform to accelerate and facilitate the development on web application based on Angular.
 Otter is a very module framework split in several unit working together on a common base allowing CMS customization.
 
-> **Note**:  The full documentation is available [here](./docs/README.md).
+> **Note**:  The full documentation is available [here](./docs/index.md).
 
 ## Built With
 
