@@ -6504,7 +6504,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^3.0.2
     rxjs: ^7.4.0
-    sass: ~1.57.0
+    sass: ~1.58.0
     sass-loader: ^13.1.0
     semver: ^7.3.2
     standard-version: ^9.0.0
@@ -7116,7 +7116,7 @@ __metadata:
     jest-junit: ^14.0.0
     nx: ^15.6.3
     rxjs: ^7.4.0
-    sass: ~1.57.0
+    sass: ~1.58.0
     sass-true: ^6.0.0
     stylelint: ^14.1.0
     stylelint-scss: ^4.0.0
@@ -18753,17 +18753,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-cache-semantics@npm:^4.0.0":
+"http-cache-semantics@npm:^4.0.0, http-cache-semantics@npm:^4.1.0":
   version: 4.1.1
   resolution: "http-cache-semantics@npm:4.1.1"
   checksum: 83ac0bc60b17a3a36f9953e7be55e5c8f41acc61b22583060e8dedc9dd5e3607c823a88d0926f9150e571f90946835c7fe150732801010845c72cd8bbff1a236
-  languageName: node
-  linkType: hard
-
-"http-cache-semantics@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "http-cache-semantics@npm:4.1.0"
-  checksum: 974de94a81c5474be07f269f9fd8383e92ebb5a448208223bfb39e172a9dbc26feff250192ecc23b9593b3f92098e010406b0f24bd4d588d631f80214648ed42
   languageName: node
   linkType: hard
 
@@ -27410,7 +27403,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.57.1, sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.57.0":
+"sass@npm:1.57.1":
   version: 1.57.1
   resolution: "sass@npm:1.57.1"
   dependencies:
@@ -27420,6 +27413,19 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 734a08781bcbe0e8defb2d54864e7012014ed3e68ba5fcb766189b002929019fc37b2f83a18d4be0b5f69ad77317c92396ce6112447ab47a194ed600ae1afb27
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.58.0":
+  version: 1.58.0
+  resolution: "sass@npm:1.58.0"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: a7219634881d2de6441fb619787fb1a02e3fa0333fb715be26aa335ba49d6bdb4f1105d9df70a80a67200893022b08346745783dc49046095d94fc6e044492d6
   languageName: node
   linkType: hard
 
