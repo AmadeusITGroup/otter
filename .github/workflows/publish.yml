@@ -60,7 +60,14 @@ jobs:
         run: yarn build:swagger-gen
         env:
           AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
+      - name: Download dist folders
+        uses: actions/download-artifact@v3
+        if: github.event.release == null
+        with:
+          name: dist
+          path: '.'
       - name: Build
+        if: github.event.release != null
         run: yarn build
       - name: Set new version
         run: yarn set:version ${{ steps.get-version.outputs.version }}

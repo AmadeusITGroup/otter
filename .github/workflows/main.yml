@@ -36,6 +36,14 @@ jobs:
           AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
       - name: Build
         run: yarn build
+      - name: Store dist folders
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: |
+            apps/*/dist
+            packages/*/*/dist
+            packages/@o3r/amaterasu/*/dist
   version:
     permissions:
       contents: write
