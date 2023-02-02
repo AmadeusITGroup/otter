@@ -47,6 +47,7 @@ export const getConfigId = (instance: any) => {
  */
 export function getTranslationsRec(node: Element | null, rec: typeof getTranslationsRec): Record<string, string[]> | undefined {
   const angularDevTools = (window as any).ng;
+  const o3rInfoProperty: typeof otterComponentInfoPropertyName = '__otter-info__';
   if (!node || !angularDevTools) {
     return;
   }
@@ -62,7 +63,7 @@ export function getTranslationsRec(node: Element | null, rec: typeof getTranslat
   });
   if (component) {
     const componentName: string = component.constructor.name;
-    const componentTranslations = Object.values<string>(component[otterComponentInfoPropertyName]?.translations || {}).filter((t) => typeof t === 'string');
+    const componentTranslations = Object.values<string>(component[o3rInfoProperty]?.translations || {}).filter((t) => typeof t === 'string');
     if (componentTranslations.length) {
       translations[componentName] = componentTranslations;
     }
@@ -87,6 +88,7 @@ export const getTranslations = (node: Element | null): Record<string, string[]> 
  */
 export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyticEventsRec): Record<string, string[]> | undefined {
   const angularDevTools = (window as any).ng;
+  const o3rInfoProperty: typeof otterComponentInfoPropertyName = '__otter-info__';
   if (!node || !angularDevTools) {
     return;
   }
@@ -100,7 +102,7 @@ export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyt
       }
     });
   });
-  if (component && component[otterComponentInfoPropertyName]) {
+  if (component && component[o3rInfoProperty]) {
     const componentName: string = component.constructor.name;
     const componentEvents: string[] = Object.values<any>(component.analyticsEvents || {}).map((eventConstructor) => eventConstructor.name);
     if (componentEvents.length) {

@@ -8,21 +8,15 @@ import {
   OtterLikeComponentInfo
 } from '@o3r/components';
 import type { ConfigurationModel } from '@o3r/configuration';
+import {otterComponentInfoPropertyName} from '@o3r/core';
 import type {
-  OtterComponentInfo,
-  otterComponentInfoPropertyName
+  OtterComponentInfo
 } from '@o3r/core';
 import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
 import { RulesetHistoryService } from '../services/ruleset-history.service';
 import { ChromeExtensionConnectionService } from '../services/connection.service';
-
-const otterInfoPropertyName: typeof otterComponentInfoPropertyName = '__otter-info__';
-
-function getO3rComponentInfo(componentInstance: any): OtterComponentInfo | undefined {
-  return componentInstance[otterInfoPropertyName];
-}
 
 /**
  * Retrieve component information
@@ -34,19 +28,19 @@ function getO3rComponentInfo(componentInstance: any): OtterComponentInfo | undef
 function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations, getAnalyticEvents: typeof devkitGetAnalyticEvents): OtterLikeComponentInfo | undefined {
   const angularDevTools: Ng | undefined = (window as any).ng;
   const selectedElement = (window as any).$0;
-
+  const o3rInfoProperty: typeof otterComponentInfoPropertyName = '__otter-info__';
   if (!angularDevTools || !selectedElement) {
     return;
   }
-
   let componentClassInstance = angularDevTools.getComponent(selectedElement) || angularDevTools.getOwningComponent(selectedElement);
+
   let info: OtterLikeComponentInfo | undefined;
   let compInfo: OtterComponentInfo | undefined;
   if (!componentClassInstance) {
     return;
   }
   do {
-    compInfo = getO3rComponentInfo(componentClassInstance);
+    compInfo = componentClassInstance[o3rInfoProperty];
     if (compInfo) {
       info = {
         configId: compInfo.configId,
