@@ -8,8 +8,10 @@ import { InsertChange } from '@schematics/angular/utility/change';
  * Enable customization capabilities
  *
  * @param rootPath @see RuleFactory.rootPath
+ * @param o3rCoreVersion
+ * @param _options
  */
-export function updateCustomizationEnvironment(rootPath: string, _options?: { projectName: string | null }): Rule {
+export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null }): Rule {
   /**
    * Generate customization folder
    *
@@ -136,6 +138,6 @@ export function updateCustomizationEnvironment(rootPath: string, _options?: { pr
   return chain([
     generateC11nFolder,
     registerModules,
-    ngAddPackages(['@o3r/components', '@o3r/configuration'], {skipConfirmation: true, parentPackageInfo: '@o3r/core - customization environment update'})
+    ngAddPackages(['@o3r/components', '@o3r/configuration'], {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - customization environment update'})
   ]);
 }

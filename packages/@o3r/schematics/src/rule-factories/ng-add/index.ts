@@ -12,7 +12,7 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
     if (packages.length > 0) {
       context.logger.info(`'${options?.parentPackageInfo || ''}' - 'ng add' has been launched for the following packages:`);
       packages.forEach((packageName) => {
-        context.logger.info(`Running ng add for: ${packageName}`);
+        context.logger.info(`Running ng add for: ${packageName}${options?.version ? 'with version: ' + options.version : ''}`);
         return context.addTask(new NodePackageNgAddTask(packageName, options));
       });
     }

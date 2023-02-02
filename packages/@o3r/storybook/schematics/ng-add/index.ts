@@ -17,7 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         updateStorybook(options, __dirname),
         options.skipLinter ? noop() : applyEsLintFix(),
         options.skipInstall ? noop() : install,
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
       ]);
     } catch (e) {
       // storybook needs o3r/core as peer dep. o3r/core will install o3r/schematics

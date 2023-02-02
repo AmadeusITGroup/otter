@@ -6,8 +6,9 @@ import { getProjectFromTree, ngAddPackages, readAngularJson, readPackageJson } f
  * Install of dev-tools and schematics packages
  *
  * @param pName project name
+ * @param o3rCoreVersion
  */
-export function o3rBasicUpdates(pName: string | null): Rule {
+export function o3rBasicUpdates(pName: string | null, o3rCoreVersion?: string): Rule {
 
   const updatePackageJson = (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
@@ -27,7 +28,7 @@ export function o3rBasicUpdates(pName: string | null): Rule {
 
   return chain([
     updatePackageJson,
-    ngAddPackages(['@o3r/dev-tools', '@o3r/schematics'], { skipConfirmation: true, parentPackageInfo: '@o3r/core - basic updates' })
+    ngAddPackages(['@o3r/dev-tools', '@o3r/schematics'], { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - basic updates' })
   ]);
 
 }

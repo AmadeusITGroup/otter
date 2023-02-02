@@ -19,7 +19,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         updateO3rImports('o3r'),
         updateThemeFiles(__dirname),
         removeV7OtterAssetsInAngularJson(options),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
       ]);
     } catch (e) {
       // styling needs o3r/core as peer dep. o3r/core will install o3r/schematics

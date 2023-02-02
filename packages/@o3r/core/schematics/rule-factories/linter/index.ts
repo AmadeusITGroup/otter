@@ -12,10 +12,10 @@ const eslintDep = 'eslint';
  * Add or update the Linter configuration
  *
  * @param options @see RuleFactory.options
- * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
+ * @param o3rCoreVersion
  */
-export function updateLinter(options: { projectName: string | null }, rootPath: string): Rule {
+export function updateLinter(options: { projectName: string | null }, rootPath: string, o3rCoreVersion?: string): Rule {
   const projectEslintBuilderVersion = (require(projectPackageJsonPath) as { devDependencies: [key: string] }).devDependencies['@angular-eslint/builder'];
   const otterLinterDependencies: NodeDependency[] = getNodeDependencyList(
     getExternalDependenciesVersionRange([tsEslintParserDep, eslintDep], packageJsonPath),
@@ -101,6 +101,6 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
     updateTslintExtend,
     addTslintDependency,
     editAngularJson,
-    ngAddPackages(['@o3r/eslint-config-otter', '@o3r/eslint-plugin'], { skipConfirmation: true, parentPackageInfo: '@o3r/core - linter updates' })
+    ngAddPackages(['@o3r/eslint-config-otter', '@o3r/eslint-plugin'], { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - linter updates' })
   ]);
 }
