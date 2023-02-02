@@ -19,7 +19,7 @@
     "skipInstall": {
       "type": "boolean",
       "description": "Skip the install process",
-      "default": false
+      "default": true
     }
   },
   "additionalProperties": false,

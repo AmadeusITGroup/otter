@@ -17,6 +17,7 @@
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1501.3",
+    "@angular-devkit/schematics": "~15.1.2",
     "@angular/cdk": "~15.1.2",
     "@angular/common": "~15.1.2",
     "@angular/core": "~15.1.2",

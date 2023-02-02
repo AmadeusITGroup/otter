@@ -14,8 +14,23 @@
         "script": "postbuild"
       },
       "dependsOn": [
-        "compile"
+        "^build",
+        "compile",
+        "build-builders"
       ]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      },
+      "dependsOn": []
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
     },
     "compile": {
       "executor": "@nrwl/js:tsc",

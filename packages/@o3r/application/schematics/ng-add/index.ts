@@ -1,4 +1,5 @@
-import type { Rule } from '@angular-devkit/schematics';
+import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as path from 'node:path';
 
 /**
  * Add Otter application to an Angular Project
@@ -7,5 +8,17 @@ import type { Rule } from '@angular-devkit/schematics';
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return () => {};
+  return async (_tree: Tree, context: SchematicContext) => {
+    try {
+      const { ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
+      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      return ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: depsInfo.packageName });
+    } catch (e) {
+      // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics
+      context.logger.error(`[ERROR]: Adding @o3r/application has failed.
+      If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the o3r application package. Please run 'ng add @o3r/core' .
+      Otherwise, use the error message as guidance.`);
+      throw (e);
+    }
+  };
 }

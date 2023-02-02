@@ -41,7 +41,8 @@
       ],
       "dependsOn": [
         "^build",
-        "compile"
+        "compile",
+        "prepare-build-builders"
       ]
     },
     "lint": {

@@ -29,11 +29,10 @@
     "@angular/material": "~15.1.2",
     "@o3r/core": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
-    "@o3r/extractors": "workspace:^"
+    "@o3r/extractors": "workspace:^",
+    "@o3r/schematics": "workspace:^"
   },
   "dependencies": {
-    "@o3r/dev-tools": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
@@ -58,10 +57,12 @@
     "@nrwl/linter": "^15.6.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
+    "@o3r/dev-tools": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/extractors": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@types/jest": "~28.1.2",
     "@types/node": "^17.0.45",

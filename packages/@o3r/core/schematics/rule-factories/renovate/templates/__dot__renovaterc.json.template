@@ -1,0 +1,61 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    "group:allNonMajor",
+    "group:monorepos",
+    "group:recommended",
+    "group:test"
+  ],
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
+  "baseBranches": [
+    "master"
+  ],
+  "platform": "azure",
+  "enabledManagers": [
+    "npm"
+  ],
+  "npm": {
+    "stabilityDays": 0
+  },
+  "labels": [
+    "upgrade"
+  ],
+  "updateInternalDeps": true,
+  "automerge": true,
+  "platformAutomerge": true,
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "@o3r/core"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install",
+          "npm run ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+        ],
+        "fileFilters": [
+          "**"
+        ],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ],
+      "groupName": "Otter dependencies",
+      "groupSlug": "otter-dependencies"
+    },
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "rangeStrategy": "replace"
+    }
+  ]
+}

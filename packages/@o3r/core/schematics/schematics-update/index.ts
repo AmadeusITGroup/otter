@@ -2,8 +2,9 @@ import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 import { applyEsLintFix } from '@o3r/schematics';
 import * as path from 'node:path';
 
-import { getDestinationPath, updateOtterEnvironmentAdapter } from '@o3r/schematics';
+import { getDestinationPath } from '@o3r/schematics';
 import { NgGenerateUpdateSchematicsSchema } from './schema';
+import { updateOtterEnvironmentAdapter } from '../rule-factories/otter-environment';
 
 /**
  * add a new ngUpdate function

@@ -8,6 +8,5 @@
   },
   "assets": [
     "schemas/*.json"
-  ],
-  "allowedNonPeerDependencies": ["tslib", "@o3r/dev-tools", "@o3r/schematics"]
+  ]
 }

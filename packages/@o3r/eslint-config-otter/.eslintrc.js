@@ -5,7 +5,11 @@ module.exports = {
   'root': true,
   'parserOptions': {
     'tsconfigRootDir': __dirname,
-    'sourceType': 'module'
+    'sourceType': 'module',
+    'project': [
+      'tsconfig.builders.json',
+      'tsconfig.eslint.json'
+    ]
   },
   'extends': [
     '../../../.eslintrc.js'

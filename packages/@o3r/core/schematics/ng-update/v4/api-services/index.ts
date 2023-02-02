@@ -57,7 +57,7 @@ export function updateApiServices(): Rule {
     const recorder = tree.beginUpdate(filePath);
     const sourceFile = ts.createSourceFile(filePath, content, ts.ScriptTarget.ES2015, true);
 
-    addImportToModule(sourceFile, filePath, 'ApiManagerModule', '@otter/common')
+    addImportToModule(sourceFile, filePath, 'ApiManagerModule', '@o3r/application')
       .forEach((change) => {
         if (change instanceof InsertChange) {
           recorder.insertLeft(change.pos, change.toAdd);
@@ -139,9 +139,9 @@ export function updateApiServices(): Rule {
         if (hasBeenTouched) {
           // Add ApiFactoryService import
           const sourceFile = ts.createSourceFile(filePath, content, ts.ScriptTarget.ES2015, true);
-          const importChange = insertImport(sourceFile, filePath, 'ApiFactoryService', '@otter/common', false);
+          const importChange = insertImport(sourceFile, filePath, 'ApiFactoryService', '@o3r/application', false);
           if (importChange instanceof InsertChange) {
-            content = content.substr(0, importChange.pos) + importChange.toAdd + content.substr(importChange.pos);
+            content = content.substr(0, importChange.pos) + importChange.toAdd + content.substring(importChange.pos);
           }
 
           // add ApiManagerModule import in service module
@@ -217,7 +217,7 @@ export function updateApiServices(): Rule {
           return;
         }
         listApiServices.forEach((service) => content = `import { ${service.replace('ApiService', 'ApiFixture')} } from '@dapi/sdk/fixtures';\n` + content);
-        content = `import { API_TOKEN, ApiFactoryService, ApiManagerModule, INITIAL_APIS_TOKEN } from '@otter/common';\nimport { ApiManager } from '@otter/core';\n${content}`;
+        content = `import { API_TOKEN, ApiFactoryService, ApiManager, ApiManagerModule, INITIAL_APIS_TOKEN } from '@o3r/application';\n${content}`;
         content = content.replace(
           /{\s*provide\s*:\s*(\w*)ApiService\s*,\s*useValue\s*:\s*{api:\s*(\w*)\s*}\s*}/g,
           '{provide: INITIAL_APIS_TOKEN, useFactory: () => { return [new $1ApiFixture()]; }}, ApiFactoryService');

@@ -24,7 +24,8 @@
       "executor": "nx:run-script",
       "dependsOn": [
         "^build",
-        "compile"
+        "compile",
+        "prepare-build-builders"
       ],
       "outputs": [
         "{projectRoot}/dist/pcloudy",
