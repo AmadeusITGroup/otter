@@ -19,9 +19,6 @@
     },
     "compile": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{projectRoot}/dist/src"
-      ],
       "options": {
         "main": "packages/@ama-sdk/swagger-builder/src/cli/build.ts",
         "tsConfig": "packages/@ama-sdk/swagger-builder/tsconfig.build.json",
