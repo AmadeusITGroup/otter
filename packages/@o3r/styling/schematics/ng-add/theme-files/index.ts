@@ -74,7 +74,7 @@ export function removeV7OtterAssetsInAngularJson(options: { projectName: string 
 
     if (workspaceProject?.architect?.build?.options?.assets) {
       workspaceProject.architect.build.options.assets =
-        workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => a.input.indexOf('node_modules/@otter/styling/assets') === -1);
+        workspaceProject.architect.build.options.assets.filter((a: { glob: string; input: string; output: string }) => !a.input || a.input.indexOf('node_modules/@otter/styling/assets') === -1);
     }
 
     workspace.projects[projectName] = workspaceProject;

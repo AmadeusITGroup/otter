@@ -23,8 +23,7 @@
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:build:builders"
-      },
-      "dependsOn": []
+      }
     },
     "build-builders": {
       "executor": "nx:run-script",
