@@ -85,6 +85,7 @@ __metadata:
     "@nrwl/jest": ^15.6.3
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@swc/cli": ^0.1.57
     "@swc/core": ^1.2.249
     "@swc/helpers": ^0.4.11
@@ -104,6 +105,7 @@ __metadata:
     isomorphic-fetch: ~2.2.1
     jest: ~28.1.1
     rimraf: ^3.0.2
+    rxjs: ^7.4.0
     ts-jest: ^28.0.5
     ts-node: ^10.9.1
     tslib: ^2.4.1

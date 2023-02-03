@@ -1,0 +1,4 @@
+import { ONE_DATE } from '@whatever/package';
+import { utils } from '@dapi/sdk-core';
+
+export const dateTime = new utils.DateTime(ONE_DATE);
