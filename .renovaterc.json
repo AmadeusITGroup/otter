@@ -152,6 +152,23 @@
       "groupName": "Major dependencies",
       "groupSlug": "major-dependencies",
       "enabled": true
+    },
+    {
+      "matchPackageNames": [
+        "typescript",
+        "eslint",
+        "@yarnpkg/sdks"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn sdks"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          ".yarn/sdks/**"
+        ]
+      }
     }
   ]
 }
