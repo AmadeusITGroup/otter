@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
+import { Option, program } from 'commander';
 import * as winston from 'winston';
 import { PullRequestService } from '../helpers/azure/pull-requests.service';
 
@@ -12,8 +12,14 @@ let comment: string | undefined;
 program
   .arguments('<comment>')
   .description('Comment a Pull Request')
-  .option('-s, --commentStatus <commentStatus>', 'Comment status', /^(Unknown|Active|Fixed|WontFix|Closed|ByDesign|Pending)$/, 'Closed')
-  .option('-m, --mode <mode>', 'Replaces thread if existing | Adds a comment to the existing thread | Do anything if thread already exists', /^(Replace|Add|Skip)$/, 'Add')
+  .addOption(new Option('-s, --commentStatus <commentStatus>', 'Comment status')
+    .choices(['Unknown', 'Active', 'Fixed', 'WontFix', 'Closed', 'ByDesign', 'Pending'])
+    .default('Closed')
+  )
+  .addOption(new Option('-m, --mode <mode>', 'Replaces thread if existing | Adds a comment to the existing thread | Do anything if thread already exists')
+    .choices(['Replace', 'Add', 'Skip'])
+    .default('Add')
+  )
   .option('-I, --threadIdentifier <threadIdentifier>', 'Thread identifier', undefined)
   .requiredOption('-T, --accessToken <accessToken>', 'Access token')
   .action((actionComment: string) => {

@@ -12,16 +12,7 @@
   ],
   "activationEvents": [
     "workspaceContains:**/angular.json",
-    "onCommand:otter.generate.component",
-    "onCommand:otter.generate.service",
-    "onCommand:otter.generate.store",
-    "onCommand:otter.generate.fixture",
-    "onCommand:otter.menu.generate.fixture",
-    "onCommand:otter.menu.generate.component",
-    "onCommand:otter.menu.generate.service",
-    "onCommand:otter.menu.generate.store",
-    "onCommand:otter.extract.styling.variable",
-    "onCommand:otter.extract.styling.allVariable"
+    "workspaceContains:**/nx.json"
   ],
   "contributes": {
     "configuration": {

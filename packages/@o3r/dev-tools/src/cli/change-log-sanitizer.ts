@@ -6,7 +6,7 @@ import {sanitizeChangeLogs} from '../helpers';
 
 program
   .description('Triggers the change-log sanitizer')
-  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', /^([0-9]+)\.([0-9]+)\.([0-9]+)$/)
+  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', (v) => (/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(v) ? v : undefined))
   .option('--verbose', 'Display debug log message')
   .parse(process.argv);
 
