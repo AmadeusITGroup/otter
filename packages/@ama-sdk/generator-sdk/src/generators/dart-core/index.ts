@@ -74,7 +74,7 @@ module.exports = class extends SdkGenerator {
       }
     }
     this.fs.copy(path.resolve(this.sourceRoot(), '..', '..', 'resources', 'swagger-codegen-cli.jar'),
-      path.resolve(this.destinationPath(), 'swagger-codegen-typescript', 'target', 'swagger-codegen-cli.jar'));
+      path.resolve(this.destinationPath(), 'swagger-codegen-dart', 'target', 'swagger-codegen-cli.jar'));
 
     this.fs.copy(path.resolve(this.destinationPath(), this.getSwaggerSpecPath(this.properties.swaggerSpecPath!)), path.resolve(this.destinationPath(), 'swagger-spec.yaml'));
   }
