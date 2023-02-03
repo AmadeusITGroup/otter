@@ -20,7 +20,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         options.skipLinter ? noop() : applyEsLintFix(),
         // install ngx-translate and message format dependencies
         options.skipInstall ? noop : install,
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: `${depsInfo.packageName!} - setup` })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: `${depsInfo.packageName!} - setup` })
       ]);
     } catch (e) {
       // o3r localization needs o3r/core as peer dep. o3r/core will install o3r/schematics

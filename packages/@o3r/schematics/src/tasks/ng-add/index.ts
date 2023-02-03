@@ -11,6 +11,9 @@ export interface NgAddPackageOptions {
   /** working dir */
   workingDirectory?: string;
 
+  /** version to install */
+  version?: string;
+
   /** The package which launched the ng add for the current one */
   parentPackageInfo?: string;
 }
@@ -27,7 +30,7 @@ export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePack
         command: 'ng add',
         quiet: this.quiet,
         workingDirectory: this.options?.workingDirectory,
-        packageName: `ng add ${this.packageName}${this.options?.skipConfirmation ? ' --skip-confirmation' : ''}`,
+        packageName: `ng add ${this.packageName}${this.options?.version ? '@' + this.options.version : ''}${this.options?.skipConfirmation ? ' --skip-confirmation' : ''}`,
         packageManager: 'yarn'
       }
     };

@@ -10,6 +10,7 @@ import { PackageJson } from 'type-fest';
 export function getPeerDepWithPattern(packageJsonPath: string, pattern = /^@(otter|o3r|ama-sdk)/) {
   const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
   const packageName = packageJsonContent.name;
+  const packageVersion = packageJsonContent.version;
   const optionalPackages = Object.entries(packageJsonContent.peerDependenciesMeta || {})
     .filter(([, dep]) => dep?.optional)
     .map(([depName]) => depName);
@@ -17,7 +18,7 @@ export function getPeerDepWithPattern(packageJsonPath: string, pattern = /^@(ott
   const matchingPackages = Object.keys(packageJsonContent.peerDependencies || [])
     .filter(peerDep => pattern.test(peerDep) && !optionalPackages.includes(peerDep));
 
-  return { packageName, matchingPackages };
+  return { packageName, packageVersion, matchingPackages };
 }
 
 /**
@@ -30,6 +31,7 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true) {
   const depsInfo = getPeerDepWithPattern(packageJsonPath, /^@(o3r|ama-sdk)/);
   return {
     packageName: depsInfo.packageName,
+    packageVersion: depsInfo.packageVersion,
     o3rPeerDeps: filterBasics ?
       depsInfo.matchingPackages.filter(peerDep => peerDep !== '@o3r/core' && peerDep !== '@o3r/schematics' && peerDep !== '@o3r/dev-tools')
       : depsInfo.matchingPackages

@@ -23,7 +23,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       return chain([
         ...rulesToExecute,
         options.skipLinter ? noop : applyEsLintFix(),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
       ]);
 
     } catch (e) {
