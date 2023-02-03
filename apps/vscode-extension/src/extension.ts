@@ -1,9 +1,11 @@
-import * as vscode from 'vscode';
+import { commands, ExtensionContext } from 'vscode';
 import { generateComponentGenerateCommand } from './commands/generate/component.command';
 import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
 import { wrapCommandWhenExplorerContext } from './commands/generate/helpers';
 import { generateServiceGenerateCommand } from './commands/generate/service.command';
 import { generateStoreGenerateCommand } from './commands/generate/store.command';
+import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
+import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
 
 /**
  * Function to register commands.
@@ -11,16 +13,19 @@ import { generateStoreGenerateCommand } from './commands/generate/store.command'
  *
  * @param context
  */
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
   context.subscriptions.push(
-    vscode.commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
-    vscode.commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
-    vscode.commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),
-    vscode.commands.registerCommand('otter.menu.generate.component', wrapCommandWhenExplorerContext(context, generateComponentGenerateCommand)),
-    vscode.commands.registerCommand('otter.menu.generate.service', wrapCommandWhenExplorerContext(context, generateServiceGenerateCommand)),
-    vscode.commands.registerCommand('otter.menu.generate.store', wrapCommandWhenExplorerContext(context, generateStoreGenerateCommand)),
-    vscode.commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
-    vscode.commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context))
+    commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
+    commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
+    commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),
+    commands.registerCommand('otter.menu.generate.component', wrapCommandWhenExplorerContext(context, generateComponentGenerateCommand)),
+    commands.registerCommand('otter.menu.generate.service', wrapCommandWhenExplorerContext(context, generateServiceGenerateCommand)),
+    commands.registerCommand('otter.menu.generate.store', wrapCommandWhenExplorerContext(context, generateStoreGenerateCommand)),
+    commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
+    commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
+    commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
+    commands.registerTextEditorCommand('otter.menu.extract.styling.variable', extractToVariable(context)),
+    commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
   );
 }
 

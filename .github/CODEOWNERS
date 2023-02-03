@@ -1,2 +1,6 @@
 # Default reviewers for all changes
 * @AmadeusITGroup/otter_admins
+
+# Default reviewers for VSCode style extractor
+# TODO: uncomment the following line when https://github.com/orgs/community/discussions/29982 is solved
+# /apps/vscode-extension/src/commands/extract/styling/ @asonHaenlinAmadeus @RubenHouri

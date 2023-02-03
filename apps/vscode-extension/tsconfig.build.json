@@ -5,7 +5,7 @@
     "declaration": true,
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "src",
+    "importHelpers": false,
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

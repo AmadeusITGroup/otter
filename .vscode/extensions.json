@@ -9,6 +9,7 @@
     "nrwl.angular-console",
     "esbenp.prettier-vscode",
     "GitHub.codespaces",
-    "GitHub.vscode-pull-request-github"
+    "GitHub.vscode-pull-request-github",
+    "AmadeusITGroup.otter-devtools"
   ]
 }

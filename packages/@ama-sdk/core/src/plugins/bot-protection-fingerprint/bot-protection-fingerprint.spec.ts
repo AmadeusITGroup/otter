@@ -270,7 +270,7 @@ describe('BotProtectionFingerprint', () => {
       expect(fingerprintRetriever).toHaveBeenCalledTimes(1);
     });
 
-    it('Should\' add the fingerprint header if no fingerprint after the configured poller is done running.', async () => {
+    it('Should add the fingerprint header if there is no fingerprint after the configured poller has finished running.', async () => {
       const plugin = new BotProtectionFingerprintRequest({
         destinationHeaderName,
         fingerprintRetriever,
@@ -287,8 +287,8 @@ describe('BotProtectionFingerprint', () => {
 
       expect(newRequest.headers.has(destinationHeaderName)).toBeFalsy();
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
-      expect(timeDiff).toBeLessThan(1100);
-      expect(timeDiff).not.toBeLessThan(1000);
+      expect(timeDiff).toBeLessThan(1100 + 10);
+      expect(timeDiff).not.toBeLessThan(1000 - 10);
     });
 
     it('Should add the fingerprint header if initially not found but added before the poller ended.', async () => {

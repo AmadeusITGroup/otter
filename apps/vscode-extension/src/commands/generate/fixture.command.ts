@@ -53,14 +53,14 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
         ];
         terminal.sendText(`yarn ng generate @o3r/core:fixture ${options.join(' ')}`, true);
         terminal.show();
-        void vscode.window.showTextDocument(fixtureDoc);
+        await vscode.window.showTextDocument(fixtureDoc);
       } else {
-        void vscode.window.showInformationMessage('No fixture type selected');
+        await vscode.window.showInformationMessage('No fixture type selected');
       }
 
 
     } else {
-      void vscode.window.showInformationMessage(textSelected
+      await vscode.window.showInformationMessage(textSelected
         ? 'File is not a html template file'
         : 'No selected text'
       );

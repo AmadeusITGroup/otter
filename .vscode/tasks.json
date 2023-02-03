@@ -16,7 +16,7 @@
     {
       "label": "watch-vscode-extension",
       "type": "npm",
-      "path": "packages/@o3r/vscode-extension",
+      "path": "apps/vscode-extension",
       "script": "watch:vscode-extension",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
