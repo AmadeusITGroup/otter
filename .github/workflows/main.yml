@@ -25,15 +25,11 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup
         uses: ./.github/actions/setup
-        env:
-          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
         with:
           enable-build-cache: 'true'
           install-jdk: 'true'
       - name: Build Swagger CodeGen
         run: yarn build:swagger-gen
-        env:
-          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
       - name: Build
         run: yarn build
   version:
@@ -47,8 +43,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup
         uses: ./.github/actions/setup
-        env:
-          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
       - name: New Version
         id: newVersion
         uses: ./.github/actions/new-version

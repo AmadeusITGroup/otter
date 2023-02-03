@@ -9,30 +9,6 @@
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
-  <repositories>
-    <repository>
-      <id>des-sdks</id>
-      <url>https://pkgs.dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_packaging/des-sdks/maven/v1</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  <distributionManagement>
-    <repository>
-      <id>des-sdks</id>
-      <url>https://pkgs.dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_packaging/des-sdks/maven/v1</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </distributionManagement>
   <build>
     <plugins>
       <plugin>

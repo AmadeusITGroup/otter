@@ -9,30 +9,6 @@
   <prerequisites>
     <maven>2.2.0</maven>
   </prerequisites>
-  <repositories>
-    <repository>
-      <id>des-sdks</id>
-      <url>https://pkgs.dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_packaging/des-sdks/maven/v1</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-  <distributionManagement>
-    <repository>
-      <id>des-sdks</id>
-      <url>https://pkgs.dev.azure.com/AmadeusDigitalAirline/DES-SDKs/_packaging/des-sdks/maven/v1</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </distributionManagement>
   <build>
     <plugins>
       <plugin>
@@ -49,7 +25,7 @@
               <artifactItems>
                 <artifactItem>
                   <groupId>io.swagger</groupId>
-                  <artifactId>swagger-codegen</artifactId>
+                  <artifactId>swagger-codegen-cli</artifactId>
                   <version>2.4.0-AMADEUS</version>
                   <type>jar</type>
                   <overWrite>false</overWrite>
