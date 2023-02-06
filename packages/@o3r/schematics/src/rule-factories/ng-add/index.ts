@@ -1,4 +1,4 @@
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NgAddPackageOptions, NodePackageNgAddTask } from '../../tasks/index';
 
 /**
@@ -7,15 +7,25 @@ import { NgAddPackageOptions, NodePackageNgAddTask } from '../../tasks/index';
  * @param packages List of packages to be installed via `ng add`
  * @param options install options
  */
-export function ngAddPackages(packages: string[], options?: NgAddPackageOptions) {
-  return (tree: Tree, context: SchematicContext): Tree => {
+export function ngAddPackages(packages: string[], options?: NgAddPackageOptions): Rule {
+  const getInstalledVersion = async (packageName: string) => {
+    try {
+      return (await import(`${packageName}/package.json`)).version;
+    } catch (e) {
+      return;
+    }
+  };
+  return async (_tree: Tree, context: SchematicContext) => {
     if (packages.length > 0) {
       context.logger.info(`'${options?.parentPackageInfo || ''}' - 'ng add' has been launched for the following packages:`);
-      packages.forEach((packageName) => {
-        context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
-        return context.addTask(new NodePackageNgAddTask(packageName, options));
-      });
+      for (const packageName of packages) {
+        const installedVersion = await getInstalledVersion(packageName);
+        if (!installedVersion || options?.version !== installedVersion) {
+          context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
+          context.addTask(new NodePackageNgAddTask(packageName, options));
+        }
+      }
     }
-    return tree;
+    return;
   };
 }

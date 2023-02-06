@@ -20,7 +20,7 @@ export async function sanitizeChangeLogs(version: SemVer) {
     throw new Error(`Destination file already exists: ${newChangeLogsFile}`);
   }
 
-  const changeLogsFiles = globbySync(path.join(changeLogsFolder, '*.md'));
+  const changeLogsFiles = globbySync(path.posix.join(changeLogsFolder, '*.md'));
   const previousChangeLogs = changeLogsFiles.filter((filePath: string) => !filePath.includes(version.version));
 
   /** keep track of previous entries to avoid duplicates */

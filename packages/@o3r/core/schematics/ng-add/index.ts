@@ -20,10 +20,10 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
 
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(options.enableCms ? ['@o3r/localization', '@o3r/styling', '@o3r/components', '@o3r/configuration'] : []),
-    ...(!options.enableCms && options.enableStyling ? ['@o3r/styling'] : []),
-    ...(!options.enableCms && options.enableConfiguration ? ['@o3r/configuration'] : []),
-    ...(!options.enableCms && options.enableLocalization ? ['@o3r/localization'] : []),
-    ...(!options.enableCms && options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
+    ...(options.enableStyling ? ['@o3r/styling'] : []),
+    ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
+    ...(options.enableLocalization ? ['@o3r/localization'] : []),
+    ...(options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
     ...(options.enableAnalytics ? ['@o3r/analytics'] : []),
     ...(options.enableApisManager ? ['@o3r/apis-manager'] : []),
     ...(options.enableStorybook ? ['@o3r/storybook'] : []),

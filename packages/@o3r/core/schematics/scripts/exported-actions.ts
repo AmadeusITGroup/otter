@@ -8,7 +8,7 @@ const moduleName = 'store';
 
 const moduleFolderPath = path.resolve(__dirname, '..', '..', '..', '..', '..', 'packages', '@o3r', moduleName, 'src');
 const outputJsonPath = path.resolve(__dirname, 'exported-actions-v3.json');
-const actionFiles = globbySync(path.join(moduleFolderPath, '**', '*.actions.ts').replace(/\\/g, '/'));
+const actionFiles = globbySync(path.posix.join(moduleFolderPath, '**', '*.actions.ts').replace(/\\/g, '/'));
 
 const actionsProgram = ts.createProgram(actionFiles, {});
 

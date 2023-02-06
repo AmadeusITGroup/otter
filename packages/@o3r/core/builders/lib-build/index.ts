@@ -42,7 +42,7 @@ export default createBuilder<LibraryBuilderSchema>(async (options, context): Pro
       return;
     }
     return Promise.all(
-      globbySync(path.join(outDir, '**', '*.jasmine.d.ts'), {cwd: context.currentDirectory})
+      globbySync(path.posix.join(outDir, '**', '*.jasmine.d.ts'), {cwd: context.currentDirectory})
         .map((file) => path.resolve(context.currentDirectory, file))
         .map(async (file) => {
           context.logger.debug(`Removing Jest reference from ${file}`);

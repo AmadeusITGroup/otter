@@ -1,0 +1,25 @@
+name: Test publish
+
+on:
+  workflow_call:
+
+jobs:
+  test-publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/download-build-output
+      - uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'true'
+      - name: Test
+        run: yarn test-int
+      - name: Prepare for publish generated app
+        if: failure()
+        run: zip -r test-app.zip ../test-app -x "../test-app/node_modules/*"
+      - name: Publish generated app
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-app
+          path: test-app.zip

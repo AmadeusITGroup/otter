@@ -31,6 +31,7 @@
     "@o3r/dev-tools": "workspace:^",
     "comment-json": "^4.1.0",
     "globby": "^11.1.0",
+    "minimatch": "^6.1.6",
     "semver": "^7.3.2",
     "tslib": "^2.4.1"
   },

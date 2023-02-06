@@ -51,13 +51,16 @@ jobs:
     uses: ./.github/workflows/code-check.yml
     with:
       affected: ${{ github.event_name == 'pull_request' }}
+  test-publish:
+    uses: ./.github/workflows/test-publish.yml
+    needs: [build]
   publish-packages:
     uses: ./.github/workflows/publish.yml
     permissions:
       packages: write
       contents: read
     secrets: inherit
-    needs: [version, build, checks]
+    needs: [version, build, checks, test-publish]
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
