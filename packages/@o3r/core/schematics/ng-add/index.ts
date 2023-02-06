@@ -17,7 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
 
   const o3rCoreVersion = getPackageVersion(path.resolve(__dirname, '..', '..', 'package.json'));
 
-  const packagesToInstallWithNgAdd = [
+  const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(options.enableCms ? ['@o3r/localization', '@o3r/styling', '@o3r/components', '@o3r/configuration'] : []),
     ...(!options.enableCms && options.enableStyling ? ['@o3r/styling'] : []),
     ...(!options.enableCms && options.enableConfiguration ? ['@o3r/configuration'] : []),
@@ -26,9 +26,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     ...(options.enableAnalytics ? ['@o3r/analytics'] : []),
     ...(options.enableApisManager ? ['@o3r/apis-manager'] : []),
     ...(options.enableStorybook ? ['@o3r/storybook'] : []),
-    ...(options.enablePrefetchBuilder ? ['@o3r/ngx-prefetch'] : []),
     ...(options.enablePlaywright ? ['@o3r/testing'] : [])
-  ];
+  ]));
+  const externalPackagesToInstallWithNgAdd = Array.from(new Set([
+    ...(options.enablePrefetchBuilder ? ['@o3r/ngx-prefetch'] : [])
+  ]));
   return chain([
     o3rBasicUpdates(options.projectName, o3rCoreVersion),
     updateImportsFromV7(),
@@ -48,6 +50,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     options.skipLinter ? noop() : applyEsLintFix(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
     options.skipInstall ? noop() : install,
-    ngAddPackages(packagesToInstallWithNgAdd, {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup'})
+    ngAddPackages(internalPackagesToInstallWithNgAdd, {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
+    ngAddPackages(externalPackagesToInstallWithNgAdd, {skipConfirmation: true, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName})
   ]);
 }

@@ -1,4 +1,4 @@
-<% if (!hasSDK) { %>import { <%= storeModelName %> } from './<%= fileName %>.state';
+<% if (!hasSDK) { %>import { <%= payloadModelName %> } from './<%= fileName %>.state';
   <% } else { %>import { <%= reviverModelName %> } from '<%= sdkPackage %>';<% } %>
 
 import {asyncSerializer, Serializer} from '@o3r/core';
@@ -9,7 +9,7 @@ export const <%= cStoreName %>StorageSerializer = asyncSerializer;
 
 export const <%= cStoreName %>StorageDeserializer = (rawObject: any) => {
   return {...<%= cStoreName %>InitialState,
-    model: (rawObject && rawObject.model) ? <% if (hasSDK) {%><%= reviverModelName %>(rawObject.model)<% } else { %>rawObject.model as <%= storeModelName %> <% } %> : null
+    model: (rawObject && rawObject.model) ? <% if (hasSDK) {%><%= reviverModelName %>(rawObject.model)<% } else { %>rawObject.model as <%= payloadModelName %> <% } %> : null
   } as <%= storeName %>State;
 };
 

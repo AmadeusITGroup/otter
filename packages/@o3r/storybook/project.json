@@ -45,7 +45,8 @@
             "output": "./component-wrapper"
           }
         ],
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       },
       "dependsOn": [
         "^build"

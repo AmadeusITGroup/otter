@@ -6,7 +6,7 @@ import { InsertChange } from '@schematics/angular/utility/change';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
+const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -23,16 +23,17 @@ export function updateAdditionalModules(options: { projectName: string | null },
    * @param tree
    * @param _context
    */
-  const updatePackageJson: Rule = (tree: Tree, _context: SchematicContext) => {
+  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
     const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
+    const generatorDependencies = [ngrxStoreDevtoolsDep];
 
-    const dependencies: NodeDependency[] = getNodeDependencyList(
-      getExternalDependenciesVersionRange([ngrxStoreDevtoolsDep], packageJsonPath),
-      type
-    );
-
-    dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    try {
+      const dependencies: NodeDependency[] = getNodeDependencyList(getExternalDependenciesVersionRange(generatorDependencies, packageJsonPath), type);
+      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    } catch (e) {
+      context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
+    }
 
     return tree;
   };
@@ -118,7 +119,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+    const envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
     if (!envDevFilePath) {
       return tree;
     }
@@ -169,7 +170,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
+    const envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
     if (!envProdFilePath) {
       return tree;
     }

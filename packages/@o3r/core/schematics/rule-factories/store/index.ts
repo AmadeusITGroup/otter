@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import { getAppModuleFilePath, getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree, isApplicationThatUsesRouterModule } from '@o3r/schematics';
 import { InsertChange } from '@schematics/angular/utility/change';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', '..', 'package.json');
+const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
@@ -29,18 +29,21 @@ export function updateStore(options: { projectName: string | null }, _rootPath: 
    * @param tree
    * @param _context
    */
-  const updatePackageJson: Rule = (tree: Tree, _context: SchematicContext) => {
+  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
     const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
 
     let dependenciesList = [ngrxEffectsDep, ngrxEntityDep, ngrxStoreDep, ngrxStoreLocalstorageDep];
     dependenciesList = isApplicationThatUsesRouterModule(tree) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
-    const dependencies: NodeDependency[] = getNodeDependencyList(
-      getExternalDependenciesVersionRange(dependenciesList, packageJsonPath),
-      type
-    );
-
-    dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    try {
+      const dependencies: NodeDependency[] = getNodeDependencyList(
+        getExternalDependenciesVersionRange(dependenciesList, packageJsonPath),
+        type
+      );
+      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+    } catch (e: any) {
+      context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
+    }
 
     return tree;
   };

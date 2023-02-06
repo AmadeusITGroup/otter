@@ -22,17 +22,13 @@
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:build:builders"
-      },
-      "dependsOn": []
+      }
     },
     "build-builders": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      },
-      "dependsOn": [
-        "prepare-build-builders"
-      ]
+      }
     },
     "compile": {
       "executor": "@nrwl/js:tsc",
@@ -43,7 +39,8 @@
         "assets": [
           "packages/@o3r/dev-tools/configs/*.json"
         ],
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       }
     },
     "lint": {

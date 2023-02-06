@@ -127,18 +127,18 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
   const workspace = readAngularJson(tree);
   const projectSources = Object.values(workspace.projects)
     .map((project) => path.posix
-      .join(project.root, folderInProject, '**', `*.${extension}$`)
+      .join(project.root, folderInProject, '**', `*\\.${extension}$`)
       .replace(/([^*])\*([^*]|$)/g, '$1[^/]*$2')
       .replace(/\*\*/g, '.*')
       .replace(/\/$/, '')
     );
 
   const files = getAllFilesInTree(tree);
-  return projectSources.reduce(
-    (acc: string[], projectSource) =>
-      acc.concat(files.filter((file) => file.match(new RegExp(projectSource)) && !file.match(/.*\/node_modules\/.*/))),
-    []
-  );
+  const excludes = /.*\/node_modules\/.*/;
+  return projectSources.flatMap((projectSource) => {
+    const regexp = new RegExp(projectSource);
+    return files.filter((file) => regexp.test(file) && !excludes.test(file));
+  });
 }
 
 /**

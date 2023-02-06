@@ -19,7 +19,7 @@
     "lint:affected": "yarn nx affected --target=lint --parallel $(yarn get:cpus-number)",
     "test": "yarn nx run-many --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test:affected": "yarn nx affected --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
-    "test:int": "yarn nx run-many --target=test:int --parallel 2",
+    "test-int": "yarn nx run-many --target=test-int --parallel 2",
     "postinstall": "husky install && yarn dlx @yarnpkg/sdks && yarn build:tools && yarn version-harmonize && yarn in-source-dep-check && yarn yarn:harmonization",
     "yarn:harmonization": "node scripts/yarn-harmonize.js",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",

@@ -40,7 +40,8 @@
         "assets": [
           "packages/@o3r/schematics/src/**/templates/**"
         ],
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       }
     },
     "lint": {

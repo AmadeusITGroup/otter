@@ -90,7 +90,7 @@ export function checkPackagesToInstallOrUpdate(packageName: string, angularJsonS
     logger.error('');
     logger.error(`The following packages need to be installed to have "${packageName}" working. Run the commands one by one:`);
     packagesToInstall.forEach((dep) => logger.error(`${packageManager} run ng add ${dep.packageName}@${dep.version}`));
-    process.exit(1);
+    throw new Error('Missing peer dependencies');
   }
 
   if (!packagesToInstall.length && !packagesWrongVersion.length) {

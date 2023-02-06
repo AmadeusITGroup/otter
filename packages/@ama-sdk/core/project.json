@@ -56,7 +56,8 @@
         "main": "packages/@ama-sdk/core/src/public_api.ts",
         "tsConfig": "packages/@ama-sdk/core/tsconfig.esm2020.json",
         "outputPath": "packages/@ama-sdk/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "updateBuildableProjectDepsInPackageJson": false,
+        "clean": false
       }
     },
     "lint": {
