@@ -136,10 +136,16 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
+    const workspaceProject = getProjectFromTree(tree);
+    if (workspaceProject.projectType !== 'application') {
+      return tree;
+    }
+    const workspace = readAngularJson(tree);
+    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
     const envBasePath = 'src/environments';
     const envDevFilePath = `${envBasePath}/environment.development.ts`;
     if (!tree.exists(envDevFilePath)) {
-      return chain([generateEnvironments({project: options.projectName || ''})])(tree, context);
+      return chain([generateEnvironments({project: projectName})])(tree, context);
     }
     return tree;
   };
@@ -151,6 +157,10 @@ export function updateOtterEnvironmentAdapter(
    * @param _context
    */
   const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
+    const workspaceProject = getProjectFromTree(tree);
+    if (workspaceProject.projectType !== 'application') {
+      return tree;
+    }
     const envBasePath = 'src/environments';
     const envDevFilePath = `${envBasePath}/environment.development.ts`;
     const envDefaultFilePath = `${envBasePath}/environment.ts`;
