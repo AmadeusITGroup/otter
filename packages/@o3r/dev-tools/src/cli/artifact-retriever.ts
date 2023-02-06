@@ -25,7 +25,7 @@ program
   .option('-r, --artifact-repos <repositories>', 'Artifact repositories', (repos: string) => repos.split(','), [])
   .option('-u, --username <username>', 'Artifactory username', /.*/, 'mvn-readonly')
   .option('-p, --password <password>', 'Artifactory user password', /.*/)
-  .option('--password_env_var <password_env_var>', 'Artifactory user password environment var', /.*/, 'AZ_AR_PASSWORD')
+  .option('--password_env_var <password_env_var>', 'Artifactory user password environment var', /.*/, undefined)
   .option('-o, --out <path>', 'Output file name (default: ./built/${name}.jar)', /.*/, undefined)
   .option('--silent', 'Prevent exit code 1 if artifact not found (Usage example : dep-checker with post-install scripts', /.*/, false)
   .option('--verbose', 'Display debug log message')

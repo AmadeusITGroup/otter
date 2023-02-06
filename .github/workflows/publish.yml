@@ -16,8 +16,6 @@ on:
       AZURE_VSC_EXT_TOKEN:
         required: false
         description: Token to publish Visual Studio Code extension
-      AZ_AR_PASSWORD:
-        required: true
       NPM_TOKEN:
         required: false
         description: PAT to publish on npmjs.org
@@ -58,8 +56,6 @@ jobs:
           install-jdk: 'true'
       - name: Build Swagger CodeGen
         run: yarn build:swagger-gen
-        env:
-          AZ_AR_PASSWORD: ${{ secrets.AZ_AR_PASSWORD }}
       - name: Build
         run: yarn build
       - name: Set new version
