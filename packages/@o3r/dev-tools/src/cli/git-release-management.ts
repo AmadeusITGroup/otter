@@ -18,8 +18,8 @@ import {
 
 program
   .description('Creates next minor/major branches and delete previous ones')
-  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', /^([0-9]+)\.([0-9]+)\.([0-9]+)$/)
-  .requiredOption('--release-action <releaseAction>', 'Action that needs to be performed by the cli : rcRelease or finalRelease', /.*/)
+  .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', (v) => (/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(v) ? v : undefined))
+  .requiredOption('--release-action <releaseAction>', 'Action that needs to be performed by the cli : rcRelease or finalRelease')
   .option('--renovate-path <path>', 'Will update renovate file if found ad the given path')
   .option('--delete-previous-release', 'If true, will delete previous released branch', false)
   .option('--verbose', 'Display debug log message')

@@ -9,8 +9,8 @@ import * as winston from 'winston';
 
 program
   .description('Clean old artifacts from artifactory repositories')
-  .option('--artifactory-url <artifactoryUrl>', 'Artifactory URL', /.*/, 'https://digitalforairlines.jfrog.io/digitalforairlines/')
-  .option('-d, --duration-kept <durationKept>', 'All artifacts which have not been downloaded and are older than this value(ms) will be deleted. Default to 10080000ms (7 days)', /.*/, '604800000')
+  .option('--artifactory-url <artifactoryUrl>', 'Artifactory URL', 'https://digitalforairlines.jfrog.io/digitalforairlines/')
+  .option('-d, --duration-kept <durationKept>', 'All artifacts which have not been downloaded and are older than this value(ms) will be deleted. Default to 10080000ms (7 days)', '604800000')
   .option(
     '-r, --repositories <repositories>',
     'Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-refx-pr (Default to npm-otter-pr)',
@@ -19,7 +19,7 @@ program
   )
   .option('-t, --type-filter <typeFilter>', 'List of artifact type that should be deleted coma separated (ex: jar,tgz) (Default : tgz)', (type: string) => type.split(','), ['tgz,json'])
   .option('--dry-run <dryRun>', 'List all files that should be deleted without actually deleting them', false)
-  .option('-b, --basicAuth <basicAuth>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', /.*/)
+  .option('-b, --basicAuth <basicAuth>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)')
   .parse(process.argv);
 
 const opts = program.opts();

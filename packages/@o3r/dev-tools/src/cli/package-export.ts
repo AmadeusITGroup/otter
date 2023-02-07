@@ -17,7 +17,7 @@ program
   .arguments('[package.json file]')
   .description('Edit package.json to export the files')
   .option('-i, --ignore <pattern>', 'An array of glob patterns to exclude matches', collect, [])
-  .option('-S, --source-folder <path>', 'Source folder', /.*/i, 'src/')
+  .option('-S, --source-folder <path>', 'Source folder', 'src/')
   .option('--verbose', 'Display debug log message')
   .action((actionPackageJsonPath = 'package.json') => {
     // eslint-disable-next-line no-import-assign

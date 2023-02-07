@@ -7,14 +7,14 @@ import * as winston from 'winston';
 
 program
   .description('Clean pr artifacts from artifactory repositories')
-  .requiredOption('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL', /.*/)
-  .option('-d, --duration-kept <numberOfDays>', 'Only artifacts which are older and have not been downloaded during this duration (in days) will be deleted.', /[0-9]+/, '1')
-  .option('-pr, --pr-versions <prVersions>', 'Number of pr versions that will be kept.', /[0-9]+/, '1')
-  .option('-r, --repository <repositoryName>', 'Artifact repository to clean up.', /.*/, 'dga-maven-built-adt-nce')
-  .option('-p, --path <path>', 'Artifact paths to cleanup use matcher from AQL language. Be careful that the path do not include release artifacts.', /.*/, 'com/amadeus/retailing/*-PR-*')
+  .requiredOption('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL')
+  .option<number>('-d, --duration-kept <numberOfDays>', 'Only artifacts which are older and have not been downloaded during this duration (in days) will be deleted.', (v) => +v, 1)
+  .option<number>('-pr, --pr-versions <prVersions>', 'Number of pr versions that will be kept.', (v) => +v, 1)
+  .option('-r, --repository <repositoryName>', 'Artifact repository to clean up.', 'dga-maven-built-adt-nce')
+  .option('-p, --path <path>', 'Artifact paths to cleanup use matcher from AQL language. Be careful that the path do not include release artifacts.', 'com/amadeus/retailing/*-PR-*')
   .option('--dry-run', 'List all files that should be deleted without actually deleting them')
-  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in', /[a-zA-Z0-9]+/)
-  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)', /[a-zA-Z0-9]+/)
+  .option('-a, --api-key <apiKey>', 'Artifactory API Key of the user that can be used to log in')
+  .option('-b, --basicAuth <base64>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)')
   .option('-v, --verbose', 'To display the executed AQL query')
   .parse(process.argv);
 
