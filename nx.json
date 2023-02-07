@@ -134,10 +134,7 @@
         "^source"
       ],
       "outputs": [
-        "{projectRoot}/dist/",
-        "!{projectRoot}/dist/schematics",
-        "!{projectRoot}/dist/builders",
-        "!{projectRoot}/dist/middlewares"
+        "{projectRoot}/dist/"
       ]
     },
     "prepare-build-builders": {

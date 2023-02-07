@@ -53,7 +53,7 @@
     "build-tools": {
       "executor": "nx:run-script",
       "outputs": [
-        "{projectRoot}/dist-tools/src/tools/protractor"
+        "{projectRoot}/dist/src/tools/protractor"
       ],
       "options": {
         "script": "build:tools"
