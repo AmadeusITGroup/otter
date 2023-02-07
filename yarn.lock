@@ -6649,6 +6649,8 @@ __metadata:
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
+    "@formatjs/intl-numberformat":
+      optional: true
   languageName: unknown
   linkType: soft
 
