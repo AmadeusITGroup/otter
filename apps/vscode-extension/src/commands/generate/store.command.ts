@@ -73,7 +73,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
     const terminal = vscode.window.createTerminal('Otter Store generator');
     const defaultOptions = [
       `--skip-linter="${!!config.get<boolean>('skipLinter')}"`,
-      `--test-framework="${!!config.get<boolean>('store.testFramework')}"`,
+      `--test-framework="${config.get<boolean>('store.testFramework')}"`,
       `--sdk-package="${!!config.get<boolean>('store.sdkPackage')}"`
     ];
     const options = [
