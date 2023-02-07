@@ -6,7 +6,6 @@ import {
   install
 } from '@o3r/schematics';
 import { updateCustomizationEnvironment } from '../rule-factories/customization-environment';
-import { updateDifferentialLoading } from '../rule-factories/differential-loading';
 import { updatePlaywright } from '../rule-factories/playwright';
 import { updateStoreReducerInterface } from './v4.2/store-reducer-interface';
 import { updateSassFile } from './v4.3/material-theme-cssvar';
@@ -58,7 +57,6 @@ export function updateV4_0(): Rule {
   return (tree: Tree, context: SchematicContext) => {
 
     const updateRules: Rule[] = [
-      updateDifferentialLoading(),
       updateSubEntryImports(),
       updateStoreActions(),
       updateApiServices()

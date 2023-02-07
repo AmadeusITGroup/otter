@@ -42,8 +42,7 @@ export function updatePlaywright(rootPath: string): Rule {
     addPackageJsonDependency(tree, {name: 'rimraf', version: '~3.0.2', type: NodeDependencyType.Dev, overwrite: false});
 
     // generate files
-
-    if (!tree.exists('/e2e-playwright')) {
+    if (!tree.exists('/e2e-playwright/playwright-config.ts')) {
       const name = 'my-scenario';
       const scenarioName = strings.capitalize(strings.camelize(name));
       const sanity = 'my-sanity';

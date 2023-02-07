@@ -119,8 +119,14 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
-    if (!envDevFilePath) {
+
+    // supposing we are in ng 15, the env dev file name is environment.development.ts
+    let envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
+    if (!tree.exists(envDevFilePath)) {
+      // we are in ng 14, environment dev file name is: environment.ts
+      envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+    }
+    if (!tree.exists(envDevFilePath)) { // if we don't use the env setup, we skip the step
       return tree;
     }
 
@@ -130,6 +136,11 @@ export function updateAdditionalModules(options: { projectName: string | null },
       ts.ScriptTarget.ES2015,
       true
     );
+
+    // if we already have the StoreDevtoolsModule in environment dev file, do nothing to avoid overriding the already existing config
+    if (isImported(sourceFileEnvDev, 'StoreDevtoolsModule', ngrxStoreDevtoolsDep)) {
+      return tree;
+    }
 
     const recorder = tree.beginUpdate(envDevFilePath);
 
@@ -170,8 +181,15 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     const workspaceProject = getProjectFromTree(tree);
-    const envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
-    if (!envProdFilePath) {
+    // supposing we are in ng 14, environment prod file name is: environment.prod.ts
+    let envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
+
+    if (!tree.exists(envProdFilePath)) {
+      // we are in ng 15, environment prod file name is: environment.ts
+      envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+    }
+
+    if (!tree.exists(envProdFilePath)) { // if we don't use the env setup, we skip the step
       return tree;
     }
 
@@ -181,6 +199,15 @@ export function updateAdditionalModules(options: { projectName: string | null },
       ts.ScriptTarget.ES2015,
       true
     );
+
+    const envContent = tree.readText(envProdFilePath);
+
+    const adModulesRegex = new RegExp(/export\s*const\s*additionalModules/, 'g');
+
+    // if we already have the declaration of additional modules constant in environment file, do nothing to avoid duplication
+    if (adModulesRegex.test(envContent)) {
+      return tree;
+    }
 
     const recorder = tree.beginUpdate(envProdFilePath);
 
