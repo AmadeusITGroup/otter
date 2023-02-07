@@ -1,7 +1,7 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
 import { applyEsLintFix, getPackageVersion, install, ngAddPackages } from '@o3r/schematics';
 import { createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
-  updateCustomizationEnvironment, updateDifferentialLoading, updateFixtureConfig, updateLinter,
+  updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
   updateOtterEnvironmentAdapter, updatePlaywright, updateStore } from '../rule-factories/index';
 import { NgAddSchematicsSchema } from './schema';
 import { updateBuildersNames as updateBuildersNamesFromV7 } from './updates-for-v8/cms-adapters/update-builders-names';
@@ -44,7 +44,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     options.generateAzurePipeline ? createAzurePipeline(options, __dirname) : noop,
     options.enablePlaywright ? updatePlaywright(__dirname) : noop,
     updateLinter(options, __dirname, o3rCoreVersion),
-    updateDifferentialLoading(options),
     updateAdditionalModules(options, __dirname),
     generateRenovateConfig(__dirname),
     options.skipLinter ? noop() : applyEsLintFix(),

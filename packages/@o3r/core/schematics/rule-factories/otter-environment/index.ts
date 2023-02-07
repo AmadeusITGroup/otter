@@ -140,6 +140,9 @@ export function updateOtterEnvironmentAdapter(
     if (workspaceProject.projectType !== 'application') {
       return tree;
     }
+    if (tree.exists('/src/environments/environment.ts')) {
+      return tree;
+    }
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
     const envBasePath = 'src/environments';
@@ -161,8 +164,14 @@ export function updateOtterEnvironmentAdapter(
     if (workspaceProject.projectType !== 'application') {
       return tree;
     }
+
     const envBasePath = 'src/environments';
     const envDevFilePath = `${envBasePath}/environment.development.ts`;
+
+    if (!tree.exists(envDevFilePath)) {
+      return tree;
+    }
+
     const envDefaultFilePath = `${envBasePath}/environment.ts`;
     const addProductionBoolean = (envFilePath: string, value: boolean) => {
       let envContent = tree.readText(envFilePath);
