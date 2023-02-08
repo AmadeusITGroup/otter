@@ -15,7 +15,7 @@ export class ConfigurationBaseServiceFixture implements Readonly<ConfigurationBa
   /** @inheritDoc */
   public extendConfiguration: jest.Mock<any, any> = jest.fn();
   /** @inheritDoc */
-  public getConfiguration: jest.Mock<any, any> = jest.fn();
-  /** @inheritDoc */
   public getComponentConfig: jest.Mock<any, any> = jest.fn();
+  /** @inheritDoc */
+  public getConfig: jest.Mock<any, any> = jest.fn();
 }

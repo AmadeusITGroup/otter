@@ -15,7 +15,7 @@ export class ConfigurationBaseServiceFixture implements Readonly<ConfigurationBa
   /** @inheritDoc */
   public extendConfiguration: jasmine.Spy = jasmine.createSpy('extendConfiguration');
   /** @inheritDoc */
-  public getConfiguration: jasmine.Spy = jasmine.createSpy('getConfiguration');
+  public getComponentConfig: jasmine.Spy = jasmine.createSpy('getComponentConfig');
   /** @inheritDoc */
-  public getComponentConfig: jasmine.Spy = jasmine.createSpy('getConfiguration');
+  public getConfig: jasmine.Spy = jasmine.createSpy('getConfig');
 }

@@ -1,24 +1,41 @@
 import {
-  ChangeDetectorRef, ComponentFactoryResolver, ComponentRef, Directive, Input, KeyValueChangeRecord, KeyValueDiffer,
+  ChangeDetectorRef, ComponentFactoryResolver, ComponentRef, Directive, forwardRef, Injector, Input, KeyValueChangeRecord, KeyValueDiffer,
   KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, ViewContainerRef
 } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import type { DynamicConfigurable } from '@o3r/configuration';
 import type { BaseContextOutput, Configuration, Context, ContextInput, Functionify } from '@o3r/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: '[c11n]'
+  selector: '[c11n]',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => C11nDirective),
+      multi: true
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => C11nDirective),
+      multi: true
+    }
+  ]
 })
 export class C11nDirective <
   D extends Configuration = Configuration,
   I extends ContextInput = ContextInput,
-  O extends BaseContextOutput = BaseContextOutput> implements OnChanges, OnDestroy {
+  O extends BaseContextOutput = BaseContextOutput,
+  T extends Context<I, O> & DynamicConfigurable<D> = Context<I, O> & DynamicConfigurable<D>> implements OnChanges, OnDestroy {
 
   /** The component information passed to the directive */
-  @Input() public component!: Context<I, O> & DynamicConfigurable<D>;
+  @Input() public component!: T;
 
   /** The information related to configuration */
   @Input() public config?: D;
+
+  /** Formcontrol */
+  @Input() public formControl?: FormControl;
 
   /** The input setter */
   @Input() public set inputs(value: {[K in keyof I]: I[K]}) {
@@ -37,7 +54,7 @@ export class C11nDirective <
   @Input() public outputs?: Functionify<O>;
 
   /** The component reference */
-  public componentRef!: ComponentRef<Context<I, O> & DynamicConfigurable<D>>;
+  public componentRef!: ComponentRef<T>;
 
   private componentSubscriptions: Subscription[] = [];
 
@@ -50,7 +67,17 @@ export class C11nDirective <
 
   constructor(public viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private differsService: KeyValueDiffers) {
+    private differsService: KeyValueDiffers,
+    private injector: Injector) {
+  }
+
+  /**
+   * Type guard for component implementing CVA
+   *
+   * @param _cmp Component instance
+   */
+  private componentImplementsCva(_cmp: T): _cmp is T & ControlValueAccessor {
+    return !!this.formControl;
   }
 
   private updateInputs(record: KeyValueChangeRecord<string, any>, inputChanges: SimpleChanges) {
@@ -78,14 +105,18 @@ export class C11nDirective <
         this.componentRef.destroy();
       }
 
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory<Context<I, O> & DynamicConfigurable<D>>(changes.component.currentValue);
+      const ngControl = !!this.formControl && this.injector.get(NgControl);
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory<T>(changes.component.currentValue);
 
       componentFactory.inputs.forEach((prop) => {
         this.uninitializedInputs.add(prop.propName);
       });
 
       this.viewContainerRef.clear();
-      this.componentRef = this.viewContainerRef.createComponent<Context<I, O> & DynamicConfigurable<D>>(componentFactory);
+      this.componentRef = this.viewContainerRef.createComponent<T>(componentFactory);
+      if (ngControl && this.componentImplementsCva(this.componentRef.instance)) {
+        ngControl.valueAccessor = this.componentRef.instance;
+      }
 
       // Initialize outputs
       if (this.outputs) {
@@ -129,6 +160,18 @@ export class C11nDirective <
       this.componentRef.instance.ngOnChanges(inputChanges);
       this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
     }
+  }
+
+  /**
+   * returns validation errors from component instance if validate method exists else returns null
+   *
+   * @param control Form control
+   */
+  public validate(control: AbstractControl) {
+    if (!this.componentRef?.instance.validate) {
+      return null;
+    }
+    return this.componentRef.instance.validate(control);
   }
 
   /**
