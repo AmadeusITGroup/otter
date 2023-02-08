@@ -4,6 +4,7 @@
   "extends": "./tsconfig.base",
   "compilerOptions": {
     "allowSyntheticDefaultImports": false,
+    "moduleResolution": "node",
     "paths": {
       "@o3r/core": ["packages/@o3r/core/dist", "packages/@o3r/core/src/public_api"],
       "@o3r/schematics": ["packages/@o3r/schematics/dist", "packages/@o3r/schematics/src/public_api"],
