@@ -37,6 +37,9 @@
   "peerDependenciesMeta": {
     "@angular-devkit/core": {
       "optional": true
+    },
+    "@formatjs/intl-numberformat": {
+      "optional": true
     }
   },
   "dependencies": {
