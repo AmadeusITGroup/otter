@@ -45,11 +45,12 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
           `--skip-linter ${!!config.get<boolean>('skipLinter')}`
         ];
         const fixtureDoc = await vscode.workspace.openTextDocument(fixtureDocUri);
+        const selectedClasses = textSelected.match(/class="([^"]+)"/)?.[1] || textSelected;
         const options = [
           ...defaultOptions,
           `--path ${relativePath}`,
           ...chosenMethods.map((m) => `--methods ${m}`),
-          `--selector="${textSelected.split(' ').map((cl) => `.${cl}`)}"`
+          `--selector=".${selectedClasses.replace(/ /g, '.')}"`
         ];
         terminal.sendText(`yarn ng generate @o3r/core:fixture ${options.join(' ')}`, true);
         terminal.show();
