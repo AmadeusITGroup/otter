@@ -1,6 +1,6 @@
 # Ama-terasu api Specification
 
-This is a module for **Ama-terasu** CLI to execute action relative to Digital Api specification.
+This is a module for [Ama-terasu CLI](https://www.npmjs.com/package/@ama-terasu/cli) to execute actions related to Digital Api specifications.
 
 ## Available commands
 

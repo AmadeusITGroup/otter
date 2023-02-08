@@ -1,6 +1,6 @@
 # Ama-terasu Otter
 
-This is a module for **Ama-terasu** CLI to execute action relative to the Otter Framework.
+This is a module for [Ama-terasu CLI](https://www.npmjs.com/package/@ama-terasu/cli) to execute actions related to the Otter Framework.
 
 ## Available commands
 
