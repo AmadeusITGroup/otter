@@ -1,5 +1,5 @@
-import type { Rule, Tree } from '@angular-devkit/schematics';
-import { getFilesInFolderFromWorkspaceProjectsInTree } from '@o3r/schematics';
+import { chain, Rule, Tree } from '@angular-devkit/schematics';
+import { getFilesInFolderFromWorkspaceProjectsInTree, removePackages } from '@o3r/schematics';
 import * as ts from 'typescript';
 
 /**
@@ -9,7 +9,7 @@ import * as ts from 'typescript';
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return (tree: Tree) => {
+  const updateImports = (tree: Tree) => {
     const files = getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'ts');
     files.forEach((file) => {
       const sourceFile = ts.createSourceFile(
@@ -31,5 +31,10 @@ export function ngAdd(): Rule {
         tree.commitUpdate(recorder);
       }
     });
-  }
+  };
+  return chain([
+    removePackages(['@dapi/sdk-core']),
+    updateImports
+  ]);
+
 }

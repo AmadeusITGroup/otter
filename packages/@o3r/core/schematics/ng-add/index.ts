@@ -1,5 +1,5 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { applyEsLintFix, getPackageVersion, install, ngAddPackages } from '@o3r/schematics';
+import { applyEsLintFix, getPackageVersion, install, ngAddPackages, removePackages } from '@o3r/schematics';
 import { createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
   updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
   updateOtterEnvironmentAdapter, updatePlaywright, updateStore } from '../rule-factories/index';
@@ -8,6 +8,7 @@ import { updateBuildersNames as updateBuildersNamesFromV7 } from './updates-for-
 import { updateOtterGeneratorsNames as updateOtterGeneratorsNamesFromV7 } from './updates-for-v8/generators/update-generators-names';
 import { updateImports as updateImportsFromV7 } from './updates-for-v8/imports/update-imports-from-v7-to-v8';
 import * as path from 'node:path';
+import { packagesToRemove } from './updates-for-v8/replaced-packages';
 /**
  * Add Otter library to an Angular Project
  *
@@ -26,7 +27,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     ...(options.enableAnalytics ? ['@o3r/analytics'] : []),
     ...(options.enableApisManager ? ['@o3r/apis-manager'] : []),
     ...(options.enableStorybook ? ['@o3r/storybook'] : []),
-    ...(options.enablePlaywright ? ['@o3r/testing'] : [])
+    ...(options.enablePlaywright ? ['@o3r/testing'] : []),
+    ...(options.enableRulesEngine ? ['@o3r/rules-engine'] : [])
   ]));
   const externalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(options.enablePrefetchBuilder ? ['@o3r/ngx-prefetch'] : [])
@@ -46,6 +48,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     updateLinter(options, __dirname, o3rCoreVersion),
     updateAdditionalModules(options, __dirname),
     generateRenovateConfig(__dirname),
+    removePackages(packagesToRemove),
     options.skipLinter ? noop() : applyEsLintFix(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
     options.skipInstall ? noop() : install,

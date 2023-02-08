@@ -52,10 +52,12 @@ export function updateOtterGeneratorsNames(): Rule {
     const projectsInAngularJson = Object.keys(workspace.projects);
     if (workspace.schematics) {
       updateGeneratorsPackage(workspace.schematics);
+      delete workspace.schematics['@otter/ng-tools:api-service'];
     }
     projectsInAngularJson.forEach(projectName => {
       if (workspace.projects[projectName].schematics) {
         updateGeneratorsPackage(workspace.projects[projectName].schematics!);
+        delete workspace.projects[projectName].schematics!['@otter/ng-tools:api-service'];
       }
     });
 

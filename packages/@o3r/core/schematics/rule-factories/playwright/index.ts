@@ -16,7 +16,7 @@ export function updatePlaywright(rootPath: string): Rule {
     // update gitignore
     if (tree.exists('/.gitignore')) {
       let gitignore = tree.read('/.gitignore')!.toString();
-      if (!gitignore.includes('dist*')) {
+      if (!gitignore.includes('dist*') && !gitignore.includes('/dist-e2e-playwright') && !gitignore.includes('/playwright-reports')) {
         gitignore +=
           `
 # Playwright
