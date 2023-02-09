@@ -19,6 +19,9 @@ export interface NgAddSchematicsSchema extends JsonObject {
   /** Enable otter styling */
   enableStyling: boolean;
 
+   /** Enable otter rules-engine */
+  enableRulesEngine: boolean;
+
   /** Enable CMS */
   enableCms: boolean;
 

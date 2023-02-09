@@ -17,6 +17,7 @@
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1501.3",
+    "@angular-devkit/schematics": "~15.1.3",
     "@angular/core": "^15.1.2",
     "@angular/platform-browser-dynamic": "^15.1.2",
     "@ngrx/effects": "^15.0.0",
@@ -37,6 +38,11 @@
     "jsonpath-plus": "^7.0.0",
     "rxjs": "^7.4.0",
     "typescript-json-schema": "~0.55.0"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    }
   },
   "dependencies": {
     "tslib": "^2.4.1"

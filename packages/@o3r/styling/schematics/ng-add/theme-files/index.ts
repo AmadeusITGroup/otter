@@ -34,21 +34,31 @@ export function updateThemeFiles(rootPath: string): Rule {
       tree.delete(mainStylePath);
     }
 
+    const npmClient = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
+    context.logger.info(`Otter library requires Angular Material, you can install it with "${npmClient} ng add @angular/material"`);
+
+    if (tree.exists(path.join(mainStyleFolder, 'styling', mainStyleName)) ||
+      tree.exists(path.join(mainStyleFolder, 'styling', 'index.scss')) ||
+      tree.exists(path.join(mainStyleFolder, 'styling', '_index.scss')) ||
+      tree.exists(path.join(mainStyleFolder, 'styling', 'styling.scss')) ||
+      tree.exists(path.join(mainStyleFolder, 'styling', '_styling.scss'))
+    ) { // do nothing if the styling is already in place
+      return tree;
+    }
+
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
         ...strings,
         currentStyleFile,
-        mainStyleName
+        mainStyleName: mainStyleName.replace('.scss', '')
       }),
       move(mainStyleFolder)
     ]);
 
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
-    const npmClient = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
-    context.logger.info(`Otter library requires Angular Material, you can install it with "${npmClient} ng add @angular/material"`);
-
     return rule(tree, context);
+
   };
 
 }

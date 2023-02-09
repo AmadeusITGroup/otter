@@ -53,6 +53,12 @@
       "description": "Install otter configuration package and config extractor setup",
       "x-prompt": "Add Otter configuration setup ?"
     },
+    "enableRulesEngine": {
+      "type": "boolean",
+      "default": false,
+      "description": "Install otter rules-engine package",
+      "x-prompt": "Add Otter rules-engine setup ?"
+    },
     "enableLocalization": {
       "type": "boolean",
       "default": true,

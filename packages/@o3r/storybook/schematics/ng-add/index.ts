@@ -10,10 +10,11 @@ import { NgAddSchematicsSchema } from './schema';
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (_tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const { updateStorybook } = await import('../storybook-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       return chain([
+        removePackages(['@otter/storybook']),
         updateStorybook(options, __dirname),
         options.skipLinter ? noop() : applyEsLintFix(),
         options.skipInstall ? noop() : install,

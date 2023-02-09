@@ -17,6 +17,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "peerDependencies": {
+    "@angular-devkit/schematics": "~15.1.3",
     "@angular-eslint/eslint-plugin": "~15.2.0",
     "@angular-eslint/eslint-plugin-template": "~15.2.0",
     "@angular-eslint/template-parser": "~15.2.0",
@@ -53,6 +54,9 @@
     "typescript": "~4.9.4"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@angular-eslint/eslint-plugin-template": {
       "optional": true
     },

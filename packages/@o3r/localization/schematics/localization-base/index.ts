@@ -124,7 +124,7 @@ export function updateLocalization(options: { projectName: string | null }, root
 
     if (workspaceProject.architect.build) {
       const alreadyExistingBuildOption =
-        workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === 'localizations');
+        workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
 
       if (!alreadyExistingBuildOption) {
         workspaceProject.architect.build.options.assets.push({
@@ -137,7 +137,7 @@ export function updateLocalization(options: { projectName: string | null }, root
 
     if (workspaceProject.architect.test) {
       const alreadyExistingTestOption =
-        workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === 'localizations');
+        workspaceProject.architect.test.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');
       if (!alreadyExistingTestOption) {
         workspaceProject.architect.test.options.assets.push({
           glob: '**/*.json',
