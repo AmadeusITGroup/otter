@@ -12,7 +12,13 @@ const store = chromeWebstoreUpload({
   clientId: process.env.CHROME_CLIENT_ID,
   refreshToken: process.env.CHROME_REFRESH_TOKEN
 });
-store.uploadExisting(archive).then((res) => console.debug(res));
+store.uploadExisting(archive).then((resUpload) => {
+  console.debug(resUpload);
+
+  store.publish.then((resPublish) => {
+    console.debug(resPublish);
+  });
+});
 
 archive.directory(resolve(__dirname, '..', 'dist'), false);
 archive.finalize();
