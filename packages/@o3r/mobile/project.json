@@ -29,12 +29,10 @@
       ],
       "outputs": [
         "{projectRoot}/dist/pcloudy",
-        "{projectRoot}/dist/builders.json",
-        "{projectRoot}/dist/migration.json",
-        "{projectRoot}/dist/collection.json",
-        "{projectRoot}/dist/builders/**/*.json",
-        "{projectRoot}/dist/schematics/**/*.json",
-        "{projectRoot}/dist/schematics/**/templates"
+        "{projectRoot}/dist/schematics/**/*.js",
+        "{projectRoot}/dist/schematics/**/*.d.ts",
+        "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/build/.tsbuildinfo.builders"
       ],
       "options": {
         "script": "build:builders"

@@ -29,21 +29,7 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      },
-      "outputs": [
-        "{projectRoot}/dist/middlewares",
-        "{projectRoot}/dist/builders.json",
-        "{projectRoot}/dist/migration.json",
-        "{projectRoot}/dist/collection.json",
-        "{projectRoot}/dist/builders/**/*.json",
-        "{projectRoot}/dist/schematics/**/*.json",
-        "{projectRoot}/dist/schematics/**/templates"
-      ],
-      "dependsOn": [
-        "^build",
-        "compile",
-        "prepare-build-builders"
-      ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

@@ -52,7 +52,7 @@ jobs:
       - name: Setup
         uses: ./.github/actions/setup
         with:
-          enable-build-cache: 'true'
+          enable-build-cache: ${{ github.event_name == 'pull_request' }}
           install-jdk: 'true'
       - name: Build Swagger CodeGen
         run: yarn build:swagger-gen
