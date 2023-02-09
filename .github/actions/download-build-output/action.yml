@@ -1,0 +1,14 @@
+name: Download Build Output
+description: Download and restore the `dist` folders from github artifact (check ../upload-build-output)
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: dist
+        path: '.'
+    - run: unzip -q -n dist.zip
+      shell: bash
+    - run: rm -f dist.zip
+      shell: bash

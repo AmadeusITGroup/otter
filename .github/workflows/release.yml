@@ -1,0 +1,54 @@
+name: Release Packages
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish-packages:
+    environment: 'production'
+    permissions:
+      packages: write
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+        with:
+          enable-build-cache: 'false'
+          install-jdk: 'true'
+      - name: Get version
+        id: get-version
+        uses: actions/github-script@v6
+        env:
+          tagName: ${{ github.ref_name }}
+        with:
+          script: |
+            const version = process.env.tagName.replace(/^v/i, '');
+            core.setOutput('version', version)
+      - run: yarn build:swagger-gen
+      - run: yarn build
+      - run: yarn set:version ${{ steps.get-version.outputs.version }}
+      - name: Get tag name
+        id: get-npm-tag
+        uses: ./.github/actions/get-npm-tag
+        with:
+          is-prerelease: ${{ github.event.release && github.event.release.prerelease }}
+          version: ${{ steps.get-version.outputs.version }}
+      - name: Publish
+        run: yarn run publish --tag=${{ steps.get-npm-tag.outputs.tag }} --always-auth=true
+        env:
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
+          AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
+          AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
+      - name: Publish Extensions
+        if: github.event.release && !github.event.release.prerelease
+        run: yarn run publish:extensions
+        env:
+          VSCE_PAT: ${{ secrets.AZURE_VSC_EXT_TOKEN }}
+          CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
+          CHROME_EXT_ID: ${{ secrets.CHROME_EXT_ID }}
+          CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+

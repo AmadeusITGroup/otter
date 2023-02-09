@@ -28,8 +28,6 @@ on:
       AZURE_EMAIL:
         required: false
         description: Email of the user publishing on Azure Feeds for PR Artifacts
-  release:
-    types: [published]
 
 jobs:
   publish:
@@ -40,32 +38,17 @@ jobs:
       contents: read
     steps:
       - uses: actions/checkout@v3
-      - name: Get version
-        id: get-version
-        uses: actions/github-script@v6
-        env:
-          tagName: ${{ inputs.version || github.ref_name }}
-        with:
-          script: |
-            const version = process.env.tagName.replace(/^v/i, '');
-            core.setOutput('version', version)
-      - name: Setup
-        uses: ./.github/actions/setup
+      - uses: ./.github/actions/download-build-output
+      - uses: ./.github/actions/setup
         with:
           enable-build-cache: ${{ github.event_name == 'pull_request' }}
-          install-jdk: 'true'
-      - name: Build Swagger CodeGen
-        run: yarn build:swagger-gen
-      - name: Build
-        run: yarn build
-      - name: Set new version
-        run: yarn set:version ${{ steps.get-version.outputs.version }}
+      - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag
         uses: ./.github/actions/get-npm-tag
         with:
-          is-prerelease: ${{ inputs.prerelease || (github.event.release && github.event.release.prerelease) }}
-          version: ${{ steps.get-version.outputs.version }}
+          is-prerelease: ${{ inputs.prerelease }}
+          version: ${{ inputs.version }}
       - name: Publish
         run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
         env:
