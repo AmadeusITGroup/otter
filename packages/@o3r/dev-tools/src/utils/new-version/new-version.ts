@@ -113,7 +113,7 @@ export class NewVersion {
     const branchReleaseMatches = this.options.releaseBranchRegExp.exec(this.options.baseBranch);
     this.options.logger.verbose(branchReleaseMatches);
     return this.isDefaultBranch && this.options.defaultBranchVersionMask ||
-      branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3]}` || '';
+      branchReleaseMatches?.length && `${branchReleaseMatches[1]}.${branchReleaseMatches[2]}${branchReleaseMatches[3] || ''}` || '';
   }
 
   /**
