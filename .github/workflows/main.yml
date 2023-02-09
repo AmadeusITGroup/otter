@@ -17,21 +17,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      ARTIFACT_NAME: application-package
-    outputs:
-      artifactName: ${{ env.ARTIFACT_NAME }}
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup
         with:
           enable-build-cache: 'true'
           install-jdk: 'true'
-      - name: Build Swagger CodeGen
-        run: yarn build:swagger-gen
-      - name: Build
-        run: yarn build
+      - run: yarn build:swagger-gen
+      - run: yarn build
+      - uses: ./.github/actions/upload-build-output
   version:
     permissions:
       contents: write
@@ -41,8 +35,7 @@ jobs:
       isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
-      - name: Setup
-        uses: ./.github/actions/setup
+      - uses: ./.github/actions/setup
       - name: New Version
         id: newVersion
         uses: ./.github/actions/new-version
@@ -56,7 +49,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   checks:
     uses: ./.github/workflows/code-check.yml
-    secrets: inherit
     with:
       affected: ${{ github.event_name == 'pull_request' }}
   publish-packages:
