@@ -1,6 +1,6 @@
 import { EOL } from 'node:os';
 import { ExtensionContext, Position, Range, TextEditor, window } from 'vscode';
-import { generateVariableName, insertVariable, isPropertyValue } from './helpers';
+import { generateVariableName, insertVariable, isPropertyValue } from './helpers/utils.helper';
 
 /**
  * Replace all the interested lines with an Otter variable
