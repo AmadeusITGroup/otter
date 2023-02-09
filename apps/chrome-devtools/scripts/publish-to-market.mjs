@@ -1,6 +1,6 @@
-const archiver = require('archiver');
-const chromeWebstoreUpload = require('chrome-webstore-upload');
-const { resolve } = require('node:path');
+import archiver from 'archiver';
+import chromeWebstoreUpload from 'chrome-webstore-upload';
+import { resolve } from 'node:path';
 
 const archive = archiver('zip');
 archive.on('error', (err) => {
