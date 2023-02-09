@@ -1,0 +1,66 @@
+name: Bug Report on @ama-terasu
+description: File a bug report on @ama-terasu scope
+title: "[Bug]: "
+labels: ["bug", "ama-terasu"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: dropdown
+    id: package-name
+    attributes:
+      label: Package name
+      description: Which package are you facing issue with?
+      multiple: true
+      options: [
+          cli,
+          core,
+          schematics
+      ]
+    validations:
+      required: true
+  - type: input
+    id: package-version
+    attributes:
+      label: Package version
+      description: What version of our software are you running?
+      placeholder: ex. 8.0.1
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction-steps
+    attributes:
+      label: Reproduction steps
+      description: Reproduction steps (please include the application URL when possible)
+    validations:
+      required: true
+  - type: textarea
+    id: current-result
+    attributes:
+      label: Current result
+      description: What result did you get?
+    validations:
+      required: true
+  - type: textarea
+    id: expected-result
+    attributes:
+      label: Expected result
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: additional-comments
+    attributes:
+      label: Additional comments
+      description: Share with us any additional information which could help us in the investigation
+    validations:
+      required: false
