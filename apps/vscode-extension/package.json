@@ -197,7 +197,6 @@
     "ng": "yarn nx",
     "build": "yarn nx build vscode-extension",
     "watch": "yarn nx run vscode-extension:compile:watch",
-    "publish-to-market": "vsce -i ./dist",
     "prepare:publish": "prepare-publish ./dist"
   },
   "devDependencies": {
