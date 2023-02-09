@@ -10,5 +10,5 @@ export const createRule = ESLintUtils.RuleCreator((name) => {
   if (version === '0.0') {
     return 'file:' + path.resolve(__dirname, '..', '..', '..', '..', '..', 'docs', 'linter', 'eslint-plugin', 'rules', `${name}.md`);
   }
-  return `https://dev.azure.com/AmadeusDigitalAirline/Otter/_git/library?path=/docs/linter/eslint-plugin/rules/${name}.md&version=GBrelease/${version}`;
+  return `https://github.com/AmadeusITGroup/otter/tree/release/${version}/docs/linter/eslint-plugin/rules/${name}.md`;
 });
