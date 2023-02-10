@@ -50,6 +50,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
+        continue-on-error: ${{ github.event_name == 'pull_request' }}
         run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
