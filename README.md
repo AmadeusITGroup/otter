@@ -7,9 +7,9 @@
 <br />
 
 ## Description
-
-The **Otter** Project has the goal to provide a common platform to accelerate and facilitate the development on web application based on Angular.
-Otter is a very modular framework split in several unit working together on a common base allowing CMS customization.
+The **Otter** project is a highly modular framework whose goal is to provide a common platform to accelerate and facilitate the development on Angular web applications.
+It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
+Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
 
 > **Note**:  The full documentation is available [here](./docs/README.md).
 
@@ -24,7 +24,7 @@ Otter is a very modular framework split in several unit working together on a co
 
 ## Get Started
 
-A new application can be with the simple commands:
+A new application can be set up with these simple commands:
 
 ```shell
 # Starting a new angular application
@@ -35,11 +35,11 @@ ng new my-app
 ng add @o3r/core
 ```
 
-> **Note**: Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) documentations for complete documentation
+> **Note**: Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read the [Contributing](./CONTRIBUTING.md) file for details on our code of conduct and the process to submit pull requests.
 
 ## Versioning
 
@@ -51,14 +51,14 @@ Please refer to the [License file](./LICENSE).
 
 ## Acknowledgments
 
-The [Otter Team](https://github.com/orgs/amadeus-digital/teams/otter) is responsible for the review of the code of this repository.
-Any bug of feature request can be addressed via [issue](https://github.com/AmadeusITGroup/otter/issues/new/choose) report.
+The Otter Team, @AmadeusITGroup/otter_admins, is responsible for the review of the code of this repository.
+Any bug of feature request can be addressed via [issue](https://github.com/AmadeusITGroup/otter/issues/new) report.
 
 ## Developer
 
 ### Building and Testing library
 
-This document describes how to set up your development environment to build and test library.
+These documents describe how to set up your development environment to build and test the framework.
 It also explains the basic mechanics of using `git`, `node`, and `npm`.
 
 - [Description](#description)
@@ -79,8 +79,8 @@ It also explains the basic mechanics of using `git`, `node`, and `npm`.
     - [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
     - [Link local packages](#link-local-packages)
 
-See the [contribution guidelines](./CONTRIBUTING.md)
-if you'd like to contribute to framework.
+Refer to the [contribution guidelines](./CONTRIBUTING.md)
+if you'd like to contribute to the framework.
 
 #### Prerequisite Software
 
@@ -88,30 +88,31 @@ Before you can build and test Otter modules, you must install and configure the
 following products on your development machine:
 
 * [Git](http://git-scm.com) and/or the **GitHub app** (for [Mac](http://mac.github.com) or
-  [Windows](http://windows.github.com)); [GitHub's Guide to Installing
-  Git](https://help.github.com/articles/set-up-git) is a good source of information.
+  [Windows](http://windows.github.com))
+  * [GitHub's Guide to Installing
+    Git](https://help.github.com/articles/set-up-git) is a good source of information.
 
-* [Node.js](http://nodejs.org), (version `>=10.0.0`) which is used to run tests, and generate distributable files. We also use Node's Package Manager, `npm`
-  (version `>3.8.x`), which comes with Node. Depending on your system, you can install Node either from
-  source or as a pre-packaged bundle.
+* [Node.js](http://nodejs.org), (version `>=10.0.0`)
+  * This is used to run tests and generate distributable files. We also use Node's Package Manager, `npm`
+    (version `>3.8.x`), which comes with Node. Depending on your system, you can install Node either from
+    source or as a pre-packaged bundle.
   
-* [Yarn](https://yarnpkg.com/lang/en/docs/install/), a Node's Package Manager. You can install yarn using NPM manager (coming with Node.js).
-  The version of Yarn currently used is embedded in the repository. In case you need to link this library with your project, you can check the section "Link local packages"
+* [Yarn](https://yarnpkg.com/lang/en/docs/install/), a Node's Package Manager
+  * You can install yarn using NPM manager (coming with Node.js).
+    The version of Yarn currently used is embedded in the repository. In case you need to link this library with your project, you can check the section "Link local packages".
 
-* [Chrome](https://www.google.com/chrome/browser/desktop/index.html), we use Chrome to run our tests.
+* [Chrome](https://www.google.com/chrome/browser/desktop/index.html)
+  * We use Chrome to run our tests.
 
-#### Getting the Sources
+#### Getting the sources
 
-Clone the Otter repository:
-
-1. Login to [Github enterprise](https://github.com/AmadeusITGroup/otter) using your P-Account.
-2. Clone the project using the button `Code` or using the following git command
+Clone the Otter repository using the button `Code` or using the following git command:
 
 ```shell
 git clone https://github.com/AmadeusITGroup/otter.git
 ```
 
-#### Installing NPM Modules
+#### Installing NPM modules
 
 Next, install the JavaScript modules needed to build:
 
@@ -135,17 +136,17 @@ Each module can be built independently thanks to [Nx](https://nx.dev/packages/nx
 yarn nx build core
 ```
 
-> Notes: Results are put in the `dist` of each modules (`packages/@<scope>/<module>/dist`).
+> **Note**: Results are put in the `dist` of each module (`packages/@<scope>/<module>/dist`).
 
 #### Running tests locally
 
-Check the formatting :
+Check the formatting:
 
 ```shell
 yarn run lint
 ```
 
-Check Unit Test :
+Check Unit Tests:
 
 ```shell
 yarn run test
@@ -163,8 +164,8 @@ yarn nx lint core
 
 #### Manage task cache
 
-When running the Build, Lint or Test commands, **Nx** can use its [cache mechanism](https://nx.dev/concepts/how-caching-works).
-For some reason, it can be useful to clean the cache to investigate issue, this can be done via the following command:
+When running the Build, Lint, or Test commands, **Nx** can use its [cache mechanism](https://nx.dev/concepts/how-caching-works).
+In some cases, it may be useful to clear the cache to investigate an issue. This can be done with the following command:
 
 ```shell
 yarn nx reset
@@ -172,20 +173,15 @@ yarn nx reset
 
 #### Debugging with Visual Studio Code
 
-The repository embedded the mandatory configuration and recommended VSCode plugging to be the most comfortable possible to develop on the Otter Framework.
+The repository contains the mandatory configuration and the recommended VSCode plugins to ensure optimal comfort and productivity while developing on the Otter Framework.
 
-The default configuration of the repository provide a way to run Unit Test one per one and to define, within VSCode, break points using the `vscode-jest-tests` debugger task.
-
-The Otter Demo Application, included in the folder `apps/@o3r/demo` can be run by the following command:
-
-```shell
-yarn start
-```
+The default configuration of the repository provides a way to run Unit Tests one by one and to define, within VSCode, break points using the `vscode-jest-tests` debugger task.
 
 #### Link local packages
 
-With Yarn v1, in the main package.json, add a `resolutions` property with the relative path to the `dist` of the local package, the protocol `link:` can be used.
-NOTE: It will not bring dependencies of the linked package.
+For Yarn v1, add the `resolutions` property in the main package.json. It should be filled with the relative path to the `dist` of the local packages you want to link. The protocol `link:` can be used.
+
+NOTE: It will not import the transitive dependencies of the linked packages.
 
 Example:
 
@@ -198,9 +194,10 @@ Example:
 }
 ```
 
-With Yarn v2+, the protocol `portal:` can also be used
-NOTE: With the portal protocol it will bring all the dependencies of the linked package.
-Some issues can happen because of the mismatch version of these dependencies.
+For Yarn v2+, the protocol `portal:` can also be used.
+
+NOTE: The portal protocol will also import all the transitive dependencies of the linked packages.
+Please keep in mind that mismatched versions of these dependencies may cause some issues.
 
 Example:
 
