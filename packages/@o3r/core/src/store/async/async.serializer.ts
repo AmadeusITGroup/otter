@@ -33,7 +33,7 @@ export function asyncEntitySerializer<T extends AsyncStoreItem & EntityState<Asy
  * @param state State of an asynchronous entity store with status to serialize
  * @returns a plain json object to pass to json.stringify
  */
-export function asyncEntityWithStatusSerializer<T extends AsyncStoreItem & EntityState<AsyncStoreItem & { status: EntityStatus<T> }>>(state: T) {
+export function asyncEntityWithStatusSerializer<T extends AsyncStoreItem & EntityState<AsyncStoreItem & { status: EntityStatus<T['entities']['status']> }>>(state: T) {
   const entities = (state.ids as string[]).reduce((entitiesAcc, entityId) => {
     entitiesAcc[entityId] = { ...asyncStoreItemAdapter.clearAsyncStoreItem(state.entities[entityId]!), status: {} };
     return entitiesAcc;
