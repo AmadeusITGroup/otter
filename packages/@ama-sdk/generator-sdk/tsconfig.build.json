@@ -6,7 +6,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitHelpers": false,
-    "outDir": "generators/",
+    "outDir": "dist/",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./"

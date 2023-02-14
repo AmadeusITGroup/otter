@@ -18,7 +18,7 @@
     "build:swagger-java-swift-gen": "mvn clean package -f ./src/generators/swift-core/templates/swagger-codegen-swift/pom.xml",
     "prepare:publish": "prepare-publish ./dist"
   },
-  "schematics": "./dist/collection.json",
+  "schematics": "./collection.json",
   "keywords": [
     "yeoman-generator"
   ],
