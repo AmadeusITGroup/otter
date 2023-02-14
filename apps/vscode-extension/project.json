@@ -63,9 +63,10 @@
       }
     },
     "publish-extension": {
-      "executor": "nx:run-script",
+      "executor": "nx:run-commands",
       "options": {
-        "script": "publish-to-market"
+        "command": "npx @vscode/vsce publish",
+        "cwd": "apps/vscode-extension/dist"
       },
       "dependsOn": [
         "prepare-publish"
