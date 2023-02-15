@@ -26,9 +26,10 @@ export function getPeerDepWithPattern(packageJsonPath: string, pattern = /^@(ott
  *
  * @param packageJsonPath The package json on which we search for o3r peer deps
  * @param filterBasics If activated it will remove the basic peer deps (o3r/core, o3r/dev-tools and o3r/schematics) from the list of results
+ * @param packagePattern Pattern of the package name to look in the packages peer dependencies.
  */
-export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true) {
-  const depsInfo = getPeerDepWithPattern(packageJsonPath, /^@(o3r|ama-sdk)/);
+export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, packagePattern = /^@(?:o3r|ama-sdk)/) {
+  const depsInfo = getPeerDepWithPattern(packageJsonPath, packagePattern);
   return {
     packageName: depsInfo.packageName,
     packageVersion: depsInfo.packageVersion,

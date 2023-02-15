@@ -10,8 +10,7 @@ describe('@ama-sdk/sdk:core', () => {
     await helpers.run(__dirname)
       .withPrompts({
         swaggerSpecPath: path.resolve(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml'),
-        swaggerCodegenPath: path.resolve(__dirname, 'generators', 'core',
-          'templates', 'swagger-codegen-typescript', 'target', 'swagger-codegen-cli.jar')
+        swaggerCodegenPath: path.resolve(__dirname, 'templates', 'swagger-codegen-typescript', 'target', 'swagger-codegen-cli.jar')
       });
     assert.file(['swagger-spec.yaml']);
   });

@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 
+const generatorsBasePath = path.join(__dirname, '..', '..', 'dist', 'src', 'generators');
 
 const spawnPromisify = (cmd: string, args: string[], cwd?: string) => {
   console.log(`Spawning (in ${cwd}) ${cmd} ${args.join(' ')}`);
@@ -23,9 +24,9 @@ const minutes = 60 * 1000;
 describe('@ama-sdk/sdk:create', () => {
   jest.setTimeout(5 * minutes);
 
-  beforeAll(() => {
-    return helpers
-      .run(path.join(__dirname, 'shell'))
+  beforeAll(async () => {
+    await helpers
+      .run(path.join(generatorsBasePath, 'shell'))
       .inTmpDir((dir) => tmpDir = dir)
       .withPrompts({
         projectName: 'apiTest',
@@ -38,13 +39,13 @@ describe('@ama-sdk/sdk:create', () => {
   // Enable it back once the rebase on the sdk has been done
   it('should generate a working SDK', async () => {
     assert.file(['package.json']);
-    // In test, the version of @ama-sdk are 0.0.0 and can't be installed withtout interaction so a file is used
+    // In test, the version of @ama-sdk are 0.0.0 and can't be installed without interaction so a file is used
     // to set the packages
     await spawnPromisify('yarn', ['link', `${path.resolve(__dirname, '../../..')}`, '--all'], tmpDir);
     await spawnPromisify('yarn', ['install'], tmpDir);
 
     await helpers
-      .run(path.join(__dirname, 'core'))
+      .run(path.join(generatorsBasePath, 'core'))
       .cd(tmpDir)
       .withPrompts({
         swaggerSpecPath: path.resolve(__dirname, '..', '..', 'testing', 'MOCK_swagger.yaml'),
@@ -57,6 +58,7 @@ describe('@ama-sdk/sdk:create', () => {
       'dist/esm2015/index.js',
       'dist/esm2020/index.js',
       'dist/fixtures/jasmine/package.json',
-      'dist/fixtures/jest/package.json']);
+      'dist/fixtures/jest/package.json'
+    ]);
   });
 });
