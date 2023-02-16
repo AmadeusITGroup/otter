@@ -21,7 +21,7 @@
     "watch:manifest": "yarn patch:manifest --watch",
     "watch:extension": "tsc-watch -b tsconfig.extension.json --noClear --onSuccess 'yarn patch:extension'",
     "prepare:publish": "prepare-publish ./dist",
-    "publish-to-market": "node ./scripts/publish-to-market.cjs"
+    "publish-to-market": "node ./scripts/publish-to-market.mjs"
   },
   "files": [
     "dist/"
