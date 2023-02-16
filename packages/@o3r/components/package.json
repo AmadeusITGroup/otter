@@ -39,13 +39,22 @@
     "typescript": "~4.9.4"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
     "@o3r/configuration": {
+      "optional": true
+    },
+    "@o3r/schematics": {
       "optional": true
     },
     "chokidar": {
       "optional": true
     },
     "globby": {
+      "optional": true
+    },
+    "typescript": {
       "optional": true
     }
   },

@@ -37,10 +37,23 @@
     "globby": "^11.1.0",
     "jsonpath-plus": "^7.0.0",
     "rxjs": "^7.4.0",
+    "typescript": "~4.9.4",
     "typescript-json-schema": "~0.55.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "globby": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    },
+    "typescript-json-schema": {
       "optional": true
     }
   },

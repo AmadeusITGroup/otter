@@ -66,6 +66,9 @@
     "@angular/compiler": {
       "optional": true
     },
+    "@o3r/schematics": {
+      "optional": true
+    },
     "typescript": {
       "optional": true
     }
