@@ -38,6 +38,9 @@
     "rxjs": "^7.4.0"
   },
   "peerDependenciesMeta": {
+    "@o3r/schematics": {
+      "optional": true
+    },
     "cheerio": {
       "optional": true
     },

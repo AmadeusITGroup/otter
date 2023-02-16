@@ -62,6 +62,12 @@
     "rxjs": "^7.4.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    },
     "comment-json": {
       "optional": true
     }
