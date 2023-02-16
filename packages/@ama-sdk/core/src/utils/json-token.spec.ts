@@ -1,4 +1,4 @@
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 import { base64DecodeUrl, createBase64Decoder, createBase64Encoder, createBase64UrlDecoder, createBase64UrlEncoder, createJweEncoder } from './json-token';
 
 describe('JSON token utils', () => {

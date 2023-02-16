@@ -36,12 +36,6 @@ module.exports = {
   'settings': {
     'import/resolver': 'node'
   },
-  'plugins': [
-    'eslint-plugin-jsdoc',
-    'eslint-plugin-prefer-arrow',
-    '@typescript-eslint',
-    'eslint-plugin-jest'
-  ],
   'extends': [
     '@o3r/eslint-config-otter'
   ].map(require.resolve)

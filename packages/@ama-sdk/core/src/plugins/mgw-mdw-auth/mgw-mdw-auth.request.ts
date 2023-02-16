@@ -15,7 +15,7 @@ export async function sha256(value: string) {
   }
   // NodeJS
   try {
-    return ab2str(require('crypto').createHash('sha256')
+    return ab2str(require('node:crypto').createHash('sha256')
       .update(value)
       .digest('latin1'));
   } catch (err) {
@@ -33,7 +33,7 @@ export async function sha256(value: string) {
  */
 export function hmacSHA256(value: string, secretKey: string) {
   try {
-    return ab2str(require('crypto').createHmac('sha256', secretKey)
+    return ab2str(require('node:crypto').createHmac('sha256', secretKey)
       .update(value)
       .digest('latin1'));
   } catch (err) {

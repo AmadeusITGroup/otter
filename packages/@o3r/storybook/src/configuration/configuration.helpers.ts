@@ -19,38 +19,46 @@ export function extractConfiguration(library: string, componentName: string, met
     const control: any = {};
     let value: any;
     switch (config.type) {
-      case 'boolean':
+      case 'boolean': {
         control.type = config.type;
         value = config.value === 'true';
         break;
-      case 'number':
+      }
+      case 'number': {
         control.type = config.type;
         value = +config.value!;
         break;
-      case 'string':
+      }
+      case 'string': {
         control.type = 'text';
         value = config.value;
         break;
-      case 'enum':
+      }
+      case 'enum': {
         control.type = 'select';
         control.options = config.choices;
         value = config.value;
         break;
-      case 'string[]':
+      }
+      case 'string[]': {
         control.type = 'array';
         value = config.values;
         break;
+      }
       case 'element[]':
-      case 'unknown':
+      case 'unknown': {
         control.type = 'object';
         value = config.values;
         break;
-      case 'unknown[]':
+      }
+      case 'unknown[]': {
         control.type = 'array';
         value = config.values;
         break;
-      default:
+      }
+      default: {
         throw new Error(`Not supported type ${config.type as string} of ${config.name}`);
+      }
     }
     acc.argTypes[`${CONFIGURATION_PREFIX}${config.name}`] = {
       name: `Config: ${config.label || config.name}`,

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { spawn } from 'child_process';
+import { spawn } from 'node:child_process';
 import * as path from 'node:path';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';

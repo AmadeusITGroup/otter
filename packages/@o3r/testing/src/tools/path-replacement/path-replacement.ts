@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { TransformOptions, transformSync } from 'esbuild';
 import * as fs from 'node:fs';
-import { Module } from 'module';
+import { Module } from 'node:module';
 import { requireFromString } from 'module-from-string';
 import * as path from 'node:path';
 /**

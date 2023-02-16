@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import { program } from 'commander';
 import * as fse from 'fs-extra';
-import * as http from 'http';
-import * as https from 'https';
+import * as http from 'node:http';
+import * as https from 'node:https';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { CookieJar, Headers } from 'request';
@@ -237,10 +237,12 @@ async function retrieveArtifactFromAzure() {
  */
 function retrieveArtifact() {
   switch (opts.repositoryManager) {
-    case 'JFrog':
+    case 'JFrog': {
       return retrieveArtifactFromJFrog();
-    case 'Azure Artifacts':
+    }
+    case 'Azure Artifacts': {
       return retrieveArtifactFromAzure();
+    }
   }
 }
 void retrieveArtifact();

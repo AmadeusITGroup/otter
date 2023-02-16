@@ -1,5 +1,5 @@
 import { existsSync, promises as fs } from 'node:fs';
-import https from 'https';
+import https from 'node:https';
 import { Validator } from 'jsonschema';
 import { load } from 'js-yaml';
 import { pascalCase } from 'pascal-case';

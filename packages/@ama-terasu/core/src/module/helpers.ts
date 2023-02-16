@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { spawn, SpawnOptionsWithoutStdio } from 'child_process';
+import { spawn, SpawnOptionsWithoutStdio } from 'node:child_process';
 import type * as logger from 'loglevel';
 
 /** Option to PromiseSpawn helper */

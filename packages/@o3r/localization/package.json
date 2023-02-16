@@ -85,6 +85,7 @@
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-unicorn": "^45.0.2",
     "globby": "^11.1.0",
     "intl-messageformat": "~10.3.0",
     "isomorphic-fetch": "~2.2.1",

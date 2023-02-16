@@ -28,11 +28,14 @@ export async function isCapacitorContext(): Promise<boolean> {
 export async function getBaseUrl(): Promise<string> {
   const platform = await getCapacitorPlatform();
   switch (platform) {
-    case ('ios'):
+    case ('ios'): {
       return 'capacitor://localhost';
-    case ('android'):
+    }
+    case ('android'): {
       return 'http://localhost';
-    default:
+    }
+    default: {
       return window.location.href;
+    }
   }
 }
