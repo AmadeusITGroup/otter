@@ -20,7 +20,7 @@
     "compile": {
       "executor": "@nrwl/js:tsc",
       "outputs": [
-        "{projectRoot}/dist/src",
+        "{projectRoot}/dist",
         "{projectRoot}/build/.tsbuildinfo"
       ],
       "options": {

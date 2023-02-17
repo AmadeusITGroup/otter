@@ -25,7 +25,7 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "nx/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
         "useDaemonProcess": false,
         "cacheableOperations": [
@@ -103,17 +103,22 @@
   },
   "targetDefaults": {
     "lint": {
-      "inputs": ["lint"]
+      "inputs": [
+        "lint"
+      ]
     },
     "test": {
-      "inputs": ["specs", "^specs"]
+      "inputs": [
+        "specs",
+        "^specs"
+      ]
     },
     "prepare-publish": {
       "outputs": [
         "{projectRoot}/dist/package.json"
       ]
     },
-    "publish":  {
+    "publish": {
       "dependsOn": [
         "prepare-publish"
       ]
