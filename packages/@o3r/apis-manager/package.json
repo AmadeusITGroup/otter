@@ -25,6 +25,20 @@
     "comment-json": "^4.1.0",
     "rxjs": "^7.4.0"
   },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
+      "optional": true
+    },
+    "comment-json": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "tslib": "^2.4.1"
   },

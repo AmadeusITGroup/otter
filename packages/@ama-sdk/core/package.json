@@ -43,10 +43,17 @@
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~15.1.3",
-    "isomorphic-fetch": "^2.2.1"
+    "isomorphic-fetch": "^2.2.1",
+    "typescript": "~4.9.4"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "isomorphic-fetch": {
+      "optional": true
+    },
+    "typescript": {
       "optional": true
     }
   },

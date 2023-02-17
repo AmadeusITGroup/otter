@@ -23,6 +23,7 @@
     "@angular-devkit/architect": "~0.1501.3",
     "@angular-devkit/core": "~15.1.3",
     "@angular-devkit/schematics": "~15.1.3",
+    "@angular/cli": "~15.1.2",
     "@angular/common": "~15.1.2",
     "@angular/compiler-cli": "~15.1.2",
     "@angular/core": "~15.1.2",
@@ -37,9 +38,13 @@
     "globby": "^11.1.0",
     "ngrx-store-localstorage": "^15.0.0",
     "rxjs": "^7.4.0",
-    "semver": "^7.3.2"
+    "semver": "^7.3.2",
+    "typescript": "~4.9.4"
   },
   "peerDependenciesMeta": {
+    "@angular/cli": {
+      "optional": true
+    },
     "chokidar": {
       "optional": true
     },

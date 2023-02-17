@@ -19,7 +19,8 @@
   },
   "peerDependencies": {
     "@angular-devkit/core": "~15.1.3",
-    "@o3r/core": "workspace:^"
+    "@o3r/core": "workspace:^",
+    "typescript": "~4.9.4"
   },
   "dependencies": {
     "@microsoft/tsdoc": "~0.14.1",
