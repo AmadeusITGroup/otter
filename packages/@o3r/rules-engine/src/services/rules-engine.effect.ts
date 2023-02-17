@@ -92,9 +92,10 @@ export class PlaceholderTemplateResponseEffect {
               template = template.replace(ejsVar, fact ? fact.factValue : '');
               break;
             }
-            default :
+            default : {
               unknownTypeFound = true;
               break;
+            }
           }
         }
       }

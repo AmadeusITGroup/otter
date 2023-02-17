@@ -1,6 +1,6 @@
 import {Logger} from 'winston';
-import {exec} from 'child_process';
-import {promisify} from 'util';
+import {exec} from 'node:child_process';
+import {promisify} from 'node:util';
 import * as semver from 'semver';
 import {formatGitTagsOutput} from './helpers';
 

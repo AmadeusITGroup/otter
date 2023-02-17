@@ -18,7 +18,7 @@ const logger = winston.createLogger({
 
 const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies'];
 // eslint-disable-next-line no-underscore-dangle
-const nodeWellKnownModules = require('repl')._builtinLibs;
+const nodeWellKnownModules = require('node:repl')._builtinLibs;
 program
   .description('Checks that the dependencies imported in the code are declared in the package.json file')
   .option<string>('--root <directory>', 'Project root directory', (p) => resolve(process.cwd(), p), process.cwd())

@@ -1,7 +1,7 @@
 import { sync as globbySync } from 'globby';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import * as readline from 'readline';
+import * as readline from 'node:readline';
 import { SemVer } from 'semver';
 
 /**

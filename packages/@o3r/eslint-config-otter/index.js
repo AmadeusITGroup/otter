@@ -25,10 +25,14 @@ module.exports = {
     'jsdoc',
     'prefer-arrow',
     '@typescript-eslint',
-    '@o3r'
+    '@o3r',
+    'unicorn'
   ],
   'rules': {
     '@o3r/no-folder-import-for-module': 'error',
+
+    'unicorn/prefer-node-protocol': 'error',
+    'unicorn/switch-case-braces': 'warn',
 
     '@angular-eslint/no-host-metadata-property': 'off',
     '@angular-eslint/no-input-rename': 'off',

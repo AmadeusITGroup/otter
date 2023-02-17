@@ -123,8 +123,9 @@ export class SwaggerSpecMerger {
         }
 
         case 'paths':
-        default:
+        default: {
           throw new Error(`${resourceType} targeting is not supported`);
+        }
       }
     }
 

@@ -146,13 +146,15 @@ export class RulesEngineService implements OnDestroy {
     // create a map of actions depending on actions type
     actions.forEach((action: (ActionBlock & Record<string, any>)) => {
       switch (action.actionType) {
-        case 'UPDATE_ASSET':
+        case 'UPDATE_ASSET': {
           assets[action.asset] = action.value;
           break;
-        case 'UPDATE_LOCALISATION':
+        }
+        case 'UPDATE_LOCALISATION': {
           locs[action.key] = action.value;
           break;
-        case 'UPDATE_CONFIG':
+        }
+        case 'UPDATE_CONFIG': {
           if (action.library && action.component && action.property && typeof action.value !== 'undefined') {
             configOverrides.push({
               component: action.component,
@@ -162,11 +164,14 @@ export class RulesEngineService implements OnDestroy {
             });
           }
           break;
-        case 'UPDATE_PLACEHOLDER':
+        }
+        case 'UPDATE_PLACEHOLDER': {
           templates.push({placeholderId: action.placeholderId, templateUrl: action.value});
           break;
-        default:
+        }
+        default: {
           break;
+        }
       }
     });
 

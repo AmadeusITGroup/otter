@@ -1,5 +1,5 @@
 import { DirEntry, Rule, SchematicContext, SchematicsException, Tree } from '@angular-devkit/schematics';
-import { exec } from 'child_process';
+import { exec } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 
 /**

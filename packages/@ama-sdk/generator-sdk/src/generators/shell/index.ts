@@ -148,7 +148,7 @@ export default class extends SdkGenerator {
     );
 
     switch (this.properties.projectHosting) {
-      case Hostings.AZURE:
+      case Hostings.AZURE: {
         this.fs.copyTpl(
           this.templatePath('azure/**'),
           this.destinationPath(),
@@ -165,6 +165,7 @@ export default class extends SdkGenerator {
   - You need to give Contribution rights on your repository to your service user (to be able to push version tags).
   - You need to create Azure feeds for releases and PullRequest versions and set their names as values of the corresponding variables in the pipeline file.`);
         break;
+      }
     }
   }
 

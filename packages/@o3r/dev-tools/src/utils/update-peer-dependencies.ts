@@ -2,7 +2,7 @@ import { readJsonSync } from 'fs-extra';
 import { exec } from 'node:child_process';
 import * as fs from 'node:fs';
 import * as semver from 'semver';
-import { promisify } from 'util';
+import { promisify } from 'node:util';
 import * as winston from 'winston';
 
 interface Dependency {

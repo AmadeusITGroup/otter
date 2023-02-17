@@ -17,7 +17,7 @@ export interface NgAddPackageOptions {
   /** The package which launched the ng add for the current one */
   parentPackageInfo?: string;
 
-  /** Name of the project **/
+  /** Name of the project */
   projectName?: string | null;
 }
 
