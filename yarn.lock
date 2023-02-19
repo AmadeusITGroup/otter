@@ -5920,7 +5920,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.213
+    "@types/chrome": ^0.0.217
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -8707,13 +8707,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.213":
-  version: 0.0.213
-  resolution: "@types/chrome@npm:0.0.213"
+"@types/chrome@npm:^0.0.217":
+  version: 0.0.217
+  resolution: "@types/chrome@npm:0.0.217"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: a2ceea1f418ed7fb34c69485678fcc7c3230de28960c55af2a8d4a3afc54a52dbeeade10c8180fac35deab4a6d574a06fdb2e6ab338829bb150d607f088d1701
+  checksum: a450d3e72647801db6ff38c7662d7a6dec9ac2758315668403159d593674826596bd18c593f55f771c37ae954de9a4b7dabc75dc52cab699c416d0a4b4ad6bb7
   languageName: node
   linkType: hard
 
@@ -12993,14 +12993,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.2.0":
-  version: 3.7.0
-  resolution: "ci-info@npm:3.7.0"
-  checksum: 6e5df0250382ff3732703b36b958d2d892dd3c481f9671666f96c2ab7888be744bc4dca81395be958dcb828502d94f18fa9aa8901c5a3c9923cda212df02724c
-  languageName: node
-  linkType: hard
-
-"ci-info@npm:^3.6.1":
+"ci-info@npm:^3.2.0, ci-info@npm:^3.6.1":
   version: 3.8.0
   resolution: "ci-info@npm:3.8.0"
   checksum: d0a4d3160497cae54294974a7246202244fff031b0a6ea20dd57b10ec510aa17399c41a1b0982142c105f3255aff2173e5c0dd7302ee1b2f28ba3debda375098
@@ -29806,21 +29799,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tar@npm:^6.0.2, tar@npm:^6.1.0, tar@npm:^6.1.11, tar@npm:^6.1.12, tar@npm:^6.1.2":
-  version: 6.1.12
-  resolution: "tar@npm:6.1.12"
-  dependencies:
-    chownr: ^2.0.0
-    fs-minipass: ^2.0.0
-    minipass: ^3.0.0
-    minizlib: ^2.1.1
-    mkdirp: ^1.0.3
-    yallist: ^4.0.0
-  checksum: 49d72e4420944e7ede2782d6b0826a6ede6cdab23c7de63470917e7a78166bc4d5b1a96279d3d79a85f1ba5a17cd37c0acbb3cbff19a07447691445b8b051c55
-  languageName: node
-  linkType: hard
-
-"tar@npm:^6.0.5":
+"tar@npm:^6.0.2, tar@npm:^6.0.5, tar@npm:^6.1.0, tar@npm:^6.1.11, tar@npm:^6.1.12, tar@npm:^6.1.2":
   version: 6.1.13
   resolution: "tar@npm:6.1.13"
   dependencies:
