@@ -28,7 +28,7 @@ export function updateApiServices(): Rule {
     const cwd = process.cwd();
 
 
-    const paths = globbySync(path.join(cwd, serviceApiPath, '**', '*-api.service.ts').replace(/[\\/]/g, '/'))
+    const paths = globbySync(path.posix.join(cwd, serviceApiPath, '**', '*-api.service.ts').replace(/[\\/]/g, '/'))
       .map((p) => `/${path.relative(cwd, p).replace(/[\\/]/g, '/')}`);
     paths.forEach((p) => tree.delete(p));
     return tree;
@@ -166,7 +166,7 @@ export function updateApiServices(): Rule {
       return tree;
     }
     const cwd = process.cwd();
-    const paths = globbySync(path.join(cwd, itemPath, '**', `*.${item}.ts`).replace(/[\\/]/g, '/'))
+    const paths = globbySync(path.posix.join(cwd, itemPath, '**', `*.${item}.ts`).replace(/[\\/]/g, '/'))
       .map((p) => `/${path.relative(cwd, p).replace(/[\\/]/g, '/')}`);
     return replaceApiService(tree, context, paths);
   };
@@ -183,7 +183,7 @@ export function updateApiServices(): Rule {
       return tree;
     }
     const cwd = process.cwd();
-    const paths = globbySync(path.join(cwd, servicePath, '**', '*.service.spec.ts').replace(/[\\/]/g, '/'))
+    const paths = globbySync(path.posix.join(cwd, servicePath, '**', '*.service.spec.ts').replace(/[\\/]/g, '/'))
       .map((p) => `/${path.relative(cwd, p).replace(/[\\/]/g, '/')}`);
 
     paths

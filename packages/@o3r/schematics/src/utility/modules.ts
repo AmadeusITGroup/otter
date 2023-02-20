@@ -100,7 +100,7 @@ export function getMainFilePath(tree: Tree, context: SchematicContext) {
 export function isApplicationThatUsesRouterModule(tree: Tree) {
   const workspaceProject = getProjectFromTree(tree);
   return workspaceProject.projectType === 'application' && workspaceProject.sourceRoot &&
-    globbySync(path.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
+    globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const sourceFile = ts.createSourceFile(filePath, fs.readFileSync(filePath).toString(), ts.ScriptTarget.ES2015, true);
       try {
         return !!getRouterModuleDeclaration(sourceFile);

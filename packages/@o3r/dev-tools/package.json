@@ -40,7 +40,7 @@
     "globby": "^11.1.0",
     "isomorphic-fetch": "~2.2.1",
     "jasmine-spec-reporter": "^5.0.0",
-    "minimatch": "^5.0.0",
+    "minimatch": "^6.1.6",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.9",
     "rimraf": "^3.0.2",

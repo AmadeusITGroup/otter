@@ -1,6 +1,7 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import * as commentJson from 'comment-json';
 import { sync as globbySync } from 'globby';
+import { minimatch } from 'minimatch';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
@@ -87,13 +88,16 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
  *
  * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
+ * @param excludes Array of globs to be ignored
  */
-export function getAllFilesInTree(tree: Tree, basePath = '/'): string[] {
+export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = []): string[] {
+  if (excludes.length && excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
+    return [];
+  }
   return [
     ...tree.getDir(basePath).subfiles.map((file) => path.posix.join(basePath, file)),
     ...tree.getDir(basePath).subdirs
-      .map((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir)))
-      .flat()
+      .flatMap((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir), excludes))
   ];
 }
 
@@ -125,20 +129,11 @@ export function getFilesInFolderFromWorkspaceProjects(tree: Tree, folderInProjec
  */
 export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderInProject: string, extension: string) {
   const workspace = readAngularJson(tree);
-  const projectSources = Object.values(workspace.projects)
-    .map((project) => path.posix
-      .join(project.root, folderInProject, '**', `*\\.${extension}$`)
-      .replace(/([^*])\*([^*]|$)/g, '$1[^/]*$2')
-      .replace(/\*\*/g, '.*')
-      .replace(/\/$/, '')
-    );
-
-  const files = getAllFilesInTree(tree);
-  const excludes = /.*\/node_modules\/.*/;
-  return projectSources.flatMap((projectSource) => {
-    const regexp = new RegExp(projectSource);
-    return files.filter((file) => regexp.test(file) && !excludes.test(file));
-  });
+  const extensionMatcher = new RegExp(`\\.${extension}$`);
+  const excludes = ['**/node_modules/**', '**/.cache/**'];
+  return Object.values(workspace.projects)
+    .flatMap((project) => getAllFilesInTree(tree, path.posix.join(project.root, folderInProject), excludes))
+    .filter((filePath) => extensionMatcher.test(filePath));
 }
 
 /**

@@ -43,10 +43,11 @@ function setupLocalRegistry() {
   beforeAll(() => {
     containerId = execSync(`docker run -d -it --rm --name verdaccio -p 4873:4873 -v ${verdaccioFolder}:/verdaccio/conf verdaccio/verdaccio`, {cwd: currentFolder, stdio: 'pipe'}).toString();
     execSync(`echo registry=${registry} > .npmrc`, {cwd: verdaccioFolder, stdio: 'inherit'});
-    execSync('yarn set:version 8.0.0 --include !**/!(dist)/package.json --include !package.json', {cwd: currentFolder, stdio: 'inherit'});
+    execSync('yarn set:version 999.0.0 --include "!**/!(dist)/package.json" --include !package.json', {cwd: currentFolder, stdio: 'inherit', env: process.env});
     execSync(`npx --yes wait-on ${registry}`, {cwd: currentFolder, stdio: 'inherit'});
     execSync(`npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r ${registry} --config-path "${configFile}"`, {cwd: currentFolder, stdio: 'inherit'});
-    execSync(`yarn run publish --userconfig "${configFile}" --tag=latest --@otter:registry=${registry}`, {cwd: currentFolder, stdio: 'inherit'});
+    execSync(`yarn run publish --userconfig "${configFile}" --tag=latest --@o3r:registry=${registry} --@ama-sdk:registry=${registry}`,
+      {cwd: currentFolder, stdio: 'inherit', env: process.env});
   });
 
   afterAll(() => {
@@ -67,14 +68,16 @@ function setupNewApp() {
     // Create app with ng new
     execSync('npx rimraf test-app', {cwd: applicationPath, stdio: 'inherit'});
     execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --interactive=false --skip-git --package-manager=yarn --skip-install`,
-      {cwd: applicationPath, stdio: 'inherit', env: {}});
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+      {cwd: applicationPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
 
     // Set config to target local registry
-    execSync(`npm config set registry ${registry} -L project`, execAppOptions);
-    execSync('yarn set version 1.22.19', execAppOptions);
+    execSync(`npm config set @o3r:registry ${registry} -L project`, execAppOptions);
+    execSync(`npm config set @ama-sdk:registry ${registry} -L project`, execAppOptions);
+    execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
-    execSync('yarn config set enableStrictSsl false', execAppOptions);
+    execSync('yarn set version 1.22.19', execAppOptions);
     execSync('yarn', execAppOptions);
 
     // Run ng add
@@ -120,12 +123,11 @@ describe('new Otter application', () => {
     execSync('yarn ng g @o3r/testing:playwright-scenario --interactive=false --name=test-scenario', execAppOptions);
     execSync('yarn ng g @o3r/testing:playwright-sanity --interactive=false --name=test-sanity', execAppOptions);
     spawn(`npx http-server -p ${devServerPort} ./dist`, [], {
-      cwd: tmpAppFolderPath,
+      ...execAppOptions,
       shell: true,
-      stdio: ['ignore', 'ignore', 'inherit'],
-      env: {}
+      stdio: ['ignore', 'ignore', 'inherit']
     });
-    execSync(`npx --yes wait-on http://localhost:${devServerPort}`, execAppOptions);
+    execSync(`npx --yes wait-on http://127.0.0.1:${devServerPort} -t 10000`, execAppOptions);
     execSync('yarn playwright install', execAppOptions);
     execSync('yarn playwright install-deps', execAppOptions);
     expect(() => execSync('yarn test:playwright', execAppOptions)).not.toThrow();
