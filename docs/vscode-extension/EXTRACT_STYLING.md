@@ -24,6 +24,7 @@ Add commands to extract scss properties into Otter variables
 
 This extension can be configured the following settings:
 
+- `otter.extract.styling.forbiddenWords`: Array of words to exclude from the final result of a generated variable
 - `otter.extract.styling.prefix`: If not empty, will add a prefix to all the generated variables.
 
 ## Example

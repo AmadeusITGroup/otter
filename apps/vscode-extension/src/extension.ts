@@ -24,7 +24,6 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
-    commands.registerTextEditorCommand('otter.menu.extract.styling.variable', extractToVariable(context)),
     commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
   );
 }
