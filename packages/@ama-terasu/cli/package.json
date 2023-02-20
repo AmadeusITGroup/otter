@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~15.2.0",
-    "@nrwl/jest": "^15.6.3",
+    "@nrwl/jest": "~15.7.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -42,7 +42,7 @@
     "jsonschema": "~1.4.1",
     "loglevel": "^1.8.0",
     "minimist": "^1.2.6",
-    "nx": "^15.6.3",
+    "nx": "~15.7.0",
     "ora": "~5.4.1",
     "progress": "^2.0.3",
     "prompts": "^2.4.2",

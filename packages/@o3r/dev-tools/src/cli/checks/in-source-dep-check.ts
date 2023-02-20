@@ -80,9 +80,9 @@ void (async () => {
             .reduce<string[]>((acc, content) => {
               return [
                 ...acc,
-                ...[
-                  ...content.matchAll(/^@import ['"]~?([^.].*)['"];?$/mg)
-                ].map(([, dep]) => dep)
+                ...[...content.matchAll(/^@import ['"]~?([^.].*)['"];?$/mg)]
+                  .map(([, dep]) => dep)
+                  .filter((dep) => !dep.startsWith('http'))
               ];
             }, []);
         })
