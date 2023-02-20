@@ -29,46 +29,15 @@ The full list of official modules can be found in the [Documentation Home page](
 As indicated in the [definition section](#definition), an Otter module should expose a `ng-add` schematic to allow developers to install the module via the command `ng add <package-name>`.
 > **Note**: Information relative to the `ng-add` schematics is available [here](https://angular.io/cli/add).
 
-As all the Otter modules follow the same requirement, the new module can use provided helpers to trigger the installation of other Otter modules through the `ng-add` schematic of the requested module.
+As all the Otter modules follow the same requirement, the new module can use provided helpers to trigger the installation of other Otter modules, through the `ng-add` schematic of the requested module.
 
-Basic example of dependency module installation:
+To ensure and facilitate that, the `@o3r/core` provides a schematic which will generate the __ng add__ skeleton files. Moreover, the helpers to trigger the installation of other Otter packages dependencies will be included. 
 
-```typescript
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NgAddSchematicsSchema } from './schema';
-
-/**
- * Add Otter MyModule to an Otter Project
- *
- * @param options
- */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
-    try {
-      // use dynamic import to properly raise an exception if it is not an Otter project.
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
-
-      // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, 'path', 'to', 'package.json'));
-      return chain([
-        // optional custom action dedicated to this module
-        doCustomAction(),
-        options.skipLinter ? noop() : applyEsLintFix(),
-        // install ngx-translate and message format dependencies
-        options.skipInstall ? noop : install,
-        // add the missing Otter modules in the current project
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: `${depsInfo.packageName!} - setup` })
-      ]);
-    } catch (e) {
-      // If the installation is initialized in a non-Otter application, mandatory packages will be missing. We need to notify the user
-      context.logger.error(`[ERROR]: Adding MyModule has failed.
-      If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the MyModule package. Please run 'ng add @o3r/core' .
-      Otherwise, use the error message as guidance.`);
-      throw (e);
-    }
-  };
-}
+Run the following command in the module where the `ng add` needs to be included:
+```bash
+ng generate @o3r/core:ng-add-create
 ```
+> **Note**: To finish, make sure to run the `build:schematics` script in the process of packaging/publishing the new module. 
 
 ### Register your module as official module
 

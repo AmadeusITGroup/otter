@@ -79,41 +79,6 @@ In angular.json file of your lib.
 }
 ```
 
-## Schematics
-
-| Schematics          | Description                                                           | How to use                                        |
-| ------------------- | --------------------------------------------------------------------- | ------------------------------------------------- |
-| add                 | Include Otter in a library / application.                             | `ng add @o3r/core`                          |
-| page                | Create a new Page in your application.                                | `ng generate @o3r/core:page`                |
-| service             | Create a new Otter Service in your library / application.             | `ng generate @o3r/core:service`             |
-| fixture           | Adding functions to an Otter fixture based on a selector and default methods.           | `ng generate @o3r/core:fixture`           |
-| component           | Create a new Otter component in your library / application.           | `ng generate @o3r/core:component`           |
-| component-container | Create a new Otter container component in your library / application. | `ng generate @o3r/core:component-container` |
-| component-presenter | Create a new Otter presenter component in your library / application. | `ng generate @o3r/core:component-presenter` |
-| playwright-scenario | Create a new Playwright scenario in your application.                 | `ng generate @o3r/core:playwright-scenario` |
-| store               | Create a new store in your library / application.                     | `ng generate @o3r/core:store`               |
-| store-entity-async  | Create an entity async new store in your library / application.       | `ng generate @o3r/core:store-entity-async`  |
-| store-entity-sync   | Create an entity sync new store in your library / application.        | `ng generate @o3r/core:store-entity-sync`   |
-| store-simple-async  | Create a simple async new store in your library / application.        | `ng generate @o3r/core:store-simple-async`  |
-| store-simple-sync   | Create a simple sync new store in your library / application.         | `ng generate @o3r/core:store-simple-sync`   |
-| store-action        | Create an action into an existing store.                              | `ng generate @o3r/core:store-action`        |
-| storybook-component | Create an Storybook file for a presenter.                             | `ng generate @o3r/core:storybook-component` |
-| renovate-bot        | Create a basic Renovate Bot                                           | `ng generate @o3r/core:renovate-bot`        |
-
-### Schematic property override
-
-If you want to skip the linter formatting on generated files, you may want to add the value of `skipLinter` property directly in `angular.json` file of your lib/app, under schematics property for each generator entry. In this way you'll avoid prompting the `Skip linter` question when you use the generator.
-
-```json
-// angular.json file
-"schematics": {
-    "@o3r/core:component": {
-      "path": "src/components",
-      "skipLinter": true
-    },
-    ...
-```
-
 ## Middleware
 
 ### Boostrap config

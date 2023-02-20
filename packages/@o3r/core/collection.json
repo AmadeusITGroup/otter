@@ -7,6 +7,11 @@
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
     },
+    "ng-add-create": {
+      "description": "Make project `ng add` compatible",
+      "factory": "./schematics/ng-add-create/index#ngAddCreate",
+      "schema": "./schematics/ng-add-create/schema.json"
+    },
     "page": {
       "description": "Generate a page into the project.",
       "factory": "./schematics/page/index#ngGeneratePage",
