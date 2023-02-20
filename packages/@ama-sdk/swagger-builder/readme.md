@@ -10,7 +10,7 @@ This will make it possible to implement extensions of Swagger specification or t
 Usage of the tools is explained via the `--help` option :
 
 ```bash
-$ swagger-build --help
+$ npx @ama-sdk/swagger-build --help
 
 # Usage: swagger-build [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 
