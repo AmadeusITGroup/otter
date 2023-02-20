@@ -1,5 +1,5 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { applyEsLintFix, getPackageVersion, install, ngAddPackages, removePackages } from '@o3r/schematics';
+import { addVsCodeRecommendations, applyEsLintFix, getPackageVersion, install, ngAddPackages, removePackages } from '@o3r/schematics';
 import { createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
   updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
   updateOtterEnvironmentAdapter, updatePlaywright, updateStore } from '../rule-factories/index';
@@ -49,6 +49,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     updateAdditionalModules(options, __dirname),
     generateRenovateConfig(__dirname),
     removePackages(packagesToRemove),
+    addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template', '']),
     options.skipLinter ? noop() : applyEsLintFix(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
     options.skipInstall ? noop() : install,

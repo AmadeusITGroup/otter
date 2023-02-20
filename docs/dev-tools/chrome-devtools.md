@@ -1,6 +1,6 @@
 # Otter Chrome DevTools
 
-Otter Framework is providing a Chrome DevTools extension for your applications.
+Otter Framework is providing a [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) for your applications.
 The extension comes with the following features:
 
 - **Application information**: Application version, environment, build date, etc.
@@ -9,19 +9,39 @@ The extension comes with the following features:
 - **Rule Engine current state**: Rule engine state, rule engine logs, etc.
 - **Configuration**: display and modification of the application components configuration.
 
-## How to enable the extension support in your application 
+## How to enable the extension support in your application
 
 Once you have download the extension, you will need to enable the features you need one by one. There is no root toggle.
+
+At first you will need to import the module into your application
+
+```typescript
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ComponentsDevtoolsModule } from '@o3r/components';
+import { ConfigurationDevtoolsModule } from '@o3r/configuration';
+import { LocalizationDevtoolsModule } from '@o3r/localization';
+import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
+
+@NgModule({
+  imports: [
+    ApplicationDevtoolsModule,
+    ComponentsDevtoolsModule,
+    ConfigurationDevtoolsModule,
+    LocalizationDevtoolsModule,
+    RulesEngineDevtoolsModule
+  ]
+})
+export class AppModule { }
+```
+
 This can be done in the AppComponent as following:
 
 ```typescript
-import { 
-  ApplicationDevtoolsMessageService,
-  ComponentsDevtoolsMessageService,
-  ConfigurationDevtoolsMessageService,
-  LocalizationDevtoolsMessageService,
-  RulesEngineDevtoolsMessageService
-} from '@o3r/chrome-devtools';
+import { ApplicationDevtoolsMessageService } from '@o3r/application';
+import { ComponentsDevtoolsMessageService } from '@o3r/components';
+import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
+import { LocalizationDevtoolsMessageService } from '@o3r/localization';
+import { RulesEngineDevtoolsMessageService } from '@o3r/rules-engine';
 
 @Component({
   selector: 'app'
@@ -33,9 +53,8 @@ export class AppComponent {
     configurationMessageService: ConfigurationDevtoolsMessageService,
     localizationMessageService: LocalizationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService) {
-    this.getStaticConfig();
     if (environment.DEBUG_MODE) {
-      // The Otter Devtools services should be activated only in the development mode
+      // It is strongly recommended to activate the Otter Devtools services only in the development mode
       applicationDevtoolsMessageService.activate();
       componentsDevtoolsMessageService.activate();
       configurationMessageService.activate();
@@ -48,11 +67,6 @@ export class AppComponent {
 
 > **Note**: The **OtterDevtoolsChromeService** is part of the **OtterStoreDevtoolsModule**, it should be imported by the main module.
 
-## How to install the application
+## How to install the extension
 
-Currently the extension is available only in the **Chrome browser** and should be installed as **unpacked extension**.
-To do so you will need to follow the steps below:
-
-- Download the extension from the [Azure Feed](https://dev.azure.com/AmadeusDigitalAirline/Otter/_artifacts/feed/otter-pr/Npm/@otter%2Fchrome-devtools/versions/) and *unzip* the archive.
-- Go to your [Chrome extension](chrome://extensions/) and switch to **Developer mode** (on the top right corner of the page).
-- Click on the **Load unpacked extension** button to install the previously unzip package.
+You can find the [Otter Devtools](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) on the Chrome Store by clicking on the link or searching for `Otter Devtools` on the [Chrome Web Store](https://chrome.google.com/webstore).
