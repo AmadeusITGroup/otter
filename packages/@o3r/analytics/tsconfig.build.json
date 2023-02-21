@@ -7,5 +7,10 @@
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "src/builders/**/*.ts", "src/helpers/**/*.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "src/**/fixtures/**/*.ts",
+    "src/builders/**/*.ts",
+    "src/helpers/**/*.ts"
+  ]
 }

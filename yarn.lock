@@ -5683,6 +5683,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
+    "@types/jasmine": 3.10.7
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -5714,9 +5715,12 @@ __metadata:
     "@ngrx/store": ^15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
+    jasmine: ^4.0.0
     rxjs: ^7.4.0
     webpack: ~5.75.0
   peerDependenciesMeta:
+    jasmine:
+      optional: true
     webpack:
       optional: true
   languageName: unknown
@@ -6053,6 +6057,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
+    "@types/jasmine": 3.10.7
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -6084,6 +6089,7 @@ __metadata:
     "@o3r/testing": "workspace:^"
     cheerio: ^1.0.0-rc.10
     express-interceptor: ^1.2.0
+    jasmine: ^4.0.0
     rxjs: ^7.4.0
   peerDependenciesMeta:
     "@o3r/schematics":
@@ -6091,6 +6097,8 @@ __metadata:
     cheerio:
       optional: true
     express-interceptor:
+      optional: true
+    jasmine:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6892,6 +6900,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
+    "@types/jasmine": 3.10.7
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -6923,7 +6932,11 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/routing": "workspace:^"
+    jasmine: ^4.0.0
     rxjs: ^7.4.0
+  peerDependenciesMeta:
+    jasmine:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -6963,6 +6976,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
+    "@types/jasmine": 3.10.7
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -7007,6 +7021,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     globby: ^11.1.0
+    jasmine: ^4.0.0
     jsonpath-plus: ^7.0.0
     rxjs: ^7.4.0
     typescript: ~4.9.4
@@ -7017,6 +7032,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     globby:
+      optional: true
+    jasmine:
       optional: true
     typescript:
       optional: true
@@ -9034,6 +9051,13 @@ __metadata:
   dependencies:
     "@types/istanbul-lib-report": "*"
   checksum: f1ad54bc68f37f60b30c7915886b92f86b847033e597f9b34f2415acdbe5ed742fa559a0a40050d74cdba3b6a63c342cac1f3a64dba5b68b66a6941f4abd7903
+  languageName: node
+  linkType: hard
+
+"@types/jasmine@npm:3.10.7":
+  version: 3.10.7
+  resolution: "@types/jasmine@npm:3.10.7"
+  checksum: 079d0d3b87917265c3e956ca7001adc16856d720e373534974e159f6f5d313793c608d3bc08c1572727765ceee93cc157cd8d74f76ce1e138e2fb90093c08c37
   languageName: node
   linkType: hard
 
