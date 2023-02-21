@@ -1,4 +1,4 @@
-import { apply, chain, forEach, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
 import { addSymbolToNgModuleMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 
 import { getFileInfo, getTemplateFolder, ngAddPackages } from '@o3r/schematics';
@@ -27,17 +27,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       url(getTemplateFolder(rootPath, __dirname)),
       [
         template({}),
-        renameTemplateFiles(),
-        forEach((fileEntry) => {
-          if (tree.exists(fileEntry.path)) {
-            if (fileEntry.path.indexOf('presenters-map.empty') > -1) {
-              tree.delete(fileEntry.path);
-              return fileEntry;
-            }
-            return null;
-          }
-          return fileEntry;
-        })
+        renameTemplateFiles()
       ]
     );
 
