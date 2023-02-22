@@ -1,20 +1,12 @@
 name: Feature request
 description: Request or contribute a new feature
 title: "[Feature]: "
-labels: ["feature"]
+labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for your interest in our project! Feel free to contribute your feature proposal whenever possible.
-  - type: input
-    id: contact
-    attributes:
-      label: Contact Details
-      description: How can we get in touch with you if we need more info?
-      placeholder: ex. email@example.com
-    validations:
-      required: false
   - type: textarea
     id: description
     attributes:

@@ -35,6 +35,9 @@
   "postUpdateOptions": [
     "yarnDedupeHighest"
   ],
+  "labels": [
+    "dependencies"
+  ],
   "automerge": true,
   "platformAutomerge": true,
   "packageRules": [
