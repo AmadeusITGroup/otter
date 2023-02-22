@@ -12,8 +12,10 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
   private async getInputElement() {
     try {
       const subInputElement = this.sourceElement.element.locator('input[type="checkbox"]');
-      await subInputElement.waitFor({state: 'attached'});
-      return subInputElement;
+      if (await subInputElement.count()) {
+        return subInputElement;
+      }
+      return this.sourceElement.element;
     } catch {
       return this.sourceElement.element;
     }
@@ -22,8 +24,9 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
   private async getLabelElement() {
     try {
       const element = this.sourceElement.element.locator('label');
-      await element.waitFor({state: 'attached'});
-      return element;
+      if (await element.count()) {
+        return element;
+      }
     } catch {
       return;
     }
