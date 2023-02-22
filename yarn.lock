@@ -3388,10 +3388,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fullstory/browser@npm:~1.6.0":
-  version: 1.6.2
-  resolution: "@fullstory/browser@npm:1.6.2"
-  checksum: 3a17bfc0fcde01054a5d2610cc2ae82d6b4e00fe648a0415d122767aff32b3d52cf840c09beaec6c00e73d51ffb97f42de6f992a7e7576c22c7d2e816b9fd01f
+"@fullstory/browser@npm:~1.7.0":
+  version: 1.7.0
+  resolution: "@fullstory/browser@npm:1.7.0"
+  checksum: ea75f52bd884bf3443cff52eaf05625fe2968e114a21712728368b6d3de7cc6a4bfa8cc4a3daa8ea843a6f3e7e90ee19ac7b26284d5e055d73c6c88fa124afae
   languageName: node
   linkType: hard
 
@@ -6611,7 +6611,7 @@ __metadata:
     "@angular/core": ~15.1.2
     "@angular/platform-browser": ~15.1.2
     "@angular/platform-browser-dynamic": ~15.1.2
-    "@fullstory/browser": ~1.6.0
+    "@fullstory/browser": ~1.7.0
     "@ngrx/store": ^15.0.0
     "@nrwl/cli": ~15.7.0
     "@nrwl/jest": ~15.7.0
