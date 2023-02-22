@@ -16,7 +16,8 @@
       "dependsOn": [
         "build-builders",
         "compile",
-        "build-plugins"
+        "build-plugins",
+        "build-fixtures"
       ]
     },
     "compile": {
@@ -24,6 +25,21 @@
       "options": {
         "project": "packages/@o3r/analytics/ng-package.json",
         "tsConfig": "packages/@o3r/analytics/tsconfig.build.json"
+      }
+    },
+    "build-fixtures": {
+      "executor": "nx:noop"
+    },
+    "build-fixtures-jest": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:fixtures:jest"
+      }
+    },
+    "build-fixtures-jasmine": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:fixtures:jasmine"
       }
     },
     "build-plugins": {
