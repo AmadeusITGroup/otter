@@ -29,7 +29,8 @@ export function updateBuildersNames(): Rule {
       '@otter/ng-tools:app-version': '@o3r/core:app-version',
       '@otter/ng-tools:multi-watcher': '@o3r/core:multi-watcher',
       '@otter/ng-tools:lib-build': '@o3r/core:lib-build',
-      '@otter/ng-tools:ngc': '@o3r/core:ngc'
+      '@otter/ng-tools:ngc': '@o3r/core:ngc',
+      '@otter/ng-tools:pattern-replacement': '@o3r/core:pattern-replacement'
     };
 
     projectsInAngularJson.forEach(projectName => {

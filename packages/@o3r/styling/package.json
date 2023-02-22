@@ -32,6 +32,14 @@
     "@o3r/extractors": "workspace:^",
     "@o3r/schematics": "workspace:^"
   },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "tslib": "^2.4.1"
   },

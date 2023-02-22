@@ -26,6 +26,14 @@
     "@o3r/testing": "workspace:^",
     "rxjs": "^7.4.0"
   },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "tslib": "^2.4.1"
   },
