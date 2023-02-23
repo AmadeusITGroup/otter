@@ -8,6 +8,7 @@ import { SemVer } from 'semver';
  * From the changelogs of the alpha and rc versions, produces the aggregated changelog for a release, removing duplicates
  * as well as any change mentioned in a former change log.
  *
+ * @deprecated will be removed in Otter v10
  * @param version
  * @returns {Promise<void>}
  */

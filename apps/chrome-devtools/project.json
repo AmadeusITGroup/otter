@@ -209,6 +209,12 @@
         "silent": true
       }
     },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
     "publish-extension": {
       "executor": "nx:run-script",
       "options": {

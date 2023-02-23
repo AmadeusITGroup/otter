@@ -50,9 +50,4 @@ export class AppComponent {
 
 ## How to install the application
 
-Currently the extension is available only in the **Chrome browser** and should be installed as **unpacked extension**.
-To do so you will need to follow the steps below:
-
-- Download the extension from the [Azure Feed](https://dev.azure.com/AmadeusDigitalAirline/Otter/_artifacts/feed/otter-pr/Npm/@otter%2Fchrome-devtools/versions/) and *unzip* the archive.
-- Go to your [Chrome extension](chrome://extensions/) and switch to **Developer mode** (on the top right corner of the page).
-- Click on the **Load unpacked extension** button to install the previously unzip package.
+Currently the extension is available only in the **Chrome browser**. You can download it from the [Google Web Store](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne).
