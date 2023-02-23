@@ -172,7 +172,7 @@ export default class extends SdkGenerator {
   public install() {
     const generatedPackageJson: any = this.fs.readJSON('./package.json');
     const version = generatedPackageJson.packageManager.replace('yarn@', '');
-    this.spawnCommandSync('yarn', ['set', 'version', version], {cwd: this.destinationPath()});
+    this.spawnCommandSync('yarn', ['set', 'version', version], {cwd: this.destinationPath(), env: {}});
   }
 
   public end() {

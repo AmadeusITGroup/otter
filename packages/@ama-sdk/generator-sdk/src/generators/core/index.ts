@@ -1,7 +1,6 @@
 import * as path from 'node:path';
 import * as rimraf from 'rimraf';
 import * as sway from 'sway';
-
 import {Operation, PathObject} from '@ama-sdk/core';
 
 import Generator from 'yeoman-generator';
@@ -127,7 +126,7 @@ export default class extends SdkGenerator {
         this.fs.write(this.destinationPath('readme.md'), readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${swaggerVersion[1]}`));
       }
     }
-    this.fs.copy(path.resolve(this.sourceRoot(), '..', '..', 'resources', 'swagger-codegen-cli.jar'),
+    this.fs.copy(path.resolve(__dirname, '..', 'resources', 'swagger-codegen-cli.jar'),
       path.resolve(this.destinationPath(), 'swagger-codegen-typescript', 'target', 'swagger-codegen-cli.jar'));
 
     this.fs.copy(path.resolve(this.destinationPath(), this.getSwaggerSpecPath(this.properties.swaggerSpecPath!)), path.resolve(this.destinationPath(), 'swagger-spec.yaml'));

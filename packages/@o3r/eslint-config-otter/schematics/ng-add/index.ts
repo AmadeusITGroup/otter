@@ -10,7 +10,7 @@ export function ngAdd(): Rule {
   return async (_tree: Tree, context: SchematicContext) => {
     try {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
       return chain([
         removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
