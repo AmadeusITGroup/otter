@@ -20,6 +20,8 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build configuration",
+    "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
+    "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "prepare:publish": "prepare-publish ./dist"
   },
@@ -35,6 +37,7 @@
     "@o3r/testing": "workspace:^",
     "cheerio": "^1.0.0-rc.10",
     "express-interceptor": "^1.2.0",
+    "jasmine": "^4.0.0",
     "rxjs": "^7.4.0"
   },
   "peerDependenciesMeta": {
@@ -45,6 +48,9 @@
       "optional": true
     },
     "express-interceptor": {
+      "optional": true
+    },
+    "jasmine": {
       "optional": true
     }
   },
@@ -75,6 +81,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
+    "@types/jasmine": "3.10.7",
     "@types/jest": "~28.1.2",
     "@types/node": "^17.0.45",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
