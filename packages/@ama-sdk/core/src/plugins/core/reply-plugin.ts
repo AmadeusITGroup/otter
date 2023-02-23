@@ -27,6 +27,9 @@ export interface ReplyPluginContext<T> {
 
   /** Operation ID */
   operationId?: string;
+
+  /** Base url */
+  url?: string;
 }
 
 /**
