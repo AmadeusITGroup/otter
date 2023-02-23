@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.build",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "jest"
+    ],
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo.jest",
+    "incremental": true,
+    "outDir": "./dist/src"
+  },
+  "include": ["src/**/fixtures/jest/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
+}
