@@ -6,6 +6,8 @@ interface GenericErrorContext {
   apiName?: string;
   /** Operation ID */
   operationId?: string;
+  /** Base URL */
+  url?: string;
 }
 
 /**
@@ -16,7 +18,7 @@ export class GenericError extends Error {
   constructor(message: string, context?: GenericErrorContext) {
     super(
       context
-        ? `[SDK] [apiName: ${context.apiName || 'unknown'}] [operationId: ${context.operationId || 'unknown'}] ${message}`
+        ? `[SDK] [apiName: ${context.apiName || 'unknown'}] [operationId: ${context.operationId || 'unknown'}] [baseUrl: ${context.url || 'unknown'}] ${message}`
         : `[SDK] ${message}`
     );
   }

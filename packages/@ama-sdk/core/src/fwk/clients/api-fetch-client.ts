@@ -123,7 +123,7 @@ export class ApiFetchClient implements ApiClient {
       const isCanceledBy = canStart.indexOf(false);
       if (isCanceledBy >= 0) {
         // One of the fetch plugins cancelled the execution of the call
-        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId }));
+        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url }));
       } else {
         asyncResponse = fetch(url, options);
       }
@@ -139,14 +139,14 @@ export class ApiFetchClient implements ApiClient {
       if (e instanceof CanceledCallError) {
         exception = e;
       } else {
-        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId });
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url });
       }
     }
 
     try {
       root = body ? JSON.parse(body) : undefined;
     } catch (e: any) {
-      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId });
+      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url });
     }
 
     const replyPlugins = this.options.replyPlugins ?
@@ -157,7 +157,8 @@ export class ApiFetchClient implements ApiClient {
         apiType,
         apiName,
         exception,
-        operationId
+        operationId,
+        url
       })) : [];
 
     let parsedData = root;
