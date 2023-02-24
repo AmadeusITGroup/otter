@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateNgAddSchematicsSchema",
+  "title": "Generate ng add rule",
+  "description": "ng add rule",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Source directory containing the schematics"
+    }
+  },
+  "additionalProperties": true
+}
