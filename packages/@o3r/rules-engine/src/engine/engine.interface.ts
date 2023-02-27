@@ -1,3 +1,4 @@
+import type { Logger } from '@o3r/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { EngineDebugger } from './debug/engine.debug';
 import { Fact } from './fact';
@@ -62,6 +63,11 @@ export interface RulesEngineOptions {
    * @default RulesEngine
    */
   rulesEngineInstanceName?: string;
+
+  /**
+   * Client to log the warning and error message
+   */
+  logger?: Logger;
 }
 
 /** Rule as stored in the rules engine */

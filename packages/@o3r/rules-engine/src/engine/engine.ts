@@ -7,6 +7,7 @@ import { filterRulesetsEventStream } from './helpers/filter-ruleset-event.operat
 import { Operator, operatorList, UnaryOperator } from './operator/index';
 import { RulesetExecutor } from './ruleset-executor';
 import { ActionBlock, Ruleset } from './structure';
+import type { Logger} from '@o3r/logger';
 
 /** Rules engine */
 export class RulesEngine {
@@ -42,6 +43,10 @@ export class RulesEngine {
   public readonly performance;
 
   /**
+   * Log the engine errors
+   */
+  public readonly logger?: Logger;
+  /**
    * Flag to check if the run is in debug mode or not
    */
   public get debugMode(): boolean {
@@ -52,12 +57,13 @@ export class RulesEngine {
    * Rules engine
    *
    * @param options rules engine options
+   * @param logger
    */
   constructor(options?: RulesEngineOptions) {
     this.performance = options?.performance || (typeof window !== 'undefined' ? window.performance : undefined);
     this.engineDebug = options?.debugger;
     this.engineDebug?.registerRuleEngine(this);
-
+    this.logger = options?.logger;
     this.rulesEngineInstanceName = options?.rulesEngineInstanceName || 'RulesEngine';
     this.factDefaultDelay = options?.factDefaultDelay;
     // Load default operators

@@ -2,6 +2,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
+import { LoggerService } from '@o3r/logger';
 import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
 import { distinctUntilChanged, map, shareReplay, switchMap } from 'rxjs/operators';
 import { LocalizationConfiguration } from '../core/localization.configuration';
@@ -35,6 +36,7 @@ export class LocalizationService {
 
   constructor(
     private translateService: TranslateService,
+    private logger: LoggerService,
     @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private configuration: LocalizationConfiguration,
     @Optional() private store?: Store<LocalizationOverrideStore>) {
     this.configure();
@@ -54,14 +56,18 @@ export class LocalizationService {
    * @returns selected language if supported, fallback language otherwise.
    */
   private checkFallbackLocalesMap<T extends string | undefined>(language: T) {
-
     if (language && this.configuration.supportedLocales.indexOf(language) === -1) {
-
-      return this.getFallbackMapLangCode(language) || this.getFirstClosestSupportedLanguageCode(language) ||
-      this.configuration.fallbackLanguage || language;
-
+      const closestSupportedLanguageCode = this.getFirstClosestSupportedLanguageCode(language);
+      const fallbackForLanguage = this.getFallbackMapLangCode(language);
+      const fallbackStrategyDebug = fallbackForLanguage && ' associated fallback language ' ||
+        closestSupportedLanguageCode && ' closest supported language ' ||
+        this.configuration.fallbackLanguage && ' configured default language ';
+      const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
+      this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
+      return fallbackLang;
+    } else if (!language) {
+      this.logger.debug('Language is not defined');
     }
-
     return language;
   }
 

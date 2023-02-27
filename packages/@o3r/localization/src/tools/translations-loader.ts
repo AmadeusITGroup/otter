@@ -9,6 +9,7 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
 
 import { DynamicContentService } from '@o3r/dynamic-content';
+import { LoggerService } from '@o3r/logger';
 
 const JSON_EXT = '.json';
 
@@ -20,7 +21,9 @@ const JSON_EXT = '.json';
  */
 @Injectable()
 export class TranslationsLoader implements TranslateLoader {
-  constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfiguration: LocalizationConfiguration, @Optional() private dynamicContentService?: DynamicContentService) {}
+  constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfiguration: LocalizationConfiguration,
+              @Optional() private readonly logger?: LoggerService,
+              @Optional() private dynamicContentService?: DynamicContentService) {}
 
   /**
    * Download a language bundle file
@@ -77,13 +80,17 @@ export class TranslationsLoader implements TranslateLoader {
           *   2. if 1 fails then try to load from the app (local file)
           */
           return localizationBundle$.pipe(
-            catchError(() => this.getTranslationFromLocal(lang, fallback))
+            catchError(() => {
+              this.logger?.warn(`Failed to load the localization resource from ${localizationPath + lang + JSON_EXT}, trying from the application resources`);
+              return this.getTranslationFromLocal(lang, fallback);
+            })
           );
         }
         /*
         * else if endPointUrl NOT specified by then configuration then:
         *   1. try to load from the app (local file)
         */
+        this.logger?.warn('No localization endpoint specified, localization fetch from application resources');
         return this.getTranslationFromLocal(lang, fallback);
       })
     );
@@ -104,10 +111,12 @@ export class TranslationsLoader implements TranslateLoader {
     return this.downloadLanguageBundle$(pathPrefix + lang + JSON_EXT).pipe(
       catchError(() => {
         if (lang !== fallbackLanguage) {
+          this.logger?.warn(`Failed to load ${lang} from ${pathPrefix + lang + JSON_EXT}. Application will fallback to ${fallbackLanguage}`);
           return this.downloadLanguageBundle$(pathPrefix + fallbackLanguage + JSON_EXT).pipe(
             catchError(() => of({}))
           );
         } else {
+          this.logger?.warn(`Failed to load ${lang} from ${pathPrefix + lang + JSON_EXT}.`);
           return of({});
         }
       })

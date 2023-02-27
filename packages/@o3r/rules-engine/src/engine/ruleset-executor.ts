@@ -53,6 +53,7 @@ export class RulesetExecutor {
    *
    * @param ruleset Ruleset to evaluate
    * @param rulesEngine Instance of the rules engine
+   * @param logger Instance of logger service with agnostic log implementation
    */
   constructor(ruleset: Ruleset, rulesEngine: RulesEngine) {
     this.ruleset = ruleset;
@@ -248,9 +249,8 @@ export class RulesetExecutor {
               if (this.rulesEngine.debugMode) {
                 output.evaluation = handleRuleEvaluationDebug(rule, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
               } else if (output.error) {
-                // eslint-disable-next-line no-console
-                console.error(output.error);
-                console.warn(`Skipping rule ${rule.id}, and the associated ruleset`);
+                this.rulesEngine.logger?.error(output.error);
+                this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
               }
               return output;
             }),

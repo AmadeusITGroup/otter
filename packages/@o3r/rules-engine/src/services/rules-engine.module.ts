@@ -4,6 +4,7 @@ import { StoreModule } from '@ngrx/store';
 import { PlaceholderTemplateStoreModule } from '@o3r/components';
 import { ConfigurationStoreModule } from '@o3r/configuration';
 import { LocalizationModule } from '@o3r/localization';
+import {LoggerModule} from '@o3r/logger';
 import { StyleLazyLoaderModule } from '@o3r/styling';
 import { RulesetsStoreModule } from '../stores/index';
 import { PlaceholderTemplateResponseEffect } from './rules-engine.effect';
@@ -17,6 +18,7 @@ import { DEFAULT_RULES_ENGINE_OPTIONS, RULES_ENGINE_OPTIONS, RulesEngineServiceO
     LocalizationModule,
     StyleLazyLoaderModule,
     ConfigurationStoreModule,
+    LoggerModule,
     RulesetsStoreModule,
     EffectsModule.forFeature([PlaceholderTemplateResponseEffect])
   ]
