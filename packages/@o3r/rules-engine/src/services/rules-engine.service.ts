@@ -17,6 +17,7 @@ import {
   selectRuleSetLinkComponents
 } from '../stores';
 import { RULES_ENGINE_OPTIONS, RulesEngineServiceOptions } from './rules-engine.token';
+import {LoggerService} from '@o3r/logger';
 
 @Injectable()
 export class RulesEngineService implements OnDestroy {
@@ -45,11 +46,11 @@ export class RulesEngineService implements OnDestroy {
     private store: Store<RulesetsStore & PlaceholderTemplateStore & AssetPathOverrideStore & LocalizationOverrideStore & ConfigurationStore>,
     private translateService: TranslateService,
     private dynamicContentService: DynamicContentService,
+    private logger: LoggerService,
     @Optional() @Inject(RULES_ENGINE_OPTIONS) engineConfig?: RulesEngineServiceOptions) {
 
     this.enabled = !engineConfig?.dryRun;
-    this.engine = new RulesEngine({debugger: engineConfig?.debug ? new EngineDebugger({eventsStackLimit: engineConfig?.debugEventsStackLimit}) : undefined});
-
+    this.engine = new RulesEngine({debugger: engineConfig?.debug ? new EngineDebugger({eventsStackLimit: engineConfig?.debugEventsStackLimit}) : undefined, logger: this.logger});
     this.ruleSets$ = combineLatest([
       this.store.pipe(select(selectActiveRuleSets)),
       this.linkedComponents$.pipe(

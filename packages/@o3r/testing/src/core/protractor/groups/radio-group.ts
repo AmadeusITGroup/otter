@@ -17,6 +17,7 @@ export class O3rRadioGroup extends O3rGroup<O3rRadioElement> implements RadioGro
     for (const item of this.items) {
       const itemName = await item.getAttribute('name');
       if (name !== '' && name !== itemName) {
+        console.warn(`Items in this radio group are not consistent, incompatible input names found ${name} and ${itemName || 'undefined'}`);
         return false;
       }
       if (itemName !== undefined) {

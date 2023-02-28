@@ -1,5 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { Action, MetaReducer } from '@ngrx/store';
+import type { Logger } from '@o3r/core';
 import { LoggerClient } from './logger.client';
 import { ConsoleLogger } from './logger.console';
 import { LOGGER_CLIENT_TOKEN } from './logger.token';
@@ -10,7 +11,7 @@ import { LOGGER_CLIENT_TOKEN } from './logger.token';
 @Injectable({
   providedIn: 'root'
 })
-export class LoggerService {
+export class LoggerService implements Logger {
 
   /** Logger */
   private readonly client: LoggerClient;

@@ -42,7 +42,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       const element = elements.first();
       const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
       return Promise.resolve(new (returnType || O3rElement)(selectedElement));
-    } catch {
+    } catch (err) {
+      console.warn(`Failed to query ${selector}`, err);
       return Promise.resolve(undefined);
     }
   }
@@ -92,7 +93,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       }
 
       return elements;
-    } catch {
+    } catch (err) {
+      console.warn(`Failed to query all ${selector}`, err);
       return Promise.resolve([]);
     }
   }

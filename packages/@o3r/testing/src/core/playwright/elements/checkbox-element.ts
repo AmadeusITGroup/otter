@@ -27,7 +27,8 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
       if (await element.count()) {
         return element;
       }
-    } catch {
+    } catch (err) {
+      console.warn('Failed to retrieve label of O3rCheckboxElement', err);
       return;
     }
   }
@@ -41,6 +42,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
     if (labelElement) {
       const currentValue = await this.isChecked();
       if (currentValue === value) {
+        console.warn(`Checkbox is already ${currentValue ? 'checked' : 'unchecked'}`);
         return Promise.resolve();
       }
       return labelElement.click();

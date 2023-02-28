@@ -33,7 +33,7 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
     if (existsSync(file)) {
       rulesEngineFactsMetadataFileWithContent[file] = JSON.parse(await fs.readFile(file, {encoding: 'utf8'}));
     } else {
-      console.warn(`File ${file} doesn't exist but referenced in the library package.json, please notify the library owner.`);
+      context.logger.warn(`File ${file} doesn't exist but referenced in the library package.json, please notify the library owner.`);
     }
   }
 
@@ -42,7 +42,7 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
     if (existsSync(file)) {
       rulesEngineOperatorsMetadataFileWithContent[file] = JSON.parse(await fs.readFile(file, {encoding: 'utf8'}));
     } else {
-      console.warn(`File ${file} doesn't exist but referenced in the library package.json, please notify the library owner.`);
+      context.logger.warn(`File ${file} doesn't exist but referenced in the library package.json, please notify the library owner.`);
     }
   }
   const librariesFacts = Object.values(rulesEngineFactsMetadataFileWithContent).reduce((acc, factsFile) => {

@@ -61,7 +61,8 @@ export class O3rElement implements ElementProfile {
   public async getValue() {
     try {
       return await this.sourceElement.element.inputValue();
-    } catch {
+    } catch (error) {
+      console.warn('Failed to retrieve input value');
       const valueByAttribute = await this.sourceElement.element.getAttribute('value');
       return valueByAttribute !== null ? valueByAttribute : undefined;
     }

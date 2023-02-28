@@ -35,9 +35,9 @@ export function isVisualTestingEnabled() {
 }
 
 /**
- * Toggle the visual testing view : if it is active, will hide tagged components as grey block.
+ * Toggle the visual testing view : if it is active, will hide tagged components as grey blocks.
  *
- * @note: this function is evaluated in the context of the page and should not use external variables
+ * @note: this function is evaluated in the context of the page and cannot use external code
  * @param enabled
  */
 export function toggleVisualTestingRender(enabled: boolean) {

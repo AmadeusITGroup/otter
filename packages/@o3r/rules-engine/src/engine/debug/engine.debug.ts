@@ -1,5 +1,5 @@
 import { Observable, ReplaySubject } from 'rxjs';
-import { concatMap, share, shareReplay, startWith, withLatestFrom } from 'rxjs/operators';
+import { concatMap, share, shareReplay, startWith, tap, withLatestFrom } from 'rxjs/operators';
 import type { RulesEngine } from '../engine';
 import { BaseRulesetExecution, DebugEvent, EvaluationReason, Facts, RuleEvaluation, RuleEvaluationOutput, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../engine.interface';
 import { RulesetExecutor } from '../ruleset-executor';
@@ -63,6 +63,11 @@ export class EngineDebugger {
           debugEvent.duration = rulesetDuration;
         }
         return debugEvent;
+      }),
+      tap((debugEvent) => {
+        if (debugEvent.type === 'RulesetExecution') {
+          this.rulesEngine?.logger?.debug?.(`${debugEvent.rulesetName} has been triggered and resulted in ${JSON.stringify(debugEvent.outputActions)}`);
+        }
       }),
       share()
     );
