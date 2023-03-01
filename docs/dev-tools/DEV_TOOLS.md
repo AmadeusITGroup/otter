@@ -34,13 +34,13 @@ Options:
 ### JFrog Example
 
 ```bash
-artifact-retriever.js --registry "https://digitalforairlines.jfrog.io/digitalforairlines" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
+artifact-retriever.js --registry "https://jfrog.io/repoName" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
 ### Azure Artifacts Example
 
 ```bash
-artifact-retriever.js --repository-manager "Azure Artifacts" --organization "AmadeusDigitalAirline" --project "Otter" --feed "otter" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
+artifact-retriever.js --repository-manager "Azure Artifacts" --organization "OrganizationName" --project "Otter" --feed "otter" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
 ## Dependency Validator
@@ -127,7 +127,7 @@ Clean old artifacts from artifactory repositories, base 64 encoding of username:
 
 Options:
 
-  --artifactory-url <artifactoryUrl>   Artifact URL (Default: https://digitalforairlines.jfrog.io/digitalforairlines/)
+  --artifactory-url <artifactoryUrl>   Artifact URL (Required)
   -a, --duration-kept <durationKept>   All the artifact which have been created since more time than this value(ms) will be deleted (Default to 10080000ms (i.e. 7 days))
   -r, --repositories <repositories>    Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-refx-pr (Default to npm-otter-pr)
   -t, --type-filter <typeFilter>       List of artifact type that should be deleted coma separated (ex: jar,tgz) (Default : tgz)

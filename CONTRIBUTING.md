@@ -79,11 +79,9 @@ A minimal set of information will be required when an issue is opened:
 If you already have a fix for the problem don't hesitate to open a pull request. Each pull request should be assign to an issue, so please create the issue (see process above) and link the PR to it.
 For opening a PR see **Creating a pull request** section.
 
-Please open new issues using our topic in R&D portal - Digital Platform - Otter (link to be added after the topic will be created in the portal). 
-
-
 ## 5 - Creating a pull request
-  
+
+You can open a pull request [here](https://github.com/AmadeusITGroup/otter/pulls).
 ### Commit message constraints
 In order to have a nice change log generated, you will need to follow some guidelines :
 * For bugfix : git commit -m "fix: this a commit message for a fix"

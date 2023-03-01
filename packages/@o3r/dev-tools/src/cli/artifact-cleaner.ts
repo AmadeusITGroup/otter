@@ -9,7 +9,7 @@ import * as winston from 'winston';
 
 program
   .description('Clean old artifacts from artifactory repositories')
-  .option('--artifactory-url <artifactoryUrl>', 'Artifactory URL', 'https://digitalforairlines.jfrog.io/digitalforairlines/')
+  .requiredOption('--artifactory-url <artifactoryUrl>', 'Artifactory URL')
   .option('-d, --duration-kept <durationKept>', 'All artifacts which have not been downloaded and are older than this value(ms) will be deleted. Default to 10080000ms (7 days)', '604800000')
   .option(
     '-r, --repositories <repositories>',

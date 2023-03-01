@@ -527,16 +527,6 @@ __Output__
 - They are affectionate  
 ```
 
-# Sample component
-
-You can have a look at [SimpleHeaderComponent](https://dev.azure.com/AmadeusDigitalAirline/Otter/_git/library?path=/modules/%40otter/components/src/simple-header) as an example of localization module usage.
-
-
-
-If you want to play with runtime language switch simply set **showLanguageSelector = true** in SimpleHeaderConfig. As a result simple header component template will display your configured locales dropdown, and you'll be able to switch between them.
-
-
-
 # Debugging
 
 ## Runtime: toggle translation on and off
