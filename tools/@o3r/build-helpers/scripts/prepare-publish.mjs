@@ -57,4 +57,7 @@ fields.forEach((field) => {
 
 writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
 copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
-copyFileSync(resolve(dirname(privatePackageJson.path), 'README.md'), resolve(distPath, 'README.md'));
+
+if (!existsSync(resolve(distPath, 'README.md'))) {
+  copyFileSync(resolve(process.cwd(), 'README.md'), resolve(distPath, 'README.md'));
+}
