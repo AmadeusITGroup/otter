@@ -2,7 +2,6 @@
   "name": "@o3r/stylelint-plugin",
   "version": "0.0.0-placeholder",
   "description": "Stylelint Otter Plugin",
-  "main": "dist/index.js",
   "keywords": [
     "stylelint",
     "stylelint-plugin",
