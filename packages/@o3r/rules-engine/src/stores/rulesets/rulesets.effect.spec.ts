@@ -5,7 +5,7 @@ import {Store} from '@ngrx/store';
 import {ReplaySubject, Subject, Subscription} from 'rxjs';
 import {RulesetsEffect} from './rulesets.effect';
 
-describe('Rulesets Effects', () => {
+describe('Rules Engine Effects', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
