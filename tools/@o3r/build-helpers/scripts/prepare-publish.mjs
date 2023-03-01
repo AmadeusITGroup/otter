@@ -58,6 +58,12 @@ fields.forEach((field) => {
 writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
 copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
 
-if (!existsSync(resolve(distPath, 'README.md'))) {
-  copyFileSync(resolve(process.cwd(), 'README.md'), resolve(distPath, 'README.md'));
+const readmeBasePath = resolve(process.cwd(), 'README.md');
+const readmeDistPath = resolve(distPath, 'README.md');
+if (!existsSync(readmeDistPath)) {
+  if (!existsSync(readmeBasePath)) {
+    console.warn(`No README.md file found at ${readmeBasePath}`);
+  } else {
+    copyFileSync(readmeBasePath, readmeDistPath);
+  }
 }
