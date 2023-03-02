@@ -16,6 +16,8 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           enable-build-cache: 'false'
+      - uses: ./.github/actions/setup-java
+        with:
           install-jdk: 'true'
       - name: Get version
         id: get-version

@@ -22,6 +22,8 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           enable-build-cache: 'true'
+      - uses: ./.github/actions/setup-java
+        with:
           install-jdk: 'true'
       - run: yarn build:swagger-gen
       - run: yarn build
