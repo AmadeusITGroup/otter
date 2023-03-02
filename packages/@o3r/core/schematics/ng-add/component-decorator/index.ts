@@ -30,7 +30,7 @@ const removeImport = (source: ts.SourceFile, symbolName: string, fileName: strin
  * @param tree Tree
  */
 export const updateComponentDecorators: Rule = (tree: Tree) => {
-  const componentFiles = getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'component.ts');
+  const componentFiles = new Set<string>(getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'component.ts'));
   componentFiles.forEach((filePath) => {
     const source = ts.createSourceFile(filePath, tree.readText(filePath), ts.ScriptTarget.ES2015, true);
     const recorder = tree.beginUpdate(filePath);
@@ -48,7 +48,7 @@ export const updateComponentDecorators: Rule = (tree: Tree) => {
             return text === 'Block' || text === 'Page';
           });
         const componentType = componentTypeNode?.expression?.getText() || 'Component';
-        if (!!componentTypeNode && componentType === 'Block' || componentType === 'Page') {
+        if (!!componentTypeNode && componentType === 'Block' || componentType === 'Page' || componentType === 'ExposedComponent') {
           recorder.remove(componentTypeNode!.getFullStart(), componentTypeNode!.end - componentTypeNode!.getFullStart());
           const removePos = removeImport(source, componentType, '@o3r/core');
           if (removePos) {
