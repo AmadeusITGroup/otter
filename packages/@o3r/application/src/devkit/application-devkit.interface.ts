@@ -1,6 +1,10 @@
 import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
 
 export interface ApplicationDevtoolsServiceOptions extends DevtoolsCommonOptions {
+  /**
+   * CSS classname applied to an HTML tag to hide it, ignore it, in the e2e visual testing process
+   */
+  e2eIgnoreClass?: string;
 }
 
 /**
