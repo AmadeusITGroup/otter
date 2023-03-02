@@ -25,7 +25,8 @@
           <span class="warn capsule" *ngIf="execution.status === 'NoEffect'">No effect</span>
           <span class="time capsule">
             <span>{{execution.timestamp | date: 'HH:mm:ss SSS'}}</span>
-            <span>({{execution.duration | number: executionDurationFormat}}ms)</span>
+            <span *ngif="execution.duration">({{execution.duration | number: executionDurationFormat}}ms)</span>
+            <span *ngif="execution.iteration" class="iteration">(iteration: {{execution.iteration | number}})</span>
           </span>
           <button
             class="icon"

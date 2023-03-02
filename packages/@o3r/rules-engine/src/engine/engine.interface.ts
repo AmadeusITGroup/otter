@@ -133,8 +133,10 @@ export interface RuleEvaluationOutput {
   error?: any;
 }
 
-/** Base obeject resulted at the end of a ruleset execution */
+/** Base object resulted at the end of a ruleset execution */
 export interface BaseRulesetExecution {
+  /** The number of time this ruleset has been evaluated */
+  iteration: number;
   /** Id of the ruleset execution */
   executionId: string;
   /** Id of the ruleset which was executed */

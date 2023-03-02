@@ -24,6 +24,8 @@ export class EngineDebugger {
 
   private registeredRulesets: Pick<Ruleset, 'name' | 'id'>[] = [];
 
+  private iterationRulesets: Map<Ruleset['id'], number> = new Map();
+
   // Keep a small history in case the events$ stream from the engine is subscribed after rules engine initialization
   private debugEventsSubject$: ReplaySubject<() => (Promise<DebugEvent> | DebugEvent)>;
 
@@ -87,9 +89,11 @@ export class EngineDebugger {
     rulesetInputFacts: string[], runtimeFactValues: Record<string, Facts>,
     rulesetTriggers: Record<string, Record<string, EvaluationReason>>, rulesExecutions: RuleEvaluation[]) {
 
-    const inputFacts = await this.getFactsSnapshot(rulesetInputFacts);
+    this.iterationRulesets.set(ruleset.id, (this.iterationRulesets.get(ruleset.id) ?? 0) + 1);
 
+    const inputFacts = await this.getFactsSnapshot(rulesetInputFacts);
     const baseRulesetOutputExecution: BaseRulesetExecution = {
+      iteration: this.iterationRulesets.get(ruleset.id)!,
       executionCounter,
       executionId: `${ruleset.id}-${executionCounter}`,
       rulesetId: ruleset.id,
