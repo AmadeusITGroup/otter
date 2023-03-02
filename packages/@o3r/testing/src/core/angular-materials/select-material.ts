@@ -31,9 +31,10 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
    * Select an element in a dropdown by value.
    *
    * @param _value
+   * @param _timeout
    * @deprecated selectByValue relies on ng-reflect-value, which doesn't work when app is in production mode
    */
-  public selectByValue(_value: string): Promise<void> {
+  public selectByValue(_value: string, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
@@ -41,8 +42,9 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
    * Select an element in a dropdown by label.
    *
    * @param _label
+   * @param _timeout
    */
-  public selectByLabel(_label: string): Promise<void> {
+  public selectByLabel(_label: string, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 

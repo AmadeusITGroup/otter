@@ -13,7 +13,7 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, _timeout?: number) {
     await this.setValue(value);
     return this.sourceElement.triggerEventHandler('change', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
   }

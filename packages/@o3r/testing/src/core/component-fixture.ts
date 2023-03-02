@@ -45,14 +45,17 @@ export interface ComponentFixtureProfile<V extends ElementProfile = ElementProfi
    *
    * @param selector CSS selector for the desired elements
    * @param returnType Constructor of the element expected
+   * @param groupType
+   * @param timeout
    */
-  queryAll(selector: string, returnType?: undefined, groupType?: undefined): Promise<O3rElement[]>;
-  queryAll<T extends ElementProfile>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined): Promise<T[]>;
-  queryAll<T extends ElementProfile, K extends GroupProfile<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>): Promise<K>;
+  queryAll(selector: string, returnType?: undefined, groupType?: undefined, timeout?: number): Promise<O3rElement[]>;
+  queryAll<T extends ElementProfile>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined, timeout?: number): Promise<T[]>;
+  queryAll<T extends ElementProfile, K extends GroupProfile<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>, timeout?: number): Promise<K>;
   queryAll<T extends ElementProfile, K extends GroupProfile<T>>(
     selector: string,
     returnType: O3rElementConstructor<T> | undefined,
-    groupType: O3rGroupConstructor<K, T> | undefined
+    groupType: O3rGroupConstructor<K, T> | undefined,
+    timeout?: number
   ): Promise<(T | O3rElement)[] | K>;
 
   /**
@@ -108,20 +111,21 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public query(_selector: string, _returnType?: undefined): Promise<O3rElement | undefined>;
-  public query<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>): Promise<T | undefined>;
+  public query(_selector: string, _returnType?: undefined, timeout?: number): Promise<O3rElement | undefined>;
+  public query<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>, timeout?: number): Promise<T | undefined>;
   public query<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement | undefined> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
   /** @inheritdoc */
-  public queryAll(_selector: string, _returnType?: undefined, _groupType?: undefined): Promise<O3rElement[]>;
-  public queryAll<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType?: undefined): Promise<T[]>;
-  public queryAll<T extends O3rElement, K extends GroupProfile<T>>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType: O3rGroupConstructor<K, T>): Promise<K>;
+  public queryAll(_selector: string, _returnType?: undefined, _groupType?: undefined, timeout?: number): Promise<O3rElement[]>;
+  public queryAll<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType?: undefined, timeout?: number): Promise<T[]>;
+  public queryAll<T extends O3rElement, K extends GroupProfile<T>>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType: O3rGroupConstructor<K, T>, timeout?: number): Promise<K>;
   public queryAll<T extends O3rElement, K extends GroupProfile<T>>(
     _selector: string,
     _returnType: O3rElementConstructor<T> | undefined,
-    _groupType: O3rGroupConstructor<K, T> | undefined
+    _groupType: O3rGroupConstructor<K, T> | undefined,
+    _timeout?: number
   ): Promise<(T | O3rElement)[] | K> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
