@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
-import { isVisualTestingEnabled, toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
+import { isVisualTestingEnabled, prepareVisualTesting,toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
 import { fromEvent, Subscription } from 'rxjs';
 import { ApplicationDevtoolsServiceOptions, ApplicationMessageDataTypes, AvailableApplicationMessageContents, isApplicationMessage } from './application-devkit.interface';
 import { OtterApplicationDevtools } from './application-devtools.service';
@@ -96,6 +96,7 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
     this.subscriptions.add(
       fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe((e) => this.handleEvents(e))
     );
+    prepareVisualTesting(this.options.e2eIgnoreClass);
   }
 
   /** @inheritDoc */
