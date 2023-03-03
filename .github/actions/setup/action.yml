@@ -10,10 +10,6 @@ inputs:
     description: 'Custom identifier to build cache key'
     required: false
     default: 'global'
-  install-jdk:
-    description: 'Option to install java'
-    required: false
-    default: 'false'
 
 runs:
   using: "composite"
@@ -55,11 +51,3 @@ runs:
     - name: Install
       shell: bash
       run: yarn install
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      if: inputs.install-jdk == 'true'
-      with:
-        java-version: '17'
-        distribution: 'corretto'
-        cache: maven
-
