@@ -25,6 +25,8 @@ jobs:
         uses: ./.github/actions/setup
         with:
           enable-build-cache: 'false'
+      - uses: ./.github/actions/setup-java
+        with:
           install-jdk: 'true'
       - name: Cache Jest
         uses: actions/cache@v3
