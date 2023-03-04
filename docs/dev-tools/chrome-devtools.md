@@ -9,10 +9,32 @@ The extension comes with the following features:
 - **Rule Engine current state**: Rule engine state, rule engine logs, etc.
 - **Configuration**: display and modification of the application components configuration.
 
-## How to enable the extension support in your application 
+## How to enable the extension support in your application
 
 Once you have download the extension, you will need to enable the features you need one by one. There is no root toggle.
-This can be done in the AppComponent as following:
+To do so, you will need to import the corresponding modules in you AppModule:
+
+```typescript
+
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ConfigurationDevtoolsModule } from '@o3r/configuration';
+import { LocalizationDevtoolsModule } from '@o3r/localization';
+import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
+
+@NgModule({
+  imports: [
+    ApplicationDevtoolsModule,
+    ConfigurationDevtoolsModule,
+    LocalizationDevtoolsModule,
+    RulesEngineDevtoolsModule
+  ]
+})
+export class AppModule {
+}
+
+```
+
+Then the services activation can be done in the AppComponent as following:
 
 ```typescript
 import { 
@@ -45,8 +67,6 @@ export class AppComponent {
   }
 }
 ```
-
-> **Note**: The **OtterDevtoolsChromeService** is part of the **OtterStoreDevtoolsModule**, it should be imported by the main module.
 
 ## How to install the application
 
