@@ -1,0 +1,29 @@
+name: 'Audit'
+description: 'Step to execute yarn audit and generate the report'
+inputs:
+  severity:
+    description: 'Minimal severity requested for packages to be displayed'
+    required: false
+    default: critical
+  allWorkspaces:
+    description: 'Audit dependencies from all workspaces'
+    required: false
+    default: 'true'
+  recursive:
+    description: 'Audit transitive dependencies as well'
+    required: false
+    default: 'true'
+  environment:
+    description: 'Which environments to cover'
+    required: false
+    default: production
+outputs:
+  reportJSON:
+    description: 'The report in JSON format'
+    value: ${{ steps.audit.outputs.reportJSON }}
+  reportMarkdown:
+    description: 'The report in MarkDown format'
+    value: ${{ steps.audit.outputs.reportMarkdown }}
+runs:
+  using: 'node16'
+  main: 'packaged-action/index.js'

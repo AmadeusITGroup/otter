@@ -1,0 +1,26 @@
+name: 'Get NPM Tag'
+description: 'Getting NPM tag to apply for a release'
+inputs:
+  is-prerelease:
+    description: 'Determine if the expected tag is a pre-release'
+    required: false
+    default: 'false'
+  version:
+    description: 'Version of the publish artifact'
+    required: true
+  token:
+    description: 'Github token to use to access to the APIs'
+    required: false
+    default: ${{ github.token }}
+  repository:
+    description: 'Repository owner/name'
+    required: false
+    default: ${{ github.repository }}
+
+outputs:
+  tag:
+    description: 'NPM Tag to apply'
+    value: ${{ steps.get-npm-tag.outputs.tag }}
+runs:
+  using: 'node16'
+  main: 'packaged-action/index.js'

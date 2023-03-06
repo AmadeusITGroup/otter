@@ -1,0 +1,33 @@
+name: 'Cascading'
+description: 'Cascade the commit(s) after a merge on the next branches based on semver and default branch'
+inputs:
+  noFf:
+    description: 'Force a merge commit in the cascading'
+    required: false
+    default: false
+  ignoredPattern:
+    description: 'Ignore the branches that match this pattern for the cascading ex: -next$'
+    required: false
+  defaultBranch:
+    description: 'The default branch if you have one (ex: master, development), if no candidate found with the given pattern this branch will be the last one where the code will be cascaded'
+    required: false
+    default: 'main'
+  assignCommitter:
+    description: 'Assigns the first committer to the cascading failure PR'
+    required: false
+    default: false
+  token:
+    description: 'Github token to use to access to the APIs (need rights to create a pull request and write/trigger_build on release branches)'
+    required: false
+    default: ${{ github.token }}
+  buildWorkflow:
+    description: 'Name of the build workflow to trigger build on cascaded branch'
+    required: false
+    default: 'main.yml'
+  conflictsIgnoredPackages:
+    description: 'The list of packages changes to ignore if the conflict is only about them, separated by a coma (ex: @otter/common,@otter/core,@refx/booking-common,@refx/booking-components)'
+    required: false
+    default: ''
+runs:
+  using: 'node16'
+  main: 'packaged-action/index.js'
