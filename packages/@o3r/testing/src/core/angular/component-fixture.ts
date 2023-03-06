@@ -50,13 +50,14 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public async queryAll(_selector: string, _returnType?: undefined, groupType?: undefined): Promise<O3rElement[]>;
-  public async queryAll<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined): Promise<T[]>;
-  public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>): Promise<K>;
+  public async queryAll(_selector: string, _returnType?: undefined, groupType?: undefined, _timeout?: number): Promise<O3rElement[]>;
+  public async queryAll<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined, _timeout?: number): Promise<T[]>;
+  public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>, _timeout?: number): Promise<K>;
   public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(
     selector: string,
     returnType: O3rElementConstructor<T> | undefined,
-    groupType: O3rGroupConstructor<K, T> | undefined
+    groupType: O3rGroupConstructor<K, T> | undefined,
+    _timeout?: number
   ): Promise<(T | O3rElement)[] | K> {
     const queriedElement = this.element.sourceElement.queryAll(By.css(selector));
 
