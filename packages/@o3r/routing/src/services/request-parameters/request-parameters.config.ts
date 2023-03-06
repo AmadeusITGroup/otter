@@ -4,6 +4,8 @@
  * Merge: storage data will be merged with the ones provided. (provided data has priority)
  * Replace: storage data will be completely replaced by the ones provided
  * ReplaceIfNotEmpty: If no parameters are provided, use the content from storage. Otherwise use the ones provided and update the storage with them.
+ *
+ * @deprecated use StorageStrategy from @o3r/dynamic-content instead, will be removed in v10
  */
 // eslint-disable-next-line no-shadow
 export enum StorageStrategy {
@@ -19,6 +21,8 @@ export enum StorageStrategy {
 
 /**
  * Configuration used by a user to feed the request parameters service.
+ *
+ * @deprecated use RequestParametersConfig from @o3r/dynamic-content instead, will be removed in v10
  */
 export interface RequestParametersConfig {
   /**
@@ -39,10 +43,12 @@ export interface RequestParametersConfig {
   postParamsValue: string;
 }
 
+/**
+ * @deprecated use defaultRequestParametersConfig from @o3r/dynamic-content instead, will be removed in v10
+ */
 export const defaultRequestParametersConfig: RequestParametersConfig = {
   storage: (typeof window !== 'undefined') ? window.sessionStorage : undefined,
   strategy: StorageStrategy.Rehydrate,
   queryParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.query || '{}',
   postParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.post || '{}'
-
 };
