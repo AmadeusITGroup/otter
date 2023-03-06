@@ -1,11 +1,11 @@
-export interface XmasHamper {
-  id: string;
-  hamperItems: Item[]
-}
-
 export interface Item {
   id: string;
   price: string;
+}
+
+export interface XmasHamper {
+  id: string;
+  hamperItems: Item[];
 }
 
 export const xmasHamper: XmasHamper = {
@@ -13,7 +13,7 @@ export const xmasHamper: XmasHamper = {
   hamperItems: [
     {
       id: 'terrine',
-      price: '10',
+      price: '10'
     }, {
       id: 'foieGras',
       price: '50'

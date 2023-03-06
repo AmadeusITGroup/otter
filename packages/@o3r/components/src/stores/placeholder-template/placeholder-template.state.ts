@@ -5,8 +5,9 @@ import { AsyncStoreItem } from '@o3r/core';
  * Variable model from the placeholder reply
  */
 export interface PlaceholderVariable {
-  type: 'fact' | 'fullUrl' | 'relativeUrl';
+  type: 'fact' | 'fullUrl' | 'relativeUrl' | 'localisation';
   value: string;
+  vars?: string[];
 }
 
 /**

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   cancelPlaceholderTemplateRequest,
   deletePlaceholderTemplateEntity,
@@ -8,11 +8,12 @@ import {
   setPlaceholderTemplateEntity,
   setPlaceholderTemplateEntityFromUrl
 } from '@o3r/components';
-import { fromApiEffectSwitchMapById } from '@o3r/core';
-import { DynamicContentService } from '@o3r/dynamic-content';
-import { combineLatest, EMPTY, firstValueFrom, from, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { RulesEngineService } from './rules-engine.service';
+import {fromApiEffectSwitchMapById} from '@o3r/core';
+import {DynamicContentService} from '@o3r/dynamic-content';
+import {LocalizationService} from '@o3r/localization';
+import {combineLatest, EMPTY, firstValueFrom, Observable, of} from 'rxjs';
+import {map, switchMap, take} from 'rxjs/operators';
+import {RulesEngineService} from './rules-engine.service';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -35,7 +36,7 @@ export class PlaceholderTemplateResponseEffect {
             }))));
           return (factsStreamsList.length ? combineLatest(factsStreamsList) : of([])).pipe(
             switchMap((allFacts) => {
-              return from(this.renderHTML(templateResponse.template, templateResponse.vars, allFacts)).pipe(
+              return this.getRenderedHTML$(templateResponse.template, templateResponse.vars, allFacts).pipe(
                 map(({renderedTemplate, unknownTypeFound}) => setPlaceholderTemplateEntity({
                   entity: {
                     ...templateResponse,
@@ -61,7 +62,75 @@ export class PlaceholderTemplateResponseEffect {
     )
   );
 
-  constructor(private actions$: Actions, private rulesEngineService: RulesEngineService, private dynamicContentService: DynamicContentService) {
+  constructor(private actions$: Actions, private rulesEngineService: RulesEngineService, private dynamicContentService: DynamicContentService, private translationService: LocalizationService) {
+  }
+
+  /**
+   * Renders the html template, replacing facts and urls and localizationKeys
+   *
+   * @param template
+   * @param vars
+   * @param facts
+   */
+  private getRenderedHTML$(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { name: string; factValue: any }[]) {
+    let unknownTypeFound = false;
+    const factset = (facts || []).reduce((set: { [key: string]: any }, fact) => {
+      set[fact.name] = fact.factValue;
+      return set;
+    }, {});
+    const replacements$: Observable<{ ejsVar: RegExp; value: string }>[] = [];
+    if (vars && template) {
+      for (const varName in vars) {
+        if (Object.prototype.hasOwnProperty.call(vars, varName)) {
+          const ejsVar = new RegExp(`<%=\\s*${varName}\\s*%>`, 'g');
+          switch (vars[varName].type) {
+            case 'relativeUrl': {
+              replacements$.push(
+                this.dynamicContentService.getMediaPathStream(vars[varName].value).pipe(
+                  take(1),
+                  map((value: string) => ({ejsVar, value}))
+                )
+              );
+              break;
+            }
+            case 'fullUrl': {
+              template = template.replace(ejsVar, vars[varName].value);
+              break;
+            }
+            case 'fact': {
+              template = template.replace(ejsVar, factset[vars[varName].value] || '');
+              break;
+            }
+            case 'localisation': {
+              const linkedParams = (vars[varName].vars || []).reduce((acc: { [key: string]: any }, parameter) => {
+                const paramName = vars[parameter].value;
+                acc[paramName] = factset[paramName];
+                return acc;
+              }, {});
+              replacements$.push(
+                this.translationService.translate(vars[varName].value, linkedParams).pipe(
+                  map((value: string) => ({ejsVar, value}))
+                )
+              );
+              break;
+            }
+            default : {
+              unknownTypeFound = true;
+              break;
+            }
+          }
+        }
+      }
+    }
+    return replacements$.length > 0 && !!template ?
+      combineLatest(replacements$).pipe(
+        map((replacements: { ejsVar: RegExp; value: string }[]) => ({
+          renderedTemplate: replacements.reduce((acc, replacement) =>
+            acc.replace(replacement.ejsVar, replacement.value), template!
+          ),
+          unknownTypeFound
+        }))
+      ) : of({renderedTemplate: template, unknownTypeFound});
   }
 
   /**
@@ -70,6 +139,7 @@ export class PlaceholderTemplateResponseEffect {
    * @param template
    * @param vars
    * @param facts
+   * @deprecated will be removed in v10
    */
   public async renderHTML(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { name: string; factValue: any }[]) {
     let unknownTypeFound = false;
@@ -102,7 +172,4 @@ export class PlaceholderTemplateResponseEffect {
     }
     return {renderedTemplate: template, unknownTypeFound};
   }
-
 }
-
-
