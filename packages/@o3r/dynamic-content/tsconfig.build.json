@@ -8,5 +8,10 @@
     "module": "ES2022"
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["**/*.spec.ts", "**/templates/**/*.ts", "**/mocks/**/*.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+    "src/**/fixtures/**/*.ts",
+    "**/templates/**/*.ts",
+    "**/mocks/**/*.ts"
+  ]
 }
