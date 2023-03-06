@@ -68,3 +68,10 @@ jobs:
           CHROME_CLIENT_ID: ${{ secrets.CHROME_CLIENT_ID }}
           CHROME_EXT_ID: ${{ secrets.CHROME_EXT_ID }}
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
+      - name: Expose Chrome extension artifact
+        if: '!inputs.prerelease'
+        continue-on-error: true
+        uses: actions/upload-artifact@v3
+        with:
+          name: chrome-extension
+          path: apps/chrome-devtools/chrome-extension.zip

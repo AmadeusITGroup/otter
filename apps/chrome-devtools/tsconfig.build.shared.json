@@ -1,5 +1,8 @@
 {
   "extends": "./tsconfig.build",
+  "compilerOptions": {
+    "tsBuildInfoFile": "build/shared.tsbuildinfo"
+  },
   "include": ["src/**/*.ts"],
   "exclude": [
     "**/*.spec.ts",
