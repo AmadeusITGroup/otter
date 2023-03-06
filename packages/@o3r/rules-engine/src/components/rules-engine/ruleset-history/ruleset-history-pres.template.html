@@ -10,7 +10,7 @@
       <div class="ruleset-panel-title ruleset-expansion-action"
         [class.error]="execution.type === 'RulesetExecutionError'"
         (click)="toggleExpansion(execution.executionId, 'ruleset')">
-        <div>{{execution.executionCounter}} - {{execution.rulesetName | titlecase }}
+        <div><span [title]="'This ruleset has been evaluated ' + execution.executionCounter + ' time(s)'">{{execution.executionCounter}}</span> - {{execution.rulesetName | titlecase }}
           <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponent as linkedComponent">
             {{linkedComponent.name}} {{linkedComponent.library}}
           </div>
