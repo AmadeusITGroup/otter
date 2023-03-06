@@ -17,7 +17,8 @@
         "^build",
         "build-builders",
         "compile",
-        "build-fixtures"
+        "build-fixtures",
+        "extract-rules-engine"
       ]
     },
     "compile": {
@@ -26,6 +27,24 @@
         "project": "packages/@o3r/rules-engine/ng-package.json",
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
       }
+    },
+    "extract-rules-engine": {
+      "executor": "./packages/@o3r/rules-engine/dist:extractor",
+      "outputs": [
+        "{options.outputFactsDirectory}/rules.facts.metadata.json",
+        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
+      ],
+      "options": {
+        "tsConfig": "./packages/@o3r/rules-engine/tsconfig.build.json",
+        "outputFactsDirectory": "./packages/@o3r/rules-engine/dist",
+        "outputOperatorsDirectory": "./packages/@o3r/rules-engine/dist",
+        "operatorFilePatterns": [
+          "./packages/@o3r/rules-engine/src/engine/operator/operators/**/*.operators.ts"
+        ]
+      },
+      "dependsOn": [
+        "build-builders"
+      ]
     },
     "build-fixtures": {
       "executor": "nx:noop"

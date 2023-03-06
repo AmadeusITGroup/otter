@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.build",
+  "compilerOptions": {
+    "types": [
+      "node",
+      "jasmine"
+    ],
+    "emitDeclarationOnly": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo.jasmine",
+    "incremental": true,
+    "outDir": "./dist/src"
+  },
+  "include": ["src/**/fixtures/jasmine/**/*.ts"],
+  "exclude": ["**/*.spec.ts"],
+}

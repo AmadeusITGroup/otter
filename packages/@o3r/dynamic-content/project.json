@@ -6,10 +6,17 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
       "dependsOn": [
         "build-builders",
-        "compile"
+        "compile",
+        "build-fixtures"
       ]
     },
     "compile": {
@@ -21,6 +28,21 @@
       "dependsOn": [
         "^build"
       ]
+    },
+    "build-fixtures": {
+      "executor": "nx:noop"
+    },
+    "build-fixtures-jest": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:fixtures:jest"
+      }
+    },
+    "build-fixtures-jasmine": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:fixtures:jasmine"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

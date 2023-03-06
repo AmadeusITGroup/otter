@@ -4,18 +4,28 @@ import {defaultRequestParametersConfig, RequestParametersConfig, StorageStrategy
 
 import {REQUEST_PARAMETERS_CONFIG_TOKEN} from './request-parameters.token';
 
+/**
+ * @deprecated use ParamsList from @o3r/dynamic-content instead, will be removed in v10
+ */
 export type ParamsList = 'query' | 'post';
 
+/**
+ * @deprecated use ParamsType from @o3r/dynamic-content instead, will be removed in v10
+ */
 export type ParamsType = {[k in ParamsList]: {[key: string]: string}};
 
 /**
  * Partial configuration for RequestParameters Service
+ *
+ * @deprecated use PartialRequestParametersConfig from @o3r/dynamic-content instead, will be removed in v10
  */
 export interface PartialRequestParametersConfig extends Partial<RequestParametersConfig> {}
 
 /**
  * Service used to store the request parameters of your requests so that subsequent calls or refresh the page will preserve
  * them.
+ *
+ * @deprecated use RequestParametersService from @o3r/dynamic-content instead, will be removed in v10
  */
 @Injectable()
 export class RequestParametersService implements ParamsType {

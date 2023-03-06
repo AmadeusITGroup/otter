@@ -8,6 +8,8 @@ module.exports = {
     'project': [
       'tsconfig.build.json',
       'tsconfig.builders.json',
+      'tsconfig.fixture.jasmine.json',
+      'tsconfig.fixture.jest.json',
       'tsconfig.spec.json',
       'tsconfig.eslint.json'
     ],

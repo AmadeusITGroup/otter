@@ -10,6 +10,12 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.fixture.jasmine.json"
+    },
+    {
+      "path": "./tsconfig.fixture.jest.json"
     }
   ]
 }
