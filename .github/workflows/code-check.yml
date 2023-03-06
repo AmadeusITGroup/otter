@@ -16,7 +16,7 @@ jobs:
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./tools/github-actions/setup
         with:
           enable-build-cache: 'false'
       - uses: ./.github/actions/setup-java
@@ -47,7 +47,7 @@ jobs:
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./tools/github-actions/setup
         with:
           enable-build-cache: 'false'
       - name: Cache Eslint

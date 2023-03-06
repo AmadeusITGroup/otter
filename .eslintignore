@@ -7,3 +7,4 @@ generated-doc/
 /packages/@*/*/**/templates/**
 /.pnp.js
 /.vscode
+/tools/github-actions/*/packaged-action/
