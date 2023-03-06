@@ -48,7 +48,7 @@ describe('Configuration DevTools console', () => {
     service.activate();
 
     // eslint-disable-next-line no-underscore-dangle
-    expect((window as any)._OTTER_DEVTOOLS_).toBeDefined();
+    expect((window as any)._OTTER_DEVTOOLS_?.[ConfigurationDevtoolsConsoleService.windowModuleName]).toBeDefined();
   });
 
   it('should display the whole configuration', async () => {

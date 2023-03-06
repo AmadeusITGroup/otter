@@ -9,6 +9,9 @@ import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_
   providedIn: 'root'
 })
 export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterface {
+  /** Name of the Window property to access to the devtools */
+  public static readonly windowModuleName = 'application';
+
   private readonly options: ApplicationDevtoolsServiceOptions;
 
   constructor(
@@ -25,13 +28,11 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
     // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_ = {
-      // eslint-disable-next-line no-underscore-dangle
-      ...windowWithDevtools._OTTER_DEVTOOLS_,
-      ...this
-    };
+    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
+    // eslint-disable-next-line no-underscore-dangle
+    windowWithDevtools._OTTER_DEVTOOLS_[ApplicationDevtoolsConsoleService.windowModuleName] = this;
 
-    console.info('Otter Application Devtools is now accessible via the _OTTER_DEVTOOLS_ variable');
+    console.info(`Otter Application Devtools is now accessible via the _OTTER_DEVTOOLS_.${ApplicationDevtoolsConsoleService.windowModuleName} variable`);
   }
 
   /** Display the information relative to the running application */
