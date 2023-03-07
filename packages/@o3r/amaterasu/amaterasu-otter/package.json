@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular/cli": "~15.1.0"
+    "@angular/cli": "~15.2.0"
   },
   "engines": {
     "node": ">=14.0.0",
