@@ -15,9 +15,9 @@
     "vscode": "^1.22.0"
   },
   "dependencies": {
-    "@angular-devkit/architect": "~0.1501.3",
-    "@angular-devkit/core": "~15.1.3",
-    "@angular-devkit/schematics": "~15.1.3",
+    "@angular-devkit/architect": "~0.1502.0",
+    "@angular-devkit/core": "~15.2.0",
+    "@angular-devkit/schematics": "~15.2.0",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
