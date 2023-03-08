@@ -1035,17 +1035,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/router@npm:^15.1.2":
-  version: 15.1.2
-  resolution: "@angular/router@npm:15.1.2"
+"@angular/router@npm:~15.2.0":
+  version: 15.2.1
+  resolution: "@angular/router@npm:15.2.1"
   dependencies:
     tslib: ^2.3.0
   peerDependencies:
-    "@angular/common": 15.1.2
-    "@angular/core": 15.1.2
-    "@angular/platform-browser": 15.1.2
+    "@angular/common": 15.2.1
+    "@angular/core": 15.2.1
+    "@angular/platform-browser": 15.2.1
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 910e7efec54a24b4f06d3ad85a4b834406aec314c3b9af5ab71057716d1f12dcec5d8d354a1779e691803776bbc1c6ea49022782aa7ade2f2e03fae50b84c182
+  checksum: be772069358a5badbf4821695f5245f6e8bb8705efeb25dfbbf1f49992ea49d6115954c0177d46920e1c225721875256d7273d89f77e00bc54452956860b7a7b
   languageName: node
   linkType: hard
 
@@ -5882,7 +5882,7 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@angular/router": ^15.1.2
+    "@angular/router": ~15.2.0
     "@ngrx/store": ^15.0.0
     "@nrwl/cli": ~15.8.0
     "@nrwl/jest": ~15.8.0
@@ -6106,7 +6106,7 @@ __metadata:
     "@angular/localize": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@angular/router": ^15.1.2
+    "@angular/router": ~15.2.0
     "@ng-bootstrap/ng-bootstrap": ^14.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
@@ -6337,7 +6337,7 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@angular/router": ^15.1.2
+    "@angular/router": ~15.2.0
     "@ngrx/effects": ^15.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/store": ^15.0.0
@@ -7125,7 +7125,7 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@angular/router": ^15.1.2
+    "@angular/router": ~15.2.0
     "@ngrx/effects": ^15.0.0
     "@ngrx/entity": ^15.0.0
     "@ngrx/router-store": ^15.0.0

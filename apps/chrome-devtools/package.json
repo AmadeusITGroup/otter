@@ -77,7 +77,7 @@
     "@angular/core": "~15.2.0",
     "@angular/forms": "~15.2.0",
     "@angular/localize": "~15.2.0",
-    "@angular/router": "^15.1.2",
+    "@angular/router": "~15.2.0",
     "@ng-bootstrap/ng-bootstrap": "^14.0.0",
     "@ngrx/entity": "^15.0.0",
     "@ngrx/store": "^15.0.0",
