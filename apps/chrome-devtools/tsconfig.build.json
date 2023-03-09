@@ -6,7 +6,8 @@
     "outDir": "dist/",
     "module": "es2020",
     "moduleResolution": "node",
-    "incremental": true
+    "incremental": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "angularCompilerOptions": {
     "compilationMode": "full"

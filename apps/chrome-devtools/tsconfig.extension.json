@@ -7,7 +7,8 @@
     "types": ["chrome"],
     "outDir": "dist",
     "module": "ES2020",
-    "moduleResolution": "Node"
+    "moduleResolution": "Node",
+    "tsBuildInfoFile": "build/extension.tsbuildinfo"
   },
   "include": [
     "src/extension/**/*.ts"
