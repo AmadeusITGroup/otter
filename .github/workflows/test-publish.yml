@@ -18,6 +18,8 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           enable-build-cache: 'true'
+      - uses: ./.github/actions/setup-java
+        with:
           install-jdk: 'true'
       - name: Test
         run: yarn test-int
