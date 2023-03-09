@@ -13,11 +13,11 @@ import { LOGGER_CLIENT_TOKEN } from './logger.token';
 })
 export class LoggerService implements Logger {
 
-  /** Logger */
-  private readonly client: LoggerClient;
+  /** Loggers */
+  private readonly clients: LoggerClient[];
 
-  constructor(@Optional() @Inject(LOGGER_CLIENT_TOKEN) client?: LoggerClient) {
-    this.client = client || new ConsoleLogger();
+  constructor(@Optional() @Inject(LOGGER_CLIENT_TOKEN) clients?: LoggerClient | LoggerClient[]) {
+    this.clients = clients ? (Array.isArray(clients) ? clients : [clients]) : [new ConsoleLogger()];
   }
 
   /**
@@ -27,7 +27,7 @@ export class LoggerService implements Logger {
    * @param vars Addition information about the user
    */
   public identify(uid: string, vars?: {[key: string]: string}) {
-    this.client.identify(uid, vars);
+    this.clients.forEach((client) => client.identify(uid, vars));
   }
 
   /**
@@ -37,28 +37,31 @@ export class LoggerService implements Logger {
    * @param properties Additional properties
    */
   public event(name: string, properties?: any): void {
-    this.client.event(name, properties);
+    this.clients.forEach((client) => client.event(name, properties));
   }
 
   /**
    * Generate a link to the replay of the current session.
    */
-  public getClientSessionURL(): string | undefined {
-    return this.client.getSessionURL();
+  public getClientSessionURL(): string | string[] | undefined {
+    const sessionUrls = this.clients
+      .map((client) => client.getSessionURL())
+      .filter((sessionUrl): sessionUrl is string => !!sessionUrl);
+    return sessionUrls.length <= 1 ? sessionUrls[0] : sessionUrls;
   }
 
   /**
    * Stop recording.
    */
   public stopClientRecording(): void {
-    return this.client.stopRecording();
+    this.clients.forEach((client) => client.stopRecording());
   }
 
   /**
    * Resume recording.
    */
   public resumeClientRecording(): void {
-    return this.client.resumeRecording();
+    this.clients.forEach((client) => client.resumeRecording());
   }
 
   /**
@@ -68,7 +71,7 @@ export class LoggerService implements Logger {
    * @param optionalParams
    */
   public error(message?: any, ...optionalParams: any[]) {
-    this.client.error(message, ...optionalParams);
+    this.clients.forEach((client) => client.error(message, ...optionalParams));
   }
 
   /**
@@ -78,7 +81,7 @@ export class LoggerService implements Logger {
    * @param optionalParams
    */
   public warn(message?: any, ...optionalParams: any[]) {
-    this.client.warn(message, ...optionalParams);
+    this.clients.forEach((client) => client.warn(message, ...optionalParams));
   }
 
   /**
@@ -88,7 +91,7 @@ export class LoggerService implements Logger {
    * @param optionalParams
    */
   public log(message?: any, ...optionalParams: any[]) {
-    this.client.log(message, ...optionalParams);
+    this.clients.forEach((client) => client.log(message, ...optionalParams));
   }
 
   /**
@@ -97,8 +100,8 @@ export class LoggerService implements Logger {
    * @param message
    * @param optionalParams
    */
-  public info(message?: any, ...optionalParams: any[]) {
-    (this.client.info ? this.client.info : this.client.log)(message, ...optionalParams);
+  public info(message?: any, ...optionalParams: any[]): void {
+    this.clients.forEach((client) => (client.info ? client.info : client.log)(message, ...optionalParams));
   }
 
   /**
@@ -108,13 +111,16 @@ export class LoggerService implements Logger {
    * @param optionalParams
    */
   public debug(message?: any, ...optionalParams: any[]) {
-    this.client.debug?.(message, ...optionalParams);
+    this.clients.forEach((client) => client.debug?.(message, ...optionalParams));
   }
 
   /**
    * Create a meta reducer to log ngrx store.
    */
-  public createMetaReducer(): MetaReducer<any, Action> | undefined {
-    return this.client.createMetaReducer();
+  public createMetaReducer(): MetaReducer<any, Action> | MetaReducer<any, Action>[] | undefined {
+    const metaReducers = this.clients
+      .map((client) => client.createMetaReducer())
+      .filter((metaReducer): metaReducer is MetaReducer<any, Action> => !!metaReducer);
+    return metaReducers.length <= 1 ? metaReducers[0] : metaReducers;
   }
 }
