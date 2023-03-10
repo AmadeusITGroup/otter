@@ -15,4 +15,4 @@ npx @ama-terasu/cli --help
 To register a module into the CLI, the `package.json` of the CLI should be updated with the following items:
 
 * Add the module into CLI dependencies via `yarn workspace @ama-terasu/cli add <my-module>`
-* Add to your module the tag `amaterasu-module` into the `tags` list of your module `package.json` file.
+* Add to your module the tag `amaterasu-module` into the `keywords` list of your module `package.json` file.
