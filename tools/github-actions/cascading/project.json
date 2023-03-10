@@ -1,0 +1,38 @@
+{
+  "name": "github-actions-cascading",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/github-actions/cascading/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "tools/github-actions/cascading/.eslintrc.js",
+        "lintFilePatterns": [
+          "tools/github-actions/cascading/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "tools/github-actions/cascading/jest.config.js",
+        "silent": true
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,38 @@
+{
+  "name": "github-actions-new-version",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "tools/github-actions/new-version/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "tools/github-actions/new-version/.eslintrc.js",
+        "lintFilePatterns": [
+          "tools/github-actions/new-version/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "tools/github-actions/new-version/jest.config.js",
+        "silent": true
+      }
+    }
+  },
+  "tags": []
+}

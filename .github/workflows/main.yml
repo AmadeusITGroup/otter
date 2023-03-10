@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      - uses: ./tools/github-actions/setup
         with:
           enable-build-cache: 'true'
       - uses: ./.github/actions/setup-java
@@ -27,7 +27,7 @@ jobs:
           install-jdk: 'true'
       - run: yarn build:swagger-gen
       - run: yarn build
-      - uses: ./.github/actions/upload-build-output
+      - uses: ./tools/github-actions/upload-build-output
   version:
     permissions:
       contents: write
@@ -37,10 +37,10 @@ jobs:
       isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      - uses: ./tools/github-actions/setup
       - name: New Version
         id: newVersion
-        uses: ./.github/actions/new-version
+        uses: ./tools/github-actions/new-version
         with:
           defaultBranch: main
           defaultBranchPrereleaseName: alpha
@@ -63,3 +63,10 @@ jobs:
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
+  cascading:
+    runs-on: ubuntu-latest
+    needs: [version, build, checks]
+    if: github.event_name != 'pull_request'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./tools/github-actions/cascading
