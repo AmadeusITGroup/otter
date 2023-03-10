@@ -51,6 +51,14 @@ if (!privatePackageJson) {
 
 const packageJson = JSON.parse(readFileSync(distPackageJson, { encoding: 'utf-8' }));
 
+if (!existsSync(resolve(distPath, 'README.md'))) {
+  if (existsSync(resolve(root, 'README.md'))) {
+    copyFileSync(resolve(root, 'README.md'), resolve(distPath, 'README.md'));
+  } else {
+    throw new Error(`no README.md file available for ${packageJson.name}`);
+  }
+}
+
 fields.forEach((field) => {
   packageJson[field] = privatePackageJson.content[field];
 });
