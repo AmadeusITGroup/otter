@@ -15,7 +15,7 @@
     "@ama-des/amaterasu-desapp"
   ],
   "bin": {
-    "ama": "dist/scr/cli/ama.js"
+    "ama": "dist/src/cli/ama.js"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~15.2.0",
