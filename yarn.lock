@@ -276,7 +276,7 @@ __metadata:
     webpack-cli: ~5.0.1
     yargs: ^17.6.2
   bin:
-    ama: dist/scr/cli/ama.js
+    ama: dist/src/cli/ama.js
   languageName: unknown
   linkType: soft
 
