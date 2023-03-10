@@ -66,6 +66,70 @@ export function getUserProvidedMetaReducers(logger: LoggerService): MetaReducer<
 export class AppModule {}
 ```
 
+### Advance usage
+
+To provide complex logger client, the client can be provided via the `LOGGER_CLIENT_TOKEN` as following:
+
+```typescript
+import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
+import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+
+// ...
+
+@NgModule({
+  imports: [
+    LoggerModule
+  ],
+  providers: [
+    { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId') }
+  ]
+})
+export class AppModule {}
+```
+
+### Multi Client
+
+The Logger service supports multi logger clients.
+This can be provided via the `.forRoot()` function of the `LoggerModule` as following:
+
+```typescript
+import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
+import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
+import {LoggerModule} from '@o3r/logger';
+
+// ...
+
+@NgModule({
+  imports: [
+    // ...
+    LoggerModule.forRoot(
+      new LogRocketClient('LogRocket appId'),
+      new SmartLookClient('SmartLook key')
+    )
+  ]
+})
+export class AppModule {}
+```
+
+Or via multi providers:
+
+```typescript
+import {LogRocketClient} from '@o3r/logger/logrocket-logger-client';
+import {SmartLookClient} from '@o3r/logger/smartlook-logger-client';
+import {LOGGER_CLIENT_TOKEN, LoggerModule} from '@o3r/logger';
+
+@NgModule({
+  imports: [
+    LoggerModule
+  ],
+  providers: [
+    { provide: LOGGER_CLIENT_TOKEN, useValue: new LogRocketClient('LogRocket appId'), multi: true },
+    { provide: LOGGER_CLIENT_TOKEN, useValue: new SmartLookClient('SmartLook key'), multi: true }
+  ]
+})
+export class AppModule {}
+```
+
 ## How to use
 
 The `LoggerService` is agnostic of the third-party services and offers an abstraction layer for the application.

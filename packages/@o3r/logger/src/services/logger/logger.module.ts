@@ -10,13 +10,16 @@ import { LOGGER_CLIENT_TOKEN } from './logger.token';
   ]
 })
 export class LoggerModule {
-  public static forRoot(client: LoggerClient = new ConsoleLogger()): ModuleWithProviders<LoggerModule> {
+  public static forRoot(...clients: LoggerClient[]): ModuleWithProviders<LoggerModule> {
+    if (clients.length < 1) {
+      clients = [new ConsoleLogger()];
+    }
     return {
       ngModule: LoggerModule,
       providers: [
         {
           provide: LOGGER_CLIENT_TOKEN,
-          useValue: client,
+          useValue: clients,
           multi: false
         }
       ]
