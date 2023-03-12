@@ -1,0 +1,72 @@
+#Project info 
+site_name: Otter Framework
+site_url: https://amadeus.com
+site_description: The Otter Project has the goal to provide a common platform to accelerate and facilitate the development on web application based on Angular. Otter is a very module framework split in several unit working together on a common base allowing CMS customization.
+site_author: Amadeus IT Group
+
+#Repository
+repo_name: AmadeusITGroup/otter
+repo_url: https://github.com/AmadeusITGroup/otter
+
+#Copyright
+copyright: Copyright © Amadeus IT Group S.A.
+
+#Configuration 
+theme:
+  name: material
+  #custom_dir: overrides
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.indexes 
+    - toc.follow
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - announce.dismiss
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night 
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  font:
+    text: Amadeus
+    code: Source Sans Pro
+  favicon: assets/logo.pg
+  logo: assets/logo.png
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      url_download: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+  - git-revision-date-localized
+
+#Customization
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/AmadeusITGroup
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/AmadeusITGroup
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/company/amadeus
+
+#Additional CSS
+extra_css:
+  - stylesheets/extra.css
