@@ -6122,7 +6122,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.220
+    "@types/chrome": ^0.0.222
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -6849,7 +6849,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^3.0.2
     rxjs: ^7.4.0
-    sass: ~1.58.0
+    sass: ~1.59.0
     sass-loader: ^13.1.0
     semver: ^7.3.2
     standard-version: ^9.0.0
@@ -7518,7 +7518,7 @@ __metadata:
     jest-junit: ^14.0.0
     nx: ~15.8.0
     rxjs: ^7.4.0
-    sass: ~1.58.0
+    sass: ~1.59.0
     sass-true: ^6.0.0
     stylelint: ^14.1.0
     stylelint-scss: ^4.0.0
@@ -8993,13 +8993,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.220":
-  version: 0.0.220
-  resolution: "@types/chrome@npm:0.0.220"
+"@types/chrome@npm:^0.0.222":
+  version: 0.0.222
+  resolution: "@types/chrome@npm:0.0.222"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 774c722daecb84ecf86d7128ed8747a560085012cc4e564179fad75838c536cded1e5d54aea359b25ad488bd21a826d2fee511495279f71286c3f7a370fb24e6
+  checksum: 64433c18d106c7e8d5c3a87661918749a942ac5c4c2ab05b58504edbd30399b83b365e9958a49ea23071c4258d6f8065409ccea3ca1f4da619b4b5f07948165f
   languageName: node
   linkType: hard
 
@@ -28047,7 +28047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:1.58.1, sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.58.0":
+"sass@npm:1.58.1":
   version: 1.58.1
   resolution: "sass@npm:1.58.1"
   dependencies:
@@ -28057,6 +28057,19 @@ __metadata:
   bin:
     sass: sass.js
   checksum: ff079887d906b5c0dde99084d14ac36336d238c0c07935ff6381bad68f05de212c1ff12657ac1e8a0533523cd7a393126facdc2508d758e7d5700344a0e6ea51
+  languageName: node
+  linkType: hard
+
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.59.0":
+  version: 1.59.2
+  resolution: "sass@npm:1.59.2"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: ab015ac49beb1252373023cc79b687aabd7850a7f450250b2fbe4eb3f64b0aef6759f8c7b33234221788a0e42cdd3999edfb5995218e474123b99cb126773e30
   languageName: node
   linkType: hard
 
