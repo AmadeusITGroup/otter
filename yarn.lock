@@ -59,9 +59,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ama-des/amaterasu-desapp@npm:latest":
-  version: 1.0.31
-  resolution: "@ama-des/amaterasu-desapp@npm:1.0.31"
+"@ama-des/amaterasu-desapp@npm:^1.0.41":
+  version: 1.0.41
+  resolution: "@ama-des/amaterasu-desapp@npm:1.0.41"
   dependencies:
     exceljs: ^4.3.0
     js-yaml: ^4.1.0
@@ -70,8 +70,8 @@ __metadata:
     urllib: ^3.3.1
     yargs: ^17.4.1
   peerDependencies:
-    "@ama-terasu/core": ^0.0.44
-  checksum: e3fc3eaea3efd0b8ee299bb7cd2c3283f29f2ab7f87f702762c38a6bddf1c1523295c1197df3123415e9de6c04ec9e491801cdf9e583fcb193a7c13d5c587d8b
+    "@ama-terasu/core": ^0.0.44 || 0.0.0-placeholder
+  checksum: c4fa87af03c15b43cbe9672983901d31d837c8111dc64a611d344df1bb8f511c3bfe937845e9a44f8160b8441e03d1ab90eefeec74c6919f0adef408d10332c5
   languageName: node
   linkType: hard
 
@@ -238,7 +238,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
-    "@ama-des/amaterasu-desapp": latest
+    "@ama-des/amaterasu-desapp": ^1.0.41
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~15.2.0
     "@nrwl/jest": ~15.8.0
