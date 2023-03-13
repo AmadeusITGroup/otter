@@ -68,10 +68,10 @@ void (async () => {
     await Promise.all(threads.filter(thread => !!thread.id).map((thread) => prService.deleteThread(repositoryId, pullRequestId, thread.id!)));
   }
   if (opts.mode === 'Replace' || threads.length < 1) {
-    await prService.addThread(repositoryId, pullRequestId, opts.comment, opts.commentStatus, opts.threadIdentifier);
+    await prService.addThread(repositoryId, pullRequestId, comment, opts.commentStatus, opts.threadIdentifier);
   } else if (opts.mode === 'Add') {
     await Promise.all(
-      threads.map((thread) => prService.addCommentToThread(repositoryId, pullRequestId, thread, opts.comment))
+      threads.map((thread) => prService.addCommentToThread(repositoryId, pullRequestId, thread, comment!))
     );
   }
 })();
