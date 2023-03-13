@@ -54,7 +54,7 @@
     "webpack-cli": "~5.0.1"
   },
   "dependencies": {
-    "@ama-des/amaterasu-desapp": "latest",
+    "@ama-des/amaterasu-desapp": "^1.0.41",
     "@ama-terasu/core": "workspace:^",
     "@o3r/amaterasu-api-spec": "workspace:^",
     "@o3r/amaterasu-dodo": "workspace:^",
