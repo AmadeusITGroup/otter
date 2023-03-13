@@ -24,12 +24,22 @@
         "script": "build:builders"
       }
     },
+    "prepare-compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:compile"
+      }
+    },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/logger/ng-package.json",
+        "project": "packages/@o3r/logger/src/ng-package.json",
         "tsConfig": "packages/@o3r/logger/tsconfig.build.json"
-      }
+      },
+      "dependsOn": [
+        "prepare-compile",
+        "^build"
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

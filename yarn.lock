@@ -155,6 +155,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     copyfiles: ^2.4.1
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ^26.1.4
@@ -205,6 +206,7 @@ __metadata:
     commander: ^9.0.0
     concurrently: ^7.0.0
     copyfiles: ^2.4.1
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ^26.1.4
@@ -224,10 +226,10 @@ __metadata:
     tslib: ^2.4.1
     typescript: ~4.9.4
   bin:
-    swagger-build: ./dist/src/cli/build.js
-    swagger-dictionary-check: ./dist/src/cli/dictionary-check.js
-    swagger-multi-success-check: ./dist/src/cli/multi-success-check.js
-    swagger-operation-id-check: ./dist/src/cli/operation-id-check.js
+    swagger-build: ./dist/cli/build.js
+    swagger-dictionary-check: ./dist/cli/dictionary-check.js
+    swagger-multi-success-check: ./dist/cli/multi-success-check.js
+    swagger-operation-id-check: ./dist/cli/operation-id-check.js
   languageName: unknown
   linkType: soft
 

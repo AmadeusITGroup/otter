@@ -10,14 +10,14 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build ama-sdk-swagger-builder",
-    "postbuild": "patch-package-json-main",
+    "postbuild": "patch-package-json-main && cpy 'src/schemas/*.json' 'dist/schemas'",
     "prepare:publish": "prepare-publish ./dist"
   },
   "bin": {
-    "swagger-build": "./dist/src/cli/build.js",
-    "swagger-dictionary-check": "./dist/src/cli/dictionary-check.js",
-    "swagger-multi-success-check": "./dist/src/cli/multi-success-check.js",
-    "swagger-operation-id-check": "./dist/src/cli/operation-id-check.js"
+    "swagger-build": "./dist/cli/build.js",
+    "swagger-dictionary-check": "./dist/cli/dictionary-check.js",
+    "swagger-multi-success-check": "./dist/cli/multi-success-check.js",
+    "swagger-operation-id-check": "./dist/cli/operation-id-check.js"
   },
   "dependencies": {
     "@apidevtools/swagger-parser": "^10.0.0",
@@ -47,6 +47,7 @@
     "@typescript-eslint/parser": "^5.19.0",
     "concurrently": "^7.0.0",
     "copyfiles": "^2.4.1",
+    "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^26.1.4",

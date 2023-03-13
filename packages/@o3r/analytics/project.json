@@ -31,12 +31,18 @@
       "executor": "nx:noop"
     },
     "build-fixtures-jest": {
+      "outputs": [
+        "packages/@o3r/analytics/dist/src/fixtures/jest"
+      ],
       "executor": "nx:run-script",
       "options": {
         "script": "build:fixtures:jest"
       }
     },
     "build-fixtures-jasmine": {
+      "outputs": [
+        "packages/@o3r/analytics/dist/src/fixtures/jasmine"
+      ],
       "executor": "nx:run-script",
       "options": {
         "script": "build:fixtures:jasmine"
