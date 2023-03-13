@@ -2,27 +2,13 @@
   "name": "@ama-sdk/core",
   "version": "0.0.0-placeholder",
   "description": "Digital API - SDK Core",
-  "module": "dist/src/public_api.js",
+  "module": "dist/public_api.js",
   "esm2015": "dist/esm2015/public_api.js",
-  "esm2020": "dist/src/public_api.js",
-  "typings": "dist/src/public_api.d.ts",
+  "esm2020": "dist/public_api.js",
+  "typings": "dist/public_api.d.ts",
+  "main": "dist/public_api.js",
+  "types": "dist/public_api.d.ts",
   "sideEffects": false,
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "module": "./dist/src/public_api.js",
-      "esm2020": "./dist/src/public_api.js",
-      "esm2015": "./dist/esm2015/public_api.js",
-      "es2020": "./dist/cjs/public_api.js",
-      "default": "./dist/cjs/public_api.js",
-      "typings": "./dist/src/public_api.d.ts",
-      "import": "./dist/src/public_api.js",
-      "node": "./dist/cjs/public_api.js",
-      "require": "./dist/cjs/public_api.js"
-    }
-  },
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",

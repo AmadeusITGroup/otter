@@ -48,11 +48,11 @@
     "compile": {
       "executor": "@nrwl/js:tsc",
       "outputs": [
-        "{projectRoot}/dist/src",
-        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist",
         "{projectRoot}/build/.tsbuildinfo"
       ],
       "options": {
+        "rootDir": "packages/@ama-sdk/core/src",
         "main": "packages/@ama-sdk/core/src/public_api.ts",
         "tsConfig": "packages/@ama-sdk/core/tsconfig.esm2020.json",
         "outputPath": "packages/@ama-sdk/core/dist",

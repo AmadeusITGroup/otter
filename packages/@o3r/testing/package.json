@@ -6,71 +6,8 @@
     "testing",
     "otter"
   ],
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "types": "./src/core/index.d.ts",
-      "default": "./src/core/index.js"
-    },
-    "./core": {
-      "types": "./src/core/index.d.ts",
-      "default": "./src/core/index.js"
-    },
-    "./core/angular": {
-      "types": "./src/core/angular/index.d.ts",
-      "default": "./src/core/angular/index.js"
-    },
-    "./core/playwright": {
-      "types": "./src/core/playwright/index.d.ts",
-      "default": "./src/core/playwright/index.js"
-    },
-    "./core/playwright/component-fixture": {
-      "types": "./src/core/playwright/component-fixture.d.ts",
-      "default": "./src/core/playwright/component-fixture.js"
-    },
-    "./core/protractor": {
-      "types": "./src/core/protractor/index.d.ts",
-      "default": "./src/core/protractor/index.js"
-    },
-    "./core/protractor/component-fixture": {
-      "types": "./src/core/protractor/component-fixture.d.ts",
-      "default": "./src/core/protractor/component-fixture.js"
-    },
-    "./localization": {
-      "types": "./src/localization/index.d.ts",
-      "default": "./src/localization/index.js"
-    },
-    "./mocks": {
-      "types": "./src/mocks/index.d.ts",
-      "default": "./src/mocks/index.js"
-    },
-    "./store": {
-      "types": "./src/store/index.d.ts",
-      "default": "./src/store/index.js"
-    },
-    "./tools": {
-      "types": "./src/tools/index.d.ts",
-      "default": "./src/tools/index.js"
-    },
-    "./tools/path-replacement": {
-      "types": "./src/tools/path-replacement/index.d.ts",
-      "default": "./src/tools/path-replacement/index.js"
-    },
-    "./tools/protractor": {
-      "types": "./src/tools/protractor/index.d.ts",
-      "default": "./src/tools/protractor/index.js"
-    },
-    "./visual-test": {
-      "types": "./src/visual-test/index.d.ts",
-      "default": "./src/visual-test/index.js"
-    },
-    "./visual-test/utils": {
-      "types": "./src/visual-test/utils.d.ts",
-      "default": "./src/visual-test/utils.js"
-    }
-  },
+  "main": "dist/public_api.js",
+  "typings": "dist/public_api.d.ts",
   "ng-update": {
     "migrations": "./src/migration.json"
   },

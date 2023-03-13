@@ -5,6 +5,7 @@
       "node",
       "jest"
     ],
+    "rootDir": "src",
     "emitDeclarationOnly": true,
     "tsBuildInfoFile": "build/.tsbuildinfo.jest",
     "incremental": true,
