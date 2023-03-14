@@ -20,6 +20,11 @@ export const yargsAmaCli = yargs(hideBin(process.argv))
     description: 'Display the log in verbose mode',
     type: 'boolean'
   })
+  .options('local-only', {
+    global: true,
+    description: 'Use installed package only',
+    type: 'boolean'
+  })
   .config('config', 'Path to the configuration file');
 
 /** Type helper to retrieve configuration from module */

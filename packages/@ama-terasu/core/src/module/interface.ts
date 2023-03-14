@@ -65,10 +65,19 @@ export interface Task {
 
 /** Context of a module to dialog with CLI host */
 export interface Context {
-  /** Progress bar helper */
+  /**
+   * Progress bar helper
+   *
+   * @param total Total value of the progress bar
+   * @param initialLabel  Label to be displayed initially on the progressBar
+   */
   getProgressBar: (total: number, initialLabel?: string) => ProgressBar;
 
-  /** Display a spinner with message */
+  /**
+   * Retrieve an install of the spinner to be used in the Amaterasu module
+   *
+   * @param initialLabel Label to be displayed initially on the spinner
+   */
   getSpinner: (initialLabel?: string) => Task;
 
   /** logger */
@@ -76,7 +85,7 @@ export interface Context {
 }
 
 /** Root Context provided to modules */
-export interface RootContext {
+export interface RootContext extends Context {
 
   /**
    * Show Help message
@@ -107,10 +116,18 @@ export interface RootContext {
 }
 
 export interface AmaCliModule {
-  /** Name of the CLI module */
+  /**
+   * Name of the CLI module
+   *
+   * @deprecated will be read from package.json instead
+   */
   name: string;
 
-  /** Description of the module */
+  /**
+   * Description of the module
+   *
+   * @deprecated will be read from package.json instead
+   */
   description: string;
 
   /**

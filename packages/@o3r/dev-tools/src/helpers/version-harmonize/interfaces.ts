@@ -8,11 +8,13 @@ export interface PackageConfiguration {
   skipPackage?: boolean;
 }
 
-export interface PackageJsonWithOtterConfiguration extends PackageJson {
+/** Package Json with Otter specific configuration */
+export type PackageJsonWithOtterConfiguration = PackageJson & {
+  /** Otter Specific configuration */
   otter?: {
     versionHarmonize?: PackageConfiguration;
   };
-}
+};
 
 /** Information of an extracted dependency */
 export interface DependencyInfo {
