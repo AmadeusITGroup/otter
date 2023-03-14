@@ -36,9 +36,7 @@
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/src"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/src/public_api"],
       "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/src"],
-      "@o3r/amaterasu-api-spec": [
-        "packages/@o3r/amaterasu/amaterasu-api-spec/src"
-      ],
+      "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/src"],
       "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/src"],
       "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/src"],
       "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/src"],
