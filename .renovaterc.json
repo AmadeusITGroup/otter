@@ -49,7 +49,8 @@
       "postUpgradeTasks": {
         "commands": [
           "yarn install",
-          "yarn ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+          "yarn ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force",
+          "yarn dlx browserslist@latest --update-db"
         ],
         "executionMode": "branch",
         "fileFilters": [
