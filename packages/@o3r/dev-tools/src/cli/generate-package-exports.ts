@@ -93,7 +93,7 @@ const editPackageJson = async () => {
     const relativePath = ('./' + path.relative(srcDir, path.dirname(subPackagePath))).split(path.sep).join(path.posix.sep);
     acc[relativePath] = exportTypes.reduce<Record<string, string | undefined>>((exportsAcc, type) => {
       if (subPackage[type]) {
-        exportsAcc[type] = ('./' + path.normalize(path.join(path.dirname(subPackagePathRelative), subPackage[type]))).split(path.sep).join(path.posix.sep);
+        exportsAcc[type] = ('./' + path.normalize(path.join(path.dirname(subPackagePathRelative), subPackage[type] as string))).split(path.sep).join(path.posix.sep);
       }
       return exportsAcc;
     }, {});
