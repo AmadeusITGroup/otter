@@ -18,6 +18,7 @@
     "src/core/angular/**/*.ts",
     "src/core/protractor/**/*.ts",
     "src/core/playwright/**/*.ts",
+    "src/kassette/**/*.ts",
     "src/localization/**/*.ts",
     "src/mocks/**/*.ts",
     "src/store/**/*.ts",

@@ -55,6 +55,10 @@
       "types": "./core/protractor/component-fixture.d.ts",
       "default": "./core/protractor/component-fixture.js"
     },
+    "./kassette": {
+      "types": "./kassette/index.d.ts",
+      "default": "./kassette/index.js"
+    },
     "./localization": {
       "types": "./localization/index.d.ts",
       "default": "./localization/index.js"
@@ -89,6 +93,7 @@
     }
   },
   "peerDependencies": {
+    "@amadeus-it-group/kassette": "^1.6.0",
     "@angular-devkit/schematics": "~15.2.0",
     "@angular/common": "~15.2.0",
     "@angular/core": "~15.2.0",
@@ -104,9 +109,13 @@
     "pngjs": "^4.0.1",
     "protractor": "^7.0.0",
     "rxjs": "^7.4.0",
+    "temporal-polyfill": "^0.1.1",
     "typescript": "~4.9.4"
   },
   "peerDependenciesMeta": {
+    "@amadeus-it-group/kassette": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
       "optional": true
     },
@@ -114,6 +123,9 @@
       "optional": true
     },
     "protractor": {
+      "optional": true
+    },
+    "temporal-polyfill": {
       "optional": true
     }
   },
@@ -123,6 +135,7 @@
     "tslib": "^2.4.1"
   },
   "devDependencies": {
+    "@amadeus-it-group/kassette": "^1.6.0",
     "@angular-devkit/build-angular": "~15.2.0",
     "@angular-devkit/core": "~15.2.0",
     "@angular-devkit/schematics": "~15.2.0",
@@ -167,6 +180,7 @@
     "pngjs": "^4.0.1",
     "protractor": "^7.0.0",
     "rxjs": "^7.4.0",
+    "temporal-polyfill": "^0.1.1",
     "typescript": "~4.9.4",
     "zone.js": "^0.13.0"
   },
