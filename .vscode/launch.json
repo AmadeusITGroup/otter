@@ -26,20 +26,6 @@
         "${workspaceFolder}/apps/vscode-extension/dist/**/*.js"
       ],
       "preLaunchTask": "watch-vscode-extension"
-    },
-    {
-      "type": "chrome",
-      "request": "launch",
-      "name": "Otter Demo Application debug",
-      "url": "http://localhost:3030",
-      "webRoot": "${workspaceFolder}"
-    },
-    {
-      "type": "node-terminal",
-      "name": "Run Script: test:playwright",
-      "request": "launch",
-      "command": "yarn run test:playwright",
-      "cwd": "${workspaceFolder}"
     }
   ]
 }
