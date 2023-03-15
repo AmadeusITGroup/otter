@@ -6999,8 +6999,8 @@ __metadata:
     jest-environment-jsdom: ~28.1.1
     jest-junit: ^14.0.0
     jest-preset-angular: ^12.2.3
-    logrocket: ^0.6
-    logrocket-ngrx: ^0.1.1
+    logrocket: ~4.0.0
+    logrocket-ngrx: ~0.2.1
     ng-packagr: ~15.2.0
     nx: ~15.8.0
     rxjs: ^7.4.0
@@ -7014,8 +7014,8 @@ __metadata:
     "@fullstory/browser": ^1.2.1
     "@ngrx/store": ^15.0.0
     "@o3r/core": "workspace:^"
-    logrocket: ^0.6
-    logrocket-ngrx: ^0.1.1
+    logrocket: ~4.0.0
+    logrocket-ngrx: ~0.2.1
     rxjs: ^7.4.0
     smartlook-client: ^4.4.0
   peerDependenciesMeta:
@@ -22391,20 +22391,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket-ngrx@npm:^0.1.1":
-  version: 0.1.1
-  resolution: "logrocket-ngrx@npm:0.1.1"
+"logrocket-ngrx@npm:~0.2.1":
+  version: 0.2.1
+  resolution: "logrocket-ngrx@npm:0.2.1"
   peerDependencies:
     "@ngrx/store": ">=4"
-    logrocket: ^0.6
-  checksum: d9e52b6a907c989769e9d5bfb6dd55ed74ac1483b48bdb30706227e613eb2c08ac88fd58a0114f6cb3ab7e35254b969853316d15c6e648115da54eaa02c5b14a
+    logrocket: ">=2"
+  checksum: aecf52fce30991fbd3a71fe2405adb978b458dd92c7341130422e4bcfa3e527820c82a7d42dd6e3feb91f6bee4233a25ca80d2e52d07769c94a44efe5ddeb395
   languageName: node
   linkType: hard
 
-"logrocket@npm:^0.6":
-  version: 0.6.21
-  resolution: "logrocket@npm:0.6.21"
-  checksum: 9af49223ff06c255f3013bcddf71338dd5da7e5f912af400c61e997847145c34a23bd6ee4fd821f0e7f63d71fa51bb46675985019528c405cb9eff246eda7487
+"logrocket@npm:~4.0.0":
+  version: 4.0.0
+  resolution: "logrocket@npm:4.0.0"
+  checksum: 870a51b2289ccffcae88e81af3c74b7396f002f5de5400ad4ddb7f7e2403d9d7d077488bd33c64e27479147b73a487be3545d5fdd6b85ea0410df5fb7b3cdb58
   languageName: node
   linkType: hard
 
