@@ -6,73 +6,11 @@
     "testing",
     "otter"
   ],
-  "exports": {
-    "./package.json": {
-      "default": "./package.json"
-    },
-    ".": {
-      "types": "./src/core/index.d.ts",
-      "default": "./src/core/index.js"
-    },
-    "./core": {
-      "types": "./src/core/index.d.ts",
-      "default": "./src/core/index.js"
-    },
-    "./core/angular": {
-      "types": "./src/core/angular/index.d.ts",
-      "default": "./src/core/angular/index.js"
-    },
-    "./core/playwright": {
-      "types": "./src/core/playwright/index.d.ts",
-      "default": "./src/core/playwright/index.js"
-    },
-    "./core/playwright/component-fixture": {
-      "types": "./src/core/playwright/component-fixture.d.ts",
-      "default": "./src/core/playwright/component-fixture.js"
-    },
-    "./core/protractor": {
-      "types": "./src/core/protractor/index.d.ts",
-      "default": "./src/core/protractor/index.js"
-    },
-    "./core/protractor/component-fixture": {
-      "types": "./src/core/protractor/component-fixture.d.ts",
-      "default": "./src/core/protractor/component-fixture.js"
-    },
-    "./localization": {
-      "types": "./src/localization/index.d.ts",
-      "default": "./src/localization/index.js"
-    },
-    "./mocks": {
-      "types": "./src/mocks/index.d.ts",
-      "default": "./src/mocks/index.js"
-    },
-    "./store": {
-      "types": "./src/store/index.d.ts",
-      "default": "./src/store/index.js"
-    },
-    "./tools": {
-      "types": "./src/tools/index.d.ts",
-      "default": "./src/tools/index.js"
-    },
-    "./tools/path-replacement": {
-      "types": "./src/tools/path-replacement/index.d.ts",
-      "default": "./src/tools/path-replacement/index.js"
-    },
-    "./tools/protractor": {
-      "types": "./src/tools/protractor/index.d.ts",
-      "default": "./src/tools/protractor/index.js"
-    },
-    "./visual-test": {
-      "types": "./src/visual-test/index.d.ts",
-      "default": "./src/visual-test/index.js"
-    },
-    "./visual-test/utils": {
-      "types": "./src/visual-test/utils.d.ts",
-      "default": "./src/visual-test/utils.js"
-    }
-  },
+  "main": "public_api.js",
+  "typings": "public_api.d.ts",
+  "types": "public_api.d.ts",
   "ng-update": {
-    "migrations": "./src/migration.json"
+    "migrations": "./migration.json"
   },
   "sideEffects": false,
   "scripts": {
@@ -84,6 +22,71 @@
     "build:schematics": "tsc -b tsconfig.schematics.json --pretty",
     "build:tools": "tsc -b tsconfig.tools.json --pretty",
     "postbuild": "patch-package-json-main"
+  },
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "types": "./core/index.d.ts",
+      "default": "./core/index.js"
+    },
+    "./core": {
+      "types": "./core/index.d.ts",
+      "default": "./core/index.js"
+    },
+    "./core/angular": {
+      "types": "./core/angular/index.d.ts",
+      "default": "./core/angular/index.js"
+    },
+    "./core/playwright": {
+      "types": "./core/playwright/index.d.ts",
+      "default": "./core/playwright/index.js"
+    },
+    "./core/playwright/component-fixture": {
+      "types": "./core/playwright/component-fixture.d.ts",
+      "default": "./core/playwright/component-fixture.js"
+    },
+    "./core/protractor": {
+      "types": "./core/protractor/index.d.ts",
+      "default": "./core/protractor/index.js"
+    },
+    "./core/protractor/component-fixture": {
+      "types": "./core/protractor/component-fixture.d.ts",
+      "default": "./core/protractor/component-fixture.js"
+    },
+    "./localization": {
+      "types": "./localization/index.d.ts",
+      "default": "./localization/index.js"
+    },
+    "./mocks": {
+      "types": "./mocks/index.d.ts",
+      "default": "./mocks/index.js"
+    },
+    "./store": {
+      "types": "./store/index.d.ts",
+      "default": "./store/index.js"
+    },
+    "./tools": {
+      "types": "./tools/index.d.ts",
+      "default": "./tools/index.js"
+    },
+    "./tools/path-replacement": {
+      "types": "./tools/path-replacement/index.d.ts",
+      "default": "./tools/path-replacement/index.js"
+    },
+    "./tools/protractor": {
+      "types": "./tools/protractor/index.d.ts",
+      "default": "./tools/protractor/index.js"
+    },
+    "./visual-test": {
+      "types": "./visual-test/index.d.ts",
+      "default": "./visual-test/index.js"
+    },
+    "./visual-test/utils": {
+      "types": "./visual-test/utils.d.ts",
+      "default": "./visual-test/utils.js"
+    }
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~15.2.0",

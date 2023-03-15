@@ -8,7 +8,7 @@
     "types": [
       "node"
     ],
-    "rootDir": ".",
+    "rootDir": "./src",
     "inlineSources": true,
     "target": "ES5",
     "module": "CommonJS",
@@ -24,8 +24,7 @@
     "src/tools/**/*.ts",
     "src/visual-test/**/*.ts",
     "src/errors/**/*.ts",
-    "src/public_api.ts",
-    "updates/**/*.ts",
+    "src/public_api.ts"
   ],
   "exclude": [
     "src/tools/protractor/*/_*.ts",

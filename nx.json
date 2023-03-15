@@ -197,6 +197,7 @@
         "{projectRoot}/dist/migration.json",
         "{projectRoot}/dist/collection.json",
         "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schemas/**/*.json",
         "{projectRoot}/dist/schematics/**/*.json",
         "{projectRoot}/dist/schematics/**/templates"
       ]

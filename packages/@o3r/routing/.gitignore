@@ -5,6 +5,7 @@
 /configuration
 /dist*
 /errors
+/src/package.json
 /store
 /types
 /validation
