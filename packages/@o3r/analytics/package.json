@@ -12,6 +12,7 @@
     "build:plugins": "tsc -b tsconfig.plugins.json",
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build analytics",
+    "prepare:compile": "cp-package-json",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",

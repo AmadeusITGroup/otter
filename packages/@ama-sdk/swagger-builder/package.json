@@ -3,9 +3,6 @@
   "version": "0.0.0-placeholder",
   "description": "Swagger API Builder",
   "readme": "./readme.md",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",

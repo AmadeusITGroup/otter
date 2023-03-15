@@ -5,10 +5,11 @@
       "node",
       "jest"
     ],
+    "rootDir": "src",
     "emitDeclarationOnly": true,
     "tsBuildInfoFile": "build/.tsbuildinfo.jest",
     "incremental": true,
-    "outDir": "./dist/src"
+    "outDir": "./dist"
   },
   "include": ["src/**/fixtures/jest/**/*.ts"],
   "exclude": ["**/*.spec.ts"],

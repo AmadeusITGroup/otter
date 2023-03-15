@@ -10,6 +10,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "postbuild": "patch-package-json-exports",
+    "prepare:compile": "cp-package-json",
     "build": "yarn nx build routing",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
