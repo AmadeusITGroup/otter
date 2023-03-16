@@ -1,4 +1,4 @@
-import { execSync, ExecSyncOptions, spawn } from 'child_process';
+import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'nx/src/utils/package-json';
@@ -128,10 +128,10 @@ describe('new Otter application', () => {
       stdio: ['ignore', 'ignore', 'inherit']
     });
     execSync(`npx --yes wait-on http://127.0.0.1:${devServerPort} -t 10000`, execAppOptions);
-    execSync('yarn playwright install', execAppOptions);
-    execSync('yarn playwright install-deps', execAppOptions);
-    expect(() => execSync('yarn test:playwright', execAppOptions)).not.toThrow();
-    expect(() => execSync('yarn test:playwright:sanity', execAppOptions)).not.toThrow();
+
+    // Don't run on Webkit to speed up the test by not installing necessary libs
+    expect(() => execSync('yarn test:playwright --project Chromium Firefox', execAppOptions)).not.toThrow();
+    expect(() => execSync('yarn test:playwright:sanity --project Chromium Firefox', execAppOptions)).not.toThrow();
   });
 
   afterAll(async () => {
