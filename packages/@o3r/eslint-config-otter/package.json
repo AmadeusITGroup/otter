@@ -2,7 +2,27 @@
   "name": "@o3r/eslint-config-otter",
   "version": "0.0.0-placeholder",
   "description": "TSLint rules",
-  "main": "index.js",
+  "main": "src/index.js",
+  "exports": {
+    ".": {
+      "default": "./index.js"
+    },
+    "./base": {
+      "default": "./base.js"
+    },
+    "./fast": {
+      "default": "./fast.js"
+    },
+    "./jasmine": {
+      "default": "./jasmine.js"
+    },
+    "./jasmine-fast": {
+      "default": "./jasmine-fast.js"
+    },
+    "./template": {
+      "default": "./template.js"
+    }
+  },
   "keywords": [
     "eslint",
     "otter",
@@ -10,7 +30,7 @@
     "linter"
   ],
   "scripts": {
-    "build": "yarn cpy '{index,template,fast}.js' package.json dist && yarn postbuild",
+    "build": "yarn cpy --flat {base,fast,index,jasmine,jasmine-fast,template}.js package.json dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
@@ -27,6 +47,7 @@
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.22.0",
+    "eslint-plugin-jasmine": "^4.1.3",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.2",
@@ -47,6 +68,7 @@
     "cpy-cli": "^4.2.0",
     "eslint": "^8.22.0",
     "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-jasmine": "^4.1.3",
     "eslint-plugin-jest": "^26.1.4",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
@@ -67,6 +89,12 @@
       "optional": true
     },
     "@o3r/schematics": {
+      "optional": true
+    },
+    "eslint-plugin-jasmine": {
+      "optional": true
+    },
+    "eslint-plugin-jest": {
       "optional": true
     },
     "typescript": {

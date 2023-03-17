@@ -3,13 +3,9 @@
 module.exports = {
   'extends': [
     './base',
-    'plugin:jest/recommended'
+    'plugin:eslint-plugin-jasmine/recommended'
   ],
   'plugins': [
-    'jest'
-  ],
-  'rules': {
-    'jest/no-conditional-expect': 'warn',
-    'jest/no-done-callback': 'warn',
-  }
+    'eslint-plugin-jasmine'
+  ]
 };
