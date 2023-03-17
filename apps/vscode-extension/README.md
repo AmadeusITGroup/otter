@@ -10,12 +10,13 @@ The following commands are currently available:
 
 ### Generate
 
-| Command                   | Description                         | How to execute          |
-|---------------------------|-------------------------------------|-------------------------|
-| Otter: Generate Component | Generate an Otter Angular component | Right-click in explorer |
-| Otter: Generate Service   | Generate an Otter service           | Right-click in explorer |
-| Otter: Generate Store     | Generate a Store based on NgRX      | Right-click in explorer |
-| Otter: Generate Fixture   | Generate functions to an Otter fixture based on a selector and default methods | Right-click when selecting code in template file |
+| Command                      | Description                                                                    | How to execute                                   |
+| ---------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------------ |
+| Otter: Generate Component    | Generate an Otter Angular component                                            | Right-click in explorer                          |
+| Otter: Generate Service      | Generate an Otter service                                                      | Right-click in explorer                          |
+| Otter: Generate Store        | Generate a Store based on NgRX                                                 | Right-click in explorer                          |
+| Otter: Generate Otter Module | Otter: Generate Otter Module                                                   | Right-click in explorer                          |
+| Otter: Generate Fixture      | Generate functions to an Otter fixture based on a selector and default methods | Right-click when selecting code in template file |
 
 ### Extract
 

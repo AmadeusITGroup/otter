@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateModuleSchematicsSchema",
+  "title": "Generate a new Otter compatible module",
+  "description": "Generate a new Otter module",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Package name",
+      "x-prompt": "Name of the package of the new module?",
+      "$default": {
+        "$source": "name"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the new module",
+      "x-prompt": "Short description of the new module",
+      "default": null
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Prefix use to package future generation",
+      "default": ""
+    },
+    "projectName": {
+      "type": "string",
+      "description": "Name of the Nx Project (applied only in Nx Monorepo)",
+      "default": ""
+    },
+    "path": {
+      "type": "string",
+      "description": "Target directory to generate the module"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false,
+      "x-prompt": "Skip linter process on generated files?"
+    }
+  },
+  "required": ["name", "path"],
+  "additionalProperties": true
+}

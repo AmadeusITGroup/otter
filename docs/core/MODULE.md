@@ -24,6 +24,14 @@ The full list of official modules can be found in the [Documentation Home page](
 
 ## How to create its own Otter module
 
+You can simply generate an Otter module within your monorepo by running the following command:
+
+```bash
+ng generate @o3r/core:module
+```
+
+You can also manually create your own module by following the instructions of the next session.
+
 ### Module development
 
 As indicated in the [definition section](#definition), an Otter module should expose a `ng-add` schematic to allow developers to install the module via the command `ng add <package-name>`.
@@ -31,13 +39,15 @@ As indicated in the [definition section](#definition), an Otter module should ex
 
 As all the Otter modules follow the same requirement, the new module can use provided helpers to trigger the installation of other Otter modules, through the `ng-add` schematic of the requested module.
 
-To ensure and facilitate that, the `@o3r/core` provides a schematic which will generate the __ng add__ skeleton files. Moreover, the helpers to trigger the installation of other Otter packages dependencies will be included. 
+To ensure and facilitate that, the `@o3r/core` provides a schematic which will generate the **ng add** skeleton files. Moreover, the helpers to trigger the installation of other Otter packages dependencies will be included.
 
 Run the following command in the module where the `ng add` needs to be included:
+
 ```bash
 ng generate @o3r/core:ng-add-create
 ```
-> **Note**: To finish, make sure to run the `build:schematics` script in the process of packaging/publishing the new module. 
+
+> **Note**: To finish, make sure to run the `build:schematics` script in the process of packaging/publishing the new module.
 
 ### Register your module as official module
 

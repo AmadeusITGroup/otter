@@ -18,6 +18,15 @@
     "configuration": {
       "title": "Otter",
       "properties": {
+        "otter.packageManager": {
+          "type": "string",
+          "default": "npm",
+          "enum": [
+            "npm",
+            "yarn",
+            "pnpm"
+          ]
+        },
         "otter.generate.skipLinter": {
           "type": "boolean",
           "default": false,
@@ -76,6 +85,14 @@
           "type": "string",
           "description": "Sdk package name"
         },
+        "otter.generate.module.path": {
+          "type": "string",
+          "description": "Relative path to the folder of the project where generate the new modules"
+        },
+        "otter.generate.module.prefix": {
+          "type": "string",
+          "description": "Prefix specify to generators in case of Nx monorepo"
+        },
         "otter.extract.styling.forbiddenWords": {
           "type": "array",
           "default": [
@@ -104,6 +121,10 @@
       {
         "command": "otter.generate.store",
         "title": "Otter: Generate Store"
+      },
+      {
+        "command": "otter.generate.module",
+        "title": "Otter: Generate Otter Module"
       },
       {
         "command": "otter.generate.fixture",
@@ -172,6 +193,10 @@
         },
         {
           "command": "otter.menu.generate.store",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.menu.generate.module",
           "group": "otter.generate.group"
         }
       ]
