@@ -50,7 +50,7 @@ The Actions available on the Rules Engine depend on the Otter modules imported b
 - __UPDATE_ASSET__: requires the import of `AssetPathOverrideStoreModule` from [@o3r/dynamic-content](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/dynamic-content/)
 - __UPDATE_LOCALISATION__: requires the import of `LocalizationOverrideStoreModule` from [@o3r/localization](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/)
 - __UPDATE_CONFIG__: requires the import of `ConfigOverrideStoreModule` from [@o3r/configuration](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/configuration/)
-- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
+- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
 
 #### Facts modules integration  
 

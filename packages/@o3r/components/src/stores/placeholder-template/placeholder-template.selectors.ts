@@ -1,29 +1,64 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { placeholderTemplateAdapter } from './placeholder-template.reducer';
-import { PLACEHOLDER_TEMPLATE_STORE_NAME, PlaceholderTemplateState } from './placeholder-template.state';
+import {createFeatureSelector, createSelector} from '@ngrx/store';
+import {placeholderTemplateAdapter} from './placeholder-template.reducer';
+import {PLACEHOLDER_TEMPLATE_STORE_NAME, PlaceholderTemplateState} from './placeholder-template.state';
+import {selectPlaceholderRequestState} from '../placeholder-request';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = placeholderTemplateAdapter.getSelectors();
+const {selectEntities} = placeholderTemplateAdapter.getSelectors();
 
 export const selectPlaceholderTemplateState = createFeatureSelector<PlaceholderTemplateState>(PLACEHOLDER_TEMPLATE_STORE_NAME);
-
-/** Select the array of PlaceholderTemplate ids */
-export const selectPlaceholderTemplateIds = createSelector(selectPlaceholderTemplateState, (state) => state && selectIds(state));
-
-/** Select the array of PlaceholderTemplate */
-export const selectAllPlaceholderTemplate = createSelector(selectPlaceholderTemplateState, (state) => state && selectAll(state));
 
 /** Select the dictionary of PlaceholderTemplate entities */
 export const selectPlaceholderTemplateEntities = createSelector(selectPlaceholderTemplateState, (state) => state && selectEntities(state));
 
-/** Select the total PlaceholderTemplate count */
-export const selectPlaceholderTemplateTotal = createSelector(selectPlaceholderTemplateState, (state) => state && selectTotal(state));
+/**
+ * Select a specific PlaceholderTemplate
+ *
+ * @param placeholderId
+ */
+export const selectPlaceholderTemplateEntity = (placeholderId: string) =>
+  createSelector(selectPlaceholderTemplateState, (state) => state?.entities[placeholderId]);
 
-/** Select the store pending status */
-export const selectPlaceholderTemplateStorePendingStatus = createSelector(selectPlaceholderTemplateState, (state) => state?.isPending || false);
+/**
+ * Select the ordered rendered templates for a given placeholderId
+ * Return undefined if the placeholder is not found
+ * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
+ *
+ * @param placeholderId
+ */
+export const selectPlaceholderRenderedTemplates = (placeholderId: string) => createSelector(
+  selectPlaceholderTemplateEntity(placeholderId),
+  selectPlaceholderRequestState,
+  (placeholderTemplate, placeholderRequestState) => {
+    if (!placeholderTemplate || !placeholderRequestState) {
+      return;
+    }
+    // The isPending will be considered true if any of the Url is still pending
+    let isPending: boolean | undefined = false;
+    const templates: { rawUrl: string; priority: number; renderedTemplate?: string }[] = [];
+    placeholderTemplate.urlsWithPriority.forEach(urlWithPriority => {
+      const placeholderRequest = placeholderRequestState.entities[urlWithPriority.rawUrl];
+      if (placeholderRequest) {
+        // If one of the items is pending, we will wait to display all contents at the same time
+        isPending = isPending || placeholderRequest.isPending;
+        // Templates in failure will be ignored from the list
+        if (!placeholderRequest.isFailure) {
+          templates.push({
+            rawUrl: urlWithPriority.rawUrl,
+            priority: urlWithPriority.priority,
+            renderedTemplate: placeholderRequest.renderedTemplate
+          });
+        }
+      }
+    });
+    // No need to perform sorting if still pending
+    if (isPending) {
+      return {orderedRenderedTemplates: undefined, isPending};
+    }
+    // Sort templates by priority
+    const orderedRenderedTemplates = templates.sort((template1, template2) => {
+      return (template2.priority < template1.priority ? -1 : 0);
+    }).map(template => template.renderedTemplate)
+      .filter(renderedTemplate => !!renderedTemplate);
 
-/** Select a specific PlaceholderTemplate */
-export const selectPlaceholderTemplateEntity =
-  createSelector(selectPlaceholderTemplateState, (state: PlaceholderTemplateState | undefined, props: { id: string }) => state?.entities[props.id]);
-
-/** Select urls that already have the template retrieved and computed*/
-export const selectPlaceholderTemplateUrls = createSelector(selectPlaceholderTemplateEntities, (entities) => entities ? Object.values(entities).map((entity) => entity?.url) : []);
+    return {orderedRenderedTemplates, isPending};
+  });

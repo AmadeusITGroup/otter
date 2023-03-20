@@ -1,8 +1,16 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { distinctUntilChanged, switchMap } from 'rxjs/operators';
-import { PlaceholderTemplateStore, selectPlaceholderTemplateEntity } from '../../stores/placeholder-template';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation
+} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {ReplaySubject, Subscription} from 'rxjs';
+import {distinctUntilChanged, switchMap} from 'rxjs/operators';
+import {PlaceholderTemplateStore, selectPlaceholderRenderedTemplates} from '../../stores/placeholder-template';
 
 /**
  * Placeholder component that is bind to the PlaceholderTemplateStore to display a template based on its ID
@@ -44,11 +52,17 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.id$.pipe(
         distinctUntilChanged(),
-        switchMap((id) => this.store.pipe(select(selectPlaceholderTemplateEntity, {id})))
-      ).subscribe((entity) => {
-        if (entity) {
-          this.isPending = entity.isPending;
-          this.template = entity.renderedTemplate;
+        switchMap((id) => this.store.select(selectPlaceholderRenderedTemplates(id)))
+      ).subscribe((templates) => {
+        if (templates) {
+          this.isPending = templates.isPending;
+          const orderedRenderedTemplates = templates.orderedRenderedTemplates;
+          if (!orderedRenderedTemplates || !orderedRenderedTemplates.length) {
+            this.template = undefined;
+          } else {
+            // Concatenates the list of templates
+            this.template = orderedRenderedTemplates.join('');
+          }
         } else {
           this.isPending = false;
           this.template = undefined;
