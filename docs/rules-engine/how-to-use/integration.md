@@ -1,6 +1,6 @@
 # Rules engine - Integration in app
 
-Rules engine module comes from __@o3r/rules-engine__ package and it contains all the mechanisms needed for an otter application to execute a set of UI rules (see more about rules in [rules-engine-core docs](../../rules-engine-core.md) ) and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
+Rules engine module comes from the __@o3r/rules-engine__ package and it contains all the mechanisms needed for an otter application to execute a set of UI rules (see more about rules in [rules-engine-core docs](../../rules-engine-core.md) ) and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
 
 Prerequisite:  
 
@@ -10,8 +10,8 @@ Prerequisite:
 
 ### Rules engine dependencies
 
-To benefit from the rules engine package, we have to add in the application the npm packages created in otter library (and not only).  
-Here is the command to add the rule engine to your application.
+To benefit from the rules engine package, we have to add to the application the npm packages created in otter library (and not only).  
+Here is the command to add the rule engine to your application:
 
 ```shell
 yarn add @o3r/rules-engine
@@ -19,9 +19,9 @@ yarn add @o3r/rules-engine
 
 ### Angular modules integration
 
-#### RulesEngineModule
+#### Rules Engine Module
 
-* The first module to integrate is the _RulesEngineModule_.
+- The first module to integrate is the _RulesEngineModule_.
 This will be done in the application module.
 
 ```typescript
@@ -40,11 +40,23 @@ import { RulesEngineModule } from '@o3r/rules-engine';
 export class AppModule {}
 ```
 
+#### Action executor Modules
+
+The result of the Rules Engine is a set of actions applied at the runtime of the application.
+To avoid the dependency of the rules engine on all the modules it can possibly apply actions on, the import of the different modules will be handled by the application integrating the Rules Engines.
+
+The Actions available on the Rules Engine depend on the Otter modules imported by the app
+
+- __UPDATE_ASSET__: requires the import of `AssetPathOverrideStoreModule` from [@o3r/dynamic-content](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/dynamic-content/)
+- __UPDATE_LOCALISATION__: requires the import of `LocalizationOverrideStoreModule` from [@o3r/localization](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/)
+- __UPDATE_CONFIG__: requires the import of `ConfigOverrideStoreModule` from [@o3r/configuration](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/configuration/)
+- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
+
 #### Facts modules integration  
 
-Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../../rules-engine-core/facts.md).
+Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change, the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../../rules-engine-core/facts.md).
 
-There are some default facts in rules-engine otter package (example purpose only!) which have been integrated in the demo app. As for the _RulesEngineModule_, the facts modules are registered in _app.module_.
+There are some default facts in the rules-engine otter package (example purpose only!) which have been integrated in the demo app. As for the _RulesEngineModule_, the facts modules are registered in _app.module_.
 
 ```typescript
 // app.module.ts
@@ -65,9 +77,9 @@ export class AppModule {}
 
 ##### App level facts
 
-As example purpose, custom facts have been defined in the otter-demo-app code, at application level, in a dedicated folder __src/facts__. You can have a look at the folder structure and files organization, and the implementation itself.  
+For example purposes, custom facts have been defined in the otter-demo-app code, at application level, in a dedicated folder __src/facts__. You can have a look at the folder structure and files organization, and the implementation itself.  
 
-In the _app.module_ we have integrated these facts modules, as we've done with the ones coming from the library.
+In the _app.module_ we have integrated the following facts modules, as we've done with the ones coming from the library.
 
 ```typescript
 // app.module.ts
@@ -88,11 +100,11 @@ import { DeviceDetectionFactsModule, PageFactsModule, SearchCriteriaFactsModule 
 export class AppModule {}
 ```
 
-To sum up, in __app.module__ we should include the _RulesEngineModule_ and the facts modules needed at the bootstrap of the application. There might be facts needed for rules which are on demand, which could be included later on the flow. More about _on demand_ rulesets in the dedicated [page](./dedicated-component-ruleset.md).
+To sum up, in __app.module__ we should include the _RulesEngineModule_ and the facts modules needed at the bootstrap of the application. There might be facts needed for rules which are on demand, which could be included later in the flow. More details about _on demand_ rulesets in the dedicated [page](./dedicated-component-ruleset.md).
 
 ### Facts registration and rulesets assimilation
 
-In this part the facts has to be registered into the rules engine itself, and the set of rules has to be given to the same engine.
+In this part the facts have to be registered in the rules engine itself, and the set of rules has to be given to the same engine.
 This is done in the __app.component.ts__ file, at the initialization of the component, via _RulesEngineService_.
 
 ```typescript
@@ -134,7 +146,7 @@ With this the application should be ready to retrieve and evaluate the rules, an
 
 ### Metadata
 
-A bit of configuration is needed in order to extract metadata for facts and operators in rules engine scope.
+A bit of configuration is needed in order to extract metadata for facts and operators in the rules engine scope.
 
 In _angular.json_ of the app a new build architect needs to be added.
 Here is an example:  
@@ -156,7 +168,7 @@ Here is an example:
   },
 ```
 
-Now that the new builder step is added, it has to be referenced in `package.json` file, alongside other metadata extraction scripts.
+Now that the new builder step is added, it has to be referenced in the `package.json` file, alongside other metadata extraction scripts.
 
 ```JSON
 // package.json
@@ -170,19 +182,19 @@ Now that the new builder step is added, it has to be referenced in `package.json
 
 #### Project with module subentries
 
-The rules-engine extractor will generate metadata files with your facts type definition with reference to schema json
+The rules-engine extractor will generate metadata files with your facts type definition with reference to the schema json
 file for your more complex interface.
 It will parse your project and its node_modules files to identify your facts' schemas.
 If your project contains sub-entries generated via the otter angular builder (otterBuilder), the schema generator will not
 know how to find the files located in the sub-entries as they are not part of your module index.ts nor part of your
 node_modules.
 
-If you find yourself in this situation, you can specifically include additional paths to parse reference to other module
+If you find yourself in this situation, you can specifically include additional paths to parse references to other module
 sub-entries in the cms tsconfig file.
 
 ```JSON
 // tsconfig.cms.json
-// exemple to resolve the otter library default facts dependant of the otter/store subentries
+// example to resolve the otter library default facts dependant of the otter/store subentries
 {
   ... 
   "extraOptions": {

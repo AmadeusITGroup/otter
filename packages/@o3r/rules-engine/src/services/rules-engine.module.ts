@@ -1,11 +1,9 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { PlaceholderTemplateStoreModule } from '@o3r/components';
-import { ConfigurationStoreModule } from '@o3r/configuration';
-import { LocalizationModule } from '@o3r/localization';
-import {LoggerModule} from '@o3r/logger';
-import { StyleLazyLoaderModule } from '@o3r/styling';
+import { LoggerModule } from '@o3r/logger';
+import { TranslateModule } from '@ngx-translate/core';
+import { DynamicContentModule } from '@o3r/dynamic-content';
 import { RulesetsStoreModule } from '../stores/index';
 import { PlaceholderTemplateResponseEffect } from './rules-engine.effect';
 import { RulesEngineService } from './rules-engine.service';
@@ -14,12 +12,10 @@ import { DEFAULT_RULES_ENGINE_OPTIONS, RULES_ENGINE_OPTIONS, RulesEngineServiceO
 @NgModule({
   imports: [
     StoreModule,
-    PlaceholderTemplateStoreModule,
-    LocalizationModule,
-    StyleLazyLoaderModule,
-    ConfigurationStoreModule,
-    LoggerModule,
+    DynamicContentModule,
     RulesetsStoreModule,
+    LoggerModule,
+    TranslateModule,
     EffectsModule.forFeature([PlaceholderTemplateResponseEffect])
   ]
 })

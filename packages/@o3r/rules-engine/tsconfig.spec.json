@@ -6,6 +6,11 @@
     "rootDir": ".",
     "emitDecoratorMetadata": false
   },
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    }
+  ],
   "include": [
     "./src/**/*.spec.ts",
     "./testing/mocks/**/*.ts"
