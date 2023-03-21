@@ -12,8 +12,6 @@ import { dirname, join, resolve } from 'node:path';
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license'];
-const distPath = argv._[0] || resolve(process.cwd(), 'dist');
-const packageJsonPath = join(distPath, 'package.json');
 
 /**
  * Find Private package.json
@@ -39,39 +37,51 @@ const findPrivatePackage = (currentFolder) => {
   return findPrivatePackage(parent);
 };
 
-const privatePackageJson = findPrivatePackage(root);
-const distPackageJson = resolve(root, packageJsonPath);
+/**
+ * Update package.json, copy README.md and LICENCE into dist folder
+ *
+ * @param {string} root
+ * @param {string} distPath
+ * @param {string} packageJsonPath
+ */
+function preparePublish(root, distPath, packageJsonPath) {
+  const privatePackageJson = findPrivatePackage(root);
+  const distPackageJson = resolve(root, packageJsonPath);
 
-if (!packageJsonPath || !existsSync(distPackageJson)) {
-  throw new Error('No package.json found');
-}
-if (!privatePackageJson) {
-  throw new Error('No private package.json found');
-}
+  if (!packageJsonPath || !existsSync(distPackageJson)) {
+    throw new Error(`No package.json found for ${distPackageJson}`);
+  }
+  if (!privatePackageJson) {
+    throw new Error('No private package.json found');
+  }
 
-const packageJson = JSON.parse(readFileSync(distPackageJson, { encoding: 'utf-8' }));
+  const packageJson = JSON.parse(readFileSync(distPackageJson, {encoding: 'utf-8'}));
 
-if (!existsSync(resolve(distPath, 'README.md'))) {
-  if (existsSync(resolve(root, 'README.md'))) {
-    copyFileSync(resolve(root, 'README.md'), resolve(distPath, 'README.md'));
-  } else {
-    throw new Error(`no README.md file available for ${packageJson.name}`);
+  if (!existsSync(resolve(distPath, 'README.md'))) {
+    if (existsSync(resolve(root, 'README.md'))) {
+      copyFileSync(resolve(root, 'README.md'), resolve(distPath, 'README.md'));
+    } else {
+      throw new Error(`no README.md file available for ${packageJson.name}`);
+    }
+  }
+
+  fields.forEach((field) => {
+    packageJson[field] = privatePackageJson.content[field];
+  });
+
+  writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
+  copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
+
+  const readmeBasePath = resolve(process.cwd(), 'README.md');
+  const readmeDistPath = resolve(distPath, 'README.md');
+  if (!existsSync(readmeDistPath)) {
+    if (!existsSync(readmeBasePath)) {
+      console.warn(`No README.md file found at ${readmeBasePath}`);
+    } else {
+      copyFileSync(readmeBasePath, readmeDistPath);
+    }
   }
 }
 
-fields.forEach((field) => {
-  packageJson[field] = privatePackageJson.content[field];
-});
-
-writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
-copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
-
-const readmeBasePath = resolve(process.cwd(), 'README.md');
-const readmeDistPath = resolve(distPath, 'README.md');
-if (!existsSync(readmeDistPath)) {
-  if (!existsSync(readmeBasePath)) {
-    console.warn(`No README.md file found at ${readmeBasePath}`);
-  } else {
-    copyFileSync(readmeBasePath, readmeDistPath);
-  }
-}
+const distPaths = argv._[0] ? argv._ : [resolve(process.cwd(), 'dist')];
+distPaths.forEach((distPath) => preparePublish(root, distPath, join(distPath, 'package.json')));

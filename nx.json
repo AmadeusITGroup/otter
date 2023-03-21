@@ -127,11 +127,6 @@
         "{projectRoot}/dist/package.json"
       ]
     },
-    "publish": {
-      "dependsOn": [
-        "prepare-publish"
-      ]
-    },
     "publish-extension": {},
     "build": {
       "dependsOn": [

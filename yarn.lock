@@ -6783,6 +6783,7 @@ __metadata:
     "@nrwl/linter": ~15.8.0
     "@nrwl/nx-cloud": ^15.0.3
     "@nrwl/workspace": ~15.8.0
+    "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6821,6 +6822,7 @@ __metadata:
     sass: ~1.59.0
     sass-loader: ^13.1.0
     semver: ^7.3.2
+    shx: ^0.3.4
     standard-version: ^9.0.0
     stylelint: ^14.1.0
     stylelint-scss: ^4.0.0
@@ -28229,6 +28231,18 @@ __metadata:
     vscode-oniguruma: ^1.7.0
     vscode-textmate: ^8.0.0
   checksum: a5d78a79d282f5c5168786980c66e82f075e91fa015097456486624fc5775688d685ad9b1972b0617d7f1ef50927d21b61dca476247a6f6c6b7042046e89a979
+  languageName: node
+  linkType: hard
+
+"shx@npm:^0.3.4":
+  version: 0.3.4
+  resolution: "shx@npm:0.3.4"
+  dependencies:
+    minimist: ^1.2.3
+    shelljs: ^0.8.5
+  bin:
+    shx: lib/cli.js
+  checksum: 0aa168bfddc11e3fe8943cce2e0d2d8514a560bd58cf2b835b4351ba03f46068f7d88286c2627f4b85604e81952154c43746369fb3f0d60df0e3b511f465e5b8
   languageName: node
   linkType: hard
 

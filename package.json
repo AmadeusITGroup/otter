@@ -13,7 +13,8 @@
     "build:affected": "yarn nx affected --target=build --parallel $(yarn get:cpus-number) --output-style stream",
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,dev-tools --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run ama-sdk-generator-sdk:build-swagger",
-    "publish": "yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
+    "prepare-publish": "prepare-publish $(yarn workspaces:list | shx sed \"s/^(.+)\\$/\\$1\\/dist/\")",
+    "publish": "yarn run prepare-publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension --parallel $(yarn get:cpus-number)",
     "lint": "yarn nx run-many --target=lint --parallel $(yarn get:cpus-number)",
@@ -31,7 +32,8 @@
     "doc:summary-update": "node scripts/update-doc-summary.js",
     "start:modules": "yarn run build:dev:modules && yarn run watch:modules",
     "storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && start-storybook -p 6006",
-    "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch"
+    "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
+    "workspaces:list": "yarn workspaces list --no-private --json | shx sed \"s/.*\\\"location\\\":\\\"(.*?)\\\".*/\\$1/\""
   },
   "lint-staged": {
     "*.ts": [
@@ -140,6 +142,7 @@
     "@nrwl/linter": "~15.8.0",
     "@nrwl/nx-cloud": "^15.0.3",
     "@nrwl/workspace": "~15.8.0",
+    "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -177,6 +180,7 @@
     "sass": "~1.59.0",
     "sass-loader": "^13.1.0",
     "semver": "^7.3.2",
+    "shx": "^0.3.4",
     "standard-version": "^9.0.0",
     "stylelint": "^14.1.0",
     "stylelint-scss": "^4.0.0",

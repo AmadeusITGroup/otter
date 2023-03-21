@@ -3,6 +3,7 @@
   "version": "0.0.0-placeholder",
   "description": "Typescript plugin to copy assets to the outDir",
   "type": "module",
+  "private": true,
   "keywords": [
     "otter",
     "amadeus",
