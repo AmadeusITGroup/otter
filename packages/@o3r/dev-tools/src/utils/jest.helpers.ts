@@ -1,6 +1,6 @@
 import { sync as globbySync } from 'globby';
 import { existsSync } from 'node:fs';
-import { dirname, posix, relative, resolve } from 'node:path';
+import { dirname, normalize, posix, relative, resolve } from 'node:path';
 
 /**
  * Get the list of Jest Projects in the workspace
@@ -23,6 +23,12 @@ export const getJestProjects = (rootDir = process.cwd(), jestConfigPattern = 'je
     .map((jestConfigFile) => posix.join('<rootDir>', jestConfigFile.replace(/jest\.config\.[jt]s$/, '')).replace(/\\+/g, '/'));
 };
 
+/**
+ * Find the closest package.json file containing workspace definition in the parent directories
+ *
+ * @param directory Current directory to search for
+ * @param rootDir First directory of the recursion
+ */
 const findParentPackageJson = (directory: string, rootDir?: string): string | undefined => {
   const parentFolder = dirname(directory);
   rootDir ||= directory;
@@ -34,8 +40,9 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
     return findParentPackageJson(parentFolder, rootDir);
   }
   return globbySync(require(packageJsonPath).workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true})
-    .some((workspacePath) => workspacePath === rootDir) ? packageJsonPath : findParentPackageJson(parentFolder, rootDir);
+    .some((workspacePath) => normalize(workspacePath) === rootDir) ? packageJsonPath : findParentPackageJson(parentFolder, rootDir);
 };
+
 /**
  * Get the list of modules mapping
  *

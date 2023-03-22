@@ -56,11 +56,11 @@
   },
   "dependencies": {
     "@ama-terasu/core": "workspace:^",
+    "chalk": "^4.1.2",
+    "loglevel": "^1.8.0",
     "minimist": "^1.2.6",
     "ora": "~5.4.1",
     "progress": "^2.0.3",
-    "chalk": "^4.1.2",
-    "loglevel": "^1.8.0",
     "prompts": "^2.4.2",
     "tslib": "^2.4.1",
     "yargs": "^17.6.2"
