@@ -34,12 +34,11 @@ jobs:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
           path: .cache/jest
-          key: ${{ runner.os }}-jest-${{ env.hash }}-${{ github.ref_name }}
+          key: ${{ runner.os }}-jest-${{ env.hash }}
           restore-keys: |
-            ${{ runner.os }}-jest-${{ env.hash }}-${{ github.event_name == 'pull_request' && github.base_ref || 'main' }}
-            ${{ runner.os }}-jest-${{ env.hash }}-
-            ${{ runner.os }}-jest-
-            ${{ runner.os }}-
+            ${{ runner.os }}-jest-${{ env.hash }}
+            ${{ runner.os }}-jest
+            ${{ runner.os }}
       - name: Build swagger generator
         run: yarn nx run ama-sdk-generator-sdk:build-swagger
       - name: Test
@@ -62,12 +61,11 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .cache/eslint
-          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}-${{ github.ref_name }}
+          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-eslint-${{ env.hash }}-${{ github.event_name == 'pull_request' && github.base_ref || 'main' }}
-            ${{ runner.os }}-eslint-${{ env.hash }}-
-            ${{ runner.os }}-eslint-
-            ${{ runner.os }}-
+            ${{ runner.os }}-eslint-${{ env.hash }}
+            ${{ runner.os }}-eslint
+            ${{ runner.os }}
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
