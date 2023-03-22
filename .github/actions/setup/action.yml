@@ -27,8 +27,8 @@ runs:
           .pnp.loader.mjs
         key: ${{ runner.os }}-deps-${{ hashFiles('yarn.lock') }}
         restore-keys: |
-          ${{ runner.os }}-deps-
-          ${{ runner.os }}-
+          ${{ runner.os }}-deps
+          ${{ runner.os }}
     - name: Cache build
       if: inputs.enable-build-cache == 'true'
       uses: actions/cache@v3
@@ -38,16 +38,16 @@ runs:
         path: |
           .cache/nx
           .cache/angular
+          .angular/cache
           node_modules/.cache/ng-packagr
           node_modules/.cache/nx
-        key: ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}-${{ github.ref_name }}
+        key: ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}
         restore-keys: |
-          ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}-${{ github.event_name == 'pull_request' && github.base_ref || 'main' }}
-          ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}-
-          ${{ runner.os }}-build-${{ env.hash }}-global-
-          ${{ runner.os }}-build-${{ env.hash }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
+          ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}
+          ${{ runner.os }}-build-${{ env.hash }}-global
+          ${{ runner.os }}-build-${{ env.hash }}
+          ${{ runner.os }}-build
+          ${{ runner.os }}
     - name: Install
       shell: bash
       run: yarn install
