@@ -21,16 +21,15 @@ The team will provide support on the latest minor version of major versions __N 
 
 A major version will be supported as long as it relies on a [non deprecated version of Angular](https://angular.io/guide/releases#support-policy-and-schedule).
 
-> **Note**: It is also important to note that Otter supports the same browser versions as Angular.
+> __Note__: It is also important to note that Otter supports the same browser versions as Angular.
 
 The following table provides the status of the Otter versions under support and each of their corresponding Angular version:
 
 | Otter version | Angular version | Support ends |
 |---------------|-----------------|--------------|
-| ~8.0.0        | ^15.0.0         | 2024-05-18   |
+| ~8.1.0        | ^15.0.0         | 2024-05-18   |
 | ^7.6.0        | ^14.0.0         | 2023-11-18   |
 | ^6.3.0        | ^13.0.0         | 2023-05-04   |
-
 
 ## Reporting a Vulnerability
 
