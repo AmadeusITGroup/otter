@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/setup
+      - uses: ./tools/github-actions/setup
         with:
           enable-build-cache: 'false'
       - uses: ./.github/actions/setup-java
@@ -33,7 +33,7 @@ jobs:
       - run: yarn set:version ${{ steps.get-version.outputs.version }}
       - name: Get tag name
         id: get-npm-tag
-        uses: ./.github/actions/get-npm-tag
+        uses: ./tools/github-actions/get-npm-tag
         with:
           is-prerelease: ${{ github.event.release && github.event.release.prerelease }}
           version: ${{ steps.get-version.outputs.version }}
