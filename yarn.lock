@@ -6091,7 +6091,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.224
+    "@types/chrome": ^0.0.225
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -6819,7 +6819,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^3.0.2
     rxjs: ^7.4.0
-    sass: ~1.59.0
+    sass: ~1.60.0
     sass-loader: ^13.1.0
     semver: ^7.3.2
     shx: ^0.3.4
@@ -7489,7 +7489,7 @@ __metadata:
     jest-junit: ^14.0.0
     nx: ~15.8.0
     rxjs: ^7.4.0
-    sass: ~1.59.0
+    sass: ~1.60.0
     sass-true: ^6.0.0
     stylelint: ^14.1.0
     stylelint-scss: ^4.0.0
@@ -8964,13 +8964,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.224":
-  version: 0.0.224
-  resolution: "@types/chrome@npm:0.0.224"
+"@types/chrome@npm:^0.0.225":
+  version: 0.0.225
+  resolution: "@types/chrome@npm:0.0.225"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 2dd2291a81a351d3639bb241647f89ece6d27d13206db73e8eac813bd7bfc7e101deaf16c34203f7db32554412f8a776da5b8bfdf8857619d96b0cc68effc196
+  checksum: e507ab091b52b27cf49fbb33d5bb5730325928bcebab39f8ac888599ccef4c66115a7280f56a9e00eb48718cf95a2564159c7303f814041e2b62fe33c6c7bc99
   languageName: node
   linkType: hard
 
@@ -27779,16 +27779,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.59.0":
-  version: 1.59.2
-  resolution: "sass@npm:1.59.2"
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.60.0":
+  version: 1.60.0
+  resolution: "sass@npm:1.60.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: ab015ac49beb1252373023cc79b687aabd7850a7f450250b2fbe4eb3f64b0aef6759f8c7b33234221788a0e42cdd3999edfb5995218e474123b99cb126773e30
+  checksum: 06e163c37af466ec194cf2ed8dab616372afeb19322d356947d48ea664fc38398ae77c4d91bea9cb0ace954ce289d5518d0f8555ecc49f6bf2539a8ef52fc580
   languageName: node
   linkType: hard
 
