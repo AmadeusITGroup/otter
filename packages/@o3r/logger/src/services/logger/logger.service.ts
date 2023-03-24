@@ -101,7 +101,7 @@ export class LoggerService implements Logger {
    * @param optionalParams
    */
   public info(message?: any, ...optionalParams: any[]): void {
-    this.clients.forEach((client) => (client.info ? client.info : client.log)(message, ...optionalParams));
+    this.clients.forEach((client) => (client.info ? client.info(message, ...optionalParams) : client.log(message, ...optionalParams)));
   }
 
   /**
