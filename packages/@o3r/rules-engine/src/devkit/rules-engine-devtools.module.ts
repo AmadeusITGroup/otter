@@ -4,7 +4,6 @@ import { RulesetsStoreModule } from '../stores/index';
 import type { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
 import { RulesEngineDevtoolsConsoleService } from './rules-engine-devtools.console.service';
 import { RulesEngineDevtoolsMessageService } from './rules-engine-devtools.message.service';
-import { OtterRulesEngineDevtools } from './rules-engine-devtools.service';
 import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
 
 @NgModule({
@@ -15,8 +14,7 @@ import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOL
   providers: [
     { provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS },
     RulesEngineDevtoolsMessageService,
-    RulesEngineDevtoolsConsoleService,
-    OtterRulesEngineDevtools
+    RulesEngineDevtoolsConsoleService
   ]
 })
 export class RulesEngineDevtoolsModule {
@@ -32,8 +30,7 @@ export class RulesEngineDevtoolsModule {
       providers: [
         { provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {...OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, ...options}, multi: false },
         RulesEngineDevtoolsMessageService,
-        RulesEngineDevtoolsConsoleService,
-        OtterRulesEngineDevtools
+        RulesEngineDevtoolsConsoleService
       ]
     };
   }
