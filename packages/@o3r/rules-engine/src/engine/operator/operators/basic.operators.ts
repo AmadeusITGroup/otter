@@ -1,3 +1,4 @@
+import { isString, isSupportedSimpleTypes } from '../operator.helpers';
 import { Operator, SupportedSimpleTypes, UnaryOperator } from '../operator.interface';
 
 /**
@@ -30,7 +31,8 @@ export const notEquals: Operator = {
 export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
   name: 'inArray',
   evaluator: (value, array) => array.indexOf(value) > -1,
-  validateRhs: (inputArray) => Array.isArray(inputArray)
+  validateLhs: isSupportedSimpleTypes,
+  validateRhs: Array.isArray
 };
 
 /**
@@ -41,7 +43,8 @@ export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
 export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
   name: 'notInArray',
   evaluator: (value, array) => array.indexOf(value) === -1,
-  validateRhs: (inputArray) => Array.isArray(inputArray)
+  validateLhs: isSupportedSimpleTypes,
+  validateRhs: Array.isArray
 };
 
 /**
@@ -52,7 +55,8 @@ export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> 
 export const inString: Operator<string, string> = {
   name: 'inString',
   evaluator: (value, inputString) => inputString.indexOf(value) > -1,
-  validateRhs: (inputString) => typeof inputString === 'string'
+  validateLhs: isString,
+  validateRhs: isString
 };
 
 /**
@@ -63,7 +67,8 @@ export const inString: Operator<string, string> = {
 export const notInString: Operator<string, string> = {
   name: 'notInString',
   evaluator: (value, inputString) => inputString.indexOf(value) === -1,
-  validateRhs: (inputString) => typeof inputString === 'string'
+  validateLhs: isString,
+  validateRhs: isString
 };
 
 /**

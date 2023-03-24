@@ -3,12 +3,12 @@
 <ng-container *ngIf="oldValue">
   <pre class="input-value"
     [class.limit-characters]="shouldLimitCharactersForOldValue"
-    (click)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue">{{oldValue}}</pre>
+    (click)="shouldLimitCharactersForOldValue = !shouldLimitCharactersForOldValue">{{isOldValuePrimitiveType ? oldValue : (oldValue | json)}}</pre>
   <button (click)="copyToClipBoard(oldValue)" *ngIf="isClipBoardFeatureAvailableForOldValue" title="Copy to clipboard">📋</button>
   →
 </ng-container>
 <pre class="input-value"
   [class.limit-characters]="shouldLimitCharactersForValue"
-  (click)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue">{{value}}</pre>
+  (click)="shouldLimitCharactersForValue = !shouldLimitCharactersForValue">{{isValuePrimitiveType ? value : (value | json)}}</pre>
 <button (click)="copyToClipBoard(value)" *ngIf="isClipBoardFeatureAvailableForValue" title="Copy to clipboard">📋</button>
 <div role="alert" class="notification" *ngIf="showNotification$ | async">Copied to clipboard</div>
