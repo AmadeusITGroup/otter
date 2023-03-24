@@ -6,7 +6,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmitHelpers": false,
-    "outDir": "dist/",
+    "outDir": "dist",
+    "rootDir": "src",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./"

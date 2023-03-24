@@ -16,6 +16,7 @@
     "ng": "yarn nx",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-exports",
+    "prepare:compile": "cp-package-json",
     "build": "yarn nx build dynamic-content",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",

@@ -20,10 +20,29 @@
       ]
     },
     "compile": {
+      "dependsOn": [
+        "^build",
+        "prepare"
+      ],
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/routing/ng-package.json",
+        "project": "packages/@o3r/routing/src/ng-package.json",
         "tsConfig": "packages/@o3r/routing/tsconfig.build.json"
+      }
+    },
+    "prepare": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "options": {
+        "script": "prepare:compile"
       }
     },
     "build-fixtures": {

@@ -19,10 +19,11 @@
     "ng": "yarn nx",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "postbuild": "patch-package-json-exports",
+    "prepare:compile": "cp-package-json",
     "build": "yarn nx build configuration",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist && yarn cpy 'schemas/*.json' 'dist/schemas'",
     "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
