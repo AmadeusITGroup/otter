@@ -26,7 +26,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, _timeout?: number) {
     await this.click();
     const options = this.sourceElement.queryAll(By.css('.mat-option'));
 
@@ -41,7 +41,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByLabel(label: string) {
+  public async selectByLabel(label: string, _timeout?: number) {
     await this.click();
     const options = this.sourceElement.queryAll(By.css('.mat-option'));
 

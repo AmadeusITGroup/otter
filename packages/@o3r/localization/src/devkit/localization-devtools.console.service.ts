@@ -8,6 +8,9 @@ import { OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_LOCALIZATION_DEVTOOL
 @Injectable()
 export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterface {
 
+  /** Name of the Window property to access to the devtools */
+  public static readonly windowModuleName = 'localization';
+
   constructor(
     private readonly localizationDevtools: OtterLocalizationDevtools,
     @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
@@ -21,13 +24,11 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
     // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_ = {
-      // eslint-disable-next-line no-underscore-dangle
-      ...windowWithDevtools._OTTER_DEVTOOLS_,
-      ...this
-    };
+    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
+    // eslint-disable-next-line no-underscore-dangle
+    windowWithDevtools._OTTER_DEVTOOLS_[LocalizationDevtoolsConsoleService.windowModuleName] = this;
 
-    console.info('Otter localization Devtools is now accessible via the _OTTER_DEVTOOLS_ variable');
+    console.info(`Otter localization Devtools is now accessible via the _OTTER_DEVTOOLS_.${LocalizationDevtoolsConsoleService.windowModuleName} variable`);
   }
 
   /**

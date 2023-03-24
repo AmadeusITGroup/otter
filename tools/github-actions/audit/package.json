@@ -1,0 +1,39 @@
+{
+  "version": "0.0.0-placeholder",
+  "private": true,
+  "description": "Yarn audit GitHub action provided by Otter",
+  "main": "tmp/main.js",
+  "scripts": {
+    "nx": "nx",
+    "build": "tsc",
+    "package": "ncc build --source-map --license LICENSE.txt --out packaged-action"
+  },
+  "keywords": [
+    "github-actions",
+    "audit",
+    "otter"
+  ],
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/exec": "^1.1.1"
+  },
+  "devDependencies": {
+    "@angular-eslint/eslint-plugin": "~15.2.0",
+    "@o3r/eslint-config-otter": "workspace:~",
+    "@o3r/eslint-plugin": "workspace:~",
+    "@types/node": "^17.0.45",
+    "@typescript-eslint/eslint-plugin": "^5.19.0",
+    "@typescript-eslint/parser": "^5.19.0",
+    "@vercel/ncc": "~0.36.1",
+    "audit-types": "~0.5.6",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.1.4",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-unicorn": "^45.0.2",
+    "typescript": "~4.9.4"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

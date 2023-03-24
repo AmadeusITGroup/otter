@@ -24,10 +24,10 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, timeout = 5000) {
     await this.click();
     const options = this.sourceElement.page.locator('.mat-option');
-    await options.first().waitFor({state: 'attached'});
+    await options.first().waitFor({state: 'attached', timeout});
     const optionsCount = await options.count();
     for (let i = 0; i < optionsCount; i++) {
       const selectedOption: PlaywrightSourceElement = {element: options.nth(i), page: this.sourceElement.page};
@@ -40,10 +40,10 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByLabel(label: string) {
+  public async selectByLabel(label: string, timeout = 5000) {
     await this.click();
     const options = this.sourceElement.page.locator('.mat-option');
-    await options.first().waitFor({state: 'attached'});
+    await options.first().waitFor({state: 'attached', timeout});
     const optionsCount = await options.count();
     for (let i = 0; i < optionsCount; i++) {
       const selectedOption: PlaywrightSourceElement = {element: options.nth(i), page: this.sourceElement.page};

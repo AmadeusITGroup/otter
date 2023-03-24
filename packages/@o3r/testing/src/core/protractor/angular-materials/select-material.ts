@@ -25,7 +25,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, _timeout?: number) {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
     const options: ElementFinder[] = await element.all(By.css('.mat-option')).asElementFinders_();
@@ -41,7 +41,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByLabel(label: string) {
+  public async selectByLabel(label: string, _timeout?: number) {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
     const options: ElementFinder[] = await element.all(By.css('.mat-option')).asElementFinders_();

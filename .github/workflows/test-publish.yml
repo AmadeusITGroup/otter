@@ -14,8 +14,8 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-      - uses: ./.github/actions/download-build-output
-      - uses: ./.github/actions/setup
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
         with:
           enable-build-cache: 'true'
       - uses: ./.github/actions/setup-java
