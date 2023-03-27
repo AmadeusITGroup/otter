@@ -7,7 +7,6 @@ import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { computeConfigurationName, ConfigOverrideStore, ConfigOverrideStoreModule, ConfigurationStoreModule, selectConfigOverride } from '@o3r/configuration';
 import { LocalizationModule, translateLoaderProvider, TranslateMessageFormatLazyCompiler } from '@o3r/localization';
 import { RulesetsStore, RulesetsStoreModule, setRulesetsEntities } from '@o3r/rules-engine';
-import { StyleLazyLoaderModule } from '@o3r/styling';
 import { selectCurrentShoppingCart, selectShoppingCart, setShoppingCartEntity, setXmasHampersInCart, ShoppingCartStore, ShoppingCartStoreModule } from '../../testing/mocks/stores/shopping-cart/index';
 import { BehaviorSubject, firstValueFrom, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
@@ -65,7 +64,6 @@ describe('Rules engine service', () => {
             useClass: TranslateMessageFormatLazyCompiler
           }
         }),
-        StyleLazyLoaderModule,
         RulesetsStoreModule,
         ConfigurationStoreModule,
         ConfigOverrideStoreModule,

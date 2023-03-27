@@ -1,10 +1,13 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { TranslateService } from '@ngx-translate/core';
-import { deletePlaceholderTemplateEntity, PlaceholderTemplateReply, PlaceholderTemplateStore, selectPlaceholderTemplateEntities, setPlaceholderTemplateEntityFromUrl } from '@o3r/components';
-import { computeConfigurationName, ConfigurationStore, PropertyOverride, setConfigOverride } from '@o3r/configuration';
+import type { PlaceholderTemplateStore } from '@o3r/components';
+import { deletePlaceholderTemplateEntity, PlaceholderTemplateReply, selectPlaceholderTemplateEntities, setPlaceholderTemplateEntityFromUrl } from '@o3r/components';
+import { computeConfigurationName, PropertyOverride, setConfigOverride } from '@o3r/configuration';
+import type { ConfigOverrideStore } from '@o3r/configuration';
 import { AssetPathOverrideStore, DynamicContentService, setAssetPathOverride } from '@o3r/dynamic-content';
-import { LocalizationOverrideStore, setLocalizationOverride } from '@o3r/localization';
+import type { LocalizationOverrideStore } from '@o3r/localization';
+import { setLocalizationOverride } from '@o3r/localization';
 import { BehaviorSubject, combineLatest, firstValueFrom, Observable, Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged, filter, map, shareReplay, switchMap, withLatestFrom } from 'rxjs/operators';
 import type { ActionBlock, Fact, Operator, Ruleset, UnaryOperator } from '../engine/index';
@@ -43,7 +46,7 @@ export class RulesEngineService implements OnDestroy {
   protected placeholdersActions$: Subject<{ placeholderId: string; templateUrl: string }[]> = new Subject();
 
   constructor(
-    private store: Store<RulesetsStore & PlaceholderTemplateStore & AssetPathOverrideStore & LocalizationOverrideStore & ConfigurationStore>,
+    private store: Store<RulesetsStore & PlaceholderTemplateStore & AssetPathOverrideStore & LocalizationOverrideStore & ConfigOverrideStore>,
     private translateService: TranslateService,
     private dynamicContentService: DynamicContentService,
     private logger: LoggerService,

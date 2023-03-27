@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Optional} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   cancelPlaceholderTemplateRequest,
@@ -62,7 +62,11 @@ export class PlaceholderTemplateResponseEffect {
     )
   );
 
-  constructor(private actions$: Actions, private rulesEngineService: RulesEngineService, private dynamicContentService: DynamicContentService, private translationService: LocalizationService) {
+  constructor(
+    private actions$: Actions,
+    private rulesEngineService: RulesEngineService,
+    private dynamicContentService: DynamicContentService,
+    @Optional() private translationService?: LocalizationService) {
   }
 
   /**
@@ -107,11 +111,13 @@ export class PlaceholderTemplateResponseEffect {
                 acc[paramName] = factset[paramName];
                 return acc;
               }, {});
-              replacements$.push(
-                this.translationService.translate(vars[varName].value, linkedParams).pipe(
-                  map((value: string) => ({ejsVar, value}))
-                )
-              );
+              if (this.translationService) {
+                replacements$.push(
+                  this.translationService.translate(vars[varName].value, linkedParams).pipe(
+                    map((value: string) => ({ejsVar, value}))
+                  )
+                );
+              }
               break;
             }
             default : {

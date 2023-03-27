@@ -103,6 +103,7 @@ describe('Rules Engine Effects', () => {
     factsStream.parameter.next('success');
     factsStream.factInTemplate.next('Outstanding fact');
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as SetAsyncStoreItemEntityActionPayload<PlaceholderTemplateModel>
       & TypedAction<'[PlaceholderTemplate] set entity'>;
     expect(result.type).toBe('[PlaceholderTemplate] set entity');
@@ -128,6 +129,7 @@ describe('Rules Engine Effects', () => {
       resolvedUrl: 'myPlaceholderResolvedUrl2'
     }));
     factsStream.myFact.next('ignored');
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as SetAsyncStoreItemEntityActionPayload<PlaceholderTemplateModel>
       & TypedAction<'[PlaceholderTemplate] set entity'>;
     expect(result.entity.unknownTypeFound).toBeTruthy();
