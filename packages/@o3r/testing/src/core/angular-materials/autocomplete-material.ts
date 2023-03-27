@@ -28,8 +28,9 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
    * Select an element in a dropdown by value.
    *
    * @param _value
+   * @param _timeout
    */
-  public selectByValue(_value: string): Promise<void> {
+  public selectByValue(_value: string, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 }

@@ -9,6 +9,10 @@ import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOL
   providedIn: 'root'
 })
 export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterface {
+
+  /** Name of the Window property to access to the devtools */
+  public static readonly windowModuleName = 'rulesEngine';
+
   private readonly options: RulesEngineDevtoolsServiceOptions;
 
   constructor(
@@ -29,13 +33,12 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
     // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_ = {
-      // eslint-disable-next-line no-underscore-dangle
-      ...windowWithDevtools._OTTER_DEVTOOLS_,
-      ...this
-    };
+    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
+    // eslint-disable-next-line no-underscore-dangle
+    windowWithDevtools._OTTER_DEVTOOLS_[RulesEngineDevtoolsConsoleService.windowModuleName] = this;
 
-    console.info('Otter rules engine Devtools is now accessible via the _OTTER_DEVTOOLS_ variable');
+
+    console.info(`Otter rules engine Devtools is now accessible via the _OTTER_DEVTOOLS_.${RulesEngineDevtoolsConsoleService.windowModuleName} variable`);
   }
 
   /** Return the list of debug events emitted by rules engine */

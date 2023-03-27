@@ -63,19 +63,20 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public async queryAll(_selector: string, _returnType?: undefined, groupType?: undefined): Promise<O3rElement[]>;
-  public async queryAll<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined): Promise<T[]>;
-  public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>): Promise<K>;
+  public async queryAll(_selector: string, _returnType?: undefined, groupType?: undefined, timeout?: number): Promise<O3rElement[]>;
+  public async queryAll<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>, groupType?: undefined, timeout?: number): Promise<T[]>;
+  public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(selector: string, returnType: O3rElementConstructor<T>, groupType: O3rGroupConstructor<K, T>, timeout?: number): Promise<K>;
   public async queryAll<T extends O3rElement, K extends O3rGroup<T>>(
     selector: string,
     returnType: O3rElementConstructor<T> | undefined,
-    groupType: O3rGroupConstructor<K, T> | undefined
+    groupType: O3rGroupConstructor<K, T> | undefined,
+    timeout = 5000
   ): Promise<(T | O3rElement)[] | K> {
     try {
       const sourceElement = this.rootElement.sourceElement.element;
       const pElements = sourceElement.locator(selector);
       // Mandatory because count is not reliable if we don't wait for the list to be attached
-      await pElements.first().waitFor({state: 'attached'});
+      await pElements.first().waitFor({state: 'attached', timeout});
       const pElementsCount = await pElements.count();
       const elements = [];
       for (let i = 0; i < pElementsCount; i++) {

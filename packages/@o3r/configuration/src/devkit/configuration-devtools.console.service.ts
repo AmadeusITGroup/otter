@@ -11,6 +11,9 @@ import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTO
 })
 export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInterface {
 
+  /** Name of the Window property to access to the devtools */
+  public static readonly windowModuleName = 'configuration';
+
   constructor(
     private configurationDevtools: OtterConfigurationDevtools,
     @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions
@@ -54,13 +57,11 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   public activate() {
     const windowWithDevtools: WindowWithDevtools = window;
     // eslint-disable-next-line no-underscore-dangle
-    windowWithDevtools._OTTER_DEVTOOLS_ = {
-      // eslint-disable-next-line no-underscore-dangle
-      ...windowWithDevtools._OTTER_DEVTOOLS_,
-      ...this
-    };
+    windowWithDevtools._OTTER_DEVTOOLS_ ||= {};
+    // eslint-disable-next-line no-underscore-dangle
+    windowWithDevtools._OTTER_DEVTOOLS_[ConfigurationDevtoolsConsoleService.windowModuleName] = this;
 
-    console.info('Otter Configuration Devtools is now accessible via the _OTTER_DEVTOOLS_ variable');
+    console.info(`Otter Configuration Devtools is now accessible via the _OTTER_DEVTOOLS_.${ConfigurationDevtoolsConsoleService.windowModuleName} variable`);
   }
 
   /**

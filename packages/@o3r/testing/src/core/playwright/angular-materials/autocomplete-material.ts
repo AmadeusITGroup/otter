@@ -12,12 +12,12 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, timeout = 5000) {
     await this.setValue(value);
     await this.click();
     const element = this.sourceElement.page;
     const matOptions = element.locator('.mat-option');
-    await matOptions.first().waitFor({state: 'attached'});
+    await matOptions.first().waitFor({state: 'attached', timeout});
     const matOptionsCount = await matOptions.count();
     const options: (string | undefined)[] = [];
     if (matOptionsCount > 1) {
