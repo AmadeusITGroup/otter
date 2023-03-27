@@ -100,8 +100,23 @@ export class ComponentClassExtractor {
     }
   }
 
+  /**
+   * Sanitize component type by removing extra quotes
+   * Example: "'Page'" becomes 'Page'
+   *
+   * @param type
+   * @private
+   */
+  private sanitizeComponentType(type: string | undefined) {
+    if (!type) {
+      return;
+    }
+    return type.replaceAll(/['"]/g, '');
+  }
+
   private getComponentStructure(type: string | undefined): ComponentStructure {
-    switch (type) {
+    const sanitizedType = this.sanitizeComponentType(type);
+    switch (sanitizedType) {
       case 'Block':
         return 'BLOCK';
       case 'Page':
