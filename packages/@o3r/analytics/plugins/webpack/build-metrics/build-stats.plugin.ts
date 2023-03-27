@@ -1,7 +1,6 @@
 import * as os from 'node:os';
 import {Compilation, Compiler, JavascriptModulesPlugin, NormalModule, Parser, WebpackPluginInstance } from 'webpack';
 import type { ReportData, Reporter, Timing } from './reporters.interface';
-import { ConsoleLogger } from '@o3r/logger';
 import { randomUUID } from 'node:crypto';
 
 
@@ -22,7 +21,7 @@ export interface BuildStatsPluginOptions {
 const defaultOptions: BuildStatsPluginOptions = {
   threshold: 50,
   appName: 'Test',
-  reporters: [ new ConsoleLogger() ],
+  reporters: [ console ],
   sessionId: randomUUID()
 };
 
@@ -36,7 +35,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
 
   constructor(options?: BuildStatsPluginOptions) {
     this.options = { ...defaultOptions, ...options };
-    this.options.reporters.forEach((reporter) => reporter.identify(this.options.sessionId));
+    this.options.reporters.forEach((reporter) => reporter.debug?.(`Session ID: ${this.options.sessionId}`));
   }
 
   private bindCompilerCallbacks(compiler: Compiler) {
