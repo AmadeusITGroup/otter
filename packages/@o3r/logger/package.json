@@ -57,7 +57,7 @@
     "@ngrx/store": "^15.0.0",
     "@nrwl/cli": "~15.8.0",
     "@nrwl/jest": "~15.8.0",
-    "@nrwl/js": "^15.6.3",
+    "@nrwl/js": "~15.8.0",
     "@nrwl/linter": "~15.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
