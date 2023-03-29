@@ -105,6 +105,8 @@ export class Cascading {
 
     await handlePromisifiedExecLog(promisifiedExec(`git checkout ${this.options.baseBranch}`), this.options.logger);
     await handlePromisifiedExecLog(promisifiedExec(`git checkout ${branchToCascade}`), this.options.logger);
+    const cascadingBranchName = `cascading/${this.githubContext.runId}`;
+    await handlePromisifiedExecLog(promisifiedExec(`git checkout -b ${cascadingBranchName}`), this.options.logger);
 
     try {
       // Performing cascading
@@ -179,7 +181,7 @@ export class Cascading {
     if (!this.githubContext.payload.repository!.html_url) {
       throw new Error('Html url not defined from the response');
     }
-    await handlePromisifiedExecLog(promisifiedExec(`git push ${this.githubContext.payload.repository!.html_url} ${branchToCascade}`), this.options.logger);
+    await handlePromisifiedExecLog(promisifiedExec(`git push --set-upstream ${this.githubContext.payload.repository!.html_url} ${cascadingBranchName}`), this.options.logger);
     this.options.logger.info('Triggering the build on the next branch');
     const createWorkflowDispatchResponse = await this.githubClient.rest.actions.createWorkflowDispatch({
       owner: this.ownerName,
