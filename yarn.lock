@@ -140,6 +140,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     copyfiles: ^2.4.1
+    cpy-cli: ^4.2.0
     eslint: ^8.22.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ^26.1.4
@@ -5862,7 +5863,6 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/logger": "workspace:^"
     "@types/jasmine": 3.10.7
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45

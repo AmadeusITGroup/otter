@@ -23,9 +23,28 @@
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
+      "dependsOn": [
+        "^build",
+        "prepare"
+      ],
       "options": {
-        "project": "packages/@o3r/rules-engine/ng-package.json",
+        "project": "packages/@o3r/rules-engine/src/ng-package.json",
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
+      }
+    },
+    "prepare": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "options": {
+        "script": "prepare:compile"
       }
     },
     "extract-rules-engine": {

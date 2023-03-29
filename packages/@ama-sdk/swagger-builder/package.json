@@ -2,9 +2,7 @@
   "name": "@ama-sdk/swagger-builder",
   "version": "0.0.0-placeholder",
   "description": "Swagger API Builder",
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
+  "readme": "./readme.md",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
