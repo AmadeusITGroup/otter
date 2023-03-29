@@ -1,34 +1,19 @@
-import { Operator } from '../operator.interface';
-
-/**
- * Verifies if the parameter is a valid date for the operator (getTime function available returning a number)
- *
- * @param operatorInput
- */
-export const isValidDate = (operatorInput: any) => {
-  if (!operatorInput || typeof operatorInput.getTime !== 'function') {
-    return false;
-  }
-  const getTimeResult = operatorInput.getTime();
-  return typeof getTimeResult === 'number' && !isNaN(getTimeResult);
-};
+import {isValidDateInput, isValidDateRange} from '../operator.helpers';
+import {DateInput, Operator} from '../operator.interface';
 
 /**
  * Check if a date variable is in a specified date range
  *
  * @title is between
  */
-export const inRangeDate: Operator<Date, [string, string]> = {
+export const inRangeDate: Operator<Date, [DateInput, DateInput], DateInput> = {
   name: 'inRangeDate',
   evaluator: (date, [from, to]) => {
-    const time = date.getTime();
-    let result = true;
-    result = result && (new Date(from).getTime() <= time);
-    result = result && (new Date(to).getTime() >= time);
-    return result;
+    const dateObject = new Date(date);
+    return new Date(from) <= dateObject && new Date(to) >= dateObject;
   },
-  validateLhs: (inputDate: any) => isValidDate(inputDate),
-  validateRhs: (inputDateRange: any) => Array.isArray(inputDateRange) && inputDateRange.length === 2 && isValidDate(new Date(inputDateRange[0])) && isValidDate(new Date(inputDateRange[1]))
+  validateLhs: isValidDateInput,
+  validateRhs: isValidDateRange
 };
 
 /**
@@ -36,16 +21,15 @@ export const inRangeDate: Operator<Date, [string, string]> = {
  *
  * @title is before
  */
-export const dateBefore: Operator<Date, Date | string> = {
+export const dateBefore: Operator<Date, DateInput, DateInput> = {
   name: 'dateBefore',
-  evaluator: (leftDate, rightDate: Date | string) => {
-    const firstDateTime = new Date(leftDate.getTime()).setHours(0,0,0,0);
-    const secondDateTime = isValidDate(rightDate) ? new Date((rightDate as Date).getTime()).setHours(0,0,0,0) :
-      new Date(new Date(rightDate).getTime()).setHours(0,0,0,0);
+  evaluator: (leftDate, rightDate) => {
+    const firstDateTime = new Date(leftDate).setHours(0,0,0,0);
+    const secondDateTime = new Date(rightDate).setHours(0,0,0,0);
     return firstDateTime < secondDateTime;
   },
-  validateLhs: (inputLeftDate: any) => isValidDate(inputLeftDate),
-  validateRhs: (inputRightDate: any) => isValidDate(inputRightDate) || !!inputRightDate && isValidDate(new Date(inputRightDate))
+  validateLhs: isValidDateInput,
+  validateRhs: isValidDateInput
 };
 
 /**
@@ -53,16 +37,15 @@ export const dateBefore: Operator<Date, Date | string> = {
  *
  * @title is after
  */
-export const dateAfter: Operator<Date, Date | string> = {
+export const dateAfter: Operator<Date, DateInput, DateInput> = {
   name: 'dateAfter',
-  evaluator: (leftDate, rightDate: Date | string) => {
-    const firstDateTime = new Date(leftDate.getTime()).setHours(0,0,0,0);
-    const secondDateTime = isValidDate(rightDate) ? new Date((rightDate as Date).getTime()).setHours(0,0,0,0) :
-      new Date(rightDate).setHours(0,0,0,0);
+  evaluator: (leftDate, rightDate) => {
+    const firstDateTime = new Date(leftDate).setHours(0,0,0,0);
+    const secondDateTime = new Date(rightDate).setHours(0,0,0,0);
     return firstDateTime > secondDateTime;
   },
-  validateLhs: (inputLeftDate: any) => isValidDate(inputLeftDate),
-  validateRhs: (inputRightDate: any) => isValidDate(inputRightDate) || !!inputRightDate && isValidDate(new Date(inputRightDate))
+  validateLhs: isValidDateInput,
+  validateRhs: isValidDateInput
 };
 
 /**
@@ -70,16 +53,15 @@ export const dateAfter: Operator<Date, Date | string> = {
  *
  * @title is equal to
  */
-export const dateEquals: Operator<Date, Date | string> = {
+export const dateEquals: Operator<Date, DateInput, DateInput> = {
   name: 'dateEquals',
-  evaluator: (leftDate, rightDate: Date | string) => {
-    const firstDateIgnoringHours = new Date(leftDate.getTime()).setHours(0, 0, 0, 0);
-    const secondDateIgnoringHours = isValidDate(rightDate) ? new Date((rightDate as Date).getTime()).setHours(0, 0, 0, 0) :
-      new Date(rightDate).setHours(0, 0, 0, 0);
+  evaluator: (leftDate, rightDate) => {
+    const firstDateIgnoringHours = new Date(leftDate).setHours(0, 0, 0, 0);
+    const secondDateIgnoringHours = new Date(rightDate).setHours(0, 0, 0, 0);
     return firstDateIgnoringHours === secondDateIgnoringHours;
   },
-  validateLhs: (inputLeftDate: any) => isValidDate(inputLeftDate),
-  validateRhs: (inputRightDate: any) => isValidDate(inputRightDate) || !!inputRightDate && isValidDate(new Date(inputRightDate))
+  validateLhs: isValidDateInput,
+  validateRhs: isValidDateInput
 };
 
 /**
@@ -87,16 +69,15 @@ export const dateEquals: Operator<Date, Date | string> = {
  *
  * @title is not equal
  */
-export const dateNotEquals: Operator<Date, Date | string> = {
+export const dateNotEquals: Operator<Date, DateInput, DateInput> = {
   name: 'dateNotEquals',
-  evaluator: (leftDate, rightDate: Date | string) => {
-    const firstDateIgnoringHours = new Date(leftDate.getTime()).setHours(0, 0, 0, 0);
-    const secondDateIgnoringHours = isValidDate(rightDate) ?
-      new Date((rightDate as Date).getTime()).setHours(0, 0, 0, 0) : new Date(rightDate).setHours(0, 0, 0, 0);
+  evaluator: (leftDate, rightDate) => {
+    const firstDateIgnoringHours = new Date(leftDate).setHours(0, 0, 0, 0);
+    const secondDateIgnoringHours = new Date(rightDate).setHours(0, 0, 0, 0);
     return firstDateIgnoringHours !== secondDateIgnoringHours;
   },
-  validateLhs: (inputLeftDate: any) => isValidDate(inputLeftDate),
-  validateRhs: (inputRightDate: any) => isValidDate(inputRightDate) || !!inputRightDate && isValidDate(new Date(inputRightDate))
+  validateLhs: isValidDateInput,
+  validateRhs: isValidDateInput
 };
 
 export const dateBasedOperators = [

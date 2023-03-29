@@ -99,6 +99,8 @@ export class RulesEngineExtractor {
       const typeText = type.getText(source).replace('Date', 'date');
       if (typeText === 'SupportedSimpleTypes') {
         return allDefaultSupportedTypes;
+      } else if (typeText === 'dateInput') {
+        return ['date', 'string', 'number'];
       }
       return [type.getText(source).replace('Date', 'date')] as [MetadataOperatorSupportedTypes];
     }
@@ -139,7 +141,7 @@ export class RulesEngineExtractor {
         const childNbValue = this.getTypeNbValue(t);
         const childType = this.extractSimpleTypesData(childTypeNode, source);
         return {
-          types: [...acc.types, ...childType.filter((dataTypeItem) => acc.types.indexOf(dataTypeItem) === -1)],
+          types: Array.from(new Set([...acc.types, ...childType])),
           // If union is of type array, it takes precedence over child types
           // (any[], string)[] will be considered as an array and no an "anything goes" type
           // Else, it will compare between the children and return 0 if the child nb values differ
@@ -148,10 +150,10 @@ export class RulesEngineExtractor {
       }, { types: [], nbValue: undefined }) as { types: (MetadataOperatorSupportedTypes | 'unknown')[]; nbValue: number};
     } else if (ts.isTupleTypeNode(type)) {
       return {
-        types: type.elements.reduce((unionTypes: (MetadataOperatorSupportedTypes | 'unknown')[], elementTypeNode) => {
-          const elementTypes = this.extractSimpleTypesData(elementTypeNode, source);
-          return [...unionTypes, ...elementTypes];
-        }, []),
+        types: Array.from(new Set(type.elements.flatMap((elementTypeNode) =>
+          (ts.isUnionTypeNode(elementTypeNode) ? elementTypeNode.types : [elementTypeNode]).flatMap((typeNode) =>
+            this.extractSimpleTypesData(typeNode, source))
+        ))),
         nbValue: type.elements.length
       };
     }

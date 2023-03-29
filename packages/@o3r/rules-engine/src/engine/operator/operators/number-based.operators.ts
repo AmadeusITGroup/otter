@@ -6,7 +6,7 @@ import { Operator } from '../operator.interface';
  *
  * @title ≥
  */
-export const greaterThanOrEqual: Operator<number, number> = {
+export const greaterThanOrEqual: Operator<number, number | string, number | string> = {
   name: 'greaterThanOrEqual',
   evaluator: (firstNumber, secondNumber) => firstNumber >= secondNumber,
   validateLhs: numberValidator,
@@ -18,7 +18,7 @@ export const greaterThanOrEqual: Operator<number, number> = {
  *
  * @title >
  */
-export const greaterThan: Operator<number, number> = {
+export const greaterThan: Operator<number, number | string, number | string> = {
   name: 'greaterThan',
   evaluator: (firstNumber, secondNumber) => firstNumber > secondNumber,
   validateLhs: numberValidator,
@@ -30,7 +30,7 @@ export const greaterThan: Operator<number, number> = {
  *
  * @title ≤
  */
-export const lessOrEqual: Operator<number, number> = {
+export const lessOrEqual: Operator<number, number | string, number | string> = {
   name: 'lessOrEqual',
   evaluator: (firstNumber, secondNumber) => firstNumber <= secondNumber,
   validateLhs: numberValidator,
@@ -42,7 +42,7 @@ export const lessOrEqual: Operator<number, number> = {
  *
  * @title <
  */
-export const lessThan: Operator<number, number> = {
+export const lessThan: Operator<number, number | string, number | string> = {
   name: 'lessThan',
   evaluator: (firstNumber, secondNumber) => firstNumber < secondNumber,
   validateLhs: numberValidator,

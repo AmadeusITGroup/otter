@@ -53,7 +53,6 @@ export class RulesetExecutor {
    *
    * @param ruleset Ruleset to evaluate
    * @param rulesEngine Instance of the rules engine
-   * @param logger Instance of logger service with agnostic log implementation
    */
   constructor(ruleset: Ruleset, rulesEngine: RulesEngine) {
     this.ruleset = ruleset;
@@ -280,8 +279,6 @@ export class RulesetExecutor {
           }
           return execInfo;
         }),
-        // TODO Can be improved comparing prev/curr : compute checksum or prev, and compare with next to cache if nothing changed
-        distinctUntilChanged((prev, curr) => !(prev.actionsLists.length !== 1 || prev.actionsLists[0]!.length !== 0 || curr.actionsLists.length !== 1 || curr.actionsLists[0]!.length !== 0)),
         map((output) => {
           const outputActions = ([] as ActionBlock[]).concat(...output.actionsLists);
 
@@ -292,7 +289,8 @@ export class RulesetExecutor {
           }
 
           return outputActions;
-        })
+        }),
+        distinctUntilChanged((prev, curr) => prev.length === 0 && curr.length === 0)
       );
     }), shareReplay(1));
 
