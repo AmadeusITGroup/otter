@@ -260,7 +260,7 @@ __metadata:
     tslib: ^2.4.1
     type-fest: ^3.6.1
     typescript: ~4.9.4
-    webpack: ~5.76.0
+    webpack: ~5.77.0
     webpack-cli: ~5.0.1
     yargs: ^17.6.2
   peerDependencies:
@@ -5052,7 +5052,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/cli@npm:15.8.1, @nrwl/cli@npm:~15.8.0":
+"@nrwl/cli@npm:15.8.1":
   version: 15.8.1
   resolution: "@nrwl/cli@npm:15.8.1"
   dependencies:
@@ -5061,7 +5061,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/cli@npm:15.8.9":
+"@nrwl/cli@npm:15.8.9, @nrwl/cli@npm:~15.8.0":
   version: 15.8.9
   resolution: "@nrwl/cli@npm:15.8.9"
   dependencies:
@@ -5203,7 +5203,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/linter@npm:15.8.1, @nrwl/linter@npm:~15.8.0":
+"@nrwl/linter@npm:15.8.1":
   version: 15.8.1
   resolution: "@nrwl/linter@npm:15.8.1"
   dependencies:
@@ -5221,7 +5221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/linter@npm:15.8.9":
+"@nrwl/linter@npm:15.8.9, @nrwl/linter@npm:~15.8.0":
   version: 15.8.9
   resolution: "@nrwl/linter@npm:15.8.9"
   dependencies:
@@ -5453,7 +5453,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/workspace@npm:15.8.1, @nrwl/workspace@npm:~15.8.0":
+"@nrwl/workspace@npm:15.8.1":
   version: 15.8.1
   resolution: "@nrwl/workspace@npm:15.8.1"
   dependencies:
@@ -5488,7 +5488,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/workspace@npm:15.8.9":
+"@nrwl/workspace@npm:15.8.9, @nrwl/workspace@npm:~15.8.0":
   version: 15.8.9
   resolution: "@nrwl/workspace@npm:15.8.9"
   dependencies:
@@ -5705,7 +5705,7 @@ __metadata:
     tslib: ^2.4.1
     type-fest: ^3.6.1
     typescript: ~4.9.4
-    webpack: ~5.76.0
+    webpack: ~5.77.0
     zone.js: ^0.13.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -5719,7 +5719,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     jasmine: ^4.0.0
     rxjs: ^7.4.0
-    webpack: ~5.76.0
+    webpack: ~5.77.0
   peerDependenciesMeta:
     jasmine:
       optional: true
@@ -5913,7 +5913,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.226
+    "@types/chrome": ^0.0.227
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -6662,7 +6662,7 @@ __metadata:
     tsickle: ^0.46.3
     tslib: ^2.4.1
     typescript: ~4.9.4
-    webpack: ~5.76.0
+    webpack: ~5.77.0
     winston: ^3.8.2
     zone.js: ^0.13.0
   languageName: unknown
@@ -8792,13 +8792,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.226":
-  version: 0.0.226
-  resolution: "@types/chrome@npm:0.0.226"
+"@types/chrome@npm:^0.0.227":
+  version: 0.0.227
+  resolution: "@types/chrome@npm:0.0.227"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 17111041d2988382c30995906c4bd77a5f61527ba68e5c5ee8cfcd6645b0fcac65ec3759e042309ca51d12ef24222550825cd398729270dda6fd93a59c716b8f
+  checksum: 75de76b1958ebd8077acb426d487ab9fe44273ebdbab3a7ce971096982f410bccc9fd42bb84a45703b0311fc1c893c12d136c0c082abaa65d46fbe0b9734b1f8
   languageName: node
   linkType: hard
 
@@ -23901,7 +23901,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:15.8.1, nx@npm:^15.0.0, nx@npm:~15.8.0":
+"nx@npm:15.8.1":
   version: 15.8.1
   resolution: "nx@npm:15.8.1"
   dependencies:
@@ -23982,7 +23982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:15.8.9":
+"nx@npm:15.8.9, nx@npm:^15.0.0, nx@npm:~15.8.0":
   version: 15.8.9
   resolution: "nx@npm:15.8.9"
   dependencies:
@@ -31712,9 +31712,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:>=4.0.0 <6.0.0, webpack@npm:^5.75.0, webpack@npm:~5.76.0":
-  version: 5.76.0
-  resolution: "webpack@npm:5.76.0"
+"webpack@npm:>=4.0.0 <6.0.0, webpack@npm:^5.75.0, webpack@npm:~5.77.0":
+  version: 5.77.0
+  resolution: "webpack@npm:5.77.0"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^0.0.51
@@ -31745,7 +31745,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: e897b3b34068222fe910d8894837cbf39f5e66b4772fe8d24dfc0090cd13e19337a3a757a97bc185be6c64d9d5a7b1ae372821b65a6079ce8c7ceba606edb409
+  checksum: 21341bb72cbbf61dfb3af91eabe9290a6c05139f268eff3c419e5339deb6c79f2f36de55d9abf017d3ccbad290a535c02325001b2816acc393f3c022e67ac17c
   languageName: node
   linkType: hard
 
