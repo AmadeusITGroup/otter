@@ -88,7 +88,8 @@ describe('Rules Engine Effects', () => {
         },
         factInTemplate: {
           type: 'fact',
-          value: 'factInTemplate'
+          value: 'factInTemplate',
+          path: '$.myKey'
         }
       },
       template: '<img src=\'<%= myRelPath %>\'> <div><%= test %></div><span><%= factInTemplate %></span>'
@@ -101,7 +102,7 @@ describe('Rules Engine Effects', () => {
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('success');
-    factsStream.factInTemplate.next('Outstanding fact');
+    factsStream.factInTemplate.next({'myKey': 'Outstanding fact'});
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as SetAsyncStoreItemEntityActionPayload<PlaceholderTemplateModel>

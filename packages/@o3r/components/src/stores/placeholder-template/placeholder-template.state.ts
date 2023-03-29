@@ -8,6 +8,7 @@ export interface PlaceholderVariable {
   type: 'fact' | 'fullUrl' | 'relativeUrl' | 'localisation';
   value: string;
   vars?: string[];
+  path?: string;
 }
 
 /**
