@@ -1,4 +1,18 @@
-export const listOfExposedElements: {value: string; type: 'function' | 'var'; replacement?: string}[] = [
+/**
+ *
+ * Represents an element that is exposed in a Sass import.
+ *
+ * @property value: The name of the exposed element.
+ * @property type: The type of the exposed element, either 'function' or 'var'.
+ * @property replacement: The name of the replacement element, if any.
+ */
+export interface SassImportExposedElement {
+  value: string;
+  type: 'function' | 'var';
+  replacement?: string | undefined;
+}
+
+export const listOfExposedElements: SassImportExposedElement[] = [
   // utils
   {value: '$test-mode-enabled', type: 'var'},
   {value: 'error', type: 'function'},
