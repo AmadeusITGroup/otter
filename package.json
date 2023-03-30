@@ -136,7 +136,7 @@
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nrwl/angular": "~15.8.0",
+    "@nrwl/angular": "~15.9.0",
     "@nrwl/cli": "~15.8.0",
     "@nrwl/jest": "~15.8.0",
     "@nrwl/js": "~15.8.0",
