@@ -1,9 +1,12 @@
-const fs = require('fs');
-const path = require('path');
-const util = require('util');
+import fs from 'node:fs';
+import path from 'node:path';
+import util from 'node:util';
+import minimist from 'minimist';
 
-const root = path.resolve(__dirname, '..', 'docs');
-const summaryFilePath = path.resolve(root, 'summary.json');
+const argv = minimist(process.argv.slice(2));
+
+const docsFolder = path.join(process.cwd(), argv._[0]);
+const summaryFilePath = path.resolve(docsFolder, 'summary.json');
 
 const readdir = util.promisify(fs.readdir);
 const writeFile = util.promisify(fs.writeFile);
@@ -51,7 +54,7 @@ function generateSummary(folderPath) {
         .filter((file) => /\.?md$/i.test(path.extname(file)))
         .map((file) => ({
           title: path.basename(file, '.md').replace(/_/g, ' '),
-          file: path.relative(root, path.join(folderPath, file)).replace(/[\\/]/g, '/')
+          file: path.relative(docsFolder, path.join(folderPath, file)).replace(/[\\/]/g, '/')
         }));
 
       const folders = files
@@ -75,8 +78,8 @@ function generateSummary(folderPath) {
     });
 }
 
-void generateFolderMdFiles(root).then(() =>
-  generateSummary(root).then((summary) =>
+void generateFolderMdFiles(docsFolder).then(() =>
+  generateSummary(docsFolder).then((summary) =>
     writeFile(summaryFilePath, JSON.stringify(summary, null, 2), {encoding: 'utf-8'})
   )
 );

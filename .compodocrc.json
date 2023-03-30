@@ -1,9 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/compodoc/compodoc/develop/src/config/schema.json",
-  "name": "Otter Library",
-  "output": "./generated-doc/",
+  "name": "Otter Framework",
+  "output": "./generated-doc",
   "tsconfig": "./tsconfig.doc.json",
-  "includes": "./docs/",
+  "includes": "./docs",
   "includesName": "General",
   "assetsFolder": "./.attachments",
   "theme": "material",

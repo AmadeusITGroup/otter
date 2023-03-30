@@ -35,7 +35,7 @@ const staticFact = {
 
 A runtime fact is a temporary fact that can only be set by a rule's action. It will only exist during the ruleset execution.
 
-See the [runtime-facts](../../rules-engine-core/examples/runtime-facts.md) example.
+See the [runtime-facts](../examples/runtime-facts.md) example.
 
 
 Note that the runtime fact is only accessible in the ruleset where it has been defined. If you create 2 runtime facts in two different rulesets it will be 2 different entities, isolated from each others.

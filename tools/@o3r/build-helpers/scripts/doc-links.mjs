@@ -1,11 +1,14 @@
 /* eslint-disable no-console */
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import minimist from 'minimist';
 
-const rootGenerated = path.resolve(__dirname, '..', 'generated-doc');
-const additionalDocGenerated = path.resolve(__dirname, '..', 'generated-doc', 'additional-documentation');
-const rootSource = path.resolve(__dirname, '..', 'docs');
-const libRoot = path.resolve(__dirname, '..');
+const argv = minimist(process.argv.slice(2));
+
+const libRoot = path.resolve(process.cwd());
+const rootGenerated = path.join(libRoot, argv['generated-doc']);
+const additionalDocGenerated = path.resolve(rootGenerated, 'additional-documentation');
+const rootSource = path.join(libRoot, argv['docs']);
 
 
 /**

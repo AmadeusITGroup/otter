@@ -81,3 +81,10 @@ jobs:
         with:
           fetch-depth: 0
       - uses: ./tools/github-actions/cascading
+  documentation:
+    secrets: inherit
+    needs: [version, build, checks]
+    if: ${{ github.ref_name == 'main' || github.base_ref == 'main' }}
+    uses: ./.github/workflows/documentation.yml
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
