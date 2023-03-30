@@ -13,7 +13,7 @@
       "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/dist", "packages/@o3r/dynamic-content/src/public_api"],
       "@o3r/localization": ["packages/@o3r/localization/dist", "packages/@o3r/localization/src/public_api"],
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
-      "@o3r/testing/*": ["packages/@o3r/testing/dist/src/*", "packages/@o3r/testing/src/*"],
+      "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],
       "@o3r/eslint-plugin": ["packages/@o3r/eslint-plugin/dist", "packages/@o3r/eslint-plugin/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist", "packages/@o3r/stylelint-plugin/src/public_api"],
@@ -25,6 +25,7 @@
       "@o3r/forms": ["packages/@o3r/forms/dist", "packages/@o3r/forms/src/public_api"],
       "@o3r/routing": ["packages/@o3r/routing/dist", "packages/@o3r/routing/src/public_api"],
       "@o3r/logger": ["packages/@o3r/logger/dist", "packages/@o3r/logger/src/public_api"],
+      "@o3r/logger/*": ["packages/@o3r/logger/dist/*", "packages/@o3r/logger/src/*"],
       "@o3r/storybook": ["packages/@o3r/storybook/dist", "packages/@o3r/storybook/src/public_api"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
       "@o3r/apis-manager": ["packages/@o3r/apis-manager/dist", "packages/@o3r/apis-manager/src/public_api"],
@@ -37,7 +38,7 @@
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
       "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist", "packages/@ama-terasu/schematics/src/public_api"],
-      "@ama-sdk/core": ["packages/@ama-sdk/core/dist/cjs/public_api"],
+      "@ama-sdk/core": ["packages/@ama-sdk/core/dist"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"]
     }

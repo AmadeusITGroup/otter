@@ -1,5 +1,5 @@
 import { CpuInfo } from 'node:os';
-import type { LoggerClient } from '@o3r/logger';
+import type { Logger } from '@o3r/core';
 
 /** Map of timings */
 export type Timing = { [key: string]: number[] };
@@ -40,7 +40,7 @@ export interface ReportData {
  * The interface to report build stats
  * The report method is given the build stats data as a parameter
  */
-export interface Reporter extends LoggerClient {
+export interface Reporter extends Logger {
   /** Report the build metrics */
   log(buildData: ReportData): void;
 }
