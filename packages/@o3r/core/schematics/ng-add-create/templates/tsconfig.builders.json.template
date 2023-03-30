@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "<%= tsconfigBuildPath %>",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -9,10 +9,12 @@
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "schematics/**/*.ts",
+    "builders/**/*.ts",
+    "schematics/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",
+    "builders/**/templates/**",
     "schematics/**/templates/**"
   ]
 }

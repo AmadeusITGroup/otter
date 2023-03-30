@@ -1,4 +1,4 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { JsonObject } from '@angular-devkit/core';
 
 export interface NgAddSchematicsSchema extends JsonObject {
   /** Project name */
@@ -9,5 +9,4 @@ export interface NgAddSchematicsSchema extends JsonObject {
 
   /** Skip the install process */
   skipInstall: boolean;
-
 }

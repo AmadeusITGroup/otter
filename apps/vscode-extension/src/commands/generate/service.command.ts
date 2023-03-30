@@ -2,6 +2,7 @@
 import { dirname, relative } from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
+import { getPackageScriptRunner } from './helpers';
 
 /**
  * Generate service command
@@ -49,7 +50,7 @@ export function generateServiceGenerateCommand(_context: ExtensionContext, folde
       `--feature-name="${featureName || 'base'}"`,
       ...(servicePath ? [`--path="${servicePath}" `] : [])
     ];
-    terminal.sendText(`yarn ng generate @o3r/core:service ${options.join(' ')} "${name}"`, true);
+    terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:service ${options.join(' ')} "${name}"`, true);
     terminal.show();
   };
 }
