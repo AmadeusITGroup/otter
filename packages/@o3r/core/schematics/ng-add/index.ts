@@ -6,7 +6,7 @@ import { createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdd
 import { NgAddSchematicsSchema } from './schema';
 import { updateBuildersNames as updateBuildersNamesFromV7 } from './updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames as updateOtterGeneratorsNamesFromV7 } from './updates-for-v8/generators/update-generators-names';
-import { updateImports as updateImportsFromV7 } from './updates-for-v8/imports/update-imports-from-v7-to-v8';
+import { mapImportV7toV8, renamedPackagesV7toV8, updateImports } from '@o3r/schematics';
 import * as path from 'node:path';
 import { packagesToRemove } from './updates-for-v8/replaced-packages';
 /**
@@ -35,7 +35,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   ]));
   return chain([
     o3rBasicUpdates(options.projectName, o3rCoreVersion),
-    updateImportsFromV7(),
+    updateImports(mapImportV7toV8, renamedPackagesV7toV8),
     updateBuildersNamesFromV7(),
     updateOtterGeneratorsNamesFromV7(),
     options.enableCms ? updateCmsAdapter(options, __dirname) : noop,
