@@ -1,10 +1,7 @@
-/* eslint-disable no-console */
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getSourceFilesFromWorkspaceProjects } from '@o3r/schematics';
 import * as ts from 'typescript';
-import { mapImportV7toV8, renamedPackages } from './v7-to-v8-map-object';
 import { logging } from '@angular-devkit/core';
 import { findNodes } from '@schematics/angular/utility/ast-utils';
+import type { Tree } from '@angular-devkit/schematics';
 
 /**
  * Extracted symbol from an import line.
@@ -17,13 +14,32 @@ interface ExtractedImport {
   location: string;
 }
 
+/** Map containing all import changes in otter packages */
+export interface ImportsMapping {
+  [packageName: string]: { [importName: string]: { newPackage: string; newValue?: string } };
+}
 
-function updateImportsInFile(
+
+/**
+ * Update the imports of a given file according to replace mapping
+ *
+ * @param logger Logger to report messages
+ * @param tree File System tree
+ * @param sourceFile Source file to analyze
+ * @param importsRegexp Regexp of the imports to replace
+ * @param renamePackagesRegexp Regexp of the packages to replace
+ * @param mapImports Map of the import to replace
+ * @param renamedPackages Map of the import package to replace
+ */
+export function updateImportsInFile(
   logger: logging.LoggerApi,
   tree: Tree,
   sourceFile: ts.SourceFile,
   importsRegexp: RegExp,
-  renamePackagesRegexp: RegExp) {
+  renamePackagesRegexp: RegExp,
+  mapImports: ImportsMapping = {},
+  renamedPackages: Record<string, string> = {}
+) {
   const oldImportedSymbolsPerPackage: Record<string, ExtractedImport[]> = {};
   const unResolvedImports: ExtractedImport[] = [];
   const importNodes: ts.ImportDeclaration[] = [];
@@ -72,7 +88,7 @@ function updateImportsInFile(
       if (Object.keys(renamedPackages).indexOf(oldPackageName) > 0) {
         newPackageNameImport = importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]);
       } else {
-        newPackageNameImport = mapImportV7toV8[oldPackageName]?.[importSymbol.symbol]?.newPackage;
+        newPackageNameImport = mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
       }
 
       const importFrom = newPackageNameImport || importSymbol.location;
@@ -82,7 +98,7 @@ function updateImportsInFile(
       if (!acc[importFrom]) {
         acc[importFrom] = [];
       }
-      const newNameForExportedValue = mapImportV7toV8[oldPackageName]?.[importSymbol.symbol]?.newValue;
+      const newNameForExportedValue = mapImports[oldPackageName]?.[importSymbol.symbol]?.newValue;
       acc[importFrom].push(newNameForExportedValue || importSymbol.symbol);
     });
     return acc;
@@ -99,43 +115,9 @@ function updateImportsInFile(
 
   // Log details about imports for which we could not find an associated sub-entry
   if (unResolvedImports.length > 0) {
-    logger.warn(`[update-imports-v7-to-v8] Some imports in file ${sourceFile.fileName} could not be resolved:`);
+    logger.warn(`Some imports in file ${sourceFile.fileName} could not be resolved:`);
     unResolvedImports.forEach((unResolvedImport) => logger.warn(`  |-- symbol "${unResolvedImport.symbol}" from module "${unResolvedImport.location}"`));
   }
 
   return unResolvedImports.length;
-}
-
-
-/**
- * Update imports from v7 to v8
- *
- */
-export function updateImports(): Rule {
-
-  return (tree: Tree, context: SchematicContext) => {
-    const files = getSourceFilesFromWorkspaceProjects(tree);
-
-    // exact match on import path
-    const importsRegexp = new RegExp(`^(${[...Object.keys(mapImportV7toV8)].join('|')})$`);
-    // match the import path starting with the package to be renamed
-    const renamePackagesRegexp = new RegExp(`^(${[...Object.keys(renamedPackages)].join('|')})`);
-    let nbOfUnResolvedImports = 0;
-
-    files.forEach((file) => {
-      const sourceFile = ts.createSourceFile(
-        file,
-        tree.read(file)!.toString(),
-        ts.ScriptTarget.ES2015,
-        true
-      );
-      nbOfUnResolvedImports += updateImportsInFile(context.logger, tree, sourceFile, importsRegexp, renamePackagesRegexp);
-    });
-
-    if (nbOfUnResolvedImports > 0) {
-      context.logger.warn(`[update-imports-v7-to-v8] The migration rule could not resolve a total of ${nbOfUnResolvedImports} imports that you may have to migrate manually (see the details above).`);
-    }
-
-    return tree;
-  };
 }
