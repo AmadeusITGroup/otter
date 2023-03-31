@@ -27,7 +27,7 @@
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~15.2.0",
     "@angular/compiler": "~15.2.0",
-    "@nrwl/jest": "~15.8.0",
+    "@nrwl/jest": "~15.9.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -43,7 +43,7 @@
     "eslint-plugin-unicorn": "^45.0.2",
     "jest": "~28.1.1",
     "jest-preset-stylelint": "~5.0.4",
-    "nx": "~15.8.0",
+    "nx": "~15.9.0",
     "postcss": "^8.4.4",
     "rimraf": "^3.0.2",
     "stylelint": "^14.1.0",
