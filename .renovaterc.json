@@ -95,6 +95,9 @@
         "^@ngrx",
         "^zone.js"
       ],
+      "excludePackagePatterns": [
+        "^@nrwl"
+      ],
       "groupName": "Angular dependencies",
       "groupSlug": "angular-dependencies"
     },
