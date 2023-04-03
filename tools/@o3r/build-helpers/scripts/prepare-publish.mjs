@@ -6,7 +6,7 @@
  */
 
 import minimist from 'minimist';
-import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
@@ -37,8 +37,29 @@ const findPrivatePackage = (currentFolder) => {
   return findPrivatePackage(parent);
 };
 
+
 /**
- * Update package.json, copy README.md and LICENCE into dist folder
+ * Find closest readme files
+ *
+ * @param {string} currentFolder
+ */
+const findReadme = (currentFolder) => {
+  const readmePattern = /readme\.md$/i;
+  const dir = readdirSync(currentFolder);
+  const readmeFile = dir.find((file) => readmePattern.test(file));
+  if (readmeFile) {
+    return resolve(currentFolder, readmeFile);
+  }
+
+  const parent = dirname(currentFolder);
+  if (!parent || currentFolder === parent) {
+    return null;
+  }
+  return findReadme(parent);
+};
+
+/**
+ * Update package.json, copy README.md and LICENSE into dist folder
  *
  * @param {string} root
  * @param {string} distPath
@@ -57,14 +78,6 @@ function preparePublish(root, distPath, packageJsonPath) {
 
   const packageJson = JSON.parse(readFileSync(distPackageJson, {encoding: 'utf-8'}));
 
-  if (!existsSync(resolve(distPath, 'README.md'))) {
-    if (existsSync(resolve(root, 'README.md'))) {
-      copyFileSync(resolve(root, 'README.md'), resolve(distPath, 'README.md'));
-    } else {
-      throw new Error(`no README.md file available for ${packageJson.name}`);
-    }
-  }
-
   fields.forEach((field) => {
     packageJson[field] = privatePackageJson.content[field];
   });
@@ -72,14 +85,12 @@ function preparePublish(root, distPath, packageJsonPath) {
   writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
   copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
 
-  const readmeBasePath = resolve(process.cwd(), 'README.md');
   const readmeDistPath = resolve(distPath, 'README.md');
-  if (!existsSync(readmeDistPath)) {
-    if (!existsSync(readmeBasePath)) {
-      console.warn(`No README.md file found at ${readmeBasePath}`);
-    } else {
-      copyFileSync(readmeBasePath, readmeDistPath);
-    }
+  const readmeBasePath = findReadme(distPath);
+  if (!readmeBasePath) {
+    console.warn(`No README.md file found for ${distPath}`);
+  } else {
+    copyFileSync(readmeBasePath, readmeDistPath);
   }
 }
 
