@@ -16,7 +16,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   /** @inheritdoc */
   public async selectByIndex(index: number) {
     await this.click();
-    const options = this.sourceElement.queryAll(By.css('.mat-option'));
+    const options = this.sourceElement.queryAll(By.css('mat-option'));
     if (options[index]) {
       const option = new O3rElement(options[index]);
       return option.click();
@@ -28,7 +28,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   /** @inheritdoc */
   public async selectByValue(value: string, _timeout?: number) {
     await this.click();
-    const options = this.sourceElement.queryAll(By.css('.mat-option'));
+    const options = this.sourceElement.queryAll(By.css('mat-option'));
 
     for (const opt of options) {
       const option = new O3rElement(opt);
@@ -43,7 +43,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   /** @inheritdoc */
   public async selectByLabel(label: string, _timeout?: number) {
     await this.click();
-    const options = this.sourceElement.queryAll(By.css('.mat-option'));
+    const options = this.sourceElement.queryAll(By.css('mat-option'));
 
     for (const opt of options) {
       const option = new O3rElement(opt);
