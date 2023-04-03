@@ -15,7 +15,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   public async selectByIndex(index: number) {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
-    const options: ElementFinder[] = await element.all(By.css('.mat-option')).asElementFinders_();
+    const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
     if (typeof options[index] !== 'undefined') {
       const option = new O3rElement(options[index]);
       return option.click();
@@ -28,7 +28,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   public async selectByValue(value: string, _timeout?: number) {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
-    const options: ElementFinder[] = await element.all(By.css('.mat-option')).asElementFinders_();
+    const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
 
     for (const opt of options) {
       const option = new O3rElement(opt);
@@ -44,7 +44,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   public async selectByLabel(label: string, _timeout?: number) {
     await this.click();
     // eslint-disable-next-line no-underscore-dangle
-    const options: ElementFinder[] = await element.all(By.css('.mat-option')).asElementFinders_();
+    const options: ElementFinder[] = await element.all(By.css('mat-option')).asElementFinders_();
 
     for (const opt of options) {
       const option = new O3rElement(opt);
