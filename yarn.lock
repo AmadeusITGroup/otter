@@ -5684,9 +5684,12 @@ __metadata:
     cp-assets: ./scripts/cp-assets.mjs
     cp-build: ./scripts/cp-build.mjs
     cp-package-json: ./scripts/cp-package-json.mjs
+    doc-links: ./scripts/doc-links.mjs
     patch-package-json-exports: ./scripts/patch-package-json-exports.mjs
     patch-package-json-main: ./scripts/patch-package-json-main.mjs
     prepare-publish: ./scripts/prepare-publish.mjs
+    update-doc-summary: ./scripts/update-doc-summary.mjs
+    update-package: ./scripts/update-package.mjs
   languageName: unknown
   linkType: soft
 

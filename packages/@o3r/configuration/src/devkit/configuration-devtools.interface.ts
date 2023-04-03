@@ -7,7 +7,7 @@ export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptio
   /**
    * Default library name to use if not specified in the function call
    *
-   * @default @o3r/components
+   * @default `@o3r/components`
    */
   defaultLibraryName: string;
   /**

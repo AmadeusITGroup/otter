@@ -1,6 +1,6 @@
 # Rules engine - Integration in app
 
-Rules engine module comes from the __@o3r/rules-engine__ package and it contains all the mechanisms needed for an otter application to execute a set of UI rules (see more about rules in [rules-engine-core docs](../../rules-engine-core.md) ) and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
+Rules engine module comes from the __@o3r/rules-engine__ package and it contains all the mechanisms needed for an otter application to execute a set of UI rules and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
 
 Prerequisite:  
 
@@ -54,7 +54,7 @@ The Actions available on the Rules Engine depend on the Otter modules imported b
 
 #### Facts modules integration  
 
-Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change, the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../../rules-engine-core/facts.md).
+Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change, the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../facts.md).
 
 There are some default facts in the rules-engine otter package (example purpose only!) which have been integrated in the demo app. As for the _RulesEngineModule_, the facts modules are registered in _app.module_.
 
