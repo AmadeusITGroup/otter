@@ -14,6 +14,7 @@ import {LocalizationService} from '@o3r/localization';
 import {combineLatest, EMPTY, firstValueFrom, Observable, of} from 'rxjs';
 import {map, switchMap, take} from 'rxjs/operators';
 import {RulesEngineService} from './rules-engine.service';
+import {JSONPath} from 'jsonpath-plus';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -102,7 +103,10 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factset[vars[varName].value] || '');
+              const factValue = factset[vars[varName].value] || '';
+              // eslint-disable-next-line new-cap
+              const resolvedFactValue = vars[varName].path ? factValue && JSONPath({wrap: false, json: factValue, path: vars[varName].path!}) : factValue;
+              template = template.replace(ejsVar, resolvedFactValue);
               break;
             }
             case 'localisation': {
