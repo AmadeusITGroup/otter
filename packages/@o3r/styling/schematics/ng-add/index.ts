@@ -13,11 +13,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     try {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
-      const { updateO3rImports } = await import('./updates-of-old-otter-scope/imports/update-imports-with-scope');
+      const { updateSassImports } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       return chain([
         removePackages(['@otter/styling']),
-        updateO3rImports('o3r'),
+        updateSassImports('o3r'),
         updateThemeFiles(__dirname),
         removeV7OtterAssetsInAngularJson(options),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
