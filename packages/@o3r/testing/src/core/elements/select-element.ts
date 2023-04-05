@@ -11,12 +11,12 @@ export interface SelectElementProfile extends ElementProfile {
   /**
    * Select an element in a dropdown by index.
    */
-  selectByIndex(index: number): Promise<void>;
+  selectByIndex(index: number, _timeout?: number): Promise<void>;
 
   /**
    * Select an element in a dropdown by value.
    */
-  selectByValue(value: string): Promise<void>;
+  selectByValue(value: string, _timeout?: number): Promise<void>;
 }
 
 /**
@@ -32,8 +32,9 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
    * Select an element in a dropdown by index.
    *
    * @param _index
+   * @param _timeout
    */
-  public selectByIndex(_index: number): Promise<void> {
+  public selectByIndex(_index: number, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
@@ -41,8 +42,9 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
    * Select an element in a dropdown by value.
    *
    * @param _value
+   * @param _timeout
    */
-  public selectByValue(_value: string): Promise<void> {
+  public selectByValue(_value: string, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 }

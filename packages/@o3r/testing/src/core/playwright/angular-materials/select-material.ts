@@ -11,9 +11,10 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByIndex(index: number) {
+  public async selectByIndex(index: number, timeout = 5000) {
     await this.click();
     const options = this.sourceElement.page.locator('.mat-option');
+    await options.first().waitFor({state: 'attached', timeout});
     if ((await options.count()) >= index + 1) {
       const selectedOption: PlaywrightSourceElement = {element: options.nth(index), page: this.sourceElement.page};
       const option = new O3rElement(selectedOption);
