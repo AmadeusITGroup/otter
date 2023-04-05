@@ -22,7 +22,6 @@
     "git-release-management": "./dist/src/cli/git-release-management.js",
     "in-source-dep-check": "./dist/src/cli/checks/in-source-dep-check.js",
     "package-export": "./dist/src/cli/package-export.js",
-    "pcloudy": "./dist/src/cli/pcloudy.connection.js",
     "peer-dependencies-updater": "./dist/src/cli/peer-dependencies-updater.js",
     "pr-artifact-cleaner": "./dist/src/cli/pr-artifact-cleaner.js",
     "set-version": "./dist/src/cli/set-version.js",
