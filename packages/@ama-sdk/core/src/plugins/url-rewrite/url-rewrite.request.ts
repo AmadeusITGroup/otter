@@ -1,7 +1,7 @@
 import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
 
 /**
- * Plugin to change) the request url
+ * Plugin to change the request url
  */
 export class UrlRewriteRequest implements RequestPlugin {
 
