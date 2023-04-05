@@ -22,6 +22,11 @@ on:
         required: false
         description: Name of the artifact for the documentation
         default: 'documentation'
+      shouldDeploy:
+        type: boolean
+        required: false
+        description: Should the documentation be deployed
+        default: true
 
 jobs:
   build:
@@ -41,6 +46,7 @@ jobs:
           name: ${{ inputs.artifactName }}
           path: ${{ inputs.docFolder }}
   deploy-on-azure-static-webapp:
+    if: ${{ inputs.shouldDeploy }}
     runs-on: ubuntu-latest
     needs: [build]
     environment:
