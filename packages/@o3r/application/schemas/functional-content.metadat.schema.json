@@ -1,0 +1,306 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "FunctionalContentsMetadataSchema",
+  "type": "object",
+  "title": "Schema of Functional Contents metadata",
+  "description": "Schema used to help to validate the functional contents metadata",
+  "required": [
+    "name",
+    "title",
+    "description",
+    "sections"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": " Id of the functional data linked to the metadata file. It has to be unique among all the functional contents metadata files"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title to display to the CMS user"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description to display to the CMS user"
+    },
+    "sections": {
+      "type": "array",
+      "description": "Array of functional content sections",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "description": "Functional content section",
+        "required": [
+          "name",
+          "title",
+          "description",
+          "fileName",
+          "rootReference",
+          "definitions"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Unique id of the section"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title to display to the CMS user"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the section"
+          },
+          "fileName": {
+            "type": "string",
+            "description": "Name of the file to use by the CMS to export the associated data. If the fileName is referenced in another section, the CMS will merge the data in the same exported file",
+            "pattern": ".*\\.json$"
+          },
+          "rootReference": {
+            "type": "string",
+            "description": "Name of the object definition to use as the root of the model described by this section"
+          },
+          "definitions": {
+            "type": "array",
+            "description": "Object definitions for this section",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "description": "Object definition for this section",
+              "required": [
+                "name",
+                "properties"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Unique name of the definition in the section (which can be referenced by the rootReference property)"
+                },
+                "properties": {
+                  "type": "array",
+                  "description": "Array of properties of this definition",
+                  "minItems": 1,
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "title",
+                      "description",
+                      "type"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Unique id of the property"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "Title to display to the CMS user"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description to display to the CMS user"
+                      },
+                      "type": {
+                        "anyOf": [
+                          {
+                            "$ref": "#/$defs/enumProperty"
+                          },
+                          {
+                            "$ref": "#/$defs/objectProperty"
+                          },
+                          {
+                            "$ref": "#/$defs/primitiveProperty"
+                          }
+                        ]
+                      },
+                      "widget": {
+                        "$ref": "#/$defs/widget"
+                      }
+                    }
+                  }
+                },
+                "idPropertyReference": {
+                  "type": "string",
+                  "description": "When the definition is used in an array/map defines the name of the property that should be used to uniquely identify the definition in the array/map"
+                },
+                "titlePropertyReference": {
+                  "type": "string",
+                  "description": "When the definition is used in an array/map defines the name of the property that should be used to display a user friendly label for the definition in the array/map"
+                },
+                "widget": {
+                  "$ref": "#/$defs/widget"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "propertyCollectionType": {
+      "type": "string",
+      "enum": [
+        "SINGLE",
+        "MAP",
+        "ARRAY"
+      ],
+      "description": "Enum collection type of the value type"
+    },
+    "enumProperty": {
+      "type": "object",
+      "description": "Type of the property (enum)",
+      "required": [
+        "valueType",
+        "collectionType",
+        "choices"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "valueType": {
+          "type": "string",
+          "const": "ENUM"
+        },
+        "collectionType": {
+          "$ref": "#/$defs/propertyCollectionType"
+        },
+        "choices": {
+          "type": "array",
+          "description": "Array of object to define the choices for an ENUM valueType",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "key",
+              "title"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "defaultValue": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "objectProperty": {
+      "type": "object",
+      "description": "Type of the property (object)",
+      "required": [
+        "valueType",
+        "collectionType",
+        "reference"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "valueType": {
+          "type": "string",
+          "const": "OBJECT"
+        },
+        "collectionType": {
+          "$ref": "#/$defs/propertyCollectionType"
+        },
+        "reference": {
+          "type": "string"
+        },
+        "defaultValue": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "primitiveProperty": {
+      "type": "object",
+      "description": "Type of the property (primitive)",
+      "required": [
+        "valueType",
+        "collectionType"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "valueType": {
+          "type": "string",
+          "enum": [
+            "STRING",
+            "NUMBER",
+            "BOOLEAN",
+            "DATE"
+          ],
+          "description": "Enum type of the value"
+        },
+        "collectionType": {
+          "$ref": "#/$defs/propertyCollectionType"
+        },
+        "defaultValue": {
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "widget": {
+      "type": "object",
+      "description": "Widget used to display the linked object (property/definition)",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "description": "map of widget parameters. Each parameter can be a string, number or boolean or an array of those",
+          "additionalProperties": false,
+          "patternProperties": {
+            "^[a-zA-Z0-9-_:.]*$": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "array"
+              ],
+              "items": {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
