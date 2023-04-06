@@ -101,10 +101,11 @@ export function updateApiDependencies(): Rule {
       recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
     };
 
-    addImportToModuleFile(
-      'ApiManagerModule',
-      '@o3r/apis-manager'
-    );
+    addImportToModuleFile('appendPreconnect', '@o3r/apis-manager');
+
+    insertBeforeModule('appendPreconnect(\'https://YOUR_API_ENDPOINT\');');
+
+    addImportToModuleFile('ApiManagerModule', '@o3r/apis-manager');
 
     insertBeforeModule('const PROXY_SERVER = \'https://YOUR_API_ENDPOINT\';');
     insertBeforeModule(`
@@ -125,7 +126,7 @@ export function apiManagerFactory(): ApiManager {
 
     tree.commitUpdate(recorder);
 
-    context.logger.info(' Please update by hand the placeholders for YOUR_API_ENDPOINT and YOUR_API_KEY!');
+    context.logger.info('Please update by hand the placeholders for YOUR_API_ENDPOINT and YOUR_API_KEY!');
 
     return tree;
   };
