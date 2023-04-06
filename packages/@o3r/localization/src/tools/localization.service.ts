@@ -63,7 +63,9 @@ export class LocalizationService {
         closestSupportedLanguageCode && ' closest supported language ' ||
         this.configuration.fallbackLanguage && ' configured default language ';
       const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
-      this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
+      if (language !== fallbackLang) {
+        this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
+      }
       return fallbackLang;
     } else if (!language) {
       this.logger.debug('Language is not defined');

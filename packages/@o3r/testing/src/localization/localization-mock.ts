@@ -4,7 +4,7 @@ import { LocalizationConfiguration, LocalizationModule, LocalizationTranslatePip
 import { of } from 'rxjs';
 
 const defaultLocalizationConfiguration: Partial<LocalizationConfiguration> = {
-  supportedLocales: [],
+  supportedLocales: ['en'],
   language: 'en',
   endPointUrl: '',
   fallbackLanguage: 'en'
