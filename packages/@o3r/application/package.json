@@ -6,6 +6,11 @@
     "application",
     "otter"
   ],
+  "exports": {
+    "./schemas/*": {
+      "default": "./schemas/*"
+    }
+  },
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
