@@ -12,6 +12,10 @@
   ],
   "additionalProperties": false,
   "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Schema used to help to validate the json object"
+    },
     "name": {
       "type": "string",
       "description": " Id of the functional data linked to the metadata file. It has to be unique among all the functional contents metadata files"

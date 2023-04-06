@@ -197,3 +197,15 @@ Now that the new builder step is added, it has to be referenced in `package.json
     "cms-adapters:metadata": "yarn cms-adapters:components && yarn cms-adapters:localizations && yarn cms-adapters:style && yarn cms-adapters:rules-engine", 
   }
 ```
+
+#### How to validate
+
+In your json object you can add a property `$schema` to validate the content of the json object.
+
+Example:
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/application/schemas/functional-content.metadata.schema.json",
+  ...
+}
+```
