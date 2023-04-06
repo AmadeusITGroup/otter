@@ -13,7 +13,9 @@ import {ChangeDetectionStrategy, Component, <% if (useOtterConfig || useLocaliza
   componentType: '<%= componentType %>'
 })
 @Component({
-  selector: '<%= componentSelector %>-pres',
+  selector: '<%= componentSelector %>-pres',<% if (standalone) { %>
+  standalone: true,
+  imports: [CommonModule<% if (useLocalization) { %>, LocalizationModule<% } %><% if (useOtterAnalytics) { %>, TrackEventsModule<% } %>],<% } %>
   styleUrls: ['./<%= name %>.style.scss'],
   templateUrl: './<%= name %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

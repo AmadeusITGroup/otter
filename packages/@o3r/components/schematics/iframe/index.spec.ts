@@ -4,7 +4,6 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
@@ -41,12 +40,12 @@ describe('Iframe component', () => {
 
   it('should generate an iframe component in the default components folder', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('iframe-component', {
+    const tree = await runner.runSchematic('iframe-component', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.filter((file) => /iframe-component/.test(file)).length).toEqual(expectedFileNames.length);
     expect(tree.files.filter((file) => /iframe-component/.test(file))).toEqual(expect.arrayContaining(
@@ -54,14 +53,29 @@ describe('Iframe component', () => {
     );
   });
 
+  it('should generate a standalone iframe component in the default components folder', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('iframe-component', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      path: 'src/components',
+      standalone: true
+    }, initialTree);
+
+    expect(tree.files.filter((file) => /iframe-component/.test(file)).length).toEqual(expectedFileNames.length - 1);
+    expect(tree.files.find((file) => /iframe-component\.module\.ts/.test(file))).toBeFalsy();
+    expect(tree.readContent(tree.files.find((file) => /iframe-component\.component\.ts/.test(file)))).toContain('standalone: true');
+  });
+
   it('should generate an iframe component with the selector prefixed with o3r by default', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('iframe-component', {
+    const tree = await runner.runSchematic('iframe-component', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'iframe-component.component.ts')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, 'o3r')}'`);
@@ -69,13 +83,13 @@ describe('Iframe component', () => {
 
   it('should generate an iframe component without otter configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('iframe-component', {
+    const tree = await runner.runSchematic('iframe-component', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       useOtterConfig: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutConfig = expectedFileNames.filter((fileName) => fileName !== 'iframe-component.config.ts');
 

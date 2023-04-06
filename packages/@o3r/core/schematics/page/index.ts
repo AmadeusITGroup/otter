@@ -51,6 +51,18 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
       move(pagePath)
     ]), MergeStrategy.Overwrite));
 
+    if (!options.standalone) {
+      rules.push(mergeWith(apply(url('./templates/module'), [
+        template({
+          ...strings,
+          ...options,
+          className
+        }),
+        renameTemplateFiles(),
+        move(pagePath)
+      ]), MergeStrategy.Overwrite));
+    }
+
     if (options.useOtterTheming) {
       rules.push(mergeWith(apply(url('./templates/theming'), [
         template({
@@ -102,10 +114,10 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
     const route: Route = {
       path: strings.dasherize(options.name),
       import: `./${indexFilePath.replace(/[\\/]/g, '/')}`,
-      module: `${className}Module`
+      module: `${className}${options.standalone ? 'Component' : 'Module'}`
     };
 
-    return insertRoute(tree, context, options.appRoutingModulePath, route);
+    return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);
   };
 
   return chain([

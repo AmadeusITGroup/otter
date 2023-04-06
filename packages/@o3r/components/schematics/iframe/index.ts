@@ -17,6 +17,7 @@ import * as path from 'node:path';
 import { NgGenerateIframeComponentSchematicsSchema } from './schema';
 
 const IFRAME_TEMPLATE_PATH = './templates/iframe';
+const MODULE_TEMPLATE_PATH = './templates/module';
 const CONFIG_TEMPLATE_PATH = './templates/config';
 
 /**
@@ -70,6 +71,16 @@ export function ngGenerateIframeComponent(options: NgGenerateIframeComponentSche
       renameTemplateFiles(),
       move(componentDestination)
     ]), MergeStrategy.Overwrite));
+
+    if (!options.standalone) {
+      rules.push(mergeWith(apply(url(MODULE_TEMPLATE_PATH), [
+        template({
+          ...properties
+        }),
+        renameTemplateFiles(),
+        move(componentDestination)
+      ]), MergeStrategy.Overwrite));
+    }
 
     if (options.useOtterConfig) {
       rules.push(mergeWith(apply(url(CONFIG_TEMPLATE_PATH), [

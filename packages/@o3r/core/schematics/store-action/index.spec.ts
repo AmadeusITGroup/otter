@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
@@ -16,18 +15,18 @@ describe('Store Action generator', () => {
     initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', 'package.mocks.json')));
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    initialTree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-entity-async', {
+    initialTree = await runner.runExternalSchematic('schematics', 'store-entity-async', {
       storeName: 'Example',
       modelName: 'Example',
       modelIdPropName: 'id',
       sdkPackage: '@api/sdk',
       path: './'
-    }, initialTree));
+    }, initialTree);
   });
 
   it('should add a set action', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-action', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-action', {
       storeName: 'Example',
       actionName: 'dummyTest',
       actionGroup: 'testGroup',
@@ -35,7 +34,7 @@ describe('Store Action generator', () => {
       isCallAction: false,
       storeDirectory: './',
       description: 'dummy description'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/example/example.actions.ts').replace(/\n/g, '')).toMatch(/export const setDummyTest/);
     expect(tree.readContent('/example/example.actions.ts').replace(/\n/g, '')).toMatch(/const ACTION_SET_DUMMY_TEST =/);

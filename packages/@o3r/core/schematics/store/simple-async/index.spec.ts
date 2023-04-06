@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { asyncSimpleActionsContent } from './mocks/example-actions';
 import { asyncSimpleEffectContent } from './mocks/example-effect';
 import { asyncSimpleEffectSpecContent } from './mocks/example-effect-spec';
@@ -26,12 +25,12 @@ describe('Store simple async generator', () => {
 
   it('should generate async simple store', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-simple-async', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-simple-async', {
       storeName: 'Example',
       modelName: 'Example',
       sdkPackage: '@api/sdk',
       path: './'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/example/example.actions.ts').replace(/\s|\n/g, '')).toEqual(asyncSimpleActionsContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.effect.spec.ts').replace(/\s|\n/g, '')).toEqual(asyncSimpleEffectSpecContent.replace(/\s|\n/g, ''));

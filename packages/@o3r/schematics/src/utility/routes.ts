@@ -119,14 +119,15 @@ export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRou
  * @param context Context of the rule
  * @param appRoutingModulePath Path of the App Routing Module
  * @param route The Route to insert
+ * @param standalone Whether the page component is standalone
  */
-export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route) {
+export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone: boolean = false) {
   const routes = getRoutesNodeArray(tree, context, appRoutingModulePath);
 
   if (routes) {
     const noStarRoutes = routes.filter((r) => !hasRoutePath(r, '**'));
     const index = noStarRoutes.length >= 1 ? noStarRoutes[noStarRoutes.length - 1].end : routes.end;
-    const routeString = `{path: '${route.path}', loadChildren: () => import('${route.import}').then((m) => m.${route.module})}`;
+    const routeString = `{path: '${route.path}', load${standalone ? 'Component' : 'Children'}: () => import('${route.import}').then((m) => m.${route.module})}`;
     const content = noStarRoutes.length >= 1 ? `,\n${routeString}` : routeString;
 
     const recorder = tree.beginUpdate(appRoutingModulePath);

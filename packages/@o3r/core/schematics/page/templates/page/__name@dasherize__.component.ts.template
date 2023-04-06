@@ -10,7 +10,9 @@ import {O3rComponent} from '@o3r/core';
   componentType: 'Page'
 })
 @Component({
-  selector: '<%= prefix %>-<%= dasherize(name) %>',
+  selector: '<%= prefix %>-<%= dasherize(name) %>',<% if (standalone) { %>
+  standalone: true,
+  imports: [CommonModule],<% } %>
   styleUrls: ['./<%= dasherize(name) %>.style.scss'],
   templateUrl: './<%= dasherize(name) %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,

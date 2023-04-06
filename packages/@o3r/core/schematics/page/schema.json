@@ -64,6 +64,11 @@
       "description": "Generate page with localization",
       "default": true,
       "x-prompt": "Generate your page with localization?"
+    },
+    "standalone": {
+      "type": "boolean",
+      "description": "Whether the generated component is standalone.",
+      "default": false
     }
   },
   "additionalProperties": true,

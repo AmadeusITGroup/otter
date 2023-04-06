@@ -35,6 +35,7 @@ import { ComponentStructureDef } from '../structures.types';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
+const MODULE_TEMPLATE_PATH = './templates/module';
 const FIXTURE_TEMPLATE_PATH = './templates/fixture';
 const THEMING_TEMPLATE_PATH = './templates/theming';
 const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
@@ -102,6 +103,16 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       renameTemplateFiles(),
       move(componentDestination)
     ]), MergeStrategy.Overwrite));
+
+    if (!options.standalone) {
+      rules.push(mergeWith(apply(url(MODULE_TEMPLATE_PATH), [
+        template({
+          ...properties
+        }),
+        renameTemplateFiles(),
+        move(componentDestination)
+      ]), MergeStrategy.Overwrite));
+    }
 
     if (options.useComponentFixtures) {
       rules.push(mergeWith(apply(url(FIXTURE_TEMPLATE_PATH), [
