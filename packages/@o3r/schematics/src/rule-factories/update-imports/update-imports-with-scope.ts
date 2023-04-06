@@ -1,5 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getFilesFromRootOfWorkspaceProjects } from '../../../utility';
+import { getFilesFromRootOfWorkspaceProjects } from '../../utility';
 import { listOfExposedElements, SassImportExposedElement } from './list-of-vars';
 
 const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
@@ -11,7 +11,7 @@ const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
  * @param dependencyName The name of the dependency to update imports on
  * @param exposedElements The list of exposed elemeents
  */
-export function updateSassImports(alias: string, dependencyName: string = '@o3r/styling', exposedElements: SassImportExposedElement[] = listOfExposedElements): Rule {
+export function updateSassImports(alias: string, dependencyName = '@o3r/styling', exposedElements: SassImportExposedElement[] = listOfExposedElements): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const files = getFilesFromRootOfWorkspaceProjects(tree, 'scss');
     files
