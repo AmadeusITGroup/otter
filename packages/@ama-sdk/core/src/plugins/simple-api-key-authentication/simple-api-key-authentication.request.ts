@@ -119,7 +119,7 @@ export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
         if (this.options.officeId) {
           // create ama-ctx
           const officeId = typeof this.options.officeId === 'string' ? this.options.officeId : await this.options.officeId();
-          data.headers.set(this.options.contextHeader, this.jwtEncoder({officeId}));
+          data.headers.set(this.options.contextHeader, this.jwtEncoder({oid: officeId}));
         }
 
         return data;
