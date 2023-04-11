@@ -7,7 +7,14 @@
   "targets": {
     "build": {
       "outputs": [
-        "{projectRoot}/dist/package.json"
+        "{projectRoot}/dist/generators/shell/templates",
+        "{projectRoot}/dist/generators/api-extension/templates",
+        "{projectRoot}/dist/generators/core/templates/src/spec",
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/**/*.jar",
+        "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/**/config/*.json",
+        "{projectRoot}/dist/collection.json"
       ],
       "executor": "nx:run-script",
       "options": {
@@ -33,19 +40,10 @@
     "compile": {
       "executor": "@nrwl/js:tsc",
       "options": {
+        "rootDir": "packages/@ama-sdk/generator-sdk/src",
         "main": "packages/@ama-sdk/generator-sdk/src/generators/sdk-generator.ts",
         "tsConfig": "packages/@ama-sdk/generator-sdk/tsconfig.build.json",
         "outputPath": "packages/@ama-sdk/generator-sdk/dist",
-        "assets": [
-          "packages/@ama-sdk/generator-sdk/src/**/swagger-codegen-cli.jar",
-          "packages/@ama-sdk/generator-sdk/src/**/config/*.json",
-          "packages/@ama-sdk/generator-sdk/src/generators/**/target/*.jar",
-          "packages/@ama-sdk/generator-sdk/src/generators/shell/templates/**/*",
-          "packages/@ama-sdk/generator-sdk/src/generators/api-extension/templates/**/*",
-          "packages/@ama-sdk/generator-sdk/src/generators/core/templates/src/spec/**/*",
-          "packages/@ama-sdk/generator-sdk/src/schematics/*/schema.json",
-          "packages/@ama-sdk/generator-sdk/collection.json"
-        ],
         "updateBuildableProjectDepsInPackageJson": false
       }
     },

@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import assert from 'yeoman-assert';
 import helpers from 'yeoman-test';
 
-const generatorsBasePath = path.join(__dirname, '..', '..', 'dist', 'src', 'generators');
+const generatorsBasePath = path.join(__dirname, '..', '..', 'dist', 'generators');
 
 const spawnPromisify = (cmd: string, args: string[], cwd?: string) => {
   console.log(`Spawning (in ${cwd}) ${cmd} ${args.join(' ')}`);

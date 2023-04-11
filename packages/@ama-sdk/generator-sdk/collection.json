@@ -3,8 +3,8 @@
   "schematics": {
     "mock": {
       "description": "Generate an api mock into the project.",
-      "factory": "./src/schematics/mock/index#ngGenerateMock",
-      "schema": "./src/schematics/mock/schema.json"
+      "factory": "./schematics/mock/index#ngGenerateMock",
+      "schema": "./schematics/mock/schema.json"
     }
   }
 }

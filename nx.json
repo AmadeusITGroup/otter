@@ -152,8 +152,8 @@
         "jest-fixtures"
       ],
       "outputs": [
-        "{projectRoot}/dist/**/fixtures/jasmine",
-        "{projectRoot}/dist/**/fixtures/jest"
+        "{projectRoot}/dist/fixtures/jasmine",
+        "{projectRoot}/dist/fixtures/jest"
       ],
       "dependsOn": [
         "build-fixtures-jasmine",
@@ -165,7 +165,7 @@
         "jasmine-fixtures"
       ],
       "outputs": [
-        "{projectRoot}/dist/**/fixtures/jasmine"
+        "{projectRoot}/dist/fixtures/jasmine"
       ],
       "dependsOn": [
         "compile"
@@ -176,7 +176,7 @@
         "jest-fixtures"
       ],
       "outputs": [
-        "{projectRoot}/dist/**/fixtures/jest"
+        "{projectRoot}/dist/fixtures/jest"
       ],
       "dependsOn": [
         "compile"
@@ -197,6 +197,7 @@
         "{projectRoot}/dist/migration.json",
         "{projectRoot}/dist/collection.json",
         "{projectRoot}/dist/builders/**/*.json",
+        "{projectRoot}/dist/schemas/**/*.json",
         "{projectRoot}/dist/schematics/**/*.json",
         "{projectRoot}/dist/schematics/**/templates"
       ]

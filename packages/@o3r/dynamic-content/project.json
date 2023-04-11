@@ -22,12 +22,28 @@
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/dynamic-content/ng-package.json",
+        "project": "packages/@o3r/dynamic-content/src/ng-package.json",
         "tsConfig": "packages/@o3r/dynamic-content/tsconfig.build.json"
       },
       "dependsOn": [
+        "prepare",
         "^build"
       ]
+    },
+    "prepare": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "options": {
+        "script": "prepare:compile"
+      }
     },
     "build-fixtures": {
       "executor": "nx:noop"
