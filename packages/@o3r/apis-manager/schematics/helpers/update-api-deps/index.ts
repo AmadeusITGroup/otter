@@ -101,7 +101,7 @@ export function updateApiDependencies(): Rule {
       recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
     };
 
-    addImportToModuleFile('appendPreconnect', '@o3r/apis-manager');
+    insertImportToModuleFile('appendPreconnect', '@o3r/apis-manager', false);
 
     insertBeforeModule('appendPreconnect(\'https://YOUR_API_ENDPOINT\');');
 
