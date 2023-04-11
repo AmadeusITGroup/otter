@@ -3,3 +3,4 @@ export * from './interfaces';
 export * from './check-packages-peers/index';
 export * from './ng-add/index';
 export * from './remove-packages/index';
+export * from './update-imports/index';
