@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-/** Map containing all import changes in otter packages from v7 to v8 */
-export interface ImportsMapping {
-  [packageName: string]: { [importName: string]: { newPackage: string; newValue?: string } };
-}
+import type { ImportsMapping } from '../../utility';
 
 /** Packages that were renamed */
-export const renamedPackages: { [key: string]: string } = {
+export const renamedPackagesV7toV8: { [key: string]: string } = {
   '@otter/mobile': '@o3r/mobile',
   '@otter/storybook': '@o3r/storybook',
   '@otter/third-party': '@o3r/third-party',

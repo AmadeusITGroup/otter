@@ -179,7 +179,14 @@ export class Cascading {
     if (!this.githubContext.payload.repository!.html_url) {
       throw new Error('Html url not defined from the response');
     }
-    await handlePromisifiedExecLog(promisifiedExec(`git push ${this.githubContext.payload.repository!.html_url} ${branchToCascade}`), this.options.logger);
+    try {
+      await handlePromisifiedExecLog(promisifiedExec(`git push ${this.githubContext.payload.repository!.html_url} ${branchToCascade}`), this.options.logger);
+    } catch (e: any) {
+      const remotePushError: string = e.stdout;
+      this.options.logger.warning(`Push to the remote branch failed: ${remotePushError}, creating a PR instead`);
+      await this.createFallbackPullRequest(branchToCascade, 'Cascading merge without failure');
+      return;
+    }
     this.options.logger.info('Triggering the build on the next branch');
     const createWorkflowDispatchResponse = await this.githubClient.rest.actions.createWorkflowDispatch({
       owner: this.ownerName,
