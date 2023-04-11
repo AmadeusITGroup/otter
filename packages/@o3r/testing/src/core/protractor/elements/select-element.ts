@@ -13,14 +13,14 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
   }
 
   /** @inheritdoc */
-  public async selectByIndex(index: number) {
+  public async selectByIndex(index: number, _timeout?: number) {
     await this.click();
     const options = this.sourceElement.all(By.tagName('option'));
     return new O3rElement(options.get(index)).click();
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, _timeout?: number) {
     await this.click();
     const option = this.sourceElement.element(By.css(`option[value='${value}']`));
     return new O3rElement(option).click();

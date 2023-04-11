@@ -22,8 +22,9 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
    * Select an element in a dropdown by index.
    *
    * @param _index
+   * @param _timeout
    */
-  public selectByIndex(_index: number): Promise<void> {
+  public selectByIndex(_index: number, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 

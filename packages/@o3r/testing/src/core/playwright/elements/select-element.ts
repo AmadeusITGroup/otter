@@ -10,12 +10,12 @@ export class O3rSelectElement extends O3rElement {
   }
 
   /** @inheritdoc */
-  public selectByIndex(index: number) {
+  public selectByIndex(index: number, _timeout?: number) {
     return this.sourceElement.element.selectOption({index});
   }
 
   /** @inheritdoc */
-  public selectByValue(value: string) {
+  public selectByValue(value: string, _timeout?: number) {
     return this.sourceElement.element.selectOption({ value });
   }
 
