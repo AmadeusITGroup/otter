@@ -14,7 +14,7 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
   }
 
   /** @inheritdoc */
-  public async selectByIndex(index: number) {
+  public async selectByIndex(index: number, _timeout?: number) {
     const options = this.sourceElement.queryAll(By.css('option'));
     if (options[index]) {
       const option = new O3rElement(options[index]);
@@ -28,7 +28,7 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
   }
 
   /** @inheritdoc */
-  public async selectByValue(value: string) {
+  public async selectByValue(value: string, _timeout?: number) {
     const option = this.sourceElement.query(By.css(`option[value='${value}']`));
     if (option) {
       await this.setValue(option.nativeElement.value);

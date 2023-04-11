@@ -14,7 +14,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   }
 
   /** @inheritdoc */
-  public async selectByIndex(index: number) {
+  public async selectByIndex(index: number, _timeout?: number) {
     await this.click();
     const options = this.sourceElement.queryAll(By.css('mat-option'));
     if (options[index]) {
