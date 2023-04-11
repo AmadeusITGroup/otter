@@ -15,7 +15,7 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
       return;
     }
   };
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     if (packages.length > 0) {
       context.logger.info(`'${options?.parentPackageInfo || ''}' - 'ng add' has been launched for the following packages:`);
       for (const packageName of packages) {
@@ -26,6 +26,6 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
         }
       }
     }
-    return;
+    return () => tree;
   };
 }
