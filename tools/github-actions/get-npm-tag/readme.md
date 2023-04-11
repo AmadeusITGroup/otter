@@ -12,7 +12,7 @@ The action returns the npm tag that needs to be applied for the npm publish.
 ```yaml
 - name: Get tag name
   id: get-npm-tag
-  uses: AmadeusITGroup/otter/tools/github-actions/get-npm-tag@v8.0.15
+  uses: AmadeusITGroup/otter/tools/github-actions/get-npm-tag@8
   with:
     is-prerelease: ${{ inputs.prerelease || (github.event.release && github.event.release.prerelease) }}
     version: ${{ steps.get-version.outputs.version }}
