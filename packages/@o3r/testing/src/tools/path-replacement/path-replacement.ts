@@ -50,7 +50,10 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
             dirname: path.dirname(filePath),
             useCurrentGlobal: true
           });
-        } catch {}
+        } catch (ex) {
+          // eslint-disable-next-line no-console
+          console.error(ex);
+        }
       }
 
       return modulesCache[filePath];
