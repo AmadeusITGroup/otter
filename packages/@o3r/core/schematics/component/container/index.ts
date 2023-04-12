@@ -19,6 +19,7 @@ import { ComponentStructureDef } from '../structures.types';
 import { NgGenerateComponentContainerSchematicsSchema } from './schema';
 
 export const CONTAINER_FOLDER = 'container';
+const MODULE_TEMPLATE_PATH = './templates/module';
 const CONTAINER_TEMPLATE_PATH = './templates/container';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
 const FIXTURE_TEMPLATE_PATH = './templates/fixture';
@@ -83,6 +84,16 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       renameTemplateFiles(),
       move(componentDestination)
     ]), MergeStrategy.Overwrite));
+
+    if (!options.standalone) {
+      rules.push(mergeWith(apply(url(MODULE_TEMPLATE_PATH), [
+        template({
+          ...properties
+        }),
+        renameTemplateFiles(),
+        move(componentDestination)
+      ]), MergeStrategy.Overwrite));
+    }
 
     if (options.useContext) {
       rules.push(mergeWith(apply(url(CONTEXT_TEMPLATE_PATH), [

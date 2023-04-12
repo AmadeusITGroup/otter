@@ -30,4 +30,7 @@ export interface NgGenerateComponentContainerSchematicsSchema extends JsonObject
 
   /** Skip the linter process */
   skipLinter: boolean;
+
+  /** Whether the generated component is standalone */
+  standalone: boolean;
 }

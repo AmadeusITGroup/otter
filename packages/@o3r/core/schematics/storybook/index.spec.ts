@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
@@ -19,11 +18,11 @@ describe('Storybook component generator', () => {
 
   it('should not generate a storybook file in a folder without component', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'storybook-component', {
+    const tree = await runner.runExternalSchematic('schematics', 'storybook-component', {
       projectName: 'test-project',
       useOtterConfig: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.length).toEqual(3);
   });
@@ -33,12 +32,12 @@ describe('Storybook component generator', () => {
     initialTree.create('test.pres.style.scss', '');
 
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'storybook-component', {
+    const tree = await runner.runExternalSchematic('schematics', 'storybook-component', {
       projectName: 'test-project',
       useOtterConfig: false,
       useLocalization: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.length).toEqual(6);
     expect(tree.exists('test-pres.stories.ts')).toBeTruthy();
@@ -50,11 +49,11 @@ describe('Storybook component generator', () => {
     initialTree.create('test-pres.stories.ts', 'test');
 
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'storybook-component', {
+    const tree = await runner.runExternalSchematic('schematics', 'storybook-component', {
       projectName: 'test-project',
       useOtterConfig: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.length).toEqual(6);
     expect(tree.get('test-pres.stories.ts')?.content.toString()).toMatch(/^test$/);

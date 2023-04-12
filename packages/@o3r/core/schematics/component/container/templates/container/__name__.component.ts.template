@@ -2,13 +2,17 @@ import {ChangeDetectionStrategy, Component, <% if (useOtterConfig) { %>Input, On
 import {O3rComponent} from '@o3r/core';
 <% if (useOtterConfig) { %>import {ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable} from '@o3r/configuration'; <% } %>
 import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
+<% if (componentStructure === 'full') { %>import {<%= blockName %>PresComponent} from '../presenter/<%= kebabCaseBlockName %>-pres.component';
+<% } %>
 <% if (useOtterConfig) { %>import {<%=configKey%>_DEFAULT_CONFIG, <%=configKey%>_CONFIG_ID, <%= componentConfig %>} from './<%= name %>.config';<% } %>
 <% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';<% } %>
 @O3rComponent({
   componentType: '<%= componentType %>'
 })
 @Component({
-  selector: '<%= componentSelector %><% if (!!suffix) { %>-<%= suffix %><% } %>',
+  selector: '<%= componentSelector %><% if (!!suffix) { %>-<%= suffix %><% } %>',<% if (standalone) { %>
+  standalone: true,
+  imports: [CommonModule<% if (componentStructure === 'full') { %>, <%= blockName %>PresComponent<% } %>],<% } %>
   templateUrl: './<%= name %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

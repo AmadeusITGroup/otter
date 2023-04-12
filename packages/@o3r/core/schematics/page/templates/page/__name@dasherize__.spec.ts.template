@@ -1,6 +1,6 @@
 import {DebugElement} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {BrowserModule, By} from '@angular/platform-browser';
+import {<% if (!standalone) { %>BrowserModule, <% } %>By} from '@angular/platform-browser';
 
 import {<%= className %>Component} from './<%= dasherize(name) %>.component';
 
@@ -9,8 +9,9 @@ let fixture: ComponentFixture<<%= className %>Component>;
 describe('<%= className %>Component', () => {
   beforeEach(async(() => {
     return TestBed.configureTestingModule({
-      declarations: [<%= className %>Component],
+      <% if (standalone) { %>declarations: [<%= className %>Component],
       imports: [BrowserModule]
+      <% } else { %>imports: [<%= className %>Component]<% } %>
     }).compileComponents();
   }));
 

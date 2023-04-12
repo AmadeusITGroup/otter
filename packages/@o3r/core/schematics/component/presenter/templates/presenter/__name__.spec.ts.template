@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, DebugElement, Provider} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {BrowserModule, By} from '@angular/platform-browser';
+import {<% if (!standalone) { %>BrowserModule, <% } %>By} from '@angular/platform-browser';
 <% if (useLocalization) { %>import {LocalizationService} from '@o3r/localization';
 <% } %><% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';
 <% } %><% if (useLocalization) { %>import {mockTranslationModules} from '@o3r/testing/localization';
@@ -27,9 +27,9 @@ const mockTranslationsCompilerProvider: Provider = {
 <% } %>describe('<%= componentName %>', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [<%= componentName %>],
+      <% if (!standalone) { %>declarations: [<%= componentName %>],<% } %>
       imports: [
-        BrowserModule<% if (useLocalization) { %>,
+        <% if (standalone) { %><%= componentName %><% } else { %>BrowserModule<% } %><% if (useLocalization) { %>,
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)<% } %>
       ]
     }).overrideComponent(<%= componentName %>, {

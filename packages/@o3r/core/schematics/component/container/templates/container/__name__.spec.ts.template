@@ -1,7 +1,7 @@
 <% if (componentStructure === 'full') { %>import {Component} from '@angular/core';
 <% } %>import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {BrowserModule} from '@angular/platform-browser';
-<% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';<% } %>
+<% if (!standalone) { %>import {BrowserModule} from '@angular/platform-browser';
+<% } %><% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';<% } %>
 import {<%= componentName %>} from './<%= name %>.component';
 <% if (useComponentFixtures) {%>import {<%= componentFixture %>Component} from './<%= name %>.fixture';<% } %>
 
@@ -9,7 +9,8 @@ import {<%= componentName %>} from './<%= name %>.component';
   selector: '<%= componentSelector %>-pres',
   template: ''<% if (useOtterConfig) { %>,
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['config']<% } %>
+  inputs: ['config']<% } %>,
+  standalone: true
 })
 class Mock<%= blockName %>PresComponent {}
 
@@ -20,9 +21,8 @@ class Mock<%= blockName %>PresComponent {}
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [<%= componentName %><% if (componentStructure === 'full') { %>, Mock<%= blockName %>PresComponent <% } %>],
-      imports: [BrowserModule],
-      providers: []
+      imports: [<% if (standalone) { %><%= componentName %><% } else {%>BrowserModule<% } %><% if (componentStructure === 'full') { %>, Mock<%= blockName %>PresComponent <% } %>]
+      <% if (!standalone) { %>declarations: [<%= componentName %>]<% } %>
     }).compileComponents()
   });
 

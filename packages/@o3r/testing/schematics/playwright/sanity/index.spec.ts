@@ -4,7 +4,6 @@ import { getProjectFromTree, readAngularJson } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
@@ -30,10 +29,10 @@ describe('Playwright Sanity', () => {
   describe('Default parameters', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
-      tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'playwright-sanity', {
+      tree = await runner.runExternalSchematic('schematics', 'playwright-sanity', {
         projectName: 'test-project',
         name: 'test-playwright-sanity'
-      }, getInitialTree()));
+      }, getInitialTree());
     });
 
     it('should generate files', () => {

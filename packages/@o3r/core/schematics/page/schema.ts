@@ -30,4 +30,7 @@ export interface NgGeneratePageSchematicsSchema extends JsonObject {
 
   /** Indicates if the page should use localization */
   useLocalization: boolean;
+
+  /** Whether the generated component is standalone */
+  standalone: boolean;
 }
