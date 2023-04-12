@@ -1,11 +1,17 @@
-import { SchematicContext, SchematicsException, Tree } from '@angular-devkit/schematics';
+import {SchematicContext, SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-import { getRouterModuleDeclaration } from '@schematics/angular/utility/ast-utils';
+import {
+  addImportToModule,
+  addProviderToModule,
+  getRouterModuleDeclaration,
+  insertImport, isImported
+} from '@schematics/angular/utility/ast-utils';
+import {InsertChange} from '@schematics/angular/utility/change';
 import * as fs from 'node:fs';
-import { sync as globbySync } from 'globby';
+import {sync as globbySync} from 'globby';
 import * as path from 'node:path';
-import { getExportedSymbolsFromFile } from './ast';
-import { getProjectFromTree } from './loaders';
+import {getExportedSymbolsFromFile} from './ast';
+import {getProjectFromTree} from './loaders';
 
 /**
  * Get the path to the app.module.ts
@@ -107,4 +113,103 @@ export function isApplicationThatUsesRouterModule(tree: Tree) {
       } catch {}
       return false;
     });
+}
+
+/**
+ * Add import to the main module
+ *
+ * @param name
+ * @param file
+ * @param sourceFile
+ * @param sourceFileContent
+ * @param context
+ * @param moduleFilePath
+ * @param moduleIndex
+ * @param recorder
+ * @param moduleFunction
+ * @param override
+ */
+export function addImportToModuleFile(name: string, file: string, sourceFile: ts.SourceFile, sourceFileContent: string, context: SchematicContext, recorder: UpdateRecorder,
+                                      moduleFilePath: string, moduleIndex: number, moduleFunction?: string, override = false) {
+  const importMatch = sourceFileContent.slice(moduleIndex).match(new RegExp(`(${name})(\\.[a-zA-Z\\s\\n]+\\()?(,\\n?)?`));
+  if (!!importMatch && !override) {
+    context.logger.warn(`Skipped ${name} (already imported)`);
+    return recorder;
+  } else if (importMatch?.[2]) {
+    context.logger.warn(`Skipped ${name}${moduleFunction || ''} (already imported with method). Cannot override automatically`);
+    return recorder;
+  } else if (override && isImported(sourceFile, name, file) && !!importMatch && !Number.isNaN(importMatch.index)) {
+    recorder = recorder.remove(moduleIndex + importMatch.index!, importMatch[0].length);
+    recorder = recorder.insertLeft(moduleIndex + importMatch.index!, moduleIndex + importMatch.index! > moduleIndex ? name + moduleFunction! + (importMatch[3] || '') : name);
+  } else {
+    addImportToModule(sourceFile, moduleFilePath, name, file)
+      .forEach((change) => {
+        if (change instanceof InsertChange) {
+          recorder = recorder.insertLeft(change.pos, moduleFunction && change.pos > moduleIndex ? change.toAdd.replace(name, name + moduleFunction) : change.toAdd);
+        }
+      });
+  }
+  return recorder;
+}
+
+/**
+ * Insert import on top of the main module file
+ *
+ * @param name
+ * @param file
+ * @param sourceFile
+ * @param recorder
+ * @param moduleFilePath
+ * @param isDefault
+ */
+export function insertImportToModuleFile(name: string, file: string, sourceFile: ts.SourceFile, recorder: UpdateRecorder, moduleFilePath: string, isDefault?: boolean) {
+  const importChange = insertImport(sourceFile, moduleFilePath, name, file, isDefault);
+  if (importChange instanceof InsertChange) {
+    return recorder.insertLeft(importChange.pos, importChange.toAdd);
+  }
+  return recorder;
+}
+
+
+/**
+ * Add providers to the main module
+ *
+ * @param name
+ * @param file
+ * @param sourceFile
+ * @param sourceFileContent
+ * @param context
+ * @param recorder
+ * @param moduleFilePath
+ * @param moduleIndex
+ * @param customProvider
+ */
+export function addProviderToModuleFile(name: string, file: string, sourceFile: ts.SourceFile, sourceFileContent: string, context: SchematicContext, recorder: UpdateRecorder,
+                                        moduleFilePath: string, moduleIndex: number, customProvider?: string) {
+  if (new RegExp(name).test(sourceFileContent.substr(moduleIndex))) {
+    context.logger.warn(`Skipped ${name} (already provided)`);
+    return recorder;
+  }
+  addProviderToModule(sourceFile, moduleFilePath, name, file)
+    .forEach((change) => {
+      if (change instanceof InsertChange) {
+        recorder = recorder.insertLeft(change.pos, customProvider && change.pos > moduleIndex ? change.toAdd.replace(name, customProvider) : change.toAdd);
+      }
+    });
+  return recorder;
+}
+
+/**
+ * Add custom code before the module definition
+ *
+ * @param line
+ * @param file
+ * @param recorder
+ * @param moduleIndex
+ */
+export function insertBeforeModule(line: string, file: string, recorder: UpdateRecorder, moduleIndex: number) {
+  if (file.indexOf(line.replace(/[\r\n ]*/g, '')) === -1) {
+    return recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
+  }
+  return recorder;
 }
