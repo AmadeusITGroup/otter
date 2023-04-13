@@ -99,7 +99,23 @@ And then in the angular.json :
 * Html limited to angular sanitizer supported behavior
 * Urls (relative ones will be processed to add the dynamic-media-path)
 * Facts references
-* Localization : for each change a new url will be fetched
+
+### Static localization
+The first choice you have when you want to localize your template is the static localization.
+You need to create a localized template for each locale and provide the template URL with [LANGUAGE] (ex: assets/placeholders/[LANGUAGE]/myPlaceholder.json)
+The rules engine service will handle the replacement of [LANGUAGE] for you, and when you change language a new call will be performed to the new 'translated' URL.
+
+Note that the URL caching mechanism is based on the url NOT 'translated', meaning that if you change from en-GB to fr-FR then you decide to switch back and all the calls will be made again.
+This behavior is based on the fact that a real user rarely goes back and forth with the language update.
+
+### Dynamic localization
+
+### Multiple templates in same placeholder
+You can use placeholder actions to target the same placeholderId with different template URLs.
+It groups the rendered templates in the same placeholder, and you can choose the order by using the `priority` attribute in the action.
+If not specified, the priority defaults to 0. Then the higher the number, the higher the priority. The final results are displayed in descending order of priority.
+The placeholder component waits for all the calls to be resolved (not pending) to display the content.
+The placeholder component ignores a template if the application failed to retrieve it.
 
 ## Investigate issues
 If the placeholder is not rendered properly, you can perform several check to find out the root cause, simply looking at the store state.

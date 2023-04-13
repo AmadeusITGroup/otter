@@ -1,8 +1,8 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
+import {InjectionToken, ModuleWithProviders, NgModule} from '@angular/core';
+import {Action, ActionReducer, StoreModule} from '@ngrx/store';
 
-import { placeholderTemplateReducer } from './placeholder-template.reducer';
-import { PLACEHOLDER_TEMPLATE_STORE_NAME, PlaceholderTemplateState } from './placeholder-template.state';
+import {placeholderTemplateReducer} from './placeholder-template.reducer';
+import {PLACEHOLDER_TEMPLATE_STORE_NAME, PlaceholderTemplateState} from './placeholder-template.state';
 
 /** Token of the PlaceholderTemplate reducer */
 export const PLACEHOLDER_TEMPLATE_REDUCER_TOKEN = new InjectionToken<ActionReducer<PlaceholderTemplateState, Action>>('Feature PlaceholderTemplate Reducer');

@@ -1,11 +1,6 @@
-import { PlaceholderTemplateModel } from './placeholder-template.state';
-
-
-import { asyncEntitySerializer, Serializer } from '@o3r/core';
-import { placeholderTemplateAdapter, placeholderTemplateInitialState } from './placeholder-template.reducer';
-import { PlaceholderTemplateState } from './placeholder-template.state';
-
-export const placeholderTemplateStorageSerializer = asyncEntitySerializer;
+import {PlaceholderTemplateModel, PlaceholderTemplateState} from './placeholder-template.state';
+import {Serializer} from '@o3r/core';
+import {placeholderTemplateAdapter, placeholderTemplateInitialState} from './placeholder-template.reducer';
 
 export const placeholderTemplateStorageDeserializer = (rawObject: any) => {
   if (!rawObject || !rawObject.ids) {
@@ -20,6 +15,5 @@ export const placeholderTemplateStorageDeserializer = (rawObject: any) => {
 };
 
 export const placeholderTemplateStorageSync: Serializer<PlaceholderTemplateState> = {
-  serialize: placeholderTemplateStorageSerializer,
   deserialize: placeholderTemplateStorageDeserializer
 };
