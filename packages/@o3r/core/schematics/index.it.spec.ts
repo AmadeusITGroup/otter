@@ -78,6 +78,7 @@ function setupNewApp() {
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
     execSync('yarn set version 1.22.19', execAppOptions);
+    execSync(`yarn config set cache-folder ${path.join(currentFolder, '.cache', 'test-app')}`, execAppOptions);
     execSync('yarn', execAppOptions);
 
     // Run ng add
