@@ -109,6 +109,140 @@ Note that the URL caching mechanism is based on the url NOT 'translated', meanin
 This behavior is based on the fact that a real user rarely goes back and forth with the language update.
 
 ### Dynamic localization
+If your placeholder template HTML does not differ between languages, you might want to consider a dynamic localization.
+
+In that use case, you can refer to localization keys in your master placeholder template.
+The module will then translate the template based on the localization service and keep it updated after every language change.  
+As your placeholder URL remains the same, it will be updated dynamically without any server call.
+
+#### Implementation
+You can activate the dynamic localization feature in your placeholder by following this example:
+```json
+{
+  "vars": {
+    "keyToTranslation": {
+      "type": "localisation",
+      "value": "my-localisation-key"
+    }
+  },
+  "template": "<div class=\"fancy-box\"><%= keyToTranslation %></div>"
+}
+```
+Your key should be described in a placeholder variable where the type will be ``localisation`` and its value 
+the translation key itself. You can refer to the variable in your template thanks to the variable key (``keyToTranslation`` 
+in the example above).
+
+**Note**: you should **not** create [LANGUAGE] files for placeholders that use the dynamic localization feature. The static
+localization is not compatible with the dynamic localization.
+
+#### ICU and parameter support
+
+Today, the Otter Framework supports the ICU syntax as well as parameters. You only need to bind your parameter with a fact
+sharing the same name.
+
+As an example, let's create a counter that will emit every second.
+You will first need to design your placeholder referencing the translation key and the facts it is bound to.
+
+Let's consider what this placeholder would look like if it were completely integrated in your angular component
+```html
+"<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | translate}}</div>"
+```
+
+Then, let's create a new localization key for each of your supported language:
+
+* en-GB.json
+```json
+{
+  "o3r-increment-key": "{increment, plural, =1 {1 second has} other {{{increment}} seconds have}} elapsed since you opened the page"
+}
+```
+* fr-FR.json
+```json
+{
+  "o3r-increment-key": "Cela fait {increment, plural, =1 {1 seconde}} other {{{increment} secondes} que tu as ouvert cette page"
+}
+```
+
+Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter. This means you need to create an ``increment`` 
+fact to fill the value. You can follow the [fact creation documentation](./create-custom-fact.md).
+
+```
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { FactsService, RulesEngineService } from '@o3r/rules-engine';
+import { interval } from 'rxjs';
+import { retrieveUrl } from './fact-factories/index';
+import { PageFacts } from './page.facts';
+
+@Injectable()
+export class PageFactsService extends FactsService<PageFacts> {
+
+  public facts = {
+    pageUrl: this.router.events.pipe(retrieveUrl()),
+    // This is for demo app testing only, don't do this in a real application
+    increment: interval(2000)
+  };
+
+  constructor(rulesEngine: RulesEngineService, private router: Router) {
+    super(rulesEngine);
+  }
+
+}
+```
+
+Once the translation keys and the referenced fact exist, you can link them to your placeholder.   
+See how the original translation pipe has been replaced and how the localisation key is bound to the ``increment`` fact:
+
+```json
+{
+  "vars": {
+    "incrementKey": {
+      "type": "localisation",
+      "value": "o3r-increment-key",
+      "vars": ["increment"]
+    },
+    "increment": {
+      "type": "fact",
+      "value": "increment"
+    }
+  },
+  "template": "<div style=\"border-radius:10%; background:red;\"><%= incrementKey %></div>"
+}
+```
+
+**Limitations:**
+This feature deeply binds functional facts exposed in your application to your translations. 
+You will need to carefully plan the way you bind your localization key to your facts to avoid messy references.
+
+For example, let's imagine you want a generic counters until specific events. 
+You will probably want to reuse your placeholder in different pages for different events:
+
+```json
+{
+  "vars": {
+    "titleKey": {
+      "type": "localisation",
+      "value": "o3r-event-title-key"
+    },
+    "contentWithCounterKey": {
+      "type": "localisation",
+      "value": "o3r-event-counter-key",
+      "vars": ["increment"]
+    },
+    "increment": {
+      "type": "fact",
+      "value": "increment"
+    }
+  },
+  "template": "<div style=\"fancy-style: with-many-properties;\"><span style=\"fancy-title-style: nice-properties;\"><%= titleKey %></span><div><%= contentWithCounterKey %></div></div>"
+}
+```
+
+You might be tempted to use this generic template for all your events but the value of your counter parameter will depend 
+on the event itself (Easter, next Summer Holidays for example). 
+This means that ``increment`` might have different value depending on the context of the page which might be tricky to maintain.  
+You should also be careful and consider the cost of multiplying keys to fit each of your use case as redundancy can decrease
+your application maintainability.
 
 ### Multiple templates in same placeholder
 You can use placeholder actions to target the same placeholderId with different template URLs.
