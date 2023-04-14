@@ -54,7 +54,7 @@ describe('Api Key Request Plugin', () => {
 
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'TESTOID'
+      oid: 'TESTOID'
     }));
   });
 
@@ -70,7 +70,7 @@ describe('Api Key Request Plugin', () => {
     expect(options.headers.get('x-api-key')).toBe('key');
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'TESTOID'
+      oid: 'TESTOID'
     }));
 
     await runner.transform(options);
@@ -79,7 +79,7 @@ describe('Api Key Request Plugin', () => {
     expect(options.headers.get('x-api-key')).toBe('secondKey');
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'SECONDOID'
+      oid: 'SECONDOID'
     }));
   });
 
@@ -95,7 +95,7 @@ describe('Api Key Request Plugin', () => {
     expect(options.headers.get('x-api-key')).toBe('key');
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'TESTOID'
+      oid: 'TESTOID'
     }));
 
     await runner.transform(options);
@@ -104,7 +104,7 @@ describe('Api Key Request Plugin', () => {
     expect(options.headers.get('x-api-key')).toBe('secondKey');
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'SECONDOID'
+      oid: 'SECONDOID'
     }));
   });
 
@@ -126,7 +126,7 @@ describe('Api Key Request Plugin', () => {
     expect(options.headers.get('x-api-key')).toBe('secondApiKey');
     expect(amaCtx).toBeDefined();
     expect(getJWTPayload(amaCtx)).toEqual(expect.objectContaining({
-      officeId: 'OID'
+      oid: 'OID'
     }));
   });
 });
