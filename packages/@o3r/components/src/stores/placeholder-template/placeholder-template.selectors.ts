@@ -56,7 +56,7 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
     }
     // Sort templates by priority
     const orderedRenderedTemplates = templates.sort((template1, template2) => {
-      return (template2.priority < template1.priority ? -1 : 0);
+      return (template2.priority - template1.priority) || 1;
     }).map(template => template.renderedTemplate)
       .filter(renderedTemplate => !!renderedTemplate);
 
