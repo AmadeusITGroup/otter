@@ -5707,6 +5707,7 @@ __metadata:
     doc-links: ./scripts/doc-links.mjs
     patch-package-json-exports: ./scripts/patch-package-json-exports.mjs
     patch-package-json-main: ./scripts/patch-package-json-main.mjs
+    pr-labels: ./scripts/pr-labels.mjs
     prepare-publish: ./scripts/prepare-publish.mjs
     update-doc-summary: ./scripts/update-doc-summary.mjs
     update-package: ./scripts/update-package.mjs
