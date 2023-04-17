@@ -66,7 +66,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
 
     context.reportProgress(1, STEP_NUMBER, 'Generating component parser');
     const libraryName = options.name || defaultLibraryName(context.currentDirectory);
-    const parser = new ComponentParser(libraryName, tsConfig, context.logger, options.strictMode);
+    const parser = new ComponentParser(libraryName, tsConfig, context.logger, options.strictMode, options.libraries);
 
     context.reportProgress(2, STEP_NUMBER, 'Gathering project data');
     const parserOutput = await parser.parse();

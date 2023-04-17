@@ -11,7 +11,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { ComponentExtractorBuilderSchema } from '../../index';
 import { ComponentInformation } from './component-class.extractor';
-import { ConfigurationInformation } from './component-config.extractor';
+import { ConfigurationInformation, ConfigurationInformationWrapper } from './component-config.extractor';
 import { ParserOutput } from './component.parser';
 
 /**
@@ -99,12 +99,40 @@ export class ComponentExtractor {
   }
 
   /**
+   * Return a hash of the config output without the path
+   *
+   * @param config
+   */
+  private hashConfiguration(config: ComponentConfigOutput) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { path: configFilePath, ...rest } = config;
+    return Buffer.from(JSON.stringify(rest)).toString('base64');
+  }
+
+  /**
+   * Add NestedConfiguration to map
+   *
+   * @param nestedConfigurations Map
+   * @param configurationInformationWrapper configurations to be added
+   * @param filePath
+   */
+  private addNestedConfigToMap(nestedConfigurations: Map<string, ComponentConfigOutput>, configurationInformationWrapper: ConfigurationInformationWrapper, filePath: string) {
+    configurationInformationWrapper.nestedConfiguration.forEach(
+      (nestedConfiguration) => {
+        const value = this.createComponentConfigOutput(nestedConfiguration, filePath, 'NESTED_ELEMENT');
+        nestedConfigurations.set(this.hashConfiguration(value), value);
+      }
+    );
+    return nestedConfigurations;
+  }
+
+  /**
    * Consolidate the configuration data to the final format.
    *
    * @param parsedData Data extracted from the source code
    */
   private consolidateConfig(parsedData: ParserOutput): ComponentConfigOutput[] {
-    const nestedConfigurations: ComponentConfigOutput[] = [];
+    const nestedConfigurations = new Map<string, ComponentConfigOutput>();
     const configMap: Map<string, ComponentConfigOutput> = new Map();
 
     // extract Application type configs that are not supposed to be bound to a component
@@ -113,11 +141,8 @@ export class ComponentExtractor {
       if (configurationInformation && configurationInformation.isApplicationConfig) {
         this.logger.info(`Processing standalone APPLICATION config: ${configurationInformation.name}.`);
         configMap.set(filePath, this.createComponentConfigOutput(configurationInformation, filePath, 'APPLICATION'));
-
-        nestedConfigurations.push(...configuration.configuration.nestedConfiguration.map(
-          (nestedConfiguration) => this.createComponentConfigOutput(nestedConfiguration, filePath, 'NESTED_ELEMENT')
-        ));
       }
+      this.addNestedConfigToMap(nestedConfigurations, configuration.configuration, filePath);
     });
 
     Object.keys(parsedData.components)
@@ -133,17 +158,18 @@ export class ComponentExtractor {
             return;
           }
         }
-        // We add all nested config in a dedicated list here
-        nestedConfigurations.push(...configRef.configuration.nestedConfiguration.map(
-          (nestedConfiguration) => this.createComponentConfigOutput(nestedConfiguration, configRef.file, 'NESTED_ELEMENT')
-        ));
-        return this.createComponentConfigOutput(configRef.configuration.configurationInformation!, configRef.file, parsedItemRef.component.type);
+        // We add all nested config in a dedicated map here
+        this.addNestedConfigToMap(nestedConfigurations, configRef.configuration, configRef.file);
+        if (!configRef.configuration.configurationInformation) {
+          return;
+        }
+        return this.createComponentConfigOutput(configRef.configuration.configurationInformation, configRef.file, parsedItemRef.component.type);
       }).filter((config): config is ComponentConfigOutput => !!config)
       .forEach((config) =>
         // Here we filter any duplicates using the path, it's possible to reuse a config for 2 components, but we don't it 2 times in the output
         configMap.set(config.path, config)
       );
-    return [...Array.from(configMap.values()), ...nestedConfigurations];
+    return [...Array.from(configMap.values()), ...Array.from(nestedConfigurations.values())];
   }
 
   /**
@@ -265,6 +291,9 @@ export class ComponentExtractor {
     (this.libConfigurations || [])
       .forEach((configs) => configurations.push(...configs));
     configurations = this.filterIncompatibleConfig(configurations, options);
+    configurations = Array.from((new Map(configurations.map((c) => {
+      return [this.hashConfiguration(c), c];
+    }))).values());
 
     this.modules = this.consolidateModules(parserOutput);
 
