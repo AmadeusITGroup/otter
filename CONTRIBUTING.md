@@ -94,12 +94,14 @@ You can open a pull request [here](https://github.com/AmadeusITGroup/otter/pulls
 
 ### Commit message constraints
 
-In order to have a nice change log generated, you will need to follow some guidelines :
+In order to have a nice change log generated, you will need to follow some guidelines:
 
-* For bugfix : git commit -m "fix: this a commit message for a fix"
-* For feature : git commit -m "feat: this a commit message for a feature"
+* For bugfix: `git commit -m "[fix|fixes|bugfix|bugfixes]: this is a commit message for a fix"`
+* For feature: `git commit -m "[feat|feature|features]: this is a commit message for a feature"`
+* For documentation: the commit message should contain the word `doc`, `docs` or `documentation`
+* For breaking change: the commit message should contain the word `breaking`, `breaking change`, `breaking changes`, `breaking-change` or `breaking-changes`
 
-Those are 2 common examples, for more information don't hesitate to have a look at <https://github.com/conventional-changelog/commitlint/#what-is-commitlint>
+Those are common examples, for more information don't hesitate to have a look at <https://github.com/conventional-changelog/commitlint/#what-is-commitlint>
 
 ### Pull request specifics
 
