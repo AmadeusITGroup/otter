@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./.attachments/otter.png" alt="Super cute Otter!" width="30%" height="30%"/>
+  <img src="./.attachments/otter.png" alt="Super cute Otter!" width="30%"/>
 </p>
 
 # Otter Library - How to contribute
