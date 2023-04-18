@@ -1,6 +1,6 @@
 <h1 align="center">Otter Framework</h1>
 <p align="center">
-  <img src="./.attachments/otter.png" alt="Super cute Otter!" width="40%" height="40%"/>
+  <img src="./.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
 </p>
 
 ## Description
