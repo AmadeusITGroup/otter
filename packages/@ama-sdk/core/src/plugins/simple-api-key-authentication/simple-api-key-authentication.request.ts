@@ -32,7 +32,7 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  * needs to change it at runtime.
  * You can also call the method {@link setApiKey} to change it programmatically.
  *
- * The plugin {@link options} allow to customize the headers in which the plugin injects the API key and context overrides.
+ * The plugin {@link options} allow to customize the headers which the plugin injects the API key and context overrides into.
  *
  * About context overrides: today only the Office ID is supported.
  * Like the {@link apiKey}, {@link options.officeId} can be a {@link string} or a function that returns a {@link string} or a {@link Promise}.
@@ -43,13 +43,11 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  * @example Static API key no override
  *
  * const plugin = new SimpleApiKeyAuthenticationRequest('myApiKey');
- *
  * @example Static API key with static override
  *
  * const plugin = new SimpleApiKeyAuthenticationRequest('myApiKey', {
  *   officeId: 'NCE1A098A'
  * });
- *
  * @example Dynamic API key as a promise
  *
  * const apiKeyFactory = () => firstValueFrom(store.pipe(
@@ -63,11 +61,11 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  *
  * const plugin = new SimpleApiKeyAuthenticationRequest('initialApiKey');
  * store.pipe(
- *     select(someStateSelector)
- *   ).subscribe(state => {
- *     plugin.setApiKey(determineApiKeyToUse(state));
- *     plugin.setOfficeId(determineOfficeIdOverride(state));
- *   });
+ *   select(someStateSelector)
+ * ).subscribe(state => {
+ *   plugin.setApiKey(determineApiKeyToUse(state));
+ *   plugin.setOfficeId(determineOfficeIdOverride(state));
+ * });
  */
 export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
   /** Options of the plugin */

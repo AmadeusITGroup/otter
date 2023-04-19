@@ -1,6 +1,13 @@
-# Otter APIs-manager
+<h1 align="center">Otter APIs-manager</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 This module provides services to help you communicate with your APIs. Its responsibility is to provide an API configuration to a service factory so that it could instantiate an API with the right configurations.
 
@@ -180,7 +187,7 @@ import { appendPreconnect } from '@o3r/apis-manager';
 appendPreconnect('https://your-api.com', true);
 ```
 
-This will add a preconnect link element to the DOM with the href attribute set to https://example.com and the crossorigin attribute set to an empty string.
+This will add a preconnect link element to the DOM with the href attribute set to <https://example.com> and the crossorigin attribute set to an empty string.
 
 #### Benefits of using preconnect
 

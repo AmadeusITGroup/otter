@@ -1,6 +1,13 @@
-# Otter dynamic content
+<h1 align="center">Otter dynamic content</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 This module provides a mechanism to retrieve media and data depending on the host or a server specific url.
 
