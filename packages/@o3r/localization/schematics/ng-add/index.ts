@@ -14,6 +14,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
       const { updateI18n, updateLocalization } = await import('../localization-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      context.logger.info(`The package ${depsInfo.packageName} comes with a debug mechanism`);
+      context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
       return chain([
         updateLocalization(options, __dirname),
         updateI18n(),

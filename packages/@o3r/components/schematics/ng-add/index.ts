@@ -13,11 +13,15 @@ export function ngAdd(): Rule {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      return chain([
+      const rule = chain([
         removePackages(['@otter/components']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
       ]);
 
+      context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
+      context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/COMPONENT_STRUCTURE.md#Runtime-debugging');
+
+      return rule;
     } catch (e) {
       // components needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/components has failed.
