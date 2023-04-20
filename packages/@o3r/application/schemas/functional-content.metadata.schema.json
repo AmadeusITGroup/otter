@@ -66,6 +66,10 @@
             "type": "string",
             "description": "Name of the object definition to use as the root of the model described by this section"
           },
+          "outputObject": {
+            "type": "string",
+            "description": "Name of the parent object which contains this section on exported file"
+          },
           "definitions": {
             "type": "array",
             "description": "Object definitions for this section",
