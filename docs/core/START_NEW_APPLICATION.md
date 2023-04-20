@@ -46,6 +46,45 @@ or for NPM users
 npx ng add @o3r/core
 ```
 
+The application will contain the minimum setup to follow the otter recommendations and to activate the features requested 
+during the installation of the @o3r/core. 
+
+For instance, if you activated the store, your ``app.module.ts`` shall integrate the ngrx Store implementation:
+```typescript
+@NgModule({
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    //...
+    EffectsModule.forRoot([]),
+    StoreModule.forRoot(rootReducers, {metaReducers, runtimeChecks}),
+    StoreRouterConnectingModule.forRoot()
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+You will also find recommendations for your application such accessibility configuration like the 
+[Application Reduced Motion](docs/application/REDUCED_MOTION.md)
+
+It will also update your ``angular.json`` with the feature enabled for your project. This will configure the different generators
+to create components and services consistent with your project.
+
+```json
+{
+  "schematics": {
+    "@o3r/core:component": {
+      "useStorybook": true,
+      "useOtterTheming": true,
+      "useOtterAnalytics": true
+    }
+  }
+}
+```
+
 ## Adding Material design theming
 
 ```bash
@@ -63,3 +102,4 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 @include mat.all-component-typographies($typography);
 @include mat.all-component-themes($mat-theme);
 ```
+

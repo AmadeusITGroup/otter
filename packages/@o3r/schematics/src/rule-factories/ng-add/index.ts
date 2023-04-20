@@ -23,6 +23,8 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
         if (!installedVersion || options?.version !== installedVersion) {
           context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
           context.addTask(new NodePackageNgAddTask(packageName, options));
+        } else {
+          context.logger.info(`Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
         }
       }
     }

@@ -1,14 +1,14 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getAppModuleFilePath, getProjectFromTree } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import {chain, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
 import {
-  addImportToModule,
-  addProviderToModule,
-  getDecoratorMetadata,
-  insertImport,
-  isImported
-} from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+  getAppModuleFilePath,
+  getProjectFromTree,
+  addImportToModuleFile as o3rAddImportToModuleFile,
+  addProviderToModuleFile as o3rAddProviderToModuleFile,
+  insertBeforeModule as o3rInsertBeforeModule,
+  insertImportToModuleFile as o3rInsertImportToModuleFile
+} from '@o3r/schematics';
+import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-utils';
 import * as commentJson from 'comment-json';
 
 /**
@@ -21,10 +21,11 @@ export function updateApiDependencies(): Rule {
     if (!moduleFilePath) {
       return tree;
     }
+    const sourceFileContent = tree.readText(moduleFilePath);
 
     const sourceFile = ts.createSourceFile(
       moduleFilePath,
-      tree.read(moduleFilePath)!.toString(),
+      sourceFileContent,
       ts.ScriptTarget.ES2015,
       true
     );
@@ -35,71 +36,18 @@ export function updateApiDependencies(): Rule {
 
     const recorder = tree.beginUpdate(moduleFilePath);
     const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const appModuleFile = tree.read(moduleFilePath)!.toString();
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : appModuleFile.indexOf('@NgModule');
+    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
 
-    /**
-     * Insert import on top of the main module file
-     *
-     * @param name
-     * @param file
-     * @param isDefault
-     */
-    const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) => {
-      const importChange = insertImport(sourceFile, moduleFilePath, name, file, isDefault);
-      if (importChange instanceof InsertChange) {
-        recorder.insertLeft(importChange.pos, importChange.toAdd);
-      }
-    };
+    const addImportToModuleFile = (name: string, file: string) =>
+      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex);
 
-    /**
-     * Add import to the main module
-     *
-     * @param name
-     * @param file
-     * @param moduleFunction
-     */
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => {
-      if (new RegExp(name).test(appModuleFile.substr(moduleIndex))) {
-        context.logger.warn(`Skipped ${name} (already imported)`);
-        return;
-      }
-      addImportToModule(sourceFile, moduleFilePath, name, file)
-        .forEach((change) => {
-          if (change instanceof InsertChange) {
-            recorder.insertLeft(change.pos, moduleFunction && change.pos > moduleIndex ? change.toAdd.replace(name, name + moduleFunction) : change.toAdd);
-          }
-        });
-    };
+    const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
+      o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
-    /**
-     * Add providers to the main module
-     *
-     * @param name
-     * @param file
-     * @param customProvider
-     */
-    const addProviderToModuleFile = (name: string, file: string, customProvider?: string) => {
-      if (new RegExp(name).test(appModuleFile.substr(moduleIndex))) {
-        context.logger.warn(`Skipped ${name} (already provided)`);
-        return;
-      }
-      addProviderToModule(sourceFile, moduleFilePath, name, file)
-        .forEach((change) => {
-          if (change instanceof InsertChange) {
-            recorder.insertLeft(change.pos, customProvider && change.pos > moduleIndex ? change.toAdd.replace(name, customProvider) : change.toAdd);
-          }
-        });
-    };
+    const addProviderToModuleFile = (name: string, file: string, customProvider?: string) =>
+      o3rAddProviderToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, customProvider);
 
-    /**
-     * Add custom code before the module definition
-     *
-     * @param line
-     */
-    const insertBeforeModule = (line: string) => {
-      recorder.insertLeft(moduleIndex - 1, `${line}\n\n`);
-    };
+    const insertBeforeModule = (line: string) => o3rInsertBeforeModule(line, sourceFileContent, recorder, moduleIndex);
 
     insertImportToModuleFile('appendPreconnect', '@o3r/apis-manager', false);
 
@@ -144,7 +92,7 @@ export function apiManagerFactory(): ApiManager {
       return tree;
     }
 
-    const tsconfigObj: any = commentJson.parse(tree.read(tsconfig)!.toString());
+    const tsconfigObj: any = commentJson.parse(tree.readText(tsconfig));
     if (!tsconfigObj.compilerOptions) {
       tsconfigObj.compilerOptions = {};
     }
