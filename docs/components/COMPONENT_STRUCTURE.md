@@ -198,3 +198,41 @@ We used to export:
 * module
 * context
 * configuration
+
+## Runtime debugging
+
+### Enable Chrome extension debugging
+
+The Otter framework provides an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug the application.
+To enable the communication with the [Otter Devtools](../dev-tools/chrome-devtools.md) the two following steps are required:
+
+1. Import the Devtools module into the application AppModule:
+
+```typescript
+import { ComponentsDevtoolsModule } from '@o3r/components';
+
+@NgModule({
+  imports: [
+    ...,
+    ComponentsDevtoolsModule
+  ]
+})
+export class AppModule { }
+```
+
+2. Activate the debug message service:
+
+```typescript
+import { ComponentsDevtoolsMessageService } from '@o3r/components';
+
+@Component({ ... })
+export class AppComponent {
+  constructor(componentsDevtoolsMessageService: ComponentsDevtoolsMessageService) {
+    if (IS_DEBUG_MODE) {
+      componentsDevtoolsMessageService.activate();
+    }
+  }
+}
+```
+
+> **Note**: get more details on [dev tools session](../dev-tools/chrome-devtools.md)

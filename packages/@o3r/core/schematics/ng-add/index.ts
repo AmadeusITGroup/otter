@@ -1,5 +1,5 @@
-import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, getPackageVersion, getProjectFromTree, install, ngAddPackages, removePackages } from '@o3r/schematics';
+import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { addVsCodeRecommendations, applyEsLintFix, getPackageVersion, getProjectFromTree, install, ngAddPackages, removePackages } from '@o3r/schematics';
 import { createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
   updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
   updateOtterEnvironmentAdapter, updatePlaywright, updateStore } from '../rule-factories/index';
@@ -15,7 +15,7 @@ import { packagesToRemove } from './updates-for-v8/replaced-packages';
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return (tree: Tree) => {
+  return (tree) => {
     const o3rCoreVersion = getPackageVersion(path.resolve(__dirname, '..', '..', 'package.json'));
     const workspaceProject = getProjectFromTree(tree);
 
@@ -51,6 +51,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       updateAdditionalModules(options, __dirname),
       generateRenovateConfig(__dirname),
       removePackages(packagesToRemove),
+      addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template', '']),
       options.skipLinter ? noop() : applyEsLintFix(),
       // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
       options.skipInstall ? noop() : install,

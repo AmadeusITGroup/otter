@@ -106,7 +106,7 @@ A block component class should implement __Block__ interface from __@o3r/core__ 
 __Page config__ - each page component class should implement __Page__ interface available in __@o3r/core__ in order to
 be identified by cms adapter
 
-__Application config__   
+__Application config__
 The application can have 2 types of configs depending of the use cases: __pre-bootstrap__ and __runtime (
 post-bootstrap)__ config
 
@@ -355,3 +355,41 @@ __Config priorities__ for a component:
 - the highest priority is the one passed as input from a parent component  
 - the second priority is the priority by component type set in the store  
 - the lowest priority is the default config set on component (in the config.ts file of the component)
+
+## Runtime debugging
+
+### Enable Chrome extension debugging
+
+The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug the application.
+To enable the communication with the [Otter Devtools](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) the two following steps are required:
+
+1. Importing the Devtools module into the application AppModule:
+
+```typescript
+import { ConfigurationDevtoolsModule } from '@o3r/configuration';
+
+@NgModule({
+  imports: [
+    ...,
+    ConfigurationDevtoolsModule
+  ]
+})
+export class AppModule { }
+```
+
+2. The debug message service needs to be activated
+
+```typescript
+import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
+
+@Component({ ... })
+export class AppComponent {
+  constructor(configurationMessageService: ConfigurationDevtoolsMessageService) {
+    if (IS_DEBUG_MODE) {
+      configurationMessageService.activate();
+    }
+  }
+}
+```
+
+> __Note__: get more details on [dev tools session](../dev-tools/chrome-devtools.md)
