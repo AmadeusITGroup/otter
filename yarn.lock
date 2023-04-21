@@ -4679,48 +4679,48 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@ngrx/effects@npm:15.0.0"
+"@ngrx/effects@npm:~15.4.0":
+  version: 15.4.0
+  resolution: "@ngrx/effects@npm:15.4.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^15.0.0
-    "@ngrx/store": 15.0.0
+    "@ngrx/store": 15.4.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: a53d47965b8d8fd283cda0637eca34165e34e7e1dc01f56d3328618274420da9ed29891e425ead273ac0a6352f3c97c63e65a4b335fe6d640aae2de9c30e76e5
+  checksum: 4d3ac8606993938652211861f98edbf74b9bedbdedfa21c5a0aa36c34fdcae38e5ea8a0a6d3d61fb914508b306a64238c4a85f914db9fe882abd6a85742fbfc6
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@ngrx/entity@npm:15.0.0"
+"@ngrx/entity@npm:~15.4.0":
+  version: 15.4.0
+  resolution: "@ngrx/entity@npm:15.4.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^15.0.0
-    "@ngrx/store": 15.0.0
+    "@ngrx/store": 15.4.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: faa768470498f8ded60d1a258ac470e012853e529480b0adf4414784f440492a5e4c477a7cb2783b1ba1105b855b34db2444432ca3249486cd26bc5bc70c3c1d
+  checksum: fd9a5ee7ce389667338f6a6a015e698a6d1efbcecb6f7a725ff455f42bbbef030f172aa9a0227d1a58e8906d667fe90de461db642f30667308031ffdde2c58f6
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@ngrx/router-store@npm:15.0.0"
+"@ngrx/router-store@npm:~15.4.0":
+  version: 15.4.0
+  resolution: "@ngrx/router-store@npm:15.4.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/common": ^15.0.0
     "@angular/core": ^15.0.0
     "@angular/router": ^15.0.0
-    "@ngrx/store": 15.0.0
+    "@ngrx/store": 15.4.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 210e31704146e7e3fb3bf181a3890b763eaf7d5ea7c3e3afc7393564a5105b467442c67588ef8a9f5f8b50157bbc42fdb8610c9b77c7147c03e180ba3a5a407d
+  checksum: 0172e7aa16530e5c811df9a820a9ffbf9a12b873768239b3c0e67b1b29cfc995d1c32643eeb1e730a9752214094ed3aa428f008679fd16e31bde96c2bb268ba7
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:^15.0.0":
+"@ngrx/store-devtools@npm:~15.4.0":
   version: 15.4.0
   resolution: "@ngrx/store-devtools@npm:15.4.0"
   dependencies:
@@ -4732,15 +4732,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:^15.0.0":
-  version: 15.0.0
-  resolution: "@ngrx/store@npm:15.0.0"
+"@ngrx/store@npm:~15.4.0":
+  version: 15.4.0
+  resolution: "@ngrx/store@npm:15.4.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^15.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 64a702b21bd0c9ae85520b408134fd860769d7de07fa047780cd2ecfca314c32c78d627169b0e316bca6a60e53c752fbd816b9e4fe2c3e8f91fe1bbfc9715d16
+  checksum: 444ab9c3da0f69fda6c09a92d50de5b828b3dce221abb4167aecbac3a120102ccbd64d3060c173b0db21b29632b850646a4d9d977a15c65d45a244f2352b3c5e
   languageName: node
   linkType: hard
 
@@ -5518,7 +5518,7 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -5748,8 +5748,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
     "@ng-bootstrap/ng-bootstrap": ^14.0.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/jest": ~15.9.0
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -5812,8 +5812,8 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/jest": ~15.9.0
     "@o3r/analytics": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -5899,8 +5899,8 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -5978,10 +5978,10 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
-    "@ngrx/effects": ^15.0.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
-    "@ngrx/store-devtools": ^15.0.0
+    "@ngrx/effects": ~15.4.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
+    "@ngrx/store-devtools": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6152,7 +6152,7 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6384,8 +6384,8 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6534,7 +6534,7 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@ngx-translate/core": ~14.0.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -6625,7 +6625,7 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@fullstory/browser": ~1.7.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6700,7 +6700,7 @@ __metadata:
     "@capacitor/core": ^4.0.1
     "@capacitor/device": ^4.0.1
     "@capacitor/preferences": ^4.0.1
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6777,10 +6777,10 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
-    "@ngrx/effects": ^15.0.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/router-store": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/effects": ~15.4.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/router-store": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -6847,9 +6847,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/effects": ^15.0.0
-    "@ngrx/entity": ^15.0.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/effects": ~15.4.0
+    "@ngrx/entity": ~15.4.0
+    "@ngrx/store": ~15.4.0
     "@ngx-translate/core": ~14.0.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -7010,7 +7010,7 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@babel/core": ~7.21.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -7209,7 +7209,7 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
-    "@ngrx/store": ^15.0.0
+    "@ngrx/store": ~15.4.0
     "@ngx-translate/core": ~14.0.0
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
