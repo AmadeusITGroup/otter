@@ -16,7 +16,11 @@ function getLabels(commitMessage) {
       commitLabels.push('breaking change');
     }
 
-    if (line.match(/\bdoc(s|umentation)?\b/)) {
+    const docRegExps = [
+      /\bdoc(s|umentation)?\b/,
+      /\breadme\b/i
+    ];
+    if (docRegExps.some((docRegExp) => docRegExp.test(line))) {
       commitLabels.push('documentation');
     }
   });

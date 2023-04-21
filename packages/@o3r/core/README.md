@@ -1,4 +1,9 @@
-# Otter core
+<h1 align="center">Otter core</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
+
+## Description
 
 This module gathers the core of the [Otter Framework](https://github.com/AmadeusITGroup/otter).
 It is the foundation for all the packages (interfaces, core helpers) and contains schematics to generate your components/services etc.
