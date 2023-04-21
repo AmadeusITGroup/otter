@@ -72,7 +72,7 @@
     "@angular/core": "~15.2.0",
     "@angular/platform-browser": "~15.2.0",
     "@angular/platform-browser-dynamic": "~15.2.0",
-    "@ngrx/store": "^15.0.0",
+    "@ngrx/store": "~15.4.0",
     "@ngx-translate/core": "~14.0.0",
     "@nrwl/cli": "~15.9.0",
     "@nrwl/jest": "~15.9.0",
