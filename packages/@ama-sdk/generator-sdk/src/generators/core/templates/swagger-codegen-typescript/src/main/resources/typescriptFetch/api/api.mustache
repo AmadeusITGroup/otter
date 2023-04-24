@@ -55,7 +55,7 @@ export class {{classname}} implements Api {
 {{/isDeprecated}}
      * @param data Data to provide to the API call
      */
-    public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/consumes}}, {{#produces}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/produces}}>): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
+    public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
 {{#allParams}}{{#defaultValue}}        data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
 {{/defaultValue}}{{/allParams}}
       const getParams = this.client.extractQueryParams<{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
