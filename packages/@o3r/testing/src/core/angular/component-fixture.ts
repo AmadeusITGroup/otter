@@ -1,12 +1,12 @@
 /* eslint-disable new-cap */
 import { By } from '@angular/platform-browser';
 import { FixtureUsageError } from '../../errors/index';
-import { ComponentFixtureProfile } from '../component-fixture';
+import type { ComponentFixtureProfile } from '../component-fixture';
+import { isPromise, withTimeout } from '../helpers';
 import { O3rElement, O3rElementConstructor } from './element';
 import { O3rGroup, O3rGroupConstructor } from './group';
 
-
-export { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
+export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
 
 /**
  * Implementation of the fixture dedicated to angular, hence using angular testing framework.
@@ -26,9 +26,56 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     this.element = element;
   }
 
-  protected throwOnUndefined<T extends O3rElement>(element?: T) {
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param element ElementProfile to test
+   * @param _timeout specific timeout that will throw when reach
+   */
+  protected throwOnUndefinedElement<T extends O3rElement>(element?: T, _timeout?: number): Promise<T> {
     if (!element) {
       throw new Error('Element not found in ' + this.constructor.name);
+    }
+    return Promise.resolve(element);
+  }
+
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param element ElementProfile to test
+   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@see throwOnUndefinedElement} instead. Will be removed in v10
+   */
+  protected throwOnUndefined<T extends O3rElement>(element?: T): T;
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param element ElementProfile to test
+   * @param timeout specific timeout that will throw when reach
+   */
+  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T | undefined>, timeout?: number): Promise<T>;
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param element ElementProfile to test
+   * @param timeout specific timeout that will throw when reach
+   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@link throwOnUndefinedElement} instead. Will be removed in v10
+   */
+  protected throwOnUndefined<T extends O3rElement>(element?: Promise<T | undefined> | T, timeout?: number): Promise<T> | T {
+    if (!element) {
+      throw new Error('Element not found in ' + this.constructor.name);
+    }
+    if (isPromise(element)) {
+      return withTimeout(element, timeout)
+        .then((el) => {
+          if (!el) {
+            throw new Error('Element not found in ' + this.constructor.name);
+          }
+          return el;
+        });
     }
     return element;
   }
