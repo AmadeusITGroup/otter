@@ -152,6 +152,41 @@
   "builders": "./dist/builders.json",
   "ng-update": {
     "migrations": "./dist/migration.json",
-    "packageGroup": []
+    "packageGroup": [
+      "@ama-sdk/core",
+      "@ama-sdk/generator-sdk",
+      "@ama-sdk/swagger-builder",
+      "@ama-terasu/cli",
+      "@ama-terasu/core",
+      "@ama-terasu/schematics",
+      "@o3r/amaterasu-api-spec",
+      "@o3r/amaterasu-dodo",
+      "@o3r/amaterasu-otter",
+      "@o3r/amaterasu-sdk",
+      "@o3r/analytics",
+      "@o3r/apis-manager",
+      "@o3r/application",
+      "@o3r/build-helpers",
+      "@o3r/chrome-devtools",
+      "@o3r/components",
+      "@o3r/configuration",
+      "@o3r/dev-tools",
+      "@o3r/dynamic-content",
+      "@o3r/eslint-config-otter",
+      "@o3r/eslint-plugin",
+      "@o3r/extractors",
+      "@o3r/forms",
+      "@o3r/localization",
+      "@o3r/logger",
+      "@o3r/mobile",
+      "@o3r/routing",
+      "@o3r/rules-engine",
+      "@o3r/schematics",
+      "@o3r/storybook",
+      "@o3r/stylelint-plugin",
+      "@o3r/styling",
+      "@o3r/testing",
+      "@o3r/third-party"
+    ]
   }
 }
