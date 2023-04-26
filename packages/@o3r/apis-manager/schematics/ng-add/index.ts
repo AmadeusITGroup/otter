@@ -14,17 +14,17 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const { ngAddPackages, getO3rPeerDeps, applyEsLintFix, getProjectFromTree } = await import('@o3r/schematics');
       const { updateApiDependencies } = await import('../helpers/update-api-deps');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const rulesToExecute = [];
+      const rulesToExecute: Rule[] = [];
       const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
       if (workspaceProject.projectType === 'application') {
         rulesToExecute.push(updateApiDependencies());
       }
 
-      return chain([
+      return () => chain([
         ...rulesToExecute,
         options.skipLinter ? noop : applyEsLintFix(),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+      ])(tree, context);
 
     } catch (e) {
       // o3r apis-manager needs o3r/schematics as peer dep.

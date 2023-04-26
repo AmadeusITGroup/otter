@@ -12,11 +12,11 @@ export function ngAdd(): Rule {
       const { addVsCodeRecommendations, ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      return chain([
+      return () => chain([
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+      ])(_tree, context);
 
     } catch (e) {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.

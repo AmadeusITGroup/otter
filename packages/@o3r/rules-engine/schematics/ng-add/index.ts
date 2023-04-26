@@ -21,7 +21,7 @@ export function ngAdd(): Rule {
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
       context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug.md');
 
-      return rule;
+      return () => rule(_tree, context);
     } catch (e) {
       // rules-engine needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/rules-engine has failed.

@@ -12,10 +12,10 @@ export function ngAdd(): Rule {
     try {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      return chain([
+      return () => chain([
         removePackages(['@otter/mobile']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+      ])(_tree, context);
 
     } catch (e) {
       // o3r mobile needs o3r/core as peer dep. o3r/core will install o3r/schematics

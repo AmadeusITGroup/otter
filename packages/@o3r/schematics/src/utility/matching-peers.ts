@@ -1,6 +1,15 @@
 import * as fs from 'node:fs';
 import { PackageJson } from 'type-fest';
 
+
+/**
+ * Retrieve the peer dependency version for a package
+ */
+export function getPeerDepVersion(packageJsonPath: string, packageName: string) {
+  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  return packageJsonContent.peerDependencies?.[packageName];
+}
+
 /**
  * Retrieve the peer dependencies with the given pattern from the given package json file
  *

@@ -77,18 +77,23 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
       return acc;
     }, new Set<string>());
 
-    exec(
-      'yarn eslint ' +
+    try {
+      exec(
+        'yarn eslint ' +
         Array.from(files).map((file) => `"${file}"`).join(' ') +
         ' --fix --color' +
         (linterOptions.hideWarnings ? ' --quiet' : '') +
         (eslintFile ? ` --config ${eslintFile} --parser-options=tsconfigRootDir:${resolve(process.cwd(), dirname(eslintFile))}` : ''),
-      (_error, stdout, stderr) => {
-        context.logger.info(stdout);
-        if (!linterOptions.force) {
-          context.logger.error(stderr);
+        (_error, stdout, stderr) => {
+          context.logger.info(stdout);
+          if (!linterOptions.force) {
+            context.logger.error(stderr);
+          }
         }
-      }
-    );
+      );
+    } catch {
+      context.logger.error('Could not run eslint');
+    }
+    return tree;
   };
 }

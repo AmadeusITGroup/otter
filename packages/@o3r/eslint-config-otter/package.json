@@ -4,6 +4,9 @@
   "description": "TSLint rules",
   "main": "src/index.js",
   "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
     ".": {
       "default": "./index.js"
     },

@@ -5,7 +5,6 @@ import * as commentJson from 'comment-json';
 import * as path from 'node:path';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-const projectPackageJsonPath = path.resolve(__dirname, '..', '..', '..', '..', '..', '..', 'package.json');
 const tsEslintParserDep = '@typescript-eslint/parser';
 const eslintDep = 'eslint';
 /**
@@ -16,7 +15,7 @@ const eslintDep = 'eslint';
  * @param o3rCoreVersion
  */
 export function updateLinter(options: { projectName: string | null }, rootPath: string, o3rCoreVersion?: string): Rule {
-  const projectEslintBuilderVersion = (require(projectPackageJsonPath) as { devDependencies: [key: string] }).devDependencies['@angular-eslint/builder'];
+  const projectEslintBuilderVersion = (require(packageJsonPath) as { peerDependencies: [key: string] }).peerDependencies['@angular-eslint/builder'];
   const otterLinterDependencies: NodeDependency[] = getNodeDependencyList(
     getExternalDependenciesVersionRange([tsEslintParserDep, eslintDep], packageJsonPath),
     NodeDependencyType.Dev

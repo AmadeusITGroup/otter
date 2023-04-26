@@ -64,10 +64,10 @@ export function ngAdd(): Rule {
         return tree;
       };
 
-      return chain([
+      return () => chain([
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName }),
         addAngularAnimationPreferences
-      ]);
+      ])(tree, context);
     } catch (e) {
       // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/application has failed.

@@ -32,6 +32,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~15.2.0",
+    "chokidar": "^3.5.2",
     "intl-messageformat": "~10.3.0",
     "rxjs": "^7.4.0",
     "typescript": "~4.9.4"

@@ -19,10 +19,15 @@ export interface NgAddPackageOptions {
 
   /** Name of the project */
   projectName?: string | null;
+
+  /**
+   * Type of dependency to install
+   */
+  dependencyType?: 'dev' | 'dependency';
 }
 
 export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
-  public quiet = true;
+  public quiet = false;
 
   constructor(public packageName: string, public options?: NgAddPackageOptions) {}
 

@@ -25,7 +25,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
    * @param context
    */
   const generateC11nFolder = (tree: Tree, context: SchematicContext) => {
-
     if (tree.exists('src/customization/presenters-map.empty.ts')) {
       return tree;
     }
@@ -37,8 +36,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       ]
     );
 
-    const rule = mergeWith(templateSource, MergeStrategy.Default);
-    return rule(tree, context);
+    return mergeWith(templateSource, MergeStrategy.Default)(tree, context);
   };
 
   /**

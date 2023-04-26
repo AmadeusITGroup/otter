@@ -15,7 +15,7 @@ export function ngAdd(): Rule {
       const rule = ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName });
       context.logger.info(`The package ${depsInfo.packageName} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
-      return rule;
+      return () => rule(_tree, context);
     } catch (e) {
       // configuration needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/configuration has failed.

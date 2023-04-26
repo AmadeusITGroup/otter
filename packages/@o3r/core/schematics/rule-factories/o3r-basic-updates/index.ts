@@ -28,7 +28,7 @@ export function o3rBasicUpdates(pName: string | null, o3rCoreVersion?: string): 
 
   return chain([
     updatePackageJson,
-    ngAddPackages(['@o3r/dev-tools', '@o3r/schematics'], { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - basic updates' })
+    ngAddPackages(['@o3r/dev-tools', '@o3r/schematics'], { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - basic updates', dependencyType: 'dev'})
   ]);
 
 }
