@@ -10,7 +10,6 @@
     "description",
     "sections"
   ],
-  "additionalProperties": false,
   "properties": {
     "$schema": {
       "type": "string",
@@ -43,7 +42,6 @@
           "rootReference",
           "definitions"
         ],
-        "additionalProperties": false,
         "properties": {
           "name": {
             "type": "string",
@@ -81,7 +79,6 @@
                 "name",
                 "properties"
               ],
-              "additionalProperties": false,
               "properties": {
                 "name": {
                   "type": "string",
@@ -99,7 +96,6 @@
                       "description",
                       "type"
                     ],
-                    "additionalProperties": false,
                     "properties": {
                       "name": {
                         "type": "string",
@@ -168,7 +164,6 @@
         "collectionType",
         "choices"
       ],
-      "additionalProperties": false,
       "properties": {
         "valueType": {
           "type": "string",
@@ -217,7 +212,6 @@
         "collectionType",
         "reference"
       ],
-      "additionalProperties": false,
       "properties": {
         "valueType": {
           "type": "string",
@@ -248,7 +242,6 @@
         "valueType",
         "collectionType"
       ],
-      "additionalProperties": false,
       "properties": {
         "valueType": {
           "type": "string",
@@ -281,7 +274,6 @@
       "required": [
         "type"
       ],
-      "additionalProperties": false,
       "properties": {
         "type": {
           "type": "string"
