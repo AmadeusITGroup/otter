@@ -61,8 +61,9 @@ export class ComponentParser {
    * @param tsconfigPath Path to the tsconfig defining the list of path to parse
    * @param logger Logger
    * @param strictMode
+   * @param libraries
    */
-  constructor(private libraryName: string, private tsconfigPath: string, private logger: logging.LoggerApi, private strictMode: boolean = false) {
+  constructor(private libraryName: string, private tsconfigPath: string, private logger: logging.LoggerApi, private strictMode: boolean = false, private libraries: string[] = []) {
 
   }
 
@@ -106,7 +107,7 @@ export class ComponentParser {
    * @param checker Typescript TypeChecker of the program
    */
   private getConfiguration(file: string, source: ts.SourceFile, checker: ts.TypeChecker) {
-    const configurationFileExtractor = new ComponentConfigExtractor(this.libraryName, this.strictMode, source, this.logger, file, checker);
+    const configurationFileExtractor = new ComponentConfigExtractor(this.libraryName, this.strictMode, source, this.logger, file, checker, this.libraries);
     const configuration = configurationFileExtractor.extract();
     if (configuration.configurationInformation && this.strictMode) {
       configuration.configurationInformation.properties = configuration.configurationInformation.properties
@@ -153,7 +154,7 @@ export class ComponentParser {
       const source = program.getSourceFile(filePath);
       if (source) {
         const configurationFromSource = this.getConfiguration(filePath, source, checker);
-        if (configurationFromSource.configurationInformation) {
+        if (configurationFromSource.configurationInformation || configurationFromSource.nestedConfiguration) {
           configurations[filePath] = {configuration: configurationFromSource, file: filePath};
         }
         const componentFromSource = this.getComponent(filePath, source);
