@@ -34,7 +34,7 @@ export abstract class BaseMockAdapter implements MockAdapter {
    * @inheritDoc
    */
   public getOperationId(request: EncodedApiRequest): string {
-    const object = getPath(request.basePath, this.pathObjects);
+    const object = getPath(request.basePath, this.pathObjects, request.method);
     if (!object) {
       throw new Error(`No operation has been found for ${request.basePath}`);
     }
