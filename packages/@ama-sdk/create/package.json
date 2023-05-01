@@ -16,17 +16,17 @@
   "dependencies": {
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
-    "@angular-devkit/core": "~17.0.0",
-    "@angular-devkit/schematics": "~17.0.0",
-    "@angular-devkit/schematics-cli": "~17.0.1",
+    "@angular-devkit/core": "~17.0.3",
+    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-devkit/schematics-cli": "~17.0.3",
     "@openapitools/openapi-generator-cli": "~2.7.0",
-    "@schematics/angular": "~17.0.0",
+    "@schematics/angular": "~17.0.3",
     "minimist": "^1.2.6",
     "typescript": "~5.2.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~17.0.1",
-    "@angular-eslint/eslint-plugin-template": "~17.0.1",
+    "@angular-eslint/eslint-plugin": "~17.1.0",
+    "@angular-eslint/eslint-plugin-template": "~17.1.0",
     "@nx/eslint": "~17.1.1",
     "@nx/eslint-plugin": "~17.1.1",
     "@nx/jest": "~17.1.1",

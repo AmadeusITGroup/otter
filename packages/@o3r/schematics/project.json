@@ -32,7 +32,7 @@
         "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
         "outputPath": "packages/@o3r/schematics/dist",
         "assets": ["packages/@o3r/schematics/src/**/templates/**"],
-        "clean": false
+        "clean": true
       }
     },
     "lint": {

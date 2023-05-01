@@ -63,20 +63,3 @@ export function displayModuleListRule(options?: Partial<DisplayModuleListOptions
     return () => tree;
   };
 }
-
-/**
- * @deprecated will be removed in v10, please use {@link displayModuleListRule} instead
- * Display the list of available Otter modules
- * @param keyword
- * @param scopeWhitelist
- * @param onlyCmsModules
- * @param onlyNotInstalledModules
- */
-export function displayModuleList(keyword: string, scopeWhitelist: string[] | readonly string[], onlyCmsModules = false, onlyNotInstalledModules = false) {
-  return displayModuleListRule({
-    keyword,
-    onlyCmsModules,
-    onlyNotInstalledModules,
-    scopeWhitelist
-  });
-}

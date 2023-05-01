@@ -9,7 +9,18 @@ import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, Configuratio
 import { O3rComponent } from '@o3r/core';
 import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
 import { LocalizationOverrideStoreModule } from '@o3r/localization';
-import { Rule, RulesEngineDevtoolsMessageService, RulesEngineDevtoolsModule, RulesEngineModule, RulesEngineService, RulesetsStore, setRulesetsEntities, UnaryOperator } from '@o3r/rules-engine';
+import { ConfigurationRulesEngineActionHandler, ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
+import { AssetRulesEngineActionHandler, AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
+import {
+  Rule,
+  RulesEngineDevtoolsMessageService,
+  RulesEngineDevtoolsModule,
+  RulesEngineRunnerModule,
+  RulesEngineRunnerService,
+  RulesetsStore,
+  setRulesetsEntities,
+  UnaryOperator
+} from '@o3r/rules-engine';
 import { firstValueFrom } from 'rxjs';
 import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService, RulesEnginePresComponent } from '../../components/index';
 import { environment } from '../../environments/environment.development';
@@ -26,8 +37,10 @@ import { duringSummer } from '../../operators/index';
     ConfigurationDevtoolsModule,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
-    RulesEngineModule,
+    RulesEngineRunnerModule,
     RulesEngineDevtoolsModule,
+    ConfigurationRulesEngineActionModule,
+    AssetRulesEngineActionModule,
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
     LocalizationOverrideStoreModule,
@@ -62,8 +75,12 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     private store: Store<RulesetsStore>,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
-    rulesEngineService: RulesEngineService
+    rulesEngineService: RulesEngineRunnerService,
+    configHandle: ConfigurationRulesEngineActionHandler,
+    assetsHandler: AssetRulesEngineActionHandler
   ) {
+    rulesEngineService.actionHandlers.add(configHandle);
+    rulesEngineService.actionHandlers.add(assetsHandler);
     configurationDevtoolsMessageService.activate();
     rulesEngineDevtoolsMessageService.activate();
     rulesEngineService.engine.upsertOperators([

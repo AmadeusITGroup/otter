@@ -1,5 +1,5 @@
 import { FactDefinitions, FactSet } from '../engine/index';
-import { RulesEngineService } from '../services/rules-engine.service';
+import { RulesEngineRunnerService } from '../services/runner/rules-engine.runner.service';
 
 /** Abstract fact set service */
 export abstract class FactsService<T extends FactDefinitions> {
@@ -7,7 +7,7 @@ export abstract class FactsService<T extends FactDefinitions> {
   /** Set of facts provided */
   public abstract facts: FactSet<T>;
 
-  constructor(private rulesEngine: RulesEngineService) {
+  constructor(private rulesEngine: RulesEngineRunnerService) {
   }
 
   /** Register the set of facts */

@@ -5,7 +5,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateCompiler, TranslateFakeCompiler } from '@ngx-translate/core';
 import { LocalizationService } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { mockTranslationModules } from '@o3r/testing/localization';
 import { RulesEngineComponent } from './rules-engine.component';
 import { RouterModule } from '@angular/router';
@@ -29,7 +29,7 @@ describe('RulesEngineComponent', () => {
         RulesEngineComponent,
         StoreModule.forRoot(),
         EffectsModule.forRoot(),
-        RulesEngineModule.forRoot(),
+        RulesEngineRunnerModule.forRoot(),
         RouterModule.forRoot([]),
         ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
         AsyncPipe

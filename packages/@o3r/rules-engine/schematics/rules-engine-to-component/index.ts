@@ -46,7 +46,6 @@ const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tr
 
 /**
  * Generate the code to enable rules-engine on a component
- *
  * @param options
  */
 export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineToComponentSchematicsSchema): Rule {
@@ -60,12 +59,12 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
         importNames: ['inject', 'OnInit', 'OnDestroy']
       },
       {
-        from: '@o3r/configuration',
-        importNames: ['computeConfigurationName']
+        from: '@o3r/core',
+        importNames: ['computeItemIdentifier']
       },
       {
         from: '@o3r/rules-engine',
-        importNames: ['RulesEngineService']
+        importNames: ['RulesEngineRunnerService']
       }
     ];
     let sourceFile = ts.createSourceFile(
@@ -114,8 +113,8 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
               .concat(ts.getModifiers(node) || []);
 
             const propertiesToAdd = generateClassElementsFromString(`
-              private readonly componentName = computeConfigurationName('${node.name?.escapedText as string}', '${projectName}');
-              private rulesEngineService = inject(RulesEngineService, {optional: true});
+              private readonly componentName = computeItemIdentifier('${node.name?.escapedText as string}', '${projectName}');
+              private rulesEngineService = inject(RulesEngineRunnerService, {optional: true});
             `);
 
             const newNgOnInit = getSimpleUpdatedMethod(node, factory, 'ngOnInit', generateBlockStatementsFromString(`

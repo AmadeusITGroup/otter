@@ -12,21 +12,21 @@ Ensures that the configuration interface name matches the first parameter of `co
 ## Valid code example
 
 ```typescript
-import { computeConfigurationName } from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import { Configuration } from '@o3r/core';
 
 export interface MyFirstConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('MyFirstConfig', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('MyFirstConfig', '@example/config');
 ```
 
 ## Invalid code example
 
 ```typescript
-import { computeConfigurationName } from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import { Configuration } from '@o3r/core';
 
 export interface MyConfig extends Configuration {}
 
-export const MY_CONFIG_ID = computeConfigurationName('InvalidName', '@example/config');
+export const MY_CONFIG_ID = computeItemIdentifier('InvalidName', '@example/config');
 ```

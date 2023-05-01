@@ -5,7 +5,7 @@ import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, Dynami
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { distinctUntilChanged, map, Observable, Subscription } from 'rxjs';
 import { TripFactsService } from '../../../facts/trip/trip.facts';
 import { DatePickerInputPresComponent } from '../../utilities';
@@ -25,7 +25,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   imports: [
     DynamicContentModule,
     ReactiveFormsModule,
-    RulesEngineModule,
+    RulesEngineRunnerModule,
     LocalizationModule,
     DatePickerInputPresComponent,
     AsyncPipe
