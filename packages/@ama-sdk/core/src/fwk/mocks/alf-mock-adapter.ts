@@ -65,7 +65,7 @@ function getRequest(log: string, corrId: string, operationAdapter: PathObject[])
     // so we remove the SAP information at the beginning and URL parameters at the end if any
     const requestUrl = match[2].substring(match[2].indexOf('/'), match[2].indexOf('?') > -1 ? match[2].indexOf('?') : match[2].length);
     const method = match[1];
-    const pathObject = getPath(requestUrl, operationAdapter);
+    const pathObject = getPath(requestUrl, operationAdapter, method);
     if (pathObject) {
       const operationId = getOperationId(pathObject, method);
       return {
