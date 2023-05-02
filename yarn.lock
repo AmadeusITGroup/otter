@@ -5762,7 +5762,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.233
+    "@types/chrome": ^0.0.234
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -8650,13 +8650,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.233":
-  version: 0.0.233
-  resolution: "@types/chrome@npm:0.0.233"
+"@types/chrome@npm:^0.0.234":
+  version: 0.0.234
+  resolution: "@types/chrome@npm:0.0.234"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: c4eede5c0f27ccda12a0c22588027a19e0e2f18931f8df7bb62928ec1de586bb0f42d660cc5217bd3a587dc5eb2dfa8d83c92bb646b3e3104d6fbc086d1cb9b4
+  checksum: e55940dc2a383a478fce11518d540d77cb9ec8243d4338fae99aa29d8fe197694007af0bfe7bf6cfdb32ee41682f19f6d3d4e93cd7149b5e2ffc1bccd6cd4974
   languageName: node
   linkType: hard
 
