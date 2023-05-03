@@ -22,8 +22,9 @@ export function getOperationId(pathObject: PathObject, method: string): string |
  *
  * @param requestUrl the URL string
  * @param pathObjects the list of available path objects
+ * @param method the optional HTTP method used in case of several matches
  */
-export function getPath(requestUrl: string, pathObjects: PathObject[]): PathObject | undefined {
+export function getPath(requestUrl: string, pathObjects: PathObject[], method?: string): PathObject | undefined {
   const pathName = new URL(requestUrl, requestUrl.startsWith('/') ? 'http://example.com' : undefined).pathname;
 
   if (!pathName) {
@@ -31,11 +32,12 @@ export function getPath(requestUrl: string, pathObjects: PathObject[]): PathObje
   }
 
   // Find all matching paths
-  let matches = pathObjects.reduce<{index: number; segments: string[]}[]>((newMatches, pathObject, index) => {
+  let matches = pathObjects.reduce<{index: number; segments: string[]; methods: string[]}[]>((newMatches, pathObject, index) => {
     if (pathObject.regexp.test(pathName)) {
       newMatches.push({
         index,
-        segments: pathObject.path.split('/')
+        segments: pathObject.path.split('/'),
+        methods: pathObject.operations.map((operation) => operation.method)
       });
     }
     return newMatches;
@@ -44,7 +46,7 @@ export function getPath(requestUrl: string, pathObjects: PathObject[]): PathObje
   let lastIndex = -1;
   let nextIndex = -1;
   while (matches.length > 1) {
-    matches = matches.reduce<{index: number; segments: string[]}[]>((newMatches, match) => {
+    matches = matches.reduce<{index: number; segments: string[]; methods: string[]}[]>((newMatches, match) => {
       let newIndex = match.segments.findIndex((segment) => segment.startsWith('{') && segment.endsWith('}'), lastIndex + 1);
       // Complete static match so use some value that can't be exceeded
       if (newIndex === -1) {
@@ -62,8 +64,12 @@ export function getPath(requestUrl: string, pathObjects: PathObject[]): PathObje
     }, []);
 
     // At this point we have tried to filter the matches but there are multiple matches that are identical and cannot
-    // be filtered further.  The only choice is to choose the first match.
+    // be filtered further. Trying to filter on the HTTP method if provided, then choose the first match.
     if (lastIndex === nextIndex) {
+      if (method) {
+        // Try to filter the multiple matches based on the HTTP method
+        matches.splice(0, matches.findIndex((match) => match.methods.includes(method.toLowerCase())));
+      }
       matches.splice(1);
     }
 
