@@ -1,17 +1,18 @@
 import { Rule } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility';
+import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility';
 
 /**
  * Update imports based on mapping
  *
  * @param mapImports Map of the import to replace
  * @param renamedPackages Map of the import package to replace
+ * @param fromRoot Perform on all files in project
  */
-export function updateImports(mapImports: ImportsMapping = {}, renamedPackages: Record<string, string> = {}): Rule {
+export function updateImports(mapImports: ImportsMapping = {}, renamedPackages: Record<string, string> = {}, fromRoot = false): Rule {
 
   return (tree, context) => {
-    const files = getSourceFilesFromWorkspaceProjects(tree);
+    const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'ts') : getSourceFilesFromWorkspaceProjects(tree);
 
     // exact match on import path
     const importsRegexp = new RegExp(`^(${[...Object.keys(mapImports)].join('|')})$`);
