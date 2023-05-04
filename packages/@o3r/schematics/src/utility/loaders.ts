@@ -106,8 +106,8 @@ export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[]
  *
  * @deprecated please use `getFilesInFolderFromWorkspaceProjectsInTree`, will be removed in v9
  * @param tree
- * @param extension
  * @param folderInProject
+ * @param extension
  */
 export function getFilesInFolderFromWorkspaceProjects(tree: Tree, folderInProject: string, extension: string) {
   const workspace = readAngularJson(tree);
@@ -124,8 +124,8 @@ export function getFilesInFolderFromWorkspaceProjects(tree: Tree, folderInProjec
  * Get all files with specific extension from the specified folder for all the projects described in the workspace
  *
  * @param tree
- * @param extension
  * @param folderInProject
+ * @param extension
  */
 export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderInProject: string, extension: string) {
   const workspace = readAngularJson(tree);
@@ -133,6 +133,20 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
   const excludes = ['**/node_modules/**', '**/.cache/**'];
   return Object.values(workspace.projects)
     .flatMap((project) => getAllFilesInTree(tree, path.posix.join(project.root, folderInProject), excludes))
+    .filter((filePath) => extensionMatcher.test(filePath));
+}
+
+
+/**
+ * Get all files with specific extension from the tree
+ *
+ * @param tree
+ * @param extension
+ */
+export function getFilesWithExtensionFromTree(tree: Tree, extension: string) {
+  const excludes = ['**/node_modules/**', '**/.cache/**'];
+  const extensionMatcher = new RegExp(`\\.${extension}$`);
+  return getAllFilesInTree(tree, '/', excludes)
     .filter((filePath) => extensionMatcher.test(filePath));
 }
 
