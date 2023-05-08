@@ -90,14 +90,14 @@ following products on your development machine:
   * [GitHub's Guide to Installing
     Git](https://help.github.com/articles/set-up-git) is a good source of information.
 
-* [Node.js](http://nodejs.org), (version `>=10.0.0`)
-  * This is used to run tests and generate distributable files. We also use Node's Package Manager, `npm`
-    (version `>3.8.x`), which comes with Node. Depending on your system, you can install Node either from
-    source or as a pre-packaged bundle.
+* [Node.js](http://nodejs.org), (version `>=18.0.0`)
+  * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
+    Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
   
 * [Yarn](https://yarnpkg.com/lang/en/docs/install/), a Node's Package Manager
   * You can install yarn using NPM manager (coming with Node.js).
-    The version of Yarn currently used is embedded in the repository. In case you need to link this library with your project, you can check the section "Link local packages".
+    The version of Yarn currently used is embedded in the repository and it can be installed using the provided Node.js [corepack](https://yarnpkg.com/getting-started/install).
+    In case you need to link this library with your project, you can check the section "Link local packages".
 
 * [Chrome](https://www.google.com/chrome/browser/desktop/index.html)
   * We use Chrome to run our tests.
