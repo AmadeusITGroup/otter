@@ -1,9 +1,14 @@
 import { EOL } from 'node:os';
 
+/**
+ * Get labels from the git log output command
+ *
+ * @param {string[] | undefined} commitMessage
+ */
 function getLabels(commitMessage) {
   const commitLabels = [];
 
-  const lines = commitMessage.split(EOL);
+  const lines = commitMessage?.split(EOL) || [];
 
   lines.forEach((line) => {
     if (line.match(/^feat(ures?)?\b/)) {

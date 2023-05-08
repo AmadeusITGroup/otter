@@ -16,7 +16,7 @@ jobs:
         with:
           enable-build-cache: 'false'
       - run: |
-          LABELS=$(yarn pr-labels "$(git log -1 --pretty=%B)")
+          LABELS=$(yarn pr-labels "$(git log -1 --pretty=%B || echo '')")
           echo "LABELS=$LABELS" >> $GITHUB_ENV
       - uses: actions/github-script@v6
         if: env.LABELS != '[]'
