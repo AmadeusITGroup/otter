@@ -20,6 +20,7 @@
     "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
     "patch-package-json-main": "./scripts/patch-package-json-main.mjs",
     "pr-labels": "./scripts/pr-labels.mjs",
+    "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
     "prepare-publish": "./scripts/prepare-publish.mjs",
     "update-doc-summary": "./scripts/update-doc-summary.mjs",
     "update-package": "./scripts/update-package.mjs"

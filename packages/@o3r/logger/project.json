@@ -80,6 +80,12 @@
       "options": {
         "command": "npm publish packages/@o3r/logger/dist"
       }
+    },
+    "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      }
     }
   },
   "tags": []

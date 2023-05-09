@@ -1,11 +1,5 @@
 'use strict';
 
-{{!-- ES6 source --}}
-{{!-- after edition --}}
-{{!-- need to be compiled to ES5 for IE11 support, and pasted below --}}
-{{!-- https://babeljs.io/repl --}}
-{{!-- or copy render function body below --}}
-
 customElements.define('compodoc-menu', class extends HTMLElement {
     constructor() {
         super();
@@ -20,12 +14,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
         let tp = lithtml.html(`
         <nav>
             <ul class="list">
-                <li class="title">
+                <li class="title" style="display:flex;align-items:center;">
                     {{#if customLogo}}
                     <a href="index.html" data-type="index-link">
-                        <img alt="" class="img-responsive" data-type="compodoc-logo" data-src={{strip-url "images/" customLogo}}>
+                        <img alt="" class="img-responsive" data-type="custom-logo" data-src="{{strip-url "images/" customLogo}}">
                     </a>
                     {{else}}
+                    <a href="../../index.html" data-type="main-link">Otter Framework</a> /
                     <a href="index.html" data-type="index-link">{{documentationMainName}}</a>
                     {{/if}}
                 </li>
@@ -71,6 +66,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                             {{/orLength}}
                         {{/unless}}
+                        {{#unless disableProperties}}
+                            {{#orLength packageProperties}}
+                                <li class="link">
+                                    <a href="properties.html" data-type="chapter-link">
+                                        <span class="icon ion-ios-apps"></span>{{t "properties" }}
+                                    </a>
+                                </li>
+                            {{/orLength}}
+                        {{/unless}}
                     </ul>
                 </li>
                 {{#if additionalPages}}
@@ -96,8 +100,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                         <ul class="links collapse" ${ isNormalMode ? 'id="additional-page-{{id}}"' : 'id="xs-additional-page-{{id}}"' }>
                                             {{#each children}}
                                             <li class="link {{#compare depth ">" 1 }}for-chapter{{depth}}{{/compare}}">
-                                                <a href="{{path}}/{{filename}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">{{ name
-                                                    }}</a>
+                                                <a href="{{path}}/{{filename}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="additional">{{ name }}</a>
                                             </li>
                                             {{/each}}
                                         </ul>
@@ -105,128 +108,141 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     {{/compare}}
                                 {{else}}
                                     <li class="link {{#compare depth ">" 1 }}for-chapter{{depth}}{{/compare}}">
-                                        <a href="{{path}}/{{filename}}.html" data-type="entity-link" data-context-id="additional">{{ name
-                                            }}</a>
+                                        <a href="{{path}}/{{filename}}.html" data-type="entity-link" data-context-id="additional">{{ name }}</a>
                                     </li>
                                 {{/compare}}
                             {{/each}}
                         </ul>
                     </li>
                 {{/if}}
-                <li class="divider"></li>
+                {{#if modules}}
+                    <li class="chapter modules">
+                        <a data-type="chapter-link" href="modules.html">
+                            <div class="menu-toggler linked" data-toggle="collapse" ${ isNormalMode ?
+                                'data-target="#modules-links"' : 'data-target="#xs-modules-links"' }>
+                                <span class="icon ion-ios-archive"></span>
+                                <span class="link-name">{{t "modules" }}</span>
+                                <span class="icon {{#isNotToggle 'modules'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                            </div>
+                        </a>
+                        <ul class="links collapse {{#isNotToggle 'modules'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
+                            {{#each modules}}
+                            <li class="link">
+                                <a href="modules/{{name}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                {{#compare compodocLinks.components.length ">" 0}}
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#components-links-{{id}}"' : 'data-target="#xs-components-links-{{id}}"' }>
+                                            <span class="icon ion-md-cog"></span>
+                                            <span>{{t "components" }}</span>
+                                            <span class="icon {{#isNotToggle 'components'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-{{id}}"' :
+                                            'id="xs-components-links-{{id}}"' }>
+                                            {{#each compodocLinks.components}}
+                                            <li class="link">
+                                                <a href="components/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                            </li>
+                                            {{/each}}
+                                        </ul>
+                                    </li>
+                                {{/compare}}
+                                {{#compare compodocLinks.controllers.length ">" 0}}
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#controllers-links-{{id}}"' : 'data-target="#xs-controllers-links-{{id}}"' }>
+                                            <span class="icon ion-md-swap"></span>
+                                            <span>{{t "controllers" }}</span>
+                                            <span class="icon {{#isNotToggle 'controllers'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-{{id}}"' :
+                                            'id="xs-controllers-links-{{id}}"' }>
+                                            {{#each compodocLinks.controllers}}
+                                            <li class="link">
+                                                <a href="controllers/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                            </li>
+                                            {{/each}}
+                                        </ul>
+                                    </li>
+                                {{/compare}}
+                                {{#compare compodocLinks.directives.length ">" 0}}
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#directives-links-{{id}}"' : 'data-target="#xs-directives-links-{{id}}"' }>
+                                        <span class="icon ion-md-code-working"></span>
+                                        <span>{{t "directives" }}</span>
+                                        <span class="icon {{#isNotToggle 'directives'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-{{id}}"' :
+                                        'id="xs-directives-links-{{id}}"' }>
+                                        {{#each compodocLinks.directives}}
+                                        <li class="link">
+                                            <a href="directives/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </li>
+                                {{/compare}}
+                                {{#compare compodocLinks.injectables.length ">" 0}}
+                                <li class="chapter inner">
+                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                        'data-target="#injectables-links-{{id}}"' : 'data-target="#xs-injectables-links-{{id}}"' }>
+                                        <span class="icon ion-md-arrow-round-down"></span>
+                                        <span>{{t "injectables" }}</span>
+                                        <span class="icon {{#isNotToggle 'injectables'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                                    </div>
+                                    <ul class="links collapse" ${ isNormalMode ? 'id="injectables-links-{{id}}"' :
+                                        'id="xs-injectables-links-{{id}}"' }>
+                                        {{#each compodocLinks.injectables}}
+                                        <li class="link">
+                                            <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                        </li>
+                                        {{/each}}
+                                    </ul>
+                                </li>
+                                {{/compare}}
+                                {{#compare compodocLinks.pipes.length ">" 0}}
+                                    <li class="chapter inner">
+                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
+                                            'data-target="#pipes-links-{{id}}"' : 'data-target="#xs-pipes-links-{{id}}"' }>
+                                            <span class="icon ion-md-add"></span>
+                                            <span>{{t "pipes" }}</span>
+                                            <span class="icon {{#isNotToggle 'pipes'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                                        </div>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-{{id}}"' :
+                                            'id="xs-pipes-links-{{id}}"' }>
+                                            {{#each compodocLinks.pipes}}
+                                            <li class="link">
+                                                <a href="pipes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                            </li>
+                                            {{/each}}
+                                        </ul>
+                                    </li>
+                                {{/compare}}
+                            </li>
+                    {{/each}}
+                </ul>
+                </li>
+                {{/if}}
                 {{#if components}}
+                    {{#element-alone components 'component'}}
                     <li class="chapter">
                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#components-links"' :
                             'data-target="#xs-components-links"' }>
-                            <span class="icon ion-ios-cube"></span>
+                            <span class="icon ion-md-cog"></span>
                             <span>{{t "components" }}</span>
                             <span class="icon {{#isNotToggle 'components'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
                         </div>
                         <ul class="links collapse {{#isNotToggle 'components'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="components-links"' : 'id="xs-components-links"' }>
                             {{#each components}}
                             <li class="link">
-                                <a href="components/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
+                                <a href="components/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                             </li>
                             {{/each}}
                         </ul>
                     </li>
+                    {{/element-alone}}
                 {{/if}}
-                {{#if injectables}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#config-links"' :
-                            'data-target="#xs-config-links"' }>
-                            <span class="icon ion-md-build"></span>
-                            <span>{{t "Configurations" }}</span>
-                            <span class="icon {{#isNotToggle 'services'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                        <ul class="links collapse {{#isNotToggle 'services'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="config-links"' : 'id="xs-config-links"' }>
-                            {{#each injectables}}
-                            {{#compare '.config.ts' "indexof" file}}
-                            <li class="link">
-                                <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                            {{/compare}}
-                            {{/each}}
-                        </ul>
-                    </li>
-                {{/if}}
-                <li class="divider"></li>
-                {{#if injectables}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#services-links"' :
-                            'data-target="#xs-services-links"' }>
-                            <span class="icon ion-md-code-download"></span>
-                            <span>{{t "Services" }}</span>
-                            <span class="icon {{#isNotToggle 'services'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                        <ul class="links collapse {{#isNotToggle 'services'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="services-links"' : 'id="xs-services-links"' }>
-                            {{#each injectables}}
-                            {{#compare '.service.ts' "indexof" file}}
-                            <li class="link">
-                                <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                            {{/compare}}
-                            {{/each}}
-                        </ul>
-                    </li>
-                {{/if}}
-                <li class="divider"></li>
-                {{#if interfaces}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#stores-links"' :
-                            'data-target="#xs-stores-links"' }>
-                            <span class="icon ion-md-filing"></span>
-                            <span>{{t "Store" }}</span>
-                            <span class="icon {{#isNotToggle 'interfaces'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                    </li>
-                {{/if}}
-                {{#if classes}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#actions-links"' :
-                            'data-target="#xs-actions-links"' }>
-                            <span class="icon ion-md-navigate"></span>
-                            <span>{{t "Actions" }}</span>
-                            <span class="icon {{#isNotToggle 'actions'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                        <ul class="links collapse {{#isNotToggle 'actions'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="actions-links"' : 'id="xs-actions-links"' }>
-                            {{#each classes}}
-                            {{#if implements}}
-                            {{#compare 'Action' "indexof" implements}}
-                            <li class="link">
-                                <a href="classes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                            {{/compare}}
-                            {{/if}}
-                            {{/each}}
-                        </ul>
-                    </li>
-                {{/if}}
-                {{#if injectables}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#effects-links"' :
-                            'data-target="#xs-effects-links"' }>
-                            <span class="icon ion-md-color-wand"></span>
-                            <span>{{t "Effects" }}</span>
-                            <span class="icon {{#isNotToggle 'services'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                        <ul class="links collapse {{#isNotToggle 'services'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="effects-links"' : 'id="xs-effects-links"' }>
-                            {{#each injectables}}
-                            {{#compare '.effect.ts' "indexof" file}}
-                            <li class="link">
-                                <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                            {{/compare}}
-                            {{/each}}
-                        </ul>
-                    </li>
-                {{/if}}
-                <li class="divider"></li>
                 {{#if controllers}}
                     {{#element-alone controllers 'controller'}}
                         <li class="chapter">
@@ -239,8 +255,26 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse {{#isNotToggle 'controllers'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="controllers-links"' : 'id="xs-controllers-links"' }>
                                 {{#each controllers}}
                                 <li class="link">
-                                    <a href="controllers/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                        name }}</a>
+                                    <a href="controllers/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                    {{/element-alone}}
+                {{/if}}
+                {{#if entities}}
+                    {{#element-alone entities 'entity'}}
+                        <li class="chapter">
+                            <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#entities-links"' :
+                                'data-target="#xs-entities-links"' }>
+                                <span class="icon ion-ios-apps"></span>
+                                <span>{{t "entities" }}</span>
+                                <span class="icon {{#isNotToggle 'entities'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                            </div>
+                            <ul class="links collapse {{#isNotToggle 'entities'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="entities-links"' : 'id="xs-entities-links"' }>
+                                {{#each entities}}
+                                <li class="link">
+                                    <a href="entities/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                                 </li>
                                 {{/each}}
                             </ul>
@@ -259,89 +293,12 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse {{#isNotToggle 'directives'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="directives-links"' : 'id="xs-directives-links"' }>
                                 {{#each directives}}
                                 <li class="link">
-                                    <a href="directives/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                        name }}</a>
+                                    <a href="directives/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                                 </li>
                                 {{/each}}
                             </ul>
                         </li>
                     {{/element-alone}}
-                {{/if}}
-                {{#if modules}}
-                    <li class="chapter modules">
-                        <a data-type="chapter-link" href="modules.html">
-                            <div class="menu-toggler linked" data-toggle="collapse" ${ isNormalMode ?
-                                'data-target="#modules-links"' : 'data-target="#xs-modules-links"' }>
-                                <span class="icon ion-ios-archive"></span>
-                                <span class="link-name">{{t "modules" }}</span>
-                                <span class="icon {{#isNotToggle 'modules'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                            </div>
-                        </a>
-                        <ul class="links collapse {{#isNotToggle 'modules'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="modules-links"' : 'id="xs-modules-links"' }>
-                            {{#each modules}}
-                            <li class="link">
-                                <a href="modules/{{name}}.html" data-type="entity-link">{{ name }}</a>
-                                {{#compare compodocLinks.controllers.length ">" 0}}
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#controllers-links-{{id}}"' : 'data-target="#xs-controllers-links-{{id}}"' }>
-                                            <span class="icon ion-md-swap"></span>
-                                            <span>{{t "controllers" }}</span>
-                                            <span class="icon {{#isNotToggle 'controllers'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="controllers-links-{{id}}"' :
-                                            'id="xs-controllers-links-{{id}}"' }>
-                                            {{#each compodocLinks.controllers}}
-                                            <li class="link">
-                                                <a href="controllers/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">{{ name }}</a>
-                                            </li>
-                                            {{/each}}
-                                        </ul>
-                                    </li>
-                                {{/compare}}
-                                {{#compare compodocLinks.directives.length ">" 0}}
-                                <li class="chapter inner">
-                                    <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                        'data-target="#directives-links-{{id}}"' : 'data-target="#xs-directives-links-{{id}}"' }>
-                                        <span class="icon ion-md-code-working"></span>
-                                        <span>{{t "directives" }}</span>
-                                        <span class="icon {{#isNotToggle 'directives'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                                    </div>
-                                    <ul class="links collapse" ${ isNormalMode ? 'id="directives-links-{{id}}"' :
-                                        'id="xs-directives-links-{{id}}"' }>
-                                        {{#each compodocLinks.directives}}
-                                        <li class="link">
-                                            <a href="directives/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html"
-                                                data-type="entity-link" data-context="sub-entity" data-context-id="modules">{{ name }}</a>
-                                        </li>
-                                        {{/each}}
-                                    </ul>
-                                </li>
-                                {{/compare}}
-                                {{#compare compodocLinks.pipes.length ">" 0}}
-                                    <li class="chapter inner">
-                                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#pipes-links-{{id}}"' : 'data-target="#xs-pipes-links-{{id}}"' }>
-                                            <span class="icon ion-md-add"></span>
-                                            <span>{{t "pipes" }}</span>
-                                            <span class="icon {{#isNotToggle 'pipes'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                                        </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="pipes-links-{{id}}"' :
-                                            'id="xs-pipes-links-{{id}}"' }>
-                                            {{#each compodocLinks.pipes}}
-                                            <li class="link">
-                                                <a href="pipes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html"
-                                                    data-type="entity-link" data-context="sub-entity" data-context-id="modules">{{ name }}</a>
-                                            </li>
-                                            {{/each}}
-                                        </ul>
-                                    </li>
-                                {{/compare}}
-                            </li>
-                    {{/each}}
-                </ul>
-                </li>
                 {{/if}}
                 {{#if classes}}
                     <li class="chapter">
@@ -352,51 +309,32 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <span class="icon {{#isNotToggle 'classes'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
                         </div>
                         <ul class="links collapse {{#isNotToggle 'classes'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="classes-links"' : 'id="xs-classes-links"' }>
-                          {{#each classes}}
-                          {{#if implements}}
-                            {{#compare 'Action' "indexof" implements}}
-                            {{else}}
+                            {{#each classes}}
                             <li class="link">
-                                <a href="classes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                            {{/compare}}
-                          {{else}}
-                            <li class="link">
-                                <a href="classes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                            </li>
-                          {{/if}}
-                          {{/each}}
-                        </ul>
-                    </li>
-                {{/if}}
-                {{#if injectables}}
-                    <li class="chapter">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#injectables-links"' :
-                            'data-target="#xs-injectables-links"' }>
-                            <span class="icon ion-md-arrow-round-down"></span>
-                            <span>{{t "injectables" }}</span>
-                            <span class="icon {{#isNotToggle 'injectables'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
-                        </div>
-                        <ul class="links collapse {{#isNotToggle 'injectables'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
-                            {{#each injectables}}
-                            <li class="link">
-                              {{#compare '.service.ts' "indexof" file}}
-                              {{else}}
-                              {{#compare '.config.ts' "indexof" file}}
-                              {{else}}
-                              {{#compare '.effect.ts' "indexof" file}}
-                              {{else}}
-                                <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
-                              {{/compare}}
-                              {{/compare}}
-                              {{/compare}}
+                                <a href="classes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                             </li>
                             {{/each}}
                         </ul>
                     </li>
+                {{/if}}
+                {{#if injectables}}
+                    {{#element-alone injectables 'injectable'}}
+                        <li class="chapter">
+                            <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#injectables-links"' :
+                                'data-target="#xs-injectables-links"' }>
+                                <span class="icon ion-md-arrow-round-down"></span>
+                                <span>{{t "injectables" }}</span>
+                                <span class="icon {{#isNotToggle 'injectables'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
+                            </div>
+                            <ul class="links collapse {{#isNotToggle 'injectables'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="injectables-links"' : 'id="xs-injectables-links"' }>
+                                {{#each injectables}}
+                                <li class="link">
+                                    <a href="injectables/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
+                                </li>
+                                {{/each}}
+                            </ul>
+                        </li>
+                    {{/element-alone}}
                 {{/if}}
                 {{#if interceptors}}
                     <li class="chapter">
@@ -409,8 +347,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse {{#isNotToggle 'interceptors'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="interceptors-links"' : 'id="xs-interceptors-links"' }>
                             {{#each interceptors}}
                             <li class="link">
-                                <a href="interceptors/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
+                                <a href="interceptors/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                             </li>
                             {{/each}}
                         </ul>
@@ -427,8 +364,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse {{#isNotToggle 'guards'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="guards-links"' : 'id="xs-guards-links"' }>
                             {{#each guards}}
                             <li class="link">
-                                <a href="guards/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
+                                <a href="guards/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                             </li>
                             {{/each}}
                         </ul>
@@ -445,8 +381,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                         <ul class="links collapse {{#isNotToggle 'interfaces'}}in{{/isNotToggle}}" ${ isNormalMode ? ' id="interfaces-links"' : 'id="xs-interfaces-links"' }>
                             {{#each interfaces}}
                             <li class="link">
-                                <a href="interfaces/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                    name }}</a>
+                                <a href="interfaces/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                             </li>
                             {{/each}}
                         </ul>
@@ -464,8 +399,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                             <ul class="links collapse {{#isNotToggle 'pipes'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="pipes-links"' : 'id="xs-pipes-links"' }>
                                 {{#each pipes}}
                                 <li class="link">
-                                    <a href="pipes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link">{{
-                                        name }}</a>
+                                    <a href="pipes/{{#if duplicateName}}{{duplicateName}}{{else}}{{name}}{{/if}}.html" data-type="entity-link" {{#if deprecated}}class="deprecated-name"{{/if}}>{{ name }}</a>
                                 </li>
                                 {{/each}}
                             </ul>
@@ -526,7 +460,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                 {{#unless hideGenerator}}
                     <li class="divider"></li>
                     <li class="copyright">
-                        {{t "generated-using" }} <a href="https://compodoc.app/" target="_blank">
+                        {{t "generated-using" }} <a href="https://compodoc.app/" target="_blank" rel="noopener noreferrer">
                             {{#if theme }}
                             {{#compare theme "indexof" 'readthedocs,vagrant,postmark'}}
                             <img data-src="images/compodoc-vectorise-inverted.png" class="img-responsive" data-type="compodoc-logo">

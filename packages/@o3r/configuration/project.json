@@ -105,6 +105,12 @@
       "options": {
         "script": "prepare:build:builders"
       }
+    },
+    "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      }
     }
   },
   "tags": []

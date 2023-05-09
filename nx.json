@@ -47,6 +47,7 @@
           "build-fixtures",
           "build-fixtures-jasmine",
           "build-fixtures-jest",
+          "documentation",
           "extract-translations",
           "extract-components",
           "extract-style",
@@ -239,6 +240,12 @@
         "{projectRoot}/dist/plugins",
         "{projectRoot}/build/plugins"
       ]
+    },
+    "documentation": {
+      "outputs": [
+        "{workspaceRoot}/generated-doc/{projectName}/**/*"
+      ],
+      "inputs": ["source"]
     }
   },
   "generators": {
