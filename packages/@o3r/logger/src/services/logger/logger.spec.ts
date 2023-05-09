@@ -1,16 +1,16 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { LoggerClient } from './logger.client';
-import { ConsoleLogger } from './logger.console';
-import { LoggerModule } from './logger.module';
-import { LoggerService } from './logger.service';
-import { LOGGER_CLIENT_TOKEN } from './logger.token';
+import {getTestBed, TestBed} from '@angular/core/testing';
+import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
+import {LoggerClient} from './logger.client';
+import {ConsoleLogger} from './logger.console';
+import {LoggerModule} from './logger.module';
+import {LoggerService} from './logger.service';
+import {LOGGER_CLIENT_TOKEN} from './logger.token';
 
 describe('Logger service', () => {
   const consoleLogger = new ConsoleLogger();
 
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-    teardown: { destroyAfterEach: false }
+    teardown: {destroyAfterEach: false}
   }));
 
   describe('by default', () => {
@@ -59,9 +59,11 @@ describe('Logger service', () => {
         createMetaReducer: jest.fn()
       };
 
-      TestBed.configureTestingModule({imports: [
-        LoggerModule.forRoot(client)
-      ]});
+      TestBed.configureTestingModule({
+        imports: [
+          LoggerModule.forRoot(client)
+        ]
+      });
 
       service = TestBed.inject(LoggerService);
     });
@@ -170,21 +172,53 @@ describe('Logger service', () => {
         expect(client2.resumeRecording).toHaveBeenCalled();
       });
 
+      it('should make sure new registered client are consistent with the stop and resume recording status', () => {
+        service.stopClientRecording();
+        const client3 = {
+          identify: jest.fn(),
+          event: jest.fn(),
+          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
+          stopRecording: jest.fn(),
+          resumeRecording: jest.fn(),
+          error: jest.fn(),
+          warn: jest.fn(),
+          log: jest.fn(),
+          createMetaReducer: jest.fn()
+        };
+        service.registerClient(client3);
+        expect(client3.stopRecording).toHaveBeenCalled();
+        expect(client3.stopRecording).toHaveBeenCalled();
+        service.resumeClientRecording();
+        const client4 = {
+          identify: jest.fn(),
+          event: jest.fn(),
+          getSessionURL: jest.fn().mockReturnValue('client.session.url2'),
+          stopRecording: jest.fn(),
+          resumeRecording: jest.fn(),
+          error: jest.fn(),
+          warn: jest.fn(),
+          log: jest.fn(),
+          createMetaReducer: jest.fn()
+        };
+        service.registerClient(client4);
+        expect(client4.resumeRecording).toHaveBeenCalled();
+      });
+
       it('should report logs', () => {
-        service.log('log', { foo: 'bar' });
+        service.log('log', {foo: 'bar'});
 
-        expect(client1.log).toHaveBeenCalledWith('log', { foo: 'bar' });
-        expect(client2.log).toHaveBeenCalledWith('log', { foo: 'bar' });
+        expect(client1.log).toHaveBeenCalledWith('log', {foo: 'bar'});
+        expect(client2.log).toHaveBeenCalledWith('log', {foo: 'bar'});
 
-        service.warn('warn', { foo: 'bar' });
+        service.warn('warn', {foo: 'bar'});
 
-        expect(client1.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
-        expect(client2.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
+        expect(client1.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
+        expect(client2.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
 
-        service.error('error', { foo: 'bar' });
+        service.error('error', {foo: 'bar'});
 
-        expect(client1.error).toHaveBeenCalledWith('error', { foo: 'bar' });
-        expect(client2.error).toHaveBeenCalledWith('error', { foo: 'bar' });
+        expect(client1.error).toHaveBeenCalledWith('error', {foo: 'bar'});
+        expect(client2.error).toHaveBeenCalledWith('error', {foo: 'bar'});
       });
     });
 
@@ -218,12 +252,33 @@ describe('Logger service', () => {
             LoggerModule
           ],
           providers: [
-            { provide: LOGGER_CLIENT_TOKEN, useValue: client1, multi: true },
-            { provide: LOGGER_CLIENT_TOKEN, useValue: client2, multi: true }
+            {provide: LOGGER_CLIENT_TOKEN, useValue: client1, multi: true},
+            {provide: LOGGER_CLIENT_TOKEN, useValue: client2, multi: true}
           ]
         });
 
         service = TestBed.inject(LoggerService);
+      });
+
+      it('should not register twice the same service', () => {
+        class MyLogger implements LoggerClient {
+          public identify = jest.fn();
+          public event = jest.fn();
+          public getSessionURL = jest.fn().mockReturnValue('client.session.url2');
+          public stopRecording = jest.fn();
+          public resumeRecording = jest.fn();
+          public error = jest.fn();
+          public warn = jest.fn();
+          public log = jest.fn();
+          public createMetaReducer = jest.fn();
+        }
+
+        const client = new MyLogger();
+        jest.spyOn(service, 'warn');
+        service.registerClient(client);
+        service.registerClient(client);
+        expect(service.warn).toHaveBeenCalledWith('Client MyLogger already registered');
+        expect(client.warn).toHaveBeenCalledTimes(1);
       });
 
       it('should return session URL', () => {
@@ -245,20 +300,20 @@ describe('Logger service', () => {
       });
 
       it('should report logs', () => {
-        service.log('log', { foo: 'bar' });
+        service.log('log', {foo: 'bar'});
 
-        expect(client1.log).toHaveBeenCalledWith('log', { foo: 'bar' });
-        expect(client2.log).toHaveBeenCalledWith('log', { foo: 'bar' });
+        expect(client1.log).toHaveBeenCalledWith('log', {foo: 'bar'});
+        expect(client2.log).toHaveBeenCalledWith('log', {foo: 'bar'});
 
-        service.warn('warn', { foo: 'bar' });
+        service.warn('warn', {foo: 'bar'});
 
-        expect(client1.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
-        expect(client2.warn).toHaveBeenCalledWith('warn', { foo: 'bar' });
+        expect(client1.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
+        expect(client2.warn).toHaveBeenCalledWith('warn', {foo: 'bar'});
 
-        service.error('error', { foo: 'bar' });
+        service.error('error', {foo: 'bar'});
 
-        expect(client1.error).toHaveBeenCalledWith('error', { foo: 'bar' });
-        expect(client2.error).toHaveBeenCalledWith('error', { foo: 'bar' });
+        expect(client1.error).toHaveBeenCalledWith('error', {foo: 'bar'});
+        expect(client2.error).toHaveBeenCalledWith('error', {foo: 'bar'});
       });
     });
   });
