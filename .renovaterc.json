@@ -23,7 +23,8 @@
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "baseBranches": [
-    "main"
+    "main",
+    "/^release\\/.*-next$/"
   ],
   "enabledManagers": [
     "npm"
