@@ -1,10 +1,10 @@
-import {chain, externalSchematic, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
-import {NodePackageInstallTask} from '@angular-devkit/schematics/tasks';
-import {NodePackageName} from '@angular-devkit/schematics/tasks/package-manager/options';
+import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {lastValueFrom} from 'rxjs';
-import {NgAddSchematicsSchema} from './schema';
+import { lastValueFrom } from 'rxjs';
+import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Install dev dependency on your application
@@ -15,15 +15,17 @@ import {NgAddSchematicsSchema} from './schema';
 class DevInstall extends NodePackageInstallTask {
   public quiet = false;
 
+  /** @inheritdoc */
   public toConfiguration() {
+    const installOptions = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
     return {
       name: NodePackageName,
       options: {
         command: 'install',
         quiet: this.quiet,
         workingDirectory: this.workingDirectory,
-        packageName: `${this.packageName!} --prefer-dev`,
-        packageManager: 'yarn'
+        packageName: `${this.packageName!} ${installOptions === 'yarn' ? '--prefer-dev' : '-D'}`,
+        packageManager: installOptions
       }
     };
   }
@@ -35,14 +37,12 @@ class DevInstall extends NodePackageInstallTask {
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
-    const {prepareProject} = await import('./project-setup/index');
+  return async (tree: Tree, context: SchematicContext) => {
     const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'}));
-    const o3rCoreVersion = corePackageJsonContent?.version ? `@${corePackageJsonContent.version as string}` : '';
-    const schematicsDependencies = ['@o3r/schematics', '@o3r/dev-tools'];
+    const o3rCoreVersion = typeof corePackageJsonContent?.version === 'string' ? `@${corePackageJsonContent.version as string}` : '';
+    const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
     for (const dependency of schematicsDependencies) {
       context.addTask(new DevInstall({
-        packageManager: 'yarn',
         packageName: dependency + o3rCoreVersion,
         hideOutput: false,
         quiet: false
@@ -51,7 +51,10 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
     return () => chain([
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
-      prepareProject(options, __dirname)
-    ])(_tree, context);
+      async (t, c) => {
+        const {prepareProject} = await import('./project-setup/index');
+        return prepareProject(options)(t, c);
+      }
+    ])(tree, context);
   };
 }

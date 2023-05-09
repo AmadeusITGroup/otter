@@ -1,31 +1,40 @@
-import {chain, noop, SchematicContext, Tree} from '@angular-devkit/schematics';
+import { chain, noop, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import {NgAddSchematicsSchema} from '../schema';
+import { PackageJson } from 'type-fest';
+import {
+  createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
+  updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
+  updateOtterEnvironmentAdapter, updatePlaywright, updateStore
+} from '../../rule-factories/index';
+import { NgAddSchematicsSchema } from '../schema';
+import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
+import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
+import { packagesToRemove } from '../updates-for-v8/replaced-packages';
+
+const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9]+[0-9]*)\.(?:0|[1-9]+[0-9]*)(?:-[a-zA-Z]+\.(?:0|[1-9]+[0-9]*))?$/);
 
 /**
  * Enable all the otter features requested by the user
  * Install all the related dependencies and import the features inside the application
  *
- * @param options
+ * @param options installation options to pass to the all the other packages' installation
  */
-export const prepareProject = (options: NgAddSchematicsSchema, rootFolder: string) => async (tree: Tree, context: SchematicContext) => {
-  const {
-    createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
-    updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
-    updateOtterEnvironmentAdapter, updatePlaywright, updateStore
-  } = await import('../../rule-factories/index');
-
-  const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(rootFolder, '..', '..', 'package.json'), {encoding: 'utf-8'}));
+export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: Tree, context: SchematicContext) => {
+  const coreSchematicsFolder = path.resolve(__dirname, '..');
+  const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(coreSchematicsFolder, '..', '..', 'package.json'), {encoding: 'utf-8'}));
+  if (!corePackageJsonContent) {
+    context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
+  }
   const o3rCoreVersion = corePackageJsonContent.version;
-  const {addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
-    removePackages, renamedPackagesV7toV8, updateImports} = await import('@o3r/schematics');
-  const {updateBuildersNames} = await import('../updates-for-v8/cms-adapters/update-builders-names');
-  const {updateOtterGeneratorsNames} = await import('../updates-for-v8/generators/update-generators-names');
-  const {packagesToRemove} = await import('../updates-for-v8/replaced-packages');
-  const workspaceProject = getProjectFromTree(tree);
+  const {
+    addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
+    readPackageJson, removePackages, renamedPackagesV7toV8, updateImports
+  } = await import('@o3r/schematics');
+  const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree) : undefined;
+  const projectType = workspaceProject?.projectType || 'application';
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
-    ...(workspaceProject.projectType === 'application' ? ['@o3r/application'] : []),
+    ...(projectType === 'application' ? ['@o3r/application'] : []),
     ...(options.enableCms ? ['@o3r/localization', '@o3r/styling', '@o3r/components', '@o3r/configuration'] : []),
     ...(options.enableStyling ? ['@o3r/styling'] : []),
     ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
@@ -37,6 +46,11 @@ export const prepareProject = (options: NgAddSchematicsSchema, rootFolder: strin
     ...(options.enablePlaywright ? ['@o3r/testing'] : []),
     ...(options.enableRulesEngine ? ['@o3r/rules-engine'] : [])
   ]));
+  const projectPackageJson = workspaceProject ? readPackageJson(tree, workspaceProject) : tree.readJson('package.json') as PackageJson;
+  // Ngx-prefetch version is aligned with angular
+  const angularVersion = projectPackageJson.dependencies?.['@angular/core'] || projectPackageJson.peerDependencies?.['@angular/core'];
+  const angularMajorVersion = angularVersion?.match(simplifiedSemVerRegexp)?.[1];
+  const ngxPrefetchVersion = angularMajorVersion ? `^${angularMajorVersion}.0.0` : undefined;
   const externalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(options.enablePrefetchBuilder ? ['@o3r/ngx-prefetch'] : [])
   ]));
@@ -45,20 +59,20 @@ export const prepareProject = (options: NgAddSchematicsSchema, rootFolder: strin
     updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
-    updateLinter(options, rootFolder, o3rCoreVersion),
-    options.enableCms ? updateCmsAdapter(options, rootFolder) : noop,
-    updateOtterEnvironmentAdapter(options, rootFolder),
-    updateStore(options, rootFolder),
-    updateFixtureConfig(options, rootFolder),
-    options.enableCustomization ? updateCustomizationEnvironment(rootFolder, o3rCoreVersion, options) : noop,
-    options.generateAzurePipeline ? createAzurePipeline(options, rootFolder) : noop,
-    options.enablePlaywright ? updatePlaywright(rootFolder) : noop,
-    updateAdditionalModules(options, rootFolder),
-    generateRenovateConfig(rootFolder),
+    updateLinter(options, coreSchematicsFolder, o3rCoreVersion),
+    options.enableCms ? updateCmsAdapter(options, coreSchematicsFolder) : noop,
+    updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
+    updateStore(options, coreSchematicsFolder),
+    updateFixtureConfig(options, coreSchematicsFolder),
+    options.enableCustomization ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options) : noop,
+    options.generateAzurePipeline ? createAzurePipeline(options, coreSchematicsFolder) : noop,
+    options.enablePlaywright ? updatePlaywright(coreSchematicsFolder) : noop,
+    updateAdditionalModules(options, coreSchematicsFolder),
+    generateRenovateConfig(coreSchematicsFolder),
     removePackages(packagesToRemove),
     addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template', '']),
     ngAddPackages(internalPackagesToInstallWithNgAdd, {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
-    ngAddPackages(externalPackagesToInstallWithNgAdd, {skipConfirmation: true, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
+    ngAddPackages(externalPackagesToInstallWithNgAdd, {skipConfirmation: true, version: ngxPrefetchVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
     options.skipLinter ? noop() : applyEsLintFix(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active

@@ -4,6 +4,9 @@ import { PackageJson } from 'type-fest';
 
 /**
  * Retrieve the peer dependency version for a package
+ *
+ * @param packageJsonPath path of the package json where to resolve the dependency
+ * @param packageName name of the peer dependency to be resolved
  */
 export function getPeerDepVersion(packageJsonPath: string, packageName: string) {
   const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));

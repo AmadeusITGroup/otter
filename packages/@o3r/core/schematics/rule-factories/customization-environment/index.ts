@@ -1,5 +1,5 @@
-import {apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url} from '@angular-devkit/schematics';
-import {addSymbolToNgModuleMetadata, isImported} from '@schematics/angular/utility/ast-utils';
+import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
+import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
 import {
   getFileInfo,
   getTemplateFolder,
@@ -7,7 +7,7 @@ import {
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
-import {InsertChange} from '@schematics/angular/utility/change';
+import { InsertChange } from '@schematics/angular/utility/change';
 
 /**
  * Enable customization capabilities
@@ -84,7 +84,8 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
         .forEach((change) => {
           if (change instanceof InsertChange) {
             rec = rec.insertLeft(change.pos, change.toAdd);
-          }});
+          }
+        });
       return rec;
     };
 

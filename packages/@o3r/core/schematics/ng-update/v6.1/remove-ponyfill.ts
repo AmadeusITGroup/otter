@@ -1,5 +1,5 @@
-import {Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
-import {getMainFilePath} from '@o3r/schematics';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { getMainFilePath } from '@o3r/schematics';
 
 /**
  * Remove the ponyfill from the project

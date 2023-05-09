@@ -6675,6 +6675,8 @@ __metadata:
       optional: true
     "@schematics/angular":
       optional: true
+    chokidar:
+      optional: true
     typescript:
       optional: true
   languageName: unknown

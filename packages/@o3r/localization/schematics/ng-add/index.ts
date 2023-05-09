@@ -1,17 +1,17 @@
-import {chain, noop, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
-import {NgAddSchematicsSchema} from './schema';
+import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NgAddSchematicsSchema } from './schema';
 
 import * as path from 'node:path';
 
 /**
  * Add Otter localization to an Angular Project
  *
- * @param options
+ * @param options for the dependencies installations
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {applyEsLintFix, install, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {applyEsLintFix, install, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
       const {updateI18n, updateLocalization} = await import('../localization-base');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -27,8 +27,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`
-        })
-      ])(_tree, context);
+        }),
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, '@o3r/localization - install builder dependency')
+      ])(tree, context);
     } catch (e) {
       // o3r localization needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/localization has failed.

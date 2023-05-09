@@ -1,4 +1,4 @@
-import {chain, Rule, Tree} from '@angular-devkit/schematics';
+import { chain, Rule, Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 
 /**

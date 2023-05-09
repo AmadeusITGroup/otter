@@ -1,5 +1,6 @@
 import { TaskConfiguration, TaskConfigurationGenerator } from '@angular-devkit/schematics';
 import { NodePackageName, NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
+import { getPackageManager } from '@o3r/dev-tools';
 
 /**
  * Options to be passed to the ng add task
@@ -43,8 +44,8 @@ export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePack
         quiet: this.quiet,
         workingDirectory: this.options?.workingDirectory,
         packageName: `ng add ${this.packageName}${this.options?.version ? '@' + this.options.version : ''} ${cmdArguments.join(' ')}`,
-        packageManager: 'yarn'
+        packageManager: getPackageManager()
       }
-    };
+    } as TaskConfiguration<NodePackageTaskOptions>;
   }
 }

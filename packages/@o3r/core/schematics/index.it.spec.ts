@@ -1,10 +1,10 @@
 import * as fs from 'node:fs';
-import {execSync, ExecSyncOptions, spawn} from 'node:child_process';
-import {mkdtempSync, readFileSync, writeFileSync} from 'node:fs';
+import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
+import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import type {PackageJson} from 'nx/src/utils/package-json';
+import type { PackageJson } from 'nx/src/utils/package-json';
 import getPidFromPort from 'pid-from-port';
-import {minVersion} from 'semver';
+import { minVersion } from 'semver';
 
 const devServerPort = 4200;
 const currentFolder = path.join(__dirname, '..', '..', '..', '..');
@@ -84,7 +84,7 @@ function setupNewApp() {
     const yarnVersion = o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0';
     execSync(`yarn set version ${yarnVersion}`, execAppOptions);
     execSync(`yarn config set npmScopes['ama-sdk'].npmRegistryServer ${registry}`, execAppOptions);
-    execSync(`yarn config set npmScopes[o3r].npmRegistryServer ${registry}`, execAppOptions);
+    execSync(`yarn config set npmScopes['o3r'].npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
@@ -109,7 +109,6 @@ describe('new Otter application', () => {
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
     execSync('yarn ng add @o3r/core --skip-confirmation --interactive=false --force --verbose', execAppOptions);
-    execSync('yarn unplug @o3r/localization', execAppOptions);
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
     execSync('yarn ng g @o3r/core:store-entity-async --interactive=false --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
