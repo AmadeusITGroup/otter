@@ -281,7 +281,7 @@ module.exports = {
     'jsdoc/check-tag-names': [
       'warn',
       {
-        'definedTags': ['note']
+        'definedTags': ['note', 'title', 'o3rCategory']
       }
     ],
     'jsdoc/check-types': 'warn',
