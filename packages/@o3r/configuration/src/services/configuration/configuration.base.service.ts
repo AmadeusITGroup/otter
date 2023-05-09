@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Configuration, CustomConfig, deepFill } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
 import { combineLatest, Observable } from 'rxjs';
 import { distinctUntilChanged, map, switchMap, take } from 'rxjs/operators';
 import { ConfigOverrideStore, selectComponentOverrideConfig } from '../../stores/config-override/index';
@@ -26,7 +25,7 @@ export class ConfigurationBaseService {
 
   private extendedConfiguration: {[key: string]: boolean} = {};
 
-  constructor(private store: Store<ConfigurationStore & ConfigOverrideStore>, private logger: LoggerService) {
+  constructor(private store: Store<ConfigurationStore & ConfigOverrideStore>) {
   }
 
   /**
@@ -80,12 +79,8 @@ export class ConfigurationBaseService {
    */
   public extendConfiguration<T extends Configuration>(extension: T, configurationId = 'global', forceUpdate = false) {
     if (this.extendedConfiguration[configurationId] && !forceUpdate) {
-      this.logger.debug('Extended configuration already extended, it will not be updated');
       return;
-    } else if (this.extendedConfiguration[configurationId]) {
-      this.logger.debug('Extended configuration already extended, force update');
     }
-
     this.extendedConfiguration[configurationId] = true;
     this.store.pipe(
       select(selectConfigurationEntities),
