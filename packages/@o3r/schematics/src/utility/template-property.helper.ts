@@ -167,6 +167,6 @@ export function getLibraryNameFromPath(path: string | null) {
   if (!path) {
     return null;
   }
-  const libNameRes = /@[^/]*\/[^/]*/.exec(path.replace(/\\/g, '/'));
+  const libNameRes = /@[^@/]+\/[^/]+/.exec(path.replace(/\\/g, '/'));
   return libNameRes && libNameRes[0];
 }

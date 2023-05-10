@@ -47,6 +47,6 @@ export class RuleConditionPresComponent {
   private getOperandName(operand: GenericOperand): string {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const value = `${operand.value !== undefined ? operand.value : 'MISSING_VALUE'}`;
-    return (operand as OperandFact).path ? (operand as OperandFact).path!.replace('$', value) : value;
+    return (operand as OperandFact).path ? (operand as OperandFact).path!.replace(/^[$]/, value) : value;
   }
 }

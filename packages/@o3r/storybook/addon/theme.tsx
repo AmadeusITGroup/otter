@@ -34,7 +34,7 @@ export interface ThemePanelProps {
   onThemeImport: (theme: Record<string, string>) => void;
 }
 
-const CSS_PARSING_REGEXP = /:root *[^{]* *\{\r?\n?(([^}]|[\r\n])*)\}/g;
+const CSS_PARSING_REGEXP = /:root[^{]*\{[\r\n]*([^}]*)\}/g;
 
 /** Theme component from Storybook panel */
 export default class ThemePanel extends React.Component<ThemePanelProps> {

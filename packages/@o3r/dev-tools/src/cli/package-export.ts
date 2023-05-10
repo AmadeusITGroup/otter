@@ -63,7 +63,7 @@ files.push(
 
 // remove duplicate RegExps
 files = files.reduce((acc, file) => {
-  const reg = new RegExp('^' + file.replace(/\./ig, '\\.').replace(/\*/ig, '[^\\/]*') + '$');
+  const reg = new RegExp('^' + file.replace(/\\*\./ig, '\\.').replace(/\\*\*/ig, '[^\\/]*') + '$');
   return acc.filter((f) => f === file || !reg.test(f));
 }, [...files]);
 
