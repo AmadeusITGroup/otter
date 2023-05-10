@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular/cli/lib/config/workspace-schema.json",
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular/cli/lib/config/workspace-schema.json",
   "version": 1,
   "newProjectRoot": ".",
   "projects": {
