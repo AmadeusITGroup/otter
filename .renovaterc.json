@@ -83,6 +83,18 @@
       "matchDepTypes": [
         "packageManager"
       ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn harmonize:version"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
       "rangeStrategy": "auto",
       "groupName": "Package manager",
       "groupSlug": "package-manager"
