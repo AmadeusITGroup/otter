@@ -29,6 +29,9 @@ export interface ModuleLoadedInformation {
 
   /** Simplified name as displayed in the interface and selectable by the user */
   moduleName: string;
+
+  /** Determine if the package is officially supported by the Otter (and affiliated) Teams */
+  isOfficialModule: boolean;
 }
 
 /** Installed package information */
@@ -45,6 +48,10 @@ export type ModuleDiscovery = MinimalPackageInformation & ModuleLoadedInformatio
 
 /** Keyword to identify a module */
 export const MODULES_KEYWORD = 'amaterasu-module';
+
+/** List of official scopes of modules supported by Otter (and affiliated) Teams */
+export const OFFICIAL_MODULE_SCOPES = ['ama-terasu', 'ama-sdk', 'o3r', 'otter'] as const;
+const officialModuleScopeRegExps = OFFICIAL_MODULE_SCOPES.map((s) => new RegExp(`^@${s}/`));
 
 /** Folder containing the dependency installed dynamically */
 export const DYNAMIC_DEPENDENCIES_FOLDER = 'dyn_modules';
@@ -119,6 +126,15 @@ export const getSimplifiedName = (pck: MinimalPackageInformation & { name: strin
 };
 
 /**
+ * Determine if the module is officially supported by Otter (or affiliated) teams
+ *
+ * @param pck package to get name from
+ */
+export const isOfficialModule = (pck: MinimalPackageInformation & { name: string }) => {
+  return officialModuleScopeRegExps.some((scope) => scope.test(pck.name));
+};
+
+/**
  * Retrieve the list of all the dependencies
  */
 export const getLocalDependencies = async (): Promise<Record<string, string>> => {
@@ -164,7 +180,12 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
 
   for (const mod of modules) {
     const localInformation = await getInstalledInformation(mod);
-    map.set(mod.name, { ...mod, ...localInformation, moduleName: getSimplifiedName(mod) });
+    map.set(mod.name, {
+      ...mod,
+      ...localInformation,
+      moduleName: getSimplifiedName(mod),
+      isOfficialModule: isOfficialModule(mod)
+    });
   }
 
   return [ ...map.values() ];
