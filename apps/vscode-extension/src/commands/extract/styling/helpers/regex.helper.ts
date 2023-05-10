@@ -4,7 +4,7 @@ export const regExp = {
   /**
    * Match the whole css selectors excluding imports, variables and comments
    */
-  css: /.*{(.|(\r\n|\r|\n))*;/g,
+  css: /.*{(.|[\r\n])*;/g,
   /**
    * Retrieves all selectors attributes without the content. Only the name with the opening bracket
    */

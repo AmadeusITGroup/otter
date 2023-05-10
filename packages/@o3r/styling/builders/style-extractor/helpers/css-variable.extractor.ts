@@ -35,17 +35,17 @@ export class CssVariableExtractor {
    */
   private parseCssVariable(name: string, value = ''): CssVariable {
     const defaultValue = value.trim();
-    const res = defaultValue.match(/^var\( *([^,)]*) *(, *(([^()]*|([(][^)]*[)]))*) *)?\)$/);
+    const res = defaultValue.match(/^var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)$/);
     const ret: CssVariable = { name, defaultValue };
     if (!res) {
       let findRef = defaultValue;
       let ref: RegExpExecArray | null;
       const references: Record<string, CssVariable> = {};
       do {
-        ref = /var\( *([^,)]*) *(, *(([^()]*|([(][^)]*[)]))*) *)?\)/.exec(findRef);
+        ref = /var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)/.exec(findRef);
         if (ref) {
           const refName = ref[1].replace(/^--/, '');
-          references[refName] = this.parseCssVariable(refName, ref[3]);
+          references[refName] = this.parseCssVariable(refName, ref[2]);
           findRef = findRef.replace(ref[0], '');
         }
       } while (ref);
@@ -54,7 +54,7 @@ export class CssVariableExtractor {
       }
     } else {
       ret.references = [
-        this.parseCssVariable(res[1].replace(/^--/, ''), res[3])
+        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
       ];
     }
     return ret;

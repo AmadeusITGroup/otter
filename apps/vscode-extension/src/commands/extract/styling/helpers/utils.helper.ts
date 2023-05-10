@@ -101,7 +101,7 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
  * @param line
  */
 export function isPropertyValue(value: string, line: TextLine) {
-  const sanitizedValue = value.replace(/\(/g, '\\(').replace(/\)/g, '\\)');
+  const sanitizedValue = value.replace(/\\*\(/g, '\\(').replace(/\\*\)/g, '\\)');
   return (new RegExp(`:.*${sanitizedValue}.*;$`)).test(line.text);
 }
 
