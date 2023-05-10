@@ -11,7 +11,7 @@
 
 .angular/
 .cache/
-.env
+/.env
 
 ### yarn ###
 # https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored

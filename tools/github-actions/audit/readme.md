@@ -19,7 +19,7 @@ Two different reports :
 ```yaml
 - name: Audit
   id: audit
-  uses: AmadeusITGroup/otter/tools/github-actions/audit@v8.0.15
+  uses: AmadeusITGroup/otter/tools/github-actions/audit@8
   with:
     severity: critical
     allWorkspaces: true

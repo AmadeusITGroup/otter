@@ -8,8 +8,9 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "lib": [
-      "dom",
-      "scripthost",
+      "DOM",
+      "DOM.Iterable",
+      "ScriptHost",
       "ES2021"
     ],
     "module": "es2020",
