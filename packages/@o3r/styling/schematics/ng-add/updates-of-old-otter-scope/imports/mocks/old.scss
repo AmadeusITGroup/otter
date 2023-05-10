@@ -14,3 +14,5 @@ $light-shadow: o3r-var('light-shadow', o3r-color($palette-highlight, 100) ) !def
 $background-color: o3r-var('background-color', o3r-contrast($palette-highlight, 500) ) !default;
 $default-color: o3r-var('default-color', o3r-color($palette-accent, 900) ) !default;
 $default-color-contrast: o3r-var('default-color-contrast', o3r-contrast($palette-accent, 900) ) !default;
+$theme: meta-theme-to-otter($meta-theme);
+$mat-theme: o3r.meta-theme-to-material($meta-theme);
