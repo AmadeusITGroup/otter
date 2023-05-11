@@ -105,22 +105,47 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * Otherwise returns the element.
    *
    * @param _element ElementProfile to test
+   * @param _timeout specific timeout that will throw when reach
    */
-  protected throwOnUndefined<T extends O3rElement>(_element?: T): T {
+  protected throwOnUndefinedElement<T extends O3rElement>(_element: T | undefined, _timeout?: number): Promise<T> {
+    throw new TranspilationPurposeOnlyError('Should target a proper implementation');
+  }
+
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param _element ElementProfile to test
+   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@see throwOnUndefinedElement} instead. Will be removed in v10
+   */
+  protected throwOnUndefined<T extends O3rElement>(_element?: T): T;
+  /**
+   * Throws an exception if the element is undefined.
+   * Otherwise returns the element.
+   *
+   * @param _element ElementProfile to test
+   * @param _timeout specific timeout that will throw when reach
+   */
+  protected throwOnUndefined<T extends O3rElement>(_element: Promise<T | undefined>, _timeout?: number): Promise<T | undefined> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
   /** @inheritdoc */
   public query(_selector: string, _returnType?: undefined, timeout?: number): Promise<O3rElement | undefined>;
+  /** @inheritdoc */
   public query<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>, timeout?: number): Promise<T | undefined>;
+  /** @inheritdoc */
   public query<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement | undefined> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
   /** @inheritdoc */
   public queryAll(_selector: string, _returnType?: undefined, _groupType?: undefined, timeout?: number): Promise<O3rElement[]>;
+  /** @inheritdoc */
   public queryAll<T extends O3rElement>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType?: undefined, timeout?: number): Promise<T[]>;
+  /** @inheritdoc */
   public queryAll<T extends O3rElement, K extends GroupProfile<T>>(_selector: string, _returnType: O3rElementConstructor<T>, _groupType: O3rGroupConstructor<K, T>, timeout?: number): Promise<K>;
+  /** @inheritdoc */
   public queryAll<T extends O3rElement, K extends GroupProfile<T>>(
     _selector: string,
     _returnType: O3rElementConstructor<T> | undefined,

@@ -1,0 +1,10 @@
+export class FareFamilyGroupSelectorPresFixtureComponent extends O3rComponentFixture implements FareFamilyGroupSelectorPresFixture {
+
+  /**
+   * @inheritDoc
+   */
+  public async getFareFamilyGroupPriceFixture(index: number): Promise<PriceContFixture | undefined> {
+    const elt = (await this.queryNth(this.FARE_FAMILY_GROUP_PRICES, index));
+    return new this.priceFixture(this.throwOnUndefined(elt));
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/architect/src/builders-schema.json",
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/architect/src/builders-schema.json",
   "builders": {
     "extractor": {
       "implementation": "./builders/component-extractor/",

@@ -1,4 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/14.0.x/packages/angular_devkit/schematics/collection-schema.json",
-  "schematics": {}
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v9_0": {
+      "version": "9.0.0-alpha.0",
+      "description": "Updates of the Otter Testing module to v9.0.x",
+      "factory": "./schematics/ng-update/v9-0/index#update"
+    }
+  }
 }
