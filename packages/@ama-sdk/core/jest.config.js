@@ -1,8 +1,11 @@
+const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',
   rootDir: '.',
+  moduleNameMapper: getJestModuleNameMapper(__dirname),
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
   modulePathIgnorePatterns: [
     '<rootDir>/dist'
