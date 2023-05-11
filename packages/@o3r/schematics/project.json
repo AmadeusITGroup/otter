@@ -77,6 +77,12 @@
       "options": {
         "command": "npm publish packages/@o3r/schematics/dist"
       }
+    },
+    "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      }
     }
   },
   "tags": []

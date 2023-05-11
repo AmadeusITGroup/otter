@@ -62,6 +62,12 @@
       "options": {
         "command": "npm publish packages/@o3r/stylelint-plugin/dist"
       }
+    },
+    "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      }
     }
   },
   "tags": []

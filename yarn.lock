@@ -5536,6 +5536,9 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -5604,6 +5607,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -5669,6 +5675,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -5740,6 +5749,7 @@ __metadata:
     patch-package-json-exports: ./scripts/patch-package-json-exports.mjs
     patch-package-json-main: ./scripts/patch-package-json-main.mjs
     pr-labels: ./scripts/pr-labels.mjs
+    prepare-doc-root-menu-template: ./scripts/prepare-doc-root-menu-template.mjs
     prepare-publish: ./scripts/prepare-publish.mjs
     update-doc-summary: ./scripts/update-doc-summary.mjs
     update-package: ./scripts/update-package.mjs
@@ -5830,6 +5840,9 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~15.4.0
     "@ngrx/store": ~15.4.0
     "@nrwl/jest": ~15.9.0
@@ -5917,6 +5930,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~15.4.0
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
@@ -5996,6 +6012,9 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/effects": ~15.4.0
     "@ngrx/entity": ~15.4.0
     "@ngrx/store": ~15.4.0
@@ -6090,6 +6109,9 @@ __metadata:
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular-eslint/eslint-plugin": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6170,6 +6192,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -6296,6 +6321,9 @@ __metadata:
     "@angular-eslint/template-parser": ~15.2.0
     "@angular-eslint/utils": ~15.2.0
     "@angular/compiler": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6344,6 +6372,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@microsoft/tsdoc": ~0.14.1
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -6402,6 +6433,9 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~15.4.0
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
@@ -6603,6 +6637,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@ngx-translate/core": ~14.0.0
     "@nrwl/cli": ~15.9.0
@@ -6693,6 +6730,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@fullstory/browser": ~1.7.0
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
@@ -6765,10 +6805,13 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
     "@capacitor/browser": ^4.0.1
     "@capacitor/core": ^4.0.1
     "@capacitor/device": ^4.0.1
     "@capacitor/preferences": ^4.0.1
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
@@ -6846,6 +6889,9 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@angular/router": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/effects": ~15.4.0
     "@ngrx/entity": ~15.4.0
     "@ngrx/router-store": ~15.4.0
@@ -6916,6 +6962,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/effects": ~15.4.0
     "@ngrx/entity": ~15.4.0
     "@ngrx/store": ~15.4.0
@@ -7017,6 +7066,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -7079,6 +7131,8 @@ __metadata:
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
     "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
@@ -7157,6 +7211,9 @@ __metadata:
   dependencies:
     "@angular-eslint/eslint-plugin": ~15.2.0
     "@angular/compiler": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7206,6 +7263,9 @@ __metadata:
     "@angular/material": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/cli": ~15.9.0
     "@nrwl/jest": ~15.9.0
     "@nrwl/js": ~15.9.0
@@ -7278,6 +7338,9 @@ __metadata:
     "@angular/forms": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~15.4.0
     "@ngx-translate/core": ~14.0.0
     "@nrwl/jest": ~15.9.0
@@ -7365,6 +7428,9 @@ __metadata:
     "@angular/core": ~15.2.0
     "@angular/platform-browser": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
+    "@babel/core": ~7.21.0
+    "@babel/preset-typescript": ~7.21.0
+    "@compodoc/compodoc": ^1.1.19
     "@nrwl/jest": ~15.9.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
