@@ -1,63 +1,68 @@
 import {Injectable, Optional} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
-  cancelPlaceholderTemplateRequest,
-  deletePlaceholderTemplateEntity,
-  failPlaceholderTemplateEntity, PlaceholderTemplateReply,
+  cancelPlaceholderRequest,
+  failPlaceholderRequestEntity,
+  PlaceholderRequestStore,
   PlaceholderVariable,
-  setPlaceholderTemplateEntity,
-  setPlaceholderTemplateEntityFromUrl
+  selectPlaceholderRequestEntityUsage,
+  setPlaceholderRequestEntityFromUrl,
+  updatePlaceholderRequestEntity
 } from '@o3r/components';
 import {fromApiEffectSwitchMapById} from '@o3r/core';
 import {DynamicContentService} from '@o3r/dynamic-content';
 import {LocalizationService} from '@o3r/localization';
 import {combineLatest, EMPTY, firstValueFrom, Observable, of} from 'rxjs';
-import {map, switchMap, take} from 'rxjs/operators';
+import {distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
 import {RulesEngineService} from './rules-engine.service';
+import {Store} from '@ngrx/store';
+import {JSONPath} from 'jsonpath-plus';
 
 /**
  * Service to handle async PlaceholderTemplate actions
  */
 @Injectable()
 export class PlaceholderTemplateResponseEffect {
-
-  public setPlaceholderTemplateEntityFromCall$ = createEffect(() =>
+  /**
+   * Set the PlaceholderRequest entity with the reply content, dispatch failPlaceholderRequestEntity if it catches a failure
+   * Handles the rendering of the HTML content from the template and creates the combine latest from facts list if needed
+   * Disables unused templates refresh if used is false in the store
+   */
+  public setPlaceholderRequestEntityFromUrl$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(setPlaceholderTemplateEntityFromUrl, deletePlaceholderTemplateEntity),
+      ofType(setPlaceholderRequestEntityFromUrl),
       fromApiEffectSwitchMapById(
-        (templateResponse: PlaceholderTemplateReply, action) => {
-          if (action.type === '[PlaceholderTemplate] delete entity') {
-            return EMPTY;
-          }
+        (templateResponse, action) => {
           const facts = templateResponse.vars ? Object.values(templateResponse.vars).filter((variable: PlaceholderVariable) => variable.type === 'fact') : [];
           const factsStreamsList = facts.map((fact) =>
             this.rulesEngineService.engine.retrieveOrCreateFactStream(fact.value).pipe(map((factValue) => ({
               name: fact.value, factValue
             }))));
-          return (factsStreamsList.length ? combineLatest(factsStreamsList) : of([])).pipe(
-            switchMap((allFacts) => {
-              return this.getRenderedHTML$(templateResponse.template, templateResponse.vars, allFacts).pipe(
-                map(({renderedTemplate, unknownTypeFound}) => setPlaceholderTemplateEntity({
-                  entity: {
-                    ...templateResponse,
-                    resolvedUrl: action.resolvedUrl,
-                    id: action.id,
-                    url: action.url,
-                    requestIds: [action.requestId],
-                    renderedTemplate,
-                    unknownTypeFound
-                  },
-                  requestId: action.requestId
-                }))
+          const factsStreamsList$ = factsStreamsList.length ? combineLatest(factsStreamsList) : of([]);
+          return combineLatest([factsStreamsList$, this.store.select(selectPlaceholderRequestEntityUsage(action.id)).pipe(distinctUntilChanged())]).pipe(
+            switchMap(([factsUsedInTemplate, placeholderRequestUsage]) => {
+              if (!placeholderRequestUsage) {
+                return EMPTY;
+              }
+              return this.getRenderedHTML$(templateResponse.template, templateResponse.vars, factsUsedInTemplate).pipe(
+                map(({renderedTemplate, unknownTypeFound}) =>
+                  // Update instead of set because used already set by the update from url action
+                  updatePlaceholderRequestEntity({
+                    entity: {
+                      ...templateResponse,
+                      resolvedUrl: action.resolvedUrl,
+                      id: action.id,
+                      renderedTemplate,
+                      unknownTypeFound
+                    },
+                    requestId: action.requestId
+                  })
+                )
               );
             }));
         },
-        ((error, action) => of(failPlaceholderTemplateEntity({
-          ids: [action.id],
-          error: error,
-          requestId: action.requestId
-        }))),
-        (requestIdPayload, action) => cancelPlaceholderTemplateRequest({...requestIdPayload, id: action.id})
+        (error, action) => of(failPlaceholderRequestEntity({ids: [action.id], error, requestId: action.requestId})),
+        (requestIdPayload, action) => cancelPlaceholderRequest({...requestIdPayload, id: action.id})
       )
     )
   );
@@ -66,6 +71,7 @@ export class PlaceholderTemplateResponseEffect {
     private actions$: Actions,
     private rulesEngineService: RulesEngineService,
     private dynamicContentService: DynamicContentService,
+    private store: Store<PlaceholderRequestStore>,
     @Optional() private translationService?: LocalizationService) {
   }
 
@@ -102,7 +108,10 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factset[vars[varName].value] || '');
+              const factValue = factset[vars[varName].value] || '';
+              // eslint-disable-next-line new-cap
+              const resolvedFactValue = vars[varName].path ? factValue && JSONPath({wrap: false, json: factValue, path: vars[varName].path!}) : factValue;
+              template = template.replace(ejsVar, resolvedFactValue);
               break;
             }
             case 'localisation': {

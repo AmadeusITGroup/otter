@@ -1,7 +1,7 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getAppModuleFilePath, getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree } from '@o3r/schematics';
+import {getAppModuleFilePath, getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree, addImportToModuleFile as o3rAddImportToModuleFile} from '@o3r/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-import { addImportToModule, getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
+import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
@@ -21,7 +21,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
    * Update package.json to add additional modules dependencies
    *
    * @param tree
-   * @param _context
+   * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
@@ -50,40 +50,24 @@ export function updateAdditionalModules(options: { projectName: string | null },
       return tree;
     }
 
+    const sourceFileContent = tree.readText(moduleFilePath);
     const sourceFile = ts.createSourceFile(
       moduleFilePath,
-      tree.read(moduleFilePath)!.toString(),
+      sourceFileContent,
       ts.ScriptTarget.ES2015,
       true
     );
-    // if the app already uses store dev tools do nothing; if aditionalModules is already imported do nothing to avoid the double imports
+    // if the app already uses store dev tools do nothing; if additionalModules is already imported do nothing to avoid the double imports
     if (isImported(sourceFile, 'StoreDevtoolsModule', ngrxStoreDevtoolsDep) || isImported(sourceFile, 'additionalModules', '../environments/environment')) {
       return tree;
     }
 
     const recorder = tree.beginUpdate(moduleFilePath);
     const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const appModuleFile = tree.read(moduleFilePath)!.toString();
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : appModuleFile.indexOf('@NgModule');
+    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
 
-    /**
-     * Add import to the main module
-     *
-     * @param name
-     * @param file
-     */
-    const addImportToModuleFile = (name: string, file: string) => {
-      if (new RegExp(name).test(appModuleFile.substring(moduleIndex))) {
-        context.logger.warn(`Skipped ${name} (already imported)`);
-        return;
-      }
-      addImportToModule(sourceFile, moduleFilePath, name, file)
-        .forEach((change) => {
-          if (change instanceof InsertChange) {
-            recorder.insertLeft(change.pos, change.toAdd);
-          }
-        });
-    };
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
+      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
 
     addImportToModuleFile(
       'additionalModules',
@@ -99,6 +83,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
    * Register additional modules for development
    *
    * @param tree
+   * @param context
    */
   const registerDevAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
 
@@ -162,6 +147,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
    * Register additional modules for production
    *
    * @param tree
+   * @param context
    */
   const registerProdAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context);

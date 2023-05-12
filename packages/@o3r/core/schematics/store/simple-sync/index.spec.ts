@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { syncSimpleActionsContent } from './mocks/example-actions';
 import { syncSimpleReducerContent } from './mocks/example-reducer';
 import { syncSimpleReducerSpecContent } from './mocks/example-reducer-spec';
@@ -23,10 +22,10 @@ describe('Store simple sync generator', () => {
 
   it('should generate sync simple store', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-simple-sync', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-simple-sync', {
       storeName: 'Example',
       path: './'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/example/example.actions.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleActionsContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.reducer.spec.ts').replace(/\s|\n/g, '')).toEqual(syncSimpleReducerSpecContent.replace(/\s|\n/g, ''));

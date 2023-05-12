@@ -1,14 +1,19 @@
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
 import {TypedAction} from '@ngrx/store/src/models';
-import {SetAsyncStoreItemEntityActionPayload} from '@o3r/core';
+import {UpdateAsyncStoreItemEntityActionPayloadWithId} from '@o3r/core';
 import {firstValueFrom, of, ReplaySubject, Subject, Subscription} from 'rxjs';
-import {PlaceholderTemplateModel, PlaceholderTemplateReply, setPlaceholderTemplateEntityFromUrl} from '@o3r/components';
+import {
+  PlaceholderRequestModel,
+  PlaceholderRequestReply,
+  setPlaceholderRequestEntityFromUrl
+} from '@o3r/components';
 import {DynamicContentService} from '@o3r/dynamic-content';
 import {LocalizationService} from '@o3r/localization';
 import {shareReplay} from 'rxjs/operators';
 import {RulesEngineService} from './rules-engine.service';
 import {PlaceholderTemplateResponseEffect} from './rules-engine.effect';
+import {Store} from '@ngrx/store';
 
 describe('Rules Engine Effects', () => {
   let effect: PlaceholderTemplateResponseEffect;
@@ -16,6 +21,12 @@ describe('Rules Engine Effects', () => {
   let factsStream: { [key: string]: Subject<any> };
   const translations: { [key: string]: string } = {
     localisationkey: 'This is a test with a { parameter }'
+  };
+  const storeValue = new Subject<any>();
+  const mockStore = {
+    pipe: jest.fn().mockReturnValue(storeValue),
+    dispatch: jest.fn(),
+    select: jest.fn().mockReturnValue(of(true))
   };
 
 
@@ -58,7 +69,8 @@ describe('Rules Engine Effects', () => {
                 )
             )
           }
-        }
+        },
+        {provide: Store, useValue: mockStore}
       ]
     }).compileComponents();
 
@@ -70,8 +82,8 @@ describe('Rules Engine Effects', () => {
   });
 
   it('should resolve vars', async () => {
-    const setPlaceholderEffect$ = effect.setPlaceholderTemplateEntityFromCall$.pipe(shareReplay(1));
-    const response: PlaceholderTemplateReply = {
+    const setPlaceholderEffect$ = effect.setPlaceholderRequestEntityFromUrl$.pipe(shareReplay(1));
+    const response: PlaceholderRequestReply = {
       vars: {
         myRelPath: {
           type: 'relativeUrl',
@@ -88,31 +100,31 @@ describe('Rules Engine Effects', () => {
         },
         factInTemplate: {
           type: 'fact',
-          value: 'factInTemplate'
+          value: 'factInTemplate',
+          path: '$.myKey'
         }
       },
       template: '<img src=\'<%= myRelPath %>\'> <div><%= test %></div><span><%= factInTemplate %></span>'
     };
-    actions.next(setPlaceholderTemplateEntityFromUrl({
+    actions.next(setPlaceholderRequestEntityFromUrl({
       call: Promise.resolve(response),
-      id: 'placeholder1',
-      url: 'myPlaceholderUrl',
+      id: 'myPlaceholderUrl',
       resolvedUrl: 'myPlaceholderResolvedUrl'
     }));
     factsStream.myFact.next('ignored');
     factsStream.parameter.next('success');
-    factsStream.factInTemplate.next('Outstanding fact');
+    factsStream.factInTemplate.next({'myKey': 'Outstanding fact'});
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as SetAsyncStoreItemEntityActionPayload<PlaceholderTemplateModel>
-      & TypedAction<'[PlaceholderTemplate] set entity'>;
-    expect(result.type).toBe('[PlaceholderTemplate] set entity');
+    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
+      & TypedAction<'[PlaceholderRequest] update entity'>;
+    expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<img src=\'fakeUrl\'> <div>This is a test with a success</div><span>Outstanding fact</span>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
   });
 
   it('should notify user some vars have an unknown type', async () => {
-    const setPlaceholderEffect$ = effect.setPlaceholderTemplateEntityFromCall$.pipe(shareReplay(1));
+    const setPlaceholderEffect$ = effect.setPlaceholderRequestEntityFromUrl$.pipe(shareReplay(1));
     const response: any = {
       vars: {
         test: {
@@ -122,16 +134,15 @@ describe('Rules Engine Effects', () => {
       },
       template: '<div><%= test %></div>'
     };
-    actions.next(setPlaceholderTemplateEntityFromUrl({
+    actions.next(setPlaceholderRequestEntityFromUrl({
       call: Promise.resolve(response),
-      id: 'placeholder2',
-      url: 'myPlaceholderUrl',
+      id: 'myPlaceholderUrl',
       resolvedUrl: 'myPlaceholderResolvedUrl2'
     }));
     factsStream.myFact.next('ignored');
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-    const result = (await firstValueFrom(setPlaceholderEffect$)) as SetAsyncStoreItemEntityActionPayload<PlaceholderTemplateModel>
-      & TypedAction<'[PlaceholderTemplate] set entity'>;
+    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
+      & TypedAction<'[PlaceholderRequest] update entity'>;
     expect(result.entity.unknownTypeFound).toBeTruthy();
     expect(result.entity.renderedTemplate).toBe('<div><%= test %></div>');
   });

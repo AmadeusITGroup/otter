@@ -1,4 +1,4 @@
-import {numberValidator} from '../operator.helpers';
+import {isRangeNumber, isString, isSupportedSimpleTypes, numberValidator} from '../operator.helpers';
 import { Operator, SupportedSimpleTypes } from '../operator.interface';
 
 /**
@@ -9,7 +9,8 @@ import { Operator, SupportedSimpleTypes } from '../operator.interface';
 export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'arrayContains',
   evaluator: (value, b) => value.indexOf(b) > -1,
-  validateLhs: (inputArray) => Array.isArray(inputArray)
+  validateLhs: Array.isArray,
+  validateRhs: isSupportedSimpleTypes
 };
 
 
@@ -20,9 +21,9 @@ export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleType
  */
 export const stringContains: Operator<string, string> = {
   name: 'stringContains',
-  evaluator: (inputString, substring: any) => inputString.indexOf(substring) > -1,
-  validateLhs: (inputString) => typeof inputString === 'string',
-  validateRhs: (inputSubstring) => typeof inputSubstring === 'string'
+  evaluator: (inputString, substring) => inputString.indexOf(substring) > -1,
+  validateLhs: isString,
+  validateRhs: isString
 };
 
 /**
@@ -33,7 +34,8 @@ export const stringContains: Operator<string, string> = {
 export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
   name: 'notArrayContains',
   evaluator: (array, value) => array.indexOf(value) === -1,
-  validateLhs: (inputArray) => Array.isArray(inputArray)
+  validateLhs: Array.isArray,
+  validateRhs: isSupportedSimpleTypes
 };
 
 /**
@@ -44,8 +46,8 @@ export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleT
 export const notStringContains: Operator<string, string> = {
   name: 'notStringContains',
   evaluator: (inputString, substring: any) => inputString.indexOf(substring) === -1,
-  validateLhs: (inputString) => typeof inputString === 'string',
-  validateRhs: (inputSubstring) => typeof inputSubstring === 'string'
+  validateLhs: isString,
+  validateRhs: isString
 };
 
 /**
@@ -57,7 +59,8 @@ export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = 
   name: 'allEqual',
   // eslint-disable-next-line eqeqeq
   evaluator: (array, value) => array.every((elementValue) => elementValue == value),
-  validateLhs: Array.isArray
+  validateLhs: Array.isArray,
+  validateRhs: isSupportedSimpleTypes
 };
 
 /**
@@ -65,9 +68,9 @@ export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = 
  *
  * @title all >
  */
-export const allGreater: Operator<SupportedSimpleTypes[], number> = {
+export const allGreater: Operator<SupportedSimpleTypes[], number | string> = {
   name: 'allGreater',
-  evaluator: (array, value) => array.every((elementValue) => elementValue > value),
+  evaluator: (array, value) => array.every((elementValue) => numberValidator(elementValue) && elementValue > value),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -101,10 +104,10 @@ export const allNotIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> 
  *
  * @title all <
  */
-export const allLower: Operator<number[], number> = {
+export const allLower: Operator<number[], number | string> = {
   name: 'allLower',
   evaluator: (arrayNumber, number) => arrayNumber.every((elementNumber) => elementNumber < number),
-  validateLhs: (inputArrayNumber) => Array.isArray(inputArrayNumber),
+  validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
 
@@ -119,8 +122,8 @@ export const allMatch: Operator<string[], string> = {
     const regExp = new RegExp(inputString);
     return array.every((elementValue) => regExp.test(elementValue));
   },
-  validateLhs: (inputArray) => Array.isArray(inputArray),
-  validateRhs: (inputString) => typeof inputString === 'string'
+  validateLhs: Array.isArray,
+  validateRhs: isString
 };
 
 /**
@@ -128,11 +131,12 @@ export const allMatch: Operator<string[], string> = {
  *
  * @title all between
  */
-export const allRangeNumber: Operator<number[], [number, number]> = {
+export const allRangeNumber: Operator<number[], [number | string, number | string]> = {
   name: 'allRangeNumber',
-  evaluator: (rangeArray, [from, to]) => rangeArray.every((elementValue) => elementValue >= from && elementValue <= to),
+  evaluator: (rangeArray, [from, to]) =>
+    rangeArray.every((elementValue) => elementValue >= from && elementValue <= to),
   validateLhs: Array.isArray,
-  validateRhs: (inputRangeArray) => Array.isArray(inputRangeArray) && numberValidator(inputRangeArray[0]) && numberValidator(inputRangeArray[1])
+  validateRhs: isRangeNumber
 };
 
 /**
@@ -144,7 +148,8 @@ export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> =
   name: 'oneEquals',
   // eslint-disable-next-line eqeqeq
   evaluator: (array, value) => array.some((elementValue) => elementValue == value),
-  validateLhs: Array.isArray
+  validateLhs: Array.isArray,
+  validateRhs: isSupportedSimpleTypes
 };
 
 /**
@@ -152,7 +157,7 @@ export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> =
  *
  * @title one >
  */
-export const oneGreater: Operator<number[], number> = {
+export const oneGreater: Operator<number[], number | string> = {
   name: 'oneGreater',
   evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue > number),
   validateLhs: Array.isArray,
@@ -166,7 +171,8 @@ export const oneGreater: Operator<number[], number> = {
  */
 export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
   name: 'oneIn',
-  evaluator: (firstArray, secondArray) => firstArray.some((elementValue) => secondArray.indexOf(elementValue) > -1),
+  evaluator: (firstArray, secondArray) =>
+    firstArray.some((elementValue) => secondArray.indexOf(elementValue) > -1),
   validateLhs: Array.isArray,
   validateRhs: Array.isArray
 };
@@ -176,7 +182,7 @@ export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
  *
  * @title one <
  */
-export const oneLower: Operator<number[], number> = {
+export const oneLower: Operator<number[], number | string> = {
   name: 'oneLower',
   evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue < number),
   validateLhs: Array.isArray,
@@ -195,7 +201,7 @@ export const oneMatches: Operator<string[], string> = {
     return arrayString.some((elementValue) => regExp.test(elementValue));
   },
   validateLhs: Array.isArray,
-  validateRhs: (inputString) => typeof inputString === 'string'
+  validateRhs: isString
 };
 
 /**
@@ -203,11 +209,12 @@ export const oneMatches: Operator<string[], string> = {
  *
  * @title one between
  */
-export const oneRangeNumber: Operator<number[], [number, number]> = {
+export const oneRangeNumber: Operator<number[], [number | string, number | string]> = {
   name: 'oneRangeNumber',
-  evaluator: (arrayNumber, [from, to]) => arrayNumber.some((elementValue) => elementValue >= from && elementValue <= to),
+  evaluator: (arrayNumber, [from, to]) =>
+    arrayNumber.some((elementValue) => elementValue >= from && elementValue <= to),
   validateLhs: Array.isArray,
-  validateRhs: (inputRangeArray) => Array.isArray(inputRangeArray) && inputRangeArray.length === 2 && numberValidator(inputRangeArray[0]) && numberValidator(inputRangeArray[1])
+  validateRhs: isRangeNumber
 };
 
 /**
@@ -215,9 +222,9 @@ export const oneRangeNumber: Operator<number[], [number, number]> = {
  *
  * @title number of =
  */
-export const lengthEquals: Operator<any[], number> = {
+export const lengthEquals: Operator<any[], number | string> = {
   name: 'lengthEquals',
-  evaluator: (array, length) => array.length === length,
+  evaluator: (array, length) => array.length === Number(length),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -227,9 +234,9 @@ export const lengthEquals: Operator<any[], number> = {
  *
  * @title number of ≠
  */
-export const lengthNotEquals: Operator<any[], number> = {
+export const lengthNotEquals: Operator<any[], number | string> = {
   name: 'lengthNotEquals',
-  evaluator: (array, length) => array.length !== length,
+  evaluator: (array, length) => array.length !== Number(length),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -239,7 +246,7 @@ export const lengthNotEquals: Operator<any[], number> = {
  *
  * @title number of ≤
  */
-export const lengthLessThanOrEquals: Operator<any[], number> = {
+export const lengthLessThanOrEquals: Operator<any[], number | string> = {
   name: 'lengthLessThanOrEquals',
   evaluator: (array, length) => array.length <= length,
   validateLhs: Array.isArray,
@@ -251,7 +258,7 @@ export const lengthLessThanOrEquals: Operator<any[], number> = {
  *
  * @title number of <
  */
-export const lengthLessThan: Operator<any[], number> = {
+export const lengthLessThan: Operator<any[], number | string> = {
   name: 'lengthLessThan',
   evaluator: (array, length) => array.length < length,
   validateLhs: Array.isArray,
@@ -263,7 +270,7 @@ export const lengthLessThan: Operator<any[], number> = {
  *
  * @title number of ≥
  */
-export const lengthGreaterThanOrEquals: Operator<any[], number> = {
+export const lengthGreaterThanOrEquals: Operator<any[], number | string> = {
   name: 'lengthGreaterThanOrEquals',
   evaluator: (array, length) => array.length >= length,
   validateLhs: Array.isArray,
@@ -275,7 +282,7 @@ export const lengthGreaterThanOrEquals: Operator<any[], number> = {
  *
  * @title number of >
  */
-export const lengthGreaterThan: Operator<any[], number> = {
+export const lengthGreaterThan: Operator<any[], number | string> = {
   name: 'lengthGreaterThan',
   evaluator: (array, length) => array.length > length,
   validateLhs: Array.isArray,

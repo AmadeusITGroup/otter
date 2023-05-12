@@ -30,6 +30,7 @@ jobs:
       - run: yarn build:swagger-gen
       - run: yarn build
       - uses: ./tools/github-actions/upload-build-output
+
   version:
     permissions:
       contents: write
@@ -51,19 +52,23 @@ jobs:
         run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   checks:
     uses: ./.github/workflows/code-check.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     with:
       affected: ${{ github.event_name == 'pull_request' }}
+
   test-publish:
     uses: ./.github/workflows/test-publish.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     needs: [build]
+
   publish-packages:
     uses: ./.github/workflows/publish.yml
+    if: ${{ github.event_name != 'pull_request' }}
     permissions:
       packages: write
       contents: read
@@ -72,12 +77,30 @@ jobs:
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
-  cascading:
-    runs-on: ubuntu-latest
+  publish-packages-pr:
+    uses: ./.github/workflows/publish.yml
+    if: ${{ github.event_name == 'pull_request' }}
+    permissions:
+      packages: write
+      contents: read
+    secrets: inherit
+    needs: [version, build]
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+      prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
+
+  documentation-main:
+    secrets: inherit
     needs: [version, build, checks]
-    if: github.event_name != 'pull_request'
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - uses: ./tools/github-actions/cascading
+    if: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
+    uses: ./.github/workflows/documentation.yml
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+  documentation-pr:
+    secrets: inherit
+    needs: [version]
+    if: ${{ github.event_name == 'pull_request' && github.base_ref == 'main' }}
+    uses: ./.github/workflows/documentation.yml
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+      shouldDeploy: false

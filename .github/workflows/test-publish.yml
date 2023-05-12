@@ -21,6 +21,18 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
+      - name: Get current month to build the cache key
+        run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
+        shell: bash
+      - name: Cache test-app yarn
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache/test-app
+            !.cache/test-app/v6/npm-@ama-sdk*
+            !.cache/test-app/v6/npm-@ama-terasu*
+            !.cache/test-app/v6/npm-@o3r*
+          key: ${{ runner.os }}-test-app-${{ env.currentMonth }}
       - name: Test
         run: yarn test-int
       - name: Prepare for publish generated app

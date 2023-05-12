@@ -1,6 +1,13 @@
-# Otter configuration
+<h1 align="center">Otter configuration</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 This module contains configuration related features (CMS compatibility, Configuration override, store and debugging)
 It comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.

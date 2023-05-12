@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
+import { getPackageScriptRunner } from './helpers';
 
 const availableMethods: string[] = [
   'clickOnButton',
@@ -52,7 +53,7 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
           ...chosenMethods.map((m) => `--methods ${m}`),
           `--selector=".${selectedClasses.replace(/ /g, '.')}"`
         ];
-        terminal.sendText(`yarn ng generate @o3r/core:fixture ${options.join(' ')}`, true);
+        terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:fixture ${options.join(' ')}`, true);
         terminal.show();
         await vscode.window.showTextDocument(fixtureDoc);
       } else {

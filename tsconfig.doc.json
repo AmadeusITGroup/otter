@@ -2,9 +2,11 @@
   "extends": "./tsconfig.base",
   "exclude": [
     "**/*reducer.ts",
-    "**/*.fixture.ts"
+    "**/*.fixture.ts",
+    "**/*.fixture.jasmine.ts",
+    "**/*.fixture.jest.ts"
   ],
   "include": [
-    "packages/@o3r/*/src/**/*.ts"
+    "./tsconfig.doc.json"
   ]
 }

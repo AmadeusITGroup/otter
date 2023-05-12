@@ -4,6 +4,8 @@ import type { PackageJson } from 'type-fest';
 export interface PackageConfiguration {
   /** List of ignored dependencies */
   ignore?: string[];
+  /** Ignore the update of the package manager version */
+  ignorePackageManager?: boolean;
   /** Determine if this package should be ignored */
   skipPackage?: boolean;
 }
@@ -62,4 +64,7 @@ export interface Options {
 
   /** Path to the private package.json of the monorepo */
   monorepo: string;
+
+  /** List of patterns of files to which apply the new calculated version without implicating them in the version determination */
+  applyTo: string[];
 }

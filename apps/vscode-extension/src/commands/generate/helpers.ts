@@ -25,3 +25,11 @@ export const wrapCommandWhenExplorerContext = (
     return command(context, folderPath)();
   };
 };
+
+/**
+ * Get the runner for NPM scripts
+ */
+export const getPackageScriptRunner = () => {
+  const packageManager = vscode.workspace.getConfiguration('otter').get<string>('packageManager', 'npm');
+  return packageManager === 'npm' ? 'npx' : packageManager;
+};

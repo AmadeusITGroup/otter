@@ -10,4 +10,5 @@ export * from './sub-entry';
 export * from './template-property.helper';
 export * from './matching-peers';
 export * from './package-version';
+export * from './monorepo';
 export * from './update-imports';

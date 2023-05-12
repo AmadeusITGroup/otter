@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { syncEntityActionsContent } from './mocks/example-actions';
 import { syncEntityReducerContent } from './mocks/example-reducer';
 import { syncEntityReducerSpecContent } from './mocks/example-reducer-spec';
@@ -25,13 +24,13 @@ describe('Store entity sync generator', () => {
 
   it('should generate sync entity store', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-entity-sync', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-entity-sync', {
       storeName: 'Example',
       modelName: 'Example',
       modelIdPropName: 'id',
       sdkPackage: '@api/sdk',
       path: './'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/example/example.actions.ts').replace(/\s|\n/g, '')).toEqual(syncEntityActionsContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.reducer.spec.ts').replace(/\s|\n/g, '')).toEqual(syncEntityReducerSpecContent.replace(/\s|\n/g, ''));

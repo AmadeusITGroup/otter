@@ -1,5 +1,5 @@
 import {of} from 'rxjs';
-import {executeOperator, numberValidator} from './operator.helpers';
+import {executeOperator, isRangeNumber, isString, isSupportedSimpleTypes, isValidDate, isValidDateInput, isValidDateRange, numberValidator} from './operator.helpers';
 import {Operator} from './operator.interface';
 
 describe('Operator helpers', () => {
@@ -118,6 +118,110 @@ describe('Operator helpers', () => {
       expect(numberValidator('123')).toBeTruthy();
       expect(numberValidator('123.5')).toBeTruthy();
       expect(numberValidator(123.5)).toBeTruthy();
+    });
+  });
+
+  describe('isRangeNumber', () => {
+    test('should return false if not a range number', () => {
+      expect(isRangeNumber([])).toBeFalsy();
+      expect(isRangeNumber({})).toBeFalsy();
+      expect(isRangeNumber('')).toBeFalsy();
+      expect(isRangeNumber('test')).toBeFalsy();
+      expect(isRangeNumber(false)).toBeFalsy();
+      expect(isRangeNumber(true)).toBeFalsy();
+      expect(isRangeNumber([3, 1])).toBeFalsy();
+      expect(isRangeNumber(['one', 'five'])).toBeFalsy();
+    });
+
+    test('should return true if a range number', () => {
+      expect(isRangeNumber([1, 3])).toBeTruthy();
+      expect(isRangeNumber(['2', '4'])).toBeTruthy();
+    });
+  });
+
+  describe('isValidDate', () => {
+    class FakeDate {
+      public getTime() {
+        return 1651069701964;
+      }
+    }
+
+    it('should validate input properly', () => {
+      expect(isValidDate(null)).toBeFalsy();
+      expect(isValidDate('test')).toBeFalsy();
+      expect(isValidDate(new Date('getTimeWillReturnNaN'))).toBeFalsy();
+      expect(isValidDate(new Date())).toBeTruthy();
+      expect(isValidDate(new FakeDate())).toBeTruthy();
+    });
+  });
+
+  describe('isValidDateInput', () => {
+    class FakeDate {
+      public toString() {
+        return new Date().toString();
+      }
+    }
+
+    it('should validate input properly', () => {
+      expect(isValidDateInput(null)).toBeFalsy();
+      expect(isValidDateInput('test')).toBeFalsy();
+      expect(isValidDateInput(new Date('getTimeWillReturnNaN'))).toBeFalsy();
+      expect(isValidDateInput(new Date())).toBeTruthy();
+      expect(isValidDateInput(new FakeDate())).toBeTruthy();
+      expect(isValidDateInput('2012-12-12')).toBeTruthy();
+      expect(isValidDateInput(123456789)).toBeTruthy();
+      expect(isValidDateInput(NaN)).toBeFalsy();
+    });
+  });
+
+  describe('isValidDateRange', () => {
+    it('should validate input properly', () => {
+      expect(isValidDateRange(null)).toBeFalsy();
+      expect(isValidDateRange('test')).toBeFalsy();
+      expect(isValidDateRange([3, 1])).toBeFalsy();
+      expect(isValidDateRange([1, NaN])).toBeFalsy();
+
+      expect(isValidDateRange([1, 2])).toBeTruthy();
+      expect(isValidDateRange(['2012-12-12', '2013-03-03'])).toBeTruthy();
+      expect(isValidDateRange([new Date('2012-12-12'), new Date('2013-03-03')])).toBeTruthy();
+    });
+  });
+
+  describe('isSupportedSimpleTypes', () => {
+    it('should validate input properly', () => {
+      expect(isSupportedSimpleTypes({random: 'object'})).toBeFalsy();
+      expect(isSupportedSimpleTypes({})).toBeFalsy();
+      expect(isSupportedSimpleTypes(['random', 'array'])).toBeFalsy();
+      expect(isSupportedSimpleTypes([])).toBeFalsy();
+
+      expect(isSupportedSimpleTypes(null)).toBeTruthy();
+      expect(isSupportedSimpleTypes(undefined)).toBeTruthy();
+      expect(isSupportedSimpleTypes(42)).toBeTruthy();
+      expect(isSupportedSimpleTypes(0)).toBeTruthy();
+      expect(isSupportedSimpleTypes('some text')).toBeTruthy();
+      expect(isSupportedSimpleTypes('')).toBeTruthy();
+      expect(isSupportedSimpleTypes(true)).toBeTruthy();
+      expect(isSupportedSimpleTypes(false)).toBeTruthy();
+      expect(isSupportedSimpleTypes(new Date())).toBeTruthy();
+    });
+  });
+
+  describe('isString', () => {
+    it('should validate input properly', () => {
+      expect(isString({random: 'object'})).toBeFalsy();
+      expect(isString({})).toBeFalsy();
+      expect(isString(['random', 'array'])).toBeFalsy();
+      expect(isString([])).toBeFalsy();
+      expect(isString(null)).toBeFalsy();
+      expect(isString(undefined)).toBeFalsy();
+      expect(isString(42)).toBeFalsy();
+      expect(isString(0)).toBeFalsy();
+      expect(isString(true)).toBeFalsy();
+      expect(isString(false)).toBeFalsy();
+      expect(isString(new Date())).toBeFalsy();
+
+      expect(isString('some text')).toBeTruthy();
+      expect(isString('')).toBeTruthy();
     });
   });
 });

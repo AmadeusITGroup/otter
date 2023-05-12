@@ -2,6 +2,7 @@
 import { dirname, relative } from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
+import { getPackageScriptRunner } from './helpers';
 
 /**
  * Generate store command
@@ -84,7 +85,7 @@ export function generateStoreGenerateCommand(_context: ExtensionContext, folder?
       `--model-name="${modelName}"`,
       `--model-id-prop-name="${modelIdPropName}"`
     ];
-    terminal.sendText(`yarn ng generate @o3r/core:store ${options.join(' ')} "${storeType}"`, true);
+    terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:store ${options.join(' ')} "${storeType}"`, true);
     terminal.show();
   };
 }

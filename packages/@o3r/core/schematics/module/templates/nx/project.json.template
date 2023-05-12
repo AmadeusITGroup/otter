@@ -1,0 +1,67 @@
+{
+  "name": "<%= projectName %>",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "<%= path %>/<%= name %>/src",
+  "prefix": "<%= prefix || '' %>",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "@angular-devkit/build-angular:ng-packagr",
+      "options": {
+        "project": "<%= path %>/<%= name %>/ng-package.json",
+        "tsConfig": "<%= path %>/<%= name %>/tsconfig.build.json"
+      },
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "<%= path %>/<%= name %>/.eslintrc.js",
+        "lintFilePatterns": [
+          "<%= path %>/<%= name %>/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "<%= path %>/<%= name %>/jest.config.js",
+        "silent": true
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish <%= path %>/<%= name %>/dist"
+      }
+    }
+  },
+  "tags": []
+}

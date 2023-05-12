@@ -4,7 +4,6 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { PRESENTER_FOLDER } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
@@ -49,7 +48,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component in the default component folder', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -57,7 +56,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
@@ -67,7 +66,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component as part of a full component structure', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -75,7 +74,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
@@ -85,14 +84,14 @@ describe('Component presenter', () => {
 
   it('should generate a presenter with the selector prefixed with o3r by default', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.component.ts', 'presenter')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, 'o3r')}-pres'`);
@@ -101,14 +100,14 @@ describe('Component presenter', () => {
   it('should generate a presenter with the selector prefixed with provided value', async () => {
     const customPrefix = '6x';
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: customPrefix,
       componentStructure: 'presenter',
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-pres.component.ts', 'presenter')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, customPrefix)}-pres'`);
@@ -116,7 +115,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without fixture', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -125,7 +124,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutFixture = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.fixture.ts');
 
@@ -137,7 +136,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without otter theme', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -146,7 +145,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutOtterTheme = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.style.theme.scss');
 
@@ -158,7 +157,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without translation', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -166,7 +165,7 @@ describe('Component presenter', () => {
       useComponentFixtures: false,
       activateDummy: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(tree.files.find((file) => /\.localization\.json$/i.test(file))!).replace(/[\s\r\n]/g, '')).toBe('{}');
     expect(tree.readContent(tree.files.find((file) => /\.translation\.ts$/i.test(file))!).replace(/[\s\r\n]/g, '')).toMatch(/extendsTranslation\{\}/);
@@ -175,7 +174,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without storybook', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -185,7 +184,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutStorybook = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.stories.ts');
 
@@ -197,7 +196,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without context', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -207,7 +206,7 @@ describe('Component presenter', () => {
       useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutContext = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.context.ts');
 
@@ -219,7 +218,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without localization', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -227,7 +226,7 @@ describe('Component presenter', () => {
       useLocalization: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutLocalization = expectedFileNames.filter((fileName) =>
       fileName !== 'test-component-pres.localization.json' && fileName !== 'test-component-pres.translation.ts'
@@ -241,7 +240,7 @@ describe('Component presenter', () => {
 
   it('should generate a presenter component without otter configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-presenter', {
+    const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
@@ -249,7 +248,7 @@ describe('Component presenter', () => {
       useOtterConfig: false,
       activateDummy: true,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutConfig = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.config.ts');
 
@@ -257,5 +256,25 @@ describe('Component presenter', () => {
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutConfig.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
+  });
+
+  it('should generate a standalone presenter component', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('component-presenter', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      standalone: true,
+      path: 'src/components'
+    }, initialTree);
+
+    const expectedFileNamesWithoutModule = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.module.ts');
+
+    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutModule.length);
+    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+      expectedFileNamesWithoutModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
+    );
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-pres.component.ts')))).toContain('standalone: true');
   });
 });

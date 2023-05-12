@@ -8,3 +8,4 @@
 - [integration](./how-to-use/integration.md)
 - [performance-metrics](./how-to-use/performance-metrics.md)
 - [placeholders](./how-to-use/placeholders.md)
+- [portal-facts](./how-to-use/portal-facts.md)

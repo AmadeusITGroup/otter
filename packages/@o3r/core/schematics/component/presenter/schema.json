@@ -93,6 +93,11 @@
       "type": "boolean",
       "description": "Skip the linter process",
       "default": false
+    },
+    "standalone": {
+      "type": "boolean",
+      "description": "Whether the generated component is standalone.",
+      "default": false
     }
   },
   "additionalProperties": true,

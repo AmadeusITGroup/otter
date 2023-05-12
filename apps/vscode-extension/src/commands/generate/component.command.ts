@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getCurrentFolder } from './helpers';
+import { getCurrentFolder, getPackageScriptRunner } from './helpers';
 
 /**
  * Generate component command
@@ -63,7 +63,7 @@ export function generateComponentGenerateCommand(_context: ExtensionContext, fol
       `--description="${description || ''}"`,
       ...(componentPath ? [`--path="${componentPath}" `] : [])
     ];
-    terminal.sendText(`yarn ng generate @o3r/core:component ${options.join(' ')} "${componentName}"`, true);
+    terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:component ${options.join(' ')} "${componentName}"`, true);
     terminal.show();
   };
 }

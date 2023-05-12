@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges, ViewEncapsulation} from '@angular/core';
-import {merge, of, Subject} from 'rxjs';
-import { delay, switchMap } from 'rxjs/operators';
+import {of, Subject} from 'rxjs';
+import { delay, startWith, switchMap } from 'rxjs/operators';
 
 /**
  * Duration of the notification for clipboard feature (in milliseconds)
@@ -49,26 +49,30 @@ export class RuleKeyValuePresComponent implements OnChanges {
 
   public shouldLimitCharactersForValue = true;
   public isClipBoardFeatureAvailableForValue = false;
+  public isValuePrimitiveType = false;
 
   public shouldLimitCharactersForOldValue = true;
   public isClipBoardFeatureAvailableForOldValue = false;
+  public isOldValuePrimitiveType = false;
 
   private triggerNotification = new Subject<void>();
   public showNotification$ = this.triggerNotification.asObservable().pipe(
-    switchMap(() => merge(of(true), of(false).pipe(delay(NOTIFICATION_DURATION))))
+    switchMap(() => of(false).pipe(delay(NOTIFICATION_DURATION), startWith(true)))
   );
 
-  public ngOnChanges({value, oldValue}: SimpleChanges) {
-    if (value && value.currentValue !== value.previousValue) {
-      this.isClipBoardFeatureAvailableForValue = this.isClipBoardFeatureAvailable(value?.currentValue);
-    }
-    if (oldValue && oldValue.currentValue !== oldValue.previousValue) {
-      this.isClipBoardFeatureAvailableForOldValue = this.isClipBoardFeatureAvailable(oldValue?.currentValue);
-    }
+  private isClipBoardFeatureAvailable(value: string | undefined) {
+    return !!(navigator.clipboard && value && value.length > CLIPBOARD_FEATURE_LENGTH_THRESHOLD);
   }
 
-  public isClipBoardFeatureAvailable(value: string | undefined) {
-    return !!(navigator.clipboard && value && value.length > CLIPBOARD_FEATURE_LENGTH_THRESHOLD);
+  public ngOnChanges({value, oldValue}: SimpleChanges) {
+    if (value) {
+      this.isValuePrimitiveType = value.currentValue === null || typeof value.currentValue !== 'object';
+      this.isClipBoardFeatureAvailableForValue = this.isClipBoardFeatureAvailable(this.isValuePrimitiveType ? String(value.currentValue) : JSON.stringify(value.currentValue));
+    }
+    if (oldValue) {
+      this.isOldValuePrimitiveType = oldValue.currentValue === null || typeof oldValue.currentValue !== 'object';
+      this.isClipBoardFeatureAvailableForOldValue = this.isClipBoardFeatureAvailable(this.isOldValuePrimitiveType ? String(oldValue.currentValue) : JSON.stringify(oldValue.currentValue));
+    }
   }
 
   public async copyToClipBoard(content: string) {

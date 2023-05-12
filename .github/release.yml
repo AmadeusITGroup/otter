@@ -1,0 +1,20 @@
+changelog:
+  exclude:
+    labels:
+      - dependencies
+  categories:
+    - title: 'Breaking Changes :warning:'
+      labels:
+        - 'breaking change'
+    - title: 'New Features :rocket:'
+      labels:
+        - enhancement
+    - title: 'Fixes :bug:'
+      labels:
+        - bug
+    - title: 'Documentation :file_cabinet:'
+      labels:
+        - documentation
+    - title: Other Changes
+      labels:
+        - "*"

@@ -629,6 +629,42 @@ Examples:
 
 - [simpleHeader.motto] Let's shape the future of travel
 
+## Enable Chrome extension debugging
+
+The Otter framework provides a [Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) to help debug the application.
+To enable the communication with the [Otter Devtools](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) the two following steps are required:
+
+1. Importing the Devtools module into the application AppModule:
+
+```typescript
+import { LocalizationDevtoolsModule } from '@o3r/localization';
+
+@NgModule({
+  imports: [
+    ...,
+    LocalizationDevtoolsModule
+  ]
+})
+export class AppModule { }
+```
+
+2. The debug message service needs to be activated
+
+```typescript
+import { LocalizationDevtoolsMessageService } from '@o3r/localization';
+
+@Component({ ... })
+export class AppComponent {
+  constructor(localizationMessageService: LocalizationDevtoolsMessageService) {
+    if (IS_DEBUG_MODE) {
+      localizationMessageService.activate();
+    }
+  }
+}
+```
+
+> **Note**: get more details on [dev tools session](../dev-tools/chrome-devtools.md)
+
 # How to properly create keys?
 
 

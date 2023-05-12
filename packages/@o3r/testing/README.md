@@ -1,6 +1,13 @@
-# Otter testing
+<h1 align="center">Otter testing</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 The module provides testing (e2e, unit test) utilities to help you build your own E2E pipeline integrating visual testing
 

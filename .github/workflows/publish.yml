@@ -28,6 +28,9 @@ on:
       AZURE_EMAIL:
         required: false
         description: Email of the user publishing on Azure Feeds for PR Artifacts
+      CASCADING_AZURE_APP_PUBLISH_PROFILE:
+        required: false
+        description: Profile authentication to publish the Cascading Application
 
 jobs:
   publish:
@@ -52,7 +55,6 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        continue-on-error: ${{ github.event_name == 'pull_request' }}
         run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +62,53 @@ jobs:
           AZURE_AUTH_TOKEN: ${{ secrets.AZURE_AUTH_TOKEN }}
           AZURE_USERNAME: ${{ secrets.AZURE_USERNAME }}
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
+
+  publish-cascading:
+    if: github.event_name != 'pull_request' && github.ref_name == 'main'
+    runs-on: ubuntu-latest
+    env:
+      APP_PATH: 'apps/github-cascading-app/dist'
+    environment: 'cascading-app'
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
+        with:
+          enable-build-cache: false
+      - run: yarn set:version ${{ inputs.version }}
+      - name: 'NPM install locally'
+        run: |
+          pushd './${{env.APP_PATH}}'
+          npm install
+          popd
+      - name: 'Publish Cascading Azure Functions'
+        env:
+          PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
+        if: env.PUBLISH_PROFILE != null
+        uses: Azure/functions-action@v1
+        with:
+          app-name: 'github-cascading'
+          slot-name: 'production'
+          package: './${{env.APP_PATH}}'
+          publish-profile: ${{ env.PUBLISH_PROFILE }}
+
+  publish-extensions:
+    runs-on: ubuntu-latest
+    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
+        with:
+          enable-build-cache: ${{ github.event_name == 'pull_request' }}
+      - run: yarn set:version ${{ inputs.version }}
       - name: Publish Extensions
         if: '!inputs.prerelease'
         run: yarn run ${{ endsWith(inputs.version, '.0') && 'publish:extensions' || 'publish:extensions:affected --base=HEAD~1' }}
@@ -70,7 +119,6 @@ jobs:
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Expose Chrome extension artifact
         if: '!inputs.prerelease'
-        continue-on-error: true
         uses: actions/upload-artifact@v3
         with:
           name: chrome-extension

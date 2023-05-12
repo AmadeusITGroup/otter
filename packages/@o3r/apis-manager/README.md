@@ -1,6 +1,13 @@
-# Otter Apis-manager
+<h1 align="center">Otter APIs-manager</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 This module provides services to help you communicate with your APIs. Its responsibility is to provide an API configuration to a service factory so that it could instantiate an API with the right configurations.
 
@@ -103,7 +110,7 @@ class MyClass {
 
 > **Warning** : Do not forget to import the **ApiManagerModule** in you component module
 
-### Enforce custom Api usage
+### Enforce custom API usage
 
 Some users may want to enforce existing components or services to use a specific Sdk instead of default API SDK.
 To do so the **INITIAL_APIS_TOKEN** will allow to indicate to the **ApiFactory** the class they will need to use (instead of default ones).
@@ -165,3 +172,31 @@ class MyClass {
 
 }
 ```
+
+## Helper functions
+
+### Preconnect
+
+The appendPreconnect function adds a preconnect <link> element to the DOM. This can be used to inform the browser that resources from a certain origin will be needed in the future, so that the browser can start resolving DNS, establishing TCP connections, and performing TLS handshakes early, reducing the overall page load time.
+
+To use this function, simply call it with the `baseUrl` parameter set to the origin of the resource you will need in the future. If you want to add the crossorigin attribute to the link element, set the `supportCrossOrigin` parameter to `true`. For example:
+
+```typescript
+import { appendPreconnect } from '@o3r/apis-manager';
+
+appendPreconnect('https://your-api.com', true);
+```
+
+This will add a preconnect link element to the DOM with the href attribute set to <https://example.com> and the crossorigin attribute set to an empty string.
+
+#### Benefits of using preconnect
+
+Using preconnect can have several benefits:
+
+- Faster page load times: By preconnecting to endpoints that will be needed in the future, the browser can start resolving DNS, establishing TCP connections, and performing TLS handshakes early, reducing the overall page load time.
+
+- Better user experience: Faster page load times can lead to a better user experience, as users will not have to wait as long for the page to load.
+
+- Reduced server load: By preconnecting to endpoints that will be needed in the future, the server load can be reduced, as the server can start serving the resources earlier.
+
+- Improved SEO: Faster page load times can improve the search engine rankings of a website, as search engines take page load times into account when ranking websites.

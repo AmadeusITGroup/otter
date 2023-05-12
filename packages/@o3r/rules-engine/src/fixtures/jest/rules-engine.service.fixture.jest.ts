@@ -1,5 +1,5 @@
-import type { PlaceholderTemplateReply } from '@o3r/components';
-import type { Fact, Operator, RulesEngineService, UnaryOperator } from '@o3r/rules-engine';
+import type {Fact, Operator, RulesEngineService, UnaryOperator} from '@o3r/rules-engine';
+import {PlaceholderRequestReply} from '@o3r/components';
 
 export class RulesEngineServiceFixture implements Readonly<Partial<RulesEngineService>> {
 
@@ -13,7 +13,7 @@ export class RulesEngineServiceFixture implements Readonly<Partial<RulesEngineSe
   public resolveUrlWithLang: jest.Mock<string, [string, string]> = jest.fn();
 
   /** @inheritDoc */
-  public retrieveTemplate: jest.Mock<Promise<PlaceholderTemplateReply>, [string]> = jest.fn();
+  public retrieveTemplate: jest.Mock<Promise<PlaceholderRequestReply>, [string]> = jest.fn();
 
   /** @inheritDoc */
   public enableRuleSetFor: jest.Mock<void, [string]> = jest.fn();

@@ -1,4 +1,9 @@
-# Otter dev tools
+<h1 align="center">Otter dev tools</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
+
+## Description
 
 Various CLI scripts to help your CI/CD and your dependency management
 

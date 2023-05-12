@@ -10,5 +10,5 @@ See [Action specifications](tools/github-actions/download-build-output/action.ym
 ```yaml
 - name: Download Build Output
   id: download-build-output
-  uses: AmadeusITGroup/otter/tools/github-actions/download-build-output@v8.0.15
+  uses: AmadeusITGroup/otter/tools/github-actions/download-build-output@8
 ```

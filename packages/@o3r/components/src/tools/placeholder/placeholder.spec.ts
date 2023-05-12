@@ -25,21 +25,23 @@ describe('Placeholder component', () => {
   beforeAll(
     () => getTestBed().platform ||
       TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
-        teardown: { destroyAfterEach: false }
+        teardown: {destroyAfterEach: false}
       }));
 
   let placeholderComponent: ComponentFixture<PlaceholderComponent>;
-  let storeContent: Subject<{ renderedTemplate: string; isPending?: boolean }>;
+  type TemplatesFromStore = { orderedRenderedTemplates: (string | undefined)[]; isPending: boolean };
+  let storeContent: Subject<TemplatesFromStore>;
   let mockStore: {
     dispatch: jest.Mock;
     pipe: jest.Mock;
+    select: jest.Mock;
   };
-
   beforeEach(async () => {
-    storeContent = new BehaviorSubject({renderedTemplate: ''});
+    storeContent = new BehaviorSubject<TemplatesFromStore>({orderedRenderedTemplates: [''], isPending: false});
     mockStore = {
       dispatch: jest.fn(),
-      pipe: jest.fn().mockReturnValue(storeContent)
+      pipe: jest.fn().mockReturnValue(storeContent),
+      select: jest.fn().mockReturnValue(storeContent)
     };
     await TestBed.configureTestingModule({
       imports: [
@@ -59,7 +61,8 @@ describe('Placeholder component', () => {
     placeholderComponent = TestBed.createComponent(PlaceholderComponent);
 
     storeContent.next({
-      renderedTemplate: '<div>test template</div>'
+      orderedRenderedTemplates: ['<div>test template</div>'],
+      isPending: false
     });
 
     placeholderComponent.componentInstance.id = 'testPlaceholder';
@@ -67,6 +70,21 @@ describe('Placeholder component', () => {
 
     expect(placeholderComponent.nativeElement.children[0].tagName).toBe('DIV');
     expect(placeholderComponent.nativeElement.children[0].innerHTML).toEqual('<div>test template</div>');
+  });
+
+  it('should render the templates', () => {
+    placeholderComponent = TestBed.createComponent(PlaceholderComponent);
+
+    storeContent.next({
+      orderedRenderedTemplates: ['<div>test template</div>', '<div>test template 2</div>'],
+      isPending: false
+    });
+
+    placeholderComponent.componentInstance.id = 'testPlaceholder';
+    placeholderComponent.detectChanges();
+
+    expect(placeholderComponent.nativeElement.children[0].tagName).toBe('DIV');
+    expect(placeholderComponent.nativeElement.children[0].innerHTML).toEqual('<div>test template</div><div>test template 2</div>');
   });
 
   it('should retrieve new template on ID change', () => {
@@ -78,7 +96,7 @@ describe('Placeholder component', () => {
     placeholderComponent.componentInstance.id = 'testPlaceholder2';
     placeholderComponent.detectChanges(true);
 
-    expect(mockStore.pipe).toHaveBeenCalledTimes(2);
+    expect(mockStore.select).toHaveBeenCalledTimes(2);
   });
 
   it('isPending status of the placeholder should display the ng-content', () => {
@@ -93,13 +111,13 @@ describe('Placeholder component', () => {
     expect(contentDisplayed.query(By.css('span'))).toBe(null);
 
     // Simulate a call to an url to retrieve a placeholder, Loading... should be displayed
-    storeContent.next({renderedTemplate: undefined, isPending: true});
+    storeContent.next({orderedRenderedTemplates: [''], isPending: true});
     testComponentFixture.detectChanges();
 
     expect(contentDisplayed.query(By.css('span')).nativeElement.innerHTML).toBe('Loading...');
 
     // Simulate the result from the call, setting isPending to false, renderedTemplate should be displayed
-    storeContent.next({renderedTemplate: 'This is the rendered template', isPending: false});
+    storeContent.next({orderedRenderedTemplates: ['This is the rendered template'], isPending: false});
     testComponentFixture.detectChanges();
 
     expect(contentDisplayed.query(By.css('div')).nativeElement.innerHTML).toBe('This is the rendered template');

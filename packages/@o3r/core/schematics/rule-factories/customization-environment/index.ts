@@ -1,8 +1,13 @@
-import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
-import { addSymbolToNgModuleMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
-
-import { getFileInfo, getTemplateFolder, ngAddPackages } from '@o3r/schematics';
-import { InsertChange } from '@schematics/angular/utility/change';
+import {apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url} from '@angular-devkit/schematics';
+import {addSymbolToNgModuleMetadata, isImported} from '@schematics/angular/utility/ast-utils';
+import {
+  getFileInfo,
+  getTemplateFolder,
+  ngAddPackages,
+  insertBeforeModule as o3rInsertBeforeModule,
+  insertImportToModuleFile as o3rInsertImportToModuleFile
+} from '@o3r/schematics';
+import {InsertChange} from '@schematics/angular/utility/change';
 
 /**
  * Enable customization capabilities
@@ -10,6 +15,7 @@ import { InsertChange } from '@schematics/angular/utility/change';
  * @param rootPath @see RuleFactory.rootPath
  * @param o3rCoreVersion
  * @param _options
+ * @param _options.projectName
  */
 export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null }): Rule {
   /**
@@ -52,6 +58,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       return tree;
     }
 
+    const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/[\r\n ]*/g, '');
     const recorder = tree.beginUpdate(fileInfo.moduleFilePath);
     const moduleIndex = fileInfo.ngModulesMetadata && fileInfo.ngModulesMetadata[0] ?
       fileInfo.ngModulesMetadata[0].pos - ('NgModule'.length + 1) : fileInfo.appModuleFile.indexOf('@NgModule');
@@ -64,13 +71,8 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
      * @param file
      * @param isDefault
      */
-    const insertImportToModuleFile = (rec: UpdateRecorder, name: string, file: string, isDefault?: boolean) => {
-      const importChange = insertImport(fileInfo.sourceFile!, fileInfo.moduleFilePath!, name, file, isDefault);
-      if (importChange instanceof InsertChange) {
-        return rec.insertLeft(importChange.pos, importChange.toAdd);
-      }
-      return rec;
-    };
+    const insertImportToModuleFile = (rec: UpdateRecorder, name: string, file: string, isDefault?: boolean) =>
+      o3rInsertImportToModuleFile(name, file, fileInfo.sourceFile!, rec, fileInfo.moduleFilePath!, isDefault);
 
     /**
      * Add elements in the metadata of the ngModule (entryComponents, imports etc.)
@@ -94,14 +96,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
      * @param rec
      * @param line
      */
-    const insertBeforeModule = (rec: UpdateRecorder, line: string) => {
-      const buffer = tree.read(fileInfo.moduleFilePath!);
-      const content = buffer ? buffer.toString().replace(/[\r\n ]*/g, '') : '';
-      if (content.indexOf(line.replace(/[\r\n ]*/g, '')) === -1) {
-        return rec.insertLeft(moduleIndex - 1, `${line}\n\n`);
-      }
-      return rec;
-    };
+    const insertBeforeModule = (rec: UpdateRecorder, line: string) => o3rInsertBeforeModule(line, fileContent, rec, moduleIndex);
 
     let updatedRecorder = recorder;
 

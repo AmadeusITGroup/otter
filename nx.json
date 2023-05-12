@@ -47,6 +47,7 @@
           "build-fixtures",
           "build-fixtures-jasmine",
           "build-fixtures-jest",
+          "documentation",
           "extract-translations",
           "extract-components",
           "extract-style",
@@ -239,35 +240,21 @@
         "{projectRoot}/dist/plugins",
         "{projectRoot}/build/plugins"
       ]
+    },
+    "documentation": {
+      "outputs": [
+        "{workspaceRoot}/generated-doc/{projectName}/**/*"
+      ],
+      "inputs": ["source"]
     }
   },
   "generators": {
     "@schematics/angular:component": {
       "style": "scss"
     },
-    "@o3r/components:iframe-component": {
-      "path": "apps/@o3r/demo/src/components"
-    },
-    "@o3r/core:component": {
-      "path": "apps/@o3r/demo/src/components",
-      "useStorybook": true
-    },
-    "@o3r/core:service": {
-      "path": "apps/@o3r/demo/src/services"
-    },
-    "@o3r/core:store": {
-      "path": "apps/@o3r/demo/src/stores",
-      "testFramework": "jest"
-    },
-    "@o3r/core:page": {
-      "path": "apps/@o3r/demo/src/app",
-      "appRoutingModulePath": "apps/@o3r/demo/src/app/app.routing.module.ts"
-    },
-    "@o3r/testing:playwright-sanity": {
-      "path": "apps/@o3r/demo/src/e2e-playwright/sanity"
-    },
-    "@o3r/testing:playwright-scenario": {
-      "path": "apps/@o3r/demo/src/e2e-playwright/scenarios"
+    "@o3r/core:module": {
+      "path": "packages",
+      "prefix": "o3r"
     }
   },
   "defaultProject": "core",

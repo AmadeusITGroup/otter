@@ -52,14 +52,15 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
  */
 export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: string) => {
   const workspacePackageJsonPath = findParentPackageJson(rootDir);
-  testingTsconfigPath ||= resolve(workspacePackageJsonPath ? dirname(workspacePackageJsonPath) : process.cwd(), 'tsconfig.base.json');
+  const workspacePath = workspacePackageJsonPath ? dirname(workspacePackageJsonPath) : process.cwd();
+  testingTsconfigPath ||= resolve(workspacePath, 'tsconfig.base.json');
 
   if (!existsSync(testingTsconfigPath)) {
     console.warn(`${testingTsconfigPath} not found`);
     return {};
   }
   const { compilerOptions } = require(testingTsconfigPath) as { compilerOptions: { paths: { [key: string]: string[] } } };
-  const relativePath = relative(rootDir, process.cwd());
+  const relativePath = relative(rootDir, workspacePath);
   return Object.entries(compilerOptions.paths).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
     const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/[*]/g, '$1')}`.replace(/\/{2,}/g, '/'));
     acc['^' + keyPath.replace(/[*]/g, '(.*)') + '$'] = relativeModulePath;

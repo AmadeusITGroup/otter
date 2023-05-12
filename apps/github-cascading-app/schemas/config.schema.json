@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "cascadingConfiguration",
+  "type": "object",
+  "required": [
+  ],
+  "properties": {
+    "$schema": true,
+    "ignoredPatterns": {
+      "type": "array",
+      "description": "Ignore the branches that match this pattern for the cascading",
+      "examples": [
+        ["-next$"]
+      ],
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaultBranch": {
+      "type": "string",
+      "description": "The default branch if you have one, if no candidate found with the given pattern this branch will be the last one where the code will be cascaded (the repository default branch will be used if not defined)",
+      "examples": [
+        "main",
+        "develop",
+        "master"
+      ]
+    },
+    "cascadingBranchesPattern": {
+      "type": "string",
+      "description": "Pattern determining if the branch is part of the cascading strategy",
+      "default": "^releases?/\\d+\\.\\d+"
+    },
+    "versionCapturePattern": {
+      "type": "string",
+      "description": "Pattern containing a capture to extract the version of a cascading branch",
+      "default": "/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$"
+    },
+    "bypassReviewers": {
+      "type": "boolean",
+      "description": "Bypass the reviewers validation for the pull request, only the CI checks will be executed (the application will need to be listed as bypass users)",
+      "default": false
+    },
+    "labels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of labels to be added to the Pull Request",
+      "default": []
+    },
+    "pullRequestTitle": {
+      "type": "string",
+      "description": "Title of the generated pull request\n\nThe text can include the following variables that will be replaced by the cascading app:\n- **$origin** : Origin branch\n- **$target** : Target branch",
+      "default": "[cascading] from $origin to $target"
+    }
+  },
+  "additionalItems": false
+}

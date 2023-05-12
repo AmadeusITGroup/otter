@@ -90,6 +90,11 @@
     "useOtterAnalytics": {
       "type": "boolean",
       "description": "Generate component with Otter analytics architecture"
+    },
+    "standalone": {
+      "type": "boolean",
+      "description": "Whether the generated component is standalone.",
+      "default": false
     }
   },
   "additionalProperties": true,

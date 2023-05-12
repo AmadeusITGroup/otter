@@ -4,7 +4,6 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { CONTAINER_FOLDER } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
@@ -44,13 +43,13 @@ describe('Component container', () => {
 
   it('should generate a container component in the default component folder', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'container',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
@@ -60,13 +59,13 @@ describe('Component container', () => {
 
   it('should generate a container component as part of a full component structure', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'full',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNames.length);
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
@@ -76,13 +75,13 @@ describe('Component container', () => {
 
   it('should generate a container with the selector prefixed with o3r by default', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'container',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.component.ts', 'container')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, 'o3r')}-cont'`);
@@ -91,13 +90,13 @@ describe('Component container', () => {
   it('should generate a container with the selector prefixed with provided value', async () => {
     const customPrefix = '6x';
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: customPrefix,
       componentStructure: 'container',
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent(getGeneratedComponentPath(componentName, 'test-component-cont.component.ts', 'container')))
       .toContain(`selector: '${getComponentSelectorWithoutSuffix(componentName, customPrefix)}-cont'`);
@@ -105,14 +104,14 @@ describe('Component container', () => {
 
   it('should generate a container component without fixture', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'container',
       useComponentFixtures: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutFixture = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.fixture.ts');
 
@@ -124,14 +123,14 @@ describe('Component container', () => {
 
   it('should generate a container component without otter configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runSchematicAsync('component-container', {
+    const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'container',
       useOtterConfig: false,
       path: 'src/components'
-    }, initialTree));
+    }, initialTree);
 
     const expectedFileNamesWithoutConfig = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.config.ts');
 
@@ -139,5 +138,25 @@ describe('Component container', () => {
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutConfig.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
     );
+  });
+
+  it('should generate a standalone container component', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'container',
+      standalone: true,
+      path: 'src/components'
+    }, initialTree);
+
+    const expectedFileNamesWithoutModule = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.module.ts');
+
+    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutModule.length);
+    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
+      expectedFileNamesWithoutModule.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
+    );
+    expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.component.ts')))).toContain('standalone: true');
   });
 });

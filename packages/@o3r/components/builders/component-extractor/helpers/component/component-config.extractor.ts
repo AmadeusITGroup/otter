@@ -2,6 +2,7 @@ import { logging } from '@angular-devkit/core';
 import type { ConfigProperty, ConfigPropertyTypes, ConfigType, NestedConfiguration } from '@o3r/components';
 import { CategoryDescription } from '@o3r/core';
 import { ConfigDocParser } from '@o3r/extractors';
+import { readFileSync } from 'node:fs';
 import * as ts from 'typescript';
 
 /** Information extracted from a configuration file */
@@ -70,8 +71,17 @@ export class ComponentConfigExtractor {
    * @param logger Logger
    * @param filePath Path to the file to extract the configuration from
    * @param checker Typescript TypeChecker of the program
+   * @param libraries
    */
-  constructor(private libraryName: string, private strictMode: boolean, public source: ts.SourceFile, private logger: logging.LoggerApi, public filePath: string, public checker: ts.TypeChecker) {
+  constructor(
+    private libraryName: string,
+    private strictMode: boolean,
+    public source: ts.SourceFile,
+    private logger: logging.LoggerApi,
+    public filePath: string,
+    public checker: ts.TypeChecker,
+    public libraries: string[] = []
+  ) {
     this.configDocParser = new ConfigDocParser();
   }
 
@@ -106,8 +116,9 @@ export class ComponentConfigExtractor {
    *
    * @param node Typescript node to extract the data from
    * @param configurationWrapper the configuration wrapper containing nestedConfig and union type strings
+   * @param source
    */
-  private getTypeFromNode(node: ts.Node | undefined, configurationWrapper?: ConfigurationInformationWrapper):
+  private getTypeFromNode(node: ts.Node | undefined, configurationWrapper?: ConfigurationInformationWrapper, source: ts.SourceFile = this.source):
     {type: ConfigPropertyTypes; ref?: {library: string; name: string}; choices?: string[]} {
     const nestedConfiguration = configurationWrapper?.nestedConfiguration;
     const enumTypesAlias = configurationWrapper?.unionTypeStringLiteral;
@@ -117,8 +128,48 @@ export class ComponentConfigExtractor {
     if (ts.isParenthesizedTypeNode(node)) {
       return this.getTypeFromNode(node.type, configurationWrapper);
     } else if (ts.isArrayTypeNode(node)) {
+      const typeNode = node.elementType;
+      if (ts.isTypeReferenceNode(typeNode) && ts.isIdentifier(typeNode.typeName)) {
+        const importFromLibraries = source.statements.find((statement): statement is ts.ImportDeclaration & { moduleSpecifier: ts.StringLiteral } =>
+          ts.isImportDeclaration(statement)
+          && ts.isStringLiteral(statement.moduleSpecifier)
+          && this.libraries.includes(statement.moduleSpecifier.text)
+          && !!statement.importClause?.namedBindings
+          && ts.isNamedImports(statement.importClause.namedBindings)
+          && !!statement.importClause.namedBindings.elements.find((nameBinding) =>
+            ts.isImportSpecifier(nameBinding)
+            && ts.isIdentifier(nameBinding.name)
+            && nameBinding.name.escapedText === typeNode.typeName.getText()
+          )
+        );
+        if (importFromLibraries) {
+          return {
+            type: 'element[]',
+            ref: {
+              library: importFromLibraries.moduleSpecifier.text,
+              name: typeNode.typeName.getText()
+            }
+          };
+        } else if (configurationWrapper) {
+          const type = this.checker.getTypeFromTypeNode(typeNode);
+          const baseTypes = type.getBaseTypes();
+          const extendsNested = !!baseTypes?.some((baseType) => baseType.symbol.escapedName.toString().match(/^NestedConfiguration$/));
+          if (extendsNested) {
+            const nestedFilePath: string = (type.symbol as any).parent.declarations[0].fileName;
+            const nestedSourceFile = ts.createSourceFile(
+              nestedFilePath,
+              readFileSync(nestedFilePath).toString(),
+              ts.ScriptTarget.ES2015,
+              true
+            );
+            const nestedConfig = this.collectNestedConfiguration(nestedSourceFile);
+            configurationWrapper.nestedConfiguration = [...(new Set(configurationWrapper.nestedConfiguration.concat(...nestedConfig.nestedConfiguration)))];
+            configurationWrapper.unionTypeStringLiteral = [...(new Set(configurationWrapper.unionTypeStringLiteral.concat(...nestedConfig.unionTypeStringLiteral)))];
+          }
+        }
+      }
       // CMS Team expects element[] type for nested configuration and a reference to the configuration
-      const childType = this.getTypeFromNode(node.getChildren(this.source)[0], configurationWrapper);
+      const childType = this.getTypeFromNode(node.getChildren(source)[0], configurationWrapper);
       if ([this.DEFAULT_UNKNOWN_TYPE, 'string', 'number', 'boolean', 'enum'].includes(childType.type)) {
         return {type: childType.type + '[]' as ConfigPropertyTypes, choices: childType.type === 'enum' ? childType.choices : undefined};
       }
@@ -127,7 +178,7 @@ export class ComponentConfigExtractor {
         name: childType.type
       }};
     } else if (ts.isTypeReferenceNode(node)) {
-      const name = node.getChildren(this.source)[0].getText(this.source) as ConfigPropertyTypes;
+      const name = node.getChildren(source)[0].getText(source) as ConfigPropertyTypes;
       if (nestedConfiguration && nestedConfiguration.some((nestedConfig) => nestedConfig.name === name)) {
         return {type: name};
       }
@@ -154,14 +205,18 @@ export class ComponentConfigExtractor {
     }
     // Handle the native types
     switch (node.kind) {
-      case ts.SyntaxKind.StringKeyword:
+      case ts.SyntaxKind.StringKeyword: {
         return {type: 'string'};
-      case ts.SyntaxKind.BooleanKeyword:
+      }
+      case ts.SyntaxKind.BooleanKeyword: {
         return {type: 'boolean'};
-      case ts.SyntaxKind.NumberKeyword:
+      }
+      case ts.SyntaxKind.NumberKeyword: {
         return {type: 'number'};
-      default:
+      }
+      default: {
         return {type: this.DEFAULT_UNKNOWN_TYPE};
+      }
     }
   }
 
@@ -170,9 +225,10 @@ export class ComponentConfigExtractor {
    *
    * @param propertyNode Node to extract the data from
    * @param configurationWrapper the configuration wrapper containing nestedConfig and union type strings
+   * @param source
    */
-  private extractPropertySignatureData(propertyNode: ts.PropertySignature, configurationWrapper?: ConfigurationInformationWrapper): ConfigProperty {
-    const configDocInfo = this.configDocParser.parseConfigDocFromNode(this.source, propertyNode);
+  private extractPropertySignatureData(propertyNode: ts.PropertySignature, configurationWrapper?: ConfigurationInformationWrapper, source: ts.SourceFile = this.source): ConfigProperty {
+    const configDocInfo = this.configDocParser.parseConfigDocFromNode(source, propertyNode);
     const name = propertyNode.name.getText() || '';
     const res: ConfigProperty = {
       description: configDocInfo?.description || '',
@@ -186,7 +242,7 @@ export class ComponentConfigExtractor {
       this.handleErrorCases(`${propertyNode.name.getText()} property has been identified as optional, which is not cms compliant`);
     }
 
-    const typeFromNode = this.getTypeFromNode(propertyNode.type, configurationWrapper);
+    const typeFromNode = this.getTypeFromNode(propertyNode.type, configurationWrapper, source);
     res.type = typeFromNode.type;
     res.reference = typeFromNode.ref;
     res.choices = typeFromNode.choices;
@@ -202,15 +258,16 @@ export class ComponentConfigExtractor {
    * Extract the possible options in case of an enum node
    *
    * @param node Node to extract the data from
+   * @param source
    */
-  private extractOptionsForEnum(node: ts.UnionTypeNode): string[] {
+  private extractOptionsForEnum(node: ts.UnionTypeNode, source: ts.SourceFile = this.source): string[] {
     const options: string[] = [];
     node.types.forEach((type) => {
       if (ts.isLiteralTypeNode(type) && ts.isStringLiteral(type.literal)) {
         options.push(type.literal.text);
       } else {
         this.handleErrorCases(
-          `${node.getText(this.source)} is a UnionType that does not have literal elements. This is not cms compliant`);
+          `${node.getText(source)} is a UnionType that does not have literal elements. This is not cms compliant`);
       }
     });
     return options;
@@ -221,8 +278,13 @@ export class ComponentConfigExtractor {
    *
    * @param interfaceNode Node of a typescript interface
    * @param configurationWrapper
+   * @param source
    */
-  private getPropertiesFromConfigurationInterface(interfaceNode: ts.InterfaceDeclaration, configurationWrapper?: ConfigurationInformationWrapper): ConfigurationInformation | undefined {
+  private getPropertiesFromConfigurationInterface(
+    interfaceNode: ts.InterfaceDeclaration,
+    configurationWrapper?: ConfigurationInformationWrapper,
+    source: ts.SourceFile = this.source
+  ): ConfigurationInformation | undefined {
     let isConfiguration = false;
     let runtime: boolean | undefined;
     let name: string | undefined;
@@ -231,10 +293,10 @@ export class ComponentConfigExtractor {
 
     interfaceNode.forEachChild((node) => {
       if (ts.isIdentifier(node)) {
-        name = node.getText(this.source);
+        name = node.getText(source);
       } else if (ts.isHeritageClause(node)) {
-        node.getChildren(this.source).forEach((extendedInterfaceNode) => {
-          const content = extendedInterfaceNode.getText(this.source);
+        node.getChildren(source).forEach((extendedInterfaceNode) => {
+          const content = extendedInterfaceNode.getText(source);
           isConfiguration = isConfiguration || this.CONFIGURATION_INTERFACES.some((r) => r.test(content));
           if (typeof runtime === 'undefined') {
             if (new RegExp('AppBuildConfiguration' as ConfigType).test(content)) {
@@ -246,7 +308,7 @@ export class ComponentConfigExtractor {
         });
 
       } else if (isConfiguration && ts.isPropertySignature(node)) {
-        const property: ConfigProperty = this.extractPropertySignatureData(node, configurationWrapper);
+        const property: ConfigProperty = this.extractPropertySignatureData(node, configurationWrapper, source);
         properties.push(property);
         if (property.category && categoriesOnProps.indexOf(property.category) === -1) {
           categoriesOnProps.push(property.category);
@@ -261,7 +323,7 @@ export class ComponentConfigExtractor {
     } else {
       this.logger.debug(`${name!} is ignored because it is not a configuration`);
     }
-    const configDocInfo = this.configDocParser.parseConfigDocFromNode(this.source, interfaceNode);
+    const configDocInfo = this.configDocParser.parseConfigDocFromNode(source, interfaceNode);
 
     if (configDocInfo && configDocInfo.categories) {
       for (const describedCategory of configDocInfo.categories) {
@@ -305,7 +367,11 @@ export class ComponentConfigExtractor {
                               if (ts.isStringLiteral(arrayItem)) {
                                 // Handle string (StringLiteral = 10)
                                 property.values!.push(this.removeQuotationMarks(arrayItem.getText(this.source)));
-                              } else if (ts.isObjectLiteralExpression(arrayItem) && property.reference && this.isTypedNestedConfiguration(property.reference.name, configurationInformationWrapper)) {
+                              } else if (
+                                ts.isObjectLiteralExpression(arrayItem)
+                                && property.reference
+                                && this.isTypedNestedConfiguration(property.reference.name, configurationInformationWrapper, this.libraries)
+                              ) {
                                 let defaultValuesMapArrayItem: NestedConfiguration = {};
                                 arrayItem.forEachChild((arrayItemProperty) => {
                                   if (ts.isPropertyAssignment(arrayItemProperty)) {
@@ -361,8 +427,9 @@ export class ComponentConfigExtractor {
    *
    * @param propertyName
    * @param nestedConfiguration List of nested configuration
+   * @param libraries
    */
-  private isTypedNestedConfiguration(propertyName: string, nestedConfiguration: ConfigurationInformationWrapper) {
+  private isTypedNestedConfiguration(propertyName: string, nestedConfiguration: ConfigurationInformationWrapper, libraries: string[]) {
     if (!nestedConfiguration.configurationInformation) {
       return false;
     }
@@ -371,6 +438,10 @@ export class ComponentConfigExtractor {
     const property = nestedConfiguration.configurationInformation.properties.find((prop) => prop.reference?.name === propertyName);
     if (!property) {
       return false;
+    }
+
+    if (property.reference?.library && libraries.includes(property.reference.library)) {
+      return true;
     }
 
     // Extract the type associated to the property
@@ -388,14 +459,15 @@ export class ComponentConfigExtractor {
    *
    * @param interfaceDeclaration
    * @param extendedInterfaceNames
+   * @param source
    */
-  private isExtending(interfaceDeclaration: ts.InterfaceDeclaration, extendedInterfaceNames: RegExp[]): boolean {
+  private isExtending(interfaceDeclaration: ts.InterfaceDeclaration, extendedInterfaceNames: RegExp[], source: ts.SourceFile = this.source): boolean {
     if (!interfaceDeclaration.heritageClauses) {
       return false;
     }
     return interfaceDeclaration.heritageClauses.some((heritageClause: ts.HeritageClause) => {
       return heritageClause.types.some((type) => {
-        return extendedInterfaceNames.some((r) => r.test(type.expression.getText(this.source)));
+        return extendedInterfaceNames.some((r) => r.test(type.expression.getText(source)));
       });
     });
   }
@@ -411,43 +483,46 @@ export class ComponentConfigExtractor {
     }
     nestedConfigurationInformation.properties.forEach(((property) => {
       switch (property.type) {
-        case 'string':
+        case 'string': {
           property.value = '';
           break;
-        case 'boolean':
+        }
+        case 'boolean': {
           property.value = 'false';
           break;
-        case 'number':
+        }
+        case 'number': {
           property.value = '0';
           break;
-        case 'enum':
+        }
+        case 'enum': {
           property.value = property.choices?.[0];
           break;
+        }
       }
     }));
     return nestedConfigurationInformation;
   }
 
   /**
-   * Extract the configuration of a typescript file
+   * Collect nested configuration information
+   *
+   * @param source
    */
-  public extract() {
-    this.logger.debug(`Parsing configuration from ${this.filePath}`);
-
+  private collectNestedConfiguration(source: ts.SourceFile): ConfigurationInformationWrapper {
     const configurationInformationWrapper: ConfigurationInformationWrapper = { nestedConfiguration: [], unionTypeStringLiteral: [] };
-    let configInterfaceFound = false;
-    // First Iteration to collect the nested configuration interfaces
-    this.source.forEachChild((node) => {
+
+    source.forEachChild((node) => {
       if (ts.isTypeAliasDeclaration(node) && ts.isUnionTypeNode(node.type) && this.hasStringElements(node.type)) {
         configurationInformationWrapper.unionTypeStringLiteral.push({
-          name: node.name.getText(this.source),
-          choices: this.extractOptionsForEnum(node.type)
+          name: node.name.getText(source),
+          choices: this.extractOptionsForEnum(node.type, source)
         });
       }
       if (ts.isInterfaceDeclaration(node)) {
         // If it extends NestedConfiguration, we consider it as an independent NestedConfig
-        if (this.isExtending(node, [/NestedConfiguration/])) {
-          let nestedConfigurationInformation = this.getPropertiesFromConfigurationInterface(node, configurationInformationWrapper);
+        if (this.isExtending(node, [/NestedConfiguration/], source)) {
+          let nestedConfigurationInformation = this.getPropertiesFromConfigurationInterface(node, configurationInformationWrapper, source);
           nestedConfigurationInformation = this.fillNestedConfigurationDefaultValues(nestedConfigurationInformation);
           if (nestedConfigurationInformation) {
             // We add it to the list of Nested config if the result is not undefined
@@ -456,6 +531,19 @@ export class ComponentConfigExtractor {
         }
       }
     });
+
+    return configurationInformationWrapper;
+  }
+
+  /**
+   * Extract the configuration of a typescript file
+   */
+  public extract() {
+    this.logger.debug(`Parsing configuration from ${this.filePath}`);
+
+    let configInterfaceFound = false;
+    // First Iteration to collect the nested configuration interfaces
+    const configurationInformationWrapper = this.collectNestedConfiguration(this.source);
 
     // Here the source represent the structure that has been extracted from a single file
     // Each child represents a part of the file parsed and interpreted

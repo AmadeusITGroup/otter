@@ -15,7 +15,7 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
       return;
     }
   };
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     if (packages.length > 0) {
       context.logger.info(`'${options?.parentPackageInfo || ''}' - 'ng add' has been launched for the following packages:`);
       for (const packageName of packages) {
@@ -23,9 +23,11 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions)
         if (!installedVersion || options?.version !== installedVersion) {
           context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
           context.addTask(new NodePackageNgAddTask(packageName, options));
+        } else {
+          context.logger.info(`Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
         }
       }
     }
-    return;
+    return () => tree;
   };
 }

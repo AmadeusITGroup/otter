@@ -1,17 +1,17 @@
 /**
  * Rule Engine operator
  */
-export interface Operator<L = unknown, R = unknown> {
+export interface Operator<LeftExposed = unknown, RightExposed = unknown, LeftSupported = LeftExposed, RightSupported = RightExposed> {
   /** Operator name to use in condition */
   name: string;
   /** Priority in the dropdown display */
   orderingWeight? : number;
   /** Left Hand Value validator function */
-  validateLhs?: (operand: L) => boolean;
+  validateLhs?: unknown extends LeftSupported ? (operand: unknown) => boolean : (operand: unknown) => operand is LeftSupported;
   /** Right Hand Value validator function */
-  validateRhs?: (operand: R) => boolean;
+  validateRhs?: unknown extends RightSupported ? (operand: unknown) => boolean : (operand: unknown) => operand is RightSupported;
   /** Evaluate the values */
-  evaluator: (lhs: L, rhs: R) => boolean;
+  evaluator: (lhs: LeftSupported, rhs: RightSupported) => boolean;
 }
 
 /**
@@ -21,7 +21,7 @@ export interface UnaryOperator<L = unknown> {
   /** Operator name to use in condition */
   name: string;
   /** Left Hand Value validator function */
-  validateLhs?: (operand: L) => boolean;
+  validateLhs?: unknown extends L ? (operand: unknown) => boolean : (operand: unknown) => operand is L;
   /** Evaluate the values */
   evaluator: (lhs: L) => boolean;
 }
@@ -31,4 +31,9 @@ export interface UnaryOperator<L = unknown> {
  * (string | boolean | Date | number)
  * This type reference is specifically handled by the rule operator extractor.
  */
-export type SupportedSimpleTypes = string | boolean | Date | number;
+export type SupportedSimpleTypes = string | boolean | Date | number | null | undefined;
+
+/**
+ * Any input that can be used as single parameter for Date constructor (Date, string, number)
+ */
+export type DateInput = Date | string | number;

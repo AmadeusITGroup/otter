@@ -9,7 +9,9 @@ import {<%=configKey%>_DEFAULT_CONFIG, <%=configKey%>_CONFIG_ID, <%= componentCo
   componentType: <%= componentType %>
 })
 @Component({
-  selector: '<%= componentSelector %>',
+  selector: '<%= componentSelector %>',<% if (standalone) { %>
+  standalone: true,
+  imports: [CommonModule],<% } %>
   templateUrl: './<%= name %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None

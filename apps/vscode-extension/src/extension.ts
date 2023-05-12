@@ -6,6 +6,7 @@ import { generateServiceGenerateCommand } from './commands/generate/service.comm
 import { generateStoreGenerateCommand } from './commands/generate/store.command';
 import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
 import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
+import { generateModuleGenerateCommand } from './commands/generate/module.command';
 
 /**
  * Function to register commands.
@@ -18,9 +19,11 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),
+    commands.registerCommand('otter.generate.module', generateModuleGenerateCommand(context)),
     commands.registerCommand('otter.menu.generate.component', wrapCommandWhenExplorerContext(context, generateComponentGenerateCommand)),
     commands.registerCommand('otter.menu.generate.service', wrapCommandWhenExplorerContext(context, generateServiceGenerateCommand)),
     commands.registerCommand('otter.menu.generate.store', wrapCommandWhenExplorerContext(context, generateStoreGenerateCommand)),
+    commands.registerCommand('otter.menu.generate.module', wrapCommandWhenExplorerContext(context, generateModuleGenerateCommand)),
     commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),

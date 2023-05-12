@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import { commonModuleContent } from '../common/mocks/example-module';
 import { commonIndexContent } from '../common/mocks/index';
 import { asyncEntityActionsContent } from './mocks/example-actions';
@@ -30,13 +29,13 @@ describe('Store entity async generator', () => {
 
   it('should generate async entity store', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-entity-async', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-entity-async', {
       storeName: 'Example',
       modelName: 'Example',
       modelIdPropName: 'id',
       sdkPackage: '@api/sdk',
       path: './'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/example/index.ts').replace(/\s|\n/g, '')).toEqual(commonIndexContent.replace(/\s|\n/g, ''));
     expect(tree.readContent('/example/example.module.ts').replace(/\s|\n/g, '')).toEqual(commonModuleContent.replace(/\s|\n/g, ''));
@@ -53,13 +52,13 @@ describe('Store entity async generator', () => {
 
   it('Ensure that we dont break the training', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await lastValueFrom(runner.runExternalSchematicAsync('schematics', 'store-entity-async', {
+    const tree = await runner.runExternalSchematic('schematics', 'store-entity-async', {
       storeName: 'Ratings',
       modelName: 'Rating',
       modelIdPropName: 'flightId',
       sdkPackage: '@flight-rating/sdk',
       path: './'
-    }, initialTree));
+    }, initialTree);
 
     expect(tree.readContent('/ratings/ratings.actions.ts')).toContain('@flight-rating/sdk');
     expect(tree.readContent('/ratings/ratings.reducer.ts')).toContain('model.flightId');

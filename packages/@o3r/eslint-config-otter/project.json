@@ -35,7 +35,10 @@
       "options": {
         "script": "build:builders"
       },
-      "dependsOn": ["prepare-build-builders"]
+      "dependsOn": [
+        "^build",
+        "prepare-build-builders"
+      ]
     },
     "publish": {
       "executor": "nx:run-commands",

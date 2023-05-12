@@ -1,4 +1,9 @@
-# Otter core
+<h1 align="center">Otter core</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
+
+## Description
 
 This module gathers the core of the [Otter Framework](https://github.com/AmadeusITGroup/otter).
 It is the foundation for all the packages (interfaces, core helpers) and contains schematics to generate your components/services etc.
@@ -76,26 +81,26 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 Otter library provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
-| Schematics          | Description                                                           | How to use                                        |
-| ------------------- | --------------------------------------------------------------------- | ------------------------------------------------- |
-| add                 | Include Otter in a library / application.                             | `ng add @o3r/core`                          |
-| page                | Create a new Page in your application.                                | `ng generate @o3r/core:page`                |
-| service             | Create a new Otter Service in your library / application.             | `ng generate @o3r/core:service`             |
-| fixture           | Adding functions to an Otter fixture based on a selector and default methods.           | `ng generate @o3r/core:fixture`           |
-| component           | Create a new Otter component in your library / application.           | `ng generate @o3r/core:component`           |
-| component-container | Create a new Otter container component in your library / application. | `ng generate @o3r/core:component-container` |
-| component-presenter | Create a new Otter presenter component in your library / application. | `ng generate @o3r/core:component-presenter` |
-| playwright-scenario | Create a new Playwright scenario in your application.                 | `ng generate @o3r/core:playwright-scenario` |
-| store               | Create a new store in your library / application.                     | `ng generate @o3r/core:store`               |
-| store-entity-async  | Create an entity async new store in your library / application.       | `ng generate @o3r/core:store-entity-async`  |
-| store-entity-sync   | Create an entity sync new store in your library / application.        | `ng generate @o3r/core:store-entity-sync`   |
-| store-simple-async  | Create a simple async new store in your library / application.        | `ng generate @o3r/core:store-simple-async`  |
-| store-simple-sync   | Create a simple sync new store in your library / application.         | `ng generate @o3r/core:store-simple-sync`   |
-| store-action        | Create an action into an existing store.                              | `ng generate @o3r/core:store-action`        |
-| storybook-component | Create an Storybook file for a presenter.                             | `ng generate @o3r/core:storybook-component` |
-| renovate-bot        | Create a basic Renovate Bot                                           | `ng generate @o3r/core:renovate-bot`        |
-| ng-add-create       | Include `ng add` schematic into your project                          | `ng generate @o3r/core:ng-add-create`       |
-
+| Schematics          | Description                                                                   | How to use                                  |
+| ------------------- | ----------------------------------------------------------------------------- | ------------------------------------------- |
+| add                 | Include Otter in a library / application.                                     | `ng add @o3r/core`                          |
+| page                | Create a new Page in your application.                                        | `ng generate @o3r/core:page`                |
+| service             | Create a new Otter Service in your library / application.                     | `ng generate @o3r/core:service`             |
+| fixture             | Adding functions to an Otter fixture based on a selector and default methods. | `ng generate @o3r/core:fixture`             |
+| component           | Create a new Otter component in your library / application.                   | `ng generate @o3r/core:component`           |
+| component-container | Create a new Otter container component in your library / application.         | `ng generate @o3r/core:component-container` |
+| component-presenter | Create a new Otter presenter component in your library / application.         | `ng generate @o3r/core:component-presenter` |
+| playwright-scenario | Create a new Playwright scenario in your application.                         | `ng generate @o3r/core:playwright-scenario` |
+| store               | Create a new store in your library / application.                             | `ng generate @o3r/core:store`               |
+| store-entity-async  | Create an entity async new store in your library / application.               | `ng generate @o3r/core:store-entity-async`  |
+| store-entity-sync   | Create an entity sync new store in your library / application.                | `ng generate @o3r/core:store-entity-sync`   |
+| store-simple-async  | Create a simple async new store in your library / application.                | `ng generate @o3r/core:store-simple-async`  |
+| store-simple-sync   | Create a simple sync new store in your library / application.                 | `ng generate @o3r/core:store-simple-sync`   |
+| store-action        | Create an action into an existing store.                                      | `ng generate @o3r/core:store-action`        |
+| storybook-component | Create an Storybook file for a presenter.                                     | `ng generate @o3r/core:storybook-component` |
+| renovate-bot        | Create a basic Renovate Bot                                                   | `ng generate @o3r/core:renovate-bot`        |
+| module              | Create a new Otter compatible module in your monorepo                         | `ng generate @o3r/core:module`              |
+| ng-add-create       | Include `ng add` schematic into your project                                  | `ng generate @o3r/core:ng-add-create`       |
 
 ## Create your own Otter compatible module
 

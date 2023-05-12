@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import { getOctokit } from '@actions/github';
-import { compare, major, prerelease, valid } from 'semver';
+import {clean, compare, major, prerelease, valid} from 'semver';
 
 async function run(): Promise<void> {
   try {
@@ -20,6 +20,8 @@ async function run(): Promise<void> {
     const latestVersion = releaseResponse.data
       .filter((release) => !release.draft && !release.prerelease)
       .map((release) => release.tag_name.replace(/^v/i, ''))
+      .map((tagWithoutV) => clean(tagWithoutV))
+      .filter((cleanedTag) : cleanedTag is string => cleanedTag !== null)
       .sort(compare)
       .pop();
     const isLatest = latestVersion ? compare(latestVersion, version) <= 0 : true;

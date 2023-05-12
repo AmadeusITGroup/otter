@@ -8,3 +8,6 @@
 
 ## Default reviewers for Anayltics build metrics webpack plugin
 # /packages/@o3r/analytics/plugins/webpack/build-metrics @rglearns
+
+## Default reviewers for AEM Plugin JSON Schemas
+# /packages/@o3r/application/schemas/ @guillaume-goulet

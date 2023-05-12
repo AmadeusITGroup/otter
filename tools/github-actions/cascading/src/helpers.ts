@@ -9,7 +9,7 @@ export function sortBranches(branches: string[]) {
   return branches.map(branch => {
     const extract = branch.match(/release\/([0-9]+)\.([0-9]+)/);
     if (!extract) {
-      throw new Error(`Format of branch doesnt match the release pattern ${branches.join(',')}`);
+      throw new Error(`Format of branch does not match the release pattern ${branches.join(',')}`);
     }
     return {
       maj: parseInt(extract[1], 10),
@@ -112,6 +112,9 @@ export function extractPackageChanges<T extends BaseLogger>(gitDiffResult: strin
 
 /**
  *  Filter packages changed to keep only the one that can't be handled automatically
+ *
+ * @param packageChanges
+ * @param conflictsIgnoredPackages
  */
 export function notIgnorablePackages(packageChanges: { file: string; oldPackages: string[]; newPackages: string[] }[], conflictsIgnoredPackages : string[]) {
   return packageChanges.reduce((remaining: { file: string; addedPackages: string[]; commonPackages: string[]; removedPackages: string[] }[], fileWithPackages) => {
