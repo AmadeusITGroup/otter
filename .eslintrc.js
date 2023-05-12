@@ -21,11 +21,11 @@ module.exports = {
     }
   ],
   'env': {
+    'es2021': true,
     'browser': true,
     'node': true,
     'webextensions': true,
 
-    'es6': true,
     'jasmine': true,
     'jest': true,
     'jest/globals': true

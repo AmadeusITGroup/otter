@@ -51,19 +51,21 @@ export class CascadingProbot extends Cascading {
       }).catch(() => null)));
 
     const configFileValidResponses = configFileResponses
-      .filter((res) => res && Array.isArray(res.data) && res.data.length > 0);
+      .map((res) => res && !Array.isArray(res.data) && res.data || null)
+      .filter((res) => !!res);
 
     const configFileResponse = configFileValidResponses[0];
 
     if (configFileValidResponses.length > 1) {
-      this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c && Array.isArray(c.data) && c.data[0].path).join(', ')}). The files will be ignored.`);
+      this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c?.path).join(', ')}). The files will be ignored.`);
     } else if (!configFileResponse) {
       this.logger.warn('No remote Configuration found, the default configuration will be used');
     } else {
       try {
-        const parsedConfig = Array.isArray(configFileResponse.data) && configFileResponse.data[0].content && JSON.parse(configFileResponse.data[0].content);
+        const configFileResponseWithContent: { content?: string; encoding?: 'utf8' | 'utf-8' | 'base64' } = configFileResponse as unknown as any;
+        const parsedConfig = configFileResponseWithContent.content && JSON.parse(Buffer.from(configFileResponseWithContent.content, configFileResponseWithContent.encoding || 'base64').toString());
         if (parsedConfig) {
-          this.logger.debug(`Found configuration on ${Array.isArray(configFileResponse.data) ? configFileResponse.data[0].url : 'remote'}`);
+          this.logger.debug(`Found configuration on ${configFileResponse.url}`);
           remoteConfig = parsedConfig;
           this.logger.debug(JSON.stringify(remoteConfig, null, 2));
         } else {
