@@ -3,3 +3,5 @@
 # Binary files
 *.png binary
 *.jpg binary
+*.git binary
+*.jar binary
