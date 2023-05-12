@@ -27,8 +27,11 @@ program
     ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies'])
   .option('-v, --verbose', 'Display debug logs')
   .option('-a, --align-peer-dependencies', 'Enforce to align the version of the dependencies with the latest range')
-  .option('--apply-to <...globs>', `List of path globs of files to which apply the new calculated version without implicating them in the version determination (separated by ${path.sep})`,
-    (g) => g.split(path.sep).map((p) => path.posix.join(process.cwd().replace(/\\/g, '/'), p)), [])
+  .option('--apply-to <...globs>', `List of path globs of files to which apply the new calculated version without implicating them in the version determination (separated by ${path.delimiter})`,
+    (g, mem: string[]) => ([
+      ...mem,
+      ...g.split(path.delimiter).map((p) => path.posix.join(process.cwd().replace(/\\/g, '/'), p))
+    ]), [])
   .parse(process.argv);
 
 /** Options from CLI */
