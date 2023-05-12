@@ -1,15 +1,14 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 import { getDecoratorMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
 import {
   getAppModuleFilePath,
-  getExternalDependenciesVersionRange,
-  getNodeDependencyList,
   getProjectFromTree,
   isApplicationThatUsesRouterModule,
+  ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
@@ -36,7 +35,7 @@ export function updateStore(options: { projectName: string | null }, _rootPath: 
    * Changed package.json start script to run localization generation
    *
    * @param tree
-   * @param _context
+   * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
@@ -44,17 +43,15 @@ export function updateStore(options: { projectName: string | null }, _rootPath: 
 
     let dependenciesList = [ngrxEffectsDep, ngrxEntityDep, ngrxStoreDep, ngrxStoreLocalstorageDep, ngrxRouterStoreDevToolDep];
     dependenciesList = isApplicationThatUsesRouterModule(tree) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
-    try {
-      const dependencies: NodeDependency[] = getNodeDependencyList(
-        getExternalDependenciesVersionRange(dependenciesList, packageJsonPath),
-        type
-      );
-      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
-    } catch (e: any) {
-      context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
-    }
 
-    return tree;
+    return () => {
+      try {
+        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, options)(tree, context);
+      } catch (e: any) {
+        context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
+        return tree;
+      }
+    };
   };
 
   /**
@@ -82,17 +79,17 @@ export function updateStore(options: { projectName: string | null }, _rootPath: 
       return tree;
     }
 
-    const recorder = tree.beginUpdate(moduleFilePath);
+    let recorder = tree.beginUpdate(moduleFilePath);
     const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
     const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
-      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+      recorder = o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
-      o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
+      recorder = o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
-    const insertBeforeModule = (line: string) => o3rInsertBeforeModule(line, sourceFileContent, recorder, moduleIndex);
+    const insertBeforeModule = (line: string) => recorder = o3rInsertBeforeModule(line, sourceFileContent, recorder, moduleIndex);
 
     addImportToModuleFile(
       'EffectsModule',
@@ -145,7 +142,7 @@ const runtimeChecks: Partial<RuntimeChecks> = {
   };
 
   return chain([
-    updatePackageJson,
-    registerModules
+    registerModules,
+    updatePackageJson
   ]);
 }

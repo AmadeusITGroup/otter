@@ -8,18 +8,19 @@ import { NgAddSchematicsSchema } from './schema';
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
       const { updateStorybook } = await import('../storybook-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      return chain([
+      const dependencyType = getProjectDepType(tree);
+      return () => chain([
         removePackages(['@otter/storybook']),
         updateStorybook(options, __dirname),
         options.skipLinter ? noop() : applyEsLintFix(),
         options.skipInstall ? noop() : install,
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
+      ])(tree, context);
     } catch (e) {
       // storybook needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/storybook has failed.

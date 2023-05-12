@@ -7,6 +7,7 @@ import * as path from 'node:path';
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const tsEslintParserDep = '@typescript-eslint/parser';
 const eslintDep = 'eslint';
+
 /**
  * Add or update the Linter configuration
  *
@@ -21,7 +22,7 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
     NodeDependencyType.Dev
   );
   otterLinterDependencies.push(
-    { name: '@angular-eslint/builder', version: projectEslintBuilderVersion, type: NodeDependencyType.Dev, overwrite: false }
+    {name: '@angular-eslint/builder', version: projectEslintBuilderVersion, type: NodeDependencyType.Dev, overwrite: false}
   );
 
   /**
@@ -100,6 +101,11 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
     updateTslintExtend,
     addTslintDependency,
     editAngularJson,
-    ngAddPackages(['@o3r/eslint-config-otter', '@o3r/eslint-plugin'], { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - linter updates' })
+    ngAddPackages(['@o3r/eslint-config-otter', '@o3r/eslint-plugin'], {
+      skipConfirmation: true,
+      version: o3rCoreVersion,
+      parentPackageInfo: '@o3r/core - linter updates',
+      dependencyType: NodeDependencyType.Dev
+    })
   ]);
 }

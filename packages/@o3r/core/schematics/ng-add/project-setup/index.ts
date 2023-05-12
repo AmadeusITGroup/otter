@@ -1,11 +1,20 @@
 import { chain, noop, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
 import {
-  createAzurePipeline, generateRenovateConfig, o3rBasicUpdates, updateAdditionalModules, updateCmsAdapter,
-  updateCustomizationEnvironment, updateFixtureConfig, updateLinter,
-  updateOtterEnvironmentAdapter, updatePlaywright, updateStore
+  createAzurePipeline,
+  generateRenovateConfig,
+  o3rBasicUpdates,
+  updateAdditionalModules,
+  updateCmsAdapter,
+  updateCustomizationEnvironment,
+  updateFixtureConfig,
+  updateLinter,
+  updateOtterEnvironmentAdapter,
+  updatePlaywright,
+  updateStore
 } from '../../rule-factories/index';
 import { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
@@ -51,11 +60,12 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   const angularVersion = projectPackageJson.dependencies?.['@angular/core'] || projectPackageJson.peerDependencies?.['@angular/core'];
   const angularMajorVersion = angularVersion?.match(simplifiedSemVerRegexp)?.[1];
   const ngxPrefetchVersion = angularMajorVersion ? `^${angularMajorVersion}.0.0` : undefined;
+  const type = projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
   const externalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(options.enablePrefetchBuilder ? ['@o3r/ngx-prefetch'] : [])
   ]));
   return () => chain([
-    o3rBasicUpdates(options.projectName, o3rCoreVersion),
+    o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
     updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
@@ -64,15 +74,17 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
     updateStore(options, coreSchematicsFolder),
     updateFixtureConfig(options, coreSchematicsFolder),
-    options.enableCustomization ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options) : noop,
+    options.enableCustomization ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options, projectType === 'library') : noop,
     options.generateAzurePipeline ? createAzurePipeline(options, coreSchematicsFolder) : noop,
-    options.enablePlaywright ? updatePlaywright(coreSchematicsFolder) : noop,
+    options.enablePlaywright ? updatePlaywright(coreSchematicsFolder, options) : noop,
     updateAdditionalModules(options, coreSchematicsFolder),
     generateRenovateConfig(coreSchematicsFolder),
     removePackages(packagesToRemove),
     addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template', '']),
-    ngAddPackages(internalPackagesToInstallWithNgAdd, {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
-    ngAddPackages(externalPackagesToInstallWithNgAdd, {skipConfirmation: true, version: ngxPrefetchVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName}),
+    ngAddPackages(internalPackagesToInstallWithNgAdd,
+      {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
+    ngAddPackages(externalPackagesToInstallWithNgAdd,
+      {skipConfirmation: true, version: ngxPrefetchVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
     options.skipLinter ? noop() : applyEsLintFix(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active

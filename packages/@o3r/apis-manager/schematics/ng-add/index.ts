@@ -1,7 +1,8 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NgAddSchematicsSchema } from './schema';
+import { getProjectDepType } from '@o3r/schematics';
 
 import * as path from 'node:path';
+import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter apis manager to an Angular Project
@@ -15,15 +16,20 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const { updateApiDependencies } = await import('../helpers/update-api-deps');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       const rulesToExecute: Rule[] = [];
-      const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
-      if (workspaceProject.projectType === 'application') {
+      const projectType = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName || undefined)?.projectType : 'application';
+      if (projectType === 'application') {
         rulesToExecute.push(updateApiDependencies());
       }
 
       return () => chain([
         ...rulesToExecute,
         options.skipLinter ? noop : applyEsLintFix(),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          dependencyType: getProjectDepType(tree)
+        })
       ])(tree, context);
 
     } catch (e) {

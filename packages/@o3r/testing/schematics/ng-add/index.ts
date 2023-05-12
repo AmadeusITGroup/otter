@@ -1,19 +1,30 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import * as path from 'node:path';
 
 /**
  * Add Otter testing to an Angular Project
+ *
+ * @param options
  */
-export function ngAdd(): Rule {
+export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {addVsCodeRecommendations, ngAddPackages, getO3rPeerDeps, removePackages} = await import('@o3r/schematics');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const {addVsCodeRecommendations, getProjectDepType, getO3rPeerDeps, ngAddPackages, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const depsInfo = getO3rPeerDeps(testPackageJsonPath);
+      const dependencyType = getProjectDepType(tree);
 
       return () => chain([
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName})
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          dependencyType: dependencyType
+        }),
+        ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, options)
       ])(tree, context);
 
     } catch (e) {

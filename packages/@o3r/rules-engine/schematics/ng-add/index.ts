@@ -8,12 +8,12 @@ export function ngAdd(): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
+      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-
+      const dependencyType = getProjectDepType(tree);
       const rule = chain([
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);

@@ -1,7 +1,8 @@
 import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { getTemplateFolder } from '@o3r/schematics';
+import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { getTemplateFolder, NgAddPackageOptions, ngAddPeerDependencyPackages } from '@o3r/schematics';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as path from 'node:path';
 
 /**
  * Add Playwright to Otter application
@@ -10,7 +11,7 @@ import { getTemplateFolder } from '@o3r/schematics';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updatePlaywright(rootPath: string): Rule {
+export function updatePlaywright(rootPath: string, options: NgAddPackageOptions = {}): Rule {
   return (tree: Tree, context: SchematicContext) => {
 
     // update gitignore
@@ -35,11 +36,8 @@ export function updatePlaywright(rootPath: string): Rule {
       packageJson.scripts['test:playwright:sanity'] ||= 'playwright test --config=e2e-playwright/playwright-config.sanity.ts';
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
-
-    // add dependencies
-    addPackageJsonDependency(tree, {name: 'playwright', version: '~1.21.1', type: NodeDependencyType.Dev, overwrite: false});
-    addPackageJsonDependency(tree, {name: '@playwright/test', version: '~1.21.1', type: NodeDependencyType.Dev, overwrite: false});
-    addPackageJsonDependency(tree, {name: 'rimraf', version: '~3.0.2', type: NodeDependencyType.Dev, overwrite: false});
+    const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
+    const ngAddRules = ngAddPeerDependencyPackages(['playwright', '@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, options);
 
     // generate files
     if (!tree.exists('/e2e-playwright/playwright-config.ts')) {
@@ -59,10 +57,12 @@ export function updatePlaywright(rootPath: string): Rule {
         renameTemplateFiles()
       ]);
 
-      const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-      return rule(tree, context);
+      return chain([
+        ngAddRules,
+        mergeWith(templateSource, MergeStrategy.Overwrite)
+      ])(tree, context);
     }
 
-    return tree;
+    return ngAddRules(tree, context);
   };
 }

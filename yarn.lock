@@ -5844,6 +5844,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
+    "@schematics/angular": ~15.2.0
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -5883,6 +5884,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
+    "@schematics/angular": ~15.2.0
     chokidar: ^3.5.2
     globby: ^11.1.0
     rxjs: ^7.4.0
@@ -5893,6 +5895,8 @@ __metadata:
     "@o3r/configuration":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
     chokidar:
       optional: true
@@ -6072,6 +6076,10 @@ __metadata:
       optional: true
     "@ngrx/router-store":
       optional: true
+    "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
+      optional: true
     chokidar:
       optional: true
     comment-json:
@@ -6237,6 +6245,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.2.0
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
     cpy-cli: ^4.2.0
@@ -6257,6 +6266,7 @@ __metadata:
     "@angular/compiler": ~15.2.0
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.2.0
     "@typescript-eslint/eslint-plugin": ^5.9.0
     "@typescript-eslint/parser": ^5.9.0
     eslint: ^8.22.0
@@ -6276,6 +6286,8 @@ __metadata:
     "@angular/compiler":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
     eslint-plugin-jasmine:
       optional: true
@@ -6783,6 +6795,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.2.0
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@types/node-fetch": ^2.6.2
@@ -6822,12 +6835,15 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.2.0
     ngrx-store-localstorage: ^15.0.0
     rxjs: ^7.4.0
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
   bin:
     pcloudy: ./pcloudy/pcloudy.connection.js
@@ -7222,6 +7238,7 @@ __metadata:
     "@o3r/extractors": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
+    "@schematics/angular": ~15.2.0
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -7257,10 +7274,13 @@ __metadata:
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~15.2.0
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
   languageName: unknown
   linkType: soft

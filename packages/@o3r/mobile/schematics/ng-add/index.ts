@@ -1,4 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { getProjectDepType } from '@o3r/schematics';
 import * as path from 'node:path';
 
 /**
@@ -10,9 +11,10 @@ export function ngAdd(): Rule {
     try {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const dependencyType = getProjectDepType(tree);
       return () => chain([
         removePackages(['@otter/mobile']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType})
       ])(tree, context);
 
     } catch (e) {

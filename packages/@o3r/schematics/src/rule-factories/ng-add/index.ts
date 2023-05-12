@@ -1,10 +1,12 @@
 import { chain, externalSchematic, Rule, RuleFactory, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { getPackageManager } from '@o3r/dev-tools';
+import type { NodeDependency } from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import type { NgAddPackageOptions } from '../../tasks/index';
-import { getPeerDepVersion } from '../../utility';
+import { getExternalDependenciesVersionRange, getNodeDependencyList } from '../../utility';
 
 /**
  * Install via `ng add` a list of npm packages.
@@ -47,7 +49,13 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
       const latestInstalledVersion: string = await getInstalledVersion(packageName);
       // We need to update manually the package json in the tree as the tree will overwrite the project at the end of the ng add @o3r/core
       const packageJson: PackageJson = tree.readJson(packageJsonPath) as PackageJson;
-      packageJson.dependencies = {...packageJson.dependencies, [packageName]: latestInstalledVersion};
+      if (options?.dependencyType === NodeDependencyType.Dev) {
+        packageJson.devDependencies = {...packageJson.devDependencies, [packageName]: latestInstalledVersion};
+      } else if (options?.dependencyType === NodeDependencyType.Peer) {
+        packageJson.peerDependencies = {...packageJson.peerDependencies, [packageName]: latestInstalledVersion};
+      } else {
+        packageJson.dependencies = {...packageJson.dependencies, [packageName]: latestInstalledVersion};
+      }
       tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
       return () => tree;
     };
@@ -56,12 +64,21 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
   const ngAddSinglePackage: RuleFactory<{ packageName: string; version?: string }> = ({packageName, version}) => {
     return async (tree: Tree, context: SchematicContext) => {
       const installedVersion: string = await getInstalledVersion(packageName);
-      context.logger.info(`installed version of ${packageName}: ${installedVersion || 'undefined'} | expected: ${options?.version || 'latest'} `);
+      context.logger.info(`installed version of ${packageName}: ${installedVersion || 'undefined'} | expected: ${options?.version || 'latest'} as ${options?.dependencyType?.toString() || ''}`);
       if (!installedVersion || version !== installedVersion) {
         context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
+        const packageManager = getPackageManager();
+        let installOptions = '';
+        if (options?.dependencyType === NodeDependencyType.Dev && packageManager === 'yarn') {
+          installOptions = ' --prefer-dev';
+        } else if (options?.dependencyType === NodeDependencyType.Dev) {
+          installOptions = ' -D';
+        } else if (options?.dependencyType === NodeDependencyType.Peer) {
+          installOptions = ' -P';
+        }
         context.addTask(new NodePackageInstallTask({
-          packageManager: getPackageManager(),
-          packageName: packageName + (version ? `@${version}` : '') + (options?.dependencyType === 'dev' ? ' --prefer-dev' : ''),
+          packageManager: packageManager,
+          packageName: packageName + (version ? `@${version}` : '') + installOptions,
           hideOutput: false,
           quiet: false
         } as any));
@@ -92,12 +109,23 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
  *
  * @param packages list of the name of the packages needed
  * @param packageJsonPath path to package json that needs the peer to be resolved
+ * @param type how to install the dependency (dev, peer for a library or default for an application)
  * @param parentPackageInfo for logging purposes
  */
-export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath: string, parentPackageInfo?: string) {
-  const externalPeerDepsRules: Rule[] = packages.map((dependency) => {
-    const version = getPeerDepVersion(packageJsonPath, dependency);
-    return ngAddPackages([dependency], {skipConfirmation: true, version, parentPackageInfo});
+export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath: string, type: NodeDependencyType = NodeDependencyType.Default,
+  options: NgAddPackageOptions, parentPackageInfo?: string) {
+  const dependencies: NodeDependency[] = getNodeDependencyList(
+    getExternalDependenciesVersionRange(packages, packageJsonPath),
+    type
+  );
+  const externalPeerDepsRules: Rule[] = dependencies.map((dependency) => {
+    return ngAddPackages([dependency.name], {
+      ...options,
+      skipConfirmation: true,
+      version: dependency.version,
+      parentPackageInfo,
+      dependencyType: dependency.type
+    });
   });
   return chain(externalPeerDepsRules);
 }

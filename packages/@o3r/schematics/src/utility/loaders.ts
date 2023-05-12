@@ -1,4 +1,5 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as commentJson from 'comment-json';
 import { sync as globbySync } from 'globby';
 import { minimatch } from 'minimatch';
@@ -59,6 +60,17 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
 export function getProjectFromTree(tree: Tree, projectName?: string | null): WorkspaceProject {
   const workspace = readAngularJson(tree);
   return workspace.projects[projectName || workspace.defaultProject || Object.keys(workspace.projects)[0]];
+}
+
+/**
+ * Return the type of install to run depending on the project type (Peer or default)
+ *
+ * @param tree
+ */
+export function getProjectDepType(tree: Tree) {
+  const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree) : undefined;
+  const projectType = workspaceProject?.projectType || 'application';
+  return projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
 }
 
 /**

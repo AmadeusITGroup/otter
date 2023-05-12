@@ -1,23 +1,21 @@
-import {chain} from '@angular-devkit/schematics';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 
 
 /**
  * Add Otter application to an Angular Project
- *
- * @param options
  */
 export function ngAdd(): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { addImportToModuleFile, getAppModuleFilePath, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
-      const { getDecoratorMetadata, isImported } = await import('@schematics/angular/utility/ast-utils');
+      const {addImportToModuleFile, getAppModuleFilePath, getProjectDepType, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
       const ts = await import('@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      const addAngularAnimationPreferences : Rule = () => {
+      const addAngularAnimationPreferences: Rule = () => {
         const moduleFilePath = getAppModuleFilePath(tree, context);
 
         if (!moduleFilePath) {
@@ -63,9 +61,15 @@ export function ngAdd(): Rule {
         tree.commitUpdate(recorder);
         return tree;
       };
+      const dependencyType = getProjectDepType(tree);
 
       return () => chain([
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName }),
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          dependencyType
+        }),
         addAngularAnimationPreferences
       ])(tree, context);
     } catch (e) {

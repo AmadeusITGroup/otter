@@ -37,21 +37,23 @@ export function ngAdd(): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'comment-json', 'eslint', 'globby'];
   return async (tree: Tree, context: SchematicContext) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+    const treePackageJson = tree.readJson('./package.json') as PackageJson;
     const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
-    const getDependencyVersion = (dependency: string) => packageJsonContent?.dependencies?.[dependency] || packageJsonContent?.peerDependencies?.[dependency] ?
-      `@${packageJsonContent.dependencies?.[dependency] || packageJsonContent?.peerDependencies?.[dependency] as string}` : '';
-
+    const getDependencyVersion = (dependency: string) => packageJsonContent?.dependencies?.[dependency] || packageJsonContent?.peerDependencies?.[dependency];
     schematicsDependencies.forEach(
       (dependency) => {
-        context.logger.info(`Installing ${dependency}${getDependencyVersion(dependency)}`);
+        const version = getDependencyVersion(dependency);
+        context.logger.info(`Installing ${dependency}${version || ''}`);
+        treePackageJson.devDependencies = {...packageJsonContent.devDependencies, [dependency]: version};
         context.addTask(new DevInstall({
           packageManager: getPackageManager(),
-          packageName: `${dependency}${getDependencyVersion(dependency)}`,
+          packageName: `${dependency}${version ? '@' + version : ''}`,
           hideOutput: false,
           quiet: false
         } as any));
       }
     );
+    tree.overwrite('./package.json', JSON.stringify(treePackageJson));
     await lastValueFrom(context.engine.executePostTasks());
     return () => tree;
   };

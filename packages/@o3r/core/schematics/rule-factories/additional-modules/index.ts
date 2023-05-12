@@ -1,9 +1,15 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import {getAppModuleFilePath, getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree, addImportToModuleFile as o3rAddImportToModuleFile} from '@o3r/schematics';
+import {
+  getAppModuleFilePath,
+  getProjectDepType,
+  getProjectFromTree,
+  ngAddPeerDependencyPackages,
+  addImportToModuleFile as o3rAddImportToModuleFile
+} from '@o3r/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
@@ -16,7 +22,7 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param _rootPath @see RuleFactory.rootPath
  */
-export function updateAdditionalModules(options: { projectName: string | null }, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName: string | null}, _rootPath: string): Rule {
   /**
    * Update package.json to add additional modules dependencies
    *
@@ -24,18 +30,16 @@ export function updateAdditionalModules(options: { projectName: string | null },
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
-    const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
+    const type: NodeDependencyType = getProjectDepType(tree);
     const generatorDependencies = [ngrxStoreDevtoolsDep];
 
     try {
-      const dependencies: NodeDependency[] = getNodeDependencyList(getExternalDependenciesVersionRange(generatorDependencies, packageJsonPath), type);
-      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, options);
     } catch (e) {
       context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
     }
-
     return tree;
+
   };
 
   /**
@@ -112,6 +116,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
       envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
     }
     if (!tree.exists(envDevFilePath)) { // if we don't use the env setup, we skip the step
+      context.logger.warn(` Cannot find environment in ${envDevFilePath}`);
       return tree;
     }
 
@@ -176,6 +181,7 @@ export function updateAdditionalModules(options: { projectName: string | null },
     }
 
     if (!tree.exists(envProdFilePath)) { // if we don't use the env setup, we skip the step
+      context.logger.warn(` Cannot find environment in ${envProdFilePath}`);
       return tree;
     }
 

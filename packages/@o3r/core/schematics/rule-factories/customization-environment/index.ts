@@ -1,13 +1,8 @@
 import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
+import { getFileInfo, getTemplateFolder, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule, insertImportToModuleFile as o3rInsertImportToModuleFile } from '@o3r/schematics';
 import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import {
-  getFileInfo,
-  getTemplateFolder,
-  ngAddPackages,
-  insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
-} from '@o3r/schematics';
 import { InsertChange } from '@schematics/angular/utility/change';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 /**
  * Enable customization capabilities
@@ -17,7 +12,7 @@ import { InsertChange } from '@schematics/angular/utility/change';
  * @param _options
  * @param _options.projectName
  */
-export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null }): Rule {
+export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null}, isLibrary?: boolean): Rule {
   /**
    * Generate customization folder
    *
@@ -122,6 +117,11 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
   return chain([
     generateC11nFolder,
     registerModules,
-    ngAddPackages(['@o3r/components', '@o3r/configuration'], {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - customization environment update'})
+    ngAddPackages(['@o3r/components', '@o3r/configuration'], {
+      skipConfirmation: true,
+      version: o3rCoreVersion,
+      parentPackageInfo: '@o3r/core - customization environment update',
+      dependencyType: isLibrary ? NodeDependencyType.Peer : NodeDependencyType.Default
+    })
   ]);
 }
