@@ -67,6 +67,7 @@ export function getPackagesToInstallOrUpdate(packageName: string) {
 /**
  * Log an instruction with the packages to install or update to match a package peer dependencies
  *
+ * @deprecated use `checkPackagesRule` functions exposed by `@o3r/schematics` instead. Will be removed in Otter v10
  * @param packageName
  * @param angularJsonString
  */
