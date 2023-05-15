@@ -3,25 +3,23 @@ import * as path from 'node:path';
 
 /**
  * Add Otter rules-engine to an Angular Project
- *
- * @param options
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
+      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-
+      const dependencyType = getProjectDepType(tree);
       const rule = chain([
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
       context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug.md');
 
-      return rule;
+      return () => rule(tree, context);
     } catch (e) {
       // rules-engine needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/rules-engine has failed.

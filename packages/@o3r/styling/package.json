@@ -30,13 +30,17 @@
     "@o3r/core": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/extractors": "workspace:^",
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~15.2.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
       "optional": true
     },
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
       "optional": true
     }
   },
@@ -75,6 +79,7 @@
     "@o3r/extractors": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
+    "@schematics/angular": "~15.2.0",
     "@types/jest": "~28.1.2",
     "@types/node": "^17.0.45",
     "@typescript-eslint/eslint-plugin": "^5.19.0",

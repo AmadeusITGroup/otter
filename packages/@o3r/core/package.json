@@ -50,6 +50,12 @@
     "@ngrx/router-store": {
       "optional": true
     },
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
+      "optional": true
+    },
     "chokidar": {
       "optional": true
     },

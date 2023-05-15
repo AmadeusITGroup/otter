@@ -1,21 +1,21 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { getProjectDepType } from '@o3r/schematics';
 import * as path from 'node:path';
 
 /**
  * Add Otter mobile to an Angular Project
- *
- * @param options
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     try {
       const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      return chain([
+      const dependencyType = getProjectDepType(tree);
+      return () => chain([
         removePackages(['@otter/mobile']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType})
+      ])(tree, context);
 
     } catch (e) {
       // o3r mobile needs o3r/core as peer dep. o3r/core will install o3r/schematics

@@ -6,22 +6,32 @@ import { NgAddSchematicsSchema } from './schema';
  * Add Otter styling to an Angular Project
  * Update the styling if the app/lib used otter v7
  *
- * @param options
+ * @param options for the dependency installations
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
+    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     try {
-      const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
-      const { updateThemeFiles, removeV7OtterAssetsInAngularJson } = await import('./theme-files');
-      const { updateSassImports } = await import('@o3r/schematics');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      return chain([
+      const {getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
+      const {updateSassImports} = await import('@o3r/schematics');
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
+      const dependencyType = getProjectDepType(tree);
+      return () => chain([
         removePackages(['@otter/styling']),
         updateSassImports('o3r'),
         updateThemeFiles(__dirname),
         removeV7OtterAssetsInAngularJson(options),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName })
-      ]);
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          dependencyType
+        }),
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, depsInfo.packageName)
+      ])(tree, context);
     } catch (e) {
       // styling needs o3r/core as peer dep. o3r/core will install o3r/schematics
       context.logger.error(`[ERROR]: Adding @o3r/styling has failed.

@@ -1,5 +1,6 @@
 import { TaskConfiguration, TaskConfigurationGenerator } from '@angular-devkit/schematics';
 import { NodePackageName, NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
+import { getPackageManager } from '@o3r/dev-tools';
 
 export class NodePackageLinkTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
   public quiet = true;
@@ -13,9 +14,9 @@ export class NodePackageLinkTask implements TaskConfigurationGenerator<NodePacka
         command: 'link',
         quiet: this.quiet,
         workingDirectory: this.workingDirectory,
-        packageName: 'link ' + this.packageName!,
-        packageManager: 'yarn'
+        packageName: `link ${this.packageName!}`,
+        packageManager: getPackageManager()
       }
-    };
+    } as TaskConfiguration<NodePackageTaskOptions>;
   }
 }

@@ -1,4 +1,5 @@
 import { DirEntry, Rule, SchematicContext, SchematicsException, Tree } from '@angular-devkit/schematics';
+import { getPackageManager } from '@o3r/dev-tools';
 import { exec } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 
@@ -46,7 +47,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
           .reduce((acc, path) => {
             const level = path.split('/').length;
             if (acc.level < level) {
-              return { level, path };
+              return {level, path};
             }
             return acc;
           }, {level: 0, path: ''}).path
@@ -77,18 +78,24 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
       return acc;
     }, new Set<string>());
 
-    exec(
-      'yarn eslint ' +
+    try {
+      const packageManager = getPackageManager();
+      exec(
+        `${packageManager} ${packageManager === 'npm' ? 'run' : ''} eslint ` +
         Array.from(files).map((file) => `"${file}"`).join(' ') +
         ' --fix --color' +
         (linterOptions.hideWarnings ? ' --quiet' : '') +
         (eslintFile ? ` --config ${eslintFile} --parser-options=tsconfigRootDir:${resolve(process.cwd(), dirname(eslintFile))}` : ''),
-      (_error, stdout, stderr) => {
-        context.logger.info(stdout);
-        if (!linterOptions.force) {
-          context.logger.error(stderr);
+        (_error, stdout, stderr) => {
+          context.logger.info(stdout);
+          if (!linterOptions.force) {
+            context.logger.error(stderr);
+          }
         }
-      }
-    );
+      );
+    } catch {
+      context.logger.error('Could not run eslint');
+    }
+    return tree;
   };
 }

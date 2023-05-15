@@ -13,18 +13,16 @@ import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
   getDefaultProjectName,
-  getExternalDependenciesVersionRange,
-  getNodeDependencyList,
+  getProjectDepType,
   getProjectFromTree,
   getTemplateFolder,
   ignorePatterns,
+  ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile,
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  readAngularJson,
-  readPackageJson,
-  writeAngularJson
+  readAngularJson, readPackageJson, writeAngularJson
 } from '@o3r/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 import {
@@ -33,7 +31,7 @@ import {
   isImported
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -292,6 +290,9 @@ export function updateLocalization(options: { projectName: string | null }, root
     addProviderToModuleFile('MESSAGE_FORMAT_CONFIG', '@o3r/localization', '{provide: MESSAGE_FORMAT_CONFIG, useValue: {}}');
 
     tree.commitUpdate(recorder);
+    if (!isImported(sourceFile, 'environment', '../environments/environment')) {
+      insertImportToModuleFile('environment', '../environments/environment');
+    }
 
     return tree;
   };
@@ -416,32 +417,27 @@ export function updateLocalization(options: { projectName: string | null }, root
    * @param context
    */
   const addDependencies: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
-    const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
+    const type: NodeDependencyType = getProjectDepType(tree);
     const generatorDependencies = [ngxTranslateCoreDep, intlMessageFormatDep, formatjsIntlNumberformatDep, angularCdkDep];
-
     try {
-      const depsRecord = getExternalDependenciesVersionRange(generatorDependencies, packageJsonPath);
-      const dependencies: NodeDependency[] = getNodeDependencyList(depsRecord, type);
-      dependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
+      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, options)(tree, context);
     } catch (e: any) {
       context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
+      return tree;
     }
-
-    return tree;
   };
 
   // Ignore generated CMS metadata
   const ignoreDevResourcesFiles = (tree: Tree, _context: SchematicContext) => {
-    return ignorePatterns(tree, [{ description: 'Local Development resources files', patterns: ['/dev-resources'] }]);
+    return ignorePatterns(tree, [{description: 'Local Development resources files', patterns: ['/dev-resources']}]);
   };
 
   return chain([
+    registerModules,
     generateLocalesFolder,
     updateAngularJson,
     updatePackageJson,
     addDependencies,
-    registerModules,
     setDefaultLanguage,
     addMockTranslationModule,
     ignoreDevResourcesFiles
