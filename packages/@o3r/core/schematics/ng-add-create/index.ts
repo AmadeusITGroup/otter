@@ -30,9 +30,10 @@ export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule
       // prepare needed deps for schematics
       const angularVersion = packageJson.devDependencies?.['@angular/cli'] || packageJson.devDependencies?.['@angular/core'];
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
-      const command = getPackageManagerRunner();
+      const packageManagerRunner = getPackageManagerRunner();
       packageJson.scripts ||= {};
-      packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${command} cpy 'schematics/**/*.json' dist/schematics && ${command} cpy 'collection.json' dist`;
+      packageJson.scripts['build:schematics'] =
+        `tsc -b tsconfig.builders.json --pretty && ${packageManagerRunner} cpy 'schematics/**/*.json' dist/schematics && ${packageManagerRunner} cpy 'collection.json' dist`;
       // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
       packageJson['schematics'] = './collection.json';
       packageJson.peerDependencies ||= {};
