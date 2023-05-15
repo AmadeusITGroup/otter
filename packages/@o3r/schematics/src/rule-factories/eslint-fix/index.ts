@@ -1,7 +1,7 @@
 import { DirEntry, Rule, SchematicContext, SchematicsException, Tree } from '@angular-devkit/schematics';
-import { getPackageManager } from '@o3r/dev-tools';
 import { exec } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
+import { getPackageManager, getPackageManagerRunner } from '../../utility/package-manager-runner';
 
 /**
  * Linter options
@@ -81,7 +81,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
     try {
       const packageManager = getPackageManager();
       exec(
-        `${packageManager} ${packageManager === 'npm' ? 'run' : ''} eslint ` +
+        `${packageManager} ${getPackageManagerRunner()} eslint ` +
         Array.from(files).map((file) => `"${file}"`).join(' ') +
         ' --fix --color' +
         (linterOptions.hideWarnings ? ' --quiet' : '') +

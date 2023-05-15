@@ -1,7 +1,7 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
-import { getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
+import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 
 const COMPONENT_SCHEMATICS_NAME = '@o3r/core:component';
@@ -92,7 +92,7 @@ export function updateOtterEnvironmentAdapter(
 
       workspace.projects[projectName] = workspaceProject;
     } else {
-      workspace.cli.packageManager ||= 'yarn' as PackageManager;
+      workspace.cli.packageManager ||= getPackageManager() as PackageManager;
 
       OTTER_ITEM_TYPES.forEach((item) => {
         const path = TYPES_DEFAULT_FOLDER[item].lib ? `modules/${scope}/${TYPES_DEFAULT_FOLDER[item].lib!}` : null;

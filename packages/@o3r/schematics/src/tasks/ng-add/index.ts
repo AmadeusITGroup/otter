@@ -1,7 +1,7 @@
 import { TaskConfiguration, TaskConfigurationGenerator } from '@angular-devkit/schematics';
 import { NodePackageName, NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager } from '@o3r/dev-tools';
 import type { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { getPackageManager } from '../../utility/package-manager-runner';
 
 /**
  * Options to be passed to the ng add task

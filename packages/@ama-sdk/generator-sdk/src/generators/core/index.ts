@@ -151,7 +151,8 @@ export default class extends SdkGenerator {
   public end() {
     rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'));
     try {
-      this.spawnCommandSync('yarn', ['eslint', path.join('src', 'spec', 'operation-adapter.ts'), '--quiet', '--fix'], { cwd: this.destinationPath() });
+      const packageManagerCommand = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npx' : 'yarn';
+      this.spawnCommandSync(packageManagerCommand, ['eslint', path.join('src', 'spec', 'operation-adapter.ts'), '--quiet', '--fix'], { cwd: this.destinationPath() });
     } catch {
       this.log('Failed to run eslint on operation adapter');
     }

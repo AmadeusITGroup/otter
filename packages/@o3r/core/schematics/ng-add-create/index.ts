@@ -2,7 +2,7 @@ import { chain, move, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import type {PackageJson} from 'type-fest';
-import { findConfigFileRelativePath } from '@o3r/schematics';
+import { findConfigFileRelativePath, getPackageManagerRunner } from '@o3r/schematics';
 import { apply, MergeStrategy, mergeWith, renameTemplateFiles, template, url } from '@angular-devkit/schematics';
 import { NgGenerateUpdateSchematicsSchema } from './schema';
 
@@ -30,9 +30,9 @@ export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule
       // prepare needed deps for schematics
       const angularVersion = packageJson.devDependencies?.['@angular/cli'] || packageJson.devDependencies?.['@angular/core'];
       const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
-
+      const command = getPackageManagerRunner();
       packageJson.scripts ||= {};
-      packageJson.scripts['build:schematics'] = 'tsc -b tsconfig.builders.json --pretty && yarn cpy \'schematics/**/*.json\' dist/schematics && yarn cpy \'collection.json\' dist';
+      packageJson.scripts['build:schematics'] = `tsc -b tsconfig.builders.json --pretty && ${command} cpy 'schematics/**/*.json' dist/schematics && ${command} cpy 'collection.json' dist`;
       // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
       packageJson['schematics'] = './collection.json';
       packageJson.peerDependencies ||= {};

@@ -1,6 +1,5 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { getPackageManager } from '@o3r/dev-tools';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
@@ -16,7 +15,7 @@ import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manage
 class DevInstall extends NodePackageInstallTask {
   /** @inheritDoc */
   public toConfiguration() {
-    const installOptions = getPackageManager();
+    const installOptions = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
     return {
       name: NodePackageName,
       options: {
@@ -24,7 +23,7 @@ class DevInstall extends NodePackageInstallTask {
         quiet: this.quiet,
         workingDirectory: this.workingDirectory,
         packageName: `${this.packageName!} ${installOptions === 'yarn' ? '--prefer-dev' : '-D'}`,
-        packageManager: 'yarn'
+        packageManager: installOptions
       }
     };
   }
@@ -46,7 +45,6 @@ export function ngAdd(): Rule {
         context.logger.info(`Installing ${dependency}${version || ''}`);
         treePackageJson.devDependencies = {...packageJsonContent.devDependencies, [dependency]: version};
         context.addTask(new DevInstall({
-          packageManager: getPackageManager(),
           packageName: `${dependency}${version ? '@' + version : ''}`,
           hideOutput: false,
           quiet: false

@@ -4,7 +4,7 @@ import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType 
 import * as commentJson from 'comment-json';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
-import { getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
+import { getPackageManagerRunner, getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
 
 
 
@@ -92,13 +92,14 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
     // register scripts
     if (tree.exists('/package.json')) {
       const packageJson = JSON.parse(tree.read('/package.json')!.toString());
+      const packageManagerRunner = getPackageManagerRunner();
       packageJson.scripts = packageJson.scripts || {};
       const compodoc = packageJson.scripts['doc:generate'] ? 'doc:generate' : 'compodoc';
-      packageJson.scripts['doc:json'] = packageJson.scripts['doc:json'] || `yarn ${compodoc} -e json -d .`;
+      packageJson.scripts['doc:json'] = packageJson.scripts['doc:json'] || `${packageManagerRunner} ${compodoc} -e json -d .`;
       packageJson.scripts.storybook = packageJson.scripts.storybook ||
-        'yarn doc:json && yarn cms-adapters:metadata' + (isLibrary ? ' && ng run storybook:extract-style' : '') + ' && start-storybook -p 6006';
+        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && start-storybook -p 6006`;
       packageJson.scripts['build:storybook'] = packageJson.scripts['build:storybook'] ||
-        'yarn doc:json && yarn cms-adapters:metadata' + (isLibrary ? ' && ng run storybook:extract-style' : '') + ' && build-storybook';
+        `${packageManagerRunner} doc:json && ${packageManagerRunner} cms-adapters:metadata${isLibrary ? ' && ng run storybook:extract-style' : ''} && build-storybook`;
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
 
