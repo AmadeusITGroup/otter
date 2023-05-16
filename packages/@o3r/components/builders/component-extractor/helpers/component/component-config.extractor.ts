@@ -110,6 +110,15 @@ export class ComponentConfigExtractor {
   }
 
   /**
+   * Returns the name of the symbol
+   *
+   * @param symbol
+   */
+  private getSymbolName(symbol: ts.Symbol): string {
+    return symbol.escapedName.toString();
+  }
+
+  /**
    * Get the type from a property
    * If the type refers to a NestedConfiguration type, then it will be replaced with element
    * and a reference to the object will be returned
@@ -153,8 +162,10 @@ export class ComponentConfigExtractor {
         } else if (configurationWrapper) {
           const type = this.checker.getTypeFromTypeNode(typeNode);
           const baseTypes = type.getBaseTypes();
-          const extendsNested = !!baseTypes?.some((baseType) => baseType.symbol.escapedName.toString().match(/^NestedConfiguration$/));
-          if (extendsNested) {
+          const symbolName = this.getSymbolName(type.symbol);
+          const alreadyExtracted = !!configurationWrapper.nestedConfiguration.find((c) => c.name === symbolName);
+          const extendsNested = !!baseTypes?.some((baseType) => this.getSymbolName(baseType.symbol).match(/^NestedConfiguration$/));
+          if (extendsNested && !alreadyExtracted) {
             const nestedFilePath: string = (type.symbol as any).parent.declarations[0].fileName;
             const nestedSourceFile = ts.createSourceFile(
               nestedFilePath,
