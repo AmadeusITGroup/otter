@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add store-sync project",
+  "description": "'ng add store-sync' project",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": true
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip the install process",
+      "default": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+  ]
+}

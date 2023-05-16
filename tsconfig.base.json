@@ -61,6 +61,7 @@
       "@o3r/routing": ["packages/@o3r/routing/src/public_api"],
       "@o3r/rules-engine": ["packages/@o3r/rules-engine/src/public_api"],
       "@o3r/schematics": ["packages/@o3r/schematics/src/public_api"],
+      "@o3r/store-sync": ["packages/@o3r/store-sync/src/public_api"],
       "@o3r/storybook": ["packages/@o3r/storybook/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/src"],
       "@o3r/styling": ["packages/@o3r/styling/src/public_api"],

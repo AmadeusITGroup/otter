@@ -1,0 +1,18 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    // "composite": true, not supported by ng-packger
+    "outDir": "./dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "src/builders/**/*.ts",
+    "src/helpers/**/*.ts"
+  ]
+}
