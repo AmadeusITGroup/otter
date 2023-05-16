@@ -1,12 +1,11 @@
 import { chain, externalSchematic, Rule, RuleFactory, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { getPackageManager } from '@o3r/dev-tools';
 import type { NodeDependency } from '@schematics/angular/utility/dependencies';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import type { NgAddPackageOptions } from '../../tasks/index';
-import { getExternalDependenciesVersionRange, getNodeDependencyList } from '../../utility';
+import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager } from '../../utility/index';
 
 /**
  * Install via `ng add` a list of npm packages.

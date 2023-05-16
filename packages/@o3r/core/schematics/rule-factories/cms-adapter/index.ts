@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, filter, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getProjectFromTree, getTemplateFolder, ignorePatterns, readAngularJson, readPackageJson } from '@o3r/schematics';
+import { getPackageManagerRunner, getProjectFromTree, getTemplateFolder, ignorePatterns, readAngularJson, readPackageJson } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 
 
@@ -97,8 +97,10 @@ export function updateCmsAdapter(options: { projectName: string | null }, rootPa
   const addExtractersScripts = (tree: Tree, _context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree);
     const packageJson = readPackageJson(tree, workspaceProject);
+    const packageManagerRunner = getPackageManagerRunner();
     packageJson.scripts ||= {};
-    packageJson.scripts['cms-adapters:metadata'] ||= 'yarn cms-adapters:components && yarn cms-adapters:localizations && yarn cms-adapters:style';
+    packageJson.scripts['cms-adapters:metadata'] ||=
+      `${packageManagerRunner} cms-adapters:components && ${packageManagerRunner} cms-adapters:localizations && ${packageManagerRunner} cms-adapters:style`;
     packageJson.scripts['cms-adapters:components'] ||= `ng run ${options.projectName!}:extract-components`;
     packageJson.scripts['cms-adapters:localizations'] ||= `ng run ${options.projectName!}:extract-translations`;
     packageJson.scripts['cms-adapters:style'] ||= `ng run ${options.projectName!}:extract-style`;

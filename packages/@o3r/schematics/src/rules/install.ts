@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { getPackageManager } from '@o3r/dev-tools';
 import { lastValueFrom } from 'rxjs';
+import { getPackageManager } from '../utility/package-manager-runner';
 
 /**
  * Install the Otter packages
