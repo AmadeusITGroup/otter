@@ -72,6 +72,6 @@
   },
   "schematics": "./collection.json",
   "engines": {
-    "node": ">=16.0.0"
+    "node": "<%= engineVersions['node'] %>"
   }
 }

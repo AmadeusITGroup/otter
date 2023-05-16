@@ -11,7 +11,12 @@ module.exports = class extends Generator {
 
   constructor(args: string | string[], options: Record<string, unknown>) {
     super(args, options);
-    this.desc('Generate a api Extension package');
+
+    const deprecatedMessage = '[DEPRECATED] This generator is deprecated and will no longer be updated as of v10, please use @ama-sdk/schematics:api-extension';
+
+    this.log(deprecatedMessage);
+
+    this.desc(`${deprecatedMessage}\nGenerate an API extension package`);
 
     this.option('name', {
       description: 'Extension Name',

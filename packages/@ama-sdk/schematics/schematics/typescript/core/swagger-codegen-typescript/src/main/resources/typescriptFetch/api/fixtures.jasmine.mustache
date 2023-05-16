@@ -1,0 +1,7 @@
+{{#apiInfo}}
+{{#apis}}
+{{#operations}}
+export { {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/{{#kebabCase}}{{classname}}{{/kebabCase}}.jasmine.fixture';
+{{/operations}}
+{{/apis}}
+{{/apiInfo}}

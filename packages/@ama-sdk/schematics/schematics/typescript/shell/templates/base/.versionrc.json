@@ -1,0 +1,9 @@
+{
+  "skip": {
+    "bump": true,
+    "commit": true,
+    "tag": true
+  },
+  "header": "",
+  "tag-prefix": ""
+}

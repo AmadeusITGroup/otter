@@ -31,6 +31,15 @@ jobs:
             !.cache/test-app/@ama-terasu*
             !.cache/test-app/@o3r*
           key: ${{ runner.os }}-test-app-yarn3-${{ env.currentMonth }}
+      - name: Cache test-sdk yarn
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache/test-sdk
+            !.cache/test-sdk/@ama-sdk*
+            !.cache/test-sdk/@ama-terasu*
+            !.cache/test-sdk/@o3r*
+          key: ${{ runner.os }}-test-sdk-yarn3-${{ env.currentMonth }}
       - name: Setup verdaccio once for all tests
         run: yarn verdaccio:start && yarn verdaccio:publish
       - name: Test
@@ -39,10 +48,10 @@ jobs:
         run: yarn verdaccio:stop
       - name: Prepare for publish generated app
         if: failure()
-        run: zip -r test-app.zip ../test-app -x "../test-app/node_modules/*" "../test-app/.cache" "../test-app/.yarn/cache"
-      - name: Publish generated app
+        run: zip -r it-tests.zip ../it-tests -x "../it-tests/*/node_modules/*" "../it-tests/*/.cache" "../it-tests/*/.yarn/cache"
+      - name: Publish generated tests environment
         if: failure()
         uses: actions/upload-artifact@v3
         with:
-          name: test-app
-          path: test-app.zip
+          name: it-tests
+          path: it-tests.zip

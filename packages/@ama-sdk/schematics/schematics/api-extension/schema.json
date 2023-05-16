@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateApiExtensionSchematicsSchema",
+  "title": "Generate Api Extension",
+  "description": "ng generate api-extension",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Extension Name",
+      "x-prompt": "Extension Name?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "coreType": {
+      "type": "string",
+      "description": "Type of the core API to extend",
+      "x-prompt": "Type of the core API to extend?",
+      "enum": [
+        "private",
+        "public"
+      ]
+    },
+    "coreVersion": {
+      "type": "string",
+      "description": "Version of the core API to extend",
+      "x-prompt": "Version of the core API to extend?"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name",
+    "coreType",
+    "coreVersion"
+  ]
+}

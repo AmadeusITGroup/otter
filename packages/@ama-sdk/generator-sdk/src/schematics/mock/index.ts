@@ -92,7 +92,11 @@ export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {
 
   };
 
-  const rules = [
+  const rules: Rule[] = [
+    (tree, context) => {
+      context.logger.warn('[DEPRECATED] Please use @ama-sdk/schematics:typescript-mock, will be removed in v10');
+      return tree;
+    },
     generateRootBarrel,
     generateFiles
   ];

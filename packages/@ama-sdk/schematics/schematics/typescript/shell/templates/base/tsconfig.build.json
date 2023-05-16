@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "types": [],
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "strict": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "lib": [
+      "dom",
+      "es2015",
+      "dom.iterable",
+      "scripthost",
+      "es2017.object"
+    ],
+    "incremental": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": false,
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@<%=projectName%>/<%=projectPackageName%>/helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@<%=projectName%>/<%=projectPackageName%>/helpers": [
+        "./src/helpers/index"
+      ],
+      "@<%=projectName%>/<%=projectPackageName%>": [
+        "./src/index"
+      ],
+      "@<%=projectName%>/<%=projectPackageName%>/*": [
+        "./src/*"
+      ],
+      "@<%=projectName%>/<%=projectPackageName%>/spec": [
+        "./src/spec/index"
+      ]
+    }
+  }
+}

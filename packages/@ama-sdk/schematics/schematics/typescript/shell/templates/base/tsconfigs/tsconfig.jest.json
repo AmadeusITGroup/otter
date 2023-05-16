@@ -1,0 +1,20 @@
+{
+  "extends": "../tsconfig.build",
+  "compilerOptions": {
+    "types": [
+      "jest"
+    ]
+  },
+  "exclude": [
+  ],
+  "include": [
+    "../src/**/*.jest.fixture.ts",
+    "../src/api/fixtures.jest.ts",
+    "../src/fixtures/jest/**/*.ts",
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.source.json"
+    }
+  ]
+}

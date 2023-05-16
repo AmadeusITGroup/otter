@@ -1,0 +1,20 @@
+swagger: '2.0'
+info:
+  version: 0.0.0
+  title: <%= name %>ExampleReply
+  description: Definition for the API model <%= name %>ExampleReply
+paths: {}
+definitions:
+  <%= name %>ExampleReply:
+    type: object
+    allOf:
+      - $ref: '@api-spec/core-<%= coreType %>#/definitions/CommonReply'
+      - type: object
+        required:
+          - data
+        properties:
+          data:
+            type: object
+            properties:
+              example:
+                type: string

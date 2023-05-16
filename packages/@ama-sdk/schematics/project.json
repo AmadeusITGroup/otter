@@ -1,0 +1,81 @@
+{
+  "name": "ama-sdk-schematics",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/schematics/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["build-builders"]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/schematics/schematics/**/*.ts",
+          "!packages/@ama-sdk/schematics/schematics/**/templates/**"
+        ]
+      }
+    },
+    "build-swagger": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "{projectRoot}/schematics/**",
+        "!{projectRoot}/schematics/**/target/**"
+      ],
+      "outputs": [
+        "{projectRoot}/schematics/**/target/*.jar"
+      ],
+      "options": {
+        "script": "build:swagger"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-sdk/schematics/jest.config.js",
+        "silent": true
+      }
+    },
+    "test-int": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-sdk/schematics/testing/jest.config.it.js",
+        "silent": true
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/schematics/dist"
+      }
+    }
+  },
+  "tags": []
+}

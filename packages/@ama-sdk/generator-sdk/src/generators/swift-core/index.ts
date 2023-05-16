@@ -13,7 +13,11 @@ module.exports = class extends SdkGenerator {
   constructor(args: string | string[], options: Record<string, unknown>) {
     super(args, options);
 
-    this.desc('Generate the Swift SDK based on a given swagger spec');
+    const deprecatedMessage = '[DEPRECATED] This generator is deprecated and will no longer be updated as of v10.';
+
+    this.log(deprecatedMessage);
+
+    this.desc(`${deprecatedMessage}\nGenerate the Swift SDK based on a given swagger spec`);
 
     this.option('swaggerSpecPath', {
       description: 'Swagger Spec file to generate the SDK',
