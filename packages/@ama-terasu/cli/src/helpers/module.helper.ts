@@ -206,7 +206,7 @@ export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & Inst
  * @param pck package to get name from
  */
 export const getFormattedDescription = (pck: ModuleDiscovery): string => {
-  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>');
+  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? chalk.blue(String.fromCharCode(0x00AE)) : '');
 };
 
 /**

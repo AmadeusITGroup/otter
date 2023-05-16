@@ -11,12 +11,12 @@ import { isInstalled, ModuleDiscovery } from './module.helper';
  * @returns the package version or undefined if not found
  */
 export const getPackageFormattedVersion = (pck: ModuleDiscovery): string => {
-  const officialPrefix = pck.isOfficialModule ? `${chalk.blue('@')} ` : '';
+  const officialMark = pck.isOfficialModule ? chalk.blue(String.fromCharCode(0x00AE)) : '';
   if (isInstalled(pck)) {
     const isOutdated = pck.version && pck.version !== pck.package.version;
-    return `${officialPrefix}${pck.name}: ${(isOutdated ? chalk.yellow : chalk.green).bold(pck.package.version)}${isOutdated ? chalk.grey.italic(` (${pck.version!} available)`) : ''}`;
+    return `${pck.name}${officialMark}: ${(isOutdated ? chalk.yellow : chalk.green).bold(pck.package.version)}${isOutdated ? chalk.grey.italic(` (${pck.version!} available)`) : ''}`;
   } else {
-    return `${officialPrefix}${pck.name}: ${chalk.grey.bold(pck.version)} ${chalk.grey.italic('(not installed)')}`;
+    return `${pck.name}${officialMark}: ${chalk.grey.bold(pck.version)} ${chalk.grey.italic('(not installed)')}`;
   }
 };
 
