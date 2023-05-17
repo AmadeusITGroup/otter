@@ -35,6 +35,8 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
     permissions:
       packages: write
@@ -45,8 +47,6 @@ jobs:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: ${{ github.event_name == 'pull_request' }}
       - run: yarn set:version ${{ inputs.version }}
       - name: Get tag name
         id: get-npm-tag
@@ -75,8 +75,6 @@ jobs:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: false
       - run: yarn set:version ${{ inputs.version }}
       - name: 'NPM install locally'
         run: |
@@ -106,8 +104,6 @@ jobs:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: ${{ github.event_name == 'pull_request' }}
       - run: yarn set:version ${{ inputs.version }}
       - name: Publish Extensions
         if: '!inputs.prerelease'

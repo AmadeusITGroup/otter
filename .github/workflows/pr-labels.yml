@@ -5,6 +5,8 @@ on: pull_request
 jobs:
   setup-label:
     runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     permissions:
       pull-requests: write
     steps:
@@ -13,8 +15,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Setup
         uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: 'false'
       - run: |
           LABELS="$(yarn pr-labels "$(git log -1 --pretty=%B || echo '')")"
           echo "LABELS=$LABELS" >> $GITHUB_ENV
