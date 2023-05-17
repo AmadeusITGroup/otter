@@ -7124,11 +7124,14 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
+    "@angular-devkit/architect": ~0.1502.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/cli": ~15.2.0
     "@schematics/angular": ~15.2.0
   peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
     "@angular-devkit/core":
       optional: true
   languageName: unknown
