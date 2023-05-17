@@ -92,12 +92,19 @@ export const getDepPackage = (packageName: string): PackageJson | undefined => {
  * Get the path to the installed package
  *
  * @param dep dependency to retrieve in the installed packages
+ * @param useFsToSearch Use File System access to search for the package instead of Node resolve mechanism
  */
-export const getInstalledInformation = async (dep: MinimalPackageInformation & { name: string }): Promise<InstalledModuleInformation | undefined> => {
+export const getInstalledInformation = async (dep: MinimalPackageInformation & { name: string }, useFsToSearch = false): Promise<InstalledModuleInformation | undefined> => {
+  const dynModule = resolve(dynamicDependenciesPath, 'node_modules');
   try {
-    const resolutionPath = require.resolve(dep.name, {
+    let fsDiscoveredPath: string | undefined;
+    if (useFsToSearch) {
+      const localPath = resolve(dynModule, dep.name, 'package.json');
+      fsDiscoveredPath = existsSync(localPath) ? resolve(dynModule, dep.name, JSON.parse(await fs.readFile(localPath, {encoding: 'utf-8'})).main) : undefined;
+    }
+    const resolutionPath = fsDiscoveredPath || require.resolve(dep.name, {
       paths: [
-        resolve(dynamicDependenciesPath, 'node_modules'),
+        dynModule,
         ...module.paths
       ]
     });
@@ -206,7 +213,7 @@ export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & Inst
  * @param pck package to get name from
  */
 export const getFormattedDescription = (pck: ModuleDiscovery): string => {
-  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? chalk.blue(String.fromCharCode(0x00AE)) : '');
+  return (isInstalled(pck) ? '' : `${chalk.grey.italic('(remote)')} `) + (pck.description || '<Missing description>') + (pck.isOfficialModule ? ` ${chalk.blue(String.fromCharCode(0x00AE))}` : '');
 };
 
 /**

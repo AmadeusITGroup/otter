@@ -92,7 +92,7 @@ export const amaYargs = async (argv?: Record<string, any>) => {
         .command(mod.moduleName, getFormattedDescription(mod), async (yargsInstance) => {
           if (!isInstalled(mod)) {
             await baseContext.getSpinner(`Installing ${chalk.bold(mod.name)} module...`).fromPromise(installDependency(mod), `${mod.name} has been installed`, `Failed to install ${mod.name} module`);
-            const information = await getInstalledInformation(mod);
+            const information = await getInstalledInformation(mod, true);
             Object.assign(mod, information);
             if (!isInstalled(mod)) {
               throw new Error(`Something went wrong with the installation of ${mod.name}`);
