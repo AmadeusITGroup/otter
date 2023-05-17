@@ -18,6 +18,7 @@ const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json'
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
+/** @deprecated to be removed in v10 */
 const ngrxStoreLocalstorageDep = 'ngrx-store-localstorage';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';

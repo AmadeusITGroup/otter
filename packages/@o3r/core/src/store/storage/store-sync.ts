@@ -5,6 +5,8 @@ import { Serializer } from '../types';
 
 /**
  * Format of a key in `StoreSyncConfig`
+ *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  */
 export interface StoreSyncSerializers {
   [storeName: string]: Serializer<any>;
@@ -13,6 +15,7 @@ export interface StoreSyncSerializers {
 /**
  * Defines if an object is a Serializer
  *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  * @param obj Object to test
  * @returns True if the object is a Serializer
  */
@@ -20,6 +23,8 @@ export const isSerializer = (obj: any): obj is Serializer<any> => !!(obj.seriali
 
 /**
  * An interface defining the configuration attributes to bootstrap `storeSyncMetaReducer`
+ *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  */
 export interface StoreSyncConfig {
   /** State keys to sync with storage */
@@ -34,6 +39,8 @@ export interface StoreSyncConfig {
 
 /**
  * Action to rehydrate the store
+ *
+ * @deprecated will be removed in v10, use the `rehydrateAction` exported by @o3r/store-sync instead
  */
 export const rehydrate = createAction('[CapacitorRehydrater] rehydrate', props<{
   payload: Record<string, any>;
@@ -41,6 +48,8 @@ export const rehydrate = createAction('[CapacitorRehydrater] rehydrate', props<{
 
 /**
  * Typings for async storage
+ *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  */
 export type AsyncStorage = Omit<Storage, 'getItem'> & {
   getItem(key: string): Promise<string | null>;
@@ -48,6 +57,8 @@ export type AsyncStorage = Omit<Storage, 'getItem'> & {
 
 /**
  * Options for async storage sync
+ *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  */
 export interface AsyncStorageSyncOptions extends Omit<LocalStorageConfig, 'storage'> {
   storage?: AsyncStorage;
@@ -57,13 +68,18 @@ interface Logger {
   /**
    * Log an error.
    *
+   * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
   error(message?: any, ...optionalParams: any[]): void;
 }
 
-/** Options for storage sync */
+/**
+ * Options for storage sync
+ *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
+ */
 export type StorageSyncOptions = (LocalStorageConfig | AsyncStorageSyncOptions) & {
   /**
    * Optional logger to use for logging errors
@@ -74,6 +90,7 @@ export type StorageSyncOptions = (LocalStorageConfig | AsyncStorageSyncOptions) 
 /**
  * Defines if the storage is a non-async storage
  *
+ * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
  * @param options The storage config
  * @returns in case the storage used is a non-async storage
  */
@@ -97,6 +114,7 @@ export class StorageSync {
    * Merge strategy is a full merge at init; When a new `store slice` is registered, its initial state is merged with its corresponding storage content
    * Pass it as mergeReducer callback when calling localStorageSync function from 'ngrx-store-localstorage', in the app
    *
+   * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
    * @param state actual state
    * @param rehydratedState state from storage
    * @param action Triggered action
@@ -122,6 +140,8 @@ export class StorageSync {
 
   /**
    * Returns a meta reducer that handles storage sync
+   *
+   * @deprecated will be removed in v10, use the one exported by @o3r/store-sync instead
    */
   public localStorageSync() {
     return (reducer: any) => {

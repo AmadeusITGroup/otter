@@ -5,6 +5,7 @@ import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
 import {
   install
 } from '@o3r/schematics';
+import { updateImports } from '@o3r/schematics';
 import { updateCustomizationEnvironment } from '../rule-factories/customization-environment';
 import { updatePlaywright } from '../rule-factories/playwright';
 import { updateStoreReducerInterface } from './v4.2/store-reducer-interface';
@@ -20,6 +21,7 @@ import { useNgxPrefetch } from './v6.1/use-ngx-prefetch';
 import { updateRenovateConfig } from './v6.3/update-renovate-config';
 import { updatePrefetchTargetBuild } from './v6/update-angular-json';
 import { updateLocalizationGeneration } from './v7.0/update-localization-generation';
+import { mapImportAsyncStore } from './v8.2/import-map';
 /**
  * update of Otter library V3.*
  */
@@ -189,6 +191,21 @@ export function updateV7_1_11(): Rule {
 
     const updateRules: Rule[] = [
       updateRenovateConfig()
+    ];
+
+    return chain(updateRules)(tree, context);
+  };
+}
+
+
+/**
+ * update of Otter library V8.2
+ */
+export function updateV8_2(): Rule {
+  return (tree: Tree, context: SchematicContext) => {
+
+    const updateRules: Rule[] = [
+      updateImports(mapImportAsyncStore)
     ];
 
     return chain(updateRules)(tree, context);

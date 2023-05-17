@@ -1,8 +1,7 @@
 import { Inject, Injectable, InjectionToken } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { isLocalStorageConfig, isSerializer, rehydrate, StorageSyncOptions } from '@o3r/core';
+import { dateReviver, isLocalStorageConfig, isSerializer, rehydrateAction, StorageSyncOptions } from '@o3r/store-sync';
 import { LoggerService } from '@o3r/logger';
-import { dateReviver } from 'ngrx-store-localstorage';
 
 /**
  * Injection token for the storage sync options
@@ -67,7 +66,7 @@ export class CapacitorRehydrater {
     const result = await Promise.all(storageCalls);
 
     this.store.dispatch(
-      rehydrate({
+      rehydrateAction({
         payload: result.reduce(
           (acc: Record<string, any>, store) => ({...acc, ...store}),
           {}
