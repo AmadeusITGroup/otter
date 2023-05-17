@@ -23,8 +23,6 @@ jobs:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: 'false'
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
@@ -55,8 +53,6 @@ jobs:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: 'false'
       - name: Cache Eslint
         uses: actions/cache@v3
         with:

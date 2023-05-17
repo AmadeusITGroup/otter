@@ -16,8 +16,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
-        with:
-          enable-build-cache: 'true'
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'

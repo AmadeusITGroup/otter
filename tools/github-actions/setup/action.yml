@@ -4,10 +4,12 @@ description: 'Setup for Otter Library'
 inputs:
   enable-build-cache:
     description: 'Enable Cache'
+    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
     required: false
     default: 'false'
   cache-build-identifier:
     description: 'Custom identifier to build cache key'
+    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
     required: false
     default: 'global'
 
@@ -28,25 +30,6 @@ runs:
         key: ${{ runner.os }}-deps-${{ hashFiles('yarn.lock') }}
         restore-keys: |
           ${{ runner.os }}-deps
-          ${{ runner.os }}
-    - name: Cache build
-      if: inputs.enable-build-cache == 'true'
-      uses: actions/cache@v3
-      env:
-        hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
-      with:
-        path: |
-          .cache/nx
-          .cache/angular
-          .angular/cache
-          node_modules/.cache/ng-packagr
-          node_modules/.cache/nx
-        key: ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.hash }}-${{ inputs.cache-build-identifier }}
-          ${{ runner.os }}-build-${{ env.hash }}-global
-          ${{ runner.os }}-build-${{ env.hash }}
-          ${{ runner.os }}-build
           ${{ runner.os }}
     - name: Install
       shell: bash

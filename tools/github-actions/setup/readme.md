@@ -17,6 +17,4 @@ See [Action specifications](tools/github-actions/setup/action.yml) directly for 
 - name: Setup
   id: setup
   uses: AmadeusITGroup/otter/tools/github-actions/setup@8
-  with:
-    enable-build-cache: 'true'
 ```
