@@ -82,6 +82,7 @@ export function apiManagerFactory(): ApiManager {
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = getProjectFromTree(tree);
     const tsconfig: string | undefined =
+      workspaceProject &&
       workspaceProject.architect &&
       workspaceProject.architect.build &&
       workspaceProject.architect.build.options &&

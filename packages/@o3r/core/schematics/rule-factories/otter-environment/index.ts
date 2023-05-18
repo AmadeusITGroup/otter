@@ -35,11 +35,16 @@ export function updateOtterEnvironmentAdapter(
    *
    * @param tree
    * @param _context
+   * @param context
    */
-  const editAngularJson = (tree: Tree, _context: SchematicContext) => {
+  const editAngularJson = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
+      context.logger.error('No application detected, the Otter environment will not be setup');
+      return tree;
+    }
+
     const packageJson = readPackageJson(tree, workspaceProject);
     const scope = packageJson.name!.split('/')[0];
 
@@ -90,7 +95,8 @@ export function updateOtterEnvironmentAdapter(
 
       }
 
-      workspace.projects[projectName] = workspaceProject;
+      const { name, ...newProject } = workspaceProject;
+      workspace.projects[name] = newProject;
     } else {
       workspace.cli.packageManager ||= getPackageManager() as PackageManager;
 
@@ -136,10 +142,12 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
+      context.logger.error('No application detected, the environment can not be generated');
       return tree;
     }
+
     if (tree.exists('/src/environments/environment.ts')) {
       return tree;
     }
@@ -160,8 +168,8 @@ export function updateOtterEnvironmentAdapter(
    * @param _context
    */
   const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
       return tree;
     }
 

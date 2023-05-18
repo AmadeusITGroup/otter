@@ -11,10 +11,10 @@ import { NgGeneratePlaywrightSanitySchematicsSchema } from './schema';
  */
 export function ngGeneratePlaywrightSanity(options: NgGeneratePlaywrightSanitySchematicsSchema): Rule {
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
 
-    if (workspaceProject.projectType !== 'application') {
-      throw new Error(`Cannot create a playwright sanity on ${workspaceProject.projectType}`);
+    if (!workspaceProject) {
+      throw new Error('Cannot create a playwright sanity');
     }
 
     return tree;
@@ -31,9 +31,9 @@ export function ngGeneratePlaywrightSanity(options: NgGeneratePlaywrightSanitySc
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     let sanitiesPath = options.path;
     if (!sanitiesPath) {
-      const workspaceProject = getProjectFromTree(tree);
+      const workspaceProject = getProjectFromTree(tree, null, 'application');
       const configurationIndex = '@o3r/testing:playwright-sanity';
-      const playwrightOptions = workspaceProject.schematics![configurationIndex] as {path?: string} | undefined;
+      const playwrightOptions = workspaceProject?.schematics?.[configurationIndex] as {path?: string} | undefined;
       if (!playwrightOptions || !playwrightOptions.path || typeof playwrightOptions.path !== 'string') {
         throw new Error('Cannot create a playwright sanity without a path. Provide a path in angular.json');
       }

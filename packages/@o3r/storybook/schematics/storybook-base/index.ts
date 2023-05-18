@@ -19,7 +19,11 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
   return (tree: Tree, context: SchematicContext) => {
 
 
-    const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
+    const workspaceProject = getProjectFromTree(tree, options.projectName || null);
+    if (!workspaceProject) {
+      context.logger.warn('No project found, the update of storybook will be skipped');
+      return tree;
+    }
     const isLibrary = workspaceProject.projectType === 'library';
 
     // update gitignore
@@ -135,15 +139,18 @@ export function updateStorybook(options: { projectName: string | null }, rootPat
             Object.values(project.architect)
               .forEach((build) => {
                 switch (build.builder as string) {
-                  case '@o3r/localization:extractor':
+                  case '@o3r/localization:extractor': {
                     localizationMetadata = build.options?.outputFile && `../${build.options?.outputFile as string}` || localizationMetadata;
                     break;
-                  case '@o3r/components:extractor':
+                  }
+                  case '@o3r/components:extractor': {
                     configMetadata = build.options?.configOutputFile && `../${build.options?.configOutputFile as string}` || configMetadata;
                     break;
-                  case '@o3r/styling:extractor':
+                  }
+                  case '@o3r/styling:extractor': {
                     styleMetadata = !workspace.projects.storybook && build.options?.outputFile && `../${build.options?.outputFile as string}` || styleMetadata;
                     break;
+                  }
                 }
               });
           }

@@ -20,9 +20,9 @@ import {getProjectFromTree} from './loaders';
  * @param context Context of the rule
  */
 export function getAppModuleFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree);
+  const workspaceProject = getProjectFromTree(tree, null, 'application');
   // exit if not an application
-  if (workspaceProject.projectType !== 'application') {
+  if (!workspaceProject) {
     context.logger.debug('Register localization on main module only in application project');
     return undefined;
   }
@@ -86,9 +86,9 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext) {
  * @param context Context of the rule
  */
 export function getMainFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree);
+  const workspaceProject = getProjectFromTree(tree, null, 'application');
   // exit if not an application
-  if (workspaceProject.projectType !== 'application') {
+  if (!workspaceProject) {
     context.logger.debug('Register localization on main module only in application project');
     return undefined;
   }
@@ -104,8 +104,8 @@ export function getMainFilePath(tree: Tree, context: SchematicContext) {
  * @param tree
  */
 export function isApplicationThatUsesRouterModule(tree: Tree) {
-  const workspaceProject = getProjectFromTree(tree);
-  return workspaceProject.projectType === 'application' && workspaceProject.sourceRoot &&
+  const workspaceProject = getProjectFromTree(tree, null, 'application');
+  return workspaceProject?.sourceRoot &&
     globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const sourceFile = ts.createSourceFile(filePath, fs.readFileSync(filePath).toString(), ts.ScriptTarget.ES2015, true);
       try {

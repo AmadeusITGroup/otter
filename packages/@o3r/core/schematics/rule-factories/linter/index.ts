@@ -12,6 +12,7 @@ const eslintDep = 'eslint';
  * Add or update the Linter configuration
  *
  * @param options @see RuleFactory.options
+ * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  * @param o3rCoreVersion
  */
@@ -63,12 +64,16 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
    * Update angular.json file to use ESLint builder.
    *
    * @param tree
-   * @param _context
+   * @param context
    */
-  const editAngularJson = (tree: Tree, _context: SchematicContext) => {
+  const editAngularJson = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, options.projectName);
+
+    if (!workspaceProject) {
+      context.logger.warn('No project detected, linter task can not be added');
+      return tree;
+    }
 
     workspaceProject.architect ||= {};
     workspaceProject.architect.lint ||= {
@@ -81,7 +86,8 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
       }
     };
 
-    workspace.projects[projectName] = workspaceProject;
+    const { name, ...newProject } = workspaceProject;
+    workspace.projects[name] = newProject;
     tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
     return tree;
   };

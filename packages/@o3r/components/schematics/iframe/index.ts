@@ -26,7 +26,7 @@ const CONFIG_TEMPLATE_PATH = './templates/config';
  * @param options
  * @param prefix
  */
-const getTemplateProperties = (options: NgGenerateIframeComponentSchematicsSchema, prefix: string) => {
+const getTemplateProperties = (options: NgGenerateIframeComponentSchematicsSchema, prefix?: string) => {
 
   const inputComponentName = getInputComponentName(options.componentName);
   const folderName = getComponentFolderName(inputComponentName);
@@ -38,7 +38,7 @@ const getTemplateProperties = (options: NgGenerateIframeComponentSchematicsSchem
     moduleName: getComponentModuleName(inputComponentName, ''),
     componentName: getComponentName(inputComponentName, ''),
     componentConfig: getComponentConfigName(inputComponentName, ''),
-    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix),
+    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     folderName,
     name: getComponentFileName(options.componentName, ''),
     configKey: getComponentConfigKey(options.componentName, ''),
@@ -57,7 +57,7 @@ export function ngGenerateIframeComponent(options: NgGenerateIframeComponentSche
 
     const workspaceProject = getProjectFromTree(tree);
 
-    const properties = getTemplateProperties(options, options.prefix ? options.prefix : workspaceProject.prefix);
+    const properties = getTemplateProperties(options, options.prefix ? options.prefix : workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree);
     const componentDestination = path.join(destination, properties.folderName);

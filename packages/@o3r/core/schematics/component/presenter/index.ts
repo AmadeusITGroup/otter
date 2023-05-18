@@ -51,7 +51,7 @@ const CONFIG_TEMPLATE_PATH = './templates/config';
  * @param componentStructureDef
  * @param prefix
  */
-const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix: string) => {
+const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix?: string) => {
   const inputComponentName = getInputComponentName(options.componentName);
   const folderName = getComponentFolderName(inputComponentName);
 
@@ -66,7 +66,7 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
     componentContext: getComponentContextName(inputComponentName, componentStructureDef),
     componentFixture: getComponentFixtureName(inputComponentName, componentStructureDef),
     componentAnalytics: getComponentAnalyticsName(inputComponentName, componentStructureDef),
-    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix),
+    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     projectName: options.projectName || getLibraryNameFromPath(options.path),
     folderName,
     name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-pres
@@ -89,7 +89,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
     const workspaceProject = getProjectFromTree(tree);
 
-    const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject.prefix);
+    const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree);
     const componentDestination = path.join(destination, fullStructureRequested ? path.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);

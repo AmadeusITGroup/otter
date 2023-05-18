@@ -11,10 +11,10 @@ import { NgGeneratePlaywrightScenarioSchematicsSchema } from './schema';
  */
 export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenarioSchematicsSchema): Rule {
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
 
-    if (workspaceProject.projectType !== 'application') {
-      throw new Error(`Cannot create a playwright scenario on ${workspaceProject.projectType}`);
+    if (!workspaceProject) {
+      throw new Error('Cannot create a playwright scenario');
     }
 
     return tree;
@@ -31,9 +31,9 @@ export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenar
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     let scenariosPath = options.path;
     if (!scenariosPath) {
-      const workspaceProject = getProjectFromTree(tree);
+      const workspaceProject = getProjectFromTree(tree, null, 'application');
       const configurationIndex = '@o3r/testing:playwright-scenario';
-      const playwrightOptions = workspaceProject.schematics![configurationIndex] as {path?: string} | undefined;
+      const playwrightOptions = workspaceProject?.schematics?.[configurationIndex] as {path?: string} | undefined;
       if (!playwrightOptions || !playwrightOptions.path || typeof playwrightOptions.path !== 'string') {
         throw new Error('Cannot create a playwright scenario without a path. Provide a path in angular.json');
       }
