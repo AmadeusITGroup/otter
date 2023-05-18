@@ -1,11 +1,13 @@
 {
   "extends": "<%= tsconfigBuildPath %>",
   "compilerOptions": {
+    "skipLibCheck": true,
     "incremental": true,
     "composite": true,
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
+    "declaration": true,
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [

@@ -1,7 +1,7 @@
 {
   "name": "@o3r/eslint-config-otter",
   "version": "0.0.0-placeholder",
-  "description": "TSLint rules",
+  "description": "Recommended eslint configuration for Otter project",
   "main": "src/index.js",
   "exports": {
     "./package.json": {
@@ -30,7 +30,8 @@
     "eslint",
     "otter",
     "amadeus",
-    "linter"
+    "linter",
+    "otter-module"
   ],
   "scripts": {
     "build": "yarn cpy --flat {base,fast,index,jasmine,jasmine-fast,template}.js package.json dist && yarn postbuild",

@@ -80,7 +80,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     updateAdditionalModules(options, coreSchematicsFolder),
     generateRenovateConfig(coreSchematicsFolder),
     removePackages(packagesToRemove),
-    addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template', '']),
+    addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template']),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
     ngAddPackages(externalPackagesToInstallWithNgAdd,

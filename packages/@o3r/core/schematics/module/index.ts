@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, template, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, findConfigFileRelativePath, isNxContext } from '@o3r/schematics';
+import { applyEsLintFix, findConfigFileRelativePath, isNxContext, readAngularJson, writeAngularJson } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { readFileSync } from 'node:fs';
 import type { PackageJson, TsConfigJson } from 'type-fest';
@@ -15,9 +15,43 @@ import type { PackageJson, TsConfigJson } from 'type-fest';
 export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
 
   /** Path to the folder where generate the new module */
-  const targetPath = path.posix.resolve('/', options.path, options.name);
+  const targetPath = path.posix.resolve('/', options.path || 'packages', options.name);
   /** Name of the Nx Project in case of Nx monorepo */
   const projectName = options.projectName || options.name.replace(/^@/, '').replace('/', '-');
+
+  /**
+   * Register package in angular.json
+   *
+   * @param tree File tree
+   * @param context Context of the schematics
+   */
+  const registerAngularActions: Rule = (tree, context) => {
+    try {
+      const angularJson = readAngularJson(tree);
+      angularJson.projects ||= {};
+      angularJson.projects[projectName] = {
+        prefix: '',
+        root: path.posix.join('.', targetPath),
+        sourceRoot: path.posix.join('.', targetPath, 'src'),
+        projectType: 'library',
+        architect: {
+          build: {
+            builder: '@angular-devkit/build-angular:ng-packagr',
+            options: {
+              project: path.posix.join('.', targetPath, 'ng-package.json'),
+              tsConfig: path.posix.join('.', targetPath, 'tsconfig.build.json')
+            }
+          }
+        }
+      };
+
+      return writeAngularJson(tree, angularJson);
+    } catch {
+      context.logger.warn('The angular.json file has not be found, the new module will not registered');
+    }
+
+    return tree;
+  };
 
   /**
    * Apply additional configurations in case of Nx monorepo
@@ -28,7 +62,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
   const registerNxActions: Rule = (tree, context) => {
     if (!isNxContext(tree)) {
       context.logger.debug('Skipped NX setup because the schematics does not run in an NX monorepo');
-      return tree;
+      return registerAngularActions(tree, context);
     }
 
     const templateNx = apply(url('./templates/nx'), [
@@ -83,6 +117,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
     const templateNx = apply(url('./templates/base'), [
       template({
         ...options,
+        projectName,
         otterVersion,
         versions,
         isNxContext: isNxContext(tree),

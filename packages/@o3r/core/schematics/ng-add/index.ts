@@ -6,6 +6,14 @@ import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { NgAddSchematicsSchema } from './schema';
+import { displayModuleList } from '../rule-factories/module-list';
+import type { OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE, OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE } from '@o3r/core';
+
+// TODO: Remove this workaround when #374 is implemented
+const OTTER_MODULE_KEYWORD: typeof OTTER_MODULE_KEYWORD_TYPE = 'otter-module';
+
+// TODO: Remove this workaround when #374 is implemented
+const OTTER_MODULE_SUPPORTED_SCOPES: typeof OTTER_MODULE_SUPPORTED_SCOPES_TYPE = ['otter', 'o3r'];
 
 /**
  * Install dev dependency on your application
@@ -60,7 +68,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       async (t, c) => {
         const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
         return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
-      }
+      },
+      (t, c) => displayModuleList(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES)(t, c)
     ])(tree, context);
   };
 }

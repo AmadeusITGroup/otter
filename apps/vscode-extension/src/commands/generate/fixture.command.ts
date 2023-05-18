@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner } from './helpers';
+import { getPackageScriptRunner } from '../helpers';
 
 const availableMethods: string[] = [
   'clickOnButton',

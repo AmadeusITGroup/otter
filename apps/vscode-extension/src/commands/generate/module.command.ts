@@ -2,7 +2,7 @@
 import { dirname, relative, resolve} from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner } from './helpers';
+import { getPackageScriptRunner } from '../helpers';
 
 /**
  * Generate new Otter Module command

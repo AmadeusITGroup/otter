@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a framework to capture / store and use multiple events (ui, performance etc.) in an [Otter Application](https://github.com/AmadeusITGroup/otter).
+This module provides a framework to capture, store and report multiple events (ui, performance etc.) emitted by an [Otter Application](https://github.com/AmadeusITGroup/otter).
 
 ## How to install
 

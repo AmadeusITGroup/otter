@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getCurrentFolder, getPackageScriptRunner } from './helpers';
+import { getCurrentFolder, getPackageScriptRunner } from '../helpers';
 
 /**
  * Generate component command

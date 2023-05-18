@@ -2,7 +2,7 @@
 import { dirname, relative } from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner } from './helpers';
+import { getPackageScriptRunner } from '../helpers';
 
 /**
  * Generate service command

@@ -1,10 +1,11 @@
 {
   "name": "@o3r/testing",
   "version": "0.0.0-placeholder",
-  "description": "Otter testing classes",
+  "description": "The module provides testing (e2e, unit test) utilities to help you build your own E2E pipeline integrating visual testing.",
   "keywords": [
     "testing",
-    "otter"
+    "otter",
+    "otter-module"
   ],
   "main": "public_api.js",
   "typings": "public_api.d.ts",

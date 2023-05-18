@@ -1,10 +1,12 @@
 {
   "name": "@o3r/localization",
   "version": "0.0.0-placeholder",
-  "description": "Localization module of the Otter framework",
+  "description": "This module provides a runtime dynamic language/translation support and debug tools.",
   "keywords": [
     "localization",
-    "otter"
+    "otter",
+    "otter-module",
+    "otter-cms"
   ],
   "scripts": {
     "nx": "nx",

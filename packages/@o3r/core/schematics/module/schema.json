@@ -9,7 +9,8 @@
       "description": "Package name",
       "x-prompt": "Name of the package of the new module?",
       "$default": {
-        "$source": "name"
+        "$source": "argv",
+        "index": 0
       }
     },
     "description": {
@@ -35,10 +36,9 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
-      "default": false,
-      "x-prompt": "Skip linter process on generated files?"
+      "default": true
     }
   },
-  "required": ["name", "path"],
+  "required": ["name"],
   "additionalProperties": true
 }

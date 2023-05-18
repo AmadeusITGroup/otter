@@ -90,7 +90,18 @@
     "module": {
       "description": "Generate an new Otter compatible module",
       "factory": "./schematics/module/index#ngGenerateModule",
-      "schema": "./schematics/module/schema.json"
+      "schema": "./schematics/module/schema.json",
+      "aliases": [
+        "new-module"
+      ]
+    },
+    "show-modules": {
+      "description": "Show available Otter modules",
+      "factory": "./schematics/show-modules/index#ngShowModules",
+      "schema": "./schematics/show-modules/schema.json",
+      "aliases": [
+        "list-modules"
+      ]
     }
   }
 }

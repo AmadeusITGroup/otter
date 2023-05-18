@@ -111,6 +111,10 @@
     },
     "commands": [
       {
+        "command": "otter.add.module",
+        "title": "Otter: Add/Install new module"
+      },
+      {
         "command": "otter.generate.component",
         "title": "Otter: Generate Component"
       },
@@ -155,6 +159,10 @@
       {
         "command": "otter.menu.generate.store",
         "title": "Generate Store"
+      },
+      {
+        "command": "otter.menu.generate.module",
+        "title": "Generate Module"
       }
     ],
     "menus": {
@@ -248,8 +256,10 @@
     "@angular/platform-browser-dynamic": "~15.2.0",
     "@nrwl/jest": "~15.9.0",
     "@o3r/build-helpers": "workspace:^",
+    "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@types/glob": "^7.2.0",
     "@types/jest": "~28.1.2",
     "@types/node": "^17.0.45",

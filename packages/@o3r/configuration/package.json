@@ -1,10 +1,12 @@
 {
   "name": "@o3r/configuration",
   "version": "0.0.0-placeholder",
-  "description": "Configuration module of the Otter framework",
+  "description": "This module contains configuration-related features such as CMS compatibility, Configuration override, store and debugging.\nIt enables your application runtime configuration and comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.",
   "keywords": [
     "configuration",
-    "otter"
+    "otter",
+    "otter-module",
+    "otter-cms"
   ],
   "exports": {
     "./middlewares": {

@@ -1,10 +1,11 @@
 {
   "name": "@o3r/forms",
   "version": "0.0.0-placeholder",
-  "description": "forms module of the Otter framework",
+  "description": "This module provides utilities to enhance angular form (asynchronous decorator, additional validator, error store...).",
   "keywords": [
     "forms",
-    "otter"
+    "otter",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",
