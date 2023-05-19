@@ -4,6 +4,7 @@ import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manage
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
+import type { PackageJson } from 'type-fest';
 import { NgAddSchematicsSchema } from './schema';
 
 /**
@@ -38,8 +39,8 @@ class DevInstall extends NodePackageInstallTask {
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
-    const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'}));
-    const o3rCoreVersion = typeof corePackageJsonContent?.version === 'string' ? `@${corePackageJsonContent.version as string}` : '';
+    const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
+    const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
     const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
     for (const dependency of schematicsDependencies) {
       context.addTask(new DevInstall({
@@ -49,11 +50,16 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       } as any));
       await lastValueFrom(context.engine.executePostTasks());
     }
+
     return () => chain([
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
       async (t, c) => {
         const {prepareProject} = await import('./project-setup/index');
         return prepareProject(options)(t, c);
+      },
+      async (t, c) => {
+        const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
+        return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
       }
     ])(tree, context);
   };

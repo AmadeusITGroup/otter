@@ -1,24 +1,29 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
 import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter components to an Angular Project
+ *
+ * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const { getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages, registerPackageCollectionSchematics } = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const dependencyType = getProjectDepType(tree);
       const rule = chain([
         removePackages(['@otter/components']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/components - install builder dependency')
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/components - install builder dependency'),
+        registerPackageCollectionSchematics(packageJson)
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
