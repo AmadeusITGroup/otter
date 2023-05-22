@@ -8,23 +8,25 @@ import * as commentJson from 'comment-json';
 export function updatePrefetchTargetBuild(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const defaultTargetBuild = `${projectName}:build:production`;
-    const workspaceProject = getProjectFromTree(tree);
-    if (workspaceProject.projectType !== 'application') {
-      // no update for libraries
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
       return tree;
-    } else if (workspaceProject.architect) {
-      for (const builder of Object.keys(workspaceProject.architect)) {
-        const builderObj = workspaceProject.architect[builder];
+    }
+    const { name, ...newProject } = workspaceProject;
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const defaultTargetBuild = `${name}:build:production`;
+    if (newProject.architect) {
+      for (const builder of Object.keys(newProject.architect)) {
+        const builderObj = newProject.architect[builder];
         if (builderObj && builderObj.builder === '@otter/ng-tools:prefetch' && !builderObj.options.targetBuild) {
-          workspaceProject.architect[builder].options = {
-            ...workspaceProject.architect[builder].options,
+          newProject.architect[builder].options = {
+            ...newProject.architect[builder].options,
             targetBuild: defaultTargetBuild
           };
         }
       }
-      workspace.projects[projectName] = workspaceProject;
+
+      workspace.projects[name] = newProject;
       tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
       return tree;
     }
@@ -37,8 +39,10 @@ export function updatePrefetchTargetBuild(): Rule {
 export function updateI18nBuild(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
+      return tree;
+    }
     if (workspaceProject.architect) {
       for (const builder of Object.keys(workspaceProject.architect)) {
         const builderObj = workspaceProject.architect[builder];
@@ -57,7 +61,8 @@ export function updateI18nBuild(): Rule {
         }
       }
     }
-    workspace.projects[projectName] = workspaceProject;
+    const { name, ...newProject } = workspaceProject;
+    workspace.projects[name] = newProject;
     tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
     return tree;
   };

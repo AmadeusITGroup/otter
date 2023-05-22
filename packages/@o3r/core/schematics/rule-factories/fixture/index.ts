@@ -9,6 +9,7 @@ import { getProjectFromTree } from '@o3r/schematics';
  * @param options @see RuleFactory.options
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
+ * @param options.testingFramework
  * @param _rootPath
  */
 export function updateFixtureConfig(options: { projectName: string | null; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
@@ -22,7 +23,12 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
    * @param _context
    */
   const updateTestTsconfig: Rule = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
+    const workspaceProject = getProjectFromTree(tree, options.projectName || null);
+
+    if (!workspaceProject) {
+      return tree;
+    }
+
     const testTarget = workspaceProject.architect && workspaceProject.architect.test;
     const tsconfig: string | undefined = testTarget && testTarget.options && testTarget.options.tsConfig;
 

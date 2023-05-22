@@ -2,7 +2,7 @@ import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 
-import { applyEsLintFix, getDefaultProjectName, getDestinationPath, getProjectFromTree, insertRoute, Route } from '@o3r/schematics';
+import { applyEsLintFix, getDestinationPath, getProjectFromTree, insertRoute, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 
 /**
@@ -13,10 +13,9 @@ import { NgGeneratePageSchematicsSchema } from './schema';
 export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
 
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
-    const workspaceProject = getProjectFromTree(tree);
-
-    if (workspaceProject.projectType !== 'application') {
-      throw new Error(`Cannot create a page on ${workspaceProject.projectType}`);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
+      throw new Error('Cannot create a page on library');
     }
 
     return tree;
@@ -31,8 +30,11 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
    * @param context Context of the rule
    */
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    const projectName = getDefaultProjectName(tree);
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
+      context.logger.warn('No application detected in this project, the page cannot be generated');
+      return tree;
+    }
     const destination = getDestinationPath('@o3r/core:page', options.path, tree);
     const pagePath = path.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
 
@@ -43,7 +45,7 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
         ...strings,
         ...options,
         className,
-        projectName,
+        projectName: workspaceProject.name,
         scuPageName: strings.underscore(options.name).toUpperCase(),
         prefix: options.prefix ? options.prefix : workspaceProject.prefix
       }),

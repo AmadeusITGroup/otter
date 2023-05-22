@@ -21,8 +21,8 @@ export function createAzurePipeline(options: { projectName: string | null; enabl
     if (tree.exists('/azure-pipelines.yml')) {
       return tree;
     }
-    const workspaceProject = getProjectFromTree(tree, options.projectName);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+    if (!workspaceProject) {
       context.logger.warn(`The project "${options.projectName!}" is not an application, the pipeline generation will be skipped.`);
       return tree;
     }
@@ -47,8 +47,8 @@ export function createAzurePipeline(options: { projectName: string | null; enabl
     if (tree.exists('/azure-pipelines.yml')) {
       return tree;
     }
-    const workspaceProject = getProjectFromTree(tree, options.projectName);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+    if (!workspaceProject) {
       return tree;
     }
     context.logger.info('To be able to deploy your application to Deploy Service V2 provided by Amadeus, you need to manually process the following steps:');

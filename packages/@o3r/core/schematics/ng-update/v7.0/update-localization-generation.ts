@@ -6,7 +6,10 @@ import { getProjectFromTree, readPackageJson } from '@o3r/schematics';
  */
 export function updateLocalizationGeneration(): Rule {
   return (tree: Tree) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null);
+    if (!workspaceProject) {
+      return tree;
+    }
     const packageJson = readPackageJson(tree, workspaceProject);
     if (packageJson.scripts) {
       if (packageJson.scripts.build) {

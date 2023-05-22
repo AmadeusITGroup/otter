@@ -46,7 +46,7 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
     const workspaceProject = getProjectFromTree(tree);
 
     let packageName = destination;
-    if (workspaceProject.projectType !== 'application') {
+    if (workspaceProject?.projectType !== 'application') {
       let rec = '..';
       while (!tree.exists(path.resolve(destination, rec, 'package.json')) && path.resolve(destination, rec) !== '/') {
         rec = path.join('..', rec);

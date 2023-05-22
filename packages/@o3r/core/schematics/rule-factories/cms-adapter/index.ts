@@ -23,16 +23,16 @@ export function updateCmsAdapter(options: { projectName: string | null }, rootPa
     if (tree.exists('/tsconfig.cms.json')) {
       return tree;
     }
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null);
     const buildTsConfig: string =
-      workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
+      workspaceProject && workspaceProject.architect && workspaceProject.architect.build && workspaceProject.architect.build.options && workspaceProject.architect.build.options.tsConfig
       || './tsconfig';
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
         ...strings,
         buildTsConfig: buildTsConfig.startsWith('.') ? buildTsConfig : `./${buildTsConfig}`,
-        sourceRoot: workspaceProject.sourceRoot || 'src'
+        sourceRoot: workspaceProject?.sourceRoot || 'src'
       }),
       // TODO* workaround for issue https://github.com/angular/angular-cli/issues/11337
       filter((fileEntry: string) => !tree.exists(fileEntry))
@@ -47,11 +47,16 @@ export function updateCmsAdapter(options: { projectName: string | null }, rootPa
    *
    * @param tree
    * @param _context
+   * @param context
    */
-  const editAngularJson = (tree: Tree, _context: SchematicContext) => {
+  const editAngularJson = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null);
+
+    if (!workspaceProject) {
+      context.logger.warn('No project detected, the extractors will not be added');
+      return tree;
+    }
 
     if (!workspaceProject.architect) {
       workspaceProject.architect = {};
@@ -83,7 +88,8 @@ export function updateCmsAdapter(options: { projectName: string | null }, rootPa
       }
     };
 
-    workspace.projects[projectName] = workspaceProject;
+    const { name, ...newProject } = workspaceProject;
+    workspace.projects[name] = newProject;
     tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
     return tree;
   };
@@ -93,9 +99,16 @@ export function updateCmsAdapter(options: { projectName: string | null }, rootPa
    *
    * @param tree
    * @param _context
+   * @param context
    */
-  const addExtractersScripts = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
+  const addExtractersScripts = (tree: Tree, context: SchematicContext) => {
+    const workspaceProject = getProjectFromTree(tree, null);
+
+    if (!workspaceProject) {
+      context.logger.error('No package detected, the extractor scripts will not be added');
+      return tree;
+    }
+
     const packageJson = readPackageJson(tree, workspaceProject);
     const packageManagerRunner = getPackageManagerRunner();
     packageJson.scripts ||= {};
