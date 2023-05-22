@@ -107,7 +107,12 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+
+    if (!workspaceProject) {
+      context.logger.warn('No application detected in the project, the development modules will not be added.');
+      return tree;
+    }
 
     // supposing we are in ng 15, the env dev file name is environment.development.ts
     let envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
@@ -172,6 +177,12 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
     }
 
     const workspaceProject = getProjectFromTree(tree);
+
+    if (!workspaceProject) {
+      context.logger.warn('No application detected in the project, the development modules will not be added.');
+      return tree;
+    }
+
     // supposing we are in ng 14, environment prod file name is: environment.prod.ts
     let envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
 

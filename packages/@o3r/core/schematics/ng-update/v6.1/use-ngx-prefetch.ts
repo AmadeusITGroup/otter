@@ -9,9 +9,8 @@ import * as commentJson from 'comment-json';
 export function useNgxPrefetch(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
       // no update for libraries
       return tree;
     } else if (workspaceProject.architect) {
@@ -21,7 +20,8 @@ export function useNgxPrefetch(): Rule {
           workspaceProject.architect[builder].builder = '@o3r/ngx-prefetch:run';
         }
       }
-      workspace.projects[projectName] = workspaceProject;
+      const { name, ...newProject } = workspaceProject;
+      workspace.projects[name] = newProject;
       tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
 
       addPackageJsonDependency(tree, {name: '@o3r/ngx-prefetch', version: '~13.0.3', type: NodeDependencyType.Dev, overwrite: false});

@@ -9,8 +9,8 @@ export function updatePlaywrightEnvironment(): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
     const projectName = workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree);
-    if (workspaceProject.projectType !== 'application') {
+    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    if (!workspaceProject) {
       return tree;
     }
 

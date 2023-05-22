@@ -32,7 +32,7 @@ const CONFIG_TEMPLATE_PATH = './templates/config';
  * @param componentStructureDef
  * @param prefix
  */
-const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix: string) => {
+const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix?: string) => {
 
   const inputComponentName = getInputComponentName(options.componentName);
   const blockName = getComponentBlockName(inputComponentName);
@@ -48,7 +48,7 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
     componentConfig: getComponentConfigName(inputComponentName, componentStructureDef),
     componentContext: getComponentContextName(inputComponentName, componentStructureDef),
     componentFixture: getComponentFixtureName(inputComponentName, componentStructureDef),
-    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix),
+    componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     folderName,
     name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-cont,
     configKey: getComponentConfigKey(options.componentName, componentStructureDef), // AIR_OFFER_CONT
@@ -70,7 +70,7 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
 
     const workspaceProject = getProjectFromTree(tree);
 
-    const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject.prefix);
+    const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree);
     const componentDestination = path.join(destination, fullStructureRequested ? path.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);

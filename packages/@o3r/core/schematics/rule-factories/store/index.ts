@@ -39,7 +39,11 @@ export function updateStore(options: { projectName: string | null }, _rootPath: 
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName || undefined);
+    const workspaceProject = getProjectFromTree(tree, options.projectName || null);
+    if (!workspaceProject) {
+      context.logger.warn('No project found, the package.json will not be updated');
+      return tree;
+    }
     const type: NodeDependencyType = workspaceProject.projectType === 'application' ? NodeDependencyType.Default : NodeDependencyType.Peer;
 
     let dependenciesList = [ngrxEffectsDep, ngrxEntityDep, ngrxStoreDep, ngrxStoreLocalstorageDep, ngrxRouterStoreDevToolDep];
