@@ -47,7 +47,7 @@ export const createApplication = async (context: Context, options: CreateApplica
   const npmClient = options.yarn ? 'yarn' : 'npm';
   const npmRunner = options.yarn ? 'yarn' : 'npx';
   // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const interactive = `${!options.yes}`;
+  const defaults = `${!!options.yes}`;
 
   const ngVersion: string = peerDependencies?.['@angular/cli'] || 'latest';
 
@@ -57,7 +57,7 @@ export const createApplication = async (context: Context, options: CreateApplica
 
   await context.getSpinner('Creating a new Angular application...').fromPromise(
     // eslint-disable-next-line max-len
-    promiseSpawn(`npx -p @angular/cli@${ngVersion} ng new "${options.name}" --style=scss --interactive=${interactive} --directory=${directory} --package-manager=${options.yarn ? 'yarn' : 'npm'} --routing`, { cwd, logger, stderrLogger: logger.debug }),
+    promiseSpawn(`npx -p @angular/cli@${ngVersion} ng new "${options.name}" --style=scss --defaults=${defaults} --directory=${directory} --package-manager=${options.yarn ? 'yarn' : 'npm'} --routing`, { cwd, logger, stderrLogger: logger.debug }),
     `Application created (in ${path.resolve(cwd, directory)})`
   );
   cwd = path.resolve(cwd, directory);
@@ -68,13 +68,13 @@ export const createApplication = async (context: Context, options: CreateApplica
   );
 
   await context.getSpinner('Adding Otter dependencies...').fromPromise(
-    promiseSpawn(`${npmRunner} ng add @o3r/core@${options['otter-version']} --interactive=${interactive} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
+    promiseSpawn(`${npmRunner} ng add @o3r/core@${options['otter-version']} --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
     'Otter dependencies registered'
   );
 
   if (options.material) {
     await context.getSpinner('Adding Material Dependency...').fromPromise(
-      promiseSpawn(`${npmRunner} ng add @angular/material --interactive=${interactive} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
+      promiseSpawn(`${npmRunner} ng add @angular/material --defaults=${defaults} --skip-confirmation`, { cwd, logger, stderrLogger: logger.debug }),
       'Material Design library registered'
     );
 
