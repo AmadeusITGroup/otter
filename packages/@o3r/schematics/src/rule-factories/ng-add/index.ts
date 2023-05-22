@@ -5,7 +5,7 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import type { NgAddPackageOptions } from '../../tasks/index';
-import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager } from '../../utility/index';
+import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, readAngularJson, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
 
 /**
  * Install via `ng add` a list of npm packages.
@@ -102,13 +102,13 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
   return chain(ngAddRulesToRun);
 }
 
-
 /**
  * Look for the peer dependencies and run ng add on the package requested version
  *
  * @param packages list of the name of the packages needed
  * @param packageJsonPath path to package json that needs the peer to be resolved
  * @param type how to install the dependency (dev, peer for a library or default for an application)
+ * @param options
  * @param parentPackageInfo for logging purposes
  */
 export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath: string, type: NodeDependencyType = NodeDependencyType.Default,
@@ -127,4 +127,20 @@ export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath:
     });
   });
   return chain(externalPeerDepsRules);
+}
+
+/**
+ * Register the given package in the Angular CLI schematics
+ *
+ * @param packageJson PackageJson of the project containing the collection to add to the project
+ * @param angularJsonFile Path to the Angular.json file. Will use the workspace root's angular.json if not specified
+ */
+export function registerPackageCollectionSchematics(packageJson: PackageJson, angularJsonFile?: string): Rule {
+  return (tree) => {
+    if (!packageJson.name) {
+      return tree;
+    }
+    const workspace = readAngularJson(tree, angularJsonFile);
+    return writeAngularJson(tree, registerCollectionSchematics(workspace, packageJson.name), angularJsonFile);
+  };
 }

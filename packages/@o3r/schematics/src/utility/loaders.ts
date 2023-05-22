@@ -28,9 +28,10 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
  *
  * @param tree File tree
  * @param workspace Angular workspace
+ * @param angularJsonFile Angular.json file path
  */
-export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema) {
-  tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angularJsonFile = '/angular.json') {
+  tree.overwrite(angularJsonFile, commentJson.stringify(workspace, null, 2));
   return tree;
 }
 
