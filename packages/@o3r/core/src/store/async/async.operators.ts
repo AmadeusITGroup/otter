@@ -14,10 +14,15 @@ import { AsyncRequest, ExtractFromApiActionPayloadType, FromApiActionPayload } f
  * @param cancelRequestActionFactory function that returns the action to emit in case the FromApi action is 'cancelled' because a new action was received by the switchMap
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S extends ExtractFromApiActionPayloadType<T>, U extends Action, V extends Action, W extends Action>(
+export function fromApiEffectSwitchMap<
+    T extends FromApiActionPayload<any>,
+    S extends ExtractFromApiActionPayloadType<T>,
+    U extends Action,
+    V extends Action | never,
+    W extends Action | never>(
   successHandler: (result: S, action: T) => U | Observable<U>,
-  errorHandler: (error: any, action: T) => Observable<V>,
-  cancelRequestActionFactory: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
+  errorHandler?: (error: any, action: T) => Observable<V>,
+  cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
   const pendingRequestIdsContext: Record<string, boolean> = {};
 
   return (source$) => source$.pipe(
@@ -46,9 +51,9 @@ export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S ex
         }),
         catchError((error) => {
           cleanStack();
-          return errorHandler(error, action);
+          return errorHandler?.(error, action) || EMPTY;
         }),
-        isPreviousActionStillRunning ? startWith(cancelRequestActionFactory({requestId: previousAction.requestId}, action)) : identity
+        isPreviousActionStillRunning && cancelRequestActionFactory ? startWith(cancelRequestActionFactory({requestId: previousAction.requestId}, action)) : identity
       );
     })
   );
@@ -63,11 +68,11 @@ export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S ex
 export function fromApiEffectSwitchMapById<T extends FromApiActionPayload<any> & { id: string },
   S extends ExtractFromApiActionPayloadType<T>,
   U extends Action,
-  V extends Action,
-  W extends Action>(
+  V extends Action | never,
+  W extends Action | never>(
   successHandler: (result: S, action: T) => U | Observable<U>,
-  errorHandler: (error: any, action: T) => Observable<V>,
-  cancelRequestActionFactory: (props: AsyncRequest, action: T) => W,
+  errorHandler?: (error: any, action: T) => Observable<V>,
+  cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W,
   cleanUpTimer?: number
 ): OperatorFunction<T, U | V | W> {
   const innerSourcesById: Record<string, [Subject<any>, Observable<any>]> = {};
