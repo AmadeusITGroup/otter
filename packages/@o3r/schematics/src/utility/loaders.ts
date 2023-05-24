@@ -28,9 +28,10 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
  *
  * @param tree File tree
  * @param workspace Angular workspace
+ * @param angularJsonFile Angular.json file path
  */
-export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema) {
-  tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angularJsonFile = '/angular.json') {
+  tree.overwrite(angularJsonFile, commentJson.stringify(workspace, null, 2));
   return tree;
 }
 
@@ -56,10 +57,26 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
  *
  * @param tree File tree
  * @param projectName Name of the Angular project
+ * @param projectType
  */
-export function getProjectFromTree(tree: Tree, projectName?: string | null): WorkspaceProject {
+export function getProjectFromTree(tree: Tree, projectName?: string | null, projectType?: 'application' | 'library'): WorkspaceProject & { name: string } | undefined {
   const workspace = readAngularJson(tree);
-  return workspace.projects[projectName || workspace.defaultProject || Object.keys(workspace.projects)[0]];
+  const projectGuessedName = projectName || workspace.defaultProject;
+  // eslint-disable-next-line max-len
+  let workspaceProject: WorkspaceProject & { name: string } | undefined = projectGuessedName && workspace.projects[projectGuessedName] && (!projectType || workspace.projects[projectGuessedName]?.projectType === projectType) ?
+    {
+      ...workspace.projects[projectGuessedName],
+      name: projectGuessedName
+    } :
+    undefined;
+
+  // if not found we fallback to the more relevant first one
+  if (!workspaceProject) {
+    workspaceProject = Object.entries(workspace.projects)
+      .filter(([, project]) => !projectType || project.projectType === projectType)
+      .map(([name, project]) => ({ ...project, name }))[0];
+  }
+  return workspaceProject;
 }
 
 /**
@@ -76,11 +93,12 @@ export function getProjectDepType(tree: Tree) {
 /**
  * Get the default project name
  *
+ * @deprecated use {@link getProjectFromTree} function instead, will be removed in Otter V10
+ * @param projectType
  * @param tree File tree
  */
-export function getDefaultProjectName(tree: Tree): string {
-  const workspace = readAngularJson(tree);
-  return workspace.defaultProject || Object.keys(workspace.projects)[0];
+export function getDefaultProjectName(tree: Tree, projectType?: 'application' | 'library'): string | undefined {
+  return getProjectFromTree(tree, null, projectType)?.name;
 }
 
 /**

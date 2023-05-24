@@ -72,7 +72,7 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
    */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
     const workspaceProject = getProjectFromTree(propTree, propProject);
-    return getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(readAngularJson(propTree), generatorName);
+    return workspaceProject ? getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(readAngularJson(propTree), generatorName) : null;
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

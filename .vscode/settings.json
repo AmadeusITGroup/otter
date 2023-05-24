@@ -44,6 +44,9 @@
   ],
   "eslint.nodePath": ".yarn/sdks",
   "typescript.enablePromptUseWorkspaceTsdk": true,
+  "nxConsole.generatorAllowlist": [
+    "@o3r/core:*"
+  ],
   "otter.extract.styling.prefix": "o3r",
   "otter.generate.store.testFramework": "jest",
   "otter.packageManager": "yarn"

@@ -12,7 +12,6 @@ import {
 import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
-  getDefaultProjectName,
   getProjectDepType,
   getProjectFromTree,
   getTemplateFolder,
@@ -91,9 +90,10 @@ export function updateLocalization(options: { projectName: string | null }, root
   const updateAngularJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree, projectName);
+    const workspaceProject = getProjectFromTree(tree, projectName, 'application');
     const distFolder: string =
       (
+        workspaceProject &&
         workspaceProject.architect &&
         workspaceProject.architect.build &&
         workspaceProject.architect.build.options &&
@@ -104,8 +104,8 @@ export function updateLocalization(options: { projectName: string | null }, root
       ) || './dist';
 
     // exit if not an application
-    if (workspaceProject.projectType !== 'application') {
-      context.logger.debug('Add translation extraction only on application project');
+    if (!workspaceProject) {
+      context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
 
@@ -186,14 +186,13 @@ export function updateLocalization(options: { projectName: string | null }, root
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree, projectName || undefined);
-    const packageJson = readPackageJson(tree, workspaceProject);
-
-    // exit if not an application
-    if (workspaceProject.projectType !== 'application') {
-      context.logger.debug('Add translation extraction scripts only on application project');
+    const workspaceProject = getProjectFromTree(tree, projectName || null, 'application');
+    if (!workspaceProject) {
+      context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
+
+    const packageJson = readPackageJson(tree, workspaceProject);
 
     packageJson.scripts = packageJson.scripts || {};
     if (packageJson.scripts && packageJson.scripts.start && packageJson.scripts.start !== `ng run ${projectName}:run`) {
@@ -456,8 +455,11 @@ export function updateI18n(): Rule {
    */
   const updateAngularJson: Rule = (tree: Tree) => {
     const workspace = readAngularJson(tree);
-    const projectName = getDefaultProjectName(tree);
-    const workspaceProject = getProjectFromTree(tree, projectName);
+    const workspaceProject = getProjectFromTree(tree);
+
+    if (!workspaceProject) {
+      return tree;
+    }
 
     if (!workspaceProject.architect) {
       workspaceProject.architect = {};
@@ -476,7 +478,8 @@ export function updateI18n(): Rule {
       };
     }
 
-    workspace.projects[projectName] = workspaceProject;
+    const { name, ...newProject } = workspaceProject;
+    workspace.projects[name] = newProject;
     return writeAngularJson(tree, workspace);
   };
 
