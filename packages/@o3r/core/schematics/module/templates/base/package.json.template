@@ -48,7 +48,7 @@
     "@nrwl/jest": "<%= versions['nrwl'] %>",
     "@nrwl/js": "<%= versions['nrwl'] %>",
     "@nrwl/linter": "<%= versions['nrwl'] %>",
-<% } %>    "@o3r/build-helpers": "<%= otterVersion %>",
+<% } %>
     "@o3r/dev-tools": "<%= otterVersion %>",
     "@o3r/eslint-plugin": "<%= otterVersion %>",
     "@schematics/angular": "<%= versions['angular-devkit'] %>",
