@@ -72,7 +72,7 @@
       "factory": "./schematics/ng-update/index#updateV7_1_11"
     },
     "migration-v8_2": {
-      "version": "8.2.0-rc.1",
+      "version": "8.2.0-rc.3",
       "description": "Updates of the Otter Library to v8.2.*",
       "factory": "./schematics/ng-update/index#updateV8_2"
     }

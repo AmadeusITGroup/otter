@@ -37,7 +37,7 @@ export function updatePlaywright(rootPath: string, options: NgAddPackageOptions 
       tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
     }
     const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-    const ngAddRules = ngAddPeerDependencyPackages(['playwright', '@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, options);
+    const ngAddRules = ngAddPeerDependencyPackages(['@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, options);
 
     // generate files
     if (!tree.exists('/e2e-playwright/playwright-config.ts')) {
