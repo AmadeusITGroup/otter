@@ -5560,7 +5560,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@types/jasmine": 3.10.7
+    "@types/jasmine": 3.10.8
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -5802,7 +5802,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.236
+    "@types/chrome": ^0.0.237
     "@types/jest": ~28.1.2
     "@typescript-eslint/eslint-plugin": ^5.19.0
     "@typescript-eslint/parser": ^5.19.0
@@ -5962,7 +5962,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@types/jasmine": 3.10.7
+    "@types/jasmine": 3.10.8
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -6225,7 +6225,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@types/jasmine": 3.10.7
+    "@types/jasmine": 3.10.8
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@types/uuid": ^8.3.1
@@ -6937,7 +6937,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
-    "@types/jasmine": 3.10.7
+    "@types/jasmine": 3.10.8
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -7016,7 +7016,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@types/jasmine": 3.10.7
+    "@types/jasmine": 3.10.8
     "@types/jest": ~28.1.2
     "@types/node": ^17.0.45
     "@typescript-eslint/eslint-plugin": ^5.19.0
@@ -9224,13 +9224,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.236":
-  version: 0.0.236
-  resolution: "@types/chrome@npm:0.0.236"
+"@types/chrome@npm:^0.0.237":
+  version: 0.0.237
+  resolution: "@types/chrome@npm:0.0.237"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: 64cc6f8ac5c23f5dc6a3e1137721dda52e6401b1e1a8f9d16bfca7236bd5a118be6746324fd9e33630d98863370137ff0749b9949ededb9f46accb187f333896
+  checksum: 9dfb0070065ca4667ef2fa9ec45af2f604b9ba98b6429d38607c6bfcc8dc2178e83eea4eeedbe88a8299dfe9dda029c9341e454c4eff7b715b90e9d5fc7b990d
   languageName: node
   linkType: hard
 
@@ -9559,10 +9559,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:3.10.7":
-  version: 3.10.7
-  resolution: "@types/jasmine@npm:3.10.7"
-  checksum: 079d0d3b87917265c3e956ca7001adc16856d720e373534974e159f6f5d313793c608d3bc08c1572727765ceee93cc157cd8d74f76ce1e138e2fb90093c08c37
+"@types/jasmine@npm:3.10.8":
+  version: 3.10.8
+  resolution: "@types/jasmine@npm:3.10.8"
+  checksum: 4d275e8b4776799d85bf13427e26583ed875f5fa356e81236d7b33576316fa42d0d07d8905d135dab53bb3f2bce9fe2fa9566cc5aafea25f9fc0e14f0e750e95
   languageName: node
   linkType: hard
 
