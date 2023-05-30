@@ -65,7 +65,7 @@
     "@angular/core": "~15.2.0",
     "@angular/platform-browser": "~15.2.0",
     "@angular/platform-browser-dynamic": "~15.2.0",
-    "@babel/core": "~7.21.0",
+    "@babel/core": "~7.22.0",
     "@babel/preset-typescript": "~7.21.0",
     "@capacitor/browser": "^4.0.1",
     "@capacitor/core": "^4.0.1",
