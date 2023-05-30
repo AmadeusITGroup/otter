@@ -143,9 +143,9 @@ describe('new Otter application', () => {
     });
     execSync(`npx --yes wait-on http://127.0.0.1:${devServerPort} -t 10000`, execAppOptions);
 
-    // Don't run on Webkit to speed up the test by not installing necessary libs
-    expect(() => execSync('yarn test:playwright --project Chromium Firefox', execAppOptions)).not.toThrow();
-    expect(() => execSync('yarn test:playwright:sanity --project Chromium Firefox', execAppOptions)).not.toThrow();
+    execSync('npx playwright install --with-deps', execAppOptions);
+    expect(() => execSync('yarn test:playwright', execAppOptions)).not.toThrow();
+    expect(() => execSync('yarn test:playwright:sanity', execAppOptions)).not.toThrow();
   });
 
   afterAll(async () => {

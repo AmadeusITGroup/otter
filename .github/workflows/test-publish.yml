@@ -9,7 +9,7 @@ on:
 
 jobs:
   test-publish:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
@@ -35,7 +35,7 @@ jobs:
         run: yarn test-int
       - name: Prepare for publish generated app
         if: failure()
-        run: zip -r test-app.zip ../test-app -x "../test-app/node_modules/*"
+        run: zip -r test-app.zip ../test-app -x "../test-app/node_modules/*" "../test-app/.cache" "../test-app/.yarn/cache"
       - name: Publish generated app
         if: failure()
         uses: actions/upload-artifact@v3

@@ -7483,6 +7483,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     comment-json: ^4.1.0
     pixelmatch: ^5.2.1
+    playwright: ~1.33.0
     pngjs: ^4.0.1
     protractor: ^7.0.0
     rxjs: ^7.4.0
@@ -7494,6 +7495,8 @@ __metadata:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    playwright:
       optional: true
     protractor:
       optional: true
