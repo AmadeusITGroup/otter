@@ -75,7 +75,7 @@ function setupNewApp() {
     }
     // Create app with ng new
     execSync('npx rimraf test-app', {cwd: applicationPath, stdio: 'inherit'});
-    execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --interactive=false --skip-git --package-manager=yarn --skip-install`,
+    execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn --skip-install`,
       // eslint-disable-next-line @typescript-eslint/naming-convention
       {cwd: applicationPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
 
@@ -96,9 +96,9 @@ function setupNewApp() {
 
     // Run ng add
     execSync(`yarn add @angular/pwa@${angularVersion}`, execAppOptions);
-    execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --interactive=false`, execAppOptions);
+    execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
     execSync(`yarn add @angular-devkit/schematics@${angularVersion}`, execAppOptions);
-    execSync(`yarn run ng add @angular/material@${angularVersion} --skip-confirmation --interactive=false`, execAppOptions);
+    execSync(`yarn run ng add @angular/material@${angularVersion} --skip-confirmation --defaults=true`, execAppOptions);
   });
 }
 
@@ -108,34 +108,34 @@ describe('new Otter application', () => {
 
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
-    execSync('yarn ng add @o3r/core --skip-confirmation --interactive=false --force --verbose', execAppOptions);
+    execSync('yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose', execAppOptions);
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
-    execSync('yarn ng g @o3r/core:store-entity-async --interactive=false --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
+    execSync('yarn ng g @o3r/core:store-entity-async --defaults=true --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
     addImportToAppModule('TestEntityAsyncStoreModule', 'src/store/test-entity-async');
 
-    execSync('yarn ng g @o3r/core:store-entity-sync --interactive=false --store-name="test-entity-sync" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
+    execSync('yarn ng g @o3r/core:store-entity-sync --defaults=true --store-name="test-entity-sync" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
     addImportToAppModule('TestEntitySyncStoreModule', 'src/store/test-entity-sync');
 
-    execSync('yarn ng g @o3r/core:store-simple-async --interactive=false --store-name="test-simple-async" --model-name="Bound"', execAppOptions);
+    execSync('yarn ng g @o3r/core:store-simple-async --defaults=true --store-name="test-simple-async" --model-name="Bound"', execAppOptions);
     addImportToAppModule('TestSimpleAsyncStoreModule', 'src/store/test-simple-async');
 
-    execSync('yarn ng g @o3r/core:store-simple-sync --interactive=false --store-name="test-simple-sync"', execAppOptions);
+    execSync('yarn ng g @o3r/core:store-simple-sync --defaults=true --store-name="test-simple-sync"', execAppOptions);
     addImportToAppModule('TestSimpleSyncStoreModule', 'src/store/test-simple-sync');
 
-    execSync('yarn ng g @o3r/core:service --interactive=false test-service --feature-name="base"', execAppOptions);
+    execSync('yarn ng g @o3r/core:service --defaults=true test-service --feature-name="base"', execAppOptions);
     addImportToAppModule('TestServiceBaseModule', 'src/services/test-service');
 
-    execSync('yarn ng g @o3r/core:page --interactive=false test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
+    execSync('yarn ng g @o3r/core:page --defaults=true test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
 
-    execSync('yarn ng g @o3r/core:component --interactive=false test-component --activate-dummy', execAppOptions);
+    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy', execAppOptions);
     addImportToAppModule('TestComponentContModule', 'src/components/test-component');
 
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
     // should pass the e2e tests
-    execSync('yarn ng g @o3r/testing:playwright-scenario --interactive=false --name=test-scenario', execAppOptions);
-    execSync('yarn ng g @o3r/testing:playwright-sanity --interactive=false --name=test-sanity', execAppOptions);
+    execSync('yarn ng g @o3r/testing:playwright-scenario --defaults=true --name=test-scenario', execAppOptions);
+    execSync('yarn ng g @o3r/testing:playwright-sanity --defaults=true --name=test-sanity', execAppOptions);
     spawn(`npx http-server -p ${devServerPort} ./dist`, [], {
       ...execAppOptions,
       shell: true,
