@@ -145,7 +145,7 @@ stages:
           condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
           displayName: 'check if not a pull request'
 
-        - task: deployment-service-plugin-appdeploy@3
+        - task: deployment-service-plugin-appdeploy@5
           name: 'deploymentservice'
           displayName: 'Deploy Application'
           inputs:
@@ -161,6 +161,7 @@ stages:
             sourcePath: '$(System.DefaultWorkingDirectory)/package.tgz'
             isdeployPR: $(IS_PR)
             isactivateRelease: true
+            contentSourcePath: 'NA'
           env:
             RELEASE_REQUESTEDFOR: $(Build.RequestedFor)
 
