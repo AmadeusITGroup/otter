@@ -1,0 +1,83 @@
+files:
+  include:
+    - 'src/**/*.s+(a|c)ss'
+  ignore:
+    - '**/node_modules/**/*.s+(a|c)ss'
+    - '**/dist/**/*.s+(a|c)ss'
+
+rules:
+  quotes:
+    - 2
+    -
+      style: single
+  zero-unit: 2
+  extends-before-mixins: 2
+  extends-before-declarations: 2
+  placeholder-in-extend: 1
+  mixins-before-declarations:
+    - 2
+    -
+      exclude:
+        - breakpoint
+        - mq
+  no-duplicate-properties:
+    - 1
+    -
+      exclude:
+        - src
+  no-warn: 1
+  no-debug: 1
+  no-ids: 2
+  no-important: 1
+  no-trailing-whitespace: 2
+  hex-notation:
+    - 2
+    -
+      style: uppercase
+  indentation:
+    - 2
+    -
+      size: 2
+  property-sort-order:
+    - 1
+    -
+      order:
+        - display
+        - margin
+      ignore-custom-properties: true
+  variable-for-property:
+    - 1
+    -
+      properties:
+        - color
+
+  no-color-literals: 1
+  space-after-colon:
+    - 2
+    -
+        include: true
+  space-before-brace:
+    - 2
+    -
+      include: true
+  empty-line-between-blocks:
+    - 1
+    -
+      include: true
+      allow-single-line-rulesets: true
+
+  force-pseudo-nesting: 0
+
+  property-units:
+    - 2
+    -
+      global: ['em', 'rem', '%', 'vh', 'vw', 's', 'ms']
+      per-property: {
+        border: ['px'],
+        border-height: ['px'],
+        border-right: ['px'],
+        border-left: ['px'],
+        border-top: ['px'],
+        border-bottom: ['px'],
+        box-shadow: ['px', '%']
+      }

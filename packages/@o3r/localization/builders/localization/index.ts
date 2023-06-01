@@ -1,7 +1,7 @@
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { LogEntry } from '@angular-devkit/core/src/logger';
 import type { JSONLocalization } from '@o3r/localization';
-import * as fs from 'fs';
+import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
 import { firstValueFrom, from, merge } from 'rxjs';
@@ -502,7 +502,7 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
       const filenamesToInclude = `(${options.locales.join('|')}).json`;
       const assets = globbySync(assetsList.map((asset) => path.posix.join(posixWorkspaceRoot, asset, filenamesToInclude)));
       assetsWatchers = assetsWatchers.concat(
-        assets.map((asset) => fs.watch(asset, (_eventType, filename) => generateForAssetsChange(filename, asset)))
+        assets.map((asset) => fs.watch(asset, (_eventType, filename) => filename && generateForAssetsChange(filename, asset)))
       );
     }
 

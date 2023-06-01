@@ -1,0 +1,36 @@
+{
+  "extends": "../../tsconfig.build",
+  "compilerOptions": {
+   "lib": ["dom", "es2017", "es2017.object", "es2018", "esnext", "scripthost"],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "noEmitHelpers": true,
+    "noUnusedLocals": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "importHelpers": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "declaration": true,
+    "skipLibCheck": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": true,
+    "types": ["node", "jest"]
+  },
+  "files": ["src/index.ts", "src/polyfills.ts"],
+  "include": ["src/index.ts", "src/polyfills.ts", "src/app/index.ts"],
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictInjectionParameters": true,
+    "fullTemplateTypeCheck": true,
+    "annotateForClosureCompiler": true,
+    "enableIvy": true,
+    "compilationMode": "full"
+  }
+}

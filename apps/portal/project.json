@@ -1,0 +1,197 @@
+{
+  "name": "portal",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/portal/src",
+  "projectType": "application",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "postbuild:patch"
+      },
+      "dependsOn": [
+        "build-source"
+      ],
+      "configurations": {
+        "production": {
+          "outputPath": "dist"
+        }
+      }
+    },
+    "build-source": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "inputs": [
+        "{projectRoot}/src"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/dist-dev"
+      ],
+      "options": {
+        "outputPath": "apps/portal/dist-dev",
+        "index": "apps/portal/src/index.html",
+        "main": "apps/portal/src/index.ts",
+        "polyfills": "apps/portal/src/polyfills.ts",
+        "tsConfig": "apps/portal/tsconfig.build.json",
+        "styles": [{
+          "input": "apps/portal/src/styling/index.scss"
+        }],
+        "stylePreprocessorOptions": {
+          "includePaths": [
+            "apps/portal/src/styling"
+          ]
+        },
+        "optimization": false,
+        "sourceMap": {
+          "styles": true,
+          "scripts": true,
+          "vendor": true
+        },
+        "buildOptimizer": false,
+        "preserveSymlinks": true,
+        "serviceWorker": false,
+        "extractLicenses": false,
+        "namedChunks": true
+      },
+      "configurations": {
+        "production": {
+          "assets": [
+            {
+              "glob": "otter.ico",
+              "input": "apps/portal/src",
+              "output": "/"
+            },
+            {
+              "glob": "**/*",
+              "input": "apps/portal/src/assets",
+              "ignore": [
+                "i18n/**/*.json"
+              ],
+              "output": "/assets"
+            }
+          ],
+          "outputPath": "apps/portal/dist",
+          "fileReplacements": [
+            {
+              "replace": "apps/portal/src/environments/environment.ts",
+              "with": "apps/portal/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "extractLicenses": true,
+          "buildOptimizer": true,
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "2mb",
+              "maximumError": "5mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "6kb"
+            }
+          ],
+          "serviceWorker": false
+        },
+        "development": {
+          "tsConfig": "apps/portal/tsconfig.dev.json",
+          "assets": [
+            {
+              "glob": "otter.ico",
+              "input": "apps/portal/src",
+              "output": "/"
+            },
+            {
+              "glob": "**/*",
+              "input": "apps/portal/src/assets",
+              "ignore": [
+                "i18n/**/*.json"
+              ],
+              "output": "/assets"
+            },
+            {
+              "glob": "**/*.json",
+              "input": "apps/portal/dev-resources/localizations",
+              "output": "/localizations"
+            }
+          ]
+        }
+      },
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "^build"
+      ]
+    },
+    "serve-app": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "browserTarget": "portal:build-source:development",
+        "port": 3030
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "portal:build-source:production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@o3r/core:multi-watcher",
+      "options": {
+        "targets": [
+          "portal:generate-translations:development",
+          "portal:serve-app"
+        ]
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "apps/portal/.eslintrc.js",
+        "lintFilePatterns": [
+          "apps/portal/src/**/*.ts"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "options": {
+        "jestConfig": "apps/portal/jest.config.js",
+        "silent": true,
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": [
+    "portal"
+  ],
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@o3r/core:component": {
+      "path": "apps/portal/src/components"
+    },
+    "@o3r/core:page": {
+      "path": "apps/portal/src/app",
+      "appRoutingModulePath": "apps/portal/src/app/app.routing.module.ts"
+    },
+    "@o3r/core:service": {
+      "path": "apps/portal/src/services"
+    },
+    "@o3r/core:store": {
+      "path": "apps/portal/src/store"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+/* For IDE usage only */
+{
+  "extends": "../../tsconfig.base",
+  "references": [
+    {
+      "path": "./tsconfig.dev.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.fixture.json"
+    }
+  ]
+}

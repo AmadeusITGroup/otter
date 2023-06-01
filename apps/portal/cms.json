@@ -1,0 +1,10 @@
+{
+  "assetsFolder": "dist/assets",
+  "libraries": [
+    { "npmName": "@o3r/styling" }
+  ],
+  "defaultLanguage": "en-GB",
+  "placeholderCssFiles": [
+    "placeholders/placeholders.css"
+  ]
+}

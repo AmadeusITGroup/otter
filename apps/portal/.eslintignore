@@ -1,0 +1,8 @@
+node_modules/
+node_modules_npm/
+dist*/
+test/
+tmp/
+src/scripts/
+playwright-reports/
+storybook-static/

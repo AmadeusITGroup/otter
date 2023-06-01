@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.build",
+"angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictInjectionParameters": true,
+    "fullTemplateTypeCheck": true,
+    "annotateForClosureCompiler": true,
+    "enableIvy": true
+  }
+}
