@@ -30,6 +30,9 @@ export interface ReplyPluginContext<T> {
 
   /** Base url */
   url?: string;
+
+  /** Origin domain initiating the call */
+  origin?: string | null;
 }
 
 /**

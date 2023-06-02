@@ -20,7 +20,7 @@ export class ExceptionReply<V extends Record<string, any> | undefined = Record<s
           return res;
         }
 
-        const errorContext = { apiName: context.apiName, operationId: context.operationId, url: context.url };
+        const errorContext = { apiName: context.apiName, operationId: context.operationId, url: context.url, origin: context.origin };
         let error: Error | undefined;
 
         if (!context.response) {
