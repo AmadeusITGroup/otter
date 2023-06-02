@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
-import { mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'nx/src/utils/package-json';
 import getPidFromPort from 'pid-from-port';
@@ -18,7 +18,6 @@ const execAppOptions: ExecSyncOptions = {
   env: {...process.env, JEST_WORKER_ID: undefined, NODE_OPTIONS: ''}
 };
 const registry = 'http://localhost:4873';
-let tempDir: string;
 const o3rVersion = '999.0.0';
 
 /**
@@ -65,12 +64,7 @@ function setupNewApp() {
   beforeAll(() => {
     const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
     const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
-    try {
-      tempDir = mkdtempSync(path.join(applicationPath, 'test-app', '.yarn', 'cache'));
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.log('Failed to create yarn cache file');
-    }
+
     // Create app with ng new
     execSync('npx rimraf test-app', {cwd: applicationPath, stdio: 'inherit'});
     execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn --skip-install`,
@@ -82,14 +76,11 @@ function setupNewApp() {
     const yarnVersion = o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0';
     execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn set version ${yarnVersion}`, execAppOptions);
-    execSync(`yarn config set npmScopes['ama-sdk'].npmRegistryServer ${registry}`, execAppOptions);
-    execSync(`yarn config set npmScopes['o3r'].npmRegistryServer ${registry}`, execAppOptions);
+    execSync(`yarn config set npmScopes.ama-sdk.npmRegistryServer ${registry}`, execAppOptions);
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
     execSync('yarn config set nodeLinker pnp', execAppOptions);
-    if (tempDir) {
-      execSync(`yarn config set cacheFolder ${tempDir}`, execAppOptions);
-    }
+    execSync(`yarn config set cacheFolder ${path.join(currentFolder, '.cache', 'test-app')}`, execAppOptions);
     execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 
     // Run ng add

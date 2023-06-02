@@ -27,10 +27,10 @@ jobs:
         with:
           path: |
             .cache/test-app
-            !.cache/test-app/v6/npm-@ama-sdk*
-            !.cache/test-app/v6/npm-@ama-terasu*
-            !.cache/test-app/v6/npm-@o3r*
-          key: ${{ runner.os }}-test-app-${{ env.currentMonth }}
+            !.cache/test-app/@ama-sdk*
+            !.cache/test-app/@ama-terasu*
+            !.cache/test-app/@o3r*
+          key: ${{ runner.os }}-test-app-yarn3-${{ env.currentMonth }}
       - name: Setup verdaccio once for all tests
         run: yarn verdaccio:start && yarn verdaccio:publish
       - name: Test
