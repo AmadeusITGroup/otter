@@ -8,7 +8,6 @@ import { minVersion } from 'semver';
 
 const devServerPort = 4200;
 const currentFolder = path.join(__dirname, '..', '..', '..', '..');
-const verdaccioFolder = path.join(currentFolder, '.verdaccio', 'conf');
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
 const applicationPath = path.join(currentFolder, '..');
 const tmpAppFolderPath = path.join(applicationPath, 'test-app');
@@ -19,7 +18,6 @@ const execAppOptions: ExecSyncOptions = {
   env: {...process.env, JEST_WORKER_ID: undefined, NODE_OPTIONS: ''}
 };
 const registry = 'http://localhost:4873';
-const configFile = path.join(verdaccioFolder, '.npmrc');
 let tempDir: string;
 const o3rVersion = '999.0.0';
 
@@ -41,21 +39,21 @@ function addImportToAppModule(moduleName: string, modulePath: string) {
  * Can be accessed during the tests with url http://localhost:4873
  */
 function setupLocalRegistry() {
-  let containerId: string;
+  let shouldHandleVerdaccio = false;
 
-  beforeAll(() => {
-    containerId = execSync(`docker run -d -it --rm --name verdaccio -p 4873:4873 -v ${verdaccioFolder}:/verdaccio/conf verdaccio/verdaccio`, {cwd: currentFolder, stdio: 'pipe'}).toString();
-    execSync(`echo registry=${registry} > .npmrc`, {cwd: verdaccioFolder, stdio: 'inherit'});
-    execSync(`yarn set:version ${o3rVersion} --include "!**/!(dist)/package.json" --include !package.json`, {cwd: currentFolder, stdio: 'inherit', env: process.env});
-    execSync(`npx --yes wait-on ${registry}`, {cwd: currentFolder, stdio: 'inherit'});
-    execSync(`npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r ${registry} --config-path "${configFile}"`, {cwd: currentFolder, stdio: 'inherit'});
-    execSync(`yarn run publish --userconfig "${configFile}" --tag=latest --@o3r:registry=${registry} --@ama-sdk:registry=${registry}`,
-      {cwd: currentFolder, stdio: 'inherit', env: process.env});
+  beforeAll(async () => {
+    try {
+      await getPidFromPort(4873);
+    } catch (ex) {
+      shouldHandleVerdaccio = true;
+      execSync('yarn verdaccio:start', {cwd: currentFolder, stdio: 'inherit'});
+      execSync('yarn verdaccio:publish', {cwd: currentFolder, stdio: 'inherit'});
+    }
   });
 
   afterAll(() => {
-    if (containerId) {
-      execSync(`docker container stop ${containerId}`, {cwd: currentFolder, stdio: 'inherit'});
+    if (shouldHandleVerdaccio) {
+      execSync('yarn verdaccio:stop', {cwd: currentFolder, stdio: 'inherit'});
     }
   });
 }
@@ -82,10 +80,10 @@ function setupNewApp() {
     // Set config to target local registry
     const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.join(currentFolder, 'package.json')).toString());
     const yarnVersion = o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0';
+    execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn set version ${yarnVersion}`, execAppOptions);
     execSync(`yarn config set npmScopes['ama-sdk'].npmRegistryServer ${registry}`, execAppOptions);
     execSync(`yarn config set npmScopes['o3r'].npmRegistryServer ${registry}`, execAppOptions);
-    execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
     execSync('yarn config set nodeLinker pnp', execAppOptions);

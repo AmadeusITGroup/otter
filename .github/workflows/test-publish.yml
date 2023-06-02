@@ -31,8 +31,12 @@ jobs:
             !.cache/test-app/v6/npm-@ama-terasu*
             !.cache/test-app/v6/npm-@o3r*
           key: ${{ runner.os }}-test-app-${{ env.currentMonth }}
+      - name: Setup verdaccio once for all tests
+        run: yarn verdaccio:start && yarn verdaccio:publish
       - name: Test
         run: yarn test-int
+      - name: Stop verdaccio
+        run: yarn verdaccio:stop
       - name: Prepare for publish generated app
         if: failure()
         run: zip -r test-app.zip ../test-app -x "../test-app/node_modules/*" "../test-app/.cache" "../test-app/.yarn/cache"
