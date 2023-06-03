@@ -10,6 +10,8 @@ To be considered as an Otter Module, the package need to respect the following g
 - The module should report logs via the Logger exposed by the [@o3r/logging](https://www.npmjs.com/package/@o3r/logging)
 - If the module exposes debug (or configuration) feature, it should be done via the debug interfaces exposed by [@o3r/core](https://www.npmjs.com/package/@o3r/core)
 
+> **Note**: The full list of Otter modules is available on this [page](https://www.npmjs.com/search?q=keywords:otter-module).
+
 ## Helpers packages
 
 To help developers to create their own Otter compatible module, the Otter framework provides 3 technical modules:
@@ -52,66 +54,18 @@ ng generate @o3r/core:ng-add-create
 ### Register your module as official module
 
 It could make sense that the developed module would be part of the modules proposed at the beginning of the Otter application.
-To provide the module at Otter installation, it is necessary to create a Pull Request to the [Otter repository](https://github.com/AmadeusITGroup/otter) that follows the steps below:
-
-1. Ask to the user if the module should be part of this installation:
+To provide modules at Otter installation time, you just need to add the keyword `otter-module` in your module's package.json file as follows:
 
 ```json5
-// in packages/@o3r/core/schematics/ng-add/schema.json
-
 {
-  "$schema": "http://json-schema.org/schema",
-  "$id": "ngAddSchematicsSchema",
-  "title": "Add Otter library",
-  "description": "ngAdd Otter library",
-  "properties": {
-    "enableMyModule": {
-      "type": "boolean",
-      "default": false,
-      "description": "Installation of myModule",
-      "x-prompt": "Activate my module doing some stuff in your new application ?"
-    }
-  }
-}
-```
-
-2. Add the conditional installation to the `ng-add` process
-
-```typescript
-// in packages/@o3r/core/schematics/ng-add/index.ts
-
-import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { NgAddSchematicsSchema } from './schema';
-
-/**
- * Add Otter library to an Angular Project
- *
- * @param options
- */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
-
-  // add the module within the external packages list
-  const externalPackagesToInstallWithNgAdd = Array.from(new Set([
-    ...(options.enableMyModule ? ['@my/module'] : [])
-  ]));
-
-
-}
-```
-
-3. Register the module within [packageGroup](https://github.com/angular/angular-cli/blob/main/docs/specifications/update.md) to trigger the module upgrade with the Otter Framework upgrade.
-
-```json5
-// in packages/@o3r/core/package.json
-
-{
-  "name": "@o3r/core",
+  "name": "@scope/my-module",
   "version": "0.0.0-placeholder",
-  "ng-update": {
-    "migrations": "./dist/migration.json",
-    "packageGroup": [
-      "@my/module" // add the module in the list
-    ]
-  }
+  "description": "A description displayed in the console at build time",
+  "keywords": [
+    "some-keywords",
+    "otter-modules"
+  ]
 }
 ```
+
+> **Note**: Only the modules published to [npmjs.org](https://www.npmjs.com/) will be detected.

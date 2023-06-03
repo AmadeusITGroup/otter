@@ -1,13 +1,14 @@
 {
   "name": "@o3r/stylelint-plugin",
   "version": "0.0.0-placeholder",
-  "description": "Stylelint Otter Plugin",
+  "description": "In-house stylint plugins to use in your own eslint configuration",
   "keywords": [
     "stylelint",
     "stylelint-plugin",
     "otter",
     "amadeus",
-    "linter"
+    "linter",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",

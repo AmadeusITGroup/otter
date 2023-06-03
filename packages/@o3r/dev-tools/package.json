@@ -1,9 +1,13 @@
 {
   "name": "@o3r/dev-tools",
   "version": "0.0.0-placeholder",
-  "description": "Otter Dependency Validator",
+  "description": "Various CLI scripts to help your CI/CD process and your dependency management",
   "main": "./dist/src/public_api.js",
   "typings": "./dist/src/public_api.d.ts",
+  "keywords": [
+    "otter",
+    "otter-module"
+  ],
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",

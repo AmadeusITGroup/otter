@@ -1,11 +1,12 @@
 {
   "name": "@o3r/third-party",
   "version": "0.0.0-placeholder",
-  "description": "Otter third party integration package",
+  "description": "This module provides a bridge to communicate with third parties via an iFrame solution.",
   "typings": "dist/index.d.ts",
   "keywords": [
     "third-party",
-    "otter"
+    "otter",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",

@@ -1,12 +1,13 @@
 import { commands, ExtensionContext } from 'vscode';
 import { generateComponentGenerateCommand } from './commands/generate/component.command';
 import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
-import { wrapCommandWhenExplorerContext } from './commands/generate/helpers';
+import { wrapCommandWhenExplorerContext } from './commands/helpers';
 import { generateServiceGenerateCommand } from './commands/generate/service.command';
 import { generateStoreGenerateCommand } from './commands/generate/store.command';
 import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
 import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
 import { generateModuleGenerateCommand } from './commands/generate/module.command';
+import { generateModuleAddCommand } from './commands/module/add-module.command';
 
 /**
  * Function to register commands.
@@ -26,6 +27,7 @@ export function activate(context: ExtensionContext) {
     commands.registerCommand('otter.menu.generate.module', wrapCommandWhenExplorerContext(context, generateModuleGenerateCommand)),
     commands.registerCommand('otter.generate.fixture', generateFixtureGenerateCommand(context)),
     commands.registerCommand('otter.menu.generate.fixture', generateFixtureGenerateCommand(context)),
+    commands.registerCommand('otter.add.module', generateModuleAddCommand(context)),
     commands.registerTextEditorCommand('otter.extract.styling.variable', extractToVariable(context)),
     commands.registerTextEditorCommand('otter.extract.styling.allVariable', extractAllToVariable(context))
   );

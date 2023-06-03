@@ -1,7 +1,7 @@
 {
   "name": "@o3r/mobile",
   "version": "0.0.0-placeholder",
-  "description": "Otter Mobile",
+  "description": "This package contains tooling useful for mobile applications.",
   "sideEffects": false,
   "bin": {
     "pcloudy": "./pcloudy/pcloudy.connection.js"
@@ -11,6 +11,10 @@
       "default": "./pcloudy/index.js"
     }
   },
+  "keywords": [
+    "otter",
+    "otter-module"
+  ],
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",

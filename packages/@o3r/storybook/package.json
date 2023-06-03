@@ -1,11 +1,12 @@
 {
   "name": "@o3r/storybook",
   "version": "0.0.0-placeholder",
-  "description": "Storybook helpers",
+  "description": "The Otter Framework provides several tools for Otter-based projects.",
   "keywords": [
     "storybook",
     "otter",
-    "amadeus"
+    "amadeus",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",

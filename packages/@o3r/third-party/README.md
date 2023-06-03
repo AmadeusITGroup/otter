@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a bridge to communicate with third parties via an iFrame solution
+This module provides a bridge to communicate with third parties via an iFrame solution.
 
 ## How to install
 

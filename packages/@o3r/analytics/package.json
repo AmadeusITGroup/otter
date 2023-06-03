@@ -1,10 +1,11 @@
 {
   "name": "@o3r/analytics",
   "version": "0.0.0-placeholder",
-  "description": "analytics module of the Otter framework",
+  "description": "This module provides a framework to capture, store and report multiple events (ui, performance etc.) emitted by an Otter Application.",
   "keywords": [
     "analytics",
-    "otter"
+    "otter",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",

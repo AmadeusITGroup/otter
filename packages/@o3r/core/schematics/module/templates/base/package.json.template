@@ -3,13 +3,12 @@
   "version": "0.0.0-placeholder",
   "description": "<%= description || ('Otter module ' + name) %>",
   "keywords": [
-    "apis-manager",
-    "otter"
+    "otter-module"
   ],
   "scripts": {
     "nx": "<%= isNxContext ? 'nx' : 'ng' %>",
     "ng": "<%= runner %> nx",
-    "build": "<%= runner %> nx build apis-manager",
+    "build": "<%= runner %> nx build <%= projectName %>",
     "prepare:build:builders": "<%= runner %> cpy 'collection.json' dist && <%= runner %> cpy 'schematics/**/*.json' dist/schematics",
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },

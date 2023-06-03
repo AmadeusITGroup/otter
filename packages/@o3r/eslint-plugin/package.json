@@ -1,14 +1,15 @@
 {
   "name": "@o3r/eslint-plugin",
   "version": "0.0.0-placeholder",
-  "description": "ESLint Otter Plugin",
+  "description": "The module provides in-house eslint plugins to use in your own eslint configuration.",
   "main": "dist/src/index.js",
   "keywords": [
     "eslint",
     "eslint-plugin",
     "otter",
     "amadeus",
-    "linter"
+    "linter",
+    "otter-module"
   ],
   "scripts": {
     "nx": "nx",

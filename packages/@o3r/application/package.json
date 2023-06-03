@@ -1,10 +1,11 @@
 {
   "name": "@o3r/application",
   "version": "0.0.0-placeholder",
-  "description": "Application module of the Otter framework",
+  "description": "This module provides development help to monitor your Otter Application",
   "keywords": [
     "application",
-    "otter"
+    "otter",
+    "otter-module"
   ],
   "exports": {
     "./schemas/*": {

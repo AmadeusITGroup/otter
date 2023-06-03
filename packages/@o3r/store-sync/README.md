@@ -1,4 +1,13 @@
-# Otter Store Sync
+<h1 align="center">Otter Store Sync</h1>
+<p align="center">
+  <img src="../../../.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
+</p>
+
+This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+<br />
+<br />
+
+## Description
 
 This module is exposing an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
 

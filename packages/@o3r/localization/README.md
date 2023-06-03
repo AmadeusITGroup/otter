@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a fallback language/translation support and debug tools
+This module provides a fallback language/translation support and debug tools.
 
 ## How to install
 

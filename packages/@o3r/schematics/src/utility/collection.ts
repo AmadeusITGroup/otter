@@ -9,9 +9,9 @@ import type { WorkspaceSchema } from '../interfaces';
  */
 export function registerCollectionSchematics(workspace: WorkspaceSchema, collection: string): WorkspaceSchema {
   workspace.cli ||= {};
-  workspace.cli.schematicCollections ||= [];
+  workspace.cli.schematicCollections ||= ['@schematics/angular'];
   if (!workspace.cli.schematicCollections.includes(collection)) {
-    workspace.cli.schematicCollections.push(collection);
+    workspace.cli.schematicCollections.unshift(collection);
   }
   return workspace;
 }
