@@ -27,6 +27,17 @@ export interface CascadingConfiguration {
   pullRequestTitle: string;
 }
 
+export interface PullRequestContext {
+  /** Cascading Origin Branch */
+  currentBranch: string;
+  /** Cascading Pull Request Target Branch */
+  targetBranch: string;
+  /** Determine if the reviewers are bypassed */
+  bypassReviewers: boolean;
+  /** Is the an update of the {@link currentBranch} conflicting */
+  isConflicting: boolean;
+}
+
 /** Minimal information required from a Pull Request */
 export interface CascadingPullRequestInfo {
   /** ID of the Pull Request Author */
@@ -37,6 +48,8 @@ export interface CascadingPullRequestInfo {
   isOpen: boolean;
   /** ID of the pull request */
   id: string | number;
+  /** Context of the Pull Request (parsed from content) */
+  context?: PullRequestContext;
 }
 
 /** Check suite possible conclusions */
