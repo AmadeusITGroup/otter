@@ -130,6 +130,103 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
 
+  /**
+   * Get the element associated to the selector if present
+   *
+   * @param selector Selector to access the element
+   * @param elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options Options supported
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected queryWithOptions(
+    _selector: string,
+    _elementConstructor: undefined,
+    _options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    }
+  ): Promise<O3rElement | undefined>;
+  protected queryWithOptions<T extends O3rElement>(
+    _selector: string,
+    _elementConstructor: O3rElementConstructor<T>,
+    _options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    }
+  ): Promise<T | undefined>;
+  protected queryWithOptions<T extends O3rElement>(
+    _selector: string,
+    _elementConstructor: O3rElementConstructor<T> | undefined,
+    _options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    } = {}
+  ): Promise<T | O3rElement | undefined> {
+    throw new TranspilationPurposeOnlyError('Should target a proper implementation');
+  }
+
+  /**
+   * Get text from the element associated to the given selector, or undefined if the element is not found or not visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected getText<T extends O3rElement>(_selector: string, _options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<string | undefined> {
+    throw new TranspilationPurposeOnlyError('Should target a proper implementation');
+  }
+
+  /**
+   * Check if the element associated to the given selector is visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected isVisible<T extends O3rElement>(_selector: string, _options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<boolean> {
+    throw new TranspilationPurposeOnlyError('Should target a proper implementation');
+  }
+
+  /**
+   * Click on the element associated to the given selector if it exists and is visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected click<T extends O3rElement>(_selector: string, _options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<void> {
+    throw new TranspilationPurposeOnlyError('Should target a proper implementation');
+  }
+
   /** @inheritdoc */
   public query(_selector: string, _returnType?: undefined, timeout?: number): Promise<O3rElement | undefined>;
   /** @inheritdoc */
