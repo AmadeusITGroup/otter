@@ -1,12 +1,12 @@
 /* eslint-disable new-cap */
-import { By } from '@angular/platform-browser';
-import { FixtureUsageError } from '../../errors/index';
-import type { ComponentFixtureProfile } from '../component-fixture';
-import { isPromise, withTimeout } from '../helpers';
-import { O3rElement, O3rElementConstructor } from './element';
-import { O3rGroup, O3rGroupConstructor } from './group';
+import {By} from '@angular/platform-browser';
+import {FixtureUsageError} from '../../errors/index';
+import type {ComponentFixtureProfile} from '../component-fixture';
+import {isPromise, withTimeout} from '../helpers';
+import {O3rElement, O3rElementConstructor} from './element';
+import {O3rGroup, O3rGroupConstructor} from './group';
 
-export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
+export type {ComponentFixtureProfile, Constructable, FixtureWithCustom} from '../component-fixture';
 
 /**
  * Implementation of the fixture dedicated to angular, hence using angular testing framework.
@@ -80,6 +80,120 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     return element;
   }
 
+  /**
+   * Get the element associated to the selector if present
+   *
+   * @param selector Selector to access the element
+   * @param elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options Options supported
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected async queryWithOptions(
+    selector: string,
+    elementConstructor: undefined,
+    options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    }
+  ): Promise<O3rElement | undefined>;
+  protected async queryWithOptions<T extends O3rElement>(
+    selector: string,
+    elementConstructor: O3rElementConstructor<T>,
+    options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    }
+  ): Promise<T | undefined>;
+  protected async queryWithOptions<T extends O3rElement>(
+    selector: string,
+    elementConstructor: O3rElementConstructor<T> | undefined,
+    options: {
+      index?: number;
+      shouldThrowIfNotPresent?: boolean;
+      timeout?: number;
+    } = {}
+  ): Promise<T | O3rElement | undefined> {
+    let element: T | O3rElement | undefined;
+    if (options.index !== undefined) {
+      element = await this.queryNth(selector, options.index, elementConstructor as any);
+    } else {
+      element = await this.query(selector, elementConstructor as any);
+    }
+    if (options.shouldThrowIfNotPresent) {
+      return this.throwOnUndefinedElement<O3rElement>(element, options.timeout);
+    }
+    return element;
+  }
+
+  /**
+   * Get text from the element associated to the given selector, or undefined if the element is not found or not visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected async getText<T extends O3rElement>(selector: string, options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<string | undefined> {
+    const element = await this.queryWithOptions(selector, options.elementConstructor as any, options);
+    if (!element || !await element.isVisible()) {
+      return;
+    }
+    return await element.getText();
+  }
+
+  /**
+   * Check if the element associated to the given selector is visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected async isVisible<T extends O3rElement>(selector: string, options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<boolean> {
+    const element = await this.queryWithOptions(selector, options.elementConstructor as any, options);
+    return !!element && await element.isVisible();
+  }
+
+  /**
+   * Click on the element associated to the given selector if it exists and is visible
+   *
+   * @param selector Selector to access the element
+   * @param options Options supported
+   * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
+   * @param options.index index Select the element associated to the index
+   * @param options.shouldThrowIfNotPresent If set to true the function will throw if the element is not present
+   * @param options.timeout Duration to wait for the element to be present before it throws
+   */
+  protected async click<T extends O3rElement>(selector: string, options: {
+    elementConstructor?: O3rElementConstructor<T> | undefined;
+    index?: number;
+    shouldThrowIfNotPresent?: boolean;
+    timeout?: number;
+  } = {}): Promise<void> {
+    const element = await this.queryWithOptions(selector, options.elementConstructor as any, options);
+    if (!!element && await element.isVisible()) {
+      await element.click();
+    }
+  }
+
   /** @inheritdoc */
   public query(selector: string, returnType?: undefined): Promise<O3rElement | undefined>;
   public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>): Promise<T | undefined>;
@@ -128,7 +242,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public getSubComponents(): Promise<{[componentName: string]: ComponentFixtureProfile[]}> {
+  public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
     return Promise.resolve({block: [this]});
   }
 
