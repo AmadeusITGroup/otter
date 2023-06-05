@@ -70,7 +70,10 @@ export function generateModuleAddCommand(_context: ExtensionContext) {
 
   return async () => {
     const pMmodules = getAvailableModules(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES, true)
-      .then((mods) => mods.map(({ name }) => name));
+      .then((mods) => mods.map<vscode.QuickPickItem>(({ name, description }) => ({
+        label: name,
+        description
+      })));
 
     const moduleToAdd = await vscode.window.showQuickPick(pMmodules, {
       canPickMany: true,
@@ -84,9 +87,9 @@ export function generateModuleAddCommand(_context: ExtensionContext) {
     }
 
     moduleToAdd
-      .forEach((mod) => {
-        const terminal = vscode.window.createTerminal(`Add the module ${mod}`);
-        terminal.sendText(`${getPackageScriptRunner()} ng add ${mod} --defaults`, true);
+      .forEach(({label}) => {
+        const terminal = vscode.window.createTerminal(`Add the module ${label}`);
+        terminal.sendText(`${getPackageScriptRunner()} ng add ${label} --defaults`, true);
         terminal.show();
       });
   };
