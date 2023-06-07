@@ -119,11 +119,13 @@ export class ApiFetchClient implements ApiClient {
         loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this })));
       }
 
+      const origin = options.headers.get('Origin');
+
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
       if (isCanceledBy >= 0) {
         // One of the fetch plugins cancelled the execution of the call
-        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], { apiName, operationId, url }));
+        asyncResponse = Promise.reject(new CanceledCallError(`Is canceled by the plugin ${isCanceledBy}`, isCanceledBy, this.options.fetchPlugins[isCanceledBy], {apiName, operationId, url, origin}));
       } else {
         asyncResponse = fetch(url, options);
       }
@@ -139,14 +141,14 @@ export class ApiFetchClient implements ApiClient {
       if (e instanceof CanceledCallError) {
         exception = e;
       } else {
-        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url });
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
       }
     }
 
     try {
       root = body ? JSON.parse(body) : undefined;
     } catch (e: any) {
-      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url });
+      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url, origin });
     }
 
     const replyPlugins = this.options.replyPlugins ?
@@ -158,7 +160,8 @@ export class ApiFetchClient implements ApiClient {
         apiName,
         exception,
         operationId,
-        url
+        url,
+        origin
       })) : [];
 
     let parsedData = root;

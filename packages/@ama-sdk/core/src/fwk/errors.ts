@@ -8,6 +8,8 @@ interface GenericErrorContext {
   operationId?: string;
   /** Base URL */
   url?: string;
+  /** Origin domain initiating the call */
+  origin?: string | null;
 }
 
 /**
@@ -16,10 +18,12 @@ interface GenericErrorContext {
 export class GenericError extends Error {
 
   constructor(message: string, context?: GenericErrorContext) {
-    super(
-      context
-        ? `[SDK] [apiName: ${context.apiName || 'unknown'}] [operationId: ${context.operationId || 'unknown'}] [baseUrl: ${context.url || 'unknown'}] ${message}`
-        : `[SDK] ${message}`
+    const httpRegexp = /^https?:\/\//;
+    const baseUrl = context?.url ? context.url.replace(httpRegexp, '') : 'unknown';
+    const origin = context?.origin ? context.origin.replace(httpRegexp, '') : 'unknown';
+    super(context
+      ? `[SDK] [apiName: ${context.apiName || 'unknown'}] [operationId: ${context.operationId || 'unknown'}] [baseUrl: ${baseUrl}] [origin: ${origin}] [errorType: SDK] ${message}`
+      : `[SDK] ${message}`
     );
   }
 
