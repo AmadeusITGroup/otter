@@ -262,7 +262,7 @@ __metadata:
     tslib: ^2.4.1
     type-fest: ^3.6.1
     typescript: ~4.9.4
-    webpack: ~5.85.0
+    webpack: ~5.86.0
     webpack-cli: ~5.1.0
     yargs: ^17.6.2
   peerDependencies:
@@ -5581,7 +5581,7 @@ __metadata:
     tslib: ^2.4.1
     type-fest: ^3.6.1
     typescript: ~4.9.4
-    webpack: ~5.85.0
+    webpack: ~5.86.0
     zone.js: ^0.13.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -5595,7 +5595,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     jasmine: ^4.0.0
     rxjs: ^7.4.0
-    webpack: ~5.85.0
+    webpack: ~5.86.0
   peerDependenciesMeta:
     jasmine:
       optional: true
@@ -6575,7 +6575,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^3.0.2
     rxjs: ^7.4.0
-    sass: ~1.62.0
+    sass: ~1.63.0
     sass-loader: ^13.1.0
     semver: ^7.3.2
     shx: ^0.3.4
@@ -6588,7 +6588,7 @@ __metadata:
     tsickle: ^0.46.3
     tslib: ^2.4.1
     typescript: ~4.9.4
-    webpack: ~5.85.0
+    webpack: ~5.86.0
     winston: ^3.8.2
     zone.js: ^0.13.0
   languageName: unknown
@@ -7398,7 +7398,7 @@ __metadata:
     jest-junit: ^14.0.0
     nx: ~15.9.0
     rxjs: ^7.4.0
-    sass: ~1.62.0
+    sass: ~1.63.0
     sass-true: ^6.0.0
     stylelint: ^14.1.0
     stylelint-scss: ^4.0.0
@@ -28770,16 +28770,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.62.0":
-  version: 1.62.0
-  resolution: "sass@npm:1.62.0"
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.63.0":
+  version: 1.63.0
+  resolution: "sass@npm:1.63.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: d5f606aa25afdf3ed9f316602811a40cf3b29f64cb70ea02f4198ae4288f9687de6fcef9f4fd2d58e06c28282d859aa249bdbf7d7d97a3a6a582eeaa8e5607fa
+  checksum: 7b5b3ea0f6b09577a58ecd04634750e3ca9e9336f0b7048efad0b92f9d6c64966e031ebbffa7fb40a16387ea854904bf95bdcd00257800eb9d98f49e5ef04eb3
   languageName: node
   linkType: hard
 
@@ -32900,9 +32900,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:>=4.0.0 <6.0.0, webpack@npm:^5.75.0, webpack@npm:~5.85.0":
-  version: 5.85.0
-  resolution: "webpack@npm:5.85.0"
+"webpack@npm:>=4.0.0 <6.0.0, webpack@npm:^5.75.0, webpack@npm:~5.86.0":
+  version: 5.86.0
+  resolution: "webpack@npm:5.86.0"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -32933,7 +32933,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: b013be9fbc7f6810d1f229f570c70710ddbc7290f817411acffe4214b2b6c783a041ab1f2005d9e1109f4ab21c136f0f8d8c067a5fb64f20a82dcbc1ee0d3f42
+  checksum: 682b1aa8328bb9d52ae66a1d0a1078af88f9e3b3b3a9c9e1ce203e669581a8e61d522420ef253130eacd510d24d7275b840c1311d50bd048d6fd7c1af186ce55
   languageName: node
   linkType: hard
 
