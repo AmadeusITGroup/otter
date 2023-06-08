@@ -82,7 +82,7 @@
     "@angular/platform-browser": "~15.2.0",
     "@angular/platform-browser-dynamic": "~15.2.0",
     "@babel/core": "~7.22.0",
-    "@babel/preset-typescript": "~7.21.0",
+    "@babel/preset-typescript": "~7.22.0",
     "@compodoc/compodoc": "^1.1.19",
     "@ngrx/entity": "~15.4.0",
     "@ngrx/store": "~15.4.0",
