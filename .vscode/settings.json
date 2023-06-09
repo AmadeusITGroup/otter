@@ -47,6 +47,12 @@
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    "**/node_modules/**": true
+  },
   "otter.extract.styling.prefix": "o3r",
   "otter.generate.store.testFramework": "jest",
   "otter.packageManager": "yarn"
