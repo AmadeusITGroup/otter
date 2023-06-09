@@ -65,8 +65,9 @@ function setupLocalRegistry() {
  */
 function setupNewApp() {
   beforeAll(() => {
-    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
+    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson & {generatorDependencies: Record<string, string>};
     const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
+    const materialVersion = minVersion(packageJson.generatorDependencies['@angular/material']).version;
     // Create app with ng new
     execSync('npx rimraf it-tests/test-app', {cwd: parentFolderPath, stdio: 'inherit'});
     if (!existsSync(itTestsFolderPath)) {
@@ -98,7 +99,7 @@ function setupNewApp() {
     execSync(`yarn add @angular/pwa@${angularVersion}`, execAppOptions);
     execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
     execSync(`yarn add @angular-devkit/schematics@${angularVersion}`, execAppOptions);
-    execSync(`yarn run ng add @angular/material@${angularVersion} --skip-confirmation --defaults=true`, execAppOptions);
+    execSync(`yarn run ng add @angular/material@${materialVersion} --skip-confirmation --defaults=true`, execAppOptions);
   });
 }
 

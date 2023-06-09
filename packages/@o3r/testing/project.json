@@ -20,7 +20,7 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "rootDir": "packages/@o3r/testing/src",
         "main": "packages/@o3r/testing/src/public_api.ts",
@@ -46,7 +46,10 @@
       "options": {
         "script": "build:schematics"
       },
-      "inputs": ["schematics", "^source"],
+      "inputs": [
+        "schematics",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist/schematics"
       ]
@@ -65,7 +68,7 @@
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -80,7 +83,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/testing/jest.config.js",
         "silent": true

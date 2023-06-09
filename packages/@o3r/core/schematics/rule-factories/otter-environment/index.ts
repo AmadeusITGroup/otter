@@ -1,7 +1,7 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
-import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
+import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 
 const COMPONENT_SCHEMATICS_NAME = '@o3r/core:component';
@@ -112,7 +112,7 @@ export function updateOtterEnvironmentAdapter(
 
     }
     if (options.isDefaultGenerator) {
-      workspace.cli.defaultCollection = '@o3r/core';
+      registerCollectionSchematics(workspace, '@o3r/core');
     }
     workspace.cli.analytics = false;
 
@@ -152,7 +152,7 @@ export function updateOtterEnvironmentAdapter(
       return tree;
     }
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
+    const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const envBasePath = 'src/environments';
     const envDevFilePath = `${envBasePath}/environment.development.ts`;
     if (!tree.exists(envDevFilePath)) {

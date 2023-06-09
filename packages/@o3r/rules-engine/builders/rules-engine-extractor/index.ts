@@ -1,7 +1,7 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
 import { existsSync, promises as fs } from 'node:fs';
-import * as pGlob from 'globby';
+import globby from 'globby';
 import { dirname, resolve } from 'node:path';
 import { MetadataFact, MetadataOperator, RulesEngineExtractor } from './helpers';
 import { RulesEngineExtractorBuilderSchema } from './schema';
@@ -73,7 +73,7 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
 
   /** Facts from the current project */
   const newFactList = (await Promise.all(
-    (await Promise.all(options.factFilePatterns.map((pattern) => pGlob(pattern, {cwd: context.currentDirectory}))))
+    (await Promise.all(options.factFilePatterns.map((pattern) => globby(pattern, {cwd: context.currentDirectory}))))
       .flat()
       .map((file, idx, arr) => {
         context.reportProgress(idx, arr.length, `Parsing fact from ${file}`);
@@ -82,9 +82,9 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
   )).reduce<MetadataFact[]>((acc, factList) => [...acc, ...factList], []);
 
   /** Operators from the current project */
-  const newOperatorList = (await Promise.all(options.operatorFilePatterns.map((pattern) => pGlob(pattern, {cwd: context.currentDirectory}))))
+  const newOperatorList = (await Promise.all(options.operatorFilePatterns.map((pattern) => globby(pattern, {cwd: context.currentDirectory}))))
     .reduce<string[]>((acc, fileList) => ([...acc, ...fileList]), [])
-    .map((file, idx, arr) => {
+    .map((file: string, idx, arr) => {
       context.reportProgress(idx, arr.length, `Parsing operator from ${file}`);
       return extractor.extractOperators(resolve(context.currentDirectory, file));
     })
