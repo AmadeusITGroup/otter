@@ -5,7 +5,7 @@ import type { ExtensionContext } from 'vscode';
 import type { IncomingMessage } from 'node:http';
 import type { NpmRegistryPackage } from '@o3r/schematics';
 import { getPackageScriptRunner } from '../helpers';
-import type { OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE, OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE } from '@o3r/core';
+import type { OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE, OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE } from '@o3r/schematics';
 import type { NPMRegistrySearchResponse } from '@o3r/schematics';
 
 // TODO: Remove this workaround when #362 is implemented

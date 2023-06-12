@@ -102,6 +102,14 @@
       "aliases": [
         "list-modules"
       ]
+    },
+    "add-modules": {
+      "description": "Add additional Otter module",
+      "factory": "./schematics/show-modules/index#ngAddModules",
+      "schema": "./schematics/add-modules/schema.json",
+      "aliases": [
+        "add-module"
+      ]
     }
   }
 }

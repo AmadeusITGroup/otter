@@ -1,9 +1,5 @@
 import type { Rule } from '@angular-devkit/schematics';
 import { EOL } from 'node:os';
-import type { OTTER_KEYWORD_CMS as OTTER_KEYWORD_CMS_TYPE } from '@o3r/core';
-
-// TODO: Remove this workaround when #374 is implemented
-const OTTER_KEYWORD_CMS: typeof OTTER_KEYWORD_CMS_TYPE = 'otter-cms';
 
 /**
  * Display the list of available Otter modules
@@ -14,9 +10,10 @@ const OTTER_KEYWORD_CMS: typeof OTTER_KEYWORD_CMS_TYPE = 'otter-cms';
  * @param onlyNotInstalledModules Display only the Otter modules that are not already installed
  */
 export function displayModuleList(keyword: string, scopeWhitelist: string[] | readonly string[], onlyCmsModules = false, onlyNotInstalledModules = false): Rule {
-  const tagMap: Record<string, string> = onlyCmsModules ? {} : { [OTTER_KEYWORD_CMS]: 'CMS enabler' };
-
   return async (tree, context) => {
+    const { OTTER_KEYWORD_CMS } = await import('@o3r/schematics');
+    const tagMap: Record<string, string> = { [OTTER_KEYWORD_CMS]: 'CMS enabler' };
+
     const { getAvailableModulesWithLatestPackage, formatModuleDescription } = await import('@o3r/schematics');
     try {
       const modules = await getAvailableModulesWithLatestPackage(keyword, scopeWhitelist, onlyNotInstalledModules, context.logger);
