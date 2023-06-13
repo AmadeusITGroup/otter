@@ -7,6 +7,8 @@ import { satisfies } from 'semver';
 import { get } from 'node:https';
 import { EOL } from 'node:os';
 import * as fs from 'node:fs';
+import { promisify } from 'node:util';
+import { exec } from 'node:child_process';
 import * as chalk from 'chalk';
 
 async function promiseGetRequest<T extends JsonObject>(url: string) {
@@ -19,6 +21,29 @@ async function promiseGetRequest<T extends JsonObject>(url: string) {
     res.on('end', () => resolve(JSON.parse(Buffer.concat(data).toString())));
     res.on('error', reject);
   });
+}
+
+/**
+ * Execute NPM search command if not run with other client
+ *
+ * @param search search text
+ * @param packageManager Package manager to use, determined automatically if not specified
+ */
+async function npmSearchExec(search: string, packageManager?: string): Promise<NPMRegistrySearchResponse | undefined> {
+  const manager = packageManager || (process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn');
+  if (manager === 'npm') {
+    const remoteModulesPromise = promisify(exec)(`npm search "${search}" --json`);
+    try {
+      const results = JSON.parse((await remoteModulesPromise).stdout) as NpmRegistryPackage[];
+      return results
+        .reduce((acc, pck) => {
+          acc.objects.push({ package: pck });
+          return acc;
+        }, { objects: [] } as NPMRegistrySearchResponse);
+    } catch {
+      return undefined;
+    }
+  }
 }
 
 /**
@@ -40,8 +65,8 @@ export const isOtterTag = <T extends string | undefined>(keyword: any, expect?: 
  * @param onlyNotInstalled Determine if only the packages that are NOT installed should be returned
  */
 export async function getAvailableModules(keyword: string, scopeWhitelist: string[] | readonly string[], onlyNotInstalled = false): Promise<NpmRegistryPackage[]> {
-
-  const registry = await promiseGetRequest<NPMRegistrySearchResponse>(`https://registry.npmjs.org/-/v1/search?text=keywords:${keyword}&size=250`);
+  const search = `keywords:${keyword}`;
+  const registry = await npmSearchExec(search) || await promiseGetRequest<NPMRegistrySearchResponse>(`https://registry.npmjs.org/-/v1/search?text=${search}&size=250`);
 
   let packages = registry.objects
     .filter((pck) => pck.package?.scope && scopeWhitelist.includes(pck.package?.scope))

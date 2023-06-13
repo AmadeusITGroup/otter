@@ -14,7 +14,7 @@ export type NpmRegistryPackage = Pick<PackageJson, 'name' | 'description' | 'ver
     repository?: string;
     bugs?: string;
   };
-  /** */
+  /** package.json information */
   package?: PackageJson;
 };
 

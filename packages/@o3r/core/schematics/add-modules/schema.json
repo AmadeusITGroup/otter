@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "NgAddModules",
   "title": "Add available Otter modules",
-  "description": "ng generate Renovate bot",
+  "description": "ng generate Add module",
   "properties": {
   }
 }
