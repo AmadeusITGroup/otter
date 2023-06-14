@@ -1,0 +1,42 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add Otter ama-sdk-schematics to the project.",
+      "factory": "./schematics/ng-add/index#ngAdd",
+      "schema": "./schematics/ng-add/schema.json",
+      "aliases": ["install", "i"]
+    },
+    "typescript-mock": {
+      "description": "Generate an api mock into the project.",
+      "factory": "./schematics/typescript/mock/index#ngGenerateMock",
+      "schema": "./schematics/typescript/mock/schema.json"
+    },
+    "api-extension": {
+      "description": "Generate a api specification extension.",
+      "factory": "./schematics/api-extension/index#ngGenerateApiExtension",
+      "schema": "./schematics/api-extension/schema.json"
+    },
+    "typescript-core": {
+      "description": "Generate a typescript SDK source code based on swagger specification",
+      "factory": "./schematics/typescript/core/index#ngGenerateTypescriptSDK",
+      "schema": "./schematics/typescript/core/schema.json"
+    },
+    "typescript-shell": {
+      "description": "Generate a typescript SDK repository shell",
+      "factory": "./schematics/typescript/shell/index#ngGenerateTypescriptSDK",
+      "schema": "./schematics/typescript/shell/schema.json"
+    },
+    "typescript-sdk": {
+      "alias": ["typescript-create"],
+      "description": "Generate a typescript SDK repository with code based on swagger specification",
+      "factory": "./schematics/typescript/create/index#ngGenerateTypescriptSDK",
+      "schema": "./schematics/typescript/create/schema.json"
+    },
+    "java-client-core": {
+      "description": "Generate a Java SDK source code based on swagger specification",
+      "factory": "./schematics/java/client-core/index#ngGenerateJavaClientCore",
+      "schema": "./schematics/java/client-core/schema.json"
+    }
+  }
+}

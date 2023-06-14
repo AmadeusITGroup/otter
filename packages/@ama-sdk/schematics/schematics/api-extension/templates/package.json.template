@@ -1,0 +1,16 @@
+{
+  "name": "@<%= name %>-spec/<%= coreType %>",
+  "version": "0.0.0",
+  "main": "dist/API_<%= name %>_<%= coreType %>.yaml",
+  "description": "<%= name %> API",
+  "scripts": {
+    "build": "swagger-build @api-spec/core-<%= coreType %> ./src/generate.config.json -o ./dist/API_<%= name %>_<%= coreType %>.yaml -u"
+  },
+  "devDependencies": {
+    "@ama-sdk/swagger-builder": "^<%= myVersion %>",
+    "@api-spec/core-<%= coreType %>": "^<%= coreVersion %>"
+  },
+  "files": [
+    "dist/"
+  ]
+}

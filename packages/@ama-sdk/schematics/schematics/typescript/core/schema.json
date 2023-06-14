@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateTypescriptSDKSchematicsSchema",
+  "title": "Generate Typescript SDK",
+  "description": "ng generate typescript-core",
+  "properties": {
+    "swaggerSpecPath": {
+      "type": "string",
+      "description": "Path to the swagger specification used to generate the SDK",
+      "x-prompt": "Path to the swagger spec",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "swaggerSpecPath"
+  ]
+}

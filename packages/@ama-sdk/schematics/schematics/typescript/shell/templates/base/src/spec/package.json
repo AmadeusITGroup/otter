@@ -1,0 +1,10 @@
+{
+  "name": "@<%=projectName%>/<%=projectPackageName%>/spec",
+  "main": "../cjs/spec/index.js",
+  "module": "../esm2020/spec/index.js",
+  "es2020": "../esm2020/spec/index.js",
+  "esm2020": "../esm2020/spec/index.js",
+  "node": "../cjs/spec/index.js",
+  "default": "../esm2020/spec/index.js",
+  "typings": "./index.d.ts"
+}

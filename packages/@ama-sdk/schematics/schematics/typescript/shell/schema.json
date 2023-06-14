@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateTypescriptSDKSchematicsSchema",
+  "title": "Generate Typescript SDK",
+  "description": "ng generate typescript-shell",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project name (NPM package scope)",
+      "x-prompt": "Project name (NPM package scope)?"
+    },
+    "package": {
+      "type": "string",
+      "description": "Package name",
+      "x-prompt": "Package name?",
+      "default": "sdk"
+    },
+    "description": {
+      "type": "string",
+      "alias": "package",
+      "description": "Project description",
+      "default": ""
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name",
+    "package"
+  ]
+}

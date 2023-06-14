@@ -112,6 +112,9 @@ export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
       'zone': o3rCorePackageJson.generatorDependencies!['zone.js'],
       'tslib': o3rCorePackageJson.dependencies!.tslib
     };
+    const engineVersions = {
+      'node': o3rCorePackageJson.engines!.node
+    };
     /* eslint-enable @typescript-eslint/naming-convention */
 
     const templateNx = apply(url('./templates/base'), [
@@ -120,6 +123,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
         projectName,
         otterVersion,
         versions,
+        engineVersions,
         isNxContext: isNxContext(tree),
         runner: process.env.npm_execpath && /[\\/][^\\/]yarn[^\\/]js$/.test(process.env.npm_execpath) ? 'yarn run' : 'npm run',
         tsconfigSpecPath: findConfigFileRelativePath(tree,

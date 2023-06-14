@@ -1,7 +1,8 @@
 {
   "name": "@ama-sdk/generator-sdk",
   "version": "0.0.0-placeholder",
-  "description": "Swagger specification SDK Generator",
+  "deprecated": "This package is deprecated and will no longer be updated as of v10, please use @ama-sdk/schematics",
+  "description": "Swagger specification SDK Generator by yeoman",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",

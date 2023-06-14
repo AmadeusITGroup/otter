@@ -9,10 +9,11 @@ import { minVersion } from 'semver';
 const devServerPort = 4200;
 const currentFolder = path.join(__dirname, '..', '..', '..', '..');
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
-const applicationPath = path.join(currentFolder, '..');
-const tmpAppFolderPath = path.join(applicationPath, 'test-app');
+const parentFolderPath = path.join(currentFolder, '..');
+const itTestsFolderPath = path.join(parentFolderPath, 'it-tests');
+const appFolderPath = path.join(itTestsFolderPath, 'test-app');
 const execAppOptions: ExecSyncOptions = {
-  cwd: tmpAppFolderPath,
+  cwd: appFolderPath,
   stdio: 'inherit',
   // eslint-disable-next-line @typescript-eslint/naming-convention
   env: {...process.env, JEST_WORKER_ID: undefined, NODE_OPTIONS: ''}
@@ -25,7 +26,7 @@ const o3rVersion = '999.0.0';
  * @param modulePath
  */
 function addImportToAppModule(moduleName: string, modulePath: string) {
-  const appModuleFilePath = path.join(tmpAppFolderPath, 'src/app/app.module.ts');
+  const appModuleFilePath = path.join(appFolderPath, 'src/app/app.module.ts');
   const appModule = readFileSync(appModuleFilePath).toString();
   writeFileSync(appModuleFilePath, `import { ${moduleName} } from '${modulePath}';\n${
     appModule.replace(/(BrowserModule,)/, `$1\n    ${moduleName},`)
@@ -64,12 +65,12 @@ function setupNewApp() {
   beforeAll(() => {
     const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
     const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
-
     // Create app with ng new
-    execSync('npx rimraf test-app', {cwd: applicationPath, stdio: 'inherit'});
+    execSync('npx rimraf it-tests/test-app', {cwd: parentFolderPath, stdio: 'inherit'});
+    execSync('mkdir -p it-tests', {cwd: parentFolderPath, stdio: 'inherit'});
     execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn --skip-install`,
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      {cwd: applicationPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
+      {cwd: itTestsFolderPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
 
     // Set config to target local registry
     const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.join(currentFolder, 'package.json')).toString());

@@ -29,7 +29,11 @@ export default class extends SdkGenerator {
   constructor(args: string | string[], options: Record<string, unknown>) {
     super(args, options);
 
-    this.desc('Generate the shell of an SDK package');
+    const deprecatedMessage = '[DEPRECATED] This generator is deprecated and will no longer be updated as of v10, please use @ama-sdk/schematics:typescript-shell.';
+
+    this.log(deprecatedMessage);
+
+    this.desc(`${deprecatedMessage}\nGenerate the shell of an SDK package`);
 
     this.option('projectName', {
       description: 'Project name (NPM package scope)',

@@ -25,7 +25,7 @@
       ]
     },
     "build-swagger": {
-      "executor": "nx:run-commands",
+      "executor": "nx:run-script",
       "inputs": [
         "{projectRoot}/src/generators/**",
         "!{projectRoot}/src/generators/**/target/**"
@@ -34,7 +34,7 @@
         "{projectRoot}/src/**/target/*.jar"
       ],
       "options": {
-        "command": "yarn build:swagger"
+        "script": "build:swagger"
       }
     },
     "compile": {

@@ -1,0 +1,10 @@
+{
+  "$schema": "../node_modules/@ama-sdk/swagger-builder/dist/schemas/api-configuration.schema.json",
+  "swaggerTemplate": "./API_swagger_template.yaml",
+  "additionalSpecs": [
+    "./override/*.yaml"
+  ],
+  "products": [
+    "Additional Products"
+  ]
+}

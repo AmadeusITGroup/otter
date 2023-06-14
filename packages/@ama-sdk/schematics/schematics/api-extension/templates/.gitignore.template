@@ -1,0 +1,38 @@
+# IDE project files
+.classpath
+.project
+.settings/
+dist/
+/swagger-spec/src/
+.idea
+*.iml
+
+
+# sublime text
+*.sublime-project
+*.sublime-workspace
+
+# ADK
+adkprj.json
+
+# Version control and merge
+*.orig
+
+# reports / logs / runtime generated files
+**/target
+
+# Dependency directories
+node_modules
+
+# Bundled files
+swagger-spec/src/bundles
+swagger-spec/src/main
+
+# NPM
+.npm
+package-lock.json
+
+# Logs
+logs
+*.log
+npm-debug.log*

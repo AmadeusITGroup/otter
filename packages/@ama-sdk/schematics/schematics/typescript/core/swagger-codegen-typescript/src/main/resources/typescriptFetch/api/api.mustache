@@ -1,0 +1,96 @@
+{{#noUnusedImport}}{{#imports}}import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
+import { revive{{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/{{#kebabCase}}{{import}}{{/kebabCase}}.reviver';
+{{/imports}}
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata, utils } from '@ama-sdk/core';
+
+{{#operations}}{{#operation}}{{#allParams}}{{#isEnum}}export type {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+{{/isEnum}}{{/allParams}}{{/operation}}{{#operation}}
+export interface {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {
+{{#allParams}}
+        /** {{#description}}{{{description}}}{{/description}}{{^description}}{{#isListContainer}}List of {{#plurialize}}{{#noArrayInType}}{{{dataType}}}{{/noArrayInType}}{{/plurialize}}{{/isListContainer}}{{/description}} */
+        '{{baseName}}'{{^required}}?{{/required}}{{#required}}{{#defaultValue}}?{{/defaultValue}}{{/required}}: {{#isEnum}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum{{#isListContainer}}[]{{/isListContainer}}{{/isEnum}}{{^isEnum}}{{#isBodyParam}}{{{baseType}}}{{#isListContainer}}[]{{/isListContainer}}{{/isBodyParam}}{{^isBodyParam}}{{{dataType}}}{{/isBodyParam}}{{/isEnum}};
+{{/allParams}}
+}
+{{/operation}}{{#operation}}
+/**
+* @Deprecated, please use {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData
+*/
+export interface {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}} extends {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData {}
+{{/operation}}
+
+{{#description}}
+/**
+ * {{&description}}
+ */
+{{/description}}
+export class {{classname}} implements Api {
+
+  /** API name */
+  public static readonly apiName = '{{classname}}';
+
+  /** @inheritDoc */
+  public readonly apiName = {{classname}}.apiName;
+
+  /** Tokens of the parameters containing PII */
+  public readonly piiParamTokens: { [key: string]: string } = computePiiParameterTokens([{{#trimComma}}{{#x-risk-personal-data-field-list}}'{{.}}', {{/x-risk-personal-data-field-list}}{{/trimComma}}]);
+
+  /** @inheritDoc */
+  public client: ApiClient;
+
+  /**
+   * Initialize your interface
+   *
+   * @params apiClient Client used to process call to the API
+   */
+  constructor(apiClient: ApiClient) {
+    this.client = apiClient;
+  }
+
+{{#operation}}
+    /**
+     * {{summary}}
+     * {{notes}}
+{{#isDeprecated}}
+     * @deprecated
+{{/isDeprecated}}
+     * @param data Data to provide to the API call
+     */
+    public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{#hasMore}} | {{/hasMore}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}> {
+{{#allParams}}{{#defaultValue}}        data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
+{{/defaultValue}}{{/allParams}}
+      const getParams = this.client.extractQueryParams<{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
+      const headers: { [key: string]: string | undefined } = { {{#trimComma}}
+        'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{#hasMore}}, {{/hasMore}}{{/consumes}}{{/headerJsonMimeType}}',
+        'Accept': metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{#hasMore}}, {{/hasMore}}{{/produces}}{{/headerJsonMimeType}}',
+        {{#headerParams}}'{{baseName}}': data['{{baseName}}'],{{/headerParams}}{{/trimComma}}
+      };
+
+      let body: RequestBody = '';
+{{#hasFormParams}}
+      let formParams:any = {};
+      {{#formParams}}
+      if( data['{{baseName}}'] ) { formParams['{{baseName}}'] = data['{{baseName}}']; }
+      {{/formParams}}
+      {{#consumes}}
+      {{^hasMore}}
+      body = this.client.processFormData(formParams, '{{mediaType}}');
+      {{/hasMore}}
+      {{/consumes}}
+{{/hasFormParams}}
+{{#bodyParam}}
+      body = data['{{baseName}}'] ? JSON.stringify(data['{{baseName}}']) : {{#isListContainer}}'[]'{{/isListContainer}}{{^isListContainer}}'{}'{{/isListContainer}};
+{{/bodyParam}}
+      const basePathUrl = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
+      const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
+      const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams,  this.piiParamTokens, data);
+
+      const options = await this.client.prepareOptions(basePathUrl, '{{httpMethod}}', getParams, headers, body || undefined, tokenizedOptions, metadata);
+      const url = this.client.prepareUrl(options.basePath, options.queryParams);
+
+      const ret = this.client.processCall<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>(url, options, {{#tags.0.vendorExtensions.x-api-type}}ApiTypes.{{tags.0.vendorExtensions.x-api-type}}{{/tags.0.vendorExtensions.x-api-type}}{{^tags.0.vendorExtensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.vendorExtensions.x-api-type}}, {{classname}}.apiName{{#returnType}}, revive{{returnBaseType}}{{/returnType}}{{^returnType}}, undefined{{/returnType}}, '{{nickname}}');
+      return ret;
+    }
+
+{{/operation}}
+}
+{{/operations}}{{/noUnusedImport}}

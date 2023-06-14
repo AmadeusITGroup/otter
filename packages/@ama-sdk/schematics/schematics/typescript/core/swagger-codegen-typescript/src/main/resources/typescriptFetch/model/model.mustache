@@ -1,0 +1,53 @@
+{{#noUnusedImport}}
+/**
+ * Model: {{classname}}
+ *
+ * THIS FILE HAS BEEN AUTOMATICALLY GENERATED. DO NOT EDIT.
+ *
+ */
+
+{{#models}}{{#model}}{{^isEnum}}
+import {utils} from '@ama-sdk/core';{{/isEnum}}{{/model}}{{/models}}
+
+{{#imports}}import { {{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
+{{/imports}}
+
+{{#models}}{{#model}}{{#description}}
+/**
+ * {{{description}}}
+ */
+{{/description}}
+{{^isEnum}}
+export interface {{classname}} {{#parent}}extends {{{parent}}} {{/parent}}{
+{{#noDuplicateLine}}
+{{#vars}}
+  /** {{#description}}{{{description}}}{{/description}}{{^description}}{{#isListContainer}}List of {{#plurialize}}{{#noArrayInType}}{{{datatype}}}{{/noArrayInType}}{{/plurialize}}{{/isListContainer}}{{/description}} */
+  {{#readOnly}}readonly {{/readOnly}}{{#propertyDeclaration}}{{baseName}}{{/propertyDeclaration}}{{^required}}?{{/required}}: {{#isEnum}}{{{datatypeWithEnum}}}{{/isEnum}}{{^isEnum}}{{{datatype}}}{{/isEnum}};
+{{/vars}}
+{{#vars}}{{#vendorExtensions}}{{#x-field-name}}
+  /** Dictionary extraction for {{baseName}} */
+  {{#readOnly}}readonly {{/readOnly}}{{x-field-name}}{{^required}}?{{/required}}: {{x-field-type}};
+{{/x-field-name}}{{/vendorExtensions}}{{/vars}}
+{{#vars}}{{#vendorExtensions}}{{#x-map-name}}
+  /** Dictionary extraction for {{baseName}} */
+  {{#readOnly}}readonly {{/readOnly}}{{x-map-name}}{{^required}}?{{/required}}: { [key: string]: {{x-field-type}} | undefined };
+{{/x-map-name}}{{/vendorExtensions}}{{/vars}}
+{{/noDuplicateLine}}
+
+}
+
+{{#hasEnums}}{{#allVars}}{{#isEnum}}
+export type {{#removeBrackets}}{{{datatypeWithEnum}}}{{/removeBrackets}} = {{#trimPipe}}{{#vendorExtensions}}{{#x-sanitized-allowable-values}}'{{.}}' | {{/x-sanitized-allowable-values}}{{/vendorExtensions}}{{/trimPipe}};{{/isEnum}}{{/allVars}}{{/hasEnums}}
+{{#interfaceModels}}
+
+{{/interfaceModels}}
+
+{{#vars}}{{#pattern}}
+/** Validation regex for {{baseName}} */
+export const {{baseName}}Pattern = {{#parseRegexp}}{{{pattern}}}{{/parseRegexp}};
+{{/pattern}}{{/vars}}
+
+{{/isEnum}}
+{{#isEnum}}
+export type {{classname}} = {{#trimPipe}}{{#allowableValues}}{{#values}}'{{.}}' | {{/values}}{{/allowableValues}}{{/trimPipe}};
+{{/isEnum}}{{/model}}{{/models}}{{/noUnusedImport}}

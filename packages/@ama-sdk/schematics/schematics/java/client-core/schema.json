@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateJavaClientCoreSchematicsSchema",
+  "title": "Generate Java Client",
+  "description": "ng generate java-client-core",
+  "properties": {
+    "swaggerSpecPath": {
+      "type": "string",
+      "description": "Path to the swagger specification used to generate the SDK",
+      "x-prompt": "Swagger Spec file to generate the SDK",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "swaggerConfigPath": {
+      "type": "string",
+      "description": "Swagger config file\nMore info: https://openapi-generator.tech/docs/generators/java/#config-options",
+      "default": null
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "swaggerSpecPath"
+  ]
+}

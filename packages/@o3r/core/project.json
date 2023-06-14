@@ -31,7 +31,6 @@
         "script": "prepare:build:builders"
       }
     },
-
     "build-builders": {
       "executor": "nx:run-script",
       "options": {
