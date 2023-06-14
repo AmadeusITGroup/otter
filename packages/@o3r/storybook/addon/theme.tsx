@@ -151,6 +151,7 @@ export default class ThemePanel extends React.Component<ThemePanelProps> {
                 <div style={{ float: 'left' }}>
                   <label htmlFor="importedTheme">Import Theme: </label>
                   <Form.Input
+                    rev
                     type="file"
                     id="importedTheme"
                     accept=".css"
@@ -192,10 +193,12 @@ export default class ThemePanel extends React.Component<ThemePanelProps> {
                 <td style={{ fontWeight: 'bold' }} key={name + '--name'}>{name}</td>
                 <td key={name + '--value'}>
                   <Form.Input
+                    rev
                     type={isColor(this.props.theme[name]) ? 'color' : 'text'}
                     value={isColor(this.props.theme[name]) ? new Color(value).hex() : value}
                     key={name}
                     style={{ display: 'inline-block' }}
+                    // eslint-disable-next-line max-len
                     onChange={isColor(this.props.theme[name]) ? (e: ChangeEvent<HTMLInputElement>) => this.handleValueChange(name, e.target.value) : (e: ChangeEvent<HTMLInputElement>) => this.updateValue(name, e.target.value)} />
                 </td>
               </tr>
