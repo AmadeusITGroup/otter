@@ -17,39 +17,13 @@ Start a new Otter application.
 
 ```bash
 # Create new application
-npx -y -p @angular/cli ng new
-# ? What name would you like to use for the new workspace and initial project? <application name>
-# ? Would you like to add Angular routing? Yes
-# ? Which stylesheet format would you like to use? SCSS
-
-```
-
-> **Information**: You can also install and run the `Angular CLI` locally with the following commmands:
->
-> ```bash
-> yarn add @angular/cli
-> yarn ng new
-> ```
-
-## Adding Otter dependency
-
-Add Otter as dependency
-
-```bash
-# Setup Otter dependencies
-yarn ng add @o3r/core
-# ? Activate Otter localization? Yes
-# ? Work on Otter with symlinks? No
-```
-
-or for NPM users
-
-```bash
-npx ng add @o3r/core
+npm create @o3r my-project
+# Or
+yarn create @o3r my-project
 ```
 
 The application will contain the minimum setup to follow the otter recommendations and to activate the features requested
-during the installation of the @o3r/core.
+during the installation of the `@o3r/core`.
 
 For instance, if you activated the store, your ``app.module.ts`` shall integrate the ngrx Store implementation:
 
