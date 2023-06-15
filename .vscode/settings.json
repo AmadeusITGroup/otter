@@ -51,7 +51,8 @@
     "**/.cache/**": true,
     "**/.pnp.*": true,
     "**/.yarn/**": true,
-    "**/node_modules/**": true
+    "**/node_modules/**": true,
+    "tools/github-actions/*/packaged-action/**": true
   },
   "otter.extract.styling.prefix": "o3r",
   "otter.generate.store.testFramework": "jest",
