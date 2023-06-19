@@ -222,7 +222,8 @@ export class CascadingProbot extends Cascading {
         authorId: pr.user?.id,
         id: pr.number,
         body: pr.body,
-        isOpen: pr.state === 'open'
+        isOpen: pr.state === 'open',
+        context: this.retrieveContext(pr.body || '')
       }));
   }
 
@@ -237,7 +238,8 @@ export class CascadingProbot extends Cascading {
       authorId: pr.user?.id,
       id: pr.number,
       body: pr.body,
-      isOpen: pr.state === 'open'
+      isOpen: pr.state === 'open',
+      context: this.retrieveContext(pr.body || '')
     };
   }
 }

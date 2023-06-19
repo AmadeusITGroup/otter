@@ -6,6 +6,10 @@
   },
   "cli": {
     "defaultCollection": "@o3r/core",
+    "schematicCollections": [
+      "@schematics/angular",
+      "@o3r/core"
+    ],
     "analytics": false,
     "packageManager": "yarn",
     "cache": {

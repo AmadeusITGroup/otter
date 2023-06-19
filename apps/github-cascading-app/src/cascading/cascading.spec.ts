@@ -1,7 +1,27 @@
-import { AVOID_REVIEWER_BYPASS, Cascading, CASCADING_BRANCH_PREFIX } from './cascading';
+import { Cascading, CASCADING_BRANCH_PREFIX } from './cascading';
 import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion } from './interfaces';
-import { MESSAGE_NEW_UPDATE } from './cascading';
 import { CascadingProbot } from './cascading-probot';
+import { render } from 'ejs';
+
+const mockBasicTemplate = `
+<!-- <%- JSON.stringify({currentBranch, targetBranch, bypassReviewers, isConflicting}) %> -->
+
+## Title for cascading from <%= currentBranch %> to <%= targetBranch %>
+
+<% if (bypassReviewers) { %>
+-- bypass part --
+
+- [ ] <!-- cancel bypass --> :no_entry_sign: stop reviewing process bypass for this Pull Request
+
+<% } %>
+<% if (isConflicting) { %>
+-- trigger part --
+
+- [x] <!-- re-trigger cascading --> re-Trigger cascading
+<% } %>
+
+Super footer
+`;
 
 class JestCascading extends Cascading {
   public loadConfiguration = jest.fn<Promise<CascadingConfiguration>, [string]>();
@@ -44,22 +64,19 @@ describe('Cascading Application', () => {
 
     it('should return undefined when no re-evaluation requested', async () => {
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
-      await expect(customization.branchToReevaluateCascading({ id: 1, body: `
----
-${MESSAGE_NEW_UPDATE.replace('[x]', '[ ]') as string} release/0.1
----
-      ` })).resolves.toBe(undefined);
+      await expect(customization.branchToReevaluateCascading({
+        id: 1,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, {async: false})
+      })).resolves.toBe(undefined);
       expect(logger.info).toHaveBeenCalled();
     });
 
     it('should return the name of the original branch', async () => {
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       await expect(customization.branchToReevaluateCascading({
-        id: 1, body: `
----
-${MESSAGE_NEW_UPDATE as string} release/0.1
----
-      ` })).resolves.toBe('release/0.1');
+        id: 1,
+        body: render(mockBasicTemplate, { isConflicting: true, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      })).resolves.toBe('release/0.1');
       expect(logger.info).not.toHaveBeenCalled();
     });
   });
@@ -96,7 +113,8 @@ ${MESSAGE_NEW_UPDATE as string} release/0.1
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
         isOpen: true,
-        body: AVOID_REVIEWER_BYPASS.replace('[ ]', '[x]')
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+          .replace('[ ] <!-- cancel bypass -->', '[x] <!-- cancel bypass -->')
       });
       await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX as string}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalled();
@@ -110,7 +128,7 @@ ${MESSAGE_NEW_UPDATE as string} release/0.1
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
         isOpen: true,
-        body: AVOID_REVIEWER_BYPASS
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(true);
       await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX as string}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
@@ -125,7 +143,7 @@ ${MESSAGE_NEW_UPDATE as string} release/0.1
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
         isOpen: true,
-        body: AVOID_REVIEWER_BYPASS
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(false);
       await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX as string}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
