@@ -22,15 +22,11 @@ Also, to customize an application, metadata can be extracted from the applicatio
 
 ## Get Started
 
-A new application can be set up with these simple commands:
+A new application can be set up with this simple command:
 
 ```shell
-# Starting a new angular application
-npm install -g @angular/cli
-ng new my-app
-
-# Add Otter framework
-ng add @o3r/core
+# Starting a new Otter application
+npm create @o3r my-app
 ```
 
 > **Note**: Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
