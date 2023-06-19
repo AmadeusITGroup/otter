@@ -77,7 +77,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@types/jasmine": "3.10.8",
+    "@types/jasmine": "3.10.9",
     "@types/jest": "~28.1.2",
     "@types/node": "^17.0.45",
     "@types/uuid": "^8.3.1",
