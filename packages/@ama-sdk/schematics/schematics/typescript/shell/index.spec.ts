@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 
-const collectionPath = path.posix.join(__dirname, '..', '..', '..', 'collection.json');
+const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 const baseFileList = [
   '/CONTRIBUTING.md',
@@ -16,11 +16,12 @@ const baseFileList = [
   '/.eslintignore',
   '/.eslintrc.js',
   '/.gitignore',
+  '/.openapi-codegen-ignore',
   '/.renovaterc.json',
-  '/.swagger-codegen-ignore',
   '/.swcrc',
   '/.versionrc.json',
   '/.yarnrc.yml',
+  '/openapitools.json',
   '/package.json',
   '/configs/tsconfig.test.json',
   '/scripts/clear-index.js',

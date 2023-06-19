@@ -4,7 +4,7 @@
   "title": "Generate Typescript SDK",
   "description": "ng generate typescript-sdk",
   "properties": {
-    "swaggerSpecPath": {
+    "specPath": {
       "type": "string",
       "description": "Path to the swagger specification used to generate the SDK",
       "x-prompt": "Path to the swagger spec",
@@ -34,7 +34,7 @@
   "required": [
     "name",
     "package",
-    "swaggerSpecPath"
+    "specPath"
   ],
   "additionalProperties": true
 }

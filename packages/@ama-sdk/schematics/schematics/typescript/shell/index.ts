@@ -4,7 +4,7 @@ import {
   mergeWith,
   move,
   renameTemplateFiles,
-  Rule,
+  Rule, SchematicContext,
   template,
   Tree,
   url
@@ -17,7 +17,7 @@ import type { NgGenerateTypescriptSDKShellSchematicsSchema } from './schema';
  */
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
 
-  return async (tree: Tree) => {
+  return async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -35,8 +35,12 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch'],
       'jest': amaSdkSchematicsPackageJson.devDependencies!.jest,
       'ts-jest': amaSdkSchematicsPackageJson.devDependencies!['ts-jest'],
-      'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript
+      'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript,
+      '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli']
     };
+    const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
+      amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
+    context.logger.warn(JSON.stringify(openApiSupportedVersion));
     const engineVersions = {
       'node': amaSdkSchematicsPackageJson.engines!.node,
       'npm': amaSdkSchematicsPackageJson.engines!.npm,
@@ -51,6 +55,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
       versions,
+      ...openApiSupportedVersion ? {openApiSupportedVersion} : {},
       engineVersions,
       empty: ''
     };

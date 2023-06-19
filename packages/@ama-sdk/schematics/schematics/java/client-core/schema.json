@@ -4,7 +4,7 @@
   "title": "Generate Java Client",
   "description": "ng generate java-client-core",
   "properties": {
-    "swaggerSpecPath": {
+    "specPath": {
       "type": "string",
       "description": "Path to the swagger specification used to generate the SDK",
       "x-prompt": "Swagger Spec file to generate the SDK",
@@ -21,6 +21,6 @@
   },
   "additionalProperties": true,
   "required": [
-    "swaggerSpecPath"
+    "specPath"
   ]
 }

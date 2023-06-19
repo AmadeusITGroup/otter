@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 
-const collectionPath = path.posix.join(__dirname, '..', '..', '..', 'collection.json');
+const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
 describe('Typescript SDK Generator', () => {
   it('should execute shell and core generator', async () => {
@@ -11,7 +11,7 @@ describe('Typescript SDK Generator', () => {
     const tree = await runner.runSchematic('typescript-sdk', {
       name: 'test-scope',
       package: 'test-sdk',
-      swaggerSpecPath: path.posix.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
+      specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, Tree.empty());
 
     const baseTree = await runner.runSchematic('typescript-shell', {
@@ -20,7 +20,7 @@ describe('Typescript SDK Generator', () => {
     }, Tree.empty());
 
     const coreTree = await runner.runSchematic('typescript-core', {
-      swaggerSpecPath: path.posix.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
+      specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, baseTree);
 
     expect(tree.files.sort()).toEqual(coreTree.files.sort());

@@ -74,7 +74,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
             /@ama-sdk\/(schematics|generator-sdk):(core|shell|create|mock)/g,
             '@ama-sdk/schematics:typescript-$2'
           ) // Change typescript schematics name
-          .replaceAll('--swaggerSpecPath', '--swagger-spec-path') // Schematics arguments should be kebab-case
+          .replaceAll('--swaggerSpecPath', '--spec-path') // Schematics arguments should be kebab-case
           .replaceAll('--swaggerConfigPath', '--swagger-config-path') // Schematics arguments should be kebab-case
           .replace(
             // Remove swagger config path if it is the default value
