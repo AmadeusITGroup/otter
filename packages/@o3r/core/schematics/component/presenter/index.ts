@@ -18,8 +18,6 @@ import * as path from 'node:path';
 import {
   getComponentAnalyticsName,
   getComponentBlockName,
-  getComponentConfigKey,
-  getComponentConfigName,
   getComponentContextName,
   getComponentFileName,
   getComponentFixtureName,
@@ -32,6 +30,7 @@ import {
 } from '@o3r/schematics';
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
+import { getAddConfigurationRules } from '../common/configuration';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
@@ -42,7 +41,6 @@ const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
 const STORYBOOK_TEMPLATE_PATH = './templates/storybook';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
 const LOCALIZATION_TEMPLATE_PATH = './templates/localization';
-const CONFIG_TEMPLATE_PATH = './templates/config';
 
 /**
  * Generates the template properties
@@ -57,11 +55,10 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
 
   return {
     ...options,
-    componentType: options.componentStructure === 'full' || !options.useOtterConfig ? 'Component' : 'ExposedComponent',
+    componentType: 'Component',
     moduleName: getComponentModuleName(inputComponentName, componentStructureDef),
     componentName: getComponentName(inputComponentName, componentStructureDef),
     blockName: getComponentBlockName(inputComponentName),
-    componentConfig: getComponentConfigName(inputComponentName, componentStructureDef),
     componentTranslation: getComponentTranslationName(inputComponentName, componentStructureDef),
     componentContext: getComponentContextName(inputComponentName, componentStructureDef),
     componentFixture: getComponentFixtureName(inputComponentName, componentStructureDef),
@@ -70,7 +67,6 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
     projectName: options.projectName || getLibraryNameFromPath(options.path),
     folderName,
     name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-pres
-    configKey: getComponentConfigKey(options.componentName, componentStructureDef), // AIR_OFFER_PRES
     suffix: componentStructureDef.toLowerCase(), // pres | ''
     description: options.description || ''
   };
@@ -85,7 +81,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
   const fullStructureRequested = options.componentStructure === 'full';
 
-  const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
+  const generateFiles = async (tree: Tree, context: SchematicContext) => {
 
     const workspaceProject = getProjectFromTree(tree);
 
@@ -134,16 +130,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useOtterConfig) {
-      rules.push(mergeWith(apply(url(CONFIG_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     if (options.useOtterAnalytics) {
       rules.push(mergeWith(apply(url(ANALYTICS_TEMPLATE_PATH), [
         template({
@@ -184,11 +170,18 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    return chain(rules)(tree, context);
+    const configurationRules = await getAddConfigurationRules(
+      path.join(componentDestination, `${properties.name}.component.ts`),
+      options,
+      context
+    );
+    rules.push(...configurationRules);
+
+    return chain(rules);
   };
 
   return chain([
     generateFiles,
-    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop
+    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }

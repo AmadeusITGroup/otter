@@ -47,7 +47,7 @@
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate component with Otter configuration",
-      "default": true
+      "default": null
     },
     "useContext": {
       "type": "boolean",
