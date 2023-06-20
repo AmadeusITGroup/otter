@@ -64,7 +64,7 @@ jobs:
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
 
   publish-cascading:
-    if: github.event_name != 'pull_request' && github.ref_name == 'main'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'apps/github-cascading-app/dist'
@@ -76,6 +76,12 @@ jobs:
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - run: yarn set:version ${{ inputs.version }}
+      - name: Get tag name
+        id: get-npm-tag
+        uses: ./tools/github-actions/get-npm-tag
+        with:
+          is-prerelease: ${{ inputs.prerelease }}
+          version: ${{ inputs.version }}
       - name: 'NPM install locally'
         run: |
           pushd './${{env.APP_PATH}}'
@@ -84,7 +90,7 @@ jobs:
       - name: 'Publish Cascading Azure Functions'
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
-        if: env.PUBLISH_PROFILE != null
+        if: env.PUBLISH_PROFILE != null && steps.get-npm-tag.outputs.tag == 'latest'
         uses: Azure/functions-action@v1
         with:
           app-name: 'github-cascading'

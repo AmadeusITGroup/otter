@@ -357,7 +357,14 @@ export abstract class Cascading {
         return;
       }
     } else {
-      await this.createBranch(cascadingBranch, currentBranch.branch);
+      try {
+        await this.createBranch(cascadingBranch, targetBranch.branch);
+        await this.merge(currentBranch.branch, cascadingBranch);
+      } catch {
+        this.logger.warn(`Fail to merge ${currentBranch.branch} into ${cascadingBranch} before creating the PR, will switch to conflict mode (and create the PR from ${currentBranch.branch})`);
+        await this.deleteBranch(cascadingBranch);
+        await this.createBranch(cascadingBranch, currentBranch.branch);
+      }
     }
     await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
   }
