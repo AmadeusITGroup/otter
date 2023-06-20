@@ -88,8 +88,8 @@
       "schema": "./schematics/storybook/schema.json"
     },
     "module": {
-      "description": "Generate an new Otter compatible module",
-      "factory": "./schematics/module/index#ngGenerateModule",
+      "description": "Generate a new Otter compatible module",
+      "factory": "./schematics/module/index#generateModule",
       "schema": "./schematics/module/schema.json",
       "aliases": [
         "new-module"

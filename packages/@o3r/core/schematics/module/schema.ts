@@ -8,7 +8,7 @@ export interface NgGenerateModuleSchema extends JsonObject {
   path: string;
 
   /** Description of the new module */
-  description: string;
+  description: string | null;
 
   /** Prefix use to package future generation */
   prefix: string;
@@ -18,4 +18,7 @@ export interface NgGenerateModuleSchema extends JsonObject {
 
   /** Skip the linter process */
   skipLinter: boolean;
+
+  /** Do not install dependency packages. */
+  skipInstall: boolean;
 }

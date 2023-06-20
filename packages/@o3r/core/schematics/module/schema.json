@@ -16,7 +16,6 @@
     "description": {
       "type": "string",
       "description": "Description of the new module",
-      "x-prompt": "Short description of the new module",
       "default": null
     },
     "prefix": {
@@ -37,6 +36,11 @@
       "type": "boolean",
       "description": "Skip the linter process",
       "default": true
+    },
+    "skipInstall": {
+      "description": "Do not install dependency packages.",
+      "type": "boolean",
+      "default": false
     }
   },
   "required": ["name"],

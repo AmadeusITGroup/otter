@@ -1,0 +1,22 @@
+{
+  "extends": "<%= tsconfigBuildPath %>",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "declaration": true,
+    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+  },
+  "include": [
+    "builders/**/*.ts",
+    "schematics/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "builders/**/templates/**",
+    "schematics/**/templates/**"
+  ]
+}
