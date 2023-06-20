@@ -81,6 +81,7 @@ jobs:
         uses: ./tools/github-actions/get-npm-tag
         with:
           is-prerelease: ${{ inputs.prerelease }}
+          version: ${{ inputs.version }}
       - name: 'NPM install locally'
         run: |
           pushd './${{env.APP_PATH}}'
