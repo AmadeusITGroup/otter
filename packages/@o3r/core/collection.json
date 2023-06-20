@@ -110,6 +110,11 @@
       "aliases": [
         "add-module"
       ]
+    },
+    "convert-component": {
+      "description": "Convert an Angular component into an Otter component",
+      "factory": "./schematics/convert-component/index#convertToO3rComponent",
+      "schema": "./schematics/convert-component/schema.json"
     }
   }
 }
