@@ -64,7 +64,7 @@ jobs:
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
 
   publish-cascading:
-    if: github.event_name != 'pull_request' && github.ref_name == 'main'
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'apps/github-cascading-app/dist'
