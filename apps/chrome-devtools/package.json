@@ -20,7 +20,7 @@
     "watch:components": "yarn build:components --watch",
     "watch:manifest": "yarn patch:manifest --watch",
     "watch:extension": "tsc-watch -b tsconfig.extension.json --noClear --onSuccess 'yarn patch:extension'",
-    "prepare:publish": "prepare-publish ./dist",
+    "prepare:publish": "prepare-publish ./dist && node scripts/set-manifest-version.cjs",
     "publish-to-market": "node ./scripts/publish-to-market.mjs"
   },
   "files": [
