@@ -213,7 +213,11 @@
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:publish"
-      }
+      },
+      "outputs": [
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/manifest.json"
+      ]
     },
     "publish-extension": {
       "executor": "nx:run-script",
