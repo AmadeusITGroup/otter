@@ -1,17 +1,19 @@
 import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'nx/src/utils/package-json';
 import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
 const devServerPort = 4200;
+const appName = 'test-app';
 const currentFolder = path.join(__dirname, '..', '..', '..', '..');
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
 const parentFolderPath = path.join(currentFolder, '..');
 const itTestsFolderPath = path.join(parentFolderPath, 'it-tests');
 const appFolderPath = path.join(itTestsFolderPath, 'test-app');
+const cacheFolderPath = path.join(currentFolder, '.cache', appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: appFolderPath,
   stdio: 'inherit',
@@ -67,7 +69,9 @@ function setupNewApp() {
     const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
     // Create app with ng new
     execSync('npx rimraf it-tests/test-app', {cwd: parentFolderPath, stdio: 'inherit'});
-    execSync('mkdir -p it-tests', {cwd: parentFolderPath, stdio: 'inherit'});
+    if (!existsSync(itTestsFolderPath)) {
+      mkdirSync(itTestsFolderPath);
+    }
     execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn --skip-install`,
       // eslint-disable-next-line @typescript-eslint/naming-convention
       {cwd: itTestsFolderPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
@@ -81,7 +85,13 @@ function setupNewApp() {
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
     execSync('yarn config set nodeLinker pnp', execAppOptions);
-    execSync(`yarn config set cacheFolder ${path.join(currentFolder, '.cache', 'test-app')}`, execAppOptions);
+    execSync('yarn config set enableMirror false', execAppOptions);
+    execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
+    readdirSync(cacheFolderPath).forEach((fileName) => {
+      if (/^@(?:ama-sdk|ama-terasu|o3r)-/.test(fileName)) {
+        rmSync(path.join(cacheFolderPath, fileName));
+      }
+    });
     execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 
     // Run ng add
@@ -99,6 +109,7 @@ describe('new Otter application', () => {
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
     execSync('yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose', execAppOptions);
+    expect(() => execSync('yarn install', execAppOptions)).not.toThrow();
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
     execSync('yarn ng g @o3r/core:store-entity-async --defaults=true --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
