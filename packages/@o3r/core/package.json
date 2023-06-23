@@ -34,6 +34,8 @@
     "@ngrx/router-store": "~16.0.1",
     "@ngrx/store": "~16.0.1",
     "@ngrx/store-devtools": "~16.0.1",
+    "@nrwl/devkit": "~16.3.2",
+    "@nx/angular": "~16.3.2",
     "@schematics/angular": "~16.0.5",
     "chokidar": "^3.5.2",
     "comment-json": "^4.1.0",
@@ -48,6 +50,12 @@
       "optional": true
     },
     "@ngrx/router-store": {
+      "optional": true
+    },
+    "@nrwl/devkit": {
+      "optional": true
+    },
+    "@nx/angular": {
       "optional": true
     },
     "chokidar": {

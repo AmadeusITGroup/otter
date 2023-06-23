@@ -1,12 +1,12 @@
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { AddDevInstall } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { displayModuleList } from '../rule-factories/module-list';
+import { presets } from '../shared/presets';
+import { AddDevInstall } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
-import { presets } from './presets';
 
 /**
  * Add Otter library to an Angular Project

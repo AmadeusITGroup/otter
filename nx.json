@@ -6,6 +6,7 @@
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
+      "@nx/angular",
       "@o3r/core"
     ],
     "analytics": false,

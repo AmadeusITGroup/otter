@@ -1,6 +1,6 @@
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import type { NodePackageInstallTaskOptions } from './interfaces';
-import { getPackageManagerName } from '../../utility';
+import { getPackageManager, getWorkspaceConfig } from '../../utility';
 import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
 
 /**
@@ -11,9 +11,11 @@ export class NpmInstall extends NodePackageInstallTask {
 
   constructor(options?: NodePackageInstallTaskOptions) {
     super(options as any);
-    this.packageManager = getPackageManagerName(options?.packageManager);
+    this.packageManager = getPackageManager({
+      workspaceConfig: options?.tree && getWorkspaceConfig(options.tree),
+      enforcedNpmManager: options?.packageName
+    });
   }
-
 
   /** @inheritdoc */
   public toConfiguration() {
