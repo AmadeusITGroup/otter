@@ -18,4 +18,7 @@ export interface NgGenerateModuleSchema extends JsonObject {
 
   /** Skip the linter process */
   skipLinter: boolean;
+
+  /** Do not install dependency packages. */
+  skipInstall: boolean;
 }

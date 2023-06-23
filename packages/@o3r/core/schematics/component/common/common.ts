@@ -1,6 +1,7 @@
 import { externalSchematic, Rule, schematic, SchematicContext } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
 import { setupSchematicsDefaultParams } from '@o3r/schematics';
+import type { JsonValue } from '@angular-devkit/core';
 
 /**
  * Ask questions to get rules to execute
@@ -79,7 +80,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
       : schematic(schematicName, options),
     ...(alwaysApplyRule !== 'ask-again' ? [
       setupSchematicsDefaultParams(
-        schematicsNameToUpdate.reduce((acc: Record<string, Record<string, unknown>>, schematicToUpdateName) => {
+        schematicsNameToUpdate.reduce((acc: Record<string, Record<string, JsonValue>>, schematicToUpdateName) => {
           acc[schematicToUpdateName] = {
             [optionName]: alwaysApplyRule === 'yes'
           };

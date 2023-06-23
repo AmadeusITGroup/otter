@@ -7324,6 +7324,8 @@ __metadata:
     "@ngrx/router-store": ~16.0.1
     "@ngrx/store": ~16.0.1
     "@ngrx/store-devtools": ~16.0.1
+    "@nrwl/devkit": ~16.3.2
+    "@nx/angular": ~16.3.2
     "@schematics/angular": ~16.0.5
     chokidar: ^3.5.2
     comment-json: ^4.1.0
@@ -7337,9 +7339,9 @@ __metadata:
       optional: true
     "@ngrx/router-store":
       optional: true
-    "@o3r/schematics":
+    "@nrwl/devkit":
       optional: true
-    "@schematics/angular":
+    "@nx/angular":
       optional: true
     chokidar:
       optional: true
@@ -8318,6 +8320,7 @@ __metadata:
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1600.5
+    "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular/core": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
@@ -8342,6 +8345,8 @@ __metadata:
     typescript: ~5.0.2
     typescript-json-schema: ~0.59.0
   peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
@@ -8609,7 +8614,7 @@ __metadata:
     jest: ~29.6.0
     jest-preset-stylelint: ~6.1.0
     nx: ~16.5.0
-    postcss: ^8.4.4
+    postcss: ^8.4.5
     rimraf: ^5.0.0
     stylelint: ^15.10.1
     ts-jest: ^29.1.0
@@ -8617,7 +8622,7 @@ __metadata:
     typescript: ~5.0.2
   peerDependencies:
     jest-preset-stylelint: ~6.1.0
-    postcss: ^8.4.4
+    postcss: ^8.4.5
     stylelint: ^15.10.1
   languageName: unknown
   linkType: soft
@@ -25701,7 +25706,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.14, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.19, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.24, postcss@npm:^8.4.4":
+"postcss@npm:^8.2.14, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.19, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.24, postcss@npm:^8.4.5":
   version: 8.4.25
   resolution: "postcss@npm:8.4.25"
   dependencies:

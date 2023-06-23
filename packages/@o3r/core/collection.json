@@ -83,12 +83,14 @@
       "factory": "./schematics/renovate/index#ngGenerateRenovateBotComponent",
       "schema": "./schematics/renovate/schema.json"
     },
-    "module": {
-      "description": "Generate an new Otter compatible module",
-      "factory": "./schematics/module/index#ngGenerateModule",
-      "schema": "./schematics/module/schema.json",
+    "library": {
+      "description": "Generate a new Otter compatible module",
+      "factory": "./schematics/library/index#generateModule",
+      "schema": "./schematics/library/schema.json",
       "aliases": [
-        "new-module"
+        "new-module",
+        "module",
+        "libs"
       ]
     },
     "show-modules": {
