@@ -58,6 +58,12 @@
       "default": null,
       "nullable": true
     },
+    "useRulesEngine": {
+      "type": "boolean",
+      "description": "Generate component with rules-engine",
+      "default": null,
+      "nullable": true
+    },
     "useLocalization": {
       "type": "boolean",
       "description": "Generate component with localization",

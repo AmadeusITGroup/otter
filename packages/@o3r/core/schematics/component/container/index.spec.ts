@@ -174,4 +174,40 @@ describe('Component container', () => {
     );
     expect(tree.readContent(tree.files.find((file) => file.includes('test-component-cont.component.ts')))).toContain('standalone: true');
   });
+
+  it('should throw if generate a container component with rules engine, as @o3r/rules-engine is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'container',
+      useRulesEngine: true,
+      activateDummy: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
+  });
+
+  it('should generate a container component with rules engine', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const externalSchematicsSpy = jest.fn((tree: Tree) => tree);
+    const externalCollection = {
+      createSchematic: () => externalSchematicsSpy
+    } as any;
+    const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection').mockReturnValue(externalCollection);
+
+    await runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'container',
+      useRulesEngine: true,
+      path: 'src/components'
+    }, initialTree);
+
+    expect(createCollectionSpy).toHaveBeenCalledWith('@o3r/rules-engine', expect.any(Object));
+    expect(externalSchematicsSpy).toHaveBeenCalled();
+  });
+
 });

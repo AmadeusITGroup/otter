@@ -56,6 +56,12 @@
       "default": null,
       "nullable": true
     },
+    "useRulesEngine": {
+      "type": "boolean",
+      "description": "Generate component with rules-engine",
+      "default": null,
+      "nullable": true
+    },
     "description": {
       "type": "string",
       "description": "Component description",

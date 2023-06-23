@@ -113,7 +113,7 @@ describe('new Otter application', () => {
 
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
-    execSync('yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose', execAppOptions);
+    execSync('yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose --enableRulesEngine', execAppOptions);
     expect(() => execSync('yarn install', execAppOptions)).not.toThrow();
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
@@ -171,6 +171,9 @@ describe('new Otter application', () => {
       execAppOptions
     );
     addImportToAppModule('TestAddLocalizationComponentContModule', 'src/components/test-add-localization-component');
+
+    execSync('yarn ng g @o3r/core:component --defaults=true test-add-rules-engine-component --use-otter-config=true --use-rules-engine=true', execAppOptions);
+    addImportToAppModule('TestAddRulesEngineComponentContModule', 'src/components/test-add-rules-engine-component');
 
     execSync('yarn ng g @schematics/angular:component test-ng-component', execAppOptions);
     execSync('yarn ng g @o3r/core:convert-component --defaults=true --path="src/app/test-ng-component/test-ng-component.component.ts"', execAppOptions);
