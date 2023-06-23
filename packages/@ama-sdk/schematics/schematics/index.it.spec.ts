@@ -1,16 +1,18 @@
 import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions } from 'node:child_process';
-import { cpSync, readFileSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'nx/src/utils/package-json';
 import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
+const appName = 'test-sdk';
 const currentFolder = path.posix.join(__dirname, '..', '..', '..', '..');
 const packageJsonPath = path.posix.join(__dirname, '..', 'package.json');
 const parentFolderPath = path.posix.join(currentFolder, '..');
 const itTestsFolderPath = path.posix.join(parentFolderPath, 'it-tests');
 const sdkFolderPath = path.posix.join(itTestsFolderPath, 'test-sdk');
+const cacheFolderPath = path.join(currentFolder, '.cache', appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: sdkFolderPath,
   stdio: 'inherit',
@@ -51,7 +53,13 @@ function setupYarn(yarnVersion: string) {
   execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
   execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
   execSync('yarn config set nodeLinker pnp', execAppOptions);
-  execSync(`yarn config set cacheFolder ${path.posix.join(currentFolder, '.cache', 'test-sdk')}`, execAppOptions);
+  execSync('yarn config set enableMirror false', execAppOptions);
+  execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
+  readdirSync(cacheFolderPath).forEach((fileName) => {
+    if (/^@(?:ama-sdk|ama-terasu|o3r)-/.test(fileName)) {
+      rmSync(path.join(cacheFolderPath, fileName));
+    }
+  });
   execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 }
 
@@ -66,7 +74,9 @@ function setupNewSdk() {
     // Create app with ng new
     const relativePath = path.posix.relative(parentFolderPath, sdkFolderPath);
     execSync(`npx rimraf ${relativePath}`, {cwd: parentFolderPath, stdio: 'inherit'});
-    execSync(`mkdir -p ${relativePath}`, {cwd: parentFolderPath, stdio: 'inherit'});
+    if (!existsSync(itTestsFolderPath)) {
+      mkdirSync(itTestsFolderPath);
+    }
     writeFileSync(path.posix.join(sdkFolderPath, 'package.json'), '{"name": "@test/sdk"}');
 
     // Set config to target local registry

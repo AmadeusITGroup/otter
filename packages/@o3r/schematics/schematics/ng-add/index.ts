@@ -43,7 +43,7 @@ export function ngAdd(): Rule {
     for (const dependency of schematicsDependencies) {
       const version = getDependencyVersion(dependency);
       context.logger.info(`Installing ${dependency}${version || ''}`);
-      treePackageJson.devDependencies = {...packageJsonContent.devDependencies, [dependency]: version};
+      treePackageJson.devDependencies = {...treePackageJson.devDependencies, [dependency]: version};
       context.addTask(new DevInstall({
         hideOutput: false,
         packageName: `${dependency}${version ? '@' + version : ''}`,
