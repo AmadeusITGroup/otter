@@ -7337,10 +7337,6 @@ __metadata:
       optional: true
     "@ngrx/router-store":
       optional: true
-    "@o3r/schematics":
-      optional: true
-    "@schematics/angular":
-      optional: true
     chokidar:
       optional: true
     comment-json:
@@ -8318,6 +8314,7 @@ __metadata:
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1600.5
+    "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular/core": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
@@ -8342,6 +8339,8 @@ __metadata:
     typescript: ~5.0.2
     typescript-json-schema: ~0.58.0
   peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":

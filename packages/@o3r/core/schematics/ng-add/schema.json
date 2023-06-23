@@ -1,9 +1,26 @@
 {
   "$schema": "http://json-schema.org/schema",
   "$id": "ngAddSchematicsSchema",
-  "title": "Add Otter library",
-  "description": "ngAdd Otter library",
+  "title": "Add Otter Framework to an Angular project",
+  "description": "ngAdd Otter Framework to the Angular project",
   "properties": {
+    "preset": {
+      "description": "Preset of module list to automatically install",
+      "type": "string",
+      "default": "basic",
+      "enum": [
+        "basic",
+        "cms"
+      ],
+      "x-prompt": {
+        "message": "Which preset to use to start your application?",
+        "type": "list",
+        "items": [
+          { "value": "basic", "label": "BASIC - Minimum plugin list to install for a basic Otter application (no additional modules)" },
+          { "value": "cms", "label": "CMS - Add the Otter modules allowing the full administration of the application via the CMS" }
+        ]
+      }
+    },
     "projectName": {
       "type": "string",
       "description": "Project name",
@@ -34,12 +51,6 @@
       "default": true,
       "description": "Install Otter analytics",
       "x-prompt": "Activate Otter Analytics to gather and report analytics to specific providers (such as Google Analytics, Adobe Target, ...)?"
-    },
-    "enableCms": {
-      "type": "boolean",
-      "default": true,
-      "description": "Activate full CMS compatibility",
-      "x-prompt": "Add all mandatory Otter packages (@o3r/localization, @o3r/styling, @o3r/components and @o3r/configuration) to make the application CMS compatible?"
     },
     "enableStyling": {
       "type": "boolean",
