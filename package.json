@@ -185,7 +185,7 @@
     "rimraf": "^3.0.2",
     "sass": "~1.63.0",
     "sass-loader": "^13.1.0",
-    "semver": "^7.3.2",
+    "semver": "^7.5.2",
     "shx": "^0.3.4",
     "standard-version": "^9.0.0",
     "stylelint": "^14.1.0",
