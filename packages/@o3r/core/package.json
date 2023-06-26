@@ -20,7 +20,7 @@
   "types": "./src/public_api.d.ts",
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/architect": "~0.1502.0",
+    "@angular-devkit/architect": "~0.1601.0",
     "@angular-devkit/core": "~15.2.0",
     "@angular-devkit/schematics": "~15.2.0",
     "@angular/cli": "~15.2.0",
@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/architect": "~0.1502.0",
+    "@angular-devkit/architect": "~0.1601.0",
     "@angular-devkit/build-angular": "~15.2.0",
     "@angular-devkit/core": "~15.2.0",
     "@angular-devkit/schematics": "~15.2.0",

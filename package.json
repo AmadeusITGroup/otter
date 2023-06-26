@@ -121,7 +121,7 @@
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^5.1.1",
-    "@angular-devkit/architect": "~0.1502.0",
+    "@angular-devkit/architect": "~0.1601.0",
     "@angular-devkit/build-angular": "~15.2.0",
     "@angular-devkit/core": "~15.2.0",
     "@angular-devkit/schematics": "~15.2.0",

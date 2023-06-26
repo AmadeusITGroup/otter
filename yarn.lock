@@ -386,7 +386,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular-eslint/eslint-plugin": ~15.2.0
@@ -452,13 +452,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1502.8, @angular-devkit/architect@npm:~0.1502.0":
+"@angular-devkit/architect@npm:0.1502.8":
   version: 0.1502.8
   resolution: "@angular-devkit/architect@npm:0.1502.8"
   dependencies:
     "@angular-devkit/core": 15.2.8
     rxjs: 6.6.7
   checksum: 204a933058fd64afa74ba7c819ae25ab43180c26e3f69ef79e29e4f50e25476ae3ff7b0581e20e8a2d4800bcc83fd4ae20ef02f94b3d94efe90092572c0b6e00
+  languageName: node
+  linkType: hard
+
+"@angular-devkit/architect@npm:~0.1601.0":
+  version: 0.1601.1
+  resolution: "@angular-devkit/architect@npm:0.1601.1"
+  dependencies:
+    "@angular-devkit/core": 16.1.1
+    rxjs: 7.8.1
+  checksum: a650b8c804ff7e5be2df486cce3ff3edb6c9549d798185ab76be42257a600c46d699ab1e05b4a7452b013fd8fab2e38a16a5de590c9bb914e52b6d0a058d9725
   languageName: node
   linkType: hard
 
@@ -624,6 +634,24 @@ __metadata:
     chokidar:
       optional: true
   checksum: 91cdc403f98be4b50636a07494f9f2ee65c3713cfb8f4ff975728f77e02ab3df98033241838b879ebd442c3df7aff265ad2c33fb002af6f3ff106f1500949b47
+  languageName: node
+  linkType: hard
+
+"@angular-devkit/core@npm:16.1.1":
+  version: 16.1.1
+  resolution: "@angular-devkit/core@npm:16.1.1"
+  dependencies:
+    ajv: 8.12.0
+    ajv-formats: 2.1.1
+    jsonc-parser: 3.2.0
+    rxjs: 7.8.1
+    source-map: 0.7.4
+  peerDependencies:
+    chokidar: ^3.5.2
+  peerDependenciesMeta:
+    chokidar:
+      optional: true
+  checksum: 482ecae25388ede00ee18bac5d29565cdb5f878db83b214695c20c42750552d9a52bdbefed3bb658c24879278542f8c9743500f22c91f24aeb21a16dcb7b1366
   languageName: node
   linkType: hard
 
@@ -6501,7 +6529,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -6554,7 +6582,7 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/cdk": ~15.2.0
     "@angular/common": ~15.2.0
@@ -6676,7 +6704,7 @@ __metadata:
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -6742,7 +6770,7 @@ __metadata:
     zone.js: ^0.13.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/cli": ~15.2.0
@@ -6903,7 +6931,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -6950,7 +6978,7 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular/compiler-cli": ~15.2.0
     "@angular/core": ~15.2.0
     "@angular/platform-browser-dynamic": ~15.2.0
@@ -7213,7 +7241,7 @@ __metadata:
     "@actions/core": ^1.10.0
     "@actions/exec": ^1.1.1
     "@actions/github": ^5.1.1
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -7353,7 +7381,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/localization@workspace:packages/@o3r/localization"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -7409,7 +7437,7 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/cdk": ~15.2.0
@@ -7686,7 +7714,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/rules-engine@workspace:packages/@o3r/rules-engine"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -7747,7 +7775,7 @@ __metadata:
     typescript-json-schema: ~0.58.0
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/core": ^15.1.2
     "@angular/platform-browser-dynamic": ^15.1.2
@@ -7840,7 +7868,7 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/cli": ~15.2.0
@@ -7923,7 +7951,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/storybook@workspace:packages/@o3r/storybook"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -8053,7 +8081,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/build-angular": ~15.2.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
@@ -8111,7 +8139,7 @@ __metadata:
     typescript: ~4.9.4
     zone.js: ^0.13.0
   peerDependencies:
-    "@angular-devkit/architect": ~0.1502.0
+    "@angular-devkit/architect": ~0.1601.0
     "@angular-devkit/core": ~15.2.0
     "@angular-devkit/schematics": ~15.2.0
     "@angular/core": ~15.2.0
@@ -27694,7 +27722,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^7.0.0, rxjs@npm:^7.2.0, rxjs@npm:^7.4.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5, rxjs@npm:^7.5.6":
+"rxjs@npm:7.8.1, rxjs@npm:^7.0.0, rxjs@npm:^7.2.0, rxjs@npm:^7.4.0, rxjs@npm:^7.5.1, rxjs@npm:^7.5.5, rxjs@npm:^7.5.6":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
   dependencies:
