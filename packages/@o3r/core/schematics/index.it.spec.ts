@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'type-fest';
 import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
@@ -65,8 +65,9 @@ function setupLocalRegistry() {
  */
 function setupNewApp() {
   beforeAll(() => {
-    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
-    const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
+    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson & {generatorDependencies?: Record<string, string>};
+    const angularVersion = minVersion(packageJson.devDependencies['@angular/core'] || '0.0.0').version;
+    const materialVersion = minVersion(packageJson.generatorDependencies?.['@angular/material'] || angularVersion).version;
     // Create app with ng new
     execSync('npx rimraf it-tests/test-app', {cwd: parentFolderPath, stdio: 'inherit'});
     if (!existsSync(itTestsFolderPath)) {
@@ -87,18 +88,22 @@ function setupNewApp() {
     execSync('yarn config set nodeLinker pnp', execAppOptions);
     execSync('yarn config set enableMirror false', execAppOptions);
     execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
-    readdirSync(cacheFolderPath).forEach((fileName) => {
-      if (/^@(?:ama-sdk|ama-terasu|o3r)-/.test(fileName)) {
-        rmSync(path.join(cacheFolderPath, fileName));
-      }
-    });
+    if (existsSync(cacheFolderPath)) {
+      const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
+        .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'));
+      readdirSync(cacheFolderPath).forEach((fileName) => {
+        if (workspacesList.some((workspace) => fileName.startsWith(workspace))) {
+          rmSync(path.join(cacheFolderPath, fileName));
+        }
+      });
+    }
     execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 
     // Run ng add
     execSync(`yarn add @angular/pwa@${angularVersion}`, execAppOptions);
     execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
     execSync(`yarn add @angular-devkit/schematics@${angularVersion}`, execAppOptions);
-    execSync(`yarn run ng add @angular/material@${angularVersion} --skip-confirmation --defaults=true`, execAppOptions);
+    execSync(`yarn run ng add @angular/material@${materialVersion} --skip-confirmation --defaults=true`, execAppOptions);
   });
 }
 

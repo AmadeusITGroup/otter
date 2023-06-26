@@ -1,18 +1,21 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 
 /**
  * Add Otter rules-engine to an Angular Project
  */
-export function ngAdd(): Rule {
+export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, ngAddPeerDependencyPackages, removePackages } = await import('@o3r/schematics');
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
       const dependencyType = getProjectDepType(tree);
       const rule = chain([
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
+        ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, options, '@o3r/rules-engine - install builder dependency'),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
       ]);
 
