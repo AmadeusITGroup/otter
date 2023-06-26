@@ -7,9 +7,7 @@ import {<%= componentName %>} from './<%= name %>.component';
 
 <% if (componentStructure === 'full') { %>@Component({
   selector: '<%= componentSelector %>-pres',
-  template: ''<% if (useOtterConfig) { %>,
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['config']<% } %>,
+  template: '',
   standalone: true
 })
 class Mock<%= blockName %>PresComponent {}

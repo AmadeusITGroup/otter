@@ -103,6 +103,7 @@ Otter library provides a set of code generators based on [angular schematics](ht
 | ng-add-create       | Include `ng add` schematic into your project                                  | `ng g ng-add-create`       |
 | show-modules        | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`        |
 | add-modules         | Add a new Otter Module to the current project                                 | `ng g add-modules`         |
+| configuration-to-component         | Add configuration to an Otter component | `ng g configuration-to-component`         |
 
 ## Create your own Otter compatible module
 

@@ -24,7 +24,6 @@ describe('Component container', () => {
   const componentName = 'testComponent';
   const expectedFileNames = [
     'test-component-cont.component.ts',
-    'test-component-cont.config.ts',
     'test-component-cont.context.ts',
     'test-component-cont.module.ts',
     'test-component-cont.spec.ts',
@@ -121,6 +120,20 @@ describe('Component container', () => {
     );
   });
 
+  it('should throw if generate a container component with otter configuration, as @o3r/configuration is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      useOtterConfig: true,
+      activateDummy: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
+  });
+
   it('should generate a container component without otter configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
@@ -132,12 +145,7 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutConfig = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.config.ts');
-
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutConfig.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutConfig.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
-    );
+    expect(tree.files.filter((file) => /test-component-cont\.config\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a standalone container component', async () => {

@@ -129,8 +129,12 @@ describe('new Otter application', () => {
 
     execSync('yarn ng g @o3r/core:page --defaults=true test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy', execAppOptions);
+    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --use-otter-config=false', execAppOptions);
     addImportToAppModule('TestComponentContModule', 'src/components/test-component');
+
+    execSync('yarn ng g @o3r/core:component --defaults=true test-add-config-component --use-otter-config=false', execAppOptions);
+    execSync('yarn ng g @o3r/configuration:add-config --defaults=true --path="src/components/test-add-config-component/container/test-add-config-component-cont.component.ts"', execAppOptions);
+    addImportToAppModule('TestAddConfigComponentContModule', 'src/components/test-add-config-component');
 
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
