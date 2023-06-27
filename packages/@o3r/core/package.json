@@ -140,6 +140,7 @@
   },
   "generatorDependencies": {
     "@angular-eslint/eslint-plugin": "~15.2.0",
+    "@angular/material": "~15.2.0",
     "nx": "~15.9.0",
     "@typescript-eslint/parser": "^5.19.0",
     "cpy-cli": "^4.2.0",

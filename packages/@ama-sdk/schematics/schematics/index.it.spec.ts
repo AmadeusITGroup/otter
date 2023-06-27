@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'type-fest';
 import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
@@ -55,11 +55,15 @@ function setupYarn(yarnVersion: string) {
   execSync('yarn config set nodeLinker pnp', execAppOptions);
   execSync('yarn config set enableMirror false', execAppOptions);
   execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
-  readdirSync(cacheFolderPath).forEach((fileName) => {
-    if (/^@(?:ama-sdk|ama-terasu|o3r)-/.test(fileName)) {
-      rmSync(path.join(cacheFolderPath, fileName));
-    }
-  });
+  if (existsSync(cacheFolderPath)) {
+    const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
+      .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'));
+    readdirSync(cacheFolderPath).forEach((fileName) => {
+      if (workspacesList.some((workspace) => fileName.startsWith(workspace))) {
+        rmSync(path.join(cacheFolderPath, fileName));
+      }
+    });
+  }
   execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 }
 
