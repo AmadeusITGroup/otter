@@ -12,7 +12,7 @@
 # Read about the best practices
 # https://verdaccio.org/docs/best
 
-storage: /verdaccio/storage/data
+storage: /verdaccio/storage
 
 plugins: /verdaccio/plugins
 
@@ -22,6 +22,7 @@ web:
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
+    algorithm: bcrypt
 
 uplinks:
   npmjs:
@@ -43,4 +44,4 @@ middlewares:
   audit:
     enabled: true
 
-log: { type: stdout, format: pretty, level: http }
+logs: { type: file, format: pretty, level: http, colors: false, path: /verdaccio/storage/verdaccio.log }

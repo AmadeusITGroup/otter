@@ -33,8 +33,11 @@
     "doc:generate:json": "yarn update-doc-summary ./docs && yarn compodoc -e json -d .",
     "start:modules": "yarn run build:dev:modules && yarn run watch:modules",
     "storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && start-storybook -p 6006",
-    "verdaccio:start": "docker run -d -it --rm --name verdaccio -p 4873:4873 -v $(shx pwd)/.verdaccio/conf:/verdaccio/conf verdaccio/verdaccio",
-    "verdaccio:publish": "yarn set:version 999.0.0 --include \"!**/!(dist)/package.json\" --include !package.json && npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r http://localhost:4873 --config-path \".verdaccio/conf/.npmrc\" && yarn run publish --userconfig \".verdaccio/conf/.npmrc\" --tag=latest --@o3r:registry=http://localhost:4873 --@ama-sdk:registry=http://localhost:4873",
+    "verdaccio:start": "docker run -d -it --rm --name verdaccio -p 4873:4873 -v \"$(shx pwd)/.verdaccio/conf\":/verdaccio/conf verdaccio/verdaccio",
+    "verdaccio:start-persistent": "docker run -d -it --rm --name verdaccio -p 4873:4873 -v \"$(shx pwd)/.verdaccio/conf\":/verdaccio/conf -v \"$(shx pwd)/.verdaccio/storage\":/verdaccio/storage:z verdaccio/verdaccio",
+    "verdaccio:clean": "rimraf ./.verdaccio/storage",
+    "verdaccio:login": "yarn cpy --cwd=./.verdaccio/conf .npmrc . --rename=.npmrc-logged && npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r http://localhost:4873 --config-path \".verdaccio/conf/.npmrc-logged\"",
+    "verdaccio:publish": "yarn set:version 999.0.0 --include \"!**/!(dist)/package.json\" --include !package.json && yarn verdaccio:login && yarn run publish --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://localhost:4873 --@ama-sdk:registry=http://localhost:4873",
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
     "workspaces:list": "yarn workspaces list --no-private --json | shx sed \"s/.*\\\"location\\\":\\\"(.*?)\\\".*/\\$1/\""

@@ -41,18 +41,33 @@ jobs:
             !.cache/test-sdk/@o3r*
           key: ${{ runner.os }}-test-sdk-yarn3-${{ env.currentMonth }}
       - name: Setup verdaccio once for all tests
-        run: yarn verdaccio:start && yarn verdaccio:publish
+        id: setup-verdaccio
+        run: |
+          mkdir ./.verdaccio/storage
+          chmod a+rwx -R ./.verdaccio/storage
+          yarn verdaccio:start-persistent
+          yarn verdaccio:publish
       - name: Test
-        run: yarn test-int
-      - name: Stop verdaccio
-        if: always()
-        run: yarn verdaccio:stop
-      - name: Prepare for publish generated app
-        if: failure()
+        id: it-tests
+        run: yarn test-int --output-style=stream
+      - name: Zip verdaccio storage on failure
+        if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
+        run: zip -r verdaccio.zip ./.verdaccio
+      - name: Zip generated app on failure
+        if: failure() && steps.it-tests.conclusion == 'failure'
         run: zip -r it-tests.zip ../it-tests -x "../it-tests/*/.cache"
-      - name: Publish generated tests environment
-        if: failure()
+      - name: Publish verdaccio storage on failure
+        if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
+        uses: actions/upload-artifact@v3
+        with:
+          name: verdaccio
+          path: verdaccio.zip
+      - name: Publish generated tests environment on failure
+        if: failure() && steps.it-tests.conclusion == 'failure'
         uses: actions/upload-artifact@v3
         with:
           name: it-tests
           path: it-tests.zip
+      - name: Stop verdaccio
+        if: always()
+        run: yarn verdaccio:stop
