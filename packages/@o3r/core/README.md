@@ -16,7 +16,7 @@ This includes a toolbox to customize, administrate and debug an application at r
 ### Required environment
 
 * **Git** : [https://gitforwindows.org/](https://gitforwindows.org/)
-* **NodeJs 14.x** : [NodeJS LTS](https://nodejs.org/)
+* **NodeJs 16.x** : [NodeJS LTS](https://nodejs.org/)
 * **Yarn** : [https://yarnpkg.com/lang/en/](https://yarnpkg.com/)
 
 **Yarn** can be installed directly using NPM:

@@ -38,7 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -53,7 +53,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/components/jest.config.js",
         "silent": true

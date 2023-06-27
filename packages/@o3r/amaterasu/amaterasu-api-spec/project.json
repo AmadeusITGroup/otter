@@ -18,7 +18,7 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-api-spec/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/tsconfig.build.json",
@@ -27,7 +27,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -42,7 +42,7 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/jest.config.js",
         "silent": true

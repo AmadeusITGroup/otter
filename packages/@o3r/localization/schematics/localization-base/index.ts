@@ -89,7 +89,7 @@ export function updateLocalization(options: { projectName: string | null }, root
    */
   const updateAngularJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
+    const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName, 'application');
     const distFolder: string =
       (
@@ -185,7 +185,7 @@ export function updateLocalization(options: { projectName: string | null }, root
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
+    const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName || null, 'application');
     if (!workspaceProject) {
       context.logger.debug('No application project found to add translation extraction');
