@@ -6646,7 +6646,7 @@ __metadata:
     nx: ~15.9.0
     pid-from-port: ^1.1.3
     rxjs: ^7.4.0
-    semver: ^7.3.2
+    semver: ^7.5.2
     tslib: ^2.4.1
     typescript: ~4.9.4
     zone.js: ^0.13.0

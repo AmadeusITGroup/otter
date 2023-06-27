@@ -57,7 +57,11 @@ export const getO3rComponentInfo = (tree: Tree, componentPath: string) => {
   }
 
   if (!isO3rClassComponent(ngComponentDeclaration)) {
-    throw new Error(`No Otter component found in ${componentPath}.`);
+    throw new Error(`
+      No Otter component found in ${componentPath}.
+      You can convert your Angular component into an Otter component by running the following command:
+      ng g @o3r/core:convert-component --path="${componentPath}".
+    `);
   }
 
   const name = ngComponentDeclaration.name?.escapedText.toString().replace(/Component$/, '');

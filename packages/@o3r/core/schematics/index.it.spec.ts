@@ -141,6 +141,9 @@ describe('new Otter application', () => {
     execSync('yarn ng g @o3r/configuration:add-config --defaults=true --path="src/components/test-add-config-component/container/test-add-config-component-cont.component.ts"', execAppOptions);
     addImportToAppModule('TestAddConfigComponentContModule', 'src/components/test-add-config-component');
 
+    execSync('yarn ng g @schematics/angular:component test-ng-component', execAppOptions);
+    execSync('yarn ng g @o3r/core:convert-component --defaults=true --path="src/app/test-ng-component/test-ng-component.component.ts"', execAppOptions);
+
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
     // should pass the e2e tests
