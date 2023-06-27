@@ -25,12 +25,10 @@ describe('Component presenter', () => {
   const expectedFileNames = [
     'test-component-pres.component.ts',
     'test-component-pres.context.ts',
-    'test-component-pres.localization.json',
     'test-component-pres.module.ts',
     'test-component-pres.spec.ts',
     'test-component-pres.style.scss',
     'test-component-pres.template.html',
-    'test-component-pres.translation.ts',
     'README.md',
     'index.ts',
     'test-component-pres.fixture.ts',
@@ -166,21 +164,17 @@ describe('Component presenter', () => {
     }, initialTree)).rejects.toThrow();
   });
 
-  it('should generate a presenter component without translation', async () => {
+  it('should throw if generate a presenter component with otter localization, as @o3r/localization is not installed', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('component-presenter', {
+
+    await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
-      useComponentFixtures: false,
-      activateDummy: false,
+      useLocalization: true,
       path: 'src/components'
-    }, initialTree);
-
-    expect(tree.readContent(tree.files.find((file) => /\.localization\.json$/i.test(file))!).replace(/[\s\r\n]/g, '')).toBe('{}');
-    expect(tree.readContent(tree.files.find((file) => /\.translation\.ts$/i.test(file))!).replace(/[\s\r\n]/g, '')).toMatch(/extendsTranslation\{\}/);
-    expect(tree.readContent(tree.files.find((file) => /\.translation\.ts$/i.test(file))!).replace(/[\s\r\n]/g, '')).toMatch(/exportconsttranslations:[a-zA-Z0-9]+=\{\}/);
+    }, initialTree)).rejects.toThrow();
   });
 
   it('should generate a presenter component without storybook', async () => {

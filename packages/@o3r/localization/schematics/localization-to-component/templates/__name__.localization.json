@@ -1,0 +1,6 @@
+{<% if (activateDummy) { %>
+  "<%= componentSelector %>.dummyLoc1": {
+    "description": "Dummy 1 description",
+    "defaultValue": "Dummy 1"
+  }
+<% } %>}

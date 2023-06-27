@@ -65,7 +65,9 @@
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate component with localization"
+      "description": "Generate component with localization",
+      "nullable": true,
+      "default": null
     },
     "useContext": {
       "type": "boolean",

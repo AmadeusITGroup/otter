@@ -84,8 +84,26 @@ export const getO3rComponentInfo = (tree: Tree, componentPath: string) => {
     throw new Error(`The component's selector is not specified. Please provide one for the Otter component defined in ${componentPath}.`);
   }
 
+  const standaloneExpression = getPropertyFromDecoratorFirstArgument(
+    ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,
+    'standalone'
+  );
+
+  const standalone = standaloneExpression?.kind === ts.SyntaxKind.TrueKeyword;
+
+  const templateUrlExpression = getPropertyFromDecoratorFirstArgument(
+    ts.getDecorators(ngComponentDeclaration)?.find(isNgClassDecorator)!,
+    'templateUrl'
+  );
+
+  const templateRelativePath = templateUrlExpression && ts.isStringLiteral(templateUrlExpression)
+    ? templateUrlExpression.text
+    : templateUrlExpression?.getText();
+
   return {
     name,
-    selector
+    selector,
+    standalone,
+    templateRelativePath
   };
 };
