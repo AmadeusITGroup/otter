@@ -31,6 +31,32 @@ import { basename, dirname } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddConfigSchematicsSchema } from './schema';
 
+const configProperties = [
+  'dynamicConfig$', 'config', 'config$'
+];
+
+const checkConfiguration = (componentPath: string, tree: Tree) => {
+  const componentSourceFile = ts.createSourceFile(
+    componentPath,
+    tree.readText(componentPath),
+    ts.ScriptTarget.ES2020,
+    true
+  );
+  const o3rClassDeclaration = componentSourceFile.statements
+    .find((statement): statement is ts.ClassDeclaration =>
+      ts.isClassDeclaration(statement)
+      && isO3rClassComponent(statement)
+    )!;
+  if (o3rClassDeclaration.members.find((classElement) =>
+    ts.isPropertyDeclaration(classElement)
+    && ts.isIdentifier(classElement.name)
+    && configProperties.includes(classElement.name.escapedText.toString())
+  )) {
+    throw new Error(`Unable to add config to this component because it already have at least one of these properties: ${configProperties.join(', ')}.`);
+  }
+};
+
+
 /**
  * Add configuration to an existing component
  *
@@ -38,26 +64,29 @@ import type { NgAddConfigSchematicsSchema } from './schema';
  */
 export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const { name, selector } = getO3rComponentInfo(tree, options.path);
+    const componentPath = options.path;
+    const { name, selector } = getO3rComponentInfo(tree, componentPath);
+
+    checkConfiguration(componentPath, tree);
 
     const properties = {
       componentConfig: name.concat('Config'),
-      projectName: options.projectName || getLibraryNameFromPath(options.path),
+      projectName: options.projectName || getLibraryNameFromPath(componentPath),
       componentSelector: selector,
       configKey: strings.underscore(name).toUpperCase(),
-      name: basename(options.path, '.component.ts')
+      name: basename(componentPath, '.component.ts')
     };
 
     const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
       template({ ...properties }),
       renameTemplateFiles(),
-      move(dirname(options.path))
+      move(dirname(componentPath))
     ]), MergeStrategy.Overwrite);
 
     const updateComponentRule: Rule = () => {
-      let sourceFile = ts.createSourceFile(
-        options.path,
-        tree.readText(options.path),
+      let componentSourceFile = ts.createSourceFile(
+        componentPath,
+        tree.readText(componentPath),
         ts.ScriptTarget.ES2020,
         true
       );
@@ -95,36 +124,26 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
           ]
         }
       ];
-      const recorder = tree.beginUpdate(options.path);
+      const recorder = tree.beginUpdate(componentPath);
       const changes = imports.reduce((acc: Change[], { importNames, from }) => acc.concat(
         importNames.map((importName) =>
-          insertImport(sourceFile, options.path, importName, from)
+          insertImport(componentSourceFile, componentPath, importName, from)
         )
       ), []);
       applyToUpdateRecorder(recorder, changes);
       tree.commitUpdate(recorder);
 
-      sourceFile = ts.createSourceFile(
-        options.path,
-        tree.readText(options.path),
+      componentSourceFile = ts.createSourceFile(
+        componentPath,
+        tree.readText(componentPath),
         ts.ScriptTarget.ES2020,
         true
       );
 
-      const result = ts.transform(sourceFile, [(ctx) => (rootNode) => {
+      const result = ts.transform(componentSourceFile, [(ctx) => (rootNode) => {
         const { factory } = ctx;
         const visit = (node: ts.Node): ts.Node => {
           if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
-            const configProperties = [
-              'dynamicConfig$', 'config', 'config$'
-            ];
-            if (node.members.find((classElement) =>
-              ts.isPropertyDeclaration(classElement)
-              && ts.isIdentifier(classElement.name)
-              && configProperties.includes(classElement.name.escapedText.toString())
-            )) {
-              throw new Error(`Unable to add config to this component because it already have at least one of these properties: ${configProperties.join(', ')}.`);
-            }
             const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
             const interfaceToImplements = generateImplementsExpressionWithTypeArguments(`OnChanges, DynamicConfigurable<${properties.componentConfig}>`);
 
@@ -156,7 +175,7 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
                 && parameter.name.escapedText.toString() === 'configurationService'
               )
             ) {
-              throw new Error(`Unable to add configurationService because there is already a constructor's parameter with this name in ${options.path}.`);
+              throw new Error(`Unable to add configurationService because there is already a constructor's parameter with this name in ${componentPath}.`);
             }
             const configurationServiceVariableName = configurationService?.name.escapedText.toString() || 'configurationService';
             const configServiceParameter = generateParametersDeclarationFromString(`@Optional() ${configurationServiceVariableName}: ConfigurationBaseService`);
@@ -319,14 +338,14 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
         newLine: ts.NewLineKind.LineFeed
       });
 
-      tree.overwrite(options.path, printer.printFile(result.transformed[0]));
+      tree.overwrite(componentPath, printer.printFile(result.transformed[0]));
       return tree;
     };
 
     return chain([
-      () => createConfigFilesRule(tree, context),
+      createConfigFilesRule,
       updateComponentRule,
       options.skipLinter ? noop() : applyEsLintFix()
-    ]);
+    ])(tree, context);
   };
 }
