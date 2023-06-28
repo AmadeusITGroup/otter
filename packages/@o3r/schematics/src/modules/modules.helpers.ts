@@ -7,6 +7,7 @@ import { satisfies } from 'semver';
 import { get } from 'node:https';
 import { EOL } from 'node:os';
 import * as fs from 'node:fs';
+import * as path from 'node:path';
 import { promisify } from 'node:util';
 import { exec } from 'node:child_process';
 import * as chalk from 'chalk';
@@ -76,7 +77,7 @@ export async function getAvailableModules(keyword: string, scopeWhitelist: strin
     packages = packages
       .filter((pck) => {
         try {
-          require(pck.name);
+          require.resolve(path.posix.join(pck.name, 'package.json'));
           return false;
         } catch {
           return true;
