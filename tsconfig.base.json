@@ -10,7 +10,6 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ScriptHost",
       "ES2021"
     ],
     "module": "es2020",
@@ -26,8 +25,6 @@
     "strict": true,
     "pretty": true,
     "preserveWatchOutput": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "ignoreDeprecations": "5.0",
     "jsx": "react",
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,

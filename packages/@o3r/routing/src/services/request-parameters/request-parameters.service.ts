@@ -36,9 +36,9 @@ export class RequestParametersService implements ParamsType {
 
   constructor(@Inject(REQUEST_PARAMETERS_CONFIG_TOKEN) config: PartialRequestParametersConfig) {
     this.config = defaultRequestParametersConfig;
-    Object.keys(config)
+    (Object.keys(config) as (keyof typeof config)[])
       .filter((key) => config[key] !== undefined)
-      .forEach((key) => this.config[key] = config[key]);
+      .forEach((key) => (this.config as any)[key] = config[key]);
 
     this.setParameters('query', JSON.parse(this.config.queryParamsValue));
     this.setParameters('post', JSON.parse(this.config.postParamsValue));
@@ -52,7 +52,7 @@ export class RequestParametersService implements ParamsType {
    * @param value
    */
   private setParameters(key: ParamsList, value: {[key: string]: string}) {
-    const privateKey = `_${key}`;
+    const privateKey: `_${ParamsList}` = `_${key}`;
     if (!this.config.storage) {
       // No storage is available , cannot set items
       return;

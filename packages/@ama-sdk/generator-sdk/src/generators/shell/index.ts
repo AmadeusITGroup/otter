@@ -130,7 +130,7 @@ export default class extends SdkGenerator {
       const matchVars = destinationPath.match(/__[^_]+__/g);
       if (matchVars) {
         return matchVars.reduce((acc, matchVar) => {
-          const varName = matchVar.replace(/__/g, '');
+          const varName = matchVar.replace(/__/g, '') as keyof typeof properties;
           const varValue = properties[varName];
           return varValue ? acc.replace(matchVar, varValue) : acc;
         }, destinationPath);

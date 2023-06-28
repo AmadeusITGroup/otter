@@ -112,7 +112,7 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
     };
 
     const localizationJson = tree.readJson(localizationJsonPath) || {};
-    if (localizationJson[properties.keyValue]) {
+    if ((localizationJson as any)[properties.keyValue]) {
       throw new Error(`There is already a key named ${properties.keyValue} in ${localizationJsonPath}.`);
     }
     const translationFileContent = tree.readText(translationsPath);
@@ -121,7 +121,7 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
     }
 
     const updateLocalizationFileRule: Rule = () => {
-      localizationJson[properties.keyValue] = {
+      (localizationJson as any)[properties.keyValue] = {
         ...(properties.dictionnary ? {
           dictionnary: true
         } : {

@@ -57,9 +57,9 @@ export default class extends SdkGenerator {
   private _getPathObjectTemplate(pathObj: PathObject) {
     return `{
       ${
-  Object.keys(pathObj).map((propName) => {
-    const value = (propName as keyof PathObject) === 'regexp' ? this._getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
-    return `${propName}: ${value}`;
+  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+    const value = (propName) === 'regexp' ? this._getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
+    return `${propName as string}: ${value}`;
   }).join(',')
 }
     }`;

@@ -2,7 +2,7 @@ import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
 import {createEntityAdapter} from '@ngrx/entity';
 import {AsyncRequest, asyncStoreItemAdapter, createEntityAsyncRequestAdapter, EntityStatus} from '@o3r/core';
 import * as actions from './shopping-cart.actions';
-import {ShoppingCartState, ShoppingCartStateDetails, ShoppingCartModel} from './shopping-cart.state';
+import {ShoppingCartModel, ShoppingCartState, ShoppingCartStateDetails} from './shopping-cart.state';
 import { ShoppingCart } from './shopping-cart.model';
 import { CartIdPayload } from './shopping-cart.actions';
 
@@ -29,7 +29,7 @@ export const shoppingCartInitialState: ShoppingCartState = shoppingCartAdapter.g
  * @param payload
  * @param subResource
  */
- function resolveRequestAndUpdateSubResource<T extends ShoppingCart, C extends keyof EntityStatus<ShoppingCart>>(
+function resolveRequestAndUpdateSubResource<T extends ShoppingCart, C extends keyof EntityStatus<ShoppingCart>>(
   state: ShoppingCartState,
   payload: Pick<T, C> & Partial<CartIdPayload> & Partial<AsyncRequest>,
   subResource: C) {
@@ -38,7 +38,7 @@ export const shoppingCartInitialState: ShoppingCartState = shoppingCartAdapter.g
     return state;
   }
   const entity = state.entities[id];
-  const status = asyncStoreItemAdapter.entityStatusResolveRequest(entity!.status, subResource, payload.requestId);
+  const status = asyncStoreItemAdapter.entityStatusResolveRequest(entity.status, subResource, payload.requestId);
   const changes = {status, [subResource]: payload[subResource]};
   return shoppingCartAdapter.updateOne({id, changes}, state);
 }
@@ -48,15 +48,15 @@ export const shoppingCartInitialState: ShoppingCartState = shoppingCartAdapter.g
  *
  * @param cart
  */
- export function initializeCartModel(cart: ShoppingCart): ShoppingCartModel {
+export function initializeCartModel(cart: ShoppingCart): ShoppingCartModel {
   const newCart: ShoppingCartModel = {
     ...asyncStoreItemAdapter.initialize(cart),
     status: {}
   };
-  Object.keys(cart)
+  (Object.keys(cart) as (keyof typeof cart)[])
     .filter((key) => key !== 'id' && typeof cart[key] !== 'undefined')
     .forEach((key) => {
-      newCart.status[key] = asyncStoreItemAdapter.initialize({});
+      (newCart.status as any)[key] = asyncStoreItemAdapter.initialize({});
     });
   return newCart;
 }
@@ -92,7 +92,7 @@ export const shoppingCartReducerFeatures: ReducerTypes<ShoppingCartState, Action
     )
   ),
 
-  on(actions.clearShoppingCartEntities, (state) =>  shoppingCartAdapter.removeAll(state)),
+  on(actions.clearShoppingCartEntities, (state) => shoppingCartAdapter.removeAll(state)),
 
   on(actions.failShoppingCartEntities, (state, payload) =>
     shoppingCartAdapter.failRequestMany(state, payload && payload.ids, payload.requestId)
@@ -109,7 +109,7 @@ export const shoppingCartReducerFeatures: ReducerTypes<ShoppingCartState, Action
     asyncStoreItemAdapter.resolveRequest(shoppingCartAdapter.removeAll(state), payload.requestId)
   )),
 
-  on(actions.setXmasHampersInCart, (state, payload) => resolveRequestAndUpdateSubResource(state, payload, 'xmasHampers')),
+  on(actions.setXmasHampersInCart, (state, payload) => resolveRequestAndUpdateSubResource(state, payload, 'xmasHampers'))
 
 ];
 

@@ -179,7 +179,7 @@ export class ComponentExtractor {
    */
   private consolidateModules(parsedData: ParserOutput) {
     return Object.keys(parsedData.modules)
-      .reduce((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
+      .reduce<Record<string, any>>((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
         const parsedItemRef = parsedData.modules[moduleUrl];
 
         parsedItemRef.module.exportedItems.forEach((exportedItem) => {

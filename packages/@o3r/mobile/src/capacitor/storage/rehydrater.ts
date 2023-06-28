@@ -30,7 +30,7 @@ export class CapacitorRehydrater {
     const storageCalls: Promise<Record<string, any> | undefined>[] = this.options.keys
       .map(async (key) => {
         const storeName = Object.keys(key)[0];
-        const storeSynchronizer = key[storeName];
+        const storeSynchronizer = (key as any)[storeName];
         let reviver = this.options.restoreDates ? dateReviver : undefined;
         let deserialize: (raw: string) => any = (raw: string) => raw;
 

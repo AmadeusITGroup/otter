@@ -17,7 +17,7 @@ const eslintDep = 'eslint';
  * @param o3rCoreVersion
  */
 export function updateLinter(options: { projectName: string | null }, rootPath: string, o3rCoreVersion?: string): Rule {
-  const projectEslintBuilderVersion = (require(packageJsonPath) as { peerDependencies: [key: string] }).peerDependencies['@angular-eslint/builder'];
+  const projectEslintBuilderVersion = (require(packageJsonPath) as { peerDependencies: {[key: string]: string} }).peerDependencies['@angular-eslint/builder'];
   const otterLinterDependencies: NodeDependency[] = getNodeDependencyList(
     getExternalDependenciesVersionRange([tsEslintParserDep, eslintDep], packageJsonPath),
     NodeDependencyType.Dev

@@ -72,7 +72,7 @@ export class StorageSync {
           this.hasHydrated = true;
           const initialStates = this.options.keys.reduce((acc: Record<string, any>, key) => {
             const storeName = Object.keys(key)[0];
-            const storeSynchronizer = key[storeName];
+            const storeSynchronizer = (key as any)[storeName];
             if (isSerializer(storeSynchronizer)) {
               acc[storeName] = storeSynchronizer.initialState;
             }
@@ -80,7 +80,7 @@ export class StorageSync {
           }, {});
           let overrides = {};
           if (!hasAlreadyHydrated) {
-            overrides = Object.entries(action.payload).reduce((acc, [storeName, value]) => {
+            overrides = Object.entries(action.payload).reduce<Record<string, any>>((acc, [storeName, value]) => {
               if (!initialStates[storeName] || initialStates[storeName] === state[storeName]) {
                 acc[storeName] = value;
               } else if (initialStates[storeName] !== state[storeName]) {

@@ -14,7 +14,7 @@ export function updatePlaywrightEnvironment(): Rule {
       return tree;
     }
 
-    const schematicsName = ['playwright-scenario', 'playwright-sanity'];
+    const schematicsName = ['@o3r/testing:playwright-scenario', '@o3r/testing:playwright-sanity'] as const;
     schematicsName.forEach((schematicName) => {
       const path = TYPES_DEFAULT_FOLDER[schematicName].app;
       if (path) {

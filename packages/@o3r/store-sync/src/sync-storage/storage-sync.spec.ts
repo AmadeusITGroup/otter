@@ -50,16 +50,16 @@ class MockStorage implements Storage {
     throw new Error('Not Implemented');
   }
   public getItem(key: string): string | null {
-    return this[key] ? this[key] : null;
+    return (this as any)[key] ? (this as any)[key] : null;
   }
   public key(_index: number): string | null {
     throw new Error('Not Implemented');
   }
   public removeItem(key: string): void {
-    this[key] = undefined;
+    (this as any)[key] = undefined;
   }
   public setItem(key: string, data: string): void {
-    this[key] = data;
+    (this as any)[key] = data;
   }
 }
 

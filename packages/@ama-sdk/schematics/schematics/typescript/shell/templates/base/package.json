@@ -82,7 +82,7 @@
     "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
     "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.2.249",
+    "@swc/core": "^1.3.66",
     "@types/jest": "<%= versions['@types/jest'] %>",
     "@types/node": "<%= versions['@types/node'] %>",
     "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",

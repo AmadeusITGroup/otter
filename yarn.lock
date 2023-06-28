@@ -74,7 +74,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.0.5
     "@swc/cli": ^0.1.57
-    "@swc/core": ^1.2.249
+    "@swc/core": ^1.3.66
     "@swc/helpers": ^0.5.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
@@ -216,7 +216,7 @@ __metadata:
     sway: ^2.0.6
     ts-jest: ^29.1.0
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -329,7 +329,7 @@ __metadata:
     ts-jest: ^29.1.0
     ts-loader: ^9.2.6
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     webpack: ~5.88.0
     webpack-cli: ~5.1.0
@@ -6467,7 +6467,7 @@ __metadata:
     nx: ~16.3.2
     rxjs: ^7.8.1
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     webpack: ~5.88.0
     zone.js: ~0.13.1
@@ -6974,7 +6974,7 @@ __metadata:
     semver: ^7.5.2
     ts-jest: ^29.1.0
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     uuid: ^9.0.0
     zone.js: ~0.13.1
@@ -7055,7 +7055,7 @@ __metadata:
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
   bin:
     create: ./index.js
@@ -7112,7 +7112,7 @@ __metadata:
     ts-jest: ^29.1.0
     ts-node: ^10.9.1
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     winston: ^3.8.2
   bin:
@@ -7362,7 +7362,7 @@ __metadata:
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typedoc: ~0.24.0
     typescript: ~5.0.2
     typescript-json-schema: ~0.58.0
@@ -7473,6 +7473,8 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": ~16.0.5
+    "@swc-node/register": ^1.6.6
+    "@swc/core": ^1.3.66
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
@@ -7972,7 +7974,7 @@ __metadata:
     semver: ^7.5.2
     ts-jest: ^29.1.0
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     typescript-json-schema: ~0.58.0
     zone.js: ~0.13.1
@@ -8065,7 +8067,7 @@ __metadata:
     semver: ^7.5.2
     ts-jest: ^29.1.0
     tslib: ^2.5.3
-    type-fest: ^3.6.1
+    type-fest: ^3.12.0
     typescript: ~5.0.2
     zone.js: ~0.13.1
   peerDependencies:
@@ -9791,6 +9793,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@swc-node/core@npm:^1.10.4":
+  version: 1.10.4
+  resolution: "@swc-node/core@npm:1.10.4"
+  peerDependencies:
+    "@swc/core": ">= 1.3"
+  checksum: 0c6469d1410a20f5bbbac61447dd869773a180e9ba7ae8b8a5d3392e94167daea83ea2358e476195bf7dc3f6ca8c1e08c712a4c5069d77129e250452b18aa963
+  languageName: node
+  linkType: hard
+
+"@swc-node/register@npm:^1.6.6":
+  version: 1.6.6
+  resolution: "@swc-node/register@npm:1.6.6"
+  dependencies:
+    "@swc-node/core": ^1.10.4
+    "@swc-node/sourcemap-support": ^0.3.0
+    colorette: ^2.0.19
+    debug: ^4.3.4
+    pirates: ^4.0.5
+    tslib: ^2.5.0
+  peerDependencies:
+    "@swc/core": ">= 1.3"
+    typescript: ">= 4.3"
+  checksum: 2d8d054fd782735570a1b57fbb96f2667745bb905f4aee7504b4a56e54186a5b2a5c91f8e520012695489cb208096c72468b528d49ddd0ad85e1642b218f945d
+  languageName: node
+  linkType: hard
+
+"@swc-node/sourcemap-support@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@swc-node/sourcemap-support@npm:0.3.0"
+  dependencies:
+    source-map-support: ^0.5.21
+    tslib: ^2.5.0
+  checksum: a3c837ed790238ef88682eb342b75d756eba5eb3b6cfe6cf14a597bd78dfc9a9797f1e54a4977c1297e5324fba2e33bd76ab8aa9c396ad463693de2001180c9e
+  languageName: node
+  linkType: hard
+
 "@swc/cli@npm:^0.1.57":
   version: 0.1.57
   resolution: "@swc/cli@npm:0.1.57"
@@ -9812,90 +9850,92 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-arm64@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-darwin-arm64@npm:1.3.21"
+"@swc/core-darwin-arm64@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-darwin-arm64@npm:1.3.66"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-darwin-x64@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-darwin-x64@npm:1.3.21"
+"@swc/core-darwin-x64@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-darwin-x64@npm:1.3.66"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm-gnueabihf@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.21"
+"@swc/core-linux-arm-gnueabihf@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-linux-arm-gnueabihf@npm:1.3.66"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-gnu@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.21"
+"@swc/core-linux-arm64-gnu@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-linux-arm64-gnu@npm:1.3.66"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-arm64-musl@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-linux-arm64-musl@npm:1.3.21"
+"@swc/core-linux-arm64-musl@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-linux-arm64-musl@npm:1.3.66"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-gnu@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-linux-x64-gnu@npm:1.3.21"
+"@swc/core-linux-x64-gnu@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-linux-x64-gnu@npm:1.3.66"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@swc/core-linux-x64-musl@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-linux-x64-musl@npm:1.3.21"
+"@swc/core-linux-x64-musl@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-linux-x64-musl@npm:1.3.66"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@swc/core-win32-arm64-msvc@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.21"
+"@swc/core-win32-arm64-msvc@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-win32-arm64-msvc@npm:1.3.66"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@swc/core-win32-ia32-msvc@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.21"
+"@swc/core-win32-ia32-msvc@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-win32-ia32-msvc@npm:1.3.66"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@swc/core-win32-x64-msvc@npm:1.3.21":
-  version: 1.3.21
-  resolution: "@swc/core-win32-x64-msvc@npm:1.3.21"
+"@swc/core-win32-x64-msvc@npm:1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core-win32-x64-msvc@npm:1.3.66"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@swc/core@npm:^1.2.249":
-  version: 1.3.21
-  resolution: "@swc/core@npm:1.3.21"
+"@swc/core@npm:^1.3.66":
+  version: 1.3.66
+  resolution: "@swc/core@npm:1.3.66"
   dependencies:
-    "@swc/core-darwin-arm64": 1.3.21
-    "@swc/core-darwin-x64": 1.3.21
-    "@swc/core-linux-arm-gnueabihf": 1.3.21
-    "@swc/core-linux-arm64-gnu": 1.3.21
-    "@swc/core-linux-arm64-musl": 1.3.21
-    "@swc/core-linux-x64-gnu": 1.3.21
-    "@swc/core-linux-x64-musl": 1.3.21
-    "@swc/core-win32-arm64-msvc": 1.3.21
-    "@swc/core-win32-ia32-msvc": 1.3.21
-    "@swc/core-win32-x64-msvc": 1.3.21
+    "@swc/core-darwin-arm64": 1.3.66
+    "@swc/core-darwin-x64": 1.3.66
+    "@swc/core-linux-arm-gnueabihf": 1.3.66
+    "@swc/core-linux-arm64-gnu": 1.3.66
+    "@swc/core-linux-arm64-musl": 1.3.66
+    "@swc/core-linux-x64-gnu": 1.3.66
+    "@swc/core-linux-x64-musl": 1.3.66
+    "@swc/core-win32-arm64-msvc": 1.3.66
+    "@swc/core-win32-ia32-msvc": 1.3.66
+    "@swc/core-win32-x64-msvc": 1.3.66
+  peerDependencies:
+    "@swc/helpers": ^0.5.0
   dependenciesMeta:
     "@swc/core-darwin-arm64":
       optional: true
@@ -9917,9 +9957,10 @@ __metadata:
       optional: true
     "@swc/core-win32-x64-msvc":
       optional: true
-  bin:
-    swcx: run_swcx.js
-  checksum: c66cd9320c595c68b87c8d90dc9a978099dd25a84c5e9795a8c7fec95fecdd8481da82076a828880a226ad2c0e57155c0a2b97768e99dee042a74182056bda46
+  peerDependenciesMeta:
+    "@swc/helpers":
+      optional: true
+  checksum: e6029c648ba47c522bed51a9f2fee606f82de1f9233e2e89197e43b0a4867054174ca05e825e688cdc4de332221c0da2e12ba7ba875549e8b5432aa70fe19263
   languageName: node
   linkType: hard
 
@@ -27457,7 +27498,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map-support@npm:0.5.21, source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.5, source-map-support@npm:~0.5.20":
+"source-map-support@npm:0.5.21, source-map-support@npm:^0.5.16, source-map-support@npm:^0.5.21, source-map-support@npm:^0.5.5, source-map-support@npm:~0.5.20":
   version: 0.5.21
   resolution: "source-map-support@npm:0.5.21"
   dependencies:
@@ -28956,10 +28997,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.5.3":
-  version: 2.5.3
-  resolution: "tslib@npm:2.5.3"
-  checksum: 88902b309afaf83259131c1e13da1dceb0ad1682a213143a1346a649143924d78cf3760c448b84d796938fd76127183894f8d85cbb3bf9c4fddbfcc140c0003c
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.5.0, tslib@npm:^2.5.3":
+  version: 2.6.0
+  resolution: "tslib@npm:2.6.0"
+  checksum: c01066038f950016a18106ddeca4649b4d76caa76ec5a31e2a26e10586a59fceb4ee45e96719bf6c715648e7c14085a81fee5c62f7e9ebee68e77a5396e5538f
   languageName: node
   linkType: hard
 
@@ -29103,10 +29144,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^3.6.1":
-  version: 3.6.1
-  resolution: "type-fest@npm:3.6.1"
-  checksum: f7e39bf6b74a883661ec8642707f49c33cfcdc6221e1ba36b1d329c1cf301d87351b3ca0839b894cbfe47dc62140c0ce47e69c88f76800b678e0b67b7fe826e6
+"type-fest@npm:^3.12.0":
+  version: 3.12.0
+  resolution: "type-fest@npm:3.12.0"
+  checksum: 11cb6f40e42f92c462a13677eafedf5c48353eaefa8e489a146e55fe0ae5cecd59a2ba03cd6b294345b5ea304361891a6313c23ed959fa0117f63fb71ee6cbab
   languageName: node
   linkType: hard
 

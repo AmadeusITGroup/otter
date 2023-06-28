@@ -27,6 +27,8 @@ const defaultOptions: BuildStatsPluginOptions = {
 
 const PLUGIN_NAME = 'OtterBuildStatsPlugin';
 
+type AvailableHooks = 'resolver' | 'resolveOptions';
+
 export class BuildStatsPlugin implements WebpackPluginInstance {
   private readonly options: BuildStatsPluginOptions;
   private timingData: Timing = {};
@@ -44,9 +46,9 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       .forEach(([hookName, hook]) => hook.intercept(this.makeInterceptorFor('Compiler')(hookName)));
 
     Object.entries(compiler.resolverFactory.hooks)
-      .filter(([hookName]) => !!compiler.resolverFactory.hooks[hookName])
-      .map(([hookName]) => [hookName, compiler.resolverFactory.hooks[hookName]])
-      .forEach(([hookName, hook]) => hook.intercept(this.makeInterceptorFor('Compiler')(hookName)));
+      .filter(([hookName]) => !!compiler.resolverFactory.hooks[hookName as AvailableHooks])
+      .map(([hookName]) => [hookName, compiler.resolverFactory.hooks[hookName as AvailableHooks]])
+      .forEach(([hookName, hook]) => typeof hook !== 'string' && hook.intercept(this.makeInterceptorFor('Compiler')(hookName as AvailableHooks) as any));
 
     compiler.hooks.compilation.tap(
       PLUGIN_NAME,
@@ -177,7 +179,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
   private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: Function }) {
 
     switch (type) {
-      case 'promise':
+      case 'promise': {
         return (...args: any) => {
           this.recordPluginStart(name, hook);
           const promise = (fn(...args));
@@ -185,7 +187,8 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
             this.recordPluginEnd(name, hook);
           });
         };
-      case 'async':
+      }
+      case 'async': {
         return (...args: any) => {
           this.recordPluginStart(name, hook);
           const callback = args.pop();
@@ -194,7 +197,8 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
             callback(...r);
           });
         };
-      case 'sync':
+      }
+      case 'sync': {
         return (...args: any) => {
 
           if (name === PLUGIN_NAME) {
@@ -211,8 +215,10 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
           this.recordPluginEnd(name, hook);
           return r;
         };
-      default:
+      }
+      default: {
         return;
+      }
     }
   }
   private makeInterceptorFor = (_instance: string) => (hookName: string) => ({

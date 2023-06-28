@@ -91,7 +91,7 @@ describe('Add Localization', () => {
       expect(tree.readText(translationFile)).toContain('dummyLoc1');
 
       expect(tree.exists(localizationFile)).toBeTruthy();
-      expect(tree.readJson(localizationFile)!['o3r-test-pres.dummyLoc1']).toBeDefined();
+      expect((tree.readJson(localizationFile) as any)['o3r-test-pres.dummyLoc1']).toBeDefined();
 
       const componentFileContent = tree.readText(o3rComponentPath);
       expect(componentFileContent).toContain('LocalizationModule');

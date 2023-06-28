@@ -53,7 +53,7 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
         return libs;
       }, []);
 
-      tsconfigCompilerOptions.paths = Object.entries(tsconfigCompilerOptions.paths || {}).reduce((acc, [key, value]) => {
+      tsconfigCompilerOptions.paths = Object.entries(tsconfigCompilerOptions.paths || {}).reduce<Record<string, unknown>>((acc, [key, value]) => {
         if (oldPaths.indexOf(key) === -1) {
           acc[key] = value;
         }
