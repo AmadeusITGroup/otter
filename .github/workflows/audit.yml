@@ -17,6 +17,8 @@ on:
 
 jobs:
   audit:
+    # TODO re-enable when yarn 4.0 will be released as it includes the fix https://github.com/yarnpkg/berry/pull/5501
+    if: false  # Skip the entire job
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

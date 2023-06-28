@@ -2,7 +2,7 @@ import { strings } from '@angular-devkit/core';
 import type { LoggerApi } from '@angular-devkit/core/src/logger';
 import { ConfigDocParser } from '@o3r/extractors';
 import { promises as fs } from 'node:fs';
-import * as glob from 'globby';
+import globby from 'globby';
 import * as path from 'node:path';
 import { lastValueFrom, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -44,7 +44,7 @@ export class RulesEngineExtractor {
    */
   private async extractTypeRef(type: string, sourceFile: string, outputPath: string) {
     const internalLibFiles = this.tsconfig.extraOptions?.otterSubModuleRefs?.length > 0 ?
-      await lastValueFrom(zip(...(this.tsconfig.extraOptions?.otterSubModuleRefs as string[]).map((value: string) => glob(value))).pipe(
+      await lastValueFrom(zip(...(this.tsconfig.extraOptions?.otterSubModuleRefs as string[]).map((value: string) => globby(value))).pipe(
         map((globFiles: string[][]) =>
           globFiles.reduce((acc, files) => [
             ...acc,

@@ -48,7 +48,7 @@
       }
     },
     "extract-rules-engine": {
-      "executor": "./packages/@o3r/rules-engine/dist:extractor",
+      "executor": "@o3r/rules-engine:extractor",
       "outputs": [
         "{options.outputFactsDirectory}/rules.facts.metadata.json",
         "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
@@ -93,7 +93,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -108,10 +108,17 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/rules-engine/jest.config.js",
         "silent": true
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js",
+        "silent": false
       }
     },
     "prepare-publish": {

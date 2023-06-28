@@ -68,6 +68,8 @@ export class NgComponent {}
 
     expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
+    expect(componentFileContent).toContain('from \'@o3r/configuration\'');
+    expect(componentFileContent).toContain('from \'./test.config\'');
     expect(componentFileContent).toContain('componentType: \'ExposedComponent\'');
     expect(componentFileContent).toContain('DynamicConfigurable<TestConfig>');
     expect(componentFileContent).toContain('public config: Partial<TestConfig> | undefined');

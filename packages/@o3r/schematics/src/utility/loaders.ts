@@ -61,7 +61,7 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
  */
 export function getProjectFromTree(tree: Tree, projectName?: string | null, projectType?: 'application' | 'library'): WorkspaceProject & { name: string } | undefined {
   const workspace = readAngularJson(tree);
-  const projectGuessedName = projectName || workspace.defaultProject;
+  const projectGuessedName = projectName || Object.keys(workspace.projects)[0];
   // eslint-disable-next-line max-len
   let workspaceProject: WorkspaceProject & { name: string } | undefined = projectGuessedName && workspace.projects[projectGuessedName] && (!projectType || workspace.projects[projectGuessedName]?.projectType === projectType) ?
     {

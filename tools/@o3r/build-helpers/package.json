@@ -30,12 +30,12 @@
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "~4.9.4"
+    "typescript": "~5.0.2"
   },
   "devDependencies": {
     "@types/node": "^17.0.45",
-    "nx": "~15.9.0",
-    "typescript": "~4.9.4"
+    "nx": "~16.3.2",
+    "typescript": "~5.0.2"
   },
   "otter": {
     "versionHarmonize": {

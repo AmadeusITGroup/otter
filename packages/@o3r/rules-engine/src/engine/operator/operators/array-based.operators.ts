@@ -70,7 +70,7 @@ export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = 
  */
 export const allGreater: Operator<SupportedSimpleTypes[], number | string> = {
   name: 'allGreater',
-  evaluator: (array, value) => array.every((elementValue) => numberValidator(elementValue) && elementValue > value),
+  evaluator: (array, value) => array.every((elementValue) => numberValidator(elementValue) && +elementValue > +value),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -106,7 +106,7 @@ export const allNotIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> 
  */
 export const allLower: Operator<number[], number | string> = {
   name: 'allLower',
-  evaluator: (arrayNumber, number) => arrayNumber.every((elementNumber) => elementNumber < number),
+  evaluator: (arrayNumber, number) => arrayNumber.every((elementNumber) => elementNumber < +number),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -134,7 +134,7 @@ export const allMatch: Operator<string[], string> = {
 export const allRangeNumber: Operator<number[], [number | string, number | string]> = {
   name: 'allRangeNumber',
   evaluator: (rangeArray, [from, to]) =>
-    rangeArray.every((elementValue) => elementValue >= from && elementValue <= to),
+    rangeArray.every((elementValue) => elementValue >= +from && elementValue <= +to),
   validateLhs: Array.isArray,
   validateRhs: isRangeNumber
 };
@@ -159,7 +159,7 @@ export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> =
  */
 export const oneGreater: Operator<number[], number | string> = {
   name: 'oneGreater',
-  evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue > number),
+  evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue > +number),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -184,7 +184,7 @@ export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
  */
 export const oneLower: Operator<number[], number | string> = {
   name: 'oneLower',
-  evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue < number),
+  evaluator: (arrayNumber, number) => arrayNumber.some((elementValue) => elementValue < +number),
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -212,7 +212,7 @@ export const oneMatches: Operator<string[], string> = {
 export const oneRangeNumber: Operator<number[], [number | string, number | string]> = {
   name: 'oneRangeNumber',
   evaluator: (arrayNumber, [from, to]) =>
-    arrayNumber.some((elementValue) => elementValue >= from && elementValue <= to),
+    arrayNumber.some((elementValue) => elementValue >= +from && elementValue <= +to),
   validateLhs: Array.isArray,
   validateRhs: isRangeNumber
 };
@@ -248,7 +248,7 @@ export const lengthNotEquals: Operator<any[], number | string> = {
  */
 export const lengthLessThanOrEquals: Operator<any[], number | string> = {
   name: 'lengthLessThanOrEquals',
-  evaluator: (array, length) => array.length <= length,
+  evaluator: (array, length) => array.length <= +length,
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -260,7 +260,7 @@ export const lengthLessThanOrEquals: Operator<any[], number | string> = {
  */
 export const lengthLessThan: Operator<any[], number | string> = {
   name: 'lengthLessThan',
-  evaluator: (array, length) => array.length < length,
+  evaluator: (array, length) => array.length < +length,
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -272,7 +272,7 @@ export const lengthLessThan: Operator<any[], number | string> = {
  */
 export const lengthGreaterThanOrEquals: Operator<any[], number | string> = {
   name: 'lengthGreaterThanOrEquals',
-  evaluator: (array, length) => array.length >= length,
+  evaluator: (array, length) => array.length >= +length,
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
@@ -284,7 +284,7 @@ export const lengthGreaterThanOrEquals: Operator<any[], number | string> = {
  */
 export const lengthGreaterThan: Operator<any[], number | string> = {
   name: 'lengthGreaterThan',
-  evaluator: (array, length) => array.length > length,
+  evaluator: (array, length) => array.length > +length,
   validateLhs: Array.isArray,
   validateRhs: numberValidator
 };
