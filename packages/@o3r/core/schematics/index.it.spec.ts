@@ -2,7 +2,7 @@ import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions, spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'nx/src/utils/package-json';
+import type { PackageJson } from 'type-fest';
 import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
@@ -65,9 +65,9 @@ function setupLocalRegistry() {
  */
 function setupNewApp() {
   beforeAll(() => {
-    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson & {generatorDependencies: Record<string, string>};
-    const angularVersion = minVersion(packageJson.devDependencies['@angular/core']).version;
-    const materialVersion = minVersion(packageJson.generatorDependencies['@angular/material']).version;
+    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson & {generatorDependencies?: Record<string, string>};
+    const angularVersion = minVersion(packageJson.devDependencies['@angular/core'] || '0.0.0').version;
+    const materialVersion = minVersion(packageJson.generatorDependencies?.['@angular/material'] || angularVersion).version;
     // Create app with ng new
     execSync('npx rimraf it-tests/test-app', {cwd: parentFolderPath, stdio: 'inherit'});
     if (!existsSync(itTestsFolderPath)) {
@@ -88,11 +88,15 @@ function setupNewApp() {
     execSync('yarn config set nodeLinker pnp', execAppOptions);
     execSync('yarn config set enableMirror false', execAppOptions);
     execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
-    readdirSync(cacheFolderPath).forEach((fileName) => {
-      if (/^@(?:ama-sdk|ama-terasu|o3r)-/.test(fileName)) {
-        rmSync(path.join(cacheFolderPath, fileName));
-      }
-    });
+    if (existsSync(cacheFolderPath)) {
+      const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
+        .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'));
+      readdirSync(cacheFolderPath).forEach((fileName) => {
+        if (workspacesList.some((workspace) => fileName.startsWith(workspace))) {
+          rmSync(path.join(cacheFolderPath, fileName));
+        }
+      });
+    }
     execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 
     // Run ng add
@@ -130,8 +134,15 @@ describe('new Otter application', () => {
 
     execSync('yarn ng g @o3r/core:page --defaults=true test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy', execAppOptions);
+    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --use-otter-config=false', execAppOptions);
     addImportToAppModule('TestComponentContModule', 'src/components/test-component');
+
+    execSync('yarn ng g @o3r/core:component --defaults=true test-add-config-component --use-otter-config=false', execAppOptions);
+    execSync('yarn ng g @o3r/configuration:add-config --defaults=true --path="src/components/test-add-config-component/container/test-add-config-component-cont.component.ts"', execAppOptions);
+    addImportToAppModule('TestAddConfigComponentContModule', 'src/components/test-add-config-component');
+
+    execSync('yarn ng g @schematics/angular:component test-ng-component', execAppOptions);
+    execSync('yarn ng g @o3r/core:convert-component --defaults=true --path="src/app/test-ng-component/test-ng-component.component.ts"', execAppOptions);
 
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 

@@ -1,4 +1,4 @@
-import {JsonObject} from '@angular-devkit/core';
+import type {JsonObject} from '@angular-devkit/core';
 
 /** Replace a given pattern in a list of files */
 export interface PatternReplacementBuilderSchema extends JsonObject {

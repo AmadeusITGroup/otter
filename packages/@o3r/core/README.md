@@ -81,28 +81,30 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 Otter library provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
-| Schematics          | Description                                                                   | How to use                 |
-| ------------------- | ----------------------------------------------------------------------------- | -------------------------- |
-| add                 | Include Otter in a library / application.                                     | `ng add @o3r/core`         |
-| page                | Create a new Page in your application.                                        | `ng g page`                |
-| service             | Create a new Otter Service in your library / application.                     | `ng g service`             |
-| fixture             | Adding functions to an Otter fixture based on a selector and default methods. | `ng g fixture`             |
-| component           | Create a new Otter component in your library / application.                   | `ng g component`           |
-| component-container | Create a new Otter container component in your library / application.         | `ng g component-container` |
-| component-presenter | Create a new Otter presenter component in your library / application.         | `ng g component-presenter` |
-| playwright-scenario | Create a new Playwright scenario in your application.                         | `ng g playwright-scenario` |
-| store               | Create a new store in your library / application.                             | `ng g store`               |
-| store-entity-async  | Create an entity async new store in your library / application.               | `ng g store-entity-async`  |
-| store-entity-sync   | Create an entity sync new store in your library / application.                | `ng g store-entity-sync`   |
-| store-simple-async  | Create a simple async new store in your library / application.                | `ng g store-simple-async`  |
-| store-simple-sync   | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`   |
-| store-action        | Create an action into an existing store.                                      | `ng g store-action`        |
-| storybook-component | Create an Storybook file for a presenter.                                     | `ng g storybook-component` |
-| renovate-bot        | Create a basic Renovate Bot                                                   | `ng g renovate-bot`        |
-| module              | Create a new Otter compatible module in your monorepo                         | `ng g module`              |
-| ng-add-create       | Include `ng add` schematic into your project                                  | `ng g ng-add-create`       |
-| show-modules        | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`        |
-| add-modules         | Add a new Otter Module to the current project                                 | `ng g add-modules`         |
+| Schematics                 | Description                                                                   | How to use                        |
+| -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter in a library / application.                                     | `ng add @o3r/core`                |
+| page                       | Create a new Page in your application.                                        | `ng g page`                       |
+| service                    | Create a new Otter Service in your library / application.                     | `ng g service`                    |
+| fixture                    | Adding functions to an Otter fixture based on a selector and default methods. | `ng g fixture`                    |
+| component                  | Create a new Otter component in your library / application.                   | `ng g component`                  |
+| component-container        | Create a new Otter container component in your library / application.         | `ng g component-container`        |
+| component-presenter        | Create a new Otter presenter component in your library / application.         | `ng g component-presenter`        |
+| playwright-scenario        | Create a new Playwright scenario in your application.                         | `ng g playwright-scenario`        |
+| store                      | Create a new store in your library / application.                             | `ng g store`                      |
+| store-entity-async         | Create an entity async new store in your library / application.               | `ng g store-entity-async`         |
+| store-entity-sync          | Create an entity sync new store in your library / application.                | `ng g store-entity-sync`          |
+| store-simple-async         | Create a simple async new store in your library / application.                | `ng g store-simple-async`         |
+| store-simple-sync          | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`          |
+| store-action               | Create an action into an existing store.                                      | `ng g store-action`               |
+| storybook-component        | Create an Storybook file for a presenter.                                     | `ng g storybook-component`        |
+| renovate-bot               | Create a basic Renovate Bot                                                   | `ng g renovate-bot`               |
+| module                     | Create a new Otter compatible module in your monorepo                         | `ng g module`                     |
+| ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
+| show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
+| add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
+| configuration-to-component | Add configuration to an Otter component                                       | `ng g configuration-to-component` |
+| convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
 
 ## Create your own Otter compatible module
 

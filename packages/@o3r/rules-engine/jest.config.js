@@ -14,6 +14,10 @@ module.exports = {
   modulePathIgnorePatterns: [
     '<rootDir>/dist'
   ],
+  testPathIgnorePatterns: [
+    '<rootDir>/.*/templates/.*',
+    '<rootDir>/schematics/.*\\.it\\.spec\\.ts$'
+  ],
   reporters: [
     'default',
     'github-actions'

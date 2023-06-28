@@ -1,4 +1,4 @@
 **/src/package.json
-packages/@*/*/{builders,schematics}/**/templates/**
-packages/@*/*/{builders,schematics}/**/mocks/**
+packages/@*/*/{builders,schematics}/**/templates/**/*.ts
+packages/@*/*/{builders,schematics}/**/mocks/**/*.ts
 packages/@*/*/build/**
