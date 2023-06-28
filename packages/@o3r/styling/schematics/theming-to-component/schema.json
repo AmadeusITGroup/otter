@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddThemingSchematicsSchema",
+  "title": "Add Otter Theming to an existing component",
+  "description": "Add Otter Theming to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component's style file"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

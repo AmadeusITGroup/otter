@@ -1,5 +1,3 @@
-<% if (useOtterTheming) {%>@import './<%=name%>.style.theme';
-
-<% } %><%=componentSelector%>-pres {
+<%=componentSelector%>-pres {
 // Your component custom SCSS
 }

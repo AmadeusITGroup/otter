@@ -31,12 +31,12 @@ import {
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
 import { getAddConfigurationRules } from '../common/configuration';
+import { getAddThemingRules } from '../common/theming';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
 const MODULE_TEMPLATE_PATH = './templates/module';
 const FIXTURE_TEMPLATE_PATH = './templates/fixture';
-const THEMING_TEMPLATE_PATH = './templates/theming';
 const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
 const STORYBOOK_TEMPLATE_PATH = './templates/storybook';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
@@ -120,16 +120,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useOtterTheming) {
-      rules.push(mergeWith(apply(url(THEMING_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     if (options.useOtterAnalytics) {
       rules.push(mergeWith(apply(url(ANALYTICS_TEMPLATE_PATH), [
         template({
@@ -176,6 +166,13 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       context
     );
     rules.push(...configurationRules);
+
+    const themingRules = await getAddThemingRules(
+      path.join(componentDestination, `${properties.name}.style.scss`),
+      options,
+      context
+    );
+    rules.push(...themingRules);
 
     return chain(rules);
   };

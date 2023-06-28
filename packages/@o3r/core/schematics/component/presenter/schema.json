@@ -47,12 +47,13 @@
     "useOtterTheming": {
       "type": "boolean",
       "description": "Generate component with Otter theming architecture",
-      "default": true,
-      "x-prompt": "Generate your component with Otter theming architecture?"
+      "nullable": true,
+      "default": null
     },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate component with Otter configuration",
+      "nullable": true,
       "default": null
     },
     "useOtterAnalytics": {

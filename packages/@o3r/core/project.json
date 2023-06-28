@@ -69,7 +69,7 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/core/testing/jest.config.it.js",
-        "silent": true
+        "silent": false
       }
     },
     "publish": {
