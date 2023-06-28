@@ -1,11 +1,10 @@
-import {ChangeDetectionStrategy, Component, <% if (useOtterConfig || useLocalization) { %>Input, <% } %>OnDestroy, OnInit, <% if (useOtterConfig) { %>Optional, OnChanges, SimpleChanges, <% } %>ViewEncapsulation} from '@angular/core';
+<% if (standalone) { %>import {CommonModule} from '@angular/common';
+<% } %>import {ChangeDetectionStrategy, Component, <% if (useLocalization) { %>Input, <% } %>OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 <% if (useOtterAnalytics) { %>import {Trackable} from '@o3r/analytics';
 <% } %>import {O3rComponent} from '@o3r/core';
-<% if (useOtterConfig) { %>import {ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable} from '@o3r/configuration';
-<% } %><% if (useLocalization) { %>import {Localization, Translatable} from '@o3r/localization';
-<% } %>import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
+<% if (useLocalization) { %>import {Localization, Translatable} from '@o3r/localization';
+<% } %>import {Subscription} from 'rxjs';
 <% if (useOtterAnalytics) { %>import {analyticsEvents, <%= componentAnalytics %>} from './<%= name %>.analytics';
-<% } %><% if (useOtterConfig) { %>import {<%=configKey%>_DEFAULT_CONFIG, <%=configKey%>_CONFIG_ID, <%= componentConfig %>} from './<%= name %>.config';
 <% } %><% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';
 <% } %><% if (useLocalization) { %>import {<%= componentTranslation %>, translations} from './<%= name %>.translation';
 <% } %>
@@ -23,9 +22,7 @@ import {ChangeDetectionStrategy, Component, <% if (useOtterConfig || useLocaliza
 })
 export class <%= componentName %> implements
   OnInit,
-  OnDestroy,<% if (useOtterConfig) { %>
-  OnChanges,
-  DynamicConfigurable<<%=componentConfig%>><% } %><% if (useLocalization) { %>,
+  OnDestroy<% if (useLocalization) { %>,
   Translatable<<%= componentTranslation %>><% } %><% if (useOtterAnalytics) { %>,
   Trackable<<%= componentAnalytics %>><% } %><% if (useContext) { %>,
   <%= componentContext %><% } %> {
@@ -35,17 +32,6 @@ export class <%= componentName %> implements
   @Input()
   @Localization('./<%= name %>.localization.json')
   public translations: <%= componentTranslation %>;
-
-  <% } %><% if (useOtterConfig) { %>/** Input configuration to override the default configuration of the component */
-  @Input()
-  public config: Partial<<%=componentConfig%>> | undefined;
-
-  /** Dynamic configuration based on the input override configuration and the configuration service if used by the application */
-  @ConfigObserver()
-  private dynamicConfig$: ConfigurationObserver<<%=componentConfig%>>;
-
-  /** Configuration stream based on the input and the stored configuration */
-  public config$: Observable<<%=componentConfig%>>;
 
   <% } %><% if (useOtterAnalytics) { %>/**
    * @inheritdoc
@@ -57,22 +43,13 @@ export class <%= componentName %> implements
    */
   private subscriptions: Subscription[] = [];
 
-  constructor(<% if (useOtterConfig) { %>@Optional() configurationService?: ConfigurationBaseService<% } %>) {<% if (useOtterConfig) { %>
-    this.dynamicConfig$ = new ConfigurationObserver<<%=componentConfig%>>(<%= configKey %>_CONFIG_ID, <%= configKey %>_DEFAULT_CONFIG, configurationService);
-    this.config$ = this.dynamicConfig$.asObservable();<% } %><% if (useLocalization) { %>
+  constructor() {<% if (useLocalization) { %>
     this.translations = translations;<% } %>
   }
 
   public ngOnInit() {
     // Run on component initialization
   }
-
-  <% if (useOtterConfig) { %>public ngOnChanges(change: SimpleChanges) {
-    // Run on every change of inputs
-    if (change.config) {
-      this.dynamicConfig$.next(this.config);
-    }
-  }<% } %>
 
   public ngOnDestroy() {
     // Run on component destruction

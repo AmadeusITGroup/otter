@@ -24,7 +24,6 @@ describe('Component presenter', () => {
   const componentName = 'testComponent';
   const expectedFileNames = [
     'test-component-pres.component.ts',
-    'test-component-pres.config.ts',
     'test-component-pres.context.ts',
     'test-component-pres.localization.json',
     'test-component-pres.module.ts',
@@ -238,6 +237,20 @@ describe('Component presenter', () => {
     );
   });
 
+  it('should throw if generate a presenter component with otter configuration, as @o3r/configuration is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-presenter', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      useOtterConfig: true,
+      activateDummy: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
+  });
+
   it('should generate a presenter component without otter configuration', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
@@ -250,12 +263,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutConfig = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.config.ts');
-
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutConfig.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutConfig.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
-    );
+    expect(tree.files.filter((file) => /test-component-pres\.config\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a standalone presenter component', async () => {

@@ -1,4 +1,5 @@
 export * from './ast';
+export * from './component';
 export * from './dependencies';
 export * from './file-info';
 export * from './generation';

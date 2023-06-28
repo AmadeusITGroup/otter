@@ -45,10 +45,11 @@ jobs:
       - name: Test
         run: yarn test-int
       - name: Stop verdaccio
+        if: always()
         run: yarn verdaccio:stop
       - name: Prepare for publish generated app
         if: failure()
-        run: zip -r it-tests.zip ../it-tests -x "../it-tests/*/node_modules/*" "../it-tests/*/.cache" "../it-tests/*/.yarn/cache"
+        run: zip -r it-tests.zip ../it-tests -x "../it-tests/*/.cache"
       - name: Publish generated tests environment
         if: failure()
         uses: actions/upload-artifact@v3

@@ -1,10 +1,8 @@
-import {ChangeDetectionStrategy, Component, <% if (useOtterConfig) { %>Input, OnChanges, SimpleChanges, <% } %>OnDestroy, OnInit, <% if (useOtterConfig) { %>Optional, <% } %>ViewEncapsulation} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {O3rComponent} from '@o3r/core';
-<% if (useOtterConfig) { %>import {ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable} from '@o3r/configuration'; <% } %>
-import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 <% if (componentStructure === 'full') { %>import {<%= blockName %>PresComponent} from '../presenter/<%= kebabCaseBlockName %>-pres.component';
 <% } %>
-<% if (useOtterConfig) { %>import {<%=configKey%>_DEFAULT_CONFIG, <%=configKey%>_CONFIG_ID, <%= componentConfig %>} from './<%= name %>.config';<% } %>
 <% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';<% } %>
 @O3rComponent({
   componentType: '<%= componentType %>'
@@ -19,41 +17,18 @@ import {<% if (useOtterConfig) { %>Observable, <% } %>Subscription} from 'rxjs';
 })
 export class <%= componentName %> implements
   OnInit,
-  OnDestroy<% if (useOtterConfig) { %>,
-  OnChanges,
-  DynamicConfigurable<<%=componentConfig%>><% } %><% if (useContext) { %>,
+  OnDestroy<% if (useContext) { %>,
   <%= componentContext %><% } %> {
-  <% if (useOtterConfig) { %>/** Input configuration to override the default configuration of the component */
-  @Input()
-  public config: Partial<<%=componentConfig%>> | undefined;
-
-  /** Dynamic configuration based on the input override configuration and the configuration service if used by the application */
-  @ConfigObserver()
-  private dynamicConfig$: ConfigurationObserver<<%=componentConfig%>>;
-
-  /** Configuration stream based on the input and the stored configuration */
-  public config$: Observable<<%=componentConfig%>>;
-
-  <% } %>/**
+  /**
    * List of subscriptions to unsubscribe on destroy
    */
   private subscriptions: Subscription[] = [];
 
-  constructor(<% if (useOtterConfig) { %>@Optional() configurationService?: ConfigurationBaseService<% } %>) {<% if (useOtterConfig) { %>
-    this.dynamicConfig$ = new ConfigurationObserver<<%=componentConfig%>>(<%= configKey %>_CONFIG_ID, <%= configKey %>_DEFAULT_CONFIG, configurationService);
-    this.config$ = this.dynamicConfig$.asObservable();<% } %>
-  }
+  constructor() {}
 
   public ngOnInit() {
     // Run on component initialization
   }
-
-  <% if (useOtterConfig) { %>public ngOnChanges(change: SimpleChanges) {
-    // Run on every change of inputs
-    if (change.config) {
-      this.dynamicConfig$.next(this.config);
-    }
-  }<% } %>
 
   public ngOnDestroy() {
     // clean the subscriptions

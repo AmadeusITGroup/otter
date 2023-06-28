@@ -1,10 +1,7 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-
 import {
   applyEsLintFix,
   getComponentBlockName,
-  getComponentConfigKey,
-  getComponentConfigName,
   getComponentContextName,
   getComponentFileName,
   getComponentFixtureName,
@@ -15,6 +12,7 @@ import {
   getKebabCaseBlockName, getProjectFromTree
 } from '@o3r/schematics';
 import * as path from 'node:path';
+import { getAddConfigurationRules } from '../common/configuration';
 import { ComponentStructureDef } from '../structures.types';
 import { NgGenerateComponentContainerSchematicsSchema } from './schema';
 
@@ -23,7 +21,6 @@ const MODULE_TEMPLATE_PATH = './templates/module';
 const CONTAINER_TEMPLATE_PATH = './templates/container';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
 const FIXTURE_TEMPLATE_PATH = './templates/fixture';
-const CONFIG_TEMPLATE_PATH = './templates/config';
 
 /**
  * Generates the template properties
@@ -40,18 +37,16 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
 
   return {
     ...options,
-    componentType: options.componentStructure === 'full' ? 'Block' : options.useOtterConfig ? 'ExposedComponent' : 'Component',
+    componentType: options.componentStructure === 'full' ? 'Block' : 'Component',
     moduleName: getComponentModuleName(inputComponentName, componentStructureDef),
     componentName: getComponentName(inputComponentName, componentStructureDef),
     blockName,
     kebabCaseBlockName: getKebabCaseBlockName(blockName),
-    componentConfig: getComponentConfigName(inputComponentName, componentStructureDef),
     componentContext: getComponentContextName(inputComponentName, componentStructureDef),
     componentFixture: getComponentFixtureName(inputComponentName, componentStructureDef),
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     folderName,
     name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-cont,
-    configKey: getComponentConfigKey(options.componentName, componentStructureDef), // AIR_OFFER_CONT
     suffix: componentStructureDef.toLowerCase(), // cont | ''
     description: options.description || ''
   };
@@ -66,7 +61,7 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
 
   const fullStructureRequested = options.componentStructure === 'full';
 
-  const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
+  const generateFiles = async (tree: Tree, context: SchematicContext) => {
 
     const workspaceProject = getProjectFromTree(tree);
 
@@ -115,20 +110,18 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useOtterConfig) {
-      rules.push(mergeWith(apply(url(CONFIG_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-    return chain(rules)(tree, context);
+    const configurationRules = await getAddConfigurationRules(
+      path.join(componentDestination, `${properties.name}.component.ts`),
+      options,
+      context
+    );
+    rules.push(...configurationRules);
+
+    return chain(rules);
   };
 
   return chain([
     generateFiles,
-    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop
+    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }
