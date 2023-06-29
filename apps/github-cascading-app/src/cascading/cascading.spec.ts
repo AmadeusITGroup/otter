@@ -164,7 +164,7 @@ describe('Cascading Application', () => {
       expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
     });
 
-    it('should skip ignored branches', async () => {
+    it('should skip ignored current branches', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
         ...CascadingProbot.DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*',
@@ -176,6 +176,21 @@ describe('Cascading Application', () => {
       expect(logger.info).not.toHaveBeenCalledWith('Cascading plugin execution');
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
+    });
+
+    it('should skip ignored target branches', async () => {
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        cascadingBranchesPattern: 'test-cascading/.*',
+        ignoredPatterns: ['-test$']
+      });
+      customization.getBranches = customization.getBranches.mockResolvedValue([
+        'test-cascading/1.0',
+        'test-cascading/1.1-test'
+      ]);
+      await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+      expect(logger.info).toHaveBeenCalledWith('Cascading plugin execution');
+      expect(logger.info).toHaveBeenCalledWith('The branch test-cascading/1.0 is the last branch of the cascading. The process will stop.');
     });
 
     it('should skip ignored branch if not ahead', async () => {

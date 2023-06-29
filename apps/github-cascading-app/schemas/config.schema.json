@@ -14,7 +14,8 @@
       ],
       "items": {
         "type": "string"
-      }
+      },
+      "default": []
     },
     "defaultBranch": {
       "type": "string",
