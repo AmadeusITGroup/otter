@@ -70,7 +70,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/routing": "workspace:^",
-    "@types/jasmine": "4.3.4",
+    "@types/jasmine": "4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
