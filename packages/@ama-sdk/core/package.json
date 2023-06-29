@@ -39,13 +39,13 @@
     "@o3r/schematics": "workspace:^",
     "@swc/helpers": "^0.5.0",
     "tslib": "^2.5.3",
-    "uuid": "^8.3.2"
+    "uuid": "^9.0.0"
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~16.0.5",
     "@angular/cli": "~16.0.5",
     "@schematics/angular": "~16.0.5",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "^3.0.0",
     "typescript": "~5.0.2"
   },
   "peerDependenciesMeta": {
@@ -78,8 +78,8 @@
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.249",
     "@types/jest": "~29.5.2",
-    "@types/node": "^17.0.45",
-    "@types/uuid": "^8.3.1",
+    "@types/node": "^18.0.0",
+    "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "copyfiles": "^2.4.1",
@@ -89,11 +89,11 @@
     "eslint-plugin-jest": "^27.2.1",
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-unicorn": "^45.0.2",
+    "eslint-plugin-unicorn": "^47.0.0",
     "globby": "^11.1.0",
-    "isomorphic-fetch": "~2.2.1",
+    "isomorphic-fetch": "~3.0.0",
     "jest": "~29.5.0",
-    "rimraf": "^3.0.2",
+    "rimraf": "^5.0.0",
     "rxjs": "^7.8.1",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
