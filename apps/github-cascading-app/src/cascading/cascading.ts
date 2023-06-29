@@ -6,6 +6,9 @@ import { resolve } from 'node:path';
 /** prefix of cascading branch */
 export const CASCADING_BRANCH_PREFIX = 'cascading';
 
+/** prefix of conflicting cascading branch */
+export const CASCADING_CONFLICT_BRANCH_PREFIX = 'conflict';
+
 /**
  * Handles the cascading to the next branch
  */
@@ -193,9 +196,10 @@ export abstract class Cascading {
    *
    * @param baseVersion Version extracted from the base branch
    * @param targetVersion Version extracted from the target branch
+   * @param isConflicting specify if the branch should be flagged as conflicting
    */
-  protected determineCascadingBranchName(baseVersion: string, targetVersion: string) {
-    return `${CASCADING_BRANCH_PREFIX}/${baseVersion}-${targetVersion}`;
+  protected determineCascadingBranchName(baseVersion: string, targetVersion: string, isConflicting = false) {
+    return `${isConflicting ? CASCADING_CONFLICT_BRANCH_PREFIX : CASCADING_BRANCH_PREFIX}/${baseVersion}-${targetVersion}`;
   }
 
   /**
@@ -204,7 +208,7 @@ export abstract class Cascading {
    * @param branch Name of the branch to check
    */
   protected isCascadingBranchName(branch: string) {
-    if (!branch.startsWith(CASCADING_BRANCH_PREFIX)) {
+    if (!branch.startsWith(CASCADING_BRANCH_PREFIX) && !branch.startsWith(CASCADING_CONFLICT_BRANCH_PREFIX)) {
       return false;
     }
 
@@ -362,8 +366,13 @@ export abstract class Cascading {
         await this.merge(currentBranch.branch, cascadingBranch);
       } catch {
         this.logger.warn(`Fail to merge ${currentBranch.branch} into ${cascadingBranch} before creating the PR, will switch to conflict mode (and create the PR from ${currentBranch.branch})`);
-        await this.deleteBranch(cascadingBranch);
-        await this.createBranch(cascadingBranch, currentBranch.branch);
+        try {
+          await this.deleteBranch(cascadingBranch);
+        } catch {
+          this.logger.warn(`Fail to remove the cascading branch "${cascadingBranch}"`);
+        }
+        const conflictCascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, true);
+        await this.createBranch(conflictCascadingBranch, currentBranch.branch);
       }
     }
     await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
