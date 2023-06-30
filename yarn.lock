@@ -7055,6 +7055,7 @@ __metadata:
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
+    type-fest: ^3.6.1
     typescript: ~5.0.2
   bin:
     create: ./index.js

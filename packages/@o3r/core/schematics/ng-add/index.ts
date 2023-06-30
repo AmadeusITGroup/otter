@@ -19,7 +19,7 @@ class DevInstall extends NodePackageInstallTask {
 
   /** @inheritdoc */
   public toConfiguration() {
-    const installOptions = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
+    const installOptions = process.env?.npm_execpath?.includes('yarn')  ? 'yarn' : 'npm';
     return {
       name: NodePackageName,
       options: {
