@@ -53,7 +53,7 @@ If you use `Yarn2+`, you can use the following `scripts` in `package.json`:
 
 ```json
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
-    "generate": "yarn schematics @ama-sdk/schematics:typescript-core --swagger-spec-path ./swagger-spec.yaml",
+    "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
     "upgrade:repository": "yarn schematics @ama-sdk/schematics:typescript-shell",
 ```
 
@@ -66,7 +66,7 @@ Generate a Java Client Core SDK:
 Make sure to have a `./swagger-spec.yaml` file at the root of your project and run:
 
 ```shell
-yarn schematics @ama-sdk/schematics:java-client-core --swagger-spec-path ./swagger-spec.yaml --swagger-config-path ./swagger-codegen-config.json
+yarn schematics @ama-sdk/schematics:java-client-core --spec-path ./swagger-spec.yaml --swagger-config-path ./swagger-codegen-config.json
 ```
 
 [Default swagger config](./schematics/java/client-core/swagger-codegen-java-client/config/swagger-codegen-config.json) will be used if `--swagger-config-path` is not provided.

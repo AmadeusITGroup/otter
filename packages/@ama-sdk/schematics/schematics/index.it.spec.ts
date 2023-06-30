@@ -7,11 +7,11 @@ import getPidFromPort from 'pid-from-port';
 import { minVersion } from 'semver';
 
 const appName = 'test-sdk';
-const currentFolder = path.posix.join(__dirname, '..', '..', '..', '..');
-const packageJsonPath = path.posix.join(__dirname, '..', 'package.json');
-const parentFolderPath = path.posix.join(currentFolder, '..');
-const itTestsFolderPath = path.posix.join(parentFolderPath, 'it-tests');
-const sdkFolderPath = path.posix.join(itTestsFolderPath, 'test-sdk');
+const currentFolder = path.join(__dirname, '..', '..', '..', '..');
+const packageJsonPath = path.join(__dirname, '..', 'package.json');
+const parentFolderPath = path.join(currentFolder, '..');
+const itTestsFolderPath = path.join(parentFolderPath, 'it-tests');
+const sdkFolderPath = path.join(itTestsFolderPath, 'test-sdk');
 const cacheFolderPath = path.join(currentFolder, '.cache', appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: sdkFolderPath,
@@ -54,6 +54,9 @@ function setupYarn(yarnVersion: string) {
   execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
   execSync('yarn config set nodeLinker pnp', execAppOptions);
   execSync('yarn config set enableMirror false', execAppOptions);
+  if (!existsSync(cacheFolderPath)) {
+    mkdirSync(cacheFolderPath, {recursive: true});
+  }
   execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
   if (existsSync(cacheFolderPath)) {
     const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
@@ -72,25 +75,23 @@ function setupYarn(yarnVersion: string) {
  */
 function setupNewSdk() {
   beforeAll(() => {
-    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
-    const angularVersion = minVersion(packageJson.devDependencies['@angular-devkit/schematics-cli']).version;
 
     // Create app with ng new
-    const relativePath = path.posix.relative(parentFolderPath, sdkFolderPath);
+    const relativePath = path.relative(parentFolderPath, sdkFolderPath);
     execSync(`npx rimraf ${relativePath}`, {cwd: parentFolderPath, stdio: 'inherit'});
-    if (!existsSync(itTestsFolderPath)) {
-      mkdirSync(itTestsFolderPath);
-    }
-    writeFileSync(path.posix.join(sdkFolderPath, 'package.json'), '{"name": "@test/sdk"}');
+    mkdirSync(sdkFolderPath, {recursive: true});
+    writeFileSync(path.join(sdkFolderPath, 'package.json'), '{"name": "@test/sdk"}');
 
     // Set config to target local registry
-    const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.posix.join(currentFolder, 'package.json')).toString());
+    const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.join(currentFolder, 'package.json')).toString());
     const yarnVersion = o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0';
     setupYarn(yarnVersion);
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
+    const angularVersion = minVersion(packageJson.devDependencies['@angular-devkit/schematics-cli']).version;
     execSync(`yarn add -D @angular-devkit/schematics-cli@${angularVersion} @ama-sdk/schematics`, execAppOptions);
-    cpSync(path.posix.join(__dirname, '..', 'testing', 'MOCK_swagger.yaml'), path.posix.join(sdkFolderPath, 'swagger-spec.yml'));
-    execSync('yarn schematics @ama-sdk/schematics:typescript-sdk --name test --package sdk --swagger-spec-path ./swagger-spec.yml', execAppOptions);
+    execSync(`yarn add -D @openapitools/openapi-generator-cli@${packageJson.peerDependencies['@openapitools/openapi-generator-cli']} @ama-sdk/schematics`, execAppOptions);
+    cpSync(path.join(__dirname, '..', 'testing', 'MOCK_swagger.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
+    execSync('yarn schematics @ama-sdk/schematics:typescript-sdk --name test --package sdk --spec-path ./swagger-spec.yml', execAppOptions);
     setupYarn(yarnVersion);
     execSync('yarn', execAppOptions);
   });
@@ -103,8 +104,8 @@ describe('new Otter sdk', () => {
   test('should build', () => {
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
-    cpSync(path.posix.join(__dirname, '..', 'testing', 'MOCK_swagger_updated.yaml'), path.posix.join(sdkFolderPath, 'swagger-spec.yml'));
-    execSync('yarn schematics @ama-sdk/schematics:typescript-core --swagger-spec-path ./swagger-spec.yml', execAppOptions);
+    cpSync(path.join(__dirname, '..', 'testing', 'MOCK_swagger_updated.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
+    execSync('yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yml', execAppOptions);
 
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
   });

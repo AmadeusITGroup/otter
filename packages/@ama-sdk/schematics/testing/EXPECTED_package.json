@@ -1,11 +1,11 @@
 {
   "name": "fake-package",
   "scripts": {
-    "swagger:regen": "schematics @ama-sdk/schematics:java-client-core --swagger-spec-path ./swagger-spec.yaml --force",
-    "swagger:generate": "yarn schematics @ama-sdk/schematics:java-client-core --swagger-spec-path node_modules/@api-spec/core-private/dist/API_Private.yaml --force",
+    "swagger:regen": "schematics @ama-sdk/schematics:java-client-core --spec-path ./swagger-spec.yaml --force",
+    "swagger:generate": "yarn schematics @ama-sdk/schematics:java-client-core --spec-path node_modules/@api-spec/core-private/dist/API_Private.yaml --force",
     "swagger:upgrade": "schematics @ama-sdk/schematics:typescript-core && yarn clear-index",
-    "swagger:regen2": "schematics @ama-sdk/schematics:typescript-core --swagger-spec-path ./swagger-spec.yaml --force && yarn clear-index",
-    "swagger:generate2": "schematics @ama-sdk/schematics:typescript-core --swagger-spec-path $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
+    "swagger:regen2": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --force && yarn clear-index",
+    "swagger:generate2": "schematics @ama-sdk/schematics:typescript-core --spec-path $(yarn resolve @api-spec/core-public/dist/API_Public.yaml) --force && yarn clear-index",
     "mock": "yarn ng g @ama-sdk/schematics:typescript-mock"
   }
 }

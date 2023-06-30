@@ -63,7 +63,7 @@ export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {
 
   const generateRootBarrel: Rule = (tree: Tree) => {
     let currentComponentIndex = '';
-    const barrelPath = path.posix.join(options.path, 'index.ts');
+    const barrelPath = path.join(options.path, 'index.ts');
     if (tree.exists(barrelPath)) {
       const currentServiceIndexBuffer = tree.read(barrelPath);
       currentComponentIndex = currentServiceIndexBuffer ? currentServiceIndexBuffer.toString() : '';
@@ -77,7 +77,7 @@ export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {
   };
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    const mockDestination = path.posix.join(options.path, dasherizeModelName);
+    const mockDestination = path.join(options.path, dasherizeModelName);
 
     return mergeWith(apply(url('./templates'), [
       template({

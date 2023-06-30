@@ -4,10 +4,10 @@
   "title": "Generate Typescript SDK",
   "description": "ng generate typescript-core",
   "properties": {
-    "swaggerSpecPath": {
+    "specPath": {
       "type": "string",
-      "description": "Path to the swagger specification used to generate the SDK",
-      "x-prompt": "Path to the swagger spec",
+      "description": "Path to the swagger/open-api specification used to generate the SDK",
+      "x-prompt": "Path to the swagger / open-api spec",
       "$default": {
         "$source": "argv",
         "index": 0
@@ -16,6 +16,6 @@
   },
   "additionalProperties": true,
   "required": [
-    "swaggerSpecPath"
+    "specPath"
   ]
 }

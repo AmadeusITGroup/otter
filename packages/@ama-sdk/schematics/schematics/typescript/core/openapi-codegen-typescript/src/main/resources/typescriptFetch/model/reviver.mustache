@@ -1,0 +1,167 @@
+/**
+ * Reviver: {{classname}}
+ *
+ * THIS FILE HAS BEEN AUTOMATICALLY GENERATED. DO NOT EDIT.
+ */
+{{#noUnusedImport}}
+{{#noEmptyLines}}
+import { {{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
+  {{#imports}}
+import { {{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
+import { revive{{import}} } from '../{{#kebabCase}}{{import}}{{/kebabCase}}';
+  {{/imports}}
+  {{#models}}
+    {{#model}}
+      {{^isEnum}}
+        {{#vendorExtensions}}
+          {{#x-discriminator-subtypes}}
+import { revive{{.}} } from '../{{#kebabCase}}{{.}}{{/kebabCase}}';
+import { {{.}} } from '../{{#kebabCase}}{{.}}{{/kebabCase}}';
+          {{/x-discriminator-subtypes}}
+        {{/vendorExtensions}}
+import { utils, reviveArray, reviveMap, reviveDictionarizedArray } from '@ama-sdk/core';
+      {{/isEnum}}
+    {{/model}}
+  {{/models}}
+{{/noEmptyLines}}
+
+{{#models}}
+  {{#model}}
+    {{^isEnum}}
+export function revive{{classname}}<T extends {{classname}} = {{classname}}>(data: undefined, dictionaries?: any): undefined;
+export function revive{{classname}}(data: {{classname}}, dictionaries?: any): {{classname}} {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}};
+export function revive{{classname}}(data: any, dictionaries?: any): {{classname}} {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}} | undefined;
+export function revive{{classname}}<T extends {{classname}}>(data: T, dictionaries?: any): T {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}};
+export function revive{{classname}}<T extends {{classname}}>(data: any, dictionaries?: any): T {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}} | undefined;
+export function revive{{classname}}<T extends {{classname}} = {{classname}}>(data: any, dictionaries?: any): T {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}} | undefined {
+  if (!data) { return ; }
+      {{#noEmptyLines}}
+       {{#discriminator}}
+  // Handle discriminator
+  if (data.{{discriminatorName}}) {
+  // Hack while waiting for DAPI fix
+        {{#vendorExtensions}}
+          {{#x-discriminator-subtypes}}
+    if (data.{{discriminatorName}}[0].toUpperCase() + data.{{discriminatorName}}.slice(1) === '{{.}}') {
+      return revive{{.}}(data, dictionaries);
+    }
+          {{/x-discriminator-subtypes}}
+        {{/vendorExtensions}}
+  }
+      {{/discriminator}}
+    {{#vendorExtensions}}
+      {{#requireDictionary}}
+  if (dictionaries) {
+          {{#allVars}}
+            {{#vendorExtensions}}
+              {{#x-map-name}}
+    if (data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} && !data.{{x-map-name}}) {
+      if (dictionaries.{{x-dictionary-name}}) {
+                {{^x-field-is-primitive}}
+      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, revive{{x-field-type}});
+                {{/x-field-is-primitive}}
+                {{#x-field-is-primitive}}
+      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}});
+                {{/x-field-is-primitive}}
+      } else {
+        console.debug('Dictionaries {{x-dictionary-name}} missing from API output.');
+      }
+    }
+              {{/x-map-name}}
+            {{/vendorExtensions}}
+          {{/allVars}}
+          {{#allVars}}
+            {{#vendorExtensions}}
+              {{#x-field-name}}
+    if (data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} && !data.{{x-field-name}}) {
+      if (dictionaries.{{x-dictionary-name}} && typeof dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}] !== 'undefined') {
+                {{^x-field-is-primitive}}
+        data.{{x-field-name}} = revive{{x-field-type}}(dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}]);
+                {{/x-field-is-primitive}}
+                {{#x-field-is-primitive}}
+        data.{{x-field-name}} = dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}];
+                {{/x-field-is-primitive}}
+      } else {
+        console.debug('Dictionaries {{x-dictionary-name}} missing from API output.');
+      }
+    }
+              {{/x-field-name}}
+            {{/vendorExtensions}}
+          {{/allVars}}
+  } else {
+          {{#allVars}}
+            {{#vendorExtensions}}
+              {{#x-map-name}}
+                {{#x-field-is-revived}}
+    if (data.{{x-map-name}}) {
+      data.{{x-map-name}} = reviveMap<{{x-field-type}}>(data.{{x-map-name}}, null, revive{{x-field-type}});
+    }
+                {{/x-field-is-revived}}
+              {{/x-map-name}}
+            {{/vendorExtensions}}
+          {{/allVars}}
+          {{#allVars}}
+            {{#vendorExtensions}}
+              {{#x-field-name}}
+                {{#x-field-is-revived}}
+    if (data.{{x-field-name}}) {
+      data.{{x-field-name}} = revive{{x-field-type}}(data.{{x-field-name}});
+    }
+                {{/x-field-is-revived}}
+              {{/x-field-name}}
+            {{/vendorExtensions}}
+          {{/allVars}}
+  }
+        {{/requireDictionary}}
+      {{/vendorExtensions}}
+
+      {{#trimComma}}
+        {{#allVars}}
+          {{^isPrimitiveType}}
+            {{#complexType}}
+              {{^isEnum}}
+                {{#isMap}}
+                  {{#vendorExtensions}}
+                    {{^nonObjectDefinition}}
+  data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} = reviveMap<{{complexType}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries, revive{{complexType}}) as {{complexType}};
+                    {{/nonObjectDefinition}}
+                  {{/vendorExtensions}}
+                {{/isMap}}
+                {{#isArray}}
+                  {{#vendorExtensions}}
+                    {{^nonObjectDefinition}}
+  data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} = reviveArray<{{complexType}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries, revive{{complexType}}) as {{complexType}}[];
+                    {{/nonObjectDefinition}}
+                  {{/vendorExtensions}}
+                {{/isArray}}
+                {{^isMap}}
+                  {{^isArray}}
+                    {{#vendorExtensions}}
+                      {{^nonObjectDefinition}}
+  data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} = revive{{dataType}}(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries);
+                      {{/nonObjectDefinition}}
+                    {{/vendorExtensions}}
+                  {{/isArray}}
+                {{/isMap}}
+              {{/isEnum}}
+            {{/complexType}}
+            {{^complexType}}
+              {{^isEnum}}
+  data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} = data.{{baseName}} ? new {{{dataType}}}(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}) : undefined;
+              {{/isEnum}}
+            {{/complexType}}
+          {{/isPrimitiveType}}
+        {{/allVars}}
+      {{/trimComma}}
+    {{/noEmptyLines}}
+
+  return data as T;
+}
+
+    {{/isEnum}}
+    {{#isEnum}}
+/** As the definition is not an object, no reviver is needed */
+    {{/isEnum}}
+  {{/model}}
+{{/models}}
+{{/noUnusedImport}}
