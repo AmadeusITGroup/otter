@@ -9,7 +9,13 @@ export function ngAdd() {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getProjectDepType, getO3rPeerDeps, registerPackageCollectionSchematics } = await import('@o3r/schematics');
+      const {
+        ngAddPackages,
+        getProjectDepType,
+        getO3rPeerDeps,
+        registerPackageCollectionSchematics,
+        setupSchematicsDefaultParams
+      } = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -18,6 +24,20 @@ export function ngAdd() {
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
       return chain([
         registerPackageCollectionSchematics(packageJson),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useOtterConfig: null
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-container': {
+            useOtterConfig: null
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-presenter': {
+            useOtterConfig: null
+          }
+        }),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
       ])(tree, context);
     } catch (e) {

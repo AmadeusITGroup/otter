@@ -6,6 +6,12 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "theming-to-component": {
+      "description": "Add theming to an Otter component",
+      "factory": "./schematics/theming-to-component/index#ngAddTheming",
+      "schema": "./schematics/theming-to-component/schema.json",
+      "aliases": ["add-theming"]
     }
   }
 }

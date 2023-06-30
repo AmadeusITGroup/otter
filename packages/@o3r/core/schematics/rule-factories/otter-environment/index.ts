@@ -52,7 +52,6 @@ export function updateOtterEnvironmentAdapter(
 
     const componentSchematicsOptions = {
       ...(typeof options.enableStorybook !== 'undefined' ? { useStorybook: options.enableStorybook } : {}),
-      ...(typeof options.enableStyling !== 'undefined' ? { useOtterTheming: options.enableStyling } : {}),
       ...(typeof options.enableAnalytics !== 'undefined' ? { useOtterAnalytics: options.enableAnalytics } : {})
     };
 

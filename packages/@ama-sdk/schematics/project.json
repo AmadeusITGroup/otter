@@ -70,7 +70,7 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/schematics/testing/jest.config.it.js",
-        "silent": true
+        "silent": false
       }
     },
     "prepare-publish": {

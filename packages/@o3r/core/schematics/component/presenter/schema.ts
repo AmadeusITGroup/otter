@@ -25,7 +25,7 @@ export interface NgGenerateComponentPresenterSchematicsSchema extends JsonObject
   useComponentFixtures: boolean;
 
   /** Indicates if the component should use otter theming architecture */
-  useOtterTheming: boolean;
+  useOtterTheming: boolean | null;
 
   /** Indicates if the component should use otter configuration */
   useOtterConfig: boolean | null;

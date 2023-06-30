@@ -34,7 +34,6 @@ describe('Component presenter', () => {
     'README.md',
     'index.ts',
     'test-component-pres.fixture.ts',
-    'test-component-pres.style.theme.scss',
     'test-component-pres.stories.ts'
   ];
 
@@ -152,6 +151,19 @@ describe('Component presenter', () => {
     expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
       expectedFileNamesWithoutOtterTheme.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
     );
+  });
+
+  it('should throw if generate a presenter component with otter theming, as @o3r/styling is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-presenter', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      useOtterTheming: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
   });
 
   it('should generate a presenter component without translation', async () => {
