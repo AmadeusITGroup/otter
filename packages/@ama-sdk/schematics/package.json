@@ -52,7 +52,7 @@
     "@o3r/dev-tools": "workspace:^",
     "minimatch": "^6.1.6",
     "rxjs": "^7.4.0",
-    "semver": "^7.3.2",
+    "semver": "^7.5.2",
     "sway": "^2.0.6",
     "tslib": "^2.4.1"
   },
