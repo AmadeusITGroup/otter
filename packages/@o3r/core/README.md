@@ -79,7 +79,7 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 ## Generators
 
-Otter library provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
 | Schematics                 | Description                                                                   | How to use                        |
 | -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
@@ -103,7 +103,6 @@ Otter library provides a set of code generators based on [angular schematics](ht
 | ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
 | show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
 | add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
-| configuration-to-component | Add configuration to an Otter component                                       | `ng g configuration-to-component` |
 | convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
 
 ## Create your own Otter compatible module

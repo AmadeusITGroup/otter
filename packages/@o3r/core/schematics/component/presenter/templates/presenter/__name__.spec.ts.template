@@ -1,10 +1,7 @@
 import {ChangeDetectionStrategy, DebugElement, Provider} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {<% if (!standalone) { %>BrowserModule, <% } %>By} from '@angular/platform-browser';
-<% if (useLocalization) { %>import {LocalizationService} from '@o3r/localization';
-<% } %><% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';
-<% } %><% if (useLocalization) { %>import {mockTranslationModules} from '@o3r/testing/localization';
-import {TranslateCompiler, TranslateFakeCompiler} from '@ngx-translate/core';
+<% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';
 <% } %>import {<%= componentName %>} from './<%= name %>.component';
 <% if (useComponentFixtures) {%>import {<%= componentFixture %>Component} from './<%= name %>.fixture';
 <% } %>
@@ -12,32 +9,16 @@ let component: <%= componentName %>;<% if (useComponentFixtures) {%>
 let componentFixture: <%= componentFixture %>Component;<% } %>
 let fixture: ComponentFixture<<%= componentName %>>;
 
-<% if (useLocalization) { %>const localizationConfiguration = {language: 'en'};
-const mockTranslations = {
-  en: {<% if(activateDummy) { %>
-    '<%= componentSelector %>-pres.dummy1': 'Dummy 1',
-    '<%= componentSelector %>-pres.dummy2': 'Dummy 2'
-  <% } %>}
-};
-const mockTranslationsCompilerProvider: Provider = {
-  provide: TranslateCompiler,
-  useClass: TranslateFakeCompiler
-};
-
-<% } %>describe('<%= componentName %>', () => {
+describe('<%= componentName %>', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       <% if (!standalone) { %>declarations: [<%= componentName %>],<% } %>
       imports: [
-        <% if (standalone) { %><%= componentName %><% } else { %>BrowserModule<% } %><% if (useLocalization) { %>,
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)<% } %>
+        <% if (standalone) { %><%= componentName %><% } else { %>BrowserModule<% } %>
       ]
     }).overrideComponent(<%= componentName %>, {
       set: {changeDetection: ChangeDetectionStrategy.Default}
-    }).compileComponents();<% if (useLocalization) { %>
-
-    const localizationService = TestBed.inject(LocalizationService);
-    localizationService.configure();<% } %>
+    }).compileComponents();
   });
 
   beforeEach(() => {

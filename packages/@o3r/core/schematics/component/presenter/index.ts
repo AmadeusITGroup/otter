@@ -32,6 +32,7 @@ import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
 import { getAddConfigurationRules } from '../common/configuration';
 import { getAddThemingRules } from '../common/theming';
+import { getAddLocalizationRules } from '../common/localization';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
@@ -40,7 +41,6 @@ const FIXTURE_TEMPLATE_PATH = './templates/fixture';
 const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
 const STORYBOOK_TEMPLATE_PATH = './templates/storybook';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
-const LOCALIZATION_TEMPLATE_PATH = './templates/localization';
 
 /**
  * Generates the template properties
@@ -140,16 +140,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useLocalization) {
-      rules.push(mergeWith(apply(url(LOCALIZATION_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     if (options.useContext) {
       rules.push(mergeWith(apply(url(CONTEXT_TEMPLATE_PATH), [
         template({
@@ -173,6 +163,13 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       context
     );
     rules.push(...themingRules);
+
+    const localizationRules = await getAddLocalizationRules(
+      path.join(componentDestination, `${properties.name}.component.ts`),
+      options,
+      context
+    );
+    rules.push(...localizationRules);
 
     return chain(rules);
   };
