@@ -22,6 +22,7 @@
         "{projectRoot}/dist/builders/**/*.json",
         "{projectRoot}/dist/schemas/**/*.json",
         "{projectRoot}/dist/schematics/**/*.json",
+        "{projectRoot}/dist/schematics/**/*.jar",
         "{projectRoot}/dist/schematics/**/templates/**"
       ]
     },
