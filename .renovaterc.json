@@ -10,6 +10,11 @@
     "group:linters",
     "schedule:nonOfficeHours"
   ],
+  "allowedPostUpgradeCommands": [
+    "^yarn install",
+    "^yarn sdks",
+    "^yarn run harmonize:version"
+  ],
   "ignorePaths": [
     "**/node_modules/**",
     "**/templates/**"
@@ -86,7 +91,7 @@
       "postUpgradeTasks": {
         "commands": [
           "yarn install",
-          "yarn harmonize:version"
+          "yarn run harmonize:version"
         ],
         "executionMode": "branch",
         "fileFilters": [
