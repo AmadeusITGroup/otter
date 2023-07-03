@@ -134,18 +134,33 @@ describe('new Otter application', () => {
 
     execSync('yarn ng g @o3r/core:page --defaults=true test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --use-otter-config=false --use-otter-theming=false', execAppOptions);
+    const defaultOptions = [
+      '--activate-dummy',
+      '--use-otter-config=false',
+      '--use-otter-theming=false',
+      '--use-otter-analytics=false',
+      '--use-localization=false'
+    ].join(' ');
+
+    execSync(
+      `yarn ng g @o3r/core:component test-component ${defaultOptions}`,
+      execAppOptions
+    );
     addImportToAppModule('TestComponentContModule', 'src/components/test-component');
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-add-config-component --use-otter-config=false', execAppOptions);
+    execSync(`yarn ng g @o3r/core:component --defaults=true test-add-config-component ${defaultOptions}`, execAppOptions);
     execSync('yarn ng g @o3r/configuration:add-config --defaults=true --path="src/components/test-add-config-component/container/test-add-config-component-cont.component.ts"', execAppOptions);
     addImportToAppModule('TestAddConfigComponentContModule', 'src/components/test-add-config-component');
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-add-theming-component --use-otter-theming=false', execAppOptions);
+    execSync(`yarn ng g @o3r/core:component --defaults=true test-add-theming-component ${defaultOptions}`, execAppOptions);
     execSync('yarn ng g @o3r/styling:add-theming --defaults=true --path="src/components/test-add-theming-component/presenter/test-add-theming-component-pres.style.scss"', execAppOptions);
     addImportToAppModule('TestAddThemingComponentContModule', 'src/components/test-add-theming-component');
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-add-localization-component --use-localization=false', execAppOptions);
+    execSync(`yarn ng g @o3r/core:component --defaults=true test-add-analytics-component ${defaultOptions}`, execAppOptions);
+    execSync('yarn ng g @o3r/analytics:add-analytics --defaults=true --path="src/components/test-add-analytics-component/container/test-add-analytics-component-cont.component.ts"', execAppOptions);
+    addImportToAppModule('TestAddAnalyticsComponentContModule', 'src/components/test-add-analytics-component');
+
+    execSync(`yarn ng g @o3r/core:component --defaults=true test-add-localization-component ${defaultOptions}`, execAppOptions);
     execSync(
       'yarn ng g @o3r/localization:add-localization --defaults=true --path="src/components/test-add-localization-component/presenter/test-add-localization-component-pres.component.ts"',
       execAppOptions

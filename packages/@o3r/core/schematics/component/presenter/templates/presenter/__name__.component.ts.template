@@ -1,10 +1,8 @@
 <% if (standalone) { %>import {CommonModule} from '@angular/common';
 <% } %>import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
-<% if (useOtterAnalytics) { %>import {Trackable} from '@o3r/analytics';
-<% } %>import {O3rComponent} from '@o3r/core';
+import {O3rComponent} from '@o3r/core';
 import {Subscription} from 'rxjs';
-<% if (useOtterAnalytics) { %>import {analyticsEvents, <%= componentAnalytics %>} from './<%= name %>.analytics';
-<% } %><% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';
+<% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';
 <% } %>
 @O3rComponent({
   componentType: '<%= componentType %>'
@@ -12,7 +10,7 @@ import {Subscription} from 'rxjs';
 @Component({
   selector: '<%= componentSelector %>-pres',<% if (standalone) { %>
   standalone: true,
-  imports: [CommonModule<% if (useOtterAnalytics) { %>, TrackEventsModule<% } %>],<% } %>
+  imports: [CommonModule],<% } %>
   styleUrls: ['./<%= name %>.style.scss'],
   templateUrl: './<%= name %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,15 +18,9 @@ import {Subscription} from 'rxjs';
 })
 export class <%= componentName %> implements
   OnInit,
-  OnDestroy<% if (useOtterAnalytics) { %>,
-  Trackable<<%= componentAnalytics %>><% } %><% if (useContext) { %>,
+  OnDestroy<% if (useContext) { %>,
   <%= componentContext %><% } %> {
-  <% if (useOtterAnalytics) { %>/**
-   * @inheritdoc
-   */
-  public readonly analyticsEvents: <%= componentAnalytics %> = analyticsEvents;
-
-  <% } %>/**
+  /**
    * List of subscriptions to unsubscribe on destroy
    */
   private subscriptions: Subscription[] = [];

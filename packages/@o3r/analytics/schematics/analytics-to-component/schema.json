@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddAnalyticsSchematicsSchema",
+  "title": "Add Otter Analytics to an existing component",
+  "description": "Add Otter Analytics to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "activateDummy": {
+      "type": "boolean",
+      "description": "Generate dummy values",
+      "default": false,
+      "x-prompt": "Generate dummy analytics event"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

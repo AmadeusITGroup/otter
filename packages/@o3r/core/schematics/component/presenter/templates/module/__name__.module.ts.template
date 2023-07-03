@@ -1,10 +1,9 @@
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-<% if (useOtterAnalytics) { %>import {TrackEventsModule} from '@o3r/analytics';
-<% } %>import {<%= componentName %>} from './<%= name %>.component';
+import {<%= componentName %>} from './<%= name %>.component';
 
 @NgModule({
-  imports: [CommonModule<% if (useOtterAnalytics) { %>, TrackEventsModule<% } %>],
+  imports: [CommonModule],
   declarations: [<%= componentName %>],
   exports: [<%= componentName %>]
 })

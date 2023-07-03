@@ -4,8 +4,6 @@ import generateEnvironments from '@schematics/angular/environments/index';
 import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
 
-const COMPONENT_SCHEMATICS_NAME = '@o3r/core:component';
-
 /**
  * Update Otter environment variable for schematics
  *
@@ -49,20 +47,6 @@ export function updateOtterEnvironmentAdapter(
     const scope = packageJson.name!.split('/')[0];
 
     workspace.cli = workspace.cli || {};
-
-    const componentSchematicsOptions = {
-      ...(typeof options.enableAnalytics !== 'undefined' ? { useOtterAnalytics: options.enableAnalytics } : {})
-    };
-
-    if (!workspace.schematics) {
-      workspace.schematics = {};
-    }
-
-    workspace.schematics[COMPONENT_SCHEMATICS_NAME] = {
-      ...(workspace.schematics[COMPONENT_SCHEMATICS_NAME] || {} as any),
-      ...componentSchematicsOptions
-    };
-
 
     if (workspaceProject.projectType === 'application') {
       if (!workspaceProject.schematics) {

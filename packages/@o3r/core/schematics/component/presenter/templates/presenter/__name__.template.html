@@ -1,7 +1,2 @@
 <!-- Your component template -->
 <span><%= componentName %>, works!</span>
-<% if (activateDummy && useOtterAnalytics) { %><button trackClick [trackEventContextConstructor]="analyticsEvents.dummyEvent"></button>
-<button trackClick
-        [trackEventContextConstructor]="analyticsEvents.runtimeDummyEvent"
-        [trackEventContextConstructorParameters]="{runtimedata: 'runtimedata'}">
-</button><% } %>

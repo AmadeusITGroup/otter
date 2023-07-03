@@ -14,7 +14,8 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  getO3rComponentInfo} from '@o3r/schematics';
+  getO3rComponentInfo
+} from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, Change, InsertChange } from '@schematics/angular/utility/change';
 import { basename, dirname, resolve } from 'node:path';

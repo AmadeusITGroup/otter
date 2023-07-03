@@ -14,7 +14,7 @@
     "postbuild": "patch-package-json-exports",
     "build": "yarn nx build analytics",
     "prepare:compile": "cp-package-json",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
@@ -30,11 +30,15 @@
     "@ngrx/store": "~16.0.1",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
+    "@schematics/angular": "~16.0.5",
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
     "webpack": "~5.88.0"
   },
   "peerDependenciesMeta": {
+    "@schematics/angular": {
+      "optional": true
+    },
     "jasmine": {
       "optional": true
     },
@@ -69,6 +73,7 @@
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@schematics/angular": "~16.0.5",
     "@types/jasmine": "4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
