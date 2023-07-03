@@ -27,7 +27,7 @@ import {
 import { getLibraryNameFromPath } from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, Change } from '@schematics/angular/utility/change';
-import { basename, dirname } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddConfigSchematicsSchema } from './schema';
 
@@ -36,6 +36,13 @@ const configProperties = [
 ];
 
 const checkConfiguration = (componentPath: string, tree: Tree) => {
+  const files = [
+    resolve(dirname(componentPath), `./${basename(componentPath, '.component.ts')}.configuration.ts`)
+  ];
+  if (files.some((file) => tree.exists(file))) {
+    throw new Error(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);
+  }
+
   const componentSourceFile = ts.createSourceFile(
     componentPath,
     tree.readText(componentPath),

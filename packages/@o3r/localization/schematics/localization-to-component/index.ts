@@ -35,8 +35,8 @@ const localizationProperties = [
 
 const checkLocalization = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    resolve(componentPath, `./${baseFileName}.localization.json`),
-    resolve(componentPath, `./${baseFileName}.translation.ts`)
+    resolve(dirname(componentPath), `./${baseFileName}.localization.json`),
+    resolve(dirname(componentPath), `./${baseFileName}.translation.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);

@@ -15,12 +15,12 @@ import * as path from 'node:path';
 import { getAddConfigurationRules } from '../common/configuration';
 import { ComponentStructureDef } from '../structures.types';
 import { NgGenerateComponentContainerSchematicsSchema } from './schema';
+import { getAddFixtureRules } from '../common/fixture';
 
 export const CONTAINER_FOLDER = 'container';
 const MODULE_TEMPLATE_PATH = './templates/module';
 const CONTAINER_TEMPLATE_PATH = './templates/container';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
-const FIXTURE_TEMPLATE_PATH = './templates/fixture';
 
 /**
  * Generates the template properties
@@ -100,22 +100,21 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useComponentFixtures) {
-      rules.push(mergeWith(apply(url(FIXTURE_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
+    const componentPath = `${properties.name}.component.ts`;
 
     const configurationRules = await getAddConfigurationRules(
-      path.join(componentDestination, `${properties.name}.component.ts`),
+      path.join(componentDestination, componentPath),
       options,
       context
     );
     rules.push(...configurationRules);
+
+    const fixtureRules = await getAddFixtureRules(
+      path.join(componentDestination, componentPath),
+      options,
+      context
+    );
+    rules.push(...fixtureRules);
 
     return chain(rules);
   };

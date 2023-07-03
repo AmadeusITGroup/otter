@@ -1,12 +1,9 @@
 import {ChangeDetectionStrategy, DebugElement, Provider} from '@angular/core';
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {<% if (!standalone) { %>BrowserModule, <% } %>By} from '@angular/platform-browser';
-<% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';
-<% } %>import {<%= componentName %>} from './<%= name %>.component';
-<% if (useComponentFixtures) {%>import {<%= componentFixture %>Component} from './<%= name %>.fixture';
-<% } %>
-let component: <%= componentName %>;<% if (useComponentFixtures) {%>
-let componentFixture: <%= componentFixture %>Component;<% } %>
+import {<%= componentName %>} from './<%= name %>.component';
+
+let component: <%= componentName %>;
 let fixture: ComponentFixture<<%= componentName %>>;
 
 describe('<%= componentName %>', () => {
@@ -23,14 +20,12 @@ describe('<%= componentName %>', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(<%= componentName %>);
-    component = fixture.componentInstance;<% if (useComponentFixtures) {%>
-    componentFixture = new <%= componentFixture %>Component(new O3rElement(fixture.debugElement));<% } %>
+    component = fixture.componentInstance;
   });
 
   it('should define objects', () => {
     fixture.detectChanges();
-    expect(component).toBeDefined();<% if (useComponentFixtures) {%>
-    expect(componentFixture).toBeDefined();<% } %>
+    expect(component).toBeDefined();
   });
 
   it('should display the component name in a span', () => {
