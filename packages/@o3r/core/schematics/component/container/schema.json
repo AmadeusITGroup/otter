@@ -41,13 +41,14 @@
     "useComponentFixtures": {
       "type": "boolean",
       "description": "Generate component fixtures for tests",
-      "default": true,
-      "x-prompt": "Generate component fixtures for tests?"
+      "default": null,
+      "nullable": true
     },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate component with Otter configuration",
-      "default": null
+      "default": null,
+      "nullable": true
     },
     "useContext": {
       "type": "boolean",

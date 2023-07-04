@@ -31,16 +31,16 @@ import {
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
 import { getAddConfigurationRules } from '../common/configuration';
+import { getAddThemingRules } from '../common/theming';
+import { getAddLocalizationRules } from '../common/localization';
+import { getAddFixtureRules } from '../common/fixture';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
 const MODULE_TEMPLATE_PATH = './templates/module';
-const FIXTURE_TEMPLATE_PATH = './templates/fixture';
-const THEMING_TEMPLATE_PATH = './templates/theming';
 const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
 const STORYBOOK_TEMPLATE_PATH = './templates/storybook';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
-const LOCALIZATION_TEMPLATE_PATH = './templates/localization';
 
 /**
  * Generates the template properties
@@ -110,26 +110,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useComponentFixtures) {
-      rules.push(mergeWith(apply(url(FIXTURE_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
-    if (options.useOtterTheming) {
-      rules.push(mergeWith(apply(url(THEMING_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     if (options.useOtterAnalytics) {
       rules.push(mergeWith(apply(url(ANALYTICS_TEMPLATE_PATH), [
         template({
@@ -150,16 +130,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useLocalization) {
-      rules.push(mergeWith(apply(url(LOCALIZATION_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     if (options.useContext) {
       rules.push(mergeWith(apply(url(CONTEXT_TEMPLATE_PATH), [
         template({
@@ -170,12 +140,35 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
+    const componentPath = `${properties.name}.component.ts`;
+
     const configurationRules = await getAddConfigurationRules(
-      path.join(componentDestination, `${properties.name}.component.ts`),
+      path.join(componentDestination, componentPath),
       options,
       context
     );
     rules.push(...configurationRules);
+
+    const themingRules = await getAddThemingRules(
+      path.join(componentDestination, `${properties.name}.style.scss`),
+      options,
+      context
+    );
+    rules.push(...themingRules);
+
+    const localizationRules = await getAddLocalizationRules(
+      path.join(componentDestination, componentPath),
+      options,
+      context
+    );
+    rules.push(...localizationRules);
+
+    const fixtureRules = await getAddFixtureRules(
+      path.join(componentDestination, componentPath),
+      options,
+      context
+    );
+    rules.push(...fixtureRules);
 
     return chain(rules);
   };

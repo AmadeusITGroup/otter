@@ -43,7 +43,7 @@ export default class ExporterToolbar extends React.Component<ExporterToolbarProp
           );
         }}
       >
-        <IconButton key="exporter" title="Export Otter properties" rel autoFocus content rev>
+        <IconButton key="exporter" nonce="whatever" title="Export Otter properties" rel autoFocus content rev>
           <Icons icon="download" />
         </IconButton>
       </WithTooltip>

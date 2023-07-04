@@ -27,7 +27,7 @@ The following table provides the status of the Otter versions under support and 
 
 | Otter version | Angular version | Support ends |
 |---------------|-----------------|--------------|
-| ~8.1.0        | ^15.0.0         | 2024-05-18   |
+| ^8.2.0        | ^15.0.0         | 2024-05-18   |
 | ^7.6.0        | ^14.0.0         | 2023-11-18   |
 | ^6.3.0        | ^13.0.0         | 2023-05-04   |
 

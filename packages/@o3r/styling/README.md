@@ -22,3 +22,12 @@ ng add @o3r/styling
 ## Description
 
 Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/styling).
+
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                 | Description                                                    | How to use                        |
+| -------------------------- | -------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter styling module in a library / application.       | `ng add @o3r/styling`             |
+| theming-to-component       | Add theming to an Otter component                              | `ng g theming-to-component`       |

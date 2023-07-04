@@ -90,6 +90,16 @@ A component will have to handle different types of configurations.
 - the second priority is the one by component type set in the store
 - the lowest priority is the default config set on the component (in the config.ts file of the component)
 
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                 | Description                                                    | How to use                        |
+| -------------------------- | -------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter configuration module in a library / application. | `ng add @o3r/configuration`       |
+| configuration-to-component | Add configuration to an Otter component                        | `ng g configuration-to-component` |
+
+
 ## More details
 
 Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/configuraiton/OVERVIEW.md).

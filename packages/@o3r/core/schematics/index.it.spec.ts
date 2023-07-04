@@ -134,12 +134,23 @@ describe('new Otter application', () => {
 
     execSync('yarn ng g @o3r/core:page --defaults=true test-page --app-routing-module-path="src/app/app-routing.module.ts"', execAppOptions);
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --use-otter-config=false', execAppOptions);
+    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --use-otter-config=false --use-otter-theming=false', execAppOptions);
     addImportToAppModule('TestComponentContModule', 'src/components/test-component');
 
     execSync('yarn ng g @o3r/core:component --defaults=true test-add-config-component --use-otter-config=false', execAppOptions);
     execSync('yarn ng g @o3r/configuration:add-config --defaults=true --path="src/components/test-add-config-component/container/test-add-config-component-cont.component.ts"', execAppOptions);
     addImportToAppModule('TestAddConfigComponentContModule', 'src/components/test-add-config-component');
+
+    execSync('yarn ng g @o3r/core:component --defaults=true test-add-theming-component --use-otter-theming=false', execAppOptions);
+    execSync('yarn ng g @o3r/styling:add-theming --defaults=true --path="src/components/test-add-theming-component/presenter/test-add-theming-component-pres.style.scss"', execAppOptions);
+    addImportToAppModule('TestAddThemingComponentContModule', 'src/components/test-add-theming-component');
+
+    execSync('yarn ng g @o3r/core:component --defaults=true test-add-localization-component --use-localization=false', execAppOptions);
+    execSync(
+      'yarn ng g @o3r/localization:add-localization --defaults=true --path="src/components/test-add-localization-component/presenter/test-add-localization-component-pres.component.ts"',
+      execAppOptions
+    );
+    addImportToAppModule('TestAddLocalizationComponentContModule', 'src/components/test-add-localization-component');
 
     execSync('yarn ng g @schematics/angular:component test-ng-component', execAppOptions);
     execSync('yarn ng g @o3r/core:convert-component --defaults=true --path="src/app/test-ng-component/test-ng-component.component.ts"', execAppOptions);

@@ -144,3 +144,33 @@ export function registerPackageCollectionSchematics(packageJson: PackageJson, an
     return writeAngularJson(tree, registerCollectionSchematics(workspace, packageJson.name), angularJsonFile);
   };
 }
+
+/**
+ * Setup schematics default params in angular.json
+ *
+ * @param schematicsDefaultParams default params to setup by schematic
+ * @param angularJsonFile Path to the Angular.json file. Will use the workspace root's angular.json if not specified
+ */
+export function setupSchematicsDefaultParams(schematicsDefaultParams: Record<string, Record<string, any>>, angularJsonFile?: string): Rule {
+  return (tree: Tree) => {
+    const workspace = readAngularJson(tree, angularJsonFile);
+    workspace.schematics ||= {};
+    Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
+      workspace.schematics![schematicName] = {
+        ...workspace.schematics![schematicName],
+        ...defaultParams
+      };
+    });
+    Object.values(workspace.projects).forEach((project) => {
+      Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
+        if (project.schematics?.[schematicName]) {
+          project.schematics[schematicName] = {
+            ...project.schematics[schematicName],
+            ...defaultParams
+          };
+        }
+      });
+    });
+    return writeAngularJson(tree, workspace, angularJsonFile);
+  };
+}
