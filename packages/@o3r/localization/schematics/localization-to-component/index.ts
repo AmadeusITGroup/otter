@@ -7,6 +7,7 @@ import {
   noop,
   renameTemplateFiles,
   Rule,
+  schematic,
   SchematicContext,
   template,
   Tree,
@@ -71,7 +72,7 @@ const isTestBedConfiguration = (node: ts.Node): node is ts.ExpressionStatement &
   || (ts.isAwaitExpression(node) && isTestBedConfiguration(node.expression));
 
 /**
- * Add localization to an existing component
+ * Add localization architecture to an existing component
  *
  * @param options
  */
@@ -447,12 +448,20 @@ const mockTranslationsCompilerProvider: Provider = {
       tree.commitUpdate(recorder);
     };
 
+    const addDummyKeyRule: Rule = schematic('add-localization-key', {
+      path: options.path,
+      skipLinter: options.skipLinter,
+      key: 'dummyLoc1',
+      description: 'Dummy 1 description',
+      value: 'Dummy 1'
+    });
+
     return chain([
       createLocalizationFilesRule,
       updateComponentRule,
       updateSpecRule,
       standalone ? noop() : updateModuleRule,
-      options.activateDummy ? updateTemplateRule : noop(),
+      ...(options.activateDummy ? [addDummyKeyRule, updateTemplateRule] : []),
       options.skipLinter ? noop() : applyEsLintFix()
     ])(tree, context);
   };

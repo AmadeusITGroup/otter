@@ -1,9 +1,5 @@
 import type {Translation} from '@o3r/core';
 
-export interface <%= componentTranslation %> extends Translation {<% if (activateDummy) { %>
-  dummyLoc1: string;
-<% } %>}
+export interface <%= componentTranslation %> extends Translation {}
 
-export const translations: <%= componentTranslation %> = {<% if (activateDummy) { %>
-  dummyLoc1: '<%= componentSelector %>.dummyLoc1'
-<% } %>};
+export const translations: <%= componentTranslation %> = {};
