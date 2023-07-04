@@ -23,7 +23,7 @@
   "peerDependencies": {
     "jest-preset-stylelint": "~6.1.0",
     "postcss": "^8.4.4",
-    "stylelint": "^14.1.0"
+    "stylelint": "^15.0.0"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~16.0.3",
@@ -42,7 +42,7 @@
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "^27.2.1",
-    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-jsdoc": "^46.0.0",
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "jest": "~29.5.0",
@@ -50,7 +50,7 @@
     "nx": "~16.3.2",
     "postcss": "^8.4.4",
     "rimraf": "^5.0.0",
-    "stylelint": "^14.1.0",
+    "stylelint": "^15.0.0",
     "ts-jest": "^29.1.0",
     "typescript": "~5.0.2"
   }
