@@ -43,8 +43,8 @@
     "useComponentFixtures": {
       "type": "boolean",
       "description": "Generate component fixtures for tests",
-      "default": true,
-      "x-prompt": "Do you want to generate component fixtures for tests?"
+      "default": null,
+      "nullable": true
     },
     "useOtterTheming": {
       "type": "boolean",

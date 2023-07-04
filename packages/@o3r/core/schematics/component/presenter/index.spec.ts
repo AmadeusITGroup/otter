@@ -31,7 +31,6 @@ describe('Component presenter', () => {
     'test-component-pres.template.html',
     'README.md',
     'index.ts',
-    'test-component-pres.fixture.ts',
     'test-component-pres.stories.ts'
   ];
 
@@ -122,12 +121,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutFixture = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.fixture.ts');
-
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutFixture.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutFixture.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
-    );
+    expect(tree.files.filter((file) => /test-component-pres\.fixture\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a presenter component without otter theme', async () => {

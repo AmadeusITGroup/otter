@@ -21,7 +21,7 @@ export interface NgGenerateComponentSchematicsSchema extends JsonObject {
   path: string | null;
 
   /** Indicates if the component should generate fixtures */
-  useComponentFixtures: boolean;
+  useComponentFixtures: boolean | null;
 
   /** Indicates if the component should use otter theming architecture */
   useOtterTheming: boolean | null;
