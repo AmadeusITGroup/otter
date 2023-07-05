@@ -1,5 +1,5 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTestFramework, getWorkspaceConfig } from '@o3r/schematics';
+import { getTestFramework, getWorkspaceConfig, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
@@ -74,7 +74,21 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           dependencyType: dependencyType
         }),
         ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, options),
-        registerPackageCollectionSchematics(packageJson)
+        registerPackageCollectionSchematics(packageJson),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useComponentFixtures: undefined
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-container': {
+            useComponentFixtures: undefined
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-presenter': {
+            useComponentFixtures: undefined
+          }
+        })
       ];
 
       if (installJest) {
