@@ -15,7 +15,7 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@angular/cli": "~16.0.5",
+    "@angular/cli": "~16.1.0",
     "minimist": "^1.2.6"
   },
   "devDependencies": {
