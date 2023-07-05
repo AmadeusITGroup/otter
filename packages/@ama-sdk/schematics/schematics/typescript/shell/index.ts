@@ -54,6 +54,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       projectHosting: options.hosting,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
+      angularEslintVersion: amaSdkSchematicsPackageJson.devDependencies!['@angular-eslint/eslint-plugin'],
       versions,
       ...openApiSupportedVersion ? {openApiSupportedVersion} : {},
       engineVersions,
