@@ -21,7 +21,8 @@
     "@angular-devkit/core": "~16.0.5",
     "@angular-devkit/schematics": "~16.0.5",
     "@angular/cli": "~16.0.5",
-    "@schematics/angular": "~16.0.5"
+    "@schematics/angular": "~16.0.5",
+    "rxjs": "^7.8.1"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {

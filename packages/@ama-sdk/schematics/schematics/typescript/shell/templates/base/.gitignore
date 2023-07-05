@@ -9,8 +9,8 @@
 # Local configurations
 .custom.yo-rc.json
 
-# Swagger
-.swagger-codegen
+# Open API
+.openapi-generator
 
 # Optional eslint cache
 .eslintcache
