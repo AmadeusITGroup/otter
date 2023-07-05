@@ -22,7 +22,6 @@ export interface WorkspaceSchematics extends SchematicOptions {
   /** @deprecated */
   '@otter/ng-tools:component'?: {
     path: string;
-    useStorybook: boolean;
   };
   /** @deprecated */
   '@otter/ng-tools:service'?: {
@@ -39,7 +38,6 @@ export interface WorkspaceSchematics extends SchematicOptions {
 
   '@o3r/components:component'?: {
     path: string;
-    useStorybook: boolean;
   };
   '@o3r/services:service'?: {
     path: string;

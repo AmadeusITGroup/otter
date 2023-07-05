@@ -62,12 +62,6 @@
       "default": false,
       "x-prompt": "Do you want to generate your component with Otter analytics architecture?"
     },
-    "useStorybook": {
-      "type": "boolean",
-      "description": "Generate component stories for storybook",
-      "default": true,
-      "x-prompt": "Generate component stories for storybook?"
-    },
     "useLocalization": {
       "type": "boolean",
       "description": "Generate component with localization",

@@ -42,7 +42,6 @@ function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema
     useOtterTheming: options.useOtterTheming,
     useOtterConfig: options.useOtterConfig,
     path: options.path,
-    useStorybook: options.useStorybook,
     useLocalization: options.useLocalization,
     useContext: options.useContext,
     activateDummy: options.activateDummy,

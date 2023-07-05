@@ -97,7 +97,6 @@ Otter framework provides a set of code generators based on [angular schematics](
 | store-simple-async         | Create a simple async new store in your library / application.                | `ng g store-simple-async`         |
 | store-simple-sync          | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`          |
 | store-action               | Create an action into an existing store.                                      | `ng g store-action`               |
-| storybook-component        | Create an Storybook file for a presenter.                                     | `ng g storybook-component`        |
 | renovate-bot               | Create a basic Renovate Bot                                                   | `ng g renovate-bot`               |
 | module                     | Create a new Otter compatible module in your monorepo                         | `ng g module`                     |
 | ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
