@@ -29,7 +29,7 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "useDaemonProcess": false,
         "cacheableOperations": [
@@ -51,6 +51,7 @@
           "build-fixtures",
           "build-fixtures-jasmine",
           "build-fixtures-jest",
+          "copy-assets",
           "documentation",
           "extract-translations",
           "extract-components",
@@ -249,7 +250,9 @@
       "outputs": [
         "{workspaceRoot}/generated-doc/{projectName}/**/*"
       ],
-      "inputs": ["source"]
+      "inputs": [
+        "source"
+      ]
     }
   },
   "generators": {

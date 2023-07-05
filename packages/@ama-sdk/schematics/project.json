@@ -33,7 +33,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -43,8 +43,7 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/schematics/schematics/**/*.ts",
-          "!packages/@ama-sdk/schematics/schematics/**/templates/**"
+          "packages/@ama-sdk/schematics/schematics/**/*.ts"
         ]
       }
     },
@@ -62,17 +61,17 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/schematics/jest.config.js",
         "silent": true
       }
     },
     "test-int": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/schematics/testing/jest.config.it.js",
-        "silent": true
+        "silent": false
       }
     },
     "prepare-publish": {

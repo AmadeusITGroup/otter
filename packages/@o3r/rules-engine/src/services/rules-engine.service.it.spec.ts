@@ -3,11 +3,9 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 import { EffectsModule } from '@ngrx/effects';
 import { select, Store, StoreModule } from '@ngrx/store';
-import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { computeConfigurationName, ConfigOverrideStore, ConfigOverrideStoreModule, ConfigurationStoreModule, selectConfigOverride } from '@o3r/configuration';
-import { LocalizationModule, translateLoaderProvider, TranslateMessageFormatLazyCompiler } from '@o3r/localization';
-import { RulesetsStore, RulesetsStoreModule, setRulesetsEntities } from '@o3r/rules-engine';
-import { selectCurrentShoppingCart, selectShoppingCart, setShoppingCartEntity, setXmasHampersInCart, ShoppingCartStore, ShoppingCartStoreModule } from '../../testing/mocks/stores/shopping-cart/index';
+import { LocalizationModule } from '@o3r/localization';
+import { mockTranslationModules } from '@o3r/testing/localization';
 import { BehaviorSubject, firstValueFrom, Observable, of } from 'rxjs';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { jsonOneRulesetOneRuleNoCondPlaceholder } from '../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
@@ -18,12 +16,14 @@ import { jsonOneRulesetThreeRulesUndefinedFactUsed } from '../../testing/mocks/o
 import { jsonOneRulesetTwoNestedRules } from '../../testing/mocks/oneruleset-twonestedrules.mock';
 import { jsonOneRulesetTwoRules } from '../../testing/mocks/oneruleset-tworules.mock';
 import { jsonOneRulesetValidOneRuleNoCond } from '../../testing/mocks/onerulesetvalid-onerule-nocond.mock';
+import { selectCurrentShoppingCart, selectShoppingCart, setShoppingCartEntity, setXmasHampersInCart, ShoppingCartStore, ShoppingCartStoreModule } from '../../testing/mocks/stores/shopping-cart/index';
+import { ShoppingCart } from '../../testing/mocks/stores/shopping-cart/shopping-cart.model';
 import { jsonTwoRulesetsOneOnDemand } from '../../testing/mocks/tworulesets-one-ondemand';
 import { jsonTwoRulesetTwoRulesNoContext } from '../../testing/mocks/tworulesets-tworules-nocontext.mock';
-import { RulesEngineService } from './rules-engine.service';
 import { jsonTwoRulesetTwoRules } from '../../testing/mocks/tworulesets-tworules.mock';
 import { xmasHamper } from '../../testing/mocks/xmas-hamper.mock';
-import { ShoppingCart } from '../../testing/mocks/stores/shopping-cart/shopping-cart.model';
+import { RulesetsStore, RulesetsStoreModule, setRulesetsEntities } from '../stores/index';
+import { RulesEngineService } from './rules-engine.service';
 
 describe('Rules engine service', () => {
 
@@ -57,13 +57,7 @@ describe('Rules engine service', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot(),
         LocalizationModule.forRoot(),
-        TranslateModule.forRoot({
-          loader: translateLoaderProvider,
-          compiler: {
-            provide: TranslateCompiler,
-            useClass: TranslateMessageFormatLazyCompiler
-          }
-        }),
+        ...mockTranslationModules(),
         RulesetsStoreModule,
         ConfigurationStoreModule,
         ConfigOverrideStoreModule,
@@ -334,12 +328,10 @@ describe('Rules engine service', () => {
   });
 
 
-  it('Placeholder actions should be processed properly', (done) => {
+  it('Placeholder actions should be processed properly', async () => {
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetOneRuleNoCondPlaceholder.ruleSets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(1);
-      expect(actions[0].actionType).toBe('UPDATE_PLACEHOLDER');
-      done();
-    });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(1);
+    expect(actions[0].actionType).toBe('UPDATE_PLACEHOLDER');
   });
 });

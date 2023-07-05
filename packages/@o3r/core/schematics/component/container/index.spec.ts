@@ -29,8 +29,7 @@ describe('Component container', () => {
     'test-component-cont.spec.ts',
     'test-component-cont.template.html',
     'README.md',
-    'index.ts',
-    'test-component-cont.fixture.ts'
+    'index.ts'
   ];
 
   beforeEach(() => {
@@ -112,12 +111,20 @@ describe('Component container', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutFixture = expectedFileNames.filter((fileName) => fileName !== 'test-component-cont.fixture.ts');
+    expect(tree.files.filter((file) => /test-component-cont\.fixture\.ts$/.test(file)).length).toBe(0);
+  });
 
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutFixture.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutFixture.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'container')))
-    );
+  it('should throw if generate a container component with otter fixture, as @o3r/testing is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-container', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'container',
+      useComponentFixtures: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
   });
 
   it('should throw if generate a container component with otter configuration, as @o3r/configuration is not installed', async () => {

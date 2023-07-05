@@ -1,9 +1,8 @@
 <% if (componentStructure === 'full') { %>import {Component} from '@angular/core';
 <% } %>import {ComponentFixture, TestBed} from '@angular/core/testing';
 <% if (!standalone) { %>import {BrowserModule} from '@angular/platform-browser';
-<% } %><% if (useComponentFixtures) {%>import {O3rElement} from '@o3r/testing/core';<% } %>
+<% } %>
 import {<%= componentName %>} from './<%= name %>.component';
-<% if (useComponentFixtures) {%>import {<%= componentFixture %>Component} from './<%= name %>.fixture';<% } %>
 
 <% if (componentStructure === 'full') { %>@Component({
   selector: '<%= componentSelector %>-pres',
@@ -13,8 +12,7 @@ import {<%= componentName %>} from './<%= name %>.component';
 class Mock<%= blockName %>PresComponent {}
 
 <% } %>describe('<%= componentName %>', () => {
-  let component: <%= componentName %>;<% if (useComponentFixtures) {%>
-  let componentFixture: <%= componentFixture %>Component;<% } %>
+  let component: <%= componentName %>;
   let fixture: ComponentFixture<<%= componentName %>>;
 
   beforeEach(async () => {
@@ -26,14 +24,11 @@ class Mock<%= blockName %>PresComponent {}
 
   beforeEach(() => {
     fixture = TestBed.createComponent(<%= componentName %>);
-    component = fixture.componentInstance;<% if (useComponentFixtures) {%>
-    componentFixture = new <%= componentFixture %>Component(new O3rElement(fixture.debugElement));<% } %>
+    component = fixture.componentInstance;
   });
 
   it('should define objects', () => {
     fixture.detectChanges();
-    expect(component).toBeDefined();<% if (useComponentFixtures) {%>
-    expect(componentFixture).toBeDefined();<% }
-    %>
+    expect(component).toBeDefined();
   });
 });

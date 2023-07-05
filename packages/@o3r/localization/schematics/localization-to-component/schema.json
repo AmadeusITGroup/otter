@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddLocalizationSchematicsSchema",
+  "title": "Add Otter Localization to an existing component",
+  "description": "Add Otter Localization to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "specFilePath": {
+      "type": "string",
+      "description": "Path to spec file of the component",
+      "default": null,
+      "nullable": true
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "activateDummy": {
+      "type": "boolean",
+      "description": "Generate dummy values",
+      "default": false,
+      "x-prompt": "Generate dummy localization"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

@@ -10,6 +10,6 @@ module.exports = {
   ],
   'rules': {
     'jest/no-conditional-expect': 'warn',
-    'jest/no-done-callback': 'warn',
+    'jest/no-done-callback': 'warn'
   }
 };

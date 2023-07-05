@@ -7,7 +7,8 @@
   },
   "include": [
     "./src/**/*.spec.ts",
-    "./builders/**/*.spec.ts"
+    "./builders/**/*.spec.ts",
+    "./schematics/**/*.spec.ts"
   ],
   "exclude": []
 }
