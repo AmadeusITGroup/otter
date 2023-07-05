@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddFixtureSchematicsSchema",
+  "title": "Add Otter Fixture to an existing component",
+  "description": "Add Otter Fixture to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the spec file of the component"
+    },
+    "specFilePath": {
+      "type": "string",
+      "description": "Path to spec file of the component",
+      "default": ""
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

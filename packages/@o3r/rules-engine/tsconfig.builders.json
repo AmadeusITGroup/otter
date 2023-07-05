@@ -6,7 +6,9 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+    "tsBuildInfoFile": "build/.tsbuildinfo.builders",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "builders/**/*.ts",

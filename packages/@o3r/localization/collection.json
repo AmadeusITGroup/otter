@@ -6,6 +6,12 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "localization-to-component": {
+      "description": "Add Otter Localization to an existing component",
+      "factory": "./schematics/localization-to-component/index#ngAddLocalization",
+      "schema": "./schematics/localization-to-component/schema.json",
+      "aliases": ["add-localization"]
     }
   }
 }

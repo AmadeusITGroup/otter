@@ -25,16 +25,12 @@ describe('Component presenter', () => {
   const expectedFileNames = [
     'test-component-pres.component.ts',
     'test-component-pres.context.ts',
-    'test-component-pres.localization.json',
     'test-component-pres.module.ts',
     'test-component-pres.spec.ts',
     'test-component-pres.style.scss',
     'test-component-pres.template.html',
-    'test-component-pres.translation.ts',
     'README.md',
     'index.ts',
-    'test-component-pres.fixture.ts',
-    'test-component-pres.style.theme.scss',
     'test-component-pres.stories.ts'
   ];
 
@@ -125,12 +121,7 @@ describe('Component presenter', () => {
       path: 'src/components'
     }, initialTree);
 
-    const expectedFileNamesWithoutFixture = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.fixture.ts');
-
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutFixture.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutFixture.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
-    );
+    expect(tree.files.filter((file) => /test-component-pres\.fixture\.ts$/.test(file)).length).toBe(0);
   });
 
   it('should generate a presenter component without otter theme', async () => {
@@ -154,21 +145,30 @@ describe('Component presenter', () => {
     );
   });
 
-  it('should generate a presenter component without translation', async () => {
+  it('should throw if generate a presenter component with otter theming, as @o3r/styling is not installed', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('component-presenter', {
+
+    await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
-      useComponentFixtures: false,
-      activateDummy: false,
+      useOtterTheming: true,
       path: 'src/components'
-    }, initialTree);
+    }, initialTree)).rejects.toThrow();
+  });
 
-    expect(tree.readContent(tree.files.find((file) => /\.localization\.json$/i.test(file))!).replace(/[\s\r\n]/g, '')).toBe('{}');
-    expect(tree.readContent(tree.files.find((file) => /\.translation\.ts$/i.test(file))!).replace(/[\s\r\n]/g, '')).toMatch(/extendsTranslation\{\}/);
-    expect(tree.readContent(tree.files.find((file) => /\.translation\.ts$/i.test(file))!).replace(/[\s\r\n]/g, '')).toMatch(/exportconsttranslations:[a-zA-Z0-9]+=\{\}/);
+  it('should throw if generate a presenter component with otter localization, as @o3r/localization is not installed', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+
+    await expect(runner.runSchematic('component-presenter', {
+      projectName: 'test-project',
+      componentName,
+      prefix: 'o3r',
+      componentStructure: 'presenter',
+      useLocalization: true,
+      path: 'src/components'
+    }, initialTree)).rejects.toThrow();
   });
 
   it('should generate a presenter component without storybook', async () => {

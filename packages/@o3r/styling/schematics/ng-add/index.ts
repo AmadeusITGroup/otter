@@ -1,4 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { NgAddSchematicsSchema } from './schema';
 
@@ -12,9 +13,17 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     try {
-      const {getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const {
+        getO3rPeerDeps,
+        getProjectDepType,
+        ngAddPackages,
+        ngAddPeerDependencyPackages,
+        removePackages,
+        registerPackageCollectionSchematics,
+        setupSchematicsDefaultParams,
+        updateSassImports
+      } = await import('@o3r/schematics');
       const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
-      const {updateSassImports} = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
@@ -29,6 +38,17 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
           dependencyType
+        }),
+        registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useOtterTheming: null
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-presenter': {
+            useOtterTheming: null
+          }
         }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, depsInfo.packageName)
       ])(tree, context);

@@ -16,6 +16,12 @@
       "description": "Generate a Playwright sanity into the project.",
       "factory": "./schematics/playwright/sanity/index#ngGeneratePlaywrightSanity",
       "schema": "./schematics/playwright/sanity/schema.json"
+    },
+    "fixture-to-component": {
+      "description": "Add Otter Fixture to an existing component",
+      "factory": "./schematics/fixture-to-component/index#ngAddFixture",
+      "schema": "./schematics/fixture-to-component/schema.json",
+      "aliases": ["add-fixture"]
     }
   }
 }

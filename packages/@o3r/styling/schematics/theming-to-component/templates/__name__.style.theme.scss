@@ -1,6 +1,5 @@
 @use '@o3r/styling' as o3r;
 
-$palette: o3r.get-mandatory(o3r.$default-theme, 'highlight');
 $palette-primary: o3r.get-mandatory(o3r.$default-theme, 'primary');
 
 // list of variables used by the component

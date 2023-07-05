@@ -68,7 +68,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
       o3rInsertImportToModuleFile(name, file, fileInfo.sourceFile!, rec, fileInfo.moduleFilePath!, isDefault);
 
     /**
-     * Add elements in the metadata of the ngModule (entryComponents, imports etc.)
+     * Add elements in the metadata of the ngModule (customComponents, imports etc.)
      *
      * @param rec
      * @param metadataField
@@ -100,7 +100,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeCustomProviders', '../customization/custom-providers.empty');
 
     updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'imports', '...entry.customComponentsModules');
-    updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'entryComponents', '...entry.customComponents');
     updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'providers', '...customProviders');
     updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'imports', 'C11nModule.forRoot({registerCompFunc: registerCustomComponents})');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'C11nModule', '@o3r/components');

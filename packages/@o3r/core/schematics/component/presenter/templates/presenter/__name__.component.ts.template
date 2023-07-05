@@ -1,12 +1,10 @@
 <% if (standalone) { %>import {CommonModule} from '@angular/common';
-<% } %>import {ChangeDetectionStrategy, Component, <% if (useLocalization) { %>Input, <% } %>OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+<% } %>import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 <% if (useOtterAnalytics) { %>import {Trackable} from '@o3r/analytics';
 <% } %>import {O3rComponent} from '@o3r/core';
-<% if (useLocalization) { %>import {Localization, Translatable} from '@o3r/localization';
-<% } %>import {Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 <% if (useOtterAnalytics) { %>import {analyticsEvents, <%= componentAnalytics %>} from './<%= name %>.analytics';
 <% } %><% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';
-<% } %><% if (useLocalization) { %>import {<%= componentTranslation %>, translations} from './<%= name %>.translation';
 <% } %>
 @O3rComponent({
   componentType: '<%= componentType %>'
@@ -14,7 +12,7 @@
 @Component({
   selector: '<%= componentSelector %>-pres',<% if (standalone) { %>
   standalone: true,
-  imports: [CommonModule<% if (useLocalization) { %>, LocalizationModule<% } %><% if (useOtterAnalytics) { %>, TrackEventsModule<% } %>],<% } %>
+  imports: [CommonModule<% if (useOtterAnalytics) { %>, TrackEventsModule<% } %>],<% } %>
   styleUrls: ['./<%= name %>.style.scss'],
   templateUrl: './<%= name %>.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,18 +20,10 @@
 })
 export class <%= componentName %> implements
   OnInit,
-  OnDestroy<% if (useLocalization) { %>,
-  Translatable<<%= componentTranslation %>><% } %><% if (useOtterAnalytics) { %>,
+  OnDestroy<% if (useOtterAnalytics) { %>,
   Trackable<<%= componentAnalytics %>><% } %><% if (useContext) { %>,
   <%= componentContext %><% } %> {
-  <% if (useLocalization) { %>/**
-   * Localization of the component
-   */
-  @Input()
-  @Localization('./<%= name %>.localization.json')
-  public translations: <%= componentTranslation %>;
-
-  <% } %><% if (useOtterAnalytics) { %>/**
+  <% if (useOtterAnalytics) { %>/**
    * @inheritdoc
    */
   public readonly analyticsEvents: <%= componentAnalytics %> = analyticsEvents;
@@ -42,10 +32,6 @@ export class <%= componentName %> implements
    * List of subscriptions to unsubscribe on destroy
    */
   private subscriptions: Subscription[] = [];
-
-  constructor() {<% if (useLocalization) { %>
-    this.translations = translations;<% } %>
-  }
 
   public ngOnInit() {
     // Run on component initialization

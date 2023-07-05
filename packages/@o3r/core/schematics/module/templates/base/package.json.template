@@ -43,10 +43,9 @@
     "@angular/core": "<%= versions['angular'] %>",
     "@angular/platform-browser": "<%= versions['angular'] %>",
     "@angular/platform-browser-dynamic": "<%= versions['angular'] %>",
-<% if (isNxContext) { %>    "@nrwl/cli": "<%= versions['nrwl'] %>",
-    "@nrwl/jest": "<%= versions['nrwl'] %>",
-    "@nrwl/js": "<%= versions['nrwl'] %>",
-    "@nrwl/linter": "<%= versions['nrwl'] %>",
+<% if (isNxContext) { %>    "@nx/jest": "<%= versions['nrwl'] %>",
+    "@nx/js": "<%= versions['nrwl'] %>",
+    "@nx/linter": "<%= versions['nrwl'] %>",
 <% } %>
     "@o3r/dev-tools": "<%= otterVersion %>",
     "@o3r/eslint-plugin": "<%= otterVersion %>",

@@ -43,19 +43,20 @@
     "useComponentFixtures": {
       "type": "boolean",
       "description": "Generate component fixtures for tests",
-      "default": true,
-      "x-prompt": "Do you want to generate component fixtures for tests?"
+      "default": null,
+      "nullable": true
     },
     "useOtterTheming": {
       "type": "boolean",
       "description": "Generate component with Otter theming architecture",
-      "default": true,
-      "x-prompt": "Do you want to generate your component with Otter theming architecture?"
+      "default": null,
+      "nullable": true
     },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate component with Otter configuration",
-      "default": null
+      "default": null,
+      "nullable": true
     },
     "useStorybook": {
       "type": "boolean",
@@ -64,7 +65,9 @@
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate component with localization"
+      "description": "Generate component with localization",
+      "nullable": true,
+      "default": null
     },
     "useContext": {
       "type": "boolean",

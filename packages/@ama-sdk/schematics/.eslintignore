@@ -1,2 +1,2 @@
-src/**/templates/**/*.ts
-src/**/templates/**/*.js
+schematics/**/templates/**/*.ts
+schematics/**/templates/**/*.js
