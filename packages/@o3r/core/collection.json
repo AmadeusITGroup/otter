@@ -22,6 +22,12 @@
       "factory": "./schematics/component/index#ngGenerateComponent",
       "schema": "./schematics/component/schema.json"
     },
+    "context-to-component": {
+      "description": "Add Otter Context to an existing component",
+      "factory": "./schematics/context-to-component/index#ngAddContext",
+      "schema": "./schematics/context-to-component/schema.json",
+      "aliases": ["add-context"]
+    },
     "component-container": {
       "description": "Generate an Otter container component into the project.",
       "factory": "./schematics/component/container/index#ngGenerateComponentContainer",

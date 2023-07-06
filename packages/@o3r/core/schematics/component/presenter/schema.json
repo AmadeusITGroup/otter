@@ -71,7 +71,8 @@
     "useContext": {
       "type": "boolean",
       "description": "Generate component context",
-      "default": true
+      "nullable": true,
+      "default": null
     },
     "description": {
       "type": "string",

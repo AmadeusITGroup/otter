@@ -33,7 +33,7 @@ export interface NgGenerateComponentSchematicsSchema extends JsonObject {
   useLocalization: boolean;
 
   /** Indicates if the component should use generate context */
-  useContext: boolean;
+  useContext: boolean | null;
 
   /** Determine if the dummy IO should be generated */
   activateDummy: boolean | null;
