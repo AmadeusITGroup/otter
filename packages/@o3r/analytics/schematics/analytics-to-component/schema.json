@@ -16,8 +16,7 @@
     "activateDummy": {
       "type": "boolean",
       "description": "Generate dummy values",
-      "default": false,
-      "x-prompt": "Generate dummy analytics event"
+      "default": false
     }
   },
   "additionalProperties": true,

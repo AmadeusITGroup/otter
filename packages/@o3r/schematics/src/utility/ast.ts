@@ -225,3 +225,74 @@ export const sortClassElement = (classElement1: ts.ClassElement, classElement2: 
     }
   }
 };
+
+/**
+ * Returns a TransformerFactory to add an interface to a class
+ *
+ * @param interfaceToAdd
+ * @param classIdentifier
+ */
+export const addInterfaceToClassTransformerFactory = (
+  interfaceToAdd: string,
+  classIdentifier: (node: ts.ClassDeclaration) => boolean = () => true
+): ts.TransformerFactory<ts.Node> => {
+  return (ctx) => (rootNode) => {
+    const { factory } = ctx;
+    const visit = (node: ts.Node): ts.Node => {
+      if (ts.isClassDeclaration(node) && classIdentifier(node)) {
+        const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
+        const interfaceToImplements = generateImplementsExpressionWithTypeArguments(interfaceToAdd);
+
+        const newImplementsClauses = implementsClauses
+          ? factory.updateHeritageClause(implementsClauses, [...implementsClauses.types, ...interfaceToImplements])
+          : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
+
+        const heritageClauses: ts.HeritageClause[] = [...(node.heritageClauses || [])]
+          .filter((h: ts.HeritageClause) => h.token !== ts.SyntaxKind.ImplementsKeyword)
+          .concat(newImplementsClauses);
+
+        const newModifiers = ([] as ts.ModifierLike[])
+          .concat(ts.getDecorators(node) || [])
+          .concat(ts.getModifiers(node) || []);
+
+        return factory.updateClassDeclaration(
+          node,
+          newModifiers,
+          node.name,
+          node.typeParameters,
+          heritageClauses,
+          node.members
+        );
+      }
+      return ts.visitEachChild(node, visit, ctx);
+    };
+    return ts.visitNode(rootNode, visit);
+  };
+};
+
+/**
+ * Add comment on class properties
+ *
+ * @param classElements
+ * @param comments Dictionnary of comment indexed by properties' name
+ */
+export const addCommentsOnClassProperties = (
+  classElements: ts.ClassElement[],
+  comments: Record<string, string>
+) => {
+  classElements.filter((classElement): classElement is ts.PropertyDeclaration & { name: ts.Identifier } =>
+    ts.isPropertyDeclaration(classElement)
+    && ts.isIdentifier(classElement.name)
+  ).forEach((classElement) => {
+    const comment = comments[classElement.name.escapedText.toString()];
+    if (!comment) {
+      return;
+    }
+    ts.addSyntheticLeadingComment(
+      classElement,
+      ts.SyntaxKind.MultiLineCommentTrivia,
+      `* ${comment}`,
+      true
+    );
+  });
+};

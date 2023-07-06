@@ -38,11 +38,6 @@
       "factory": "./schematics/component/presenter/index#ngGenerateComponentPresenter",
       "schema": "./schematics/component/presenter/schema.json"
     },
-    "fixture": {
-      "description": "Adding functions to an Otter fixture based on a selector and default methods",
-      "factory": "./schematics/fixture/index#ngAddFunctionsToFixture",
-      "schema": "./schematics/fixture/schema.json"
-    },
     "service": {
       "description": "Generate an Otter service into the project.",
       "factory": "./schematics/service/index#ngGenerateService",

@@ -18,14 +18,13 @@ describe('Fixture', () => {
     const filePath = 'example-empty.fixture.ts';
     initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example-empty.fixture.ts.mock')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('fixture', {
+    const tree = await runner.runSchematic('add-functions-to-fixture', {
       path: filePath,
       methods: ['getText'],
       selector: '.test'
     }, initialTree);
 
     const content = tree.readContent(filePath);
-    console.log(content);
     expect(content).toContain('SELECTOR_TEST');
     expect(content).toContain('getTestText(): Promise<string | undefined>');
   });
@@ -34,14 +33,13 @@ describe('Fixture', () => {
     const filePath = 'example.fixture.ts';
     initialTree.create(filePath, fs.readFileSync(path.join(__dirname, 'mocks/example.fixture.ts.mock')));
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('fixture', {
+    const tree = await runner.runSchematic('add-functions-to-fixture', {
       path: filePath,
       methods: ['getText'],
       selector: '.test'
     }, initialTree);
 
     const content = tree.readContent(filePath);
-    console.log(content);
     expect(content).toContain('SELECTOR_TEST');
     expect(content).toContain('getTestText(): Promise<string | undefined>');
   });

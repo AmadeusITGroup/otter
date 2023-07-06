@@ -15,20 +15,22 @@ import {
 } from '@angular-devkit/schematics';
 import { getPropertyFromDecoratorFirstArgument } from '@o3r/schematics';
 import {
+  addCommentsOnClassProperties,
+  addImportsRule,
   applyEsLintFix,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
-  generateImplementsExpressionWithTypeArguments,
-  getO3rComponentInfo,
+  getO3rComponentInfoOrThrowIfNotFound,
   isNgClassDecorator,
   isO3rClassComponent,
   sortClassElement
 } from '@o3r/schematics';
-import { addImportToModule, insertImport } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, Change, InsertChange } from '@schematics/angular/utility/change';
-import { basename, dirname, resolve } from 'node:path';
+import { addImportToModule } from '@schematics/angular/utility/ast-utils';
+import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
+import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddLocalizationSchematicsSchema } from './schema';
+import { addInterfaceToClassTransformerFactory } from '@o3r/schematics';
 
 const localizationProperties = [
   'translations'
@@ -36,8 +38,8 @@ const localizationProperties = [
 
 const checkLocalization = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    resolve(dirname(componentPath), `./${baseFileName}.localization.json`),
-    resolve(dirname(componentPath), `./${baseFileName}.translation.ts`)
+    posix.resolve(dirname(componentPath), `./${baseFileName}.localization.json`),
+    posix.resolve(dirname(componentPath), `./${baseFileName}.translation.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -79,7 +81,7 @@ const isTestBedConfiguration = (node: ts.Node): node is ts.ExpressionStatement &
 export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const baseFileName = basename(options.path, '.component.ts');
-    const { name, selector, standalone, templateRelativePath } = getO3rComponentInfo(tree, options.path);
+    const { name, selector, standalone, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
     checkLocalization(options.path, tree, baseFileName);
 
@@ -91,19 +93,13 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
     };
 
     const createLocalizationFilesRule: Rule = mergeWith(apply(url('./templates'), [
-      template({ ...properties }),
+      template(properties),
       renameTemplateFiles(),
       move(dirname(options.path))
     ]), MergeStrategy.Overwrite);
 
-    const updateComponentRule: Rule = () => {
-      let componentSourceFile = ts.createSourceFile(
-        options.path,
-        tree.readText(options.path),
-        ts.ScriptTarget.ES2020,
-        true
-      );
-      const imports = [
+    const updateComponentRule: Rule = chain([
+      addImportsRule(options.path, [
         {
           from: '@angular/core',
           importNames: [
@@ -125,163 +121,129 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
             properties.componentTranslation
           ]
         }
-      ];
-      const recorder = tree.beginUpdate(options.path);
-      const changes = imports.reduce((acc: Change[], { importNames, from }) => acc.concat(
-        importNames.map((importName) =>
-          insertImport(componentSourceFile, options.path, importName, from)
-        )
-      ), []);
-      applyToUpdateRecorder(recorder, changes);
-      tree.commitUpdate(recorder);
-
-      componentSourceFile = ts.createSourceFile(
-        options.path,
-        tree.readText(options.path),
-        ts.ScriptTarget.ES2020,
-        true
-      );
-      const result = ts.transform(componentSourceFile, [(ctx) => (rootNode: ts.Node) => {
-        const { factory } = ctx;
-        const visit = (node: ts.Node): ts.Node => {
-          if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
-            const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
-            const interfaceToImplements = generateImplementsExpressionWithTypeArguments(`Translatable<${properties.componentTranslation}>`);
-
-            const newImplementsClauses = implementsClauses
-              ? factory.updateHeritageClause(implementsClauses, [...implementsClauses.types, ...interfaceToImplements])
-              : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
-
-            const propertiesToAdd = generateClassElementsFromString(`
+      ]),
+      () => {
+        const componentSourceFile = ts.createSourceFile(
+          options.path,
+          tree.readText(options.path),
+          ts.ScriptTarget.ES2020,
+          true
+        );
+        const result = ts.transform(componentSourceFile, [
+          addInterfaceToClassTransformerFactory(`Translatable<${properties.componentTranslation}>`, isO3rClassComponent),
+          (ctx) => (rootNode: ts.Node) => {
+            const { factory } = ctx;
+            const visit = (node: ts.Node): ts.Node => {
+              if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
+                const propertiesToAdd = generateClassElementsFromString(`
               @Input()
               public translations: ${properties.componentTranslation};
             `);
-            const constructorDeclaration = node.members.find((classElement): classElement is ts.ConstructorDeclaration => ts.isConstructorDeclaration(classElement));
+                const constructorDeclaration = node.members.find((classElement): classElement is ts.ConstructorDeclaration => ts.isConstructorDeclaration(classElement));
 
-            const localizationConstructorBlockStatements = generateBlockStatementsFromString('this.translations = translations;');
+                const localizationConstructorBlockStatements = generateBlockStatementsFromString('this.translations = translations;');
 
-            const newContructorDeclaration = constructorDeclaration
-              ? factory.updateConstructorDeclaration(
-                constructorDeclaration,
-                ts.getModifiers(constructorDeclaration) || [],
-                constructorDeclaration.parameters,
-                constructorDeclaration.body ? factory.updateBlock(
-                  constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
-                ) : factory.createBlock(localizationConstructorBlockStatements, true)
-              ) : factory.createConstructorDeclaration(
-                [],
-                [],
-                factory.createBlock(localizationConstructorBlockStatements, true)
-              );
+                const newContructorDeclaration = constructorDeclaration
+                  ? factory.updateConstructorDeclaration(
+                    constructorDeclaration,
+                    ts.getModifiers(constructorDeclaration) || [],
+                    constructorDeclaration.parameters,
+                    constructorDeclaration.body ? factory.updateBlock(
+                      constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
+                    ) : factory.createBlock(localizationConstructorBlockStatements, true)
+                  ) : factory.createConstructorDeclaration(
+                    [],
+                    [],
+                    factory.createBlock(localizationConstructorBlockStatements, true)
+                  );
 
 
-            const ngDecorator = (ts.getDecorators(node) || []).find(isNgClassDecorator)!;
-            const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
-            const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
-            const newNgDecorator = standalone ? factory.updateDecorator(
-              ngDecorator,
-              factory.updateCallExpression(
-                ngDecorator.expression,
-                ngDecorator.expression.expression,
-                ngDecorator.expression.typeArguments,
-                [
-                  factory.createObjectLiteralExpression([
-                    ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
-                    factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                      importsList.concat(factory.createIdentifier('LocalizationModule')),
-                      true
-                    ))
-                  ], true)
-                ]
-              )
-            ) : ngDecorator;
+                const ngDecorator = (ts.getDecorators(node) || []).find(isNgClassDecorator)!;
+                const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
+                const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
+                const newNgDecorator = standalone ? factory.updateDecorator(
+                  ngDecorator,
+                  factory.updateCallExpression(
+                    ngDecorator.expression,
+                    ngDecorator.expression.expression,
+                    ngDecorator.expression.typeArguments,
+                    [
+                      factory.createObjectLiteralExpression([
+                        ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
+                        factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                          importsList.concat(factory.createIdentifier('LocalizationModule')),
+                          true
+                        ))
+                      ], true)
+                    ]
+                  )
+                ) : ngDecorator;
 
-            const heritageClauses: ts.HeritageClause[] = [...(node.heritageClauses || [])]
-              .filter((h: ts.HeritageClause) => h.token !== ts.SyntaxKind.ImplementsKeyword)
-              .concat(newImplementsClauses);
+                const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
+                  .concat([newNgDecorator])
+                  .concat((ts.getModifiers(node) || []) as any) as any[] as ts.Modifier[];
 
-            const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
-              .concat([newNgDecorator])
-              .concat((ts.getModifiers(node) || []) as any) as any[] as ts.Modifier[];
+                const newMembers = node.members
+                  .filter((classElement) => !ts.isConstructorDeclaration(classElement))
+                  .concat(propertiesToAdd, newContructorDeclaration)
+                  .sort(sortClassElement);
 
-            const newMembers = node.members
-              .filter((classElement) => !ts.isConstructorDeclaration(classElement))
-              .concat(propertiesToAdd, newContructorDeclaration)
-              .sort(sortClassElement);
+                addCommentsOnClassProperties(
+                  newMembers,
+                  {
+                    translations: 'Localization of the component'
+                  }
+                );
 
-            newMembers.filter((classElement): classElement is ts.PropertyDeclaration & { name: ts.Identifier } =>
-              ts.isPropertyDeclaration(classElement)
-              && ts.isIdentifier(classElement.name)
-              && localizationProperties.includes(classElement.name.escapedText.toString())
-            ).forEach((classElement) => {
-              let comment = '';
-              switch (classElement.name.escapedText.toString()) {
-                case 'translations':{
-                  comment = '* Localization of the component ';
-                  break;
-                }
-                default:{
-                  break;
-                }
+                return factory.updateClassDeclaration(
+                  node,
+                  newModifiers,
+                  node.name,
+                  node.typeParameters,
+                  node.heritageClauses,
+                  newMembers
+                );
               }
-              if (!comment) {
-                return;
-              }
-              ts.addSyntheticLeadingComment(
-                classElement,
-                ts.SyntaxKind.MultiLineCommentTrivia,
-                comment,
-                true
-              );
-            });
-
-            return factory.updateClassDeclaration(
-              node,
-              newModifiers,
-              node.name,
-              node.typeParameters,
-              heritageClauses,
-              newMembers
-            );
+              return ts.visitEachChild(node, visit, ctx);
+            };
+            return ts.visitNode(rootNode, visit);
           }
-          return ts.visitEachChild(node, visit, ctx);
-        };
-        return ts.visitNode(rootNode, visit);
-      }]);
+        ]);
 
-      const printer = ts.createPrinter({
-        removeComments: false,
-        newLine: ts.NewLineKind.LineFeed
-      });
+        const printer = ts.createPrinter({
+          removeComments: false,
+          newLine: ts.NewLineKind.LineFeed
+        });
 
-      tree.overwrite(options.path, printer.printFile(result.transformed[0] as ts.SourceFile));
+        tree.overwrite(options.path, printer.printFile(result.transformed[0] as any as ts.SourceFile));
 
-      const sf = ts.createSourceFile(
-        options.path,
-        tree.readText(options.path),
-        ts.ScriptTarget.ES2020,
-        true
-      );
+        const sf = ts.createSourceFile(
+          options.path,
+          tree.readText(options.path),
+          ts.ScriptTarget.ES2020,
+          true
+        );
 
-      // Has to be done at the end because ts.Printer as some issues with Decorators with arguments
-      const translationsPropDeclaration = sf.statements
-        .find((statement): statement is ts.ClassDeclaration => ts.isClassDeclaration(statement) && isO3rClassComponent(statement))!
-        .members.find((member): member is ts.PropertyDeclaration => ts.isPropertyDeclaration(member) && member.name.getText() === 'translations')!;
-      const translationsPropLastDecorator = [...(ts.getDecorators(translationsPropDeclaration) || [])].at(-1)!;
-      tree.commitUpdate(
-        tree
-          .beginUpdate(options.path)
-          .insertRight(
-            translationsPropLastDecorator.getEnd(),
-            `\n  @Localization('./${baseFileName}.localization.json')`
-          )
-      );
+        // Has to be done at the end because ts.Printer as some issues with Decorators with arguments
+        const translationsPropDeclaration = sf.statements
+          .find((statement): statement is ts.ClassDeclaration => ts.isClassDeclaration(statement) && isO3rClassComponent(statement))!
+          .members.find((member): member is ts.PropertyDeclaration => ts.isPropertyDeclaration(member) && member.name.getText() === 'translations')!;
+        const translationsPropLastDecorator = [...(ts.getDecorators(translationsPropDeclaration) || [])].at(-1)!;
+        tree.commitUpdate(
+          tree
+            .beginUpdate(options.path)
+            .insertRight(
+              translationsPropLastDecorator.getEnd(),
+              `\n  @Localization('./${baseFileName}.localization.json')`
+            )
+        );
 
-      return tree;
-    };
+        return tree;
+      }
+    ]);
 
     const updateTemplateRule: Rule = () => {
-      const templatePath = templateRelativePath && resolve(dirname(options.path), templateRelativePath);
+      const templatePath = templateRelativePath && posix.resolve(dirname(options.path), templateRelativePath);
       if (templatePath && tree.exists(templatePath)) {
         tree.commitUpdate(
           tree
@@ -293,20 +255,9 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
       return tree;
     };
 
-    const updateSpecRule: Rule = () => {
-      const specFilePath = options.specFilePath || resolve(dirname(options.path), `./${baseFileName}.spec.ts`);
-      if (!tree.exists(specFilePath)) {
-        context.logger.warn(`No update applied on spec file because ${specFilePath} does not exist.`);
-        return;
-      }
-
-      let specSourceFile = ts.createSourceFile(
-        specFilePath,
-        tree.readText(specFilePath),
-        ts.ScriptTarget.ES2020,
-        true
-      );
-      const imports = [
+    const specFilePath = options.specFilePath || posix.resolve(dirname(options.path), `./${baseFileName}.spec.ts`);
+    const updateSpecRule: Rule = chain([
+      addImportsRule(specFilePath, [
         {
           from: '@angular/core',
           importNames: ['Provider']
@@ -323,20 +274,27 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
           from: '@ngx-translate/core',
           importNames: ['TranslateCompiler', 'TranslateFakeCompiler']
         }
-      ];
-      const changes = imports.reduce((acc: Change[], { importNames, from }) => acc.concat(
-        importNames.map((importName) =>
-          insertImport(specSourceFile, specFilePath, importName, from)
-        )
-      ), []);
+      ]),
+      () => {
+        if (!tree.exists(specFilePath)) {
+          context.logger.warn(`No update applied on spec file because ${specFilePath} does not exist.`);
+          return;
+        }
 
-      const recorder = tree.beginUpdate(specFilePath);
+        let specSourceFile = ts.createSourceFile(
+          specFilePath,
+          tree.readText(specFilePath),
+          ts.ScriptTarget.ES2020,
+          true
+        );
 
-      const lastImport = [...specSourceFile.statements].reverse().find((statement) =>
-        ts.isImportDeclaration(statement)
-      );
+        const recorder = tree.beginUpdate(specFilePath);
 
-      changes.push(new InsertChange(specFilePath, lastImport?.getEnd() || 0, `
+        const lastImport = [...specSourceFile.statements].reverse().find((statement) =>
+          ts.isImportDeclaration(statement)
+        );
+
+        const changes = [new InsertChange(specFilePath, lastImport?.getEnd() || 0, `
 const localizationConfiguration = {language: 'en'};
 const mockTranslations = {
   en: {${options.activateDummy ? `
@@ -347,92 +305,93 @@ const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,
   useClass: TranslateFakeCompiler
 };
-      `));
+      `)];
 
-      applyToUpdateRecorder(recorder, changes);
-      tree.commitUpdate(recorder);
+        applyToUpdateRecorder(recorder, changes);
+        tree.commitUpdate(recorder);
 
-      specSourceFile = ts.createSourceFile(
-        specFilePath,
-        tree.readText(specFilePath),
-        ts.ScriptTarget.ES2020,
-        true
-      );
+        specSourceFile = ts.createSourceFile(
+          specFilePath,
+          tree.readText(specFilePath),
+          ts.ScriptTarget.ES2020,
+          true
+        );
 
-      const result = ts.transform(specSourceFile, [(ctx) => (rootNode: ts.Node) => {
-        const { factory } = ctx;
-        const visit = (node: ts.Node): ts.Node => {
-          if (ts.isBlock(node) && !!node.statements.find(isTestBedConfiguration)) {
-            return factory.updateBlock(
-              node,
-              node.statements
-                .reduce<ts.Statement[]>((acc, statement) => {
-                  if (isTestBedConfiguration(statement)) {
-                    const firstArgProps = (statement.expression.arguments[0] as ts.ObjectLiteralExpression).properties;
-                    const importsProp = firstArgProps.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
-                      prop.name?.getText() === 'imports'
-                    );
+        const result = ts.transform(specSourceFile, [(ctx) => (rootNode: ts.Node) => {
+          const { factory } = ctx;
+          const visit = (node: ts.Node): ts.Node => {
+            if (ts.isBlock(node) && !!node.statements.find(isTestBedConfiguration)) {
+              return factory.updateBlock(
+                node,
+                node.statements
+                  .reduce<ts.Statement[]>((acc, statement) => {
+                    if (isTestBedConfiguration(statement)) {
+                      const firstArgProps = (statement.expression.arguments[0] as ts.ObjectLiteralExpression).properties;
+                      const importsProp = firstArgProps.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
+                        prop.name?.getText() === 'imports'
+                      );
 
-                    return acc.concat(
-                      factory.updateExpressionStatement(
-                        statement,
-                        factory.updateCallExpression(
-                          statement.expression,
-                          statement.expression.expression,
-                          statement.expression.typeArguments,
-                          [
-                            factory.createObjectLiteralExpression([
-                              ...firstArgProps.filter((prop) => prop.name?.getText() !== 'imports'),
-                              factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                                (
-                                  importsProp
-                                    ? [...importsProp.initializer.elements]
-                                    : []
-                                ).concat(
-                                  factory.createSpreadElement(factory.createCallExpression(
-                                    factory.createIdentifier('mockTranslationModules'),
-                                    undefined,
-                                    [
-                                      factory.createIdentifier('localizationConfiguration'),
-                                      factory.createIdentifier('mockTranslations'),
-                                      factory.createIdentifier('mockTranslationsCompilerProvider')
-                                    ]
-                                  ))
-                                ),
-                                true
-                              ))
-                            ], true)
-                          ]
+                      return acc.concat(
+                        factory.updateExpressionStatement(
+                          statement,
+                          factory.updateCallExpression(
+                            statement.expression,
+                            statement.expression.expression,
+                            statement.expression.typeArguments,
+                            [
+                              factory.createObjectLiteralExpression([
+                                ...firstArgProps.filter((prop) => prop.name?.getText() !== 'imports'),
+                                factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                                  (
+                                    importsProp
+                                      ? [...importsProp.initializer.elements]
+                                      : []
+                                  ).concat(
+                                    factory.createSpreadElement(factory.createCallExpression(
+                                      factory.createIdentifier('mockTranslationModules'),
+                                      undefined,
+                                      [
+                                        factory.createIdentifier('localizationConfiguration'),
+                                        factory.createIdentifier('mockTranslations'),
+                                        factory.createIdentifier('mockTranslationsCompilerProvider')
+                                      ]
+                                    ))
+                                  ),
+                                  true
+                                ))
+                              ], true)
+                            ]
+                          )
                         )
-                      )
-                    );
-                  }
-                  return acc.concat(statement);
-                }, [])
-                .concat(
-                  generateBlockStatementsFromString(`
+                      );
+                    }
+                    return acc.concat(statement);
+                  }, [])
+                  .concat(
+                    generateBlockStatementsFromString(`
                     const localizationService = TestBed.inject(LocalizationService);
                     localizationService.configure();
                   `)
-                )
-            );
-          }
-          return ts.visitEachChild(node, visit, ctx);
-        };
-        return ts.visitNode(rootNode, visit);
-      }]);
+                  )
+              );
+            }
+            return ts.visitEachChild(node, visit, ctx);
+          };
+          return ts.visitNode(rootNode, visit);
+        }]);
 
-      const printer = ts.createPrinter({
-        removeComments: false,
-        newLine: ts.NewLineKind.LineFeed
-      });
+        const printer = ts.createPrinter({
+          removeComments: false,
+          newLine: ts.NewLineKind.LineFeed
+        });
 
-      const newContent = printer.printFile(result.transformed[0] as ts.SourceFile);
+        const newContent = printer.printFile(result.transformed[0] as any as ts.SourceFile);
 
-      tree.overwrite(specFilePath, newContent);
+        tree.overwrite(specFilePath, newContent);
 
-      return tree;
-    };
+        return tree;
+      }
+    ]);
 
     const updateModuleRule: Rule = () => {
       const moduleFilePath = options.path.replace(/component.ts$/, 'module.ts');

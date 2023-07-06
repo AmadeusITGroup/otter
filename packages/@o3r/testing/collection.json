@@ -22,6 +22,11 @@
       "factory": "./schematics/fixture-to-component/index#ngAddFixture",
       "schema": "./schematics/fixture-to-component/schema.json",
       "aliases": ["add-fixture"]
+    },
+    "add-functions-to-fixture": {
+      "description": "Adding functions to an Otter fixture based on a selector and default methods",
+      "factory": "./schematics/add-functions-to-fixture/index#ngAddFunctionsToFixture",
+      "schema": "./schematics/add-functions-to-fixture/schema.json"
     }
   }
 }

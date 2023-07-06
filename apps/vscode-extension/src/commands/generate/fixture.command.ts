@@ -53,7 +53,7 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
           ...chosenMethods.map((m) => `--methods ${m}`),
           `--selector=".${selectedClasses.replace(/ /g, '.')}"`
         ];
-        terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:fixture ${options.join(' ')}`, true);
+        terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/testing:add-functions-to-fixture ${options.join(' ')}`, true);
         terminal.show();
         await vscode.window.showTextDocument(fixtureDoc);
       } else {

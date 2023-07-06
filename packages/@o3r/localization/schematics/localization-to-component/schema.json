@@ -11,8 +11,7 @@
     "specFilePath": {
       "type": "string",
       "description": "Path to spec file of the component",
-      "default": null,
-      "nullable": true
+      "default": ""
     },
     "skipLinter": {
       "type": "boolean",
@@ -22,8 +21,7 @@
     "activateDummy": {
       "type": "boolean",
       "description": "Generate dummy values",
-      "default": false,
-      "x-prompt": "Generate dummy localization"
+      "default": false
     }
   },
   "additionalProperties": true,

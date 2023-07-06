@@ -6,7 +6,7 @@ import * as fs from 'node:fs';
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
 const ngComponentPath = '/src/components/ng/ng.component.ts';
-describe('Add Config', () => {
+describe('Add Analytics', () => {
   let initialTree: Tree;
   beforeEach(() => {
     initialTree = Tree.empty();
@@ -92,6 +92,10 @@ export class NgComponent {}
     await expect(runner.runSchematic('analytics-to-component', {
       path: ngComponentPath
     }, initialTree)).rejects.toThrow();
+  });
+
+  it('should throw if inexisting path', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
 
     await expect(runner.runSchematic('analytics-to-component', {
       path: 'inexisting-path.component.ts'

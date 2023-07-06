@@ -132,6 +132,10 @@ describe('TestComponent', () => {
       await expect(runner.runSchematic('fixture-to-component', {
         path: ngComponentPath
       }, initialTree)).rejects.toThrow();
+    });
+
+    it('should throw if inexisting path', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('fixture-to-component', {
         path: 'inexisting-path.component.ts'

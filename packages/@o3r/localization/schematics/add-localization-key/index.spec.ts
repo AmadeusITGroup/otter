@@ -148,6 +148,10 @@ describe('Add Localization', () => {
         description: 'Dummy 1 description',
         value: 'Dummy 1'
       }, initialTree)).rejects.toThrow();
+    });
+
+    it('should throw if inexisting path', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('add-localization-key', {
         path: 'inexisting-path.component.ts',

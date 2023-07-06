@@ -109,6 +109,10 @@ export class NgComponent {}
       projectName: 'test-project',
       path: ngComponentPath
     }, initialTree)).rejects.toThrow();
+  });
+
+  it('should throw if inexisting path', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
 
     await expect(runner.runSchematic('configuration-to-component', {
       projectName: 'test-project',

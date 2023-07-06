@@ -13,20 +13,19 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {
+  addImportsRule,
+  addInterfaceToClassTransformerFactory,
   applyEsLintFix,
-  generateImplementsExpressionWithTypeArguments,
-  getO3rComponentInfo,
+  getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent
 } from '@o3r/schematics';
-import { insertImport } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, Change } from '@schematics/angular/utility/change';
-import { basename, dirname, resolve } from 'node:path';
+import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddConfigSchematicsSchema } from './schema';
 
 const checkContext = (componentPath: string, tree: Tree) => {
   const files = [
-    resolve(dirname(componentPath), `./${basename(componentPath, '.component.ts')}.context.ts`)
+    posix.resolve(dirname(componentPath), `./${basename(componentPath, '.component.ts')}.context.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -42,7 +41,7 @@ const checkContext = (componentPath: string, tree: Tree) => {
 export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const componentPath = options.path;
-    const { name } = getO3rComponentInfo(tree, componentPath);
+    const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
 
     checkContext(componentPath, tree);
 
@@ -52,83 +51,41 @@ export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
     };
 
     const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
-      template({ ...properties }),
+      template(properties),
       renameTemplateFiles(),
       move(dirname(componentPath))
     ]), MergeStrategy.Overwrite);
 
-    const updateComponentRule: Rule = () => {
-      let componentSourceFile = ts.createSourceFile(
-        componentPath,
-        tree.readText(componentPath),
-        ts.ScriptTarget.ES2020,
-        true
-      );
-      const imports = [
+    const updateComponentRule: Rule = chain([
+      addImportsRule(componentPath, [
         {
           from: `./${properties.name}.context`,
           importNames: [
             properties.componentContext
           ]
         }
-      ];
-      const recorder = tree.beginUpdate(componentPath);
-      const changes = imports.reduce((acc: Change[], { importNames, from }) => acc.concat(
-        importNames.map((importName) =>
-          insertImport(componentSourceFile, componentPath, importName, from)
-        )
-      ), []);
-      applyToUpdateRecorder(recorder, changes);
-      tree.commitUpdate(recorder);
+      ]),
+      () => {
+        const componentSourceFile = ts.createSourceFile(
+          componentPath,
+          tree.readText(componentPath),
+          ts.ScriptTarget.ES2020,
+          true
+        );
 
-      componentSourceFile = ts.createSourceFile(
-        componentPath,
-        tree.readText(componentPath),
-        ts.ScriptTarget.ES2020,
-        true
-      );
+        const result = ts.transform(componentSourceFile, [
+          addInterfaceToClassTransformerFactory(properties.componentContext, isO3rClassComponent)
+        ]);
 
-      const result = ts.transform(componentSourceFile, [(ctx) => (rootNode: ts.Node) => {
-        const { factory } = ctx;
-        const visit = (node: ts.Node): ts.Node => {
-          if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
-            const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
-            const interfaceToImplements = generateImplementsExpressionWithTypeArguments(properties.componentContext);
+        const printer = ts.createPrinter({
+          removeComments: false,
+          newLine: ts.NewLineKind.LineFeed
+        });
 
-            const newImplementsClauses = implementsClauses
-              ? factory.updateHeritageClause(implementsClauses, [...implementsClauses.types, ...interfaceToImplements])
-              : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
-
-            const heritageClauses: ts.HeritageClause[] = [...(node.heritageClauses || [])]
-              .filter((h: ts.HeritageClause) => h.token !== ts.SyntaxKind.ImplementsKeyword)
-              .concat(newImplementsClauses);
-
-            const newModifiers = ([] as ts.ModifierLike[])
-              .concat(ts.getDecorators(node) || [])
-              .concat(ts.getModifiers(node) || []);
-
-            return factory.updateClassDeclaration(
-              node,
-              newModifiers,
-              node.name,
-              node.typeParameters,
-              heritageClauses,
-              node.members
-            );
-          }
-          return ts.visitEachChild(node, visit, ctx);
-        };
-        return ts.visitNode(rootNode, visit);
-      }]);
-
-      const printer = ts.createPrinter({
-        removeComments: false,
-        newLine: ts.NewLineKind.LineFeed
-      });
-
-      tree.overwrite(componentPath, printer.printFile((result.transformed[0] as ts.SourceFile)));
-      return tree;
-    };
+        tree.overwrite(componentPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
+        return tree;
+      }
+    ]);
 
     return chain([
       createConfigFilesRule,

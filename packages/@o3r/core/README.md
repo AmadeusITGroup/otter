@@ -86,7 +86,6 @@ Otter framework provides a set of code generators based on [angular schematics](
 | add                        | Include Otter in a library / application.                                     | `ng add @o3r/core`                |
 | page                       | Create a new Page in your application.                                        | `ng g page`                       |
 | service                    | Create a new Otter Service in your library / application.                     | `ng g service`                    |
-| fixture                    | Adding functions to an Otter fixture based on a selector and default methods. | `ng g fixture`                    |
 | component                  | Create a new Otter component in your library / application.                   | `ng g component`                  |
 | component-container        | Create a new Otter container component in your library / application.         | `ng g component-container`        |
 | component-presenter        | Create a new Otter presenter component in your library / application.         | `ng g component-presenter`        |

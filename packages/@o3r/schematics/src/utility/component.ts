@@ -42,7 +42,7 @@ export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
  * @param tree
  * @param componentPath
  */
-export const getO3rComponentInfo = (tree: Tree, componentPath: string) => {
+export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: string) => {
   const sourceFile = ts.createSourceFile(
     componentPath,
     tree.readText(componentPath),
