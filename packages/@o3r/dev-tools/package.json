@@ -82,7 +82,7 @@
     "gulp": "^4.0.2",
     "gulp-cached": "^1.1.1",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "jest": "~29.5.0",
+    "jest": "~29.6.0",
     "node-fetch": "^2.6.7",
     "nx": "~16.3.2",
     "rimraf": "^5.0.0",
