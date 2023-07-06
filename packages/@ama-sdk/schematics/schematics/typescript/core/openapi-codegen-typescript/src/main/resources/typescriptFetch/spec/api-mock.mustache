@@ -46,3 +46,7 @@ export function getMockedApi(config?: string | BaseApiFetchClientConstructor | A
   };
 }
 {{/apiInfo}}
+{{^apiInfo}}
+// This contains testing helpers for api endpoints, will be filled when the sdk is generated from a spec.
+export type { };
+{{/apiInfo}}

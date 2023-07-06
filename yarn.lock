@@ -100,9 +100,8 @@ __metadata:
     typescript: ~5.0.2
     uuid: ^9.0.0
   peerDependencies:
-    "@angular-devkit/schematics": ~16.0.5
-    "@angular/cli": ~16.0.5
-    "@schematics/angular": ~16.0.5
+    "@angular-devkit/schematics": ^16.0.5
+    "@schematics/angular": ^16.0.5
     isomorphic-fetch: ^3.0.0
     typescript: ~5.0.2
   peerDependenciesMeta:

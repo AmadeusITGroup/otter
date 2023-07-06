@@ -26,7 +26,7 @@
   ],
   "updateInternalDeps": true,
   "postUpdateOptions": [
-    "yarnDedupeHighest"
+    <% if (packageManager === 'yarn') { %>"yarnDedupeHighest",<% } %>
   ],
   "rangeStrategy": "replace",
   "automerge": true,
@@ -39,8 +39,8 @@
       ],
       "postUpgradeTasks": {
         "commands": [
-          "yarn install",
-          "yarn run swagger:generate"
+          "<%=packageManager%> run install",
+          "<%=packageManager%> run swagger:generate"
         ],
         "executionMode": "branch"
       }

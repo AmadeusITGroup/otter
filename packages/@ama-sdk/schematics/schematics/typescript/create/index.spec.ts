@@ -11,12 +11,14 @@ describe('Typescript SDK Generator', () => {
     const tree = await runner.runSchematic('typescript-sdk', {
       name: 'test-scope',
       package: 'test-sdk',
+      packageManager: 'yarn',
       specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, Tree.empty());
 
     const baseTree = await runner.runSchematic('typescript-shell', {
       name: 'test-sdk',
-      package: 'sdk'
+      package: 'sdk',
+      packageManager: 'yarn'
     }, Tree.empty());
 
     const coreTree = await runner.runSchematic('typescript-core', {

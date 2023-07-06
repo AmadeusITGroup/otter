@@ -1,8 +1,8 @@
 import {
-  apply,
+  apply, filter,
   MergeStrategy,
   mergeWith,
-  move,
+  move, noop,
   renameTemplateFiles,
   Rule, SchematicContext,
   template,
@@ -51,6 +51,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       projectName: options.name,
       projectPackageName: options.package,
       projectDescription: options.description,
+      packageManager: options.packageManager,
       projectHosting: options.hosting,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
@@ -62,6 +63,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
     };
 
     const baseRule = mergeWith(apply(url('./templates/base'), [
+      properties.packageManager === 'npm' ? filter(path => path.indexOf('.yarnrc.yml') < 0) : noop(),
       template(properties),
       move(tree.root.path),
       renameTemplateFiles()

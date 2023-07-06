@@ -36,13 +36,13 @@ export default class extends SdkGenerator {
     this.desc(`${deprecatedMessage}\nGenerate the shell of an SDK package`);
 
     this.option('projectName', {
-      description: 'Project name (NPM package scope)',
+      description: 'Project name (NPM package scope, package.json name will be @{projectName}/{packageName})',
       type: String,
       alias: 'name'
     });
 
     this.option('projectPackageName', {
-      description: 'Package name',
+      description: 'Package name (package.json name will be @{projectName}/{packageName})',
       type: String,
       alias: 'package'
     });
@@ -74,14 +74,14 @@ export default class extends SdkGenerator {
     const qProjectName: Generator.Question = {
       type: 'input',
       name: 'projectName',
-      message: 'Project name (NPM package scope)',
+      message: 'Project name (NPM package scope, package.json name will be @{projectName}/{packageName})',
       store: true
     };
 
     const qProjectPackageName: Generator.Question = {
       type: 'input',
       name: 'projectPackageName',
-      message: 'Package name',
+      message: 'Package name (package.json name will be @{projectName}/{packageName})',
       store: true
     };
 

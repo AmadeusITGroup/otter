@@ -125,7 +125,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
   };
 
   const runGeneratorRule = (tree: Tree, context: SchematicContext) => {
-    const generatorOptions: Partial<OpenApiCliOptions> = {specPath};
+    const generatorOptions: Partial<OpenApiCliOptions> = {specPath, globalProperty: options.globalProperty};
     const packageJsonFile: {openApiSupportedVersion?: string} = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
     const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
     let openApiVersion = '';

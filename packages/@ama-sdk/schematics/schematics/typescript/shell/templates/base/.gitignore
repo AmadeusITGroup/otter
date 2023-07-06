@@ -38,8 +38,8 @@
 .history
 .ionide
 
+<% if (packageManager === 'yarn') { %>
 # Support for Project snippet scope
-
 ### yarn ###
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
@@ -56,7 +56,7 @@
 
 # and uncomment the following lines
 .pnp.*
-
+<% } %>
 ### Yeoman ###
 node_modules/
 bower_components/

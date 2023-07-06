@@ -13,7 +13,8 @@ describe('Typescript Core Generator', () => {
     tree.create('/readme.md', 'Based on Swagger spec 0.1.0');
     baseTree = await runner.runSchematic('typescript-shell', {
       name: 'test-sdk',
-      package: 'sdk'
+      package: 'sdk',
+      packageManager: 'yarn'
     }, tree);
   });
 
