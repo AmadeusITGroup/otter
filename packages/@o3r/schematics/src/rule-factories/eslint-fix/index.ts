@@ -1,4 +1,4 @@
-import { DirEntry, Rule, SchematicContext, SchematicsException, Tree } from '@angular-devkit/schematics';
+import { DirEntry, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { exec } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { getPackageManager, getPackageManagerRunner } from '../../utility/package-manager-runner';
@@ -66,7 +66,8 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
     } while (dir !== null);
 
     if (dir === null || !eslintFile) {
-      throw new SchematicsException('Asked to run lint fixes, but could not find a eslintrc config file.');
+      context.logger.warn(`Asked to run lint fixes, but could not find a eslintrc config file.
+You can consider to run later the following command to add otter linter rules: ng add @o3r/eslint-config-otter`);
     }
 
     const files = tree.actions.reduce((acc: Set<string>, action) => {
