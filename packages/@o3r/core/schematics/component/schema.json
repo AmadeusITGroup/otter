@@ -58,11 +58,6 @@
       "default": null,
       "nullable": true
     },
-    "useStorybook": {
-      "type": "boolean",
-      "description": "Generate component stories for storybook",
-      "default": true
-    },
     "useLocalization": {
       "type": "boolean",
       "description": "Generate component with localization",

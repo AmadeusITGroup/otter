@@ -30,8 +30,7 @@ describe('Component presenter', () => {
     'test-component-pres.style.scss',
     'test-component-pres.template.html',
     'README.md',
-    'index.ts',
-    'test-component-pres.stories.ts'
+    'index.ts'
   ];
 
   beforeEach(() => {
@@ -171,28 +170,6 @@ describe('Component presenter', () => {
     }, initialTree)).rejects.toThrow();
   });
 
-  it('should generate a presenter component without storybook', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('component-presenter', {
-      projectName: 'test-project',
-      componentName,
-      prefix: 'o3r',
-      componentStructure: 'presenter',
-      useStorybook: false,
-      useContext: true,
-      useOtterAnalytics: false,
-      activateDummy: true,
-      path: 'src/components'
-    }, initialTree);
-
-    const expectedFileNamesWithoutStorybook = expectedFileNames.filter((fileName) => fileName !== 'test-component-pres.stories.ts');
-
-    expect(tree.files.filter((file) => /test-component/.test(file)).length).toEqual(expectedFileNamesWithoutStorybook.length);
-    expect(tree.files.filter((file) => /test-component/.test(file))).toEqual(expect.arrayContaining(
-      expectedFileNamesWithoutStorybook.map((fileName) => getGeneratedComponentPath(componentName, fileName, 'presenter')))
-    );
-  });
-
   it('should generate a presenter component without context', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
@@ -200,7 +177,6 @@ describe('Component presenter', () => {
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
-      useStorybook: true,
       useContext: false,
       useOtterAnalytics: false,
       activateDummy: true,

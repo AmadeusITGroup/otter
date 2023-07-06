@@ -39,7 +39,6 @@ export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
 const MODULE_TEMPLATE_PATH = './templates/module';
 const ANALYTICS_TEMPLATE_PATH = './templates/analytics';
-const STORYBOOK_TEMPLATE_PATH = './templates/storybook';
 const CONTEXT_TEMPLATE_PATH = './templates/context';
 
 /**
@@ -112,16 +111,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
     if (options.useOtterAnalytics) {
       rules.push(mergeWith(apply(url(ANALYTICS_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
-    if (options.useStorybook) {
-      rules.push(mergeWith(apply(url(STORYBOOK_TEMPLATE_PATH), [
         template({
           ...properties
         }),

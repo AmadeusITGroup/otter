@@ -54,7 +54,6 @@ export function generateComponentGenerateCommand(_context: ExtensionContext, fol
       `--use-component-fixtures="${!!config.get<boolean>('component.useComponentFixtures')}"`,
       `--use-otter-config="${!!config.get<boolean>('component.useOtterConfig')}"`,
       `--use-otter-analytics="${!!config.get<boolean>('component.useOtterAnalytics')}"`,
-      `--use-storybook="${!!config.get<boolean>('component.useStorybook')}"`,
       `--use-localization="${!!config.get<boolean>('component.useLocalization')}"`
     ];
     const options = [

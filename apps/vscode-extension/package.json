@@ -62,11 +62,6 @@
           "default": true,
           "description": "Generate component with Otter analytics architecture"
         },
-        "otter.generate.component.useStorybook": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component stories for storybook"
-        },
         "otter.generate.component.useLocalization": {
           "type": "boolean",
           "default": true,

@@ -82,11 +82,6 @@
       "factory": "./schematics/renovate/index#ngGenerateRenovateBotComponent",
       "schema": "./schematics/renovate/schema.json"
     },
-    "storybook-component": {
-      "description": "Generate an storybook file in an existing component folder",
-      "factory": "./schematics/storybook/index#ngGenerateStorybookComponent",
-      "schema": "./schematics/storybook/schema.json"
-    },
     "module": {
       "description": "Generate an new Otter compatible module",
       "factory": "./schematics/module/index#ngGenerateModule",

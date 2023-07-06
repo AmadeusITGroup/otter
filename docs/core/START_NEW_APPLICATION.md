@@ -54,7 +54,6 @@ to create components and services consistent with your project.
 {
   "schematics": {
     "@o3r/core:component": {
-      "useStorybook": true,
       "useOtterTheming": true,
       "useOtterAnalytics": true
     }

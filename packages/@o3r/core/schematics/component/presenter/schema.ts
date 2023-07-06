@@ -33,9 +33,6 @@ export interface NgGenerateComponentPresenterSchematicsSchema extends JsonObject
   /** Indicates if the component should use otter analytics architecture */
   useOtterAnalytics: boolean;
 
-  /** Indicates if the component should use storybook */
-  useStorybook: boolean;
-
   /** Indicates if the component should use localization */
   useLocalization: boolean;
 

@@ -51,7 +51,6 @@ export function updateOtterEnvironmentAdapter(
     workspace.cli = workspace.cli || {};
 
     const componentSchematicsOptions = {
-      ...(typeof options.enableStorybook !== 'undefined' ? { useStorybook: options.enableStorybook } : {}),
       ...(typeof options.enableAnalytics !== 'undefined' ? { useOtterAnalytics: options.enableAnalytics } : {})
     };
 
