@@ -2,8 +2,7 @@
 <% } %>import {ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {O3rComponent} from '@o3r/core';
 import {Subscription} from 'rxjs';
-<% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';
-<% } %>
+
 @O3rComponent({
   componentType: '<%= componentType %>'
 })
@@ -16,10 +15,7 @@ import {Subscription} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class <%= componentName %> implements
-  OnInit,
-  OnDestroy<% if (useContext) { %>,
-  <%= componentContext %><% } %> {
+export class <%= componentName %> implements OnInit, OnDestroy {
   /**
    * List of subscriptions to unsubscribe on destroy
    */

@@ -16,11 +16,11 @@ import { getAddConfigurationRules } from '../common/configuration';
 import { ComponentStructureDef } from '../structures.types';
 import { NgGenerateComponentContainerSchematicsSchema } from './schema';
 import { getAddFixtureRules } from '../common/fixture';
+import { getAddContextRules } from '../common/context';
 
 export const CONTAINER_FOLDER = 'container';
 const MODULE_TEMPLATE_PATH = './templates/module';
 const CONTAINER_TEMPLATE_PATH = './templates/container';
-const CONTEXT_TEMPLATE_PATH = './templates/context';
 
 /**
  * Generates the template properties
@@ -90,16 +90,6 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useContext) {
-      rules.push(mergeWith(apply(url(CONTEXT_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     const componentPath = `${properties.name}.component.ts`;
 
     const configurationRules = await getAddConfigurationRules(
@@ -115,6 +105,13 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       context
     );
     rules.push(...fixtureRules);
+
+    const contextRules = await getAddContextRules(
+      path.join(componentDestination, componentPath),
+      options,
+      context
+    );
+    rules.push(...contextRules);
 
     return chain(rules);
   };

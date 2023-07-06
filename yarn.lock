@@ -6448,7 +6448,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": ~16.0.5
-    "@types/jasmine": 4.3.5
+    "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -6853,7 +6853,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ~16.0.5
-    "@types/jasmine": 4.3.5
+    "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/pid-from-port": ^1.1.0
@@ -7163,7 +7163,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@types/jasmine": 4.3.5
+    "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
@@ -7870,7 +7870,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
-    "@types/jasmine": 4.3.5
+    "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -7948,7 +7948,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@types/jasmine": 4.3.5
+    "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/pid-from-port": ^1.1.0
@@ -10432,7 +10432,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:4.3.5":
+"@types/jasmine@npm:~4.3.5":
   version: 4.3.5
   resolution: "@types/jasmine@npm:4.3.5"
   checksum: 33839af6efd42bed948cb49de117821649de952228b3bf4743af09ef9d1736a6e9e9500750f04ffa74e308f00781f697092dadde4e038e2f041e741b087ceb9b

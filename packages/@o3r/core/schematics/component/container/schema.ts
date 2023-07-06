@@ -26,7 +26,7 @@ export interface NgGenerateComponentContainerSchematicsSchema extends JsonObject
   useOtterConfig: boolean | null;
 
   /** Indicates if the component should use generate context */
-  useContext: boolean;
+  useContext: boolean | null;
 
   /** Skip the linter process */
   skipLinter: boolean;

@@ -102,7 +102,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@types/jasmine": "4.3.5",
+    "@types/jasmine": "~4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/pid-from-port": "^1.1.0",

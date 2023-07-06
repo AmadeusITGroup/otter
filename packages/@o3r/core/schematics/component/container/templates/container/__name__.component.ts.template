@@ -3,7 +3,7 @@ import {O3rComponent} from '@o3r/core';
 import {Subscription} from 'rxjs';
 <% if (componentStructure === 'full') { %>import {<%= blockName %>PresComponent} from '../presenter/<%= kebabCaseBlockName %>-pres.component';
 <% } %>
-<% if (useContext) { %>import {<%= componentContext %>} from './<%= name %>.context';<% } %>
+
 @O3rComponent({
   componentType: '<%= componentType %>'
 })
@@ -17,8 +17,7 @@ import {Subscription} from 'rxjs';
 })
 export class <%= componentName %> implements
   OnInit,
-  OnDestroy<% if (useContext) { %>,
-  <%= componentContext %><% } %> {
+  OnDestroy {
   /**
    * List of subscriptions to unsubscribe on destroy
    */

@@ -28,18 +28,18 @@ import {
   getComponentTranslationName, getDestinationPath, getInputComponentName,
   getLibraryNameFromPath, getProjectFromTree
 } from '@o3r/schematics';
+import { getAddAnalyticsRules } from '../common/analytics';
+import { getAddConfigurationRules } from '../common/configuration';
+import { getAddContextRules } from '../common/context';
+import { getAddFixtureRules } from '../common/fixture';
+import { getAddLocalizationRules } from '../common/localization';
+import { getAddThemingRules } from '../common/theming';
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
-import { getAddConfigurationRules } from '../common/configuration';
-import { getAddThemingRules } from '../common/theming';
-import { getAddLocalizationRules } from '../common/localization';
-import { getAddFixtureRules } from '../common/fixture';
-import { getAddAnalyticsRules } from '../common/analytics';
 
 export const PRESENTER_FOLDER = 'presenter';
 const PRESENTER_TEMPLATE_PATH = './templates/presenter';
 const MODULE_TEMPLATE_PATH = './templates/module';
-const CONTEXT_TEMPLATE_PATH = './templates/context';
 
 /**
  * Generates the template properties
@@ -109,16 +109,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite));
     }
 
-    if (options.useContext) {
-      rules.push(mergeWith(apply(url(CONTEXT_TEMPLATE_PATH), [
-        template({
-          ...properties
-        }),
-        renameTemplateFiles(),
-        move(componentDestination)
-      ]), MergeStrategy.Overwrite));
-    }
-
     const componentPath = `${properties.name}.component.ts`;
 
     const configurationRules = await getAddConfigurationRules(
@@ -154,7 +144,14 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       options,
       context
     );
+
     rules.push(...analyticsRules);
+    const contextRules = await getAddContextRules(
+      path.join(componentDestination, componentPath),
+      options,
+      context
+    );
+    rules.push(...contextRules);
 
     return chain(rules);
   };

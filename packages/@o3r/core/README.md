@@ -103,6 +103,7 @@ Otter framework provides a set of code generators based on [angular schematics](
 | show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
 | add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
 | convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
+| context-to-component       | Add Otter Context to an existing component                                    | `ng g context-to-component`       |
 
 ## Create your own Otter compatible module
 
