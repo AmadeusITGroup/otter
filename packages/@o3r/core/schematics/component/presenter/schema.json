@@ -59,8 +59,8 @@
     "useOtterAnalytics": {
       "type": "boolean",
       "description": "Generate component with Otter analytics architecture",
-      "default": false,
-      "x-prompt": "Do you want to generate your component with Otter analytics architecture?"
+      "default": null,
+      "nullable": true
     },
     "useLocalization": {
       "type": "boolean",

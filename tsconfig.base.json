@@ -65,8 +65,8 @@
       "@o3r/analytics": [
         "packages/@o3r/analytics/src/public_api"
       ],
-      "@o3r/analytics/*": [
-        "packages/@o3r/analytics/*"
+      "@o3r/analytics/plugins/*": [
+        "packages/@o3r/analytics/plugins/*"
       ],
       "@o3r/apis-manager": [
         "packages/@o3r/apis-manager/src/public_api"

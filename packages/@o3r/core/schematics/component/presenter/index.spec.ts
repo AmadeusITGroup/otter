@@ -47,7 +47,6 @@ describe('Component presenter', () => {
       componentName,
       prefix: 'o3r',
       componentStructure: 'presenter',
-      useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
     }, initialTree);
@@ -65,7 +64,6 @@ describe('Component presenter', () => {
       componentName,
       prefix: 'o3r',
       componentStructure: 'full',
-      useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
     }, initialTree);
@@ -115,7 +113,6 @@ describe('Component presenter', () => {
       prefix: 'o3r',
       componentStructure: 'presenter',
       useComponentFixtures: false,
-      useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
     }, initialTree);
@@ -131,7 +128,6 @@ describe('Component presenter', () => {
       prefix: 'o3r',
       componentStructure: 'presenter',
       useOtterTheming: false,
-      useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
     }, initialTree);
@@ -178,7 +174,6 @@ describe('Component presenter', () => {
       prefix: 'o3r',
       componentStructure: 'presenter',
       useContext: false,
-      useOtterAnalytics: false,
       activateDummy: true,
       path: 'src/components'
     }, initialTree);

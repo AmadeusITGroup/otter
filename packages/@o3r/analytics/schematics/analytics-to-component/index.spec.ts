@@ -59,44 +59,28 @@ export class NgComponent {}
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
   });
 
-  it('should create the config file and update the component', async () => {
+  it('should create the analytics file and update the component', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('configuration-to-component', {
+    const tree = await runner.runSchematic('analytics-to-component', {
       projectName: 'test-project',
       path: o3rComponentPath
     }, initialTree);
 
-    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
+    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'analytics.ts'))).toBeTruthy();
     const componentFileContent = tree.readText(o3rComponentPath);
-    expect(componentFileContent).toContain('from \'@o3r/configuration\'');
-    expect(componentFileContent).toContain('from \'./test.config\'');
-    expect(componentFileContent).toContain('componentType: \'ExposedComponent\'');
-    expect(componentFileContent).toContain('DynamicConfigurable<TestConfig>');
-    expect(componentFileContent).toContain('public config: Partial<TestConfig> | undefined');
-    expect(componentFileContent).toContain('private dynamicConfig$: ConfigurationObserver<TestConfig>');
-    expect(componentFileContent).toContain('public config$: Observable<TestConfig>');
+    expect(componentFileContent).toContain('from \'@o3r/analytics\'');
+    expect(componentFileContent).toContain('from \'./test.analytics\'');
+    expect(componentFileContent).toContain('Trackable<TestAnalytics>');
+    expect(componentFileContent).toContain('public readonly analyticsEvents: TestAnalytics = analyticsEvents');
   });
 
-  it('should not expose the component', async () => {
+  it('should throw if we add analytics to a component that already has it', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('configuration-to-component', {
-      projectName: 'test-project',
-      path: o3rComponentPath,
-      exposeComponent: false
-    }, initialTree);
-
-    const componentFileContent = tree.readText(o3rComponentPath);
-    expect(componentFileContent).not.toContain('ExposedComponent');
-    expect(componentFileContent).toContain('componentType: \'Component\'');
-  });
-
-  it('should throw if we add config to a component that already has it', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-    const tree = await runner.runSchematic('configuration-to-component', {
+    const tree = await runner.runSchematic('analytics-to-component', {
       projectName: 'test-project',
       path: o3rComponentPath
     }, initialTree);
-    await expect(runner.runSchematic('configuration-to-component', {
+    await expect(runner.runSchematic('analytics-to-component', {
       projectName: 'test-project',
       path: o3rComponentPath
     }, tree)).rejects.toThrow();
@@ -105,13 +89,11 @@ export class NgComponent {}
   it('should throw if no Otter component', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
 
-    await expect(runner.runSchematic('configuration-to-component', {
-      projectName: 'test-project',
+    await expect(runner.runSchematic('analytics-to-component', {
       path: ngComponentPath
     }, initialTree)).rejects.toThrow();
 
-    await expect(runner.runSchematic('configuration-to-component', {
-      projectName: 'test-project',
+    await expect(runner.runSchematic('analytics-to-component', {
       path: 'inexisting-path.component.ts'
     }, initialTree)).rejects.toThrow();
   });

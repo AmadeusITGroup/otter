@@ -27,7 +27,7 @@ o3r-test-pres {
     expect(styleFileContent).toContain('@import \'./test.style.theme\';');
   });
 
-  it('should throw if we add theming to a component that already have it', async () => {
+  it('should throw if we add theming to a component that already has it', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('theming-to-component', {
       path: stylePath

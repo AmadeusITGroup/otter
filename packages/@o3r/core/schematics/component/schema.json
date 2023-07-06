@@ -86,7 +86,9 @@
     },
     "useOtterAnalytics": {
       "type": "boolean",
-      "description": "Generate component with Otter analytics architecture"
+      "description": "Generate component with Otter analytics architecture",
+      "nullable": true,
+      "default": null
     },
     "standalone": {
       "type": "boolean",
