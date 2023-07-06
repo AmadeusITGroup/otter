@@ -84,7 +84,7 @@
     "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.2.249",
-    "@types/jasmine": "~4.3.5",
+    "@types/jasmine": "4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/uuid": "^9.0.0",
