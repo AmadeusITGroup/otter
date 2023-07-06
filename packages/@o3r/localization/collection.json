@@ -8,10 +8,16 @@
       "aliases": ["install", "i"]
     },
     "localization-to-component": {
-      "description": "Add Otter Localization to an existing component",
+      "description": "Add Otter Localization architecture to an existing component",
       "factory": "./schematics/localization-to-component/index#ngAddLocalization",
       "schema": "./schematics/localization-to-component/schema.json",
       "aliases": ["add-localization"]
+    },
+    "localization-key-to-component": {
+      "description": "Add Otter Localization key to an existing component",
+      "factory": "./schematics/add-localization-key/index#ngAddLocalizationKey",
+      "schema": "./schematics/add-localization-key/schema.json",
+      "aliases": ["add-localization-key"]
     }
   }
 }

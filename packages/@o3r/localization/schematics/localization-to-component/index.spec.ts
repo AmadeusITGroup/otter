@@ -84,8 +84,14 @@ describe('Add Localization', () => {
         activateDummy: true
       }, initialTree);
 
-      expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'translation.ts'))).toBeTruthy();
-      expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'localization.json'))).toBeTruthy();
+      const translationFile = o3rComponentPath.replace(/component\.ts$/, 'translation.ts');
+      const localizationFile = o3rComponentPath.replace(/component\.ts$/, 'localization.json');
+
+      expect(tree.exists(translationFile)).toBeTruthy();
+      expect(tree.readText(translationFile)).toContain('dummyLoc1');
+
+      expect(tree.exists(localizationFile)).toBeTruthy();
+      expect(tree.readJson(localizationFile)!['o3r-test-pres.dummyLoc1']).toBeDefined();
 
       const componentFileContent = tree.readText(o3rComponentPath);
       expect(componentFileContent).toContain('LocalizationModule');
