@@ -36,7 +36,7 @@ export interface NgGenerateComponentSchematicsSchema extends JsonObject {
   useContext: boolean | null;
 
   /** Determine if the dummy IO should be generated */
-  activateDummy: boolean | null;
+  activateDummy: boolean;
 
   /** Generate component with Otter analytics architecture */
   useOtterAnalytics: boolean | null;

@@ -41,7 +41,7 @@ export function ngAddTheming(options: NgAddThemingSchematicsSchema): Rule {
     };
 
     const createThemingFilesRule: Rule = mergeWith(apply(url('./templates'), [
-      template({ ...properties }),
+      template(properties),
       renameTemplateFiles(),
       move(dirname(stylePath))
     ]), MergeStrategy.Overwrite);

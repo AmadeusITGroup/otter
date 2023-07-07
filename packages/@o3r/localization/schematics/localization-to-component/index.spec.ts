@@ -237,6 +237,10 @@ describe('Add Localization', () => {
         projectName: 'test-project',
         path: ngComponentPath
       }, initialTree)).rejects.toThrow();
+    });
+
+    it('should throw if inexisting path', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('localization-to-component', {
         projectName: 'test-project',

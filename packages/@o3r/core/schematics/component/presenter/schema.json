@@ -82,8 +82,7 @@
     "activateDummy": {
       "type": "boolean",
       "description": "Generate dummy values",
-      "default": false,
-      "x-prompt": "Generate dummy I/O, localization and analytics events"
+      "default": false
     },
     "skipLinter": {
       "type": "boolean",

@@ -1,3 +1,4 @@
+export * from './add-imports/index';
 export * from './eslint-fix/index';
 export * from './interfaces';
 export * from './check-packages-peers/index';

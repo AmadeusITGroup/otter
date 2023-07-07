@@ -5,11 +5,11 @@ export interface NgAddLocalizationSchematicsSchema extends JsonObject {
   path: string;
 
   /** Path to spec file of the component */
-  specFilePath: string | null;
+  specFilePath: string;
 
   /** Skip the linter process */
   skipLinter: boolean;
 
   /** Determine if the dummy localization should be generated */
-  activateDummy: boolean | null;
+  activateDummy: boolean;
 }

@@ -83,7 +83,8 @@
     },
     "activateDummy": {
       "type": "boolean",
-      "description": "Generate dummy values"
+      "description": "Generate dummy values",
+      "default": false
     },
     "useOtterAnalytics": {
       "type": "boolean",

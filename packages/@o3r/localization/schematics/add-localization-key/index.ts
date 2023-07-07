@@ -7,10 +7,10 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
-  getO3rComponentInfo,
+  getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent
 } from '@o3r/schematics';
-import { dirname, resolve } from 'node:path';
+import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddLocalizationKeySchematicsSchema } from './schema';
 
@@ -37,7 +37,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
         && ts.isStringLiteral(decorator.expression.arguments[0])
       );
       if (localizationDecorator) {
-        localizationJsonPath = resolve(dirname(componentPath), localizationDecorator.expression.arguments[0].text);
+        localizationJsonPath = posix.resolve(dirname(componentPath), localizationDecorator.expression.arguments[0].text);
         translationsVariableName = member.name.escapedText.toString();
         translationsVariableType = member.type.typeName.escapedText.toString();
         if (member.initializer && ts.isIdentifier(member.initializer)) {
@@ -85,7 +85,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   if (!importDeclaration) {
     throw new Error(`Unable to find import declaration of ${defaultTranslationVariableName} in ${componentPath}`);
   }
-  const translationsPath = resolve(dirname(componentPath), `${importDeclaration.moduleSpecifier.text}.ts`);
+  const translationsPath = posix.resolve(dirname(componentPath), `${importDeclaration.moduleSpecifier.text}.ts`);
 
   return {
     localizationJsonPath,
@@ -101,7 +101,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
  */
 export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const { selector } = getO3rComponentInfo(tree, options.path);
+    const { selector } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
     const { localizationJsonPath, translationsPath, translationsVariableType } = getLocalizationInformation(options.path, tree);
 
     const properties = {
@@ -198,7 +198,7 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
         newLine: ts.NewLineKind.LineFeed
       });
 
-      tree.overwrite(translationsPath, printer.printFile(result.transformed[0] as ts.SourceFile));
+      tree.overwrite(translationsPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
       return tree;
     };
 
