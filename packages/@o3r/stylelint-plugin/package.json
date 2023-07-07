@@ -23,7 +23,7 @@
   "peerDependencies": {
     "jest-preset-stylelint": "~6.1.0",
     "postcss": "^8.4.4",
-    "stylelint": "^14.1.0"
+    "stylelint": "^15.10.1"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~16.0.3",
@@ -50,7 +50,7 @@
     "nx": "~16.5.0",
     "postcss": "^8.4.4",
     "rimraf": "^5.0.0",
-    "stylelint": "^14.1.0",
+    "stylelint": "^15.10.1",
     "ts-jest": "^29.1.0",
     "typescript": "~5.0.2"
   }
