@@ -133,7 +133,7 @@ describe('Filter rulesets event operator', () => {
     return acc;
   }, {});
 
-  const firstValue = rulesets.reduce((accRuleset, ruleset) => {
+  const firstValue = rulesets.reduce<Record<string, RulesetExecutor>>((accRuleset, ruleset) => {
     accRuleset[ruleset.id] = new RulesetExecutor(ruleset, {retrieveOrCreateFactStream: () => of(undefined), operators} as any);
     return accRuleset;
   }, {});

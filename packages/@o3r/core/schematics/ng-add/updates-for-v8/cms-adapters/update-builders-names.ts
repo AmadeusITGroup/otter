@@ -37,7 +37,7 @@ export function updateBuildersNames(): Rule {
       const workspaceProject = workspace.projects[projectName];
       if (workspaceProject.architect) {
         Object.keys(workspaceProject.architect).forEach(architectName => {
-          const builderName: string = workspaceProject.architect![architectName].builder;
+          const builderName: keyof typeof buildersMappingFromV7 = workspaceProject.architect![architectName].builder;
           if (buildersMappingFromV7[builderName]) {
             workspaceProject.architect![architectName].builder = buildersMappingFromV7[builderName];
           }

@@ -87,7 +87,7 @@ export function processFormData(data: any, type: string): FormData | string {
  * @returns the association between parameter names and their corresponding tokens
  */
 export function computePiiParameterTokens(piiParameterNames: string[]): { [key: string]: string } {
-  return piiParameterNames.reduce((tokens, parameterName) => {
+  return piiParameterNames.reduce<Record<string, string>>((tokens, parameterName) => {
     tokens[parameterName] = `$${parameterName}$`;
     return tokens;
   }, {});
@@ -104,7 +104,7 @@ export function computePiiParameterTokens(piiParameterNames: string[]): { [key: 
  * @returns the tokenized request options
  */
 export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { [key: string]: string }, piiParamTokens: { [key: string]: string }, data: any): TokenizedOptions {
-  const values = {};
+  const values: Record<string, string> = {};
   const tokenizedQueryParams = { ...queryParameters };
   Object.entries(piiParamTokens).filter(([parameterName, _token]) => data[parameterName] !== undefined).forEach(([parameterName, token]) => {
     if (tokenizedQueryParams[parameterName]) {

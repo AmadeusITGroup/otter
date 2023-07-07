@@ -64,7 +64,7 @@ export class SplitYamlFormatter implements Formatter {
         currentNode.map((n) => this.rewriterReferences(n))
       );
     } else if (typeof currentNode === 'object') {
-      const ret = {};
+      const ret: Record<string, any> = {};
       for (const k of Object.keys(currentNode)) {
         ret[k] = await this.rewriterReferences(currentNode[k], k);
       }

@@ -7,7 +7,9 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": ["build-builders"]
+      "dependsOn": [
+        "build-builders"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

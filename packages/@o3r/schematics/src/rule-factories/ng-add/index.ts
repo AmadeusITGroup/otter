@@ -35,7 +35,7 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
 
   const getOptions = (schema: Schematic<any, any>) => {
     const schemaOptions = schema.description.schemaJson?.properties || {};
-    return Object.entries(options || {}).reduce((accOptions, [key, value]: [string, any]) => {
+    return Object.entries(options || {}).reduce<Record<string, any>>((accOptions, [key, value]: [string, any]) => {
       if (schemaOptions[key]) {
         accOptions[key] = value;
       }

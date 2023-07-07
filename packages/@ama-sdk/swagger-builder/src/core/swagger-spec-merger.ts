@@ -1,6 +1,6 @@
 import path from 'node:path';
 import process from 'node:process';
-import type { Spec } from 'swagger-schema-official';
+import type { Path, Spec } from 'swagger-schema-official';
 import { SwaggerSpec } from './swagger-spec-wrappers/swagger-spec.interface';
 import { isOuterRefPath, isUrlRefPath } from './swagger-spec-wrappers/utils';
 import {
@@ -22,6 +22,8 @@ export interface BuildOptions {
   ignoreConflict?: boolean;
 }
 
+type OverrideItems = { definitions: string[]; parameters: string[]; paths: { url: string; method: string }[]; responses: string[]; tags: string[] };
+
 /**
  * Tool to merge several Swagger Spec (YAML or Split Spec)
  */
@@ -31,11 +33,12 @@ export class SwaggerSpecMerger {
   private outerReferences: { swaggerPath: string; innerPath: string }[] = [];
 
   /** List of items override during the merge process */
-  private overrideItems: { definitions: string[]; parameters: string[]; paths: { url: string; method: string }[]; responses: string[] } = {
+  private overrideItems: OverrideItems = {
     definitions: [],
     parameters: [],
     paths: [],
-    responses: []
+    responses: [],
+    tags: []
   };
 
   /** List of references already resolved during the build process */
@@ -53,7 +56,7 @@ export class SwaggerSpecMerger {
   private async reset() {
     this.outerReferences = [];
     this.alreadyResolvedList = [];
-    this.overrideItems = {definitions: [], parameters: [], paths: [], responses: []};
+    this.overrideItems = {definitions: [], parameters: [], paths: [], responses: [], tags: []};
     const ignoredSpecs = [...this.ignoredSwaggerPath, ...this.specs.map((s) => s.sourcePath)];
     for (const spec of this.specs) {
       await spec.parse(ignoredSpecs);
@@ -69,7 +72,7 @@ export class SwaggerSpecMerger {
    */
   private async editSpecWithReferences(swaggerSpec: Partial<Spec>, swaggerPath: string, innerPath: string) {
     const originalSpec = this.specs.find((spec) => spec.sourcePath === swaggerPath);
-    const [resourceType, resourcePath] = innerPath.replace(/^\//, '').split('/');
+    const [resourceType, resourcePath] = innerPath.replace(/^\//, '').split('/') as [keyof OverrideItems, any];
     const isOverride = originalSpec && this.overrideItems[resourceType] && this.overrideItems[resourceType].indexOf(resourcePath) > -1;
     let newPath = innerPath;
 
@@ -321,7 +324,7 @@ export class SwaggerSpecMerger {
     const paths = await Promise.all(this.specs.map((s) => s.getPaths()));
     return paths
       .filter((e) => !!e)
-      .reduce<{ [k: string]: any }>((acc, e) => {
+      .reduce<{ [k: string]: {[i in keyof Path]: any} }>((acc, e) => {
         const props = Object.keys(acc);
         const conflicts = Object.keys(e)
           .filter((url) =>
@@ -329,7 +332,7 @@ export class SwaggerSpecMerger {
             Object.keys(acc[url]).some((method) => Object.keys(e[url]).some((m) => m === method))
           );
         const conflictMethods = conflicts.reduce<{ [url: string]: string[] }>((accConflict, url) => {
-          accConflict[url] = Object.keys(acc[url]).filter((method) => !!e[url][method]);
+          accConflict[url] = Object.keys(acc[url]).filter((method) => !!e[url][method as keyof Path]);
           return accConflict;
         }, {});
         this.overrideItems.paths.push(

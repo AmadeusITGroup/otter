@@ -27,8 +27,8 @@ const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().r
 const getPathObjectTemplate = (pathObj: PathObject) => {
   return `{
       ${
-  Object.keys(pathObj).map((propName) => {
-    const value = (propName as keyof PathObject) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
+  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+    const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
     return `${propName}: ${value}`;
   }).join(',')
 }
@@ -128,9 +128,9 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
     const generatorOptions: Partial<OpenApiCliOptions> = {specPath};
     const packageJsonFile: {openApiSupportedVersion?: string} = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
     const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
-    let openApiVersion: string = '';
+    let openApiVersion = '';
     try {
-      openApiVersion = tree.readJson('openapitools.json')?.['generator-cli']?.version;
+      openApiVersion = (tree.readJson('openapitools.json') as any)?.['generator-cli']?.version;
     } catch {
       context.logger.warn('No openapitools.json file found in the project');
     }

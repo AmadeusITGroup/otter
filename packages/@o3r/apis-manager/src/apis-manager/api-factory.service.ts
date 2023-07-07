@@ -58,7 +58,7 @@ export class ApiFactoryService {
    */
   public updateApiMapping(map: (Api | ApiClassType)[] | Record<string, (Api | ApiClassType)>) {
     const newItems: Record<string, (Api | ApiClassType)> = Array.isArray(map) ? map
-      .reduce((acc, curr) => {
+      .reduce<Record<string, Api | ApiClassType<Api>>>((acc, curr) => {
         acc[curr.apiName] = curr;
         return acc;
       }, {}) : map;

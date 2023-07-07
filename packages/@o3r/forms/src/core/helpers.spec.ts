@@ -5,7 +5,15 @@ describe('Form helpers', () => {
 
   describe('markAllControlsDirtyAndTouched and markAllControlsPristineAndUntouched', () => {
 
-    let form: FormGroup;
+    let form: FormGroup<{
+      first: FormControl<any>;
+      last: FormControl<any>;
+      subGroup: FormGroup<{
+        day: FormControl<any>;
+        month: FormControl<any>;
+        year: FormControl<any>;
+      }>;
+    }>;
 
     beforeEach(() => {
       form = new FormGroup({
@@ -20,8 +28,7 @@ describe('Form helpers', () => {
     });
 
     it('should have a pristine initial state', () => {
-      const controlsKey = 'controls';
-      const deepChild = form.controls.subGroup[controlsKey].day;
+      const deepChild = form.controls.subGroup.controls.day;
 
       expect(form.controls.first.pristine).toBe(true);
       expect(deepChild.dirty).toBe(false);
@@ -37,8 +44,7 @@ describe('Form helpers', () => {
 
     it('should mark a deep child as dirty/touched', () => {
       markAllControlsDirtyAndTouched(form);
-      const controlsKey = 'controls';
-      const deepChild = form.controls.subGroup[controlsKey].month;
+      const deepChild = form.controls.subGroup.controls.month;
 
       expect(deepChild.dirty).toBe(true);
     });

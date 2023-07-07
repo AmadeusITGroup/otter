@@ -89,7 +89,7 @@ describe('Add Localization', () => {
       expect(translationFileContent).toContain('dummyLoc1: string;');
       expect(translationFileContent).toContain('dummyLoc1: \'o3r-test-pres.dummyLoc1\'');
 
-      const localizationFileContent = tree.readJson(localizationPath);
+      const localizationFileContent: any = tree.readJson(localizationPath);
       expect(localizationFileContent['o3r-test-pres.dummyLoc1'].description).toBe('Dummy 1 description');
       expect(localizationFileContent['o3r-test-pres.dummyLoc1'].defaultValue).toBe('Dummy 1');
     });

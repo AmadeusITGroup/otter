@@ -84,7 +84,7 @@ const regexp = new RegExp(`^${CONFIGURATION_PREFIX}`);
  * @returns A map of config fields and their values
  */
 export function retrieveConfigFromProps(props: any) {
-  return Object.keys(props).filter((prop) => prop.match(regexp)).reduce((acc, configKey) => {
+  return Object.keys(props).filter((prop) => prop.match(regexp)).reduce<Record<string, any>>((acc, configKey) => {
     acc[configKey.replace(regexp, '')] = props[configKey];
     return acc;
   }, {});

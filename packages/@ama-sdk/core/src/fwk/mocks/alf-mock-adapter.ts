@@ -159,7 +159,7 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
   const alfCalls = buildAlfCalls(log, operationAdapter);
 
   // build the mock map for each operationId in sequential
-  const mock = alfCalls.filter((alfCall) => alfCall.operationId).reduce((mockMap, alfCall) => {
+  const mock = alfCalls.filter((alfCall) => alfCall.operationId).reduce<Record<string, any[]>>((mockMap, alfCall) => {
     if (!mockMap[alfCall.operationId!]) {
       mockMap[alfCall.operationId!] = [];
     }

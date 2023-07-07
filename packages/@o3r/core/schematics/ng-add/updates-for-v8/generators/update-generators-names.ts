@@ -27,7 +27,7 @@ const generatorsMappingFromV7 = {
 };
 
 function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
-  Object.keys(schematicsToUpdate).forEach(generatorName => {
+  (Object.keys(schematicsToUpdate) as (keyof typeof generatorsMappingFromV7)[]).forEach((generatorName) => {
     if (generatorsMappingFromV7[generatorName]) {
       (schematicsToUpdate[generatorsMappingFromV7[generatorName]] || {}).builder = schematicsToUpdate[generatorName];
       // delete the old generator entry

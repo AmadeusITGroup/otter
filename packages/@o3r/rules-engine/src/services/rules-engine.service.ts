@@ -110,7 +110,7 @@ export class RulesEngineService implements OnDestroy {
         const storedPlaceholderRequests = storedPlaceholdersAndRequests[1] || {};
         const placeholderNewRequests: { rawUrl: string; resolvedUrl: string }[] = [];
         // Stores all raw Urls used from the current engine execution
-        const usedUrls = {};
+        const usedUrls: Record<string, boolean> = {};
         // Get all Urls that needs to be resolved from current rules engine output
         const placeholdersTemplates = placeholderActions.reduce((acc, placeholderAction) => {
           const placeholdersTemplateUrl = {

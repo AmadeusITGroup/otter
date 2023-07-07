@@ -153,7 +153,7 @@ export function addTagToSpecObj(swaggerSpec: Partial<Spec>, tag: any): any {
  * @param swaggerPath Path to swagger spec the item come from
  * @param ignoreConflict ignore the conflict and keep the original item
  */
-export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: string, itemName: string, item: any, swaggerPath?: string, ignoreConflict = false
+export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spec, itemName: string, item: any, swaggerPath?: string, ignoreConflict = false
 ): { finalName: string; swaggerSpec: Partial<Spec> } {
   if (!item || !swaggerSpec || !itemName) {
     return { finalName: itemName, swaggerSpec };
@@ -162,10 +162,10 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: string, i
   if (!swaggerSpec[nodeType]) {
     swaggerSpec[nodeType] = {
       [itemName]: item
-    };
+    } as any;
   } else {
-    if (!swaggerSpec[nodeType][itemName]) {
-      swaggerSpec[nodeType][itemName] = item;
+    if (!(swaggerSpec[nodeType] as any)[itemName]) {
+      (swaggerSpec[nodeType] as any)[itemName] = item;
     } else if (!ignoreConflict) {
       const newItemName = calculatePrefix(itemName, swaggerPath) + itemName;
       console.warn(`The ${nodeType} "${itemName}"${swaggerPath ? ` from "${swaggerPath}"` : ''} is conflicting, "${newItemName}" will be used instead.`);

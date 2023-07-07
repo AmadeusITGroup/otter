@@ -1,11 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
-  "npmScope": "o3r",
   "affected": {
     "defaultBase": "remotes/origin/main"
   },
   "cli": {
-    "defaultCollection": "@o3r/core",
     "schematicCollections": [
       "@schematics/angular",
       "@o3r/core"
@@ -17,15 +15,6 @@
       "environment": "all",
       "path": ".cache/angular"
     }
-  },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    "tsconfig.base.json": "*",
-    "tsconfig.build.json": "*",
-    "nx.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {
@@ -68,24 +57,41 @@
     }
   },
   "namedInputs": {
+    "global": [
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.build.json",
+      "{workspaceRoot}/nx.json"
+    ],
+    "default": [
+      "global",
+      "{projectRoot}/src/**/*",
+      "{projectRoot}/package.json",
+      "{projectRoot}/project.json"
+    ],
     "jasmine-fixtures": [
+      "global",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "jest-fixtures": [
+      "global",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "builders": [
+      "global",
       "{projectRoot}/builders.json",
       "{projectRoot}/builders/**/*",
       "{projectRoot}/package.json"
     ],
     "schematics": [
+      "global",
       "{projectRoot}/migration.json",
       "{projectRoot}/collection.json",
       "{projectRoot}/schematics/**/*",
       "{projectRoot}/package.json"
     ],
     "middlewares": [
+      "global",
       "{projectRoot}/middlewares/**/*",
       "{projectRoot}/package.json"
     ],
@@ -112,6 +118,7 @@
       "{projectRoot}/package.json"
     ],
     "plugins": [
+      "global",
       "{projectRoot}/plugins/**/*",
       "{projectRoot}/package.json"
     ]

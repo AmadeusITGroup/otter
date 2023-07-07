@@ -140,7 +140,7 @@ function createStateSlice(existingSlice: any, filter: (string | number | Storage
       } else {
         for (const key in attr) {
           if (Object.prototype.hasOwnProperty.call(attr, key)) {
-            const element = attr[key];
+            const element: any = attr[key as keyof typeof attr];
             memo[key] = createStateSlice(existingSlice[key], element);
           }
         }
@@ -193,31 +193,31 @@ export const syncStateUpdate = (
     let encrypt;
 
     if (typeof key === 'object') {
-      const name = Object.keys(key)[0];
+      const name = (Object.keys(key) as (keyof typeof key)[])[0];
       stateSlice = state[name];
 
       if (typeof stateSlice !== 'undefined' && key[name]) {
         // use serialize function if specified.
-        if (key[name].serialize) {
-          stateSlice = key[name].serialize(stateSlice);
+        if ((key[name] as any).serialize) {
+          stateSlice = (key[name] as SyncStorageSyncOptions).serialize!(stateSlice);
         } else {
           // if serialize function is not specified filter on fields if an array has been provided.
           let filter: StorageKeyConfiguration[] | undefined;
-          if (key[name].reduce) {
-            filter = key[name];
-          } else if (key[name].filter) {
-            filter = key[name].filter;
+          if ((key[name] as any).reduce) {
+            filter = key[name] as StorageKeyConfiguration[];
+          } else if ((key[name] as any).filter) {
+            filter = (key[name] as any).filter as StorageKeyConfiguration[];
           }
           if (filter) {
             stateSlice = createStateSlice(stateSlice, filter);
           }
 
           // Check if encrypt and decrypt are present, also checked at this#rehydrateApplicationState()
-          if (key[name].encrypt && key[name].decrypt) {
-            if (typeof key[name].encrypt === 'function') {
-              encrypt = key[name].encrypt;
+          if ((key[name] as any).encrypt && (key[name] as any).decrypt) {
+            if (typeof (key[name] as any).encrypt === 'function') {
+              encrypt = (key[name] as any).encrypt;
             }
-          } else if (key[name].encrypt || key[name].decrypt) {
+          } else if ((key[name] as any).encrypt || (key[name] as any).decrypt) {
             // If one of those is not present, then let know that one is missing
             logger.error(
               `Either encrypt or decrypt function is not present on '${key[name] as string}' key object.`
@@ -229,8 +229,8 @@ export const syncStateUpdate = (
           Replacer and space arguments to pass to JSON.stringify.
           If these fields don't exist, undefined will be passed.
         */
-        replacer = key[name].replacer;
-        space = key[name].space;
+        replacer = (key[name] as any).replacer;
+        space = (key[name] as any).space;
       }
 
       key = name;
