@@ -107,3 +107,40 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
     templateRelativePath
   };
 };
+
+/**
+ * Transformer factory to add imports into the angular component decorator
+ *
+ * @param imports
+ */
+export const addImportsIntoComponentDecoratorTransformerFactory = (
+  imports: string[]
+): ts.TransformerFactory<ts.Node> => (ctx) => (rootNode: ts.Node) => {
+  const { factory } = ctx;
+  const visit = (node: ts.Node): ts.Node => {
+    if (isNgClassDecorator(node)) {
+      const importInitializer = getPropertyFromDecoratorFirstArgument(node, 'imports');
+      const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
+
+      return factory.updateDecorator(
+        node,
+        factory.updateCallExpression(
+          node.expression,
+          node.expression.expression,
+          node.expression.typeArguments,
+          [
+            factory.createObjectLiteralExpression([
+              ...(node.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
+              factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                importsList.concat(imports.map((importName) => factory.createIdentifier(importName))),
+                true
+              ))
+            ], true)
+          ]
+        )
+      );
+    }
+    return ts.visitEachChild(node, visit, ctx);
+  };
+  return ts.visitNode(rootNode, visit);
+};

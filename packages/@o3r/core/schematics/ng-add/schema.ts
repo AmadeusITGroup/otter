@@ -36,9 +36,6 @@ export interface NgAddSchematicsSchema extends JsonObject {
   /** Enable Storybook */
   enableStorybook: boolean;
 
-  /** Set the Otter Generator as default ngCLI generator */
-  isDefaultGenerator: boolean;
-
   /** Skip the linter process */
   skipLinter: boolean;
 
