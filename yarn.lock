@@ -67,7 +67,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.0.5
     "@angular-eslint/eslint-plugin": ~16.0.3
     "@angular/cli": ~16.0.5
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -127,7 +127,7 @@ __metadata:
     "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -182,7 +182,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ~16.0.5
     "@angular-eslint/eslint-plugin": ~16.0.3
     "@angular/cli": ~16.0.5
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -208,7 +208,7 @@ __metadata:
     mem-fs: ^2.2.1
     minimatch: ^9.0.0
     npm-run-all: ^4.1.5
-    nx: ~16.3.2
+    nx: ~16.5.0
     onchange: ^7.0.2
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -246,7 +246,7 @@ __metadata:
   dependencies:
     "@angular-eslint/eslint-plugin": ~16.0.3
     "@apidevtools/swagger-parser": ^10.0.0
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/glob": ^8.0.0
@@ -294,7 +294,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/amaterasu-api-spec": "workspace:^"
     "@o3r/amaterasu-dodo": "workspace:^"
     "@o3r/amaterasu-otter": "workspace:^"
@@ -322,7 +322,7 @@ __metadata:
     jsonschema: ~1.4.1
     loglevel: ^1.8.0
     minimist: ^1.2.6
-    nx: ~16.3.2
+    nx: ~16.5.0
     ora: ~5.4.1
     progress: ^2.0.3
     prompts: ^2.4.2
@@ -358,7 +358,7 @@ __metadata:
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -376,7 +376,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     loglevel: ^1.8.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -395,7 +395,7 @@ __metadata:
     "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -410,7 +410,7 @@ __metadata:
     eslint-plugin-prefer-arrow: ^1.2.3
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -5815,12 +5815,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/devkit@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/devkit@npm:16.5.0"
+  dependencies:
+    "@nx/devkit": 16.5.0
+  checksum: 6867b66e6eb2ab5d286b726b3c4120270081ed9fbddf5e8de9cdd72e8bab0ae35b1338c4a8496a44e04098f8d28cbdd0422d0ca8d30b778effac9c4a41b81367
+  languageName: node
+  linkType: hard
+
 "@nrwl/jest@npm:16.3.2":
   version: 16.3.2
   resolution: "@nrwl/jest@npm:16.3.2"
   dependencies:
     "@nx/jest": 16.3.2
   checksum: 1d7df9a20d74e44a2d6be940ff573d30e751868ccb9d101e180093a11595a2d15cdd0ec32eaf8106ab4d23ef977d0a33b5756247723b826d7b31a9a8641c9c57
+  languageName: node
+  linkType: hard
+
+"@nrwl/jest@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/jest@npm:16.5.0"
+  dependencies:
+    "@nx/jest": 16.5.0
+  checksum: 341a8fc191a4cff99a2c6948b3b15a6eb4725ee402a22129f892db4654c532f78dce23a73bbfb14b595c74f29e05c61f0068e4d7641b051ba18e26282bba343f
   languageName: node
   linkType: hard
 
@@ -5833,12 +5851,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/js@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/js@npm:16.5.0"
+  dependencies:
+    "@nx/js": 16.5.0
+  checksum: 0c74a03a71c152fb76d1092775eb7ab6fcf89032c9fcfa64bc5518f7d41e71dcaa78728913bcd4c7af1ae7b5b34db726d8aa4e14fca2b15404fb6e905b7053ab
+  languageName: node
+  linkType: hard
+
 "@nrwl/linter@npm:16.3.2":
   version: 16.3.2
   resolution: "@nrwl/linter@npm:16.3.2"
   dependencies:
     "@nx/linter": 16.3.2
   checksum: 65dc3b60e2dd3e0e313991c7f8575131f58a1593712fcb77244390396aa0784e56b9321fcb27acb3a485d889fd78ae646e37aab691a362d251d1a33048c2953c
+  languageName: node
+  linkType: hard
+
+"@nrwl/linter@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/linter@npm:16.5.0"
+  dependencies:
+    "@nx/linter": 16.5.0
+  checksum: 025ebef7016c4e191adf5f59b12a44e3cf70b29412517d62eb7252a38317ab4bace9410256c13f9da776d24a1534c3914ebecaed83c9fc5286d076f3858b9d6c
   languageName: node
   linkType: hard
 
@@ -5873,6 +5909,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/tao@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/tao@npm:16.5.0"
+  dependencies:
+    nx: 16.5.0
+  bin:
+    tao: index.js
+  checksum: 81e724ecf16fa523ccc40f225ab5d8ff9595a34c3f9f814bee84714411b97cec94e8d5e7c9b0fe69934315c1b0e0d69c38b8b281fec6c73d7bed51ec4d079110
+  languageName: node
+  linkType: hard
+
 "@nrwl/webpack@npm:16.3.2":
   version: 16.3.2
   resolution: "@nrwl/webpack@npm:16.3.2"
@@ -5888,6 +5935,15 @@ __metadata:
   dependencies:
     "@nx/workspace": 16.3.2
   checksum: f81cfa4857ec5979ab6e4731b16ebb779b656ff010b7fd70ff3ea5cbe6e4fa8f847f30a31c9c88346eb0f6016bfb68b3259f9def35cde6d616caa4428716f011
+  languageName: node
+  linkType: hard
+
+"@nrwl/workspace@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nrwl/workspace@npm:16.5.0"
+  dependencies:
+    "@nx/workspace": 16.5.0
+  checksum: 2c4d7f06d122cf6bfe25dc59516beab7c1a0f74b2363c7e5c90e3a82b1a820906bf29ff794c3c391db629f56d6fa2e3175c2f3f0e8aca2953e65e2e6acff2197
   languageName: node
   linkType: hard
 
@@ -5998,7 +6054,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/jest@npm:16.3.2, @nx/jest@npm:~16.3.2":
+"@nx/devkit@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/devkit@npm:16.5.0"
+  dependencies:
+    "@nrwl/devkit": 16.5.0
+    ejs: ^3.1.7
+    ignore: ^5.0.4
+    semver: 7.5.3
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+  peerDependencies:
+    nx: ">= 15 <= 17"
+  checksum: 6bfb23824f0ac23f814f787c90c7df7e34376ec12f13a19df82c4c2629dc11668079b37fdbb5cf16436be31e666cc5a0ec9143012955045dac3e5ab80e2b04a6
+  languageName: node
+  linkType: hard
+
+"@nx/jest@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/jest@npm:16.3.2"
   dependencies:
@@ -6020,7 +6092,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/js@npm:16.3.2, @nx/js@npm:~16.3.2":
+"@nx/jest@npm:16.5.0, @nx/jest@npm:~16.5.0":
+  version: 16.5.0
+  resolution: "@nx/jest@npm:16.5.0"
+  dependencies:
+    "@jest/reporters": ^29.4.1
+    "@jest/test-result": ^29.4.1
+    "@nrwl/jest": 16.5.0
+    "@nx/devkit": 16.5.0
+    "@nx/js": 16.5.0
+    "@phenomnomnominal/tsquery": ~5.0.1
+    chalk: ^4.1.0
+    dotenv: ~10.0.0
+    identity-obj-proxy: 3.0.0
+    jest-config: ^29.4.1
+    jest-resolve: ^29.4.1
+    jest-util: ^29.4.1
+    resolve.exports: 1.1.0
+    tslib: ^2.3.0
+  checksum: a502c86b7b4afacd106282a6cc2fcded674581617db678f3eb581f57d1443386344516722a346011a53502dd1a967e3ccab2f6d7777e68fbcb9aae8e02971550
+  languageName: node
+  linkType: hard
+
+"@nx/js@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/js@npm:16.3.2"
   dependencies:
@@ -6056,7 +6150,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/linter@npm:16.3.2, @nx/linter@npm:~16.3.2":
+"@nx/js@npm:16.5.0, @nx/js@npm:~16.5.0":
+  version: 16.5.0
+  resolution: "@nx/js@npm:16.5.0"
+  dependencies:
+    "@babel/core": ^7.15.0
+    "@babel/plugin-proposal-class-properties": ^7.14.5
+    "@babel/plugin-proposal-decorators": ^7.14.5
+    "@babel/plugin-transform-runtime": ^7.15.0
+    "@babel/preset-env": ^7.15.0
+    "@babel/preset-typescript": ^7.15.0
+    "@babel/runtime": ^7.14.8
+    "@nrwl/js": 16.5.0
+    "@nx/devkit": 16.5.0
+    "@nx/workspace": 16.5.0
+    "@phenomnomnominal/tsquery": ~5.0.1
+    babel-plugin-const-enum: ^1.0.1
+    babel-plugin-macros: ^2.8.0
+    babel-plugin-transform-typescript-metadata: ^0.3.1
+    chalk: ^4.1.0
+    detect-port: ^1.5.1
+    fast-glob: 3.2.7
+    fs-extra: ^11.1.0
+    ignore: ^5.0.4
+    js-tokens: ^4.0.0
+    minimatch: 3.0.5
+    semver: 7.5.3
+    source-map-support: 0.5.19
+    tslib: ^2.3.0
+  peerDependencies:
+    verdaccio: ^5.0.4
+  peerDependenciesMeta:
+    verdaccio:
+      optional: true
+  checksum: f5dcc2f10c615de12e6a0e67b16041155560f33f7d14f68b9697cdf419870fd3331bfc1dcab4bfddce5c2d1c361aad86030efa14d116ace94d6efdca01c32c28
+  languageName: node
+  linkType: hard
+
+"@nx/linter@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/linter@npm:16.3.2"
   dependencies:
@@ -6075,6 +6206,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/linter@npm:16.5.0, @nx/linter@npm:~16.5.0":
+  version: 16.5.0
+  resolution: "@nx/linter@npm:16.5.0"
+  dependencies:
+    "@nrwl/linter": 16.5.0
+    "@nx/devkit": 16.5.0
+    "@nx/js": 16.5.0
+    "@phenomnomnominal/tsquery": ~5.0.1
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+  peerDependencies:
+    eslint: ^8.0.0
+  peerDependenciesMeta:
+    eslint:
+      optional: true
+  checksum: b758cb3034142e7f78474c9526c5864bf8b3a6814f73ee7d7198705caaef4e15a3667ff90adb77e03507c02c7a046146f7891bc6133b4e14dbd519a275c0ba6f
+  languageName: node
+  linkType: hard
+
 "@nx/nx-darwin-arm64@npm:16.2.2":
   version: 16.2.2
   resolution: "@nx/nx-darwin-arm64@npm:16.2.2"
@@ -6085,6 +6235,13 @@ __metadata:
 "@nx/nx-darwin-arm64@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/nx-darwin-arm64@npm:16.3.2"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-darwin-arm64@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-darwin-arm64@npm:16.5.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -6103,9 +6260,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-darwin-x64@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-darwin-x64@npm:16.5.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-freebsd-x64@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/nx-freebsd-x64@npm:16.3.2"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-freebsd-x64@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-freebsd-x64@npm:16.5.0"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -6124,6 +6295,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-arm-gnueabihf@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:16.5.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-arm64-gnu@npm:16.2.2":
   version: 16.2.2
   resolution: "@nx/nx-linux-arm64-gnu@npm:16.2.2"
@@ -6134,6 +6312,13 @@ __metadata:
 "@nx/nx-linux-arm64-gnu@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/nx-linux-arm64-gnu@npm:16.3.2"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm64-gnu@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-linux-arm64-gnu@npm:16.5.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -6152,6 +6337,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-arm64-musl@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-linux-arm64-musl@npm:16.5.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-x64-gnu@npm:16.2.2":
   version: 16.2.2
   resolution: "@nx/nx-linux-x64-gnu@npm:16.2.2"
@@ -6162,6 +6354,13 @@ __metadata:
 "@nx/nx-linux-x64-gnu@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/nx-linux-x64-gnu@npm:16.3.2"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-x64-gnu@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-linux-x64-gnu@npm:16.5.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -6180,6 +6379,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-x64-musl@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-linux-x64-musl@npm:16.5.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@nx/nx-win32-arm64-msvc@npm:16.2.2":
   version: 16.2.2
   resolution: "@nx/nx-win32-arm64-msvc@npm:16.2.2"
@@ -6194,6 +6400,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-win32-arm64-msvc@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-win32-arm64-msvc@npm:16.5.0"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-win32-x64-msvc@npm:16.2.2":
   version: 16.2.2
   resolution: "@nx/nx-win32-x64-msvc@npm:16.2.2"
@@ -6204,6 +6417,13 @@ __metadata:
 "@nx/nx-win32-x64-msvc@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/nx-win32-x64-msvc@npm:16.3.2"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-win32-x64-msvc@npm:16.5.0":
+  version: 16.5.0
+  resolution: "@nx/nx-win32-x64-msvc@npm:16.5.0"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -6257,7 +6477,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/workspace@npm:16.3.2, @nx/workspace@npm:~16.3.2":
+"@nx/workspace@npm:16.3.2":
   version: 16.3.2
   resolution: "@nx/workspace@npm:16.3.2"
   dependencies:
@@ -6285,13 +6505,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/workspace@npm:16.5.0, @nx/workspace@npm:~16.5.0":
+  version: 16.5.0
+  resolution: "@nx/workspace@npm:16.5.0"
+  dependencies:
+    "@nrwl/workspace": 16.5.0
+    "@nx/devkit": 16.5.0
+    "@parcel/watcher": 2.0.4
+    chalk: ^4.1.0
+    chokidar: ^3.5.1
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    dotenv: ~10.0.0
+    figures: 3.2.0
+    flat: ^5.0.2
+    ignore: ^5.0.4
+    minimatch: 3.0.5
+    npm-run-path: ^4.0.1
+    nx: 16.5.0
+    open: ^8.4.0
+    rxjs: ^7.8.0
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+    yargs: ^17.6.2
+    yargs-parser: 21.1.1
+  checksum: eca11aacb2a73ec024134f13e5bb8f6be51dd87cf5bb6ffe82479f97a2aa6fefadefbc55c6fe432d35b81322565575ff0d79c1f01c5ecb885a1b2b9a9dca72ef
+  languageName: node
+  linkType: hard
+
 "@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6308,7 +6556,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     js-yaml: ^4.1.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6323,7 +6571,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6339,7 +6587,7 @@ __metadata:
     eslint-plugin-prefer-arrow: ^1.2.3
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     tar: ^6.1.12
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -6358,7 +6606,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6375,7 +6623,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     js-yaml: ^4.1.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6394,7 +6642,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6411,7 +6659,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     js-yaml: ^4.1.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6440,9 +6688,9 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6464,7 +6712,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     type-fest: ^3.12.0
@@ -6513,9 +6761,9 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6536,7 +6784,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6580,9 +6828,9 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6606,7 +6854,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6638,7 +6886,7 @@ __metadata:
     "@types/node": ^18.0.0
     globby: ^13.1.2
     minimist: ^1.2.6
-    nx: ~16.3.2
+    nx: ~16.5.0
     typescript: ~5.0.2
   peerDependencies:
     typescript: ~5.0.2
@@ -6680,7 +6928,7 @@ __metadata:
     "@ng-bootstrap/ng-bootstrap": ^15.0.1
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -6716,7 +6964,7 @@ __metadata:
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
     minimist: ^1.2.6
-    nx: ~16.3.2
+    nx: ~16.5.0
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     tsc-watch: ^6.0.0
@@ -6748,7 +6996,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/analytics": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -6777,7 +7025,7 @@ __metadata:
     jest: ~29.6.0
     jest-environment-jsdom: ~29.6.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -6842,9 +7090,9 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6871,7 +7119,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
     semver: ^7.5.2
@@ -6936,9 +7184,9 @@ __metadata:
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
     "@ngrx/store-devtools": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6968,7 +7216,7 @@ __metadata:
     jest-preset-angular: ^13.1.1
     minimist: ^1.2.6
     ngrx-store-localstorage: ^16.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
     semver: ^7.5.2
@@ -7029,9 +7277,9 @@ __metadata:
     "@angular-eslint/eslint-plugin": ~16.0.3
     "@angular-eslint/eslint-plugin-template": ~16.0.3
     "@angular/cli": ~16.0.5
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7051,7 +7299,7 @@ __metadata:
     jest: ~29.6.0
     jest-junit: ^16.0.0
     minimist: ^1.2.6
-    nx: ~16.3.2
+    nx: ~16.5.0
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
@@ -7072,7 +7320,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/fs-extra": ^11.0.0
@@ -7104,7 +7352,7 @@ __metadata:
     jest: ~29.6.0
     minimatch: ^9.0.0
     node-fetch: ^2.6.7
-    nx: ~16.3.2
+    nx: ~16.5.0
     request: ^2.88.0
     request-promise-native: ^1.0.9
     rimraf: ^5.0.0
@@ -7151,9 +7399,9 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7176,7 +7424,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -7227,7 +7475,7 @@ __metadata:
     eslint-plugin-jsdoc: ^39.3.6
     eslint-plugin-prefer-arrow: ^1.2.3
     eslint-plugin-unicorn: ^47.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     typescript: ~5.0.2
   peerDependencies:
     "@angular-devkit/schematics": ~16.0.5
@@ -7282,7 +7530,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
@@ -7298,7 +7546,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     jest-junit: ^16.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     rimraf: ^5.0.0
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -7334,9 +7582,9 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@microsoft/tsdoc": ~0.14.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7357,7 +7605,7 @@ __metadata:
     jest: ~29.6.0
     jest-junit: ^16.0.0
     jsonschema: ~1.4.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
@@ -7395,9 +7643,9 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7418,7 +7666,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -7464,10 +7712,10 @@ __metadata:
     "@commitlint/config-conventional": ^17.0.0
     "@compodoc/compodoc": ^1.1.19
     "@nx/angular": ~16.3.2
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
-    "@nx/workspace": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
+    "@nx/workspace": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7503,7 +7751,7 @@ __metadata:
     minimist: ^1.2.6
     ng-packagr: ~16.0.1
     npm-run-all: ^4.1.5
-    nx: ~16.3.2
+    nx: ~16.5.0
     nx-cloud: ~16.0.5
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -7544,9 +7792,9 @@ __metadata:
     "@angular/platform-browser": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
     "@azure/functions": ^3.5.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7568,7 +7816,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-preset-angular: ^13.1.1
     nock: ^13.0.5
-    nx: ~16.3.2
+    nx: ~16.5.0
     probot: ^12.3.1
     rxjs: ^7.8.1
     semver: ^7.5.2
@@ -7601,9 +7849,9 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
     "@ngx-translate/core": ~15.0.0
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7633,7 +7881,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -7696,9 +7944,9 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@fullstory/browser": ~1.7.0
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7722,7 +7970,7 @@ __metadata:
     logrocket: ~4.0.0
     logrocket-ngrx: ~0.2.1
     ng-packagr: ~16.0.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     smartlook-client: ^8.0.0
     tslib: ^2.5.3
@@ -7773,9 +8021,9 @@ __metadata:
     "@capacitor/preferences": ^5.0.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7803,7 +8051,7 @@ __metadata:
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
     node-fetch: ^2.6.7
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -7859,9 +8107,9 @@ __metadata:
     "@ngrx/entity": ~16.0.1
     "@ngrx/router-store": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7884,7 +8132,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -7931,9 +8179,9 @@ __metadata:
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
     "@ngx-translate/core": ~15.0.0
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -7967,7 +8215,7 @@ __metadata:
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
     jsonpath-plus: ^7.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     pid-from-port: ^1.1.3
     rimraf: ^5.0.0
     rxjs: ^7.8.1
@@ -8036,9 +8284,9 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8062,7 +8310,7 @@ __metadata:
     jest-junit: ^16.0.0
     jsonschema: ~1.4.1
     minimatch: ^9.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     semver: ^7.5.2
     ts-jest: ^29.1.0
@@ -8100,8 +8348,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ~16.0.5
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -8123,7 +8371,7 @@ __metadata:
     jest: ~29.6.0
     jest-environment-jsdom: ~29.6.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -8169,7 +8417,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -8203,7 +8451,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     jest-junit: ^16.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     react: ^17.0.2
     react-dom: ^17.0.2
     rimraf: ^5.0.0
@@ -8249,7 +8497,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8265,7 +8513,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     jest-preset-stylelint: ~6.1.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     postcss: ^8.4.4
     rimraf: ^5.0.0
     stylelint: ^14.1.0
@@ -8301,9 +8549,9 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
-    "@nx/js": ~16.3.2
-    "@nx/linter": ~16.3.2
+    "@nx/jest": ~16.5.0
+    "@nx/js": ~16.5.0
+    "@nx/linter": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -8329,7 +8577,7 @@ __metadata:
     globby: ^11.1.0
     jest: ~29.6.0
     jest-junit: ^16.0.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     sass: ~1.63.0
     sass-true: ^7.0.0
@@ -8381,7 +8629,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.0.1
     "@ngx-translate/core": ~15.0.0
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8409,7 +8657,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-preset-angular: ^13.1.1
     module-from-string: ^3.2.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     pixelmatch: ^5.2.1
     playwright: ~1.35.0
     pngjs: ^7.0.0
@@ -8477,7 +8725,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -8498,7 +8746,7 @@ __metadata:
     jest-environment-jsdom: ~29.6.0
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
-    nx: ~16.3.2
+    nx: ~16.5.0
     rimraf: ^5.0.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
@@ -11693,6 +11941,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/parsers@npm:3.0.0-rc.46, @yarnpkg/parsers@npm:^3.0.0-rc.18":
+  version: 3.0.0-rc.46
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.46"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: 35dfd1b1ac7ed9babf231721eb90b58156e840e575f6792a8e5ab559beaed6e2d60833b857310e67d6282c9406357648df2f510e670ec37ef4bd41657f329a51
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/parsers@npm:^2.5.1":
   version: 2.5.1
   resolution: "@yarnpkg/parsers@npm:2.5.1"
@@ -11700,16 +11958,6 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^1.13.0
   checksum: 42f98b8bd635add304ce392c6f600b46e40c2c4429d7b6c38b70f50b5fd6a854dd2369e0987b70546a3c8f690d280f040a885b35acfde891f5e173fc3f974277
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/parsers@npm:^3.0.0-rc.18":
-  version: 3.0.0-rc.32
-  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.32"
-  dependencies:
-    js-yaml: ^3.10.0
-    tslib: ^2.4.0
-  checksum: b02796d019bb73ef024426cb0055a14f148696b19c5addf2fe4c9a1fc056efd7cb055023b4f3f4aff07bf01a5c2f52d5def1f779cb9b02b7e7a6b6e940d7bd57
   languageName: node
   linkType: hard
 
@@ -23524,7 +23772,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:16.3.2, nx@npm:^16.3.2, nx@npm:~16.3.2":
+"nx@npm:16.3.2":
   version: 16.3.2
   resolution: "nx@npm:16.3.2"
   dependencies:
@@ -23604,6 +23852,89 @@ __metadata:
   bin:
     nx: bin/nx.js
   checksum: 627decdb89cea60f45ab035b33a53f2e3170f24c0eed07cfbec59eeeda4a6d62b57738e5f34fd1cdcdc00dcff83bb4d1022fe892c69e89420182d50ff0f6b547
+  languageName: node
+  linkType: hard
+
+"nx@npm:16.5.0, nx@npm:^16.3.2, nx@npm:~16.5.0":
+  version: 16.5.0
+  resolution: "nx@npm:16.5.0"
+  dependencies:
+    "@nrwl/tao": 16.5.0
+    "@nx/nx-darwin-arm64": 16.5.0
+    "@nx/nx-darwin-x64": 16.5.0
+    "@nx/nx-freebsd-x64": 16.5.0
+    "@nx/nx-linux-arm-gnueabihf": 16.5.0
+    "@nx/nx-linux-arm64-gnu": 16.5.0
+    "@nx/nx-linux-arm64-musl": 16.5.0
+    "@nx/nx-linux-x64-gnu": 16.5.0
+    "@nx/nx-linux-x64-musl": 16.5.0
+    "@nx/nx-win32-arm64-msvc": 16.5.0
+    "@nx/nx-win32-x64-msvc": 16.5.0
+    "@parcel/watcher": 2.0.4
+    "@yarnpkg/lockfile": ^1.1.0
+    "@yarnpkg/parsers": 3.0.0-rc.46
+    "@zkochan/js-yaml": 0.0.6
+    axios: ^1.0.0
+    chalk: ^4.1.0
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    cliui: ^7.0.2
+    dotenv: ~10.0.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^11.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    js-yaml: 4.1.0
+    jsonc-parser: 3.2.0
+    lines-and-columns: ~2.0.3
+    minimatch: 3.0.5
+    npm-run-path: ^4.0.1
+    open: ^8.4.0
+    semver: 7.5.3
+    string-width: ^4.2.3
+    strong-log-transformer: ^2.1.0
+    tar-stream: ~2.2.0
+    tmp: ~0.2.1
+    tsconfig-paths: ^4.1.2
+    tslib: ^2.3.0
+    v8-compile-cache: 2.3.0
+    yargs: ^17.6.2
+    yargs-parser: 21.1.1
+  peerDependencies:
+    "@swc-node/register": ^1.4.2
+    "@swc/core": ^1.2.173
+  dependenciesMeta:
+    "@nx/nx-darwin-arm64":
+      optional: true
+    "@nx/nx-darwin-x64":
+      optional: true
+    "@nx/nx-freebsd-x64":
+      optional: true
+    "@nx/nx-linux-arm-gnueabihf":
+      optional: true
+    "@nx/nx-linux-arm64-gnu":
+      optional: true
+    "@nx/nx-linux-arm64-musl":
+      optional: true
+    "@nx/nx-linux-x64-gnu":
+      optional: true
+    "@nx/nx-linux-x64-musl":
+      optional: true
+    "@nx/nx-win32-arm64-msvc":
+      optional: true
+    "@nx/nx-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc-node/register":
+      optional: true
+    "@swc/core":
+      optional: true
+  bin:
+    nx: bin/nx.js
+  checksum: 99b49303e5da0174915d6b9dd49ae30622a38b7a449a65dc7b60879b5ff7dd53bbef4d35a38dfa130fac87b82c82293cb3c93121504ceeab5b10a09353eac629
   languageName: node
   linkType: hard
 
@@ -23907,7 +24238,7 @@ __metadata:
     "@angular/core": ~16.0.5
     "@angular/platform-browser": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
-    "@nx/jest": ~16.3.2
+    "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -23928,7 +24259,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.0
     jest-environment-jsdom: ~29.6.0
-    nx: ~16.3.2
+    nx: ~16.5.0
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     typescript: ~5.0.2
@@ -26974,7 +27305,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.x, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.1.3, semver@npm:^7.2.1, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3":
+"semver@npm:7.5.3, semver@npm:7.x, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.1.3, semver@npm:^7.2.1, semver@npm:^7.3.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3":
   version: 7.5.3
   resolution: "semver@npm:7.5.3"
   dependencies:
