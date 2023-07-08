@@ -13,6 +13,9 @@ This includes a toolbox to customize, administrate and debug an application at r
 
 ## Get Started
 
+The application will contain the minimum setup to follow the otter recommendations and to activate the features requested
+during the installation of the `@o3r/core`.
+
 ### Required environment
 
 * **Git** : [https://gitforwindows.org/](https://gitforwindows.org/)
@@ -26,37 +29,13 @@ This includes a toolbox to customize, administrate and debug an application at r
 npm install --global yarn
 ```
 
-### Creating a new Angular application
+### Creating a new Otter application
 
 ```bash
 # Create new application
-npx -y -p @angular/cli ng new
-# ? What name would you like to use for the new workspace and initial project? <application name>
-# ? Would you like to add Angular routing? Yes
-# ? Which stylesheet format would you like to use? SCSS
-
-```
-
-> **Information**: You can also install and run the `Angular CLI` locally with the following commmands:
->
-> ```bash
-> yarn add @angular/cli
-> yarn ng new
-> ```
-
-### Adding Otter dependency
-
-```bash
-# Setup Otter dependencies
-yarn ng add @o3r/core
-# ? Activate Otter localization? Yes
-# ? Work on Otter with symlinks? No
-```
-
-or for NPM users
-
-```bash
-npx ng add @o3r/core
+npm create @o3r my-project
+# Or
+yarn create @o3r my-project
 ```
 
 ### Adding Material design theming

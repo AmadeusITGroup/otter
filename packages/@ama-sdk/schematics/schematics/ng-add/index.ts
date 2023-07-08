@@ -1,42 +1,15 @@
 import { isJsonObject } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
+import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
+import { DevInstall } from '../helpers/node-install';
 
 const packageJsonPath = '/package.json';
 const swaggerIgnorePath = '/.swagger-codegen-ignore';
 const openApiIgnorePath = '/.openapi-generator-ignore';
 const openApiConfigPath = 'openapitools.json';
-const packageManager = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
-
-/**
- * Install dev dependency on your application
- *
- * Note: it should not be moved to other packages as it should run before the installation
- * of peer dependencies
- */
-class DevInstall extends NodePackageInstallTask {
-  public quiet = false;
-
-  /** @inheritdoc */
-  public toConfiguration() {
-    const installOptions = packageManager;
-    return {
-      name: NodePackageName,
-      options: {
-        command: 'install',
-        quiet: this.quiet,
-        workingDirectory: this.workingDirectory,
-        packageName: `${this.packageName!} ${installOptions === 'yarn' ? '--prefer-dev' : '-D'}`,
-        packageManager: installOptions
-      }
-    };
-  }
-}
 
 /**
  * Rule to update package.json scripts using yeoman generator from `@ama-sdk/generator-sdk`

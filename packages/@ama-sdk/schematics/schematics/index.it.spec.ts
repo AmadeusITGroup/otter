@@ -72,6 +72,8 @@ function setupYarn(yarnVersion: string) {
 
 /**
  * Setup a new sdk using schematics CLI
+ *
+ * @deprecated A new SDK should be generated via the `npm create` feature
  */
 function setupNewSdk() {
   beforeAll(() => {
@@ -89,9 +91,11 @@ function setupNewSdk() {
     const packageJson = JSON.parse(readFileSync(packageJsonPath).toString()) as PackageJson;
     const angularVersion = minVersion(packageJson.devDependencies['@angular-devkit/schematics-cli']).version;
     execSync(`yarn add -D @angular-devkit/schematics-cli@${angularVersion} @ama-sdk/schematics`, execAppOptions);
-    execSync(`yarn add -D @openapitools/openapi-generator-cli@${packageJson.peerDependencies['@openapitools/openapi-generator-cli']} @ama-sdk/schematics`, execAppOptions);
     cpSync(path.join(__dirname, '..', 'testing', 'MOCK_swagger.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
-    execSync('yarn schematics @ama-sdk/schematics:typescript-sdk --name test --package sdk --spec-path ./swagger-spec.yml', execAppOptions);
+    execSync('yarn schematics @ama-sdk/schematics:typescript-shell --name test --package sdk --skip-install', execAppOptions);
+    execSync(`yarn add -D @openapitools/openapi-generator-cli@${packageJson.peerDependencies['@openapitools/openapi-generator-cli']} @ama-sdk/schematics`, execAppOptions);
+    execSync('yarn', execAppOptions);
+    execSync('yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yml', execAppOptions);
     execSync('yarn', execAppOptions);
   });
 }

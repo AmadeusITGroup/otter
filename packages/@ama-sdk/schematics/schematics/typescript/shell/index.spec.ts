@@ -20,6 +20,7 @@ const baseFileList = [
   '/.renovaterc.json',
   '/.swcrc',
   '/.versionrc.json',
+  '/.vscode/settings.json',
   '/.yarnrc.yml',
   '/openapitools.json',
   '/package.json',
@@ -65,7 +66,8 @@ describe('Typescript Shell Generator', () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
     tree = await runner.runSchematic('typescript-shell', {
       name: 'test-scope',
-      package: 'test-sdk'
+      package: 'test-sdk',
+      skipInstall: true
     }, Tree.empty());
   });
 

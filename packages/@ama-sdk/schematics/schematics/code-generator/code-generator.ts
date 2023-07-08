@@ -1,6 +1,8 @@
 import { chain, SchematicContext, TaskConfiguration, TaskConfigurationGenerator, TaskExecutor, Tree } from '@angular-devkit/schematics';
 import { NodeModulesEngineHost } from '@angular-devkit/schematics/tools';
 
+
+
 /**
  * Common configuration for all the code generators
  */
@@ -33,7 +35,7 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
   /**
    * Refers to the name the {@link Task} will be identified in a {@link Rule} ${@link SchematicContext}
    */
-  protected generatorName: string = '';
+  protected generatorName = '';
 
   /**
    * Configure the code generation task
@@ -58,6 +60,7 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
    * Register the task in the rule's {@link SchematicContext}
    *
    * @param factoryOptions execution options (root directory for instance)
+   * @param factoryOptions.rootDirectory
    */
   private registerGeneratorExecutor(factoryOptions: { rootDirectory?: string }) {
     return (tree: Tree, context: SchematicContext) => {
@@ -84,6 +87,7 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
    * Returns the schematic that will run the code generator
    *
    * @param _factoryOptions execution options (root directory for instance)
+   * @param _factoryOptions.rootDirectory
    */
   protected runCodeGeneratorFactory(_factoryOptions: { rootDirectory?: string } = {}): TaskExecutor<T> {
     return (_options?: T) => {

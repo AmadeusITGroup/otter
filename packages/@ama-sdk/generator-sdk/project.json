@@ -76,7 +76,8 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/generator-sdk/testing/jest.config.it.js",
-        "silent": false
+        "silent": false,
+        "passWithNoTests": true
       }
     },
     "prepare-publish": {

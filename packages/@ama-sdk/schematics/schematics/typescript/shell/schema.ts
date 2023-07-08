@@ -9,4 +9,13 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends JsonObject
 
   /** Project description */
   description: string;
+
+  /** Directory where to generate the SDK */
+  directory: string;
+
+  /** Package manager to be used in the generated SDK */
+  packageManager: 'npm' | 'yarn' | '';
+
+  /** Skip NPM install */
+  skipInstall: boolean;
 }

@@ -24,7 +24,7 @@ First thing is to add jest dependencies in your _package.json_. Add the followin
 Add _jest.config.js_ file at the root of your project.
 
 ```javascript
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   preset: 'jest-preset-angular',
   rootDir: '.',

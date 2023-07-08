@@ -1,5 +1,17 @@
 import * as commentJson from 'comment-json';
 
+/** Npm packageManager */
+export type SupportedPackageManagers = 'npm' | 'yarn';
+
+/**
+ * Get the Package Manager
+ *
+ * @param enforcedNpmManager package manager to enforce
+ */
+export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers | '' | undefined | null): SupportedPackageManagers {
+  return enforcedNpmManager || (process.env?.npm_execpath?.includes('yarn') ? 'yarn' : 'npm');
+}
+
 /**
  * Get package manager used in runs
  * Defaults to the package manager setup in process.env if no package manager set in angular.json

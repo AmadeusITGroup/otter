@@ -4,7 +4,7 @@ globalThis.ngJest = {
   skipNgcc: true
 };
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'jest-preset-angular',

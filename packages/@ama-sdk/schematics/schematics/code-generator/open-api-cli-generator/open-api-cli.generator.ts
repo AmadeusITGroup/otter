@@ -1,14 +1,26 @@
 import {CodeGenerator} from '../code-generator';
 import {spawn, SpawnOptions} from 'node:child_process';
 import {defaultTypescriptGeneratorOptions, OpenApiCliOptions} from './open-api-cli.options';
+import * as path from 'node:path';
+import { getPackageManagerName } from '../../helpers/node-install';
 
 /**
  * Manage the schematic to generate a sdk using the @openapitools/openapi-generator-cli
  */
 export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
-  private packageManager = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
+
+  protected readonly packageManager: 'npm' | 'yarn';
+  protected get packageManagerRunner(): 'npx' | 'yarn' {
+    return this.packageManager === 'npm' ? 'npx' : 'yarn';
+  }
+
   /** @inheritDoc */
-  protected generatorName = 'openapi-codegen-npm-cli';
+  protected readonly generatorName = 'openapi-codegen-npm-cli';
+
+  constructor(options?: { packageManager?: 'npm' | 'yarn' | '' }) {
+    super();
+    this.packageManager = getPackageManagerName(options?.packageManager);
+  }
 
   /**
    * Install the specified java open api generator
@@ -18,8 +30,8 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
    */
   private runInstallOpenApiGenerator(version: string, spawnOptions: SpawnOptions): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      spawn(this.packageManager,
-        ['run', 'openapi-generator-cli', 'version-manager', 'set', version],
+      spawn(this.packageManagerRunner,
+        ['openapi-generator-cli', 'version-manager', 'set', version],
         spawnOptions
       ).on('close', (code: number) => {
         if (code === 0) {
@@ -39,7 +51,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
    */
   private runGenerator(generatorOptions: OpenApiCliOptions, spawnOptions: SpawnOptions) {
     const args = [
-      'run',
       'openapi-generator-cli',
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
@@ -49,7 +60,7 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       '-o', generatorOptions.outputPath
     ];
     return new Promise<void>((resolve, reject) => {
-      spawn(this.packageManager === 'npm' ? 'npx' : this.packageManager, args, spawnOptions)
+      spawn(this.packageManagerRunner, args, spawnOptions)
         .on('close', (code: number) => {
           if (code === 0) {
             resolve();
@@ -65,7 +76,9 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /** @inheritDoc */
   protected runCodeGeneratorFactory = (factoryOptions: { rootDirectory?: string } = {}) => {
-    const rootDirectory = factoryOptions.rootDirectory || process.cwd();
+    const rootDirectory = factoryOptions.rootDirectory ?
+      (path.isAbsolute(factoryOptions.rootDirectory) ? factoryOptions.rootDirectory : path.resolve(process.cwd(), factoryOptions.rootDirectory)) :
+      process.cwd();
     return async (generatorOptions?: OpenApiCliOptions) => {
       if (!generatorOptions) {
         return Promise.reject('Missing options to run open api generator');

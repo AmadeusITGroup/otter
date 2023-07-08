@@ -4,33 +4,38 @@ This package provides `schematics` generators to create an SDK based on an API s
 
 ## Setup
 
+### Create a new repository
+
+Generate a new single SDK repository
+
+```shell
+npm create @ama-sdk typescript <project-name> -- [--spec-path=./path/to/spec.yaml]
+```
+
+or
+
+```shell
+yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]
+```
+
+> **Note**: Get more information on the [@ama-sdk/create package](https://www.npmjs.com/package/@ama-sdk/create).
+
+### Create a new Otter workspace package
+
 The Angular schematics package is required to use these generators:
 
-if you are in an Angular project
+if you are in an [Otter project](https://github.com/AmadeusITGroup/otter):
 
 ```shell
 yarn ng add @ama-sdk/schematics
 yarn ng add @ama-sdk/core
 ```
+
 or
+
 ```shell
 npx -p @angular/cli ng add @ama-sdk/schematics
 npx -p @angular/cli ng add @ama-sdk/core
-```
-
-else
-
-```shell
-# Install @angular-devkit/schematics-cli, @ama-sdk/core and the SDK generator
-yarn add --dev @angular-devkit/schematics-cli @ama-sdk/schematics @ama-sdk/core
-yarn schematics @ama-sdk/schematics:install
-yarn schematics @ama-sdk/core:install
-```
-or
-```shell
-npm i -D @angular-devkit/schematics-cli @ama-sdk/schematics @ama-sdk/core
-npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:install
-npx -p @angular-devkit/schematics-cli schematics @ama-sdk/core:install
 ```
 
 ## How to use?
