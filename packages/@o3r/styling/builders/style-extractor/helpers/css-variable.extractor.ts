@@ -203,10 +203,10 @@ export class CssVariableExtractor {
         return libConfig as CssMetadata;
       })
       .reduce<CssMetadata>((acc, libMetadata) => {
-        return Object.keys(libMetadata)
-          .filter((key) => !!acc[key])
+        return Object.keys(libMetadata.variables)
+          .filter((key) => !!acc.variables[key])
           .reduce((libAcc, libKey) => {
-            libAcc[libKey] = libMetadata[libKey];
+            libAcc.variables[libKey] = libMetadata.variables[libKey];
             return libAcc;
           }, acc);
       }, {...current});

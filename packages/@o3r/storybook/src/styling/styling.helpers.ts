@@ -50,7 +50,7 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
   }
   if (data.references && data.references.length === 1 && /^var *\(.*\)$/.test(data.defaultValue)) {
     const referTo = data.references[0].name;
-    if (metadata[referTo]) {
+    if (metadata.variables[referTo]) {
       const isCircular = mem.includes(referTo);
       mem.push(referTo);
       if (isCircular) {
@@ -63,7 +63,7 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
         };
       } else {
         return {
-          ...getTypeAndValue(metadata[referTo], metadata, mem),
+          ...getTypeAndValue(metadata.variables[referTo], metadata, mem),
           referTo
         };
       }
@@ -90,7 +90,7 @@ export function getTypeAndValue(data: CssVariable, metadata: CssMetadata, mem: s
  * @param metadata CSS Style Metadata
  */
 export function extractStyling(prefix = '', metadata: CssMetadata = getStyleMetadata()): StyleConfigs {
-  return Object.entries(metadata)
+  return Object.entries(metadata.variables)
     .filter(([name]) => name.startsWith(prefix))
     .reduce<StyleConfigs>((acc, [name, data]) => {
       const { type, value, referTo } = getTypeAndValue(data, metadata);
@@ -139,7 +139,7 @@ export function applyStyle(style: StyleConfigs, props: any, theme?: Record<strin
  * @param metadata CSS Style Metadata
  */
 export function getThemeVariables(metadata: CssMetadata = getStyleMetadata()) {
-  return Object.entries(metadata)
+  return Object.entries(metadata.variables)
     .filter(([_, data]) => data.tags && data.tags.indexOf('theme') > -1)
     .reduce<Record<string, string>>((acc, [name, data]) => {
       acc[name] = data.defaultValue;

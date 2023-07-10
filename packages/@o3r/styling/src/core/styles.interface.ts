@@ -12,5 +12,8 @@ export interface CssVariable {
 
 /** Style Metadata map */
 export interface CssMetadata {
-  [name: string]: CssVariable;
+  /** Variables' dictionary */
+  variables: {
+    [name: string]: CssVariable;
+  };
 }
