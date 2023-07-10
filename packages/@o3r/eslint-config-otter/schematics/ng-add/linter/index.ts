@@ -1,12 +1,9 @@
 import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getExternalDependenciesVersionRange, getNodeDependencyList, getProjectFromTree, getTemplateFolder, ngAddPackages, readAngularJson } from '@o3r/schematics';
-import { addPackageJsonDependency, NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
 import * as commentJson from 'comment-json';
-import * as path from 'node:path';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const tsEslintParserDep = '@typescript-eslint/parser';
-const eslintDep = 'eslint';
+
 
 /**
  * Add or update the Linter configuration
@@ -14,17 +11,8 @@ const eslintDep = 'eslint';
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
- * @param o3rCoreVersion
  */
-export function updateLinter(options: { projectName: string | null }, rootPath: string, o3rCoreVersion?: string): Rule {
-  const projectEslintBuilderVersion = (require(packageJsonPath) as { peerDependencies: {[key: string]: string} }).peerDependencies['@angular-eslint/builder'];
-  const otterLinterDependencies: NodeDependency[] = getNodeDependencyList(
-    getExternalDependenciesVersionRange([tsEslintParserDep, eslintDep], packageJsonPath),
-    NodeDependencyType.Dev
-  );
-  otterLinterDependencies.push(
-    {name: '@angular-eslint/builder', version: projectEslintBuilderVersion, type: NodeDependencyType.Dev, overwrite: false}
-  );
+export function updateLinterConfigs(options: { projectName: string | null }, rootPath: string): Rule {
 
   /**
    * Update or create the eslint.json file
@@ -40,8 +28,8 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
       const eslintFile = commentJson.parse(tree.read(eslintFilePath)!.toString()) as { extends?: string | string[] };
       eslintFile.extends = eslintFile.extends ? (eslintFile.extends instanceof Array ? eslintFile.extends : [eslintFile.extends]) : [];
 
-      if (eslintFile.extends.indexOf(otterLinterDependencies[0].name) === -1) {
-        eslintFile.extends.push(otterLinterDependencies[0].name);
+      if (eslintFile.extends.indexOf(tsEslintParserDep) === -1) {
+        eslintFile.extends.push(tsEslintParserDep);
       }
 
       tree.overwrite(eslintFilePath, commentJson.stringify(eslintFile, null, 2));
@@ -92,26 +80,8 @@ export function updateLinter(options: { projectName: string | null }, rootPath: 
     return tree;
   };
 
-  /**
-   * Add the Otter eslint dependency
-   *
-   * @param tree
-   * @param _context
-   */
-  const addTslintDependency: Rule = (tree: Tree, _context: SchematicContext) => {
-    otterLinterDependencies.forEach((dep) => addPackageJsonDependency(tree, dep));
-    return tree;
-  };
-
   return chain([
     updateTslintExtend,
-    addTslintDependency,
-    editAngularJson,
-    ngAddPackages(['@o3r/eslint-config-otter', '@o3r/eslint-plugin'], {
-      skipConfirmation: true,
-      version: o3rCoreVersion,
-      parentPackageInfo: '@o3r/core - linter updates',
-      dependencyType: NodeDependencyType.Dev
-    })
+    editAngularJson
   ]);
 }

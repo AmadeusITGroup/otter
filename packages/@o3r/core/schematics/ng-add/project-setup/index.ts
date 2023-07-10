@@ -11,7 +11,6 @@ import {
   updateCmsAdapter,
   updateCustomizationEnvironment,
   updateFixtureConfig,
-  updateLinter,
   updateOtterEnvironmentAdapter,
   updatePlaywright,
   updateStore
@@ -20,6 +19,7 @@ import { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';
+import { shouldOtterLinterBeInstalled } from '../utils/index';
 
 const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9]+[0-9]*)\.(?:0|[1-9]+[0-9]*)(?:-[a-zA-Z]+\.(?:0|[1-9]+[0-9]*))?$/);
 
@@ -40,6 +40,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
     readPackageJson, removePackages, renamedPackagesV7toV8, updateImports
   } = await import('@o3r/schematics');
+  const installOtterLinter = await shouldOtterLinterBeInstalled(context);
   const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree) : undefined;
   const projectType = workspaceProject?.projectType || 'application';
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
@@ -53,7 +54,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ...(options.enableApisManager ? ['@o3r/apis-manager'] : []),
     ...(options.enableStorybook ? ['@o3r/storybook'] : []),
     ...(options.enablePlaywright ? ['@o3r/testing'] : []),
-    ...(options.enableRulesEngine ? ['@o3r/rules-engine'] : [])
+    ...(options.enableRulesEngine ? ['@o3r/rules-engine'] : []),
+    ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : [])
   ]));
   const projectPackageJson = workspaceProject ? readPackageJson(tree, workspaceProject) : tree.readJson('package.json') as PackageJson;
   // Ngx-prefetch version is aligned with angular
@@ -69,7 +71,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
-    updateLinter(options, coreSchematicsFolder, o3rCoreVersion),
     options.enableCms ? updateCmsAdapter(options, coreSchematicsFolder) : noop,
     updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
     updateStore(options, coreSchematicsFolder),
@@ -86,7 +87,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ngAddPackages(externalPackagesToInstallWithNgAdd,
       {skipConfirmation: true, version: ngxPrefetchVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
-    options.skipLinter ? noop() : applyEsLintFix(),
+    !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
     options.skipInstall ? noop() : install
   ])(tree, context);
