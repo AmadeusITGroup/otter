@@ -224,6 +224,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.0.5
     "@angular-devkit/schematics-cli": ~16.0.5
     "@angular/cli": ~16.0.5
+    "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": ~2.6.0
     "@schematics/angular": ~16.0.5
   peerDependenciesMeta:
@@ -234,6 +235,8 @@ __metadata:
     "@angular/cli":
       optional: true
     "@angular/compiler":
+      optional: true
+    "@o3r/schematics":
       optional: true
     "@openapitools/openapi-generator-cli":
       optional: true
@@ -8324,6 +8327,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.0.5
     "@angular/cli": ~16.0.5
     "@schematics/angular": ~16.0.5
+    rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/architect":
       optional: true

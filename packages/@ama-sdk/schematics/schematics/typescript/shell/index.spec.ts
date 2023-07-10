@@ -16,7 +16,7 @@ const baseFileList = [
   '/.eslintignore',
   '/.eslintrc.js',
   '/.gitignore',
-  '/.openapi-codegen-ignore',
+  '/.openapi-generator-ignore',
   '/.renovaterc.json',
   '/.swcrc',
   '/.versionrc.json',
