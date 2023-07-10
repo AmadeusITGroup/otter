@@ -9,4 +9,7 @@ export interface NgGenerateTypescriptSDKCoreSchematicsSchema extends JsonObject 
 
   /** Package manager to be used in the generated SDK */
   packageManager: 'npm' | 'yarn' | '';
+
+  /** Path to the spec generation configuration */
+  specConfigPath: string;
 }

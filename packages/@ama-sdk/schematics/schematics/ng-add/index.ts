@@ -33,11 +33,17 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
     (acc, [scriptName, cmd]) => {
       if (typeof cmd === 'string') {
         acc[scriptName] = cmd
+          .replace(
+            // Remove swagger config path if it is the default value
+            // eslint-disable-next-line max-len
+            / --(swagger-config-path|swaggerConfigPath)[= ]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
+            ''
+          )
           .replace(/\byo\b/g, 'schematics') // Migrate from yeoman to schematics
           .replace(
             // Change generator path to schematics collection:name
-            /(\$\(yarn resolve |\.?\/?node_modules\/)@ama-sdk\/generator-sdk\/(src\/)?generators\/([\w-]+)\)?\s/g,
-            '@ama-sdk/schematics:$3 '
+            /(\$\(yarn resolve )?(\.?\/?node_modules\/)?@ama-sdk\/generator-sdk\/(src\/)?generators\/([\w-]+)\)?(\s)?/g,
+            '@ama-sdk/schematics:$4$5'
           )
           .replace(
             /@ama-sdk\/generator-sdk\/(src\/)?generators/g,
@@ -51,13 +57,8 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
             /@ama-sdk\/(schematics|generator-sdk):(core|shell|create|mock)/g,
             '@ama-sdk/schematics:typescript-$2'
           ) // Change typescript schematics name
-          .replaceAll('--swaggerSpecPath', '--spec-path') // Schematics arguments should be kebab-case
-          .replaceAll('--swaggerConfigPath', '--swagger-config-path') // Schematics arguments should be kebab-case
-          .replace(
-            // Remove swagger config path if it is the default value
-            / --swagger-config-path[= ]?(\.\/)?node_modules\/@ama-sdk\/schematics\/schematics\/java\/client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
-            ''
-          );
+          .replaceAll(/--(swaggerSpecPath|swagger-spec-path)/g, '--spec-path') // Schematics arguments should be kebab-case
+          .replaceAll('--swaggerConfigPath', '--spec-config-path'); // Schematics arguments should be kebab-case
       }
       return acc;
     },
@@ -115,6 +116,7 @@ const installOpenApiToolsCli: Rule = async (tree, context) => {
     quiet: false
   } as any));
   await lastValueFrom(context.engine.executePostTasks());
+  tree.overwrite(packageJsonPath, JSON.stringify(packageJsonContent, null, 2));
   return () => tree;
 };
 
@@ -137,17 +139,17 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
     return () => tree;
   }
   const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
-  const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version ? `@${amaSdkSchematicsPackageJsonContent.version}` : '';
+  const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version?.replace(/^v/, '');
   const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
   for (const dependency of schematicsDependencies) {
     context.addTask(new DevInstall({
-      packageName: dependency + amaSdkSchematicsVersion,
+      packageName: dependency + (amaSdkSchematicsVersion ? `@${amaSdkSchematicsVersion}` : ''),
       hideOutput: false,
       quiet: false
     } as any));
     const packageJsonContent = tree.readJson('package.json') as PackageJson;
     packageJsonContent.devDependencies = {...packageJsonContent.devDependencies, [dependency]: amaSdkSchematicsVersion};
-    tree.overwrite('package.json', JSON.stringify(packageJsonContent));
+    tree.overwrite('package.json', JSON.stringify(packageJsonContent, null, 2));
     await lastValueFrom(context.engine.executePostTasks());
   }
   return () => chain([
@@ -171,7 +173,7 @@ export function ngAdd(): Rule {
     updatePackageJsonScripts,
     (t) => {
       const packageJson = tree.readText(packageJsonPath);
-      const needsToInstallOpenApiGeneratorCli = packageJson.match(/@ama-sdk\/schematics:typescript-.*--spec-path ([.\\/a-zA-Z-]+) /)?.[1];
+      const needsToInstallOpenApiGeneratorCli = /@ama-sdk\/schematics:typescript-/.test(packageJson);
       return needsToInstallOpenApiGeneratorCli ? chain([replaceSwaggerIgnore, installOpenApiToolsCli, createOpenApiToolsConfig]) : t;
     }
   ])(tree, context);

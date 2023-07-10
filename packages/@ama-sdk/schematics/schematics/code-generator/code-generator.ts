@@ -16,7 +16,7 @@ export type CodegenTaskOptions = {
   /**
    * Path to the swagger configuration
    */
-  specConfigPath: string | null;
+  specConfigPath: string;
   /**
    * Output path for the generated sdk
    */
