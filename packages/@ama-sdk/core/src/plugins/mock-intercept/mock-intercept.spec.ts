@@ -10,12 +10,14 @@ const testMock: Mock<any> = {
 const getMockSpy = jest.fn().mockReturnValue(testMock);
 const getLatestMockSpy = jest.fn().mockReturnValue(testMock);
 const getOperationIdSpy = jest.fn().mockReturnValue('testOperation');
+const retrieveOperationIdSpy = jest.fn().mockReturnValue(Promise.resolve('testOperation'));
 const initializeSpy = jest.fn().mockReturnValue(Promise.resolve());
 const testMockAdapter: MockAdapter = {
   getMock: getMockSpy,
   getLatestMock: getLatestMockSpy,
   getOperationId: getOperationIdSpy,
-  initialize: initializeSpy
+  initialize: initializeSpy,
+  retrieveOperationId: retrieveOperationIdSpy
 };
 
 const requestPlugins: RequestPlugin[] = [new MockInterceptRequest({adapter: new SequentialMockAdapter([], {})})];
@@ -69,7 +71,8 @@ describe('Mock intercept', () => {
           initialize: initializeSpy,
           getMock: getMockSpy,
           getLatestMock: getLatestMockSpy,
-          getOperationId: getOperationIdSpy
+          getOperationId: getOperationIdSpy,
+          retrieveOperationId: retrieveOperationIdSpy
         };
         plugin = new MockInterceptFetch({adapter: asyncMockAdapter});
       });
