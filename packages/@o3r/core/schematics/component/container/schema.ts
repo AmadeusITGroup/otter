@@ -28,6 +28,9 @@ export interface NgGenerateComponentContainerSchematicsSchema extends JsonObject
   /** Indicates if the component should use generate context */
   useContext: boolean | null;
 
+  /** Indicates if the component should use rules-engine */
+  useRulesEngine: boolean | null;
+
   /** Skip the linter process */
   skipLinter: boolean;
 

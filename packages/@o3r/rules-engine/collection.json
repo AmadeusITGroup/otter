@@ -6,6 +6,11 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "rules-engine-to-component": {
+      "description": "Generate the code to enable rules-engine to a Component",
+      "factory": "./schematics/rules-engine-to-component/index#ngGenerateRulesEngineToComponent",
+      "schema": "./schematics/rules-engine-to-component/schema.json"
     }
   }
 }

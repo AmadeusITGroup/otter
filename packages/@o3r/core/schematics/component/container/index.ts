@@ -13,6 +13,7 @@ import {
 } from '@o3r/schematics';
 import * as path from 'node:path';
 import { getAddConfigurationRules } from '../common/configuration';
+import { getAddRulesEngineRules } from '../common/rules-engine';
 import { ComponentStructureDef } from '../structures.types';
 import { NgGenerateComponentContainerSchematicsSchema } from './schema';
 import { getAddFixtureRules } from '../common/fixture';
@@ -112,6 +113,13 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
       context
     );
     rules.push(...contextRules);
+
+    const rulesEngineRules = await getAddRulesEngineRules(
+      path.join(componentDestination, `${properties.name}.component.ts`),
+      options,
+      context
+    );
+    rules.push(...rulesEngineRules);
 
     return chain(rules);
   };

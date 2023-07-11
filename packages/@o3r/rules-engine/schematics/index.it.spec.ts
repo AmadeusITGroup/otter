@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import { execSync, ExecSyncOptions } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import getPidFromPort from 'pid-from-port';
@@ -22,6 +22,18 @@ const execAppOptions: ExecSyncOptions = {
 };
 const registry = 'http://localhost:4873';
 const o3rVersion = '999.0.0';
+
+/**
+ * @param moduleName
+ * @param modulePath
+ */
+function addImportToAppModule(moduleName: string, modulePath: string) {
+  const appModuleFilePath = path.join(appFolderPath, 'src/app/app.module.ts');
+  const appModule = readFileSync(appModuleFilePath).toString();
+  writeFileSync(appModuleFilePath, `import { ${moduleName} } from '${modulePath}';\n${
+    appModule.replace(/(BrowserModule,)/, `$1\n    ${moduleName},`)
+  }`);
+}
 
 /**
  * Set up a local npm registry inside a docker image before the tests.
@@ -107,6 +119,8 @@ function setupNewApp() {
     execSync(`yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose ${o3rCoreOptions}`, execAppOptions);
     execSync('yarn install', execAppOptions);
     execSync('yarn build', execAppOptions);
+    execSync('yarn ng g @o3r/core:component --defaults=true test-component --activate-dummy --description="" --use-otter-config=false', execAppOptions);
+    addImportToAppModule('TestComponentContModule', 'src/components/test-component');
   });
 }
 
@@ -118,6 +132,9 @@ describe('new Otter application with rules-engine', () => {
     execSync(`yarn add @o3r/rules-engine@${o3rVersion}`, execAppOptions);
     execSync('yarn ng add @o3r/rules-engine --skip-confirmation --defaults=true --force --verbose', execAppOptions);
     expect(() => execSync('yarn install', execAppOptions)).not.toThrow();
+    expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
+
+    execSync('yarn ng g @o3r/rules-engine:rules-engine-to-component --path=src/components/test-component/container/test-component-cont.component.ts', execAppOptions);
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
   });
 });

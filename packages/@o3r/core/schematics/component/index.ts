@@ -19,6 +19,7 @@ function generateComponentContainer(options: NgGenerateComponentSchematicsSchema
     componentFolder: options.componentFolder || undefined,
     useComponentFixtures: options.useComponentFixtures,
     useOtterConfig: options.useOtterConfig,
+    useRulesEngine: options.useRulesEngine,
     path: options.path,
     useContext: options.useContext,
     skipLinter: options.skipLinter

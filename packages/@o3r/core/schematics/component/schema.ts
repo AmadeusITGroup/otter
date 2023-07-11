@@ -29,6 +29,9 @@ export interface NgGenerateComponentSchematicsSchema extends JsonObject {
   /** Indicates if the component should use otter configuration */
   useOtterConfig: boolean | null;
 
+  /** Indicates if the component should use rules-engine */
+  useRulesEngine: boolean | null;
+
   /** Indicates if the component should use localization */
   useLocalization: boolean;
 

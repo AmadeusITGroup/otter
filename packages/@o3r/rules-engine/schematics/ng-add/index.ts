@@ -1,6 +1,8 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {registerPackageCollectionSchematics} from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 /**
  * Add Otter rules-engine to an Angular Project
@@ -9,11 +11,30 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, ngAddPeerDependencyPackages, removePackages } = await import('@o3r/schematics');
+      const {
+        ngAddPackages,
+        getO3rPeerDeps,
+        getProjectDepType,
+        ngAddPeerDependencyPackages,
+        removePackages,
+        setupSchematicsDefaultParams
+      } = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const dependencyType = getProjectDepType(tree);
       const rule = chain([
+        registerPackageCollectionSchematics(packageJson),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useRulesEngine: null
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-container': {
+            useRulesEngine: null
+          }
+        }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
         ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, options, '@o3r/rules-engine - install builder dependency'),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
