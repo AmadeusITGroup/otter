@@ -92,7 +92,6 @@ function setupNewSdk() {
     execSync(`yarn add -D @openapitools/openapi-generator-cli@${packageJson.peerDependencies['@openapitools/openapi-generator-cli']} @ama-sdk/schematics`, execAppOptions);
     cpSync(path.join(__dirname, '..', 'testing', 'MOCK_swagger.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
     execSync('yarn schematics @ama-sdk/schematics:typescript-sdk --name test --package sdk --spec-path ./swagger-spec.yml', execAppOptions);
-    setupYarn(yarnVersion);
     execSync('yarn', execAppOptions);
   });
 }
