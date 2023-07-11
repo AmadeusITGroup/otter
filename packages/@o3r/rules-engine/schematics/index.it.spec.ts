@@ -88,6 +88,10 @@ function setupNewApp() {
     execSync('yarn config set nodeLinker pnp', execAppOptions);
     execSync('yarn config set enableMirror false', execAppOptions);
     execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
+    if (!existsSync(cacheFolderPath) && existsSync(testAppCacheFolderPath)) {
+      // For CI run, we can re-use the cache from test-app which should contain almost all the dependencies needed
+      cpSync(testAppCacheFolderPath, cacheFolderPath, {recursive: true});
+    }
     if (existsSync(cacheFolderPath)) {
       const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
         .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'));
@@ -96,9 +100,6 @@ function setupNewApp() {
           rmSync(path.join(cacheFolderPath, fileName));
         }
       });
-    } else if (existsSync(testAppCacheFolderPath)) {
-      // For CI run, we can re-use the cache from test-app which should contain almost all the dependencies needed
-      cpSync(testAppCacheFolderPath, cacheFolderPath, {recursive: true});
     }
     execSync('yarn config set enableImmutableInstalls false', execAppOptions);
 

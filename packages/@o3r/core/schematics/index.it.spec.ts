@@ -161,7 +161,7 @@ describe('new Otter application', () => {
     execSync('yarn ng g @o3r/analytics:add-analytics --defaults=true --path="src/components/test-add-analytics-component/container/test-add-analytics-component-cont.component.ts"', execAppOptions);
     addImportToAppModule('TestAddAnalyticsComponentContModule', 'src/components/test-add-analytics-component');
 
-    execSync('yarn ng g @o3r/core:component --defaults=true test-add-context-component ${defaultOptions}', execAppOptions);
+    execSync(`yarn ng g @o3r/core:component --defaults=true test-add-context-component ${defaultOptions}`, execAppOptions);
     execSync('yarn ng g @o3r/core:add-context --defaults=true --path="src/components/test-add-context-component/container/test-add-context-component-cont.component.ts"', execAppOptions);
     addImportToAppModule('TestAddContextComponentContModule', 'src/components/test-add-context-component');
 

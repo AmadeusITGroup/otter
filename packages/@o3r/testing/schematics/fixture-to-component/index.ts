@@ -24,7 +24,7 @@ import type { NgAddFixtureSchematicsSchema } from './schema';
 
 const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.resolve(dirname(componentPath), `./${baseFileName}.fixture.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}.fixture.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add fixture to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -55,7 +55,7 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
       move(dirname(options.path))
     ]), MergeStrategy.Overwrite);
 
-    const specFilePath = options.specFilePath || posix.resolve(dirname(options.path), `./${baseFileName}.spec.ts`);
+    const specFilePath = options.specFilePath || posix.join(dirname(options.path), `${baseFileName}.spec.ts`);
     const updateSpecRule: Rule = chain([
       addImportsRule(specFilePath, [
         {

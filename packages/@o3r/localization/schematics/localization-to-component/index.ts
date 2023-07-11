@@ -38,8 +38,8 @@ const localizationProperties = [
 
 const checkLocalization = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.resolve(dirname(componentPath), `./${baseFileName}.localization.json`),
-    posix.resolve(dirname(componentPath), `./${baseFileName}.translation.ts`)
+    posix.join(dirname(componentPath), `${baseFileName}.localization.json`),
+    posix.join(dirname(componentPath), `${baseFileName}.translation.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -243,7 +243,7 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
     ]);
 
     const updateTemplateRule: Rule = () => {
-      const templatePath = templateRelativePath && posix.resolve(dirname(options.path), templateRelativePath);
+      const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
       if (templatePath && tree.exists(templatePath)) {
         tree.commitUpdate(
           tree
@@ -255,7 +255,7 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
       return tree;
     };
 
-    const specFilePath = options.specFilePath || posix.resolve(dirname(options.path), `./${baseFileName}.spec.ts`);
+    const specFilePath = options.specFilePath || posix.join(dirname(options.path), `${baseFileName}.spec.ts`);
     const updateSpecRule: Rule = chain([
       addImportsRule(specFilePath, [
         {
