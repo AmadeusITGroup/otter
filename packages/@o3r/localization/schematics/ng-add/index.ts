@@ -1,7 +1,8 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
 import * as path from 'node:path';
-import { NgAddSchematicsSchema } from './schema';
+import { updateCmsAdapter } from '../cms-adapter';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter localization to an Angular Project
@@ -31,7 +32,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
           dependencyType: getProjectDepType(t)
         })(t, c),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/localization - install builder dependency')
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/localization - install builder dependency'),
+        updateCmsAdapter(options)
       ])(tree, context);
     } catch (e) {
       // o3r localization needs o3r/core as peer dep. o3r/core will install o3r/schematics

@@ -115,7 +115,7 @@ describe('new Otter application', () => {
 
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
-    execSync('yarn ng add @o3r/core --skip-confirmation --preset=cms --defaults=true --force --verbose --enableRulesEngine', execAppOptions);
+    execSync('yarn ng add @o3r/core --skip-confirmation --preset=cms --defaults=true --force --verbose', execAppOptions);
     expect(() => execSync('yarn install', execAppOptions)).not.toThrow();
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 
