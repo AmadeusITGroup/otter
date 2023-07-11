@@ -70,6 +70,10 @@
             "type": "string",
             "description": "Name of the parent object which contains this section on exported file"
           },
+          "specificationLink": {
+            "type": "string",
+            "description": "URL of the specification corresponding to the current section"
+          },
           "definitions": {
             "type": "array",
             "description": "Object definitions for this section",
