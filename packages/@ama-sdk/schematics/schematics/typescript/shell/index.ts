@@ -9,6 +9,7 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
+import { dump, load } from 'js-yaml';
 import { readPackageJson } from '../../helpers/read-package';
 import type { NgGenerateTypescriptSDKShellSchematicsSchema } from './schema';
 
@@ -60,6 +61,21 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       engineVersions,
       empty: ''
     };
+
+    const yarnrcPath = '.yarnrc.yml';
+    const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
+    yarnrc.nodeLinker ||= 'pnp';
+    yarnrc.packageExtensions ||= {};
+    yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
+      dependencies: {
+        'isomorphic-fetch': '~2.2.1'
+      }
+    };
+    if (tree.exists(yarnrcPath)) {
+      tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
+    } else {
+      tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
+    }
 
     const baseRule = mergeWith(apply(url('./templates/base'), [
       template(properties),
