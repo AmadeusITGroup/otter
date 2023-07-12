@@ -344,7 +344,7 @@ export abstract class Cascading {
 
     const currentBranch = cascadingBranches[branchIndex];
     const targetBranch = cascadingBranches[branchIndex + 1];
-    const cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch);
+    let cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch);
     const isAhead = await this.isBranchAhead(currentBranch.branch, targetBranch.branch);
 
     if (!isAhead) {
@@ -373,6 +373,7 @@ export abstract class Cascading {
         }
         const conflictCascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, true);
         await this.createBranch(conflictCascadingBranch, currentBranch.branch);
+        cascadingBranch = conflictCascadingBranch;
       }
     }
     await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
