@@ -13,8 +13,8 @@ import { NgGenerateUpdateSchematicsSchema } from './schema';
  */
 export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule {
 
-  const targetPath = options.path ? path.posix.resolve('/', options.path) : '/';
-  const packageJsonPath = path.posix.resolve(targetPath, 'package.json');
+  const targetPath = options.path ? path.posix.join('/', options.path) : '/';
+  const packageJsonPath = path.posix.join(targetPath, 'package.json');
 
   return (tree: Tree, context: SchematicContext) => {
 

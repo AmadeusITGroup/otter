@@ -36,7 +36,7 @@ const analyticsProperties = [
 
 const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [
-    posix.resolve(componentPath, `./${baseFileName}.analytics.ts`)
+    posix.join(componentPath, `${baseFileName}.analytics.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add analytics to this component because it already has at least one of these files: ${files.join(', ')}.`);
@@ -185,7 +185,7 @@ export function ngAddAnalytics(options: NgAddAnalyticsSchematicsSchema): Rule {
     ]);
 
     const updateTemplateRule: Rule = () => {
-      const templatePath = templateRelativePath && posix.resolve(dirname(options.path), templateRelativePath);
+      const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
       if (templatePath && tree.exists(templatePath)) {
         tree.commitUpdate(
           tree

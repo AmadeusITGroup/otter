@@ -15,7 +15,7 @@ import type { PackageJson, TsConfigJson } from 'type-fest';
 export function ngGenerateModule(options: NgGenerateModuleSchema): Rule {
 
   /** Path to the folder where generate the new module */
-  const targetPath = path.posix.resolve('/', options.path || 'packages', options.name);
+  const targetPath = path.posix.join('/', options.path || 'packages', options.name);
   /** Name of the Nx Project in case of Nx monorepo */
   const projectName = options.projectName || options.name.replace(/^@/, '').replace('/', '-');
 

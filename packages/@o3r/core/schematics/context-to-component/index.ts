@@ -25,7 +25,7 @@ import type { NgAddConfigSchematicsSchema } from './schema';
 
 const checkContext = (componentPath: string, tree: Tree) => {
   const files = [
-    posix.resolve(dirname(componentPath), `./${basename(componentPath, '.component.ts')}.context.ts`)
+    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.context.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);

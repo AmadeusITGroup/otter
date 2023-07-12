@@ -37,7 +37,7 @@ const configProperties = [
 
 const checkConfiguration = (componentPath: string, tree: Tree) => {
   const files = [
-    posix.resolve(dirname(componentPath), `./${basename(componentPath, '.component.ts')}.configuration.ts`)
+    posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.configuration.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
     throw new Error(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);

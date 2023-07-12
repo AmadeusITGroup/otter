@@ -37,7 +37,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
         && ts.isStringLiteral(decorator.expression.arguments[0])
       );
       if (localizationDecorator) {
-        localizationJsonPath = posix.resolve(dirname(componentPath), localizationDecorator.expression.arguments[0].text);
+        localizationJsonPath = posix.join(dirname(componentPath), localizationDecorator.expression.arguments[0].text);
         translationsVariableName = member.name.escapedText.toString();
         translationsVariableType = member.type.typeName.escapedText.toString();
         if (member.initializer && ts.isIdentifier(member.initializer)) {
@@ -85,7 +85,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   if (!importDeclaration) {
     throw new Error(`Unable to find import declaration of ${defaultTranslationVariableName} in ${componentPath}`);
   }
-  const translationsPath = posix.resolve(dirname(componentPath), `${importDeclaration.moduleSpecifier.text}.ts`);
+  const translationsPath = posix.join(dirname(componentPath), `${importDeclaration.moduleSpecifier.text}.ts`);
 
   return {
     localizationJsonPath,
