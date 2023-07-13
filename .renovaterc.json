@@ -106,10 +106,10 @@
         "^@schematics",
         "angular",
         "^@ngrx",
-        "^zone.js"
-      ],
-      "excludePackagePatterns": [
-        "^@nrwl"
+        "^zone.js",
+        "^@nrwl",
+        "^@nx",
+        "^nx"
       ],
       "groupName": "Angular dependencies",
       "groupSlug": "angular-dependencies"
