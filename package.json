@@ -22,6 +22,7 @@
     "test": "yarn nx run-many --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test:affected": "yarn nx affected --target=test --parallel 2 --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test-int": "yarn nx run-many --target=test-int --parallel 2",
+    "test-int:affected": "yarn nx affected --target=test-int --parallel 2",
     "postinstall": "husky install && yarn build:tools && yarn harmonize:version && yarn in-source-dep-check",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf './{packages,tools,apps}/@*/{amaterasu/,}*/{dist,build}/'",

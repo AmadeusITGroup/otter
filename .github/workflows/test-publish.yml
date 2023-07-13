@@ -2,6 +2,12 @@ name: Test publish
 
 on:
   workflow_call:
+    inputs:
+      affected:
+        type: boolean
+        required: false
+        default: false
+        description: Run test only on affected packages if true
     secrets:
       NX_CLOUD_ACCESS_TOKEN:
         required: false
@@ -14,6 +20,8 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - uses: ./.github/actions/setup-java
@@ -49,7 +57,9 @@ jobs:
           yarn verdaccio:publish
       - name: Test
         id: it-tests
-        run: yarn test-int --output-style=stream
+        env:
+          testCmd: ${{ inputs.affected && format('test-int:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test-int'}}
+        run: yarn ${{ env.testCmd }} --output-style=stream
       - name: Zip verdaccio storage on failure
         if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
         run: zip -r verdaccio.zip ./.verdaccio

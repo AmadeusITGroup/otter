@@ -121,6 +121,9 @@
       "global",
       "{projectRoot}/plugins/**/*",
       "{projectRoot}/package.json"
+    ],
+    "dist": [
+      "{projectRoot}/dist/**/*"
     ]
   },
   "targetDefaults": {
@@ -136,6 +139,13 @@
       ]
     },
     "test-int": {
+      "inputs": [
+        "global",
+        "dist",
+        "schematics",
+        "^dist",
+        "^schematics"
+      ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"
       ]
