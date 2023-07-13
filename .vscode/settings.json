@@ -47,6 +47,7 @@
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],
+  "files.readonlyFromPermissions": true,
   "files.readonlyInclude": {
     "**/.cache/**": true,
     "**/.pnp.*": true,

@@ -17,8 +17,27 @@
     },
     "description": {
       "type": "string",
-      "alias": "package",
       "description": "Project description",
+      "default": ""
+    },
+    "directory": {
+      "type": "string",
+      "description": "Directory where to generate the SDK",
+      "default": ""
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip NPM install",
+      "default": false
+    },
+    "packageManager": {
+      "type": "string",
+      "enum": [
+        "",
+        "npm",
+        "yarn"
+      ],
+      "description": "Package manager to be used in the generated SDK",
       "default": ""
     }
   },

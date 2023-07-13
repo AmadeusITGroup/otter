@@ -1,5 +1,6 @@
 import {
   apply,
+  chain,
   MergeStrategy,
   mergeWith,
   move,
@@ -12,13 +13,21 @@ import {
 import { dump, load } from 'js-yaml';
 import { readPackageJson } from '../../helpers/read-package';
 import type { NgGenerateTypescriptSDKShellSchematicsSchema } from './schema';
+import { isAbsolute, relative } from 'node:path';
+import { NpmInstall } from '../../helpers/node-install';
 
 /**
  * @param options
  */
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
 
-  return async (tree: Tree, context: SchematicContext) => {
+  const installRule = (_tree: Tree, context: SchematicContext) => {
+    const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
+    const installTask = new NpmInstall({ workingDirectory, packageManager: options.packageManager, allowScripts: false });
+    context.addTask(installTask);
+  };
+
+  const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -76,13 +85,19 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
     } else {
       tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
     }
+    const targetPath = options.directory || tree.root.path;
 
     const baseRule = mergeWith(apply(url('./templates/base'), [
       template(properties),
-      move(tree.root.path),
+      move(targetPath),
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
 
-    return baseRule;
+    return baseRule(tree, context);
   };
+
+  return chain([
+    setupRule,
+    ...(options.skipInstall ? [] : [installRule])
+  ]);
 }

@@ -43,6 +43,7 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
 
   const specPath = path.resolve(process.cwd(), options.specPath);
+  const targetPath = options.directory || '/';
 
   const generateOperationFinder = async (): Promise<PathObject[]> => {
     const swayOptions = {
@@ -70,10 +71,10 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param _context
    */
   const clearGeneratedCode = (tree: Tree, _context: SchematicContext) => {
-    treeGlob(tree, path.join('src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join('src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join('src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join('src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.join(targetPath, 'src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.join(targetPath, 'src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
     return tree;
   };
 
@@ -94,7 +95,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
         swayOperationAdapter,
         empty: ''
       }),
-      move('/'),
+      move(targetPath),
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
   };
@@ -106,20 +107,21 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param _context
    */
   const updateSpec = (tree: Tree, _context: SchematicContext) => {
+    const readmeFile = path.join(targetPath, 'readme.md');
     const specContent = readFileSync(specPath).toString();
-    if (tree.exists('/readme.md')) {
+    if (tree.exists(readmeFile)) {
       const swaggerVersion = /version: ([0-9]+\.[0-9]+\.[0-9]+)/.exec(specContent);
 
       if (swaggerVersion) {
-        const readmeContent = tree.read('/readme.md')!.toString('utf8');
-        tree.overwrite('/readme.md', readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${swaggerVersion[1]}`));
+        const readmeContent = tree.read(readmeFile)!.toString('utf8');
+        tree.overwrite(readmeFile, readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${swaggerVersion[1]}`));
       }
     }
 
-    if (tree.exists('/swagger-spec.yaml')) {
-      tree.overwrite('/swagger-spec.yaml', specContent);
+    if (tree.exists(path.join(targetPath, 'swagger-spec.yaml'))) {
+      tree.overwrite(path.join(targetPath, 'swagger-spec.yaml'), specContent);
     } else {
-      tree.create('/swagger-spec.yaml', specContent);
+      tree.create(path.join(targetPath, 'swagger-spec.yaml'), specContent);
     }
     return () => tree;
   };
@@ -130,14 +132,14 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
     const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
     let openApiVersion = '';
     try {
-      openApiVersion = (tree.readJson('openapitools.json') as any)?.['generator-cli']?.version;
+      openApiVersion = (tree.readJson(path.join(targetPath, 'openapitools.json')) as any)?.['generator-cli']?.version;
     } catch {
       context.logger.warn('No openapitools.json file found in the project');
     }
     if (!!packageOpenApiSupportedVersion && semver.valid(packageOpenApiSupportedVersion) && (!packageOpenApiSupportedVersion || !semver.satisfies(openApiVersion, packageOpenApiSupportedVersion))) {
       generatorOptions.generatorVersion = packageOpenApiSupportedVersion;
     }
-    return () => (new OpenApiCliGenerator()).getGeneratorRunSchematic(generatorOptions);
+    return () => (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(generatorOptions, {rootDirectory: options.directory || undefined});
   };
 
   return chain([

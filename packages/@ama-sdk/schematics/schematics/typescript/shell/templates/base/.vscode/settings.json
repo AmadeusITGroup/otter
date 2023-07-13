@@ -1,0 +1,20 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "jest.jestCommandLine": "yarn jest",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    "**/node_modules/**": true,
+    "src/base/*/*.ts": true
+  },
+  "files.readonlyExclude": {
+    "src/base/*/index.ts": true
+  }
+}

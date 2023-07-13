@@ -38,6 +38,12 @@
       "@ama-sdk/swagger-builder": [
         "packages/@ama-sdk/swagger-builder"
       ],
+      "@ama-sdk/schematics": [
+        "packages/@ama-sdk/schematics"
+      ],
+      "@ama-sdk/create": [
+        "packages/@ama-sdk/create"
+      ],
       "@ama-terasu/cli": [
         "packages/@ama-terasu/cli/src"
       ],
