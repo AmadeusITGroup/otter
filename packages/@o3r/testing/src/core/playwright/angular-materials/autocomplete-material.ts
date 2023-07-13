@@ -16,7 +16,7 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
     await this.setValue(value);
     await this.click();
     const element = this.sourceElement.page;
-    const matOptions = element.locator('.mat-option');
+    const matOptions = element.locator('.mat-option, mat-option');
     await matOptions.first().waitFor({state: 'attached', timeout});
     const matOptionsCount = await matOptions.count();
     const options: (string | undefined)[] = [];
@@ -32,6 +32,6 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
       return this.sourceElement.element.press('Tab');
     }
 
-    return Promise.reject('Element with selector .mat-option not found.');
+    return Promise.reject('Element with selector .mat-option, mat-option not found.');
   }
 }
