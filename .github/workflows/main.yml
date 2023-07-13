@@ -13,6 +13,8 @@ on:
     branches:
       - main
       - 'release/*'
+  merge_group:
+    types: [checks_requested]
 
 jobs:
   build:
@@ -35,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
-      isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' }}
+      isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
     steps:
       - uses: actions/checkout@v3
       - uses: ./tools/github-actions/setup
@@ -46,7 +48,7 @@ jobs:
           defaultBranch: main
           defaultBranchPrereleaseName: alpha
       - name: Create release
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && github.event_name != 'merge_group'
         run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -66,7 +68,7 @@ jobs:
 
   publish-packages:
     uses: ./.github/workflows/publish.yml
-    if: ${{ github.event_name != 'pull_request' }}
+    if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}
     permissions:
       packages: write
       contents: read
@@ -90,7 +92,7 @@ jobs:
   documentation-main:
     secrets: inherit
     needs: [version, build, checks]
-    if: ${{ github.event_name != 'pull_request' && github.ref_name == 'main' }}
+    if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' && github.ref_name == 'main' }}
     uses: ./.github/workflows/documentation.yml
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}

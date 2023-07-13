@@ -20,6 +20,8 @@ on:
     branches:
     - main
     - 'release/*'
+  merge_group:
+    types: [checks_requested]
 
   schedule:
     - cron: '31 2 * * 6'
