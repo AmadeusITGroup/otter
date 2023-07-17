@@ -44,6 +44,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
 
   const specPath = path.resolve(process.cwd(), options.specPath);
   const targetPath = options.directory || '/';
+  const globalProperty = options.globalProperty;
 
   const generateOperationFinder = async (): Promise<PathObject[]> => {
     const swayOptions = {
@@ -127,7 +128,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
   };
 
   const runGeneratorRule = (tree: Tree, context: SchematicContext) => {
-    const generatorOptions: Partial<OpenApiCliOptions> = {specPath};
+    const generatorOptions: Partial<OpenApiCliOptions> = {specPath, globalProperty};
     const packageJsonFile: {openApiSupportedVersion?: string} = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
     const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
     let openApiVersion = '';

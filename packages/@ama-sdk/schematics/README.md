@@ -75,3 +75,19 @@ yarn schematics @ama-sdk/schematics:java-client-core --spec-path ./swagger-spec.
 ```
 
 [Default swagger config](./schematics/java/client-core/swagger-codegen-java-client/config/swagger-codegen-config.json) will be used if `--swagger-config-path` is not provided.
+
+### Debug the typescript generator
+The OpenApi generator extracts an enhanced JSON data model from the specification YAML and uses this data model to feed the templates to generate the code.
+If there is an issue with the files generated with the spec provided, the generator provides debugging features that log this data model.
+
+You can use global property options to pass one or both of the following options:
+* debugModel - logs the full JSON structure used to generate models
+* debugOperations - logs the full JSON structure used to generate operations
+
+Example:
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property debugModels,debugOperations
+```
+You can also use npx instead of yarn in the command.
+
+You can correlate this data model with the [templates](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/core/openapi-codegen-typescript/src/main/resources/typescriptFetch) used by the generator.

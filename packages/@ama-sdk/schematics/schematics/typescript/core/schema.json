@@ -32,6 +32,11 @@
       ],
       "description": "Package manager to be used in the generated SDK",
       "default": ""
+    },
+    "globalProperty": {
+      "type": "string",
+      "description": "Comma separated string of options to give to the openapi-generator-cli",
+      "default": ""
     }
   },
   "additionalProperties": true,
