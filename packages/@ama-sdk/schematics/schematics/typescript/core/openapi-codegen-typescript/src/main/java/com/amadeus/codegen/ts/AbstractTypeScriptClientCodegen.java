@@ -523,15 +523,11 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         + "list container.");
     }
 
-    // If the x-date-timezone is present in the timestamp, we use Date instead of utils.Date
+    // If the x-date-timezone is present in the specification, replace Date with utils.Date
     if (property.vendorExtensions.containsKey("x-date-timezone")) {
-      for (CodegenProperty modelVariable : model.allVars) {
-        if (modelVariable.baseName != null && modelVariable.baseName.toString().equals("timestamp")) {
-          modelVariable.dataType = "Date";
-          modelVariable.datatypeWithEnum = "Date";
-          modelVariable.baseType = "Date";
-        }
-      }
+      property.dataType = "Date";
+      property.datatypeWithEnum = "Date";
+      property.baseType = "Date";
     }
     if (model.name.indexOf("_allOf") > -1 && model.discriminator != null) {
       property.vendorExtensions.put("x-exposed-classname", model.classname.replace("AllOf", ""));
