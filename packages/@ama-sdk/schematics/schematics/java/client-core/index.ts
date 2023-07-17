@@ -27,7 +27,7 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
    * @param context
    */
   const clearGeneratedCode = async (tree: Tree, context: SchematicContext) => {
-    const swaggerConfig = options.swaggerConfigPath ? JSON.parse(await fs.readFile(options.swaggerConfigPath, {encoding: 'utf8'})) as Record<string, any> : undefined;
+    const swaggerConfig = options.specConfigPath ? JSON.parse(await fs.readFile(options.specConfigPath, {encoding: 'utf8'})) as Record<string, any> : undefined;
     if (swaggerConfig?.additionalProperties) {
       const modelPackage = swaggerConfig.additionalProperties?.basePackage;
       if (modelPackage) {
@@ -83,7 +83,7 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
       specPath,
       codegenLanguage: 'javaClient',
       apiTests: false,
-      specConfigPath: options.swaggerConfigPath
+      specConfigPath: options.specConfigPath
     })
   ]);
 }

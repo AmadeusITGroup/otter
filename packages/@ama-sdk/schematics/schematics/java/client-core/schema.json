@@ -13,10 +13,10 @@
         "index": 0
       }
     },
-    "swaggerConfigPath": {
+    "specConfigPath": {
       "type": "string",
       "description": "Swagger config file\nMore info: https://openapi-generator.tech/docs/generators/java/#config-options",
-      "default": null
+      "default": ""
     }
   },
   "additionalProperties": true,
