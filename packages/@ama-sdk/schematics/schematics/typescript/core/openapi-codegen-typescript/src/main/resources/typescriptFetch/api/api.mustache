@@ -101,7 +101,7 @@ export class {{classname}} implements Api {
     const options = await this.client.prepareOptions(basePathUrl, '{{httpMethod}}', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName{{#returnType}}, revive{{returnBaseType}}{{/returnType}}{{^returnType}}, undefined{{/returnType}}, '{{nickname}}');
+    const ret = this.client.processCall<{{#returnType}}{{{returnType}}}{{/returnType}}{{^returnType}}void{{/returnType}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName{{^returnTypeIsPrimitive}}, revive{{returnBaseType}}{{/returnTypeIsPrimitive}}{{#returnTypeIsPrimitive}}, undefined{{/returnTypeIsPrimitive}}, '{{nickname}}');
     return ret;
   }
 
