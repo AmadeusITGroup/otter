@@ -42,5 +42,5 @@ export const defaultOptions: JavaGeneratorTaskOptions = {
   codegenLanguage: 'default',
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
-  specConfigPath: null
+  specConfigPath: ''
 };

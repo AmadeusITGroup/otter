@@ -14,7 +14,7 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
    *
    *  @default null
    */
-  generatorVersion: string | null;
+  generatorVersion: string;
   /**
    * The Open Api Generator to run
    *
@@ -26,17 +26,17 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
    *
    * @default path to our own custom typescript generator
    */
-  generatorCustomPath: string | null;
+  generatorCustomPath: string;
 };
 
 /**
  * Default options to run our custom typescript generator
  */
 export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
-  generatorVersion: null,
+  generatorVersion: '',
   generatorName: 'typescriptFetch',
   generatorCustomPath: path.join(__dirname, '..', '..', 'typescript', 'core', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'),
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
-  specConfigPath: null
+  specConfigPath: ''
 };
