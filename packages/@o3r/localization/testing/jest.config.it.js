@@ -12,6 +12,7 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'it-report.xml'}],
     'github-actions'
   ],
   globals: {
