@@ -499,6 +499,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       property.vendorExtensions.put("x-sanitized-allowable-values", sanitizedAllowableValues);
     }
 
+
     // Check that we have vendor extensions for dictionary
     if (property.vendorExtensions.containsKey("x-dictionary-name")) {
       boolean isPrimitive = false;
@@ -525,13 +526,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
     // If the x-date-timezone is present in the timestamp, we use Date instead of utils.Date
     if (property.vendorExtensions.containsKey("x-date-timezone")) {
-      for (CodegenProperty modelVariable : model.allVars) {
-        if (modelVariable.baseName != null && modelVariable.baseName.toString().equals("timestamp")) {
-          modelVariable.dataType = "Date";
-          modelVariable.datatypeWithEnum = "Date";
-          modelVariable.baseType = "Date";
-        }
-      }
+      property.dataType = "Date";
+      property.datatypeWithEnum = "Date";
+      property.baseType = "Date";
     }
     if (model.name.indexOf("_allOf") > -1 && model.discriminator != null) {
       property.vendorExtensions.put("x-exposed-classname", model.classname.replace("AllOf", ""));
@@ -569,6 +566,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         boolean containsExtensions = false;
         ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
         group.add(model.vars);
+        if (model.vars.size() > 0 ) {
+          System.out.println("model vars not empty");
+        }
         group.add(model.requiredVars);
         group.add(model.optionalVars);
         for (List<CodegenProperty> container : group) {
@@ -582,6 +582,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
                 HashMap addImport = new HashMap();
                 addImport.put("import", vendorExtensions.get("x-field-type"));
                 importsMap.add(addImport);
+                System.out.println("Import added");
+                System.out.println(addImport);
               }
             }
           }

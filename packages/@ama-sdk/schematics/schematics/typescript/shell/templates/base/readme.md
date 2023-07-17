@@ -110,11 +110,88 @@ You can build and run UT with:
 yarn test
 ```
 
-## Vendor extensions
+## Manage dates
 
-These are some of the available configurations using vendor extensions in the swagger spec
+### The timezone issue
+Managing dates with timezones have always been a bit painful in front end applications. 
+Let's give a concrete example to understand the problem:
+Let's say you have an API that returns you the date and hour of your flight : 2023-07-10T00:37:00.000+07:00
+The timezone sent is the one from the airport, here GMT+7. If you just use the Date(), the computer browser will convert this in its own timezone.
+You will end up having for example if the user is in GMT+2 : 2023-07-09T19:37:00.000+02:00.
+You don't want that, you want the exact date time of the flight, at the airport timezone, not the user one.
+However, sometimes you might need this timezone information, for example to be able to display to the user that the flight is in X hours (need both airport and user timezone).
 
-### Manage timezone in date
+### Solution proposed: utils.DateTime
+That's why the default Date behavior is to get rid of the timezone, by replacing Date by utils.Date.
+When we need to keep the timezone information as well we create a new field that is not described in the swagger specification so not part of the base model, but added in the core model instead.
+Simple example:
+```yaml
+  Flight:
+    type: "object"
+    required:
+      - departureDateTime
+    properties:
+      departureDateTime:
+        type: string
+        format: date-time
+```
+Base model generated
+```typescript
+// flight.ts generated in base models
+export interface Flight {
+  /** @see utils.DateTime */
+  departureDateTime: utils.DateTime;
+}
+```
+You need to create a core model to store the timezone information (src/models/core/flight.ts):
+```typescript
+import type { IgnoreEnum } from '@ama-sdk/core';
+import type { Flight } from '../../base/flight/flight';
+export type FlightStopCoreIfy<T extends IgnoreEnum<Flight>> = T & {
+  /** Departure date time of the flight considering timezone */
+  departureDateTimeConsideringTimezone?: Date;
+};
+```
+
+And a reviver associated (src/models/core/flight.reviver.ts):
+```typescript
+import type { Flight } from '../../base/flight/flight';
+import type { reviveFlight } from '../../base/flight/flight.reviver';
+import type { FlightCoreIfy } from './flight';
+
+/**
+ * @param baseRevive
+ */
+export function reviveFlightFactory<R extends typeof reviveFlight>(baseRevive: R) {
+  const reviver = <T extends Flight = Flight>(data: any, dictionaries?: any) => {
+    const originalData: any = {...data};
+    const revivedData = baseRevive<FlightCoreIfy<T>>(data, dictionaries);
+    if (!revivedData) {
+      return;
+    }
+    revivedData.departureDateTimeConsideringTimezone = originalData.departureDateTimeConsideringTimezone && new Date(originalData.departureDateTimeConsideringTimezone)
+      || originalData.departureDateTime && new Date(originalData.departureDateTime);
+    return revivedData;
+  };
+  return reviver;
+}
+```
+
+And export it here (src/models/core/flight/index.ts):
+```typescript
+export * from './flight';
+export * from './flight.reviver';
+```
+
+And here (src/models/core/index.ts):
+```typescript
+export * from './flight/index';
+```
+
+You can now use departureDateTimeConsideringTimezone to access the timezone information.
+See [utils.Date](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/core/src/fwk/date.ts) for more information.
+
+### How to not use utils.Datetime
 
 In order to add the timezone to your timestamp property you can add the x-date-timezone extension in your yaml, for example:
 

@@ -16,8 +16,8 @@ describe('Typescript SDK Generator', () => {
     }, Tree.empty());
 
     const baseTree = await runner.runSchematic('typescript-shell', {
-      name: 'test-sdk',
-      package: 'sdk',
+      name: 'test-scope',
+      package: 'test-sdk',
       packageManager: 'yarn'
     }, Tree.empty());
 
@@ -25,7 +25,15 @@ describe('Typescript SDK Generator', () => {
       specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, baseTree);
 
+    const thirdTree = await runner.runSchematic('typescript-sdk', {
+      name: 'test-scope',
+      package: 'test-sdk',
+      packageManager: 'yarn',
+      specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
+    }, Tree.empty());
+
     expect(tree.files.sort()).toEqual(coreTree.files.sort());
+    expect(tree.files.sort()).toEqual(thirdTree.files.sort());
     expect(tree.files.length).toBeGreaterThan(0);
   }, 10000);
 });
