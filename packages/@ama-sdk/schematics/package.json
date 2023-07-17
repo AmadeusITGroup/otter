@@ -27,9 +27,6 @@
     "@angular-devkit/schematics-cli": {
       "optional": true
     },
-    "@angular/cli": {
-      "optional": true
-    },
     "@angular/compiler": {
       "optional": true
     },
@@ -42,12 +39,11 @@
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/core": "~16.0.5",
-    "@angular-devkit/schematics": "~16.0.5",
-    "@angular-devkit/schematics-cli": "~16.0.5",
-    "@angular/cli": "~16.0.5",
+    "@angular-devkit/core": "^16.0.5",
+    "@angular-devkit/schematics": "^16.0.5",
+    "@angular-devkit/schematics-cli": "^16.0.5",
     "@openapitools/openapi-generator-cli": "~2.7.0",
-    "@schematics/angular": "~16.0.5"
+    "@schematics/angular": "^16.0.5"
   },
   "dependencies": {
     "@angular-devkit/core": "~16.0.5",
