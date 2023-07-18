@@ -73,7 +73,7 @@ function setupNewApp() {
     if (!existsSync(itTestsFolderPath)) {
       mkdirSync(itTestsFolderPath);
     }
-    execSync(`npx --yes -p @angular/cli@${angularVersion} ng new test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn --skip-install`,
+    execSync(`yarn create @angular@${angularVersion} test-app --style=scss --routing --defaults=true --skip-git --package-manager=yarn`,
       // eslint-disable-next-line @typescript-eslint/naming-convention
       {cwd: itTestsFolderPath, stdio: 'inherit', env: {...process.env, NODE_OPTIONS: ''}});
 
@@ -101,8 +101,10 @@ function setupNewApp() {
 
     // Run ng add
     execSync(`yarn add @angular/pwa@${angularVersion}`, execAppOptions);
-    execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
+    execSync(`yarn run ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
     execSync(`yarn add @angular-devkit/schematics@${angularVersion}`, execAppOptions);
+    execSync(`yarn add @angular-devkit/core@${angularVersion}`, execAppOptions);
+    execSync(`yarn add @schematics/angular@${angularVersion}`, execAppOptions);
     execSync(`yarn run ng add @angular/material@${materialVersion} --skip-confirmation --defaults=true`, execAppOptions);
   });
 }
@@ -113,7 +115,7 @@ describe('new Otter application', () => {
 
   test('should build empty app', () => {
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
-    execSync('yarn ng add @o3r/core --skip-confirmation --defaults=true --force --verbose --enableRulesEngine', execAppOptions);
+    execSync('yarn ng add @o3r/core --skip-confirmation --preset=cms --defaults=true --force --verbose --enableRulesEngine', execAppOptions);
     expect(() => execSync('yarn install', execAppOptions)).not.toThrow();
     expect(() => execSync('yarn build', execAppOptions)).not.toThrow();
 

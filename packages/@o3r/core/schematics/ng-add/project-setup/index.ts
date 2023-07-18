@@ -8,7 +8,6 @@ import {
   generateRenovateConfig,
   o3rBasicUpdates,
   updateAdditionalModules,
-  updateCmsAdapter,
   updateCustomizationEnvironment,
   updateFixtureConfig,
   updateOtterEnvironmentAdapter,
@@ -45,7 +44,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   const projectType = workspaceProject?.projectType || 'application';
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(projectType === 'application' ? ['@o3r/application'] : []),
-    ...(options.enableCms ? ['@o3r/localization', '@o3r/styling', '@o3r/components', '@o3r/configuration'] : []),
     ...(options.enableStyling ? ['@o3r/styling'] : []),
     ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
     ...(options.enableLocalization ? ['@o3r/localization'] : []),
@@ -71,7 +69,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
-    options.enableCms ? updateCmsAdapter(options, coreSchematicsFolder) : noop,
+    // TODO: split `updateCmsAdapter` function do be handle by each module ng-add schematic
+    // options.enableCms ? updateCmsAdapter(options, coreSchematicsFolder) : noop,
     updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
     updateStore(options, coreSchematicsFolder),
     updateFixtureConfig(options, coreSchematicsFolder),

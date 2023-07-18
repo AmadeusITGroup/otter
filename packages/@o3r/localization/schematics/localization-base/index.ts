@@ -91,6 +91,7 @@ export function updateLocalization(options: { projectName: string | null }, root
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName, 'application');
+    const projectRoot = path.posix.join('/', workspaceProject?.root || '');
     const distFolder: string =
       (
         workspaceProject &&
@@ -130,6 +131,38 @@ export function updateLocalization(options: { projectName: string | null }, root
         }
       }
     };
+
+    const pathTsconfigCms = path.posix.join(projectRoot, 'tsconfig.cms.json');
+    workspaceProject.architect['extract-translations'] ||= {
+      builder: '@o3r/localization:extractor',
+      options: {
+        tsConfig: pathTsconfigCms.replace(/^\//, ''),
+        libraries: []
+      }
+    };
+
+    if (!tree.exists(pathTsconfigCms)) {
+      const tsconfigCms = {
+        extends: `./${tree.exists(path.posix.join(projectRoot, 'tsconfig.build.json')) ? 'tsconfig.build' : 'tsconfig.json'}`,
+        include: [
+          'src/**/*.component.ts',
+          'src/**/*.config.ts',
+          'src/**/*.module.ts'
+        ]
+      };
+      tree.create(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
+    } else {
+      const localizationSourceRegExps = ['src/**/*.component.ts'];
+      const tsconfigCms = tree.readJson(pathTsconfigCms) as Record<string, any>;
+      if (!Array.isArray(tsconfigCms.include) || !localizationSourceRegExps.some((r) => tsconfigCms.include.includes(r))) {
+        tsconfigCms.include ||= [];
+        tsconfigCms.include.push(
+          ...localizationSourceRegExps
+            .filter((r) => !tsconfigCms.include.includes(r))
+        );
+        tree.overwrite(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
+      }
+    }
 
     if (workspaceProject.architect.build) {
       const alreadyExistingBuildOption =

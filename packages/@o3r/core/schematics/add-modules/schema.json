@@ -4,5 +4,15 @@
   "title": "Add available Otter modules",
   "description": "ng generate Add module",
   "properties": {
+    "preset": {
+      "type": "string",
+      "description": "Preset of module list to automatically install",
+      "default": "",
+      "enum": [
+        "",
+        "basic",
+        "cms"
+      ]
+    }
   }
 }

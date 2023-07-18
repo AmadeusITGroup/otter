@@ -105,7 +105,9 @@ function setupNewApp() {
 
     execSync(`yarn add @angular/pwa@${angularVersion}`, execAppOptions);
     execSync(`yarn ng add @angular/pwa@${angularVersion} --force --skip-confirmation --defaults=true`, execAppOptions);
+    execSync(`yarn add @angular-devkit/core@${angularVersion}`, execAppOptions);
     execSync(`yarn add @angular-devkit/schematics@${angularVersion}`, execAppOptions);
+    execSync(`yarn add @schematics/angular@${angularVersion}`, execAppOptions);
     execSync(`yarn run ng add @angular/material@${materialVersion} --skip-confirmation --defaults=true`, execAppOptions);
     execSync(`yarn add @o3r/core@${o3rVersion}`, execAppOptions);
     const o3rCoreOptions = [
