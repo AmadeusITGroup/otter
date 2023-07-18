@@ -10,11 +10,11 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { dump, load } from 'js-yaml';
-import { readPackageJson } from '../../helpers/read-package';
-import type { NgGenerateTypescriptSDKShellSchematicsSchema } from './schema';
-import { isAbsolute, relative } from 'node:path';
-import { NpmInstall } from '../../helpers/node-install';
+import {dump, load} from 'js-yaml';
+import {isAbsolute, relative} from 'node:path';
+import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
+import {readPackageJson} from '../../helpers/read-package';
+import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
 
 /**
  * @param options
@@ -23,7 +23,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
 
   const installRule = (_tree: Tree, context: SchematicContext) => {
     const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
-    const installTask = new NpmInstall({ workingDirectory, packageManager: options.packageManager, allowScripts: false });
+    const installTask = new NpmInstall({workingDirectory, packageManager: options.packageManager, allowScripts: false});
     context.addTask(installTask);
   };
 
@@ -61,6 +61,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       projectName: options.name,
       projectPackageName: options.package,
       projectDescription: options.description,
+      packageManager: getPackageManagerName(options.packageManager),
       projectHosting: options.hosting,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
@@ -71,19 +72,21 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       empty: ''
     };
 
-    const yarnrcPath = '.yarnrc.yml';
-    const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
-    yarnrc.nodeLinker ||= 'pnp';
-    yarnrc.packageExtensions ||= {};
-    yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
-      dependencies: {
-        'isomorphic-fetch': '~2.2.1'
+    if (properties.packageManager === 'yarn'){
+      const yarnrcPath = '.yarnrc.yml';
+      const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
+      yarnrc.nodeLinker ||= 'pnp';
+      yarnrc.packageExtensions ||= {};
+      yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
+        dependencies: {
+          'isomorphic-fetch': '~2.2.1'
+        }
+      };
+      if (tree.exists(yarnrcPath)) {
+        tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
+      } else {
+        tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
       }
-    };
-    if (tree.exists(yarnrcPath)) {
-      tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
-    } else {
-      tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
     }
     const targetPath = options.directory || tree.root.path;
 
