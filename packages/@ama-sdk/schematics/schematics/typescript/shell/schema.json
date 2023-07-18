@@ -6,13 +6,13 @@
   "properties": {
     "name": {
       "type": "string",
-      "description": "Project name (NPM package scope)",
-      "x-prompt": "Project name (NPM package scope)?"
+      "description": "Project name (NPM package scope, package.json name will be @{projectName}/{packageName})",
+      "x-prompt": "Project name (NPM package scope, package.json name will be @{projectName}/{packageName})?"
     },
     "package": {
       "type": "string",
-      "description": "Package name",
-      "x-prompt": "Package name?",
+      "description": "Package name (package.json name will be @{projectName}/{packageName})",
+      "x-prompt": "Package name (package.json name will be @{projectName}/{packageName})?",
       "default": "sdk"
     },
     "description": {
