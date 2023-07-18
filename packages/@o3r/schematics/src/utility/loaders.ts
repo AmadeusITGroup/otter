@@ -1,6 +1,5 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as commentJson from 'comment-json';
 import { sync as globbySync } from 'globby';
 import { minimatch } from 'minimatch';
 import * as path from 'node:path';
@@ -20,7 +19,7 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
     throw new SchematicsException('Could not find Angular workspace configuration');
   }
 
-  return commentJson.parse(workspaceConfig.toString()) as any;
+  return JSON.parse(workspaceConfig.toString());
 }
 
 /**
@@ -31,7 +30,7 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
  * @param angularJsonFile Angular.json file path
  */
 export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angularJsonFile = '/angular.json') {
-  tree.overwrite(angularJsonFile, commentJson.stringify(workspace, null, 2));
+  tree.overwrite(angularJsonFile, JSON.stringify(workspace, null, 2));
   return tree;
 }
 
@@ -49,7 +48,7 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
     throw new SchematicsException('Could not find NPM Package');
   }
 
-  return commentJson.parse(workspaceConfig.toString()) as PackageJson;
+  return JSON.parse(workspaceConfig.toString()) as PackageJson;
 }
 
 /**

@@ -1,7 +1,6 @@
 import { SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { PackageJson } from 'type-fest';
 import * as path from 'node:path';
-import * as commentJson from 'comment-json';
 import { satisfies } from 'semver';
 import type { LoggerApi } from '@angular-devkit/core/src/logger';
 
@@ -24,7 +23,7 @@ interface PackageVersion {
 function getPackageManager(angularJsonString?: string | null) {
   let packageManager = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
   if (angularJsonString) {
-    const angularJsonObj = commentJson.parse(angularJsonString) as any;
+    const angularJsonObj = JSON.parse(angularJsonString);
     if (angularJsonObj?.cli?.packageManager) {
       packageManager = angularJsonObj.cli.packageManager;
     }
