@@ -25,5 +25,6 @@ yarn create @ama-sdk typescript <project-name> [...options]
 
 - `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
 - `--package-manager`: Node package manager to be used (`npm` and `yarn` are available).
+- `--debug`: Enable schematics debug mode (including dry run).
 
 > **Note**: if the `--spec-path` is specified, the SDK will be generated based on this specification at the creation time.

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { spawnSync } from 'node:child_process';
-import { join, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const defaultScope = 'sdk';
@@ -12,6 +12,7 @@ const argv = minimist(args);
 if (argv._.length < 2) {
   // eslint-disable-next-line no-console
   console.error('The SDK type and project name are mandatory');
+  console.info('usage: create typescript <@scope/package>');
   process.exit(-1);
 }
 
@@ -31,9 +32,10 @@ if (!pck) {
 }
 
 const targetDirectory = join('.', name, pck);
+const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
 const schematicsToRun = [
-  '@ama-sdk/schematics:typescript-shell',
-  ...(argv['spec-path'] ? ['@ama-sdk/schematics:typescript-core'] : [])
+  `${schematicsPackage}:typescript-shell`,
+  ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
 ];
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
@@ -46,9 +48,14 @@ const packageManager = argv['package-manager'] || defaultPackageManager;
 
 const run = () => {
   const schematicArgs = [
-    '--name', name, '--package', pck, '--package-manager', packageManager, '--directory', targetDirectory,
+    argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
+    '--name', name,
+    '--package', pck,
+    '--package-manager', packageManager,
+    '--directory', targetDirectory,
     ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
   ];
+
   const errors = schematicsToRun
     .map((schematic) => spawnSync(process.execPath, [binPath, schematic, ...schematicArgs], { stdio: 'inherit', cwd: process.cwd()}))
     .map(({error}) => error)
