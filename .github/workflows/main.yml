@@ -77,17 +77,7 @@ jobs:
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
-  publish-packages-pr:
-    uses: ./.github/workflows/publish.yml
-    if: ${{ github.event_name == 'pull_request' }}
-    permissions:
-      packages: write
-      contents: read
-    secrets: inherit
-    needs: [version, build]
-    with:
-      version: ${{ needs.version.outputs.nextVersionTag }}
-      prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
+      isPullRequest: false
 
   documentation-main:
     secrets: inherit
