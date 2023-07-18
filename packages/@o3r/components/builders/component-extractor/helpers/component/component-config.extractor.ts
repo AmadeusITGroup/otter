@@ -162,7 +162,7 @@ export class ComponentConfigExtractor {
         } else if (configurationWrapper) {
           const type = this.checker.getTypeFromTypeNode(typeNode);
           const baseTypes = type.getBaseTypes();
-          const symbolName = this.getSymbolName(type.symbol);
+          const symbolName = this.getSymbolName(type.symbol || type.aliasSymbol);
           const alreadyExtracted = !!configurationWrapper.nestedConfiguration.find((c) => c.name === symbolName);
           const extendsNested = !!baseTypes?.some((baseType) => this.getSymbolName(baseType.symbol).match(/^NestedConfiguration$/));
           if (extendsNested && !alreadyExtracted) {
