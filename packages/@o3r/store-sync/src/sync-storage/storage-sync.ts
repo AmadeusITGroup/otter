@@ -60,14 +60,16 @@ const validateStateKeys = (keys: StorageKeys) => {
  * @param storage storage when getting the data from
  * @param storageKeySerializer storage key transform function
  * @param restoreDates determine if the date need to be restored
- * @param logger
+ * @param logger Logger to report messages
+ * @param forFeature determine if the rehydration is for a feature store
  */
 export const rehydrateApplicationState = (
   keys: StorageKeys,
   storage: Storage | undefined,
   storageKeySerializer: (key: string) => string,
   restoreDates: boolean,
-  logger: Logger = console
+  logger: Logger = console,
+  forFeature: boolean = false
 ) => {
   return (keys as any[]).reduce((acc, curr) => {
     let key = curr;
@@ -118,8 +120,10 @@ export const rehydrateApplicationState = (
           raw = JSON.parse(stateSlice, reviver);
         }
 
-        return Object.assign({}, acc, {
-          [key]: deserialize ? deserialize(raw) : raw
+        const rehydratedState = deserialize ? deserialize(raw) : raw;
+
+        return forFeature ? rehydratedState : Object.assign({}, acc, {
+          [key]: rehydratedState
         });
       }
     }
@@ -162,6 +166,7 @@ function createStateSlice(existingSlice: any, filter: (string | number | Storage
  * @param removeOnUndefined Define if the store should be clean in the storage if undefined
  * @param syncCondition callback to define if the synchronization should be process
  * @param logger Logger to report messages
+ * @param forFeature define if the sync is to be performed for a feature store
  */
 export const syncStateUpdate = (
   state: any,
@@ -170,7 +175,8 @@ export const syncStateUpdate = (
   storageKeySerializer: (key: string | number) => string,
   removeOnUndefined = false,
   syncCondition?: (state: any) => any,
-  logger: Logger = console
+  logger: Logger = console,
+  forFeature: boolean = false
 ) => {
   if (syncCondition) {
     try {
@@ -187,14 +193,14 @@ export const syncStateUpdate = (
   }
 
   keys.forEach((key: string | StorageKeyConfiguration | SyncStorageSyncOptions | ((key: string, value: any) => any)): void => {
-    let stateSlice = state[key as string];
+    let stateSlice = state?.[key as string];
     let replacer;
     let space: string | number | undefined;
     let encrypt;
 
     if (typeof key === 'object') {
       const name = (Object.keys(key) as (keyof typeof key)[])[0];
-      stateSlice = state[name];
+      stateSlice = forFeature ? state : state[name];
 
       if (typeof stateSlice !== 'undefined' && key[name]) {
         // use serialize function if specified.
@@ -234,6 +240,8 @@ export const syncStateUpdate = (
       }
 
       key = name;
+    } else if (typeof key === 'string') {
+      stateSlice = forFeature ? state : state[key];
     }
 
     if (typeof stateSlice !== 'undefined' && storage !== undefined) {
@@ -290,6 +298,10 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
     config.restoreDates = true;
   }
 
+  if (config.forFeature === undefined) {
+    config.forFeature = false;
+  }
+
   // Use default merge reducer.
   let mergeReducer = config.mergeReducer;
 
@@ -301,7 +313,7 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
 
   const stateKeys = validateStateKeys(config.keys);
   const rehydratedState = config.rehydrate
-    ? rehydrateApplicationState(stateKeys, config.storage, config.storageKeySerializer, config.restoreDates, logger)
+    ? rehydrateApplicationState(stateKeys, config.storage, config.storageKeySerializer, config.restoreDates, logger, config.forFeature)
     : undefined;
 
   return (state: any, action: any) => {
@@ -329,7 +341,8 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
         config.storageKeySerializer as (key: string | number) => string,
         config.removeOnUndefined,
         config.syncCondition,
-        logger
+        logger,
+        config.forFeature
       );
     }
 

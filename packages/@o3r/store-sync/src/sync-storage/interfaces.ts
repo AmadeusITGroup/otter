@@ -55,4 +55,6 @@ export interface SyncStorageConfig {
   mergeReducer?: (state: any, rehydratedState: any, action: any) => any;
   /** Logger to report messages */
   logger?: Logger;
+  /** Should sync the state for a feature Store */
+  forFeature?: boolean;
 }
