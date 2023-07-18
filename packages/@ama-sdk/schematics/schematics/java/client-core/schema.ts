@@ -5,5 +5,5 @@ export interface NgGenerateJavaClientCoreSchematicsSchema extends JsonObject {
   specPath: string;
 
   /** Swagger config file */
-  specConfigPath: string;
+  specConfigPath: string | null;
 }

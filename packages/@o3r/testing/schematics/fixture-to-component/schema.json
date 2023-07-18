@@ -10,8 +10,7 @@
     },
     "specFilePath": {
       "type": "string",
-      "description": "Path to spec file of the component",
-      "default": ""
+      "description": "Path to spec file of the component"
     },
     "skipLinter": {
       "type": "boolean",

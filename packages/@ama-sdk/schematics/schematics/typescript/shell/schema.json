@@ -17,13 +17,11 @@
     },
     "description": {
       "type": "string",
-      "description": "Project description",
-      "default": ""
+      "description": "Project description"
     },
     "directory": {
       "type": "string",
-      "description": "Directory where to generate the SDK",
-      "default": ""
+      "description": "Directory where to generate the SDK"
     },
     "skipInstall": {
       "type": "boolean",

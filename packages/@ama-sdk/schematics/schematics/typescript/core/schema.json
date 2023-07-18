@@ -15,13 +15,11 @@
     },
     "specConfigPath": {
       "type": "string",
-      "description": "Spec config file\nMore info: https://openapi-generator.tech/docs/generators/typescript/#config-options",
-      "default": ""
+      "description": "Spec config file\nMore info: https://openapi-generator.tech/docs/generators/typescript/#config-options"
     },
     "directory": {
       "type": "string",
-      "description": "Directory where to generate the SDK",
-      "default": ""
+      "description": "Directory where to generate the SDK"
     },
     "packageManager": {
       "type": "string",

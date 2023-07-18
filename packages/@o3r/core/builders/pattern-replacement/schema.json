@@ -15,13 +15,11 @@
     },
     "searchValue": {
       "type": "string",
-      "description": "The RegExp that has to be replaced by replaceValue",
-      "default": ""
+      "description": "The RegExp that has to be replaced by replaceValue"
     },
     "replaceValue": {
       "type": "string",
-      "description": "A string containing the text to replace for every successful match of searchValue in this string.",
-      "default": ""
+      "description": "A string containing the text to replace for every successful match of searchValue in this string."
     }
   },
   "additionalProperties": false,

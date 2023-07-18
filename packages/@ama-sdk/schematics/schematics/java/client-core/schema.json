@@ -15,8 +15,7 @@
     },
     "specConfigPath": {
       "type": "string",
-      "description": "Swagger config file\nMore info: https://openapi-generator.tech/docs/generators/java/#config-options",
-      "default": ""
+      "description": "Swagger config file\nMore info: https://openapi-generator.tech/docs/generators/java/#config-options"
     }
   },
   "additionalProperties": true,
