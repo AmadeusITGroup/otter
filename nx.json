@@ -135,6 +135,11 @@
         "^specs"
       ]
     },
+    "test-int": {
+      "outputs": [
+        "{projectRoot}/dist-test/it-report.xml"
+      ]
+    },
     "prepare-publish": {
       "outputs": [
         "{projectRoot}/dist/package.json"
