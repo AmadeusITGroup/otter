@@ -19,7 +19,7 @@
     "@angular-devkit/core": "~16.0.5",
     "@angular-devkit/schematics": "~16.0.5",
     "@angular-devkit/schematics-cli": "~16.0.5",
-    "@openapitools/openapi-generator-cli": "~2.6.0",
+    "@openapitools/openapi-generator-cli": "~2.7.0",
     "@schematics/angular": "~16.0.5",
     "minimist": "^1.2.6",
     "typescript": "~5.0.2"
