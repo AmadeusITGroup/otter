@@ -24,5 +24,6 @@ module.exports = {
   },
   testMatch: [
     '<rootDir>/**/*.it.spec.ts'
-  ]
+  ],
+  testTimeout: 30 * 60 * 1000
 };
