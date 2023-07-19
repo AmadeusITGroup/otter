@@ -142,7 +142,11 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async getBranches() {
     this.logger.debug('List remote branches');
-    const res = await this.options.octokit.repos.listBranches(this.options.repo);
+    const res = await this.options.octokit.repos.listBranches({
+      ...this.options.repo,
+      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+      per_page: 100
+    });
     return res.data.map(({name}) => name);
   }
 
