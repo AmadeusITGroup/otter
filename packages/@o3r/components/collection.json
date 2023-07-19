@@ -6,11 +6,6 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
-    },
-    "iframe-component": {
-      "description": "Generate an iframe component for third party script integration",
-      "factory": "./schematics/iframe/index#ngGenerateIframeComponent",
-      "schema": "./schematics/iframe/schema.json"
     }
   }
 }
