@@ -72,7 +72,7 @@ jobs:
           name: it-tests
           path: it-tests.zip
       - name: Publish tests reports
-        if: success() || failure()
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: it-reports
