@@ -107,6 +107,8 @@ export class ApiFetchClient implements ApiClient {
     let body: string | undefined;
     let exception: Error | undefined;
 
+    const origin = options.headers.get('Origin');
+
     // Execute call
     try {
 
@@ -118,8 +120,6 @@ export class ApiFetchClient implements ApiClient {
       if (this.options.fetchPlugins) {
         loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this })));
       }
-
-      const origin = options.headers.get('Origin');
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
       const isCanceledBy = canStart.indexOf(false);
