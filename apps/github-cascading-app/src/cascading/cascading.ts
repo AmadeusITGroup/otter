@@ -254,6 +254,7 @@ export abstract class Cascading {
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
     if (!openPr) {
+      this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
         await this.createBranch(cascadingBranch, currentBranch);
@@ -263,6 +264,7 @@ export abstract class Cascading {
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
     } else {
+      this.logger.debug(`Updating the PR ${openPr.id}`);
       const message = await this.generatePullRequestBody({
         ...(openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false}),
         bypassReviewers: false
@@ -352,6 +354,7 @@ export abstract class Cascading {
       return;
     }
 
+    let isConflicting = false;
     if (branches.includes(cascadingBranch)) {
       try {
         await this.merge(currentBranch.branch, cascadingBranch);
@@ -372,11 +375,12 @@ export abstract class Cascading {
           this.logger.warn(`Fail to remove the cascading branch "${cascadingBranch}"`);
         }
         const conflictCascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, true);
+        isConflicting = true;
         await this.createBranch(conflictCascadingBranch, currentBranch.branch);
         cascadingBranch = conflictCascadingBranch;
       }
     }
-    await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
+    await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config, isConflicting);
   }
 
   /**
