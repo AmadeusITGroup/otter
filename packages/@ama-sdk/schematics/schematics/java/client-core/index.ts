@@ -83,7 +83,7 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
       specPath,
       codegenLanguage: 'javaClient',
       apiTests: false,
-      specConfigPath: options.specConfigPath
+      specConfigPath: options.specConfigPath || undefined
     })
   ]);
 }

@@ -8,13 +8,13 @@ export interface NgGenerateModuleSchema extends JsonObject {
   path: string;
 
   /** Description of the new module */
-  description: string;
+  description: string | null;
 
   /** Prefix use to package future generation */
-  prefix: string;
+  prefix: string | null;
 
   /** Name of the Nx Project (applied only in Nx Monorepo) */
-  projectName: string;
+  projectName: string | null;
 
   /** Skip the linter process */
   skipLinter: boolean;

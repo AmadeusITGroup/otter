@@ -16,22 +16,20 @@
     "description": {
       "type": "string",
       "description": "Description of the new module",
-      "x-prompt": "Short description of the new module",
-      "default": null
+      "x-prompt": "Short description of the new module"
     },
     "prefix": {
       "type": "string",
-      "description": "Prefix use to package future generation",
-      "default": ""
+      "description": "Prefix use to package future generation"
     },
     "projectName": {
       "type": "string",
-      "description": "Name of the Nx Project (applied only in Nx Monorepo)",
-      "default": ""
+      "description": "Name of the Nx Project (applied only in Nx Monorepo)"
     },
     "path": {
       "type": "string",
-      "description": "Target directory to generate the module"
+      "description": "Target directory to generate the module",
+      "default": ""
     },
     "skipLinter": {
       "type": "boolean",
