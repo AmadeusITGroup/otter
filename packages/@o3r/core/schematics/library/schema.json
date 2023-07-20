@@ -16,8 +16,7 @@
     "description": {
       "type": "string",
       "description": "Description of the new module",
-      "x-prompt": "Short description of the new module",
-      "default": null
+      "default": ""
     },
     "prefix": {
       "type": "string",
@@ -31,12 +30,27 @@
     },
     "path": {
       "type": "string",
-      "description": "Target directory to generate the module"
+      "description": "Target directory to generate the module",
+      "default": ""
     },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
       "default": true
+    },
+    "skipInstall": {
+      "description": "Do not install dependency packages.",
+      "type": "boolean",
+      "default": false
+    },
+    "preset": {
+      "type": "string",
+      "description": "Preset of module list to automatically install",
+      "default": "basic",
+      "enum": [
+        "basic",
+        "cms"
+      ]
     }
   },
   "required": ["name"],

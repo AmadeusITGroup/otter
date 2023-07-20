@@ -22,6 +22,7 @@
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1600.5",
+    "@angular-devkit/core": "~16.0.5",
     "@angular-devkit/schematics": "~16.0.5",
     "@angular/core": "~16.0.5",
     "@angular/platform-browser-dynamic": "~16.0.5",
@@ -47,6 +48,9 @@
     "typescript-json-schema": "~0.59.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/core": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
       "optional": true
     },

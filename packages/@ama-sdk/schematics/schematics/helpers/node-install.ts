@@ -25,9 +25,6 @@ export interface NodePackageInstallTaskOptions {
 
 /**
  * Install dev dependency on your application
- *
- * Note: it should not be moved to other packages as it should run before the installation
- * of peer dependencies
  */
 export class DevInstall extends NodePackageInstallTask {
   public quiet = false;

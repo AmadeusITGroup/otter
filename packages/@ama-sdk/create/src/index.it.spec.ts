@@ -26,7 +26,7 @@ const execAppOptions: ExecSyncOptions = {
 };
 const registry = 'http://localhost:4873';
 
-const packageManager = process.env.TEST_PACKAGE_MANAGER || 'npm';
+const packageManager = process.env.ENFORCED_PACKAGE_MANAGER || 'npm';
 const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.join(currentFolder, 'package.json')).toString());
 
 const sdkPackageName = '@my-test/sdk';
