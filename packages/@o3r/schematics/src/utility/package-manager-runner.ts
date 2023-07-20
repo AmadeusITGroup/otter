@@ -1,8 +1,22 @@
 import * as commentJson from 'comment-json';
 import { WorkspaceSchema } from '../interfaces';
 
-/** Npm packageManager */
+/** Support NPM package managers */
 export type SupportedPackageManagers = 'npm' | 'yarn';
+
+/** Support NPM package managers */
+export type SupportedPackageManagerRunners = `${SupportedPackageManagers} run` | 'yarn';
+
+/** Support NPM package managers */
+export type SupportedPackageManagerExecutors = `${SupportedPackageManagers} exec` | 'yarn' | 'npx';
+
+/** Option to determine Package Manager */
+export interface PackageManagerOptions {
+  /** Workspace configuration */
+  workspaceConfig?: WorkspaceSchema | string | null;
+  /** Package manager to enforce, will be used if supported */
+  enforcedNpmManager?: string | null;
+}
 
 /**
  * Determine if the given packager manager is supported
@@ -28,11 +42,9 @@ function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers): S
  * Get package manager used in runs
  * Defaults to the package manager setup in process.env if no package manager set in angular.json
  *
- * @param options.workspaceConfig Workspace configuration
- * @param options.enforcedNpmManager  package manager to enforce, will be used if supported
- * @param options
+ * @param options Option to determine the final package manager
  */
-export function getPackageManager(options?: {workspaceConfig?: WorkspaceSchema | string | null; enforcedNpmManager?: string | null}) {
+export function getPackageManager(options?: PackageManagerOptions) {
   let packageManagerFromWorkspace: string | undefined;
   if (options?.workspaceConfig) {
     const angularJsonObj = (typeof options?.workspaceConfig === 'string' ? (commentJson.parse(options?.workspaceConfig) as unknown as WorkspaceSchema) : options?.workspaceConfig);
@@ -51,7 +63,7 @@ export function getPackageManager(options?: {workspaceConfig?: WorkspaceSchema |
  * @param workspaceConfig Workspace configuration
  */
 export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null) {
-  return getPackageManager({workspaceConfig}) + ' run';
+  return getPackageManager({ workspaceConfig }) + ' run' as SupportedPackageManagerRunners;
 }
 
 /**
@@ -60,5 +72,5 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
  * @param workspaceConfig Workspace configuration
  */
 export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null) {
-  return getPackageManager({workspaceConfig}) + ' exec';
+  return getPackageManager({ workspaceConfig }) + ' exec' as SupportedPackageManagerExecutors;
 }
