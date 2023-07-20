@@ -1,5 +1,5 @@
 import { Rule, SchematicContext } from '@angular-devkit/schematics';
-import { NgGenerateComponentSchematicsSchema } from '../schema';
+import { NgGenerateComponentSchematicsSchema } from '../../component/schema';
 import { askQuestionsToGetRulesOrThrowIfPackageNotAvailable } from './common';
 
 

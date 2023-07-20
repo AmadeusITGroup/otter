@@ -44,30 +44,40 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
-      "default": false,
-      "x-prompt": "Skip linter process on generated files?"
+      "default": false
     },
     "useOtterTheming": {
       "type": "boolean",
       "description": "Generate page with Otter theming architecture",
-      "default": true,
-      "x-prompt": "Generate your page with Otter theming architecture?"
+      "default": null,
+      "nullable": true
     },
     "useOtterConfig": {
       "type": "boolean",
       "description": "Generate page with Otter configuration",
-      "default": true,
-      "x-prompt": "Generate your page with Otter configuration?"
+      "default": null,
+      "nullable": true
     },
     "useLocalization": {
       "type": "boolean",
       "description": "Generate page with localization",
-      "default": true,
-      "x-prompt": "Generate your page with localization?"
+      "default": null,
+      "nullable": true
     },
     "standalone": {
       "type": "boolean",
       "description": "Whether the generated component is standalone.",
+      "default": false
+    },
+    "usePageFixtures": {
+      "type": "boolean",
+      "description": "Generate page fixtures for tests",
+      "default": null,
+      "nullable": true
+    },
+    "activateDummy": {
+      "type": "boolean",
+      "description": "Generate dummy values",
       "default": false
     }
   },
