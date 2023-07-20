@@ -1,4 +1,4 @@
-import type { WorkspaceSchema } from '../interfaces';
+import type { WorkspaceSchema, WorkspaceSchematics } from '../interfaces';
 
 /**
  * Register the collection schematic to the workspace
@@ -40,4 +40,24 @@ export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null,
       .map(([_, value]) => value) :
     []
   ).reduce((out, defaultParams) => ({...out, ...defaultParams}), {});
+}
+
+/**
+ * Retrieves the schematics options of a given schematics name
+ * If the schematics name is not found, then the generic options (*:*) will be returned. If the latter is not present the function returns undefined
+ *
+ * @param config
+ * @param schematicName
+ */
+export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(config: WorkspaceSchema, schematicName?: string): T | undefined {
+  if (!schematicName) {
+    return config.schematics?.['*:*'] as T | undefined;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const options = config.schematics && Object.entries(config.schematics)
+    .filter(([name]) => new RegExp(name.replace(/\*/g, '.*')).test(schematicName))
+    .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
+    .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
+
+  return options && Object.keys(options).length ? options : undefined;
 }

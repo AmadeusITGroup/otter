@@ -35,7 +35,7 @@ export function updateOtterEnvironmentAdapter(
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
     if (!workspaceProject) {
       context.logger.error('No application detected, the Otter environment will not be setup');
       return tree;
@@ -116,7 +116,7 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
     if (!workspaceProject) {
       context.logger.error('No application detected, the environment can not be generated');
       return tree;
@@ -142,7 +142,7 @@ export function updateOtterEnvironmentAdapter(
    * @param _context
    */
   const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
     if (!workspaceProject) {
       return tree;
     }
