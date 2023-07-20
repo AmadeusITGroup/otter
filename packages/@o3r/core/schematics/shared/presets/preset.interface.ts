@@ -14,7 +14,11 @@ export interface Preset {
   modules?: string[];
 
   /** Rule to apply for the specific preset */
-  rule: (options: PresetOptions) => Rule;
+  rule: Rule;
 }
 
-export type Presets = { [x in PresetNames]: Preset };
+/** Preset factory call when a preset has been selected */
+export type PresetFactory = (options: PresetOptions) => Promise<Preset> | Preset;
+
+/** Preset list */
+export type Presets = { [x in PresetNames]: PresetFactory };

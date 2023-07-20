@@ -10,22 +10,21 @@ import { AddDevInstall } from '@o3r/schematics';
  * Default implementation of the preset rule
  *
  * @param moduleToInstall
+ * @param options
  */
-export function defaultPresetRuleFactory(moduleToInstall: string[]) {
+export function defaultPresetRuleFactory(moduleToInstall: string[], options: PresetOptions = {}): Rule {
   const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson;
   const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
 
-  return (options: PresetOptions = {}): Rule => {
-    return async (tree, context) => {
-      for (const dependency of moduleToInstall) {
-        context.addTask(new AddDevInstall({
-          packageName: dependency + o3rCoreVersion,
-          hideOutput: false,
-          quiet: false
-        } as any));
-        await lastValueFrom(context.engine.executePostTasks());
-      }
-      return () => chain(moduleToInstall.map((mod) => externalSchematic(mod, 'ng-add', options.forwardOptions || {})))(tree, context);
-    };
+  return async (tree, context) => {
+    for (const dependency of moduleToInstall) {
+      context.addTask(new AddDevInstall({
+        packageName: dependency + o3rCoreVersion,
+        hideOutput: false,
+        quiet: false
+      } as any));
+      await lastValueFrom(context.engine.executePostTasks());
+    }
+    return () => chain(moduleToInstall.map((mod) => externalSchematic(mod, 'ng-add', options.forwardOptions || {})))(tree, context);
   };
 }
