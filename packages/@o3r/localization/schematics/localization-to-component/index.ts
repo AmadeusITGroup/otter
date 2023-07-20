@@ -13,15 +13,15 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { getPropertyFromDecoratorFirstArgument } from '@o3r/schematics';
 import {
   addCommentsOnClassProperties,
+  addImportsAndCodeBlockStatementAtSpecInitializationTransformerFactory,
+  addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   applyEsLintFix,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
-  isNgClassDecorator,
   isO3rClassComponent,
   sortClassElement
 } from '@o3r/schematics';
@@ -63,15 +63,6 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
     throw new Error(`Unable to add localization to this component because it already has at least one of these properties: ${localizationProperties.join(', ')}.`);
   }
 };
-
-const isTestBedConfiguration = (node: ts.Node): node is ts.ExpressionStatement & { expression: ts.CallExpression & { expression: ts.PropertyAccessExpression } } =>
-  (ts.isExpressionStatement(node)
-  && ts.isCallExpression(node.expression)
-  && ts.isPropertyAccessExpression(node.expression.expression)
-  && ts.isIdentifier(node.expression.expression.expression)
-  && node.expression.expression.expression.escapedText.toString() === 'TestBed'
-  && node.expression.expression.name.escapedText.toString() === 'configureTestingModule')
-  || (ts.isAwaitExpression(node) && isTestBedConfiguration(node.expression));
 
 /**
  * Add localization architecture to an existing component
@@ -131,6 +122,11 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
         );
         const result = ts.transform(componentSourceFile, [
           addInterfaceToClassTransformerFactory(`Translatable<${properties.componentTranslation}>`, isO3rClassComponent),
+          ...(
+            standalone
+              ? [addImportsIntoComponentDecoratorTransformerFactory(['LocalizationModule'])]
+              : []
+          ),
           (ctx) => (rootNode: ts.Node) => {
             const { factory } = ctx;
             const visit = (node: ts.Node): ts.Node => {
@@ -157,31 +153,9 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
                     factory.createBlock(localizationConstructorBlockStatements, true)
                   );
 
-
-                const ngDecorator = (ts.getDecorators(node) || []).find(isNgClassDecorator)!;
-                const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
-                const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
-                const newNgDecorator = standalone ? factory.updateDecorator(
-                  ngDecorator,
-                  factory.updateCallExpression(
-                    ngDecorator.expression,
-                    ngDecorator.expression.expression,
-                    ngDecorator.expression.typeArguments,
-                    [
-                      factory.createObjectLiteralExpression([
-                        ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
-                        factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                          importsList.concat(factory.createIdentifier('LocalizationModule')),
-                          true
-                        ))
-                      ], true)
-                    ]
-                  )
-                ) : ngDecorator;
-
-                const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))
-                  .concat([newNgDecorator])
-                  .concat((ts.getModifiers(node) || []) as any) as any[] as ts.Modifier[];
+                const newModifiers = ([] as ts.ModifierLike[])
+                  .concat(ts.getDecorators(node) || [])
+                  .concat(ts.getModifiers(node) || []);
 
                 const newMembers = node.members
                   .filter((classElement) => !ts.isConstructorDeclaration(classElement))
@@ -248,7 +222,7 @@ export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): R
         tree.commitUpdate(
           tree
             .beginUpdate(templatePath)
-            .insertLeft(0, '<div>Localization: {{ translations.dummyLoc1 | translate }}</div>')
+            .insertLeft(0, '<div>Localization: {{ translations.dummyLoc1 | translate }}</div>\n')
         );
       }
 
@@ -317,68 +291,25 @@ const mockTranslationsCompilerProvider: Provider = {
           true
         );
 
-        const result = ts.transform(specSourceFile, [(ctx) => (rootNode: ts.Node) => {
-          const { factory } = ctx;
-          const visit = (node: ts.Node): ts.Node => {
-            if (ts.isBlock(node) && !!node.statements.find(isTestBedConfiguration)) {
-              return factory.updateBlock(
-                node,
-                node.statements
-                  .reduce<ts.Statement[]>((acc, statement) => {
-                    if (isTestBedConfiguration(statement)) {
-                      const firstArgProps = (statement.expression.arguments[0] as ts.ObjectLiteralExpression).properties;
-                      const importsProp = firstArgProps.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
-                        prop.name?.getText() === 'imports'
-                      );
-
-                      return acc.concat(
-                        factory.updateExpressionStatement(
-                          statement,
-                          factory.updateCallExpression(
-                            statement.expression,
-                            statement.expression.expression,
-                            statement.expression.typeArguments,
-                            [
-                              factory.createObjectLiteralExpression([
-                                ...firstArgProps.filter((prop) => prop.name?.getText() !== 'imports'),
-                                factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                                  (
-                                    importsProp
-                                      ? [...importsProp.initializer.elements]
-                                      : []
-                                  ).concat(
-                                    factory.createSpreadElement(factory.createCallExpression(
-                                      factory.createIdentifier('mockTranslationModules'),
-                                      undefined,
-                                      [
-                                        factory.createIdentifier('localizationConfiguration'),
-                                        factory.createIdentifier('mockTranslations'),
-                                        factory.createIdentifier('mockTranslationsCompilerProvider')
-                                      ]
-                                    ))
-                                  ),
-                                  true
-                                ))
-                              ], true)
-                            ]
-                          )
-                        )
-                      );
-                    }
-                    return acc.concat(statement);
-                  }, [])
-                  .concat(
-                    generateBlockStatementsFromString(`
-                    const localizationService = TestBed.inject(LocalizationService);
-                    localizationService.configure();
-                  `)
-                  )
-              );
-            }
-            return ts.visitEachChild(node, visit, ctx);
-          };
-          return ts.visitNode(rootNode, visit);
-        }]);
+        const result = ts.transform(specSourceFile, [
+          (ctx) => addImportsAndCodeBlockStatementAtSpecInitializationTransformerFactory(
+            [
+              ctx.factory.createSpreadElement(ctx.factory.createCallExpression(
+                ctx.factory.createIdentifier('mockTranslationModules'),
+                undefined,
+                [
+                  ctx.factory.createIdentifier('localizationConfiguration'),
+                  ctx.factory.createIdentifier('mockTranslations'),
+                  ctx.factory.createIdentifier('mockTranslationsCompilerProvider')
+                ]
+              ))
+            ],
+            `
+              const localizationService = TestBed.inject(LocalizationService);
+              localizationService.configure();
+            `
+          )(ctx)
+        ]);
 
         const printer = ts.createPrinter({
           removeComments: false,

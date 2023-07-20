@@ -10,7 +10,6 @@ import * as commentJson from 'comment-json';
  * @param options @see RuleFactory.options
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
- * @param options.isDefaultGenerator
  * @param options.enableStorybook
  * @param options.enablePlaywright
  * @param options.enableStyling
@@ -20,7 +19,6 @@ import * as commentJson from 'comment-json';
 export function updateOtterEnvironmentAdapter(
   options: {
     projectName: string | null;
-    isDefaultGenerator?: boolean;
     enableStorybook?: boolean;
     enableStyling?: boolean;
     enableAnalytics?: boolean;
@@ -93,9 +91,7 @@ export function updateOtterEnvironmentAdapter(
       });
 
     }
-    if (options.isDefaultGenerator) {
-      registerCollectionSchematics(workspace, '@o3r/core');
-    }
+    registerCollectionSchematics(workspace, '@o3r/core');
     workspace.cli.analytics = false;
 
     tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
