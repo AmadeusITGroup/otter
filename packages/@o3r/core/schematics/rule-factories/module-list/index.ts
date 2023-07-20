@@ -14,12 +14,18 @@ export function displayModuleList(keyword: string, scopeWhitelist: string[] | re
     const { OTTER_KEYWORD_CMS } = await import('@o3r/schematics');
     const tagMap: Record<string, string> = { [OTTER_KEYWORD_CMS]: 'CMS enabler' };
 
-    const { getAvailableModulesWithLatestPackage, formatModuleDescription } = await import('@o3r/schematics');
+    const { getAvailableModulesWithLatestPackage, formatModuleDescription, getWorkspaceConfig, getPackageManagerExecutor } = await import('@o3r/schematics');
+    const workspaceConfig = getWorkspaceConfig(tree);
     try {
-      const modules = await getAvailableModulesWithLatestPackage(keyword, scopeWhitelist, onlyNotInstalledModules, context.logger);
+      const modules = await getAvailableModulesWithLatestPackage(keyword, {
+        scopeWhitelist,
+        onlyNotInstalled: onlyNotInstalledModules,
+        logger: context.logger,
+        workspaceConfig
+      });
       const message = modules
         .filter((mod) => !onlyCmsModules || mod.keywords?.includes(OTTER_KEYWORD_CMS))
-        .map((mod) => formatModuleDescription(mod, process.env?.npm_execpath?.indexOf('yarn') === -1 ? 'npx' : 'yarn', tagMap))
+        .map((mod) => formatModuleDescription(mod, getPackageManagerExecutor(workspaceConfig), tagMap))
         .filter((msg) => !!msg)
         .join(EOL + EOL);
       if (message) {
