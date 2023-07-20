@@ -20,6 +20,18 @@
     "tslib": "^2.5.3",
     "uuid": "^9.0.0"
   },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~16.0.5",
+    "@o3r/schematics": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.0.5",
     "@angular-devkit/core": "~16.0.5",
@@ -40,6 +52,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/uuid": "^9.0.0",

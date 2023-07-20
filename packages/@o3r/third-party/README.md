@@ -18,3 +18,12 @@ ng add @o3r/third-party
 ```
 
 > **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics            | Description                                                  | How to use                  |
+| --------------------- | ------------------------------------------------------------ | --------------------------- |
+| add                   | Include Otter third party module in a library / application. | `ng add @o3r/third-party`   |
+| iframe-to-component  | Add iframe to an Otter component                             | `ng g iframe-to-component` |
