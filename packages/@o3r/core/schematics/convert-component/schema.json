@@ -12,6 +12,17 @@
       "type": "boolean",
       "description": "Skip the linter process",
       "default": false
+    },
+    "componentType": {
+      "type": "string",
+      "description": "Type of the component",
+      "enum": [
+        "Component",
+        "ExposedComponent",
+        "Block",
+        "Page"
+      ],
+      "default": "Component"
     }
   },
   "additionalProperties": true,
