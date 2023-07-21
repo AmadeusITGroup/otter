@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgAddLocalizationKeySchematicsSchema extends JsonObject {
+export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObject {
   /** Path to the component */
   path: string;
 
@@ -11,7 +11,7 @@ export interface NgAddLocalizationKeySchematicsSchema extends JsonObject {
   key: string;
 
   /** Description of the localization */
-  description: string | null;
+  description: string | undefined;
 
   /** Default value of the localization */
   value: string;

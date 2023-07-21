@@ -1,10 +1,10 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateUpdateSchematicsSchema extends JsonObject {
+export interface NgGenerateUpdateSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Source directory containing the schematics */
-  path: string | null;
+  path: string | undefined;
 
 }

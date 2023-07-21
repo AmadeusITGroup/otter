@@ -180,7 +180,8 @@ describe('Component container', () => {
     }, initialTree)).rejects.toThrow();
   });
 
-  it('should generate a container component with rules engine', async () => {
+  // TODO mock require.resolve('@o3r/rules-engine/package.json') once https://github.com/jestjs/jest/issues/9543 is fixed
+  it.skip('should generate a container component with rules engine', async () => {
     const externalSchematicsSpy = jest.fn((tree: Tree) => tree);
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy

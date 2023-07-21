@@ -46,7 +46,7 @@ const angularCdkDep = '@angular/cdk';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateLocalization(options: { projectName: string | null }, rootPath: string): Rule {
+export function updateLocalization(options: { projectName: string | null | undefined }, rootPath: string): Rule {
 
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';

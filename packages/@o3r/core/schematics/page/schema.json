@@ -48,21 +48,15 @@
     },
     "useOtterTheming": {
       "type": "boolean",
-      "description": "Generate page with Otter theming architecture",
-      "default": null,
-      "nullable": true
+      "description": "Generate page with Otter theming architecture"
     },
     "useOtterConfig": {
       "type": "boolean",
-      "description": "Generate page with Otter configuration",
-      "default": null,
-      "nullable": true
+      "description": "Generate page with Otter configuration"
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate page with localization",
-      "default": null,
-      "nullable": true
+      "description": "Generate page with localization"
     },
     "standalone": {
       "type": "boolean",
@@ -71,9 +65,7 @@
     },
     "usePageFixtures": {
       "type": "boolean",
-      "description": "Generate page fixtures for tests",
-      "default": null,
-      "nullable": true
+      "description": "Generate page fixtures for tests"
     },
     "activateDummy": {
       "type": "boolean",

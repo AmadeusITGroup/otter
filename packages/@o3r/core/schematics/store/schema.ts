@@ -1,4 +1,4 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 import { NgGenerateEntityAsyncStoreSchematicsSchema } from './entity-async/schema';
 import { NgGenerateEntitySyncStoreSchematicsSchema } from './entity-sync/schema';
 import { NgGenerateSimpleAsyncStoreSchematicsSchema } from './simple-async/schema';
@@ -7,12 +7,12 @@ import { NgGenerateSimpleSyncStoreSchematicsSchema } from './simple-sync/schema'
 /**
  * Base properties associated to an Otter store
  */
-export interface NgGenerateStoreBaseSchematicsSchema extends JsonObject {
+export interface NgGenerateStoreBaseSchematicsSchema extends SchematicOptionObject {
   /** Directory containing the stores */
-  path: string | null;
+  path: string | undefined;
 
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Store name */
   storeType: 'entity-async' | 'simple-async' | 'entity-sync' | 'simple-sync';
@@ -21,7 +21,7 @@ export interface NgGenerateStoreBaseSchematicsSchema extends JsonObject {
   skipLinter: boolean;
 }
 
-type Nullable<T> = { [P in keyof T]: T[P] | null };
+type Nullable<T> = { [P in keyof T]: T[P] | undefined };
 
 /**
  * Properties associated to an Otter store

@@ -18,7 +18,7 @@ import * as commentJson from 'comment-json';
  */
 export function updateOtterEnvironmentAdapter(
   options: {
-    projectName: string | null;
+    projectName: string | null | undefined;
     enableStorybook?: boolean;
     enableStyling?: boolean;
     enableAnalytics?: boolean;
