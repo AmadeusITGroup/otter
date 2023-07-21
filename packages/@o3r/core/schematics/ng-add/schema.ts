@@ -3,7 +3,7 @@ import type { JsonObject } from '@angular-devkit/core';
 export type PresetNames = 'basic' | 'cms';
 
 export interface NgAddSchematicsSchema extends JsonObject {
-  /** reset of module list to automatically install */
+  /** Preset of module list to automatically install */
   preset: PresetNames;
 
   /** Project name */

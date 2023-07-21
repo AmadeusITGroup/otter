@@ -9,7 +9,7 @@ import { AddDevInstall } from '@o3r/schematics';
  * Add Otter schematics to an Angular Project
  */
 export function ngAdd(): Rule {
-  const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'comment-json', 'eslint', 'globby'];
+  const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'comment-json', 'globby'];
   return async (tree: Tree, context: SchematicContext) => {
     context.logger.info('Running ng add for schematics');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');

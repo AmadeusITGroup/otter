@@ -7,12 +7,13 @@
     "preset": {
       "type": "string",
       "description": "Preset of module list to automatically install",
-      "default": "",
+      "default": "none",
       "enum": [
-        "",
+        "none",
         "basic",
         "cms"
       ]
     }
-  }
+  },
+  "additionalProperties": true
 }

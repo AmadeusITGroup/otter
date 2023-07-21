@@ -4,7 +4,7 @@ globalThis.ngJest = {
   skipNgcc: true
 };
 
-/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
+/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'jest-preset-angular',
@@ -25,5 +25,10 @@ module.exports = {
       tsconfig: '<rootDir>/tsconfig.spec.json',
       stringifyContentPathRegex: '\\.html$'
     }
-  }
+  },
+  snapshotSerializers: [
+    'jest-preset-angular/build/serializers/no-ng-attributes',
+    'jest-preset-angular/build/serializers/ng-snapshot',
+    'jest-preset-angular/build/serializers/html-comment',
+  ]
 };
