@@ -1,7 +1,7 @@
 import { externalSchematic, Rule, SchematicContext } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
 import { setupSchematicsDefaultParams } from '@o3r/schematics';
-import { NgGenerateComponentSchematicsSchema } from '../schema';
+import { NgGenerateComponentSchematicsSchema } from '../../component/schema';
 
 const configurationPackageName = '@o3r/rules-engine';
 const addConfigurationSchematicName = 'rules-engine-to-component';

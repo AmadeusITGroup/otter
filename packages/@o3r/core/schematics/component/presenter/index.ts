@@ -24,12 +24,12 @@ import {
   getLibraryNameFromPath, getProjectFromTree
 } from '@o3r/schematics';
 import * as path from 'node:path';
-import { getAddAnalyticsRules } from '../common/analytics';
-import { getAddConfigurationRules } from '../common/configuration';
-import { getAddContextRules } from '../common/context';
-import { getAddFixtureRules } from '../common/fixture';
-import { getAddLocalizationRules } from '../common/localization';
-import { getAddThemingRules } from '../common/theming';
+import { getAddAnalyticsRules } from '../../rule-factories/component/analytics';
+import { getAddConfigurationRules } from '../../rule-factories/component/configuration';
+import { getAddContextRules } from '../../rule-factories/component/context';
+import { getAddFixtureRules } from '../../rule-factories/component/fixture';
+import { getAddLocalizationRules } from '../../rule-factories/component/localization';
+import { getAddThemingRules } from '../../rule-factories/component/theming';
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
 

@@ -84,8 +84,7 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
-      "default": false,
-      "x-prompt": "Skip linter process on generated files?"
+      "default": false
     },
     "activateDummy": {
       "type": "boolean",

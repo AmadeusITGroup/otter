@@ -16,6 +16,11 @@
       "type": "boolean",
       "description": "Skip the linter process",
       "default": false
+    },
+    "page": {
+      "type": "boolean",
+      "description": "Is the component a page",
+      "default": false
     }
   },
   "additionalProperties": true,

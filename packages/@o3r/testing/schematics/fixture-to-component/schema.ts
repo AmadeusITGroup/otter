@@ -9,4 +9,7 @@ export interface NgAddFixtureSchematicsSchema extends JsonObject {
 
   /** Skip the linter process */
   skipLinter: boolean;
+
+  /** Is the component a page */
+  page: boolean;
 }

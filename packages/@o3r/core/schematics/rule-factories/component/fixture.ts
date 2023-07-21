@@ -1,12 +1,13 @@
 import { Rule, SchematicContext } from '@angular-devkit/schematics';
-import { NgGenerateComponentSchematicsSchema } from '../schema';
+import { NgGenerateComponentSchematicsSchema } from '../../component/schema';
 import { askQuestionsToGetRulesOrThrowIfPackageNotAvailable } from './common';
 
 
 export const getAddFixtureRules = (
   componentPath: string,
   options: Pick<NgGenerateComponentSchematicsSchema, 'useComponentFixtures' | 'skipLinter'>,
-  context: SchematicContext
+  context: SchematicContext,
+  isPage = false
 ): Promise<Rule[]> => askQuestionsToGetRulesOrThrowIfPackageNotAvailable(
   componentPath,
   'useComponentFixtures',
@@ -17,6 +18,7 @@ export const getAddFixtureRules = (
   '@o3r/testing',
   'fixture-to-component',
   {
-    skipLinter: options.skipLinter
+    skipLinter: options.skipLinter,
+    page: isPage
   }
 );

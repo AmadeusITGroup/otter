@@ -1,3 +1,0 @@
-import {O3rPageFixture} from '@o3r/testing/core';
-
-export class <%= className %>Fixture extends O3rPageFixture {}
