@@ -25,9 +25,10 @@ program
   // eslint-disable-next-line max-len
   .option<string[]>('--ignore <...patterns>', 'Path patters to ignore', (p, previous) => ([...previous, ...p.split(',')]), ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/mocks/**', '**/templates/**', '**/*.template'])
   .option('--ignore-workspace', 'Ignore the workspace and only check from the root directory')
+  .option('--fail-on-error', 'Return a non-null status in case of dependency issue found')
   .parse(process.argv);
 
-const {root, ignore, ignoreWorkspace} = program.opts();
+const {root, ignore, ignoreWorkspace, failOnError} = program.opts();
 
 const packagePatterns: string[] = ignoreWorkspace ?
   join(root, 'package.json').replace(/\\/g, '/') :
@@ -108,5 +109,7 @@ void (async () => {
 
   if (!fixFound) {
     logger.info('No missing package.json dependencies found');
+  } else if (failOnError) {
+    process.exit(1);
   }
 })();

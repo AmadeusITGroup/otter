@@ -2,7 +2,7 @@
 import { logging } from '@angular-devkit/core';
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getSourceFilesFromWorkspaceProjects } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { findNodes } from '@schematics/angular/utility/ast-utils';
 
 /**

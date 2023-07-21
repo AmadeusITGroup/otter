@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn run version-harmonize && yarn lint-staged
+yarn run version-harmonize && yarn lint-staged && yarn in-source-dep-check --fail-on-error

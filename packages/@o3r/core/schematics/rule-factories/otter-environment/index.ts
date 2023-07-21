@@ -1,8 +1,8 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
+import * as ts from 'typescript';
 import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 /**
  * Update Otter environment variable for schematics
@@ -94,21 +94,17 @@ export function updateOtterEnvironmentAdapter(
     registerCollectionSchematics(workspace, '@o3r/core');
     workspace.cli.analytics = false;
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 
   const editTsConfigJson = (tree: Tree) => {
     if (tree.exists('/tsconfig.json')) {
-      const tsConfig: any = commentJson.parse(tree.read('/tsconfig.json')!.toString());
+      const tsConfig = ts.parseConfigFileTextToJson('/tsconfig.json', tree.readText('/tsconfig.json')).config;
       if (tsConfig.compilerOptions?.noPropertyAccessFromIndexSignature) {
         delete tsConfig.compilerOptions.noPropertyAccessFromIndexSignature;
       }
-      tree.overwrite('/tsconfig.json', commentJson.stringify(
-        tsConfig,
-        null,
-        2
-      ));
+      tree.overwrite('/tsconfig.json', JSON.stringify(tsConfig, null, 2));
     }
     return tree;
   };

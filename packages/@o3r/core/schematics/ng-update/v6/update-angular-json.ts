@@ -1,6 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getProjectFromTree, readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 /**
  * Add the mandatory targetBuild property for the prefetch builder
@@ -27,7 +26,7 @@ export function updatePrefetchTargetBuild(): Rule {
       }
 
       workspace.projects[name] = newProject;
-      tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+      tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
       return tree;
     }
   };
@@ -63,7 +62,7 @@ export function updateI18nBuild(): Rule {
     }
     const { name, ...newProject } = workspaceProject;
     workspace.projects[name] = newProject;
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 }
