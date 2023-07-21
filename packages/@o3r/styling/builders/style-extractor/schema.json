@@ -13,6 +13,10 @@
       },
       "default": ["src/**/*.style.scss"]
     },
+    "name": {
+      "type": "string",
+      "description": "Library/Application name to be assigned into metadata"
+    },
     "outputFile": {
       "type": "string",
       "description": "Path to the output file",
