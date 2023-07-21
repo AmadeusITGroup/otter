@@ -3,6 +3,12 @@ import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConc
 import { renderFile } from 'ejs';
 import { resolve } from 'node:path';
 
+/** Mark of the template to determine if the users cancelled the cascading retrigger */
+export const CANCEL_RETRIGGER_CASCADING_MARK = '!cancel re-cascading!';
+
+/** Mark of the template to determine if the users cancelled the reviewers bypass for this PR */
+export const CANCEL_BYPASS_REVIEWERS_MARK = '!cancel bypass!';
+
 /** prefix of cascading branch */
 export const CASCADING_BRANCH_PREFIX = 'cascading';
 
@@ -131,7 +137,13 @@ export abstract class Cascading {
    * @param context context of the Pull Request
    */
   protected generatePullRequestBody(context: PullRequestContext) {
-    return renderFile(resolve(__dirname, 'templates', 'pull-request-content.ejs'), context);
+    return renderFile(resolve(__dirname, 'templates', 'pull-request-content.ejs'), {
+      ...context,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      CANCEL_RETRIGGER_CASCADING_MARK,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      CANCEL_BYPASS_REVIEWERS_MARK
+    });
   }
 
   /**
@@ -303,7 +315,13 @@ export abstract class Cascading {
 
   protected async isAllowingBypassPullRequest(pullRequest: Pick<CascadingPullRequestInfo, 'id'>) {
     const pr = await this.getPullRequestFromId(pullRequest.id);
-    return pr.isOpen && !pr.body?.includes('[x] <!-- cancel bypass -->');
+    const checkboxLine = pr.isOpen ? pr.body?.match(new RegExp(`^ *- .*${CANCEL_BYPASS_REVIEWERS_MARK}.*$`, 'm')) : undefined;
+    return !checkboxLine?.[0]?.match(/^ *- \[x]/i);
+  }
+
+  protected isAllowingCascadingRetrigger(pullRequestBody: string | null) {
+    const checkboxLine = pullRequestBody?.match(new RegExp(`^ *- .*${CANCEL_RETRIGGER_CASCADING_MARK}.*$`, 'm'));
+    return !checkboxLine?.[0]?.match(/^ *- \[x]/i);
   }
 
   /**
@@ -397,7 +415,12 @@ export abstract class Cascading {
     }
     const context = pullRequest.body && this.retrieveContext(pullRequest.body);
     if (!context || !context.isConflicting) {
-      this.logger.info(`The PR ${pullRequest.id} does not request to rerun cascading on original branch`);
+      this.logger.info(`The PR ${pullRequest.id} did not report conflict, a cascading re-trigger is not required`);
+      return undefined;
+    }
+
+    if (!this.isAllowingCascadingRetrigger(pullRequest.body)) {
+      this.logger.info(`The retrigger of cascading is cancelled for the PR ${pullRequest.id}`);
       return undefined;
     }
 

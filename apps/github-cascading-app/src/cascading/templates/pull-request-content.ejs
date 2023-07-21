@@ -6,16 +6,16 @@
 The configuration requests the cascading to bypass reviewer in case of CI success.
 To not bypass the reviewing process, please check the following checkbox:
 
-- [ ] <!-- cancel bypass --> :no_entry_sign: stop reviewing process bypass for this Pull Request
+- [ ] <!-- <%- CANCEL_BYPASS_REVIEWERS_MARK %> --> :no_entry_sign: stop reviewing process bypass for this Pull Request
 
 <% } %>
 <% if (isConflicting) { %>
 ---
 
 :warning: An update conflicting with this Pull Request has been done on **<%= currentBranch %>**.
-To restart cascading process after merging, please check the following checkbox:
+The cascading process will re-create the Pull Request after merging this one. To not re-trigger the process, please check the following checkbox:
 
-- [x] <!-- re-trigger cascading --> re-Trigger cascading
+- [ ] <!-- <%- CANCEL_RETRIGGER_CASCADING_MARK %> --> Cancel the re-Trigger of cascading process
 <% } %>
 
 ---
