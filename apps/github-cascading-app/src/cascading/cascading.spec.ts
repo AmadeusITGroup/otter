@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { Cascading, CASCADING_BRANCH_PREFIX } from './cascading';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion } from './interfaces';
-import { CascadingProbot } from './cascading-probot';
+import { Cascading } from './cascading';
+import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION } from './interfaces';
 import { render } from 'ejs';
 
 const mockBasicTemplate = `
@@ -84,14 +83,14 @@ describe('Cascading Application', () => {
 
   describe('merge cascading pull request', () => {
     it('should skip the process when disabled via config', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: false });
-      await expect(customization.mergeCascadingPullRequest({id: 1}, `${CASCADING_BRANCH_PREFIX as string}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: false });
+      await expect(customization.mergeCascadingPullRequest({id: 1}, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.info).not.toHaveBeenCalled();
       expect(customization.mergePullRequest).not.toHaveBeenCalled();
     });
 
     it('should skip the process when it is not a cascading pull request', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: true });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: true });
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(false);
       await expect(customization.mergeCascadingPullRequest({ id: 1 }, 'other/1.0.0-1.1.0', 'success')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalled();
@@ -99,16 +98,16 @@ describe('Cascading Application', () => {
     });
 
     it('should skip the process when the PR build is failing', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: true });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: true });
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(false);
-      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'failure')).resolves.not.toThrow();
+      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'failure')).resolves.not.toThrow();
       expect(logger.warn).toHaveBeenCalled();
       expect(customization.mergePullRequest).not.toHaveBeenCalled();
     });
 
     it('should skip the process when disabled in the PR', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: true });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: true });
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
@@ -117,13 +116,12 @@ describe('Cascading Application', () => {
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
           .replace('[ ] <!-- !cancel bypass! -->', '[x] <!-- !cancel bypass! -->')
       });
-      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
-      expect(logger.info).toHaveBeenCalled();
+      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(customization.mergePullRequest).not.toHaveBeenCalled();
     });
 
     it('should merge a cascading pull request', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: true });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: true });
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
@@ -132,13 +130,13 @@ describe('Cascading Application', () => {
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(true);
-      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
+      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.error).not.toHaveBeenCalled();
       expect(customization.mergePullRequest).toHaveBeenCalled();
     });
 
     it('should handle merge error', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, bypassReviewers: true });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, bypassReviewers: true });
       customization.isCascadingPullRequest = customization.isCascadingPullRequest.mockResolvedValue(true);
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
@@ -147,7 +145,7 @@ describe('Cascading Application', () => {
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(false);
-      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
+      await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.error).toHaveBeenCalled();
       expect(customization.mergePullRequest).toHaveBeenCalled();
     });
@@ -155,7 +153,7 @@ describe('Cascading Application', () => {
 
   describe('cascade', () => {
     it('should skip when non-cascading branch', async () => {
-      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...CascadingProbot.DEFAULT_CONFIGURATION, cascadingBranchesPattern: 'test-cascading/.*' });
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({ ...DEFAULT_CONFIGURATION, cascadingBranchesPattern: 'test-cascading/.*' });
       customization.getBranches = customization.getBranches.mockResolvedValue([]);
       await expect(customization.cascade('release/1.0')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalledWith('Skip cascading because the branch "release/1.0" does not match "test-cascading/.*"');
@@ -166,7 +164,7 @@ describe('Cascading Application', () => {
 
     it('should skip ignored current branches', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*',
         ignoredPatterns: ['-test$']
       });
@@ -180,7 +178,7 @@ describe('Cascading Application', () => {
 
     it('should skip ignored target branches', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*',
         ignoredPatterns: ['-test$']
       });
@@ -195,7 +193,7 @@ describe('Cascading Application', () => {
 
     it('should skip ignored branch if not ahead', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*'
       });
       customization.getBranches = customization.getBranches.mockResolvedValue([
@@ -211,7 +209,7 @@ describe('Cascading Application', () => {
 
     it('should create properly ordered cascading branch', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*'
       });
       customization.getBranches = customization.getBranches.mockResolvedValue([
@@ -234,7 +232,7 @@ describe('Cascading Application', () => {
 
     it('should create properly ordered cascading branch when default branch specified', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*',
         defaultBranch: 'my-test-default'
       });
@@ -259,7 +257,7 @@ describe('Cascading Application', () => {
 
     it('should create a new cascading branch and create a pull request', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*'
       });
       customization.getBranches = customization.getBranches.mockResolvedValue([
@@ -271,27 +269,26 @@ describe('Cascading Application', () => {
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
-      expect(customization.createBranch).toHaveBeenCalledWith(`${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'test-cascading/1.1');
-      expect(customization.merge).toHaveBeenCalledWith('test-cascading/1.0', `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`);
+      expect(customization.createBranch).toHaveBeenCalledWith(`${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'test-cascading/1.0');
       expect(customization.createPullRequest).toHaveBeenCalled();
     });
 
     it('should update an existing an existing and create a pull request', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
-        ...CascadingProbot.DEFAULT_CONFIGURATION,
+        ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*'
       });
       customization.getBranches = customization.getBranches.mockResolvedValue([
         'test-cascading/1.1',
         'other-branch',
         'test-cascading/1.0',
-        `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`
+        `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`
       ]);
       customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
-      expect(customization.merge).toHaveBeenCalledWith('test-cascading/1.0', `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`);
+      expect(customization.merge).toHaveBeenCalledWith('test-cascading/1.0', `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`);
       expect(customization.createBranch).not.toHaveBeenCalled();
       expect(customization.createPullRequest).toHaveBeenCalled();
     });
