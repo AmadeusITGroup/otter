@@ -9,12 +9,6 @@ export const CANCEL_RETRIGGER_CASCADING_MARK = '!cancel re-cascading!';
 /** Mark of the template to determine if the users cancelled the reviewers bypass for this PR */
 export const CANCEL_BYPASS_REVIEWERS_MARK = '!cancel bypass!';
 
-/** prefix of cascading branch */
-export const CASCADING_BRANCH_PREFIX = 'cascading';
-
-/** prefix of conflicting cascading branch */
-export const CASCADING_CONFLICT_BRANCH_PREFIX = 'conflict';
-
 /**
  * Handles the cascading to the next branch
  */
@@ -208,19 +202,20 @@ export abstract class Cascading {
    *
    * @param baseVersion Version extracted from the base branch
    * @param targetVersion Version extracted from the target branch
-   * @param isConflicting specify if the branch should be flagged as conflicting
+   * @param configurations
    */
-  protected determineCascadingBranchName(baseVersion: string, targetVersion: string, isConflicting = false) {
-    return `${isConflicting ? CASCADING_CONFLICT_BRANCH_PREFIX : CASCADING_BRANCH_PREFIX}/${baseVersion}-${targetVersion}`;
+  protected determineCascadingBranchName(baseVersion: string, targetVersion: string, configurations: CascadingConfiguration) {
+    return `${configurations.branchNamePrefix}/${baseVersion}-${targetVersion}`;
   }
 
   /**
    * Determine if the branch is a cascading branch created by the application
    *
    * @param branch Name of the branch to check
+   * @param configurations
    */
-  protected isCascadingBranchName(branch: string) {
-    if (!branch.startsWith(CASCADING_BRANCH_PREFIX) && !branch.startsWith(CASCADING_CONFLICT_BRANCH_PREFIX)) {
+  protected isCascadingBranchName(branch: string, configurations: CascadingConfiguration) {
+    if (!branch.startsWith(configurations.branchNamePrefix)) {
       return false;
     }
 
@@ -362,7 +357,7 @@ export abstract class Cascading {
 
     const currentBranch = cascadingBranches[branchIndex];
     const targetBranch = cascadingBranches[branchIndex + 1];
-    let cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch);
+    const cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, config);
     const isAhead = await this.isBranchAhead(currentBranch.branch, targetBranch.branch);
 
     if (!isAhead) {
@@ -379,20 +374,7 @@ export abstract class Cascading {
         return;
       }
     } else {
-      try {
-        await this.createBranch(cascadingBranch, targetBranch.branch);
-        await this.merge(currentBranch.branch, cascadingBranch);
-      } catch {
-        this.logger.warn(`Fail to merge ${currentBranch.branch} into ${cascadingBranch} before creating the PR, will switch to conflict mode (and create the PR from ${currentBranch.branch})`);
-        try {
-          await this.deleteBranch(cascadingBranch);
-        } catch {
-          this.logger.warn(`Fail to remove the cascading branch "${cascadingBranch}"`);
-        }
-        const conflictCascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, true);
-        await this.createBranch(conflictCascadingBranch, currentBranch.branch);
-        cascadingBranch = conflictCascadingBranch;
-      }
+      await this.createBranch(cascadingBranch, currentBranch.branch);
     }
     await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
   }
