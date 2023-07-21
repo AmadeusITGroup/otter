@@ -12,13 +12,13 @@ const mockBasicTemplate = `
 <% if (bypassReviewers) { %>
 -- bypass part --
 
-- [ ] <!-- cancel bypass --> :no_entry_sign: stop reviewing process bypass for this Pull Request
+- [ ] <!-- !cancel bypass! --> :no_entry_sign: stop reviewing process bypass for this Pull Request
 
 <% } %>
 <% if (isConflicting) { %>
 -- trigger part --
 
-- [x] <!-- re-trigger cascading --> re-Trigger cascading
+- [ ] <!-- !cancel re-cascading! --> cancel re-Trigger cascading
 <% } %>
 
 Super footer
@@ -115,7 +115,7 @@ describe('Cascading Application', () => {
         id: 1,
         isOpen: true,
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
-          .replace('[ ] <!-- cancel bypass -->', '[x] <!-- cancel bypass -->')
+          .replace('[ ] <!-- !cancel bypass! -->', '[x] <!-- !cancel bypass! -->')
       });
       await expect(customization.mergeCascadingPullRequest({ id: 1 }, `${CASCADING_BRANCH_PREFIX}/1.0.0-1.1.0`, 'success')).resolves.not.toThrow();
       expect(logger.info).toHaveBeenCalled();
