@@ -6,12 +6,12 @@
   "properties": {
     "path": {
       "type": "string",
-      "description": "Path to the component"
+      "description": "Path to the component",
+      "default": ""
     },
     "specFilePath": {
       "type": "string",
-      "description": "Path to spec file of the component",
-      "default": ""
+      "description": "Path to spec file of the component"
     },
     "skipLinter": {
       "type": "boolean",

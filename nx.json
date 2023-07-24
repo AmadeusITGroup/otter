@@ -6,6 +6,7 @@
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
+      "@nx/angular",
       "@o3r/core"
     ],
     "analytics": false,
@@ -133,6 +134,11 @@
       "inputs": [
         "specs",
         "^specs"
+      ]
+    },
+    "test-int": {
+      "outputs": [
+        "{projectRoot}/dist-test/it-report.xml"
       ]
     },
     "prepare-publish": {

@@ -33,4 +33,10 @@ export interface NgGeneratePageSchematicsSchema extends JsonObject {
 
   /** Whether the generated component is standalone */
   standalone: boolean;
+
+  /** Generate page fixtures for tests */
+  usePageFixtures: boolean;
+
+  /** Generate dummy values */
+  activateDummy: boolean;
 }

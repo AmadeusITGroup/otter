@@ -137,7 +137,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.6.0
+    "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/minimist": ^1.2.2
@@ -201,6 +201,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.0
+    jest-junit: ^16.0.0
     mem-fs: ^2.2.1
     npm-run-all: ^4.1.5
     onchange: ^7.0.2
@@ -238,7 +239,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.6.0
+    "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
@@ -258,6 +259,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.0
+    jest-junit: ^16.0.0
     js-yaml: ^4.1.0
     mem-fs: ^2.2.1
     minimatch: ^9.0.0
@@ -278,7 +280,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.0.5
     "@angular-devkit/schematics-cli": ~16.0.5
     "@angular/cli": ~16.0.5
-    "@openapitools/openapi-generator-cli": ~2.6.0
+    "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~16.0.5
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -5420,16 +5422,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/axios@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@nestjs/axios@npm:0.0.8"
+"@nestjs/axios@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@nestjs/axios@npm:0.1.0"
   dependencies:
     axios: 0.27.2
   peerDependencies:
-    "@nestjs/common": ^7.0.0 || ^8.0.0
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0
     reflect-metadata: ^0.1.12
     rxjs: ^6.0.0 || ^7.0.0
-  checksum: bc6b18c6e8bcfab1e8e9371a089cbba293a7b1df6d5de7fa15bb80db1966e6f62ba62d2b30c7378674f7d2272a1a1d0c694e1192c767c269c0aae04b7bdfea9b
+  checksum: 72929b25caacb85517bae962b13d865a31aa3984aa9e55305e0a2306e54338fe51a7eb38ca38cab0fe8b4116fb35219bd02c8b0c4cac70e7b5aeb84d03a1db3f
   languageName: node
   linkType: hard
 
@@ -7324,6 +7326,8 @@ __metadata:
     "@ngrx/router-store": ~16.0.1
     "@ngrx/store": ~16.0.1
     "@ngrx/store-devtools": ~16.0.1
+    "@nrwl/devkit": ~16.3.2
+    "@nx/angular": ~16.3.2
     "@schematics/angular": ~16.0.5
     chokidar: ^3.5.2
     comment-json: ^4.1.0
@@ -7337,9 +7341,9 @@ __metadata:
       optional: true
     "@ngrx/router-store":
       optional: true
-    "@o3r/schematics":
+    "@nrwl/devkit":
       optional: true
-    "@schematics/angular":
+    "@nx/angular":
       optional: true
     chokidar:
       optional: true
@@ -7846,7 +7850,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^5.0.0
     rxjs: ^7.8.1
-    sass: ~1.63.0
+    sass: ~1.64.0
     sass-loader: ^13.1.0
     semver: ^7.5.2
     shx: ^0.3.4
@@ -8318,6 +8322,7 @@ __metadata:
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1600.5
+    "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular/core": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
@@ -8342,6 +8347,8 @@ __metadata:
     typescript: ~5.0.2
     typescript-json-schema: ~0.59.0
   peerDependenciesMeta:
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
@@ -8609,7 +8616,7 @@ __metadata:
     jest: ~29.6.0
     jest-preset-stylelint: ~6.1.0
     nx: ~16.5.0
-    postcss: ^8.4.4
+    postcss: ^8.4.5
     rimraf: ^5.0.0
     stylelint: ^15.10.1
     ts-jest: ^29.1.0
@@ -8617,7 +8624,7 @@ __metadata:
     typescript: ~5.0.2
   peerDependencies:
     jest-preset-stylelint: ~6.1.0
-    postcss: ^8.4.4
+    postcss: ^8.4.5
     stylelint: ^15.10.1
   languageName: unknown
   linkType: soft
@@ -8674,7 +8681,7 @@ __metadata:
     jest-junit: ^16.0.0
     nx: ~16.5.0
     rxjs: ^7.8.1
-    sass: ~1.63.0
+    sass: ~1.64.0
     sass-true: ^7.0.0
     stylelint: ^15.10.1
     stylelint-scss: ^4.0.0
@@ -8825,6 +8832,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
@@ -8848,6 +8856,14 @@ __metadata:
     typescript: ~5.0.2
     uuid: ^9.0.0
     zone.js: ~0.13.1
+  peerDependencies:
+    "@angular-devkit/schematics": ~16.0.5
+    "@o3r/schematics": "workspace:^"
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/schematics":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -9206,11 +9222,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.6.0":
-  version: 2.6.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.6.0"
+"@openapitools/openapi-generator-cli@npm:~2.7.0":
+  version: 2.7.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.7.0"
   dependencies:
-    "@nestjs/axios": 0.0.8
+    "@nestjs/axios": 0.1.0
     "@nestjs/common": 9.3.11
     "@nestjs/core": 9.3.11
     "@nuxtjs/opencollective": 0.3.2
@@ -9228,7 +9244,7 @@ __metadata:
     tslib: 2.0.3
   bin:
     openapi-generator-cli: main.js
-  checksum: d60711b0fc018f4834faa28be8990a6d019d87be9cd8c8f7f1a2f5dfb863044b1f80bc0841caceffa76f6eec3e756291e3b8e81a00d42ca883974703b616097f
+  checksum: 92ca36779b43fe1e4868cd89bde4cb96918868aa62c8a69a9e199711d8e7093bab67f484d266fcbf37ca4ad87e4e91ea5759fb322c7999a299f5bfdc179065b8
   languageName: node
   linkType: hard
 
@@ -25701,7 +25717,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.14, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.19, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.24, postcss@npm:^8.4.4":
+"postcss@npm:^8.2.14, postcss@npm:^8.3.5, postcss@npm:^8.3.7, postcss@npm:^8.4.14, postcss@npm:^8.4.16, postcss@npm:^8.4.19, postcss@npm:^8.4.21, postcss@npm:^8.4.23, postcss@npm:^8.4.24, postcss@npm:^8.4.5":
   version: 8.4.25
   resolution: "postcss@npm:8.4.25"
   dependencies:
@@ -27230,16 +27246,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.63.0":
-  version: 1.63.0
-  resolution: "sass@npm:1.63.0"
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.64.0":
+  version: 1.64.0
+  resolution: "sass@npm:1.64.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 7b5b3ea0f6b09577a58ecd04634750e3ca9e9336f0b7048efad0b92f9d6c64966e031ebbffa7fb40a16387ea854904bf95bdcd00257800eb9d98f49e5ef04eb3
+  checksum: b4eb9b1bdeb1c00e76427d7fe3e5f80d831327178cdee657aa4e014edfc64ebbfe43177147403da1e04d76a24f4093f5a9b1c8d9d80c94579937d8adc5a6ef66
   languageName: node
   linkType: hard
 
@@ -30816,9 +30832,9 @@ __metadata:
   linkType: hard
 
 "word-wrap@npm:^1.2.3, word-wrap@npm:~1.2.3":
-  version: 1.2.3
-  resolution: "word-wrap@npm:1.2.3"
-  checksum: 30b48f91fcf12106ed3186ae4fa86a6a1842416df425be7b60485de14bec665a54a68e4b5156647dec3a70f25e84d270ca8bc8cd23182ed095f5c7206a938c1f
+  version: 1.2.4
+  resolution: "word-wrap@npm:1.2.4"
+  checksum: 8f1f2e0a397c0e074ca225ba9f67baa23f99293bc064e31355d426ae91b8b3f6b5f6c1fc9ae5e9141178bb362d563f55e62fd8d5c31f2a77e3ade56cb3e35bd1
   languageName: node
   linkType: hard
 

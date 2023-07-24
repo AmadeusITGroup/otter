@@ -13,6 +13,7 @@ import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
  * @param tree File tree
  * @param angularJsonFile Angular.json file path
  * @throws Angular JSON invalid or non exist
+ * @deprecate use {@link getWorkspaceConfig} function instead, will be removed in Otter v10
  */
 export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): WorkspaceSchema {
   const workspaceConfig = tree.read(angularJsonFile);
@@ -21,6 +22,20 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
   }
 
   return commentJson.parse(workspaceConfig.toString()) as any;
+}
+
+/**
+ * Load the Workspace configuration object
+ *
+ * @param tree File tree
+ * @param workspaceConfigFile Workspace config file path, /angular.json in an Angular project
+ * @returns null if the given config file does not exist
+ */
+export function getWorkspaceConfig<T extends WorkspaceSchema = WorkspaceSchema>(tree: Tree, workspaceConfigFile = '/angular.json'): WorkspaceSchema | null {
+  if (!tree.exists(workspaceConfigFile)) {
+    return null;
+  }
+  return tree.readJson(workspaceConfigFile) as unknown as T;
 }
 
 /**
@@ -187,7 +202,7 @@ export function getFilesWithExtensionFromTree(tree: Tree, extension: string) {
  * @param extension
  */
 export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: string) {
-  return getFilesInFolderFromWorkspaceProjects(tree, '', extension);
+  return getFilesInFolderFromWorkspaceProjectsInTree(tree, '', extension);
 }
 
 /**
@@ -197,7 +212,7 @@ export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: strin
  * @param extension
  */
 export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
-  return getFilesInFolderFromWorkspaceProjects(tree, 'src', extension);
+  return getFilesInFolderFromWorkspaceProjectsInTree(tree, 'src', extension);
 }
 
 

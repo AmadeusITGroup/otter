@@ -48,7 +48,9 @@ export interface WorkspaceSchematics extends SchematicOptions {
   '@o3r/core:schematics'?: {
     path: string;
   };
-
+  '*:ng-add'?: {
+    enableMetadataExtract?: boolean;
+  };
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   architect?: WorkspaceTool;

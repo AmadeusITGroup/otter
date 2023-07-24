@@ -1,7 +1,7 @@
 import { DirEntry, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { exec } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
-import { getPackageManager, getPackageManagerRunner } from '../../utility/package-manager-runner';
+import { getPackageManagerExecutor } from '../../utility/package-manager-runner';
 
 /**
  * Linter options
@@ -80,9 +80,8 @@ You can consider to run later the following command to add otter linter rules: n
     }, new Set<string>());
 
     try {
-      const packageManager = getPackageManager();
       exec(
-        `${packageManager} ${getPackageManagerRunner()} eslint ` +
+        `${getPackageManagerExecutor()} eslint ` +
         Array.from(files).map((file) => `"${file}"`).join(' ') +
         ' --fix --color' +
         (linterOptions.hideWarnings ? ' --quiet' : '') +

@@ -20,8 +20,7 @@
     },
     "name": {
       "type": "string",
-      "description": "Library/Application name to be assigned into metadata",
-      "default": ""
+      "description": "Library/Application name to be assigned into metadata"
     },
     "filePattern": {
       "type": "string",

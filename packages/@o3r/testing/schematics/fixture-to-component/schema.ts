@@ -5,8 +5,11 @@ export interface NgAddFixtureSchematicsSchema extends JsonObject {
   path: string;
 
   /** Path to spec file of the component */
-  specFilePath: string;
+  specFilePath: string | null;
 
   /** Skip the linter process */
   skipLinter: boolean;
+
+  /** Is the component a page */
+  page: boolean;
 }

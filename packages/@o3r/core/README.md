@@ -76,7 +76,7 @@ Otter framework provides a set of code generators based on [angular schematics](
 | store-simple-sync          | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`          |
 | store-action               | Create an action into an existing store.                                      | `ng g store-action`               |
 | renovate-bot               | Create a basic Renovate Bot                                                   | `ng g renovate-bot`               |
-| module                     | Create a new Otter compatible module in your monorepo                         | `ng g module`                     |
+| library                    | Add a new Otter Module to the current project                                 | `ng g library`                    |
 | ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
 | show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
 | add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
@@ -86,3 +86,24 @@ Otter framework provides a set of code generators based on [angular schematics](
 ## Create your own Otter compatible module
 
 You can refer to the [module documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md) to create an Otter compatible module.
+
+## Presets
+
+To accelerate the setup of repositories, different `presets` are provided that will chain the add of different modules.
+Today the following presets are available.
+
+### Preset Basic
+
+This preset is the default one, it does not add any additional modules.
+
+## Preset CMS
+
+Will add all the modules allowing the allowing the full managing of an application by the CMS.
+It includes the following modules:
+
+* @o3r/localization
+* @o3r/styling
+* @o3r/components
+* @o3r/configuration
+* @o3r/dynamic-content
+* @o3r/rules-engine

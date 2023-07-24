@@ -14,6 +14,7 @@ const cacheFolderPath = path.join(currentFolder, '.cache', appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: sdkFolderPath,
   stdio: 'inherit',
+  timeout: 15 * 60 * 1000,
   /* eslint-disable @typescript-eslint/naming-convention, camelcase */
   env: {
     ...process.env,
@@ -26,7 +27,7 @@ const execAppOptions: ExecSyncOptions = {
 };
 const registry = 'http://localhost:4873';
 
-const packageManager = process.env.TEST_PACKAGE_MANAGER || 'npm';
+const packageManager = process.env.ENFORCED_PACKAGE_MANAGER || 'npm';
 const o3rPackageJson: PackageJson & { packageManager?: string } = JSON.parse(fs.readFileSync(path.join(currentFolder, 'package.json')).toString());
 
 const sdkPackageName = '@my-test/sdk';
@@ -39,7 +40,7 @@ const sdkPackagePath = path.join(execAppOptions.cwd!.toString(), sdkPackageName.
  * Publish all the packages of the Otter monorepo on it.
  * Can be accessed during the tests with url http://localhost:4873
  */
-function setupLocalRegistry() {
+function setupLocalRegistryRules() {
   let shouldHandleVerdaccio = false;
 
   beforeAll(async () => {
@@ -79,6 +80,7 @@ function setupYarn(yarnVersion: string) {
 
     execSync('yarn config set enableStrictSsl false', execAppOptions);
     execSync(`yarn set version ${yarnVersion}`, execAppOptions);
+    execSync(`yarn config set cacheFolder ${cacheFolderPath}`, execAppOptions);
     execSync(`yarn config set npmScopes.ama-sdk.npmRegistryServer ${registry}`, execAppOptions);
     execSync(`yarn config set npmScopes.o3r.npmRegistryServer ${registry}`, execAppOptions);
     execSync('yarn config set unsafeHttpWhitelist localhost', execAppOptions);
@@ -89,10 +91,19 @@ function setupYarn(yarnVersion: string) {
     // copy npmrc config to generated SDK
     mkdirSync(sdkPackagePath, { recursive: true });
     cpSync(path.join(execAppOptions.cwd.toString(), '.yarnrc.yml'), path.join(sdkPackagePath, '.yarnrc.yml'));
+    cpSync(path.join(execAppOptions.cwd.toString(), '.yarn'), path.join(sdkPackagePath, '.yarn'), {recursive: true});
   });
 }
 
-function setupCache() {
+function setupPackageManagerRules() {
+  if (packageManager.startsWith('yarn')) {
+    setupYarn(o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0');
+  } else {
+    setupNpm();
+  }
+}
+
+function setupCacheRules() {
   beforeEach(() => {
     try {
       rmSync(sdkFolderPath, { recursive: true, force: true });
@@ -117,24 +128,24 @@ function setupCache() {
   });
 }
 
-describe('new Otter sdk', () => {
-  setupLocalRegistry();
-  setupCache();
-  setupNpm();
-  if (packageManager.startsWith('yarn')) {
-    setupYarn(o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0');
-  }
+describe('Create new sdk command', () => {
+  setupLocalRegistryRules();
+  setupCacheRules();
+  setupPackageManagerRules();
 
-  test('should build from full generation', () => {
+  beforeEach(() => {
     cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_swagger_updated.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
-    expect(() => execSync(`npm create @ama-sdk typescript ${sdkPackageName} -- --package-manager ${packageManager} --spec-path ./swagger-spec.yml`, execAppOptions)).not.toThrow();
+  });
+
+  test('should generate a full SDK when the specification is provided', () => {
+    // eslint-disable-next-line max-len
+    expect(() => execSync(`${packageManager} create @ama-sdk typescript ${sdkPackageName}${packageManager.startsWith('npm') ? ' --' : ''} --package-manager ${packageManager} --spec-path ./swagger-spec.yml`, execAppOptions)).not.toThrow();
     // TODO: uncomment when the generation is fixed for NPM
     // expect(() => execSync(`${packageManager} run build`, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
-  test('should build after new generation', () => {
-    cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_swagger_updated.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
-    expect(() => execSync(`npm create @ama-sdk typescript ${sdkPackageName}`, execAppOptions)).not.toThrow();
+  test('should generate an empty SDK ready to be used', () => {
+    expect(() => execSync(`${packageManager} create @ama-sdk typescript ${sdkPackageName}`, execAppOptions)).not.toThrow();
     expect(() =>
       execSync(
         `${packageManager} exec schematics @ama-sdk/schematics:typescript-core --spec-path ${path.join(path.relative(sdkPackagePath, execAppOptions.cwd.toString()), 'swagger-spec.yml')}`,

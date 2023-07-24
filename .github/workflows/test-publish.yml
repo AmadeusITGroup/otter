@@ -55,7 +55,10 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        run: zip -r it-tests.zip ../it-tests -x "../it-tests/*/.cache"
+        run: |
+          mkdir -p ./otter
+          cp -R ./.cache ./otter/.cache
+          zip -r it-tests.zip ../it-tests ./otter/.cache -x "./otter/.cache/nx/*"
       - name: Publish verdaccio storage on failure
         if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
         uses: actions/upload-artifact@v3
@@ -68,6 +71,12 @@ jobs:
         with:
           name: it-tests
           path: it-tests.zip
+      - name: Publish tests reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: it-reports
+          path: 'packages/**/dist-test/it-report.xml'
       - name: Stop verdaccio
         if: always()
         run: yarn verdaccio:stop

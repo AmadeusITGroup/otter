@@ -11,7 +11,7 @@ export interface NgAddLocalizationKeySchematicsSchema extends JsonObject {
   key: string;
 
   /** Description of the localization */
-  description: string;
+  description: string | null;
 
   /** Default value of the localization */
   value: string;

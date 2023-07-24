@@ -1,6 +1,11 @@
 import type { JsonObject } from '@angular-devkit/core';
 
+export type PresetNames = 'basic' | 'cms';
+
 export interface NgAddSchematicsSchema extends JsonObject {
+  /** Preset of module list to automatically install */
+  preset: PresetNames;
+
   /** Project name */
   projectName: string | null;
 
@@ -22,9 +27,6 @@ export interface NgAddSchematicsSchema extends JsonObject {
    /** Enable otter rules-engine */
   enableRulesEngine: boolean;
 
-  /** Enable CMS */
-  enableCms: boolean;
-
   /** Enable localization */
   enableLocalization: boolean;
 
@@ -33,9 +35,6 @@ export interface NgAddSchematicsSchema extends JsonObject {
 
   /** Enable Storybook */
   enableStorybook: boolean;
-
-  /** Set the Otter Generator as default ngCLI generator */
-  isDefaultGenerator: boolean;
 
   /** Skip the linter process */
   skipLinter: boolean;

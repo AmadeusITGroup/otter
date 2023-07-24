@@ -54,8 +54,7 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/create/testing/jest.config.it.js",
-        "silent": false,
-        "passWithNoTests": true
+        "silent": false
       }
     },
     "publish": {

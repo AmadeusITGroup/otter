@@ -15,7 +15,7 @@ export interface ComponentExtractorBuilderSchema extends JsonObject {
   configOutputFile: string;
 
   /** Library/Application name to be assigned into metadata */
-  name: string;
+  name: string | null;
 
   /** Enable watch mode */
   watch: boolean;
