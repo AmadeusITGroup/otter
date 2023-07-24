@@ -33,8 +33,9 @@ async function promiseGetRequest<T extends JsonObject>(url: string) {
  * @param search search text
  * @param packageManager Package manager to use, determined automatically if not specified
  * @param packageManagerOptions
+ * @param logger
  */
-async function npmSearchExec(search: string, packageManagerOptions?: PackageManagerOptions): Promise<NPMRegistrySearchResponse | undefined> {
+async function npmSearchExec(search: string, packageManagerOptions?: PackageManagerOptions, logger?: logging.LoggerApi): Promise<NPMRegistrySearchResponse | undefined> {
   const manager = getPackageManager(packageManagerOptions);
   switch (manager) {
     case 'npm': {
@@ -50,8 +51,12 @@ async function npmSearchExec(search: string, packageManagerOptions?: PackageMana
         return undefined;
       }
     }
+    case 'yarn': {
+      logger?.warn('The Yarn Package Manager is not supported, the Rest API will be used (the registry configuration will be ignored)');
+      return undefined;
+    }
     default: {
-      // Only npm client is supported
+      logger?.warn('Not supported Package Manager, the Rest API will be used');
       return undefined;
     }
   }
@@ -95,7 +100,7 @@ export interface AvailableModuleOptions extends PackageManagerOptions {
 export async function getAvailableModules(keyword: string, scopeWhitelist: string[] | readonly string[], options?: AvailableModuleOptions): Promise<NpmRegistryPackage[]> {
   const search = `keywords:${keyword}`;
   const npmRegistry = options?.npmRegistryToFetch || DEFAULT_NPM_REGISTRY;
-  const registry = await npmSearchExec(search) || await promiseGetRequest<NPMRegistrySearchResponse>(`https://${npmRegistry}-/v1/search?text=${search}&size=250`);
+  const registry = await npmSearchExec(search) || await promiseGetRequest<NPMRegistrySearchResponse>(`https://${npmRegistry}/-/v1/search?text=${search}&size=250`);
 
   let packages = registry.objects
     .filter((pck) => pck.package?.scope && scopeWhitelist.includes(pck.package?.scope))
@@ -118,9 +123,6 @@ export async function getAvailableModules(keyword: string, scopeWhitelist: strin
 
 /** Options for getAvailableModulesWithLatestPackage function */
 export interface AvailableModuleOptionsWithLatestPackage extends AvailableModuleOptions {
-  /** Logger to use to report call failure (as debug message) */
-  logger?: logging.LoggerApi;
-
   /**
    * List of whitelisted scopes
    *
