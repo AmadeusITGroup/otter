@@ -1,5 +1,6 @@
 import * as commentJson from 'comment-json';
 import { WorkspaceSchema } from '../interfaces';
+import { logging } from '@angular-devkit/core';
 
 /** Support NPM package managers */
 export type SupportedPackageManagers = 'npm' | 'yarn';
@@ -14,8 +15,12 @@ export type SupportedPackageManagerExecutors = `${SupportedPackageManagers} exec
 export interface PackageManagerOptions {
   /** Workspace configuration */
   workspaceConfig?: WorkspaceSchema | string | null;
+
   /** Package manager to enforce, will be used if supported */
   enforcedNpmManager?: string | null;
+
+  /** Logger to use to report call failure (as debug message) */
+  logger?: logging.LoggerApi;
 }
 
 /**
