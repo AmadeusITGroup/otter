@@ -72,7 +72,7 @@ describe('TestComponent', () => {
 
   it('should define objects', () => {
     fixture.detectChanges();
-    expect(component).toBeDefined();
+    expect(component).toBeTruthy();
   });
 });
       `);
@@ -89,12 +89,12 @@ describe('TestComponent', () => {
 
       const specFileContent = tree.readText(specPath);
       expect(specFileContent).toContain('import { O3rElement } from \'@o3r/testing/core\'');
-      expect(specFileContent).toContain('import { TestFixture } from \'./test.fixture\'');
+      expect(specFileContent).toContain('import { TestFixtureComponent } from \'./test.fixture\'');
       expect(specFileContent).toContain('let componentFixture: TestFixtureComponent;');
       expect(specFileContent).toContain('component = fixture.componentInstance;');
       expect(specFileContent).toContain('componentFixture = new TestFixtureComponent(new O3rElement(fixture.debugElement));');
-      expect(specFileContent).toContain('expect(component).toBeDefined();');
-      expect(specFileContent).toContain('expect(componentFixture).toBeDefined();');
+      expect(specFileContent).toContain('expect(component).toBeTruthy();');
+      expect(specFileContent).toContain('expect(componentFixture).toBeTruthy();');
     });
 
     it('should throw if we add fixture to a component that already has it', async () => {
