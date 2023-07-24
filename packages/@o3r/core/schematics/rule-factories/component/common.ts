@@ -1,7 +1,6 @@
 import { externalSchematic, Rule, schematic, SchematicContext } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
-import { setupSchematicsDefaultParams } from '@o3r/schematics';
-import type { JsonValue } from '@angular-devkit/core';
+import { SchematicOptionObject, setupSchematicsDefaultParams } from '@o3r/schematics';
 
 /**
  * Ask questions to get rules to execute
@@ -20,7 +19,7 @@ import type { JsonValue } from '@angular-devkit/core';
 export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
   path: string,
   optionName: string,
-  defaultApplyRule: boolean | null,
+  defaultApplyRule: boolean | null | undefined,
   ruleQuestion: string,
   schematicsNameToUpdate: string[],
   context: SchematicContext,
@@ -32,7 +31,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
   let alwaysApplyRule: string | null = null;
   try {
     require.resolve(`${packageName}/package.json`);
-    if (applyRule === null && context.interactive) {
+    if (typeof applyRule !== 'boolean' && context.interactive) {
       applyRule = await askConfirmation(ruleQuestion, true);
       if (applyRule) {
         alwaysApplyRule = await askQuestion(`Generate future components with ${optionName} by default?`, [
@@ -80,7 +79,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
       : schematic(schematicName, options),
     ...(alwaysApplyRule !== 'ask-again' ? [
       setupSchematicsDefaultParams(
-        schematicsNameToUpdate.reduce((acc: Record<string, Record<string, JsonValue>>, schematicToUpdateName) => {
+        schematicsNameToUpdate.reduce((acc: Record<string, SchematicOptionObject>, schematicToUpdateName) => {
           acc[schematicToUpdateName] = {
             [optionName]: alwaysApplyRule === 'yes'
           };

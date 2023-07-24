@@ -9,7 +9,7 @@ import { ngAddPackages, readAngularJson, readPackageJson } from '@o3r/schematics
  * @param o3rCoreVersion
  * @param projectType
  */
-export function o3rBasicUpdates(pName: string | null, o3rCoreVersion?: string, projectType?: 'application' | 'library'): Rule {
+export function o3rBasicUpdates(pName: string | null | undefined, o3rCoreVersion?: string, projectType?: 'application' | 'library'): Rule {
 
   const updatePackageJson = (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);

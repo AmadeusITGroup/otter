@@ -12,7 +12,7 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
  * @param _options
  * @param _options.projectName
  */
-export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null}, isLibrary?: boolean): Rule {
+export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName: string | null | undefined }, isLibrary?: boolean): Rule {
   /**
    * Generate customization folder
    *

@@ -1,11 +1,11 @@
 import type { Rule } from '@angular-devkit/schematics';
 import type { PresetNames } from '../../ng-add/schema';
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
 /** Options of the preset runner  */
 export interface PresetOptions {
   /** Options to forward to the executed schematics */
-  forwardOptions?: JsonObject;
+  forwardOptions?: SchematicOptionObject;
 }
 
 /** Definition of the modules preset */

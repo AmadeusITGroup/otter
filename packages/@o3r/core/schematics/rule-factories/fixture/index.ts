@@ -12,7 +12,7 @@ import { getProjectFromTree } from '@o3r/schematics';
  * @param options.testingFramework
  * @param _rootPath
  */
-export function updateFixtureConfig(options: { projectName: string | null; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
+export function updateFixtureConfig(options: { projectName: string | null | undefined; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
 
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
 

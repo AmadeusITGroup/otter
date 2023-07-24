@@ -1,8 +1,8 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateStoreActionSchematicsSchema extends JsonObject {
+export interface NgGenerateStoreActionSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Name of the Store in which to add the new action */
   storeName: string;
@@ -17,10 +17,10 @@ export interface NgGenerateStoreActionSchematicsSchema extends JsonObject {
   isCallAction: boolean;
 
   /** Directory containing the stores */
-  storeDirectory: string | null;
+  storeDirectory: string | undefined;
 
   /** Description of the action */
-  description: string | null;
+  description: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

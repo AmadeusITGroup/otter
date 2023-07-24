@@ -40,39 +40,27 @@
     },
     "useComponentFixtures": {
       "type": "boolean",
-      "description": "Generate component fixtures for tests",
-      "default": null,
-      "nullable": true
+      "description": "Generate component fixtures for tests"
     },
     "useOtterTheming": {
       "type": "boolean",
-      "description": "Generate component with Otter theming architecture",
-      "nullable": true,
-      "default": null
+      "description": "Generate component with Otter theming architecture"
     },
     "useOtterConfig": {
       "type": "boolean",
-      "description": "Generate component with Otter configuration",
-      "nullable": true,
-      "default": null
+      "description": "Generate component with Otter configuration"
     },
     "useOtterAnalytics": {
       "type": "boolean",
-      "description": "Generate component with Otter analytics architecture",
-      "default": null,
-      "nullable": true
+      "description": "Generate component with Otter analytics architecture"
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate component with localization",
-      "nullable": true,
-      "default": null
+      "description": "Generate component with localization"
     },
     "useContext": {
       "type": "boolean",
-      "description": "Generate component context",
-      "nullable": true,
-      "default": null
+      "description": "Generate component context"
     },
     "description": {
       "type": "string",

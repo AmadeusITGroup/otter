@@ -15,7 +15,7 @@ import { getPackageManagerRunner, getProjectFromTree, getTemplateFolder, readAng
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateStorybook(options: { projectName: string | null }, rootPath: string): Rule {
+export function updateStorybook(options: { projectName: string | null | undefined }, rootPath: string): Rule {
   return (tree: Tree, context: SchematicContext) => {
 
 

@@ -1,14 +1,14 @@
-import type {JsonObject} from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
 /**
  * Properties associated to an Otter simple sync store
  */
-export interface NgGenerateSimpleSyncStoreSchematicsSchema extends JsonObject {
+export interface NgGenerateSimpleSyncStoreSchematicsSchema extends SchematicOptionObject {
   /** Directory containing the stores */
-  path: string | null;
+  path: string | undefined;
 
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Store name */
   storeName: string;

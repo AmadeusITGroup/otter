@@ -43,11 +43,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component': {
-            useOtterTheming: null
+            useOtterTheming: undefined
           },
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-presenter': {
-            useOtterTheming: null
+            useOtterTheming: undefined
           }
         }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, depsInfo.packageName)

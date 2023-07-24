@@ -118,7 +118,7 @@ function updateSubEntriesImportsInFile(logger: logging.LoggerApi, tree: Tree, so
  * @param _options @see RuleFactory.options
  * @param _options.projectName Project name
  */
-export function updateSubEntryImports(_options?: { projectName: string | null }): Rule {
+export function updateSubEntryImports(_options?: { projectName: string | null | undefined }): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
     const files = getSourceFilesFromWorkspaceProjects(tree);

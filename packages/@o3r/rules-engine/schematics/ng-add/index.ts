@@ -28,11 +28,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component': {
-            useRulesEngine: null
+            useRulesEngine: undefined
           },
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-container': {
-            useRulesEngine: null
+            useRulesEngine: undefined
           }
         }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
