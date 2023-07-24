@@ -23,6 +23,7 @@ runs:
       uses: actions/cache@v3
       with:
         path: |
+          ~/.cache/ms-playwright
           .yarn/cache
           .yarn/unplugged
           .pnp.cjs
