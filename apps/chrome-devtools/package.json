@@ -68,7 +68,7 @@
     "jest-preset-angular": "^13.1.1",
     "minimist": "^1.2.6",
     "nx": "~16.5.0",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.0",
     "typescript": "~5.0.2"
   },
