@@ -24,12 +24,10 @@
     "packageManager": {
       "type": "string",
       "enum": [
-        "",
         "npm",
         "yarn"
       ],
-      "description": "Package manager to be used in the generated SDK",
-      "default": ""
+      "description": "Package manager to be used in the generated SDK"
     },
     "globalProperty": {
       "type": "string",
