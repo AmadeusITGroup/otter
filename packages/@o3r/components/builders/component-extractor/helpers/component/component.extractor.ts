@@ -269,8 +269,9 @@ export class ComponentExtractor {
         return false;
       }
 
-      if (config.properties.some((property) => property.values === undefined && property.value === undefined)) {
-        this.logger.warn(`At least one property in "${config.library}#${config.name}" has no default value. Excluding it`);
+      const propertiesWithoutDefaultValue = config.properties.filter((property) => property.values === undefined && property.value === undefined);
+      if (propertiesWithoutDefaultValue.length) {
+        this.logger.warn(`"${config.library}#${config.name}" has no default value for ${propertiesWithoutDefaultValue.map((prop) => prop.name).join(', ')}. Excluding it`);
         return false;
       }
 
