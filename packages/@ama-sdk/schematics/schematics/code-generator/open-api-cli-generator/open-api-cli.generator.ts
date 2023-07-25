@@ -57,7 +57,8 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       '-g', generatorOptions.generatorName,
       '-i', generatorOptions.specPath,
       ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
-      '-o', generatorOptions.outputPath
+      '-o', generatorOptions.outputPath,
+      ...generatorOptions.globalProperty ? ['--global-property', generatorOptions.globalProperty] : []
     ];
     return new Promise<void>((resolve, reject) => {
       spawn(this.packageManagerRunner, args, spawnOptions)
