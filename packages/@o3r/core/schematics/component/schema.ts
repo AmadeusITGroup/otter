@@ -3,46 +3,46 @@ import type { ComponentStructure } from './structures.types';
 
 export interface NgGenerateComponentSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Name of the component to generate */
   componentName: string;
 
   /** Selector prefix */
-  prefix: string | undefined;
+  prefix?: string | undefined;
 
   /** Component Structure */
   componentStructure: ComponentStructure;
 
   /** Description of the component generated */
-  description: string | undefined;
+  description?: string | undefined;
 
   /** Component Folder */
-  path: string | undefined;
+  path?: string | undefined;
 
   /** Indicates if the component should generate fixtures */
-  useComponentFixtures: boolean | undefined;
+  useComponentFixtures?: boolean | undefined;
 
   /** Indicates if the component should use otter theming architecture */
-  useOtterTheming: boolean | undefined;
+  useOtterTheming?: boolean | undefined;
 
   /** Indicates if the component should use otter configuration */
-  useOtterConfig: boolean | undefined;
+  useOtterConfig?: boolean | undefined;
 
   /** Indicates if the component should use rules-engine */
-  useRulesEngine: boolean | undefined;
+  useRulesEngine?: boolean | undefined;
 
   /** Indicates if the component should use localization */
   useLocalization: boolean;
 
   /** Indicates if the component should use generate context */
-  useContext: boolean | undefined;
+  useContext?: boolean | undefined;
 
   /** Determine if the dummy IO should be generated */
   activateDummy: boolean;
 
   /** Generate component with Otter analytics architecture */
-  useOtterAnalytics: boolean | undefined;
+  useOtterAnalytics?: boolean | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

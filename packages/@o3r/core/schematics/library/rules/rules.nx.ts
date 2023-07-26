@@ -104,7 +104,14 @@ export function nxGenerateModule(options: NgGenerateModuleSchema): Rule {
     return chain([
       ...rules,
       updatePackageDependenciesFactory(targetPath, otterVersion!, o3rCorePackageJson, options),
-      updateNgPackagrFactory(targetPath)
+      updateNgPackagrFactory(targetPath),
+      (t) => {
+        const packageJson = t.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
+        packageJson.scripts ||= {};
+        packageJson.scripts.ng = 'nx';
+        t.overwrite(path.posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
+        return t;
+      }
     ])(tree, context);
   };
 

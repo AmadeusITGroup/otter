@@ -60,6 +60,8 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
+### Item generators
+
 | Schematics                 | Description                                                                   | How to use                        |
 | -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
 | add                        | Include Otter in a library / application.                                     | `ng add @o3r/core`                |
@@ -76,12 +78,18 @@ Otter framework provides a set of code generators based on [angular schematics](
 | store-simple-sync          | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`          |
 | store-action               | Create an action into an existing store.                                      | `ng g store-action`               |
 | renovate-bot               | Create a basic Renovate Bot                                                   | `ng g renovate-bot`               |
-| library                    | Add a new Otter Module to the current project                                 | `ng g library`                    |
 | ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
 | show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
 | add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
 | convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
 | context-to-component       | Add Otter Context to an existing component                                    | `ng g context-to-component`       |
+
+### Package generators
+
+| Schematics                 | Description                                                                   | How to use                        |
+| -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
+| library                    | Add a new Library to the current Otter project                                | `ng g library`                    |
+| sdk                        | Add a new SDK to the current Otter project                                    | `ng g sdk`                        |
 
 ## Create your own Otter compatible module
 

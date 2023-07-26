@@ -1,5 +1,5 @@
 {
-  "extends": "./tsconfig.build",
+  "extends": "./tsconfig.lib",
   "include": [
     ".eslintrc.js",
     "jest.config.js",

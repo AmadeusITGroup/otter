@@ -5,10 +5,10 @@ import type { SchematicOptionObject } from '@o3r/schematics';
  */
 export interface NgGenerateCommonStoreSchematicsSchema extends SchematicOptionObject {
   /** Directory containing the stores */
-  path: string | undefined;
+  path?: string | undefined;
 
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Store name */
   storeName: string;

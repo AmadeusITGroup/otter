@@ -2,7 +2,7 @@ import type { SchematicOptionObject } from '@o3r/schematics';
 
 export interface NgAddConfigSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Path to the component */
   path: string;

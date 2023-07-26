@@ -2,7 +2,7 @@ import type { SchematicOptionObject } from '@o3r/schematics';
 
 export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Page name */
   name: string;
@@ -14,10 +14,10 @@ export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   appRoutingModulePath: string;
 
   /** Selector prefix */
-  prefix: string | undefined;
+  prefix?: string | undefined;
 
   /** Directory containing the pages */
-  path: string | undefined;
+  path?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

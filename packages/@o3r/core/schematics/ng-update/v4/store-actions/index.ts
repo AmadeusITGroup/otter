@@ -42,7 +42,7 @@ export function updateStoreActionsInFile(tree: Tree, sourceFile: ts.SourceFile, 
  * @param _options
  * @param _options.projectName
  */
-export function updateStoreActions(_options?: { projectName: string | null | undefined }): Rule {
+export function updateStoreActions(_options?: { projectName?: string | null | undefined }): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const files = getSourceFilesFromWorkspaceProjects(tree);
 

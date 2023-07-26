@@ -22,7 +22,7 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param _rootPath @see RuleFactory.rootPath
  */
-export function updateAdditionalModules(options: { projectName: string | null | undefined }, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | null | undefined }, _rootPath: string): Rule {
   /**
    * Update package.json to add additional modules dependencies
    *

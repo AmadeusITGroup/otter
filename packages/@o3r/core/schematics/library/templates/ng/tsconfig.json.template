@@ -3,7 +3,7 @@
   "extends": "<%= tsconfigBasePath %>",
   "references": [
     {
-      "path": "./tsconfig.build.composite.json"
+      "path": "./tsconfig.lib.json"
     },
     {
       "path": "./tsconfig.spec.json"

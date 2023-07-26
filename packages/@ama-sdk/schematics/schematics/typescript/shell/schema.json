@@ -31,12 +31,10 @@
     "packageManager": {
       "type": "string",
       "enum": [
-        "",
         "npm",
         "yarn"
       ],
-      "description": "Package manager to be used in the generated SDK",
-      "x-prompt": "Packaged manager used in the generated SDK ?"
+      "description": "Package manager to be used in the generated SDK"
     }
   },
   "additionalProperties": true,

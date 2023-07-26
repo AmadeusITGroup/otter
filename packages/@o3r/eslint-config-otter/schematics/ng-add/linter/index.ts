@@ -9,7 +9,7 @@ const tsEslintParserDep = '@typescript-eslint/parser';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateLinterConfigs(options: { projectName: string | null | undefined }, rootPath: string): Rule {
+export function updateLinterConfigs(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
 
   /**
    * Update or create the eslint.json file
