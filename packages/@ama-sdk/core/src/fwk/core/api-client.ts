@@ -42,7 +42,7 @@ export interface ApiClient {
  * @param data Data to provide to the API call
  * @returns the tokenized request options if tokenization is enabled, undefined otherwise
  */
-  tokenizeRequestOptions(url: string, queryParameters: { [key: string]: string | undefined }, piiParamTokens:{ [key: string]: string }, data: any): TokenizedOptions | undefined;
+  tokenizeRequestOptions(url: string, queryParameters: { [key: string]: string | undefined }, piiParamTokens:{ [statusCode: string]: string }, data: any): TokenizedOptions | undefined;
 
   /**
    * Receives an object containing key/value pairs
@@ -51,8 +51,8 @@ export interface ApiClient {
   processFormData(data: any, type: string): FormData | string;
 
   /** Process HTTP call */
-  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, reviver?: ReviverType<T> | undefined, operationId?: string): Promise<T>;
-
+  processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, reviver?: ReviverType<T> | undefined |
+    {[key: number]: ReviverType<T> | undefined}, operationId?: string): Promise<T>;
 }
 
 /**

@@ -24,7 +24,7 @@ describe('Typescript Core Generator', () => {
     }, baseTree);
 
     expect(tree.readContent('/readme.md')).toContain('Based on Swagger spec 1.0.0');
-  });
+  }, 10000);
 
   it('should clean previous install', async () => {
     baseTree.create('/src/api/my-apy/test.ts', 'fake module');

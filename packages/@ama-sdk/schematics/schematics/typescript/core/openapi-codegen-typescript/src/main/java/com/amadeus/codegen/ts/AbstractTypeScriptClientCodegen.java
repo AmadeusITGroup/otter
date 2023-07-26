@@ -765,7 +765,19 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
           piiParams.add(param.baseName);
         }
       }
+      if (operation.responses != null && operation.responses.size() > 0) {
+        Map<String, CodegenResponse> responses2xx = new LinkedHashMap<>();
+        for (CodegenResponse response : operation.responses) {
+          if (response.is2xx) {
+            responses2xx.put(response.baseType, response);
+          }
+        }
+        if (responses2xx.size() > 0) {
+          operation.vendorExtensions.put("responses2xx", new ArrayList<>(responses2xx.values()));
+        }
+      }
     }
+
     operations.put("x-risk-personal-data-field-list", piiParams);
     return objs;
   }
