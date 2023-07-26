@@ -16,6 +16,8 @@ export interface SyncStorageSyncOptions {
   filter?: string[];
   /** Spacing for serializer */
   space?: string | number;
+  /** Defines whether the store is loaded as forFeature */
+  syncForFeature?: boolean;
 }
 
 /**

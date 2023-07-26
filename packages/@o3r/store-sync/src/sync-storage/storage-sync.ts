@@ -74,9 +74,12 @@ export const rehydrateApplicationState = (
     let reviver = restoreDates ? dateReviver : dummyReviver;
     let deserialize: ((arg0: string) => any) | undefined;
     let decrypt: ((arg0: string) => string) | undefined;
+    let syncForFeature = false;
 
     if (typeof key === 'object') {
       key = Object.keys(key)[0];
+      syncForFeature = !!(curr?.[key] as SyncStorageSyncOptions)?.syncForFeature;
+
       // use the custom reviver function
       if (typeof curr[key] === 'function') {
         reviver = curr[key];
@@ -118,8 +121,10 @@ export const rehydrateApplicationState = (
           raw = JSON.parse(stateSlice, reviver);
         }
 
-        return Object.assign({}, acc, {
-          [key]: deserialize ? deserialize(raw) : raw
+        const rehydratedState = deserialize ? deserialize(raw) : raw;
+
+        return syncForFeature ? rehydratedState : Object.assign({}, acc, {
+          [key]: rehydratedState
         });
       }
     }
@@ -187,14 +192,16 @@ export const syncStateUpdate = (
   }
 
   keys.forEach((key: string | StorageKeyConfiguration | SyncStorageSyncOptions | ((key: string, value: any) => any)): void => {
-    let stateSlice = state[key as string];
+    let stateSlice = state?.[key as string];
     let replacer;
     let space: string | number | undefined;
     let encrypt;
+    let syncForFeature = false;
 
     if (typeof key === 'object') {
       const name = (Object.keys(key) as (keyof typeof key)[])[0];
-      stateSlice = state[name];
+      syncForFeature = !!(key?.[name] as SyncStorageSyncOptions)?.syncForFeature;
+      stateSlice = syncForFeature ? state : state?.[name];
 
       if (typeof stateSlice !== 'undefined' && key[name]) {
         // use serialize function if specified.
@@ -234,6 +241,8 @@ export const syncStateUpdate = (
       }
 
       key = name;
+    } else if (typeof key === 'string') {
+      stateSlice = syncForFeature ? state : state?.[key];
     }
 
     if (typeof stateSlice !== 'undefined' && storage !== undefined) {
