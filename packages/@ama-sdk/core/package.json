@@ -32,7 +32,7 @@
     "build:esm2020": "tsc -b tsconfig.esm2020.json",
     "postbuild": "patch-package-json-main",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {

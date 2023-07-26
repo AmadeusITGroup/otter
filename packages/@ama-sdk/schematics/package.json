@@ -8,7 +8,7 @@
     "test": "yarn nx test ama-sdk-schematics",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection}.json' dist",
     "build": "yarn nx build ama-sdk-schematics",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "install-swagger-cli": "mvn install:install-file -DgroupId=io.swagger -DartifactId=swagger-codegen-cli -Dversion=2.4.0-AMADEUS -Dpackaging=jar -Dfile=./schematics/resources/swagger-codegen-cli.jar",
     "build:swagger": "yarn install-swagger-cli && run-p 'build:swagger-*' 'build:openapi-*'",
     "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
