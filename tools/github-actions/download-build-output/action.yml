@@ -34,7 +34,13 @@ runs:
              archive_format: 'zip',
           });
           let fs = require('fs');
-          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/${{ inputs.artifactName }}.zip`, Buffer.from(download.data));
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/${{ inputs.artifactName }}.zip.zip`, Buffer.from(download.data));
+    - run: unzip -q -n ${{ inputs.artifactName }}.zip.zip
+      if: github.event_name == 'workflow_run'
+      shell: bash
+    - run: rm -f ${{ inputs.artifactName }}.zip.zip
+      if: github.event_name == 'workflow_run'
+      shell: bash
 
     - run: unzip -q -n ${{ inputs.artifactName }}.zip
       shell: bash
