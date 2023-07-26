@@ -6,9 +6,6 @@
 /generated-*
 /build
 
-# Local configurations
-.custom.yo-rc.json
-
 # Open API
 .openapi-generator
 
@@ -38,6 +35,7 @@
 .history
 .ionide
 
+<% if (packageManager === 'yarn') { %>
 # Support for Project snippet scope
 
 ### yarn ###
@@ -56,10 +54,8 @@
 
 # and uncomment the following lines
 .pnp.*
-
-### Yeoman ###
+<% } %>
 node_modules/
-bower_components/
 *.log
 
 build/
