@@ -15,3 +15,4 @@ export * from './package-version';
 export * from './monorepo';
 export * from './update-imports';
 export * from './collection';
+export * from './logo';

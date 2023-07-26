@@ -13,7 +13,7 @@
     "ng": "yarn nx",
     "copy:templates": "yarn cpy 'schematics/**/templates/**' dist/schematics",
     "prepare:build:builders": "yarn cpy 'collection.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build sotrybook",
     "build:react": "tsc -p tsconfig.build.react.json",
     "build:source": "tsc -b tsconfig.build.json",

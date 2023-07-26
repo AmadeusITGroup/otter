@@ -13,7 +13,7 @@
     "ng": "yarn nx",
     "build": "yarn nx build thrid-party",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {

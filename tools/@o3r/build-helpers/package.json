@@ -17,6 +17,7 @@
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
     "doc-links": "./scripts/doc-links.mjs",
+    "generate-cjs-manifest": "./scripts/generate-cjs-manifest.mjs",
     "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
     "patch-package-json-main": "./scripts/patch-package-json-main.mjs",
     "pr-labels": "./scripts/pr-labels.mjs",

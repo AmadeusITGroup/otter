@@ -18,7 +18,7 @@
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^5.3.0",

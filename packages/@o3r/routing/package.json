@@ -14,7 +14,7 @@
     "prepare:compile": "cp-package-json",
     "build": "yarn nx build routing",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
     "prepare:publish": "prepare-publish ./dist"

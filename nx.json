@@ -234,12 +234,14 @@
         "^source"
       ],
       "outputs": [
+        "{projectRoot}/dist/builders/package.json",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
         "{projectRoot}/dist/builders/**/*.d.ts.map",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
         "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/middlewares/package.json",
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
