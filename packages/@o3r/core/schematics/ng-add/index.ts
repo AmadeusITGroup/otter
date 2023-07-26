@@ -38,14 +38,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
         return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
       },
-      (t, c) => {
-        const { preset, ...forwardOptions } = options;
-        const presetRunner = presets[preset];
-        if (presetRunner.modules) {
-          c.logger.info(`The following modules will be installed: ${presetRunner.modules.join(', ')}`);
-        }
-        return presetRunner.rule({ forwardOptions })(t, c);
-      },
       async (t, c) => {
         const { preset, ...forwardOptions } = options;
         const presetRunner = await presets[preset]({ forwardOptions });
