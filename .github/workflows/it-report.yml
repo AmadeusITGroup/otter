@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: dorny/test-reporter@v1
         with:
-          artifact: it-reports
+          artifact: /it-reports(.*)/
           name: IT Tests report
           path: '**/*.xml'
           reporter: jest-junit
