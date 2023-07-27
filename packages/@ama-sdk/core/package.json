@@ -42,17 +42,13 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~16.0.5",
-    "@angular/cli": "~16.0.5",
-    "@schematics/angular": "~16.0.5",
+    "@angular-devkit/schematics": "^16.0.5",
+    "@schematics/angular": "^16.0.5",
     "isomorphic-fetch": "^3.0.0",
     "typescript": "~5.0.2"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
-      "optional": true
-    },
-    "@angular/cli": {
       "optional": true
     },
     "@schematics/angular": {
@@ -69,7 +65,6 @@
     "@angular-devkit/core": "~16.0.5",
     "@angular-devkit/schematics": "~16.0.5",
     "@angular-eslint/eslint-plugin": "~16.0.3",
-    "@angular/cli": "~16.0.5",
     "@nx/jest": "~16.5.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
