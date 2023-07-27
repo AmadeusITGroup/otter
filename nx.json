@@ -132,6 +132,7 @@
     },
     "test": {
       "inputs": [
+        {"env": "RUNNER_OS"},
         "specs",
         "^specs"
       ]

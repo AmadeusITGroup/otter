@@ -38,23 +38,23 @@ module.exports = class extends SdkGenerator {
       const modelPackage = swaggerConfig.additionalProperties?.basePackage;
       if (modelPackage) {
         this.log('Remove previously generated base models');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage.split('.'), '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage.split('.'), '**', '*.java'), {glob: true});
       }
 
       const apiInterfacesPackage = swaggerConfig.additionalProperties.endpointsPackage;
       if (apiInterfacesPackage) {
         this.log('Remove previously generated API interfaces');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...apiInterfacesPackage.split('.'), '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...apiInterfacesPackage.split('.'), '**', '*.java'), {glob: true});
       }
 
       const apiImplPackage = swaggerConfig.additionalProperties.endpointsImplPackage;
       if (apiImplPackage) {
         this.log('Remove previously generated API implementations');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...apiImplPackage.split('.'), '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...apiImplPackage.split('.'), '**', '*.java'), {glob: true});
       }
     }
     this.log('Remove previously generated doc');
-    rimraf.sync(path.resolve(this.destinationPath(), 'docs', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'docs', '**'), {glob: true});
     this.log('Remove previously generated readme');
     rimraf.sync(path.resolve(this.destinationPath(), 'README.md'));
   }
@@ -139,6 +139,6 @@ module.exports = class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-java-client', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-java-client', '**'), {glob: true});
   }
 };

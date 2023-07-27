@@ -181,7 +181,6 @@ __metadata:
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@types/rimraf": ^3.0.2
     "@types/yeoman-environment": ^2.10.7
     "@types/yeoman-generator": ^5.2.10
     "@types/yeoman-test": ^4.0.3
@@ -7409,7 +7408,6 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/request": ^2.48.7
     "@types/request-promise-native": ^1.0.18
-    "@types/rimraf": ^3.0.2
     "@types/semver": ^7.3.13
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
@@ -10694,7 +10692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/glob@npm:*, @types/glob@npm:^8.0.0":
+"@types/glob@npm:^8.0.0":
   version: 8.1.0
   resolution: "@types/glob@npm:8.1.0"
   dependencies:
@@ -11216,16 +11214,6 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 61a072c7639f6e8126588bf1eb1ce8835f2cb9c2aba795c4491cf6310e013267b0c8488039857c261c387e9728c1b43205099223f160bb6a76b4374f741b5603
-  languageName: node
-  linkType: hard
-
-"@types/rimraf@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@types/rimraf@npm:3.0.2"
-  dependencies:
-    "@types/glob": "*"
-    "@types/node": "*"
-  checksum: b47fa302f46434cba704d20465861ad250df79467d3d289f9d6490d3aeeb41e8cb32dd80bd1a8fd833d1e185ac719fbf9be12e05ad9ce9be094d8ee8f1405347
   languageName: node
   linkType: hard
 

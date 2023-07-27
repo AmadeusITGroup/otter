@@ -74,14 +74,14 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
     const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree);
-    const componentDestination = path.join(destination, fullStructureRequested ? path.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
-    const componentPath = path.join(componentDestination, `${properties.name}.component.ts`);
-    const ngSpecPath = path.join(componentDestination, `${properties.name}.component.spec.ts`);
-    const o3rSpecPath = path.join(componentDestination, `${properties.name}.spec.ts`);
-    const ngStylePath = path.join(componentDestination, `${properties.name}.component.scss`);
-    const o3rStylePath = path.join(componentDestination, `${properties.name}.style.scss`);
-    const ngTemplatePath = path.join(componentDestination, `${properties.name}.component.html`);
-    const o3rTemplatePath = path.join(componentDestination, `${properties.name}.template.html`);
+    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
+    const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
+    const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
+    const o3rSpecPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
+    const ngStylePath = path.posix.join(componentDestination, `${properties.name}.component.scss`);
+    const o3rStylePath = path.posix.join(componentDestination, `${properties.name}.style.scss`);
+    const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
+    const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
 
     const rules: Rule[] = [];
 

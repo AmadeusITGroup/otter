@@ -58,7 +58,6 @@
     "@schematics/angular": "~16.0.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
-    "@types/rimraf": "^3.0.2",
     "@types/yeoman-environment": "^2.10.7",
     "@types/yeoman-generator": "^5.2.10",
     "@types/yeoman-test": "^4.0.3",
