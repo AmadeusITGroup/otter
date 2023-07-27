@@ -9,9 +9,14 @@ on:
 
 jobs:
   test-publish:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        packageManager: ['yarn', 'npm']
+    runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./tools/github-actions/download-build-output
@@ -49,7 +54,7 @@ jobs:
           yarn verdaccio:publish
       - name: Test
         id: it-tests
-        run: yarn test-int --output-style=stream
+        run: yarn test-int --output-style=stream --package-manager=${{ matrix.packageManager }}
       - name: Zip verdaccio storage on failure
         if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
         run: zip -r verdaccio.zip ./.verdaccio
@@ -63,19 +68,19 @@ jobs:
         if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
         uses: actions/upload-artifact@v3
         with:
-          name: verdaccio
+          name: verdaccio-${{ matrix.packageManager }}-${{ matrix.os }}
           path: verdaccio.zip
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         uses: actions/upload-artifact@v3
         with:
-          name: it-tests
+          name: it-tests-${{ matrix.packageManager }}-${{ matrix.os }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: it-reports
+          name: it-reports-${{ matrix.packageManager }}-${{ matrix.os }}
           path: 'packages/**/dist-test/it-report.xml'
       - name: Stop verdaccio
         if: always()

@@ -9,10 +9,14 @@ on:
 jobs:
   publish-report:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        packageManager: ['yarn', 'npm']
     steps:
       - uses: dorny/test-reporter@v1
         with:
-          artifact: it-reports
-          name: IT Tests report
+          artifact: it-reports-${{ matrix.packageManager }}-${{ matrix.os }}
+          name: IT Tests report (run with ${{ matrix.packageManager }} on ${{ matrix.os }})
           path: '**/*.xml'
           reporter: jest-junit
