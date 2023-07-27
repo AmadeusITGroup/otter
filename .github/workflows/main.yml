@@ -17,8 +17,29 @@ on:
     types: [checks_requested]
 
 jobs:
+  nx-cloud-start:
+    runs-on: ubuntu-latest
+    name: Start Nx Cloud Agents
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./tools/github-actions/setup
+      - run:  yarn nx-cloud start-ci-run --agent-count=3
+  nx-cloud-end:
+    runs-on: ubuntu-latest
+    needs: [build, checks, test-publish]
+    name: Stop Nx Cloud Agents
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./tools/github-actions/setup
+      - run:  yarn nx-cloud stop-all-agents
+
   build:
     runs-on: ubuntu-latest
+    needs: ['nx-cloud-start']
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
@@ -27,8 +48,8 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - run: yarn build:swagger-gen
-      - run: yarn build
+      - run: yarn build:swagger-gen --dte
+      - run: yarn build --dte
       - uses: ./tools/github-actions/upload-build-output
 
   version:
@@ -59,6 +80,7 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     with:
       affected: ${{ github.event_name == 'pull_request' }}
+    needs: ['nx-cloud-start']
 
   test-publish:
     uses: ./.github/workflows/test-publish.yml

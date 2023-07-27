@@ -49,7 +49,7 @@ jobs:
           yarn verdaccio:publish
       - name: Test
         id: it-tests
-        run: yarn test-int --output-style=stream
+        run: yarn test-int --output-style=stream --dte
       - name: Zip verdaccio storage on failure
         if: failure() && (steps.setup-verdaccio.conclusion == 'failure' || steps.it-tests.conclusion == 'failure')
         run: zip -r verdaccio.zip ./.verdaccio

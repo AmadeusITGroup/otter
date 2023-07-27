@@ -42,7 +42,7 @@ jobs:
       - name: Test
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
-        run: yarn ${{ env.testCmd }}
+        run: yarn ${{ env.testCmd }} --dte
   lint:
     runs-on: ubuntu-latest
     env:
@@ -65,4 +65,4 @@ jobs:
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
-        run: yarn ${{ env.lintCmd }} --configuration ci
+        run: yarn ${{ env.lintCmd }} --configuration ci --dte
