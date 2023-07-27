@@ -8,15 +8,15 @@ import {
   RequestOptions,
   TokenizedOptions
 } from '../../plugins/core/index';
-import { ExceptionReply } from '../../plugins/exception';
-import { ReviverReply } from '../../plugins/reviver';
-import { ApiTypes } from '../api';
-import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../api.helpers';
-import type { PartialExcept } from '../api.interface';
-import { ApiClient } from '../core/api-client';
-import { BaseApiClientOptions } from '../core/base-api-constructor';
-import { CanceledCallError, EmptyResponseError, ResponseJSONParseError } from '../errors';
-import { ReviverType } from '../Reviver';
+import {ExceptionReply} from '../../plugins/exception';
+import {ReviverReply} from '../../plugins/reviver';
+import {ApiTypes} from '../api';
+import {extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions} from '../api.helpers';
+import type {PartialExcept} from '../api.interface';
+import {ApiClient} from '../core/api-client';
+import {BaseApiClientOptions} from '../core/base-api-constructor';
+import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../errors';
+import {ReviverType} from '../Reviver';
 
 /** @see BaseApiClientOptions */
 export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
@@ -98,8 +98,10 @@ export class ApiFetchClient implements ApiClient {
 
   /** @inheritdoc */
   public async processCall(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, reviver?: undefined, operationId?: string): Promise<void>;
-  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, reviver: ReviverType<T>, operationId?: string): Promise<T>;
-  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, reviver?: ReviverType<T> | undefined, operationId?: string): Promise<T> {
+  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, reviver: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
+    operationId?: string): Promise<T>;
+  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
+    reviver?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
@@ -118,7 +120,7 @@ export class ApiFetchClient implements ApiClient {
       }
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
       if (this.options.fetchPlugins) {
-        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({ url, options, fetchPlugins: loadedPlugins, controller, apiClient: this })));
+        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this})));
       }
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
@@ -141,21 +143,20 @@ export class ApiFetchClient implements ApiClient {
       if (e instanceof CanceledCallError) {
         exception = e;
       } else {
-        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, { apiName, operationId, url, origin });
+        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, {apiName, operationId, url, origin});
       }
     }
 
     try {
       root = body ? JSON.parse(body) : undefined;
     } catch (e: any) {
-      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, { apiName, operationId, url, origin });
+      exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, {apiName, operationId, url, origin});
     }
-
     const replyPlugins = this.options.replyPlugins ?
       this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response,
-        reviver,
+        reviver: typeof reviver === 'function' || typeof reviver === 'undefined' ? reviver : typeof response?.status !== 'undefined' && reviver[response.status] || undefined,
         apiType,
         apiName,
         exception,
