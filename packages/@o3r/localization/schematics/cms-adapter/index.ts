@@ -10,7 +10,7 @@ import * as path from 'node:path';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateCmsAdapter(options: { projectName: string | null }): Rule {
+export function updateCmsAdapter(options: { projectName: string | undefined }): Rule {
 
   /**
    * Add cms extractors builder into the angular.json

@@ -449,6 +449,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -7485,6 +7486,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
@@ -7737,6 +7739,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -8038,6 +8041,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -8202,6 +8206,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0

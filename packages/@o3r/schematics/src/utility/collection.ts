@@ -26,7 +26,7 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
  * @param options
  * @param options.projectName
  */
-export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options: {projectName: string | null}) {
+export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options: {projectName: string | undefined}) {
   if (!workspace) {
     return {};
   }
