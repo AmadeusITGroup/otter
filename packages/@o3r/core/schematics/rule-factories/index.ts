@@ -1,7 +1,6 @@
 export * from './o3r-basic-updates/index';
 export * from './additional-modules/index';
 export * from './azure-pipeline/index';
-export * from './cms-adapter/index';
 export * from './customization-environment/index';
 export * from './fixture/index';
 export * from './otter-environment/index';

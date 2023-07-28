@@ -1,34 +1,24 @@
-import {
-  apply,
-  chain,
-  MergeStrategy,
-  mergeWith,
-  Rule,
-  SchematicContext,
-  template,
-  Tree,
-  url
-} from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
+  getPackageManagerRunner,
   getProjectDepType,
   getProjectFromTree,
   getTemplateFolder,
+  getWorkspaceConfig,
   ignorePatterns,
   ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile,
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  readAngularJson, readPackageJson, writeAngularJson
+  readAngularJson,
+  readPackageJson,
+  writeAngularJson
 } from '@o3r/schematics';
 import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
-import {
-  getDecoratorMetadata,
-  insertImport,
-  isImported
-} from '@schematics/angular/utility/ast-utils';
+import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
@@ -91,7 +81,6 @@ export function updateLocalization(options: { projectName: string | null }, root
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName, 'application');
-    const projectRoot = path.posix.join('/', workspaceProject?.root || '');
     const distFolder: string =
       (
         workspaceProject &&
@@ -131,38 +120,6 @@ export function updateLocalization(options: { projectName: string | null }, root
         }
       }
     };
-
-    const pathTsconfigCms = path.posix.join(projectRoot, 'tsconfig.cms.json');
-    workspaceProject.architect['extract-translations'] ||= {
-      builder: '@o3r/localization:extractor',
-      options: {
-        tsConfig: pathTsconfigCms.replace(/^\//, ''),
-        libraries: []
-      }
-    };
-
-    if (!tree.exists(pathTsconfigCms)) {
-      const tsconfigCms = {
-        extends: `./${tree.exists(path.posix.join(projectRoot, 'tsconfig.build.json')) ? 'tsconfig.build' : 'tsconfig.json'}`,
-        include: [
-          'src/**/*.component.ts',
-          'src/**/*.config.ts',
-          'src/**/*.module.ts'
-        ]
-      };
-      tree.create(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
-    } else {
-      const localizationSourceRegExps = ['src/**/*.component.ts'];
-      const tsconfigCms = tree.readJson(pathTsconfigCms) as Record<string, any>;
-      if (!Array.isArray(tsconfigCms.include) || !localizationSourceRegExps.some((r) => tsconfigCms.include.includes(r))) {
-        tsconfigCms.include ||= [];
-        tsconfigCms.include.push(
-          ...localizationSourceRegExps
-            .filter((r) => !tsconfigCms.include.includes(r))
-        );
-        tree.overwrite(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
-      }
-    }
 
     if (workspaceProject.architect.build) {
       const alreadyExistingBuildOption =
@@ -220,6 +177,7 @@ export function updateLocalization(options: { projectName: string | null }, root
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName || null, 'application');
+    const packageManagerRunner = getPackageManagerRunner(getWorkspaceConfig(tree));
     if (!workspaceProject) {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
@@ -236,7 +194,7 @@ export function updateLocalization(options: { projectName: string | null }, root
     }
     packageJson.scripts.start ||= `ng run ${projectName}:run`;
     if (packageJson.scripts.build?.indexOf('generate:translations') === -1) {
-      packageJson.scripts.build = `yarn generate:translations && ${packageJson.scripts.build}`;
+      packageJson.scripts.build = `${packageManagerRunner} generate:translations && ${packageJson.scripts.build}`;
     }
     packageJson.scripts['generate:translations:dev'] ||= `ng run ${projectName}:generate-translations`;
     packageJson.scripts['generate:translations'] ||= `ng run ${projectName}:generate-translations:production`;

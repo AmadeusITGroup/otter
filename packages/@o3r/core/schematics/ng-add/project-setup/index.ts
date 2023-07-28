@@ -69,8 +69,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
     updateBuildersNames(),
     updateOtterGeneratorsNames(),
-    // TODO: split `updateCmsAdapter` function do be handle by each module ng-add schematic
-    // options.enableCms ? updateCmsAdapter(options, coreSchematicsFolder) : noop,
     updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
     updateStore(options, coreSchematicsFolder),
     updateFixtureConfig(options, coreSchematicsFolder),

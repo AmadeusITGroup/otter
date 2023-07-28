@@ -7140,6 +7140,8 @@ __metadata:
       optional: true
     "@o3r/configuration":
       optional: true
+    "@o3r/extractors":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -7681,6 +7683,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
@@ -7709,7 +7712,11 @@ __metadata:
   peerDependencies:
     "@angular-devkit/core": ~16.0.5
     "@o3r/core": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     typescript: ~5.0.2
+  peerDependenciesMeta:
+    "@o3r/schematics":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -8349,6 +8356,8 @@ __metadata:
       optional: true
     "@angular-devkit/schematics":
       optional: true
+    "@o3r/extractors":
+      optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
@@ -8700,6 +8709,8 @@ __metadata:
     "@schematics/angular": ~16.0.5
   peerDependenciesMeta:
     "@angular-devkit/schematics":
+      optional: true
+    "@o3r/extractors":
       optional: true
     "@o3r/schematics":
       optional: true

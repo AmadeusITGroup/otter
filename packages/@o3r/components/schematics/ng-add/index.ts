@@ -1,7 +1,8 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { NgAddSchematicsSchema } from './schema';
+import { updateCmsAdapter } from '../cms-adapter';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter components to an Angular Project
@@ -12,18 +13,32 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages, registerPackageCollectionSchematics } = await import('@o3r/schematics');
+      const {
+        getDefaultOptionsForSchematic,
+        getO3rPeerDeps,
+        getProjectDepType,
+        getWorkspaceConfig,
+        ngAddPackages,
+        ngAddPeerDependencyPackages,
+        removePackages,
+        registerPackageCollectionSchematics
+      } = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+      options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
+      if (options.enableMetadataExtract) {
+        depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      }
       const dependencyType = getProjectDepType(tree);
       const rule = chain([
         removePackages(['@otter/components']),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/components - install builder dependency'),
-        registerPackageCollectionSchematics(packageJson)
+        registerPackageCollectionSchematics(packageJson),
+        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
