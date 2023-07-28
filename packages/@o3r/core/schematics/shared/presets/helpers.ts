@@ -14,8 +14,8 @@ import { AddDevInstall } from '@o3r/schematics';
  * @param options
  */
 export function defaultPresetRuleFactory(moduleToInstall: string[], options: PresetOptions = {}): Rule {
-  return (tree: Tree, _context: SchematicContext) => {
 
+  return (tree, _context) => {
     if (!moduleToInstall.length) {
       return tree;
     }
