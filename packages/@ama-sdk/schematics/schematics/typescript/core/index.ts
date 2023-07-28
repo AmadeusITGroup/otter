@@ -43,7 +43,7 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
 
   const specPath = path.resolve(process.cwd(), options.specPath);
-  const targetPath = options.directory || '/';
+  const targetPath = options.directory || '';
   const globalProperty = options.globalProperty;
 
   const generateOperationFinder = async (): Promise<PathObject[]> => {
@@ -72,10 +72,10 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param _context
    */
   const clearGeneratedCode = (tree: Tree, _context: SchematicContext) => {
-    treeGlob(tree, path.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join(targetPath, 'src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.join(targetPath, 'src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
     return tree;
   };
 

@@ -40,16 +40,16 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
       return () => tree;
     }
     const destination = getDestinationPath('@o3r/core:page', options.path, tree);
-    const pagePath = path.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
+    const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = workspaceProject.name;
-    const componentPath = path.join(pagePath, `${dasherizedPageName}.component.ts`);
-    const ngSpecPath = path.join(pagePath, `${dasherizedPageName}.component.spec.ts`);
-    const o3rSpecPath = path.join(pagePath, `${dasherizedPageName}.spec.ts`);
-    const ngStylePath = path.join(pagePath, `${dasherizedPageName}.component.scss`);
-    const o3rStylePath = path.join(pagePath, `${dasherizedPageName}.style.scss`);
-    const ngTemplatePath = path.join(pagePath, `${dasherizedPageName}.component.html`);
-    const o3rTemplatePath = path.join(pagePath, `${dasherizedPageName}.template.html`);
+    const componentPath = path.posix.join(pagePath, `${dasherizedPageName}.component.ts`);
+    const ngSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.component.spec.ts`);
+    const o3rSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.spec.ts`);
+    const ngStylePath = path.posix.join(pagePath, `${dasherizedPageName}.component.scss`);
+    const o3rStylePath = path.posix.join(pagePath, `${dasherizedPageName}.style.scss`);
+    const ngTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.component.html`);
+    const o3rTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.template.html`);
 
     const rules: Rule[] = [];
 
@@ -177,7 +177,7 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
    * @param context Context of the rule
    */
   const updateAppRoutingModule: Rule = (tree: Tree, context: SchematicContext) => {
-    const indexFilePath = path.join(strings.dasherize(options.scope), strings.dasherize(options.name), 'index');
+    const indexFilePath = path.posix.join(strings.dasherize(options.scope), strings.dasherize(options.name), 'index');
     const route: Route = {
       path: strings.dasherize(options.name),
       import: `./${indexFilePath.replace(/[\\/]/g, '/')}`,

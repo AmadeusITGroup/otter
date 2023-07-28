@@ -71,12 +71,12 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree);
-    const componentDestination = path.join(destination, fullStructureRequested ? path.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);
-    const componentPath = path.join(componentDestination, `${properties.name}.component.ts`);
-    const ngSpecPath = path.join(componentDestination, `${properties.name}.component.spec.ts`);
-    const o3rSpecPath = path.join(componentDestination, `${properties.name}.spec.ts`);
-    const ngTemplatePath = path.join(componentDestination, `${properties.name}.component.html`);
-    const o3rTemplatePath = path.join(componentDestination, `${properties.name}.template.html`);
+    const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);
+    const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
+    const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
+    const o3rSpecPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
+    const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
+    const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
 
     const rules: Rule[] = [];
 
@@ -145,7 +145,7 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
     );
 
     if (fullStructureRequested) {
-      const componentPresenterDestination = path.join('..', PRESENTER_FOLDER, 'index');
+      const componentPresenterDestination = path.posix.join('..', PRESENTER_FOLDER, 'index');
       const addPresenterComponentOrModuleToImport: Rule = options.standalone
         ? chain([
           addImportsRule(componentPath, [
@@ -176,7 +176,7 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
           }
         ])
         : () => {
-          const modulePath = path.join(componentDestination, `${properties.name}.module.ts`);
+          const modulePath = path.posix.join(componentDestination, `${properties.name}.module.ts`);
           const moduleSourceFile = ts.createSourceFile(
             modulePath,
             tree.readText(modulePath),
