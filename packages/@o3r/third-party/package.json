@@ -13,12 +13,24 @@
     "ng": "yarn nx",
     "build": "yarn nx build thrid-party",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
     "tslib": "^2.5.3",
     "uuid": "^9.0.0"
+  },
+  "peerDependencies": {
+    "@angular-devkit/schematics": "~16.0.5",
+    "@o3r/schematics": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.0.5",
@@ -40,6 +52,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/uuid": "^9.0.0",
@@ -57,7 +70,7 @@
     "jest-junit": "^16.0.0",
     "jest-preset-angular": "^13.1.1",
     "nx": "~16.5.0",
-    "rimraf": "^5.0.0",
+    "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "typescript": "~5.0.2",
     "zone.js": "~0.13.1"

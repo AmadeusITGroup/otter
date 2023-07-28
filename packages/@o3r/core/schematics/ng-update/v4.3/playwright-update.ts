@@ -1,6 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getProjectFromTree, readAngularJson, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 /**
  * Update application to setup playwright runners
@@ -25,7 +24,7 @@ export function updatePlaywrightEnvironment(): Rule {
       }
     });
     workspace.projects[projectName] = workspaceProject;
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 }

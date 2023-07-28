@@ -10,12 +10,16 @@
     },
     "specFilePath": {
       "type": "string",
-      "description": "Path to spec file of the component",
-      "default": ""
+      "description": "Path to spec file of the component"
     },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
+      "default": false
+    },
+    "page": {
+      "type": "boolean",
+      "description": "Is the component a page",
       "default": false
     }
   },

@@ -3,10 +3,10 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
-import { NgAddSchematicsSchema } from './schema';
 import { displayModuleList } from '../rule-factories/module-list';
 import { presets } from '../shared/presets';
-import { AddDevInstall } from '@o3r/schematics';
+import { AddDevInstall, getLogo } from '@o3r/schematics';
+import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter library to an Angular Project
@@ -29,6 +29,10 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     await lastValueFrom(context.engine.executePostTasks());
 
     return () => chain([
+      (t, c) => {
+        c.logger.info(getLogo());
+        return t;
+      },
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
       async (t, c) => {
         const {prepareProject} = await import('./project-setup/index');

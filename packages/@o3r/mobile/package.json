@@ -18,7 +18,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build:builders": "tsc -p ./tsconfig.pcloudy.json && tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -p ./tsconfig.pcloudy.json && tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build mobile",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
     "prepare:publish": "prepare-publish ./dist"

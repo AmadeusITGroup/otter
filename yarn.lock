@@ -66,7 +66,6 @@ __metadata:
     "@angular-devkit/core": ~16.0.5
     "@angular-devkit/schematics": ~16.0.5
     "@angular-eslint/eslint-plugin": ~16.0.3
-    "@angular/cli": ~16.0.5
     "@nx/jest": ~16.5.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -92,7 +91,7 @@ __metadata:
     globby: ^11.1.0
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     ts-node: ^10.9.1
@@ -100,15 +99,12 @@ __metadata:
     typescript: ~5.0.2
     uuid: ^9.0.0
   peerDependencies:
-    "@angular-devkit/schematics": ~16.0.5
-    "@angular/cli": ~16.0.5
-    "@schematics/angular": ~16.0.5
+    "@angular-devkit/schematics": ^16.0.5
+    "@schematics/angular": ^16.0.5
     isomorphic-fetch: ^3.0.0
     typescript: ~5.0.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
-      optional: true
-    "@angular/cli":
       optional: true
     "@schematics/angular":
       optional: true
@@ -137,7 +133,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.6.0
+    "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/minimist": ^1.2.2
@@ -158,7 +154,7 @@ __metadata:
     minimist: ^1.2.6
     nx: ~16.5.0
     pid-from-port: ^1.1.3
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     semver: ^7.5.2
     ts-jest: ^29.1.0
@@ -185,7 +181,6 @@ __metadata:
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@types/rimraf": ^3.0.2
     "@types/yeoman-environment": ^2.10.7
     "@types/yeoman-generator": ^5.2.10
     "@types/yeoman-test": ^4.0.3
@@ -201,10 +196,11 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.0
+    jest-junit: ^16.0.0
     mem-fs: ^2.2.1
     npm-run-all: ^4.1.5
     onchange: ^7.0.2
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     sway: ^2.0.6
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -238,7 +234,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.6.0
+    "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~16.0.5
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
@@ -258,6 +254,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.0
+    jest-junit: ^16.0.0
     js-yaml: ^4.1.0
     mem-fs: ^2.2.1
     minimatch: ^9.0.0
@@ -274,18 +271,15 @@ __metadata:
     typescript: ~5.0.2
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/core": ~16.0.5
-    "@angular-devkit/schematics": ~16.0.5
-    "@angular-devkit/schematics-cli": ~16.0.5
-    "@angular/cli": ~16.0.5
-    "@openapitools/openapi-generator-cli": ~2.6.0
-    "@schematics/angular": ~16.0.5
+    "@angular-devkit/core": ^16.0.5
+    "@angular-devkit/schematics": ^16.0.5
+    "@angular-devkit/schematics-cli": ^16.0.5
+    "@openapitools/openapi-generator-cli": ~2.7.0
+    "@schematics/angular": ^16.0.5
   peerDependenciesMeta:
     "@ama-sdk/core":
       optional: true
     "@angular-devkit/schematics-cli":
-      optional: true
-    "@angular/cli":
       optional: true
     "@angular/compiler":
       optional: true
@@ -5420,16 +5414,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/axios@npm:0.0.8":
-  version: 0.0.8
-  resolution: "@nestjs/axios@npm:0.0.8"
+"@nestjs/axios@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@nestjs/axios@npm:0.1.0"
   dependencies:
     axios: 0.27.2
   peerDependencies:
-    "@nestjs/common": ^7.0.0 || ^8.0.0
+    "@nestjs/common": ^7.0.0 || ^8.0.0 || ^9.0.0
     reflect-metadata: ^0.1.12
     rxjs: ^6.0.0 || ^7.0.0
-  checksum: bc6b18c6e8bcfab1e8e9371a089cbba293a7b1df6d5de7fa15bb80db1966e6f62ba62d2b30c7378674f7d2272a1a1d0c694e1192c767c269c0aae04b7bdfea9b
+  checksum: 72929b25caacb85517bae962b13d865a31aa3984aa9e55305e0a2306e54338fe51a7eb38ca38cab0fe8b4116fb35219bd02c8b0c4cac70e7b5aeb84d03a1db3f
   languageName: node
   linkType: hard
 
@@ -6811,11 +6805,14 @@ __metadata:
     "@ngrx/store": ~16.0.1
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.0.5
     jasmine: ^5.0.0
     rxjs: ^7.8.1
     webpack: ~5.88.0
   peerDependenciesMeta:
+    "@o3r/schematics":
+      optional: true
     "@schematics/angular":
       optional: true
     jasmine:
@@ -6854,7 +6851,6 @@ __metadata:
     "@types/jest": ~29.5.2
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
-    comment-json: ^4.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -6879,16 +6875,14 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.0.5
-    comment-json: ^4.1.0
     rxjs: ^7.8.1
+    typescript: ~5.0.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    comment-json:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6953,10 +6947,13 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ~16.0.5
     rxjs: ^7.8.1
+    typescript: ~5.0.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    typescript:
       optional: true
   languageName: unknown
   linkType: soft
@@ -6977,6 +6974,7 @@ __metadata:
     cp-build: ./scripts/cp-build.mjs
     cp-package-json: ./scripts/cp-package-json.mjs
     doc-links: ./scripts/doc-links.mjs
+    generate-cjs-manifest: ./scripts/generate-cjs-manifest.mjs
     patch-package-json-exports: ./scripts/patch-package-json-exports.mjs
     patch-package-json-main: ./scripts/patch-package-json-main.mjs
     pr-labels: ./scripts/pr-labels.mjs
@@ -7022,7 +7020,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.241
+    "@types/chrome": ^0.0.242
     "@types/jest": ~29.5.2
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
@@ -7047,7 +7045,7 @@ __metadata:
     jest-preset-angular: ^13.1.1
     minimist: ^1.2.6
     nx: ~16.5.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     tsc-watch: ^6.0.0
     tslib: ^2.5.3
@@ -7285,7 +7283,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
     chokidar: ^3.5.2
-    comment-json: ^4.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7330,7 +7327,6 @@ __metadata:
     "@nx/angular": ~16.3.2
     "@schematics/angular": ~16.0.5
     chokidar: ^3.5.2
-    comment-json: ^4.1.0
     globby: ^11.1.0
     ngrx-store-localstorage: ^16.0.0
     rxjs: ^7.8.1
@@ -7346,8 +7342,6 @@ __metadata:
     "@nx/angular":
       optional: true
     chokidar:
-      optional: true
-    comment-json:
       optional: true
     globby:
       optional: true
@@ -7386,7 +7380,7 @@ __metadata:
     jest-junit: ^16.0.0
     minimist: ^1.2.6
     nx: ~16.5.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     type-fest: ^3.12.0
@@ -7415,14 +7409,12 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/request": ^2.48.7
     "@types/request-promise-native": ^1.0.18
-    "@types/rimraf": ^3.0.2
     "@types/semver": ^7.3.13
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
     azure-devops-node-api: ^12.0.0
     chalk: ^4.1.2
     commander: ^11.0.0
-    comment-json: ^4.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7441,7 +7433,7 @@ __metadata:
     nx: ~16.5.0
     request: ^2.88.0
     request-promise-native: ^1.0.9
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     semver: ^7.5.2
     ts-jest: ^29.1.0
     ts-node: ^10.9.1
@@ -7553,7 +7545,6 @@ __metadata:
     "@schematics/angular": ~16.0.5
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
-    comment-json: ^4.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7576,7 +7567,6 @@ __metadata:
     "@schematics/angular": ~16.0.5
     "@typescript-eslint/eslint-plugin": ^5.9.0
     "@typescript-eslint/parser": ^5.9.0
-    comment-json: ^4.1.0
     eslint: ^8.22.0
     eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^27.2.1
@@ -7598,8 +7588,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    comment-json:
       optional: true
     eslint-plugin-jasmine:
       optional: true
@@ -7640,7 +7628,7 @@ __metadata:
     jest: ~29.6.0
     jest-junit: ^16.0.0
     nx: ~16.5.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
     typescript: ~5.0.2
@@ -7700,7 +7688,7 @@ __metadata:
     jest-junit: ^16.0.0
     jsonschema: ~1.4.1
     nx: ~16.5.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -7853,9 +7841,9 @@ __metadata:
     nx-cloud: ~16.0.5
     react: ^17.0.2
     react-dom: ^17.0.2
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
-    sass: ~1.63.0
+    sass: ~1.64.0
     sass-loader: ^13.1.0
     semver: ^7.5.2
     shx: ^0.3.4
@@ -8292,6 +8280,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/testing": "workspace:^"
     "@schematics/angular": ~16.0.5
     "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
@@ -8316,7 +8305,7 @@ __metadata:
     jsonpath-plus: ^7.0.0
     nx: ~16.5.0
     pid-from-port: ^1.1.3
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     semver: ^7.5.2
     ts-jest: ^29.1.0
@@ -8404,7 +8393,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
     chalk: ^4.1.2
-    comment-json: ^4.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8549,7 +8537,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
     color: ^4.0.0
-    comment-json: ^4.1.0
     concurrently: ^8.0.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -8563,7 +8550,7 @@ __metadata:
     nx: ~16.5.0
     react: ^17.0.2
     react-dom: ^17.0.2
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -8585,14 +8572,12 @@ __metadata:
     "@storybook/angular": ^7.0.20
     "@storybook/api": ^7.0.20
     "@storybook/components": ^7.0.20
-    comment-json: ^4.1.0
     rxjs: ^7.8.1
+    typescript: ~5.0.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
-      optional: true
-    comment-json:
       optional: true
   languageName: unknown
   linkType: soft
@@ -8624,7 +8609,7 @@ __metadata:
     jest-preset-stylelint: ~6.1.0
     nx: ~16.5.0
     postcss: ^8.4.5
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     stylelint: ^15.10.1
     ts-jest: ^29.1.0
     tslib: ^2.5.3
@@ -8688,7 +8673,7 @@ __metadata:
     jest-junit: ^16.0.0
     nx: ~16.5.0
     rxjs: ^7.8.1
-    sass: ~1.63.0
+    sass: ~1.64.0
     sass-true: ^7.0.0
     stylelint: ^15.10.1
     stylelint-scss: ^4.0.0
@@ -8753,7 +8738,6 @@ __metadata:
     "@types/pngjs": ^6.0.0
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
-    comment-json: ^4.1.0
     concurrently: ^8.0.0
     cpy-cli: ^4.2.0
     esbuild: ~0.18.0
@@ -8790,7 +8774,6 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.0.5
-    comment-json: ^4.1.0
     pixelmatch: ^5.2.1
     playwright: ~1.36.0
     pngjs: ^7.0.0
@@ -8841,6 +8824,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
@@ -8858,12 +8842,20 @@ __metadata:
     jest-junit: ^16.0.0
     jest-preset-angular: ^13.1.1
     nx: ~16.5.0
-    rimraf: ^5.0.0
+    rimraf: ^5.0.1
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.0.2
     uuid: ^9.0.0
     zone.js: ~0.13.1
+  peerDependencies:
+    "@angular-devkit/schematics": ~16.0.5
+    "@o3r/schematics": "workspace:^"
+  peerDependenciesMeta:
+    "@angular-devkit/schematics":
+      optional: true
+    "@o3r/schematics":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -9222,11 +9214,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.6.0":
-  version: 2.6.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.6.0"
+"@openapitools/openapi-generator-cli@npm:~2.7.0":
+  version: 2.7.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.7.0"
   dependencies:
-    "@nestjs/axios": 0.0.8
+    "@nestjs/axios": 0.1.0
     "@nestjs/common": 9.3.11
     "@nestjs/core": 9.3.11
     "@nuxtjs/opencollective": 0.3.2
@@ -9244,7 +9236,7 @@ __metadata:
     tslib: 2.0.3
   bin:
     openapi-generator-cli: main.js
-  checksum: d60711b0fc018f4834faa28be8990a6d019d87be9cd8c8f7f1a2f5dfb863044b1f80bc0841caceffa76f6eec3e756291e3b8e81a00d42ca883974703b616097f
+  checksum: 92ca36779b43fe1e4868cd89bde4cb96918868aa62c8a69a9e199711d8e7093bab67f484d266fcbf37ca4ad87e4e91ea5759fb322c7999a299f5bfdc179065b8
   languageName: node
   linkType: hard
 
@@ -10505,13 +10497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.241":
-  version: 0.0.241
-  resolution: "@types/chrome@npm:0.0.241"
+"@types/chrome@npm:^0.0.242":
+  version: 0.0.242
+  resolution: "@types/chrome@npm:0.0.242"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: af6cf474ed120b046001c0edf50bb752191369d5205d0b2d1ebcb7548db6b87183a098ee7ab77db1a441eacbf36fbfc3cd5b04a9642a99180a13018ced400984
+  checksum: 147e75c3eaa6729d18f74728316b49fc60fc476922c5439955513d463d0a7b482d8b071cdde4d724146d405501ff73d845e981b9124d4c19cc73f5ce96815d89
   languageName: node
   linkType: hard
 
@@ -10700,7 +10692,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/glob@npm:*, @types/glob@npm:^8.0.0":
+"@types/glob@npm:^8.0.0":
   version: 8.1.0
   resolution: "@types/glob@npm:8.1.0"
   dependencies:
@@ -11222,16 +11214,6 @@ __metadata:
   version: 0.12.0
   resolution: "@types/retry@npm:0.12.0"
   checksum: 61a072c7639f6e8126588bf1eb1ce8835f2cb9c2aba795c4491cf6310e013267b0c8488039857c261c387e9728c1b43205099223f160bb6a76b4374f741b5603
-  languageName: node
-  linkType: hard
-
-"@types/rimraf@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@types/rimraf@npm:3.0.2"
-  dependencies:
-    "@types/glob": "*"
-    "@types/node": "*"
-  checksum: b47fa302f46434cba704d20465861ad250df79467d3d289f9d6490d3aeeb41e8cb32dd80bd1a8fd833d1e185ac719fbf9be12e05ad9ce9be094d8ee8f1405347
   languageName: node
   linkType: hard
 
@@ -12706,13 +12688,6 @@ __metadata:
   version: 1.0.0
   resolution: "array-ify@npm:1.0.0"
   checksum: c0502015b319c93dd4484f18036bcc4b654eb76a4aa1f04afbcef11ac918859bb1f5d71ba1f0f1141770db9eef1a4f40f1761753650873068010bbf7bcdae4a4
-  languageName: node
-  linkType: hard
-
-"array-timsort@npm:^1.0.3":
-  version: 1.0.3
-  resolution: "array-timsort@npm:1.0.3"
-  checksum: fd4b5b0911214bdc8b5699ed10d309685551b518b3819c611c967cff59b87aee01cf591a10e36a3f14dbff696984bd6682b845f6fdbf1217195e910f241a4f78
   languageName: node
   linkType: hard
 
@@ -14571,19 +14546,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"comment-json@npm:^4.1.0":
-  version: 4.2.3
-  resolution: "comment-json@npm:4.2.3"
-  dependencies:
-    array-timsort: ^1.0.3
-    core-util-is: ^1.0.3
-    esprima: ^4.0.1
-    has-own-prop: ^2.0.0
-    repeat-string: ^1.6.1
-  checksum: 7f8d26266b0d49de9661f6365cbcc373fee4f4d0f422a203dfb17ad8f3d84c5be5ded444874935a197cd03cff297c53fe48910256cb4171cb2e52a3e6b9d317c
-  languageName: node
-  linkType: hard
-
 "comment-parser@npm:1.3.1":
   version: 1.3.1
   resolution: "comment-parser@npm:1.3.1"
@@ -15130,7 +15092,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-util-is@npm:^1.0.2, core-util-is@npm:^1.0.3, core-util-is@npm:~1.0.0":
+"core-util-is@npm:^1.0.2, core-util-is@npm:~1.0.0":
   version: 1.0.3
   resolution: "core-util-is@npm:1.0.3"
   checksum: 9de8597363a8e9b9952491ebe18167e3b36e7707569eed0ebf14f8bba773611376466ae34575bca8cfe3c767890c859c74056084738f09d4e4a6f902b2ad7d99
@@ -27028,7 +26990,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rimraf@npm:^5.0.0":
+"rimraf@npm:^5.0.1":
   version: 5.0.1
   resolution: "rimraf@npm:5.0.1"
   dependencies:
@@ -27246,16 +27208,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.63.0":
-  version: 1.63.0
-  resolution: "sass@npm:1.63.0"
+"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.64.0":
+  version: 1.64.0
+  resolution: "sass@npm:1.64.0"
   dependencies:
     chokidar: ">=3.0.0 <4.0.0"
     immutable: ^4.0.0
     source-map-js: ">=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: 7b5b3ea0f6b09577a58ecd04634750e3ca9e9336f0b7048efad0b92f9d6c64966e031ebbffa7fb40a16387ea854904bf95bdcd00257800eb9d98f49e5ef04eb3
+  checksum: b4eb9b1bdeb1c00e76427d7fe3e5f80d831327178cdee657aa4e014edfc64ebbfe43177147403da1e04d76a24f4093f5a9b1c8d9d80c94579937d8adc5a6ef66
   languageName: node
   linkType: hard
 
@@ -30832,9 +30794,9 @@ __metadata:
   linkType: hard
 
 "word-wrap@npm:^1.2.3, word-wrap@npm:~1.2.3":
-  version: 1.2.3
-  resolution: "word-wrap@npm:1.2.3"
-  checksum: 30b48f91fcf12106ed3186ae4fa86a6a1842416df425be7b60485de14bec665a54a68e4b5156647dec3a70f25e84d270ca8bc8cd23182ed095f5c7206a938c1f
+  version: 1.2.4
+  resolution: "word-wrap@npm:1.2.4"
+  checksum: 8f1f2e0a397c0e074ca225ba9f67baa23f99293bc064e31355d426ae91b8b3f6b5f6c1fc9ae5e9141178bb362d563f55e62fd8d5c31f2a77e3ade56cb3e35bd1
   languageName: node
   linkType: hard
 

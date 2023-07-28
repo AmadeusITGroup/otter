@@ -14,7 +14,7 @@
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*.scss' dist/schematics",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build styling"
   },
   "exports": {
@@ -100,7 +100,7 @@
     "jest-junit": "^16.0.0",
     "nx": "~16.5.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.63.0",
+    "sass": "~1.64.0",
     "sass-true": "^7.0.0",
     "stylelint": "^15.10.1",
     "stylelint-scss": "^4.0.0",

@@ -1,6 +1,5 @@
 import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 const tsEslintParserDep = '@typescript-eslint/parser';
 
@@ -12,7 +11,7 @@ const tsEslintParserDep = '@typescript-eslint/parser';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateLinterConfigs(options: { projectName: string | null }, rootPath: string): Rule {
+export function updateLinterConfigs(options: { projectName: string | null | undefined }, rootPath: string): Rule {
 
   /**
    * Update or create the eslint.json file
@@ -25,14 +24,14 @@ export function updateLinterConfigs(options: { projectName: string | null }, roo
     const eslintExists = tree.exists(eslintFilePath);
 
     if (eslintExists) {
-      const eslintFile = commentJson.parse(tree.read(eslintFilePath)!.toString()) as { extends?: string | string[] };
+      const eslintFile = tree.readJson(eslintFilePath) as { extends?: string | string[] };
       eslintFile.extends = eslintFile.extends ? (eslintFile.extends instanceof Array ? eslintFile.extends : [eslintFile.extends]) : [];
 
       if (eslintFile.extends.indexOf(tsEslintParserDep) === -1) {
         eslintFile.extends.push(tsEslintParserDep);
       }
 
-      tree.overwrite(eslintFilePath, commentJson.stringify(eslintFile, null, 2));
+      tree.overwrite(eslintFilePath, JSON.stringify(eslintFile, null, 2));
       return tree;
 
     } else if (!tree.exists('/.eslintrc.js')) {
@@ -76,7 +75,7 @@ export function updateLinterConfigs(options: { projectName: string | null }, roo
 
     const { name, ...newProject } = workspaceProject;
     workspace.projects[name] = newProject;
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

@@ -27,15 +27,15 @@ export function ngAdd() {
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component': {
-            useOtterConfig: null
+            useOtterConfig: undefined
           },
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-container': {
-            useOtterConfig: null
+            useOtterConfig: undefined
           },
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component-presenter': {
-            useOtterConfig: null
+            useOtterConfig: undefined
           }
         }),
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })

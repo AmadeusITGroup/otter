@@ -1,6 +1,5 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as commentJson from 'comment-json';
 import { sync as globbySync } from 'globby';
 import { minimatch } from 'minimatch';
 import * as path from 'node:path';
@@ -16,12 +15,11 @@ import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
  * @deprecate use {@link getWorkspaceConfig} function instead, will be removed in Otter v10
  */
 export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): WorkspaceSchema {
-  const workspaceConfig = tree.read(angularJsonFile);
-  if (!workspaceConfig) {
+  if (!tree.exists(angularJsonFile)) {
     throw new SchematicsException('Could not find Angular workspace configuration');
   }
-
-  return commentJson.parse(workspaceConfig.toString()) as any;
+  const workspaceConfig = tree.readJson(angularJsonFile);
+  return workspaceConfig as any;
 }
 
 /**
@@ -46,7 +44,7 @@ export function getWorkspaceConfig<T extends WorkspaceSchema = WorkspaceSchema>(
  * @param angularJsonFile Angular.json file path
  */
 export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angularJsonFile = '/angular.json') {
-  tree.overwrite(angularJsonFile, commentJson.stringify(workspace, null, 2));
+  tree.overwrite(angularJsonFile, JSON.stringify(workspace, null, 2));
   return tree;
 }
 
@@ -58,13 +56,13 @@ export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angular
  * @throws Package JSON invalid or non exist
  */
 export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const workspaceConfig = tree.read(`${workspaceProject.root}/package.json`);
-  if (!workspaceConfig) {
+  const packageJsonPath = `${workspaceProject.root}/package.json`;
+  if (!tree.exists(packageJsonPath)) {
     throw new SchematicsException('Could not find NPM Package');
   }
 
-  return commentJson.parse(workspaceConfig.toString()) as PackageJson;
+  const workspaceConfig = tree.readJson(packageJsonPath);
+  return workspaceConfig as PackageJson;
 }
 
 /**

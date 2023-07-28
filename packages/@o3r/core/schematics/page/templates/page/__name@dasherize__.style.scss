@@ -1,5 +1,0 @@
-<% if (useOtterTheming) {%>@import './<%=dasherize(name)%>.style.theme';
-
-<% } %><%= prefix %>-<%= dasherize(name) %> {
-// Your page custom SCSS
-}

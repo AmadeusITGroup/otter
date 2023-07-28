@@ -1,8 +1,8 @@
-import type {JsonObject} from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGeneratePageSchematicsSchema extends JsonObject {
+export interface NgGeneratePageSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Page name */
   name: string;
@@ -14,10 +14,10 @@ export interface NgGeneratePageSchematicsSchema extends JsonObject {
   appRoutingModulePath: string;
 
   /** Selector prefix */
-  prefix: string | null;
+  prefix: string | undefined;
 
   /** Directory containing the pages */
-  path: string | null;
+  path: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;
@@ -33,4 +33,10 @@ export interface NgGeneratePageSchematicsSchema extends JsonObject {
 
   /** Whether the generated component is standalone */
   standalone: boolean;
+
+  /** Generate page fixtures for tests */
+  usePageFixtures: boolean;
+
+  /** Generate dummy values */
+  activateDummy: boolean;
 }

@@ -1,5 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { getDecoratorMetadata, isImported } from '@schematics/angular/utility/ast-utils';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
@@ -31,7 +31,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param _rootPath
  */
-export function updateStore(options: { projectName: string | null }, _rootPath: string): Rule {
+export function updateStore(options: { projectName: string | null | undefined }, _rootPath: string): Rule {
   /**
    * Changed package.json start script to run localization generation
    *

@@ -15,7 +15,7 @@
     "build": "yarn nx build analytics",
     "prepare:compile": "cp-package-json",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
     "prepare:publish": "prepare-publish ./dist"
@@ -30,12 +30,16 @@
     "@ngrx/store": "~16.0.1",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~16.0.5",
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
     "webpack": "~5.88.0"
   },
   "peerDependenciesMeta": {
+    "@o3r/schematics": {
+      "optional": true
+    },
     "@schematics/angular": {
       "optional": true
     },

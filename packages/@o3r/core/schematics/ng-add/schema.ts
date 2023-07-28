@@ -1,13 +1,13 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
 export type PresetNames = 'basic' | 'cms';
 
-export interface NgAddSchematicsSchema extends JsonObject {
+export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Preset of module list to automatically install */
   preset: PresetNames;
 
   /** Project name */
-  projectName: string | null;
+  projectName: string | undefined;
 
   /** Enable prefetch builder */
   enablePrefetchBuilder: boolean;
@@ -35,9 +35,6 @@ export interface NgAddSchematicsSchema extends JsonObject {
 
   /** Enable Storybook */
   enableStorybook: boolean;
-
-  /** Set the Otter Generator as default ngCLI generator */
-  isDefaultGenerator: boolean;
 
   /** Skip the linter process */
   skipLinter: boolean;

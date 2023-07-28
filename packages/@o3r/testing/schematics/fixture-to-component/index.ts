@@ -64,7 +64,7 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
         },
         {
           from: `./${baseFileName}.fixture`,
-          importNames: [properties.componentFixture]
+          importNames: [`${properties.componentFixture}Component`]
         }
       ]),
       () => {
@@ -99,12 +99,12 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
 
         const newContent = tree.readText(specFilePath)
           .replaceAll(
-            /(component = fixture.componentInstance;)/g,
-            `$1\ncomponentFixture = new ${properties.componentFixture}Component(new O3rElement(fixture.debugElement));`
+            /((\s+)component = fixture.componentInstance;)/g,
+            `$1\n$2componentFixture = new ${properties.componentFixture}Component(new O3rElement(fixture.debugElement));`
           )
           .replaceAll(
-            /(expect\(component\).toBeDefined\(\);)/g,
-            '$1\nexpect(componentFixture).toBeDefined();'
+            /((\s+)expect\(component\).toBeTruthy\(\);)/g,
+            '$1\n$2expect(componentFixture).toBeTruthy();'
           );
 
         tree.overwrite(specFilePath, newContent);

@@ -21,6 +21,8 @@ describe('Page', () => {
   describe('Default parameters', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
@@ -30,7 +32,7 @@ describe('Page', () => {
     });
 
     it('should generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(13);
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
       expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
     });
 
@@ -39,13 +41,15 @@ describe('Page', () => {
     });
 
     it('should have the default selector', () => {
-      expect(tree.readContent('/src/app/test-page/test-page.component.ts')).toContain('selector: \'tst-test-page\'');
+      expect(tree.readContent('/src/app/test-page/test-page.component.ts')).toContain('selector: \'o3r-test-page\'');
     });
   });
 
   describe('Standalone page', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'test-page',
@@ -56,7 +60,7 @@ describe('Page', () => {
     });
 
     it('should generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(12);
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(6);
       expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeFalsy();
     });
 
@@ -68,18 +72,20 @@ describe('Page', () => {
   describe('Custom parameters', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'testPage',
         scope: 'testScope',
-        prefix: 'o3r',
+        prefix: 'custom',
         appRoutingModulePath: 'app.routing.module.ts',
         path: './custom'
       }, getInitialTree());
     });
 
     it('should generate files with default parameters', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(13);
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
       expect(tree.files.some((file) => /^[\\/]?custom[\\/]test-scope[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
     });
 
@@ -88,13 +94,15 @@ describe('Page', () => {
     });
 
     it('should have the custom selector', () => {
-      expect(tree.readContent('/custom/test-scope/test-page/test-page.component.ts')).toContain('selector: \'o3r-test-page\'');
+      expect(tree.readContent('/custom/test-scope/test-page/test-page.component.ts')).toContain('selector: \'custom-test-page\'');
     });
   });
 
   describe('Wrong App Routing Module path', () => {
     beforeAll(async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
+      const angularPackageJson = require.resolve('@schematics/angular/package.json');
+      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
       tree = await runner.runExternalSchematic('schematics', 'page', {
         projectName: 'test-project',
         name: 'testPage',
@@ -105,7 +113,7 @@ describe('Page', () => {
     });
 
     it('should still generate files', () => {
-      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(13);
+      expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
     });
   });
 });

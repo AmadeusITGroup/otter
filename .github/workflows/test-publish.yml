@@ -71,6 +71,12 @@ jobs:
         with:
           name: it-tests
           path: it-tests.zip
+      - name: Publish tests reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: it-reports
+          path: 'packages/**/dist-test/it-report.xml'
       - name: Stop verdaccio
         if: always()
         run: yarn verdaccio:stop

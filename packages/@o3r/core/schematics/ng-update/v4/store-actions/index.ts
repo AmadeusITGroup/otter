@@ -1,6 +1,6 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getSourceFilesFromWorkspaceProjects, parseImportsFromFile } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 
 const STORE_PACKAGE_REGEXP = /^@otter\/store/;
 
@@ -42,7 +42,7 @@ export function updateStoreActionsInFile(tree: Tree, sourceFile: ts.SourceFile, 
  * @param _options
  * @param _options.projectName
  */
-export function updateStoreActions(_options?: { projectName: string | null }): Rule {
+export function updateStoreActions(_options?: { projectName: string | null | undefined }): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const files = getSourceFilesFromWorkspaceProjects(tree);
 

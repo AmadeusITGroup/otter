@@ -12,7 +12,7 @@ export function ngAdd(): Rule {
     try {
       const {addImportToModuleFile, getAppModuleFilePath, getProjectDepType, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
       const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
-      const ts = await import('@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript');
+      const ts = await import('typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
       const addAngularAnimationPreferences: Rule = () => {

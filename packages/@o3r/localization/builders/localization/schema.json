@@ -44,19 +44,16 @@
     "assets": {
       "oneOf": [
         {
-          "type": "string",
-          "default": null
+          "type": "string"
         },
         {
           "type": "array",
           "items": {
             "type": "string"
-          },
-          "default": null
+          }
         }
       ],
-      "description": "Asset folder containing the package translations",
-      "default": null
+      "description": "Asset folder containing the package translations"
     },
     "checkUnusedTranslation": {
       "type": "boolean",

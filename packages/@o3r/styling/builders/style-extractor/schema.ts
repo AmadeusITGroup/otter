@@ -15,4 +15,7 @@ export interface StyleExtractorBuilderSchema extends JsonObject {
 
   /** List of libraries imported */
   libraries: string[];
+
+  /** Library/Application name to be assigned into metadata */
+  name: string | null;
 }

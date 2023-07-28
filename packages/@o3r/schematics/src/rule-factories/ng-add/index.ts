@@ -1,10 +1,10 @@
-import type { JsonValue } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, RuleFactory, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import type { NodeDependency } from '@schematics/angular/utility/dependencies';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
+import { SchematicOptionObject } from '../../interfaces';
 import type { NgAddPackageOptions } from '../../tasks/index';
 import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, readAngularJson, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
 
@@ -152,7 +152,7 @@ export function registerPackageCollectionSchematics(packageJson: PackageJson, an
  * @param schematicsDefaultParams default params to setup by schematic
  * @param angularJsonFile Path to the Angular.json file. Will use the workspace root's angular.json if not specified
  */
-export function setupSchematicsDefaultParams(schematicsDefaultParams: Record<string, Record<string, JsonValue>>, angularJsonFile?: string): Rule {
+export function setupSchematicsDefaultParams(schematicsDefaultParams: Record<string, SchematicOptionObject>, angularJsonFile?: string): Rule {
   return (tree: Tree) => {
     const workspace = readAngularJson(tree, angularJsonFile);
     workspace.schematics ||= {};

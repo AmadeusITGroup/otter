@@ -1,0 +1,18 @@
+name: IT Tests report
+
+on:
+  workflow_run:
+    workflows: ['Main CI']
+    types:
+      - completed
+
+jobs:
+  publish-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: /it-reports(.*)/
+          name: IT Tests report
+          path: '**/*.xml'
+          reporter: jest-junit

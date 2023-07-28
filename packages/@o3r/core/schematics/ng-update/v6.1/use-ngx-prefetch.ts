@@ -1,7 +1,6 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getProjectFromTree, readAngularJson } from '@o3r/schematics';
 import { addPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as commentJson from 'comment-json';
 
 /**
  * Add the mandatory targetBuild property for the prefetch builder
@@ -22,7 +21,7 @@ export function useNgxPrefetch(): Rule {
       }
       const { name, ...newProject } = workspaceProject;
       workspace.projects[name] = newProject;
-      tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+      tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
 
       addPackageJsonDependency(tree, {name: '@o3r/ngx-prefetch', version: '~13.0.3', type: NodeDependencyType.Dev, overwrite: false});
 
