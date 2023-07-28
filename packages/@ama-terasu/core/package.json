@@ -33,7 +33,7 @@
     "loglevel": "^1.8.0",
     "nx": "~16.5.0",
     "ts-jest": "^29.1.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "yargs": "^17.6.2"
   },
   "dependencies": {

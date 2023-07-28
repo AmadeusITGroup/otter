@@ -76,7 +76,7 @@
     "@angular-eslint/utils": "~16.1.0",
     "@angular/compiler": "~16.1.6",
     "@commitlint/cli": "^17.0.0",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@commitlint/config-conventional": "^17.0.0",
     "@ama-sdk/generator-sdk": "~<%= sdkCoreVersion %>",
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
@@ -109,9 +109,9 @@
     "rimraf": "^5.0.1",
     "standard-version": "^9.0.0",
     "ts-jest": "^29.1.0",
-    "typedoc": "~0.24.0",
+    "typedoc": "~0.24.8",
     "tsc-watch": "^6.0.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "yo": "~4.3.0"
   },
   "peerDependencies": {

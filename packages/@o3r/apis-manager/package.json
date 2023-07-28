@@ -22,9 +22,9 @@
     "@angular/core": "~16.1.6",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "rxjs": "^7.8.1",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -62,7 +62,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@types/jest": "~29.5.2",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
@@ -79,7 +79,7 @@
     "jest-preset-angular": "^13.1.1",
     "nx": "~16.5.0",
     "rxjs": "^7.8.1",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "zone.js": "~0.13.1"
   },
   "schematics": "./collection.json",

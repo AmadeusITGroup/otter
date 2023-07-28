@@ -20,9 +20,9 @@
     "@angular-devkit/schematics": "~16.1.6",
     "@angular-devkit/schematics-cli": "~16.1.6",
     "@openapitools/openapi-generator-cli": "~2.7.0",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "minimist": "^1.2.6",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~16.1.0",

@@ -59,7 +59,7 @@
     "smee-client": "^1.2.2",
     "ts-jest": "^29.1.0",
     "tslib": "^2.5.3",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "zone.js": "~0.13.1"
   },
   "engines": {

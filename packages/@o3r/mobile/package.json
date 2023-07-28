@@ -43,7 +43,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/store-sync": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "rxjs": "^7.8.1"
   },
   "peerDependenciesMeta": {
@@ -87,7 +87,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/store-sync": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/node-fetch": "^2.6.2",
@@ -107,7 +107,7 @@
     "nx": "~16.5.0",
     "rxjs": "^7.8.1",
     "ts-jest": "^29.1.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "zone.js": "~0.13.1"
   },
   "engines": {

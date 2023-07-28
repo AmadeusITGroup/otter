@@ -54,13 +54,13 @@
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@storybook/addons": "^7.0.20",
     "@storybook/angular": "^7.0.20",
     "@storybook/api": "^7.0.20",
     "@storybook/components": "^7.0.20",
     "rxjs": "^7.8.1",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -98,7 +98,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@storybook/addons": "^7.0.20",
     "@storybook/angular": "^7.0.20",
     "@storybook/api": "^7.0.20",
@@ -123,7 +123,7 @@
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "ts-jest": "^29.1.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "zone.js": "~0.13.1"
   },
   "schematics": "./collection.json"

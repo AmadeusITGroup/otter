@@ -162,7 +162,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@swc-node/register": "^1.6.6",
     "@swc/core": "^1.3.66",
     "@types/jest": "~29.5.2",
@@ -208,7 +208,7 @@
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.1",
     "tsc-watch": "^6.0.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "webpack": "~5.88.0",
     "winston": "^3.8.2"
   },

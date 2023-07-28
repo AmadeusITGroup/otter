@@ -39,12 +39,12 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "globby": "^11.1.0",
     "jasmine": "^5.0.0",
     "jsonpath-plus": "^7.0.0",
     "rxjs": "^7.8.1",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "typescript-json-schema": "~0.59.0"
   },
   "peerDependenciesMeta": {
@@ -114,7 +114,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@types/jasmine": "~4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
@@ -143,7 +143,7 @@
     "semver": "^7.5.2",
     "ts-jest": "^29.1.0",
     "type-fest": "^3.12.0",
-    "typescript": "~5.0.2",
+    "typescript": "~5.1.6",
     "typescript-json-schema": "~0.59.0",
     "zone.js": "~0.13.1"
   },

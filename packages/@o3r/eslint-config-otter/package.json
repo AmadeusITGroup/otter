@@ -49,7 +49,7 @@
     "@angular/compiler": "~16.1.6",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.22.0",
@@ -58,7 +58,7 @@
     "eslint-plugin-jsdoc": "^39.3.6",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "eslint-plugin-unicorn": "^47.0.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "devDependencies": {
     "@angular-devkit/core": "~16.1.6",
@@ -70,7 +70,8 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.0.5",
+    "@schematics/angular": "~16.1.6",
+    "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
     "@typescript-eslint/parser": "^5.59.9",
     "cpy-cli": "^4.2.0",
@@ -82,7 +83,7 @@
     "eslint-plugin-prefer-arrow": "^1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "nx": "~16.5.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
