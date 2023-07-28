@@ -140,8 +140,7 @@ describe('Create new sdk command', () => {
   test('should generate a full SDK when the specification is provided', () => {
     // eslint-disable-next-line max-len
     expect(() => execSync(`${packageManager} create @ama-sdk typescript ${sdkPackageName}${packageManager.startsWith('npm') ? ' --' : ''} --package-manager ${packageManager} --spec-path ./swagger-spec.yml`, execAppOptions)).not.toThrow();
-    // TODO: uncomment when the generation is fixed for NPM
-    // expect(() => execSync(`${packageManager} run build`, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => execSync(`${packageManager} run build`, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
@@ -151,7 +150,6 @@ describe('Create new sdk command', () => {
         `${packageManager} exec schematics @ama-sdk/schematics:typescript-core --spec-path ${path.join(path.relative(sdkPackagePath, execAppOptions.cwd.toString()), 'swagger-spec.yml')}`,
         { ...execAppOptions, cwd: sdkPackagePath }
       )).not.toThrow();
-    // TODO: uncomment when the generation is fixed for NPM
-    // expect(() => execSync('npm run build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => execSync(`${packageManager} run build`, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 });

@@ -32,15 +32,15 @@
     "clean": "rimraf test/ test-dev/ dist/ dist-dev/ dist-test/ build/",
     "lint:ci": "eslint '**/*[jt]s' --quiet --format junit --output-file ./dist-lint/result.xml",
     "lint": "eslint '**/*[jt]s' --cache",
-    "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"yarn files:pack --watch\"",
-    "build": "yarn build:cjs && yarn build:esm2015 && yarn build:esm2020 && yarn files:pack",
+    "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"<%=packageManager%> run files:pack --watch\"",
+    "build": "<%=packageManager%> run build:cjs && <%=packageManager%> run build:esm2015 && <%=packageManager%> run build:esm2020 && <%=packageManager%> run files:pack",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
     "set:version": "set-version --placeholder 0.0.0",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
-    "spec:regen": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml && yarn clear-index",
+    "spec:regen": "<%=packageManager%> run generate && <%=packageManager%> exec clear-index",
     "clear-index": "node scripts/clear-index.js",
     "files:pack": "node scripts/files-pack.js",
     "test": "jest --passWithNoTests",
@@ -52,7 +52,7 @@
   },
   "lint-staged": {
     "**/*.(js|ts)": [
-      "yarn eslint --quiet --fix --global fast"
+      "<%=packageManager%> exec eslint --quiet --fix --global fast"
     ]
   },
   "dependencies": {
@@ -115,6 +115,5 @@
     "node": "<%= engineVersions['node'] %>",
     "npm": "<%= engineVersions['npm'] %>",
     "yarn": "<%= engineVersions['yarn'] %>"
-  },
-  "packageManager": "yarn@3.6.1"
+  }
 }

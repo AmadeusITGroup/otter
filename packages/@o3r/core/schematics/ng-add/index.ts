@@ -51,14 +51,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         return () => presetRunner.rule(t, c);
       },
       async (t, c) => {
-        const { preset, ...forwardOptions } = options;
-        const presetRunner = await presets[preset]({ forwardOptions });
-        if (presetRunner.modules) {
-          c.logger.info(`The following modules will be installed: ${presetRunner.modules.join(', ')}`);
-        }
-        return () => presetRunner.rule(t, c);
-      },
-      async (t, c) => {
         const { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } = await import('@o3r/schematics');
         const displayModuleListRule = displayModuleList(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES);
         return () => displayModuleListRule(t, c);

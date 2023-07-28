@@ -1,4 +1,4 @@
-import { Tree } from '@angular-devkit/schematics';
+import {Tree} from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 
@@ -29,7 +29,10 @@ const baseFileList = [
   '/scripts/files-pack.js',
   '/scripts/override-readme.js',
   '/scripts/restore-readme.js',
+  '/src/api/index.ts',
+  '/src/api/fixtures.jest.ts',
   '/src/index.ts',
+  '/src/models/base/enums.ts',
   '/src/fixtures/jest/index.ts',
   '/src/fixtures/jest/package.json',
   '/src/helpers/index.ts',
@@ -37,6 +40,9 @@ const baseFileList = [
   '/src/models/enums.ts',
   '/src/models/index.ts',
   '/src/models/patterns.ts',
+  '/src/models/base/patterns.ts',
+  '/src/spec/operation-adapter.ts',
+  '/src/spec/api-mock.ts',
   '/src/models/base/index.ts',
   '/src/models/core/enums.ts',
   '/src/models/core/index.ts',
@@ -59,25 +65,41 @@ const baseFileList = [
   '/typedoc.json'
 ];
 
-let tree: UnitTestTree;
+let yarnTree: UnitTestTree;
+let npmTree: UnitTestTree;
 
 describe('Typescript Shell Generator', () => {
   beforeEach(async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
-    tree = await runner.runSchematic('typescript-shell', {
+    yarnTree = await runner.runSchematic('typescript-shell', {
       name: 'test-scope',
       package: 'test-sdk',
       skipInstall: true
     }, Tree.empty());
+    npmTree = await runner.runSchematic('typescript-shell', {
+      name: 'test-scope',
+      package: 'test-sdk',
+      skipInstall: true,
+      packageManager: 'npm'
+    }, Tree.empty());
   });
 
   it('should generate basic SDK package', () => {
-    expect(tree.files.sort()).toEqual(baseFileList.sort());
+    expect(yarnTree.files.sort()).toEqual(baseFileList.sort());
   });
 
   it('should generate correct package name', () => {
-    const {name} = JSON.parse(tree.readContent('/package.json'));
-
+    const {name} = JSON.parse(yarnTree.readContent('/package.json'));
     expect(name).toEqual('@test-scope/test-sdk');
+  });
+
+  it('should use yarn as default package manager', () => {
+    expect(yarnTree.readContent('/package.json')).toContain('yarn exec');
+    expect(yarnTree.readContent('/package.json')).not.toContain('npm exec');
+  });
+
+  it('should use npm as package manager if specified', () => {
+    expect(npmTree.readContent('/package.json')).toContain('npm exec');
+    expect(npmTree.readContent('/package.json')).not.toContain('yarn exec');
   });
 });

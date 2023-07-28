@@ -1,27 +1,21 @@
-import {
-  apply,
-  chain,
-  MergeStrategy,
-  mergeWith,
-  Rule,
-  SchematicContext,
-  template,
-  Tree,
-  url
-} from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
+  getPackageManagerRunner,
   getProjectDepType,
   getProjectFromTree,
   getTemplateFolder,
+  getWorkspaceConfig,
   ignorePatterns,
   ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile,
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  readAngularJson, readPackageJson, writeAngularJson
+  readAngularJson,
+  readPackageJson,
+  writeAngularJson
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import {
@@ -220,6 +214,7 @@ export function updateLocalization(options: { projectName: string | null | undef
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName || null, 'application');
+    const packageManagerRunner = getPackageManagerRunner(getWorkspaceConfig(tree));
     if (!workspaceProject) {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
@@ -236,7 +231,7 @@ export function updateLocalization(options: { projectName: string | null | undef
     }
     packageJson.scripts.start ||= `ng run ${projectName}:run`;
     if (packageJson.scripts.build?.indexOf('generate:translations') === -1) {
-      packageJson.scripts.build = `yarn generate:translations && ${packageJson.scripts.build}`;
+      packageJson.scripts.build = `${packageManagerRunner} generate:translations && ${packageJson.scripts.build}`;
     }
     packageJson.scripts['generate:translations:dev'] ||= `ng run ${projectName}:generate-translations`;
     packageJson.scripts['generate:translations'] ||= `ng run ${projectName}:generate-translations:production`;

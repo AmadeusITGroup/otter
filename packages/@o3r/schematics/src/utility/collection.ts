@@ -15,3 +15,29 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
   }
   return workspace;
 }
+
+/**
+ * Get default options for a schematic
+ * This will look inside angular.json file for schematics with keys containing wildcards like `*:ng-add` or `@o3r/core:*`
+ *
+ * @param workspace
+ * @param collection
+ * @param schematicName
+ * @param options
+ * @param options.projectName
+ */
+export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options: {projectName: string | undefined}) {
+  if (!workspace) {
+    return {};
+  }
+  const schematicsDefaultParams = [
+    workspace.schematics,
+    ...options.projectName ? [workspace.projects[options.projectName]?.schematics] : []
+  ];
+  return schematicsDefaultParams.flatMap((schematics) => schematics ?
+    Object.entries<Record<string, string>>(schematics)
+      .filter(([key, _]) => key === `*:${schematicName}` || key === `${collection}:*`)
+      .map(([_, value]) => value) :
+    []
+  ).reduce((out, defaultParams) => ({...out, ...defaultParams}), {});
+}

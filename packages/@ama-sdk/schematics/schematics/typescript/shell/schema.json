@@ -36,7 +36,7 @@
         "yarn"
       ],
       "description": "Package manager to be used in the generated SDK",
-      "default": ""
+      "x-prompt": "Packaged manager used in the generated SDK ?"
     }
   },
   "additionalProperties": true,
