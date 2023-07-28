@@ -94,7 +94,7 @@
     "eslint-plugin-prefer-arrow": "<%= versions['eslint-plugin-prefer-arrow'] %>",
     "eslint-plugin-unicorn": "<%= versions['eslint-plugin-unicorn'] %>",
     "glob": "^8.0.0",
-    "husky": "^8.0.0",
+    "husky": "~8.0.3",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>",
     "jest": "<%= versions['jest'] %>",
     "jest-junit": "^16.0.0",
