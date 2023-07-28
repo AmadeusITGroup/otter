@@ -1,8 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, filter, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { getPackageManagerRunner, getProjectFromTree, getTemplateFolder, ignorePatterns, readAngularJson, readPackageJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
-
 
 /**
  * Update CMS adapter tools
@@ -90,12 +88,12 @@ export function updateCmsAdapter(options: { projectName: string | null | undefin
 
     const { name, ...newProject } = workspaceProject;
     workspace.projects[name] = newProject;
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 
   /**
-   * Add cms extracters scripts into the package.json
+   * Add cms extractors scripts into the package.json
    *
    * @param tree
    * @param _context

@@ -1,5 +1,5 @@
 import { getExportedSymbolsFromFile } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import * as fs from 'node:fs';
 import * as minimist from 'minimist';
 import * as path from 'node:path';

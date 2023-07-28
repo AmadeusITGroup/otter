@@ -110,6 +110,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/testing": "workspace:^",
     "@schematics/angular": "~16.0.5",
     "@types/jasmine": "~4.3.5",
     "@types/jest": "~29.5.2",

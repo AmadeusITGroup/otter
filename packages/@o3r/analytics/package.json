@@ -30,12 +30,16 @@
     "@ngrx/store": "~16.0.1",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
+    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~16.0.5",
     "jasmine": "^5.0.0",
     "rxjs": "^7.8.1",
     "webpack": "~5.88.0"
   },
   "peerDependenciesMeta": {
+    "@o3r/schematics": {
+      "optional": true
+    },
     "@schematics/angular": {
       "optional": true
     },
