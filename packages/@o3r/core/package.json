@@ -31,7 +31,7 @@
     "@angular/router": "~16.1.6",
     "@ngrx/entity": "~16.1.0",
     "@ngrx/store": "~16.1.0",
-    "@nrwl/devkit": "~16.3.2",
+    "@nrwl/devkit": "~16.5.0",
     "@nx/angular": "~16.5.5",
     "@schematics/angular": "~16.1.6",
     "chokidar": "^3.5.2",

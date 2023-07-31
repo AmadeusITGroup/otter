@@ -5589,12 +5589,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/nx-cloud@npm:16.0.5":
-  version: 16.0.5
-  resolution: "@nrwl/nx-cloud@npm:16.0.5"
+"@nrwl/nx-cloud@npm:16.1.1":
+  version: 16.1.1
+  resolution: "@nrwl/nx-cloud@npm:16.1.1"
   dependencies:
-    nx-cloud: 16.0.5
-  checksum: 8766f7387de69e9a2e968a858e47423c0164ee193219e1590e3ae4f54e64dfe5a202cfda157df2000362e1b6f8f5185d76247fc7732db28182dd7b2aeb0408aa
+    nx-cloud: 16.1.1
+  checksum: 8cc2fdf9a13b3533968ac892239fbef8aa75936ee9c44ac46a2a288d4d538676fea550c3af4c908120fc7025f0c23d759fd7024176d3bae697c0cbafd679682f
   languageName: node
   linkType: hard
 
@@ -6750,7 +6750,7 @@ __metadata:
     "@angular/router": ~16.1.6
     "@ngrx/entity": ~16.1.0
     "@ngrx/store": ~16.1.0
-    "@nrwl/devkit": ~16.3.2
+    "@nrwl/devkit": ~16.5.0
     "@nx/angular": ~16.5.5
     "@schematics/angular": ~16.1.6
     chokidar: ^3.5.2
@@ -7273,7 +7273,7 @@ __metadata:
     ng-packagr: ~16.1.0
     npm-run-all: ^4.1.5
     nx: ~16.5.0
-    nx-cloud: ~16.0.5
+    nx-cloud: ~16.1.0
     react: ^17.0.2
     react-dom: ^17.0.2
     rimraf: ^5.0.1
@@ -23080,11 +23080,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx-cloud@npm:16.0.5, nx-cloud@npm:~16.0.5":
-  version: 16.0.5
-  resolution: "nx-cloud@npm:16.0.5"
+"nx-cloud@npm:16.1.1, nx-cloud@npm:~16.1.0":
+  version: 16.1.1
+  resolution: "nx-cloud@npm:16.1.1"
   dependencies:
-    "@nrwl/nx-cloud": 16.0.5
+    "@nrwl/nx-cloud": 16.1.1
     axios: 1.1.3
     chalk: ^4.1.0
     dotenv: ~10.0.0
@@ -23096,7 +23096,7 @@ __metadata:
     yargs-parser: ">=21.1.1"
   bin:
     nx-cloud: bin/nx-cloud.js
-  checksum: 56455af6c74a3a472a09c11bd837fc6e2d594d58fdbf1fc9012a61a7b516a76f09b4fabdb87de3dd967d939da04c3784e9ca7e8bff4409e1c9069a68bdc54423
+  checksum: 63cf0312281acfab5d9596fdde9507ff1ae3765869a13cb805507fc0c6a91bedef628342205bbb4567e545ee97b0416bcc2aba83494e6d47f58b0a8dd0481310
   languageName: node
   linkType: hard
 
@@ -28855,17 +28855,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^4.6.4 || ^5.0.0":
-  version: 5.1.5
-  resolution: "typescript@npm:5.1.5"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 0eef8699e05ae767096924dbed633c340b4d36e953bb8ed87fb12e9dd9dcea5055ceac7182c614a556dbd346a8a82df799d330e1e286ae66e17c84e1710f6a6f
-  languageName: node
-  linkType: hard
-
-"typescript@npm:~5.1.6":
+"typescript@npm:^4.6.4 || ^5.0.0, typescript@npm:~5.1.6":
   version: 5.1.6
   resolution: "typescript@npm:5.1.6"
   bin:
@@ -28885,17 +28875,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.6.4 || ^5.0.0#~builtin<compat/typescript>":
-  version: 5.1.5
-  resolution: "typescript@patch:typescript@npm%3A5.1.5#~builtin<compat/typescript>::version=5.1.5&hash=5da071"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 12ff5d14888805f24479e54bc8a3f83647107a6345f6c29dffcd429fb345be55f584a37e262cca58a0105203e41d4cb4e31b1b9096c9abeca0e2ace8eb00935e
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@~5.1.6#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.6.4 || ^5.0.0#~builtin<compat/typescript>, typescript@patch:typescript@~5.1.6#~builtin<compat/typescript>":
   version: 5.1.6
   resolution: "typescript@patch:typescript@npm%3A5.1.6#~builtin<compat/typescript>::version=5.1.6&hash=5da071"
   bin:
