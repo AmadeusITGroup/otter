@@ -94,7 +94,7 @@
     "eslint-plugin-prefer-arrow": "<%= versions['eslint-plugin-prefer-arrow'] %>",
     "eslint-plugin-unicorn": "<%= versions['eslint-plugin-unicorn'] %>",
     "glob": "^8.0.0",
-    "husky": "^8.0.0",
+    "husky": "~8.0.3",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>",
     "jest": "<%= versions['jest'] %>",
     "jest-junit": "^16.0.0",
@@ -103,7 +103,7 @@
     "rimraf": "^5.0.1",
     "standard-version": "^9.0.0",
     "ts-jest": "<%= versions['ts-jest'] %>",
-    "typedoc": "~0.24.0",
+    "typedoc": "~0.24.8",
     "tsc-watch": "^6.0.0",
     "typescript": "<%= versions['typescript'] %>"
   },

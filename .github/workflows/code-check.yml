@@ -15,6 +15,7 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest]
     runs-on: ${{ matrix.os }}
@@ -65,6 +66,8 @@ jobs:
             ${{ runner.os }}-eslint-${{ env.hash }}
             ${{ runner.os }}-eslint
             ${{ runner.os }}
+      - name: Dependency Check
+        run: yarn in-source-dep-check --fail-on-error
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
