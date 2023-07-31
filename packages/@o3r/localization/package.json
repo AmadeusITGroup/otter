@@ -22,6 +22,7 @@
     "@angular-devkit/core": "~16.1.6",
     "@angular-devkit/schematics": "~16.1.6",
     "@angular/cdk": "~16.1.6",
+    "@angular/cli": "~16.1.6",
     "@angular/common": "~16.1.6",
     "@angular/core": "~16.1.6",
     "@angular/platform-browser-dynamic": "~16.1.6",
@@ -44,6 +45,9 @@
       "optional": true
     },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/cli": {
       "optional": true
     },
     "@formatjs/intl-numberformat": {
@@ -72,6 +76,7 @@
     "@angular-devkit/schematics": "~16.1.6",
     "@angular-eslint/eslint-plugin": "~16.1.0",
     "@angular/cdk": "~16.1.6",
+    "@angular/cli": "~16.1.6",
     "@angular/common": "~16.1.6",
     "@angular/compiler": "~16.1.6",
     "@angular/compiler-cli": "~16.1.6",

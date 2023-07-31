@@ -1,5 +1,6 @@
 import {
   chain,
+  externalSchematic,
   noop,
   Rule,
   SchematicContext,
@@ -9,6 +10,7 @@ import {
   addCommentsOnClassProperties,
   addImportsRule,
   applyEsLintFix,
+  askConfirmationToConvertComponent,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -16,6 +18,7 @@ import {
   generateImplementsExpressionWithTypeArguments,
   getO3rComponentInfoOrThrowIfNotFound,
   getSimpleUpdatedMethod,
+  NoOtterComponent,
   sortClassElement
 } from '@o3r/schematics';
 import { dirname, posix } from 'node:path';
@@ -52,74 +55,75 @@ const checkIframePresence = (componentPath: string, tree: Tree) => {
  * @param options
  */
 export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const { templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
+  return async (tree: Tree, context: SchematicContext) => {
+    try {
+      const { templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
 
-    checkIframePresence(options.path, tree);
+      checkIframePresence(options.path, tree);
 
-    const updateComponentFile: Rule = chain([
-      addImportsRule(options.path, [
-        {
-          from: '@angular/core',
-          importNames: [
-            'AfterViewInit',
-            'OnDestroy'
-          ]
-        },
-        {
-          from: '@o3r/third-party',
-          importNames: [
-            'generateIFrameContent',
-            'IframeBridge'
-          ]
-        },
-        {
-          from: 'rxjs',
-          importNames: [
-            'Subscription'
-          ]
-        }
-      ]),
-      () => {
+      const updateComponentFile: Rule = chain([
+        addImportsRule(options.path, [
+          {
+            from: '@angular/core',
+            importNames: [
+              'AfterViewInit',
+              'OnDestroy'
+            ]
+          },
+          {
+            from: '@o3r/third-party',
+            importNames: [
+              'generateIFrameContent',
+              'IframeBridge'
+            ]
+          },
+          {
+            from: 'rxjs',
+            importNames: [
+              'Subscription'
+            ]
+          }
+        ]),
+        () => {
 
-        const sourceFile = ts.createSourceFile(
-          options.path,
-          tree.readText(options.path),
-          ts.ScriptTarget.ES2020,
-          true
-        );
-        const result = ts.transform(sourceFile, [
-          (ctx) => (rootNode: ts.Node) => {
-            const { factory } = ctx;
-            const visit = (node: ts.Node): ts.Node => {
-              if (ts.isClassDeclaration(node)) {
-                const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
-                const interfaceToImplements = generateImplementsExpressionWithTypeArguments('OnDestroy, AfterViewInit');
+          const sourceFile = ts.createSourceFile(
+            options.path,
+            tree.readText(options.path),
+            ts.ScriptTarget.ES2020,
+            true
+          );
+          const result = ts.transform(sourceFile, [
+            (ctx) => (rootNode: ts.Node) => {
+              const { factory } = ctx;
+              const visit = (node: ts.Node): ts.Node => {
+                if (ts.isClassDeclaration(node)) {
+                  const implementsClauses = node.heritageClauses?.find((heritageClause) => heritageClause.token === ts.SyntaxKind.ImplementsKeyword);
+                  const interfaceToImplements = generateImplementsExpressionWithTypeArguments('OnDestroy, AfterViewInit');
 
-                const deduplicateHeritageClauses = (clauses: any[]) =>
-                  clauses.filter((h, i) =>
-                    !clauses.slice(i + 1).some((h2) => h2.kind === h.kind && h2.expression.escapedText === h.expression.escapedText)
-                  );
+                  const deduplicateHeritageClauses = (clauses: any[]) =>
+                    clauses.filter((h, i) =>
+                      !clauses.slice(i + 1).some((h2) => h2.kind === h.kind && h2.expression.escapedText === h.expression.escapedText)
+                    );
 
-                const newImplementsClauses = implementsClauses
-                  ? factory.updateHeritageClause(implementsClauses, deduplicateHeritageClauses([...implementsClauses.types, ...interfaceToImplements]))
-                  : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
+                  const newImplementsClauses = implementsClauses
+                    ? factory.updateHeritageClause(implementsClauses, deduplicateHeritageClauses([...implementsClauses.types, ...interfaceToImplements]))
+                    : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
 
-                const heritageClauses: ts.HeritageClause[] = Array.from(node.heritageClauses ?? [])
-                  .filter((h) => h.token !== ts.SyntaxKind.ImplementsKeyword)
-                  .concat(newImplementsClauses);
+                  const heritageClauses: ts.HeritageClause[] = Array.from(node.heritageClauses ?? [])
+                    .filter((h) => h.token !== ts.SyntaxKind.ImplementsKeyword)
+                    .concat(newImplementsClauses);
 
-                const newModifiers = ([] as ts.ModifierLike[])
-                  .concat(ts.getDecorators(node) || [])
-                  .concat(ts.getModifiers(node) || []);
+                  const newModifiers = ([] as ts.ModifierLike[])
+                    .concat(ts.getDecorators(node) || [])
+                    .concat(ts.getModifiers(node) || []);
 
-                const hasSubscriptions = node.members.find((classElement) =>
-                  ts.isPropertyDeclaration(classElement)
+                  const hasSubscriptions = node.members.find((classElement) =>
+                    ts.isPropertyDeclaration(classElement)
                   && ts.isIdentifier(classElement.name)
                   && classElement.name.escapedText.toString() === 'subscriptions'
-                );
+                  );
 
-                /* eslint-disable indent */
+                  /* eslint-disable indent */
                 const propertiesToAdd = generateClassElementsFromString(`
                   @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
                   private bridge: IframeBridge;
@@ -218,6 +222,20 @@ export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
       updateComponentFile,
       updateTemplateFile,
       options.skipLinter ? noop() : applyEsLintFix()
-    ])(tree, context);
+    ]);
+  } catch (e) {
+    if (e instanceof NoOtterComponent && context.interactive) {
+      const shouldConvertComponent = await askConfirmationToConvertComponent();
+      if (shouldConvertComponent) {
+        return chain([
+          externalSchematic('@o3r/core', 'convert-component', {
+            path: options.path
+          }),
+          ngAddIframe(options)
+        ]);
+      }
+    }
+    throw e;
+  }
   };
 }

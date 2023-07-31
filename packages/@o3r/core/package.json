@@ -149,10 +149,10 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "schematics": "./dist/collection.json",
-  "builders": "./dist/builders.json",
+  "schematics": "./collection.json",
+  "builders": "./builders.json",
   "ng-update": {
-    "migrations": "./dist/migration.json",
+    "migrations": "./migration.json",
     "packageGroup": [
       "@ama-sdk/core",
       "@ama-sdk/generator-sdk",

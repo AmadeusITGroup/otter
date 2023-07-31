@@ -22,10 +22,14 @@
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~16.1.6",
+    "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/core": {
       "optional": true
     },
     "@o3r/schematics": {
@@ -49,6 +53,7 @@
     "@compodoc/compodoc": "^1.1.19",
     "@nx/jest": "~16.5.5",
     "@o3r/build-helpers": "workspace:^",
+    "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
