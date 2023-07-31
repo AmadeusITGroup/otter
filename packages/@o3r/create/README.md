@@ -1,4 +1,4 @@
-<h1 align="center">Otter extractor</h1>
+<h1 align="center">Otter project initializer</h1>
 <p align="center">
   <img src="https://raw.githubusercontent.com/AmadeusITGroup/otter/main/.attachments/otter.png" alt="Super cute Otter!" width="40%"/>
 </p>
