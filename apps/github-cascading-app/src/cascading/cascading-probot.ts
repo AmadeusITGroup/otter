@@ -1,5 +1,5 @@
 import { ProbotOctokit } from 'probot';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion } from './interfaces';
+import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION } from './interfaces';
 import { Cascading } from './cascading';
 
 export interface CascadingProbotOptions {
@@ -17,19 +17,6 @@ export interface CascadingProbotOptions {
  * Cascading class implementation for Probot framework
  */
 export class CascadingProbot extends Cascading {
-
-  /**
-   * Default configuration
-   */
-  public static readonly DEFAULT_CONFIGURATION: CascadingConfiguration = {
-    ignoredPatterns: [],
-    defaultBranch: '',
-    cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
-    versionCapturePattern: '/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$',
-    bypassReviewers: false,
-    labels: [],
-    pullRequestTitle: '[cascading] from $origin to $target'
-  };
 
   /** List of possible configuration files paths */
   public static readonly CONFIGURATION_FILES = ['.github/cascadingrc.json', '.github/.cascadingrc.json', 'cascadingrc.json', '.cascadingrc.json'];
@@ -78,7 +65,7 @@ export class CascadingProbot extends Cascading {
     }
 
     const config = {
-      ...CascadingProbot.DEFAULT_CONFIGURATION,
+      ...DEFAULT_CONFIGURATION,
       ...remoteConfig
     };
 
