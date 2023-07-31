@@ -132,15 +132,15 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
  * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
  * @param excludes Array of globs to be ignored
+ * @param recursive determine if the function will walk through the sub folders
  */
-export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = []): string[] {
+export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = [], recursive = true): string[] {
   if (excludes.length && excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
     return [];
   }
   return [
     ...tree.getDir(basePath).subfiles.map((file) => path.posix.join(basePath, file)),
-    ...tree.getDir(basePath).subdirs
-      .flatMap((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir), excludes))
+    ...(recursive ? tree.getDir(basePath).subdirs.flatMap((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir), excludes, recursive)) : [])
   ];
 }
 
