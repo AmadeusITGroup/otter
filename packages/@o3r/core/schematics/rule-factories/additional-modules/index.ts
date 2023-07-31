@@ -107,7 +107,7 @@ export function updateAdditionalModules(options: { projectName: string | null | 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');
@@ -176,7 +176,7 @@ export function updateAdditionalModules(options: { projectName: string | null | 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');

@@ -5537,18 +5537,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:~16.0.1":
-  version: 16.0.1
-  resolution: "@ngrx/store-devtools@npm:16.0.1"
-  dependencies:
-    tslib: ^2.0.0
-  peerDependencies:
-    "@ngrx/store": 16.0.1
-    rxjs: ^6.5.3 || ^7.5.0
-  checksum: 078e19a9589c9c5ba1bc3ec0e43922069c824ad612f9733ab11696a887b3132f9a0dda23369e4d3faa1bd8713596b0a6dfacff3f73ee2d9017273d27b3904ed9
-  languageName: node
-  linkType: hard
-
 "@ngrx/store@npm:~16.0.1":
   version: 16.0.1
   resolution: "@ngrx/store@npm:16.0.1"
@@ -7263,10 +7251,8 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/effects": ~16.0.1
     "@ngrx/entity": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@ngrx/store-devtools": ~16.0.1
     "@nx/jest": ~16.5.0
     "@nx/js": ~16.5.0
     "@nx/linter": ~16.5.0
@@ -7319,11 +7305,8 @@ __metadata:
     "@angular/core": ~16.0.5
     "@angular/platform-browser-dynamic": ~16.0.5
     "@angular/router": ~16.0.5
-    "@ngrx/effects": ~16.0.1
     "@ngrx/entity": ~16.0.1
-    "@ngrx/router-store": ~16.0.1
     "@ngrx/store": ~16.0.1
-    "@ngrx/store-devtools": ~16.0.1
     "@nrwl/devkit": ~16.3.2
     "@nx/angular": ~16.3.2
     "@schematics/angular": ~16.0.5
@@ -7335,8 +7318,6 @@ __metadata:
     typescript: ~5.0.2
   peerDependenciesMeta:
     "@angular/cli":
-      optional: true
-    "@ngrx/router-store":
       optional: true
     "@nrwl/devkit":
       optional: true

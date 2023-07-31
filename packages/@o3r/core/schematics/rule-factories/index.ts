@@ -7,3 +7,4 @@ export * from './otter-environment/index';
 export * from './playwright/index';
 export * from './renovate/index';
 export * from './store/index';
+export * from './monorepo/index';

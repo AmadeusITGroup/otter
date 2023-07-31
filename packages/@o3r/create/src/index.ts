@@ -8,7 +8,7 @@ import type { PackageJson } from 'type-fest';
 const { version } = require(resolve(__dirname, 'package.json')) as PackageJson;
 
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
-const args = process.argv.slice(2);
+const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
 if (!args.some((a) => a.startsWith('--style'))) {
   args.push('--style', 'scss');
@@ -21,6 +21,8 @@ if (!hasPackageManagerArg) {
     args.push('--package-manager', packageManager);
   }
 }
+
+args.push('--no-create-application');
 
 const argv = minimist(args);
 
