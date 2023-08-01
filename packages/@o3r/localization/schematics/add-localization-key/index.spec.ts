@@ -1,9 +1,15 @@
+jest.mock('node:readline', () => ({
+  createInterface: () => ({
+    question: jest.fn((_query, cb) => cb('mockInputUser')) as any,
+    close: jest.fn()
+  })
+}));
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { ngAddLocalizationKey } from './index';
 import { firstValueFrom } from 'rxjs';
+import { ngAddLocalizationKey } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';
@@ -96,20 +102,22 @@ describe('Add Localization', () => {
       expect(localizationFileContent['o3r-test-pres.dummyLoc1'].defaultValue).toBe('Dummy 1');
     });
 
-    it('should throw if we add localization key to a component that already has it', async () => {
+    it('should ask user for another key name if we add a localization key to a component that already has it', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
-      const tree = await runner.runSchematic('add-localization-key', {
+      let tree = await runner.runSchematic('add-localization-key', {
         path: o3rComponentPath,
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
         value: 'Dummy 1'
       }, initialTree);
-      await expect(runner.runSchematic('add-localization-key', {
+      tree = await runner.runSchematic('add-localization-key', {
         path: o3rComponentPath,
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
         value: 'Dummy 1'
-      }, tree)).rejects.toThrow();
+      }, tree);
+      const localizationFileContent: any = tree.readJson(localizationPath);
+      expect(localizationFileContent['o3r-test-pres.mockInputUser']).toBeDefined();
     });
 
     it('should throw if we add localization key to a component that is not localized', async () => {

@@ -7,10 +7,11 @@ import {
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
-import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  askUserInput,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent
@@ -247,13 +248,13 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
           ]);
         }
       } else if (e instanceof KeyAlreadyExists && context.interactive) {
-        const newKey = await askQuestion(e.message, [], 0, null) || options.key;
-        if (newKey !== options.key) {
-          return ngAddLocalizationKey({
-            ...options,
-            key: newKey
-          });
-        }
+        const newKey = await askUserInput(
+          `${e.message}\nPlease choose another key name:`
+        );
+        return ngAddLocalizationKey({
+          ...options,
+          key: newKey
+        });
       }
       throw e;
     }
