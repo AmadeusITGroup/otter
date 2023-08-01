@@ -10,7 +10,6 @@ import {
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
-  updateFixtureConfig,
   updateOtterEnvironmentAdapter,
   updatePlaywright,
   updateStore
@@ -94,7 +93,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const commonRules = [
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
-    updateFixtureConfig(options, coreSchematicsFolder),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
 

@@ -1,21 +1,19 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getProjectFromTree } from '@o3r/schematics';
+
 import * as ts from 'typescript';
 
 /**
  * Add fixture configuration
  *
  * @param options @see RuleFactory.options
- * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
- * @param options.testingFramework
- * @param _rootPath
+ * @param registerUnitTestFixturePaths should add path mapping for unit test fixtures
  */
-export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
+export function updateFixtureConfig(options: { projectName?: string | null | undefined }, registerUnitTestFixturePaths: boolean): Rule {
 
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
-
   /**
    * Update test tsconfig
    *
@@ -59,16 +57,17 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
         }
         return acc;
       }, {});
-      const subFolder = options.testingFramework === 'jasmine' ? 'karma' : 'angular';
-      tsconfigCompilerOptions.paths['@o3r/testing/core'] = [`node_modules/@o3r/testing/core/${subFolder}`];
-      tsconfigCompilerOptions.paths['@o3r/testing/core/*'] = [`node_modules/@o3r/testing/core/${subFolder}/*`];
+
+      if (registerUnitTestFixturePaths) {
+        tsconfigCompilerOptions.paths['@o3r/testing/core'] = ['node_modules/@o3r/testing/core/angular'];
+        tsconfigCompilerOptions.paths['@o3r/testing/core/*'] = ['node_modules/@o3r/testing/core/angular/*'];
+      }
+
       tree.overwrite(tsconfig, JSON.stringify(tsconfigFile, null, 2));
     }
 
     return tree;
   };
 
-  return chain([
-    updateTestTsconfig
-  ]);
+  return chain([updateTestTsconfig]);
 }
