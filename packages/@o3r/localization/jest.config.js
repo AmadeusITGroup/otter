@@ -23,11 +23,14 @@ module.exports = {
     'github-actions'
   ],
   globalSetup: 'jest-preset-angular/global-setup',
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+    '^.+\\.tsx?$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
   }
 };

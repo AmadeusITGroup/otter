@@ -5,12 +5,15 @@ module.exports = {
   setupFiles: ['<rootDir>/testing/jest.setup.ts'],
   testEnvironment: 'node',
   rootDir: '.',
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$',
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$',
+      }
+    ]
   },
   reporters: [
     'default',
