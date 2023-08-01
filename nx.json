@@ -102,21 +102,14 @@
       "{workspaceRoot}/.eslintignore"
     ],
     "specs": [
-      "default"
+      "default",
+      "{projectRoot}/jest.config.*",
+      "{projectRoot}/testing/**/*",
+      "{projectRoot}/mocks/**/*"
     ],
     "source": [
       "default",
-      "!{projectRoot}/plugins/**/*",
-      "!{projectRoot}/builders.json",
-      "!{projectRoot}/builders/**/*",
-      "!{projectRoot}/migration.json",
-      "!{projectRoot}/collection.json",
-      "!{projectRoot}/schematics/**/*",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/testing/**/*",
-      "!{projectRoot}/mocks/**/*",
-      "!{projectRoot}/jest.config.*",
-      "{projectRoot}/package.json"
+      "!{projectRoot}/**/*.spec.ts"
     ],
     "plugins": [
       "global",
