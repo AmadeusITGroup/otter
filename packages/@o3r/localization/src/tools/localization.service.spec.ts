@@ -27,7 +27,7 @@ describe('LocalizationService', () => {
       localizationService.configure();
     });
 
-    it('should be used for transulations (en)', () => {
+    it('should be used for translations (en)', () => {
       const expectedLanguage = 'en';
 
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
@@ -100,6 +100,70 @@ describe('LocalizationService', () => {
       expect(localizationService.getCurrentLanguage()).toEqual(expectedLanguage);
     });
 
+  });
+
+  describe('language to use is specified in the configuration and supported', () => {
+
+    const configurationFactory: () => LocalizationConfiguration = () => ({
+      ...DEFAULT_LOCALIZATION_CONFIGURATION,
+      supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
+      fallbackLanguage: 'en-GB',
+      language: 'fr-FR'
+    });
+
+    let translateServiceSpy: jest.SpyInstance;
+    let localizationService: LocalizationService;
+
+    beforeEach(async () => {
+      await TestBed.configureTestingModule({
+        imports: [
+          LocalizationModule.forRoot(configurationFactory),
+          TranslateModule.forRoot()
+        ],
+        providers: [LocalizationService]
+      }).compileComponents();
+      localizationService = TestBed.inject(LocalizationService);
+      const translateService = localizationService.getTranslateService();
+      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      localizationService.configure();
+    });
+
+    it('should translate to the language provided in the configuration, when a supported language is provided', () => {
+      expect(translateServiceSpy).toHaveBeenCalledWith('fr-FR');
+      expect(localizationService.getCurrentLanguage()).toEqual('fr-FR');
+    });
+  });
+
+  describe('language to use is specified in the configuration and not supported', () => {
+
+    const configurationFactory: () => LocalizationConfiguration = () => ({
+      ...DEFAULT_LOCALIZATION_CONFIGURATION,
+      supportedLocales: ['en-GB', 'fr-FR', 'fr-CA', 'ar-AR'],
+      fallbackLanguage: 'en-GB',
+      language: 'es-ES'
+    });
+
+    let translateServiceSpy: jest.SpyInstance;
+    let localizationService: LocalizationService;
+
+    beforeEach(async () => {
+      await TestBed.configureTestingModule({
+        imports: [
+          LocalizationModule.forRoot(configurationFactory),
+          TranslateModule.forRoot()
+        ],
+        providers: [LocalizationService]
+      }).compileComponents();
+      localizationService = TestBed.inject(LocalizationService);
+      const translateService = localizationService.getTranslateService();
+      translateServiceSpy = jest.spyOn(translateService, 'setDefaultLang');
+      localizationService.configure();
+    });
+
+    it('should translate to the fallback language provided in the configuration, when a non supported language is provided', () => {
+      expect(translateServiceSpy).toHaveBeenCalledWith('en-GB');
+      expect(localizationService.getCurrentLanguage()).toEqual('en-GB');
+    });
   });
 
   describe('fallbackLocalesMap configuration available', () => {

@@ -135,10 +135,10 @@ export class LocalizationService {
    * Configures TranslateService and registers locales. This method is called from the application level.
    */
   public configure() {
+    const language = this.checkFallbackLocalesMap(this.configuration.language || this.configuration.fallbackLanguage);
     this.translateService.addLangs(this.configuration.supportedLocales);
-    this.translateService.setDefaultLang(this.configuration.fallbackLanguage);
-
-    this.useLanguage(this.configuration.language || this.configuration.fallbackLanguage);
+    this.translateService.setDefaultLang(language);
+    this.useLanguage(language);
   }
 
   /**
