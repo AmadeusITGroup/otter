@@ -7502,6 +7502,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.1.6
     "@angular-eslint/eslint-plugin": ~16.1.0
     "@angular/cdk": ~16.1.6
+    "@angular/cli": ~16.1.6
     "@angular/common": ~16.1.6
     "@angular/compiler": ~16.1.6
     "@angular/compiler-cli": ~16.1.6
@@ -7555,6 +7556,7 @@ __metadata:
     "@angular-devkit/core": ~16.1.6
     "@angular-devkit/schematics": ~16.1.6
     "@angular/cdk": ~16.1.6
+    "@angular/cli": ~16.1.6
     "@angular/common": ~16.1.6
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
@@ -7575,6 +7577,8 @@ __metadata:
     "@angular-devkit/core":
       optional: true
     "@angular-devkit/schematics":
+      optional: true
+    "@angular/cli":
       optional: true
     "@formatjs/intl-numberformat":
       optional: true
@@ -8313,6 +8317,7 @@ __metadata:
     "@ngx-translate/core": ~15.0.0
     "@nx/jest": ~16.6.0
     "@o3r/build-helpers": "workspace:^"
+    "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -8357,6 +8362,7 @@ __metadata:
     "@angular/platform-browser": ~16.1.6
     "@ngrx/store": ~16.1.0
     "@ngx-translate/core": ~15.0.0
+    "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.1.6
@@ -8371,6 +8377,8 @@ __metadata:
     "@amadeus-it-group/kassette":
       optional: true
     "@angular-devkit/schematics":
+      optional: true
+    "@o3r/core":
       optional: true
     "@o3r/localization":
       optional: true
@@ -8407,6 +8415,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@nx/jest": ~16.6.0
     "@o3r/build-helpers": "workspace:^"
+    "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8436,9 +8445,12 @@ __metadata:
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.1.6
+    "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
   peerDependenciesMeta:
     "@angular-devkit/schematics":
+      optional: true
+    "@o3r/core":
       optional: true
     "@o3r/schematics":
       optional: true

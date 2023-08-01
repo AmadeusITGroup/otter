@@ -1,18 +1,37 @@
 import {
   chain,
+  externalSchematic,
   noop,
   Rule,
+  schematic,
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
+import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
 import {
   applyEsLintFix,
+  askConfirmationToConvertComponent,
   getO3rComponentInfoOrThrowIfNotFound,
-  isO3rClassComponent
+  isO3rClassComponent,
+  NoOtterComponent
 } from '@o3r/schematics';
 import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
 import type { NgAddLocalizationKeySchematicsSchema } from './schema';
+
+class NoLocalizationArchitecture extends Error {
+  constructor(componentPath: string) {
+    super(
+      `This component is not localized. If you want to localize this component you can run the following command:\nng g @o3r/localization:localization-to-component --path="${componentPath}"`
+    );
+  }
+}
+
+class KeyAlreadyExists extends Error {
+  constructor(key: string, file: string) {
+    super(`There is already a key named ${key} in ${file}.`);
+  }
+}
 
 const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   const componentSourceFile = ts.createSourceFile(
@@ -48,9 +67,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   });
 
   if (!localizationJsonPath || !tree.exists(localizationJsonPath)) {
-    throw new Error(
-      `This component is not localized. If you want to localize this component you can run the following command:\nng g @o3r/localization:localization-to-component --path="${componentPath}"`
-    );
+    throw new NoLocalizationArchitecture(componentPath);
   }
 
   if (!defaultTranslationVariableName) {
@@ -100,112 +117,145 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
  * @param options
  */
 export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSchema): Rule {
-  return (tree: Tree, context: SchematicContext) => {
-    const { selector } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
-    const { localizationJsonPath, translationsPath, translationsVariableType } = getLocalizationInformation(options.path, tree);
+  return async (tree: Tree, context: SchematicContext) => {
+    try {
+      const { selector } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
+      const { localizationJsonPath, translationsPath, translationsVariableType } = getLocalizationInformation(options.path, tree);
 
-    const properties = {
-      ...options,
-      keyName: options.key,
-      keyValue: `${selector}.${options.key}`,
-      defaultValue: options.value
-    };
-
-    const localizationJson = tree.readJson(localizationJsonPath) || {};
-    if ((localizationJson as any)[properties.keyValue]) {
-      throw new Error(`There is already a key named ${properties.keyValue} in ${localizationJsonPath}.`);
-    }
-    const translationFileContent = tree.readText(translationsPath);
-    if (translationFileContent.match(new RegExp(`${properties.keyName}:`))) {
-      throw new Error(`There is already a key named ${properties.keyName} in ${translationsPath}.`);
-    }
-
-    const updateLocalizationFileRule: Rule = () => {
-      (localizationJson as any)[properties.keyValue] = {
-        ...(properties.dictionnary ? {
-          dictionnary: true
-        } : {
-          defaultValue: properties.defaultValue
-        }),
-        description: properties.description
+      const properties = {
+        ...options,
+        keyName: options.key,
+        keyValue: `${selector}.${options.key}`,
+        defaultValue: options.value
       };
-      tree.overwrite(localizationJsonPath, JSON.stringify(localizationJson, null, 2));
-      return tree;
-    };
 
-    const updateTranslationFileRule: Rule = () => {
-      const translationSourceFile = ts.createSourceFile(
-        translationsPath,
-        tree.readText(translationsPath),
-        ts.ScriptTarget.ES2020,
-        true
-      );
+      const localizationJson = tree.readJson(localizationJsonPath) || {};
+      if ((localizationJson as any)[properties.keyValue]) {
+        throw new KeyAlreadyExists(properties.keyValue, localizationJsonPath);
+      }
+      const translationFileContent = tree.readText(translationsPath);
+      if (translationFileContent.match(new RegExp(`${properties.keyName}:`))) {
+        throw new KeyAlreadyExists(properties.keyName, translationsPath);
+      }
 
-      const result = ts.transform(translationSourceFile, [(ctx) => (rootNode: ts.Node) => {
-        const { factory } = ctx;
-        const visit = (node: ts.Node): ts.Node => {
-          if (
-            ts.isInterfaceDeclaration(node)
+      const updateLocalizationFileRule: Rule = () => {
+        (localizationJson as any)[properties.keyValue] = {
+          ...(properties.dictionnary ? {
+            dictionnary: true
+          } : {
+            defaultValue: properties.defaultValue
+          }),
+          description: properties.description
+        };
+        tree.overwrite(localizationJsonPath, JSON.stringify(localizationJson, null, 2));
+        return tree;
+      };
+
+      const updateTranslationFileRule: Rule = () => {
+        const translationSourceFile = ts.createSourceFile(
+          translationsPath,
+          tree.readText(translationsPath),
+          ts.ScriptTarget.ES2020,
+          true
+        );
+
+        const result = ts.transform(translationSourceFile, [(ctx) => (rootNode: ts.Node) => {
+          const { factory } = ctx;
+          const visit = (node: ts.Node): ts.Node => {
+            if (
+              ts.isInterfaceDeclaration(node)
             && node.name.escapedText.toString() === translationsVariableType
-          ) {
-            return factory.updateInterfaceDeclaration(
-              node,
-              ts.getModifiers(node),
-              node.name,
-              node.typeParameters,
-              node.heritageClauses,
-              node.members.concat(
-                factory.createPropertySignature(
-                  undefined,
-                  factory.createIdentifier(properties.keyName),
-                  undefined,
-                  factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+            ) {
+              return factory.updateInterfaceDeclaration(
+                node,
+                ts.getModifiers(node),
+                node.name,
+                node.typeParameters,
+                node.heritageClauses,
+                node.members.concat(
+                  factory.createPropertySignature(
+                    undefined,
+                    factory.createIdentifier(properties.keyName),
+                    undefined,
+                    factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword)
+                  )
                 )
-              )
-            );
-          }
-          if (
-            ts.isVariableDeclaration(node)
+              );
+            }
+            if (
+              ts.isVariableDeclaration(node)
             && node.type && ts.isTypeReferenceNode(node.type)
             && ts.isIdentifier(node.type.typeName)
             && node.type.typeName.escapedText.toString() === translationsVariableType
             && node.initializer
             && ts.isObjectLiteralExpression(node.initializer)
-          ) {
-            return factory.updateVariableDeclaration(
-              node,
-              node.name,
-              node.exclamationToken,
-              node.type,
-              factory.updateObjectLiteralExpression(
-                node.initializer,
-                node.initializer.properties.concat(
-                  factory.createPropertyAssignment(
-                    factory.createIdentifier(properties.keyName),
-                    factory.createStringLiteral(properties.keyValue, true)
+            ) {
+              return factory.updateVariableDeclaration(
+                node,
+                node.name,
+                node.exclamationToken,
+                node.type,
+                factory.updateObjectLiteralExpression(
+                  node.initializer,
+                  node.initializer.properties.concat(
+                    factory.createPropertyAssignment(
+                      factory.createIdentifier(properties.keyName),
+                      factory.createStringLiteral(properties.keyValue, true)
+                    )
                   )
                 )
-              )
-            );
-          }
-          return ts.visitEachChild(node, visit, ctx);
-        };
-        return ts.visitNode(rootNode, visit);
-      }]);
+              );
+            }
+            return ts.visitEachChild(node, visit, ctx);
+          };
+          return ts.visitNode(rootNode, visit);
+        }]);
 
-      const printer = ts.createPrinter({
-        removeComments: false,
-        newLine: ts.NewLineKind.LineFeed
-      });
+        const printer = ts.createPrinter({
+          removeComments: false,
+          newLine: ts.NewLineKind.LineFeed
+        });
 
-      tree.overwrite(translationsPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
-      return tree;
-    };
+        tree.overwrite(translationsPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
+        return tree;
+      };
 
-    return chain([
-      updateLocalizationFileRule,
-      updateTranslationFileRule,
-      options.skipLinter ? noop() : applyEsLintFix()
-    ])(tree, context);
+      return chain([
+        updateLocalizationFileRule,
+        updateTranslationFileRule,
+        options.skipLinter ? noop() : applyEsLintFix()
+      ]);
+    } catch (e) {
+      if (e instanceof NoOtterComponent && context.interactive) {
+        const shouldConvertComponent = await askConfirmationToConvertComponent();
+        if (shouldConvertComponent) {
+          return chain([
+            externalSchematic('@o3r/core', 'convert-component', {
+              path: options.path
+            }),
+            ngAddLocalizationKey(options)
+          ]);
+        }
+      } else if (e instanceof NoLocalizationArchitecture && context.interactive) {
+        const shouldAddLocalization = await askConfirmation('This component is not localized. Would you like to add the localization architecture?', true);
+        if (shouldAddLocalization) {
+          return chain([
+            schematic('localization-to-component', {
+              path: options.path
+            }),
+            ngAddLocalizationKey(options)
+          ]);
+        }
+      } else if (e instanceof KeyAlreadyExists && context.interactive) {
+        const newKey = await askQuestion(e.message, [], 0, null) || options.key;
+        if (newKey !== options.key) {
+          return ngAddLocalizationKey({
+            ...options,
+            key: newKey
+          });
+        }
+      }
+      throw e;
+    }
   };
 }
