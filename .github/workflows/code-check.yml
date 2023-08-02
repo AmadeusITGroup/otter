@@ -47,13 +47,16 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }}
+        run: yarn ${{ env.testCmd }} --output-style=stream
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: ut-reports-${{ matrix.os }}
-          path: 'packages/**/dist-test/ut-report.xml'
+          path: |
+            apps/**/dist-test/ut-report.xml
+            packages/**/dist-test/ut-report.xml
+            tools/**/dist-test/ut-report.xml
   lint:
     runs-on: ubuntu-latest
     env:

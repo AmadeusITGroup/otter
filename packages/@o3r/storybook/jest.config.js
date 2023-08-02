@@ -9,7 +9,7 @@ module.exports = {
   moduleNameMapper: getJestModuleNameMapper(__dirname),
   reporters: [
     'default',
-    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
   transform: {
