@@ -41,34 +41,46 @@ const angularJsonNoGeneric: WorkspaceSchema = {
 
 describe('Get schematics options', () => {
 
+  const createFakeContext = (collection: string, name: string): any => ({
+    schematic: {
+      description: {
+        collection: {
+          name: collection
+        },
+        name
+      }
+    }
+  });
+
   it('should return the ng-add generic options followed by overall generic options', () => {
-    const options = getSchematicOptions(angularJsonGenericNgAdd, '@o3r/core:ng-add');
+    const options = getSchematicOptions(angularJsonGenericNgAdd, createFakeContext('@o3r/core', 'ng-add'));
     expect(Object.keys(options)[0]).toBe('enableMetadataExtract');
     expect(Object.keys(options)[1]).toBe('libsDir');
     expect(Object.keys(options).length).toBe(3);
   });
 
-  it('should return the generic options when no schematics name given', () => {
-    const options = getSchematicOptions(angularJsonGenericNgAdd);
-    expect(Object.keys(options)[0]).toBe('libsDir');
-    expect(Object.keys(options).length).toBe(2);
-  });
-
-  it('should return undefined when no matches for schematics name', () => {
-    const options = getSchematicOptions(angularJsonGenericNgAdd, 'dummy');
-    expect(options).toBeUndefined();
+  it('should return the generic options when no matches for schematics name', () => {
+    const options = getSchematicOptions(angularJsonGenericNgAdd, createFakeContext('@o3r/core', 'dummy'));
+    expect(options).toEqual(angularJsonGenericNgAdd.schematics['*:*']);
   });
 
   it('should return the specific o3r/core ng add, followed by ng-add generic options, followed by overall generic options', () => {
-    const options = getSchematicOptions(angularJsonSpecificNgAdd, '@o3r/core:ng-add');
+    const options = getSchematicOptions(angularJsonSpecificNgAdd, createFakeContext('@o3r/core', 'ng-add'));
     expect(Object.keys(options)[0]).toBe('projectName');
     expect(Object.keys(options)[1]).toBe('enableMetadataExtract');
     expect(Object.keys(options)[2]).toBe('libsDir');
     expect(Object.keys(options).length).toBe(4);
   });
 
-  it('should return undefined when no schematics name given and no generic options present', () => {
-    const options = getSchematicOptions(angularJsonNoGeneric);
+  it('should return closest matching when no generic options present', () => {
+    const options = getSchematicOptions(angularJsonNoGeneric, createFakeContext('@o3r/core', 'ng-add'));
+    expect(Object.keys(options)[0]).toBe('projectName');
+    expect(Object.keys(options)[1]).toBe('enableMetadataExtract');
+    expect(Object.keys(options).length).toBe(2);
+  });
+
+  it('should return undefined when no generic options present and no matching', () => {
+    const options = getSchematicOptions(angularJsonNoGeneric, createFakeContext('@o3r/core', 'dummy'));
     expect(options).toBeUndefined();
   });
 

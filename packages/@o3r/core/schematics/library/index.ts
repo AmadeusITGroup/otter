@@ -15,9 +15,12 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
 
   return (tree, context) => {
     const cleanName = strings.dasherize(options.name);
-    const workspaceConfig = getWorkspaceConfig(tree);
     const isNx = isNxContext(tree);
-    const defaultRoot = getPackagesBaseRootFolder(workspaceConfig, tree, 'library');
+    const config = getWorkspaceConfig(tree);
+    if (!config) {
+      throw new Error('No workspace configuration file found');
+    }
+    const defaultRoot = getPackagesBaseRootFolder(tree, context, config);
 
     /** Path to the folder where generate the new module */
     const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
