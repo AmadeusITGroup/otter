@@ -1,4 +1,5 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const {resolve} = require('node:path');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
@@ -11,6 +12,7 @@ module.exports = {
   preset: 'ts-jest',
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
   transform: {

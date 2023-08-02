@@ -1,4 +1,5 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const {resolve} = require('node:path');
 
 globalThis.ngJest = {
   skipNgcc: true
@@ -16,6 +17,7 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
   globalSetup: 'jest-preset-angular/global-setup',

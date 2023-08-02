@@ -1,3 +1,5 @@
+const {resolve} = require('node:path');
+
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
@@ -17,6 +19,7 @@ module.exports = {
   },
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ]
 };
