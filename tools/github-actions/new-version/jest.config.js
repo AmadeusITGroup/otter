@@ -12,7 +12,7 @@ module.exports = {
   preset: 'ts-jest',
   reporters: [
     'default',
-    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
   transform: {

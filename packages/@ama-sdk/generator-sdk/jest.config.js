@@ -12,7 +12,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
   reporters: [
     'default',
-    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'ut-report.xml'}],
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
   transform: {
