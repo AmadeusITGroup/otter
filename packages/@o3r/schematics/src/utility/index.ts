@@ -12,6 +12,7 @@ export * from './template-property.helper';
 export * from './matching-peers';
 export * from './package-manager-runner';
 export * from './package-version';
+export * from './question';
 export * from './monorepo';
 export * from './update-imports';
 export * from './collection';
