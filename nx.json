@@ -128,6 +128,9 @@
         {"env": "RUNNER_OS"},
         "specs",
         "^specs"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/ut-report.xml"
       ]
     },
     "test-int": {
