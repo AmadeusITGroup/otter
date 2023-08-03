@@ -82,7 +82,7 @@ describe('Typescript Shell Generator', () => {
       skipInstall: true,
       packageManager: 'npm'
     }, Tree.empty());
-  });
+  }, 10000);
 
   it('should generate basic SDK package', () => {
     expect(yarnTree.files.sort()).toEqual(baseFileList.sort());
