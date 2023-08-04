@@ -24,6 +24,11 @@ module.exports = {
     ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
+  fakeTimers: {
+    enableGlobally: true,
+    // TODO try to make date utils work with fake Date
+    doNotFake: ['Date']
+  },
   globalSetup: 'jest-preset-angular/global-setup',
   transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention

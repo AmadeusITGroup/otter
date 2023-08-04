@@ -19,6 +19,9 @@ module.exports = {
     '<rootDir>/.*/templates/.*',
     '\\.it\\.spec\\.ts$'
   ],
+  fakeTimers: {
+    enableGlobally: true
+  },
   reporters: [
     'default',
     ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],

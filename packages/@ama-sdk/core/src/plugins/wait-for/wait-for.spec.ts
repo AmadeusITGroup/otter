@@ -8,9 +8,10 @@ describe('Wait For Fetch Plugin', () => {
     const plugin = new WaitForFetch(() => ({result: new Promise<boolean>((resolve) => setTimeout(() => resolve(true), 2000))}), 100);
 
     const runner = plugin.load(defaultContext);
-    const canStart = await runner.canStart();
+    const canStart = runner.canStart();
+    await jest.runAllTimersAsync();
 
-    expect(canStart).toBe(false);
+    expect(await canStart).toBe(false);
   });
 
   it('should start if promise condition passed', async () => {

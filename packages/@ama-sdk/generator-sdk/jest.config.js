@@ -15,6 +15,10 @@ module.exports = {
     ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
+  fakeTimers: {
+    // TODO enable fake timers
+    // enableGlobally: true
+  },
   transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     '^.+\\.tsx?$': [

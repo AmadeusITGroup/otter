@@ -130,11 +130,12 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const beforeTime = new Date().getTime();
-      await loadedPlugin.transform(Promise.resolve({} as any));
-      const afterTime = new Date().getTime();
-
-      expect(afterTime - beforeTime).toBeGreaterThanOrEqual(695);
+      const callback = jest.fn();
+      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      await jest.advanceTimersByTimeAsync(699);
+      expect(callback).not.toHaveBeenCalled();
+      await jest.advanceTimersByTimeAsync(1);
+      expect(callback).toHaveBeenCalled();
     });
 
     it('should delay the response based on callback', async () => {
@@ -149,11 +150,12 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const beforeTime = new Date().getTime();
-      await loadedPlugin.transform(Promise.resolve({} as any));
-      const afterTime = new Date().getTime();
-
-      expect(afterTime - beforeTime).toBeGreaterThanOrEqual(795);
+      const callback = jest.fn();
+      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      await jest.advanceTimersByTimeAsync(799);
+      expect(callback).not.toHaveBeenCalled();
+      await jest.advanceTimersByTimeAsync(1);
+      expect(callback).toHaveBeenCalled();
     });
   });
 });

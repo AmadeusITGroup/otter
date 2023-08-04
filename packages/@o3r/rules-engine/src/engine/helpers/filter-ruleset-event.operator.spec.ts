@@ -184,7 +184,7 @@ describe('Filter rulesets event operator', () => {
 
   });
 
-  test('should not emit if ruleset id does not match any registered ruleset', (done) => {
+  test('should not emit if ruleset id does not match any registered ruleset', async () => {
 
     let emittedActions: ActionBlock[] | undefined;
 
@@ -194,10 +194,8 @@ describe('Filter rulesets event operator', () => {
       emittedActions = data;
     });
 
-    setTimeout(() =>{
-      expect(emittedActions).toBe(undefined);
-      done();
-    }, 500);
+    await jest.advanceTimersByTimeAsync(500);
+    expect(emittedActions).toBe(undefined);
   });
 
 });

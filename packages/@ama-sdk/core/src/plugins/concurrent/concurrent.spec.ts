@@ -34,12 +34,15 @@ describe('Concurrent Fetch Plugin', () => {
 
     void plugin.load({} as any).transform(call0);
     const runner1 = plugin.load({} as any);
+    const canStart1 = runner1.canStart();
+    await jest.runAllTimersAsync();
 
-    expect(await runner1.canStart()).toBe(true);
+    expect(await canStart1).toBe(true);
     void runner1.transform(call1);
 
     const runner2 = plugin.load({} as any);
     const pCanStart2 = runner2.canStart();
+    await jest.runAllTimersAsync();
 
     expect((plugin as any).waitingResolvers.length).toBe(1);
 
@@ -51,7 +54,7 @@ describe('Concurrent Fetch Plugin', () => {
 
     resolves[1]();
 
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    await jest.advanceTimersByTimeAsync(500);
 
     expect((plugin as any).waitingResolvers.length).toBe(0);
   });
