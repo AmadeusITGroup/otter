@@ -40,7 +40,7 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
     };
 
     const updatePackageJson = async (t: Tree, _c: SchematicContext) => {
-      const packageJsonContent = tree.readJson('package.json') as PackageJson;
+      const packageJsonContent = t.readJson('package.json') as PackageJson;
       for (const dependency of moduleToInstall) {
         const version = await getInstalledVersion(dependency);
         packageJsonContent.devDependencies = { ...packageJsonContent.devDependencies, [dependency]: version || corePackageJsonContent.version };

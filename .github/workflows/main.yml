@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      NX_SKIP_NX_CACHE: ${{ github.event_name == 'push' && startsWith(github.ref, 'release') }}
     steps:
       - uses: actions/checkout@v3
       - uses: ./tools/github-actions/setup
@@ -59,12 +60,15 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     with:
       affected: ${{ github.event_name == 'pull_request' }}
+      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'release') }}
 
   test-publish:
     uses: ./.github/workflows/test-publish.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     needs: [build]
+    with:
+      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'release') }}
 
   publish-packages:
     uses: ./.github/workflows/publish.yml
@@ -78,6 +82,7 @@ jobs:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
       isPullRequest: false
+      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'release') }}
 
   documentation-main:
     secrets: inherit
