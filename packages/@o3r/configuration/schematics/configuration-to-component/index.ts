@@ -75,14 +75,13 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const componentPath = options.path;
-      const { name, selector } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
+      const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
 
       checkConfiguration(componentPath, tree);
 
       const properties = {
         componentConfig: name.concat('Config'),
         projectName: options.projectName || getLibraryNameFromPath(componentPath),
-        componentSelector: selector,
         configKey: strings.underscore(name).toUpperCase(),
         name: basename(componentPath, '.component.ts')
       };
