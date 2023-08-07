@@ -13,7 +13,7 @@ import type { NgAddSchematicsSchema } from './schema';
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {applyEsLintFix, install, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {applyEsLintFix, install, getProjectDepType, getProjectRootDir, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
       const {updateI18n, updateLocalization} = await import('../localization-base');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
@@ -22,6 +22,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       return () => chain([
         updateLocalization(options, __dirname),
         updateI18n(),
@@ -32,9 +33,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          dependencyType: getProjectDepType(t)
+          dependencyType: getProjectDepType(t),
+          workingDirectory
         })(t, c),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/localization - install builder dependency'),
+        ngAddPeerDependencyPackages(
+          ['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/localization - install builder dependency'),
         updateCmsAdapter(options),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({

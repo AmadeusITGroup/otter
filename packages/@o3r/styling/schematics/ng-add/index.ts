@@ -24,7 +24,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         removePackages,
         registerPackageCollectionSchematics,
         setupSchematicsDefaultParams,
-        updateSassImports
+        updateSassImports,
+        getProjectRootDir
       } = await import('@o3r/schematics');
       options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
       const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
@@ -34,6 +35,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       const dependencyType = getProjectDepType(tree);
       return () => chain([
         removePackages(['@otter/styling']),
@@ -44,7 +46,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
-          dependencyType
+          dependencyType,
+          workingDirectory
         }),
         registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
         setupSchematicsDefaultParams({
@@ -57,7 +60,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
             useOtterTheming: undefined
           }
         }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, depsInfo.packageName),
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, depsInfo.packageName),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ])(tree, context);
     } catch (e) {

@@ -7,6 +7,7 @@ import type { PackageJson } from 'type-fest';
 import { SchematicOptionObject } from '../../interfaces';
 import type { NgAddPackageOptions } from '../../tasks/index';
 import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, readAngularJson, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
+import * as path from 'node:path';
 
 /**
  * Install via `ng add` a list of npm packages.
@@ -16,6 +17,10 @@ import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageM
  * @param packageJsonPath path of the package json of the project where they will be installed
  */
 export function ngAddPackages(packages: string[], options?: NgAddPackageOptions, packageJsonPath = '/package.json'): Rule {
+  if (options?.workingDirectory && !packageJsonPath.startsWith(options.workingDirectory)) {
+    packageJsonPath = path.join(options.workingDirectory, packageJsonPath);
+  }
+
   const getInstalledVersion = async (packageName: string) => {
     try {
       return (await import(`${packageName}/package.json`)).version;
@@ -59,10 +64,11 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
     const packagesInput = packagesToInstall
       .map((packageName) => `${packageName}${options?.version ? `@${options?.version}` : ''}`)
       .join(' ');
-
+    const workingDirectory = options?.workingDirectory || path.dirname(packageJsonPath);
     context.addTask(new NodePackageInstallTask({
       packageManager: packageManager,
       packageName: `${packagesInput}${installOptions}`,
+      workingDirectory,
       hideOutput: false,
       quiet: false
     } as any));
@@ -84,11 +90,17 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
     });
     tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
+    if (options?.skipNgAddSchematicRun) {
+      context.logger.info(`Package(s) '${packagesToInstall.join(', ')}' was(were) installed.
+        The run of 'ng-add' schematics for the package(s) is intentionally skipped. You can do the run standalone, later.`);
+      return () => tree;
+    }
+
     const ngAddsToApply = packagesToInstall
       .map((packageName) => ({packageName, ngAddCollection: getNgAddSchema(packageName, context)}))
       .filter(({packageName, ngAddCollection}) => {
         if (!ngAddCollection) {
-          context.logger.info(`Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
+          context.logger.info(`No ng-add schematic found for: '${packageName}'. Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
         }
         return !!ngAddCollection;
       })
@@ -118,7 +130,8 @@ export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath:
       skipConfirmation: true,
       version: dependency.version,
       parentPackageInfo,
-      dependencyType: dependency.type
+      dependencyType: dependency.type,
+      workingDirectory: options.workingDirectory
     });
   });
   return chain(externalPeerDepsRules);
