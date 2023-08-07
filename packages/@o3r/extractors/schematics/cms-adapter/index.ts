@@ -10,7 +10,7 @@ import * as path from 'node:path';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateCmsAdapter(options: { projectName: string | null }, rootPath: string): Rule {
+export function updateCmsAdapter(options: { projectName?: string | undefined }, rootPath: string): Rule {
 
   /**
    * Generate Tsconfig for cms extracters

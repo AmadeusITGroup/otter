@@ -9,7 +9,8 @@
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
   "include": [
-    "schematics/**/*.ts"
+    "schematics/**/*.ts",
+    "src/public_api.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

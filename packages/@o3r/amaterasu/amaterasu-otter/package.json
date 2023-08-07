@@ -27,8 +27,8 @@
   },
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular-eslint/eslint-plugin": "~16.0.3",
-    "@nx/jest": "~16.5.0",
+    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@nx/jest": "~16.6.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -39,18 +39,19 @@
     "@typescript-eslint/parser": "^5.59.9",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-jest": "^27.2.1",
-    "eslint-plugin-jsdoc": "^39.3.6",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-jest": "~27.2.3",
+    "eslint-plugin-jsdoc": "~46.4.5",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
-    "jest": "~29.6.0",
-    "nx": "~16.5.0",
-    "ts-jest": "^29.1.0",
-    "typescript": "~5.0.2"
+    "jest": "~29.6.2",
+    "jest-junit": "~16.0.0",
+    "nx": "~16.6.0",
+    "ts-jest": "~29.1.1",
+    "typescript": "~5.1.6"
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular/cli": "~16.0.5"
+    "@angular/cli": "~16.1.6"
   },
   "engines": {
     "node": ">=16.0.0",

@@ -23,7 +23,11 @@ env:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
@@ -51,7 +55,17 @@ jobs:
       - name: Test
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
-        run: yarn ${{ env.testCmd }}
+          NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
+        run: yarn ${{ env.testCmd }} --output-style=stream
+      - name: Publish tests reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: ut-reports-${{ matrix.os }}
+          path: |
+            apps/**/dist-test/ut-report.xml
+            packages/**/dist-test/ut-report.xml
+            tools/**/dist-test/ut-report.xml
   lint:
     runs-on: ubuntu-latest
     env:
@@ -71,6 +85,8 @@ jobs:
             ${{ runner.os }}-eslint-${{ env.hash }}
             ${{ runner.os }}-eslint
             ${{ runner.os }}
+      - name: Dependency Check
+        run: yarn in-source-dep-check --fail-on-error
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}

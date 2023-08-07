@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgAddAnalyticsSchematicsSchema extends JsonObject {
+export interface NgAddAnalyticsSchematicsSchema extends SchematicOptionObject {
   /** Path to the component */
   path: string;
 

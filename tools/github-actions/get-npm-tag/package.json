@@ -20,7 +20,7 @@
     "semver": "^7.5.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.0.3",
+    "@angular-eslint/eslint-plugin": "~16.1.0",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@types/node": "^18.0.0",
@@ -29,11 +29,11 @@
     "@typescript-eslint/parser": "^5.59.9",
     "@vercel/ncc": "~0.36.1",
     "eslint": "^8.42.0",
-    "eslint-plugin-jest": "^27.2.1",
-    "eslint-plugin-jsdoc": "^39.3.6",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-jest": "~27.2.3",
+    "eslint-plugin-jsdoc": "~46.4.5",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "engines": {
     "node": ">=16.0.0"

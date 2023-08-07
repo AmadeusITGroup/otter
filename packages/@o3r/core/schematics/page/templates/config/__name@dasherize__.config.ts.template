@@ -1,8 +1,0 @@
-import {Configuration} from '@o3r/core';
-import {computeConfigurationName} from '@o3r/configuration';
-
-export interface <%= className %>Config extends Configuration {}
-
-export const <%= scuPageName %>_DEFAULT_CONFIG: <%= className %>Config = {};
-
-export const <%= scuPageName %>_CONFIG_ID = computeConfigurationName('<%= prefix %>-<%= dasherize(name) %>', '<%= projectName %>');

@@ -140,7 +140,9 @@ describe('Client Facts request plugin', () => {
       }
     });
 
-    const newSpecificOptions = await plugin.load().transform(specificOptions);
+    const promise = plugin.load().transform(specificOptions);
+    await jest.runAllTimersAsync();
+    const newSpecificOptions = await promise;
 
     expect(newSpecificOptions.headers.has(defaultHeader)).toBeTruthy();
     expect(newSpecificOptions.headers.get(defaultHeader)).toEqual(jwtFactsEncoder(specificFacts));

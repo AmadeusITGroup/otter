@@ -60,7 +60,7 @@ const getLatestRange = (dependencies: DependencyInfo[], dependencyName: string):
         } else if (!minAccVersion) {
           return current;
         }
-        return semver.lt(minCurrentVersion, minAccVersion) ? acc : current;
+        return semver.lte(minCurrentVersion, minAccVersion) ? acc : current;
       }
     }, undefined);
 

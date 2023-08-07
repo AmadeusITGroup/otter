@@ -1,7 +1,7 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 import { MethodType } from './models';
 
-export interface NgAddFunctionsToFixtureSchematicsSchema extends JsonObject {
+export interface NgAddFunctionsToFixtureSchematicsSchema extends SchematicOptionObject {
   /**
    * Path of the fixture file
    */

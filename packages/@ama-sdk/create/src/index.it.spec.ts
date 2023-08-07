@@ -14,6 +14,7 @@ const cacheFolderPath = path.join(currentFolder, '.cache', appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: sdkFolderPath,
   stdio: 'inherit',
+  timeout: 15 * 60 * 1000,
   /* eslint-disable @typescript-eslint/naming-convention, camelcase */
   env: {
     ...process.env,

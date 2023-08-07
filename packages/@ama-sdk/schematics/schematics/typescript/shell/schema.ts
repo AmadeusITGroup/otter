@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateTypescriptSDKShellSchematicsSchema extends JsonObject {
+export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicOptionObject {
   /** Project name (NPM package scope, package.json name will be @{projectName}/{packageName}) */
   name: string;
 
@@ -8,13 +8,13 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends JsonObject
   package: string;
 
   /** Project description */
-  description: string;
+  description?: string | undefined;
 
   /** Directory where to generate the SDK */
-  directory: string;
+  directory?: string | undefined;
 
   /** Package manager to be used in the generated SDK */
-  packageManager: 'npm' | 'yarn' | '';
+  packageManager?: 'npm' | 'yarn' | undefined;
 
   /** Skip NPM install */
   skipInstall: boolean;

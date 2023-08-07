@@ -1,4 +1,5 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const {resolve} = require('node:path');
 
 globalThis.ngJest = {
   skipNgcc: true
@@ -17,15 +18,24 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
+  fakeTimers: {
+    enableGlobally: true
+  },
   globalSetup: 'jest-preset-angular/global-setup',
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    },
+    '^.+\\.tsx?$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
+  },
+  globals: {
     chrome: {
       runtime: {},
       devtools: {

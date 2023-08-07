@@ -32,17 +32,17 @@
       "@ama-sdk/core": [
         "packages/@ama-sdk/core/src/public_api"
       ],
+      "@ama-sdk/create": [
+        "packages/@ama-sdk/create"
+      ],
       "@ama-sdk/generator-sdk": [
         "packages/@ama-sdk/generator-sdk"
-      ],
-      "@ama-sdk/swagger-builder": [
-        "packages/@ama-sdk/swagger-builder"
       ],
       "@ama-sdk/schematics": [
         "packages/@ama-sdk/schematics"
       ],
-      "@ama-sdk/create": [
-        "packages/@ama-sdk/create"
+      "@ama-sdk/swagger-builder": [
+        "packages/@ama-sdk/swagger-builder"
       ],
       "@ama-terasu/cli": [
         "packages/@ama-terasu/cli/src"

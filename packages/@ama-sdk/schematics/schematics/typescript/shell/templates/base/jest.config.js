@@ -12,12 +12,15 @@ module.exports = {
     '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
     '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1'],
   },
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/testing/tsconfig.spec.json',
-      isolatedModules: true,
-      stringifyContentPathRegex: '\\.html$',
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/testing/tsconfig.spec.json',
+        isolatedModules: true,
+        stringifyContentPathRegex: '\\.html$',
+      }
+    ]
   }
 };

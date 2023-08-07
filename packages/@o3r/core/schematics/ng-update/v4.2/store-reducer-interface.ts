@@ -7,7 +7,7 @@ import { getSourceFilesFromWorkspaceProjects } from '@o3r/schematics';
  * @param _options
  * @param _options.projectName
  */
-export function updateStoreReducerInterface(_options?: { projectName: string | null }): Rule {
+export function updateStoreReducerInterface(_options?: { projectName?: string | null | undefined }): Rule {
   return (tree: Tree, _context: SchematicContext) => {
     const files = getSourceFilesFromWorkspaceProjects(tree);
 

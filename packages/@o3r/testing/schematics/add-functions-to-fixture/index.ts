@@ -1,6 +1,6 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
 import { applyEsLintFix } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { getImplementation, getSignature } from './helpers';
 import { description } from './models';
 import { NgAddFunctionsToFixtureSchematicsSchema } from './schema';

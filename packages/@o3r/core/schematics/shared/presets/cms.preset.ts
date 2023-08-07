@@ -1,6 +1,6 @@
 import { chain } from '@angular-devkit/schematics';
 import { defaultPresetRuleFactory } from './helpers';
-import type { PresetFactory } from './preset.interface';
+import type { PresetOptions } from './preset.interface';
 import { setupSchematicsDefaultParams, WorkspaceSchematics } from '@o3r/schematics';
 
 /**
@@ -8,7 +8,7 @@ import { setupSchematicsDefaultParams, WorkspaceSchematics } from '@o3r/schemati
  *
  * @param options
  */
-export const cmsPreset: PresetFactory = (options) => {
+export function cmsPreset(options: PresetOptions) {
   const modules = [
     '@o3r/localization',
     '@o3r/styling',
@@ -28,4 +28,4 @@ export const cmsPreset: PresetFactory = (options) => {
       rule
     ])
   };
-};
+}

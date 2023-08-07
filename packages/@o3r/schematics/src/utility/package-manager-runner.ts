@@ -1,4 +1,3 @@
-import * as commentJson from 'comment-json';
 import { WorkspaceSchema } from '../interfaces';
 import { logging } from '@angular-devkit/core';
 
@@ -52,7 +51,7 @@ function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers): S
 export function getPackageManager(options?: PackageManagerOptions) {
   let packageManagerFromWorkspace: string | undefined;
   if (options?.workspaceConfig) {
-    const angularJsonObj = (typeof options?.workspaceConfig === 'string' ? (commentJson.parse(options?.workspaceConfig) as unknown as WorkspaceSchema) : options?.workspaceConfig);
+    const angularJsonObj = (typeof options?.workspaceConfig === 'string' ? (JSON.parse(options?.workspaceConfig) as WorkspaceSchema) : options?.workspaceConfig);
     if (angularJsonObj?.cli?.packageManager) {
       packageManagerFromWorkspace = angularJsonObj.cli.packageManager;
     }

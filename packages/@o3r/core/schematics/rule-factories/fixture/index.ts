@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as commentJson from 'comment-json';
 import { getProjectFromTree } from '@o3r/schematics';
+import * as ts from 'typescript';
 
 /**
  * Add fixture configuration
@@ -12,7 +12,7 @@ import { getProjectFromTree } from '@o3r/schematics';
  * @param options.testingFramework
  * @param _rootPath
  */
-export function updateFixtureConfig(options: { projectName: string | null; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
+export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework: 'jest' | 'jasmine' }, _rootPath: string): Rule {
 
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
 
@@ -33,7 +33,7 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
     const tsconfig: string | undefined = testTarget && testTarget.options && testTarget.options.tsConfig;
 
     if (tsconfig && tree.exists(tsconfig)) {
-      const tsconfigFile: any = commentJson.parse(tree.read(tsconfig)!.toString());
+      const tsconfigFile = ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig)).config;
       tsconfigFile.compilerOptions = tsconfigFile.compilerOptions || {};
 
       const tsconfigCompilerOptions = tsconfigFile.compilerOptions;
@@ -62,7 +62,7 @@ export function updateFixtureConfig(options: { projectName: string | null; testi
       const subFolder = options.testingFramework === 'jasmine' ? 'karma' : 'angular';
       tsconfigCompilerOptions.paths['@o3r/testing/core'] = [`node_modules/@o3r/testing/core/${subFolder}`];
       tsconfigCompilerOptions.paths['@o3r/testing/core/*'] = [`node_modules/@o3r/testing/core/${subFolder}/*`];
-      tree.overwrite(tsconfig, commentJson.stringify(tsconfigFile, null, 2));
+      tree.overwrite(tsconfig, JSON.stringify(tsconfigFile, null, 2));
     }
 
     return tree;

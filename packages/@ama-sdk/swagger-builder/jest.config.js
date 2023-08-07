@@ -1,4 +1,5 @@
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
+const {resolve} = require('node:path');
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',
@@ -8,13 +9,20 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
-  globals: {
+  fakeTimers: {
+    enableGlobally: true
+  },
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
   }
 };

@@ -2,6 +2,8 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
+import { ngAddContext } from './index';
+import { firstValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
@@ -81,15 +83,34 @@ export class NgComponent {}
     }, tree)).rejects.toThrow();
   });
 
-  it('should throw if no Otter component', async () => {
+  it('should throw if inexisting path', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
-
-    await expect(runner.runSchematic('context-to-component', {
-      path: ngComponentPath
-    }, initialTree)).rejects.toThrow();
 
     await expect(runner.runSchematic('context-to-component', {
       path: 'inexisting-path.component.ts'
     }, initialTree)).rejects.toThrow();
+  });
+
+  describe('Angular component', () => {
+    it('should throw if no Otter component', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+
+      await expect(firstValueFrom(runner.callRule(ngAddContext({
+        path: ngComponentPath,
+        skipLinter: false
+      }), initialTree, { interactive: false }))).rejects.toThrow();
+    });
+
+    it('should call convert-component if no Otter component', async () => {
+      const runner = new SchematicTestRunner('schematics', collectionPath);
+      const createSchematicSpy = jest.spyOn(runner.engine, 'createSchematic');
+
+      const tree = await runner.runSchematic('context-to-component', {
+        path: ngComponentPath
+      }, initialTree);
+
+      expect(createSchematicSpy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
+      expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'context.ts'))).toBeTruthy();
+    });
   });
 });

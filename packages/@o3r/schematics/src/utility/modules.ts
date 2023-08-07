@@ -1,5 +1,5 @@
 import {SchematicContext, SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import {
   addImportToModule,
   addProviderToModule,

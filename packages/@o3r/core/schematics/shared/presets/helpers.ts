@@ -9,7 +9,6 @@ import { AddDevInstall } from '@o3r/schematics';
 
 /**
  * Default implementation of the preset rule
- *
  * @param moduleToInstall
  * @param options
  */
@@ -56,5 +55,4 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
       executeNgAdd
     ]);
   };
-
 }

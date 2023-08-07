@@ -4,7 +4,7 @@ import type {
   ComponentConfigOutput,
   ComponentModuleOutput,
   ComponentOutput,
-  ComponentStructure, PlaceholdersMetadata
+  ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
 import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
 import * as fs from 'node:fs';
@@ -36,8 +36,9 @@ export class ComponentExtractor {
    * @param libraries List of libraries to extract metadata from
    * @param logger
    * @param workspaceRoot
+   * @param strictMode
    */
-  constructor(private libraryName: string, libraries: string[], private logger: logging.LoggerApi, private workspaceRoot: string) {
+  constructor(private libraryName: string, libraries: string[], private logger: logging.LoggerApi, private workspaceRoot: string, private strictMode = false) {
     this.libraries = libraries
       .map((lib) => getLibraryCmsMetadata(lib, ''));
   }
@@ -263,19 +264,44 @@ export class ComponentExtractor {
     if (!options.exposedComponentSupport) {
       supportedTypes.delete('EXPOSED_COMPONENT');
     }
-    return configs.filter((config) => {
+    return configs.reduce((acc: ComponentConfigOutput[], config) => {
       if (!supportedTypes.has(config.type)) {
         this.logger.warn(`Config type "${config.type}" is not supported for ${config.library}#${config.name}. Excluding it`);
-        return false;
+        return acc;
       }
 
-      if (config.properties.some((property) => property.values === undefined && property.value === undefined)) {
-        this.logger.warn(`At least one property in "${config.library}#${config.name}" has no default value. Excluding it`);
-        return false;
+      const { propertiesWithDefaultValue, propertiesWithoutDefaultValue } = config.properties.reduce((properties: {
+        propertiesWithDefaultValue: ConfigProperty[];
+        propertiesWithoutDefaultValue: ConfigProperty[];
+      }, property) => {
+        if (property.values === undefined && property.value === undefined) {
+          properties.propertiesWithoutDefaultValue = properties.propertiesWithoutDefaultValue.concat(property);
+        } else {
+          properties.propertiesWithDefaultValue = properties.propertiesWithDefaultValue.concat(property);
+        }
+        return properties;
+      }, {
+        propertiesWithDefaultValue: [],
+        propertiesWithoutDefaultValue: []
+      });
+      if (propertiesWithoutDefaultValue.length) {
+        const message = `"${config.library}#${config.name}" has no default value for ${
+          propertiesWithoutDefaultValue.map((prop) => prop.name).join(', ')
+        }. Excluding ${propertiesWithoutDefaultValue.length > 1 ? 'them' : 'it'}`;
+        if (!this.strictMode) {
+          this.logger.warn(message);
+        } else {
+          throw new Error(message);
+        }
+        const configWithoutIncompatibleProperties: ComponentConfigOutput = {
+          ...config,
+          properties: propertiesWithDefaultValue
+        };
+        return acc.concat(configWithoutIncompatibleProperties);
       }
 
-      return true;
-    });
+      return acc.concat(config);
+    }, []);
 
   }
 

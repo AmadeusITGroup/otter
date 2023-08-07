@@ -17,6 +17,7 @@ const appFolderPath = path.join(itTestsFolderPath, appName);
 const execAppOptions: ExecSyncOptions = {
   cwd: appFolderPath,
   stdio: 'inherit',
+  timeout: 15 * 60 * 1000,
   // eslint-disable-next-line @typescript-eslint/naming-convention
   env: {...process.env, JEST_WORKER_ID: undefined, NODE_OPTIONS: ''}
 };

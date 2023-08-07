@@ -89,12 +89,6 @@
       "description": "Install otter apis manager",
       "x-prompt": "Add APIs manager mechanism providing a way to manage the application SDKs via injectable?"
     },
-    "isDefaultGenerator": {
-      "type": "boolean",
-      "description": "Set the Otter Generator as default ngCLI generator",
-      "default": true,
-      "x-prompt": "Set Otter as default collection used by the Angular CLI generator?"
-    },
     "generateAzurePipeline": {
       "type": "boolean",
       "description": "Generate the Azure Pipeline for the new project",

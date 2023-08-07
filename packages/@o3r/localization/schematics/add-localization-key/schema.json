@@ -19,8 +19,7 @@
     },
     "description": {
       "type": "string",
-      "description": "Description of the localization",
-      "default": ""
+      "description": "Description of the localization"
     },
     "value": {
       "type": "string",

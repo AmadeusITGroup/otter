@@ -24,8 +24,8 @@
     "scope": {
       "type": "string",
       "description": "Page scope (e.g. booking, servicing, ssci, etc.)",
-      "default": "",
-      "x-prompt": "Page scope (e.g. booking, servicing, ssci, etc.)?"
+      "x-prompt": "Page scope (e.g. booking, servicing, ssci, etc.)?",
+      "default": ""
     },
     "appRoutingModulePath": {
       "type": "string",
@@ -44,30 +44,32 @@
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
-      "default": false,
-      "x-prompt": "Skip linter process on generated files?"
+      "default": false
     },
     "useOtterTheming": {
       "type": "boolean",
-      "description": "Generate page with Otter theming architecture",
-      "default": true,
-      "x-prompt": "Generate your page with Otter theming architecture?"
+      "description": "Generate page with Otter theming architecture"
     },
     "useOtterConfig": {
       "type": "boolean",
-      "description": "Generate page with Otter configuration",
-      "default": true,
-      "x-prompt": "Generate your page with Otter configuration?"
+      "description": "Generate page with Otter configuration"
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate page with localization",
-      "default": true,
-      "x-prompt": "Generate your page with localization?"
+      "description": "Generate page with localization"
     },
     "standalone": {
       "type": "boolean",
       "description": "Whether the generated component is standalone.",
+      "default": false
+    },
+    "usePageFixtures": {
+      "type": "boolean",
+      "description": "Generate page fixtures for tests"
+    },
+    "activateDummy": {
+      "type": "boolean",
+      "description": "Generate dummy values",
       "default": false
     }
   },

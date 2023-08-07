@@ -289,7 +289,6 @@ module.exports = {
     'jsdoc/empty-tags': 'warn',
     'jsdoc/implements-on-classes': 'warn',
     'jsdoc/match-description': 'off',
-    'jsdoc/newline-after-description': 'error',
     'jsdoc/no-bad-blocks': 'off',
     'jsdoc/no-defaults': 'off',
     'jsdoc/no-types': 'off',

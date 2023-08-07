@@ -17,6 +17,7 @@
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
     "doc-links": "./scripts/doc-links.mjs",
+    "generate-cjs-manifest": "./scripts/generate-cjs-manifest.mjs",
     "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
     "patch-package-json-main": "./scripts/patch-package-json-main.mjs",
     "pr-labels": "./scripts/pr-labels.mjs",
@@ -30,12 +31,12 @@
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "~5.0.2"
+    "typescript": "~5.1.6"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
-    "nx": "~16.5.0",
-    "typescript": "~5.0.2"
+    "nx": "~16.6.0",
+    "typescript": "~5.1.6"
   },
   "otter": {
     "versionHarmonize": {

@@ -1,7 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import { getProjectFromTree, readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -21,7 +20,7 @@ describe('Playwright Sanity', () => {
     workspaceProject.schematics ||= {};
     workspaceProject.schematics[configurationIndex] = {path: dir};
     workspace.projects['test-project'] = workspaceProject;
-    initialTree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    initialTree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
 
     return initialTree;
   };

@@ -39,11 +39,15 @@ module.exports = {
     'github-actions'
   ],
   globalSetup: 'jest-preset-angular/global-setup',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+  transform: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '^.+\\.tsx?$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
   }
 };
 

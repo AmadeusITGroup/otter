@@ -6,7 +6,6 @@ import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
 
 /**
  * Generate rule to update generated package.json file
- *
  * @param targetPath Path of the generated files
  * @param otterVersion Current version of otter
  * @param o3rCorePackageJson Content of core's package.json
@@ -23,7 +22,7 @@ export function updatePackageDependenciesFactory(
     const runner = getPackageManagerRunner(getWorkspaceConfig(tree));
     packageJson.description = options.description || packageJson.description;
     packageJson.scripts ||= {};
-    packageJson.scripts.build = `${runner} build ${options.projectName}`;
+    packageJson.scripts.build = `${runner} ng build ${options.name}`;
     packageJson.scripts['prepare:build:builders'] = `${runner} cpy 'collection.json' dist && ${runner} cpy 'schematics/**/*.json' dist/schematics`;
     packageJson.scripts['build:builders'] = 'tsc -b tsconfig.builders.json --pretty';
     packageJson.peerDependencies ||= {};
@@ -51,7 +50,7 @@ export function updatePackageDependenciesFactory(
       '@o3r/dev-tools': otterVersion,
       '@o3r/eslint-plugin': otterVersion,
       '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
-      '@types/jest': o3rCorePackageJson.generatorDependencies!.jest,
+      '@types/jest': o3rCorePackageJson.generatorDependencies!['@types/jest'],
       '@typescript-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
       '@typescript-eslint/parser': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],
       'cpy-cli': o3rCorePackageJson.generatorDependencies!['cpy-cli'],
@@ -77,7 +76,6 @@ export function updatePackageDependenciesFactory(
 
 /**
  * Generate rule to update generated ng-packagr.json file
- *
  * @param targetPath Path of the generated files
  */
 export function updateNgPackagrFactory(targetPath: string): Rule {

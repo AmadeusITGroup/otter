@@ -16,7 +16,6 @@ function generateComponentContainer(options: NgGenerateComponentSchematicsSchema
     prefix: options.prefix || undefined,
     componentStructure: options.componentStructure,
     description: options.description || '',
-    componentFolder: options.componentFolder || undefined,
     useComponentFixtures: options.useComponentFixtures,
     useOtterConfig: options.useOtterConfig,
     useRulesEngine: options.useRulesEngine,
@@ -38,7 +37,6 @@ function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema
     prefix: options.prefix || undefined,
     componentStructure: options.componentStructure,
     description: options.description || '',
-    componentFolder: options.componentFolder || undefined,
     useComponentFixtures: options.useComponentFixtures,
     useOtterTheming: options.useOtterTheming,
     useOtterConfig: options.useOtterConfig,
@@ -125,8 +123,8 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
 
       return chain([
         generateRootBarrel,
-        generateComponentContainer(options),
         generateComponentPresenter(options),
+        generateComponentContainer(options),
         generateFiles,
         options.skipLinter ? noop() : applyEsLintFix()
       ]);
