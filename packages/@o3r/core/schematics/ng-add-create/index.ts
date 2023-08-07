@@ -54,7 +54,7 @@ export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule
     }
 
     // generate skeleton
-    const featureName = options.projectName || path.basename(process.cwd());
+    const featureName = options.name || path.basename(process.cwd());
     const templateSource = apply(url('./templates'), [
       template({
         featureName,

@@ -7,7 +7,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   preset: PresetNames;
 
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Enable prefetch builder */
   enablePrefetchBuilder: boolean;

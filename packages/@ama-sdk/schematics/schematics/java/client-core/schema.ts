@@ -5,5 +5,5 @@ export interface NgGenerateJavaClientCoreSchematicsSchema extends SchematicOptio
   specPath: string;
 
   /** Swagger config file */
-  specConfigPath: string | undefined;
+  specConfigPath?: string | undefined;
 }

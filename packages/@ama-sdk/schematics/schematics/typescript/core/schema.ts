@@ -5,7 +5,7 @@ export interface NgGenerateTypescriptSDKCoreSchematicsSchema extends SchematicOp
   specPath: string;
 
   /** Directory where to generate the SDK */
-  directory: string | undefined;
+  directory?: string | undefined;
 
   /** Package manager to be used in the generated SDK */
   packageManager: 'npm' | 'yarn' | undefined;

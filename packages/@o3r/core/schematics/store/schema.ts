@@ -9,10 +9,10 @@ import { NgGenerateSimpleSyncStoreSchematicsSchema } from './simple-sync/schema'
  */
 export interface NgGenerateStoreBaseSchematicsSchema extends SchematicOptionObject {
   /** Directory containing the stores */
-  path: string | undefined;
+  path?: string | undefined;
 
   /** Project name */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Store name */
   storeType: 'entity-async' | 'simple-async' | 'entity-sync' | 'simple-sync';

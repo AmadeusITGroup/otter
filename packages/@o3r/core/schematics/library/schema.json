@@ -22,14 +22,9 @@
       "type": "string",
       "description": "Prefix use to package future generation"
     },
-    "projectName": {
-      "type": "string",
-      "description": "Name of the Nx Project (applied only in Nx Monorepo)"
-    },
     "path": {
       "type": "string",
-      "description": "Target directory to generate the module",
-      "default": ""
+      "description": "Target directory to generate the module"
     },
     "skipLinter": {
       "type": "boolean",

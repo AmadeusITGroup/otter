@@ -5,7 +5,7 @@ export interface NgAddFixtureSchematicsSchema extends SchematicOptionObject {
   path: string;
 
   /** Path to spec file of the component */
-  specFilePath: string | undefined;
+  specFilePath?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

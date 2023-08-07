@@ -11,7 +11,7 @@ export interface NgAddLocalizationKeySchematicsSchema extends SchematicOptionObj
   key: string;
 
   /** Description of the localization */
-  description: string | undefined;
+  description?: string | undefined;
 
   /** Default value of the localization */
   value: string;

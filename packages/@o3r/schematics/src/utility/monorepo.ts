@@ -66,12 +66,12 @@ export const BASE_ROOT_FOLDERS_MAP: Record<WorkspaceProject['projectType'], keyo
  * @param projectType
  * @param schematicName
  */
-export function getPackagesBaseRootFolder(config: WorkspaceSchema, tree: Tree, projectType?: WorkspaceProject['projectType'], schematicName?: string) {
+export function getPackagesBaseRootFolder(config: WorkspaceSchema | null, tree: Tree, projectType?: WorkspaceProject['projectType'], schematicName?: string) {
   const configName = projectType && BASE_ROOT_FOLDERS_MAP[projectType];
   const nxExplicitDir = configName && isNxContext(tree) && (tree.readJson('/nx.json') as any)?.workspaceLayout[configName];
 
-  const schematicConfigDir = configName && getSchematicOptions(config, schematicName)?.[configName];
+  const schematicConfigDir = configName && config && getSchematicOptions(config, schematicName)?.[configName];
 
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-  return '/' + (schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : ''));
+  return schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : '.');
 }

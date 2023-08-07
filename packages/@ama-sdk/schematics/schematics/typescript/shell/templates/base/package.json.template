@@ -1,6 +1,6 @@
 {
   "name": "@<%=projectName%>/<%=projectPackageName%>",
-  "version": "0.0.0",
+  "version": "0.0.0-placeholder",
   "description": "<%=projectPackageName%> - SDK",
   "source": "src/index.ts",
   "main": "cjs/index.js",
@@ -37,7 +37,7 @@
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
-    "set:version": "set-version --placeholder 0.0.0",
+    "set:version": "set-version --placeholder 0.0.0-placeholder",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
     "spec:regen": "<%=packageManager%> run generate && <%=packageManager%> exec clear-index",

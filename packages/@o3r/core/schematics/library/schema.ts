@@ -5,16 +5,16 @@ export interface NgGenerateModuleSchema extends SchematicOptionObject {
   name: string;
 
   /** Target directory to generate the module */
-  path: string;
+  path?: string | undefined;
 
   /** Description of the new module */
-  description: string | undefined;
+  description?: string | undefined;
 
   /** Prefix use to package future generation */
-  prefix: string | undefined;
+  prefix?: string | undefined;
 
   /** Name of the Nx Project (applied only in Nx Monorepo) */
-  projectName: string | undefined;
+  projectName?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

@@ -5,7 +5,7 @@ import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { displayModuleList } from '../rule-factories/module-list';
 import { presets } from '../shared/presets';
-import { AddDevInstall, getLogo } from '@o3r/schematics';
+import { AddDevInstall } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
 
 /**
@@ -29,10 +29,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     await lastValueFrom(context.engine.executePostTasks());
 
     return () => chain([
-      (t, c) => {
-        c.logger.info(getLogo());
-        return t;
-      },
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
       async (t, c) => {
         const {prepareProject} = await import('./project-setup/index');

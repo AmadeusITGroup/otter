@@ -18,7 +18,7 @@ import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJso
  */
 export function updateOtterEnvironmentAdapter(
   options: {
-    projectName: string | null | undefined;
+    projectName?: string | null | undefined;
     enableStorybook?: boolean;
     enableStyling?: boolean;
     enableAnalytics?: boolean;

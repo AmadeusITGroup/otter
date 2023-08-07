@@ -31,7 +31,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param projectType
  */
-export function updateStore(options: { projectName: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+export function updateStore(options: { projectName?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
   /**
    * Changed package.json start script to run localization generation
    *
