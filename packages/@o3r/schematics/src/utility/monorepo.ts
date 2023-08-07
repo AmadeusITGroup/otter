@@ -1,4 +1,4 @@
-import type { Tree } from '@angular-devkit/schematics';
+import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { WorkspaceLayout, WorkspaceProject, WorkspaceSchema } from '../interfaces';
 import { getSchematicOptions } from './collection';
@@ -57,20 +57,20 @@ export const BASE_ROOT_FOLDERS_MAP: Record<WorkspaceProject['projectType'], keyo
 };
 
 /**
- * Retrive the project base root generation folder, based on the given projectType.
+ * Retrieve the project base root generation folder, based on the given projectType.
  * - The default project root will be returned if there is no project root found in nx.json or angular.json (in schematics options)
  * - The root path '/' will be returned if no project type given
  *
- * @param config
  * @param tree
+ * @param context
+ * @param config
  * @param projectType
- * @param schematicName
  */
-export function getPackagesBaseRootFolder(config: WorkspaceSchema | null, tree: Tree, projectType?: WorkspaceProject['projectType'], schematicName?: string) {
+export function getPackagesBaseRootFolder(tree: Tree, context: SchematicContext, config: WorkspaceSchema, projectType?: WorkspaceProject['projectType']) {
   const configName = projectType && BASE_ROOT_FOLDERS_MAP[projectType];
   const nxExplicitDir = configName && isNxContext(tree) && (tree.readJson('/nx.json') as any)?.workspaceLayout[configName];
 
-  const schematicConfigDir = configName && config && getSchematicOptions(config, schematicName)?.[configName];
+  const schematicConfigDir = configName && getSchematicOptions(config, context)?.[configName];
 
   // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
   return schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : '.');

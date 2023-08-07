@@ -1,3 +1,4 @@
+import { SchematicContext } from '@angular-devkit/schematics';
 import type { WorkspaceSchema, WorkspaceSchematics } from '../interfaces';
 
 /**
@@ -47,17 +48,16 @@ export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null,
  * If the schematics name is not found, then the generic options (*:*) will be returned. If the latter is not present the function returns undefined
  *
  * @param config
- * @param schematicName
+ * @param context
  */
-export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(config: WorkspaceSchema, schematicName?: string): T | undefined {
-  if (!schematicName) {
-    return config.schematics?.['*:*'] as T | undefined;
-  }
+export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(config: WorkspaceSchema, context: SchematicContext): T | undefined {
+  const schematicName = `${context.schematic.description.collection.name}:${context.schematic.description.name}`;
+
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const options = config.schematics && Object.entries(config.schematics)
     .filter(([name]) => new RegExp(name.replace(/\*/g, '.*')).test(schematicName))
     .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
     .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
 
-  return options && Object.keys(options).length ? options : undefined;
+  return options && Object.keys(options).length ? options : config.schematics?.['*:*'];
 }
