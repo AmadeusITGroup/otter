@@ -1,2 +1,2 @@
 // Export your custom patterns here
-export { };
+export type { };
