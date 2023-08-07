@@ -16,6 +16,11 @@ on:
         type: boolean
         default: ${{ github.event_name == 'pull_request' }}
         required: false
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
     secrets:
       AZURE_VSC_EXT_TOKEN:
         required: false
@@ -35,6 +40,9 @@ on:
       CASCADING_AZURE_APP_PUBLISH_PROFILE:
         required: false
         description: Profile authentication to publish the Cascading Application
+
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
 jobs:
   publish:

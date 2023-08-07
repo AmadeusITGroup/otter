@@ -8,10 +8,19 @@ on:
         required: false
         default: false
         description: Run test only on affective packages if true
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
     secrets:
       NX_CLOUD_ACCESS_TOKEN:
         required: false
         description: Token to use Nx Cloud token
+
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+
 jobs:
   test:
     strategy:
