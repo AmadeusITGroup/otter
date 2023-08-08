@@ -158,6 +158,60 @@
       {
         "command": "otter.menu.generate.module",
         "title": "Generate Module"
+      },
+      {
+        "command": "otter.generate.analytics-to-component",
+        "title": "Add analytics to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.configuration-to-component",
+        "title": "Add configuration to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.context-to-component",
+        "title": "Add context to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.convert-component",
+        "title": "Convert Angular component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.fixture-to-component",
+        "title": "Add fixture to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.iframe-to-component",
+        "title": "Add iframe to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.localization-to-component",
+        "title": "Add localization to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.rules-engine-to-component",
+        "title": "Add rules engine to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.theming-to-component",
+        "title": "Add theming to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.scss$/"
       }
     ],
     "menus": {
@@ -169,6 +223,47 @@
       "explorer/context": [
         {
           "submenu": "otter.explorer.context.submenu"
+        },
+        {
+          "submenu": "otter.enrich-component.submenu"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "otter.generate.analytics-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.configuration-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.context-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.convert-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.fixture-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.iframe-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.localization-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.rules-engine-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.theming-to-component",
+          "group": "otter.generate.enrich-component.group"
         }
       ],
       "otter.editor.context.submenu": [
@@ -183,6 +278,44 @@
         {
           "command": "otter.extract.styling.allVariable",
           "when": "resourceFilename =~ /.scss$/"
+        }
+      ],
+      "otter.enrich-component.submenu": [
+        {
+          "command": "otter.generate.analytics-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.configuration-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.context-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.convert-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.fixture-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.iframe-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.localization-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.rules-engine-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.theming-to-component",
+          "group": "otter.generate.group"
         }
       ],
       "otter.explorer.context.submenu": [
@@ -207,24 +340,17 @@
     "submenus": [
       {
         "label": "Otter",
-        "id": "otter.explorer.context.submenu",
-        "icon": "./assets/otter-logo.svg"
+        "id": "otter.explorer.context.submenu"
       },
       {
         "label": "Otter",
-        "id": "otter.editor.context.submenu",
-        "icon": "$(otter-logo)"
+        "id": "otter.editor.context.submenu"
+      },
+      {
+        "label": "Enrich Otter component",
+        "id": "otter.enrich-component.submenu"
       }
-    ],
-    "icons": {
-      "otter-logo": {
-        "description": "Otter Logo",
-        "default": {
-          "fontPath": "./assets/logo-font.woff",
-          "fontCharacter": "\\e800"
-        }
-      }
-    }
+    ]
   },
   "extensionKind": [
     "ui",
