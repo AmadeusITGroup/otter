@@ -17,7 +17,7 @@ export class {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture implemen
   {{#operation}}/**
    * Fixture associated to function {{nickname}}
    */
-  public {{nickname}}: jest.Mock<Promise<{{#vendorExtensions}}{{#responses2xx}}{{dataType}}{{^dataType}}void{{/dataType}}{{^-last}} | {{/-last}}{{/responses2xx}}{{^responses2xx}}void{{/responses2xx}}{{/vendorExtensions}}>, [{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData]> = jest.fn();
+  public {{nickname}}: jest.Mock<Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>, [{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData]> = jest.fn();
   {{/operation}}
 }
 {{/operations}}{{/noUnusedImport}}

@@ -65,7 +65,7 @@ export class {{classname}} implements Api {
   {{/isDeprecated}}
    * @param data Data to provide to the API call
    */
-  public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xx}}{{dataType}}{{^dataType}}void{{/dataType}}{{^-last}} | {{/-last}}{{/responses2xx}}{{^responses2xx}}void{{/responses2xx}}{{/vendorExtensions}}> {
+  public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}> {
     {{#allParams}}
       {{#defaultValue}}
         data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
@@ -101,7 +101,7 @@ export class {{classname}} implements Api {
     const options = await this.client.prepareOptions(basePathUrl, '{{httpMethod}}', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xx}}{{dataType}}{{^dataType}}void{{/dataType}}{{^-last}} | {{/-last}}{{/responses2xx}}{{^responses2xx}}void{{/responses2xx}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}}, undefined{{/responses2xx}}{{/vendorExtensions}}, '{{nickname}}');
+    const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}, '{{nickname}}');
     return ret;
   }
 
