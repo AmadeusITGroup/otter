@@ -1,34 +1,12 @@
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
-const {resolve} = require('node:path');
+const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
+  ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
-  preset: 'ts-jest',
-  rootDir: '.',
-  moduleNameMapper: getJestModuleNameMapper(__dirname),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
-  modulePathIgnorePatterns: [
-    '<rootDir>/dist'
-  ],
-  reporters: [
-    'default',
-    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
-    'github-actions'
-  ],
   fakeTimers: {
     enableGlobally: true,
     // TODO try to make date utils work with fake Date
     doNotFake: ['Date']
-  },
-  transform: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.html$'
-      }
-    ]
   }
 };
