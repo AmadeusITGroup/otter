@@ -5339,56 +5339,56 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:~16.1.0":
-  version: 16.1.0
-  resolution: "@ngrx/effects@npm:16.1.0"
+"@ngrx/effects@npm:~16.2.0":
+  version: 16.2.0
+  resolution: "@ngrx/effects@npm:16.2.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
-    "@ngrx/store": 16.1.0
+    "@ngrx/store": 16.2.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 785bf1e8b5e4148930c202d1c46aaf13138a0fdd97df3c152c0d64000cc7c8d51444b1249e6f480ecb5b5e352e90794e5823d0073b92f4c4ac70ec7529751762
+  checksum: 1edf5c214cfb5f7131a718d88b0ce91d8ef4445cc495ea770fb0f22a1c6ac5f1c433a58a35a9bae6434f8d857a89b5440a0506acc7d108936c23ec4169df15fe
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:~16.1.0":
-  version: 16.1.0
-  resolution: "@ngrx/entity@npm:16.1.0"
+"@ngrx/entity@npm:~16.2.0":
+  version: 16.2.0
+  resolution: "@ngrx/entity@npm:16.2.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
-    "@ngrx/store": 16.1.0
+    "@ngrx/store": 16.2.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 17af7f1c72a363cd3b2b7a8707b9c0cc03acf2dabca3b4ecaa1857ecf99bc7478ada35c0b608e7bf61ac631763ed45436803a28a274a71814866319bbf53f744
+  checksum: 90050648d586975634c2f03e05325a27db36ba969989719b864751baecc4c35b945882d549ea06b028269b786e09cfce6ed49c70ed0e484396b2e183fe3c5938
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:~16.1.0":
-  version: 16.1.0
-  resolution: "@ngrx/router-store@npm:16.1.0"
+"@ngrx/router-store@npm:~16.2.0":
+  version: 16.2.0
+  resolution: "@ngrx/router-store@npm:16.2.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/common": ^16.0.0
     "@angular/core": ^16.0.0
     "@angular/router": ^16.0.0
-    "@ngrx/store": 16.1.0
+    "@ngrx/store": 16.2.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 5d9bd1e9a76bdec4d58c30f7a895c1725433ba10f73834ea620e3afc8b5ba998c16a8278ce6877ffedb8bbbd2775f485c0e9f202d3ab6942db0e48c833ec6855
+  checksum: 460f4f759aada355f2087b454079c6129c212e424a03a13573ee7b42888dd11222b828278cd41aad9d9127ae9266be81963adcfd6b182cb7046ddc1e71909d44
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:~16.1.0":
-  version: 16.1.0
-  resolution: "@ngrx/store@npm:16.1.0"
+"@ngrx/store@npm:~16.2.0":
+  version: 16.2.0
+  resolution: "@ngrx/store@npm:16.2.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 51d7417b4e4a9cca6f4777aeba1926ecdba7d0d2fad2fc3ea75119c4af1c911309d2790f7d73123097afc2485dfb45adc0522ee3bee794cc6ca6b2b592543802
+  checksum: 4db8b4a1f557f384ffc046e5cd7d7c5b1012714a516d316c3a9f9e8b2a6a9651aa3475c086d3166ae85ecbde690b90bb1203c7e51f5655da09dc03a748183f28
   languageName: node
   linkType: hard
 
@@ -6347,7 +6347,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -6386,7 +6386,7 @@ __metadata:
     "@angular/platform-browser": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
     "@angular/router": ~16.1.6
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6590,8 +6590,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ~16.1.6
     "@angular/router": ~16.1.6
     "@ng-bootstrap/ng-bootstrap": ^15.0.1
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -6658,8 +6658,8 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@o3r/analytics": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -6704,8 +6704,8 @@ __metadata:
     "@angular/forms": ~16.1.6
     "@angular/platform-browser": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6755,8 +6755,8 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -6796,8 +6796,8 @@ __metadata:
   peerDependencies:
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -6848,8 +6848,8 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -6903,8 +6903,8 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
     "@angular/router": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nrwl/devkit": ~16.6.0
     "@nx/angular": ~16.6.0
     "@schematics/angular": ~16.1.6
@@ -7059,7 +7059,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -7096,7 +7096,7 @@ __metadata:
     "@angular/compiler-cli": ~16.1.6
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7315,8 +7315,8 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -7351,8 +7351,8 @@ __metadata:
     "@angular/common": ~16.1.6
     "@angular/core": ~16.1.6
     "@angular/forms": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7528,7 +7528,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
@@ -7577,7 +7577,7 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
     "@formatjs/intl-numberformat": ^8.0.2
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -7627,7 +7627,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@fullstory/browser": ~1.7.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -7665,7 +7665,7 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
     "@fullstory/browser": ^1.2.1
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     logrocket: ~4.0.0
@@ -7708,7 +7708,7 @@ __metadata:
     "@capacitor/device": ^5.0.0
     "@capacitor/preferences": ^5.0.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -7754,7 +7754,7 @@ __metadata:
     "@capacitor/core": ^5.0.0
     "@capacitor/device": ^5.0.0
     "@capacitor/preferences": ^5.0.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7791,10 +7791,10 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/effects": ~16.1.0
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/router-store": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/effects": ~16.2.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/router-store": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
@@ -7831,10 +7831,10 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
     "@angular/router": ~16.1.6
-    "@ngrx/effects": ~16.1.0
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/router-store": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/effects": ~16.2.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/router-store": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/routing": "workspace:^"
@@ -7867,9 +7867,9 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/effects": ~16.1.0
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/effects": ~16.2.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@nx/jest": ~16.6.0
     "@nx/js": ~16.6.0
@@ -7926,9 +7926,9 @@ __metadata:
     "@angular-devkit/schematics": ~16.1.6
     "@angular/core": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
-    "@ngrx/effects": ~16.1.0
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/effects": ~16.2.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -8049,8 +8049,8 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/platform-browser": ~16.1.6
     "@angular/platform-browser-dynamic": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@nx/js": ~16.6.0
     "@nx/linter": ~16.6.0
     "@o3r/build-helpers": "workspace:^"
@@ -8084,8 +8084,8 @@ __metadata:
   peerDependencies:
     "@angular-devkit/core": ~16.1.6
     "@angular-devkit/schematics": ~16.1.6
-    "@ngrx/entity": ~16.1.0
-    "@ngrx/store": ~16.1.0
+    "@ngrx/entity": ~16.2.0
+    "@ngrx/store": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -8120,7 +8120,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@nx/jest": ~16.6.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -8167,7 +8167,7 @@ __metadata:
     "@angular-devkit/core": ~16.1.6
     "@angular-devkit/schematics": ~16.1.6
     "@angular/core": ~16.1.6
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -8331,7 +8331,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@nx/jest": ~16.6.0
     "@o3r/build-helpers": "workspace:^"
@@ -8379,7 +8379,7 @@ __metadata:
     "@angular/core": ~16.1.6
     "@angular/forms": ~16.1.6
     "@angular/platform-browser": ~16.1.6
-    "@ngrx/store": ~16.1.0
+    "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
