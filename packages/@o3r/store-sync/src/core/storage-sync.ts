@@ -52,7 +52,7 @@ export class StorageSync {
   /**
    * Returns a meta reducer that handles storage sync
    */
-  public localStorageSync() {
+  public localStorageSync = () => {
     return (reducer: any) => {
       if (isLocalStorageConfig(this.options)) {
         return syncStorage(this.options)(reducer);
@@ -96,5 +96,5 @@ export class StorageSync {
         return base(hydratedState, action);
       };
     };
-  }
+  };
 }
