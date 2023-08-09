@@ -54,26 +54,45 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
       packageName = JSON.parse(tree.read(path.resolve(destination, rec, 'package.json'))!.toString()).name?.split('/')[0] || destination;
     }
 
-    const templateSource = apply(url('./templates'), [
-      template({
-        ...strings,
-        ...options,
-        featureName,
-        currentServiceIndex,
-        currentFixtureJasmineIndex,
-        currentFixtureJestIndex,
-        serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName)),
-        packageName
-      }),
+    const templateData = {
+      ...strings,
+      ...options,
+      featureName,
+      currentServiceIndex,
+      currentFixtureJasmineIndex,
+      currentFixtureJestIndex,
+      serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName)),
+      packageName
+    };
+
+    const baseTemplateSource = apply(url('./templates/base'), [
+      template(templateData),
       renameTemplateFiles(),
       move(destination)
     ]);
+
+    const rules = [mergeWith(baseTemplateSource, MergeStrategy.Overwrite)];
+
+    ['jest', 'jasmine-core'].forEach(testFramework => {
+      try {
+        require.resolve(`${testFramework}/package.json`);
+        rules.push(mergeWith(apply(url(`./templates/${testFramework}`), [
+          template(templateData),
+          renameTemplateFiles(),
+          move(destination)
+        ]), MergeStrategy.Overwrite));
+        context.logger.info(`Added fixture for '${testFramework}'.`);
+      } catch (e) {
+        context.logger.info(`Package '${testFramework}' not installed. Fixture not added.`);
+      }
+    });
+
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(name));
     }
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
-    return rule(tree, context);
+
+    return chain(rules)(tree, context);
   };
 
   return chain([
