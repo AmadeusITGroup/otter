@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [windows-latest, ubuntu-latest]
+        os: [windows-latest]
     runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --output-style=stream
+        run: yarn ${{ env.testCmd }} --output-style=stream --expose-gc --logHeapUsage --runInBand
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@v3

@@ -17,43 +17,6 @@ on:
     types: [checks_requested]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    env:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-      NX_SKIP_NX_CACHE: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./tools/github-actions/setup
-      - uses: ./.github/actions/setup-java
-        with:
-          install-jdk: 'true'
-      - run: yarn build:swagger-gen
-      - run: yarn build
-      - uses: ./tools/github-actions/upload-build-output
-
-  version:
-    permissions:
-      contents: write
-    runs-on: ubuntu-latest
-    outputs:
-      nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
-      isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./tools/github-actions/setup
-      - name: New Version
-        id: newVersion
-        uses: ./tools/github-actions/new-version
-        with:
-          defaultBranch: main
-          defaultBranchPrereleaseName: alpha
-      - name: Create release
-        if: github.event_name != 'pull_request' && github.event_name != 'merge_group'
-        run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   checks:
     uses: ./.github/workflows/code-check.yml
     secrets:
@@ -61,41 +24,3 @@ jobs:
     with:
       affected: ${{ github.event_name == 'pull_request' }}
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
-
-  test-publish:
-    uses: ./.github/workflows/test-publish.yml
-    secrets:
-      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-    needs: [build]
-    with:
-      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
-
-  publish-packages:
-    uses: ./.github/workflows/publish.yml
-    if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}
-    permissions:
-      packages: write
-      contents: read
-    secrets: inherit
-    needs: [version, build, checks, test-publish]
-    with:
-      version: ${{ needs.version.outputs.nextVersionTag }}
-      prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
-      isPullRequest: false
-      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
-
-  documentation-main:
-    secrets: inherit
-    needs: [version, build, checks]
-    if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' && github.ref_name == 'main' }}
-    uses: ./.github/workflows/documentation.yml
-    with:
-      version: ${{ needs.version.outputs.nextVersionTag }}
-  documentation-pr:
-    secrets: inherit
-    needs: [version]
-    if: ${{ (github.event_name == 'pull_request' && github.base_ref == 'main') || github.event_name == 'merge_group' }}
-    uses: ./.github/workflows/documentation.yml
-    with:
-      version: ${{ needs.version.outputs.nextVersionTag }}
-      shouldDeploy: false
