@@ -96,23 +96,6 @@
       "x-deprecated": true,
       "x-prompt": "Generate basic Azure Pipelines for your application CICD (deprecated)?"
     },
-    "testingFramework": {
-      "type": "string",
-      "description": "The testing framework to use",
-      "default": "jest",
-      "enum": [
-        "jest",
-        "jasmine"
-      ],
-      "x-prompt": {
-        "message": "Which testing framework would you like to use?",
-        "type": "list",
-        "items": [
-          { "value": "jest",  "label": "Jest (strongly recommended)" },
-          { "value": "jasmine",  "label": "Jasmine" }
-        ]
-      }
-    },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",

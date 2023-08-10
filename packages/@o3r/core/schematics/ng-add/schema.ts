@@ -42,9 +42,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Generate the Azure Pipeline for the new project */
   generateAzurePipeline: boolean;
 
-  /** Testing framework */
-  testingFramework: 'jest' | 'jasmine';
-
   /** Skip the install process */
   skipInstall: boolean;
 

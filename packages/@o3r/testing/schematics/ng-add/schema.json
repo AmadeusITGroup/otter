@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/schema",
   "$id": "ngAddSchematicsSchema",
   "title": "Add Otter testing ",
-  "description": "ngAdd Otter testing ",
+  "description": "ngAdd Otter testing",
   "properties": {
     "projectName": {
       "type": "string",
@@ -10,6 +10,14 @@
       "$default": {
         "$source": "projectName"
       }
+    },
+    "testingFramework": {
+      "type": "string",
+      "description": "The testing framework to use",
+      "enum": [
+        "jest",
+        "other"
+      ]
     }
   },
   "additionalProperties": false,

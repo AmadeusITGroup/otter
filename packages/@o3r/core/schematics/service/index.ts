@@ -1,9 +1,8 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getDestinationPath, getProjectFromTree, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, getDestinationPath, getProjectFromTree, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateServiceSchematicsSchema } from './schema';
-
 
 /**
  * add a Service to an Otter project
@@ -44,7 +43,7 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
     }
 
     const workspaceProject = getProjectFromTree(tree);
-
+    const workspaceConfig = getWorkspaceConfig(tree);
     let packageName = destination;
     if (workspaceProject?.projectType !== 'application') {
       let rec = '..';
@@ -73,24 +72,21 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
 
     const rules = [mergeWith(baseTemplateSource, MergeStrategy.Overwrite)];
 
-    ['jest', 'jasmine-core'].forEach(testFramework => {
-      try {
-        require.resolve(`${testFramework}/package.json`);
-        rules.push(mergeWith(apply(url(`./templates/${testFramework}`), [
-          template(templateData),
-          renameTemplateFiles(),
-          move(destination)
-        ]), MergeStrategy.Overwrite));
-        context.logger.info(`Added fixture for '${testFramework}'.`);
-      } catch (e) {
-        context.logger.info(`Package '${testFramework}' not installed. Fixture not added.`);
-      }
-    });
+    const testFramework = getTestFramework(workspaceConfig, context);
+    if (testFramework) {
+      rules.push(mergeWith(apply(url(`./templates/${testFramework}`), [
+        template(templateData),
+        renameTemplateFiles(),
+        move(destination)
+      ]), MergeStrategy.Overwrite));
+      context.logger.info(`Added fixture for '${testFramework}'.`);
+    } else {
+      context.logger.info('No test framework has been identified thus no fixture added.');
+    }
 
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(name));
     }
-
 
     return chain(rules)(tree, context);
   };
