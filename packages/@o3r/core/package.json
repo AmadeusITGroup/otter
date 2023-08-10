@@ -133,9 +133,9 @@
   },
   "generatorDependencies": {
     "@angular-eslint/eslint-plugin": "~16.1.0",
-    "@angular/material": "~16.1.6",
-    "@ngrx/router-store": "~16.1.0",
-    "@ngrx/effects": "~16.1.0",
+    "@angular/material": "~16.2.0",
+    "@ngrx/router-store": "~16.2.0",
+    "@ngrx/effects": "~16.2.0",
     "@ngrx/store-devtools": "~16.1.0",
     "@types/jest": "~29.5.2",
     "nx": "~16.6.0",

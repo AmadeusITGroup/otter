@@ -196,6 +196,12 @@
         "enablement": "resourceFilename =~ /.component.ts$/"
       },
       {
+        "command": "otter.generate.localization-key-to-component",
+        "title": "Add localization key to component",
+        "category": "Otter",
+        "enablement": "editorHasSelection && resourceFilename =~ /.template.html$/"
+      },
+      {
         "command": "otter.generate.localization-to-component",
         "title": "Add localization to component",
         "category": "Otter",
@@ -254,6 +260,10 @@
           "group": "otter.generate.enrich-component.group"
         },
         {
+          "command": "otter.generate.localization-key-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
           "command": "otter.generate.localization-to-component",
           "group": "otter.generate.enrich-component.group"
         },
@@ -278,6 +288,9 @@
         {
           "command": "otter.extract.styling.allVariable",
           "when": "resourceFilename =~ /.scss$/"
+        },
+        {
+          "command": "otter.generate.localization-key-to-component"
         }
       ],
       "otter.enrich-component.submenu": [

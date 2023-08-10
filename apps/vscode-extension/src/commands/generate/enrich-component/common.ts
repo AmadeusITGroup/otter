@@ -8,20 +8,36 @@ const executeSchematic = async (componentPath: string, schematicName: string, ge
   const terminal = vscode.window.createTerminal('Otter');
   const extraOptions = await getExtraOptions();
   const options = [
-    `--path="${componentPath}"`,
-    `--skip-linter="${!!config.get<boolean>('skipLinter')}"`,
+    ...(
+      !extraOptions.some((opt) => opt.startsWith('--path='))
+        ? [`--path="${componentPath}"`]
+        : []
+    ),
+    ...(
+      !extraOptions.some((opt) => opt.startsWith('--skip-linter='))
+        ? [`--skip-linter="${!!config.get<boolean>('skipLinter')}"`]
+        : []
+    ),
     ...extraOptions
   ];
   terminal.sendText(`${getPackageScriptRunner()} ng g ${schematicName} ${options.join(' ')}`, true);
   terminal.show();
 };
 
+/**
+ * Find the selected path on which apply the schematic and execute it
+ * @param schematicName Name of the schematic
+ * @param getExtraOptions Method to retrieve extra options
+ */
 export const findPathAndExecuteSchematic = (schematicName: string, getExtraOptions?: () => Promise<string[]>) =>
   async (targetResource: vscode.Uri | undefined) => {
     let componentPath = targetResource ? vscode.workspace.asRelativePath(targetResource.path) : '';
     if (!componentPath) {
       if (vscode.window.activeTextEditor?.document.fileName) {
-        componentPath = relative(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', vscode.window.activeTextEditor.document.fileName);
+        componentPath = relative(
+          vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.',
+          vscode.window.activeTextEditor.document.fileName
+        );
       } else {
         componentPath = await vscode.window.showInputBox({
           placeHolder: '/src/component/my-component/my-component.component.ts',
