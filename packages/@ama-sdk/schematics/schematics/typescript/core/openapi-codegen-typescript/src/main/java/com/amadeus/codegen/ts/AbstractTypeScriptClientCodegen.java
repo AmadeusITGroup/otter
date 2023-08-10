@@ -766,14 +766,17 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         }
       }
       if (operation.responses != null && operation.responses.size() > 0) {
-        Map<String, CodegenResponse> responses2xx = new LinkedHashMap<>();
+        List<CodegenResponse> responses2xx = new ArrayList<>();
+        Set<String> responses2xxReturnTypes = new HashSet<>();
         for (CodegenResponse response : operation.responses) {
           if (response.is2xx) {
-            responses2xx.put(response.baseType, response);
+            responses2xx.add(response);
+            responses2xxReturnTypes.add(response.dataType == null ? "void" : response.dataType);
           }
         }
         if (responses2xx.size() > 0) {
-          operation.vendorExtensions.put("responses2xx", new ArrayList<>(responses2xx.values()));
+          operation.vendorExtensions.put("responses2xx", responses2xx);
+          operation.vendorExtensions.put("responses2xxReturnTypes", responses2xxReturnTypes);
         }
       }
     }
