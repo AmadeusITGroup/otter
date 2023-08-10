@@ -2,7 +2,7 @@
 import { dirname, relative, resolve} from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner } from '../helpers';
+import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
 
 /**
  * Generate new Otter Module command
@@ -18,8 +18,6 @@ export function generateModuleGenerateCommand(_context: ExtensionContext, folder
   };
 
   return async () => {
-    const config = vscode.workspace.getConfiguration('otter.generate');
-
     const name = await vscode.window.showInputBox({
       title: 'Module name',
       ignoreFocusOut: true
@@ -30,22 +28,20 @@ export function generateModuleGenerateCommand(_context: ExtensionContext, folder
       return;
     }
 
-    const modulePath = folder || config.get<string>('module.path') || await vscode.window.showInputBox({
+    const defaultOptions = await getSchematicDefaultOptions('@o3r/core:module');
+
+    const modulePath = folder || await vscode.window.showInputBox({
       title: 'Path to your Modules folder',
-      value: getCurrentFolder() || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
+      value: getCurrentFolder() || defaultOptions.path || resolve(vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.', 'packages'),
       ignoreFocusOut: true
     });
 
     const terminal = vscode.window.createTerminal('Otter Module generator');
-    const defaultOptions = [
-      `--skip-linter="${!!config.get<boolean>('skipLinter')}"`,
-      `-prefix="${config.get<boolean>('module.prefix') || ''}"`
-    ];
     const options = [
-      ...defaultOptions,
+      ...stringifyOptions(defaultOptions, modulePath ? ['path'] : []),
       ...(modulePath ? [`--path="${modulePath}" `] : [])
     ];
-    terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:module ${options.join(' ')} "${name}"`, true);
+    terminal.sendText(`${await getPackageScriptRunner()} ng generate @o3r/core:module ${options.join(' ')} "${name}"`, true);
     terminal.show();
   };
 }
