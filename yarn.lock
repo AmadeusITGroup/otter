@@ -8738,7 +8738,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.6.2
     jest-junit: ~16.0.0
-    jest-preset-stylelint: ~6.1.1
+    jest-preset-stylelint: ~6.2.0
     nx: ~16.6.0
     postcss: ^8.4.5
     rimraf: ^5.0.1
@@ -8747,7 +8747,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
   peerDependencies:
-    jest-preset-stylelint: ~6.1.0
+    jest-preset-stylelint: ~6.2.0
     postcss: ^8.4.5
     stylelint: ^15.10.1
   languageName: unknown
@@ -21160,12 +21160,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-preset-stylelint@npm:~6.1.1":
-  version: 6.1.1
-  resolution: "jest-preset-stylelint@npm:6.1.1"
+"jest-preset-stylelint@npm:~6.2.0":
+  version: 6.2.0
+  resolution: "jest-preset-stylelint@npm:6.2.0"
   peerDependencies:
     jest: ^29.0.2
-  checksum: b23c1831b32af77746416237017e37b021700509e3b49343c1ac79ab6a39411ca66c8056c686c14edb715f3abd55c590cd63fd07e0b84996682bbff3e6c7089c
+  checksum: 6f34822c7d35a9b6b1e07d5dc454cf0e1e8f8a46c1c3d58b3c17233b563a1d7f809ffabaeb66361f8a129e1e80db39640d7683e429493356490d3750cca2c64f
   languageName: node
   linkType: hard
 
