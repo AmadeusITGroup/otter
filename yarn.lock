@@ -8889,7 +8889,7 @@ __metadata:
     module-from-string: ^3.2.0
     nx: ~16.6.0
     pixelmatch: ^5.2.1
-    playwright: ~1.36.0
+    playwright: ~1.37.0
     pngjs: ^7.0.0
     protractor: ^7.0.0
     rxjs: ^7.8.1
@@ -8912,7 +8912,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     pixelmatch: ^5.2.1
-    playwright: ~1.36.0
+    playwright: ~1.37.0
     pngjs: ^7.0.0
     protractor: ^7.0.0
     rxjs: ^7.8.1
@@ -25506,23 +25506,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.36.0":
-  version: 1.36.0
-  resolution: "playwright-core@npm:1.36.0"
+"playwright-core@npm:1.37.0":
+  version: 1.37.0
+  resolution: "playwright-core@npm:1.37.0"
   bin:
     playwright-core: cli.js
-  checksum: d6b5fed5ae95238dc36a1be3e2cfd250221810e6a2d20592c29d7044a2d1f96e8e6cfff83d937605b6e26d7c3058231d16784e17979fbb11208880829e406e85
+  checksum: be91857b1bb56890b3929ed8cd529f5f5abe4b748f709abc8dbe5b0ee4c0e158247c3958fbccec6a52394dafe4619bc0e69c93d1b129a71b31ab3697771e4c5a
   languageName: node
   linkType: hard
 
-"playwright@npm:~1.36.0":
-  version: 1.36.0
-  resolution: "playwright@npm:1.36.0"
+"playwright@npm:~1.37.0":
+  version: 1.37.0
+  resolution: "playwright@npm:1.37.0"
   dependencies:
-    playwright-core: 1.36.0
+    playwright-core: 1.37.0
   bin:
     playwright: cli.js
-  checksum: c49ed1666b28f8b9177f4682b51e0bc77a83d32265725bc29a8210c0fe83a92e1f1b7051e315a7299fa39c6e952eebe0fe80a22c174569636a27a5a737b3aef4
+  checksum: f07d1d69e4a13db428cb45af0e2cd5697cb490c7139e399adfc5702b547f741b6411b6442a9c91c0b39f374e0cb466b742de0b15490872a771ab8bdc68e767c5
   languageName: node
   linkType: hard
 
