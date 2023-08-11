@@ -1,4 +1,4 @@
-import { chain, externalSchematic, Rule, RuleFactory, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, externalSchematic, Rule, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import type { NodeDependency } from '@schematics/angular/utility/dependencies';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -44,11 +44,36 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
     }, {});
   };
 
-  const checkTreePackageJsonConsistency = (packageName: string) => {
-    return async (tree: Tree) => {
-      const latestInstalledVersion: string = await getInstalledVersion(packageName);
-      // We need to update manually the package json in the tree as the tree will overwrite the project at the end of the ng add @o3r/core
-      const packageJson: PackageJson = tree.readJson(packageJsonPath) as PackageJson;
+  return async (tree, context) => {
+    const installedVersions = await Promise.all(packages.map((packageName) => getInstalledVersion(packageName)));
+    const packageManager = getPackageManager();
+    let installOptions = '';
+    if (options?.dependencyType === NodeDependencyType.Dev && packageManager === 'yarn') {
+      installOptions = ' --prefer-dev';
+    } else if (options?.dependencyType === NodeDependencyType.Dev) {
+      installOptions = ' -D';
+    } else if (options?.dependencyType === NodeDependencyType.Peer) {
+      installOptions = ' -P';
+    }
+    const packagesToInstall = packages.filter((_, index) => !installedVersions[index] || installedVersions[index] !== options?.version);
+    const packagesInput = packagesToInstall
+      .map((packageName) => `${packageName}${options?.version ? `@${options?.version}` : ''}`)
+      .join(' ');
+
+    context.addTask(new NodePackageInstallTask({
+      packageManager: packageManager,
+      packageName: `${packagesInput}${installOptions}`,
+      hideOutput: false,
+      quiet: false
+    } as any));
+    await lastValueFrom(context.engine.executePostTasks());
+
+    // We need to update manually the package json in the tree as the tree will overwrite the project at the end of the ng add @o3r/core
+    const latestInstalledVersions = await Promise.all(packagesToInstall.map(async (packageName) =>
+      [packageName, await getInstalledVersion(packageName)]
+    ));
+    const packageJson: PackageJson = tree.readJson(packageJsonPath) as PackageJson;
+    latestInstalledVersions.forEach(([packageName, latestInstalledVersion]) => {
       if (options?.dependencyType === NodeDependencyType.Dev) {
         packageJson.devDependencies = {...packageJson.devDependencies, [packageName]: latestInstalledVersion};
       } else if (options?.dependencyType === NodeDependencyType.Peer) {
@@ -56,51 +81,20 @@ export function ngAddPackages(packages: string[], options?: NgAddPackageOptions,
       } else {
         packageJson.dependencies = {...packageJson.dependencies, [packageName]: latestInstalledVersion};
       }
-      tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
-      return () => tree;
-    };
-  };
+    });
+    tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
-  const ngAddSinglePackage: RuleFactory<{ packageName: string; version?: string }> = ({packageName, version}) => {
-    return async (tree: Tree, context: SchematicContext) => {
-      const installedVersion: string = await getInstalledVersion(packageName);
-      context.logger.info(`installed version of ${packageName}: ${installedVersion || 'undefined'} | expected: ${options?.version || 'latest'} as ${options?.dependencyType?.toString() || ''}`);
-      if (!installedVersion || version !== installedVersion) {
-        context.logger.info(`Running ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
-        const packageManager = getPackageManager();
-        let installOptions = '';
-        if (options?.dependencyType === NodeDependencyType.Dev && packageManager === 'yarn') {
-          installOptions = ' --prefer-dev';
-        } else if (options?.dependencyType === NodeDependencyType.Dev) {
-          installOptions = ' -D';
-        } else if (options?.dependencyType === NodeDependencyType.Peer) {
-          installOptions = ' -P';
+    const ngAddsToApply = packagesToInstall
+      .map((packageName) => ({packageName, ngAddCollection: getNgAddSchema(packageName, context)}))
+      .filter(({packageName, ngAddCollection}) => {
+        if (!ngAddCollection) {
+          context.logger.info(`Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
         }
-        context.addTask(new NodePackageInstallTask({
-          packageManager: packageManager,
-          packageName: packageName + (version ? `@${version}` : '') + installOptions,
-          hideOutput: false,
-          quiet: false
-        } as any));
-        await lastValueFrom(context.engine.executePostTasks());
-
-        const ngAddCollection = getNgAddSchema(packageName, context);
-        if (ngAddCollection) {
-          const ngAddOptions = getOptions(ngAddCollection);
-          return () => externalSchematic(packageName, 'ng-add', ngAddOptions)(tree, context);
-        }
-      } else {
-        context.logger.info(`Skipping ng add for: ${packageName}${options?.version ? ' with version: ' + options.version : ''}`);
-      }
-      return () => (tree);
-    };
+        return !!ngAddCollection;
+      })
+      .map(({packageName, ngAddCollection}) => externalSchematic(packageName, 'ng-add', getOptions(ngAddCollection!)));
+    return chain(ngAddsToApply);
   };
-
-  const ngAddRulesToRun: Rule[] = (packages || []).map((packageName) => chain([
-    ngAddSinglePackage({packageName, version: options?.version}),
-    checkTreePackageJsonConsistency(packageName)]
-  ));
-  return chain(ngAddRulesToRun);
 }
 
 /**

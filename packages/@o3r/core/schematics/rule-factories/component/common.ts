@@ -50,7 +50,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
             name: `No, don't apply ${optionName} by default`,
             value: 'no'
           }
-        ], 0, null);
+        ], 0, 'yes');
       } else {
         context.logger.info(`
           You can add it later to this component via this command:

@@ -100,6 +100,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/logger": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/test-helpers": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~16.2.0",
     "@types/jest": "~29.5.2",
@@ -120,7 +121,9 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~13.1.1",
     "nx": "~16.6.0",
+    "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
+    "ts-jest": "~29.1.1",
     "typescript": "~5.1.6",
     "zone.js": "~0.13.1"
   },
