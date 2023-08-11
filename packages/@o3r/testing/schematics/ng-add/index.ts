@@ -1,4 +1,4 @@
-import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { getTestFramework, getWorkspaceConfig, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
@@ -7,11 +7,21 @@ import type { PackageJson } from 'type-fest';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { updatePlaywright } from './playwright';
 
 
 function getRelativePath(input: string): string {
   const depth = input.split('/').filter(segment => segment !== '').length;
   return new Array(depth).fill('..').join('/');
+}
+
+function canResolvePlaywright(): boolean {
+  try {
+    require.resolve('playwright/package.json');
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 /**
@@ -39,6 +49,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
 
       const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
       const workingDirectory = workspaceProject?.root;
+      const projectType = workspaceProject?.projectType || 'application';
 
       let installJest;
       const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
@@ -63,6 +74,14 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }
       }
 
+      let installPlaywright;
+
+      if (options.enablePlaywright && projectType === 'application') {
+        installPlaywright = true;
+      } else {
+        installPlaywright = !canResolvePlaywright() ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true) : false;
+      }
+
       const rules = [
         updateFixtureConfig(options, installJest),
         removePackages(['@otter/testing']),
@@ -73,6 +92,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           parentPackageInfo: depsInfo.packageName,
           dependencyType: dependencyType
         }),
+        installPlaywright ? updatePlaywright(options) : noop,
         ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, options),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({

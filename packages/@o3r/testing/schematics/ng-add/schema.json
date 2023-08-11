@@ -13,11 +13,15 @@
     },
     "testingFramework": {
       "type": "string",
-      "description": "The testing framework to use",
+      "description": "The framework for Unit Tests to use",
       "enum": [
         "jest",
         "other"
       ]
+    },
+    "enablePlaywright": {
+      "type": "boolean",
+      "description": "Install playwright"
     }
   },
   "additionalProperties": false,

@@ -11,7 +11,6 @@ import {
   updateAdditionalModules,
   updateCustomizationEnvironment,
   updateOtterEnvironmentAdapter,
-  updatePlaywright,
   updateStore
 } from '../../rule-factories/index';
 import { NgAddSchematicsSchema } from '../schema';
@@ -48,7 +47,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ...(options.enableRulesEngine && !!projectType ? ['@o3r/rules-engine'] : []),
     ...(options.enableStyling && !!projectType ? ['@o3r/styling'] : []),
     ...(options.enableAnalytics && !!projectType ? ['@o3r/analytics'] : []),
-    ...(options.enablePlaywright && projectType === 'application' ? ['@o3r/testing'] : []),
     ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
     ...(options.enableLocalization ? ['@o3r/localization'] : []),
     ...(options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
@@ -80,7 +78,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
       updateStore(options, projectType),
       options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options, false) : noop,
-      options.enablePlaywright && projectType === 'application' ? updatePlaywright(coreSchematicsFolder, options) : noop,
       projectType === 'application' ? updateAdditionalModules(options, coreSchematicsFolder) : noop,
       removePackages(packagesToRemove),
       ...(!isMultipackagesContext(tree) ? projectRootRules : [])
