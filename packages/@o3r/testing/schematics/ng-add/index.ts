@@ -9,12 +9,6 @@ import * as fs from 'node:fs';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { updatePlaywright } from './playwright';
 
-
-function getRelativePath(input: string): string {
-  const depth = input.split('/').filter(segment => segment !== '').length;
-  return new Array(depth).fill('..').join('/');
-}
-
 function canResolvePlaywright(): boolean {
   try {
     require.resolve('playwright/package.json');
@@ -120,7 +114,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
             template({
               ...options,
-              rootRelativePath: getRelativePath(workingDirectory)
+              rootRelativePath: path.relative(workingDirectory, tree.root.path.replace(/^\//, './'))
             }),
             move(workingDirectory),
             renameTemplateFiles()
