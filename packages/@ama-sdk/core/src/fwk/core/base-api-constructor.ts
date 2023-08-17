@@ -14,6 +14,8 @@ export interface BaseApiClientOptions {
   replyPlugins: ReplyPlugin<any>[];
   /** Indicates if the tokenization is enabled and if the tokenized request options should be computed */
   enableTokenization?: boolean;
+  /** Disable the fallback on the first success code reviver if the response returned by the API does not match the list of expected success codes */
+  disableFallback?: boolean;
 }
 
 /** Interface of the constructor configuration object */

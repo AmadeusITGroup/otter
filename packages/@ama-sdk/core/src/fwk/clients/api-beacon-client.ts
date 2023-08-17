@@ -108,7 +108,7 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public processCall(url: string, options: RequestOptions, _apiType: string | ApiTypes, _apiName: string, _reviver?: unknown, _operationId?: unknown): Promise<any> {
+  public processCall(url: string, options: RequestOptions, _apiType: string | ApiTypes, _apiName: string, _revivers?: unknown, _operationId?: unknown): Promise<any> {
     const headers = {
       type: 'application/json',
       ...options.headers.entries()
