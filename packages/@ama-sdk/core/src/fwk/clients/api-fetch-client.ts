@@ -11,7 +11,7 @@ import {
 import {ExceptionReply} from '../../plugins/exception';
 import {ReviverReply} from '../../plugins/reviver';
 import {ApiTypes} from '../api';
-import {extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions} from '../api.helpers';
+import {extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions} from '../api.helpers';
 import type {PartialExcept} from '../api.interface';
 import {ApiClient} from '../core/api-client';
 import {BaseApiClientOptions} from '../core/base-api-constructor';
@@ -32,7 +32,8 @@ const DEFAULT_OPTIONS: Omit<BaseApiFetchClientOptions, 'basePath'> = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
   fetchPlugins: [],
   requestPlugins: [],
-  enableTokenization: false
+  enableTokenization: false,
+  disableFallback: false
 };
 
 /** Client to process the call to the API using Fetch API */
@@ -97,11 +98,11 @@ export class ApiFetchClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public async processCall(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, reviver?: undefined, operationId?: string): Promise<void>;
-  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, reviver: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
+  public async processCall(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string, revivers?: undefined, operationId?: string): Promise<void>;
+  public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, revivers: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
-    reviver?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
+    revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
@@ -152,11 +153,13 @@ export class ApiFetchClient implements ApiClient {
     } catch (e: any) {
       exception = new ResponseJSONParseError(e.message || 'Fail to parse response body', response && response.status || 0, body, {apiName, operationId, url, origin});
     }
+    // eslint-disable-next-line no-console
+    const reviver = getResponseReviver(revivers, response, operationId, {disableFallback: this.options.disableFallback, log: console.error});
     const replyPlugins = this.options.replyPlugins ?
       this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response,
-        reviver: typeof reviver === 'function' || typeof reviver === 'undefined' ? reviver : typeof response?.status !== 'undefined' && reviver[response.status] || undefined,
+        reviver,
         apiType,
         apiName,
         exception,
