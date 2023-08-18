@@ -42,8 +42,8 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "^16.0.5",
-    "@schematics/angular": "^16.0.5",
+    "@angular-devkit/schematics": "^16.2.0",
+    "@schematics/angular": "^16.2.0",
     "isomorphic-fetch": "^3.0.0",
     "typescript": "~5.1.6"
   },

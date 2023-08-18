@@ -6,4 +6,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Testing framework */
   testingFramework?: 'jest' | 'other';
+
+  /** Enable playwright */
+  enablePlaywright: boolean;
 }

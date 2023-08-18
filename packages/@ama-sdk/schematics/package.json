@@ -44,7 +44,7 @@
     "@angular-devkit/schematics": "^16.0.5",
     "@angular-devkit/schematics-cli": "^16.0.5",
     "@openapitools/openapi-generator-cli": "~2.7.0",
-    "@schematics/angular": "^16.0.5"
+    "@schematics/angular": "^16.2.0"
   },
   "dependencies": {
     "@angular-devkit/core": "~16.2.0",

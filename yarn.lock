@@ -107,8 +107,8 @@ __metadata:
     typescript: ~5.1.6
     uuid: ^9.0.0
   peerDependencies:
-    "@angular-devkit/schematics": ^16.0.5
-    "@schematics/angular": ^16.0.5
+    "@angular-devkit/schematics": ^16.2.0
+    "@schematics/angular": ^16.2.0
     isomorphic-fetch: ^3.0.0
     typescript: ~5.1.6
   peerDependenciesMeta:
@@ -284,7 +284,7 @@ __metadata:
     "@angular-devkit/schematics": ^16.0.5
     "@angular-devkit/schematics-cli": ^16.0.5
     "@openapitools/openapi-generator-cli": ~2.7.0
-    "@schematics/angular": ^16.0.5
+    "@schematics/angular": ^16.2.0
   peerDependenciesMeta:
     "@ama-sdk/core":
       optional: true

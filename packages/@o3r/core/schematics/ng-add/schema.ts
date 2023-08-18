@@ -12,9 +12,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Enable prefetch builder */
   enablePrefetchBuilder: boolean;
 
-  /** Enable playwright */
-  enablePlaywright: boolean;
-
   /** Enable otter customization */
   enableCustomization: boolean;
 

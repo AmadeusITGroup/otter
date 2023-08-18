@@ -34,12 +34,6 @@
       "description": "Install prefetch builder",
       "x-prompt": "Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?"
     },
-    "enablePlaywright": {
-      "type": "boolean",
-      "default": true,
-      "description": "Install playwright",
-      "x-prompt": "Activate playwright as E2E test system?"
-    },
     "enableCustomization": {
       "type": "boolean",
       "default": true,
