@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module contains configuration related features (CMS compatibility, Configuration override, store and debugging)
+This module contains configuration-related features (CMS compatibility, configuration override, store and debugging).
 It comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.
 
 ## How to install
