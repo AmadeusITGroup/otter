@@ -1,13 +1,14 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-
-import { applyEsLintFix, getDestinationPath, getProjectFromTree, insertRoute, Route } from '@o3r/schematics';
+import * as ts from 'typescript';
+import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getProjectFromTree, insertRoute, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 import { getAddConfigurationRules } from '../rule-factories/component/configuration';
 import { getAddThemingRules } from '../rule-factories/component/theming';
 import { getAddLocalizationRules } from '../rule-factories/component/localization';
 import { getAddFixtureRules } from '../rule-factories/component/fixture';
+import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
 
 /**
  * Add a Page to an Otter project
@@ -50,6 +51,8 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
     const o3rStylePath = path.posix.join(pagePath, `${dasherizedPageName}.style.scss`);
     const ngTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.component.html`);
     const o3rTemplatePath = path.posix.join(pagePath, `${dasherizedPageName}.template.html`);
+    const moduleFileName = `${dasherizedPageName}.module.ts`;
+    const moduleFilePath = path.posix.join(pagePath, moduleFileName);
 
     const rules: Rule[] = [];
 
@@ -60,7 +63,33 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
           path: pagePath,
           flat: true,
           name: pageName
-        })
+        }),
+        () => {
+          const sourceFileContent = tree.readText(moduleFilePath);
+          const sourceFile = ts.createSourceFile(
+            moduleFilePath,
+            sourceFileContent,
+            ts.ScriptTarget.ES2015,
+            true
+          );
+          const recorder = tree.beginUpdate(moduleFilePath);
+          const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
+          const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+          addImportToModuleFile(
+            'RouterModule',
+            '@angular/router',
+            sourceFile,
+            sourceFileContent,
+            context,
+            recorder,
+            moduleFilePath,
+            moduleIndex,
+            `.forChild([{path: '', component: ${strings.classify(pageName)}Component}])`,
+            true
+          );
+          tree.commitUpdate(recorder);
+          return tree;
+        }
       );
     }
 
