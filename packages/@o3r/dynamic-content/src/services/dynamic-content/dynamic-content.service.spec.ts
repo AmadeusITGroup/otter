@@ -3,7 +3,7 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 import { firstValueFrom } from 'rxjs';
 import { DynamicContentModule } from './dynamic-content.module';
 import { DynamicContentService } from './dynamic-content.service';
-import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
+import {CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN, MEDIA_FOLDER_NAME_TOKEN} from './dynamic-content.token';
 
 
 let service: DynamicContentService;
@@ -23,7 +23,8 @@ describe('DynamicContentService', () => {
         providers: [
           DynamicContentService,
           {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path'},
-          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'}
+          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'},
+          {provide: MEDIA_FOLDER_NAME_TOKEN, useValue: 'assets'}
         ]
       }).compileComponents();
 
@@ -53,7 +54,8 @@ describe('DynamicContentService', () => {
         providers: [
           DynamicContentService,
           {provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN, useValue: 'dynamic-base-path/'},
-          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'}
+          {provide: CMS_ASSETS_PATH_TOKEN, useValue: 'assets-path'},
+          {provide: MEDIA_FOLDER_NAME_TOKEN, useValue: 'assets'}
         ]
       }).compileComponents();
       service = TestBed.inject(DynamicContentService);
@@ -249,4 +251,35 @@ describe('DynamicContentService', () => {
     });
   });
 
+  describe('with a media folder name provided via MEDIA_FOLDER_NAME_TOKEN', () => {
+    beforeEach(async () => {
+      document.body.dataset.dynamiccontentpath = 'my-default-content-path';
+      try {
+        delete document.body.dataset.cmsassetspath;
+      } catch {
+      }
+
+      await TestBed.configureTestingModule({
+        imports: [DynamicContentModule],
+        providers: [{
+          provide: MEDIA_FOLDER_NAME_TOKEN,
+          useValue: 'mediaFolderName'
+        }]
+      }).compileComponents();
+
+      service = TestBed.inject(DynamicContentService);
+    });
+
+    it('should not change anything from the content path', () => {
+      return expect(firstValueFrom(
+        service.getContentPathStream('/asset.png')
+      )).resolves.toBe('my-default-content-path/asset.png');
+    });
+
+    it('should be included in the media path', () => {
+      return expect(firstValueFrom(
+        service.getMediaPathStream('/asset.png')
+      )).resolves.toBe('my-default-content-path/mediaFolderName/asset.png');
+    });
+  });
 });

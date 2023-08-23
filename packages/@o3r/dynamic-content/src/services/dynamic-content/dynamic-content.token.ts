@@ -10,3 +10,10 @@ export const DYNAMIC_CONTENT_BASE_PATH_TOKEN: InjectionToken<string> = new Injec
  * This token will be injected only in editor mode
  */
 export const CMS_ASSETS_PATH_TOKEN: InjectionToken<string> = new InjectionToken('CMS assets path injection token');
+
+/**
+ * Injection token for the media folder name
+ * If provided, this token value will override the default value: 'assets'
+ */
+export const MEDIA_FOLDER_NAME_TOKEN: InjectionToken<string> = new InjectionToken('Media folder name injection token');
+

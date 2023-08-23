@@ -1,7 +1,7 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { DynamicContentPipe } from './dynamic-content.pipe';
 import { DynamicContentService } from './dynamic-content.service';
-import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
+import {CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN, MEDIA_FOLDER_NAME_TOKEN} from './dynamic-content.token';
 
 /**
  * Function to get dynamic content from body dataset
@@ -28,6 +28,10 @@ export function getCmsAssets() {
     {
       provide: CMS_ASSETS_PATH_TOKEN,
       useFactory: getCmsAssets
+    },
+    {
+      provide: MEDIA_FOLDER_NAME_TOKEN,
+      useValue: 'assets'
     },
     DynamicContentService
   ],

@@ -38,19 +38,21 @@ A pipe to be used in your component templates:
 
 ```html
 <img src="{{'assets-otter/imgs/logo.png' | dynamicContent}}" /> or
-<img [src]="'assets-otter/imgs/logo.png' | dynamicContent" />
+<img ngSrc="{{'assets-otter/imgs/logo.png' | dynamicContent}}"/>
 ```
 
 and a service to be used in your component classes, for example:
 
 ```typescript
-
+import { firstValueFrom } from 'rxjs';
 @Component({
   /* ... */
 })
 export class MyComponent {
   constructor(private service: DynamicContentService) {
-    const imgSrc = this.service.getMediaPath('assets/assets-otter/imgs/logo.png');
+  }
+  ngOnInit() {
+    const imgSrc = await firstValueFrom(this.service.getMediaPathStream('assets/assets-otter/imgs/logo.png'));
   }
 }
 ```
