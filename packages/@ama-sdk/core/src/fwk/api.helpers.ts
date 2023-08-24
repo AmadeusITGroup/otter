@@ -3,7 +3,6 @@ import type {ReviverType} from './Reviver';
 
 /**
  * prepares the url to be called
- *
  * @param url base url to be used
  * @param queryParameters key value pair with the parameters. If the value is undefined, the key is dropped
  */
@@ -20,7 +19,6 @@ export function prepareUrl(url: string, queryParameters: { [key: string]: string
 
 /**
  * Returns a map containing the query parameters
- *
  * @param data
  * @param names
  */
@@ -36,7 +34,6 @@ export function extractQueryParams<T extends { [key: string]: any }>(data: T, na
 
 /**
  * Returns a filtered json object, removing all the undefined vlaues
- *
  * @param object JSON object to filter
  * @returns an object without undefined values
  */
@@ -52,7 +49,6 @@ export function filterUndefinedValues(object: { [key: string]: string | undefine
 /**
  * Receives an object containing key/value pairs
  * Encodes this object to match application/x-www-urlencoded or multipart/form-data
- *
  * @param data
  * @param type
  * @param data
@@ -83,7 +79,6 @@ export function processFormData(data: any, type: string): FormData | string {
 
 /**
  * Computes tokens based on the given list of PII parameter names.
- *
  * @param piiParameterNames The list of PII parameter names to compute tokens from
  * @returns the association between parameter names and their corresponding tokens
  */
@@ -97,7 +92,6 @@ export function computePiiParameterTokens(piiParameterNames: string[]): { [key: 
 /**
  * Returns tokenized request options:
  * URL/query parameters for which sensitive parameters are replaced by tokens and the corresponding token-value associations
- *
  * @param tokenizedUrl URL for which parameters containing PII have been replaced by tokens
  * @param queryParameters Original query parameters
  * @param piiParamTokens Tokens of the parameters containing PII
@@ -127,7 +121,7 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
  * @param response
  * @param options
  */
-export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>, response: { status: number; ok: boolean } | undefined,
+export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>, response: Pick<Response, 'ok' | 'status'> | undefined,
   // eslint-disable-next-line no-console
   endpoint?: string | undefined, options: { disableFallback?: boolean; log?: (...args: any[]) => void } = {disableFallback: false, log: console.error}): ReviverType<T> | undefined {
   const logPrefix = `API status code error for ${endpoint || 'unknown'} endpoint`;

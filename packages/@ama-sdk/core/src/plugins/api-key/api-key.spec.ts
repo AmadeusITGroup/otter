@@ -9,7 +9,7 @@ describe('Api Key Request Plugin', () => {
     const headers = new Headers();
     jest.spyOn(headers, 'append');
 
-    options = {headers, basePath: 'http://test.com/truc'};
+    options = { headers, basePath: 'http://test.com/truc', method: 'get' };
   });
 
   it('should add the API Key to the headers', async () => {

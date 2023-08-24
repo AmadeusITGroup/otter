@@ -246,6 +246,7 @@ describe('BotProtectionFingerprint', () => {
     beforeEach(() => {
       mockedFingerprint = undefined;
       mockedRequest = {
+        method: 'get',
         basePath: 'toto',
         headers: new Headers()
       };

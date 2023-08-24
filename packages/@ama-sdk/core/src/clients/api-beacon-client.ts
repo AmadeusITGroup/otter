@@ -1,9 +1,9 @@
-import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../../plugins';
-import type { ApiTypes } from '../api';
-import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../api.helpers';
-import type { PartialExcept } from '../api.interface';
-import type { ApiClient } from '../core/api-client';
-import type { BaseApiClientOptions } from '../core/base-api-constructor';
+import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../plugins';
+import type { ApiTypes } from '../fwk/api';
+import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
+import type { PartialExcept } from '../fwk/api.interface';
+import type { ApiClient } from '../fwk/core/api-client';
+import type { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 
 /** @see BaseApiClientOptions */
 export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {

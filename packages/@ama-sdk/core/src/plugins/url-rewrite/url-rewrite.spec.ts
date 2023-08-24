@@ -12,6 +12,7 @@ describe('URL Rewrite Request Plugin', () => {
 
   beforeEach(() => {
     options = {
+      method: 'get',
       queryParams: defaultGetParams,
       headers: new Headers(),
       body: defaultBody,
