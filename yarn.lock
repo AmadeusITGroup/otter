@@ -7137,7 +7137,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": ^2.11.5
-    "@types/chrome": ^0.0.243
+    "@types/chrome": ^0.0.244
     "@types/jest": ~29.5.2
     "@typescript-eslint/eslint-plugin": ^5.59.9
     "@typescript-eslint/parser": ^5.59.9
@@ -7824,7 +7824,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     type-fest: ^3.12.0
-    typedoc: ~0.24.8
+    typedoc: ~0.25.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.59.0
     zone.js: ~0.13.1
@@ -10727,13 +10727,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.243":
-  version: 0.0.243
-  resolution: "@types/chrome@npm:0.0.243"
+"@types/chrome@npm:^0.0.244":
+  version: 0.0.244
+  resolution: "@types/chrome@npm:0.0.244"
   dependencies:
     "@types/filesystem": "*"
     "@types/har-format": "*"
-  checksum: cd0a26f31d100760d6425ee55d1f0faaaa00bbb0a8f4932f780868b7173325156b2066491bf5393aaadb5d108c85d1fca931b832ca4c210d8e8134b47bb0d9a1
+  checksum: 45f3ba21b558fb9de18b443cfe24864ccd6ae5e90d648deab3f3ae3a3240e11933e8091a1301bbe9136ec72617acc450f31a1362719c3d381f4042e90f8c79be
   languageName: node
   linkType: hard
 
@@ -23179,12 +23179,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^9.0.0, minimatch@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "minimatch@npm:9.0.1"
+"minimatch@npm:^9.0.0, minimatch@npm:^9.0.1, minimatch@npm:^9.0.3":
+  version: 9.0.3
+  resolution: "minimatch@npm:9.0.3"
   dependencies:
     brace-expansion: ^2.0.1
-  checksum: 97f5f5284bb57dc65b9415dec7f17a0f6531a33572193991c60ff18450dcfad5c2dad24ffeaf60b5261dccd63aae58cc3306e2209d57e7f88c51295a532d8ec3
+  checksum: 253487976bf485b612f16bf57463520a14f512662e592e95c571afdab1442a6a6864b6c88f248ce6fc4ff0b6de04ac7aa6c8bb51e868e99d1d65eb0658a708b5
   languageName: node
   linkType: hard
 
@@ -30076,19 +30076,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typedoc@npm:~0.24.8":
-  version: 0.24.8
-  resolution: "typedoc@npm:0.24.8"
+"typedoc@npm:~0.25.0":
+  version: 0.25.0
+  resolution: "typedoc@npm:0.25.0"
   dependencies:
     lunr: ^2.3.9
     marked: ^4.3.0
-    minimatch: ^9.0.0
+    minimatch: ^9.0.3
     shiki: ^0.14.1
   peerDependencies:
-    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x
+    typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x
   bin:
     typedoc: bin/typedoc
-  checksum: a46a14497f789fb3594e6c3af2e45276934ac46df40b7ed15a504ee51dc7a8013a2ffb3a54fd73abca6a2b71f97d3ec9ad356fa9aa81d29743e4645a965a2ae0
+  checksum: f0c5980017858969f037b136d9f305fa70162be891e7b169a92701cff67e1eed5c33895121265ec7da5b4a19d0042e649c103a6719c2b42736325b22fd85ff6a
   languageName: node
   linkType: hard
 

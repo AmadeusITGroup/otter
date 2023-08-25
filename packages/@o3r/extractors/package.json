@@ -32,7 +32,7 @@
     "@microsoft/tsdoc": "~0.14.1",
     "jsonschema": "~1.4.1",
     "tslib": "^2.5.3",
-    "typedoc": "~0.24.8"
+    "typedoc": "~0.25.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.2.0",
