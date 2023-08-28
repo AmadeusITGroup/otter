@@ -127,6 +127,8 @@
     "test": {
       "inputs": [
         {"env": "RUNNER_OS"},
+        "builders",
+        "schematics",
         "specs",
         "^specs"
       ],
