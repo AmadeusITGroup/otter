@@ -5,7 +5,7 @@ export interface Operator<LeftExposed = unknown, RightExposed = unknown, LeftSup
   /** Operator name to use in condition */
   name: string;
   /** Priority in the dropdown display */
-  orderingWeight? : number;
+  orderingWeight?: number;
   /** Left Hand Value validator function */
   validateLhs?: unknown extends LeftSupported ? (operand: unknown) => boolean : (operand: unknown) => operand is LeftSupported;
   /** Right Hand Value validator function */
