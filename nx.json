@@ -67,6 +67,7 @@
     ],
     "default": [
       "global",
+      "{projectRoot}/tsconfig*",
       "{projectRoot}/src/**/*",
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
@@ -126,7 +127,9 @@
     },
     "test": {
       "inputs": [
-        {"env": "RUNNER_OS"},
+        {
+          "env": "RUNNER_OS"
+        },
         "builders",
         "schematics",
         "specs",
@@ -138,8 +141,12 @@
     },
     "test-int": {
       "inputs": [
-        {"env": "RUNNER_OS"},
-        {"env": "ENFORCED_PACKAGE_MANAGER"},
+        {
+          "env": "RUNNER_OS"
+        },
+        {
+          "env": "ENFORCED_PACKAGE_MANAGER"
+        },
         "default",
         "schematics",
         "^schematics",
@@ -159,7 +166,11 @@
       "dependsOn": [
         "^build"
       ],
-      "outputs": []
+      "outputs": [],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     },
     "compile": {
       "dependsOn": [

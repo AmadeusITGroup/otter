@@ -12,11 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
       - name: Setup
         uses: ./tools/github-actions/setup
-      - run: |
-          LABELS="$(yarn pr-labels "$(git log -1 --pretty=%B || echo '')")"
+      - name: Determine labels
+        run: |
+          LABELS="$(yarn pr-labels --target="${{ github.base_ref || github.ref_name }}")"
           echo "LABELS=$LABELS" >> $GITHUB_ENV
       - uses: actions/github-script@v6
         if: env.LABELS != '[]'
