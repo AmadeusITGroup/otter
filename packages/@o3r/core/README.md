@@ -104,7 +104,7 @@ Today the following presets are available.
 
 This preset is the default one, it does not add any additional modules.
 
-## Preset CMS
+### Preset CMS
 
 Will add all the modules allowing the allowing the full managing of an application by the CMS.
 It includes the following modules:
