@@ -1,51 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
   "schematics": {
-    "migration-v4_2": {
-      "version": "4.2.0-alpha.0",
-      "description": "Updates of the Otter Library to v4.2.x",
-      "factory": "./schematics/ng-update/index#updateV4_2"
-    },
-    "migration-v4_3": {
-      "version": "4.3.0-alpha.0",
-      "description": "Updates of the Otter Library to v4.3.x",
-      "factory": "./schematics/ng-update/index#updateV4_3"
-    },
-    "migration-v4_4": {
-      "version": "4.4.0-alpha.0",
-      "description": "Updates of the Otter Library to v4.4.x",
-      "factory": "./schematics/ng-update/index#updateV4_4"
-    },
-    "migration-v5_0": {
-      "version": "5.0.0-alpha.0",
-      "description": "Updates of the Otter Library to v5.0.x",
-      "factory": "./schematics/ng-update/index#updateV5_0"
-    },
-    "migration-v5_2": {
-      "version": "5.2.0-alpha.0",
-      "description": "Updates of the Otter Library to v5.2.x",
-      "factory": "./schematics/ng-update/index#updateV5_2"
-    },
-    "migration-v6_0": {
-      "version": "6.0.0-next.0",
-      "description": "Updates of the Otter Library to v6.0.x",
-      "factory": "./schematics/ng-update/index#updateV6_0"
-    },
-    "migration-v6_1": {
-      "version": "6.1.0-alpha.0",
-      "description": "Updates of the Otter Library to v6.1.x",
-      "factory": "./schematics/ng-update/index#updateV6_1"
-    },
-    "migration-v6_3_15": {
-      "version": "6.3.15",
-      "description": "Updates of the Otter Library to v6.3.15",
-      "factory": "./schematics/ng-update/index#updateV6_3_15"
-    },
-    "migration-v7_1_11": {
-      "version": "7.1.11",
-      "description": "Updates of the Otter Library to v7.1.11",
-      "factory": "./schematics/ng-update/index#updateV7_1_11"
-    },
     "migration-v8_2": {
       "version": "8.2.0-rc.3",
       "description": "Updates of the Otter Library to v8.2.*",
