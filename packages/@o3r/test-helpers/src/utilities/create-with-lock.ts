@@ -60,11 +60,14 @@ export async function createWithLock(createFunction: () => Promise<void>, option
       }
       return;
     }
-    const packageJson: PackageJson = JSON.parse(readFileSync(path.join(appFolderPath, 'package.json'), {encoding: 'utf8'}));
-    const areDependenciesMatching = options.dependenciesToCheck?.every(({name, expected, type}) => {
-      const actual = packageJson[type || 'dependencies']?.[name];
-      return !expected || (actual && satisfies(expected, actual));
-    });
+    let areDependenciesMatching = true;
+    if (options.dependenciesToCheck) {
+      const packageJson: PackageJson = JSON.parse(readFileSync(path.join(appFolderPath, 'package.json'), {encoding: 'utf8'}));
+      areDependenciesMatching = options.dependenciesToCheck?.every(({name, expected, type}) => {
+        const actual = packageJson[type || 'dependencies']?.[name];
+        return !expected || (actual && satisfies(expected, actual));
+      });
+    }
     if (areDependenciesMatching) {
       // No need to regenerate
       if (options.useLocker) {
