@@ -1,4 +1,5 @@
 import { Tree } from '@angular-devkit/schematics';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import * as ts from 'typescript';
 import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
 
@@ -36,6 +37,18 @@ export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
   isNgClassComponent(classDeclaration)
   && (ts.getDecorators(classDeclaration) || []).some(isO3rClassDecorator);
 
+export const askConfirmationToConvertComponent = () => askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
+
+export class NoOtterComponent extends Error {
+  constructor(componentPath: string) {
+    super(`
+      No Otter component found in ${componentPath}.
+      You can convert your Angular component into an Otter component by running the following command:
+      ng g @o3r/core:convert-component --path="${componentPath}".
+    `);
+  }
+}
+
 /**
  * Returns Otter component information
  *
@@ -57,11 +70,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   }
 
   if (!isO3rClassComponent(ngComponentDeclaration)) {
-    throw new Error(`
-      No Otter component found in ${componentPath}.
-      You can convert your Angular component into an Otter component by running the following command:
-      ng g @o3r/core:convert-component --path="${componentPath}".
-    `);
+    throw new NoOtterComponent(componentPath);
   }
 
   const name = ngComponentDeclaration.name?.escapedText.toString().replace(/Component$/, '');
@@ -106,4 +115,41 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
     standalone,
     templateRelativePath
   };
+};
+
+/**
+ * Transformer factory to add imports into the angular component decorator
+ *
+ * @param imports
+ */
+export const addImportsIntoComponentDecoratorTransformerFactory = (
+  imports: string[]
+): ts.TransformerFactory<ts.Node> => (ctx) => (rootNode: ts.Node) => {
+  const { factory } = ctx;
+  const visit = (node: ts.Node): ts.Node => {
+    if (isNgClassDecorator(node)) {
+      const importInitializer = getPropertyFromDecoratorFirstArgument(node, 'imports');
+      const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
+
+      return factory.updateDecorator(
+        node,
+        factory.updateCallExpression(
+          node.expression,
+          node.expression.expression,
+          node.expression.typeArguments,
+          [
+            factory.createObjectLiteralExpression([
+              ...(node.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
+              factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                importsList.concat(imports.map((importName) => factory.createIdentifier(importName))),
+                true
+              ))
+            ], true)
+          ]
+        )
+      );
+    }
+    return ts.visitEachChild(node, visit, ctx);
+  };
+  return ts.visitNode(rootNode, visit);
 };

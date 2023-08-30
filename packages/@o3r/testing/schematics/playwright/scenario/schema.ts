@@ -1,12 +1,12 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGeneratePlaywrightScenarioSchematicsSchema extends JsonObject {
+export interface NgGeneratePlaywrightScenarioSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
   /** Page name */
   name: string;
 
   /** Directory containing the playwright scenarios */
-  path: string | null;
+  path?: string | undefined;
 }

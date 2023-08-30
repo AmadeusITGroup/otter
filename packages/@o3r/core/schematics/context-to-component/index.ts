@@ -7,6 +7,7 @@ import {
   noop,
   renameTemplateFiles,
   Rule,
+  schematic,
   SchematicContext,
   template,
   Tree,
@@ -16,8 +17,10 @@ import {
   addImportsRule,
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
+  askConfirmationToConvertComponent,
   getO3rComponentInfoOrThrowIfNotFound,
-  isO3rClassComponent
+  isO3rClassComponent,
+  NoOtterComponent
 } from '@o3r/schematics';
 import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
@@ -39,58 +42,73 @@ const checkContext = (componentPath: string, tree: Tree) => {
  * @param options
  */
 export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
-  return (tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     const componentPath = options.path;
-    const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
+    try {
+      const { name } = getO3rComponentInfoOrThrowIfNotFound(tree, componentPath);
 
-    checkContext(componentPath, tree);
+      checkContext(componentPath, tree);
 
-    const properties = {
-      componentContext: name.concat('Context'),
-      name: basename(componentPath, '.component.ts')
-    };
+      const properties = {
+        componentContext: name.concat('Context'),
+        name: basename(componentPath, '.component.ts')
+      };
 
-    const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
-      template(properties),
-      renameTemplateFiles(),
-      move(dirname(componentPath))
-    ]), MergeStrategy.Overwrite);
+      const createConfigFilesRule: Rule = mergeWith(apply(url('./templates'), [
+        template(properties),
+        renameTemplateFiles(),
+        move(dirname(componentPath))
+      ]), MergeStrategy.Overwrite);
 
-    const updateComponentRule: Rule = chain([
-      addImportsRule(componentPath, [
-        {
-          from: `./${properties.name}.context`,
-          importNames: [
-            properties.componentContext
-          ]
+      const updateComponentRule: Rule = chain([
+        addImportsRule(componentPath, [
+          {
+            from: `./${properties.name}.context`,
+            importNames: [
+              properties.componentContext
+            ]
+          }
+        ]),
+        () => {
+          const componentSourceFile = ts.createSourceFile(
+            componentPath,
+            tree.readText(componentPath),
+            ts.ScriptTarget.ES2020,
+            true
+          );
+
+          const result = ts.transform(componentSourceFile, [
+            addInterfaceToClassTransformerFactory(properties.componentContext, isO3rClassComponent)
+          ]);
+
+          const printer = ts.createPrinter({
+            removeComments: false,
+            newLine: ts.NewLineKind.LineFeed
+          });
+
+          tree.overwrite(componentPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
+          return tree;
         }
-      ]),
-      () => {
-        const componentSourceFile = ts.createSourceFile(
-          componentPath,
-          tree.readText(componentPath),
-          ts.ScriptTarget.ES2020,
-          true
-        );
+      ]);
 
-        const result = ts.transform(componentSourceFile, [
-          addInterfaceToClassTransformerFactory(properties.componentContext, isO3rClassComponent)
-        ]);
-
-        const printer = ts.createPrinter({
-          removeComments: false,
-          newLine: ts.NewLineKind.LineFeed
-        });
-
-        tree.overwrite(componentPath, printer.printFile(result.transformed[0] as any as ts.SourceFile));
-        return tree;
+      return chain([
+        createConfigFilesRule,
+        updateComponentRule,
+        options.skipLinter ? noop() : applyEsLintFix()
+      ]);
+    } catch (e) {
+      if (e instanceof NoOtterComponent && context.interactive) {
+        const shouldConvertComponent = await askConfirmationToConvertComponent();
+        if (shouldConvertComponent) {
+          return chain([
+            schematic('convert-component', {
+              path: options.path
+            }),
+            ngAddContext(options)
+          ]);
+        }
       }
-    ]);
-
-    return chain([
-      createConfigFilesRule,
-      updateComponentRule,
-      options.skipLinter ? noop() : applyEsLintFix()
-    ])(tree, context);
+      throw e;
+    }
   };
 }

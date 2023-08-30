@@ -1,4 +1,4 @@
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { findNodes } from '@schematics/angular/utility/ast-utils';
 
 /**
@@ -359,3 +359,79 @@ export const getSimpleUpdatedMethod = (node: ts.ClassDeclaration, factory: ts.No
       factory.createBlock(blockStatements, true)
     );
 };
+
+/**
+ * Return true is the node is the ExpressionStatement of the TestBedConfiguration
+ *
+ * @param node
+ */
+export const isTestBedConfiguration = (node: ts.Node): node is ts.ExpressionStatement & { expression: ts.CallExpression & { expression: ts.PropertyAccessExpression } } =>
+  (ts.isExpressionStatement(node)
+  && ts.isCallExpression(node.expression)
+  && ts.isPropertyAccessExpression(node.expression.expression)
+  && ts.isIdentifier(node.expression.expression.expression)
+  && node.expression.expression.expression.escapedText.toString() === 'TestBed'
+  && node.expression.expression.name.escapedText.toString() === 'configureTestingModule')
+  || (ts.isAwaitExpression(node) && isTestBedConfiguration(node.expression));
+
+/**
+ * TransformerFactory to add imports at spec initialization and code to be run just after
+ *
+ * @param imports
+ * @param code
+ */
+export const addImportsAndCodeBlockStatementAtSpecInitializationTransformerFactory = (
+  imports: (string | ts.Expression)[],
+  code?: string
+): ts.TransformerFactory<ts.Node> =>
+  (ctx) => (rootNode: ts.Node) => {
+    const { factory } = ctx;
+    const visit = (node: ts.Node): ts.Node => {
+      if (ts.isBlock(node) && !!node.statements.find(isTestBedConfiguration)) {
+        return factory.updateBlock(
+          node,
+          node.statements
+            .reduce<ts.Statement[]>((acc, statement) => {
+              if (isTestBedConfiguration(statement)) {
+                const firstArgProps = (statement.expression.arguments[0] as ts.ObjectLiteralExpression).properties;
+                const importsProp = firstArgProps.find((prop): prop is ts.PropertyAssignment & { initializer: ts.ArrayLiteralExpression } =>
+                  prop.name?.getText() === 'imports'
+                );
+
+                return acc.concat(
+                  factory.updateExpressionStatement(
+                    statement,
+                    factory.updateCallExpression(
+                      statement.expression,
+                      statement.expression.expression,
+                      statement.expression.typeArguments,
+                      [
+                        factory.createObjectLiteralExpression([
+                          ...firstArgProps.filter((prop) => prop.name?.getText() !== 'imports'),
+                          factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                            (
+                              importsProp
+                                ? [...importsProp.initializer.elements]
+                                : []
+                            ).concat(
+                              imports.map((importName) => typeof importName === 'string' ? factory.createIdentifier(importName) : importName)
+                            ),
+                            true
+                          ))
+                        ], true)
+                      ]
+                    )
+                  )
+                );
+              }
+              return acc.concat(statement);
+            }, [])
+            .concat(
+              code ? generateBlockStatementsFromString(code) : []
+            )
+        );
+      }
+      return ts.visitEachChild(node, visit, ctx);
+    };
+    return ts.visitNode(rootNode, visit);
+  };

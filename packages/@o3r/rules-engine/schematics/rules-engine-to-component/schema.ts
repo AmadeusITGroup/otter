@@ -1,11 +1,11 @@
-import {JsonObject} from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateRulesEngineToComponentSchematicsSchema extends JsonObject {
+export interface NgGenerateRulesEngineToComponentSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
   /** Component Folder */
-  path: string | null;
+  path?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

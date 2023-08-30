@@ -21,14 +21,18 @@ describe('Imperva fetch plug-in', () => {
     const plugin = new ImpervaFetch({cookieName: 'reese84'});
     const runner = plugin.load(defaultContext);
 
-    expect(await runner.canStart()).toBeTruthy();
+    const canStart = runner.canStart();
+    await jest.runAllTimersAsync();
+    expect(await canStart).toBeTruthy();
   });
 
   it('Should not allow if the cookie is not there and configured to fail', async () => {
     const plugin = new ImpervaFetch({cookieName: 'reese84', allowCallOnTimeout: false});
     const runner = plugin.load(defaultContext);
 
-    expect(await runner.canStart()).toBeFalsy();
+    const canStart = runner.canStart();
+    await jest.runAllTimersAsync();
+    expect(await canStart).toBeFalsy();
   });
 
   it('Should respect the configured timeout', async () => {
@@ -39,18 +43,22 @@ describe('Imperva fetch plug-in', () => {
     });
     const runner = plugin.load(defaultContext);
 
-    const before = Date.now();
-    await runner.canStart();
-    const after = Date.now();
+    const callback = jest.fn();
+    runner.canStart().then(callback);
+    await jest.advanceTimersByTimeAsync(999);
+    expect(callback).not.toHaveBeenCalled();
 
-    expect(after - before).toBeLessThan(1000 + 200);
+    await jest.advanceTimersByTimeAsync(1);
+    expect(callback).toHaveBeenCalled();
   });
 
   it('Should allow if the cookie is not there and configured to allow nonetheless', async () => {
     const plugin = new ImpervaFetch({cookieName: 'reese84', allowCallOnTimeout: true});
     const runner = plugin.load(defaultContext);
 
-    expect(await runner.canStart()).toBeTruthy();
+    const canStart = runner.canStart();
+    await jest.runAllTimersAsync();
+    expect(await canStart).toBeTruthy();
   });
 
   it('Should eventually allow if the cookie is set before the plug-in is configured to timeout', async () => {
@@ -61,12 +69,12 @@ describe('Imperva fetch plug-in', () => {
     });
     const runner = plugin.load(defaultContext);
 
-    const timeout = setTimeout(() => {
-      global.document.cookie = 'reese84=12345qwerty';
-    }, 500);
+    const canStart = runner.canStart();
+    await jest.advanceTimersByTimeAsync(500);
+    global.document.cookie = 'reese84=12345qwerty';
+    await jest.advanceTimersByTimeAsync(500);
 
-    expect(await runner.canStart()).toBeTruthy();
-    clearTimeout(timeout);
+    expect(await canStart).toBeTruthy();
   });
 
   it('Should not allow if the cookie is set after the plug-in is configured to timeout', async () => {
@@ -77,11 +85,10 @@ describe('Imperva fetch plug-in', () => {
     });
     const runner = plugin.load(defaultContext);
 
-    const timeout = setTimeout(() => {
-      global.document.cookie = 'reese84=12345qwerty';
-    }, 1000);
+    const canStart = runner.canStart();
+    await jest.advanceTimersByTimeAsync(1000);
+    global.document.cookie = 'reese84=12345qwerty';
 
-    expect(await runner.canStart()).toBeFalsy();
-    clearTimeout(timeout);
+    expect(await canStart).toBeFalsy();
   });
 });

@@ -12,6 +12,10 @@ on:
         default: false
         required: false
         description: Version of the artifact to publish
+      isPullRequest:
+        type: boolean
+        default: ${{ github.event_name == 'pull_request' }}
+        required: false
       skipNxCache:
         type: boolean
         default: false
@@ -45,7 +49,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
       packages: write
       contents: read
@@ -63,7 +67,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
+        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -72,7 +76,7 @@ jobs:
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
 
   publish-cascading:
-    if: github.event_name != 'pull_request'
+    if: '!inputs.isPullRequest'
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'apps/github-cascading-app/dist'
@@ -108,7 +112,7 @@ jobs:
 
   publish-extensions:
     runs-on: ubuntu-latest
-    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
       packages: write
       contents: read

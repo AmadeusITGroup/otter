@@ -1,7 +1,15 @@
+jest.mock('node:readline', () => ({
+  createInterface: () => ({
+    question: jest.fn((_query, cb) => cb('mockInputUser')) as any,
+    close: jest.fn()
+  })
+}));
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
+import { firstValueFrom } from 'rxjs';
+import { ngAddLocalizationKey } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';
@@ -94,20 +102,22 @@ describe('Add Localization', () => {
       expect(localizationFileContent['o3r-test-pres.dummyLoc1'].defaultValue).toBe('Dummy 1');
     });
 
-    it('should throw if we add localization key to a component that already has it', async () => {
+    it('should ask user for another key name if we add a localization key to a component that already has it', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
-      const tree = await runner.runSchematic('add-localization-key', {
+      let tree = await runner.runSchematic('add-localization-key', {
         path: o3rComponentPath,
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
         value: 'Dummy 1'
       }, initialTree);
-      await expect(runner.runSchematic('add-localization-key', {
+      tree = await runner.runSchematic('add-localization-key', {
         path: o3rComponentPath,
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
         value: 'Dummy 1'
-      }, tree)).rejects.toThrow();
+      }, tree);
+      const localizationFileContent: any = tree.readJson(localizationPath);
+      expect(localizationFileContent['o3r-test-pres.mockInputUser']).toBeDefined();
     });
 
     it('should throw if we add localization key to a component that is not localized', async () => {
@@ -139,17 +149,6 @@ describe('Add Localization', () => {
       initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     });
 
-    it('should throw if no Otter component', async () => {
-      const runner = new SchematicTestRunner('schematics', collectionPath);
-
-      await expect(runner.runSchematic('add-localization-key', {
-        path: ngComponentPath,
-        key: 'dummyLoc1',
-        description: 'Dummy 1 description',
-        value: 'Dummy 1'
-      }, initialTree)).rejects.toThrow();
-    });
-
     it('should throw if inexisting path', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
@@ -159,6 +158,40 @@ describe('Add Localization', () => {
         description: 'Dummy 1 description',
         value: 'Dummy 1'
       }, initialTree)).rejects.toThrow();
+    });
+
+    describe('Angular component', () => {
+      it('should throw if no Otter component', async () => {
+        const runner = new SchematicTestRunner('schematics', collectionPath);
+
+        await expect(firstValueFrom(runner.callRule(ngAddLocalizationKey({
+          path: ngComponentPath,
+          skipLinter: false,
+          key: 'dummyLoc1',
+          description: 'Dummy 1 description',
+          value: 'Dummy 1',
+          dictionnary: false
+        }), initialTree, { interactive: false }))).rejects.toThrow();
+      });
+
+      it('should call convert-component if no Otter component', async () => {
+        const runner = new SchematicTestRunner('schematics', collectionPath);
+        const o3rCorePackageJson = require.resolve('@o3r/core/package.json');
+        runner.registerCollection('@o3r/core', path.resolve(path.dirname(o3rCorePackageJson), require(o3rCorePackageJson).schematics));
+        const spy = jest.spyOn(runner.engine, 'createSchematic');
+
+        const tree = await runner.runSchematic('add-localization-key', {
+          path: ngComponentPath,
+          skipLinter: false,
+          key: 'dummyLoc1',
+          description: 'Dummy 1 description',
+          value: 'Dummy 1',
+          dictionnary: false
+        }, initialTree);
+
+        expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
+        expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'translation.ts'))).toBeTruthy();
+      });
     });
   });
 });

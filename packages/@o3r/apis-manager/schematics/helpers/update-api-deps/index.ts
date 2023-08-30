@@ -7,9 +7,8 @@ import {
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-utils';
-import * as commentJson from 'comment-json';
 
 /**
  * Update app.module file with api manager, if needed
@@ -93,7 +92,8 @@ export function apiManagerFactory(): ApiManager {
       return tree;
     }
 
-    const tsconfigObj: any = commentJson.parse(tree.readText(tsconfig));
+    ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig));
+    const tsconfigObj = ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig)).config;
     if (!tsconfigObj.compilerOptions) {
       tsconfigObj.compilerOptions = {};
     }
@@ -107,7 +107,7 @@ export function apiManagerFactory(): ApiManager {
     tsconfigObj.compilerOptions.lib.push('dom');
     tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.indexOf(lib) >= 0 ? acc : [...acc, lib], []);
 
-    tree.overwrite(tsconfig, commentJson.stringify(tsconfigObj, null, 2));
+    tree.overwrite(tsconfig, JSON.stringify(tsconfigObj, null, 2));
     return tree;
   };
 

@@ -5,4 +5,4 @@ export interface <%=componentConfig%> extends Configuration {}
 
 export const <%=configKey%>_DEFAULT_CONFIG: <%=componentConfig%> = {};
 
-export const <%=configKey%>_CONFIG_ID = computeConfigurationName('<%= componentSelector %>', '<%=projectName%>');
+export const <%=configKey%>_CONFIG_ID = computeConfigurationName('<%=componentConfig%>', '<%=projectName%>');

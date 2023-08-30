@@ -1,35 +1,35 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateComponentContainerSchematicsSchema extends JsonObject {
+export interface NgGenerateComponentContainerSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
   /** name of the component to generate */
   componentName: string;
 
   /** Selector prefix */
-  prefix: string | null;
+  prefix?: string | undefined;
 
   /** Component Structure */
   componentStructure: 'full' | 'container';
 
   /** Description of the component generated */
-  description: string | null;
+  description?: string | undefined;
 
   /** Component Folder */
-  path: string | null;
+  path?: string | undefined;
 
   /** Indicates if the component should generate fixtures */
-  useComponentFixtures: boolean | null;
+  useComponentFixtures?: boolean | undefined;
 
   /** Indicates if the component should use otter configuration */
-  useOtterConfig: boolean | null;
+  useOtterConfig?: boolean | undefined;
 
   /** Indicates if the component should use generate context */
-  useContext: boolean | null;
+  useContext?: boolean | undefined;
 
   /** Indicates if the component should use rules-engine */
-  useRulesEngine: boolean | null;
+  useRulesEngine?: boolean | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

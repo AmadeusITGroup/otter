@@ -1,5 +1,5 @@
 import { SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 
 /**
  * Route definition.
@@ -121,7 +121,7 @@ export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRou
  * @param route The Route to insert
  * @param standalone Whether the page component is standalone
  */
-export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone: boolean = false) {
+export function insertRoute(tree: Tree, context: SchematicContext, appRoutingModulePath: string, route: Route, standalone = false) {
   const routes = getRoutesNodeArray(tree, context, appRoutingModulePath);
 
   if (routes) {

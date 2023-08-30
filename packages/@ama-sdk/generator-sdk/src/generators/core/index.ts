@@ -98,9 +98,9 @@ export default class extends SdkGenerator {
   }
 
   public async writing() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'), {glob: true});
     this.log('Removed previously generated sources');
 
     const pathObjects = await this._generateOperationFinder() || [];
@@ -153,7 +153,7 @@ export default class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'), {glob: true});
     try {
       const packageManagerCommand = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npx' : 'yarn';
       this.spawnCommandSync(packageManagerCommand, ['eslint', path.join('src', 'spec', 'operation-adapter.ts'), '--quiet', '--fix'], { cwd: this.destinationPath() });

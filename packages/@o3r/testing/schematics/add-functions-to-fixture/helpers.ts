@@ -93,39 +93,39 @@ export const getImplementation = (
   switch (methodType) {
     case 'clickOnButton': {
       return `{
-    const elt = await this.throwOnUndefined(this.query(this.${classPropSelector}));
+    const elt = await this.queryWithOptions(this.${classPropSelector}, undefined, { shouldThrowIfNotPresent: true });
     return elt.click();
   }`;
     }
     case 'getText': {
       return `{
-    const elt = await this.throwOnUndefined(this.query(this.${classPropSelector}));
+    const elt = await this.queryWithOptions(this.${classPropSelector}, undefined, { shouldThrowIfNotPresent: true });
     return elt.getText();
   }`;
     }
     case 'getInputValue': {
       return `{
-    const elt = await this.throwOnUndefined(this.query(this.${classPropSelector}));
+    const elt = await this.queryWithOptions(this.${classPropSelector}, undefined, { shouldThrowIfNotPresent: true });
     return elt.getValue();
   }`;
     }
     case 'setInputValue': {
       return `{
-    const elt = await this.throwOnUndefined(this.query(this.${classPropSelector}));
+    const elt = await this.queryWithOptions(this.${classPropSelector}, undefined, { shouldThrowIfNotPresent: true });
     return elt.setValue(value);
   }`;
     }
     case 'getTextInList': {
       return `{
-    const elements = this.queryAll(this.${classPropSelector});
-    const elt = await this.throwOnUndefinedElement(items[index]);
-    return elf.getText();
+    const elements = await this.queryAll(this.${classPropSelector});
+    const elt = await this.throwOnUndefinedElement(elements[index]);
+    return elt.getText();
   }`;
     }
     case 'clickButtonInList': {
       return `{
-    const elements = this.queryAll(this.${classPropSelector});
-    const elt = await this.throwOnUndefinedElement(items[index]);
+    const elements = await this.queryAll(this.${classPropSelector});
+    const elt = await this.throwOnUndefinedElement(elements[index]);
     return elt.click();
   }`;
     }

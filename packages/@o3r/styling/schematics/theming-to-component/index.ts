@@ -18,7 +18,7 @@ import type { NgAddThemingSchematicsSchema } from './schema';
 
 const checkTheming = (stylePath: string, tree: Tree) => {
   if (tree.exists(
-    stylePath.replace(/style\.scss$/, 'style.theme.scss')
+    stylePath.replace(/\.scss$/, '.theme.scss')
   )) {
     throw new Error('This component already have theming.');
   }

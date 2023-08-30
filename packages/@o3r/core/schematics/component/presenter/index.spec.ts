@@ -20,6 +20,7 @@ function getGeneratedComponentPath(componentName: string, fileName: string, comp
 describe('Component presenter', () => {
 
   let initialTree: Tree;
+  let runner: SchematicTestRunner;
 
   const componentName = 'testComponent';
   const expectedFileNames = [
@@ -38,10 +39,12 @@ describe('Component presenter', () => {
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
     initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'package.mocks.json')));
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
+    runner = new SchematicTestRunner('schematics', collectionPath);
+    const angularPackageJson = require.resolve('@schematics/angular/package.json');
+    runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
   });
 
   it('should generate a presenter component in the default component folder', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -58,7 +61,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component as part of a full component structure', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -75,7 +77,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter with the selector prefixed with o3r by default', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -90,8 +91,7 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter with the selector prefixed with provided value', async () => {
-    const customPrefix = '6x';
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const customPrefix = 'custom';
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -106,7 +106,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component without fixture', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -121,7 +120,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component without otter theme', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -141,8 +139,6 @@ describe('Component presenter', () => {
   });
 
   it('should throw if generate a presenter component with otter theming, as @o3r/styling is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -154,8 +150,6 @@ describe('Component presenter', () => {
   });
 
   it('should throw if generate a presenter component with otter localization, as @o3r/localization is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -167,7 +161,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component without context', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -187,7 +180,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component without localization', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -209,8 +201,6 @@ describe('Component presenter', () => {
   });
 
   it('should throw if generate a presenter component with otter configuration, as @o3r/configuration is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -223,7 +213,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a presenter component without otter configuration', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,
@@ -238,7 +227,6 @@ describe('Component presenter', () => {
   });
 
   it('should generate a standalone presenter component', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-presenter', {
       projectName: 'test-project',
       componentName,

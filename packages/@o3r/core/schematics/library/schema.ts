@@ -1,20 +1,20 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateModuleSchema extends JsonObject {
+export interface NgGenerateModuleSchema extends SchematicOptionObject {
   /** Project name */
   name: string;
 
   /** Target directory to generate the module */
-  path: string;
+  path?: string | undefined;
 
   /** Description of the new module */
-  description: string;
+  description?: string | undefined;
 
   /** Prefix use to package future generation */
-  prefix: string;
+  prefix?: string | undefined;
 
   /** Name of the Nx Project (applied only in Nx Monorepo) */
-  projectName: string;
+  projectName?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

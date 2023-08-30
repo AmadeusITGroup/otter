@@ -6,6 +6,12 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "iframe-to-component": {
+      "description": "Add iframe to an existing component",
+      "factory": "./schematics/iframe-to-component/index#ngAddIframe",
+      "schema": "./schematics/iframe-to-component/schema.json",
+      "aliases": ["add-iframe", "iframe"]
     }
   }
 }

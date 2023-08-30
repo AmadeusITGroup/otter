@@ -18,7 +18,7 @@
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
     "@typescript-eslint/experimental-utils": "^5.3.0",
@@ -30,24 +30,24 @@
     }
   },
   "peerDependencies": {
-    "@angular-eslint/template-parser": "~16.0.3",
-    "@angular-eslint/utils": "~16.0.3",
-    "@angular/compiler": "~16.0.5",
+    "@angular-eslint/template-parser": "~16.1.0",
+    "@angular-eslint/utils": "~16.1.0",
+    "@angular/compiler": "~16.1.6",
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.22.0"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~16.0.5",
-    "@angular-devkit/schematics": "~16.0.5",
-    "@angular-eslint/eslint-plugin": "~16.0.3",
-    "@angular-eslint/template-parser": "~16.0.3",
-    "@angular-eslint/utils": "~16.0.3",
-    "@angular/compiler": "~16.0.5",
+    "@angular-devkit/core": "~16.1.6",
+    "@angular-devkit/schematics": "~16.1.6",
+    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/template-parser": "~16.1.0",
+    "@angular-eslint/utils": "~16.1.0",
+    "@angular/compiler": "~16.1.6",
     "@babel/core": "~7.22.0",
     "@babel/preset-typescript": "~7.22.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/jest": "~16.5.0",
+    "@nx/jest": "~16.6.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@types/jest": "~29.5.2",
@@ -56,16 +56,16 @@
     "@typescript-eslint/parser": "^5.59.9",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.42.0",
-    "eslint-plugin-jest": "^27.2.1",
-    "eslint-plugin-jsdoc": "^39.3.6",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-jest": "~27.2.3",
+    "eslint-plugin-jsdoc": "~46.4.5",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
-    "jest": "~29.6.0",
-    "jest-junit": "^16.0.0",
-    "nx": "~16.5.0",
-    "rimraf": "^5.0.0",
-    "ts-jest": "^29.1.0",
-    "typescript": "~5.0.2"
+    "jest": "~29.6.2",
+    "jest-junit": "~16.0.0",
+    "nx": "~16.6.0",
+    "rimraf": "^5.0.1",
+    "ts-jest": "~29.1.1",
+    "typescript": "~5.1.6"
   },
   "schematics": "./collection.json"
 }

@@ -50,7 +50,9 @@ describe('Performance metrics', () => {
       ]
     }).compileComponents();
     service = TestBed.inject(EventTrackService);
-    return fireLoadEvent();
+    const promise = fireLoadEvent();
+    await jest.runAllTimersAsync();
+    return promise;
   });
 
   // TODO to be fixed with the redesign of the event-track service
@@ -65,7 +67,9 @@ describe('Performance metrics', () => {
   });
 
   it('should get good values for the timing', async () => {
-    const timing = await service.getTiming();
+    const promise = service.getTiming();
+    await jest.runAllTimersAsync();
+    const timing = await promise;
 
     expect(timing.startTime).toBeLessThanOrEqual(timing.endTime);
   });
@@ -88,7 +92,7 @@ describe('Performance metrics', () => {
 
   it('should start a custom mark event', async () => {
     service.startCustomMark('testMark');
-    const perfData = await firstValueFrom(service.perfEventTrack$);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
     expect(perfData.customMarks[0].label).toBe('testMark');
     expect(perfData.customMarks[0].timing.startTime).toBeDefined();
     expect(perfData.customMarks[0].timing.startTime).not.toBeNull();
@@ -110,17 +114,11 @@ describe('Performance metrics', () => {
     expect(customMarkEnded).toBeTruthy();
   });
 
-  it('end a custom mark event should do nothing if the event does not exist', () => {
+  it('end a custom mark event should do nothing if the event does not exist', async () => {
     service.startCustomMark('testMarkInitial');
-    const ret = new Promise<void>((resolve) => {
-      setTimeout(() => {
-        const customMarkEnded = service.endCustomMark(10);
-
-        expect(customMarkEnded).toBeFalsy();
-        resolve();
-      }, 10);
-    });
-    return ret;
+    await jest.advanceTimersByTimeAsync(10);
+    const customMarkEnded = service.endCustomMark(10);
+    expect(customMarkEnded).toBeFalsy();
   });
 
   it.skip('should add the first paint value', async () => {
@@ -165,7 +163,7 @@ describe('Performance metrics', () => {
       requestOptions: {}
     };
     await service.addSDKServerCallMark(sdkCallMark);
-    const perfData = await firstValueFrom(service.perfEventTrack$);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
 
     expect(perfData.serverCalls.length).toBe(1);
     expect(perfData.serverCalls[0].url).toBe('call/path');
@@ -190,7 +188,7 @@ describe('Performance metrics', () => {
       } as any
     };
     await service.addSDKServerCallMark(sdkCallMark);
-    const perfData = await firstValueFrom(service.perfEventTrack$);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
 
     expect(perfData.serverCalls.length).toBe(1);
     expect(perfData.serverCalls[0].url).toBe('call/path');
@@ -200,7 +198,7 @@ describe('Performance metrics', () => {
 
   it('should reset the performance metrics of the page', async () => {
     service.resetPerfMarks();
-    const perfData = await firstValueFrom(service.perfEventTrack$);
+    const perfData = await firstValueFrom(service.perfEventTrack$.pipe(skip(1)));
     expect(perfData.serverCalls.length).toBe(0);
     expect(perfData.perceived).toEqual({});
     expect(perfData.customMarks).toEqual([]);

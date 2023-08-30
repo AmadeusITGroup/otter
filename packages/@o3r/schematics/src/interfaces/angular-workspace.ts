@@ -14,6 +14,15 @@ export interface WorkspaceTool {
   [k: string]: any;
 }
 
+/** Defines the directories where the apps/libs will stay inside a monorepo */
+export interface WorkspaceLayout {
+  /** Libraries directory name */
+  libsDir: string;
+  /** Applications directory name */
+  appsDir: string;
+}
+
+
 export interface WorkspaceSchematics extends SchematicOptions {
   /** @deprecated */
   '@otter/ng-tools:api-service'?: {
@@ -51,6 +60,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
   '*:ng-add'?: {
     enableMetadataExtract?: boolean;
   };
+  '*:*'?: WorkspaceLayout;
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   architect?: WorkspaceTool;

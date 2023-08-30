@@ -1,14 +1,19 @@
 name: Upload Build Output
 description: Upload a github artifact containing all `dist` outputs
+inputs:
+  artifactName:
+    description: Name of the artifact on which the outputs are published
+    default: dist
+    required: false
 
 runs:
   using: 'composite'
   steps:
-    - run: zip -q -r dist.zip . -i "apps/*/dist/*" "packages/*/dist/*" -x "*/node_modules/*" ".cache/*"
+    - run: zip -q -r ${{ inputs.artifactName }}.zip . -i "apps/*/dist/*" "packages/*/dist/*" -x "*/node_modules/*" ".cache/*"
       shell: bash
     - uses: actions/upload-artifact@v3
       with:
-        name: dist
-        path: dist.zip
-    - run: rm -f dist.zip
+        name: ${{ inputs.artifactName }}
+        path: ${{ inputs.artifactName }}.zip
+    - run: rm -f ${{ inputs.artifactName }}.zip
       shell: bash

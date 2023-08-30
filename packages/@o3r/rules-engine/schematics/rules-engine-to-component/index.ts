@@ -16,7 +16,7 @@ import * as ts from 'typescript';
 import { NgGenerateRulesEngineToComponentSchematicsSchema } from './schema';
 
 const rulesEngineProperties = ['rulesEngineService'];
-const checkRulesEngine = (componentPath: string | null) => (tree: Tree) => {
+const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tree) => {
   if (!componentPath || !tree.exists(componentPath)) {
     throw new Error(`Unable to add rules-engine: component "${componentPath || ''}" does not exist`);
   }

@@ -12,6 +12,7 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'it-report.xml'}],
     'github-actions'
   ],
   globals: {
@@ -23,5 +24,6 @@ module.exports = {
   },
   testMatch: [
     '<rootDir>/schematics/**/*.it.spec.ts'
-  ]
+  ],
+  testTimeout: 30 * 60 * 1000
 };

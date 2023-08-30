@@ -3,7 +3,6 @@ import {
   chain, Rule, Tree
 } from '@angular-devkit/schematics';
 import { readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 /**
  * Update otter builders names
@@ -46,7 +45,7 @@ export function updateBuildersNames(): Rule {
       }
     });
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

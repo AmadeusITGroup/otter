@@ -40,7 +40,7 @@ export function convertToO3rComponent(options: ConvertToO3rComponentSchematicsSc
       new InsertChange(
         options.path,
         ngComponentDeclaration.getStart(),
-        '@O3rComponent({ componentType: \'Component\' })\n'
+        `@O3rComponent({ componentType: '${options.componentType}' })\n`
       )
     );
 

@@ -2,6 +2,8 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
+import { firstValueFrom } from 'rxjs';
+import { ngAddFixture } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
@@ -72,7 +74,7 @@ describe('TestComponent', () => {
 
   it('should define objects', () => {
     fixture.detectChanges();
-    expect(component).toBeDefined();
+    expect(component).toBeTruthy();
   });
 });
       `);
@@ -89,12 +91,12 @@ describe('TestComponent', () => {
 
       const specFileContent = tree.readText(specPath);
       expect(specFileContent).toContain('import { O3rElement } from \'@o3r/testing/core\'');
-      expect(specFileContent).toContain('import { TestFixture } from \'./test.fixture\'');
+      expect(specFileContent).toContain('import { TestFixtureComponent } from \'./test.fixture\'');
       expect(specFileContent).toContain('let componentFixture: TestFixtureComponent;');
       expect(specFileContent).toContain('component = fixture.componentInstance;');
       expect(specFileContent).toContain('componentFixture = new TestFixtureComponent(new O3rElement(fixture.debugElement));');
-      expect(specFileContent).toContain('expect(component).toBeDefined();');
-      expect(specFileContent).toContain('expect(componentFixture).toBeDefined();');
+      expect(specFileContent).toContain('expect(component).toBeTruthy();');
+      expect(specFileContent).toContain('expect(componentFixture).toBeTruthy();');
     });
 
     it('should throw if we add fixture to a component that already has it', async () => {
@@ -126,20 +128,42 @@ describe('TestComponent', () => {
       initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     });
 
-    it('should throw if no Otter component', async () => {
-      const runner = new SchematicTestRunner('schematics', collectionPath);
-
-      await expect(runner.runSchematic('fixture-to-component', {
-        path: ngComponentPath
-      }, initialTree)).rejects.toThrow();
-    });
-
     it('should throw if inexisting path', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
       await expect(runner.runSchematic('fixture-to-component', {
         path: 'inexisting-path.component.ts'
       }, initialTree)).rejects.toThrow();
+    });
+
+    describe('Angular component', () => {
+      it('should throw if no Otter component', async () => {
+        const runner = new SchematicTestRunner('schematics', collectionPath);
+
+        await expect(firstValueFrom(runner.callRule(ngAddFixture({
+          path: ngComponentPath,
+          skipLinter: false,
+          page: false,
+          specFilePath: undefined
+        }), initialTree, { interactive: false }))).rejects.toThrow();
+      });
+
+      it('should call convert-component if no Otter component', async () => {
+        const runner = new SchematicTestRunner('schematics', collectionPath);
+        const o3rCorePackageJson = require.resolve('@o3r/core/package.json');
+        runner.registerCollection('@o3r/core', path.resolve(path.dirname(o3rCorePackageJson), require(o3rCorePackageJson).schematics));
+        const spy = jest.spyOn(runner.engine, 'createSchematic');
+
+        const tree = await runner.runSchematic('fixture-to-component', {
+          path: ngComponentPath,
+          skipLinter: false,
+          page: false,
+          specFilePath: undefined
+        }, initialTree);
+
+        expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
+        expect(tree.exists(ngComponentPath.replace(/component\.ts$/, 'fixture.ts'))).toBeTruthy();
+      });
     });
   });
 });

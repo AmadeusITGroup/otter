@@ -7,8 +7,7 @@
   "properties": {
     "tsConfig": {
       "type": "string",
-      "description": "The path to tsconfig file.",
-      "default": null
+      "description": "The path to tsconfig file."
     },
     "watch" : {
       "type": "boolean",

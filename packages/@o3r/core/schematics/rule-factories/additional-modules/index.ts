@@ -6,7 +6,7 @@ import {
   ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile
 } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -22,7 +22,7 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param _rootPath @see RuleFactory.rootPath
  */
-export function updateAdditionalModules(options: { projectName: string | null}, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | null | undefined }, _rootPath: string): Rule {
   /**
    * Update package.json to add additional modules dependencies
    *
@@ -107,7 +107,7 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');
@@ -176,7 +176,7 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');

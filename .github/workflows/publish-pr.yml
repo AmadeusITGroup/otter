@@ -1,0 +1,69 @@
+name: Publish PR
+
+on:
+  workflow_run:
+    workflows: ['Main CI']
+    types:
+      - completed
+
+jobs:
+  version:
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
+    permissions:
+      actions: read
+    runs-on: ubuntu-latest
+    outputs:
+      nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
+    steps:
+      - name: get logs from workflow run
+        uses: actions/github-script@v6
+        with:
+          script: |
+            let download = await github.rest.actions.downloadWorkflowRunLogs({
+               ...context.repo,
+               run_id: context.payload.workflow_run.id,
+            });
+            let fs = require('fs');
+            fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/logs.zip`, Buffer.from(download.data));
+      - run: unzip logs.zip
+      - name: extract version from logs
+        id: newVersion
+        run: echo nextVersionTag=$(find *_version.txt | xargs grep -hiPo '(?<=nextVersionTag variable has been set with ).*$') >> "$GITHUB_OUTPUT"
+
+  publish-packages-pr:
+    uses: ./.github/workflows/publish.yml
+    needs: [version]
+    permissions:
+      packages: write
+      contents: read
+    secrets: inherit
+    with:
+      version: ${{ needs.version.outputs.nextVersionTag }}
+      prerelease: true
+      isPullRequest: true
+
+  notify-parent:
+    runs-on: ubuntu-latest
+    needs: [publish-packages-pr]
+    if: success() || failure()
+    permissions:
+      checks: write
+    steps:
+      - name: Update triggering workflow
+        uses: actions/github-script@v6
+        env:
+          PUBLISH_RESULT: ${{ needs.publish-packages-pr.result }}
+        with:
+          script: |
+            const backUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}/attempts/${context.runAttempt || 1}`;
+            await github.rest.checks.create({
+               ...context.repo,
+               head_sha: context.payload.workflow_run.head_commit.id,
+               name: 'publish-packages-pr',
+               conclusion: process.env.PUBLISH_RESULT,
+               status: 'completed',
+               output: {
+                  title: 'publish-packages-pr',
+                  summary: `${process.env.PUBLISH_RESULT} publish [${backUrl}](${backUrl})`
+               }
+            });

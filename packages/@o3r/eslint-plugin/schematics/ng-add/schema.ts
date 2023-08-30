@@ -1,6 +1,4 @@
-import type { JsonObject } from '@angular-devkit/core';
-
-export interface NgAddSchematicsSchema extends JsonObject {
+export interface NgAddSchematicsSchema {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 }

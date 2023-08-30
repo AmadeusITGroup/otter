@@ -50,7 +50,7 @@ export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string;
  * @param tree
  * @param project
  */
-export function getDestinationPath(typeOfItem: GeneratedItemType, directory: string | null, tree: Tree, project?: string | null): string {
+export function getDestinationPath(typeOfItem: GeneratedItemType, directory: string | null | undefined, tree: Tree, project?: string | null): string {
   if (directory) {
     return directory;
   }

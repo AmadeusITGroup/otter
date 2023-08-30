@@ -1,6 +1,6 @@
-import { chain, noop, Rule, schematic } from '@angular-devkit/schematics';
+import { chain, noop, Rule, schematic, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, isNxContext } from '@o3r/schematics';
+import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { nxGenerateModule } from './rules/rules.nx';
@@ -13,23 +13,24 @@ import { ngGenerateModule } from './rules/rules.ng';
  */
 export function generateModule(options: NgGenerateModuleSchema): Rule {
 
-  /** Name of the Nx Project in case of Nx monorepo */
-  const projectName = options.projectName || options.name.replace(/^@/, '').replace('/', '-');
-
   return (tree, context) => {
+    const cleanName = strings.dasherize(options.name);
     const isNx = isNxContext(tree);
-
-    const defaultRoot = isNx && (tree.readJson('/nx.json') as any)?.workspaceLayout?.libsDir || 'packages';
+    const config = getWorkspaceConfig(tree);
+    if (!config) {
+      throw new Error('No workspace configuration file found');
+    }
+    const defaultRoot = getPackagesBaseRootFolder(tree, context, config);
 
     /** Path to the folder where generate the new module */
-    const targetPath = path.posix.resolve('/', options.path || defaultRoot, options.name);
-    const extendedOptions = { ...options, targetPath, projectName };
+    const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
+    const extendedOptions = { ...options, targetPath, name: cleanName };
 
     return chain([
-      isNx ? nxGenerateModule(options) : ngGenerateModule(extendedOptions),
+      isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
       // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
       // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
-      (t, c) => schematic('ng-add-create', { projectName, path: targetPath })(t, c),
+      (t, c) => schematic('ng-add-create', { projectName: options.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());

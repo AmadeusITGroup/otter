@@ -39,6 +39,17 @@ export class NgComponent {}
     expect(tree.readText(ngComponentPath)).toContain('@O3rComponent({ componentType: \'Component\' })');
   });
 
+  it('should convert the component into an Otter Block', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runExternalSchematic('schematics', 'convert-component', {
+      projectName: 'test-project',
+      path: ngComponentPath,
+      componentType: 'Block'
+    }, initialTree);
+
+    expect(tree.readText(ngComponentPath)).toContain('@O3rComponent({ componentType: \'Block\' })');
+  });
+
   it('should throw if we try to convert an Otter component', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runExternalSchematic('schematics', 'convert-component', {

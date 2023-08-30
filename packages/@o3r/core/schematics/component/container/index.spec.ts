@@ -20,6 +20,7 @@ function getGeneratedComponentPath(componentName: string, fileName: string, comp
 describe('Component container', () => {
 
   let initialTree: Tree;
+  let runner: SchematicTestRunner;
 
   const componentName = 'testComponent';
   const expectedFileNames = [
@@ -37,10 +38,12 @@ describe('Component container', () => {
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
     initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'package.mocks.json')));
     initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
+    runner = new SchematicTestRunner('schematics', collectionPath);
+    const angularPackageJson = require.resolve('@schematics/angular/package.json');
+    runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
   });
 
   it('should generate a container component in the default component folder', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -56,7 +59,6 @@ describe('Component container', () => {
   });
 
   it('should generate a container component as part of a full component structure', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -72,7 +74,6 @@ describe('Component container', () => {
   });
 
   it('should generate a container with the selector prefixed with o3r by default', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -86,8 +87,7 @@ describe('Component container', () => {
   });
 
   it('should generate a container with the selector prefixed with provided value', async () => {
-    const customPrefix = '6x';
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const customPrefix = 'custom';
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -101,7 +101,6 @@ describe('Component container', () => {
   });
 
   it('should generate a container component without fixture', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -115,8 +114,6 @@ describe('Component container', () => {
   });
 
   it('should throw if generate a container component with otter fixture, as @o3r/testing is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -128,8 +125,6 @@ describe('Component container', () => {
   });
 
   it('should throw if generate a container component with otter configuration, as @o3r/configuration is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -142,7 +137,6 @@ describe('Component container', () => {
   });
 
   it('should generate a container component without otter configuration', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -156,7 +150,6 @@ describe('Component container', () => {
   });
 
   it('should generate a standalone container component', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -176,8 +169,6 @@ describe('Component container', () => {
   });
 
   it('should throw if generate a container component with rules engine, as @o3r/rules-engine is not installed', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
-
     await expect(runner.runSchematic('component-container', {
       projectName: 'test-project',
       componentName,
@@ -189,13 +180,18 @@ describe('Component container', () => {
     }, initialTree)).rejects.toThrow();
   });
 
-  it('should generate a container component with rules engine', async () => {
-    const runner = new SchematicTestRunner('schematics', collectionPath);
+  // TODO mock require.resolve('@o3r/rules-engine/package.json') once https://github.com/jestjs/jest/issues/9543 is fixed
+  it.skip('should generate a container component with rules engine', async () => {
     const externalSchematicsSpy = jest.fn((tree: Tree) => tree);
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy
     } as any;
-    const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection').mockReturnValue(externalCollection);
+    const createCollectionOriginal = runner.engine.createCollection;
+    const createCollectionSpy = jest.spyOn(runner.engine, 'createCollection')
+      .mockImplementation((name, requester) => name === '@o3r/rules-engine'
+        ? externalCollection
+        : createCollectionOriginal.call(runner.engine, name, requester)
+      );
 
     await runner.runSchematic('component-container', {
       projectName: 'test-project',
@@ -209,5 +205,4 @@ describe('Component container', () => {
     expect(createCollectionSpy).toHaveBeenCalledWith('@o3r/rules-engine', expect.any(Object));
     expect(externalSchematicsSpy).toHaveBeenCalled();
   });
-
 });

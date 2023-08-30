@@ -1,4 +1,5 @@
 const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const {resolve} = require('node:path');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
@@ -12,13 +13,22 @@ module.exports = {
   ],
   reporters: [
     'default',
+    ['jest-junit', {outputDirectory: resolve(__dirname, 'dist-test'), outputName: 'ut-report.xml'}],
     'github-actions'
   ],
-  globals: {
+  fakeTimers: {
+    enableGlobally: true,
+    // TODO try to make date utils work with fake Date
+    doNotFake: ['Date']
+  },
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
   }
 };

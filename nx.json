@@ -59,6 +59,7 @@
   },
   "namedInputs": {
     "global": [
+      "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/tsconfig.build.json",
@@ -102,21 +103,14 @@
       "{workspaceRoot}/.eslintignore"
     ],
     "specs": [
-      "default"
+      "default",
+      "{projectRoot}/jest.config.*",
+      "{projectRoot}/testing/**/*",
+      "{projectRoot}/mocks/**/*"
     ],
     "source": [
       "default",
-      "!{projectRoot}/plugins/**/*",
-      "!{projectRoot}/builders.json",
-      "!{projectRoot}/builders/**/*",
-      "!{projectRoot}/migration.json",
-      "!{projectRoot}/collection.json",
-      "!{projectRoot}/schematics/**/*",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/testing/**/*",
-      "!{projectRoot}/mocks/**/*",
-      "!{projectRoot}/jest.config.*",
-      "{projectRoot}/package.json"
+      "!{projectRoot}/**/*.spec.ts"
     ],
     "plugins": [
       "global",
@@ -132,8 +126,17 @@
     },
     "test": {
       "inputs": [
+        {"env": "RUNNER_OS"},
         "specs",
         "^specs"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/ut-report.xml"
+      ]
+    },
+    "test-int": {
+      "outputs": [
+        "{projectRoot}/dist-test/it-report.xml"
       ]
     },
     "prepare-publish": {
@@ -229,12 +232,14 @@
         "^source"
       ],
       "outputs": [
+        "{projectRoot}/dist/builders/package.json",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
         "{projectRoot}/dist/builders/**/*.d.ts.map",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
         "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/middlewares/package.json",
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
