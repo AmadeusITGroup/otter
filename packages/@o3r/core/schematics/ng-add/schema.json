@@ -34,12 +34,6 @@
       "description": "Install prefetch builder",
       "x-prompt": "Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?"
     },
-    "enablePlaywright": {
-      "type": "boolean",
-      "default": true,
-      "description": "Install playwright",
-      "x-prompt": "Activate playwright as E2E test system?"
-    },
     "enableCustomization": {
       "type": "boolean",
       "default": true,
@@ -95,23 +89,6 @@
       "default": false,
       "x-deprecated": true,
       "x-prompt": "Generate basic Azure Pipelines for your application CICD (deprecated)?"
-    },
-    "testingFramework": {
-      "type": "string",
-      "description": "The testing framework to use",
-      "default": "jest",
-      "enum": [
-        "jest",
-        "jasmine"
-      ],
-      "x-prompt": {
-        "message": "Which testing framework would you like to use?",
-        "type": "list",
-        "items": [
-          { "value": "jest",  "label": "Jest (strongly recommended)" },
-          { "value": "jasmine",  "label": "Jasmine" }
-        ]
-      }
     },
     "skipLinter": {
       "type": "boolean",

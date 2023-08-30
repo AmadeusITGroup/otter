@@ -127,6 +127,8 @@
     "test": {
       "inputs": [
         {"env": "RUNNER_OS"},
+        "builders",
+        "schematics",
         "specs",
         "^specs"
       ],
@@ -135,6 +137,14 @@
       ]
     },
     "test-int": {
+      "inputs": [
+        {"env": "RUNNER_OS"},
+        {"env": "ENFORCED_PACKAGE_MANAGER"},
+        "default",
+        "schematics",
+        "^schematics",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"
       ]

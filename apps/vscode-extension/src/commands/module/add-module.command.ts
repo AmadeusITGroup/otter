@@ -86,11 +86,11 @@ export function generateModuleAddCommand(_context: ExtensionContext) {
       return;
     }
 
-    moduleToAdd
-      .forEach(({label}) => {
-        const terminal = vscode.window.createTerminal(`Add the module ${label}`);
-        terminal.sendText(`${getPackageScriptRunner()} ng add ${label} --defaults`, true);
-        terminal.show();
-      });
+    const packageManager = await getPackageScriptRunner();
+    moduleToAdd.forEach(({label}) => {
+      const terminal = vscode.window.createTerminal(`Add the module ${label}`);
+      terminal.sendText(`${packageManager} ng add ${label} --defaults`, true);
+      terminal.show();
+    });
   };
 }

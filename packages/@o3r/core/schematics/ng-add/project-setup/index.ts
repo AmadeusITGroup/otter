@@ -10,9 +10,7 @@ import {
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
-  updateFixtureConfig,
   updateOtterEnvironmentAdapter,
-  updatePlaywright,
   updateStore
 } from '../../rule-factories/index';
 import { NgAddSchematicsSchema } from '../schema';
@@ -49,7 +47,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ...(options.enableRulesEngine && !!projectType ? ['@o3r/rules-engine'] : []),
     ...(options.enableStyling && !!projectType ? ['@o3r/styling'] : []),
     ...(options.enableAnalytics && !!projectType ? ['@o3r/analytics'] : []),
-    ...(options.enablePlaywright && projectType === 'application' ? ['@o3r/testing'] : []),
     ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
     ...(options.enableLocalization ? ['@o3r/localization'] : []),
     ...(options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
@@ -81,7 +78,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
       updateStore(options, projectType),
       options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options, false) : noop,
-      options.enablePlaywright && projectType === 'application' ? updatePlaywright(coreSchematicsFolder, options) : noop,
       projectType === 'application' ? updateAdditionalModules(options, coreSchematicsFolder) : noop,
       removePackages(packagesToRemove),
       ...(!isMultipackagesContext(tree) ? projectRootRules : [])
@@ -94,7 +90,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const commonRules = [
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
-    updateFixtureConfig(options, coreSchematicsFolder),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
 

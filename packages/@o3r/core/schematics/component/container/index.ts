@@ -278,7 +278,7 @@ class Mock${properties.presenterComponentName} {}
     rules.push(...contextRules);
 
     const rulesEngineRules = await getAddRulesEngineRules(
-      path.join(componentDestination, `${properties.name}.component.ts`),
+      path.posix.join(componentDestination, `${properties.name}.component.ts`),
       options,
       context
     );
