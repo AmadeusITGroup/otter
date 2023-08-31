@@ -9,9 +9,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */
   projectName?: string | undefined;
 
-  /** Enable prefetch builder */
-  enablePrefetchBuilder: boolean;
-
   /** Enable otter customization */
   enableCustomization: boolean;
 

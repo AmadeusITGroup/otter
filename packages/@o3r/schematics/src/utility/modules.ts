@@ -19,12 +19,13 @@ import {getProjectFromTree} from './loaders';
  *
  * @param tree File tree
  * @param context Context of the rule
+ * @param projectName The name of the project where to search for an app module file
  */
-export function getAppModuleFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function getAppModuleFilePath(tree: Tree, context: SchematicContext, projectName?: string | null) {
+  const workspaceProject = getProjectFromTree(tree, projectName, 'application');
   // exit if not an application
   if (!workspaceProject) {
-    context.logger.debug('Register localization on main module only in application project');
+    context.logger.debug('Aborted. App module file path will be searched only in application project.');
     return undefined;
   }
 

@@ -1,6 +1,6 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { WorkspaceProject } from '@o3r/schematics';
-import { ngAddPackages, readAngularJson, readPackageJson } from '@o3r/schematics';
+import { readAngularJson, readPackageJson } from '@o3r/schematics';
 import type { PackageJson } from 'type-fest';
 
 /**
@@ -11,7 +11,7 @@ import type { PackageJson } from 'type-fest';
  * @param o3rCoreVersion
  * @param projectType
  */
-export function o3rBasicUpdates(pName: string | null | undefined, o3rCoreVersion?: string, projectType?: WorkspaceProject['projectType']): Rule {
+export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersion?: string, projectType?: WorkspaceProject['projectType']): Rule {
 
   const ngUpdateScript = (tree: Tree, packageJsonObj: PackageJson, packageJsonPath = '/package.json') => {
     if (!packageJsonObj.scripts) {
@@ -23,7 +23,7 @@ export function o3rBasicUpdates(pName: string | null | undefined, o3rCoreVersion
     tree.overwrite(packageJsonPath, JSON.stringify(packageJsonObj, null, 2));
   };
 
-  const updatePackageJson = (tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree, _context: SchematicContext) => {
     const workspace = readAngularJson(tree);
 
     if (!projectType) { // at the root of the monorepo
@@ -43,20 +43,4 @@ export function o3rBasicUpdates(pName: string | null | undefined, o3rCoreVersion
     return tree;
   };
 
-  return async (tree: Tree, context: SchematicContext) => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-    const packagesToAddByProjectType = projectType ? ['@ama-sdk/core'] : ['@ama-sdk/schematics'];
-    return () => chain([
-      updatePackageJson,
-      ngAddPackages(['@o3r/dev-tools', '@o3r/schematics'],
-        {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - basic updates', dependencyType: NodeDependencyType.Dev}),
-      ngAddPackages(packagesToAddByProjectType, {
-        skipConfirmation: true,
-        version: o3rCoreVersion,
-        parentPackageInfo: '@o3r/core - basic updates',
-        dependencyType: projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default
-      })
-    ])(tree, context);
-  };
 }

@@ -12,20 +12,21 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {addVsCodeRecommendations, ngAddPackages, getO3rPeerDeps, getProjectDepType, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const {addVsCodeRecommendations, ngAddPackages, getProjectRootDir, getO3rPeerDeps, getProjectDepType, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
       const dependencyType = getProjectDepType(tree);
       const linterSchematicsFolder = path.resolve(__dirname, '..');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       return () => chain([
         removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType}),
+        ngAddPackages(depsInfo.o3rPeerDeps, {skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory}),
         ngAddPeerDependencyPackages(
           ['eslint', '@angular-eslint/builder', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin', 'eslint-plugin-jsdoc', 'eslint-plugin-prefer-arrow', 'eslint-plugin-unicorn'],
           path.resolve(__dirname, '..', '..', 'package.json'),
           NodeDependencyType.Dev,
-          options,
+          {...options, workingDirectory, skipNgAddSchematicRun: true},
           '@o3r/eslint-config-otter - peer installs'
         ),
         addVsCodeRecommendations(['dbaeumer.vscode-eslint', 'stylelint.vscode-stylelint']),

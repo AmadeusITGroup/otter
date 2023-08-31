@@ -40,7 +40,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const dependencyType = getProjectDepType(tree);
-
       const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
       const workingDirectory = workspaceProject?.root;
       const projectType = workspaceProject?.projectType || 'application';
@@ -84,10 +83,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
-          dependencyType: dependencyType
+          dependencyType: dependencyType,
+          workingDirectory
         }),
-        installPlaywright ? updatePlaywright(options) : noop,
-        ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, options),
+        installPlaywright ? updatePlaywright({...options, workingDirectory}) : noop,
+        ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -128,7 +128,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
             renameTemplateFiles()
           ]), MergeStrategy.Default);
           rules.push(
-            ngAddPeerDependencyPackages(['jest', 'jest-preset-angular'], testPackageJsonPath, NodeDependencyType.Dev, options),
+            ngAddPeerDependencyPackages(['jest', 'jest-preset-angular'], testPackageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}),
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
           );

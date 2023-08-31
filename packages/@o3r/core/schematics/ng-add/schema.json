@@ -28,12 +28,6 @@
         "$source": "projectName"
       }
     },
-    "enablePrefetchBuilder": {
-      "type": "boolean",
-      "default": true,
-      "description": "Install prefetch builder",
-      "x-prompt": "Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?"
-    },
     "enableCustomization": {
       "type": "boolean",
       "default": true,
