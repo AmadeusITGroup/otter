@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { Cascading } from './cascading';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION } from './interfaces';
+import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION, PullRequestContext } from './interfaces';
 import { render } from 'ejs';
 
 const mockBasicTemplate = `
@@ -29,14 +29,15 @@ class JestCascading extends Cascading {
   public createBranch = jest.fn<Promise<void>, [string, string]>();
   public merge = jest.fn<Promise<void>, [string, string]>();
   public getBranches = jest.fn<Promise<string[]>, []>();
-  public createPullRequest = jest.fn<Promise<void>, [string, string, string, string]>();
-  public updatePullRequestMessage = jest.fn<Promise<void>, [string | number, string, string | undefined]>();
+  public createPullRequest = jest.fn<Promise<CascadingPullRequestInfo>, [string, string, string, string]>();
+  public updatePullRequestMessage = jest.fn<Promise<CascadingPullRequestInfo>, [string | number, string, string | undefined]>();
   public getPullRequests = jest.fn<Promise<CascadingPullRequestInfo[]>, [string, string]>();
   public getPullRequestFromId = jest.fn<Promise<CascadingPullRequestInfo>, [string | number]>();
   public isCascadingPullRequest = jest.fn<Promise<boolean>, [string | number]>();
   public areAllChecksPassed = jest.fn<Promise<boolean>, [string | number, CheckConclusion]>();
   public mergePullRequest = jest.fn<Promise<boolean>, [string | number]>();
   public isBranchAhead = jest.fn<Promise<boolean>, [string, string]>();
+  public updateMessageWhenNonMergeable = jest.fn<Promise<void>, [CascadingPullRequestInfo, PullRequestContext]>();
 }
 
 describe('Cascading Application', () => {
@@ -112,7 +113,9 @@ describe('Cascading Application', () => {
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
+        originBranchName: '',
         isOpen: true,
+        mergeable: true,
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
           .replace('[ ] <!-- !cancel bypass! -->', '[x] <!-- !cancel bypass! -->')
       });
@@ -126,7 +129,9 @@ describe('Cascading Application', () => {
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
+        originBranchName: '',
         isOpen: true,
+        mergeable: true,
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(true);
@@ -141,7 +146,9 @@ describe('Cascading Application', () => {
       customization.areAllChecksPassed = customization.areAllChecksPassed.mockResolvedValue(true);
       customization.getPullRequestFromId = customization.getPullRequestFromId.mockResolvedValue({
         id: 1,
+        originBranchName: '',
         isOpen: true,
+        mergeable: true,
         body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
       });
       customization.mergePullRequest = customization.mergePullRequest.mockResolvedValue(false);
@@ -221,6 +228,13 @@ describe('Cascading Application', () => {
       customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: true,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
 
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       const expectedBranchList = [
@@ -245,6 +259,13 @@ describe('Cascading Application', () => {
       customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: true,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
 
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       const expectedBranchList = [
@@ -268,12 +289,20 @@ describe('Cascading Application', () => {
       customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: true,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
+
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       expect(customization.createBranch).toHaveBeenCalledWith(`${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'test-cascading/1.0');
       expect(customization.createPullRequest).toHaveBeenCalled();
     });
 
-    it('should update an existing an existing and create a pull request', async () => {
+    it('should update an existing cascading branch and create a pull request', async () => {
       customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
         ...DEFAULT_CONFIGURATION,
         cascadingBranchesPattern: 'test-cascading/.*'
@@ -287,10 +316,74 @@ describe('Cascading Application', () => {
       customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
       customization.createBranch = customization.createBranch.mockResolvedValue();
       customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: true,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
+
       await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
       expect(customization.merge).toHaveBeenCalledWith('test-cascading/1.0', `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`);
       expect(customization.createBranch).not.toHaveBeenCalled();
       expect(customization.createPullRequest).toHaveBeenCalled();
+    });
+
+    it('should create a new cascading branch and add a merge information message', async () => {
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+        ...DEFAULT_CONFIGURATION,
+        cascadingBranchesPattern: 'test-cascading/.*'
+      });
+      customization.getBranches = customization.getBranches.mockResolvedValue([
+        'test-cascading/1.1',
+        'other-branch',
+        'test-cascading/1.0'
+      ]);
+      customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
+      customization.createBranch = customization.createBranch.mockResolvedValue();
+      customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: false,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
+
+      await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+      expect(customization.createBranch).toHaveBeenCalledWith(`${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`, 'test-cascading/1.0');
+      expect(customization.createPullRequest).toHaveBeenCalled();
+      expect(customization.updateMessageWhenNonMergeable).toHaveBeenCalled();
+    });
+
+    it('should update an existing cascading branch  and add a merge information message', async () => {
+      customization.loadConfiguration = customization.loadConfiguration.mockResolvedValue({
+        ...DEFAULT_CONFIGURATION,
+        cascadingBranchesPattern: 'test-cascading/.*'
+      });
+      customization.getBranches = customization.getBranches.mockResolvedValue([
+        'test-cascading/1.1',
+        'other-branch',
+        'test-cascading/1.0',
+        `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`
+      ]);
+      customization.isBranchAhead = customization.isBranchAhead.mockResolvedValue(true);
+      customization.createBranch = customization.createBranch.mockResolvedValue();
+      customization.getPullRequests = customization.getPullRequests.mockResolvedValue([]);
+      customization.createPullRequest = customization.createPullRequest.mockResolvedValue({
+        id: 1,
+        originBranchName: '',
+        isOpen: true,
+        mergeable: false,
+        body: render(mockBasicTemplate, { isConflicting: false, targetBranch: 'main', currentBranch: 'release/0.1', bypassReviewers: true }, { async: false })
+      });
+
+      await expect(customization.cascade('test-cascading/1.0')).resolves.not.toThrow();
+      expect(customization.merge).toHaveBeenCalledWith('test-cascading/1.0', `${DEFAULT_CONFIGURATION.branchNamePrefix}/1.0.0-1.1.0`);
+      expect(customization.createBranch).not.toHaveBeenCalled();
+      expect(customization.createPullRequest).toHaveBeenCalled();
+      expect(customization.updateMessageWhenNonMergeable).toHaveBeenCalled();
     });
   });
 });
