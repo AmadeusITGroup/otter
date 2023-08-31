@@ -16,6 +16,11 @@
       "description": "Generate a facts service",
       "factory": "./schematics/facts-service/index#ngGenerateFactsService",
       "schema": "./schematics/facts-service/schema.json"
+    },
+    "operator": {
+      "description": "Generate an operator",
+      "factory": "./schematics/operator/index#ngGenerateOperator",
+      "schema": "./schematics/operator/schema.json"
     }
   }
 }
