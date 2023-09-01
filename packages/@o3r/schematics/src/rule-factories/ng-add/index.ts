@@ -21,6 +21,9 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
   if (!packages.length) {
     return noop;
   }
+  const cwd = process.cwd().replace(/[\\/]+/g, '/');
+  // FileSystem working directory might be different than Tree working directory (when using `yarn workspace` for example)
+  const fsWorkingDirectory = (options?.workingDirectory && !cwd.endsWith(options.workingDirectory)) ? options.workingDirectory : '.';
   const versions = Object.fromEntries(packages.map<[string, string | undefined]>((packageName, index) =>
     [packageName, typeof options?.version === 'object' ? options.version[index] : options?.version]));
   if (options?.workingDirectory && !packageJsonPath.startsWith(options.workingDirectory)) {
@@ -29,13 +32,13 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
 
   const getInstalledVersion = (packageName: string) => {
     try {
-      const packageJsonAfterInstall = JSON.parse(readFileSync('./package.json', {encoding: 'utf8'}));
+      const fileSystemPackageJson = JSON.parse(readFileSync(path.join(fsWorkingDirectory, 'package.json'), {encoding: 'utf8'}));
       if (options?.dependencyType === NodeDependencyType.Dev) {
-        return packageJsonAfterInstall.devDependencies[packageName];
+        return fileSystemPackageJson.devDependencies[packageName];
       } else if (options?.dependencyType === NodeDependencyType.Peer) {
-        return packageJsonAfterInstall.peerDependencies[packageName];
+        return fileSystemPackageJson.peerDependencies[packageName];
       } else {
-        return packageJsonAfterInstall.dependencies[packageName];
+        return fileSystemPackageJson.dependencies[packageName];
       }
     } catch (e) {
       return;

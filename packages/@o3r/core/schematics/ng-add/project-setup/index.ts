@@ -37,11 +37,11 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const o3rCoreVersion = corePackageJsonContent.version;
   const {
-    addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
+    addVsCodeRecommendations, applyEsLintFix, getWorkspaceConfig, install, mapImportV7toV8, ngAddPackages,
     readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext, getO3rPeerDeps
   } = await import('@o3r/schematics');
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
-  const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
+  const workspaceProject = options.projectName && getWorkspaceConfig(tree)?.projects?.[options.projectName] || undefined;
   const projectType = workspaceProject?.projectType;
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
@@ -94,7 +94,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       removePackages(packagesToRemove),
       ...(!isMultipackagesContext(tree) ? projectRootRules : [])
     ];
-  } else {
+  }
+  if (isMultipackagesContext(tree)) {
     monorepoRules = [
       ...projectRootRules,
       addWorkspacesToProject()

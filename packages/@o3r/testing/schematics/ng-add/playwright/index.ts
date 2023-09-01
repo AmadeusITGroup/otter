@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { NgAddPackageOptions, ngAddPeerDependencyPackages } from '@o3r/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { getProjectRootDir, NgAddPackageOptions, ngAddPeerDependencyPackages } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
@@ -12,34 +12,37 @@ import { PackageJson } from 'type-fest';
  */
 export function updatePlaywright(options: NgAddPackageOptions = {}): Rule {
   return (tree: Tree, context: SchematicContext) => {
+    const workingDirectory = getProjectRootDir(tree, options.projectName) || '.';
 
     // update gitignore
-    if (tree.exists('/.gitignore')) {
-      let gitignore = tree.readText('/.gitignore');
-      if (!gitignore.includes('dist*') && !gitignore.includes('/dist-e2e-playwright') && !gitignore.includes('/playwright-reports')) {
+    const gitignorePath = '.gitignore';
+    if (tree.exists(gitignorePath)) {
+      let gitignore = tree.readText(gitignorePath);
+      if (!gitignore.includes('dist*') && !gitignore.includes('dist-e2e-playwright') && !gitignore.includes('playwright-reports')) {
         gitignore +=
           `
 # Playwright
-/dist-e2e-playwright
-/playwright-reports
+dist-e2e-playwright
+playwright-reports
 `;
-        tree.overwrite('/.gitignore', gitignore);
+        tree.overwrite(gitignorePath, gitignore);
       }
     }
 
     // register scripts
-    if (tree.exists('/package.json')) {
-      const packageJson = tree.readJson('/package.json') as PackageJson;
+    const packageJsonPath = path.posix.join(workingDirectory, 'package.json');
+    if (tree.exists(packageJsonPath)) {
+      const packageJson = tree.readJson(packageJsonPath) as PackageJson;
       packageJson.scripts ||= {};
       packageJson.scripts['test:playwright'] ||= 'playwright test --config=e2e-playwright/playwright-config.ts';
       packageJson.scripts['test:playwright:sanity'] ||= 'playwright test --config=e2e-playwright/playwright-config.sanity.ts';
-      tree.overwrite('/package.json', JSON.stringify(packageJson, null, 2));
+      tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }
     const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
     const ngAddRules = ngAddPeerDependencyPackages(['@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, {...options, skipNgAddSchematicRun: true});
 
     // generate files
-    if (!tree.exists('/e2e-playwright/playwright-config.ts')) {
+    if (!tree.exists(path.posix.join(workingDirectory, 'e2e-playwright', 'playwright-config.ts'))) {
       const name = 'my-scenario';
       const scenarioName = strings.capitalize(strings.camelize(name));
       const sanity = 'my-sanity';
@@ -53,7 +56,8 @@ export function updatePlaywright(options: NgAddPackageOptions = {}): Rule {
           sanity,
           sanityName
         }),
-        renameTemplateFiles()
+        renameTemplateFiles(),
+        move(workingDirectory)
       ]);
 
       return chain([

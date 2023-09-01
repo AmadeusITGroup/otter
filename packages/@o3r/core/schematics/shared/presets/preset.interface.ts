@@ -4,6 +4,9 @@ import type { SchematicOptionObject } from '@o3r/schematics';
 
 /** Options of the preset runner  */
 export interface PresetOptions {
+  /** Project name */
+  projectName?: string | undefined;
+
   /** Options to forward to the executed schematics */
   forwardOptions?: SchematicOptionObject;
 }

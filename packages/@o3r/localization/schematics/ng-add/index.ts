@@ -22,10 +22,10 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
       return () => chain([
         updateLocalization(options, __dirname),
-        updateI18n(),
+        updateI18n(options),
         options.skipLinter ? noop() : applyEsLintFix(),
         // install ngx-translate and message format dependencies
         options.skipInstall ? noop : install,

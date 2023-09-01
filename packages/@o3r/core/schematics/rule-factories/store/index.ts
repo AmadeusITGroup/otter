@@ -47,7 +47,7 @@ export function updateStore(options: { projectName?: string | undefined; working
 
     if (projectType === 'application') {
       dependenciesList = [...dependenciesList, ...appDeps];
-      dependenciesList = isApplicationThatUsesRouterModule(tree) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
+      dependenciesList = isApplicationThatUsesRouterModule(tree, options) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
     }
 
 
@@ -68,7 +68,7 @@ export function updateStore(options: { projectName?: string | undefined; working
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -114,7 +114,7 @@ export function updateStore(options: { projectName?: string | undefined; working
     insertImportToModuleFile('Serializer', '@o3r/core');
     insertImportToModuleFile('environment', '../environments/environment');
 
-    if (isApplicationThatUsesRouterModule(tree)) {
+    if (isApplicationThatUsesRouterModule(tree, options)) {
       addImportToModuleFile(
         'StoreRouterConnectingModule',
         '@ngrx/router-store',
@@ -130,7 +130,7 @@ const storageSync = new StorageSync({
 });
 
 const rootReducers = {
-  ${isApplicationThatUsesRouterModule(tree) ? 'router: routerReducer' : ''}
+  ${isApplicationThatUsesRouterModule(tree, options) ? 'router: routerReducer' : ''}
 };
 
 const metaReducers = [storageSync.localStorageSync()];
