@@ -109,7 +109,11 @@ export function isApplicationThatUsesRouterModule(tree: Tree) {
   const workspaceProject = getProjectFromTree(tree, null, 'application');
   return workspaceProject?.sourceRoot &&
     globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
-      const sourceFile = ts.createSourceFile(filePath, fs.readFileSync(filePath).toString(), ts.ScriptTarget.ES2015, true);
+      const fileContent = fs.readFileSync(filePath).toString();
+      if (!/RouterModule/.test(fileContent)) {
+        return false;
+      }
+      const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.ES2015, true);
       try {
         return !!getRouterModuleDeclaration(sourceFile);
       } catch {}
