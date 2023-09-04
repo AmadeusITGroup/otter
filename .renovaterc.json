@@ -27,7 +27,9 @@
     "/^release\\/.*-next$/"
   ],
   "enabledManagers": [
-    "npm"
+    "npm",
+    "node",
+    "github-actions"
   ],
   "npm": {
     "stabilityDays": 0
