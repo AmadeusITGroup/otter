@@ -28,7 +28,6 @@
   ],
   "enabledManagers": [
     "npm",
-    "node",
     "github-actions"
   ],
   "npm": {
