@@ -9,12 +9,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */
   projectName?: string | undefined;
 
-  /** Enable prefetch builder */
-  enablePrefetchBuilder: boolean;
-
-  /** Enable playwright */
-  enablePlaywright: boolean;
-
   /** Enable otter customization */
   enableCustomization: boolean;
 
@@ -41,9 +35,6 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Generate the Azure Pipeline for the new project */
   generateAzurePipeline: boolean;
-
-  /** Testing framework */
-  testingFramework: 'jest' | 'jasmine';
 
   /** Skip the install process */
   skipInstall: boolean;

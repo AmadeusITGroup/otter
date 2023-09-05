@@ -17,6 +17,9 @@ import type { NgAddThemingSchematicsSchema } from './schema';
 
 
 const checkTheming = (stylePath: string, tree: Tree) => {
+  if (!/style\.scss$/.test(stylePath)) {
+    throw new Error('Invalid input path: it must target a style.scss file');
+  }
   if (tree.exists(
     stylePath.replace(/\.scss$/, '.theme.scss')
   )) {

@@ -5,6 +5,7 @@ import {
   getPackageManagerRunner,
   getProjectDepType,
   getProjectFromTree,
+  getProjectRootDir,
   getTemplateFolder,
   getWorkspaceConfig,
   ignorePatterns,
@@ -246,7 +247,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -331,7 +332,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param context
    */
   const setDefaultLanguage: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     const componentFilePath = moduleFilePath && moduleFilePath.replace(/\.module\.ts$/i, '.component.ts');
 
     if (!(componentFilePath && tree.exists(componentFilePath))) {
@@ -393,7 +394,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param context
    */
   const addMockTranslationModule: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     const componentSpecFilePath = moduleFilePath && moduleFilePath.replace(/\.module\.ts$/i, '.component.spec.ts');
 
     if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
@@ -446,8 +447,9 @@ export function updateLocalization(options: { projectName?: string | null | unde
   const addDependencies: Rule = (tree: Tree, context: SchematicContext) => {
     const type: NodeDependencyType = getProjectDepType(tree);
     const generatorDependencies = [ngxTranslateCoreDep, intlMessageFormatDep, formatjsIntlNumberformatDep, angularCdkDep];
+    const workingDirectory = getProjectRootDir(tree, options.projectName);
     try {
-      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, options)(tree, context);
+      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, workingDirectory, skipNgAddSchematicRun: true})(tree, context);
     } catch (e: any) {
       context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
       return tree;

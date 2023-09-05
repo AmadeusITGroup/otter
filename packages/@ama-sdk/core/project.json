@@ -8,7 +8,7 @@
     "build": {
       "executor": "nx:run-script",
       "outputs": [
-        "packages/@ama-sdk/core/dist/package.json"
+        "{projectRoot}/dist/package.json"
       ],
       "options": {
         "script": "postbuild",

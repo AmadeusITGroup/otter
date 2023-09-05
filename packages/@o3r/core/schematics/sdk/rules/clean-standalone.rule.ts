@@ -10,6 +10,10 @@ export function cleanStandaloneFiles(targetPath: string): Rule {
   return (tree) => {
     tree.delete(posix.join(targetPath, '.renovaterc.json'));
     tree.delete(posix.join(targetPath, '.vscode', 'settings.json'));
+    tree.delete(posix.join(targetPath, '.editorconfig'));
+    tree.delete(posix.join(targetPath, '.versionrc.json'));
+    tree.delete(posix.join(targetPath, '.commitlintrc.json'));
+    tree.delete(posix.join(targetPath, 'CONTRIBUTING.md'));
     tree.delete(posix.join(targetPath, '.husky', 'commit-msg'));
     tree.delete(posix.join(targetPath, '.husky', 'pre-commit'));
 

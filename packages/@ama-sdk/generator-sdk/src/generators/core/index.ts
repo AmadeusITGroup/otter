@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 import * as rimraf from 'rimraf';
 import * as sway from 'sway';
+import { type } from 'node:os';
 import {Operation, PathObject} from '@ama-sdk/core';
 
 import Generator from 'yeoman-generator';
@@ -146,8 +147,7 @@ export default class extends SdkGenerator {
       'typescriptFetch',
       '-i',
       this.getSwaggerSpecPath(this.properties.swaggerSpecPath!),
-      '-o',
-      '.'
+      ...(type().startsWith('Windows') ? [] : ['-o', '.'])
     ], { cwd: this.destinationPath() });
     this.log('Generated new sources');
   }

@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "incremental": true,
+    "outDir": "./dist",
+    "rootDir": "src",
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "**/*.spec.ts",
+    "src/**/fixtures/**/*.ts",
+    "src/builders/**/*.ts",
+    "src/helpers/**/*.ts"
+  ]
+}

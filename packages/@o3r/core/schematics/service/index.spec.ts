@@ -25,11 +25,26 @@ describe('Service generator', () => {
       path: './'
     }, initialTree);
 
-    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(12);
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
     expect(tree.files.some((file) => /^[\\/]?test-service[\\/]test-base[\\/]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
   });
 
   it('should generate service in default folder', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runExternalSchematic('schematics', 'service', {
+      projectName: 'test-project',
+      name: 'test-service',
+      featureName: 'test-base',
+      path: 'src/services'
+    }, initialTree);
+
+    expect(tree.files.filter((file) => /test-service/.test(file)).length).toEqual(9);
+    expect(tree.files.some((file) => /^[\\/]?src[\\/]services[\\/]test-service[\\/]test-base[\\/]test-service\.test-base\.module\.ts$/i.test(file))).toBeTruthy();
+  });
+
+  // TODO enable when https://github.com/jestjs/jest/issues/9543 fixed
+  // eslint-disable-next-line jest/no-disabled-tests
+  it.skip('should generate service with fixtures for jest if installed', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runExternalSchematic('schematics', 'service', {
       projectName: 'test-project',

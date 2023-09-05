@@ -2,6 +2,8 @@
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
     "incremental": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     // "composite": true, not supported by ng-packger
     "outDir": "./dist",
     "rootDir": "src",
