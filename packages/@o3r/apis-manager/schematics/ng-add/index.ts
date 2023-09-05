@@ -20,7 +20,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const workingDirectory = workspaceProject?.root;
       const projectType = workspaceProject?.projectType || 'application';
       if (projectType === 'application') {
-        rulesToExecute.push(updateApiDependencies());
+        rulesToExecute.push(updateApiDependencies(options));
       }
 
       return () => chain([

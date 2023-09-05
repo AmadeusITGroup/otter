@@ -1,4 +1,4 @@
-import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
@@ -42,7 +42,9 @@ const angularCdkDep = '@angular/cdk';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-
+  if (!options.projectName) {
+    return noop;
+  }
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';
 
@@ -53,14 +55,16 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param context
    */
   const generateLocalesFolder = (tree: Tree, context: SchematicContext) => {
+    const workingDirectory = getProjectRootDir(tree, options.projectName) || '.';
 
     let gitIgnoreContent = '';
-    if (tree.exists('.gitignore')) {
-      gitIgnoreContent = tree.read('.gitignore')!.toString();
+    const gitIgnorePath = path.posix.join(workingDirectory, '.gitignore');
+    if (tree.exists(gitIgnorePath)) {
+      gitIgnoreContent = tree.read(gitIgnorePath)!.toString();
       if (gitIgnoreContent.indexOf('/*.metadata.json')) {
         return tree;
       }
-      tree.delete('.gitignore');
+      tree.delete(gitIgnorePath);
     }
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
@@ -69,7 +73,8 @@ export function updateLocalization(options: { projectName?: string | null | unde
         devResourcesFolder,
         gitIgnoreContent,
         mainAssetsFolder
-      })
+      }),
+      move(workingDirectory)
     ]);
 
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
@@ -86,7 +91,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName, 'application');
-    const projectRoot = path.posix.join('/', workspaceProject?.root || '');
+    const projectRoot = path.posix.join(workspaceProject?.root || '');
     const distFolder: string =
       (
         workspaceProject &&
@@ -476,8 +481,10 @@ export function updateLocalization(options: { projectName?: string | null | unde
 /**
  *
  */
-export function updateI18n(): Rule {
-
+export function updateI18n(options: {projectName?: string | undefined}): Rule {
+  if (!options.projectName) {
+    return noop;
+  }
   /**
    * Add i18n generation builders into angular.json
    *
@@ -485,7 +492,7 @@ export function updateI18n(): Rule {
    */
   const updateAngularJson: Rule = (tree: Tree) => {
     const workspace = readAngularJson(tree);
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, options.projectName);
 
     if (!workspaceProject) {
       return tree;

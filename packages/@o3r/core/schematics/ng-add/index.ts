@@ -40,7 +40,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       },
       async (t, c) => {
         const { preset, ...forwardOptions } = options;
-        const presetRunner = await presets[preset]({ forwardOptions });
+        const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
         if (presetRunner.modules) {
           c.logger.info(`The following modules will be installed: ${presetRunner.modules.join(', ')}`);
         }

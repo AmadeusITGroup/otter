@@ -15,7 +15,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const {getProjectDepType, ngAddPackages, getO3rPeerDeps, getProjectRootDir} = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
       return chain([
         (t, c) => ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
