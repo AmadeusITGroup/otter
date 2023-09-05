@@ -2,7 +2,7 @@
   "name": "@o3r/eslint-plugin",
   "version": "0.0.0-placeholder",
   "description": "The module provides in-house eslint plugins to use in your own eslint configuration.",
-  "main": "dist/src/index.js",
+  "main": "dist/src/public_api.js",
   "keywords": [
     "eslint",
     "eslint-plugin",
