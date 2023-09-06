@@ -10,17 +10,19 @@ import { NgAddSchematicsSchema } from './schema';
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (_tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {getProjectDepType, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {getProjectDepType, ngAddPackages, getO3rPeerDeps, getProjectRootDir} = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       return chain([
         (t, c) => ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          dependencyType: getProjectDepType(t)
+          dependencyType: getProjectDepType(t),
+          workingDirectory
         })(t, c),
         updateCmsAdapter(options, __dirname)
       ]);

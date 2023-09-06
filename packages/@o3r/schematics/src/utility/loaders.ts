@@ -73,7 +73,12 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
  * @param projectType
  */
 export function getProjectFromTree(tree: Tree, projectName?: string | null, projectType?: 'application' | 'library'): WorkspaceProject & { name: string } | undefined {
-  const workspace = readAngularJson(tree);
+
+  const workspace = getWorkspaceConfig(tree);
+  if (!workspace) {
+    return undefined;
+  }
+
   const projectGuessedName = projectName || Object.keys(workspace.projects)[0];
   // eslint-disable-next-line max-len
   let workspaceProject: WorkspaceProject & { name: string } | undefined = projectGuessedName && workspace.projects[projectGuessedName] && (!projectType || workspace.projects[projectGuessedName]?.projectType === projectType) ?
@@ -91,6 +96,17 @@ export function getProjectFromTree(tree: Tree, projectName?: string | null, proj
   }
   return workspaceProject;
 }
+
+/**
+ * Returns the root directory of a project with the given name ( a relative path from the project root)
+ *
+ * @param tree Files tree
+ * @param projectName Name of the project inside the workspace
+ */
+export function getProjectRootDir(tree: Tree, projectName?: string | null) {
+  return getProjectFromTree(tree, projectName)?.root;
+}
+
 
 /**
  * Return the type of install to run depending on the project type (Peer or default)

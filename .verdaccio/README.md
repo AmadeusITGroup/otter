@@ -24,4 +24,4 @@ docker ps -a -q --filter="name=verdaccio" | xargs docker container stop
 
 ## How to use
 
-Add `registry=http://localhost:4873` in your `.npmrc` / `yarnrc.yml` files or as a parameter of the install command
+Add `registry=http://127.0.0.1:4873` in your `.npmrc` / `yarnrc.yml` files or as a parameter of the install command

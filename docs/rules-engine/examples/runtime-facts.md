@@ -27,7 +27,7 @@ export const runtimeFactExample: {ruleSets: Ruleset[]} = {
                     'type': 'FACT',
                     'value': 'isMobileDevice'
                   },
-                  'operator': 'equal',
+                  'operator': 'equals',
                   'rhs': {
                     'type': 'LITERAL',
                     'value': true

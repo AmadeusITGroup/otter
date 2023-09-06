@@ -16,17 +16,19 @@ export function ngAdd(): Rule {
     const treePackageJson = tree.readJson('./package.json') as PackageJson;
     const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
     const getDependencyVersion = (dependency: string) => packageJsonContent?.dependencies?.[dependency] || packageJsonContent?.peerDependencies?.[dependency];
+    let packageName = '';
     for (const dependency of schematicsDependencies) {
       const version = getDependencyVersion(dependency);
       context.logger.info(`Installing ${dependency}${version || ''}`);
       treePackageJson.devDependencies = {...treePackageJson.devDependencies, [dependency]: version};
-      context.addTask(new AddDevInstall({
-        hideOutput: false,
-        packageName: `${dependency}${version ? '@' + version : ''}`,
-        quiet: false
-      } as any));
-      await lastValueFrom(context.engine.executePostTasks());
+      packageName = `${packageName} ${dependency}${version ? '@' + version : ''}`;
     }
+    context.addTask(new AddDevInstall({
+      hideOutput: false,
+      packageName,
+      quiet: false
+    } as any));
+    await lastValueFrom(context.engine.executePostTasks());
     tree.overwrite('./package.json', JSON.stringify(treePackageJson));
     return () => tree;
   };

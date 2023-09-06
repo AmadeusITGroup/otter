@@ -21,7 +21,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         ngAddPackages,
         ngAddPeerDependencyPackages,
         removePackages,
-        registerPackageCollectionSchematics
+        registerPackageCollectionSchematics,
+        getProjectRootDir
       } = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
@@ -33,10 +34,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
       const dependencyType = getProjectDepType(tree);
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       const rule = chain([
         removePackages(['@otter/components']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, '@o3r/components - install builder dependency'),
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
         registerPackageCollectionSchematics(packageJson),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ]);
