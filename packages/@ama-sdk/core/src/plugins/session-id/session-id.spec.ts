@@ -8,7 +8,7 @@ describe('Session ID Request Plugin', () => {
   const TEST_KEY2 = 'testKey2';
 
   beforeEach(() => {
-    options = {headers: new Headers(), basePath: 'http://test.com/truc'};
+    options = { headers: new Headers(), basePath: 'http://test.com/truc', method: 'get' };
   });
 
   it('should have the default id to Ama-Client-Ref', async () => {

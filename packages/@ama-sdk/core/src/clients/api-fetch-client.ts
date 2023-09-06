@@ -7,16 +7,16 @@ import {
   RequestMetadata,
   RequestOptions,
   TokenizedOptions
-} from '../../plugins/core/index';
-import {ExceptionReply} from '../../plugins/exception';
-import {ReviverReply} from '../../plugins/reviver';
-import {ApiTypes} from '../api';
-import {extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions} from '../api.helpers';
-import type {PartialExcept} from '../api.interface';
-import {ApiClient} from '../core/api-client';
-import {BaseApiClientOptions} from '../core/base-api-constructor';
-import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../errors';
-import {ReviverType} from '../Reviver';
+} from '../plugins/core/index';
+import {ExceptionReply} from '../plugins/exception';
+import {ReviverReply} from '../plugins/reviver';
+import {ApiTypes} from '../fwk/api';
+import {extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions} from '../fwk/api.helpers';
+import type {PartialExcept} from '../fwk/api.interface';
+import {ApiClient} from '../fwk/core/api-client';
+import {BaseApiClientOptions} from '../fwk/core/base-api-constructor';
+import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../fwk/errors';
+import {ReviverType} from '../fwk/Reviver';
 
 /** @see BaseApiClientOptions */
 export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
