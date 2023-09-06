@@ -8734,6 +8734,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
