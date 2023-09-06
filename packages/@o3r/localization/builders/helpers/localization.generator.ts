@@ -66,7 +66,7 @@ export class LocalizationExtractor {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const { include, exclude, cwd } = this.getPatternsFromTsConfig();
-    return glob(include, {ignore: exclude, cwd});
+    return glob.sync(include, {ignore: exclude, cwd});
   }
 
   /**
@@ -290,7 +290,7 @@ export class LocalizationExtractor {
    * @param extraLocalizationFiles Additional translations to add
    */
   public async extractLocalizationFromTsConfig(extraLocalizationFiles: string[] = []): Promise<LocalizationFileMap> {
-    const files = await this.getFilesFromTsConfig();
+    const files = this.getFilesFromTsConfig();
     const tsFiles = files
       .filter((file) => /\.ts$/.test(file))
       .map((file) => path.join(path.dirname(this.tsconfigPath), file));

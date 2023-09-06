@@ -43,6 +43,7 @@
           "build-fixtures-jest",
           "copy-assets",
           "documentation",
+          "generate-translations",
           "extract-translations",
           "extract-components",
           "extract-style",
@@ -51,7 +52,8 @@
           "prepare-build-builders",
           "test",
           "test-int",
-          "build-swagger"
+          "build-swagger",
+          "i18n"
         ],
         "cacheDirectory": ".cache/nx"
       }

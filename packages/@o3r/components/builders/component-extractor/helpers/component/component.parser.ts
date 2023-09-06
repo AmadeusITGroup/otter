@@ -1,5 +1,5 @@
 import {logging} from '@angular-devkit/core';
-import * as glob from 'globby';
+import globby from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 import {ComponentClassExtractor, ComponentInformation} from './component-class.extractor';
@@ -85,7 +85,7 @@ export class ComponentParser {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const {include, exclude, cwd} = this.getPatternsFromTsConfig();
-    return glob(include, {ignore: exclude, cwd, absolute: true});
+    return globby(include, {ignore: exclude, cwd, absolute: true});
   }
 
   /**

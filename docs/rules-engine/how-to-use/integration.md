@@ -155,7 +155,7 @@ Here is an example:
 // angular.json
   ...
   "extract-rules-engine": {
-    "builder": "@o3r/rules-engine:extractor", // otter cms adapters builder
+    "executor": "@o3r/rules-engine:extractor", // otter cms adapters builder
     "options": {
       "tsConfig": "./tsconfig.cms.json", // ts config file used by the builder
       "libraries": [ // libraries containing facts included in the app
