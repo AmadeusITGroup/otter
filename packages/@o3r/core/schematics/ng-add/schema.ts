@@ -41,4 +41,10 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Enable Apis manager */
   enableApisManager: boolean;
+
+  /** Initial git repository commit information. */
+  commit: boolean | { name: string; email: string };
+
+  /** Do not initialize a git repository. */
+  skipGit: boolean;
 }
