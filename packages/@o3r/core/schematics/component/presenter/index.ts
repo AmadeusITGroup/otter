@@ -131,6 +131,11 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       chain([
         move(ngStylePath, o3rStylePath),
         (t) => {
+          // Styling file is empty by default, as we create component with `viewEncapsulation` set to 'None', we should wrap the styling into the selector of the component
+          t.overwrite(o3rStylePath, `${properties.componentSelector}-${properties.suffix} {\n\t// Your component custom SCSS\n}\n`);
+          return t;
+        },
+        (t) => {
           t.overwrite(
             componentPath,
             t.readText(componentPath).replace(
