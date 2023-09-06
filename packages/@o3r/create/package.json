@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@angular/cli": "~16.2.0",
+    "@schematics/angular": "~16.2.0",
     "minimist": "^1.2.6"
   },
   "devDependencies": {

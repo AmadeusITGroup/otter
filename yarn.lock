@@ -7145,6 +7145,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/minimist": ^1.2.2
     "@types/node": ^18.0.0
