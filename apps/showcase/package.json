@@ -37,7 +37,7 @@
     "@ngrx/store": "~16.2.0",
     "@ngrx/store-devtools": "~16.2.0",
     "@ngx-translate/core": "~15.0.0",
-    "@nx/jest": "~16.7.0",
+    "@nx/jest": "~16.8.0",
     "@o3r/application": "workspace:^",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
@@ -94,6 +94,7 @@
     "jest-preset-angular": "~13.1.1",
     "rimraf": "^5.0.1",
     "ts-jest": "~29.1.1",
-    "typescript": "~5.1.6"
+    "typescript": "~5.1.6",
+    "webpack": "~5.88.0"
   }
 }
