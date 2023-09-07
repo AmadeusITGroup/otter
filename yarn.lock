@@ -8714,7 +8714,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@playwright/test": ~1.37.0
+    "@playwright/test": ~1.37.1
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
@@ -8762,7 +8762,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@playwright/test": ~1.37.0
+    "@playwright/test": ~1.37.1
     "@schematics/angular": ~16.2.0
     pixelmatch: ^5.2.1
     pngjs: ^7.0.0
@@ -9265,7 +9265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:~1.37.0, @playwright/test@npm:~1.37.1":
+"@playwright/test@npm:~1.37.1":
   version: 1.37.1
   resolution: "@playwright/test@npm:1.37.1"
   dependencies:
