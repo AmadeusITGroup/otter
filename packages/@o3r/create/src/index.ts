@@ -101,7 +101,7 @@ if (argv._.length === 0) {
 const isNgNewOptions = (arg: string) => {
   const entries = Object.entries(properties);
   if (arg.startsWith('--')) {
-    return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/, '-$1').toLowerCase()}`].includes(arg));
+    return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`].includes(arg));
   } else if (arg.startsWith('-')) {
     return entries.some(([_, {alias}]) => alias && arg === `-${alias}`);
   }
