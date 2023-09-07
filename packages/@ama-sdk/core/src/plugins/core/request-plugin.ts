@@ -48,6 +48,8 @@ export interface RequestOptions extends RequestInit {
   tokenizedOptions?: TokenizedOptions;
   /** Request metadata */
   metadata?: RequestMetadata;
+  /** @inheritdoc */
+  method: NonNullable<RequestInit['method']>;
 }
 
 /**

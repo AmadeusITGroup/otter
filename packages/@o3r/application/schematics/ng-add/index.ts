@@ -20,7 +20,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const workingDirectory = getProjectRootDir(tree, options.projectName);
 
       const addAngularAnimationPreferences: Rule = () => {
-        const moduleFilePath = getAppModuleFilePath(tree, context);
+        const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
 
         if (!moduleFilePath) {
           return tree;

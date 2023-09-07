@@ -38,6 +38,7 @@ describe('Gateway token plugin', () => {
     headers.append('Content-Type', 'image/jpeg');
     headers.append('Accept-Encoding', 'gzip');
     options = {
+      method: 'get',
       queryParams: defaultGetParams,
       headers,
       body: defaultBody,

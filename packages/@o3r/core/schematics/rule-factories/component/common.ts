@@ -1,6 +1,7 @@
 import { externalSchematic, Rule, schematic, SchematicContext } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
 import { SchematicOptionObject, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { readFileSync } from 'node:fs';
 
 /**
  * Ask questions to get rules to execute
@@ -30,7 +31,10 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = async (
   let applyRule = defaultApplyRule;
   let alwaysApplyRule: string | null = null;
   try {
-    require.resolve(`${packageName}/package.json`);
+    const packageJson = JSON.parse(readFileSync('./package.json', {encoding: 'utf8'}));
+    if (!packageJson.dependencies?.[packageName] && !packageJson.devDependencies?.[packageName]) {
+      throw new Error(`Package ${packageName} not installed`);
+    }
     if (typeof applyRule !== 'boolean' && context.interactive) {
       applyRule = await askConfirmation(ruleQuestion, true);
       if (applyRule) {

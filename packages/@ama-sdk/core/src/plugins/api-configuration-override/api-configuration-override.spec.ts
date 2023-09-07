@@ -15,6 +15,7 @@ describe('ApiConfigurationOverride Plugin', () => {
 
   beforeEach(() => {
     options = {
+      method: 'get',
       headers: new FakeHeader() as any,
       basePath: 'http://test.com/api'
     };

@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a mechanism to retrieve media and data depending on the host or a server specific url.
+This module provides a mechanism to retrieve media and data depending on the host or a server-specific url.
 
 ## How to install
 

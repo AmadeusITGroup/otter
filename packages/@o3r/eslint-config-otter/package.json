@@ -82,7 +82,7 @@
     "eslint-plugin-jsdoc": "~46.5.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
-    "nx": "~16.7.0",
+    "nx": "~16.8.0",
     "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {

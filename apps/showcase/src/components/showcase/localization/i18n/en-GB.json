@@ -1,0 +1,8 @@
+{
+  "o3r-localization-pres.departureLabel": "Departure",
+  "o3r-localization-pres.destinationLabel": "Destination",
+  "o3r-localization-pres.destinationPlaceholder": "Please select a destination",
+  "o3r-localization-pres.question": "Where do you want to go?",
+  "o3r-localization-pres.welcome": "Welcome!",
+  "o3r-localization-pres.welcomeWithCityName": "Welcome to { cityName }!"
+}

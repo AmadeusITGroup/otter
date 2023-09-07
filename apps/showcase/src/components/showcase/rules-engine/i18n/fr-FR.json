@@ -1,0 +1,6 @@
+{
+  "o3r-rules-engine-pres.welcomeWithCityName": "Bienvenue à { cityName } !",
+  "o3r-rules-engine-pres.question": "Où voulez-vous aller ?",
+  "o3r-rules-engine-pres.destinationLabel": "Destination",
+  "o3r-rules-engine-pres.destinationPlaceholder": "Merci de choisir une destionation"
+}

@@ -9,7 +9,10 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a bridge to communicate with third parties via an iFrame solution.
+This module aims at improving the communication with third parties.
+It exposes bridges to integrate third parties iFrame via an established communication protocol.
+It also provides support of an A/B Testing solution via shared windows properties 
+(more info on the [A/B testing dedicated documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/ab-testing/AB_TESTING.md))
 
 ## How to install
 
