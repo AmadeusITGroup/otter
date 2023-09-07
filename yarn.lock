@@ -8321,7 +8321,7 @@ __metadata:
     "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@playwright/test": 1.37.1
+    "@playwright/test": ~1.37.1
     "@popperjs/core": ^2.11.5
     "@schematics/angular": ~16.2.0
     "@types/bootstrap": ^5.2.6
@@ -8352,6 +8352,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
+    webpack: ~5.88.0
     zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
@@ -9265,7 +9266,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:1.37.1":
+"@playwright/test@npm:~1.37.1":
   version: 1.37.1
   resolution: "@playwright/test@npm:1.37.1"
   dependencies:
