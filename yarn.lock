@@ -8351,6 +8351,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
+    webpack: ~5.88.0
     zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
@@ -24046,7 +24047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:16.8.0, nx@npm:^16.6.0, nx@npm:~16.8.0":
+"nx@npm:16.8.0, nx@npm:^16.8.0, nx@npm:~16.8.0":
   version: 16.8.0
   resolution: "nx@npm:16.8.0"
   dependencies:
