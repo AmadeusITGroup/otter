@@ -4171,6 +4171,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:1.17.1":
+  version: 1.17.1
+  resolution: "@formatjs/ecma402-abstract@npm:1.17.1"
+  dependencies:
+    "@formatjs/intl-localematcher": 0.4.1
+    tslib: ^2.4.0
+  checksum: 195235b4634077f7c2ac9f4bb257bd7bce094798ba97cb8b59e8f2acab3b3b898f23ec45ceab7abc6c3fb1ef4235951e96c60b943135e1a9290eba51c144d878
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.0":
   version: 2.2.0
   resolution: "@formatjs/fast-memoize@npm:2.2.0"
@@ -4210,14 +4220,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.7.0":
-  version: 8.7.0
-  resolution: "@formatjs/intl-numberformat@npm:8.7.0"
+"@formatjs/intl-localematcher@npm:0.4.1":
+  version: 0.4.1
+  resolution: "@formatjs/intl-localematcher@npm:0.4.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 1.17.0
-    "@formatjs/intl-localematcher": 0.4.0
     tslib: ^2.4.0
-  checksum: 987bd3e6a48e6efa054d9f526b3cba01675a6c96ffc6d652f6053f3dd1cbae5e56ac784718d135a2e2cd6c7afab4f89c0a592a28e2ff93134baeddc1fa1aff30
+  checksum: bf8bb95d1fd61c660d11e4b5ad00a2f154f3a2551bc5e3e3e3bd1636e7daa1c35519f63bd0e3b309b002cbd0406c6fa515a08fd764eb9a5a1ad0a9a8290ca836
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-numberformat@npm:8.7.1":
+  version: 8.7.1
+  resolution: "@formatjs/intl-numberformat@npm:8.7.1"
+  dependencies:
+    "@formatjs/ecma402-abstract": 1.17.1
+    "@formatjs/intl-localematcher": 0.4.1
+    tslib: ^2.4.0
+  checksum: 6cf53feee034a28b57c62e06bf2b29f9990a80c1f8e523cbfa666b051e0a8d01cf6004788be468fbb52facaa227679e5c52db5c31968fe10d0e214b157a3f089
   languageName: node
   linkType: hard
 
@@ -8299,7 +8318,7 @@ __metadata:
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
-    "@formatjs/intl-numberformat": 8.7.0
+    "@formatjs/intl-numberformat": 8.7.1
     "@ngrx/effects": ~16.2.0
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
