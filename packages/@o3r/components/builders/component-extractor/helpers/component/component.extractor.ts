@@ -28,7 +28,10 @@ export class ComponentExtractor {
   /** List of the loaded libraries component outputs*/
   private libComponentClassOutputs?: ComponentClassOutput[][];
 
-  /** List of extracted modules */
+  /**
+   * List of extracted modules
+   * @deprecated will be removed in v10
+   */
   private modules?: { [component: string]: ComponentModuleOutput };
 
   /**
@@ -177,6 +180,7 @@ export class ComponentExtractor {
    * Consolidate the modules data to the final format.
    *
    * @param parsedData Data extracted from the source code
+   * @deprecated will be removed in v10
    */
   private consolidateModules(parsedData: ParserOutput) {
     return Object.keys(parsedData.modules)

@@ -31,15 +31,18 @@
       },
       "templatePath": {
         "type": "string",
-        "description": "Path to the component template file"
+        "description": "Path to the component template file",
+        "deprecated": true
       },
       "moduleName": {
         "type": "string",
-        "description": "Name of the module that declares the component"
+        "description": "Name of the module that declares the component",
+        "deprecated": true
       },
       "modulePath": {
         "type": "string",
-        "description": "Path to the component module file"
+        "description": "Path to the component module file",
+        "deprecated": true
       },
       "selector": {
         "type": "string",
