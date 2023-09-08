@@ -17,6 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
         getProjectDepType,
+        getProjectRootDir,
         getWorkspaceConfig,
         ngAddPeerDependencyPackages,
         removePackages,
@@ -30,6 +31,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
       const dependencyType = getProjectDepType(tree);
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       const rule = chain([
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
@@ -43,8 +45,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           }
         }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-        ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, options, '@o3r/rules-engine - install builder dependency'),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType }),
+        ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/rules-engine - install builder dependency'),
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ]);
 

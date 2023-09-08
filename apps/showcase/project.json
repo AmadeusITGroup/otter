@@ -1,0 +1,253 @@
+{
+  "name": "showcase",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "generators": {
+    "@schematics/angular:component": {
+      "style": "scss"
+    },
+    "@o3r/core:page": {
+      "path": "apps/showcase/src/app",
+      "appRoutingModulePath": "apps/showcase/src/app/app-routing.module.ts",
+      "scope": "",
+      "standalone": true
+    },
+    "@o3r/core:component": {
+      "path": "apps/showcase/src/components",
+      "standalone": true,
+      "useContext": false
+    }
+  },
+  "sourceRoot": "apps/showcase/src",
+  "prefix": "app",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "options": {
+        "script": "postbuild:patch"
+      },
+      "dependsOn": [
+        "extract-translations",
+        "extract-components",
+        "build-source",
+        "generate-translations"
+      ]
+    },
+    "build-source": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "options": {
+        "outputPath": "apps/showcase/dist",
+        "index": "apps/showcase/src/index.html",
+        "main": "apps/showcase/src/main.ts",
+        "polyfills": [
+          "zone.js"
+        ],
+        "tsConfig": "apps/showcase/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/showcase/src/favicon.ico",
+          "apps/showcase/src/assets",
+          "apps/showcase/src/custom-assets",
+          {
+            "glob": "**/*.json",
+            "input": "apps/showcase/dev-resources/localizations",
+            "output": "/localizations"
+          }
+        ],
+        "styles": [
+          "apps/showcase/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@o3r/core:multi-watcher",
+      "options": {
+        "targets": [
+          "showcase:generate-translations:development",
+          "showcase:serve-app"
+        ]
+      },
+      "dependsOn": [
+      ]
+    },
+    "serve-app": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "showcase:build-source:production"
+        },
+        "development": {
+          "browserTarget": "showcase:build-source:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-components": {
+      "executor": "@o3r/components:extractor",
+      "outputs": [
+        "{options.componentOutputFile}",
+        "{options.configOutputFile}"
+      ],
+      "inputs": [
+        "source"
+      ],
+      "options": {
+        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "configOutputFile": "apps/showcase/component.config.metadata.json",
+        "componentOutputFile": "apps/showcase/component.class.metadata.json",
+        "name": "showcase",
+        "libraries": [],
+        "placeholdersMetadataFilePath": "apps/showcase/placeholders.metadata.manual.json",
+        "exposedComponentSupport": true
+      },
+      "dependsOn": [
+        "^build-source"
+      ]
+    },
+    "extract-rules-engine": {
+      "executor": "@o3r/rules-engine:extractor",
+      "inputs": [
+        "source"
+      ],
+      "outputs": [
+        "{options.outputFactsDirectory}/rules.facts.metadata.json",
+        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
+      ],
+      "options": {
+        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "libraries": [
+          "packages/@o3r/rules-engine"
+        ],
+        "factFilePatterns": [
+          "apps/showcase/src/facts/**/*.facts.ts"
+        ],
+        "operatorFilePatterns": [
+          "apps/showcase/src/operators/**/*.ts"
+        ],
+        "outputFactsDirectory": "apps/showcase",
+        "outputOperatorsDirectory": "apps/showcase"
+      },
+      "dependsOn": ["^build", "^build-builders"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "apps/showcase/jest.config.js",
+        "silent": true
+      }
+    },
+    "generate-translations": {
+      "executor": "@o3r/localization:localization",
+      "inputs": [
+        "{projectRoot}/src/assets/locales",
+        "{projectRoot}/src/assets/locales/*",
+        "{projectRoot}/src/components/**/i18n"
+      ],
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "options": {
+        "browserTarget": "showcase:build-source",
+        "localizationExtracterTarget": "showcase:extract-translations",
+        "locales": [
+          "en-GB",
+          "fr-FR"
+        ],
+        "assets": [
+          "apps/showcase/src/assets/locales",
+          "apps/showcase/src/assets/locales/*",
+          "apps/showcase/src/components/**/i18n"
+        ],
+        "outputPath": "apps/showcase/dev-resources/localizations"
+      },
+      "configurations": {
+        "production": {
+          "outputPath": "apps/showcase/dist/localizations"
+        },
+        "development": {
+          "browserTarget": "showcase:build-source:development"
+        }
+      },
+      "dependsOn": [
+        "i18n"
+      ]
+    },
+    "extract-translations": {
+      "executor": "@o3r/localization:extractor",
+      "inputs": [
+        "source"
+      ],
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "tsConfig": "apps/showcase/tsconfig.cms.json",
+        "outputFile": "apps/showcase/localisation.metadata.json",
+        "libraries": [],
+        "extraFilePatterns": [
+          "src/i18n/*.localization.json"
+        ]
+      },
+      "dependsOn": [
+        "^build-source"
+      ]
+    },
+    "run": {
+      "executor": "@o3r/core:multi-watcher",
+      "options": {
+        "targets": [
+          "showcase:generate-translations",
+          "showcase:serve-app"
+        ]
+      }
+    },
+    "i18n": {
+      "executor": "@o3r/localization:i18n",
+      "inputs": [
+        "{projectRoot}/src/!(i18n)/**/*.localization.json"
+      ],
+      "outputs": [
+        "{projectRoot}/src/!(i18n)/**/i18n/*.json"
+      ],
+      "options": {
+        "localizationConfigs": [
+          {
+            "localizationFiles": [
+              "apps/showcase/src/!(i18n)/**/*.localization.json"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

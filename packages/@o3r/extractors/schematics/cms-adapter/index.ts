@@ -1,5 +1,5 @@
 import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { getProjectFromTree, getTemplateFolder, ignorePatterns } from '@o3r/schematics';
 import * as path from 'node:path';
 
@@ -11,6 +11,9 @@ import * as path from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateCmsAdapter(options: { projectName?: string | undefined }, rootPath: string): Rule {
+  if (!options.projectName) {
+    return noop;
+  }
 
   /**
    * Generate Tsconfig for cms extracters

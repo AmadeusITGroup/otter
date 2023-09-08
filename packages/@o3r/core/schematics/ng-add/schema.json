@@ -28,90 +28,59 @@
         "$source": "projectName"
       }
     },
-    "enablePrefetchBuilder": {
-      "type": "boolean",
-      "default": true,
-      "description": "Install prefetch builder",
-      "x-prompt": "Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?"
-    },
-    "enablePlaywright": {
-      "type": "boolean",
-      "default": true,
-      "description": "Install playwright",
-      "x-prompt": "Activate playwright as E2E test system?"
-    },
     "enableCustomization": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Install Otter customization",
-      "x-prompt": "Add Otter customization mechanism to allow presenter and injectable override by external custom application"
+      "x-deprecated": true
     },
     "enableAnalytics": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Install Otter analytics",
-      "x-prompt": "Activate Otter Analytics to gather and report analytics to specific providers (such as Google Analytics, Adobe Target, ...)?"
+      "x-deprecated": true
     },
     "enableStyling": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Install Otter theming and styling extractor",
-      "x-prompt": "Add Otter theming and styling mechanism, it will require the setup of @angular/material package (included in CMS package)?"
+      "x-deprecated": true
     },
     "enableConfiguration": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Install otter configuration package and config extractor setup",
-      "x-prompt": "Add Otter configuration to support application and component runtime configuration (included in CMS package)?"
+      "x-deprecated": true
     },
     "enableRulesEngine": {
       "type": "boolean",
       "default": false,
       "description": "Install otter rules-engine package",
-      "x-prompt": "Add Otter rules-engine to execute runtime custom rules defined in an external json file (see https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine)?"
+      "x-deprecated": true
     },
     "enableLocalization": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Localization generation setup and localization extractor",
-      "x-prompt": "Add Otter localization module allowing to configure translations via a JSON file loaded by the application at runtime (included in CMS package)?"
+      "x-deprecated": true
     },
     "enableStorybook": {
       "type": "boolean",
       "default": false,
       "description": "Install Storybook configurations",
-      "x-deprecated": true,
-      "x-prompt": "Add storybook setup (deprecated)?"
+      "x-deprecated": true
     },
     "enableApisManager": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "description": "Install otter apis manager",
-      "x-prompt": "Add APIs manager mechanism providing a way to manage the application SDKs via injectable?"
+      "x-deprecated": true
     },
     "generateAzurePipeline": {
       "type": "boolean",
       "description": "Generate the Azure Pipeline for the new project",
       "default": false,
-      "x-deprecated": true,
-      "x-prompt": "Generate basic Azure Pipelines for your application CICD (deprecated)?"
-    },
-    "testingFramework": {
-      "type": "string",
-      "description": "The testing framework to use",
-      "default": "jest",
-      "enum": [
-        "jest",
-        "jasmine"
-      ],
-      "x-prompt": {
-        "message": "Which testing framework would you like to use?",
-        "type": "list",
-        "items": [
-          { "value": "jest",  "label": "Jest (strongly recommended)" },
-          { "value": "jasmine",  "label": "Jasmine" }
-        ]
-      }
+      "x-deprecated": true
     },
     "skipLinter": {
       "type": "boolean",
@@ -122,6 +91,38 @@
       "type": "boolean",
       "description": "Skip the install process",
       "default": true
+    },
+    "commit": {
+      "description": "Initial git repository commit information. (Available at workspace setup only)",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ]
+        }
+      ],
+      "default": true,
+      "additionalProperties": true
+    },
+    "skipGit": {
+      "description": "Do not initialize a git repository. (Available at workspace setup only)",
+      "type": "boolean",
+      "default": false,
+      "alias": "g"
     }
   },
   "additionalProperties": true,

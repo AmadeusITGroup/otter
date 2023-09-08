@@ -6,6 +6,11 @@ import type {
   SchematicOptions
 } from '@angular/cli/lib/config/workspace-schema';
 
+/**
+ * Type representing supported testing frameworks: 'jest' or 'jasmine'.
+ */
+export type AvailableTestFrameworks = 'jest' | 'jasmine';
+
 export interface WorkspaceProjectI18n {
   locales: Record<string, string>;
   sourceLocale?: string;
@@ -60,7 +65,10 @@ export interface WorkspaceSchematics extends SchematicOptions {
   '*:ng-add'?: {
     enableMetadataExtract?: boolean;
   };
-  '*:*'?: WorkspaceLayout;
+  '*:*'?: WorkspaceLayout & {
+    /** in adition to the WorkspaceLayout, an optional testFramework attribute is available */
+    testFramework?: AvailableTestFrameworks;
+  };
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   architect?: WorkspaceTool;

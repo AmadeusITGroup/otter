@@ -1,4 +1,4 @@
-import type {Locator, Page} from 'playwright';
+import type {Locator, Page} from '@playwright/test';
 import {ElementProfile} from '../element';
 
 export {ElementProfile} from '../element';

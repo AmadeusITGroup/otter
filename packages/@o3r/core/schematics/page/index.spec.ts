@@ -34,6 +34,7 @@ describe('Page', () => {
     it('should generate files', () => {
       expect(tree.files.filter((file) => /test-page/.test(file)).length).toEqual(7);
       expect(tree.files.some((file) => /^[\\/]?src[\\/]app[\\/]test-page[\\/]test-page\.module\.ts$/i.test(file))).toBeTruthy();
+      expect(tree.readContent('/src/app/test-page/test-page.module.ts')).toContain('RouterModule.forChild([{path: \'\', component: TestPageComponent}])');
     });
 
     it('should insert page route in App Routing Module', () => {

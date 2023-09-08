@@ -35,8 +35,8 @@ export default createBuilder<I18nBuilderSchema>((options: I18nBuilderSchema, con
         });
       }
 
-      const enGB = path.join(i18nPath, options.defaultLanguageFile);
-      fs.writeFileSync(enGB, newContent);
+      const defaultLanguageFile = path.join(i18nPath, options.defaultLanguageFile);
+      fs.writeFileSync(defaultLanguageFile, newContent + '\n');
     });
   });
 

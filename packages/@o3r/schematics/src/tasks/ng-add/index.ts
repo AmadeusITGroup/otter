@@ -26,6 +26,9 @@ export interface NgAddPackageOptions {
    * Type of dependency to install
    */
   dependencyType?: NodeDependencyType;
+
+  /** Flag to skip the execution of ng add and only install the package. Used mostly for external packages */
+  skipNgAddSchematicRun?: boolean;
 }
 
 export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {

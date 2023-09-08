@@ -19,12 +19,13 @@ import {getProjectFromTree} from './loaders';
  *
  * @param tree File tree
  * @param context Context of the rule
+ * @param projectName The name of the project where to search for an app module file
  */
-export function getAppModuleFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function getAppModuleFilePath(tree: Tree, context: SchematicContext, projectName?: string | null) {
+  const workspaceProject = getProjectFromTree(tree, projectName, 'application');
   // exit if not an application
   if (!workspaceProject) {
-    context.logger.debug('Register localization on main module only in application project');
+    context.logger.debug('Aborted. App module file path will be searched only in application project.');
     return undefined;
   }
 
@@ -103,12 +104,20 @@ export function getMainFilePath(tree: Tree, context: SchematicContext) {
  * one of its modules.
  *
  * @param tree
+ * @param options @see RuleFactory.options
+ * @param options.projectName
  */
-export function isApplicationThatUsesRouterModule(tree: Tree) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {
+  const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+  const cwd = process.cwd().replace(/[\\/]+/g, '/');
+  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
   return workspaceProject?.sourceRoot &&
-    globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
-      const sourceFile = ts.createSourceFile(filePath, fs.readFileSync(filePath).toString(), ts.ScriptTarget.ES2015, true);
+    globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
+      const fileContent = fs.readFileSync(filePath).toString();
+      if (!/RouterModule/.test(fileContent)) {
+        return false;
+      }
+      const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.ES2015, true);
       try {
         return !!getRouterModuleDeclaration(sourceFile);
       } catch {}

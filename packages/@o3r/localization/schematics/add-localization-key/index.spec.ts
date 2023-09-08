@@ -14,6 +14,7 @@ import { ngAddLocalizationKey } from './index';
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';
 const o3rComponentPath = '/src/components/test/test.component.ts';
+const templatePath = '/src/components/test/test.template.html';
 const translationPath = '/src/components/test/test.translations.ts';
 const localizationPath = '/src/components/test/test.localization.json';
 const ngComponentPath = '/src/components/ng/ng.component.ts';
@@ -73,6 +74,7 @@ describe('Add Localization', () => {
         })
         export class TestComponent {}
       `);
+      initialTree.create(templatePath, '<div>Dummy 1</div>');
       initialTree.create(localizationPath, '{}');
       initialTree.create(translationPath, `
         import { Translation } from '@o3r/core';
@@ -84,14 +86,18 @@ describe('Add Localization', () => {
       initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
     });
 
-    it('should update the localization files', async () => {
+    it('should update the localization files and the template', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
       const tree = await runner.runSchematic('add-localization-key', {
         path: o3rComponentPath,
         key: 'dummyLoc1',
         description: 'Dummy 1 description',
-        value: 'Dummy 1'
+        value: 'Dummy 1',
+        updateTemplate: true
       }, initialTree);
+
+      const templateFileContent = tree.readText(templatePath);
+      expect(templateFileContent).toBe('<div>{{ translations.dummyLoc1 | translate }}</div>');
 
       const translationFileContent = tree.readText(translationPath);
       expect(translationFileContent).toContain('dummyLoc1: string;');

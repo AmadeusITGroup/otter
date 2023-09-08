@@ -13,10 +13,10 @@ import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-
 /**
  * Update app.module file with api manager, if needed
  */
-export function updateApiDependencies(): Rule {
+export function updateApiDependencies(options: {projectName?: string | undefined}): Rule {
 
   const updateAppModule: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -79,7 +79,7 @@ export function apiManagerFactory(): ApiManager {
   };
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = getProjectFromTree(tree, options.projectName);
     const tsconfig: string | undefined =
       workspaceProject &&
       workspaceProject.architect &&

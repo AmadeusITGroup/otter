@@ -55,6 +55,16 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/Error'
+    put:
+      summary: Invalid verb
+      operationId: createPetsIncorrectly
+      tags:
+        - pets
+      responses:
+        404:
+          description:  error
+          schema:
+            $ref: '#/definitions/Error'
   /pets/{petId}:
     get:
       summary: Info for a specific pet
@@ -69,6 +79,10 @@ paths:
           type: string
       responses:
         "200":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Pets'
+        "201":
           description: Expected response to a valid request
           schema:
             $ref: '#/definitions/Pets'

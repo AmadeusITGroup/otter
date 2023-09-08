@@ -13,6 +13,7 @@ describe('Additional Params Request Plugin', () => {
 
   beforeEach(() => {
     options = {
+      method: 'get',
       queryParams: defaultGetParams,
       headers: new Headers(),
       body: defaultBody,
@@ -65,6 +66,7 @@ describe('Additional Params Request Sync Plugin', () => {
 
   beforeEach(() => {
     options = {
+      method: 'get',
       queryParams: defaultGetParams,
       headers: new Headers(),
       body: defaultBody,

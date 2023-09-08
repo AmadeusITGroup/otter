@@ -2,6 +2,7 @@ changelog:
   exclude:
     labels:
       - dependencies
+      - cascading
   categories:
     - title: 'Breaking Changes :warning:'
       labels:

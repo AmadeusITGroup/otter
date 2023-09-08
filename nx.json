@@ -43,6 +43,7 @@
           "build-fixtures-jest",
           "copy-assets",
           "documentation",
+          "generate-translations",
           "extract-translations",
           "extract-components",
           "extract-style",
@@ -51,7 +52,8 @@
           "prepare-build-builders",
           "test",
           "test-int",
-          "build-swagger"
+          "build-swagger",
+          "i18n"
         ],
         "cacheDirectory": ".cache/nx"
       }
@@ -59,6 +61,7 @@
   },
   "namedInputs": {
     "global": [
+      "{workspaceRoot}/yarn.lock",
       "{workspaceRoot}/package.json",
       "{workspaceRoot}/tsconfig.base.json",
       "{workspaceRoot}/tsconfig.build.json",
@@ -66,6 +69,7 @@
     ],
     "default": [
       "global",
+      "{projectRoot}/tsconfig*",
       "{projectRoot}/src/**/*",
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
@@ -125,7 +129,11 @@
     },
     "test": {
       "inputs": [
-        {"env": "RUNNER_OS"},
+        {
+          "env": "RUNNER_OS"
+        },
+        "builders",
+        "schematics",
         "specs",
         "^specs"
       ],
@@ -134,6 +142,18 @@
       ]
     },
     "test-int": {
+      "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        {
+          "env": "ENFORCED_PACKAGE_MANAGER"
+        },
+        "default",
+        "schematics",
+        "^schematics",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"
       ]
@@ -148,12 +168,25 @@
       "dependsOn": [
         "^build"
       ],
-      "outputs": []
+      "outputs": [],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     },
     "compile": {
       "dependsOn": [
         "^build"
       ],
+      "inputs": [
+        "source",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ]
+    },
+    "build-source": {
       "inputs": [
         "source",
         "^source"

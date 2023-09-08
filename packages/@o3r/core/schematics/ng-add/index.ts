@@ -7,10 +7,10 @@ import { displayModuleList } from '../rule-factories/module-list';
 import { presets } from '../shared/presets';
 import { AddDevInstall } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
+import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
 
 /**
  * Add Otter library to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
@@ -40,7 +40,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       },
       async (t, c) => {
         const { preset, ...forwardOptions } = options;
-        const presetRunner = await presets[preset]({ forwardOptions });
+        const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
         if (presetRunner.modules) {
           c.logger.info(`The following modules will be installed: ${presetRunner.modules.join(', ')}`);
         }
@@ -50,6 +50,13 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         const { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } = await import('@o3r/schematics');
         const displayModuleListRule = displayModuleList(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES);
         return () => displayModuleListRule(t, c);
+      },
+      (_, c) => {
+        if (!options.projectName && !options.skipGit && options.commit) {
+          const commit: {name?: string; email?: string; message?: string} = typeof options.commit == 'object' ? options.commit : {};
+          commit.message = 'Setup of Otter Framework';
+          c.addTask(new RepositoryInitializerTask(undefined, commit));
+        }
       }
     ])(tree, context);
   };
