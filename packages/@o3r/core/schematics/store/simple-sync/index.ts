@@ -17,6 +17,7 @@ export function ngGenerateSimpleSyncStore(options: NgGenerateSimpleSyncStoreSche
 
     const commonTemplates = url('../common/templates');
     const syncEntityTemplates = url('./templates');
+    options.storeName = options.storeName?.trim();
 
     // Add extra formatted properties
     const formattedProperties: Partial<ExtraFormattedProperties> = {

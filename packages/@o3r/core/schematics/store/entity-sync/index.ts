@@ -19,6 +19,10 @@ export function ngGenerateEntitySyncStore(options: NgGenerateEntitySyncStoreSche
 
     const commonTemplates = url('../common/templates');
     const syncEntityTemplates = url('./templates');
+    options.storeName = options.storeName?.trim();
+    options.modelName = options.modelName?.trim();
+    options.sdkPackage = options.sdkPackage?.trim();
+    options.modelIdPropName = options.modelIdPropName?.trim();
 
     // Add extra formatted properties
     const formattedProperties: ExtraFormattedProperties = {
