@@ -6,6 +6,7 @@ import { PackageJson } from 'type-fest';
 import {
   addWorkspacesToProject,
   createAzurePipeline,
+  filterPackageJsonScripts,
   generateRenovateConfig,
   o3rBasicUpdates,
   updateAdditionalModules,
@@ -89,7 +90,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   } else {
     monorepoRules = [
       ...projectRootRules,
-      addWorkspacesToProject()
+      addWorkspacesToProject(),
+      filterPackageJsonScripts
     ];
   }
   const commonRules = [
