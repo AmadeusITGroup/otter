@@ -186,6 +186,15 @@
         "{projectRoot}/dist"
       ]
     },
+    "build-source": {
+      "inputs": [
+        "source",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ]
+    },
     "build-fixtures": {
       "inputs": [
         "jasmine-fixtures",

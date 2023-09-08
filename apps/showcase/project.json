@@ -38,8 +38,6 @@
     },
     "build-source": {
       "executor": "@angular-devkit/build-angular:browser",
-      "inputs": ["{projectRoot}/src"],
-      "outputs": ["{projectRoot}/dist"],
       "options": {
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
