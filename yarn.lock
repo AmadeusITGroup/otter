@@ -4161,13 +4161,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/ecma402-abstract@npm:1.17.0":
-  version: 1.17.0
-  resolution: "@formatjs/ecma402-abstract@npm:1.17.0"
+"@formatjs/ecma402-abstract@npm:1.17.1":
+  version: 1.17.1
+  resolution: "@formatjs/ecma402-abstract@npm:1.17.1"
   dependencies:
-    "@formatjs/intl-localematcher": 0.4.0
+    "@formatjs/intl-localematcher": 0.4.1
     tslib: ^2.4.0
-  checksum: cc45d238e541076cb27b9cf02d8b97f789d1744b60218da6d31793204850c159e85f5b2557de3905a365eefd52a1c2e7f1febb9e1f009bad23d5eca17b3de6c8
+  checksum: 195235b4634077f7c2ac9f4bb257bd7bce094798ba97cb8b59e8f2acab3b3b898f23ec45ceab7abc6c3fb1ef4235951e96c60b943135e1a9290eba51c144d878
   languageName: node
   linkType: hard
 
@@ -4180,44 +4180,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/icu-messageformat-parser@npm:2.6.0":
-  version: 2.6.0
-  resolution: "@formatjs/icu-messageformat-parser@npm:2.6.0"
+"@formatjs/icu-messageformat-parser@npm:2.6.1":
+  version: 2.6.1
+  resolution: "@formatjs/icu-messageformat-parser@npm:2.6.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 1.17.0
-    "@formatjs/icu-skeleton-parser": 1.6.0
+    "@formatjs/ecma402-abstract": 1.17.1
+    "@formatjs/icu-skeleton-parser": 1.6.1
     tslib: ^2.4.0
-  checksum: 67e76416a381663f62cb7ceaa699b3dc4505b9bfd8dda31950b8fa159e9abc1aae85d2ffa08760448083f113bdabca1653796e988b7a12eef891260726e56ed7
+  checksum: b6fb7e9a9d838098ffe7adda52ba811fd611ad9c7b24c2db491301d7103d678ef87ac474769f8fff65dbe2d143a6ceb70b11ebeaa0376a6266d990460fef21f2
   languageName: node
   linkType: hard
 
-"@formatjs/icu-skeleton-parser@npm:1.6.0":
-  version: 1.6.0
-  resolution: "@formatjs/icu-skeleton-parser@npm:1.6.0"
+"@formatjs/icu-skeleton-parser@npm:1.6.1":
+  version: 1.6.1
+  resolution: "@formatjs/icu-skeleton-parser@npm:1.6.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 1.17.0
+    "@formatjs/ecma402-abstract": 1.17.1
     tslib: ^2.4.0
-  checksum: e0a2e251358fb62cc45ad4783f57ed63db361334634557d5dcf3992b98c2c5409146d890b465321f91d2255eda5d8fdbfc9962e9f2e3fa7b10a738abfbe8ebc0
+  checksum: 0a0e221ad46623f81cefc6be57faeeac6272256bee302d09f75c66b93964833bf5f7d88783e8f1c94fba9f00b64f4f5b78ae1af678a11167e9deb5bd4493f04b
   languageName: node
   linkType: hard
 
-"@formatjs/intl-localematcher@npm:0.4.0":
-  version: 0.4.0
-  resolution: "@formatjs/intl-localematcher@npm:0.4.0"
+"@formatjs/intl-localematcher@npm:0.4.1":
+  version: 0.4.1
+  resolution: "@formatjs/intl-localematcher@npm:0.4.1"
   dependencies:
     tslib: ^2.4.0
-  checksum: c65108e9a81c3733d2b6240ceedc846d0ae59c3606041cb5cc71c13453cdabe295b0dc8559dc4a8acaafdc45876807bd5e9ef37a3ec1cb864e78db655d434b66
+  checksum: bf8bb95d1fd61c660d11e4b5ad00a2f154f3a2551bc5e3e3e3bd1636e7daa1c35519f63bd0e3b309b002cbd0406c6fa515a08fd764eb9a5a1ad0a9a8290ca836
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:8.7.0":
-  version: 8.7.0
-  resolution: "@formatjs/intl-numberformat@npm:8.7.0"
+"@formatjs/intl-numberformat@npm:~8.7.1":
+  version: 8.7.1
+  resolution: "@formatjs/intl-numberformat@npm:8.7.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 1.17.0
-    "@formatjs/intl-localematcher": 0.4.0
+    "@formatjs/ecma402-abstract": 1.17.1
+    "@formatjs/intl-localematcher": 0.4.1
     tslib: ^2.4.0
-  checksum: 987bd3e6a48e6efa054d9f526b3cba01675a6c96ffc6d652f6053f3dd1cbae5e56ac784718d135a2e2cd6c7afab4f89c0a592a28e2ff93134baeddc1fa1aff30
+  checksum: 6cf53feee034a28b57c62e06bf2b29f9990a80c1f8e523cbfa666b051e0a8d01cf6004788be468fbb52facaa227679e5c52db5c31968fe10d0e214b157a3f089
   languageName: node
   linkType: hard
 
@@ -7501,7 +7501,7 @@ __metadata:
     eslint-plugin-jsdoc: ~46.5.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
-    intl-messageformat: ~10.5.0
+    intl-messageformat: ~10.5.1
     jest: ~29.6.2
     jest-environment-jsdom: ~29.6.2
     jest-junit: ~16.0.0
@@ -7791,7 +7791,7 @@ __metadata:
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
     globby: ^11.1.0
-    intl-messageformat: ~10.5.0
+    intl-messageformat: ~10.5.1
     isomorphic-fetch: ~3.0.0
     jest: ~29.6.2
     jest-environment-jsdom: ~29.6.2
@@ -8299,7 +8299,7 @@ __metadata:
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
-    "@formatjs/intl-numberformat": 8.7.0
+    "@formatjs/intl-numberformat": ~8.7.1
     "@ngrx/effects": ~16.2.0
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
@@ -8337,7 +8337,7 @@ __metadata:
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
     globby: ^11.1.0
-    intl-messageformat: ~10.5.0
+    intl-messageformat: ~10.5.1
     jest: ~29.6.2
     jest-environment-jsdom: ~29.6.2
     jest-junit: ~16.0.0
@@ -19934,15 +19934,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"intl-messageformat@npm:~10.5.0":
-  version: 10.5.0
-  resolution: "intl-messageformat@npm:10.5.0"
+"intl-messageformat@npm:~10.5.1":
+  version: 10.5.1
+  resolution: "intl-messageformat@npm:10.5.1"
   dependencies:
-    "@formatjs/ecma402-abstract": 1.17.0
+    "@formatjs/ecma402-abstract": 1.17.1
     "@formatjs/fast-memoize": 2.2.0
-    "@formatjs/icu-messageformat-parser": 2.6.0
+    "@formatjs/icu-messageformat-parser": 2.6.1
     tslib: ^2.4.0
-  checksum: 164c49028b8bf2685f57f8f018d9a2c1d827e94b1c300ebf9df50b6aef25adedb3bf511b3cf603364d67257634b57926935066b2f3715ccb6c2af683cc0815a6
+  checksum: 108f4190c19c235a9ca9f3649528aea7e1dcd3c929211e153cac79c27945c5d1e675a7b8b80ce1cc36de4c01b37c3eac0d3687d47dbb5d912c87c5ae0cb7fba4
   languageName: node
   linkType: hard
 
