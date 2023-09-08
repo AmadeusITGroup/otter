@@ -24,6 +24,7 @@ describe('new otter application', () => {
   });
   test('should build empty app', () => {
     packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=cms`, execAppOptions);
+    packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion}`, execAppOptions);
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     packageManagerExec('ng g @o3r/core:store-entity-async --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id"', execAppOptions);
