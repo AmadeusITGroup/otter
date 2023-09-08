@@ -96,9 +96,7 @@
           "showcase:generate-translations:development",
           "showcase:serve-app"
         ]
-      },
-      "dependsOn": [
-      ]
+      }
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -131,7 +129,7 @@
         "exposedComponentSupport": true
       },
       "dependsOn": [
-        "^build-source"
+        "build-source"
       ]
     },
     "extract-rules-engine": {
