@@ -9,36 +9,63 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */
   projectName?: string | undefined;
 
-  /** Enable otter customization */
+  /**
+   * Enable otter customization
+   * @deprecated will be removed in favor of preset feature
+   */
   enableCustomization: boolean;
 
-  /** Enable otter analytics */
+  /**
+   * Enable otter analytics
+   * @deprecated will be removed in favor of preset feature
+   */
   enableAnalytics: boolean;
 
-  /** Enable otter styling */
+  /**
+   * Enable otter styling
+   * @deprecated will be removed in favor of preset feature
+   */
   enableStyling: boolean;
 
-   /** Enable otter rules-engine */
+   /**
+    * Enable otter rules-engine
+    * @deprecated will be removed in favor of preset feature
+    */
   enableRulesEngine: boolean;
 
-  /** Enable localization */
+  /**
+   * Enable localization
+   * @deprecated will be removed in favor of preset feature
+   */
   enableLocalization: boolean;
 
-  /** Enable configuration setup */
+  /**
+   * Enable configuration setup
+   * @deprecated will be removed in favor of preset feature
+   */
   enableConfiguration: boolean;
 
-  /** Enable Storybook */
+  /**
+   * Enable Storybook
+   * @deprecated will be removed in favor of preset feature
+   */
   enableStorybook: boolean;
 
   /** Skip the linter process */
   skipLinter: boolean;
 
-  /** Generate the Azure Pipeline for the new project */
+  /**
+   * Generate the Azure Pipeline for the new project
+   * @deprecated will be removed in favor of preset feature
+   */
   generateAzurePipeline: boolean;
 
   /** Skip the install process */
   skipInstall: boolean;
 
-  /** Enable Apis manager */
+  /**
+   * Enable Apis manager
+   * @deprecated will be removed in favor of preset feature
+   */
   enableApisManager: boolean;
 }
