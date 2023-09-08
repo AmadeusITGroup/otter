@@ -21,8 +21,6 @@ export interface ComponentInformation {
   type: ComponentStructure;
   /** Selector of the component */
   selector?: string;
-  /** Template URL of the component */
-  templateUrl?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
 }
@@ -87,20 +85,6 @@ export class ComponentClassExtractor {
   }
 
   /**
-   * Get the component template URL from the given decorator node.
-   *
-   * @param decoratorNode The decorator node to get the component template URL from
-   */
-  private getComponentTemplateUrl(decoratorNode: ts.Decorator) {
-    if (this.isComponentDecorator(decoratorNode)) {
-      const matches = /templateUrl:\s*['"](.*)['"]/.exec(decoratorNode.getText(this.source));
-      if (matches) {
-        return matches[1];
-      }
-    }
-  }
-
-  /**
    * Sanitize component type by removing extra quotes
    * Example: "'Page'" becomes 'Page'
    *
@@ -141,7 +125,6 @@ export class ComponentClassExtractor {
     let isDynamic = false;
     let type: ComponentStructure = 'COMPONENT';
     let selector: string | undefined;
-    let templateUrl: string | undefined;
     let linkableToRuleset = false;
 
     classNode.forEachChild((node) => {
@@ -170,7 +153,6 @@ export class ComponentClassExtractor {
         });
       } else if (ts.isDecorator(node)) {
         selector = this.getComponentSelector(node);
-        templateUrl = this.getComponentTemplateUrl(node);
         type = this.getComponentType(node) || type;
       } else if (ts.isIdentifier(node)) {
         name = node.getText(this.source);
@@ -183,7 +165,7 @@ export class ComponentClassExtractor {
       this.logger.debug(`${name!} is ignored because it is not a configurable component`);
     }
 
-    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, templateUrl, linkableToRuleset } : undefined;
+    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset } : undefined;
   }
 
   /**
