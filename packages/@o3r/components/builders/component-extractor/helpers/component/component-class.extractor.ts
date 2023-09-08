@@ -21,11 +21,6 @@ export interface ComponentInformation {
   type: ComponentStructure;
   /** Selector of the component */
   selector?: string;
-  /**
-   * Template URL of the component
-   * @deprecated will be removed in v10
-   */
-  templateUrl?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
 }
@@ -48,7 +43,6 @@ export class ComponentClassExtractor {
 
   /**
    * Indicates if the given decorator is a component decorator.
-   *
    * @param decoratorNode The decorator node to test
    */
   private isComponentDecorator(decoratorNode: ts.Decorator) {
@@ -57,7 +51,6 @@ export class ComponentClassExtractor {
 
   /**
    * Get the component type from the given decorator node.
-   *
    * @param decoratorNode The decorator node to get the component type from
    */
   private getComponentType(decoratorNode: ts.Decorator): ComponentStructure | undefined {
@@ -77,7 +70,6 @@ export class ComponentClassExtractor {
 
   /**
    * Get the component selector from the given decorator node.
-   *
    * @param decoratorNode The decorator node to get the component selector from
    */
   private getComponentSelector(decoratorNode: ts.Decorator) {
@@ -90,26 +82,9 @@ export class ComponentClassExtractor {
   }
 
   /**
-   * Get the component template URL from the given decorator node.
-   *
-   * @param decoratorNode The decorator node to get the component template URL from
-   * @deprecated will be removed in v10
-   */
-  private getComponentTemplateUrl(decoratorNode: ts.Decorator) {
-    if (this.isComponentDecorator(decoratorNode)) {
-      const matches = /templateUrl:\s*['"](.*)['"]/.exec(decoratorNode.getText(this.source));
-      if (matches) {
-        return matches[1];
-      }
-    }
-  }
-
-  /**
    * Sanitize component type by removing extra quotes
-   * Example: "'Page'" becomes 'Page'
-   *
    * @param type
-   * @private
+   * @example "'Page'" becomes 'Page'
    */
   private sanitizeComponentType(type: string | undefined) {
     if (!type) {
@@ -121,20 +96,23 @@ export class ComponentClassExtractor {
   private getComponentStructure(type: string | undefined): ComponentStructure {
     const sanitizedType = this.sanitizeComponentType(type);
     switch (sanitizedType) {
-      case 'Block':
+      case 'Block': {
         return 'BLOCK';
-      case 'Page':
+      }
+      case 'Page': {
         return 'PAGE';
-      case 'ExposedComponent':
+      }
+      case 'ExposedComponent': {
         return 'EXPOSED_COMPONENT';
-      default:
+      }
+      default: {
         return 'COMPONENT';
+      }
     }
   }
 
   /**
    * Extract component information of a given class node
-   *
    * @param classNode Typescript node of a class
    */
   private getComponentInformation(classNode: ts.ClassDeclaration): ComponentInformation | undefined {
@@ -145,7 +123,6 @@ export class ComponentClassExtractor {
     let isDynamic = false;
     let type: ComponentStructure = 'COMPONENT';
     let selector: string | undefined;
-    let templateUrl: string | undefined;
     let linkableToRuleset = false;
 
     classNode.forEachChild((node) => {
@@ -162,19 +139,20 @@ export class ComponentClassExtractor {
             switch (interfaceValue) {
               case 'Block':
               case 'Page':
-              case 'ExposedComponent':
+              case 'ExposedComponent': {
                 type = this.getComponentStructure(interfaceValue);
                 this.logger.warn(`Interface ${interfaceValue} is deprecated, you should use the @O3rComponent decorator`);
                 break;
-              case 'LinkableToRuleset':
+              }
+              case 'LinkableToRuleset': {
                 linkableToRuleset = true;
                 break;
+              }
             }
           }
         });
       } else if (ts.isDecorator(node)) {
         selector = this.getComponentSelector(node);
-        templateUrl = this.getComponentTemplateUrl(node);
         type = this.getComponentType(node) || type;
       } else if (ts.isIdentifier(node)) {
         name = node.getText(this.source);
@@ -187,12 +165,11 @@ export class ComponentClassExtractor {
       this.logger.debug(`${name!} is ignored because it is not a configurable component`);
     }
 
-    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, templateUrl, linkableToRuleset } : undefined;
+    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset } : undefined;
   }
 
   /**
    * Get the file path of the given class from the import
-   *
    * @param contextName Name of the class to find in the imports
    * @param className
    */

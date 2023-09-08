@@ -2,7 +2,6 @@ import { logging } from '@angular-devkit/core';
 import type {
   ComponentClassOutput,
   ComponentConfigOutput,
-  ComponentModuleOutput,
   ComponentOutput,
   ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
@@ -28,12 +27,6 @@ export class ComponentExtractor {
 
   /** List of the loaded libraries component outputs*/
   private libComponentClassOutputs?: ComponentClassOutput[][];
-
-  /**
-   * List of extracted modules
-   * @deprecated will be removed in v10
-   */
-  private modules?: { [component: string]: ComponentModuleOutput };
 
   /**
    * @param libraryName The name of the library/app on which the extractor is run
@@ -73,7 +66,6 @@ export class ComponentExtractor {
 
   /**
    * Indicates if the given component is referencing configuration from a library.
-   *
    * @param component
    */
   private isLibConfigRef(component: ComponentInformation) {
@@ -83,7 +75,6 @@ export class ComponentExtractor {
 
   /**
    * Returns a ComponentConfigOutput model built using the given ConfigurationInformation, filePath and type as well as the library being processed.
-   *
    * @param configuration
    * @param filePath
    * @param type
@@ -105,7 +96,6 @@ export class ComponentExtractor {
 
   /**
    * Return a hash of the config output without the path
-   *
    * @param config
    */
   private hashConfiguration(config: ComponentConfigOutput) {
@@ -116,7 +106,6 @@ export class ComponentExtractor {
 
   /**
    * Add NestedConfiguration to map
-   *
    * @param nestedConfigurations Map
    * @param configurationInformationWrapper configurations to be added
    * @param filePath
@@ -133,7 +122,6 @@ export class ComponentExtractor {
 
   /**
    * Consolidate the configuration data to the final format.
-   *
    * @param parsedData Data extracted from the source code
    */
   private consolidateConfig(parsedData: ParserOutput): ComponentConfigOutput[] {
@@ -178,30 +166,7 @@ export class ComponentExtractor {
   }
 
   /**
-   * Consolidate the modules data to the final format.
-   *
-   * @param parsedData Data extracted from the source code
-   * @deprecated will be removed in v10
-   */
-  private consolidateModules(parsedData: ParserOutput) {
-    return Object.keys(parsedData.modules)
-      .reduce<Record<string, any>>((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
-        const parsedItemRef = parsedData.modules[moduleUrl];
-
-        parsedItemRef.module.exportedItems.forEach((exportedItem) => {
-          acc[exportedItem] = {
-            name: parsedItemRef.module.name,
-            path: moduleUrl
-          };
-        });
-
-        return acc;
-      }, {});
-  }
-
-  /**
    * Consolidate the components data to the final format
-   *
    * @param parsedData Data extracted from the source code
    * @param placeholdersMetadataFile
    */
@@ -211,7 +176,6 @@ export class ComponentExtractor {
     const res: ComponentClassOutput[] = Object.keys(parsedData.components)
       .map((componentUrl): ComponentClassOutput => {
         const parsedItemRef = parsedData.components[componentUrl];
-        const module = this.modules ? this.modules[parsedItemRef.component.name] : undefined;
         const context = parsedItemRef.component.contextName ? {
           library,
           name: parsedItemRef.component.contextName
@@ -224,11 +188,6 @@ export class ComponentExtractor {
           library,
           name: parsedItemRef.component.name,
           path: path.relative(this.workspaceRoot, parsedItemRef.file),
-          templatePath: parsedItemRef.component.templateUrl ?
-            path.relative(this.workspaceRoot, path.join(path.dirname(parsedItemRef.file), parsedItemRef.component.templateUrl.replace(/[\\/]/g, '/'))) :
-            '',
-          moduleName: module ? module.name : '',
-          modulePath: module ? path.relative(this.workspaceRoot, module.path) : '',
           selector: parsedItemRef.component.selector || '',
           type: parsedItemRef.component.type,
           context,
@@ -242,7 +201,6 @@ export class ComponentExtractor {
 
   /**
    * Merge placeholders metadata information into the components metadata
-   *
    * @param componentClassOutputs
    * @param placeholdersMetadata
    * @private
@@ -258,7 +216,6 @@ export class ComponentExtractor {
 
   /**
    * Filters out config not supported by CMS
-   *
    * @param configs
    * @param options
    * @private
@@ -312,7 +269,6 @@ export class ComponentExtractor {
 
   /**
    * Extract components metadata from a parser output
-   *
    * @param parserOutput Data extracted from the source code
    * @param options
    */
@@ -325,8 +281,6 @@ export class ComponentExtractor {
     configurations = Array.from((new Map(configurations.map((c) => {
       return [this.hashConfiguration(c), c];
     }))).values());
-
-    this.modules = this.consolidateModules(parserOutput);
 
     let placeholderMetadataFile;
     if (options.placeholdersMetadataFilePath) {
