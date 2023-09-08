@@ -72,7 +72,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       empty: ''
     };
 
-    if (properties.packageManager === 'yarn'){
+    if (properties.packageManager === 'yarn') {
       const yarnrcPath = '.yarnrc.yml';
       const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
       yarnrc.nodeLinker ||= 'pnp';

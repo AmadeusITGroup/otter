@@ -1,0 +1,13 @@
+@mixin style {
+  h2 {
+    div {
+      transform: translate(-50%, -50%) rotate(-45deg) ;
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+o3r-basic-pres {
+  @include style();
+}

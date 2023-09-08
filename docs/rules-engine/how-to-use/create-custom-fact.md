@@ -54,7 +54,7 @@ export class OrderFactsModule { }
 
 Finally import it your app module, inject the service in your app component and register the facts :
 ```typescript
-public async ngOnInit() {
+public ngOnInit() {
   //...
   this.orderFactsService.register();
 }

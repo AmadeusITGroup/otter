@@ -1,4 +1,4 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getPackageManagerRunner, getProjectFromTree, getWorkspaceConfig, readAngularJson, readPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 
@@ -11,6 +11,9 @@ import * as path from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateCmsAdapter(options: { projectName?: string | undefined }): Rule {
+  if (!options.projectName) {
+    return noop;
+  }
 
   /**
    * Add cms extractors builder into the angular.json

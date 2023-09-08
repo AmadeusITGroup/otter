@@ -19,7 +19,7 @@ describe('Api Key Request Plugin', () => {
 
   beforeEach(() => {
     const headers = new Headers();
-    options = {headers, basePath: 'http://test.com'};
+    options = {headers, basePath: 'http://test.com', method: 'get'};
   });
 
   it('Static API key should be added to the default header.', async () => {

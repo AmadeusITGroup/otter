@@ -1,19 +1,36 @@
-import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
-import { getFileInfo, getTemplateFolder, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule, insertImportToModuleFile as o3rInsertImportToModuleFile } from '@o3r/schematics';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  UpdateRecorder,
+  url
+} from '@angular-devkit/schematics';
+import {
+  getFileInfo, getProjectRootDir, getTemplateFolder, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
+  insertImportToModuleFile as o3rInsertImportToModuleFile
+} from '@o3r/schematics';
 import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { posix } from 'node:path';
 
 /**
  * Enable customization capabilities
  *
  * @param rootPath @see RuleFactory.rootPath
  * @param o3rCoreVersion
- * @param _options
- * @param _options.projectName
+ * @param options
+ * @param options.projectName
  * @param isLibrary
  */
-export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, _options?: { projectName?: string | null | undefined }, isLibrary?: boolean): Rule {
+export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, options?: { projectName?: string | undefined }, isLibrary?: boolean): Rule {
   /**
    * Generate customization folder
    *
@@ -21,14 +38,16 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
    * @param context
    */
   const generateC11nFolder = (tree: Tree, context: SchematicContext) => {
-    if (tree.exists('src/customization/presenters-map.empty.ts')) {
+    const workingDirectory = getProjectRootDir(tree, options?.projectName) || '.';
+    if (tree.exists(posix.join(workingDirectory, 'src', 'customization', 'presenters-map.empty.ts'))) {
       return tree;
     }
     const templateSource = apply(
       url(getTemplateFolder(rootPath, __dirname)),
       [
         template({}),
-        renameTemplateFiles()
+        renameTemplateFiles(),
+        move(workingDirectory)
       ]
     );
 
@@ -42,7 +61,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const fileInfo = getFileInfo(tree, context);
+    const fileInfo = getFileInfo(tree, context, options?.projectName);
     if (!fileInfo.moduleFilePath || !fileInfo.appModuleFile || !fileInfo.sourceFile) {
       return tree;
     }
@@ -114,14 +133,19 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     return tree;
   };
 
-  return chain([
-    generateC11nFolder,
-    registerModules,
-    ngAddPackages(['@o3r/components', '@o3r/configuration'], {
-      skipConfirmation: true,
-      version: o3rCoreVersion,
-      parentPackageInfo: '@o3r/core - customization environment update',
-      dependencyType: isLibrary ? NodeDependencyType.Peer : NodeDependencyType.Default
-    })
-  ]);
+  return (tree, _context) => {
+    const workingDirectory = getProjectRootDir(tree, options?.projectName);
+
+    return chain([
+      generateC11nFolder,
+      registerModules,
+      ngAddPackages(['@o3r/components', '@o3r/configuration'], {
+        skipConfirmation: true,
+        version: o3rCoreVersion,
+        parentPackageInfo: '@o3r/core - customization environment update',
+        dependencyType: isLibrary ? NodeDependencyType.Peer : NodeDependencyType.Default,
+        workingDirectory
+      })
+    ]);
+  };
 }

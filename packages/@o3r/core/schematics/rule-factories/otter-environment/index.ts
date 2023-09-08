@@ -3,6 +3,7 @@ import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
 import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
+import { join, posix } from 'node:path';
 
 /**
  * Update Otter environment variable for schematics
@@ -14,6 +15,7 @@ import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJso
  * @param options.enablePlaywright
  * @param options.enableStyling
  * @param options.enableAnalytics
+ * @param options.workingDirectory
  * @param _rootPath
  */
 export function updateOtterEnvironmentAdapter(
@@ -22,6 +24,7 @@ export function updateOtterEnvironmentAdapter(
     enableStorybook?: boolean;
     enableStyling?: boolean;
     enableAnalytics?: boolean;
+    workingDirectory?: string | null;
   },
   _rootPath: string
 ): Rule {
@@ -65,12 +68,12 @@ export function updateOtterEnvironmentAdapter(
       if (workspaceProject.architect && workspaceProject.architect.build) {
         workspaceProject.architect.build.configurations ||= {};
         workspaceProject.architect.build.configurations.production ||= {};
-        workspaceProject.architect.build.configurations.production.outputPath ||= 'dist';
+        workspaceProject.architect.build.configurations.production.outputPath ||= join(workspaceProject.root, 'dist');
 
         if (workspaceProject.architect.build.configurations.options &&
             workspaceProject.architect.build.configurations.options.outputPath &&
             /^dist([/].+)?/i.test(workspaceProject.architect.build.configurations.options.outputPath)) {
-          workspaceProject.architect.build.configurations.options.outputPath ||= 'dist-dev';
+          workspaceProject.architect.build.configurations.options.outputPath ||= join(workspaceProject.root, 'dist-dev');
         }
 
       }
@@ -116,21 +119,22 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
+
     const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
     if (!workspaceProject) {
       context.logger.error('No application detected, the environment can not be generated');
       return tree;
     }
 
-    if (tree.exists('/src/environments/environment.ts')) {
+    if (tree.exists(posix.join(workspaceProject.root, 'src/environments/environment.ts'))) {
       return tree;
     }
     const workspace = readAngularJson(tree);
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
-    const envBasePath = 'src/environments';
-    const envDevFilePath = `${envBasePath}/environment.development.ts`;
+    const envBasePath = posix.join(workspaceProject.root, 'src', 'environments');
+    const envDevFilePath = posix.join(envBasePath, 'environment.development.ts');
     if (!tree.exists(envDevFilePath)) {
-      return chain([generateEnvironments({project: projectName})])(tree, context);
+      return generateEnvironments({project: projectName})(tree, context);
     }
     return tree;
   };
@@ -147,14 +151,14 @@ export function updateOtterEnvironmentAdapter(
       return tree;
     }
 
-    const envBasePath = 'src/environments';
-    const envDevFilePath = `${envBasePath}/environment.development.ts`;
+    const envBasePath = posix.join(workspaceProject.root, 'src', 'environments');
+    const envDevFilePath = posix.join(envBasePath, 'environment.development.ts');
 
     if (!tree.exists(envDevFilePath)) {
       return tree;
     }
 
-    const envDefaultFilePath = `${envBasePath}/environment.ts`;
+    const envDefaultFilePath = posix.join(envBasePath, 'environment.ts');
     const addProductionBoolean = (envFilePath: string, value: boolean) => {
       let envContent = tree.readText(envFilePath);
       if (!/production['"]?:\s*(true|false)/.test(envContent)) {

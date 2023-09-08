@@ -1,0 +1,17 @@
+<ul class="nav flex-column">
+  <li *ngFor="let group of linksGroups">
+    <h4 *ngIf="group.label">{{group.label}}</h4>
+    <ul class="nav flex-column nav-underline mb-3 ps-2">
+      <li class="nav-item" *ngFor="let link of group.links">
+        <a class="nav-link"
+          [class.active]="activeUrl === link.url"
+          [routerLinkActive]="activeUrl === link.url ? 'active' : ''"
+          ariaCurrentWhenActive="page"
+          [routerLink]="link.url"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>

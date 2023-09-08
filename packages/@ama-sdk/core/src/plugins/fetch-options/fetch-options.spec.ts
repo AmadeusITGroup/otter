@@ -2,7 +2,7 @@ import {RequestOptions} from '../core/request-plugin';
 import {FetchOptionsRequest} from './fetch-options.request';
 
 describe('Fetch API cache Request Plugin', () => {
-  const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc'};
+  const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc', method: 'get'};
 
   it('cache should be set to no-cache by default', async () => {
     const plugin = new FetchOptionsRequest();

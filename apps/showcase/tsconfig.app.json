@@ -1,0 +1,60 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "src/**/*.spec.ts"
+  ],
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "./dist/out-tsc",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "noImplicitOverride": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "useDefineForClassFields": false,
+    "noEmitHelpers": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "pretty": true,
+    "preserveWatchOutput": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "lib": [
+      "ES2022",
+      "dom"
+    ],
+    "paths": {
+      "@o3r/application": ["../../packages/@o3r/application/src/public_api"],
+      "@o3r/components": ["../../packages/@o3r/components/src/public_api"],
+      "@o3r/configuration": ["../../packages/@o3r/configuration/src/public_api"],
+      "@o3r/core": ["../../packages/@o3r/core/src/public_api"],
+      "@o3r/dynamic-content": ["../../packages/@o3r/dynamic-content/src/public_api"],
+      "@o3r/localization": ["../../packages/@o3r/localization/src/public_api"],
+      "@o3r/logger": ["../../packages/@o3r/logger/src/public_api"],
+      "@o3r/routing": ["../../packages/@o3r/routing/src/public_api"],
+      "@o3r/rules-engine": ["../../packages/@o3r/rules-engine/src/public_api"],
+      "@o3r/testing/*": ["../../packages/@o3r/testing/src/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true
+  }
+}

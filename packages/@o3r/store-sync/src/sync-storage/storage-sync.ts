@@ -333,7 +333,10 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
     if (action.type !== INIT) {
       syncStateUpdate(
         nextState,
-        stateKeys,
+        (typeof config.syncKeyCondition === 'function') ? stateKeys.filter(key => {
+          const keyName = typeof key === 'object' ? Object.keys(key)[0] : key;
+          return config.syncKeyCondition!(keyName, nextState);
+        }) : stateKeys,
         config.storage,
         config.storageKeySerializer as (key: string | number) => string,
         config.removeOnUndefined,
@@ -341,7 +344,9 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
         logger
       );
     }
-
+    if (config.postProcess) {
+      config.postProcess(nextState);
+    }
     return nextState;
   };
 };

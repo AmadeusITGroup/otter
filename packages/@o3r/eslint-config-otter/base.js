@@ -361,7 +361,9 @@ module.exports = {
           'ViewChildren',
           'SkipSelf',
           'Host',
-          'ContentChildren'
+          'ContentChildren',
+          'O3rComponent',
+          'ConfigObserver'
         ]
       }
     ],

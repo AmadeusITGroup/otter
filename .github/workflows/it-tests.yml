@@ -1,0 +1,132 @@
+name: IT Tests
+
+on:
+  workflow_call:
+    inputs:
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN:
+        required: false
+        description: Token to use Nx Cloud token
+
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+
+jobs:
+  prepare-verdaccio:
+    runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
+      - name: Setup verdaccio once for all tests
+        id: setup-verdaccio
+        run: |
+          mkdir ./.verdaccio/storage
+          chmod a+rwx -R ./.verdaccio/storage
+          yarn verdaccio:start-persistent
+          yarn verdaccio:publish
+        shell: bash
+      - name: Zip verdaccio storage
+        run: zip -r verdaccio.zip ./.verdaccio
+        shell: bash
+      - name: Publish verdaccio storage
+        uses: actions/upload-artifact@v3
+        with:
+          name: verdaccio
+          path: verdaccio.zip
+      - name: Stop verdaccio
+        if: always()
+        run: yarn verdaccio:stop
+
+  it-tests:
+    needs: [prepare-verdaccio]
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        packageManager: [yarn, npm]
+    runs-on: ${{ matrix.os }}
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+      ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
+      - uses: ./.github/actions/setup-java
+        with:
+          install-jdk: 'true'
+      - name: Get current month to build the cache key
+        run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
+        shell: bash
+      - name: Cache test-app yarn
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache/test-app
+            !.cache/test-app/cache/@ama-sdk*
+            !.cache/test-app/cache/@ama-terasu*
+            !.cache/test-app/cache/@o3r*
+          key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
+      - name: Cache test-sdk yarn
+        uses: actions/cache@v3
+        with:
+          path: |
+            .cache/test-sdk
+            !.cache/test-sdk/@ama-sdk*
+            !.cache/test-sdk/@ama-terasu*
+            !.cache/test-sdk/@o3r*
+          key: ${{ runner.os }}-test-sdk-${{ matrix.packageManager }}-${{ env.currentMonth }}
+      - uses: actions/download-artifact@v3
+        name: Download verdaccio storage prepared in the previous job
+        with:
+          name: verdaccio
+          path: '.'
+      - name: Setup verdaccio once for all tests
+        id: setup-verdaccio
+        run: |
+          unzip -q -n verdaccio.zip
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            chmod a+rwx -R ./.verdaccio/storage
+            yarn verdaccio:start-persistent
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            npx --yes verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
+            npx --yes wait-on http://127.0.0.1:4873 -t 180000
+          fi
+        shell: bash
+      - name: Test
+        id: it-tests
+        run: yarn test-int --output-style=stream
+      - name: Zip generated app on failure
+        if: failure() && steps.it-tests.conclusion == 'failure'
+        run: |
+          if [ "$RUNNER_OS" == "Linux" ]; then
+            mkdir -p ./otter
+            cp -R ./.cache ./otter/.cache
+            zip -r it-tests.zip ../it-tests ./otter/.cache -x "./otter/.cache/nx/*" -x "../it-tests/*/node_modules/*"
+          elif [ "$RUNNER_OS" == "Windows" ]; then
+            tar -acf it-tests.zip -C ../ --exclude="it-tests/*/node_modules/*" it-tests
+          fi
+        shell: bash
+      - name: Publish generated tests environment on failure
+        if: failure() && steps.it-tests.conclusion == 'failure'
+        uses: actions/upload-artifact@v3
+        with:
+          name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
+          path: it-tests.zip
+      - name: Publish tests reports
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}
+          path: 'packages/**/dist-test/it-report.xml'
+      - name: Stop verdaccio
+        if: always() && runner.os == 'Linux'
+        run: yarn verdaccio:stop

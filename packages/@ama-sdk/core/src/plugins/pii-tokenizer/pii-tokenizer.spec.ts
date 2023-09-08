@@ -20,6 +20,7 @@ describe('Tokenizer Request Plugin', () => {
 
   beforeEach(() => {
     options = {
+      method: 'get',
       headers: new Headers(),
       basePath: 'http://test.com/path/pathParamValue',
       queryParams: {

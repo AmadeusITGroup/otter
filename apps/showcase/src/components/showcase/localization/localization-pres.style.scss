@@ -1,0 +1,5 @@
+@use '../basic/basic-pres.style' as basic;
+
+o3r-localization-pres {
+  @include basic.style();
+}

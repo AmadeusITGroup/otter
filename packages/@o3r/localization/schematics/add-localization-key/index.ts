@@ -120,7 +120,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
 export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { selector } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
+      const { selector, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
       const { localizationJsonPath, translationsPath, translationsVariableType } = getLocalizationInformation(options.path, tree);
 
       const properties = {
@@ -221,9 +221,20 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
         return tree;
       };
 
+      const updateTemplateFile: Rule = () => {
+        const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
+        if (templatePath) {
+          tree.overwrite(
+            templatePath,
+            tree.readText(templatePath).replaceAll(options.value, `{{ translations.${properties.keyName} | translate }}`)
+          );
+        }
+      };
+
       return chain([
         updateLocalizationFileRule,
         updateTranslationFileRule,
+        options.value && options.updateTemplate ? updateTemplateFile : noop(),
         options.skipLinter ? noop() : applyEsLintFix()
       ]);
     } catch (e) {

@@ -34,6 +34,7 @@ describe('Mock intercept', () => {
     it('should do nothing if disabled is true', async () => {
       const plugin = new MockInterceptRequest({ disabled: true, adapter: testMockAdapter });
       const originalRequest: RequestOptions = {
+        method: 'get',
         headers: new Headers({test: 'true'}),
         basePath: 'myurl'
       };

@@ -14,7 +14,7 @@ export interface ReplyPluginContext<T> {
   dictionaries?: { [key: string]: any };
 
   /** Response from Fetch call */
-  response?: Response;
+  response?: Pick<Response, 'ok' | 'headers' | 'status' | 'statusText'>;
 
   /** Type of the API */
   apiType: ApiTypes | string;

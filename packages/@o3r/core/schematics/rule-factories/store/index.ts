@@ -31,7 +31,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param projectType
  */
-export function updateStore(options: { projectName?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
   /**
    * Changed package.json start script to run localization generation
    *
@@ -47,13 +47,13 @@ export function updateStore(options: { projectName?: string | undefined}, projec
 
     if (projectType === 'application') {
       dependenciesList = [...dependenciesList, ...appDeps];
-      dependenciesList = isApplicationThatUsesRouterModule(tree) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
+      dependenciesList = isApplicationThatUsesRouterModule(tree, options) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
     }
 
 
     return () => {
       try {
-        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, options)(tree, context);
+        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, {...options, skipNgAddSchematicRun: true})(tree, context);
       } catch (e: any) {
         context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
         return tree;
@@ -68,7 +68,7 @@ export function updateStore(options: { projectName?: string | undefined}, projec
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -114,7 +114,7 @@ export function updateStore(options: { projectName?: string | undefined}, projec
     insertImportToModuleFile('Serializer', '@o3r/core');
     insertImportToModuleFile('environment', '../environments/environment');
 
-    if (isApplicationThatUsesRouterModule(tree)) {
+    if (isApplicationThatUsesRouterModule(tree, options)) {
       addImportToModuleFile(
         'StoreRouterConnectingModule',
         '@ngrx/router-store',
@@ -130,7 +130,7 @@ const storageSync = new StorageSync({
 });
 
 const rootReducers = {
-  ${isApplicationThatUsesRouterModule(tree) ? 'router: routerReducer' : ''}
+  ${isApplicationThatUsesRouterModule(tree, options) ? 'router: routerReducer' : ''}
 };
 
 const metaReducers = [storageSync.localStorageSync()];

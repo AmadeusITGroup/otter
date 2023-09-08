@@ -10,9 +10,7 @@ import {
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
-  updateFixtureConfig,
   updateOtterEnvironmentAdapter,
-  updatePlaywright,
   updateStore
 } from '../../rule-factories/index';
 import { NgAddSchematicsSchema } from '../schema';
@@ -20,6 +18,7 @@ import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-build
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';
 import { shouldOtterLinterBeInstalled } from '../utils/index';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 
 const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9]+[0-9]*)\.(?:0|[1-9]+[0-9]*)(?:-[a-zA-Z]+\.(?:0|[1-9]+[0-9]*))?$/);
 
@@ -31,39 +30,45 @@ const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9
  */
 export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: Tree, context: SchematicContext) => {
   const coreSchematicsFolder = path.resolve(__dirname, '..');
-  const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(coreSchematicsFolder, '..', '..', 'package.json'), {encoding: 'utf-8'}));
+  const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', '..', 'package.json');
+  const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
   if (!corePackageJsonContent) {
     context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
   }
   const o3rCoreVersion = corePackageJsonContent.version;
   const {
-    addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
-    readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext
+    addVsCodeRecommendations, applyEsLintFix, getWorkspaceConfig, install, isStandaloneRepository, mapImportV7toV8, ngAddPackages,
+    readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext, getO3rPeerDeps
   } = await import('@o3r/schematics');
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
-  const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
+  const workspaceProject = options.projectName && getWorkspaceConfig(tree)?.projects?.[options.projectName] || undefined;
   const projectType = workspaceProject?.projectType;
+  const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(projectType === 'application' ? ['@o3r/application'] : []),
     ...(options.enableApisManager && !!projectType ? ['@o3r/apis-manager'] : []),
     ...(options.enableRulesEngine && !!projectType ? ['@o3r/rules-engine'] : []),
     ...(options.enableStyling && !!projectType ? ['@o3r/styling'] : []),
     ...(options.enableAnalytics && !!projectType ? ['@o3r/analytics'] : []),
-    ...(options.enablePlaywright && projectType === 'application' ? ['@o3r/testing'] : []),
     ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
     ...(options.enableLocalization ? ['@o3r/localization'] : []),
     ...(options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
     ...(options.enableStorybook ? ['@o3r/storybook'] : []),
-    ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : [])
+    ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
+    ...depsInfo.o3rPeerDeps
   ]));
   const projectPackageJson = workspaceProject ? readPackageJson(tree, workspaceProject) : tree.readJson('package.json') as PackageJson;
   const externalPackagesToInstallWithNgAdd: Record<string, string | undefined> = {};
   // Ngx-prefetch version is aligned with angular
-  if (projectType === 'application' && options.enablePrefetchBuilder) {
-    const angularVersion = projectPackageJson.dependencies?.['@angular/core'] || projectPackageJson.peerDependencies?.['@angular/core'];
-    const angularMajorVersion = angularVersion?.match(simplifiedSemVerRegexp)?.[1];
-    const ngxPrefetchVersion = angularMajorVersion ? `^${angularMajorVersion}.0.0` : undefined;
-    externalPackagesToInstallWithNgAdd['@o3r/ngx-prefetch'] = ngxPrefetchVersion;
+  if (projectType === 'application' && context.interactive) {
+
+    const installPrefetch = await askConfirmation('Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?', false);
+    if (installPrefetch) {
+      const angularVersion = projectPackageJson.dependencies?.['@angular/core'] || projectPackageJson.peerDependencies?.['@angular/core'];
+      const angularMajorVersion = angularVersion?.match(simplifiedSemVerRegexp)?.[1];
+      const ngxPrefetchVersion = angularMajorVersion ? `^${angularMajorVersion}.0.0` : undefined;
+      externalPackagesToInstallWithNgAdd['@o3r/ngx-prefetch'] = ngxPrefetchVersion;
+    }
   }
   const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
   let appLibRules: Rule[] = [];
@@ -73,20 +78,24 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     options.generateAzurePipeline ? createAzurePipeline(options, coreSchematicsFolder) : noop,
     addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template'])
   ];
+
+  const projectDirectory = workspaceProject?.root;
+  const optionsAndWorkingDir = { ...options, workingDirectory: projectDirectory };
+
   if (projectType) {// this means we run the ng add in a lib/app inside the workspace
     appLibRules = [
       updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
       updateBuildersNames(),
       updateOtterGeneratorsNames(),
-      updateOtterEnvironmentAdapter(options, coreSchematicsFolder),
-      updateStore(options, projectType),
-      options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, options, false) : noop,
-      options.enablePlaywright && projectType === 'application' ? updatePlaywright(coreSchematicsFolder, options) : noop,
-      projectType === 'application' ? updateAdditionalModules(options, coreSchematicsFolder) : noop,
+      updateOtterEnvironmentAdapter(optionsAndWorkingDir, coreSchematicsFolder),
+      updateStore(optionsAndWorkingDir, projectType),
+      options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, optionsAndWorkingDir, false) : noop,
+      projectType === 'application' ? updateAdditionalModules(optionsAndWorkingDir, coreSchematicsFolder) : noop,
       removePackages(packagesToRemove),
       ...(!isMultipackagesContext(tree) ? projectRootRules : [])
     ];
-  } else {
+  }
+  if (!isStandaloneRepository(tree)) {
     monorepoRules = [
       ...projectRootRules,
       addWorkspacesToProject()
@@ -94,12 +103,15 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const commonRules = [
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
-    updateFixtureConfig(options, coreSchematicsFolder),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
-      {skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type}),
+      { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
+    ),
 
     ...(Object.entries(externalPackagesToInstallWithNgAdd).map(([packageName, packageVersion]) =>
-      ngAddPackages([packageName], {skipConfirmation: true, version: packageVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type})
+      ngAddPackages(
+        [packageName],
+        { skipConfirmation: true, version: packageVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
+      )
     )),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
     !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
