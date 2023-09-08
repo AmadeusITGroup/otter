@@ -314,8 +314,6 @@ __metadata:
       optional: true
     "@angular/compiler":
       optional: true
-    "@o3r/schematics":
-      optional: true
     "@openapitools/openapi-generator-cli":
       optional: true
   languageName: unknown
@@ -8297,6 +8295,8 @@ __metadata:
       optional: true
     "@angular-devkit/core":
       optional: true
+  bin:
+    environment: ./dist/src/cli/environment.js
   languageName: unknown
   linkType: soft
 

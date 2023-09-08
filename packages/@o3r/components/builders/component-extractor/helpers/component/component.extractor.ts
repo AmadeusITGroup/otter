@@ -7,6 +7,7 @@ import type {
   ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
 import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { ComponentExtractorBuilderSchema } from '../../index';
@@ -295,7 +296,7 @@ export class ComponentExtractor {
         if (!this.strictMode) {
           this.logger.warn(message);
         } else {
-          throw new Error(message);
+          throw new O3rCliError(message);
         }
         const configWithoutIncompatibleProperties: ComponentConfigOutput = {
           ...config,

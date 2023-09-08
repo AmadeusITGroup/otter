@@ -1,7 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-
-import { getDestinationPath, getWorkspaceConfig } from '@o3r/schematics';
+import { getDestinationPath, getWorkspaceConfig, O3rCliError } from '@o3r/schematics';
 import { NgGeneratePlaywrightScenarioSchematicsSchema } from './schema';
 
 /**
@@ -13,7 +12,7 @@ export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenar
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
-      throw new Error('Cannot create a playwright scenario');
+      throw new O3rCliError('Cannot create a playwright scenario');
     }
 
     return tree;

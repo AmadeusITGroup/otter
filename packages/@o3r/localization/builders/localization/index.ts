@@ -1,6 +1,7 @@
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { LogEntry } from '@angular-devkit/core/src/logger';
 import type { JSONLocalization } from '@o3r/localization';
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
@@ -72,7 +73,7 @@ function checkUnusedTranslation(
   missingMetadata.forEach((key) => context.logger[failIfMissingMetadata ? 'error' : 'warn'](`The key "${key}" from "${language}" is not part of the MetaData`));
 
   if (missingMetadata.length && failIfMissingMetadata) {
-    throw new Error(`There is missing metadata for ${language}`);
+    throw new O3rCliError(`There is missing metadata for ${language}`);
   }
 }
 
@@ -127,7 +128,7 @@ export function getTranslationsForLanguage(
   if (defaultLanguage) {
     // Throw an error if we find a circular dependency
     if (dependencyPath.has(defaultLanguage)) {
-      throw new Error(`Circular dependency found: ${[...Array.from(dependencyPath), defaultLanguage].join('->')}`);
+      throw new O3rCliError(`Circular dependency found: ${[...Array.from(dependencyPath), defaultLanguage].join('->')}`);
     } else {
       // Else, recursively resolve its bundle and use it as a base for the current language
       const defaultTranslations = getTranslationsForLanguage(defaultLanguage, filesPerLanguage, defaultLanguageMapping, memory, dependencyPath);

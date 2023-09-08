@@ -7,15 +7,16 @@ import {
   getWorkspaceConfig,
   ngAddPackages,
   ngAddPeerDependencyPackages,
+  O3rCliError,
   registerPackageCollectionSchematics,
   removePackages, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
 import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
-import type { PackageJson } from 'type-fest';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { updatePlaywright } from './playwright';
 
 function canResolvePlaywright(): boolean {
@@ -132,7 +133,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
             jestConfigFilesForWorkspace
           );
         } else {
-          throw new Error (`Could not find working directory for project ${workspaceProject?.name || ''}`);
+          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         }
       }
 
@@ -143,7 +144,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.
       If the error is related to missing @o3r dependencies you need to install '@o3r/core' or '@o3r/schematics' to be able to use the testing package.
       Please run 'ng add @o3r/core' or 'ng add @o3r/schematics'. Otherwise, use the error message as guidance.`);
-      throw (e);
+      throw new O3rCliError(e);
     }
   };
 }

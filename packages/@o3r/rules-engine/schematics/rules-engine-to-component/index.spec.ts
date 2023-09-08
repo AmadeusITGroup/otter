@@ -1,12 +1,12 @@
 import {Tree} from '@angular-devkit/schematics';
 import {SchematicTestRunner} from '@angular-devkit/schematics/testing';
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 describe('Enable rules-engine on component', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe('Enable rules-engine on component', () => {
     await expect(async () => await runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
       path: 'random-path'
-    }, initialTree)).rejects.toThrow('Unable to add rules-engine: component "random-path" does not exist');
+    }, initialTree)).rejects.toThrow(new O3rCliError('Unable to add rules-engine: component "random-path" does not exist'));
   });
 
   it('should not add the rules-engine service to a component if already present', async () => {
@@ -66,7 +66,7 @@ describe('Enable rules-engine on component', () => {
       projectName: 'test-project',
       path: 'test-folder/test-component-with-rules-engine.component.ts'
     // eslint-disable-next-line max-len
-    }, initialTree)).rejects.toThrow('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.');
+    }, initialTree)).rejects.toThrow(new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.'));
   });
 
   it('should not add the rules-engine service to a component if already present in constructor', async () => {
@@ -85,7 +85,6 @@ describe('Enable rules-engine on component', () => {
       projectName: 'test-project',
       path: 'test-folder/test-component-with-rules-engine.component.ts'
     // eslint-disable-next-line max-len
-    }, initialTree)).rejects.toThrow('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.');
+    }, initialTree)).rejects.toThrow(new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.'));
   });
-
 });

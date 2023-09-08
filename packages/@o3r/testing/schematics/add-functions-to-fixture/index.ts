@@ -1,5 +1,5 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { applyEsLintFix, O3rCliError } from '@o3r/schematics';
 import * as ts from 'typescript';
 import { getImplementation, getSignature } from './helpers';
 import { description } from './models';
@@ -15,7 +15,7 @@ export function ngAddFunctionsToFixture(options: NgAddFunctionsToFixtureSchemati
     (tree: Tree) => {
       const { path, methods, selector } = options;
       if (!tree.exists(path)) {
-        throw new Error(`File does not exist: ${path}`);
+        throw new O3rCliError(`File does not exist: ${path}`);
       }
       methods.forEach((methodType, index) => {
         const signature = getSignature(methodType, selector);
