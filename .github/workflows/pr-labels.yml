@@ -1,9 +1,12 @@
 name: Pull Request Label
 
-on: pull_request
+on:
+  workflow_run:
+    workflows: ['Main CI']
 
 jobs:
   setup-label:
+    if: ${{ github.event.workflow_run.event == 'pull_request' }}
     runs-on: ubuntu-latest
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
