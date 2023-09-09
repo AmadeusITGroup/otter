@@ -7,6 +7,7 @@
     "schematicCollections": [
       "@schematics/angular",
       "@nx/angular",
+      "@o3r/workspace",
       "@o3r/core"
     ],
     "analytics": false,

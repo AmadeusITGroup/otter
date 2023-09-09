@@ -1,4 +1,4 @@
-import { chain, noop, Rule, schematic, strings } from '@angular-devkit/schematics';
+import { chain, externalSchematic, noop, Rule, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
@@ -8,7 +8,6 @@ import { ngGenerateModule } from './rules/rules.ng';
 
 /**
  * Add an Otter compatible module to a monorepo
- *
  * @param options Schematic options
  */
 export function generateModule(options: NgGenerateModuleSchema): Rule {
@@ -30,9 +29,8 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
 
     return chain([
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
-      // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
-      // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
-      (t, c) => schematic('ng-add-create', { name: packageJsonName, path: targetPath })(t, c),
+      (t, c) => externalSchematic('@o3r/core', 'ng-add', { ...options, projectName: extendedOptions.name })(t, c),
+      (t, c) => externalSchematic('@o3r/core', 'ng-add-create', { name: extendedOptions.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());

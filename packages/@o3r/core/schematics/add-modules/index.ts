@@ -52,7 +52,7 @@ export function ngAddModules(options: NgAddModulesSchematicsSchema): Rule {
       })), 0, null);
 
       if (res) {
-        return externalSchematic(res, 'ng-add', {});
+        return externalSchematic(res, 'ng-add', forwardOptions);
       }
     } catch (e: any) {
       context.logger.debug('Error during the module discovery', e);

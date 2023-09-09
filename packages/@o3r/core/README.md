@@ -84,14 +84,6 @@ Otter framework provides a set of code generators based on [angular schematics](
 | convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
 | context-to-component       | Add Otter Context to an existing component                                    | `ng g context-to-component`       |
 
-### Package generators
-
-| Schematics                 | Description                                                                   | How to use                        |
-| -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
-| library                    | Add a new Library to the current Otter project                                | `ng g library`                    |
-| sdk                        | Add a new SDK to the current Otter project                                    | `ng g sdk`                        |
-| application                | Add a new Application to the current Otter project                            | `ng g application`                |
-
 ## Create your own Otter compatible module
 
 You can refer to the [module documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md) to create an Otter compatible module.
@@ -117,7 +109,28 @@ It includes the following modules:
 * @o3r/dynamic-content
 * @o3r/rules-engine
 
-### External (Custom) Preset
+### Preset All
+
+Will add all official modules provided by the Otter Framework.
+Currently the list of modules is the following:
+
+* @o3r/analytics
+* @o3r/apis-manager
+* @o3r/application
+* @o3r/components
+* @o3r/configuration
+* @o3r/dynamic-content
+* @o3r/eslint-config-otter
+* @o3r/eslint-plugin
+* @o3r/forms
+* @o3r/localization
+* @o3r/logger
+* @o3r/rules-engine
+* @o3r/store-sync
+* @o3r/stylelint-plugin
+* @o3r/styling
+
+## External (Custom) Preset
 
 The preset mechanism is supporting, via the `--external-preset` option, presets defined by module providers themself.
 

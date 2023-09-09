@@ -1,16 +1,14 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, Schematic, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, Schematic, strings, template, url } from '@angular-devkit/schematics';
 import { getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgGenerateApplicationSchema } from './schema';
 import type { PackageJson } from 'type-fest';
 import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
-import { NgAddSchematicsSchema } from '../ng-add/schema';
 import { type Schema as ApplicationOptions } from '@schematics/angular/application/schema';
 import { Style } from '@schematics/angular/application/schema';
 
 /**
  * Add an Otter application to a monorepo
- *
  * @param options Schematic options
  */
 export function generateApplication(options: NgGenerateApplicationSchema): Rule {
@@ -71,8 +69,8 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
         projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
-      (_host: Tree, c: SchematicContext) => {
-        c.addTask(new RunSchematicTask <Partial<NgAddSchematicsSchema>>('ng-add', extendedOptions));
+      (_, c) => {
+        c.addTask(new RunSchematicTask('@o3r/core:ng-add', extendedOptions));
       }
     ])(tree, context);
   };

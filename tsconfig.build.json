@@ -42,7 +42,8 @@
       "@o3r/test-helpers": ["packages/@o3r/test-helpers/dist", "packages/@o3r/test-helpers/src/public_api"],
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
-      "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"]
+      "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
+      "@o3r/workspace": ["packages/@o3r/workspace/dist"]
     }
   },
   "angularCompilerOptions": {
