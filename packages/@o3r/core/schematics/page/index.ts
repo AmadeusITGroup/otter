@@ -40,7 +40,7 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
       context.logger.warn('No application detected in this project, the page cannot be generated');
       return () => tree;
     }
-    const destination = getDestinationPath('@o3r/core:page', options.path, tree);
+    const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = workspaceProject.name;

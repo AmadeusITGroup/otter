@@ -73,7 +73,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
 
-    const destination = getDestinationPath('@o3r/core:component', options.path, tree);
+    const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
     const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
     const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
     const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);

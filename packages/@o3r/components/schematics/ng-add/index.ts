@@ -37,7 +37,14 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const workingDirectory = getProjectRootDir(tree, options.projectName);
       const rule = chain([
         removePackages(['@otter/components']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
+          dependencyType,
+          workingDirectory
+        }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
         registerPackageCollectionSchematics(packageJson),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])

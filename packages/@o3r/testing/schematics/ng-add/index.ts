@@ -40,7 +40,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const dependencyType = getProjectDepType(tree);
-      const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
+      const workspaceProject = (tree.exists('angular.json') && options.projectName) ? getProjectFromTree(tree, options.projectName) : undefined;
       const workingDirectory = workspaceProject?.root;
       const projectType = workspaceProject?.projectType || 'application';
 
@@ -83,10 +83,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
           dependencyType: dependencyType,
           workingDirectory
         }),
-        installPlaywright ? updatePlaywright({...options, workingDirectory}) : noop,
+        installPlaywright ? updatePlaywright(options) : noop,
         ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
