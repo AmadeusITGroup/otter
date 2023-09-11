@@ -106,13 +106,14 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
     ),
-
-    ...(Object.entries(externalPackagesToInstallWithNgAdd).map(([packageName, packageVersion]) =>
-      ngAddPackages(
-        [packageName],
-        { skipConfirmation: true, version: packageVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
-      )
-    )),
+    ngAddPackages(Object.keys(externalPackagesToInstallWithNgAdd), {
+      skipConfirmation: true,
+      version: Object.values(externalPackagesToInstallWithNgAdd),
+      parentPackageInfo: '@o3r/core - setup',
+      projectName: options.projectName,
+      dependencyType: type,
+      workingDirectory: projectDirectory
+    }),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
     !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active

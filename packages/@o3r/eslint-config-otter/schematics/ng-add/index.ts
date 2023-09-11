@@ -21,7 +21,14 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const workingDirectory = getProjectRootDir(tree, options.projectName);
       return () => chain([
         removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory}),
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
+          dependencyType,
+          workingDirectory
+        }),
         ngAddPeerDependencyPackages(
           ['eslint', '@angular-eslint/builder', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin', 'eslint-plugin-jsdoc', 'eslint-plugin-prefer-arrow', 'eslint-plugin-unicorn'],
           path.resolve(__dirname, '..', '..', 'package.json'),

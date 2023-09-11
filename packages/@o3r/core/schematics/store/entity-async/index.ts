@@ -14,7 +14,7 @@ import { NgGenerateEntityAsyncStoreSchematicsSchema } from './schema';
 export function ngGenerateEntityAsyncStore(options: NgGenerateEntityAsyncStoreSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    const destination = getDestinationPath('@o3r/core:store', options.path, tree);
+    const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
 
     const commonTemplates = url('../common/templates');
     const asyncEntityTemplates = url('./templates');
