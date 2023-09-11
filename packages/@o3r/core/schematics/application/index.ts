@@ -45,8 +45,10 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
 
     const defaultRoot = getPackagesBaseRootFolder(tree, context, config!, 'application');
 
+    /** Project Root used by the Angular application schematic */
+    const projectRoot = path.posix.join(options.path || defaultRoot, cleanName);
     /** Path to the folder where to generate the new application */
-    const targetPath = path.posix.join('/', options.path || defaultRoot, cleanName);
+    const targetPath = path.posix.join('/', projectRoot);
     const extendedOptions = { ...options, targetPath, name: cleanName, projectName: cleanName };
 
     const rootPackageJson = tree.readJson('/package.json') as PackageJson;
@@ -65,7 +67,7 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? {...acc, [key]: value} : acc), {}),
         name: extendedOptions.name,
-        projectRoot: extendedOptions.targetPath,
+        projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
       (_host: Tree, c: SchematicContext) => {
