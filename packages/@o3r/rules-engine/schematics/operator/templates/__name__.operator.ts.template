@@ -1,0 +1,28 @@
+import {
+  <%= unaryOperator ? 'UnaryOperator' : 'Operator'%><% if (lhsType === 'string' || rhsType === 'string') { %>,
+  isString<% } if (lhsType === 'number' || rhsType === 'number') { %>,
+  numberValidator<% } if (lhsType === 'Date' || rhsType === 'Date') { %>,
+  isValidDate<% } %>
+} from '@o3r/rules-engine';
+
+/**
+ * <%= description %>
+ */
+export const <%= operatorName %>: <%= unaryOperator ? 'UnaryOperator' : 'Operator' %><% if (addTyping) { %><<%= lhsType %><% if (!unaryOperator) { %>, <%= rhsType %><% } %>><% } %> = {
+  name: '<%= operatorName %>',
+  evaluator: (value1: <%= lhsType %><% if (!unaryOperator) { %>, value2: <%= rhsType %><% } %>) => throw new Error('the operator "<%= operatorName %>" is not implemented')<%
+  if (addValidateLhs) { %>,
+  validateLhs: <%
+    if (lhsType === 'string') { %>isString<%
+    } else if (lhsType === 'number') { %>numberValidator<%
+    } else if (lhsType === 'Date') { %>isValidDate<%
+    }
+  }%><%
+  if (addValidateRhs) { %>,
+  validateRhs: <%
+    if (rhsType === 'string') { %>isString<%
+    } else if (rhsType === 'number') { %>numberValidator<%
+    } else if (rhsType === 'Date') { %>isValidDate<%
+    }
+  } %>
+};

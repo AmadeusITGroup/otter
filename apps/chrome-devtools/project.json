@@ -182,9 +182,9 @@
         "script": "copy:assets"
       },
       "outputs": [
-        "/dist/assets/**",
-        "/dist/manifest.json",
-        "/dist/devtools.html"
+        "{projectRoot}/dist/assets/**",
+        "{projectRoot}/dist/manifest.json",
+        "{projectRoot}/dist/devtools.html"
       ]
     },
     "prepare-publish": {

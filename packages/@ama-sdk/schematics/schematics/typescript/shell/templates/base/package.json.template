@@ -103,7 +103,7 @@
     "rimraf": "^5.0.1",
     "standard-version": "^9.0.0",
     "ts-jest": "<%= versions['ts-jest'] %>",
-    "typedoc": "~0.24.8",
+    "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
     "typescript": "<%= versions['typescript'] %>"
   },

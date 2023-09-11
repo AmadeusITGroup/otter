@@ -9,8 +9,8 @@ module.exports = {
     ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@<%=projectName%>/<%=projectPackageName%> unit tests' }]
   ],
   moduleNameMapper: {
-    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1'],
+    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/src'],
+    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/src/$1'],
   },
   transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention

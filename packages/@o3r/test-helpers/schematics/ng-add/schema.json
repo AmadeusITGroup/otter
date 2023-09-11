@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add test-helpers project",
+  "description": "'ng add test-helpers' project",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": true
+    },
+    "skipInstall": {
+      "type": "boolean",
+      "description": "Skip the install process",
+      "default": true
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+  ]
+}

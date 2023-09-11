@@ -16,7 +16,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const { updateApiDependencies } = await import('../helpers/update-api-deps');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       const rulesToExecute: Rule[] = [];
-      const projectType = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName || undefined)?.projectType : 'application';
+      const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
+      const workingDirectory = workspaceProject?.root;
+      const projectType = workspaceProject?.projectType || 'application';
       if (projectType === 'application') {
         rulesToExecute.push(updateApiDependencies());
       }
@@ -28,7 +30,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
-          dependencyType: getProjectDepType(tree)
+          dependencyType: getProjectDepType(tree),
+          workingDirectory
         })
       ])(tree, context);
 

@@ -41,7 +41,7 @@ Example:
                 "type": "FACT",
                 "value": "isMobileDevice"
               },
-              "operator": "equal",  // see all default operators in [engine operators section](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/src/engine/operator/operators/index.ts)
+              "operator": "equals",  // see all default operators in [engine operators section](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/rules-engine/src/engine/operator/operators/index.ts)
               "rhs": {
                 "type": "LITERAL",
                 "value": true
@@ -83,7 +83,7 @@ Example:
                 "type": "RUNTIME_FACT",
                 "value": "UI_FACT_2"
               },
-              "operator": "equal",
+              "operator": "equals",
               "rhs": {
                 "type": "LITERAL",
                 "value": false
