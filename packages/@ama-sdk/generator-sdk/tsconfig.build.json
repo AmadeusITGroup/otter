@@ -1,7 +1,10 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "skipLibCheck": true,
+    "incremental": true,
+    "composite": true,
+    "tsBuildInfoFile": "./build/tsconfig.esm2020.tsbuildinfo",
     "target": "esnext",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -12,6 +15,11 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./"
   },
+  "references": [
+    {
+      "path": "../core/tsconfig.build.json"
+    }
+  ],
   "include": [
     "src/**/*.ts"
   ],

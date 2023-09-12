@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -20,6 +20,15 @@
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "../schematics/tsconfig.build.json"
+    },
+    {
+      "path": "../../@ama-sdk/core/tsconfig.build.json"
+    },
+    {
+      "path": "../../@ama-sdk/schematics/tsconfig.builders.json"
     }
   ]
 }

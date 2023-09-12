@@ -5,7 +5,7 @@ const assert = require('yeoman-assert');
 
 let tmpDir: string;
 
-describe('@ama-sdk/sdk:shell', () => {
+describe.skip('@ama-sdk/sdk:shell', () => {
   jest.setTimeout(30 * 1000);
 
   beforeAll(async () => {

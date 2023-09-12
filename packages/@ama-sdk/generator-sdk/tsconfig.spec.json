@@ -5,12 +5,10 @@
     "module": "commonjs",
     "strictPropertyInitialization": false,
     "strictNullChecks": false,
-    "noImplicitAny": false,
-    "declaration": false
+    "noImplicitAny": false
   },
   "include": [
-    "./src/**/*.ts",
-    "./src/**/*.d.ts"
+    "./src/**/*.spec.ts"
   ],
   "exclude": [
     "./src/**/templates/**/*.spec.ts"

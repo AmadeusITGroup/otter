@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.ng",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -12,7 +12,7 @@
     "module": "CommonJS",
     "moduleResolution": "node",
     "tsBuildInfoFile": "build/.tsbuildinfo.wrapper",
-    "rootDir": "."
+    "rootDir": ".",
   },
   "include": [
     "component-wrapper/**/*.ts"

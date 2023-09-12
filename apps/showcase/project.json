@@ -131,7 +131,7 @@
         "exposedComponentSupport": true
       },
       "dependsOn": [
-        "^build-source"
+        "build-source"
       ]
     },
     "extract-rules-engine": {
@@ -219,7 +219,7 @@
         ]
       },
       "dependsOn": [
-        "^build-source"
+        "build-source"
       ]
     },
     "run": {

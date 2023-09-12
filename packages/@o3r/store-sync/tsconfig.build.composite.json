@@ -2,6 +2,7 @@
   "extends": "./tsconfig.build",
   "compilerOptions": {
     "composite": true,
-    "tsBuildInfoFile": "build/.tsbuildinfo"
+    // Workaround for ng-packagr issue :
+    "outDir": "build/src"
   }
 }

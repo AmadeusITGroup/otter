@@ -2,7 +2,7 @@
   "name": "@o3r/schematics",
   "version": "0.0.0-placeholder",
   "description": "Schematics module of the Otter framework",
-  "main": "./dist/src/index.js",
+  "main": "./dist/src/public_api.js",
   "keywords": [
     "schematics",
     "otter"
@@ -11,6 +11,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build schematics",
+    "compile": "tsc -b tsconfig.build.json --pretty && yarn cpy 'src/**/templates/**' dist/src && yarn cpy '{collection,package}.json' dist",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",

@@ -1,0 +1,58 @@
+// IDE usage only
+
+{
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": false,
+    "paths": {
+      "@ama-sdk/core": ["packages/@ama-sdk/core/dist"],
+      "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist"],
+      "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist"],
+      "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist"],
+      "@ama-terasu/core": ["packages/@ama-terasu/core/dist"],
+      "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/dist"],
+      "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/dist"],
+      "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/dist"],
+      "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/dist"],
+      "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/dist"],
+      "@o3r/analytics": ["packages/@o3r/analytics/dist"],
+      "@o3r/analytics/*": ["packages/@o3r/analytics/dist/*"],
+      "@o3r/apis-manager": ["packages/@o3r/apis-manager/dist"],
+      "@o3r/application": ["packages/@o3r/application/dist"],
+      "@o3r/components": ["packages/@o3r/components/dist"],
+      "@o3r/configuration": ["packages/@o3r/configuration/dist"],
+      "@o3r/core": ["packages/@o3r/core/dist"],
+      "@o3r/dev-tools": ["packages/@o3r/dev-tools/dist"],
+      "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/dist"],
+      "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],
+      "@o3r/eslint-plugin": ["packages/@o3r/eslint-plugin/dist"],
+      "@o3r/extractors": ["packages/@o3r/extractors/dist"],
+      "@o3r/forms": ["packages/@o3r/forms/dist"],
+      "@o3r/localization": ["packages/@o3r/localization/dist"],
+      "@o3r/logger": ["packages/@o3r/logger/dist"],
+      "@o3r/logger/*": ["packages/@o3r/logger/dist/*"],
+      "@o3r/mobile": ["packages/@o3r/mobile/dist"],
+      "@o3r/routing": ["packages/@o3r/routing/dist"],
+      "@o3r/rules-engine": ["packages/@o3r/rules-engine/dist"],
+      "@o3r/schematics": ["packages/@o3r/schematics/dist"],
+      "@o3r/store-sync": ["packages/@o3r/store-sync/dist"],
+      "@o3r/storybook": ["packages/@o3r/storybook/dist"],
+      "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist"],
+      "@o3r/styling": ["packages/@o3r/styling/dist"],
+      "@o3r/test-helpers": ["packages/@o3r/test-helpers/dist"],
+      "@o3r/testing": ["packages/@o3r/testing/dist"],
+      "@o3r/testing/*": ["packages/@o3r/testing/dist/*"],
+      "@o3r/third-party": ["packages/@o3r/third-party/dist"]
+    }
+  },
+  "angularCompilerOptions": {
+    "skipTemplateCodegen": true,
+    "skipMetadataEmit": false,
+    "strictMetadataEmit": true,
+    "strictInjectionParameters": true,
+    "fullTemplateTypeCheck": true,
+    "annotateForClosureCompiler": true,
+    "enableResourceInlining": true,
+    "compilationMode": "partial",
+  }
+}

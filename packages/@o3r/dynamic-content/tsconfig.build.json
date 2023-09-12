@@ -1,11 +1,10 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.ng",
   "compilerOptions": {
     "incremental": true,
     "outDir": "./dist",
     "rootDir": "src",
-    "tsBuildInfoFile": "./build/.tsbuildinfo",
-    "module": "ES2022"
+    "tsBuildInfoFile": "./build/.tsbuildinfo"
   },
   "include": ["src/**/*.ts"],
   "exclude": [

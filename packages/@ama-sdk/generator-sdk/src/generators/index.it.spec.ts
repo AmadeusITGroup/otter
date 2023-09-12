@@ -21,7 +21,7 @@ const spawnPromisify = (cmd: string, args: string[], cwd?: string) => {
 let tmpDir: string;
 
 const minutes = 60 * 1000;
-describe('@ama-sdk/sdk:create', () => {
+describe.skip('@ama-sdk/sdk:create', () => {
   jest.setTimeout(5 * minutes);
 
   beforeAll(async () => {

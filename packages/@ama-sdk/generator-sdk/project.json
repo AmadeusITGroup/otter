@@ -38,13 +38,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "rootDir": "packages/@ama-sdk/generator-sdk/src",
-        "main": "packages/@ama-sdk/generator-sdk/src/generators/sdk-generator.ts",
-        "tsConfig": "packages/@ama-sdk/generator-sdk/tsconfig.build.json",
-        "outputPath": "packages/@ama-sdk/generator-sdk/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "script": "compile"
       }
     },
     "lint": {

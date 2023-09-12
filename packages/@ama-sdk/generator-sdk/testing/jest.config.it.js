@@ -3,6 +3,7 @@ const { getJestModuleNameMapper } = require('@o3r/dev-tools');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
+  passWithNoTests: true,
   displayName: require('../package.json').name,
   preset: 'ts-jest',
   rootDir: '..',

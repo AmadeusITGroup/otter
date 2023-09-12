@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.build",
+  "extends": "../tsconfig.base",
   "exclude": [
     "../src/**/*.spec.ts",
     "../src/**/*.perf.ts",

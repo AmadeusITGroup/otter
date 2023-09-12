@@ -44,7 +44,7 @@ describe('Imperva fetch plug-in', () => {
     const runner = plugin.load(defaultContext);
 
     const callback = jest.fn();
-    runner.canStart().then(callback);
+    void runner.canStart().then(callback);
     await jest.advanceTimersByTimeAsync(999);
     expect(callback).not.toHaveBeenCalled();
 

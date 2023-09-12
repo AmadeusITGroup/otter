@@ -46,18 +46,14 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "outputs": [
         "{projectRoot}/dist/src",
         "{projectRoot}/dist/package.json",
         "{projectRoot}/build/.tsbuildinfo"
       ],
       "options": {
-        "main": "packages/@ama-sdk/core/src/public_api.ts",
-        "tsConfig": "packages/@ama-sdk/core/tsconfig.esm2020.json",
-        "outputPath": "packages/@ama-sdk/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
-        "clean": false
+        "script": "build:esm2020"
       }
     },
     "lint": {

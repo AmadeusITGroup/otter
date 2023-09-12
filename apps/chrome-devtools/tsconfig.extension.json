@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.build",
+  "extends": "../../tsconfig.base",
   "compilerOptions": {
     "mapRoot": "./src",
     "incremental": true,
@@ -10,6 +10,11 @@
     "moduleResolution": "Node",
     "tsBuildInfoFile": "build/extension.tsbuildinfo"
   },
+  "references": [
+    {
+      "path": "../../packages/@ama-sdk/core/tsconfig.build.json"
+    }
+  ],
   "include": [
     "src/extension/**/*.ts"
   ]

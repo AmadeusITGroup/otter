@@ -1,13 +1,18 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
     "module": "CommonJS",
-    "outDir": "./dist",
+    "outDir": "./dist/src",
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
+  "references": [
+    {
+      "path": "../core/tsconfig.build.composite.json"
+    }
+  ],
   "include": [
     "src/**/*.ts"
   ],

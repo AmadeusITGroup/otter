@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -10,6 +10,23 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
+  "references": [
+    {
+      "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "../extractors/tsconfig.build.json"
+    },
+    {
+      "path": "../core/tsconfig.build.composite.json"
+    },
+    {
+      "path": "../schematics/tsconfig.build.json"
+    },
+    {
+      "path": "../logger/tsconfig.build.composite.json"
+    }
+  ],
   "include": [
     "builders/**/*.ts",
     "schematics/**/*.ts"

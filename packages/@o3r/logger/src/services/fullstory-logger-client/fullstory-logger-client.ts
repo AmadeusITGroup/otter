@@ -1,5 +1,5 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import { LoggerClient } from '@o3r/logger';
+import type { LoggerClient } from '@o3r/logger';
 
 import * as FullStory from '@fullstory/browser';
 

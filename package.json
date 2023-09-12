@@ -24,7 +24,7 @@
     "test-int": "yarn nx run-many --target=test-int --parallel 2",
     "postinstall": "husky install && yarn build:tools && yarn harmonize:version && yarn in-source-dep-check",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
-    "clear": "rimraf './{packages,tools,apps}/@*/{amaterasu/,}*/{dist,build}/'",
+    "clear": "rimraf './{packages,tools,apps}/{@*/,}{amaterasu/,}*/{dist,build}/'",
     "set:version": "yarn set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
     "harmonize:version": "yarn version-harmonize --apply-to 'packages/**/templates/**/package.json{,.template}'",
     "doc:packages": "yarn nx run-many --target=documentation --parallel $(yarn get:cpus-number)",
@@ -208,6 +208,7 @@
     "ts-jest": "~29.1.1",
     "ts-node": "^10.9.1",
     "tsc-watch": "^6.0.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "~5.1.6",
     "webpack": "~5.88.0",
     "winston": "^3.8.2"

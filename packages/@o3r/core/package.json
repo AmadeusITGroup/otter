@@ -16,8 +16,8 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "postbuild": "patch-package-json-main"
   },
-  "default": "./src/public_api.js",
-  "types": "./src/public_api.d.ts",
+  "default": "./public_api.js",
+  "types": "./public_api.d.ts",
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",

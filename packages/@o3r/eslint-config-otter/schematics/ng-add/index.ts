@@ -1,5 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 import { updateLinterConfigs } from './linter';
 

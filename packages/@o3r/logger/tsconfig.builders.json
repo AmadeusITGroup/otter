@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -10,6 +10,11 @@
   },
   "include": [
     "schematics/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../schematics/tsconfig.build.json"
+    }
   ],
   "exclude": [
     "**/*.spec.ts",

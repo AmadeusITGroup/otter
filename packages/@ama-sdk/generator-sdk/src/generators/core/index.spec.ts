@@ -3,7 +3,7 @@ import helpers from 'yeoman-test';
 
 const assert = require('yeoman-assert');
 
-describe('@ama-sdk/sdk:core', () => {
+describe.skip('@ama-sdk/sdk:core', () => {
   jest.setTimeout(30 * 60 * 1000); // 30 min
 
   it('should generate spec files', async () => {

@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.build",
+  "extends": "../../tsconfig.ng",
   "compilerOptions": {
     "lib": ["es2020", "dom"],
     "types": ["chrome"],

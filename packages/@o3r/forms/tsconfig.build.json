@@ -1,11 +1,16 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.ng",
   "compilerOptions": {
     "incremental": true,
     "outDir": "./dist",
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
+  "references": [
+    {
+      "path": "../schematics/tsconfig.build.json"
+    }
+  ],
   "include": ["src/**/*.ts"],
   "exclude": ["**/*.spec.ts", "src/builders/**/*.ts", "src/helpers/**/*.ts"]
 }

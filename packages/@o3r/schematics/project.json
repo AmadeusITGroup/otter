@@ -32,16 +32,9 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/schematics/src/public_api.ts",
-        "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
-        "outputPath": "packages/@o3r/schematics/dist",
-        "assets": [
-          "packages/@o3r/schematics/src/**/templates/**"
-        ],
-        "updateBuildableProjectDepsInPackageJson": false,
-        "clean": false
+        "script": "compile"
       }
     },
     "lint": {

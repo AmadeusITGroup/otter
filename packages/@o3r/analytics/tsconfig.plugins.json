@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -8,6 +8,11 @@
     "rootDir": "plugins",
     "tsBuildInfoFile": "build/plugins/.tsbuildinfo"
   },
+  "references": [
+    {
+      "path": "../core/tsconfig.build.composite.json"
+    }
+  ],
   "include": [
     "plugins/**/*.ts"
   ]

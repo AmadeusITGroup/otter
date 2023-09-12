@@ -1,5 +1,5 @@
 {
-  "extends": "../../../tsconfig.build",
+  "extends": "../../../tsconfig.base",
   "compilerOptions": {
     "incremental": true,
     "composite": true,
@@ -8,6 +8,17 @@
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.builders"
   },
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    },
+    {
+      "path": "../schematics/tsconfig.build.json"
+    },
+    {
+      "path": "../core/tsconfig.build.composite.json"
+    }
+  ],
   "include": [
     "schematics/**/*.ts"
   ],

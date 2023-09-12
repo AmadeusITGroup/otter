@@ -14,6 +14,8 @@ module.exports = {
           'tsconfig.build.json',
           'tsconfig.spec.json',
           'tsconfig.extension.json',
+          'tsconfig.build.components.json',
+          'tsconfig.build.devtools.json',
           'tsconfig.eslint.json'
         ],
         'sourceType': 'module'

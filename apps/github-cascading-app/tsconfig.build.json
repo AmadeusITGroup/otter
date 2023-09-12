@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.build",
+  "extends": "../../tsconfig.base",
   "compilerOptions": {
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
