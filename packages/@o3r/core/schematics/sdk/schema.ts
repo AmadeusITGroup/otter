@@ -19,4 +19,7 @@ export interface NgGenerateSdkSchema extends SchematicOptionObject {
 
   /** Do not install dependency packages. */
   skipInstall: boolean;
+
+  /** Path to the swagger specification used to generate the SDK; If not provided, sdk shell will be generated */
+  specPath?: string | undefined;
 }
