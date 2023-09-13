@@ -1,13 +1,14 @@
-import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, strings, template, url } from '@angular-devkit/schematics';
+import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
-import type { NgGenerateTypescriptSDKShellSchematicsSchema } from '@ama-sdk/schematics';
+import type { NgGenerateTypescriptSDKCoreSchematicsSchema, NgGenerateTypescriptSDKShellSchematicsSchema } from '@ama-sdk/schematics';
 import type { PackageJson } from 'type-fest';
 import { ngRegisterProjectTasks } from './rules/rules.ng';
 import { nxRegisterProjectTasks } from './rules/rules.nx';
 import { updateTsConfig } from './rules/update-ts-paths.rule';
 import { cleanStandaloneFiles } from './rules/clean-standalone.rule';
+import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 
 /**
  * Add an Otter compatible SDK to a monorepo
@@ -48,7 +49,15 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, cleanName, scope),
       cleanStandaloneFiles(targetPath),
-      addModuleSpecificFiles()
+      addModuleSpecificFiles(),
+      options.specPath ? (_host: Tree, c: SchematicContext) => {
+        c.addTask(new RunSchematicTask<Partial<NgGenerateTypescriptSDKCoreSchematicsSchema>>('@ama-sdk/schematics', 'typescript-core', {
+          ...options,
+          specPath: options.specPath,
+          directory: targetPath,
+          packageManager: getPackageManager({workspaceConfig})
+        }));
+      } : noop
     ])(tree, context);
   };
 }
