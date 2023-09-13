@@ -67,7 +67,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
   const fullStructureRequested = options.componentStructure === 'full';
 
-  const generateFiles = async (tree: Tree, context: SchematicContext) => {
+  const generateFiles = (tree: Tree, _context: SchematicContext) => {
 
     const workspaceProject = getProjectFromTree(tree);
 
@@ -166,47 +166,32 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       })
     );
 
-    const configurationRules = await getAddConfigurationRules(
-      componentPath,
-      options,
-      context
+    rules.push(
+      getAddConfigurationRules(
+        componentPath,
+        options
+      ),
+      getAddThemingRules(
+        o3rStylePath,
+        options
+      ),
+      getAddLocalizationRules(
+        componentPath,
+        options
+      ),
+      getAddFixtureRules(
+        componentPath,
+        options
+      ),
+      getAddAnalyticsRules(
+        componentPath,
+        options
+      ),
+      getAddContextRules(
+        componentPath,
+        options
+      )
     );
-    rules.push(...configurationRules);
-
-    const themingRules = await getAddThemingRules(
-      o3rStylePath,
-      options,
-      context
-    );
-    rules.push(...themingRules);
-
-    const localizationRules = await getAddLocalizationRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...localizationRules);
-
-    const fixtureRules = await getAddFixtureRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...fixtureRules);
-
-    const analyticsRules = await getAddAnalyticsRules(
-      componentPath,
-      options,
-      context
-    );
-
-    rules.push(...analyticsRules);
-    const contextRules = await getAddContextRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...contextRules);
 
     return chain(rules);
   };

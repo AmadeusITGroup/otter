@@ -34,11 +34,11 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
    * @param tree File tree
    * @param context Context of the rule
    */
-  const generateFiles = async (tree: Tree, context: SchematicContext): Promise<Rule> => {
+  const generateFiles = (tree: Tree, context: SchematicContext): Rule => {
     const workspaceProject = getProjectFromTree(tree, null, 'application');
     if (!workspaceProject) {
       context.logger.warn('No application detected in this project, the page cannot be generated');
-      return () => tree;
+      return noop;
     }
     const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
@@ -164,37 +164,28 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
       move(pagePath)
     ]), MergeStrategy.Overwrite));
 
-    const configurationRules = await getAddConfigurationRules(
-      componentPath,
-      options,
-      context
+    rules.push(
+      getAddConfigurationRules(
+        componentPath,
+        options
+      ),
+      getAddThemingRules(
+        o3rStylePath,
+        options
+      ),
+      getAddLocalizationRules(
+        componentPath,
+        options
+      ),
+      getAddFixtureRules(
+        componentPath,
+        {
+          skipLinter: options.skipLinter,
+          useComponentFixtures: options.usePageFixtures
+        },
+        true
+      )
     );
-    rules.push(...configurationRules);
-
-    const themingRules = await getAddThemingRules(
-      o3rStylePath,
-      options,
-      context
-    );
-    rules.push(...themingRules);
-
-    const localizationRules = await getAddLocalizationRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...localizationRules);
-
-    const fixtureRules = await getAddFixtureRules(
-      componentPath,
-      {
-        ...options,
-        useComponentFixtures: options.usePageFixtures
-      },
-      context,
-      true
-    );
-    rules.push(...fixtureRules);
 
     return chain(rules);
   };
