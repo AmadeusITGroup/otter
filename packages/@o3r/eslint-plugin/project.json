@@ -29,7 +29,8 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      }
+      },
+      "dependsOn": []
     },
     "compile": {
       "executor": "@nx/js:tsc",

@@ -26,7 +26,7 @@
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf -g './{packages,tools,apps}/{@*/,}{amaterasu/,}*/{dist,build,dist-*}/'",
     "set:version": "yarn set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
-    "harmonize:version": "yarn version-harmonize --apply-to 'packages/**/templates/**/package.json{,.template}'",
+    "harmonize:version": "eslint **/package.json* --quiet --fix",
     "doc:packages": "yarn nx run-many --target=documentation --parallel $(yarn get:cpus-number)",
     "doc:root": "yarn prepare-doc-root-menu-template && yarn update-doc-summary ./docs && yarn compodoc",
     "doc:generate": "rimraf ./generated-doc && yarn doc:root && yarn doc:packages && yarn doc-links --docs ./docs --generated-doc ./generated-doc",

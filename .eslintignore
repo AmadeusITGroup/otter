@@ -9,3 +9,4 @@ generated-doc/
 /.pnp.js
 /.vscode
 /tools/github-actions/*/packaged-action/
+/**/src/**/package.json

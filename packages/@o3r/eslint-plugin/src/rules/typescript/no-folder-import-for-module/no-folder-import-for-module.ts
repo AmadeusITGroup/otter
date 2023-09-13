@@ -1,6 +1,6 @@
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createRule } from '../utils';
+import { createRule } from '../../utils';
 
 export default createRule({
   name: 'no-folder-import-for-module',

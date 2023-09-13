@@ -205,6 +205,7 @@ __metadata:
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
+    "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": ~16.2.0
@@ -6822,7 +6823,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/build-helpers@workspace:tools/@o3r/build-helpers"
   dependencies:
+    "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.10.0
+    "@o3r/eslint-plugin": "workspace:^"
     "@types/node": ^18.0.0
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
+    eslint: ^8.42.0
+    eslint-import-resolver-node: ^0.3.4
+    eslint-plugin-jest: ~27.4.0
+    eslint-plugin-jsdoc: ~46.8.0
+    eslint-plugin-prefer-arrow: ~1.2.3
+    eslint-plugin-unicorn: ^47.0.0
     globby: ^13.1.2
     minimist: ^1.2.6
     nx: ~16.10.0
@@ -7502,9 +7514,9 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
+    "@types/semver": ^7.3.13
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/experimental-utils": ^5.3.0
     "@typescript-eslint/parser": ^5.60.1
@@ -7514,13 +7526,16 @@ __metadata:
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
+    globby: ^11.1.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
     jsonc-eslint-parser: ~2.3.0
     nx: ~16.10.0
     rimraf: ^5.0.1
+    semver: ^7.5.2
     ts-jest: ~29.1.1
     tslib: ^2.5.3
+    type-fest: ^3.12.0
     typescript: ~5.1.6
   peerDependencies:
     "@angular-eslint/template-parser": ~16.2.0
@@ -7529,8 +7544,11 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.22.0
+    jsonc-eslint-parser: ~2.3.0
   peerDependenciesMeta:
     "@angular-eslint/template-parser":
+      optional: true
+    jsonc-eslint-parser:
       optional: true
   languageName: unknown
   linkType: soft
