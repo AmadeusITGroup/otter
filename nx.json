@@ -187,6 +187,9 @@
       ]
     },
     "build-source": {
+      "dependsOn": [
+        "^build"
+      ],
       "inputs": [
         "source",
         "^source"
