@@ -3,7 +3,7 @@
 
 module.exports = {
   'extends': [
-    './jasmine'
+    './index.cjs'
   ],
   'rules': {
     '@typescript-eslint/no-floating-promises': 'off',

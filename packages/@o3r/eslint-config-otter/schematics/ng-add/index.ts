@@ -1,11 +1,10 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 import { updateLinterConfigs } from './linter';
 
 /**
  * Add Otter eslint-config to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {

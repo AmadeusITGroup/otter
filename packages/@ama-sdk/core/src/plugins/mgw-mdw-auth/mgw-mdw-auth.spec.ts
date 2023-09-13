@@ -117,8 +117,9 @@ describe('JSON auth token request plugin', () => {
     const signature = tokenParts[2];
 
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat.toString() + options.basePath) as string));
-    const message = `${base64UrlEncoder(JSON.stringify(header)) as string}.${base64UrlEncoder(JSON.stringify(payload)) as string}`;
+    const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat.toString() + options.basePath)));
+    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+    const message = `${base64UrlEncoder(JSON.stringify(header))}.${base64UrlEncoder(JSON.stringify(payload))}`;
     const signCheck = base64UrlEncoder(hmacSHA256(message, secretKey));
 
     expect(signature).toEqual(signCheck);
