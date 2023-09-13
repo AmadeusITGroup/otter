@@ -102,8 +102,11 @@
     ],
     "lint": [
       "default",
-      "{workspaceRoot}/.eslintrc.json",
-      "{workspaceRoot}/.eslintignore"
+      "{workspaceRoot}/.eslintrc.js",
+      "{workspaceRoot}/.eslintignore",
+      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/.eslintignore",
+      "{projectRoot}/package.json"
     ],
     "specs": [
       "default",

@@ -22,8 +22,7 @@
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-api-spec/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/tsconfig.build.json",
-        "outputPath": "packages/@o3r/amaterasu/amaterasu-api-spec/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@o3r/amaterasu/amaterasu-api-spec/dist"
       }
     },
     "lint": {
@@ -37,7 +36,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/amaterasu/amaterasu-api-spec/src/**/*.ts"
+          "packages/@o3r/amaterasu/amaterasu-api-spec/src/**/*.ts",
+          "packages/@o3r/amaterasu/amaterasu-api-spec/package.json"
         ]
       }
     },

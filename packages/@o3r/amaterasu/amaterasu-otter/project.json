@@ -22,8 +22,7 @@
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-otter/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-otter/tsconfig.build.json",
-        "outputPath": "packages/@o3r/amaterasu/amaterasu-otter/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@o3r/amaterasu/amaterasu-otter/dist"
       }
     },
     "lint": {
@@ -37,7 +36,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/amaterasu/amaterasu-otter/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/amaterasu/amaterasu-otter/src/**/*.ts"
+          "packages/@o3r/amaterasu/amaterasu-otter/src/**/*.ts",
+          "packages/@o3r/amaterasu/amaterasu-otter/package.json"
         ]
       }
     },

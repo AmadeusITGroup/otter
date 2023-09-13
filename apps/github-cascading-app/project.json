@@ -28,7 +28,8 @@
       "options": {
         "eslintConfig": "apps/github-cascading-app/.eslintrc.js",
         "lintFilePatterns": [
-          "apps/github-cascading-app/src/**/*.ts"
+          "apps/github-cascading-app/src/**/*.ts",
+          "apps/github-cascading-app/package.json"
         ]
       }
     },

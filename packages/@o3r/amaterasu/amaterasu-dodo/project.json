@@ -27,8 +27,7 @@
           "packages/@o3r/amaterasu/amaterasu-dodo/{builders,extractors,schematics}/**/templates/**",
           "packages/@o3r/amaterasu/amaterasu-dodo/{builders,collection,migration}.json",
           "packages/@o3r/amaterasu/amaterasu-dodo/cli/*"
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       }
     },
     "lint": {
@@ -42,7 +41,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/amaterasu/amaterasu-dodo/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts"
+          "packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts",
+          "packages/@o3r/amaterasu/amaterasu-dodo/package.json"
         ]
       }
     },

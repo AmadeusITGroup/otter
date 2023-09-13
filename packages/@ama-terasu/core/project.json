@@ -26,8 +26,7 @@
       "options": {
         "main": "packages/@ama-terasu/core/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/core/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@ama-terasu/core/dist"
       }
     },
     "lint": {
@@ -41,7 +40,8 @@
       "options": {
         "eslintConfig": "packages/@ama-terasu/core/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-terasu/core/src/**/*.ts"
+          "packages/@ama-terasu/core/src/**/*.ts",
+          "packages/@ama-terasu/core/package.json"
         ]
       }
     },
