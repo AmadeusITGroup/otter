@@ -2,28 +2,28 @@
   "name": "@o3r/eslint-config-otter",
   "version": "0.0.0-placeholder",
   "description": "Recommended eslint configuration for Otter project",
-  "main": "src/index.js",
+  "main": "index.cjs",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "default": "./index.js"
+      "default": "./index.cjs"
     },
     "./base": {
-      "default": "./base.js"
+      "default": "./base.cjs"
     },
     "./fast": {
-      "default": "./fast.js"
+      "default": "./fast.cjs"
     },
     "./jasmine": {
-      "default": "./jasmine.js"
+      "default": "./jasmine.cjs"
     },
     "./jasmine-fast": {
-      "default": "./jasmine-fast.js"
+      "default": "./jasmine-fast.cjs"
     },
     "./template": {
-      "default": "./template.js"
+      "default": "./template.cjs"
     }
   },
   "keywords": [
@@ -34,7 +34,7 @@
     "otter-module"
   ],
   "scripts": {
-    "build": "yarn cpy --flat {base,fast,index,jasmine,jasmine-fast,template}.js package.json dist && yarn postbuild",
+    "build": "yarn cpy --flat {base,fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",

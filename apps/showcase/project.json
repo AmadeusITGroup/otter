@@ -217,7 +217,7 @@
         ]
       },
       "dependsOn": [
-        "^build-source"
+        "build-source"
       ]
     },
     "run": {

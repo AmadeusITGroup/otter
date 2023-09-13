@@ -132,11 +132,12 @@ describe('Mock intercept', () => {
         }
       });
       const callback = jest.fn();
-      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
       await jest.advanceTimersByTimeAsync(699);
       expect(callback).not.toHaveBeenCalled();
       await jest.advanceTimersByTimeAsync(1);
       expect(callback).toHaveBeenCalled();
+      await run;
     });
 
     it('should delay the response based on callback', async () => {
@@ -152,11 +153,12 @@ describe('Mock intercept', () => {
         }
       });
       const callback = jest.fn();
-      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      const run = loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
       await jest.advanceTimersByTimeAsync(799);
       expect(callback).not.toHaveBeenCalled();
       await jest.advanceTimersByTimeAsync(1);
       expect(callback).toHaveBeenCalled();
+      await run;
     });
   });
 });

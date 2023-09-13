@@ -15,7 +15,7 @@
     "prepare:build:builders": "yarn cpy 'collection.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build sotrybook",
-    "build:react": "tsc -p tsconfig.build.react.json",
+    "build:react": "tsc -b tsconfig.build.react.json",
     "build:source": "tsc -b tsconfig.build.json",
     "build:wrapper": "ngc -p tsconfig.component-wrapper.json",
     "prepare:publish": "prepare-publish ./dist"

@@ -18,8 +18,7 @@
   "scripts": {
     "build": "yarn nx build test-helpers",
     "prepare:build:builders": "yarn run cpy 'collection.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
-    "build:schematics": "tsc -b tsconfig.builders.json --pretty && yarn run cpy 'schematics/**/*.json' dist/schematics && yarn run cpy 'collection.json' dist"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "~16.2.0",
