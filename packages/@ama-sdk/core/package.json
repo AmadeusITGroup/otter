@@ -54,13 +54,18 @@
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~16.2.0",
+    "@angular/cli": "~16.2.0",
     "@angular/common": "~16.2.0",
     "@schematics/angular": "~16.2.0",
     "isomorphic-fetch": "^3.0.0",
+    "rxjs": "^7.8.1",
     "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/cli": {
       "optional": true
     },
     "@angular/common": {
@@ -70,6 +75,9 @@
       "optional": true
     },
     "isomorphic-fetch": {
+      "optional": true
+    },
+    "rxjs": {
       "optional": true
     },
     "typescript": {
