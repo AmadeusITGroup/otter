@@ -8,7 +8,7 @@ import { ngRegisterProjectTasks } from './rules/rules.ng';
 import { nxRegisterProjectTasks } from './rules/rules.nx';
 import { updateTsConfig } from './rules/update-ts-paths.rule';
 import { cleanStandaloneFiles } from './rules/clean-standalone.rule';
-import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
+import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schematics/tasks';
 
 /**
  * Add an Otter compatible SDK to a monorepo
@@ -44,19 +44,21 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
         package: cleanName,
         name: scope,
         directory: targetPath,
-        packageManager: getPackageManager({workspaceConfig})
+        packageManager: getPackageManager({workspaceConfig}),
+        skipInstall: !!options.specPath || options.skipInstall
       }),
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, cleanName, scope),
       cleanStandaloneFiles(targetPath),
       addModuleSpecificFiles(),
       options.specPath ? (_host: Tree, c: SchematicContext) => {
+        const installTaskId = c.addTask(new NodePackageInstallTask());
         c.addTask(new RunSchematicTask<Partial<NgGenerateTypescriptSDKCoreSchematicsSchema>>('@ama-sdk/schematics', 'typescript-core', {
           ...options,
           specPath: options.specPath,
           directory: targetPath,
           packageManager: getPackageManager({workspaceConfig})
-        }));
+        }), [installTaskId]);
       } : noop
     ])(tree, context);
   };
