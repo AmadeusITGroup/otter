@@ -214,7 +214,7 @@
   },
   "engines": {
     "npm": "please-use-yarn",
-    "node": ">=16.0.0",
+    "node": ">=18.0.0",
     "yarn": ">=3.1.0 <4.0.0",
     "vscode": "^1.22.0"
   },

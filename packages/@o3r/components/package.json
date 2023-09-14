@@ -128,7 +128,7 @@
     "zone.js": "~0.13.1"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "schematics": "./collection.json",
   "builders": "./builders.json"

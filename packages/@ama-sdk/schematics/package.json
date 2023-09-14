@@ -99,8 +99,6 @@
   },
   "openApiSupportedVersion": "~6.6.0",
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=4",
-    "yarn": "<4.0.0"
+    "node": ">=18.0.0"
   }
 }
