@@ -114,7 +114,7 @@
     "chokidar": "^3.5.2",
     "copyfiles": "^2.4.1",
     "cpy": "~10.1.0",
-    "cpy-cli": "^4.2.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
@@ -131,7 +131,7 @@
     "rxjs": "^7.8.1",
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
-    "type-fest": "^3.12.0",
+    "type-fest": "^4.3.1",
     "typescript": "~5.2.2",
     "zone.js": "~0.14.2"
   },
