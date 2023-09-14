@@ -75,15 +75,8 @@ jobs:
             !.cache/test-app/cache/@ama-terasu*
             !.cache/test-app/cache/@o3r*
           key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
-      - name: Cache test-sdk yarn
-        uses: actions/cache@v3
-        with:
-          path: |
-            .cache/test-sdk
-            !.cache/test-sdk/@ama-sdk*
-            !.cache/test-sdk/@ama-terasu*
-            !.cache/test-sdk/@o3r*
-          key: ${{ runner.os }}-test-sdk-${{ matrix.packageManager }}-${{ env.currentMonth }}
+      - name: Make sure that internal packages are not cached for whatever reason
+        run: npx --yes rimraf -g ".cache/test-app/cache/@{o3r,ama-sdk,ama-terasu}-*"
       - uses: actions/download-artifact@v3
         name: Download verdaccio storage prepared in the previous job
         with:
