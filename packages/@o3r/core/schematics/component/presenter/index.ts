@@ -67,13 +67,13 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
   const fullStructureRequested = options.componentStructure === 'full';
 
-  const generateFiles = (tree: Tree, _context: SchematicContext) => {
+  const generateFiles = async (tree: Tree, context: SchematicContext) => {
 
     const workspaceProject = getProjectFromTree(tree);
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
 
-    const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
+    const destination = getDestinationPath('@o3r/core:component', options.path, tree);
     const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
     const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
     const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
@@ -166,32 +166,47 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       })
     );
 
-    rules.push(
-      getAddConfigurationRules(
-        componentPath,
-        options
-      ),
-      getAddThemingRules(
-        o3rStylePath,
-        options
-      ),
-      getAddLocalizationRules(
-        componentPath,
-        options
-      ),
-      getAddFixtureRules(
-        componentPath,
-        options
-      ),
-      getAddAnalyticsRules(
-        componentPath,
-        options
-      ),
-      getAddContextRules(
-        componentPath,
-        options
-      )
+    const configurationRules = await getAddConfigurationRules(
+      componentPath,
+      options,
+      context
     );
+    rules.push(...configurationRules);
+
+    const themingRules = await getAddThemingRules(
+      o3rStylePath,
+      options,
+      context
+    );
+    rules.push(...themingRules);
+
+    const localizationRules = await getAddLocalizationRules(
+      componentPath,
+      options,
+      context
+    );
+    rules.push(...localizationRules);
+
+    const fixtureRules = await getAddFixtureRules(
+      componentPath,
+      options,
+      context
+    );
+    rules.push(...fixtureRules);
+
+    const analyticsRules = await getAddAnalyticsRules(
+      componentPath,
+      options,
+      context
+    );
+
+    rules.push(...analyticsRules);
+    const contextRules = await getAddContextRules(
+      componentPath,
+      options,
+      context
+    );
+    rules.push(...contextRules);
 
     return chain(rules);
   };

@@ -2,7 +2,7 @@
 /* eslint-disable quote-props */
 module.exports = {
   'extends': [
-    './base.cjs',
+    './base',
     'plugin:eslint-plugin-jasmine/recommended'
   ],
   'plugins': [

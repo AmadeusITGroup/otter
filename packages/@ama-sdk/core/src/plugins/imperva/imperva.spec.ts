@@ -44,13 +44,12 @@ describe('Imperva fetch plug-in', () => {
     const runner = plugin.load(defaultContext);
 
     const callback = jest.fn();
-    const run = runner.canStart().then(callback);
+    runner.canStart().then(callback);
     await jest.advanceTimersByTimeAsync(999);
     expect(callback).not.toHaveBeenCalled();
 
     await jest.advanceTimersByTimeAsync(1);
     expect(callback).toHaveBeenCalled();
-    await run;
   });
 
   it('Should allow if the cookie is not there and configured to allow nonetheless', async () => {

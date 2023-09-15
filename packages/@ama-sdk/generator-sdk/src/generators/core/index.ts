@@ -2,7 +2,7 @@ import * as path from 'node:path';
 import * as rimraf from 'rimraf';
 import * as sway from 'sway';
 import { type } from 'node:os';
-import type {Operation, PathObject} from '@ama-sdk/core';
+import {Operation, PathObject} from '@ama-sdk/core';
 
 import Generator from 'yeoman-generator';
 

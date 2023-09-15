@@ -21,13 +21,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         // install packages needed in the current module
         options.skipInstall ? noop : install,
         // add the missing Otter modules in the current project
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          projectName: options.projectName,
-          workingDirectory
-        })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: `${depsInfo.packageName!} - setup`, workingDirectory })
       ]);
     } catch (e) {
       // If the installation is initialized in a non-Otter application, mandatory packages will be missing. We need to notify the user

@@ -21,7 +21,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          projectName: options.projectName,
           dependencyType: getProjectDepType(t),
           workingDirectory
         })(t, c),

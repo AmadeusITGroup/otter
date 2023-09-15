@@ -1,5 +1,5 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
+import { LoggerClient } from '@o3r/logger';
 
 import SmartLook from 'smartlook-client';
 
@@ -9,6 +9,7 @@ import SmartLook from 'smartlook-client';
 export class SmartLookClient implements LoggerClient {
   /**
    * Constructor.
+   *
    * @param key SmartLook key
    */
   constructor(key: string) {

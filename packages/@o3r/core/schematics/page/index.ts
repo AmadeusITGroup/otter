@@ -34,13 +34,13 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
    * @param tree File tree
    * @param context Context of the rule
    */
-  const generateFiles = (tree: Tree, context: SchematicContext): Rule => {
+  const generateFiles = async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     const workspaceProject = getProjectFromTree(tree, null, 'application');
     if (!workspaceProject) {
       context.logger.warn('No application detected in this project, the page cannot be generated');
-      return noop;
+      return () => tree;
     }
-    const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
+    const destination = getDestinationPath('@o3r/core:page', options.path, tree);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
     const projectName = workspaceProject.name;
@@ -164,28 +164,37 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
       move(pagePath)
     ]), MergeStrategy.Overwrite));
 
-    rules.push(
-      getAddConfigurationRules(
-        componentPath,
-        options
-      ),
-      getAddThemingRules(
-        o3rStylePath,
-        options
-      ),
-      getAddLocalizationRules(
-        componentPath,
-        options
-      ),
-      getAddFixtureRules(
-        componentPath,
-        {
-          skipLinter: options.skipLinter,
-          useComponentFixtures: options.usePageFixtures
-        },
-        true
-      )
+    const configurationRules = await getAddConfigurationRules(
+      componentPath,
+      options,
+      context
     );
+    rules.push(...configurationRules);
+
+    const themingRules = await getAddThemingRules(
+      o3rStylePath,
+      options,
+      context
+    );
+    rules.push(...themingRules);
+
+    const localizationRules = await getAddLocalizationRules(
+      componentPath,
+      options,
+      context
+    );
+    rules.push(...localizationRules);
+
+    const fixtureRules = await getAddFixtureRules(
+      componentPath,
+      {
+        ...options,
+        useComponentFixtures: options.usePageFixtures
+      },
+      context,
+      true
+    );
+    rules.push(...fixtureRules);
 
     return chain(rules);
   };

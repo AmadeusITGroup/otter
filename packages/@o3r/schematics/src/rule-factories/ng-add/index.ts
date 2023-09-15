@@ -17,7 +17,7 @@ import * as path from 'node:path';
  * @param options install options
  * @param packageJsonPath path of the package json of the project where they will be installed
  */
-export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOptions, 'version'> & { version?: string | (string | undefined)[] }, packageJsonPath = '/package.json'): Rule {
+export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOptions, 'version'> & {version?: string | string[]}, packageJsonPath = '/package.json'): Rule {
   if (!packages.length) {
     return noop;
   }

@@ -1,16 +1,18 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgGenerateComponentSchematicsSchema } from '../../component/schema';
+import { Rule, SchematicContext } from '@angular-devkit/schematics';
+import { NgGenerateComponentSchematicsSchema } from '../../component/schema';
 import { askQuestionsToGetRulesOrThrowIfPackageNotAvailable } from './common';
 
-export const getAddContextRules = (
+export const getAddContextRules = async (
   componentPath: string,
-  options: Pick<NgGenerateComponentSchematicsSchema, 'useContext' | 'skipLinter'>
-): Rule => askQuestionsToGetRulesOrThrowIfPackageNotAvailable(
+  options: Pick<NgGenerateComponentSchematicsSchema, 'useContext' | 'skipLinter'>,
+  context: SchematicContext
+): Promise<Rule[]> => askQuestionsToGetRulesOrThrowIfPackageNotAvailable(
   componentPath,
   'useContext',
   options.useContext,
   'Generate component with Otter context?',
   ['@o3r/core:component', '@o3r/core:component-container', '@o3r/core:component-presenter'],
+  context,
   '@o3r/core',
   'context-to-component',
   {

@@ -98,11 +98,6 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
         // eslint-disable-next-line @typescript-eslint/naming-convention
         {...execAppOptions, cwd: options.cwd});
       setPackagerManagerConfig(options, execAppOptions);
-      packageManagerInstall(execAppOptions);
-    }
-    packageManagerExec('ng config cli.cache.environment all', execAppOptions);
-    if (options.globalFolderPath) {
-      packageManagerExec(`ng config cli.cache.path "${path.join(options.globalFolderPath, '.angular', 'cache')}"`, execAppOptions);
     }
 
     // Add dependencies

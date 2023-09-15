@@ -183,23 +183,16 @@
         "^source"
       ],
       "outputs": [
-        "{projectRoot}/dist",
-        "{projectRoot}/build/.tsbuildinfo"
+        "{projectRoot}/dist"
       ]
     },
     "build-source": {
-      "dependsOn": [
-        "^build"
-      ],
       "inputs": [
         "source",
         "^source"
       ],
       "outputs": [
         "{projectRoot}/dist"
-      ],
-      "dependsOn": [
-        "^build"
       ]
     },
     "build-fixtures": {

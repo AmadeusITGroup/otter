@@ -29,7 +29,17 @@ export function ngGeneratePlaywrightSanity(options: NgGeneratePlaywrightSanitySc
    * @param context Context of the rule
    */
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    const sanityPath = getDestinationPath('@o3r/testing:playwright-sanity', options.path, tree, options.projectName);
+    let sanitiesPath = options.path;
+    if (!sanitiesPath) {
+      const workspaceProject = getProjectFromTree(tree, null, 'application');
+      const configurationIndex = '@o3r/testing:playwright-sanity';
+      const playwrightOptions = workspaceProject?.schematics?.[configurationIndex] as {path?: string} | undefined;
+      if (!playwrightOptions || !playwrightOptions.path || typeof playwrightOptions.path !== 'string') {
+        throw new Error('Cannot create a playwright sanity without a path. Provide a path in angular.json');
+      }
+      sanitiesPath = playwrightOptions.path;
+    }
+    const sanityPath = getDestinationPath('@o3r/core:page', sanitiesPath, tree);
 
     const templateSource = apply(url('./templates'), [
       template({

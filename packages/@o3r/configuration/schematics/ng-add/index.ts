@@ -23,7 +23,7 @@ export function ngAdd(options: NgAddSchematicsSchema) {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const dependencyType = getProjectDepType(tree);
-      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
       return chain([
@@ -42,14 +42,7 @@ export function ngAdd(options: NgAddSchematicsSchema) {
             useOtterConfig: undefined
           }
         }),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
-          projectName: options.projectName,
-          dependencyType,
-          workingDirectory
-        })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory })
       ])(tree, context);
     } catch (e) {
       // configuration needs o3r/core as peer dep. o3r/core will install o3r/schematics

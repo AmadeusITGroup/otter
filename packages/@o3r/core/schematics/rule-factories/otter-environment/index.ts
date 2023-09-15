@@ -58,7 +58,7 @@ export function updateOtterEnvironmentAdapter(
         const path = TYPES_DEFAULT_FOLDER[item].app;
         if (path) {
           workspaceProject.schematics![item] = {
-            path: posix.join(workspaceProject.root, path),
+            path,
             ...(workspaceProject.schematics![item] || {})
           };
         }

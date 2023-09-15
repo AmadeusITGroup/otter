@@ -46,14 +46,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
         ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/rules-engine - install builder dependency'),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
-          projectName: options.projectName,
-          dependencyType,
-          workingDirectory
-        }),
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ]);
 

@@ -17,7 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const ts = await import('typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : undefined;
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
 
       const addAngularAnimationPreferences: Rule = () => {
         const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
@@ -72,7 +72,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
-          projectName: options.projectName,
           dependencyType,
           workingDirectory
         }),

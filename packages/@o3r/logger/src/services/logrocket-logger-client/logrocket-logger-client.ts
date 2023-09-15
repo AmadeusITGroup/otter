@@ -1,5 +1,5 @@
 import { Action, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from '@o3r/logger';
+import { LoggerClient } from '@o3r/logger';
 
 import * as LogRocket from 'logrocket';
 import createNgrxMiddleware, { Options } from 'logrocket-ngrx';
@@ -16,6 +16,7 @@ export class LogRocketClient implements LoggerClient {
 
   /**
    * Constructor.
+   *
    * @param appId LogROcket application ID
    * @param initOptions Optional configuration to change what LogRocket records
    * @param metaReducerOptions Optional meta reducer configuration to change what store related items LogRocket records

@@ -29,7 +29,17 @@ export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenar
    * @param context Context of the rule
    */
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    const scenarioPath = getDestinationPath('@o3r/testing:playwright-scenario', options.path, tree, options.projectName);
+    let scenariosPath = options.path;
+    if (!scenariosPath) {
+      const workspaceProject = getProjectFromTree(tree, null, 'application');
+      const configurationIndex = '@o3r/testing:playwright-scenario';
+      const playwrightOptions = workspaceProject?.schematics?.[configurationIndex] as {path?: string} | undefined;
+      if (!playwrightOptions || !playwrightOptions.path || typeof playwrightOptions.path !== 'string') {
+        throw new Error('Cannot create a playwright scenario without a path. Provide a path in angular.json');
+      }
+      scenariosPath = playwrightOptions.path;
+    }
+    const scenarioPath = getDestinationPath('@o3r/core:page', scenariosPath, tree);
 
     const templateSource = apply(url('./templates'), [
       template({

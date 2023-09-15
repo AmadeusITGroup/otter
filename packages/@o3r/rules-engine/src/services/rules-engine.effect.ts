@@ -35,13 +35,9 @@ export class PlaceholderTemplateResponseEffect {
         (templateResponse, action) => {
           const facts = templateResponse.vars ? Object.values(templateResponse.vars).filter((variable: PlaceholderVariable) => variable.type === 'fact') : [];
           const factsStreamsList = facts.map((fact) =>
-            this.rulesEngineService.engine.retrieveOrCreateFactStream(fact.value).pipe(
-              map((factValue) => ({
-                // eslint-disable-next-line new-cap
-                name: fact.value, factValue: (fact.path && factValue) ? JSONPath({wrap: false, json: factValue, path: fact.path}) : factValue
-              })),
-              distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
-            ));
+            this.rulesEngineService.engine.retrieveOrCreateFactStream(fact.value).pipe(map((factValue) => ({
+              name: fact.value, factValue
+            }))));
           const factsStreamsList$ = factsStreamsList.length ? combineLatest(factsStreamsList) : of([]);
           return combineLatest([factsStreamsList$, this.store.select(selectPlaceholderRequestEntityUsage(action.id)).pipe(distinctUntilChanged())]).pipe(
             switchMap(([factsUsedInTemplate, placeholderRequestUsage]) => {
@@ -112,7 +108,10 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factset[vars[varName].value] ?? '');
+              const factValue = factset[vars[varName].value] || '';
+              // eslint-disable-next-line new-cap
+              const resolvedFactValue = vars[varName].path ? factValue && JSONPath({wrap: false, json: factValue, path: vars[varName].path!}) : factValue;
+              template = template.replace(ejsVar, resolvedFactValue);
               break;
             }
             case 'localisation': {

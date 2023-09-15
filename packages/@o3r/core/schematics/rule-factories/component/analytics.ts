@@ -1,16 +1,18 @@
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgGenerateComponentSchematicsSchema } from '../../component/schema';
+import { Rule, SchematicContext } from '@angular-devkit/schematics';
+import { NgGenerateComponentSchematicsSchema } from '../../component/schema';
 import { askQuestionsToGetRulesOrThrowIfPackageNotAvailable } from './common';
 
 export const getAddAnalyticsRules = (
   componentPath: string,
-  options: NgGenerateComponentSchematicsSchema
-): Rule => askQuestionsToGetRulesOrThrowIfPackageNotAvailable(
+  options: NgGenerateComponentSchematicsSchema,
+  context: SchematicContext
+): Promise<Rule[]> => askQuestionsToGetRulesOrThrowIfPackageNotAvailable(
   componentPath,
   'useOtterAnalytics',
   options.useOtterAnalytics,
   'Generate component with Otter analytics?',
   ['@o3r/core:component', '@o3r/core:component-presenter'],
+  context,
   '@o3r/analytics',
   'analytics-to-component',
   {

@@ -18,7 +18,8 @@
   "scripts": {
     "build": "yarn nx build test-helpers",
     "prepare:build:builders": "yarn run cpy 'collection.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:schematics": "tsc -b tsconfig.builders.json --pretty && yarn run cpy 'schematics/**/*.json' dist/schematics && yarn run cpy 'collection.json' dist"
   },
   "devDependencies": {
     "@angular-devkit/schematics": "~16.2.0",
@@ -28,7 +29,6 @@
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~16.2.0",
     "@types/jest": "~29.5.2",
-    "@types/node": "^18.0.0",
     "@types/pid-from-port": "^1.1.0",
     "@types/semver": "^7.3.13",
     "@typescript-eslint/eslint-plugin": "^5.59.9",
@@ -37,10 +37,10 @@
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.2.3",
-    "eslint-plugin-jsdoc": "~46.8.0",
+    "eslint-plugin-jsdoc": "~46.5.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
-    "jest": "~29.7.0",
+    "jest": "~29.6.2",
     "jest-junit": "~16.0.0",
     "minimist": "^1.2.6",
     "pid-from-port": "^1.1.3",

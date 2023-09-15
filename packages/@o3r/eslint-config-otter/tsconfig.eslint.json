@@ -1,7 +1,10 @@
 {
   "extends": "../../../tsconfig.base",
   "include": [
-    "*.cjs",
+    "*.js",
     ".eslintrc.js"
+  ],
+  "exclude": [
+    "node_modules/**"
   ]
 }

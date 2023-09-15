@@ -143,7 +143,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
         skipConfirmation: true,
         version: o3rCoreVersion,
         parentPackageInfo: '@o3r/core - customization environment update',
-        projectName: options?.projectName,
         dependencyType: isLibrary ? NodeDependencyType.Peer : NodeDependencyType.Default,
         workingDirectory
       })

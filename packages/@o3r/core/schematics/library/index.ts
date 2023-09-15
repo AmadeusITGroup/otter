@@ -20,7 +20,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
     if (!config) {
       throw new Error('No workspace configuration file found');
     }
-    const defaultRoot = getPackagesBaseRootFolder(tree, context, config, 'library');
+    const defaultRoot = getPackagesBaseRootFolder(tree, context, config);
 
     /** Path to the folder where generate the new module */
     const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
@@ -30,7 +30,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
       // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
       // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
-      (t, c) => schematic('ng-add-create', { name: options.name, path: targetPath })(t, c),
+      (t, c) => schematic('ng-add-create', { projectName: options.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());

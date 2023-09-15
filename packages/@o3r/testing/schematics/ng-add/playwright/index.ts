@@ -12,7 +12,7 @@ import { PackageJson } from 'type-fest';
  */
 export function updatePlaywright(options: NgAddPackageOptions = {}): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = options.projectName && getProjectRootDir(tree, options.projectName) || '.';
+    const workingDirectory = getProjectRootDir(tree, options.projectName) || '.';
 
     // update gitignore
     const gitignorePath = '.gitignore';
@@ -39,7 +39,7 @@ playwright-reports
       tree.overwrite(packageJsonPath, JSON.stringify(packageJson, null, 2));
     }
     const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-    const ngAddRules = ngAddPeerDependencyPackages(['@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, {...options, skipNgAddSchematicRun: true, workingDirectory});
+    const ngAddRules = ngAddPeerDependencyPackages(['@playwright/test', 'rimraf'], corePackageJsonPath, NodeDependencyType.Dev, {...options, skipNgAddSchematicRun: true});
 
     // generate files
     if (!tree.exists(path.posix.join(workingDirectory, 'e2e-playwright', 'playwright-config.ts'))) {

@@ -26,10 +26,6 @@
       "type": "string",
       "description": "Target directory to generate the module"
     },
-    "specPath": {
-      "type": "string",
-      "description": "Path to the swagger specification used to generate the SDK; If not provided, sdk shell will be generated"
-    },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",

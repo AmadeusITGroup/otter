@@ -471,13 +471,13 @@
             "value": {
               "anyOf": [
                 {
-                  "type": ["string", "number", "boolean"]
+                  "type": "string"
                 },
                 {
-                  "type": "array",
-                  "items": {
-                    "type": ["string", "number", "boolean"]
-                  }
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
                 }
               ]
             }
