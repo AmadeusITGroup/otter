@@ -90,6 +90,7 @@ Otter framework provides a set of code generators based on [angular schematics](
 | -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
 | library                    | Add a new Library to the current Otter project                                | `ng g library`                    |
 | sdk                        | Add a new SDK to the current Otter project                                    | `ng g sdk`                        |
+| application                | Add a new Application to the current Otter project                            | `ng g application`                |
 
 ## Create your own Otter compatible module
 

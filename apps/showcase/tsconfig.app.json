@@ -1,5 +1,6 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
+  "extends": "../../tsconfig.build.json",
   "include": [
     "src/**/*.ts"
   ],
@@ -8,7 +9,6 @@
   ],
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": ".",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -38,19 +38,7 @@
     "lib": [
       "ES2022",
       "dom"
-    ],
-    "paths": {
-      "@o3r/application": ["../../packages/@o3r/application/src/public_api"],
-      "@o3r/components": ["../../packages/@o3r/components/src/public_api"],
-      "@o3r/configuration": ["../../packages/@o3r/configuration/src/public_api"],
-      "@o3r/core": ["../../packages/@o3r/core/src/public_api"],
-      "@o3r/dynamic-content": ["../../packages/@o3r/dynamic-content/src/public_api"],
-      "@o3r/localization": ["../../packages/@o3r/localization/src/public_api"],
-      "@o3r/logger": ["../../packages/@o3r/logger/src/public_api"],
-      "@o3r/routing": ["../../packages/@o3r/routing/src/public_api"],
-      "@o3r/rules-engine": ["../../packages/@o3r/rules-engine/src/public_api"],
-      "@o3r/testing/*": ["../../packages/@o3r/testing/src/*"]
-    }
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

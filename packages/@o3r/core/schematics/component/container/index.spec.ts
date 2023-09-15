@@ -4,6 +4,7 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
 import { CONTAINER_FOLDER } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
@@ -41,16 +42,6 @@ describe('Component container', () => {
     runner = new SchematicTestRunner('schematics', collectionPath);
     const angularPackageJson = require.resolve('@schematics/angular/package.json');
     runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
-    // eslint-disable-next-line no-underscore-dangle
-    (fs as any).__mockFiles({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      './package.json': JSON.stringify({
-        devDependencies: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core': 'latest'
-        }
-      }, null, 2)
-    });
   });
 
   it('should generate a container component in the default component folder', async () => {
@@ -191,18 +182,10 @@ describe('Component container', () => {
   });
 
   it('should generate a container component with rules engine', async () => {
-    // eslint-disable-next-line no-underscore-dangle
-    (fs as any).__mockFiles({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      './package.json': JSON.stringify({
-        devDependencies: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core': 'latest',
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/rules-engine': 'latest'
-        }
-      }, null, 2)
-    });
+    const packageJson = initialTree.readJson('package.json') as PackageJson;
+    packageJson.dependencies ??= {};
+    packageJson.dependencies['@o3r/rules-engine'] = '0.0.0';
+    initialTree.overwrite('package.json', JSON.stringify(packageJson));
     const externalSchematicsSpy = jest.fn((tree: Tree) => tree);
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy

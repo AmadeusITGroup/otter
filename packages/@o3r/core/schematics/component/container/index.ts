@@ -64,13 +64,13 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
 
   const fullStructureRequested = options.componentStructure === 'full';
 
-  const generateFiles = async (tree: Tree, context: SchematicContext) => {
+  const generateFiles = (tree: Tree, context: SchematicContext) => {
 
     const workspaceProject = getProjectFromTree(tree);
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);
 
-    const destination = getDestinationPath('@o3r/core:component', options.path, tree);
+    const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
     const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, CONTAINER_FOLDER) : properties.folderName);
     const componentPath = path.posix.join(componentDestination, `${properties.name}.component.ts`);
     const ngSpecPath = path.posix.join(componentDestination, `${properties.name}.component.spec.ts`);
@@ -256,33 +256,24 @@ class Mock${properties.presenterComponentName} {}
       );
     }
 
-    const configurationRules = await getAddConfigurationRules(
-      componentPath,
-      options,
-      context
+    rules.push(
+      getAddConfigurationRules(
+        componentPath,
+        options
+      ),
+      getAddFixtureRules(
+        componentPath,
+        options
+      ),
+      getAddContextRules(
+        componentPath,
+        options
+      ),
+      getAddRulesEngineRules(
+        path.posix.join(componentDestination, `${properties.name}.component.ts`),
+        options
+      )
     );
-    rules.push(...configurationRules);
-
-    const fixtureRules = await getAddFixtureRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...fixtureRules);
-
-    const contextRules = await getAddContextRules(
-      componentPath,
-      options,
-      context
-    );
-    rules.push(...contextRules);
-
-    const rulesEngineRules = await getAddRulesEngineRules(
-      path.posix.join(componentDestination, `${properties.name}.component.ts`),
-      options,
-      context
-    );
-    rules.push(...rulesEngineRules);
 
     return chain(rules);
   };

@@ -29,7 +29,7 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
       ${
   (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
     const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
-    return `${propName}: ${value}`;
+    return `${propName as string}: ${value}`;
   }).join(',')
 }
     }`;
@@ -37,7 +37,6 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
 
 /**
  * Generate a typescript SDK source code base on swagger specification
- *
  * @param options
  */
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
@@ -67,7 +66,6 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
 
   /**
    * rule to clear previous SDK generation
-   *
    * @param tree
    * @param _context
    */
@@ -103,7 +101,6 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
 
   /**
    * Update local swagger spec file
-   *
    * @param tree
    * @param _context
    */

@@ -42,16 +42,6 @@ describe('Component presenter', () => {
     runner = new SchematicTestRunner('schematics', collectionPath);
     const angularPackageJson = require.resolve('@schematics/angular/package.json');
     runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
-    // eslint-disable-next-line no-underscore-dangle
-    (fs as any).__mockFiles({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      './package.json': JSON.stringify({
-        devDependencies: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core': 'latest'
-        }
-      }, null, 2)
-    });
   });
 
   it('should generate a presenter component in the default component folder', async () => {
