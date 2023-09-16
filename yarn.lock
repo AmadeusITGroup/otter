@@ -93,7 +93,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -166,7 +166,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -211,7 +211,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -269,7 +269,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -334,7 +334,7 @@ __metadata:
     copyfiles: ^2.4.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -386,7 +386,7 @@ __metadata:
     chalk: ^4.1.2
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -443,7 +443,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -480,7 +480,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6428,7 +6428,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6461,7 +6461,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6497,7 +6497,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6534,7 +6534,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6587,7 +6587,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6665,7 +6665,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6737,7 +6737,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6849,7 +6849,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -6913,7 +6913,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7012,7 +7012,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7106,7 +7106,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7191,7 +7191,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7237,7 +7237,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7315,7 +7315,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7374,7 +7374,7 @@ __metadata:
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jasmine: ^4.1.3
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7446,7 +7446,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7505,7 +7505,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7575,7 +7575,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7658,7 +7658,7 @@ __metadata:
     editorconfig-checker: ^5.0.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7729,7 +7729,7 @@ __metadata:
     ejs: ^3.1.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7794,7 +7794,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7890,7 +7890,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -7975,7 +7975,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8061,7 +8061,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8146,7 +8146,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8250,7 +8250,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8341,7 +8341,7 @@ __metadata:
     bootstrap-icons: ^1.10.5
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8397,7 +8397,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8480,7 +8480,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8540,7 +8540,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8605,7 +8605,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8666,7 +8666,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8737,7 +8737,7 @@ __metadata:
     esbuild: ~0.19.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -8835,7 +8835,7 @@ __metadata:
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -12929,7 +12929,7 @@ __metadata:
     "@vercel/ncc": ~0.38.0
     audit-types: ~0.5.6
     eslint: ^8.42.0
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -13933,7 +13933,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -17366,9 +17366,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jest@npm:~27.2.3":
-  version: 27.2.3
-  resolution: "eslint-plugin-jest@npm:27.2.3"
+"eslint-plugin-jest@npm:~27.4.0":
+  version: 27.4.0
+  resolution: "eslint-plugin-jest@npm:27.4.0"
   dependencies:
     "@typescript-eslint/utils": ^5.10.0
   peerDependencies:
@@ -17380,7 +17380,7 @@ __metadata:
       optional: true
     jest:
       optional: true
-  checksum: 4c7e07f52f17749ac6fd0ff5fcd5ce30b88983ba31eeee322e4d48859f55eaa112f06172e586ad2031c00ff28bb2dfdc3d35c83895251b9c0e860fa47dfc5ff4
+  checksum: c33593dba87e750123555c2de32fb174d6f2c92342571492f8dbde01bf61a8ac229dff31bd08fea16c3ca2c4843fc2fec985459c351319c019016767ed1cd78e
   languageName: node
   linkType: hard
 
@@ -18687,7 +18687,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -23352,7 +23352,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.59.9
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
@@ -24479,7 +24479,7 @@ __metadata:
     "@vscode/vsce": ^2.16.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
-    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
