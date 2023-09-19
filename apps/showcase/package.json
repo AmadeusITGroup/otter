@@ -58,16 +58,16 @@
     "rxjs": "^7.8.1",
     "sass-loader": "^13.1.0",
     "tslib": "^2.5.3",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1602.0",
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.1.0",
-    "@angular-eslint/eslint-plugin-template": "~16.1.0",
-    "@angular-eslint/template-parser": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin-template": "~16.2.0",
+    "@angular-eslint/template-parser": "~16.2.0",
     "@angular/cli": "~16.2.0",
     "@angular/compiler-cli": "~16.2.0",
     "@o3r/dev-tools": "workspace:^",

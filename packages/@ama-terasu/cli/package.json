@@ -18,7 +18,7 @@
     "ama": "dist/src/cli/ama.js"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
     "@nx/jest": "~16.8.0",
     "@o3r/amaterasu-api-spec": "workspace:^",
     "@o3r/amaterasu-dodo": "workspace:^",

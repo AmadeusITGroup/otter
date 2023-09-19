@@ -20,7 +20,7 @@
     "@actions/github": "^5.1.1"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
