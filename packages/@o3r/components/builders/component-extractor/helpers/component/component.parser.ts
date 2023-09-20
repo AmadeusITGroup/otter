@@ -33,7 +33,10 @@ export interface FileParserOutputConfiguration extends FileParserOutput {
   configuration: ConfigurationInformationWrapper;
 }
 
-/** @inheritdoc */
+/**
+ * @inheritdoc
+ * @deprecated will be removed in v10
+ */
 export interface FileParserOutputModule extends FileParserOutput {
   /** @inheritdoc */
   module: ModuleInformation;
@@ -47,7 +50,10 @@ export interface ParserOutput {
   /** List of configuration parsed */
   configurations: { [file: string]: FileParserOutputConfiguration };
 
-  /** List of modules parsed */
+  /**
+   * List of modules parsed
+   * @deprecated will be removed in v10
+   */
   modules: { [file: string]: FileParserOutputModule };
 }
 
@@ -127,6 +133,7 @@ export class ComponentParser {
    *
    * @param file Path to the file to extract the component from
    * @param source Typescript SourceFile node of the file
+   * @deprecated will be removed in v10
    */
   private getModule(file: string, source: ts.SourceFile) {
     const moduleExtractor = new ComponentModuleExtractor(source, this.logger, file);
