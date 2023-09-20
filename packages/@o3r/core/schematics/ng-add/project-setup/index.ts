@@ -8,6 +8,7 @@ import {
   createAzurePipeline,
   filterPackageJsonScripts,
   generateRenovateConfig,
+  genericUpdates,
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
@@ -104,6 +105,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ];
   }
   const commonRules = [
+    genericUpdates(),
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
