@@ -108,7 +108,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/cli": ~16.2.0
@@ -6596,7 +6596,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
@@ -6673,7 +6673,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/schematics": ~16.2.0
@@ -6742,7 +6742,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -6858,7 +6858,7 @@ __metadata:
     tsc-watch: ^6.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -6921,7 +6921,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/schematics": ~16.2.0
@@ -7020,7 +7020,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
@@ -7119,7 +7119,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
@@ -7320,7 +7320,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular/compiler-cli": ~16.2.0
@@ -7519,7 +7519,7 @@ __metadata:
     typedoc: ~0.25.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -7580,7 +7580,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
@@ -7685,7 +7685,7 @@ __metadata:
     typescript: ~5.1.6
     webpack: ~5.88.0
     winston: ^3.8.2
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -7739,7 +7739,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -7805,7 +7805,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -7899,7 +7899,7 @@ __metadata:
     smartlook-client: ^8.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
@@ -7985,7 +7985,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     winston: ^3.8.2
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -8066,7 +8066,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
@@ -8160,7 +8160,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8259,7 +8259,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8354,7 +8354,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -8404,7 +8404,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8487,7 +8487,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8616,7 +8616,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8752,7 +8752,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.6.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8842,7 +8842,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -24406,7 +24406,7 @@ __metadata:
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -31296,11 +31296,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zone.js@npm:~0.14.0":
-  version: 0.14.0
-  resolution: "zone.js@npm:0.14.0"
+"zone.js@npm:~0.13.1":
+  version: 0.13.3
+  resolution: "zone.js@npm:0.13.3"
   dependencies:
     tslib: ^2.3.0
-  checksum: 8a1c055ff1f3da6e80f27bdc1b3a69cdb0098194ddfd9d9cee19414d5e00f09863f53a5746835ab711ef94bb828f44e4fe9f6c1491a0981dbcd13d3b88f5d997
+  checksum: 73888a51b0299b4b56c56b97c71fe4a3548a9bdb9e4b4c49dd0e110a4487fbe7f141c08d3e3acff875a6fbb6d581750209ac767ae5d82dca0636ede41aebd436
   languageName: node
   linkType: hard
