@@ -22,8 +22,7 @@
       "options": {
         "main": "packages/@o3r/stylelint-plugin/src/public_api.ts",
         "tsConfig": "packages/@o3r/stylelint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/stylelint-plugin/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@o3r/stylelint-plugin/dist"
       }
     },
     "lint": {
@@ -37,7 +36,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/stylelint-plugin/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/stylelint-plugin/src/**/*.ts"
+          "packages/@o3r/stylelint-plugin/src/**/*.ts",
+          "packages/@o3r/stylelint-plugin/package.json"
         ]
       }
     },

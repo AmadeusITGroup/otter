@@ -2,7 +2,7 @@
 /* eslint-disable quote-props */
 module.exports = {
   'extends': [
-    './base.cjs',
+    './typescript.cjs',
     'plugin:jest/recommended'
   ],
   'plugins': [

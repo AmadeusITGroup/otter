@@ -42,7 +42,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/apis-manager/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/apis-manager/src/**/*.ts"
+          "packages/@o3r/apis-manager/src/**/*.ts",
+          "packages/@o3r/apis-manager/package.json"
         ]
       }
     },

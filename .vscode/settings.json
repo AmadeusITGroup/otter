@@ -33,7 +33,7 @@
     "package.json": "ng-package.json, project.json, yarn.lock",
     "nx.json": "workspace.json, .nxignore",
     ".yarnrc.yml": ".npmrc, .npmrc.*",
-    ".eslintrc.*": ".eslintignore"
+    ".eslintrc.*": ".eslintignore, .eslintrc-*"
   },
   "stylelint.validate": [
     "css",

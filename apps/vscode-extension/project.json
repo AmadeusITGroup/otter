@@ -25,8 +25,7 @@
             "input": ".",
             "output": "."
           }
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       },
       "configurations": {
         "watch": {
@@ -45,7 +44,8 @@
       "options": {
         "eslintConfig": "apps/vscode-extension/.eslintrc.js",
         "lintFilePatterns": [
-          "apps/vscode-extension/src/**/*.ts"
+          "apps/vscode-extension/src/**/*.ts",
+          "apps/vscode-extension/package.json"
         ]
       }
     },

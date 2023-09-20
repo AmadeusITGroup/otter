@@ -56,7 +56,6 @@
         "main": "packages/@ama-sdk/core/src/public_api.ts",
         "tsConfig": "packages/@ama-sdk/core/tsconfig.build.json",
         "outputPath": "packages/@ama-sdk/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       }
     },
@@ -71,7 +70,8 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/core/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/core/src/**/*.ts"
+          "packages/@ama-sdk/core/src/**/*.ts",
+          "packages/@ama-sdk/core/package.json"
         ]
       }
     },

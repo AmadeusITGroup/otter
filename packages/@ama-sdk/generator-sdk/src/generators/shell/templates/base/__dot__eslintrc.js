@@ -2,7 +2,6 @@
 /* eslint-disable quote-props */
 
 module.exports = {
-  'parser': require.resolve('@typescript-eslint/parser'),
   'parserOptions': {
     'tsconfigRootDir': __dirname,
     'project': [
@@ -26,6 +25,16 @@ module.exports = {
   },
   'overrides': [
     {
+      'files': [
+        '*.{t,j}s'
+      ],
+      'plugins': [
+        'jest'
+      ],
+      'parser': require.resolve('@typescript-eslint/parser'),
+      'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
+    },
+    {
       'files': ['*.helper.ts'],
       'rules': {
         '@typescript-eslint/explicit-function-return-type': 'error'
@@ -36,13 +45,19 @@ module.exports = {
       'rules': {
         '@typescript-eslint/restrict-template-expressions': 'off'
       }
+    },
+    {
+      'files': [
+        '**/package.json'
+      ],
+      'rules': {
+        '@nx/dependency-checks': ['error', {
+          'buildTargets': ['build', 'compile', 'test'],
+          'ignoredDependencies': ['minimist'],
+          'checkObsoleteDependencies': false
+        }]
+      }
     }
-  ],
-  'plugins': [
-    'jest'
-  ],
-  'extends': [
-    '@o3r/eslint-config-otter'
-  ].map(require.resolve)
+  ]
 };
 

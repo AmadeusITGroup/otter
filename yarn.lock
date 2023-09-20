@@ -75,6 +75,7 @@ __metadata:
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -87,8 +88,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     copyfiles: ^2.4.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -101,6 +102,7 @@ __metadata:
     isomorphic-fetch: ~3.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
@@ -146,6 +148,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@angular-eslint/eslint-plugin-template": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -161,8 +164,8 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/pid-from-port": ^1.1.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -172,6 +175,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     minimist: ^1.2.6
     nx: ~16.8.0
     pid-from-port: ^1.1.3
@@ -195,18 +199,20 @@ __metadata:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/yeoman-environment": ^2.10.7
     "@types/yeoman-generator": ^5.2.10
     "@types/yeoman-test": ^4.0.3
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     copyfiles: ^2.4.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -218,7 +224,9 @@ __metadata:
     isomorphic-fetch: ~3.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     mem-fs: ^2.2.1
+    minimist: ^1.2.6
     npm-run-all: ^4.1.5
     onchange: ^7.0.2
     rimraf: ^5.0.1
@@ -250,6 +258,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@angular/cli": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -263,8 +272,8 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/pid-from-port": ^1.1.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     copyfiles: ^2.4.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -277,8 +286,9 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     mem-fs: ^2.2.1
-    minimatch: ^9.0.0
+    minimatch: ~9.0.3
     npm-run-all: ^4.1.5
     nx: ~16.8.0
     onchange: ^7.0.2
@@ -317,6 +327,7 @@ __metadata:
   dependencies:
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@apidevtools/swagger-parser": ^10.0.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -327,8 +338,8 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
     "@types/swagger-schema-official": ^2.0.22
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     commander: ^11.0.0
     concurrently: ^8.0.0
     copyfiles: ^2.4.1
@@ -342,6 +353,7 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     jsonschema: ~1.4.1
     mkdirp: ^1.0.4
     onchange: ^7.0.2
@@ -366,6 +378,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/amaterasu-api-spec": "workspace:^"
     "@o3r/amaterasu-dodo": "workspace:^"
@@ -381,8 +394,8 @@ __metadata:
     "@types/progress": ^2.0.5
     "@types/prompts": ^2.0.14
     "@types/yargs": ^17.0.20
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chalk: ^4.1.2
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -392,6 +405,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     jsonschema: ~1.4.1
     loglevel: ^1.8.0
     minimist: ^1.2.6
@@ -431,6 +445,7 @@ __metadata:
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -439,8 +454,8 @@ __metadata:
     "@types/minimist": ^1.2.2
     "@types/node": ^18.0.0
     "@types/yargs": ^17.0.20
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -449,6 +464,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     loglevel: ^1.8.0
     nx: ~16.8.0
     ts-jest: ~29.1.1
@@ -469,6 +485,7 @@ __metadata:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -476,8 +493,8 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -486,6 +503,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     ts-jest: ~29.1.1
     tslib: ^2.5.3
@@ -5938,6 +5956,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/devkit@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nrwl/devkit@npm:16.8.1"
+  dependencies:
+    "@nx/devkit": 16.8.1
+  checksum: c721b33853db99d6456d5539d601c2121ee1268e434c0ef37130be38f4a3d060b1fca47980f559338072442e4be3bb9c69c0ff4cc0756a0dfae248f91004125f
+  languageName: node
+  linkType: hard
+
+"@nrwl/eslint-plugin-nx@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nrwl/eslint-plugin-nx@npm:16.8.1"
+  dependencies:
+    "@nx/eslint-plugin": 16.8.1
+  checksum: 8bc1fd8eae54a7c17ee54269d27d9fa8aef35fa22898dd884c39a3796f4b270ebd4ceaf93df8d4adbe77329dea5856aad7aa305d3e81c220ad4060f632920b27
+  languageName: node
+  linkType: hard
+
 "@nrwl/jest@npm:16.8.0":
   version: 16.8.0
   resolution: "@nrwl/jest@npm:16.8.0"
@@ -5953,6 +5989,15 @@ __metadata:
   dependencies:
     "@nx/js": 16.8.0
   checksum: c156570cdd3b4bfcee8e357473ab3c42132955ad78b8e2c300189a5a3059ad6bad159580b536386c42692738cfe6776428facf37b4fa7455df3a04067a1b2ffe
+  languageName: node
+  linkType: hard
+
+"@nrwl/js@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nrwl/js@npm:16.8.1"
+  dependencies:
+    "@nx/js": 16.8.1
+  checksum: d088ad4c2876d9348848de3999323fc61ac42f8902eb201a4a47ae6228f4d755c5481890ebb9a2f076e02d331f5d109a91d068d9a7dd3b1d11a7960c15fc924c
   languageName: node
   linkType: hard
 
@@ -5997,6 +6042,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nrwl/tao@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nrwl/tao@npm:16.8.1"
+  dependencies:
+    nx: 16.8.1
+    tslib: ^2.3.0
+  bin:
+    tao: index.js
+  checksum: 3026a7c66a7567a79fa0f4e73d5c51c0e272bf787a27356468c93fb244176f9d6fa27170c592ffd4fdbc5aa166853d92d01e11808639ed8c87e3f4095508e22f
+  languageName: node
+  linkType: hard
+
 "@nrwl/webpack@npm:16.8.0":
   version: 16.8.0
   resolution: "@nrwl/webpack@npm:16.8.0"
@@ -6012,6 +6069,15 @@ __metadata:
   dependencies:
     "@nx/workspace": 16.8.0
   checksum: 221225b25460a7b313cbee2c01eac79d377ab4a357fab5f815a00ab8484be69f03eaaa6ae31f316bbb5c30c5ba3e433bbf2dd77a5fa82461d7eeeaef08eb8510
+  languageName: node
+  linkType: hard
+
+"@nrwl/workspace@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nrwl/workspace@npm:16.8.1"
+  dependencies:
+    "@nx/workspace": 16.8.1
+  checksum: 138a1449cf7b36c92db9db8667cd8bab8f31622185eae8ec0dd7acdba971fc43e9228a9adccb1014a764485cc22f171811eac0ce5a341cb0cde93551178cde49
   languageName: node
   linkType: hard
 
@@ -6123,6 +6189,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/devkit@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/devkit@npm:16.8.1"
+  dependencies:
+    "@nrwl/devkit": 16.8.1
+    ejs: ^3.1.7
+    enquirer: ~2.3.6
+    ignore: ^5.0.4
+    semver: 7.5.3
+    tmp: ~0.2.1
+    tslib: ^2.3.0
+  peerDependencies:
+    nx: ">= 15 <= 17"
+  checksum: 92579ccc3f3cc7bdc0f23a26c2a1f358cadb4a06e7c166c6cca569f63e0715f74748e3657c40c252fded89786f870d88127211fc4c1158a58e5c528d39214d30
+  languageName: node
+  linkType: hard
+
+"@nx/eslint-plugin@npm:16.8.1, @nx/eslint-plugin@npm:~16.8.0":
+  version: 16.8.1
+  resolution: "@nx/eslint-plugin@npm:16.8.1"
+  dependencies:
+    "@nrwl/eslint-plugin-nx": 16.8.1
+    "@nx/devkit": 16.8.1
+    "@nx/js": 16.8.1
+    "@typescript-eslint/type-utils": ^5.60.1
+    "@typescript-eslint/utils": ^5.60.1
+    chalk: ^4.1.0
+    confusing-browser-globals: ^1.0.9
+    jsonc-eslint-parser: ^2.1.0
+    semver: 7.5.3
+    tslib: ^2.3.0
+  peerDependencies:
+    "@typescript-eslint/parser": ^5.60.1
+    eslint-config-prettier: ^8.1.0
+  peerDependenciesMeta:
+    eslint-config-prettier:
+      optional: true
+  checksum: f264e72f594813d6a3fa872b4496eb75ba6a8fe6c7c48a9a5d49fa59395ab53538879bf3b70461c10994c625da72c6e665b3d1b81f23639dff46ec2cd1ec93ae
+  languageName: node
+  linkType: hard
+
 "@nx/jest@npm:16.8.0, @nx/jest@npm:~16.8.0":
   version: 16.8.0
   resolution: "@nx/jest@npm:16.8.0"
@@ -6144,7 +6251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/js@npm:16.8.0, @nx/js@npm:~16.8.0":
+"@nx/js@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/js@npm:16.8.0"
   dependencies:
@@ -6183,6 +6290,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/js@npm:16.8.1, @nx/js@npm:~16.8.0":
+  version: 16.8.1
+  resolution: "@nx/js@npm:16.8.1"
+  dependencies:
+    "@babel/core": ^7.22.9
+    "@babel/plugin-proposal-class-properties": ^7.18.6
+    "@babel/plugin-proposal-decorators": ^7.22.7
+    "@babel/plugin-transform-runtime": ^7.22.9
+    "@babel/preset-env": ^7.22.9
+    "@babel/preset-typescript": ^7.22.5
+    "@babel/runtime": ^7.22.6
+    "@nrwl/js": 16.8.1
+    "@nx/devkit": 16.8.1
+    "@nx/workspace": 16.8.1
+    "@phenomnomnominal/tsquery": ~5.0.1
+    babel-plugin-const-enum: ^1.0.1
+    babel-plugin-macros: ^2.8.0
+    babel-plugin-transform-typescript-metadata: ^0.3.1
+    chalk: ^4.1.0
+    detect-port: ^1.5.1
+    fast-glob: 3.2.7
+    fs-extra: ^11.1.0
+    ignore: ^5.0.4
+    js-tokens: ^4.0.0
+    minimatch: 3.0.5
+    semver: 7.5.3
+    source-map-support: 0.5.19
+    ts-node: 10.9.1
+    tsconfig-paths: ^4.1.2
+    tslib: ^2.3.0
+  peerDependencies:
+    verdaccio: ^5.0.4
+  peerDependenciesMeta:
+    verdaccio:
+      optional: true
+  checksum: 22dd6a27578b9f302af6c0903e87aac4086cdbd96fae0e7924062f3b37624a99e373df5637de5a54f83221206f15c2678656d3eccc897a1c021af052ad0232da
+  languageName: node
+  linkType: hard
+
 "@nx/linter@npm:16.8.0, @nx/linter@npm:~16.8.0":
   version: 16.8.0
   resolution: "@nx/linter@npm:16.8.0"
@@ -6217,6 +6363,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-darwin-arm64@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-darwin-arm64@npm:16.8.1"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-darwin-x64@npm:16.5.1":
   version: 16.5.1
   resolution: "@nx/nx-darwin-x64@npm:16.5.1"
@@ -6227,6 +6380,13 @@ __metadata:
 "@nx/nx-darwin-x64@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/nx-darwin-x64@npm:16.8.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-darwin-x64@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-darwin-x64@npm:16.8.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -6245,6 +6405,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-freebsd-x64@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-freebsd-x64@npm:16.8.1"
+  conditions: os=freebsd & cpu=x64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-arm-gnueabihf@npm:16.5.1":
   version: 16.5.1
   resolution: "@nx/nx-linux-arm-gnueabihf@npm:16.5.1"
@@ -6255,6 +6422,13 @@ __metadata:
 "@nx/nx-linux-arm-gnueabihf@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/nx-linux-arm-gnueabihf@npm:16.8.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm-gnueabihf@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:16.8.1"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
@@ -6273,6 +6447,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-arm64-gnu@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-linux-arm64-gnu@npm:16.8.1"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-arm64-musl@npm:16.5.1":
   version: 16.5.1
   resolution: "@nx/nx-linux-arm64-musl@npm:16.5.1"
@@ -6283,6 +6464,13 @@ __metadata:
 "@nx/nx-linux-arm64-musl@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/nx-linux-arm64-musl@npm:16.8.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-arm64-musl@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-linux-arm64-musl@npm:16.8.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
@@ -6301,6 +6489,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-linux-x64-gnu@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-linux-x64-gnu@npm:16.8.1"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@nx/nx-linux-x64-musl@npm:16.5.1":
   version: 16.5.1
   resolution: "@nx/nx-linux-x64-musl@npm:16.5.1"
@@ -6311,6 +6506,13 @@ __metadata:
 "@nx/nx-linux-x64-musl@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/nx-linux-x64-musl@npm:16.8.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"@nx/nx-linux-x64-musl@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-linux-x64-musl@npm:16.8.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -6329,6 +6531,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/nx-win32-arm64-msvc@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-win32-arm64-msvc@npm:16.8.1"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@nx/nx-win32-x64-msvc@npm:16.5.1":
   version: 16.5.1
   resolution: "@nx/nx-win32-x64-msvc@npm:16.5.1"
@@ -6339,6 +6548,13 @@ __metadata:
 "@nx/nx-win32-x64-msvc@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/nx-win32-x64-msvc@npm:16.8.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@nx/nx-win32-x64-msvc@npm:16.8.1":
+  version: 16.8.1
+  resolution: "@nx/nx-win32-x64-msvc@npm:16.8.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -6387,7 +6603,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/workspace@npm:16.8.0, @nx/workspace@npm:~16.8.0":
+"@nx/workspace@npm:16.8.0":
   version: 16.8.0
   resolution: "@nx/workspace@npm:16.8.0"
   dependencies:
@@ -6404,12 +6620,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx/workspace@npm:16.8.1, @nx/workspace@npm:~16.8.0":
+  version: 16.8.1
+  resolution: "@nx/workspace@npm:16.8.1"
+  dependencies:
+    "@nrwl/workspace": 16.8.1
+    "@nx/devkit": 16.8.1
+    chalk: ^4.1.0
+    enquirer: ~2.3.6
+    ignore: ^5.0.4
+    nx: 16.8.1
+    rxjs: ^7.8.0
+    tslib: ^2.3.0
+    yargs-parser: 21.1.1
+  checksum: 78a1f0b435450338b7331d2847fd96374ece22d39d4095f2d1a39c238b7739ea7de5d98dab8419e2aefa00a38031adbaf0e63d6a036fc04726807d6acc56d4bd
+  languageName: node
+  linkType: hard
+
 "@o3r/amaterasu-api-spec@workspace:^, @o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec":
   version: 0.0.0-use.local
   resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6417,8 +6651,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -6428,6 +6662,7 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     ts-jest: ~29.1.1
     tslib: ^2.5.3
@@ -6443,6 +6678,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6450,8 +6686,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/tar": ~6.1.1
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -6460,6 +6696,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     tar: ^6.1.12
     ts-jest: ~29.1.1
@@ -6479,6 +6716,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6486,8 +6724,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -6497,6 +6735,7 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     ts-jest: ~29.1.1
     tslib: ^2.5.3
@@ -6516,6 +6755,7 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -6523,8 +6763,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -6534,6 +6774,7 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     ts-jest: ~29.1.1
     tslib: ^2.5.3
@@ -6563,6 +6804,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -6575,8 +6817,8 @@ __metadata:
     "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -6588,6 +6830,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     semver: ^7.5.2
@@ -6642,6 +6885,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -6653,8 +6897,8 @@ __metadata:
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -6666,6 +6910,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -6711,6 +6956,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -6725,8 +6971,8 @@ __metadata:
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -6738,6 +6984,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
@@ -6816,6 +7063,7 @@ __metadata:
     "@ng-bootstrap/ng-bootstrap": ^15.0.1
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -6830,9 +7078,9 @@ __metadata:
     "@popperjs/core": ^2.11.5
     "@types/chrome": ^0.0.246
     "@types/jest": ~29.5.2
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
-    "@typescript-eslint/types": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
+    "@typescript-eslint/types": ^5.60.1
     archiver: ^5.3.1
     bootstrap: ^5.3.1
     bootstrap-icons: ^1.10.5
@@ -6851,6 +7099,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     minimist: ^1.2.6
     nx: ~16.8.0
     rimraf: ^5.0.1
@@ -6884,6 +7133,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/analytics": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -6900,8 +7150,8 @@ __metadata:
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chokidar: ^3.5.2
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -6915,6 +7165,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -6984,6 +7235,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7000,8 +7252,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7013,6 +7265,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -7078,6 +7331,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7093,8 +7347,8 @@ __metadata:
     "@types/pid-from-port": ^1.1.0
     "@types/semver": ^7.3.13
     "@types/uuid": ^9.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chokidar: ^3.5.2
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -7108,6 +7362,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     minimist: ^1.2.6
     ngrx-store-localstorage: ^16.0.0
     nx: ~16.8.0
@@ -7168,6 +7423,7 @@ __metadata:
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@angular-eslint/eslint-plugin-template": ~16.2.0
     "@angular/cli": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7179,8 +7435,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/minimist": ^1.2.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7190,6 +7446,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     minimist: ^1.2.6
     nx: ~16.8.0
     rimraf: ^5.0.1
@@ -7212,6 +7469,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7222,8 +7480,8 @@ __metadata:
     "@types/request": ^2.48.7
     "@types/request-promise-native": ^1.0.18
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     azure-devops-node-api: ^12.0.0
     chalk: ^4.1.2
     commander: ^11.0.0
@@ -7241,7 +7499,8 @@ __metadata:
     jasmine-spec-reporter: ^7.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
-    minimatch: ^9.0.0
+    jsonc-eslint-parser: ~2.3.0
+    minimatch: ~9.0.3
     node-fetch: ^2.6.7
     nx: ~16.8.0
     request: ^2.88.0
@@ -7290,6 +7549,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7303,8 +7563,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7316,6 +7576,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
@@ -7356,13 +7617,14 @@ __metadata:
     "@angular-eslint/eslint-plugin-template": ~16.2.0
     "@angular-eslint/template-parser": ~16.2.0
     "@angular/compiler": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7371,6 +7633,7 @@ __metadata:
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     typescript: ~5.1.6
   peerDependencies:
@@ -7383,8 +7646,8 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
-    "@typescript-eslint/eslint-plugin": ^5.9.0
-    "@typescript-eslint/parser": ^5.9.0
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.22.0
     eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^27.2.1
@@ -7429,14 +7692,15 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/experimental-utils": ^5.3.0
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-plugin-jest: ~27.4.0
@@ -7445,6 +7709,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rimraf: ^5.0.1
     ts-jest: ~29.1.1
@@ -7454,8 +7719,8 @@ __metadata:
     "@angular-eslint/template-parser": ~16.2.0
     "@angular-eslint/utils": ~16.2.0
     "@angular/compiler": ~16.2.0
-    "@typescript-eslint/eslint-plugin": ^5.9.0
-    "@typescript-eslint/parser": ^5.9.0
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.22.0
   peerDependenciesMeta:
     "@angular-eslint/template-parser":
@@ -7481,6 +7746,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@microsoft/tsdoc": ~0.14.1
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7493,8 +7759,8 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7507,6 +7773,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     jsonschema: ~1.4.1
     nx: ~16.8.0
     pid-from-port: ^1.1.3
@@ -7552,6 +7819,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7563,8 +7831,8 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7576,6 +7844,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
@@ -7626,6 +7895,7 @@ __metadata:
     "@commitlint/config-conventional": ^17.0.0
     "@compodoc/compodoc": ^1.1.19
     "@nx/angular": ~16.8.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7640,9 +7910,9 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
-    "@typescript-eslint/types": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
+    "@typescript-eslint/types": ^5.60.1
     "@yarnpkg/sdks": ^2.7.0
     babel-loader: ^9.0.0
     browserslist: ^4.21.4
@@ -7661,6 +7931,7 @@ __metadata:
     jest: ~29.7.0
     jest-preset-angular: ~13.1.1
     js-yaml: ^4.1.0
+    jsonc-eslint-parser: ~2.3.0
     lint-staged: ^13.0.0
     minimist: ^1.2.6
     ng-packagr: ~16.2.0
@@ -7706,6 +7977,7 @@ __metadata:
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@azure/functions": ^3.5.1
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7716,8 +7988,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     ejs: ^3.1.9
     eslint: ^8.42.0
@@ -7730,6 +8002,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nock: ^13.0.5
     nx: ~16.8.0
     probot: ^12.3.1
@@ -7765,6 +8038,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7781,8 +8055,8 @@ __metadata:
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chokidar: ^3.5.2
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -7798,6 +8072,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -7867,6 +8142,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@fullstory/browser": ~1.7.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7878,8 +8154,8 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -7891,6 +8167,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     logrocket: ~4.0.0
     logrocket-ngrx: ~0.2.1
     ng-packagr: ~16.2.0
@@ -7948,6 +8225,7 @@ __metadata:
     "@capacitor/preferences": ^5.0.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -7962,8 +8240,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/node-fetch": ^2.6.2
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     commander: ^11.0.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -7978,6 +8256,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     node-fetch: ^2.6.7
     nx: ~16.8.0
     rxjs: ^7.8.1
@@ -8036,6 +8315,7 @@ __metadata:
     "@ngrx/entity": ~16.2.0
     "@ngrx/router-store": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -8049,8 +8329,8 @@ __metadata:
     "@types/jasmine": ~4.3.5
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8062,6 +8342,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     tslib: ^2.5.3
@@ -8112,6 +8393,7 @@ __metadata:
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -8134,8 +8416,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8149,6 +8431,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     jsonpath-plus: ^7.0.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
@@ -8165,6 +8448,7 @@ __metadata:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
+    "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@ngrx/effects": ~16.2.0
@@ -8227,6 +8511,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -8237,8 +8522,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chalk: ^4.1.2
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -8250,8 +8535,9 @@ __metadata:
     globby: ^11.1.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     jsonschema: ~1.4.1
-    minimatch: ^9.0.0
+    minimatch: ~9.0.3
     nx: ~16.8.0
     rxjs: ^7.8.1
     semver: ^7.5.2
@@ -8306,6 +8592,7 @@ __metadata:
     "@ngrx/store": ~16.2.0
     "@ngrx/store-devtools": ~16.2.0
     "@ngx-translate/core": ~15.0.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/application": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -8327,9 +8614,9 @@ __metadata:
     "@types/bootstrap": ^5.2.6
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
-    "@typescript-eslint/types": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
+    "@typescript-eslint/types": ^5.60.1
     bootstrap: ^5.3.1
     bootstrap-icons: ^1.10.5
     eslint: ^8.42.0
@@ -8344,6 +8631,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     ngrx-store-localstorage: ^16.0.0
     pixelmatch: ^5.2.1
     pngjs: ^7.0.0
@@ -8374,6 +8662,7 @@ __metadata:
     "@angular/platform-browser-dynamic": ~16.2.0
     "@ngrx/entity": ~16.2.0
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
@@ -8385,8 +8674,8 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8399,6 +8688,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
@@ -8446,6 +8736,7 @@ __metadata:
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -8466,8 +8757,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/react": 17.0.65
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     color: ^4.0.0
     concurrently: ^8.0.0
     cpy-cli: ^4.2.0
@@ -8479,6 +8770,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     react: ^17.0.2
     react-dom: ^17.0.2
@@ -8523,14 +8815,15 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jest: ~27.4.0
@@ -8540,6 +8833,7 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-stylelint: ~6.2.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     postcss: ^8.4.5
     rimraf: ^5.0.1
@@ -8576,6 +8870,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@nx/js": ~16.8.0
     "@nx/linter": ~16.8.0
@@ -8592,8 +8887,8 @@ __metadata:
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     chokidar: ^3.5.2
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
@@ -8605,6 +8900,7 @@ __metadata:
     globby: ^11.1.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -8628,6 +8924,7 @@ __metadata:
     "@o3r/extractors": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
+    rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -8646,6 +8943,7 @@ __metadata:
   dependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8654,8 +8952,8 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/pid-from-port": ^1.1.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8665,6 +8963,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     minimist: ^1.2.6
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
@@ -8709,6 +9008,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@ngrx/store": ~16.2.0
     "@ngx-translate/core": ~15.0.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -8723,8 +9023,8 @@ __metadata:
     "@types/node": ^18.0.0
     "@types/pixelmatch": ^5.2.3
     "@types/pngjs": ^6.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     concurrently: ^8.0.0
     cpy-cli: ^4.2.0
     esbuild: ~0.19.0
@@ -8739,6 +9039,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     module-from-string: ^3.2.0
     nx: ~16.8.0
     pid-from-port: ^1.1.3
@@ -8813,6 +9114,7 @@ __metadata:
     "@babel/core": ~7.22.0
     "@babel/preset-typescript": ~7.22.0
     "@compodoc/compodoc": ^1.1.19
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -8823,8 +9125,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -8836,6 +9138,7 @@ __metadata:
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
     jest-preset-angular: ~13.1.1
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rimraf: ^5.0.1
     rxjs: ^7.8.1
@@ -11432,16 +11735,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^5.59.9":
-  version: 5.60.0
-  resolution: "@typescript-eslint/eslint-plugin@npm:5.60.0"
+"@typescript-eslint/eslint-plugin@npm:^5.60.1":
+  version: 5.62.0
+  resolution: "@typescript-eslint/eslint-plugin@npm:5.62.0"
   dependencies:
     "@eslint-community/regexpp": ^4.4.0
-    "@typescript-eslint/scope-manager": 5.60.0
-    "@typescript-eslint/type-utils": 5.60.0
-    "@typescript-eslint/utils": 5.60.0
+    "@typescript-eslint/scope-manager": 5.62.0
+    "@typescript-eslint/type-utils": 5.62.0
+    "@typescript-eslint/utils": 5.62.0
     debug: ^4.3.4
-    grapheme-splitter: ^1.0.4
+    graphemer: ^1.4.0
     ignore: ^5.2.0
     natural-compare-lite: ^1.4.0
     semver: ^7.3.7
@@ -11452,7 +11755,7 @@ __metadata:
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 61dd70a1ea9787e69d0d4cd14f6a4c94ba786b535a3f519ade7926d965ee1d4f8fefa8bf0224ee57c5c6517eec3674c0fd06f9226536aa428c2bdddeed1e70f4
+  checksum: fc104b389c768f9fa7d45a48c86d5c1ad522c1d0512943e782a56b1e3096b2cbcc1eea3fcc590647bf0658eef61aac35120a9c6daf979bf629ad2956deb516a1
   languageName: node
   linkType: hard
 
@@ -11467,20 +11770,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^5.59.9":
-  version: 5.60.0
-  resolution: "@typescript-eslint/parser@npm:5.60.0"
+"@typescript-eslint/parser@npm:^5.60.1":
+  version: 5.62.0
+  resolution: "@typescript-eslint/parser@npm:5.62.0"
   dependencies:
-    "@typescript-eslint/scope-manager": 5.60.0
-    "@typescript-eslint/types": 5.60.0
-    "@typescript-eslint/typescript-estree": 5.60.0
+    "@typescript-eslint/scope-manager": 5.62.0
+    "@typescript-eslint/types": 5.62.0
+    "@typescript-eslint/typescript-estree": 5.62.0
     debug: ^4.3.4
   peerDependencies:
     eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
   peerDependenciesMeta:
     typescript:
       optional: true
-  checksum: 94e7931a5b356b16638b281b8e1d661f8b1660f0c75a323537f68b311dae91b7a575a0a019d4ea05a79cc5d42b5cb41cc367205691cdfd292ef96a3b66b1e58b
+  checksum: d168f4c7f21a7a63f47002e2d319bcbb6173597af5c60c1cf2de046b46c76b4930a093619e69faf2d30214c29ab27b54dcf1efc7046a6a6bd6f37f59a990e752
   languageName: node
   linkType: hard
 
@@ -11494,16 +11797,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/scope-manager@npm:5.60.0"
-  dependencies:
-    "@typescript-eslint/types": 5.60.0
-    "@typescript-eslint/visitor-keys": 5.60.0
-  checksum: b21ee1ef57be948a806aa31fd65a9186766b3e1a727030dc47025edcadc54bd1aa6133a439acd5f44a93e2b983dd55bc5571bb01cb834461dab733682d66256a
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/scope-manager@npm:5.62.0":
   version: 5.62.0
   resolution: "@typescript-eslint/scope-manager@npm:5.62.0"
@@ -11514,24 +11807,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/type-utils@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/type-utils@npm:5.60.0"
-  dependencies:
-    "@typescript-eslint/typescript-estree": 5.60.0
-    "@typescript-eslint/utils": 5.60.0
-    debug: ^4.3.4
-    tsutils: ^3.21.0
-  peerDependencies:
-    eslint: "*"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: b90ce97592f2db899d88d7a325fec4d2ea11a7b8b4306787310890c27fb51862a6c003675252e9dc465908f791ad5320ea7307260ecd10e89ca1d209fbf8616d
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/type-utils@npm:5.62.0, @typescript-eslint/type-utils@npm:^5.36.1":
+"@typescript-eslint/type-utils@npm:5.62.0, @typescript-eslint/type-utils@npm:^5.36.1, @typescript-eslint/type-utils@npm:^5.60.1":
   version: 5.62.0
   resolution: "@typescript-eslint/type-utils@npm:5.62.0"
   dependencies:
@@ -11555,14 +11831,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/types@npm:5.60.0"
-  checksum: 48f29e5c084c5663cfed1a6c4458799a6690a213e7861a24501f9b96698ae59e89a1df1c77e481777e4da78f1b0a5573a549f7b8880e3f4071a7a8b686254db8
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/types@npm:5.62.0, @typescript-eslint/types@npm:^5.59.9":
+"@typescript-eslint/types@npm:5.62.0, @typescript-eslint/types@npm:^5.60.1":
   version: 5.62.0
   resolution: "@typescript-eslint/types@npm:5.62.0"
   checksum: 48c87117383d1864766486f24de34086155532b070f6264e09d0e6139449270f8a9559cfef3c56d16e3bcfb52d83d42105d61b36743626399c7c2b5e0ac3b670
@@ -11584,24 +11853,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 867b19ba050af7410c75e4e42b511d4299c8043d238959e9794bb65d7a9db1a875880e5dd50f112896218f3a3d163cd8ce61db94034ca628eca4f7ddccb1d348
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/typescript-estree@npm:5.60.0"
-  dependencies:
-    "@typescript-eslint/types": 5.60.0
-    "@typescript-eslint/visitor-keys": 5.60.0
-    debug: ^4.3.4
-    globby: ^11.1.0
-    is-glob: ^4.0.3
-    semver: ^7.3.7
-    tsutils: ^3.21.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 0f4f342730ead42ba60b5fca4bf1950abebd83030010c38b5df98ff9fd95d0ce1cfc3974a44c90c65f381f4f172adcf1a540e018d7968cc845d937bf6c734dae
   languageName: node
   linkType: hard
 
@@ -11641,25 +11892,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/utils@npm:5.60.0"
-  dependencies:
-    "@eslint-community/eslint-utils": ^4.2.0
-    "@types/json-schema": ^7.0.9
-    "@types/semver": ^7.3.12
-    "@typescript-eslint/scope-manager": 5.60.0
-    "@typescript-eslint/types": 5.60.0
-    "@typescript-eslint/typescript-estree": 5.60.0
-    eslint-scope: ^5.1.1
-    semver: ^7.3.7
-  peerDependencies:
-    eslint: ^6.0.0 || ^7.0.0 || ^8.0.0
-  checksum: cbe56567f0b53e24ad7ef7d2fb4cdc8596e2559c21ee639aa0560879b6216208550e51e9d8ae4b388ff21286809c6dc985cec66738294871051396a8ae5bccbc
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/utils@npm:5.62.0, @typescript-eslint/utils@npm:^5.10.0":
+"@typescript-eslint/utils@npm:5.62.0, @typescript-eslint/utils@npm:^5.10.0, @typescript-eslint/utils@npm:^5.60.1":
   version: 5.62.0
   resolution: "@typescript-eslint/utils@npm:5.62.0"
   dependencies:
@@ -11684,16 +11917,6 @@ __metadata:
     "@typescript-eslint/types": 5.45.1
     eslint-visitor-keys: ^3.3.0
   checksum: 725a434fb05010b6ead7e880fa1fcdb4dbc7421b80667e96ad27fcfb3c2b2b0edde64be488740577dd147547fc4a9eac52e2602eb6a8a261ee14a917d4a50c4f
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:5.60.0":
-  version: 5.60.0
-  resolution: "@typescript-eslint/visitor-keys@npm:5.60.0"
-  dependencies:
-    "@typescript-eslint/types": 5.60.0
-    eslint-visitor-keys: ^3.3.0
-  checksum: d39b2485d030f9755820d0f6f3748a8ec44e1ca23cb36ddcba67a9eb1f258c8ec83c61fc015c50e8f4a00d05df62d719dbda445625e3e71a64a659f1d248157e
   languageName: node
   linkType: hard
 
@@ -12246,7 +12469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"acorn@npm:^8.1.0, acorn@npm:^8.2.4, acorn@npm:^8.4.1, acorn@npm:^8.7.1, acorn@npm:^8.8.0, acorn@npm:^8.8.1, acorn@npm:^8.8.2":
+"acorn@npm:^8.1.0, acorn@npm:^8.2.4, acorn@npm:^8.4.1, acorn@npm:^8.5.0, acorn@npm:^8.7.1, acorn@npm:^8.8.1, acorn@npm:^8.8.2, acorn@npm:^8.9.0":
   version: 8.10.0
   resolution: "acorn@npm:8.10.0"
   bin:
@@ -12914,11 +13137,12 @@ __metadata:
     "@actions/core": ^1.10.0
     "@actions/exec": ^1.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     "@vercel/ncc": ~0.38.0
     audit-types: ~0.5.6
     eslint: ^8.42.0
@@ -12926,6 +13150,7 @@ __metadata:
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
+    jsonc-eslint-parser: ~2.3.0
     typescript: ~5.1.6
   languageName: unknown
   linkType: soft
@@ -13917,13 +14142,14 @@ __metadata:
     "@actions/exec": ^1.1.1
     "@actions/github": ^5.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
     eslint-plugin-jest: ~27.4.0
@@ -13932,6 +14158,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
@@ -14727,6 +14954,13 @@ __metadata:
     conc: dist/bin/concurrently.js
     concurrently: dist/bin/concurrently.js
   checksum: eafe6a4d9b7fda87f55ea285cfc6acd937a5286ceec8991ab48e6cc27c45fce6a5c6f45e18d7555defa15dc7d7e8941bc5a9d1ceaf182e31441d420e00333434
+  languageName: node
+  linkType: hard
+
+"confusing-browser-globals@npm:^1.0.9":
+  version: 1.0.11
+  resolution: "confusing-browser-globals@npm:1.0.11"
+  checksum: 3afc635abd37e566477f610e7978b15753f0e84025c25d49236f1f14d480117185516bdd40d2a2167e6bed8048641a9854964b9c067e3dcdfa6b5d0ad3c3a5ef
   languageName: node
   linkType: hard
 
@@ -17430,10 +17664,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-visitor-keys@npm:^3.3.0, eslint-visitor-keys@npm:^3.4.1":
-  version: 3.4.1
-  resolution: "eslint-visitor-keys@npm:3.4.1"
-  checksum: f05121d868202736b97de7d750847a328fcfa8593b031c95ea89425333db59676ac087fa905eba438d0a3c5769632f828187e0c1a0d271832a2153c1d3661c2c
+"eslint-visitor-keys@npm:^3.0.0, eslint-visitor-keys@npm:^3.3.0, eslint-visitor-keys@npm:^3.4.1":
+  version: 3.4.3
+  resolution: "eslint-visitor-keys@npm:3.4.3"
+  checksum: 36e9ef87fca698b6fd7ca5ca35d7b2b6eeaaf106572e2f7fd31c12d3bfdaccdb587bba6d3621067e5aece31c8c3a348b93922ab8f7b2cbc6aaab5e1d89040c60
   languageName: node
   linkType: hard
 
@@ -17486,14 +17720,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"espree@npm:^9.5.2":
-  version: 9.5.2
-  resolution: "espree@npm:9.5.2"
+"espree@npm:^9.0.0, espree@npm:^9.5.2":
+  version: 9.6.1
+  resolution: "espree@npm:9.6.1"
   dependencies:
-    acorn: ^8.8.0
+    acorn: ^8.9.0
     acorn-jsx: ^5.3.2
     eslint-visitor-keys: ^3.4.1
-  checksum: 6506289d6eb26471c0b383ee24fee5c8ae9d61ad540be956b3127be5ce3bf687d2ba6538ee5a86769812c7c552a9d8239e8c4d150f9ea056c6d5cbe8399c03c1
+  checksum: eb8c149c7a2a77b3f33a5af80c10875c3abd65450f60b8af6db1bfcfa8f101e21c1e56a561c6dc13b848e18148d43469e7cd208506238554fb5395a9ea5a1ab9
   languageName: node
   linkType: hard
 
@@ -18633,18 +18867,20 @@ __metadata:
     "@actions/exec": ^1.1.1
     "@actions/github": ^5.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
     eslint-plugin-jest: ~27.4.0
     eslint-plugin-jsdoc: ~46.8.0
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
+    jsonc-eslint-parser: ~2.3.0
     semver: ^7.5.2
     typescript: ~5.1.6
   languageName: unknown
@@ -21498,6 +21734,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jsonc-eslint-parser@npm:^2.1.0, jsonc-eslint-parser@npm:~2.3.0":
+  version: 2.3.0
+  resolution: "jsonc-eslint-parser@npm:2.3.0"
+  dependencies:
+    acorn: ^8.5.0
+    eslint-visitor-keys: ^3.0.0
+    espree: ^9.0.0
+    semver: ^7.3.5
+  checksum: e9343fee870a16f04fdb811b58a9469134c54a03edd58aa5654a888ebae63952cbff3ea3dcad3973465009a275282c6c0dd513e8c3850f7f485a164180085a8b
+  languageName: node
+  linkType: hard
+
 "jsonc-parser@npm:3.0.0":
   version: 3.0.0
   resolution: "jsonc-parser@npm:3.0.0"
@@ -22861,7 +23109,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"minimatch@npm:^9.0.0, minimatch@npm:^9.0.1, minimatch@npm:^9.0.3":
+"minimatch@npm:^9.0.0, minimatch@npm:^9.0.1, minimatch@npm:^9.0.3, minimatch@npm:~9.0.3":
   version: 9.0.3
   resolution: "minimatch@npm:9.0.3"
   dependencies:
@@ -23258,14 +23506,15 @@ __metadata:
     "@actions/exec": ^1.1.1
     "@actions/github": ^5.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     "@vercel/ncc": ~0.38.0
     eslint: ^8.42.0
     eslint-plugin-jest: ~27.4.0
@@ -23274,6 +23523,7 @@ __metadata:
     eslint-plugin-unicorn: ^47.0.0
     jest: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     semver: ^7.5.2
     ts-jest: ~29.1.1
     tslib: ^2.5.3
@@ -23997,7 +24247,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:16.8.0, nx@npm:^16.8.0, nx@npm:~16.8.0":
+"nx@npm:16.8.0":
   version: 16.8.0
   resolution: "nx@npm:16.8.0"
   dependencies:
@@ -24079,6 +24329,91 @@ __metadata:
   bin:
     nx: bin/nx.js
   checksum: fdfa6e0c15362e54019917d16ba380f974d186d54bd443ddfd2c452d6012b1a955aa021559d3ca02044bb7c8ba17c1cd5a64a6b864a430b2e93c965ac0605962
+  languageName: node
+  linkType: hard
+
+"nx@npm:16.8.1, nx@npm:^16.8.0, nx@npm:~16.8.0":
+  version: 16.8.1
+  resolution: "nx@npm:16.8.1"
+  dependencies:
+    "@nrwl/tao": 16.8.1
+    "@nx/nx-darwin-arm64": 16.8.1
+    "@nx/nx-darwin-x64": 16.8.1
+    "@nx/nx-freebsd-x64": 16.8.1
+    "@nx/nx-linux-arm-gnueabihf": 16.8.1
+    "@nx/nx-linux-arm64-gnu": 16.8.1
+    "@nx/nx-linux-arm64-musl": 16.8.1
+    "@nx/nx-linux-x64-gnu": 16.8.1
+    "@nx/nx-linux-x64-musl": 16.8.1
+    "@nx/nx-win32-arm64-msvc": 16.8.1
+    "@nx/nx-win32-x64-msvc": 16.8.1
+    "@parcel/watcher": 2.0.4
+    "@yarnpkg/lockfile": ^1.1.0
+    "@yarnpkg/parsers": 3.0.0-rc.46
+    "@zkochan/js-yaml": 0.0.6
+    axios: ^1.0.0
+    chalk: ^4.1.0
+    cli-cursor: 3.1.0
+    cli-spinners: 2.6.1
+    cliui: ^7.0.2
+    dotenv: ~16.3.1
+    dotenv-expand: ~10.0.0
+    enquirer: ~2.3.6
+    fast-glob: 3.2.7
+    figures: 3.2.0
+    flat: ^5.0.2
+    fs-extra: ^11.1.0
+    glob: 7.1.4
+    ignore: ^5.0.4
+    js-yaml: 4.1.0
+    jsonc-parser: 3.2.0
+    lines-and-columns: ~2.0.3
+    minimatch: 3.0.5
+    node-machine-id: 1.1.12
+    npm-run-path: ^4.0.1
+    open: ^8.4.0
+    semver: 7.5.3
+    string-width: ^4.2.3
+    strong-log-transformer: ^2.1.0
+    tar-stream: ~2.2.0
+    tmp: ~0.2.1
+    tsconfig-paths: ^4.1.2
+    tslib: ^2.3.0
+    v8-compile-cache: 2.3.0
+    yargs: ^17.6.2
+    yargs-parser: 21.1.1
+  peerDependencies:
+    "@swc-node/register": ^1.4.2
+    "@swc/core": ^1.2.173
+  dependenciesMeta:
+    "@nx/nx-darwin-arm64":
+      optional: true
+    "@nx/nx-darwin-x64":
+      optional: true
+    "@nx/nx-freebsd-x64":
+      optional: true
+    "@nx/nx-linux-arm-gnueabihf":
+      optional: true
+    "@nx/nx-linux-arm64-gnu":
+      optional: true
+    "@nx/nx-linux-arm64-musl":
+      optional: true
+    "@nx/nx-linux-x64-gnu":
+      optional: true
+    "@nx/nx-linux-x64-musl":
+      optional: true
+    "@nx/nx-win32-arm64-msvc":
+      optional: true
+    "@nx/nx-win32-x64-msvc":
+      optional: true
+  peerDependenciesMeta:
+    "@swc-node/register":
+      optional: true
+    "@swc/core":
+      optional: true
+  bin:
+    nx: bin/nx.js
+  checksum: a880cbcd331eb45f81c7fbcc5e4567faf7663f5ae4dde6cb50afdb56c2f644d9ed22f0f429819bae456e97dad3bb4be6137c7cf0782ed23e020d7b4703f5984e
   languageName: node
   linkType: hard
 
@@ -24380,6 +24715,7 @@ __metadata:
     "@angular/core": ~16.2.0
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
+    "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -24390,8 +24726,8 @@ __metadata:
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/vscode": ^1.67.0
-    "@typescript-eslint/eslint-plugin": ^5.59.9
-    "@typescript-eslint/parser": ^5.59.9
+    "@typescript-eslint/eslint-plugin": ^5.60.1
+    "@typescript-eslint/parser": ^5.60.1
     "@vscode/vsce": ^2.16.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -24402,6 +24738,7 @@ __metadata:
     jest: ~29.7.0
     jest-environment-jsdom: ~29.7.0
     jest-junit: ~16.0.0
+    jsonc-eslint-parser: ~2.3.0
     nx: ~16.8.0
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
