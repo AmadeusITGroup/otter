@@ -50,12 +50,6 @@ export interface ComponentClassOutput extends Output {
   name: string;
   /** Component path */
   path: string;
-  /** Component template path */
-  templatePath: string;
-  /** Name of the module that declares this component */
-  moduleName: string;
-  /** Path where the module can be found */
-  modulePath: string;
   /** Component selector */
   selector: string;
   /** Component type */

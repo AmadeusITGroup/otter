@@ -9,9 +9,6 @@
       "library",
       "name",
       "path",
-      "templatePath",
-      "moduleName",
-      "modulePath",
       "selector",
       "type",
       "linkableToRuleset"
@@ -28,18 +25,6 @@
       "path": {
         "type": "string",
         "description": "Path to the component file"
-      },
-      "templatePath": {
-        "type": "string",
-        "description": "Path to the component template file"
-      },
-      "moduleName": {
-        "type": "string",
-        "description": "Name of the module that declares the component"
-      },
-      "modulePath": {
-        "type": "string",
-        "description": "Path to the component module file"
       },
       "selector": {
         "type": "string",
