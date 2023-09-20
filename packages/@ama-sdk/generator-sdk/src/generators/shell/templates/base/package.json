@@ -119,9 +119,7 @@
     "isomorphic-fetch": "~3.0.0"
   },
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=6.0.0",
-    "yarn": ">=3.1.0"
+    "node": ">=18.0.0"
   },
   "packageManager": "yarn@3.6.3"
 }

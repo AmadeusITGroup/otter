@@ -19,7 +19,7 @@ during the installation of the `@o3r/core`.
 ### Required environment
 
 * **Git** : [https://gitforwindows.org/](https://gitforwindows.org/)
-* **NodeJs 16.x** : [NodeJS LTS](https://nodejs.org/)
+* **NodeJs 18.x** : [NodeJS LTS](https://nodejs.org/)
 * **Yarn** : [https://yarnpkg.com/lang/en/](https://yarnpkg.com/)
 
 **Yarn** can be installed directly using NPM:

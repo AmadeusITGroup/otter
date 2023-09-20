@@ -54,7 +54,7 @@
     "@ama-terasu/core": "workspace:^"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dodo": {
     "version": "1.0.56"

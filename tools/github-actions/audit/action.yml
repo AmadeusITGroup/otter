@@ -25,5 +25,5 @@ outputs:
     description: 'The report in MarkDown format'
     value: ${{ steps.audit.outputs.reportMarkdown }}
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'packaged-action/index.js'
