@@ -26,7 +26,7 @@
     "stylelint": "^15.10.1"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
     "@angular/compiler": "~16.2.0",
     "@babel/core": "~7.22.0",
     "@babel/preset-typescript": "~7.22.0",

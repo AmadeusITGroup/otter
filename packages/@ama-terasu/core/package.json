@@ -12,7 +12,7 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
     "@nx/jest": "~16.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
