@@ -1,6 +1,6 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
-import { getProjectFromTree, readAngularJson } from '@o3r/schematics';
+import { getWorkspaceConfig } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -13,8 +13,8 @@ describe('Playwright Sanity', () => {
     const initialTree = Tree.empty();
     initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
     initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'package.mocks.json')));
-    const workspace = readAngularJson(initialTree);
-    const workspaceProject = getProjectFromTree(initialTree);
+    const workspace = getWorkspaceConfig(initialTree);
+    const workspaceProject = workspace?.projects['test-project'];
     const dir = 'e2e-playwright/sanity';
     const configurationIndex = '@o3r/testing:playwright-sanity';
     workspaceProject.schematics ||= {};

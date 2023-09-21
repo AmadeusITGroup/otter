@@ -1,5 +1,5 @@
 import type {Rule} from '@angular-devkit/schematics';
-import {getProjectRootDir, ngAddPackages} from '@o3r/schematics';
+import { getWorkspaceConfig, ngAddPackages } from '@o3r/schematics';
 import {NodeDependencyType} from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -14,7 +14,7 @@ import type {PresetOptions} from './preset.interface';
 export function defaultPresetRuleFactory(moduleToInstall: string[], options: PresetOptions = {}): Rule {
 
   return (tree, _context) => {
-    const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     if (!moduleToInstall.length) {
       return tree;
     }

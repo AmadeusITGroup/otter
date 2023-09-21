@@ -2,7 +2,7 @@ import { strings } from '@angular-devkit/core';
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import * as ts from 'typescript';
-import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getProjectFromTree, insertRoute, Route } from '@o3r/schematics';
+import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getWorkspaceConfig, insertRoute, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 import { getAddConfigurationRules } from '../rule-factories/component/configuration';
 import { getAddThemingRules } from '../rule-factories/component/theming';
@@ -12,13 +12,12 @@ import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
 
 /**
  * Add a Page to an Otter project
- *
  * @param options
  */
 export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
 
   const isApplication = (tree: Tree) => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       throw new Error('Cannot create a page on library');
     }
@@ -30,12 +29,11 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
 
   /**
    * Generates page files.
-   *
    * @param tree File tree
    * @param context Context of the rule
    */
   const generateFiles = (tree: Tree, context: SchematicContext): Rule => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       context.logger.warn('No application detected in this project, the page cannot be generated');
       return noop;
@@ -43,7 +41,7 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
     const destination = getDestinationPath('@o3r/core:page', options.path, tree, options.projectName);
     const pagePath = path.posix.join(destination, strings.dasherize(options.scope), strings.dasherize(options.name));
     const dasherizedPageName = strings.dasherize(options.name);
-    const projectName = workspaceProject.name;
+    const projectName = options.projectName;
     const componentPath = path.posix.join(pagePath, `${dasherizedPageName}.component.ts`);
     const ngSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.component.spec.ts`);
     const o3rSpecPath = path.posix.join(pagePath, `${dasherizedPageName}.spec.ts`);
@@ -192,7 +190,6 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
 
   /**
    * Updates App Routing Module to add the new page route.
-   *
    * @param tree File tree
    * @param context Context of the rule
    */

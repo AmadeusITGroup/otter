@@ -7,7 +7,6 @@ import type { NgAddSchematicsSchema } from './schema';
 /**
  * Add Otter styling to an Angular Project
  * Update the styling if the app/lib used otter v7
- *
  * @param options for the dependency installations
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
@@ -17,15 +16,14 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const {
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectDepType,
+        getProjectNewDependenciesType,
         getWorkspaceConfig,
         ngAddPackages,
         ngAddPeerDependencyPackages,
         removePackages,
         registerPackageCollectionSchematics,
         setupSchematicsDefaultParams,
-        updateSassImports,
-        getProjectRootDir
+        updateSassImports
       } = await import('@o3r/schematics');
       options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
       const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
@@ -35,8 +33,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
-      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
-      const dependencyType = getProjectDepType(tree);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       return () => chain([
         removePackages(['@otter/styling']),
         updateSassImports('o3r'),

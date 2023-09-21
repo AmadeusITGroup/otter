@@ -12,12 +12,15 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {addImportToModuleFile, getAppModuleFilePath, getProjectDepType, getProjectRootDir, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {
+        addImportToModuleFile, getAppModuleFilePath, getWorkspaceConfig, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType
+      } = await import('@o3r/schematics');
       const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
       const ts = await import('typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : undefined;
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root;
 
       const addAngularAnimationPreferences: Rule = () => {
         const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
@@ -65,7 +68,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         tree.commitUpdate(recorder);
         return tree;
       };
-      const dependencyType = getProjectDepType(tree);
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
 
       return () => chain([
         ngAddPackages(depsInfo.o3rPeerDeps, {

@@ -6,7 +6,6 @@ import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter components to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
@@ -16,13 +15,12 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const {
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectDepType,
+        getProjectNewDependenciesType,
         getWorkspaceConfig,
         ngAddPackages,
         ngAddPeerDependencyPackages,
         removePackages,
-        registerPackageCollectionSchematics,
-        getProjectRootDir
+        registerPackageCollectionSchematics
       } = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
@@ -33,8 +31,10 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
-      const dependencyType = getProjectDepType(tree);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const rule = chain([
         removePackages(['@otter/components']),
         ngAddPackages(depsInfo.o3rPeerDeps, {

@@ -71,6 +71,7 @@ export interface WorkspaceSchematics extends SchematicOptions {
   };
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
+  name?: string;
   architect?: WorkspaceTool;
   i18n?: WorkspaceProjectI18n;
   prefix: string;
