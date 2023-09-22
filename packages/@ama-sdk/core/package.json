@@ -29,9 +29,9 @@
     "build": "yarn nx build ama-sdk-core",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
-    "build:esm2020": "tsc -b tsconfig.esm2020.json",
+    "build:esm2020": "tsc -b tsconfig.build.json",
     "postbuild": "patch-package-json-main",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,package}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
