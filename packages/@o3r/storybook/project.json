@@ -45,7 +45,6 @@
             "output": "./component-wrapper"
           }
         ],
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       },
       "dependsOn": [
@@ -89,7 +88,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/storybook/src/**/*.ts"
+          "packages/@o3r/storybook/src/**/*.ts",
+          "packages/@o3r/storybook/package.json"
         ]
       }
     },

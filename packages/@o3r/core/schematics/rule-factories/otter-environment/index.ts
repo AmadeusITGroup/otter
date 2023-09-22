@@ -3,7 +3,7 @@ import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
 import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
-import { posix } from 'node:path';
+import { join, posix } from 'node:path';
 
 /**
  * Update Otter environment variable for schematics
@@ -58,7 +58,7 @@ export function updateOtterEnvironmentAdapter(
         const path = TYPES_DEFAULT_FOLDER[item].app;
         if (path) {
           workspaceProject.schematics![item] = {
-            path,
+            path: posix.join(workspaceProject.root, path),
             ...(workspaceProject.schematics![item] || {})
           };
         }
@@ -68,12 +68,12 @@ export function updateOtterEnvironmentAdapter(
       if (workspaceProject.architect && workspaceProject.architect.build) {
         workspaceProject.architect.build.configurations ||= {};
         workspaceProject.architect.build.configurations.production ||= {};
-        workspaceProject.architect.build.configurations.production.outputPath ||= 'dist';
+        workspaceProject.architect.build.configurations.production.outputPath ||= join(workspaceProject.root, 'dist');
 
         if (workspaceProject.architect.build.configurations.options &&
             workspaceProject.architect.build.configurations.options.outputPath &&
             /^dist([/].+)?/i.test(workspaceProject.architect.build.configurations.options.outputPath)) {
-          workspaceProject.architect.build.configurations.options.outputPath ||= 'dist-dev';
+          workspaceProject.architect.build.configurations.options.outputPath ||= join(workspaceProject.root, 'dist-dev');
         }
 
       }

@@ -75,7 +75,11 @@ async function getLabelsFromProjects(targetBranch, config) {
       const project = JSON.parse(projectString);
       if (listTouchedFiles.some((file) => file.startsWith(project.root))) {
         const packageJson = join(project.root, 'package.json');
-        const /** @type {string} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
+        const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
+        if (!packageName) {
+          process.stderr.write(`No package name found for ${projectName}${EOL}`);
+          continue;
+        }
         if (!config.ignoredProjects.includes(packageName)) {
           labels.push(`${config.projectLabelPrefix}${packageName}`);
         }

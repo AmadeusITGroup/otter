@@ -104,11 +104,15 @@ export function getMainFilePath(tree: Tree, context: SchematicContext) {
  * one of its modules.
  *
  * @param tree
+ * @param options @see RuleFactory.options
+ * @param options.projectName
  */
-export function isApplicationThatUsesRouterModule(tree: Tree) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {
+  const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+  const cwd = process.cwd().replace(/[\\/]+/g, '/');
+  const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
   return workspaceProject?.sourceRoot &&
-    globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
+    globbySync(path.posix.join(root, workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
       const fileContent = fs.readFileSync(filePath).toString();
       if (!/RouterModule/.test(fileContent)) {
         return false;

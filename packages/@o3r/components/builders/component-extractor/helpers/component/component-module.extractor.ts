@@ -1,7 +1,10 @@
 import {logging} from '@angular-devkit/core';
 import * as ts from 'typescript';
 
-/** Information extracted from a module file */
+/**
+ * Information extracted from a module file
+ * @deprecated will be removed in v10
+ */
 export interface ModuleInformation {
   /** Name of the module */
   name: string;
@@ -11,6 +14,7 @@ export interface ModuleInformation {
 
 /**
  * Component module extractor.
+ * @deprecated will be removed in v10
  */
 export class ComponentModuleExtractor {
 

@@ -35,17 +35,18 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
       const dependencyType = getProjectDepType(tree);
       return () => chain([
         removePackages(['@otter/styling']),
         updateSassImports('o3r'),
-        updateThemeFiles(__dirname),
+        updateThemeFiles(__dirname, options),
         removeV7OtterAssetsInAngularJson(options),
         ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
           dependencyType,
           workingDirectory
         }),

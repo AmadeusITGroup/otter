@@ -1,0 +1,48 @@
+<div class="card my-3 overflow-hidden">
+  <div class="row g-0">
+    <div class="col-4 bg-body-tertiary d-flex align-items-center justify-center">
+      <img [src]="'otter.png' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
+    </div>
+    <div class="col-8 container p-3">
+      <div class="card-bod d-flex flex-column h-100">
+        <div class="row card-title flex-fill d-flex align-items-center m-auto">
+          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 rounded-pill py-3 px-5 position-relative">
+            <ng-container *ngIf="form.value.destination; else simpleWelcome">
+              {{ translations.welcomeWithCityName | translate: { cityName: (translations.cityName + '.' + form.value.destination) | translate }  }}
+            </ng-container>
+            <ng-template #simpleWelcome>
+              {{ translations.welcome | translate }}
+            </ng-template>
+            <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
+          </h2>
+        </div>
+        <h5 class="row card-text mt-auto ms-1">{{ translations.question | translate }}</h5>
+        <form class="row g-2" [formGroup]="form">
+          <div class="col-12 col-xl-6" [class.col-xl-12]="(config$ | async)?.shouldProposeRoundTrip">
+            <div class="input-group">
+              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | translate }}</label>
+              <select class="form-select" id="destination" formControlName="destination">
+                <option disabled selected value>{{ translations.destinationPlaceholder | translate }}</option>
+                <option *ngFor="let destination of destinations$ | async; trackBy: trackByCityName" [disabled]="!destination.available" [value]="destination.cityCode">
+                  {{ (translations.cityName + '.' + destination.cityCode) | translate }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-xl-6">
+            <div class="input-group">
+              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | translate }}</label>
+              <input type="date" class="form-control" id="date-outbound" formControlName="outboundDate">
+            </div>
+          </div>
+          <div *ngIf="(config$ | async)?.shouldProposeRoundTrip" class="col-12 col-xl-6">
+            <div class="input-group">
+              <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | translate }}</label>
+              <input type="date" class="form-control" id="date-inbound" formControlName="inboundDate">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

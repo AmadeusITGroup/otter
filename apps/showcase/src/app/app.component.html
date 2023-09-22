@@ -1,0 +1,11 @@
+<div class="container-fluid d-flex gap-2 h-100">
+  <div class="left-nav d-flex flex-column">
+    <o3r-sidenav-pres
+      [linksGroups]="linksGroups"
+      [activeUrl]="activeUrl$ | async"
+    ></o3r-sidenav-pres>
+  </div>
+  <div class="page-content flex-fill">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -19,7 +19,7 @@ during the installation of the `@o3r/core`.
 ### Required environment
 
 * **Git** : [https://gitforwindows.org/](https://gitforwindows.org/)
-* **NodeJs 16.x** : [NodeJS LTS](https://nodejs.org/)
+* **NodeJs 18.x** : [NodeJS LTS](https://nodejs.org/)
 * **Yarn** : [https://yarnpkg.com/lang/en/](https://yarnpkg.com/)
 
 **Yarn** can be installed directly using NPM:
@@ -90,6 +90,7 @@ Otter framework provides a set of code generators based on [angular schematics](
 | -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
 | library                    | Add a new Library to the current Otter project                                | `ng g library`                    |
 | sdk                        | Add a new SDK to the current Otter project                                    | `ng g sdk`                        |
+| application                | Add a new Application to the current Otter project                            | `ng g application`                |
 
 ## Create your own Otter compatible module
 

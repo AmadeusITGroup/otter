@@ -14,7 +14,7 @@ describe('Fetch API cache Request Plugin', () => {
   });
 
   it('cache should be set correctly', async () => {
-    const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc'};
+    const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc', method: 'get'};
     const plugin = new FetchCacheRequest('force-cache');
     const cache = (await plugin.load().transform(options)).cache;
 
@@ -22,7 +22,7 @@ describe('Fetch API cache Request Plugin', () => {
   });
 
   it('should set Cache-Control and Pragma header to no-cache in the request', async () => {
-    const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc'};
+    const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc', method: 'get'};
     (global as any).fetch = {polyfill: true};
     const plugin = new FetchCacheRequest('force-cache', 'no-cache');
     const headerCacheControl = (await plugin.load().transform(options)).headers.get('Cache-Control');
@@ -33,7 +33,7 @@ describe('Fetch API cache Request Plugin', () => {
   });
 
   it('should not set Cache-Control header in the request', async () => {
-    const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc'};
+    const options: RequestOptions = { headers: new Headers(), basePath: 'http://test.com/truc', method: 'get' };
     (global as any).fetch = () => {};
     const plugin = new FetchCacheRequest('force-cache', 'no-cache');
     const headerCacheControl = (await plugin.load().transform(options)).headers.get('Cache-Control');

@@ -2,10 +2,16 @@
 
 import { spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 import * as minimist from 'minimist';
 import type { PackageJson } from 'type-fest';
 
-const { version } = require(resolve(__dirname, 'package.json')) as PackageJson;
+const { properties } = JSON.parse(
+  readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
+) as { properties: Record<string, { alias?: string }> };
+const { version } = JSON.parse(
+  readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
+) as PackageJson;
 
 const logo = `
 
@@ -93,8 +99,23 @@ if (argv._.length === 0) {
   process.exit(-1);
 }
 
+/**
+ * Determine if the argument is part of the Angular ng new declared option
+ * @param arg CLI argument
+ */
+const isNgNewOptions = (arg: string) => {
+  const entries = Object.entries(properties);
+  if (arg.startsWith('--')) {
+    return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`].includes(arg));
+  } else if (arg.startsWith('-')) {
+    return entries.some(([_, {alias}]) => alias && arg === `-${alias}`);
+  }
+
+  return true;
+};
+
 const createNgProject = () => {
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args], {
+  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions)], {
     stdio: 'inherit'
   });
 
@@ -107,7 +128,7 @@ const createNgProject = () => {
 
 const addOtterCore = (relativeDirectory = '.') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
-  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`], {
+  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...args.filter((arg) => arg.startsWith('-'))], {
     stdio: 'inherit',
     cwd
   });

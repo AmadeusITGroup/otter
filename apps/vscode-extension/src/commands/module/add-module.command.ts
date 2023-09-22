@@ -3,10 +3,13 @@ import { posix } from 'node:path';
 import * as vscode from 'vscode';
 import type { ExtensionContext } from 'vscode';
 import type { IncomingMessage } from 'node:http';
-import type { NpmRegistryPackage } from '@o3r/schematics';
 import { getPackageScriptRunner } from '../helpers';
-import type { OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE, OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE } from '@o3r/schematics';
-import type { NPMRegistrySearchResponse } from '@o3r/schematics';
+import type {
+  NpmRegistryPackage,
+  NPMRegistrySearchResponse,
+  OTTER_MODULE_KEYWORD as OTTER_MODULE_KEYWORD_TYPE,
+  OTTER_MODULE_SUPPORTED_SCOPES as OTTER_MODULE_SUPPORTED_SCOPES_TYPE
+} from '@o3r/schematics';
 
 // TODO: Remove this workaround when #362 is implemented
 const OTTER_MODULE_KEYWORD: typeof OTTER_MODULE_KEYWORD_TYPE = 'otter-module';
@@ -28,7 +31,6 @@ async function promiseGetRequest<T>(url: string) {
 
 /**
  * Get Available Otter modules on NPMjs.org
- *
  * @param keyword Keyword to search for Otter modules
  * @param scopeWhitelist List of whitelisted scopes
  * @param onlyNotInstalled Determine if only the packages that are NOT installed should be returned
@@ -60,7 +62,6 @@ async function getAvailableModules(keyword: string, scopeWhitelist: string[] | r
 
 /**
  * Add modules to the current workspace
- *
  * @param context
  * @param folder
  * @param _context

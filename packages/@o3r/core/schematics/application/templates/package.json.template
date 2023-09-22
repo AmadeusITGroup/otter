@@ -1,0 +1,29 @@
+{
+  "name": "<%= name %>",
+  "version": "0.0.0-placeholder",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "<%= rootDependencies['@angular/animations'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/common": "<%= rootDependencies['@angular/common'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/compiler": "<%= rootDependencies['@angular/compiler'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/core": "<%= rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/forms": "<%= rootDependencies['@angular/forms'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/platform-browser": "<%= rootDependencies['@angular/platform-browser'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/platform-browser-dynamic": "<%= rootDependencies['@angular/platform-browser-dynamic'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "@angular/router": "<%= rootDependencies['@angular/router'] || rootDependencies['@angular/core'] || 'latest' %>",
+    "rxjs": "<%= rootDependencies['rxjs'] || 'latest' %>",
+    "tslib": "<%= rootDependencies['tslib'] || 'latest' %>",
+    "zone.js": "<%= rootDependencies['zone.js'] || 'latest' %>"
+  },
+  "devDependencies": {
+    "@angular/cli": "<%= rootDependencies['@angular/cli'] || 'latest' %>",
+    "@angular/compiler-cli": "<%= rootDependencies['@angular/compiler-cli'] || rootDependencies['@angular/cli'] || 'latest' %>",
+    "typescript": "<%= rootDependencies['typescript'] || 'latest' %>"
+  }
+}

@@ -48,7 +48,7 @@ async function run(): Promise<void> {
 
       const plugin = new NewVersion(options);
       if (!plugin.isBaseBranchSupported) {
-        core.warning(`Cannot compute the version for ${options.baseBranch}`);
+        core.setFailed(`Cannot compute the version for ${options.baseBranch}`);
         return;
       }
       const newVersion = await plugin.execute();

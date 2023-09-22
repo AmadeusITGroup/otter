@@ -1,7 +1,6 @@
 export * from './api';
 export * from './api.helpers';
 export * from './api.interface';
-export * from './clients/index';
 export * from './core/index';
 export * from './date';
 export * from './errors';
