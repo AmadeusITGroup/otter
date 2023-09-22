@@ -7,6 +7,7 @@ import * as fs from 'node:fs';
 
 /**
  * Add Otter rules-engine to an Angular Project
+ * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
@@ -16,8 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         ngAddPackages,
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectDepType,
-        getProjectRootDir,
+        getProjectNewDependenciesType,
         getWorkspaceConfig,
         ngAddPeerDependencyPackages,
         removePackages,
@@ -30,8 +30,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
-      const dependencyType = getProjectDepType(tree);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const rule = chain([
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({

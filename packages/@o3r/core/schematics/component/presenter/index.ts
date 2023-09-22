@@ -21,7 +21,7 @@ import {
   getComponentName,
   getComponentSelectorWithoutSuffix,
   getDestinationPath, getInputComponentName,
-  getLibraryNameFromPath, getProjectFromTree
+  getLibraryNameFromPath, getWorkspaceConfig
 } from '@o3r/schematics';
 import * as path from 'node:path';
 import { getAddAnalyticsRules } from '../../rule-factories/component/analytics';
@@ -37,7 +37,6 @@ export const PRESENTER_FOLDER = 'presenter';
 
 /**
  * Generates the template properties
- *
  * @param options
  * @param componentStructureDef
  * @param prefix
@@ -60,7 +59,6 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
 
 /**
  * Add Otter component to an Angular Project
- *
  * @param options
  */
 export function ngGenerateComponentPresenter(options: NgGenerateComponentSchematicsSchema): Rule {
@@ -69,7 +67,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
   const generateFiles = (tree: Tree, _context: SchematicContext) => {
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
 

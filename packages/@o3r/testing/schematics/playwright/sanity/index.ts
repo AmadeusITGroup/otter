@@ -1,17 +1,16 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 
-import { getDestinationPath, getProjectFromTree } from '@o3r/schematics';
+import { getDestinationPath, getWorkspaceConfig } from '@o3r/schematics';
 import { NgGeneratePlaywrightSanitySchematicsSchema } from './schema';
 
 /**
  * Add a Playwright sanity to an Otter project
- *
  * @param options
  */
 export function ngGeneratePlaywrightSanity(options: NgGeneratePlaywrightSanitySchematicsSchema): Rule {
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
       throw new Error('Cannot create a playwright sanity');
@@ -24,7 +23,6 @@ export function ngGeneratePlaywrightSanity(options: NgGeneratePlaywrightSanitySc
 
   /**
    * Generates playwright sanity file.
-   *
    * @param tree File tree
    * @param context Context of the rule
    */

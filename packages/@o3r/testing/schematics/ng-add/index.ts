@@ -1,5 +1,14 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTestFramework, getWorkspaceConfig, setupSchematicsDefaultParams } from '@o3r/schematics';
+import {
+  addVsCodeRecommendations,
+  getO3rPeerDeps,
+  getProjectNewDependenciesType,
+  getTestFramework,
+  getWorkspaceConfig,
+  ngAddPackages,
+  ngAddPeerDependencyPackages,
+  registerPackageCollectionSchematics,
+  removePackages, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
@@ -20,28 +29,17 @@ function canResolvePlaywright(): boolean {
 
 /**
  * Add Otter testing to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {
-        addVsCodeRecommendations,
-        getProjectDepType,
-        getProjectFromTree,
-        getO3rPeerDeps,
-        ngAddPackages,
-        ngAddPeerDependencyPackages,
-        removePackages,
-        registerPackageCollectionSchematics
-      } = await import('@o3r/schematics');
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
-      const dependencyType = getProjectDepType(tree);
-      const workspaceProject = (tree.exists('angular.json') && options.projectName) ? getProjectFromTree(tree, options.projectName) : undefined;
-      const workingDirectory = workspaceProject?.root;
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const projectType = workspaceProject?.projectType || 'application';
 
       let installJest;

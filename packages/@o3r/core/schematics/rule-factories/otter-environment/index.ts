@@ -2,12 +2,11 @@ import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
-import { getPackageManager, getProjectFromTree, OTTER_ITEM_TYPES, readAngularJson, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
+import { getPackageManager, getWorkspaceConfig, OTTER_ITEM_TYPES, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import { join, posix } from 'node:path';
 
 /**
  * Update Otter environment variable for schematics
- *
  * @param options @see RuleFactory.options
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
@@ -31,15 +30,14 @@ export function updateOtterEnvironmentAdapter(
 
   /**
    * Add Configuration for schematics
-   *
    * @param tree
    * @param _context
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
-    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
-    if (!workspaceProject) {
+    const workspace = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
+    if (!workspace || !workspaceProject) {
       context.logger.error('No application detected, the Otter environment will not be setup');
       return tree;
     }
@@ -78,8 +76,7 @@ export function updateOtterEnvironmentAdapter(
 
       }
 
-      const { name, ...newProject } = workspaceProject;
-      workspace.projects[name] = newProject;
+      workspace.projects[options.projectName!] = workspaceProject;
     } else {
       workspace.cli.packageManager ||= getPackageManager() as PackageManager;
 
@@ -114,14 +111,14 @@ export function updateOtterEnvironmentAdapter(
 
   /**
    * Use Angular CLI generator to create environment files
-   *
    * @param tree
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
 
-    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
-    if (!workspaceProject) {
+    const workspace = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
+    if (!workspace || !workspaceProject) {
       context.logger.error('No application detected, the environment can not be generated');
       return tree;
     }
@@ -129,7 +126,7 @@ export function updateOtterEnvironmentAdapter(
     if (tree.exists(posix.join(workspaceProject.root, 'src/environments/environment.ts'))) {
       return tree;
     }
-    const workspace = readAngularJson(tree);
+
     const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const envBasePath = posix.join(workspaceProject.root, 'src', 'environments');
     const envDevFilePath = posix.join(envBasePath, 'environment.development.ts');
@@ -141,12 +138,11 @@ export function updateOtterEnvironmentAdapter(
 
   /**
    * Update environment files to add `production` boolean
-   *
    * @param tree
    * @param _context
    */
   const editEnvironmentFiles = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       return tree;
     }

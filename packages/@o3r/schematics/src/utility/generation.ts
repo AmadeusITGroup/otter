@@ -1,7 +1,7 @@
 import { JsonValue } from '@angular-devkit/core';
 import { Tree } from '@angular-devkit/schematics';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
-import { getProjectFromTree, readAngularJson } from './loaders';
+import { getWorkspaceConfig } from './loaders';
 
 /** Type of generated item */
 export type GeneratedItemType =
@@ -44,7 +44,6 @@ export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string;
 
 /**
  * Get destination path for a generated item
- *
  * @param typeOfItem
  * @param directory
  * @param tree
@@ -71,8 +70,9 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
    * @param propProject
    */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
-    const workspaceProject = getProjectFromTree(propTree, propProject);
-    return workspaceProject ? getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(readAngularJson(propTree), generatorName) : null;
+    const workspace = getWorkspaceConfig(propTree);
+    const workspaceProject = propProject ? workspace?.projects[propProject] : undefined;
+    return workspaceProject ? getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(workspace!, generatorName) : null;
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

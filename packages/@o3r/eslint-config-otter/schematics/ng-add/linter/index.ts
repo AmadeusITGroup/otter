@@ -1,10 +1,9 @@
 import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getAllFilesInTree, getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
+import { getAllFilesInTree, getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
 
 const tsEslintParserDep = '@typescript-eslint/parser';
 /**
  * Add or update the Linter configuration
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
@@ -13,7 +12,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
 
   /**
    * Update or create the eslint.json file
-   *
    * @param tree
    * @param context
    */
@@ -52,15 +50,14 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
 
   /**
    * Update angular.json file to use ESLint builder.
-   *
    * @param tree
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
-    const workspaceProject = getProjectFromTree(tree, options.projectName);
+    const workspace = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
 
-    if (!workspaceProject) {
+    if (!workspace || !workspaceProject) {
       context.logger.warn('No project detected, linter task can not be added');
       return tree;
     }
@@ -76,8 +73,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
       }
     };
 
-    const { name, ...newProject } = workspaceProject;
-    workspace.projects[name] = newProject;
+    workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };

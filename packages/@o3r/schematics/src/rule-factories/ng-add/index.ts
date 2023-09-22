@@ -1,4 +1,4 @@
-import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import type { NodeDependency } from '@schematics/angular/utility/dependencies';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -8,11 +8,10 @@ import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { SchematicOptionObject } from '../../interfaces';
 import type { NgAddPackageOptions } from '../../tasks/index';
-import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, readAngularJson, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
+import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, getWorkspaceConfig, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
 
 /**
  * Install via `ng add` a list of npm packages.
- *
  * @param packages List of packages to be installed via `ng add`
  * @param options install options
  * @param packageJsonPath path of the package json of the project where they will be installed
@@ -143,7 +142,6 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
 
 /**
  * Look for the peer dependencies and run ng add on the package requested version
- *
  * @param packages list of the name of the packages needed
  * @param packageJsonPath path to package json that needs the peer to be resolved
  * @param type how to install the dependency (dev, peer for a library or default for an application)
@@ -171,29 +169,35 @@ export function ngAddPeerDependencyPackages(packages: string[], packageJsonPath:
 
 /**
  * Register the given package in the Angular CLI schematics
- *
  * @param packageJson PackageJson of the project containing the collection to add to the project
  * @param angularJsonFile Path to the Angular.json file. Will use the workspace root's angular.json if not specified
  */
 export function registerPackageCollectionSchematics(packageJson: PackageJson, angularJsonFile?: string): Rule {
-  return (tree) => {
+  return (tree, context) => {
     if (!packageJson.name) {
       return tree;
     }
-    const workspace = readAngularJson(tree, angularJsonFile);
+    const workspace = getWorkspaceConfig(tree, angularJsonFile);
+    if (!workspace) {
+      context.logger.error('No workspace found');
+      return tree;
+    }
     return writeAngularJson(tree, registerCollectionSchematics(workspace, packageJson.name), angularJsonFile);
   };
 }
 
 /**
  * Setup schematics default params in angular.json
- *
  * @param schematicsDefaultParams default params to setup by schematic
  * @param angularJsonFile Path to the Angular.json file. Will use the workspace root's angular.json if not specified
  */
 export function setupSchematicsDefaultParams(schematicsDefaultParams: Record<string, SchematicOptionObject>, angularJsonFile?: string): Rule {
-  return (tree: Tree) => {
-    const workspace = readAngularJson(tree, angularJsonFile);
+  return (tree, context) => {
+    const workspace = getWorkspaceConfig(tree, angularJsonFile);
+    if (!workspace) {
+      context.logger.error('No workspace found');
+      return tree;
+    }
     workspace.schematics ||= {};
     Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
       workspace.schematics![schematicName] = {

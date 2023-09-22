@@ -13,17 +13,18 @@ export function ngAdd(options: NgAddSchematicsSchema) {
     try {
       const {
         ngAddPackages,
-        getProjectDepType,
+        getProjectNewDependenciesType,
+        getWorkspaceConfig,
         getO3rPeerDeps,
         registerPackageCollectionSchematics,
-        setupSchematicsDefaultParams,
-        getProjectRootDir
+        setupSchematicsDefaultParams
       } = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
-      const dependencyType = getProjectDepType(tree);
-      const workingDirectory = options.projectName ? getProjectRootDir(tree, options.projectName) : '.';
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
       return chain([
