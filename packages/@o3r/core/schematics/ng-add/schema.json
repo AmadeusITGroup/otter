@@ -21,6 +21,10 @@
         ]
       }
     },
+    "externalPresets": {
+      "description": "Preset of non-official module list to automatically install",
+      "type": "string"
+    },
     "projectName": {
       "type": "string",
       "description": "Project name",

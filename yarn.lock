@@ -8819,6 +8819,8 @@ __metadata:
       optional: true
     "@angular-devkit/schematics":
       optional: true
+    "@ngx-translate/core":
+      optional: true
     "@o3r/core":
       optional: true
     "@o3r/localization":

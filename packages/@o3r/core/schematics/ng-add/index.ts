@@ -1,13 +1,14 @@
-import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, externalSchematic, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { displayModuleList } from '../rule-factories/module-list';
-import { presets } from '../shared/presets';
+import { getExternalPreset, presets } from '../shared/presets';
 import { AddDevInstall } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
 import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 
 /**
  * Add Otter library to an Angular Project
@@ -39,12 +40,20 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
       },
       async (t, c) => {
-        const { preset, ...forwardOptions } = options;
+        const { preset, externalPresets, ...forwardOptions } = options;
         const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
-        if (presetRunner.modules) {
-          c.logger.info(`The following modules will be installed: ${presetRunner.modules.join(', ')}`);
+        const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)?.({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
+        const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
+        if (modules.length) {
+          c.logger.info(`The following modules will be installed: ${modules.join(', ')}`);
+          if (c.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
+            return;
+          }
         }
-        return () => presetRunner.rule(t, c);
+        return () => chain([
+          presetRunner.rule,
+          externalPresetRunner?.rule || noop()
+        ])(t, c);
       },
       async (t, c) => {
         const { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } = await import('@o3r/schematics');

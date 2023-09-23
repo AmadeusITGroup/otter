@@ -6,6 +6,9 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Preset of module list to automatically install */
   preset: PresetNames;
 
+  /** Preset of non-official module list to automatically install */
+  externalPresets?: string | undefined;
+
   /** Project name */
   projectName?: string | undefined;
 
