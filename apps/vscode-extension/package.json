@@ -318,8 +318,8 @@
     "@angular/core": "~16.2.0",
     "@angular/platform-browser": "~16.2.0",
     "@angular/platform-browser-dynamic": "~16.2.0",
-    "@nx/eslint-plugin": "~16.8.0",
-    "@nx/jest": "~16.8.0",
+    "@nx/eslint-plugin": "~16.9.0",
+    "@nx/jest": "~16.9.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
@@ -342,10 +342,10 @@
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.3.0",
-    "nx": "~16.8.0",
+    "nx": "~16.9.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.1.1",
     "typescript": "~5.1.6",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   }
 }

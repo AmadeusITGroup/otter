@@ -38,7 +38,7 @@
     "@ngrx/store": "~16.2.0",
     "@ngrx/store-devtools": "~16.2.0",
     "@ngx-translate/core": "~15.0.0",
-    "@nx/jest": "~16.8.0",
+    "@nx/jest": "~16.9.0",
     "@o3r/application": "workspace:^",
     "@o3r/components": "workspace:^",
     "@o3r/configuration": "workspace:^",
@@ -61,7 +61,7 @@
     "rxjs": "^7.8.1",
     "sass-loader": "^13.1.0",
     "tslib": "^2.5.3",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1602.0",
@@ -74,7 +74,7 @@
     "@angular/cli": "~16.2.0",
     "@angular/compiler-cli": "~16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
-    "@nx/eslint-plugin": "~16.8.0",
+    "@nx/eslint-plugin": "~16.9.0",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
