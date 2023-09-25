@@ -8364,6 +8364,7 @@ __metadata:
     eslint-plugin-prefer-arrow: ~1.2.3
     eslint-plugin-unicorn: ^47.0.0
     globby: ^11.1.0
+    highlight.js: ^11.8.0
     intl-messageformat: ~10.5.1
     jest: ~29.7.0
     jest-environment-jsdom: ~29.7.0
@@ -8371,6 +8372,7 @@ __metadata:
     jest-preset-angular: ~13.1.1
     jsonc-eslint-parser: ~2.3.0
     ngrx-store-localstorage: ^16.0.0
+    ngx-highlightjs: ^10.0.0
     pixelmatch: ^5.2.1
     pngjs: ^7.0.0
     rimraf: ^5.0.1
@@ -19253,6 +19255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"highlight.js@npm:^11.8.0":
+  version: 11.8.0
+  resolution: "highlight.js@npm:11.8.0"
+  checksum: d2578a57aee7315946ff19379053fd0a28b127baabf7617ab1d28d62cdc4eaf3d75053569cb8479a5afdc7a68f1ba9a6c1d612d8ae399b4b9aa43093b4fb6831
+  languageName: node
+  linkType: hard
+
 "hosted-git-info@npm:^2.1.4":
   version: 2.8.9
   resolution: "hosted-git-info@npm:2.8.9"
@@ -23333,6 +23342,20 @@ __metadata:
     "@angular/core": ^16.0.0
     "@ngrx/store": ^16.0.0
   checksum: be9682985c83cd543f6d2ac2eb7fb009587573b6ac577429df3081c54517dd6c2d8f2c187c77302708c767d21171eb48f72901f296f130e63209183242623f63
+  languageName: node
+  linkType: hard
+
+"ngx-highlightjs@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "ngx-highlightjs@npm:10.0.0"
+  dependencies:
+    highlight.js: ^11.8.0
+    tslib: ^2.0.0
+  peerDependencies:
+    "@angular/common": ">=16.0.0"
+    "@angular/core": ">=16.0.0"
+    rxjs: ">=7.0.0"
+  checksum: ea5d9f4b69a383c26ef4ca1abc8b62d24dc5baa20dcec9cfb03dac500a88b79166a0a4039362f4a91fb56cb89afc8a5e8e11b8c41dc4adc0e316e66dc56e5e8b
   languageName: node
   linkType: hard
 

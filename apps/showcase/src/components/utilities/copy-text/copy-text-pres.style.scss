@@ -1,9 +1,19 @@
 o3r-copy-text-pres {
-  .bi-clipboard {
-    cursor: pointer;
+  .d-flex {
+    padding: .25rem 1rem .25rem .25rem;
+    margin-bottom: 1rem;
   }
 
-  .alert-secondary pre {
+  .bi-clipboard {
+    cursor: pointer;
+    margin-top: 0.75rem;
+  }
+
+  pre {
     margin-bottom: 0;
+  }
+
+  .hljs {
+    background: none;
   }
 }

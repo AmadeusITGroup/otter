@@ -45,19 +45,19 @@
     </div>
     <h2 id="configuration-install">How to install</h2>
     <div>
-      <o3r-copy-text-pres [wrap]="true" text="ng add @o3r/configuration"></o3r-copy-text-pres>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/configuration"></o3r-copy-text-pres>
     </div>
     <h2 id="configuration-component-generation">How to generate a configurable component</h2>
-    <o3r-copy-text-pres [wrap]="true" text="ng g component ComponentName --use-otter-config"></o3r-copy-text-pres>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g component ComponentName --use-otter-config"></o3r-copy-text-pres>
     <h2 id="configuration-add-config-later">How to add configuration to a component</h2>
-    <o3r-copy-text-pres [wrap]="true" text="ng g configuration-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g configuration-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
     <h2 id="configuration-metadata">Metadata</h2>
     <div>
       <h4>How to extract</h4>
-      <o3r-copy-text-pres [wrap]="true" text="ng run project-name:extract-components"></o3r-copy-text-pres>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components"></o3r-copy-text-pres>
       <p>It will extract components' configuration and generate the two following files: <code>component.config.metadata.json</code> and <code>component.class.metadata.json</code></p>
       <p>Check the list of options available by running:</p>
-      <o3r-copy-text-pres [wrap]="true" text="ng run project-name:extract-components --help"></o3r-copy-text-pres>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components --help"></o3r-copy-text-pres>
     </div>
     <h2 id="configuration-references">References</h2>
     <div>

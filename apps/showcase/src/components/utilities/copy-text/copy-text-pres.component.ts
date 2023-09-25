@@ -2,12 +2,13 @@ import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { O3rComponent } from '@o3r/core';
+import { HighlightModule } from 'ngx-highlightjs';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-copy-text-pres',
   standalone: true,
-  imports: [CommonModule, ClipboardModule],
+  imports: [CommonModule, ClipboardModule, HighlightModule],
   templateUrl: './copy-text-pres.template.html',
   styleUrls: ['./copy-text-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -21,6 +22,12 @@ export class CopyTextPresComponent {
   /** Should the text be wrapped if too long */
   @Input()
   public wrap = false;
+
+  /** Language of the code snippet, it will be guessed among the available languages if not provided */
+  @Input()
+  public language?: string;
+
+  public defaultLanguages = ['bash', 'css', 'html', 'json', 'typescript'] as const;
 
   constructor(private clipboard: Clipboard) {}
 
