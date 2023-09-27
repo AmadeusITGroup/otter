@@ -19,6 +19,7 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   getSimpleUpdatedMethod,
   NoOtterComponent,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { dirname, posix } from 'node:path';
@@ -45,7 +46,7 @@ const checkIframePresence = (componentPath: string, tree: Tree) => {
       && iframeProperties.includes(classElement.name.escapedText.toString())
     )
   ) {
-    throw new Error(`Unable to add iframe to this component because it already has at least one of these properties: ${iframeProperties.join(', ')}.`);
+    throw new O3rCliError(`Unable to add iframe to this component because it already has at least one of these properties: ${iframeProperties.join(', ')}.`);
   }
 };
 

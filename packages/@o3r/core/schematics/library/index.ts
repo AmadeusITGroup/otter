@@ -1,6 +1,6 @@
 import { chain, noop, Rule, schematic, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
+import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { nxGenerateModule } from './rules/rules.nx';
@@ -18,7 +18,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
     const isNx = isNxContext(tree);
     const config = getWorkspaceConfig(tree);
     if (!config) {
-      throw new Error('No workspace configuration file found');
+      throw new O3rCliError('No workspace configuration file found');
     }
     const defaultRoot = getPackagesBaseRootFolder(tree, context, config, 'library');
 

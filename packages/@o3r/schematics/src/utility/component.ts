@@ -2,6 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import * as ts from 'typescript';
 import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
+import { O3rCliError } from './error';
 
 /**
  * Returns true if `node` is the decorator of an Angular component
@@ -66,7 +67,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   const ngComponentDeclaration = sourceFile.statements.find((s): s is ts.ClassDeclaration => ts.isClassDeclaration(s) && isNgClassComponent(s));
 
   if (!ngComponentDeclaration) {
-    throw new Error(`No Angular component found in ${componentPath}.`);
+    throw new O3rCliError(`No Angular component found in ${componentPath}.`);
   }
 
   if (!isO3rClassComponent(ngComponentDeclaration)) {
@@ -76,7 +77,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
   const name = ngComponentDeclaration.name?.escapedText.toString().replace(/Component$/, '');
 
   if (!name) {
-    throw new Error(`The class' name is not specified. Please provide one for the Otter component defined in ${componentPath}.`);
+    throw new O3rCliError(`The class' name is not specified. Please provide one for the Otter component defined in ${componentPath}.`);
   }
 
   const selectorExpression = getPropertyFromDecoratorFirstArgument(
@@ -90,7 +91,7 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
 
 
   if (!selector) {
-    throw new Error(`The component's selector is not specified. Please provide one for the Otter component defined in ${componentPath}.`);
+    throw new O3rCliError(`The component's selector is not specified. Please provide one for the Otter component defined in ${componentPath}.`);
   }
 
   const standaloneExpression = getPropertyFromDecoratorFirstArgument(

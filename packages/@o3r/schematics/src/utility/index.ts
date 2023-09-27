@@ -17,3 +17,5 @@ export * from './monorepo';
 export * from './update-imports';
 export * from './collection';
 export * from './logo';
+export * from './environment';
+export * from './error';

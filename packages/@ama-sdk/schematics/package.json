@@ -31,9 +31,6 @@
     "@angular/compiler": {
       "optional": true
     },
-    "@o3r/schematics": {
-      "optional": true
-    },
     "@openapitools/openapi-generator-cli": {
       "optional": true
     }

@@ -1,6 +1,7 @@
 import { JsonValue } from '@angular-devkit/core';
 import { Tree } from '@angular-devkit/schematics';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
+import { O3rCliError } from './error';
 import { getWorkspaceConfig } from './loaders';
 
 /** Type of generated item */
@@ -80,5 +81,5 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
     return config.path as string;
   }
 
-  throw new Error('No destination directory configured.');
+  throw new O3rCliError('No destination directory configured.');
 }

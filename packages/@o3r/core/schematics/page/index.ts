@@ -2,7 +2,7 @@ import { strings } from '@angular-devkit/core';
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import * as ts from 'typescript';
-import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getWorkspaceConfig, insertRoute, Route } from '@o3r/schematics';
+import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getWorkspaceConfig, insertRoute, O3rCliError, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 import { getAddConfigurationRules } from '../rule-factories/component/configuration';
 import { getAddThemingRules } from '../rule-factories/component/theming';
@@ -19,7 +19,7 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
   const isApplication = (tree: Tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
-      throw new Error('Cannot create a page on library');
+      throw new O3rCliError('Cannot create a page on library');
     }
 
     return tree;
