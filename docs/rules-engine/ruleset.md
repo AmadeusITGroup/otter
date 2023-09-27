@@ -26,7 +26,7 @@ example :
                 "type": "FACT",
                 "value": "isMobileDevice"
               },
-              "operator": "equal",
+              "operator": "equals",
               "rhs": {
                 "type": "LITERAL",
                 "value": true
@@ -56,7 +56,7 @@ example :
                 "type": "FACT",
                 "value": "isMobileDevice"
               },
-              "operator": "equal",
+              "operator": "equals",
               "rhs": {
                 "type": "LITERAL",
                 "value": true

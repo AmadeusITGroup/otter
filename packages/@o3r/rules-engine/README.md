@@ -52,6 +52,8 @@ Otter framework provides a set of code generators based on [angular schematics](
 |---------------------------|---------------------------------------------------------------|----------------------------------|
 | add                       | Include Otter rules-engine module in a library / application. | `ng add @o3r/rules-engine`       |
 | rules-engine-to-component | Add rules-engine to an Otter component                        | `ng g rules-engine-to-component` |
+| facts-service             | Generate a facts service                                      | `ng g facts-service`             |
+| operators                 | Generate an operator                                          | `ng g operator`                  |
 
 
 ## Details

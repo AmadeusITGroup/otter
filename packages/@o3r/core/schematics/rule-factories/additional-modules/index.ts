@@ -20,9 +20,10 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  *
  * @param options @see RuleFactory.options
  * @param options.projectName
+ * @param options.workingDirectory the directory where to execute the rule factory
  * @param _rootPath @see RuleFactory.rootPath
  */
-export function updateAdditionalModules(options: { projectName?: string | null | undefined }, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | null | undefined; workingDirectory?: string | undefined }, _rootPath: string): Rule {
   /**
    * Update package.json to add additional modules dependencies
    *
@@ -34,7 +35,7 @@ export function updateAdditionalModules(options: { projectName?: string | null |
     const generatorDependencies = [ngrxStoreDevtoolsDep];
 
     try {
-      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, options);
+      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, skipNgAddSchematicRun: true});
     } catch (e) {
       context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
     }

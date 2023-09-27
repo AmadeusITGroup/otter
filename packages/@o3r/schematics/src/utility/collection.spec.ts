@@ -23,7 +23,7 @@ const angularJsonSpecificNgAdd: WorkspaceSchema = {
     '@o3r/core:schematics': {path: ''},
     '@o3r/core:ng-add': {projectName: 'otter'},
     '*:ng-add': { enableMetadataExtract: true },
-    '*:*': {libsDir: 'libs', appsDir: 'apps'}
+    '*:*': {libsDir: 'libs', appsDir: 'apps', testFramework: 'jest'}
   }
 };
 
@@ -69,7 +69,10 @@ describe('Get schematics options', () => {
     expect(Object.keys(options)[0]).toBe('projectName');
     expect(Object.keys(options)[1]).toBe('enableMetadataExtract');
     expect(Object.keys(options)[2]).toBe('libsDir');
-    expect(Object.keys(options).length).toBe(4);
+    expect(Object.keys(options)[3]).toBe('appsDir');
+    expect(Object.keys(options)[4]).toBe('testFramework');
+
+    expect(Object.keys(options).length).toBe(5);
   });
 
   it('should return closest matching when no generic options present', () => {

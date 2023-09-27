@@ -108,7 +108,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param _context
    */
   const updateSpec = (tree: Tree, _context: SchematicContext) => {
-    const readmeFile = path.join(targetPath, 'readme.md');
+    const readmeFile = path.posix.join(targetPath, 'readme.md');
     const specContent = readFileSync(specPath).toString();
     if (tree.exists(readmeFile)) {
       const swaggerVersion = /version: ([0-9]+\.[0-9]+\.[0-9]+)/.exec(specContent);
@@ -119,10 +119,10 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
       }
     }
 
-    if (tree.exists(path.join(targetPath, 'swagger-spec.yaml'))) {
-      tree.overwrite(path.join(targetPath, 'swagger-spec.yaml'), specContent);
+    if (tree.exists(path.posix.join(targetPath, 'swagger-spec.yaml'))) {
+      tree.overwrite(path.posix.join(targetPath, 'swagger-spec.yaml'), specContent);
     } else {
-      tree.create(path.join(targetPath, 'swagger-spec.yaml'), specContent);
+      tree.create(path.posix.join(targetPath, 'swagger-spec.yaml'), specContent);
     }
     return () => tree;
   };
@@ -133,7 +133,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
     const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
     let openApiVersion = '';
     try {
-      openApiVersion = (tree.readJson(path.join(targetPath, 'openapitools.json')) as any)?.['generator-cli']?.version;
+      openApiVersion = (tree.readJson(path.posix.join(targetPath, 'openapitools.json')) as any)?.['generator-cli']?.version;
     } catch {
       context.logger.warn('No openapitools.json file found in the project');
     }

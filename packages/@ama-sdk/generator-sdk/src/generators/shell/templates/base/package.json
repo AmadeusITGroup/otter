@@ -68,15 +68,15 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/core": "~16.1.6",
-    "@angular-devkit/schematics": "~16.1.6",
-    "@angular-devkit/schematics-cli": "~16.1.6",
+    "@angular-devkit/core": "~16.2.0",
+    "@angular-devkit/schematics": "~16.2.0",
+    "@angular-devkit/schematics-cli": "~16.2.0",
     "@angular-eslint/eslint-plugin": "~16.1.0",
     "@angular-eslint/eslint-plugin-template": "~16.1.0",
     "@angular-eslint/utils": "~16.1.0",
-    "@angular/compiler": "~16.1.6",
+    "@angular/compiler": "~16.2.0",
     "@commitlint/cli": "^17.0.0",
-    "@schematics/angular": "~16.1.6",
+    "@schematics/angular": "~16.2.0",
     "@commitlint/config-conventional": "^17.0.0",
     "@ama-sdk/generator-sdk": "~<%= sdkCoreVersion %>",
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
@@ -96,7 +96,7 @@
     "cpx": "^1.5.0",
     "eslint": "^8.42.0",
     "eslint-plugin-jest": "~27.2.3",
-    "eslint-plugin-jsdoc": "~46.4.5",
+    "eslint-plugin-jsdoc": "~46.5.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "glob": "^8.0.0",
@@ -109,7 +109,7 @@
     "rimraf": "^5.0.1",
     "standard-version": "^9.0.0",
     "ts-jest": "~29.1.1",
-    "typedoc": "~0.24.8",
+    "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
     "typescript": "~5.1.6",
     "yo": "~4.3.0"
@@ -123,5 +123,5 @@
     "npm": ">=6.0.0",
     "yarn": ">=3.1.0"
   },
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.3"
 }

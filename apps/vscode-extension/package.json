@@ -18,76 +18,6 @@
     "configuration": {
       "title": "Otter",
       "properties": {
-        "otter.packageManager": {
-          "type": "string",
-          "default": "npm",
-          "enum": [
-            "npm",
-            "yarn",
-            "pnpm"
-          ]
-        },
-        "otter.generate.skipLinter": {
-          "type": "boolean",
-          "default": false,
-          "definition": "Skip the linter process"
-        },
-        "otter.generate.component.activateDummy": {
-          "type": "boolean",
-          "default": false,
-          "description": "Generate dummy I/O, localization and analytics events"
-        },
-        "otter.generate.component.useContext": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component context"
-        },
-        "otter.generate.component.useOtterTheming": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component with Otter theming architecture"
-        },
-        "otter.generate.component.useComponentFixtures": {
-          "type": "boolean",
-          "default": true,
-          "description": "Use component fixtures for testing"
-        },
-        "otter.generate.component.useOtterConfig": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component with Otter configuration"
-        },
-        "otter.generate.component.useOtterAnalytics": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component with Otter analytics architecture"
-        },
-        "otter.generate.component.useLocalization": {
-          "type": "boolean",
-          "default": true,
-          "description": "Generate component with localization"
-        },
-        "otter.generate.store.testFramework": {
-          "type": "string",
-          "enum": [
-            "jest",
-            "jasmine"
-          ],
-          "default": "jest",
-          "description": "Test framework used"
-        },
-        "otter.generate.store.sdkPackage": {
-          "type": "string",
-          "description": "Sdk package name"
-        },
-        "otter.generate.module.path": {
-          "type": "string",
-          "description": "Relative path to the folder of the project where generate the new modules"
-        },
-        "otter.generate.module.prefix": {
-          "type": "string",
-          "description": "Prefix specify to generators in case of Nx monorepo"
-        },
         "otter.extract.styling.forbiddenWords": {
           "type": "array",
           "default": [
@@ -158,6 +88,66 @@
       {
         "command": "otter.menu.generate.module",
         "title": "Generate Module"
+      },
+      {
+        "command": "otter.generate.analytics-to-component",
+        "title": "Add analytics to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.configuration-to-component",
+        "title": "Add configuration to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.context-to-component",
+        "title": "Add context to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.convert-component",
+        "title": "Convert Angular component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.fixture-to-component",
+        "title": "Add fixture to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.iframe-to-component",
+        "title": "Add iframe to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.localization-key-to-component",
+        "title": "Add localization key to component",
+        "category": "Otter",
+        "enablement": "editorHasSelection && resourceFilename =~ /.template.html$/"
+      },
+      {
+        "command": "otter.generate.localization-to-component",
+        "title": "Add localization to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.rules-engine-to-component",
+        "title": "Add rules engine to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.component.ts$/"
+      },
+      {
+        "command": "otter.generate.theming-to-component",
+        "title": "Add theming to component",
+        "category": "Otter",
+        "enablement": "resourceFilename =~ /.scss$/"
       }
     ],
     "menus": {
@@ -169,6 +159,51 @@
       "explorer/context": [
         {
           "submenu": "otter.explorer.context.submenu"
+        },
+        {
+          "submenu": "otter.enrich-component.submenu"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "otter.generate.analytics-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.configuration-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.context-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.convert-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.fixture-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.iframe-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.localization-key-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.localization-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.rules-engine-to-component",
+          "group": "otter.generate.enrich-component.group"
+        },
+        {
+          "command": "otter.generate.theming-to-component",
+          "group": "otter.generate.enrich-component.group"
         }
       ],
       "otter.editor.context.submenu": [
@@ -183,6 +218,47 @@
         {
           "command": "otter.extract.styling.allVariable",
           "when": "resourceFilename =~ /.scss$/"
+        },
+        {
+          "command": "otter.generate.localization-key-to-component"
+        }
+      ],
+      "otter.enrich-component.submenu": [
+        {
+          "command": "otter.generate.analytics-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.configuration-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.context-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.convert-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.fixture-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.iframe-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.localization-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.rules-engine-to-component",
+          "group": "otter.generate.group"
+        },
+        {
+          "command": "otter.generate.theming-to-component",
+          "group": "otter.generate.group"
         }
       ],
       "otter.explorer.context.submenu": [
@@ -207,24 +283,17 @@
     "submenus": [
       {
         "label": "Otter",
-        "id": "otter.explorer.context.submenu",
-        "icon": "./assets/otter-logo.svg"
+        "id": "otter.explorer.context.submenu"
       },
       {
         "label": "Otter",
-        "id": "otter.editor.context.submenu",
-        "icon": "$(otter-logo)"
+        "id": "otter.editor.context.submenu"
+      },
+      {
+        "label": "Enrich Otter component",
+        "id": "otter.enrich-component.submenu"
       }
-    ],
-    "icons": {
-      "otter-logo": {
-        "description": "Otter Logo",
-        "default": {
-          "fontPath": "./assets/logo-font.woff",
-          "fontCharacter": "\\e800"
-        }
-      }
-    }
+    ]
   },
   "extensionKind": [
     "ui",
@@ -239,17 +308,17 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~16.1.6",
-    "@angular-devkit/core": "~16.1.6",
-    "@angular-devkit/schematics": "~16.1.6",
+    "@angular-devkit/build-angular": "~16.2.0",
+    "@angular-devkit/core": "~16.2.0",
+    "@angular-devkit/schematics": "~16.2.0",
     "@angular-eslint/eslint-plugin": "~16.1.0",
-    "@angular/common": "~16.1.6",
-    "@angular/compiler": "~16.1.6",
-    "@angular/compiler-cli": "~16.1.6",
-    "@angular/core": "~16.1.6",
-    "@angular/platform-browser": "~16.1.6",
-    "@angular/platform-browser-dynamic": "~16.1.6",
-    "@nx/jest": "~16.6.0",
+    "@angular/common": "~16.2.0",
+    "@angular/compiler": "~16.2.0",
+    "@angular/compiler-cli": "~16.2.0",
+    "@angular/core": "~16.2.0",
+    "@angular/platform-browser": "~16.2.0",
+    "@angular/platform-browser-dynamic": "~16.2.0",
+    "@nx/jest": "~16.7.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
@@ -265,13 +334,13 @@
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.2.3",
-    "eslint-plugin-jsdoc": "~46.4.5",
+    "eslint-plugin-jsdoc": "~46.5.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "jest": "~29.6.2",
     "jest-environment-jsdom": "~29.6.2",
     "jest-junit": "~16.0.0",
-    "nx": "~16.6.0",
+    "nx": "~16.7.0",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.1.1",
     "typescript": "~5.1.6",

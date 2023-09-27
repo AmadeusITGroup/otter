@@ -56,6 +56,13 @@
         "silent": true
       }
     },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/apis-manager/testing/jest.config.it.js",
+        "silent": false
+      }
+    },
     "prepare-publish": {
       "executor": "nx:run-script",
       "options": {

@@ -31,7 +31,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param options.projectName
  * @param projectType
  */
-export function updateStore(options: { projectName?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
   /**
    * Changed package.json start script to run localization generation
    *
@@ -53,7 +53,7 @@ export function updateStore(options: { projectName?: string | undefined}, projec
 
     return () => {
       try {
-        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, options)(tree, context);
+        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, {...options, skipNgAddSchematicRun: true})(tree, context);
       } catch (e: any) {
         context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
         return tree;
