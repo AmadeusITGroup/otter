@@ -3,8 +3,7 @@ import {
   KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, ViewContainerRef
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import type { DynamicConfigurable } from '@o3r/configuration';
-import type { BaseContextOutput, Configuration, Context, ContextInput, Functionify } from '@o3r/core';
+import type { BaseContextOutput, Configuration, Context, ContextInput, DynamicConfigurable, Functionify } from '@o3r/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -73,7 +72,6 @@ export class C11nDirective <
 
   /**
    * Type guard for component implementing CVA
-   *
    * @param _cmp Component instance
    */
   private componentImplementsCva(_cmp: T): _cmp is T & ControlValueAccessor {
@@ -90,7 +88,6 @@ export class C11nDirective <
 
   /**
    * called when data-bound property change
-   *
    * @param changes The changes that occur
    */
   public ngOnChanges(changes: SimpleChanges) {
@@ -164,7 +161,6 @@ export class C11nDirective <
 
   /**
    * returns validation errors from component instance if validate method exists else returns null
-   *
    * @param control Form control
    */
   public validate(control: AbstractControl) {

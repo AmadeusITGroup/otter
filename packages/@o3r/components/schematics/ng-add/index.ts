@@ -3,6 +3,7 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 /**
  * Add Otter components to an Angular Project
@@ -47,7 +48,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
         registerPackageCollectionSchematics(packageJson),
-        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
+        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
+        await registerDevtools(options)
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);

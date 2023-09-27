@@ -2,6 +2,7 @@ import { chain, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 /**
  * Add Otter configuration to an Angular Project
@@ -50,7 +51,8 @@ export function ngAdd(options: NgAddSchematicsSchema) {
           projectName: options.projectName,
           dependencyType,
           workingDirectory
-        })
+        }),
+        await registerDevtools(options)
       ])(tree, context);
     } catch (e) {
       // configuration needs o3r/core as peer dep. o3r/core will install o3r/schematics

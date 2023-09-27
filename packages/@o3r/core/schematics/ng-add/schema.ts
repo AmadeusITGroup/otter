@@ -77,4 +77,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Do not initialize a git repository. */
   skipGit: boolean;
+
+  /** Add option to automatically register the devtool module */
+  withDevtool: boolean;
 }

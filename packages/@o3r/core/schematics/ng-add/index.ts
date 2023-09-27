@@ -5,7 +5,7 @@ import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { displayModuleList } from '../rule-factories/module-list';
 import { getExternalPreset, presets } from '../shared/presets';
-import { AddDevInstall } from '@o3r/schematics';
+import { AddDevInstall, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
 import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
@@ -30,6 +30,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     await lastValueFrom(context.engine.executePostTasks());
 
     return () => chain([
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      setupSchematicsDefaultParams({ '*:ng-add': { registerDevtool: options.withDevtool } }),
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
       async (t, c) => {
         const {prepareProject} = await import('./project-setup/index');

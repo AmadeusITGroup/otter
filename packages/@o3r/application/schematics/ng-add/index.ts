@@ -2,6 +2,7 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 
 /**
@@ -70,6 +71,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       };
       const dependencyType = getProjectNewDependenciesType(workspaceProject);
 
+      const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
         ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
@@ -79,7 +81,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           dependencyType,
           workingDirectory
         }),
-        addAngularAnimationPreferences
+        addAngularAnimationPreferences,
+        registerDevtoolRule
       ])(tree, context);
     } catch (e) {
       // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics

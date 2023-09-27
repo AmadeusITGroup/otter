@@ -9,7 +9,23 @@ The extension comes with the following features:
 - **Rule Engine current state**: Rule engine state, rule engine logs, etc.
 - **Configuration**: display and modification of the application components configuration.
 
-## How to enable the extension support in your application
+## How to enable auto package registration
+
+The Otter module will automatically register its Devtool service if the following configuration is set in the workspace configuration:
+
+```json
+{
+  "schematics": {
+    "*:ng-add": {
+      "registerDevtool": true
+    }
+  }
+}
+```
+
+> **Note**: This options is set by the `--with-devtool` options of the `ng add @o3r/core` command.
+
+## How to enable manually the extension support in your application
 
 Once you have download the extension, you will need to enable the features you need one by one. There is no root toggle.
 To do so, you will need to import the corresponding modules in you AppModule:
