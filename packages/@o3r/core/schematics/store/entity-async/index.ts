@@ -18,6 +18,10 @@ export function ngGenerateEntityAsyncStore(options: NgGenerateEntityAsyncStoreSc
 
     const commonTemplates = url('../common/templates');
     const asyncEntityTemplates = url('./templates');
+    options.storeName = options.storeName?.trim();
+    options.modelName = options.modelName?.trim();
+    options.sdkPackage = options.sdkPackage?.trim();
+    options.modelIdPropName = options.modelIdPropName?.trim();
 
     // Add extra formatted properties
     const formattedProperties: ExtraFormattedProperties = {
