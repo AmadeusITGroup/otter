@@ -498,7 +498,13 @@ public class LambdaHelper {
 
       @Override
       public String formatFragment(String fragment) {
+        if (fragment == "") {
+          return "application/json";
+        }
         String[] mimeTypes = fragment.split(", ");
+        if (mimeTypes.length < 1 || (mimeTypes.length == 1 && mimeTypes[0] == "")) {
+          return "application/json";
+        }
         return HeaderJsonMimeType.getFirstJsonMimeType(mimeTypes);
       }
 
@@ -508,9 +514,6 @@ public class LambdaHelper {
       }
 
       public static String getFirstJsonMimeType(String[] mimeTypes) {
-        if (mimeTypes.length < 1) {
-          return "";
-        }
         for (String mime : mimeTypes) {
           if (HeaderJsonMimeType.isJsonMime(mime)) {
             return mime;
