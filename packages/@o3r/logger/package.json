@@ -60,7 +60,7 @@
     "@angular/platform-browser": "~16.2.0",
     "@angular/platform-browser-dynamic": "~16.2.0",
     "@babel/core": "~7.22.0",
-    "@babel/preset-typescript": "~7.22.0",
+    "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
     "@fullstory/browser": "~1.7.0",
     "@ngrx/store": "~16.2.0",
