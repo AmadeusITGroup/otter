@@ -1,5 +1,5 @@
-<div class="container-fluid d-flex gap-2 h-100">
-  <div class="right-nav order-2">
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top">
     <o3r-in-page-nav-pres
       id="localization-nav"
       [links]="links$ | async"
@@ -7,7 +7,7 @@
     </o3r-in-page-nav-pres>
   </div>
   <div
-    class="order-1 overflow-scroll"
+    class="order-2 order-lg-1 col-12 col-lg-10"
     data-bs-spy="scroll"
     data-bs-target="#localization-nav"
     data-bs-smooth-scroll="true"
