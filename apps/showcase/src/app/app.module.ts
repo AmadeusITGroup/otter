@@ -17,6 +17,7 @@ import {
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
 import { RulesEngineModule } from '@o3r/rules-engine';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -72,7 +73,20 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     SidenavPresComponent
   ],
   providers: [
-    {provide: MESSAGE_FORMAT_CONFIG, useValue: {}}
+    {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          bash: () => import('highlight.js/lib/languages/bash'),
+          css: () => import('highlight.js/lib/languages/css'),
+          json: () => import('highlight.js/lib/languages/json'),
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          xml: () => import('highlight.js/lib/languages/xml')
+        }
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })
