@@ -9,7 +9,8 @@ const defaultConfig = {
   enableProjectLabel: true,
   enableCommitMessageLabel: true,
   projectLabelPrefix: 'project:',
-  ignoredProjects: []
+  ignoredProjects: [],
+  ignoreProjectForLabels: []
 };
 
 /**
@@ -94,7 +95,7 @@ async function getLabelsFromProjects(targetBranch, config) {
 
 /**
  * Get the configuration from a local file
- * @returns {Object}
+ * @returns {typeof defaultConfig}
  */
 async function getConfig() {
   const configPath = resolve('.github', '.pr-labelrc.json');
@@ -121,7 +122,9 @@ void(async () => {
   const config = await getConfig();
   const target = `remotes/origin/${args.target}`;
   const labelFromMessage = await getLabelsFromMessage(target, config);
-  const labelFromProject = await getLabelsFromProjects(target, config);
+  const labelFromProject =  !config.ignoreProjectForLabels.some((label) => labelFromMessage.includes(label)) ?
+    await getLabelsFromProjects(target, config) :
+    [];
 
   process.stdout.write(JSON.stringify([...(new Set([...labelFromMessage, ...labelFromProject]))]));
 })();
