@@ -1,3 +1,4 @@
+import type { DirEntry, FileEntry } from '@angular-devkit/schematics';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { sync as globbySync } from 'globby';
@@ -5,6 +6,34 @@ import { minimatch } from 'minimatch';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
+
+function findFilenameInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
+  if (ignoreDirectories.some(i => directory.path.split(path.posix.sep).includes(i))) {
+    return memory;
+  }
+
+  directory.subfiles
+    .filter(fileMatchesCriteria)
+    .forEach((file) => memory.add(directory.file(file)!));
+
+  directory.subdirs
+    .forEach((dir) => findFilenameInTreeRec(memory, directory.dir(dir), fileMatchesCriteria, ignoreDirectories));
+
+  return memory;
+}
+
+/**
+ *
+ * Helper function that looks for files in the Tree
+ * @param directory where to perform the search
+ * @param fileMatchesCriteria a function defining the criteria to look for
+ * @param ignoreDirectories optional parameter to ignore folders
+ */
+export function findFilenameInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn']) {
+  const memory = new Set<FileEntry>();
+  findFilenameInTreeRec(memory, directory, fileMatchesCriteria, ignoreDirectories);
+  return Array.from(memory);
+}
 
 /**
  * Load the angular.json file
