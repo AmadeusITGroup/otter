@@ -4,6 +4,7 @@ import localeFR from '@angular/common/locales/fr';
 import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RuntimeChecks, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -70,7 +71,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     LocalizationModule.forRoot(localizationConfigurationFactory),
     RulesEngineModule.forRoot({ debug: isDevMode() }),
     AppRoutingModule,
-    SidenavPresComponent
+    SidenavPresComponent,
+    NgbOffcanvasModule
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

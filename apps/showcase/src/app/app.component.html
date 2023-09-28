@@ -1,11 +1,52 @@
-<div class="container-fluid d-flex gap-2 h-100">
-  <div class="left-nav d-flex flex-column">
+<header>
+  <button class="btn btn-lg d-xl-none mobile-menu-btn" (click)="open(content)"><i class="bi bi-list"></i></button>
+  <div class="header-title p-xl-3">
+    <div class="header-icon">
+      <img src="assets/otter-sticker.svg" width="48" height="48" alt="Otter logo" />
+    </div>
+    Otter Showcase
+  </div>
+</header>
+<div class="container">
+  <div class="row">
+    <div class="left-nav col-2 d-none d-xl-block">
+      <o3r-sidenav-pres
+        [linksGroups]="linksGroups"
+        [activeUrl]="activeUrl$ | async"
+      ></o3r-sidenav-pres>
+    </div>
+    <div class="page-content col-12 col-xl-10">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-8">
+      </div>
+      <div class="col-4">
+        <h5>Links</h5>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://github.com/AmadeusITGroup/otter">Github</a>
+          </li>
+          <li>
+            <a href="https://docs.otter.digitalforairlines.com">Documentation</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+<ng-template #content let-offcanvas>
+  <div class="offcanvas-header">
+    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
+  </div>
+  <div class="offcanvas-body">
     <o3r-sidenav-pres
       [linksGroups]="linksGroups"
       [activeUrl]="activeUrl$ | async"
     ></o3r-sidenav-pres>
   </div>
-  <div class="page-content flex-fill">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+</ng-template>

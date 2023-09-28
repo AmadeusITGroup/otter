@@ -1,5 +1,5 @@
-<div class="container-fluid d-flex gap-2 h-100">
-  <div class="right-nav order-2">
+<div class="row">
+  <div class="right-nav order-1 order-xl-2 col-12 col-xl-2 sticky-xl-top">
     <o3r-in-page-nav-pres
       id="rules-engine-nav"
       [links]="links$ | async"
@@ -7,7 +7,7 @@
     </o3r-in-page-nav-pres>
   </div>
   <div
-    class="order-1 overflow-scroll"
+    class="order-2 order-xl-1 col-12 col-xl-10"
     data-bs-spy="scroll"
     data-bs-target="#rules-engine-nav"
     data-bs-smooth-scroll="true"
@@ -28,7 +28,7 @@
         Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
       </p>
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/rules-engine" target="_blank" rel="noopener">Source code</a>
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs mt-3">
         <li class="nav-item">
           <a class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
         </li>
@@ -39,25 +39,31 @@
           <a class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
         </li>
       </ul>
-      <div class="container">
+      <div class="p-3">
         <div *ngIf="activeRuleTab === 'configuration'">
+          <p>
           By default, New-York is not selectable and we want to make it available only during the summer.
           <br>
           So we have created facts for the trip information and a new operator to evaluate the selected date.
           After that we set the following rule to make New-York available during the summer.
           <br>
           You can check that New-York will be available if you select dates during the summer (between June 21st and September 21st).
-          <o3r-copy-text-pres [text]="newYorkAvailableRule"></o3r-copy-text-pres>
+          </p>
+          <o3r-copy-text-pres language="json" [text]="newYorkAvailableRule"></o3r-copy-text-pres>
         </div>
         <div *ngIf="activeRuleTab === 'dynamic-content'">
+          <p>
           When selecting a date during the summer, the otter picture changes. We have created the following rule to change the targeted asset.
           <br>
           You can check that the image changes if you select dates during the summer (between June 21st and September 21st).
-          <o3r-copy-text-pres [text]="summerOtterRule"></o3r-copy-text-pres>
+          </p>
+          <o3r-copy-text-pres language="json" [text]="summerOtterRule"></o3r-copy-text-pres>
         </div>
         <div *ngIf="activeRuleTab === 'localization'">
+          <p>
           When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
-          <o3r-copy-text-pres [text]="helloNewYorkRule"></o3r-copy-text-pres>
+          </p>
+          <o3r-copy-text-pres language="json" [text]="helloNewYorkRule"></o3r-copy-text-pres>
         </div>
       </div>
     </div>

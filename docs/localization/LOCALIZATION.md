@@ -132,7 +132,7 @@ registerLocaleData(localeAR, 'ar');
   ]
 ```
 
-You may also need to setup your http server to accept **CORS** and update **connect-src** property of **csp.json** in your application.
+You may also need to set up your http server to accept **CORS** and update **connect-src** property of **csp.json** in your application.
 
 ```typescript
 
@@ -146,11 +146,11 @@ You may also need to setup your http server to accept **CORS** and update **conn
 
 ```
 
-- If you have your own localization you need to create your translation bundles in json format. Each file is named after a locale and holds corresponding translations. For example if your application is meant to support french, english and canadian french you will have 3 separate files called respectively **en.json**, **fr.json** and **fr-CA.json** (the file name should match the official [locale](https://github.com/angular/angular/tree/master/packages/common/locales) name).
+- If you have your own localization you need to create your translation bundles in json format. Each file is named after a locale and holds corresponding translations. For example if your application is meant to support French, english and Canadian French you will have 3 separate files called respectively **en.json**, **fr.json** and **fr-CA.json** (the file name should match the official [locale](https://github.com/angular/angular/tree/master/packages/common/locales) name).
 
 
 
-- Place your translation budles either at your dedicated endpoint URL or inside your application's folder **src/assets/assets-otter/i18n**. The format of the bundles is a simple key/value pair object where key is the resource name and value its translation. The key naming convention is component selector followed by `.` (dot character) and any string of your choice.
+- Place your translation bundles either at your dedicated endpoint URL or inside your application's folder **src/assets/assets-otter/i18n**. The format of the bundles is a simple key/value pair object where key is the resource name and value its translation. The key naming convention is component selector followed by `.` (dot character) and any string of your choice.
 
 
 ```typescript
@@ -227,7 +227,7 @@ export  class SimpleHeaderPresModule {}
 
 As a result "**hello bold**" will be printed inside the span element.
 
-- If you need to display **text** with some **dynamic** elements (resouce with parameters)
+- If you need to display **text** with some **dynamic** elements (resource with parameters)
 
 ```typescript
 
@@ -241,7 +241,7 @@ As a result "**hello bold**" will be printed inside the span element.
 
 Use angular built-in [DatePipe](https://angular.io/api/common/DatePipe), [DecimalPipe](https://angular.io/api/common/DecimalPipe) and [CurrencyPipe](https://angular.io/api/common/CurrencyPipe) and pass it current locale as the last parameter. The locale is read from **this.localizationService.getCurrentLanguage()**. To be able to use translateService, your component container should take benefit of dependency injection to get LocalizationService as parameter of constructor as well.
 
-For example if you want to localize simpleHeader component you will start by injecting TranslateService to the constuctor of simple-header-pres.component.ts
+For example if you want to localize simpleHeader component you will start by injecting TranslateService to the constructor of simple-header-pres.component.ts
 Your component also needs to implement Translatable interface which forces you to declare translations property. This property requires 3 decorators (`@Input() and @Localization(url)`. This will let you override localization keys from template and give some default localization to your component if you don't have your own to start with.
 
 ```typescript
@@ -446,12 +446,12 @@ class AppModule {}
 
 ### How to localize plural expression
 
-For pluralizations we are using _TranslateMessageFormatCompiler_, comming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for _ngx-translate_ that uses _messageformat.js_ to compile translations using ICU syntax for handling pluralization and gender.  
+For pluralizations, we are using _TranslateMessageFormatCompiler_, coming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for _ngx-translate_ that uses _messageformat.js_ to compile translations using ICU syntax for handling pluralization and gender.  
 [ICU Message Format](http://userguide.icu-project.org/formatparse/messages) is a standardized syntax for dealing with the translation of user-visible strings into various languages that may have different requirements for the correct declension of words (e.g. according to number, gender, case) - or to simplify: pluralization.  
-Simple pluralization rules like _0, 1 or other_ fits well for English but may not fit for many other languages (eastern Europe languages, asiatic languages) where pluralization rules are much more complex. If this does not fit your requirement we recommend to reformulate your text, so that you do not need to use pluralization. Example: instead of saying 'You have added 2 baggages' you may want to say 'Pieces of baggage: 2' which should be fine for most of languages no matter which number is considered to be plural.
+Simple pluralization rules like _0, 1 or other_ fits well for English but may not fit for many other languages (Eastern Europe languages, Asiatic languages) where pluralization rules are much more complex. If this does not fit your requirement we recommend to reformulate your text, so that you do not need to use pluralization. Example: instead of saying 'You have added 2 baggages' you may want to say 'Pieces of baggage: 2' which should be fine for most languages no matter which number is considered to be plural.
 
 #### Integration with ngx-translate
-You need to configure _TranslateModule_ so it uses _TranslateMessageFormatCompiler_ as compiler. We will use _TranslateMessageFormatLazyCompiler_ which is an otter extension of the base compiler. See _Lazy Compiler for ICU Translation support_ above chapter for details.
+You need to configure _TranslateModule_ for it to use _TranslateMessageFormatCompiler_ as compiler. We will use _TranslateMessageFormatLazyCompiler_ which is an otter extension of the base compiler. See _Lazy Compiler for ICU Translation support_ above chapter for details.
 
 ```typescript
 // in your app module
@@ -490,7 +490,7 @@ import {MESSAGE_FORMAT_CONFIG} from 'ngx-translate-messageformat-compiler';
 </span> {{translations.nbOfErrors | translate: {count: countMessages} }}
 ...
 ```
-The value of _translations.nbOfErrors_ is the tranlation key 'o3r-list-inline-messages-pres.nbOfErrors'. The next step translates the key passing some parameters to translate pipe.
+The value of _translations.nbOfErrors_ is the translation key 'o3r-list-inline-messages-pres.nbOfErrors'. The next step translates the key passing some parameters to translate pipe.
 __Output__
 The output will be 
 - _No errors_ if _countMessages_ is 0
@@ -668,7 +668,7 @@ export class AppComponent {
 
 It's always good to stick to some naming conventions.
 
-For components we prefix each key by component selector to ensure cross components keys uniqueness.
+For components, we prefix each key by component selector to ensure cross components keys uniqueness.
 
 
 
@@ -696,12 +696,12 @@ For example if your `SimpleHeaderPresComponent` has `o3r-simple-header-pres` sel
 
 # Intelligent fallback support
 
-The fallback hierarchy is been added to the localization service which explained in detail below. As the last option, the default fallback language picked as usual.
+The fallback hierarchy has been added to the localization service which explained in detail below. As the last option, the default fallback language picked as usual.
 
 
 ## Scenario 1: Fallback based on **fallbackLocalesMap**, **supportedLocales** language code.
 
-Incase if **fallbackLocalesMap** provided and the targeted translation language is unavailable in supported locales list, The priority goes to **fallbackLocalesMap**, to see if targeted translation language can be mapped with the fallback map configured. The second priority goes to **supportedLocales**, to map targeted translation language to the first closest possible language, the locale can be different. If none match, it will fallback to the **default language**.
+In case **fallbackLocalesMap** is provided and the targeted translation language is unavailable in supported locales list, The priority goes to **fallbackLocalesMap**, to see if targeted translation language can be mapped with the fallback map configured. The second priority goes to **supportedLocales**, to map targeted translation language to the first closest possible language, the locale can be different. If none match, it will fall back to the **default language**.
 
 
 **Lets assume:**
@@ -742,7 +742,7 @@ bn-BD **fallbacks to** ar-AR, as it is the default fallback.
 
 ## Scenario 2: Fallback based on **supportedLocales** language code.
 
-In case if **fallbackLocalesMap** is not provided and the targeted translation language is unavailable is supported locales list, The targeted translation language will be matched with supported locales **language** to find out the first nearest match, the **locale** can be different. If none match, it will fallback to the **default language**.
+In case if **fallbackLocalesMap** is not provided and the targeted translation language is unavailable is supported locales list, The targeted translation language will be matched with supported locales **language** to find out the first nearest match, the **locale** can be different. If none match, it will fall back to the **default language**.
 
 
 **Lets assume:**

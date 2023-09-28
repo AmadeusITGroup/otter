@@ -39,7 +39,9 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
     e.stopPropagation();
     e.preventDefault();
     this.nativeElement.scrollIntoView({
-      behavior: 'smooth'
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'start'
     });
   }
 }
