@@ -38,3 +38,7 @@ See the [runtime-facts](./examples/runtime-facts.md) example.
 
 
 Note that the runtime fact is only accessible in the ruleset where it has been defined. If you create 2 runtime facts in two different rulesets it will be 2 different entities, isolated from each others.
+
+## Facts available by default
+
+`o3rCurrentTime` is a fact that represents the current time. It is provided by the rules engine as two operators,  `dateInNextMinutes` and `dateNotInNextMinutes` need it in order to execute. See [Operators with dependencies](./operators.md#operators-with-dependencies) for more details.

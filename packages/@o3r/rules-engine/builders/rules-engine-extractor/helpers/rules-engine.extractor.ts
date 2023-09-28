@@ -277,6 +277,14 @@ export class RulesEngineExtractor {
               nbValues: 1
             }
           };
+          if (declaration.initializer && ts.isObjectLiteralExpression(declaration.initializer)) {
+            declaration.initializer.properties.forEach((property: ts.ObjectLiteralElementLike) => {
+              if (ts.isPropertyAssignment(property) && property.name.getText(source) === 'factImplicitDependencies') {
+                operator.factImplicitDependencies = JSON.parse(property.initializer.getText(source).replace(/'/g,'"'));
+              }
+            });
+          }
+
           if (operatorType === 'Operator') {
             operator.rightOperand = {
               types: allDefaultSupportedTypes,

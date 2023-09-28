@@ -59,6 +59,9 @@
         "outputOperatorsDirectory": "./packages/@o3r/rules-engine/dist",
         "operatorFilePatterns": [
           "./packages/@o3r/rules-engine/src/engine/operator/operators/**/*.operators.ts"
+        ],
+        "factFilePatterns": [
+          "./packages/@o3r/rules-engine/src/facts/**/*.facts.ts"
         ]
       },
       "dependsOn": [

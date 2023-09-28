@@ -18,7 +18,7 @@ describe('Operator helpers', () => {
       expect(operator.validateRhs).toHaveBeenCalledTimes(1);
       expect(operator.validateLhs).toHaveBeenCalledWith('testLhs');
       expect(operator.validateRhs).toHaveBeenCalledWith('testRhs');
-      expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs');
+      expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs', undefined);
     });
 
     test('should not evaluate the condition if the checks are not passed', () => {
@@ -77,7 +77,7 @@ describe('Operator helpers', () => {
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
-        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs');
+        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs', undefined);
       });
 
       test('with promise value', () => {
@@ -87,7 +87,7 @@ describe('Operator helpers', () => {
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
-        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs');
+        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs', undefined);
       });
 
       test('with observable value', () => {
@@ -97,7 +97,7 @@ describe('Operator helpers', () => {
         };
 
         expect(executeOperator('testLhs', 'testRhs', operator)).toBeTruthy();
-        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs');
+        expect(operator.evaluator).toHaveBeenCalledWith('testLhs', 'testRhs', undefined);
       });
     });
   });

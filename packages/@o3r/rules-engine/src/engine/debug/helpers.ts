@@ -1,4 +1,5 @@
-import { EvaluationReason, Facts, RuleEvaluation, RuleEvaluationOutput } from '../engine.interface';
+import { EvaluationReason, RuleEvaluation, RuleEvaluationOutput } from '../engine.interface';
+import type { Facts } from '../fact';
 import { ActionBlock, Rule } from '../structure';
 
 /**

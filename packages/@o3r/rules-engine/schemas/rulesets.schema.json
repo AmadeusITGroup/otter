@@ -95,6 +95,7 @@
         "inputFacts": {
           "type": "array",
           "description": "Facts that are needed for the rule execution (sent by the CMS)",
+          "deprecated": true,
           "items": {
             "type": "string"
           }

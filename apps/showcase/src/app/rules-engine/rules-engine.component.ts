@@ -9,12 +9,24 @@ import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, Configuratio
 import { O3rComponent } from '@o3r/core';
 import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
 import { LocalizationOverrideStoreModule } from '@o3r/localization';
-import { Rule, RulesEngineDevtoolsMessageService, RulesEngineDevtoolsModule, RulesEngineModule, RulesEngineService, RulesetsStore, setRulesetsEntities, UnaryOperator } from '@o3r/rules-engine';
+import {
+  dateInNextMinutes,
+  Operator,
+  Rule,
+  RulesEngineDevtoolsMessageService,
+  RulesEngineDevtoolsModule,
+  RulesEngineModule,
+  RulesEngineService,
+  RulesetsStore,
+  setRulesetsEntities,
+  UnaryOperator
+} from '@o3r/rules-engine';
 import { firstValueFrom } from 'rxjs';
 import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService, RulesEnginePresComponent } from '../../components/index';
 import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';
+import { CurrentTimeFactsService } from '../../services/current-time-facts.service';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -48,6 +60,7 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
   public newYorkAvailableRule = '';
   public helloNewYorkRule = '';
   public summerOtterRule = '';
+  public lateOtterRule = '';
 
   @ViewChildren(InPageNavLinkDirective)
   private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
@@ -59,6 +72,7 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     private inPageNavPresService: InPageNavPresService,
     private dynamicContentService: DynamicContentService,
     private tripFactsService: TripFactsService,
+    public currentTimeFactsService: CurrentTimeFactsService,
     private store: Store<RulesetsStore>,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
@@ -66,9 +80,8 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
   ) {
     configurationDevtoolsMessageService.activate();
     rulesEngineDevtoolsMessageService.activate();
-    rulesEngineService.engine.upsertOperators([
-      duringSummer
-    ] as UnaryOperator[]);
+    rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
+    rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
   }
 
   private formatRule(rule: Rule) {
@@ -88,16 +101,20 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     const resultCall = await fetch(path);
     const result = await resultCall.json();
 
-    this.store.dispatch(setRulesetsEntities({entities: result.rulesets}));
+    this.store.dispatch(setRulesetsEntities({ entities: result.rulesets }));
     this.tripFactsService.register();
+    // uncomment to test currentTimeFactsService override
+    // this.currentTimeFactsService.register();
     const [
       newYorkAvailableRule,
       helloNewYorkRule,
-      summerOtterRule
+      summerOtterRule,
+      lateOtterRule
     ] = result.rulesets[0].rules as Rule[];
     this.newYorkAvailableRule = JSON.stringify(this.formatRule(newYorkAvailableRule), null, 2);
     this.helloNewYorkRule = JSON.stringify(this.formatRule(helloNewYorkRule), null, 2);
     this.summerOtterRule = JSON.stringify(this.formatRule(summerOtterRule), null, 2);
+    this.lateOtterRule = JSON.stringify(this.formatRule(lateOtterRule), null, 2);
   }
 
   public ngAfterViewInit() {
