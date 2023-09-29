@@ -1,6 +1,6 @@
 # Otter Chrome DevTools
 
-Otter Framework is providing a [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) for your applications.
+Otter Framework is providing an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) for your applications.
 The extension comes with the following features:
 
 - **Application information**: Application version, environment, build date, etc.

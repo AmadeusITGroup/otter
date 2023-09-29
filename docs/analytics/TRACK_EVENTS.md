@@ -142,7 +142,7 @@ component internal display mechanics.
 If you know exactly where javascript will trigger a layout change  (e.g. by passing a boolean variable to true), it's possible to measure the upper bound for the rendering. 
 
 In addition, during a component development, you can't possibly know beforehand if the component will be relevant for a TTI or not, since it depends on the page itself.
-For example, the display of a cart component may be relevant for TTI in a given page and not relevant at all in other.
+For example, the display of a cart component may be relevant for TTI in a given page and not relevant at all in others.
 Hence, you cannot really define your TTI logic at component level.
 
 Given the above facts, we advise to split the TTI metric in two:  
@@ -152,7 +152,7 @@ Given the above facts, we advise to split the TTI metric in two:
 For the time being we will consider only the implementation of __data ready__  
 
 ### Network and server-side metrics
-As the browser can't understand when a route event happens in a SPA, the NavigationTimingAPI can't be directly used apart from the first page load at most. 
+As the browser can't understand when a route event happens in an SPA, the NavigationTimingAPI can't be directly used apart from the first page load at most. 
 Subsequent routing changes won't profit of the API connection timings.
 
 In regard of the __server fetches__ (filter out from the resource timing API), the [PerformanceMetricPlugin](https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/core/src/plugins/perf-metric/perf-metric.fetch.ts)

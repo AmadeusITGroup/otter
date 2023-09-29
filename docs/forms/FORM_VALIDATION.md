@@ -109,7 +109,7 @@ In the use case where we need to display inline errors, we have to apply directi
 
 ##### Validators translations
 
-For each defined validator we need a corresponding translation key for the error message. This keys have to be defined in the corresponding __localization.json__ file of the __presenter__. In this way the presenter is aware about it's own validations/error messages.  
+For each defined validator we need a corresponding translation key for the error message. These keys have to be defined in the corresponding __localization.json__ file of the __presenter__. In this way the presenter is aware about its own validations/error messages.  
 See [FORM_ERRORS](./FORM_ERRORS.md)  _Errors translation_ section  for more details.
 
 <a name="custom-validators"></a>
@@ -124,7 +124,7 @@ As they are related to the business logic we will create them in the __container
 
 ##### Validators definition
 
-The validation function can be defined anywhere but it has to be added to the validators object in the container.
+The validation function can be defined anywhere, but it has to be added to the validators object in the container.
 
 - Validation function
 
@@ -233,7 +233,7 @@ The validators are applied to the form on the __presenter__ class.
 
 For each custom validator we need a corresponding translation key for the error message.
 As they are defined in the container, the keys have to be defined in the corresponding __localization.json__ file of the __container__.
-In this way the container knows about it's own validations/error messages. See [FORM_ERRORS](./FORM_ERRORS.md) _Errors translation_ section for more details.
+In this way the container knows about its own validations/error messages. See [FORM_ERRORS](./FORM_ERRORS.md) _Errors translation_ section for more details.
 
 <a name="custom-validators-context"></a>
 
@@ -272,7 +272,7 @@ export interface CustomFormValidation<T> {
 When you need an asynchronous validator for your form, you have to make sure that the presenter will implement [AsyncValidator](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) interface.
 Here you will have also to implement __the validate__ method to define the error object structure. The error object has to be returned in a Promise or in an Observable which has to be completed.
 The only difference from sync validators is the returned object of the __validate__ method.
-Also you have to provide the [NG_ASYNC_VALIDATORS](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) token for the presenter.
+Also, you have to provide the [NG_ASYNC_VALIDATORS](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) token for the presenter.
 
 For more details about the implementation have a look at [Async Validation in angular](https://angular.io/guide/form-validation#async-validation).
 

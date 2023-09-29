@@ -11,7 +11,7 @@ By default, sessionStorage. You can provide a custom `Storage`, e.g. `localStora
 
 ## Strategy
 Strategies available to read / write data in the RequestParameters service and storage.
-* Rehydrate: if the storage already have data, those will be used by the service, ignoring new data. Otherwise set the storage
+* Rehydrate: if the storage already have data, those will be used by the service, ignoring new data. Otherwise, set the storage
 * Merge: storage data will be merged with the ones provided. (provided data has priority)
 * Replace: storage data will be completely replaced by the ones provided
 * ReplaceIfNotEmpty: If no parameters are provided, use the content from storage. Otherwise, use the ones provided and update the storage with them.

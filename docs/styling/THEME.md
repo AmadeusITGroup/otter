@@ -34,7 +34,7 @@ should not be used within the components. There is no guarantee they will always
 If you find the theme properties lacking, please update the generator and do not rely upon `$overridden-properties`.
 
 **Note**: The RefX theme generator is in the otter library to provide a complete theme for all the new application
-(eg. Blank App). This is the default theme. Any new theme, will be in the repository using it.
+(e.g. Blank App). This is the default theme. Any new theme, will be in the repository using it.
 
 **Note**: Your theme generator should always extend the basic generator in the otter library:
 `generate-theme-variables`. This generator sole purpose is to make sure all the mandatory theme properties are
@@ -104,7 +104,7 @@ functions returns a map with the following entries:
 There is no direct way to override the values within the theme but to call `map_merge`. Material has not provided a
 way to create a consistent theme from a text color and a background color.
 
-This has to been done on the refex repository via an override function.
+This has to be done on the refex repository via an override function.
 
 ```scss
 @function _override-mat-theme($mat-theme, $application-variables) {
@@ -233,7 +233,7 @@ The resulting is a meta theme which will be used in the material and the applica
 stylesheet - see [Use your custom theme](./THEME.md#use-your-custom-theme).
 
 **Note**: The four palettes material palette are the only one available to style the material components. If you need
-to style a material component with a new palette (eg. highlight), you will need to override it with a mixin - see
+to style a material component with a new palette (e.g. highlight), you will need to override it with a mixin - see
 [Customize the material elements](./THEME.md#customize-the-material-elements).
 
 ## Use your custom theme
@@ -329,7 +329,7 @@ They are available in the `@o3r/styling`.
 ```
 
 **Caution**: Since the mixin can easily break after a material design update, you should rely on them as little as
-possible and only in an airline implementations, never directly in a library (eg. RefX library).
+possible and only in an airline implementations, never directly in a library (e.g. RefX library).
 You can include them directly in your global css if you want to impact all the material component within the
 application or directly in a module for a more local customization.
 
