@@ -1,4 +1,4 @@
-import { chain, externalSchematic, Rule, strings } from '@angular-devkit/schematics';
+import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, strings, template, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
@@ -28,6 +28,15 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     /** Path to the folder where generate the new SDK */
     const targetPath = path.posix.join(options.path || defaultRoot, cleanName);
 
+    const addModuleSpecificFiles = () => mergeWith(apply(url('./templates'), [
+      template({
+        ...options,
+        rootRelativePath: path.relative(targetPath, tree.root.path.replace(/^\//, './'))
+      }),
+      move(targetPath),
+      renameTemplateFiles()
+    ]), MergeStrategy.Overwrite);
+
     return chain([
       externalSchematic<NgGenerateTypescriptSDKShellSchematicsSchema>('@ama-sdk/schematics', 'typescript-shell', {
         ...options,
@@ -38,7 +47,8 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
       }),
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, cleanName, scope),
-      cleanStandaloneFiles(targetPath)
+      cleanStandaloneFiles(targetPath),
+      addModuleSpecificFiles()
     ])(tree, context);
   };
 }

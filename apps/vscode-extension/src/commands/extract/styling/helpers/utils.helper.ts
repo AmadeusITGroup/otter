@@ -5,7 +5,7 @@ import {regExp} from './regex.helper';
 import * as vscode from 'vscode';
 
 /**
- * Sanitaze the selector
+ * Sanitize the selector
  *
  * @param selector to clean
  * @returns the cleaned selector

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateFactsServiceSchematicsSchema",
+  "title": "Generate a facts service",
+  "description": "Generate a facts service",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Directory containing the facts services"
+    },
+    "name": {
+      "type": "string",
+      "description": "Fact service name",
+      "x-prompt": "Your fact service name",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name",
+    "path"
+  ]
+}

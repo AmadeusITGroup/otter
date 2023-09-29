@@ -36,5 +36,11 @@ export interface AsyncStorageSyncOptions extends Omit<SyncStorageConfig, 'storag
   storage?: AsyncStorage;
 }
 
-/** Options for storage sync */
+/** Options for storage sync method */
 export type StorageSyncOptions = SyncStorageConfig | AsyncStorageSyncOptions;
+
+/**
+ * Options that can be set on the Storage sync constructor
+ * postProcess and syncKeyCondition will be handled by the StorageSync class if smart sync is activated
+ */
+export type StorageSyncConstructorOptions = Omit<StorageSyncOptions, 'postProcess' | 'syncKeyCondition'>;
