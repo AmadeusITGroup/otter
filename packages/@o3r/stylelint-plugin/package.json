@@ -51,7 +51,7 @@
     "jest-preset-stylelint": "~6.2.0",
     "jsonc-eslint-parser": "~2.3.0",
     "nx": "~16.8.0",
-    "postcss": "^8.4.5",
+    "postcss": "~8.4.31",
     "rimraf": "^5.0.1",
     "stylelint": "^15.10.1",
     "ts-jest": "~29.1.1",
