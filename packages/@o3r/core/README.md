@@ -116,3 +116,15 @@ It includes the following modules:
 * @o3r/configuration
 * @o3r/dynamic-content
 * @o3r/rules-engine
+
+### External (Custom) Preset
+
+The preset mechanism is supporting, via the `--external-preset` option, presets defined by module providers themself.
+
+The modules can be regrouped in custom Presets by following the next steps:
+
+* Adding a **keyword**, in the module *package.json*'s `keywords` field, following the pattern `otter-preset-<my-preset>`.
+* The module needs to be published to public (or private) NPM Registry.
+* The package's scope should be whitelisted, via a Pull Request, in the following [OTTER_MODULE_SUPPORTED_SCOPES constant](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/schematics/src/modules/modules.constants.ts).
+
+> **Note**: Get more information regarding the **Otter Modules** in the [Module Documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/core/MODULE.md).

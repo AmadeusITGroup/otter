@@ -1,12 +1,8 @@
 import type { SchematicOptionObject } from '@o3r/schematics';
-import type { PresetNames } from '../ng-add/schema';
 
 export interface NgGenerateSdkSchema extends SchematicOptionObject {
   /** Project name */
   name: string;
-
-  /** Preset of module list to automatically install */
-  preset: PresetNames;
 
   /** Target directory to generate the module */
   path?: string | undefined;
