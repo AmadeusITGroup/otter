@@ -1,6 +1,6 @@
 # Operation ID checker
 
-The purpose of the tool is to validate that Operation IDs are specified and unique for each paths.
+The purpose of the tool is to validate that Operation IDs are specified and unique for each path.
 
 ## Usage
 

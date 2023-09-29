@@ -7,7 +7,7 @@ in order to create the right component at runtime.
 You can see a lot of details in the link above, and you'll probably notice that it is very verbose and cumbersome to
 implement:
 
-* Inputs and outputs have to be bound again, outside of the template
+* Inputs and outputs have to be bound again, outside the template
 * Change detection has to be adapted in order to pass potential changes of those inputs when the parent component changes
 
 In order to alleviate that, we provide a directive ``c11n`` that, when applied to an ``ng-template`` and given the following information will handle all the wiring behind the scene:
