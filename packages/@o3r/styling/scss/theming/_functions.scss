@@ -4,8 +4,8 @@
 @use 'sass:list';
 @use '../utils/functions' as utils-functions;
 
-// Generate a map with all the mandatory variables for any implementation with their default values (no theme applied).
-// It is up to the implementation to override it to fit the application needs.
+/// Generate a map with all the mandatory variables for any implementation with their default values (no theme applied).
+/// It is up to the implementation to override it to fit the application needs.
 @function generate-theme-variables($is-dark-theme, $implementation-override: ()) {
   $default: (
     primary-background: #FFF,
@@ -60,25 +60,22 @@
   @return map.merge($default, $implementation-override);
 };
 
-// Revert the palette
-// contrast values become default values
-// default values become contrasts values
+/// Revert the palette
+/// contrast values become default values
+/// default values become contrasts values
 @function revert-palette($palette) {
   @return map.merge(map.get($palette, 'contrast'), (contrast: map.remove($palette, 'contrast')));
 };
 
-// Generate the theme map containing a set of palettes and variables specific for this application
-// ---
-// @access public
-// ---
-// @param {map} $primary [$otter-primary] palette generated via define-palette with the colors in the primary theme (forms)
-// @param {map} $highlight [$otter-highlight] palette generated via define-palette with the colors for the navigation and the continue / back buttons
-// @param {map} $accent [$otter-accent] palette generated via define-palette with the colors used to accentuate one element in the page
-// @param {map} $warn [$otter-warn] palette generated via define-palette with the colors used in warning or error feedbacks
-// @param {bool} $is-dark-theme
-// @param {map} $application [()] a set of properties to override for one specific implementation
-// ---
-// @return {map} containing the palette maps and the otter-theme variables map
+/// Generate the theme map containing a set of palettes and variables specific for this application
+/// @access public
+/// @param {map} $primary [$otter-primary] palette generated via define-palette with the colors in the primary theme (forms)
+/// @param {map} $highlight [$otter-highlight] palette generated via define-palette with the colors for the navigation and the continue / back buttons
+/// @param {map} $accent [$otter-accent] palette generated via define-palette with the colors used to accentuate one element in the page
+/// @param {map} $warn [$otter-warn] palette generated via define-palette with the colors used in warning or error feedbacks
+/// @param {bool} $is-dark-theme
+/// @param {map} $application [()] a set of properties to override for one specific implementation
+/// @return {map} containing the palette maps and the otter-theme variables map
 @function generate-theme($primary, $highlight, $accent, $warn, $is-dark-theme, $application: ()) {
 
   $mat-theme: ();
@@ -106,11 +103,9 @@
   )
 };
 
-/**
- * Convert a Material Design theme to an Otter theme
- * @params $mat-theme Material Design theme
- * @internal
- */
+/// Convert a Material Design theme to an Otter theme
+/// @param $mat-theme Material Design theme
+/// @access private
 @function _meta-theme-to-otter($meta-theme, $root-name) {
   @if (meta.type-of($meta-theme) != map) {
     @return (
@@ -128,21 +123,17 @@
   }
 }
 
-/**
- * Convert a Meta theme to an Otter theme
- * @params $meta-theme Meta theme
- */
+/// Convert a Meta theme to an Otter theme
+/// @param $meta-theme Meta theme
 @function meta-theme-to-otter($meta-theme: ()) {
   @return _meta-theme-to-otter($meta-theme, '');
 }
 
-/**
- * Convert a Meta theme to Material Design theme
- * @params $meta-theme Meta theme
- * @params $root-name base css variable name
- * @params $enable-css-var enable CSS variable generation
- * @internal
- */
+/// Convert a Meta theme to Material Design theme
+/// @param $meta-theme Meta theme
+/// @param $root-name base css variable name
+/// @param $enable-css-var enable CSS variable generation
+/// @access private
 @function _meta-theme-to-material($meta-theme, $root-name, $enable-css-var: true) {
   @if (meta.type-of($meta-theme) != map) {
     $is-css-var-convertible: meta.type-of($meta-theme) == number or meta.type-of($meta-theme) == string or meta.type-of($meta-theme) == color;
@@ -162,36 +153,30 @@
   }
 }
 
-/**
- * Convert a Meta theme to Material Design theme
- * Note: the purpose of this function is to transform a Material Design compatible theme to add a CSS Variable layer on top of Material Design theme.
- * @params $meta-theme Meta theme
- * @params $enable-css-var enable CSS variable generation
- */
-// TODO: investigate issue on RefX app to enable $enable-css-var per default
+/// Convert a Meta theme to Material Design theme
+/// Note: the purpose of this function is to transform a Material Design compatible theme to add a CSS Variable layer on top of Material Design theme.
+/// @param $meta-theme Meta theme
+/// @param $enable-css-var enable CSS variable generation
+/// TODO: investigate issue on RefX app to enable $enable-css-var per default
 @function meta-theme-to-material($meta-theme: (), $enable-css-var: false) {
   @return _meta-theme-to-material($meta-theme, '', $enable-css-var);
 }
 
-/**
- * Get an Otter variable reference
- * @params $name Name of the variable
- * @params $value Fallback value
- * @params $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
- * @example
- * @use '@o3r/styling' as o3r
- * $my-scss-var: o3r.variable('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
- */
+/// Get an Otter variable reference
+/// @param $name Name of the variable
+/// @param $value Fallback value
+/// @param $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @example
+///   @use '@o3r/styling' as o3r
+///   $my-scss-var: o3r.variable('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
 @function variable($name, $value: null, $tags: null) {
   $logged: utils-functions.log-variable($name, $value, $tags);
   @return if($value != null, var(--#{$name}, $value), var(--#{$name}));
 }
 
-/**
- * Get a variable reference from an Otter theme
- * @params $o3r-variable Name of the Otter theme variable
- * @params $o3r-field Name field of the Otter theme variable
- */
+/// Get a variable reference from an Otter theme
+/// @param $o3r-variable Name of the Otter theme variable
+/// @param $o3r-field Name field of the Otter theme variable
 @function get($o3r-variable, $o3r-field: null) {
   $final-variable: if($o3r-field == null, $o3r-variable, utils-functions.get-mandatory($o3r-variable, $o3r-field));
   $variable: utils-functions.get-mandatory($final-variable, 'variable');
@@ -199,11 +184,9 @@
   @return if($value != null, var(--#{$variable}, $value), var(--#{$variable}));
 }
 
-/**
- * Get a color variable reference from an Otter theme (fallback to default if the name is not found)
- * @params $o3r-variable Name of the Otter theme variable
- * @params $value Fallback value
- */
+/// Get a color variable reference from an Otter theme (fallback to default if the name is not found)
+/// @param $o3r-variable Name of the Otter theme variable
+/// @param $value Fallback value
 @function color($o3r-palette, $value) {
   @if (not map.has-key($o3r-palette, $value)) {
     @warn 'The value `#{$value}` is not in the given palette, will be fallbacked to `default';
@@ -212,11 +195,9 @@
   @return get(utils-functions.get-mandatory($o3r-palette, $value));
 }
 
-/**
- * Get a contrast color variable reference from an Otter theme (fallback to default if the name is not found)
- * @params $o3r-variable Name of the Otter theme variable
- * @params $value Fallback value
- */
+/// Get a contrast color variable reference from an Otter theme (fallback to default if the name is not found)
+/// @param $o3r-variable Name of the Otter theme variable
+/// @param $value Fallback value
 @function contrast($o3r-palette, $value) {
   @if (not map.has-key(utils-functions.get-mandatory($o3r-palette, 'contrast'), $value)) {
     @warn 'The contrast value `#{$value}` is not in the given palette, will be fallbacked to `default';
@@ -225,10 +206,8 @@
   @return get(utils-functions.get-mandatory(utils-functions.get-mandatory($o3r-palette, 'contrast'), $value));
 }
 
-/**
- * Returns true if the given map is an Otter Theme variable
- * @params $map map to test
-*/
+/// Returns true if the given map is an Otter Theme variable
+/// @param $map map to test
 @function is-variable($map) {
   @if (meta.type-of($map) != map) {
     @return false;

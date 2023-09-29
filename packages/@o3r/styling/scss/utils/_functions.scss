@@ -2,21 +2,17 @@
 @use 'sass:meta';
 @use 'sass:list';
 
-// Default value for error function
-// By default, we fail during build time when encountering an error.
-// true value should only be used for testing purposes
-// ---
-// @type bool
+/// Default value for error function
+/// By default, we fail during build time when encountering an error.
+/// true value should only be used for testing purposes
+/// @type bool
 $test-mode-enabled: false !default;
 
-// Override @error directive with [Error] $message text not to fail during testing
-// ---
-// @param {string} $message - error message displayed in console
-// @param {bool} $fail-graciously [$test-mode-enabled] - if enabled, do not fail on errors at build time.
-// ---
-// @throw Error with message provided as parameter if the test mode is not enabled (default)
-// ---
-// @return {string}
+/// Override @error directive with [Error] $message text not to fail during testing
+/// @param {string} $message - error message displayed in console
+/// @param {bool} $fail-graciously [$test-mode-enabled] - if enabled, do not fail on errors at build time.
+/// @throw Error with message provided as parameter if the test mode is not enabled (default)
+/// @return {string} Error message
 @function error($message) {
   @if ($test-mode-enabled) {
     @return '[Error] #{$message}';
@@ -24,12 +20,10 @@ $test-mode-enabled: false !default;
   @error $message;
 }
 
-// Map containing the list of possible alternatives for each breakpoint if the value is missing from a property
-// ---
-// Ex. If there is no value for xxs on header-height property, the next alternative breakpoint is xs and if the latter
-// is not available, it will be sm etc.
-// ---
-// @type map
+/// Map containing the list of possible alternatives for each breakpoint if the value is missing from a property
+/// Ex. If there is no value for xxs on header-height property, the next alternative breakpoint is xs and if the latter
+/// is not available, it will be sm etc.
+/// @type map
 $alternative-breakpoints-map: (
   xxs: xxs,
   xs: xs xxs,
@@ -39,8 +33,8 @@ $alternative-breakpoints-map: (
   xl: xl lg md sm xs xxs,
 );
 
-// Return the tail of a list
-// @param {list} $list - List to get teh tail
+/// Return the tail of a list
+/// @param {list} $list - List to get teh tail
 @function tail($list) {
   @if (meta.type-of($list) == 'list') {
     @if (list.length($list) > 1) {
@@ -56,15 +50,12 @@ $alternative-breakpoints-map: (
   }
 };
 
-// Return mandatory parameter if it exists. Else, throw an error
-// ---
-// @access public
-// ---
-// @param {map} $map - where to look for the key
-// @param {string|list} $key
-// @param {string} $map-name - for debug purposes
-// ---
-// @return {any}
+/// Return mandatory parameter if it exists. Else, throw an error
+/// @access public
+/// @param {map} $map - where to look for the key
+/// @param {string|list} $key
+/// @param {string} $map-name - for debug purposes
+/// @return {any} Map variable value or throw
 @function get-mandatory($map, $key, $map-name: 'unknown') {
   @if (meta.type-of($key) == 'list') {
     @if (list.length($key) > 0) {
@@ -79,13 +70,10 @@ $alternative-breakpoints-map: (
   @return error('Missing mandatory `#{$key}` in `#{$map-name}`');
 }
 
-// Merge a list of maps. The first one is overridden with the second one etc.
-// ---
-// @access public
-// ---
-// @param {list} $map-list - list of maps separated via commas
-// ---
-// @return map
+/// Merge a list of maps. The first one is overridden with the second one etc.
+/// @access public
+/// @param {list} $map-list - list of maps separated via commas
+/// @return {map} merged map
 @function multi-map-merge($map-list...) {
   $result: ();
   @each $map in $map-list {
@@ -94,7 +82,7 @@ $alternative-breakpoints-map: (
   @return $result;
 }
 
-// Report variable creation for metadata
+/// Report variable creation for metadata
 @function log-variable($name, $value: null, $tags: null) {
   $metadata-debug: false !default;
   @if (meta.function-exists('metadata-report')) {

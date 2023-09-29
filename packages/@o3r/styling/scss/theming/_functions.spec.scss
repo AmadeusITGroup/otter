@@ -2,7 +2,7 @@
 @use './functions' as theme-functions;
 @use '../utils/functions' as utils-functions;
 
-// Do not fail on error but return error message
+/// Do not fail on error but return error message
 $test-mode-enabled: true;
 
 $theme: (
