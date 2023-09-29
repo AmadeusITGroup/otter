@@ -28,6 +28,7 @@
           "build",
           "build-cjs",
           "build-esm2015",
+          "build-esm2020",
           "build-react",
           "build-panel",
           "build-wrapper",
