@@ -1,6 +1,5 @@
 import { Inject, Injectable, Type } from '@angular/core';
-import type { DynamicConfigurable } from '@o3r/configuration';
-import type { Configuration, Context } from '@o3r/core';
+import type { Configuration, Context, DynamicConfigurable } from '@o3r/core';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { C11N_PRESENTERS_MAP_TOKEN } from './c11n.token';
@@ -15,7 +14,6 @@ export class C11nService {
 
   /**
    * Add a presenter
-   *
    * @param presKey The presenter key to set
    * @param presenter The new presenter
    */
@@ -25,7 +23,6 @@ export class C11nService {
 
   /**
    * Operator to retrieve the presenter based on a given presKey
-   *
    * @param defaultPres The default presenter
    * @param presKey The presenter key to retrieve
    */

@@ -1,8 +1,8 @@
 import { JsonValue } from '@angular-devkit/core';
 import { Tree } from '@angular-devkit/schematics';
-import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
 import { O3rCliError } from './error';
 import { getWorkspaceConfig } from './loaders';
+import { getDefaultOptionsForSchematic } from './collection';
 
 /** Type of generated item */
 export type GeneratedItemType =
@@ -56,24 +56,15 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
   }
 
   /**
-   * @param workspace
-   * @param generatorName
-   */
-  const getSchematicsPropertyFrom = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(
-    workspace: WorkspaceProject | WorkspaceSchema,
-    generatorName: GeneratedItemType): T | null => {
-    return workspace.schematics?.[generatorName] || null;
-  };
-
-  /**
    * @param generatorName
    * @param propTree
    * @param propProject
    */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
     const workspace = getWorkspaceConfig(propTree);
-    const workspaceProject = propProject ? workspace?.projects[propProject] : undefined;
-    return workspaceProject ? getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(workspace!, generatorName) : null;
+    const [collection, schematicName] = generatorName.split(':');
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as any as T | undefined || null;
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);

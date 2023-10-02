@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import { registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 /**
  * Add Otter localization to an Angular Project
@@ -24,6 +25,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';
       const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
         updateLocalization(options, __dirname),
         updateI18n(options),
@@ -51,7 +53,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           '@o3r/core:component-presenter': {
             useLocalization: undefined
           }
-        })
+        }),
+        registerDevtoolRule
       ])(tree, context);
     } catch (e) {
       // o3r localization needs o3r/core as peer dep. o3r/core will install o3r/schematics
