@@ -1,218 +1,62 @@
-@use '@angular/material' as mat;
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:list';
 @use '../utils/functions' as utils-functions;
 
-/// Generate a map with all the mandatory variables for any implementation with their default values (no theme applied).
-/// It is up to the implementation to override it to fit the application needs.
-@function generate-theme-variables($is-dark-theme, $implementation-override: ()) {
-  $default: (
-    primary-background: #FFF,
-    // Note remove complementary as it is pure refx
-    panel-background: #FFF,
-    hover-filter: rgba(0, 0, 0, .04),
-    dialog-background: #FFF,
-    // Validation / progress bar colors
-    success-color: #0AA937,
-    progress-filter: linear-gradient(to left, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
-    // Borders / separators
-    light-graphical-line-color: #AAA,
-    medium-graphical-line-color: #999,
-    dark-graphical-line: #555, // Real use?
-    thin-graphical-line-width: 1px,
-    standard-graphical-line-width: 2px,
-    thick-graphical-line: 4px,
-    border-style: solid,
-    medium-border-width: 2px,
-    thick-border-width: 4px,
-    light-separator-color: #AAA,
-    light-separator-style: solid,
-    light-separator-width: 1px,
-    separator-color: #AAA,
-    separator-style: solid,
-    separator-width: 2px,
-    panel-border: none,
-    // Radius
-    container-radius: 10px,
-    button-radius: 50%,
-    outline-radius: 0,
-    list-border-radius: 0,
-    // Shadow
-    enable-shadow-on-elements: false,
-    enable-shadow-on-containers: true,
-    shadow-color: rgba(0, 0, 0, 0.22),
-    // Text - theme
-    text: if($is-dark-theme, #FFF, #000)
-  );
-
-  @if($is-dark-theme) {
-    $default: map.merge(
-      $default,
-      (
-        primary-background: #050505,
-        progress-filter: linear-gradient(to left, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0)),
-        dark-graphical-line: #61688F,
-      )
-    );
-  }
-
-  @return map.merge($default, $implementation-override);
-};
-
-/// Revert the palette
-/// contrast values become default values
-/// default values become contrasts values
-@function revert-palette($palette) {
-  @return map.merge(map.get($palette, 'contrast'), (contrast: map.remove($palette, 'contrast')));
-};
-
-/// Generate the theme map containing a set of palettes and variables specific for this application
-/// @access public
-/// @param {map} $primary [$otter-primary] palette generated via define-palette with the colors in the primary theme (forms)
-/// @param {map} $highlight [$otter-highlight] palette generated via define-palette with the colors for the navigation and the continue / back buttons
-/// @param {map} $accent [$otter-accent] palette generated via define-palette with the colors used to accentuate one element in the page
-/// @param {map} $warn [$otter-warn] palette generated via define-palette with the colors used in warning or error feedbacks
-/// @param {bool} $is-dark-theme
-/// @param {map} $application [()] a set of properties to override for one specific implementation
-/// @return {map} containing the palette maps and the otter-theme variables map
-@function generate-theme($primary, $highlight, $accent, $warn, $is-dark-theme, $application: ()) {
-
-  $mat-theme: ();
-  $theme-variables: generate-theme-variables($is-dark-theme, $application);
-
-  $theme-color: (
-    color: (
-      primary: $primary,
-      accent: $accent,
-      warn: $warn,
-    )
-  );
-  @if ($is-dark-theme) {
-    $mat-theme: mat.define-dark-theme($theme-color);
-  } @else {
-    $mat-theme: mat.define-light-theme($theme-color);
-  }
-
-  @return map.merge(
-    $mat-theme,
-    (
-      highlight: $highlight,
-      application: $theme-variables
-    )
-  )
-};
-
-/// Convert a Material Design theme to an Otter theme
-/// @param $mat-theme Material Design theme
-/// @access private
-@function _meta-theme-to-otter($meta-theme, $root-name) {
-  @if (meta.type-of($meta-theme) != map) {
-    @return (
-      variable: $root-name,
-      value: $meta-theme
-    );
-  } @else {
-    $ret: $meta-theme;
-    @each $key, $value in $meta-theme {
-      $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
-      $new-value: _meta-theme-to-otter($value, $new-key);
-      $ret: map.merge($ret, ($key: $new-value));
-    }
-    @return $ret;
-  }
-}
-
-/// Convert a Meta theme to an Otter theme
-/// @param $meta-theme Meta theme
-@function meta-theme-to-otter($meta-theme: ()) {
-  @return _meta-theme-to-otter($meta-theme, '');
-}
-
-/// Convert a Meta theme to Material Design theme
-/// @param $meta-theme Meta theme
-/// @param $root-name base css variable name
-/// @param $enable-css-var enable CSS variable generation
-/// @access private
-@function _meta-theme-to-material($meta-theme, $root-name, $enable-css-var: true) {
-  @if (meta.type-of($meta-theme) != map) {
-    $is-css-var-convertible: meta.type-of($meta-theme) == number or meta.type-of($meta-theme) == string or meta.type-of($meta-theme) == color;
-    @if ($enable-css-var and $is-css-var-convertible) {
-      @return var(--#{$root-name}, #{$meta-theme});
-    }
-    @return $meta-theme;
-  } @else {
-    $ret: $meta-theme;
-
-    @each $key, $value in $meta-theme {
-      $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
-      $new-value: _meta-theme-to-material($value, $new-key, $enable-css-var);
-      $ret: map.merge($ret, ($key: $new-value));
-    }
-    @return $ret;
-  }
-}
-
-/// Convert a Meta theme to Material Design theme
-/// Note: the purpose of this function is to transform a Material Design compatible theme to add a CSS Variable layer on top of Material Design theme.
-/// @param $meta-theme Meta theme
-/// @param $enable-css-var enable CSS variable generation
-/// TODO: investigate issue on RefX app to enable $enable-css-var per default
-@function meta-theme-to-material($meta-theme: (), $enable-css-var: false) {
-  @return _meta-theme-to-material($meta-theme, '', $enable-css-var);
-}
-
 /// Get an Otter variable reference
-/// @param $name Name of the variable
+/// @access public
+/// @alias var
+/// @param {string} $name Name of the variable
 /// @param $value Fallback value
-/// @param $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @param {map} $details map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @return {string} CSS variable
 /// @example
 ///   @use '@o3r/styling' as o3r
 ///   $my-scss-var: o3r.variable('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
-@function variable($name, $value: null, $tags: null) {
-  $logged: utils-functions.log-variable($name, $value, $tags);
-  @return if($value != null, var(--#{$name}, $value), var(--#{$name}));
+@function variable($name, $value: null, $details: null) {
+  $key: utils-functions.get-var-key($name);
+  $varName: '--#{$key}';
+
+  $logged: utils-functions.log-variable($key, $value, $details);
+  $res: if($value != null, 'var(#{$varName}, #{$value})', 'var(#{$varName})');
+  @return #{$res};
 }
 
-/// Get a variable reference from an Otter theme
-/// @param $o3r-variable Name of the Otter theme variable
-/// @param $o3r-field Name field of the Otter theme variable
-@function get($o3r-variable, $o3r-field: null) {
-  $final-variable: if($o3r-field == null, $o3r-variable, utils-functions.get-mandatory($o3r-variable, $o3r-field));
-  $variable: utils-functions.get-mandatory($final-variable, 'variable');
-  $value: map.get($final-variable, 'value');
-  @return if($value != null, var(--#{$variable}, $value), var(--#{$variable}));
-}
-
-/// Get a color variable reference from an Otter theme (fallback to default if the name is not found)
-/// @param $o3r-variable Name of the Otter theme variable
+/// Get an Otter variable reference
+/// @access public
+/// @alias variable
+/// @param {string} $name Name of the variable
 /// @param $value Fallback value
-@function color($o3r-palette, $value) {
-  @if (not map.has-key($o3r-palette, $value)) {
-    @warn 'The value `#{$value}` is not in the given palette, will be fallbacked to `default';
-    $value: default;
-  }
-  @return get(utils-functions.get-mandatory($o3r-palette, $value));
-}
-
-/// Get a contrast color variable reference from an Otter theme (fallback to default if the name is not found)
-/// @param $o3r-variable Name of the Otter theme variable
-/// @param $value Fallback value
-@function contrast($o3r-palette, $value) {
-  @if (not map.has-key(utils-functions.get-mandatory($o3r-palette, 'contrast'), $value)) {
-    @warn 'The contrast value `#{$value}` is not in the given palette, will be fallbacked to `default';
-    $value: default;
-  }
-  @return get(utils-functions.get-mandatory(utils-functions.get-mandatory($o3r-palette, 'contrast'), $value));
+/// @param {map} $details map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @return {string} CSS variable
+/// @example
+///   @use '@o3r/styling' as o3r
+///   $my-scss-var: o3r.var('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
+@function var($name, $value: null, $details: null) {
+  @return variable($name, $value, $details);
 }
 
 /// Returns true if the given map is an Otter Theme variable
-/// @param $map map to test
+/// @param {map} $map map to test
+/// @return {bool} is an Otter compatible variable
 @function is-variable($map) {
   @if (meta.type-of($map) != map) {
     @return false;
   } @else {
     $keys: map.keys($map);
-    @return list.length($keys) == 2 and list.index($keys, variable) != null and list.index($keys, value) != null;
+
+    $hasInvalid: false;
+    @each $key in $keys {
+      @if (not $hasInvalid) {
+        $isValidItem: false;
+        @each $valid in ('value', 'details', 'variable') { // 'variable' is deprecated and will be removed in v12
+          @if ($key == $valid) {
+            $isValidItem: true;
+          }
+        }
+        $hasInvalid: not $isValidItem;
+      }
+    }
+    @return list.length($keys) >= 1 and not $hasInvalid;
   }
 }

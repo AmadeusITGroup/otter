@@ -20,6 +20,9 @@
   "exports": {
     ".": {
       "sass": "./_index.scss"
+    },
+    "./otter-theme": {
+      "sass": "./theming/otter-theme/_index.scss"
     }
   },
   "peerDependencies": {
@@ -33,7 +36,8 @@
     "@o3r/extractors": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~16.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sass": "~1.69.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -46,6 +50,9 @@
       "optional": true
     },
     "@schematics/angular": {
+      "optional": true
+    },
+    "sass": {
       "optional": true
     }
   },
@@ -106,7 +113,6 @@
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
     "sass": "~1.69.0",
-    "sass-true": "^7.0.0",
     "semver": "^7.5.2",
     "stylelint": "^15.10.1",
     "stylelint-scss": "^4.0.0",
