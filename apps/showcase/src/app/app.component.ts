@@ -1,7 +1,7 @@
 import { Component, OnDestroy, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
-import { filter, map, Observable, shareReplay, Subscription } from 'rxjs';
+import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
 
 @Component({
@@ -38,12 +38,15 @@ export class AppComponent implements OnDestroy {
   private subscriptions = new Subscription();
 
   constructor(router: Router, private offcanvasService: NgbOffcanvas) {
-    this.activeUrl$ = router.events.pipe(
+    const onNavigationEnd$ = router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      share()
+    );
+    this.activeUrl$ = onNavigationEnd$.pipe(
       map((event) => event.urlAfterRedirects),
       shareReplay(1)
     );
-    this.subscriptions.add(router.events.subscribe(() => {
+    this.subscriptions.add(onNavigationEnd$.subscribe(() => {
       if (this.offcanvasRef) {
         this.offcanvasRef.dismiss();
       }

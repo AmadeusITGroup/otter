@@ -17,15 +17,14 @@ h2 {
   margin: 1.5rem 0 1rem;
 }
 
-h2[id] {
-  margin-top: -4rem;
-  padding-top: 5rem;
+h1, h2 {
+  scroll-margin-top: 5rem;
 }
 
 .right-nav {
-  top: 4rem;
-  padding: 3rem 0 0;
-  max-height: calc(100vh - 4rem);
+  top: 6rem;
+  max-height: calc(100vh - 6rem);
   overflow-y: auto;
   flex-grow: 1;
+  margin-top: -3rem;
 }
