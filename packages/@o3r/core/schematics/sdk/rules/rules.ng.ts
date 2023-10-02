@@ -16,7 +16,24 @@ export function ngRegisterProjectTasks(_options: NgGenerateSdkSchema, targetPath
     sourceRoot: path.posix.join(targetPath, 'src'),
     prefix: 'sdk',
     architect: {
-      // TODO: find builder for build (running tsc) and test (running jest)
+      build: {
+        builder: '@o3r/core:run-script',
+        options: {
+          script: 'build'
+        }
+      },
+      lint: {
+        builder: '@o3r/core:run-script',
+        options: {
+          script: 'lint'
+        }
+      },
+      test: {
+        builder: '@o3r/core:run-script',
+        options: {
+          script: 'test'
+        }
+      }
     }
   };
 
