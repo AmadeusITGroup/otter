@@ -2,7 +2,7 @@ import { strings } from '@angular-devkit/core';
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import * as ts from 'typescript';
-import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getWorkspaceConfig, insertRoute, O3rCliError, Route } from '@o3r/schematics';
+import { addImportToModuleFile, eslintRule, getDestinationPath, getWorkspaceConfig, insertRoute, O3rCliError, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 import { getAddConfigurationRules } from '../rule-factories/component/configuration';
 import { getAddThemingRules } from '../rule-factories/component/theming';
@@ -208,6 +208,6 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
     isApplication,
     generateFiles,
     updateAppRoutingModule,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

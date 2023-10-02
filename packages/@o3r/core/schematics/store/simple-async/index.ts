@@ -1,7 +1,7 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 
-import { applyEsLintFix, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { eslintRule, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { ExtraFormattedProperties } from '../common/helpers';
 
@@ -71,6 +71,6 @@ export function ngGenerateSimpleAsyncStore(options: NgGenerateSimpleAsyncStoreSc
 
   return chain([
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

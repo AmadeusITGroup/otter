@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "eslintSchematicsSchema",
+  "title": "Eslint Otter schematics ",
+  "description": "eslint Otter schematics ",
+  "properties": {
+    "files": {
+      "description": "List of files to lint",
+      "oneOf": [
+        {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "continueOnError": {
+      "type": "boolean",
+      "default": true,
+      "description": "Indicates if the linter process should succeed even if there are lint errors remaining"
+    },
+    "hideWarnings": {
+      "type": "boolean",
+      "default": true,
+      "description": "If enabled, only errors are reported (--quiet option of ESLint CLI)"
+    },
+    "configFile": {
+      "type": "string",
+      "description": "Linter configuration file path"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "files"
+  ]
+}

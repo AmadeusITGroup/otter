@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { eslintRule } from '@o3r/schematics';
 import * as ts from 'typescript';
 import * as path from 'node:path';
 
@@ -190,6 +190,6 @@ ${actionDefinitionTemplate}`;
 
   return chain([
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

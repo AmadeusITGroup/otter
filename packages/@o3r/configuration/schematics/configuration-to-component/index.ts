@@ -18,8 +18,8 @@ import {
   addCommentsOnClassProperties,
   addImportsRule,
   addInterfaceToClassTransformerFactory,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   generateParametersDeclarationFromString,
@@ -309,7 +309,7 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
       return chain([
         createConfigFilesRule,
         updateComponentRules,
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

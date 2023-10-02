@@ -18,8 +18,8 @@ import {
   addCommentsOnClassProperties,
   addImportsRule,
   addInterfaceToClassTransformerFactory,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
   isNgClassDecorator,
@@ -226,7 +226,7 @@ export function ngAddAnalytics(options: NgAddAnalyticsSchematicsSchema): Rule {
         updateComponentRule,
         standalone ? noop() : updateModuleRule,
         options.activateDummy ? updateTemplateRule : noop(),
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

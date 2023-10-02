@@ -1,6 +1,6 @@
 import { chain, noop, Rule, schematic, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
+import { eslintRule, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { nxGenerateModule } from './rules/rules.nx';
@@ -31,7 +31,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
       // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
       // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
       (t, c) => schematic('ng-add-create', { name: options.name, path: targetPath })(t, c),
-      options.skipLinter ? noop() : applyEsLintFix(),
+      options.skipLinter ? noop() : eslintRule,
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());
         return t;

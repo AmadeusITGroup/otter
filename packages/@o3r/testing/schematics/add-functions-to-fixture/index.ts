@@ -1,5 +1,5 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, O3rCliError } from '@o3r/schematics';
+import { eslintRule, O3rCliError } from '@o3r/schematics';
 import * as ts from 'typescript';
 import { getImplementation, getSignature } from './helpers';
 import { description } from './models';
@@ -62,7 +62,6 @@ export function ngAddFunctionsToFixture(options: NgAddFunctionsToFixtureSchemati
       });
 
     },
-
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

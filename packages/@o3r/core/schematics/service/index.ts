@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { eslintRule, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateServiceSchematicsSchema } from './schema';
 
@@ -92,6 +92,6 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
 
   return chain([
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

@@ -9,9 +9,9 @@ import {
 } from '@angular-devkit/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import {
-  applyEsLintFix,
   askConfirmationToConvertComponent,
   askUserInput,
+  eslintRule,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -236,7 +236,7 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
         updateLocalizationFileRule,
         updateTranslationFileRule,
         options.value && options.updateTemplate ? updateTemplateFile : noop(),
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

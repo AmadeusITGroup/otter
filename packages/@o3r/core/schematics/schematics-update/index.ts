@@ -1,8 +1,6 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { eslintRule, getDestinationPath } from '@o3r/schematics';
 import * as path from 'node:path';
-
-import { getDestinationPath } from '@o3r/schematics';
 import { NgGenerateUpdateSchematicsSchema } from './schema';
 import { updateOtterEnvironmentAdapter } from '../rule-factories/otter-environment';
 
@@ -70,6 +68,6 @@ export function ${updateFunction}(): Rule {
   return chain([
     updateOtterEnvironmentAdapter(options, __dirname),
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

@@ -16,8 +16,8 @@ import {
 import {
   addImportsRule,
   addInterfaceToClassTransformerFactory,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -95,7 +95,7 @@ export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
       return chain([
         createConfigFilesRule,
         updateComponentRule,
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

@@ -15,13 +15,15 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {
-  applyEsLintFix,
+  eslintRule,
   getComponentFileName,
   getComponentFolderName,
   getComponentName,
   getComponentSelectorWithoutSuffix,
-  getDestinationPath, getInputComponentName,
-  getLibraryNameFromPath, getWorkspaceConfig
+  getDestinationPath,
+  getInputComponentName,
+  getLibraryNameFromPath,
+  getWorkspaceConfig
 } from '@o3r/schematics';
 import * as path from 'node:path';
 import { getAddAnalyticsRules } from '../../rule-factories/component/analytics';
@@ -196,6 +198,6 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
 
   return chain([
     generateFiles,
-    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
+    !fullStructureRequested ? options.skipLinter ? noop() : eslintRule : noop()
   ]);
 }

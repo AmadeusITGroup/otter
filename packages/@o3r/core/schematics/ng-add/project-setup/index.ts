@@ -39,7 +39,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const o3rCoreVersion = corePackageJsonContent.version;
   const {
-    addVsCodeRecommendations, applyEsLintFix, getWorkspaceConfig, install, isStandaloneRepository, mapImportV7toV8, ngAddPackages,
+    addVsCodeRecommendations, eslintRule, getWorkspaceConfig, install, isStandaloneRepository, mapImportV7toV8, ngAddPackages,
     readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext, getO3rPeerDeps
   } = await import('@o3r/schematics');
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
@@ -104,7 +104,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       filterPackageJsonScripts
     ];
   }
-  const commonRules = [
+  const commonRules: Rule[] = [
     genericUpdates(),
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
@@ -119,7 +119,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       workingDirectory: projectDirectory
     }),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
-    !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
+    !options.skipLinter && installOtterLinter ? eslintRule : noop(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
     options.skipInstall ? noop() : install
   ];

@@ -1,5 +1,5 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, isNgClassComponent, isO3rClassComponent, O3rCliError } from '@o3r/schematics';
+import { eslintRule, isNgClassComponent, isO3rClassComponent, O3rCliError } from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
@@ -51,6 +51,6 @@ export function convertToO3rComponent(options: ConvertToO3rComponentSchematicsSc
 
   return chain([
     updateComponentFile,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

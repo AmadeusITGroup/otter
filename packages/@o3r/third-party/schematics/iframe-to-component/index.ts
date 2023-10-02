@@ -9,8 +9,8 @@ import {
 import {
   addCommentsOnClassProperties,
   addImportsRule,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -222,7 +222,7 @@ export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
     return chain([
       updateComponentFile,
       updateTemplateFile,
-      options.skipLinter ? noop() : applyEsLintFix()
+      options.skipLinter ? noop() : eslintRule
     ]);
   } catch (e) {
     if (e instanceof NoOtterComponent && context.interactive) {

@@ -15,8 +15,8 @@ import {
 } from '@angular-devkit/schematics';
 import {
   addImportsRule,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   getO3rComponentInfoOrThrowIfNotFound,
   NoOtterComponent,
   O3rCliError
@@ -121,7 +121,7 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
       return chain([
         createFixtureFilesRule,
         updateSpecRule,
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

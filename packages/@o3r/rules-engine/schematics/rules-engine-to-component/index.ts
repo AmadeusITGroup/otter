@@ -1,6 +1,6 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
-  applyEsLintFix,
+  eslintRule,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -163,6 +163,6 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
   return chain([
     checkRulesEngine(options.path),
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

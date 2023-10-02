@@ -9,7 +9,7 @@ import { NgAddSchematicsSchema } from './schema';
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
+      const { eslintRule, install, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
       const { updateStorybook } = await import('../storybook-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -18,7 +18,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       return () => chain([
         removePackages(['@otter/storybook']),
         updateStorybook(options, __dirname),
-        options.skipLinter ? noop() : applyEsLintFix(),
+        options.skipLinter ? noop() : eslintRule,
         options.skipInstall ? noop() : install,
         ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory })
       ])(tree, context);

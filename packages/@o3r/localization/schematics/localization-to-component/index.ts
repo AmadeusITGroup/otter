@@ -20,8 +20,8 @@ import {
   addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   addInterfaceToClassTransformerFactory,
-  applyEsLintFix,
   askConfirmationToConvertComponent,
+  eslintRule,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
@@ -357,7 +357,7 @@ const mockTranslationsCompilerProvider: Provider = {
         updateSpecRule,
         standalone ? noop() : updateModuleRule,
         ...(options.activateDummy ? [addDummyKeyRule, updateTemplateRule] : []),
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     } catch (e) {
       if (e instanceof NoOtterComponent && context.interactive) {

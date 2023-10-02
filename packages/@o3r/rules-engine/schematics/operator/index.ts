@@ -1,5 +1,5 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { eslintRule } from '@o3r/schematics';
 import type { NgGenerateOperatorSchematicsSchema } from './schema';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import * as path from 'node:path';
@@ -30,6 +30,6 @@ export function ngGenerateOperator(options: NgGenerateOperatorSchematicsSchema):
 
   return chain([
     generateFiles,
-    options.skipLinter ? noop() : applyEsLintFix()
+    options.skipLinter ? noop() : eslintRule
   ]);
 }

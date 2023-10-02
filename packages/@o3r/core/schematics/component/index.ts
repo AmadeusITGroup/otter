@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getComponentFolderName, getDestinationPath, getInputComponentName, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { eslintRule, getComponentFolderName, getDestinationPath, getInputComponentName, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateComponentSchematicsSchema } from './schema';
 
@@ -128,7 +128,7 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
         generateComponentPresenter(options),
         generateComponentContainer(options),
         generateFiles,
-        options.skipLinter ? noop() : applyEsLintFix()
+        options.skipLinter ? noop() : eslintRule
       ]);
     }
   }

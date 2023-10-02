@@ -6,6 +6,13 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "eslint": {
+      "description": "Eslint Otter schematics",
+      "factory": "./schematics/eslint/index#eslint",
+      "schema": "./schematics/eslint/schema.json",
+      "aliases": ["lint"],
+      "hidden": true
     }
   }
 }
