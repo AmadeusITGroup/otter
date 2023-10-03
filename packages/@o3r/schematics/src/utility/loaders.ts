@@ -7,7 +7,7 @@ import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
 
-function findFilenameInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
+function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
   if (ignoreDirectories.some(i => directory.path.split(path.posix.sep).includes(i))) {
     return memory;
   }
@@ -17,7 +17,7 @@ function findFilenameInTreeRec(memory: Set<FileEntry>, directory: DirEntry, file
     .forEach((file) => memory.add(directory.file(file)!));
 
   directory.subdirs
-    .forEach((dir) => findFilenameInTreeRec(memory, directory.dir(dir), fileMatchesCriteria, ignoreDirectories));
+    .forEach((dir) => findFilesInTreeRec(memory, directory.dir(dir), fileMatchesCriteria, ignoreDirectories));
 
   return memory;
 }
@@ -29,9 +29,9 @@ function findFilenameInTreeRec(memory: Set<FileEntry>, directory: DirEntry, file
  * @param fileMatchesCriteria a function defining the criteria to look for
  * @param ignoreDirectories optional parameter to ignore folders
  */
-export function findFilenameInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn']) {
+export function findFilesInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn']) {
   const memory = new Set<FileEntry>();
-  findFilenameInTreeRec(memory, directory, fileMatchesCriteria, ignoreDirectories);
+  findFilesInTreeRec(memory, directory, fileMatchesCriteria, ignoreDirectories);
   return Array.from(memory);
 }
 
