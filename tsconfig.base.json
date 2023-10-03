@@ -53,6 +53,9 @@
       "@ama-terasu/schematics": [
         "packages/@ama-terasu/schematics/src"
       ],
+      "@o3r/artifactory-tools": [
+        "packages/@o3r/artifactory-tools/src"
+      ],
       "@o3r/amaterasu-api-spec": [
         "packages/@o3r/amaterasu/amaterasu-api-spec/src"
       ],
