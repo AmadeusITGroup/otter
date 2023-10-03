@@ -1,19 +1,13 @@
+<h1>Dynamic content</h1>
 <div class="row">
-  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
     <o3r-in-page-nav-pres
       id="dynamic-content-nav"
       [links]="links$ | async"
     >
     </o3r-in-page-nav-pres>
   </div>
-  <div
-    class="order-2 order-lg-1 col-12 col-lg-10"
-    data-bs-spy="scroll"
-    data-bs-target="#dynamic-content-nav"
-    data-bs-smooth-scroll="true"
-    tabindex="0"
-  >
-    <h1>Dynamic content</h1>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
     <h2 id="dynamic-content-description">Description</h2>
     <div>
       <p>This module provides a mechanism to retrieve media and data depending on the host or a server-specific URL.</p>
@@ -24,9 +18,9 @@
       <p>
         Let's take our basic component and use the dynamic content.
       </p>
-      <div class="d-flex gap-2">
-        <o3r-copy-text-pres class="flex-fill" language="html" [text]="codeDataDynamicContentPath"></o3r-copy-text-pres>
-        <div class="d-flex flex-column justify-content-between pb-3">
+      <div class="row">
+        <o3r-copy-text-pres class="col-12 col-md-8 col-lg-9" language="html" [text]="codeDataDynamicContentPath"></o3r-copy-text-pres>
+        <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
           <button type="button" class="btn btn-primary" [class.disabled]="bodyDynamicContentPath" (click)="setLocalStorage()">Override</button>
           <button type="button" class="btn btn-danger" [class.disabled]="!bodyDynamicContentPath" (click)="clearLocalStorage()">Clear</button>
         </div>

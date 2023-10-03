@@ -1,5 +1,4 @@
 import { Injectable, OnDestroy, QueryList } from '@angular/core';
-import * as bootstrap from 'bootstrap';
 import { InPageNavLink } from './in-page-nav-pres.component';
 import { delay, map, shareReplay, startWith, Subject, Subscription, switchMap } from 'rxjs';
 
@@ -19,19 +18,6 @@ export class InPageNavPresService implements OnDestroy {
     delay(0), // Delay needed else ExpressionChangedAfterItHasBeenCheckedError throws
     shareReplay(1)
   );
-
-  constructor() {
-    this.subscription.add(
-      this.links$.pipe(
-        delay(0) // Delay needed else ScrollSpy instance is refreshed too early
-      ).subscribe(() => {
-        const spiedElement = document.querySelector('[data-bs-spy="scroll"]');
-        if (spiedElement) {
-          bootstrap.ScrollSpy.getOrCreateInstance(spiedElement).refresh();
-        }
-      })
-    );
-  }
 
   /**
    * Initialize the navigation links list
