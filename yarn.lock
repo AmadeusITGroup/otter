@@ -6795,6 +6795,51 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@o3r/artifactory-tools@workspace:^, @o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools":
+  version: 0.0.0-use.local
+  resolution: "@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools"
+  dependencies:
+    "@angular-devkit/core": ~16.2.0
+    "@angular-devkit/schematics": ~16.2.0
+    "@angular-eslint/eslint-plugin": ~16.1.0
+    "@babel/core": ~7.22.0
+    "@babel/preset-typescript": ~7.22.0
+    "@compodoc/compodoc": ^1.1.19
+    "@nx/jest": ~16.8.0
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@types/fs-extra": ^11.0.0
+    "@types/jest": ~29.5.2
+    "@types/node": ^18.0.0
+    "@types/request": ^2.48.7
+    "@types/request-promise-native": ^1.0.18
+    "@typescript-eslint/eslint-plugin": ^5.59.9
+    "@typescript-eslint/parser": ^5.59.9
+    commander: ^11.0.0
+    cpy-cli: ^4.2.0
+    eslint: ^8.42.0
+    eslint-import-resolver-node: ^0.3.4
+    eslint-plugin-jest: ~27.2.3
+    eslint-plugin-jsdoc: ~46.8.0
+    eslint-plugin-prefer-arrow: ~1.2.3
+    eslint-plugin-unicorn: ^47.0.0
+    fs-extra: ^11.0.0
+    jest: ~29.7.0
+    jest-junit: ~16.0.0
+    nx: ~16.8.0
+    request: ^2.88.0
+    request-promise-native: ^1.0.9
+    ts-jest: ~29.1.1
+    tslib: ^2.5.3
+    typescript: ~5.1.6
+    winston: ^3.8.2
+  bin:
+    o3r-artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
+    o3r-artifact-retriever: ./dist/src/cli/artifact-retriever.js
+    o3r-pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
+  languageName: unknown
+  linkType: soft
+
 "@o3r/build-helpers@workspace:^, @o3r/build-helpers@workspace:tools/@o3r/build-helpers":
   version: 0.0.0-use.local
   resolution: "@o3r/build-helpers@workspace:tools/@o3r/build-helpers"
@@ -7253,6 +7298,7 @@ __metadata:
     "@compodoc/compodoc": ^1.1.19
     "@nx/eslint-plugin": ~16.8.0
     "@nx/jest": ~16.8.0
+    "@o3r/artifactory-tools": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/fs-extra": ^11.0.0

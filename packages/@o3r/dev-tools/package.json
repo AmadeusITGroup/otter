@@ -33,6 +33,7 @@
     "yarn-check": "./dist/src/cli/checks/yarn-check.js"
   },
   "dependencies": {
+    "@o3r/artifactory-tools": "workspace:^",
     "@types/request-promise-native": "^1.0.18",
     "azure-devops-node-api": "^12.0.0",
     "chalk": "^4.1.2",
