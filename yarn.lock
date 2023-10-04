@@ -6594,7 +6594,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": ~16.2.0
-    "@types/jasmine": ~4.3.5
+    "@types/jasmine": ~4.6.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.60.1
@@ -7028,7 +7028,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ~16.2.0
-    "@types/jasmine": ~4.3.5
+    "@types/jasmine": ~4.6.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
@@ -7339,7 +7339,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@types/jasmine": ~4.3.5
+    "@types/jasmine": ~4.6.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
@@ -8109,7 +8109,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@types/jasmine": ~4.3.5
+    "@types/jasmine": ~4.6.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@typescript-eslint/eslint-plugin": ^5.60.1
@@ -8195,7 +8195,7 @@ __metadata:
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ~16.2.0
-    "@types/jasmine": ~4.3.5
+    "@types/jasmine": ~4.6.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/semver": ^7.3.13
@@ -10905,10 +10905,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jasmine@npm:~4.3.5":
-  version: 4.3.5
-  resolution: "@types/jasmine@npm:4.3.5"
-  checksum: 33839af6efd42bed948cb49de117821649de952228b3bf4743af09ef9d1736a6e9e9500750f04ffa74e308f00781f697092dadde4e038e2f041e741b087ceb9b
+"@types/jasmine@npm:~4.6.0":
+  version: 4.6.0
+  resolution: "@types/jasmine@npm:4.6.0"
+  checksum: 65d1036ad66664136a6da1b2471f7f0355a42c5045a300f2385635f233bebb3b225391be8e2ea4e7f778dccf5b658181de767017db2f8a395cf3ba4827ca4d73
   languageName: node
   linkType: hard
 
