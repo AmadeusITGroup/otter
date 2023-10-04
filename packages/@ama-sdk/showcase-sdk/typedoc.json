@@ -1,0 +1,12 @@
+{
+  "entryPoints": [
+    "./src/models/index.ts",
+    "./src/helpers/index.ts",
+    "./src/api/index.ts"
+  ],
+  "exclude": "./**/*+(.reviver|.spec|.e2e|.mock|.fixture).ts",
+  "pretty": true,
+  "excludeExternals": true,
+  "tsconfig": "./tsconfig.doc.json",
+  "out": "./generated-typedoc"
+}

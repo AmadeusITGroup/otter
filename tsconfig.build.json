@@ -7,6 +7,7 @@
     "paths": {
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
+      "@ama-sdk/showcase-sdk": ["packages/@ama-sdk/showcase-sdk/dist", "packages/@ama-sdk/showcase-sdk"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
