@@ -18,13 +18,15 @@
     </div>
     <h2 id="configuration-examples">Examples</h2>
     <div>
-      <o3r-configuration-pres [config]="config()"></o3r-configuration-pres>
       <p>
         Let's take our basic component and add some configurations.
       </p>
       <p>
-        The configuration could be overriden by input
+        Click on "Override" button below to simulate an update of the configuration.
+        <br>
+        This will update the list of destinations and propose round-trip instead of one-way.
       </p>
+      <o3r-configuration-pres [config]="config()"></o3r-configuration-pres>
       <div class="row">
         <o3r-copy-text-pres language="html" [text]="codeConfig()" class="col-12 col-md-8 col-lg-9"></o3r-copy-text-pres>
         <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
