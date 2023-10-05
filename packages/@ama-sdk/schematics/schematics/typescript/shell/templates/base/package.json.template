@@ -78,6 +78,7 @@
     "@commitlint/config-conventional": "^17.0.0",
     "@ama-sdk/schematics": "~<%= sdkCoreVersion %>",
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
+    "@o3r/schematics": "^<%= sdkCoreVersion %>",
     "@o3r/eslint-config-otter": "^<%= sdkCoreVersion %>",
     "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
