@@ -139,6 +139,12 @@
     "@schematics/angular": {
       "optional": true
     },
+    "pixelmatch": {
+      "optional": true
+    },
+    "pngjs": {
+      "optional": true
+    },
     "protractor": {
       "optional": true
     },

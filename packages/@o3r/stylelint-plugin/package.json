@@ -21,7 +21,6 @@
     "tslib": "^2.5.3"
   },
   "peerDependencies": {
-    "jest-preset-stylelint": "~6.2.0",
     "postcss": "^8.4.5",
     "stylelint": "^15.10.1"
   },
