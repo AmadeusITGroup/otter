@@ -53,9 +53,6 @@
       "@ama-terasu/schematics": [
         "packages/@ama-terasu/schematics/src"
       ],
-      "@o3r/artifactory-tools": [
-        "packages/@o3r/artifactory-tools/src"
-      ],
       "@o3r/amaterasu-api-spec": [
         "packages/@o3r/amaterasu/amaterasu-api-spec/src"
       ],
@@ -79,6 +76,12 @@
       ],
       "@o3r/application": [
         "packages/@o3r/application/src/public_api"
+      ],
+      "@o3r/artifactory-tools": [
+        "packages/@o3r/artifactory-tools/src"
+      ],
+      "@o3r/azure-tools": [
+        "packages/@o3r/azure-tools/src/public_api"
       ],
       "@o3r/chrome-devtools": [
         "packages/@o3r/chrome-devtools/src"
