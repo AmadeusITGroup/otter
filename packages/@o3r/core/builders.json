@@ -25,6 +25,11 @@
       "implementation": "./builders/ngc/",
       "schema": "./builders/ngc/schema.json",
       "description": "Perform a ngc build"
+    },
+    "run-script": {
+      "implementation": "./builders/run-script/",
+      "schema": "./builders/run-script/schema.json",
+      "description": "Run a script from package.json"
     }
   }
 }
