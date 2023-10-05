@@ -40,7 +40,7 @@
     "set:version": "set-version --placeholder 0.0.0-placeholder",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
-    "spec:regen": "<%=packageManager%> run generate && <%=packageManager%> exec clear-index",
+    "spec:regen": "<%=packageManager%> run generate && <%=packageManager%> run clear-index",
     "clear-index": "node scripts/clear-index.js",
     "files:pack": "node scripts/files-pack.js",
     "test": "jest --passWithNoTests",
