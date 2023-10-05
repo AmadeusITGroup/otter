@@ -8631,7 +8631,6 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
   peerDependencies:
-    jest-preset-stylelint: ~6.2.0
     postcss: ^8.4.5
     stylelint: ^15.10.1
   languageName: unknown
@@ -8879,6 +8878,10 @@ __metadata:
     "@playwright/test":
       optional: true
     "@schematics/angular":
+      optional: true
+    pixelmatch:
+      optional: true
+    pngjs:
       optional: true
     protractor:
       optional: true
