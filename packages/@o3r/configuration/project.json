@@ -77,7 +77,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/configuration/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/configuration/src/**/*.ts"
+          "packages/@o3r/configuration/src/**/*.ts",
+          "packages/@o3r/configuration/package.json"
         ]
       }
     },

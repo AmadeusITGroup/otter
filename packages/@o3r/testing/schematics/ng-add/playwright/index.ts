@@ -1,18 +1,17 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getProjectRootDir, NgAddPackageOptions, ngAddPeerDependencyPackages } from '@o3r/schematics';
+import { getWorkspaceConfig, NgAddPackageOptions, ngAddPeerDependencyPackages } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
 
 /**
  * Add Playwright to Otter application
- *
  * @param options @see RuleFactory.options
  */
 export function updatePlaywright(options: NgAddPackageOptions = {}): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = options.projectName && getProjectRootDir(tree, options.projectName) || '.';
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
 
     // update gitignore
     const gitignorePath = '.gitignore';

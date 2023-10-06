@@ -27,9 +27,16 @@ export type NPMRegistrySearchResponse = {
 export const OTTER_MODULE_PREFIX = 'otter-';
 /** Otter NPM Keyword pattern */
 export type OtterModuleTag<T extends string = ''> = `${typeof OTTER_MODULE_PREFIX}${T}`;
-/** List of whitelisted package scopes for Otter modules */
-export const OTTER_MODULE_SUPPORTED_SCOPES = ['otter', 'o3r'] as const;
+
+/** Prefix of the Otter module keyword tags */
+export const OTTER_MODULE_PRESET_PREFIX: OtterModuleTag<'preset-'> = 'otter-preset-';
+/** Otter Preset NPM Keyword pattern */
+export type OtterModulePreset<T extends string = ''> = `${typeof OTTER_MODULE_PRESET_PREFIX}${T}`;
+
 /** Keyword defining an Otter compatible module */
 export const OTTER_MODULE_KEYWORD: OtterModuleTag<'module'> = 'otter-module';
 /** Package Keyword to identify the module allowing CMS administration */
 export const OTTER_KEYWORD_CMS: OtterModuleTag<'cms'> = 'otter-cms';
+
+/** List of whitelisted package scopes for Otter modules */
+export const OTTER_MODULE_SUPPORTED_SCOPES = ['otter', 'o3r'] as const;

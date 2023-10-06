@@ -29,48 +29,50 @@ export interface WorkspaceLayout {
 
 
 export interface WorkspaceSchematics extends SchematicOptions {
-  /** @deprecated */
+  /** @deprecated will be removed in v10 */
   '@otter/ng-tools:api-service'?: {
     path: string;
   };
-  /** @deprecated */
+  /** @deprecated will be removed in v10 */
   '@otter/ng-tools:component'?: {
     path: string;
   };
-  /** @deprecated */
+  /** @deprecated will be removed in v10 */
   '@otter/ng-tools:service'?: {
     path: string;
   };
-  /** @deprecated */
+  /** @deprecated will be removed in v10 */
   '@otter/ng-tools:store'?: {
     path: string;
   };
-  /** @deprecated */
+  /** @deprecated will be removed in v10*/
   '@otter/ng-tools:schematics'?: {
     path: string;
   };
 
-  '@o3r/components:component'?: {
+  '@o3r/core:component'?: {
     path: string;
-  };
-  '@o3r/services:service'?: {
+  } & WorkspaceSchematics['*:*'];
+  '@o3r/core:service'?: {
     path: string;
-  };
-  '@o3r/store:store'?: {
+  } & WorkspaceSchematics['*:*'];
+  '@o3r/core:store'?: {
     path: string;
-  };
+  } & WorkspaceSchematics['*:*'];
   '@o3r/core:schematics'?: {
     path: string;
-  };
+  } & WorkspaceSchematics['*:*'];
   '*:ng-add'?: {
     enableMetadataExtract?: boolean;
-  };
+    registerDevtool?: boolean;
+  } & WorkspaceSchematics['*:*'];
   '*:*'?: WorkspaceLayout & {
-    /** in adition to the WorkspaceLayout, an optional testFramework attribute is available */
+    /** in addition to the WorkspaceLayout, an optional testFramework attribute is available */
     testFramework?: AvailableTestFrameworks;
   };
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
+  name?: string;
   architect?: WorkspaceTool;
   i18n?: WorkspaceProjectI18n;
   prefix: string;

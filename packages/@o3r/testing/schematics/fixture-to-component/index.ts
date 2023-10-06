@@ -18,7 +18,8 @@ import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
   getO3rComponentInfoOrThrowIfNotFound,
-  NoOtterComponent
+  NoOtterComponent,
+  O3rCliError
 } from '@o3r/schematics';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import { basename, dirname, posix } from 'node:path';
@@ -30,7 +31,7 @@ const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) =
     posix.join(dirname(componentPath), `${baseFileName}.fixture.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
-    throw new Error(`Unable to add fixture to this component because it already has at least one of these files: ${files.join(', ')}.`);
+    throw new O3rCliError(`Unable to add fixture to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 };
 

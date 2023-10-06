@@ -4,13 +4,12 @@ import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType 
 import * as ts from 'typescript';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
-import { getPackageManagerRunner, getProjectFromTree, getTemplateFolder, readAngularJson } from '@o3r/schematics';
+import { getPackageManagerRunner, getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
 
 
 
 /**
  * Add Storybook to Otter application
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
@@ -19,7 +18,7 @@ export function updateStorybook(options: { projectName?: string | null | undefin
   return (tree: Tree, context: SchematicContext) => {
 
 
-    const workspaceProject = getProjectFromTree(tree, options.projectName || null);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       context.logger.warn('No project found, the update of storybook will be skipped');
       return tree;
@@ -57,7 +56,11 @@ export function updateStorybook(options: { projectName?: string | null | undefin
     let styleMetadata = '../style.metadata.json';
 
     // update angular.json
-    const workspace = readAngularJson(tree);
+    const workspace = getWorkspaceConfig(tree);
+    if (!workspace) {
+      context.logger.error('No workspace found, the storybook project will not be updated');
+      return tree;
+    }
     if (!workspace.projects.storybook) {
       workspace.projects.storybook = {
         projectType: 'application',

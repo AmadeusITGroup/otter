@@ -42,7 +42,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/store-sync/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/store-sync/src/**/*.ts"
+          "packages/@o3r/store-sync/src/**/*.ts",
+          "packages/@o3r/store-sync/package.json"
         ]
       }
     },

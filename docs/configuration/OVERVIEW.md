@@ -39,14 +39,14 @@ A component will have to handle different types of configurations.
 - Each __component type__ will have a default configuration which will be defined in _.config.ts_ file associated to the
   component
 
-> __WARNING__ the field name 'id' should not be used in the configuration, as we created an unique one for the entity configuration store
+> __WARNING__ the field name 'id' should not be used in the configuration, as we created a unique one for the entity configuration store
 
 ### Configuration coming from config store
 
 - Each __component type__ can have a customized config (compliant with the store model). This custom config can be
-  asynchronously loaded from a backend server or it can be injected in the body tag of the app. In both cases, this
+  asynchronously loaded from a backend server, or it can be injected in the body tag of the app. In both cases, this
   content will be used to update the store.
-- If present, it will override the default config. (Don't worry for the implementation now, we'll see it later)
+- If present, it will override the default config. (Don't worry about the implementation now, we'll see it later)
 
 ### Global config
 
@@ -75,7 +75,7 @@ __The priorities for the config__:
 
 - The default configuration is extracted by __cms-adapters__ tool and bundled in a JSON file
 
-- From this file we extract and modify the components configurations we want to customize and we create a new JSON file.
+- From this file we extract and modify the components configurations we want to customize, and we create a new JSON file.
 
 - The content of the new file is injected in the index.html body's data attribute (_data-staticconfig_)
 
@@ -91,7 +91,7 @@ components at their instantiation time
 - In the CMS plugin the Business Analyst will modify configuration of components and this ones will be exposed (in the
   server) as dynamic content of the app
 
-- The application will do an http call, get the custom config and inject it in the store.
+- The application will do an HTTP call, get the custom config and inject it in the store.
 
 __No need of rebuild/redeploy the app__
 
@@ -107,7 +107,7 @@ __Page config__ - each page component class should implement __Page__ interface 
 be identified by cms adapter
 
 __Application config__
-The application can have 2 types of configs depending of the use cases: __pre-bootstrap__ and __runtime (
+The application can have 2 types of configs depending on the use cases: __pre-bootstrap__ and __runtime (
 post-bootstrap)__ config
 
 Pre-bootstrap config
@@ -115,7 +115,7 @@ Pre-bootstrap config
 - Defined in one interface which will extend __AppBuildConfiguration__ interface available in __@o3r/core__ in order
   to be identified by cms adapter
 - PreBootstrap config object is used for configurations needed before loading the angular app component, and it will be
-  injected by the cms in the index.thml body tag data-bootstrapconfig as a data attribute
+  injected by the cms in the index.html body tag data-bootstrapconfig as a data attribute
 
 Runtime config
 

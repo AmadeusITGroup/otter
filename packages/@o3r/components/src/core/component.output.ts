@@ -66,6 +66,7 @@ export interface ComponentClassOutput extends Output {
 
 /**
  * Output generated for component module metadata
+ * @deprecated will be removed in v10
  */
 export interface ComponentModuleOutput extends Output {
   /** Module name */

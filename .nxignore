@@ -1,4 +1,5 @@
 **/src/package.json
+packages/@ama-sdk/generator-sdk/src/**/templates/**/*.{j,t}s
 packages/@*/*/{builders,schematics}/**/templates/**/*.ts
 packages/@*/*/{builders,schematics}/**/mocks/**/*.ts
 packages/@*/*/build/**

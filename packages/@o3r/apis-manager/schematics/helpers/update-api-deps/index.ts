@@ -1,7 +1,7 @@
 import {chain, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectFromTree,
+  getWorkspaceConfig,
   addImportToModuleFile as o3rAddImportToModuleFile,
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
@@ -12,6 +12,8 @@ import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-
 
 /**
  * Update app.module file with api manager, if needed
+ * @param options
+ * @param options.projectName
  */
 export function updateApiDependencies(options: {projectName?: string | undefined}): Rule {
 
@@ -79,7 +81,7 @@ export function apiManagerFactory(): ApiManager {
   };
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const tsconfig: string | undefined =
       workspaceProject &&
       workspaceProject.architect &&

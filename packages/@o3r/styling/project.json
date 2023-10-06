@@ -43,7 +43,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/styling/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/styling/src/**/*.ts"
+          "packages/@o3r/styling/src/**/*.ts",
+          "packages/@o3r/styling/package.json"
         ]
       }
     },

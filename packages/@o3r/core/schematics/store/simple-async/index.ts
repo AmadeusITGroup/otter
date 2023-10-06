@@ -19,6 +19,8 @@ export function ngGenerateSimpleAsyncStore(options: NgGenerateSimpleAsyncStoreSc
 
     const commonTemplates = url('../common/templates');
     const syncEntityTemplates = url('./templates');
+    options.storeName = options.storeName?.trim();
+    options.modelName = options.modelName?.trim();
 
     // Add extra formatted properties
     const formattedProperties: Partial<ExtraFormattedProperties> = {

@@ -40,7 +40,6 @@
         "assets": [
           "packages/@o3r/schematics/src/**/templates/**"
         ],
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       }
     },
@@ -55,7 +54,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/schematics/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/schematics/src/**/*.ts"
+          "packages/@o3r/schematics/src/**/*.ts",
+          "packages/@o3r/schematics/package.json"
         ]
       }
     },

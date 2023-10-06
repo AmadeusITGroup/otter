@@ -11,18 +11,17 @@ import * as fs from 'node:fs';
 import {sync as globbySync} from 'globby';
 import * as path from 'node:path';
 import {getExportedSymbolsFromFile} from './ast';
-import {getProjectFromTree} from './loaders';
+import { getWorkspaceConfig } from './loaders';
 
 
 /**
  * Get the path to the app.module.ts
- *
  * @param tree File tree
  * @param context Context of the rule
  * @param projectName The name of the project where to search for an app module file
  */
 export function getAppModuleFilePath(tree: Tree, context: SchematicContext, projectName?: string | null) {
-  const workspaceProject = getProjectFromTree(tree, projectName, 'application');
+  const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
   // exit if not an application
   if (!workspaceProject) {
     context.logger.debug('Aborted. App module file path will be searched only in application project.');
@@ -86,9 +85,10 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
  *
  * @param tree File tree
  * @param context Context of the rule
+ * @param projectName
  */
-export function getMainFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function getMainFilePath(tree: Tree, context: SchematicContext, projectName?: string) {
+  const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
   // exit if not an application
   if (!workspaceProject) {
     context.logger.debug('Register localization on main module only in application project');
@@ -102,13 +102,12 @@ export function getMainFilePath(tree: Tree, context: SchematicContext) {
 /**
  * Returns true if the project is an application and contains a TS file that imports the angular RouterModule in
  * one of its modules.
- *
  * @param tree
  * @param options @see RuleFactory.options
  * @param options.projectName
  */
 export function isApplicationThatUsesRouterModule(tree: Tree, options: { projectName?: string | undefined }) {
-  const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+  const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
   const cwd = process.cwd().replace(/[\\/]+/g, '/');
   const root = (workspaceProject?.root && cwd.endsWith(workspaceProject.root)) ? workspaceProject.root.replace(/[^\\/]+/g, '..') : '.';
   return workspaceProject?.sourceRoot &&
@@ -127,7 +126,6 @@ export function isApplicationThatUsesRouterModule(tree: Tree, options: { project
 
 /**
  * Add import to the main module
- *
  * @param name
  * @param file
  * @param sourceFile
@@ -164,7 +162,6 @@ export function addImportToModuleFile(name: string, file: string, sourceFile: ts
 
 /**
  * Insert import on top of the main module file
- *
  * @param name
  * @param file
  * @param sourceFile
@@ -183,7 +180,6 @@ export function insertImportToModuleFile(name: string, file: string, sourceFile:
 
 /**
  * Add providers to the main module
- *
  * @param name
  * @param file
  * @param sourceFile
@@ -211,7 +207,6 @@ export function addProviderToModuleFile(name: string, file: string, sourceFile: 
 
 /**
  * Add custom code before the module definition
- *
  * @param line
  * @param file
  * @param recorder

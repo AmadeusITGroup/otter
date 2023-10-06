@@ -1,15 +1,13 @@
 @use 'sass:map';
 @use 'sass:meta';
+@use "sass:string";
 
 @use './functions' as theme-functions;
 @use '../utils/functions' as utils-functions;
 
 @mixin _apply-theme($o3r-theme, $root-name) {
   @if (meta.type-of($o3r-theme) != map) {
-    $logged: utils-functions.log-variable($root-name, $o3r-theme, 'theme');
-    @if ($o3r-theme != null) {
-      --#{$root-name}: #{$o3r-theme};
-    }
+    @include define-var($root-name, $o3r-theme, 'theme');
   } @else {
     @if (theme-functions.is-variable($o3r-theme)) {
       @include _apply-theme(map.get($o3r-theme, value), $root-name)
@@ -22,20 +20,16 @@
   }
 }
 
-/**
- * Apply an Otter theme to your application
- * @params $o3r-theme Otter theme
- */
+/// Apply an Otter theme to your application
+/// @param $o3r-theme Otter theme
 @mixin apply-theme($o3r-theme: ()) {
   :root {
     @include _apply-theme($o3r-theme, '');
   }
 }
 
-/**
- * Override an Otter theme at runtime
- * @params $variable-map Map of variable/override value to override
- */
+/// Override an Otter theme at runtime
+/// @param $variable-map Map of variable/override value to override
 @mixin override-theme($variable-map) {
   :root {
     @each $key, $value in $variable-map {
@@ -44,3 +38,33 @@
   }
 }
 
+/// Generated CSS Var definition statement and report tags for metadata extraction
+/// @param $name Name of the variable
+/// @param $value Fallback value
+/// @param $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.define-var('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'))
+///   }
+///
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.define-var('--my-scss-var', '#fff')
+///   }
+@mixin define-var($name, $value, $tags) {
+  $key: '--#{$name}';
+  $varName: $name;
+  @if (string.slice($name, 1, 2) == '--') {
+    $key: $name;
+    $varName: string.slice($name, 3);
+  }
+
+  $logged: utils-functions.log-variable($varName, $value, $tags);
+  @if ($value != null) {
+    #{$key}: #{$value};
+  } @else {
+    @debug 'ignored variable #{$key} because of invalid value';
+  }
+}

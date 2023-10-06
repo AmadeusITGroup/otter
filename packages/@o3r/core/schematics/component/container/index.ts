@@ -11,7 +11,7 @@ import {
   getComponentSelectorWithoutSuffix,
   getDestinationPath,
   getInputComponentName,
-  getProjectFromTree
+  getWorkspaceConfig
 } from '@o3r/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
@@ -29,7 +29,6 @@ export const CONTAINER_FOLDER = 'container';
 
 /**
  * Generates the template properties
- *
  * @param options
  * @param componentStructureDef
  * @param prefix
@@ -57,7 +56,6 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
 
 /**
  * Add Otter container component to an Angular Project
- *
  * @param options
  */
 export function ngGenerateComponentContainer(options: NgGenerateComponentContainerSchematicsSchema): Rule {
@@ -66,7 +64,7 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
 
   const generateFiles = (tree: Tree, context: SchematicContext) => {
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     const properties = getTemplateProperties(options, ComponentStructureDef.Cont, options.prefix ? options.prefix : workspaceProject?.prefix);
 

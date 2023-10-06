@@ -1,12 +1,12 @@
-// Import the Otter Theme function
+/// Import the Otter Theme function
 @use './otter-theme/theme';
 @use './functions';
 
-// Default Meta Theme theme
+/// Default Meta Theme theme
 $meta-theme: theme.generate-otter-theme();
 
-// Default Otter theme
+/// Default Otter theme
 $theme: functions.meta-theme-to-otter($meta-theme) !default;
 
-// Default Material Design theme
+/// Default Material Design theme
 $mat-theme: functions.meta-theme-to-material($meta-theme) !default;

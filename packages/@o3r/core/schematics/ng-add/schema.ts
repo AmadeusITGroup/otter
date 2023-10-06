@@ -6,6 +6,9 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Preset of module list to automatically install */
   preset: PresetNames;
 
+  /** Preset of non-official module list to automatically install */
+  externalPresets?: string | undefined;
+
   /** Project name */
   projectName?: string | undefined;
 
@@ -74,4 +77,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Do not initialize a git repository. */
   skipGit: boolean;
+
+  /** Add option to automatically register the devtool module */
+  withDevtool: boolean;
 }

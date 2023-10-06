@@ -13,7 +13,7 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { getPropertyFromDecoratorFirstArgument } from '@o3r/schematics';
+import { getPropertyFromDecoratorFirstArgument, O3rCliError } from '@o3r/schematics';
 import {
   addCommentsOnClassProperties,
   addImportsRule,
@@ -42,7 +42,7 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
     posix.join(componentPath, `${baseFileName}.analytics.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
-    throw new Error(`Unable to add analytics to this component because it already has at least one of these files: ${files.join(', ')}.`);
+    throw new O3rCliError(`Unable to add analytics to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 
   const componentSourceFile = ts.createSourceFile(
@@ -60,7 +60,7 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
     && ts.isIdentifier(classElement.name)
     && analyticsProperties.includes(classElement.name.escapedText.toString())
   )) {
-    throw new Error(`Unable to add analytics to this component because it already has at least one of these properties: ${analyticsProperties.join(', ')}.`);
+    throw new O3rCliError(`Unable to add analytics to this component because it already has at least one of these properties: ${analyticsProperties.join(', ')}.`);
   }
 };
 

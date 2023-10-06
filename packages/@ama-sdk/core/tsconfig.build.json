@@ -4,7 +4,7 @@
     "sourceMap": true,
     "incremental": true,
     "composite": true,
-    "rootDir": "./src",
+    "rootDir": ".",
     "lib": [
       "dom",
       "dom.iterable",

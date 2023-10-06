@@ -40,7 +40,8 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/create/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/create/src/**/*.ts"
+          "packages/@ama-sdk/create/src/**/*.ts",
+          "packages/@ama-sdk/create/package.json"
         ]
       }
     },
