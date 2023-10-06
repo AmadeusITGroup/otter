@@ -9,7 +9,7 @@ Get an artifact from the ArtiFactory
 ### Usage
 
 ```bash
-Usage: artifact-retriever [options]
+Usage: o3r-artifact-retriever [options]
 
 Get an artifact from Artifactory, artifact-group, artifact-name and artifact-version are mandatory
 
@@ -121,7 +121,7 @@ Clean old artifacts from artifactory repositories
 ### Usage
 
 ```bash
-Usage: artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
+Usage: o3r-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Clean old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory
 
@@ -134,7 +134,7 @@ Options:
   --dry-run <dryRun>                   List all files that should be deleted without actually deleting them. (Default to false)
   -h, --help                           Output usage information
 
-Example : yarn artifact-cleaner -b thisismybase64tokenwithuserandencryptedpassword
+Example : yarn o3r-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpassword
 ```
 
 ## PR Artifact cleaner
@@ -144,7 +144,7 @@ Clean old PR artifacts by identifying using the the build version that is presen
 ### Usage
 
 ```bash
-Usage: pr-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
+Usage: o3r-pr-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Clean old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory
 
@@ -158,7 +158,7 @@ Options:
   -p, --path <path>                    Artifact paths to cleanup use matcher from AQL language. Be careful that the path do not include release artifacts (Default to com/amadeus/retailing/*-PR-*)
   -h, --help                           Output usage information
 
-Example : yarn pr-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpassword
+Example : yarn o3r-pr-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpassword
 ```
 
 ## Peer dependencies updater
