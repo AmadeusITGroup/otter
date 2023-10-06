@@ -26,8 +26,7 @@
         "assets": [
           "packages/@ama-terasu/schematics/schematics/**/templates/**",
           "packages/@ama-terasu/schematics/collection.json"
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       }
     },
     "lint": {
@@ -41,7 +40,8 @@
       "options": {
         "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-terasu/schematics/src/**/*.ts"
+          "packages/@ama-terasu/schematics/src/**/*.ts",
+          "packages/@ama-terasu/schematics/package.json"
         ]
       }
     },

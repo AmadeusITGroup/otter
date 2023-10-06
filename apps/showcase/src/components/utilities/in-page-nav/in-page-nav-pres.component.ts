@@ -1,5 +1,18 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, Directive, Input, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  inject,
+  Input,
+  OnChanges,
+  OnDestroy,
+  SimpleChanges,
+  ViewContainerRef,
+  ViewEncapsulation
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgbScrollSpyModule, NgbScrollSpyService } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 
 export interface InPageNavLink {
@@ -39,7 +52,9 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
     e.stopPropagation();
     e.preventDefault();
     this.nativeElement.scrollIntoView({
-      behavior: 'smooth'
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'start'
     });
   }
 }
@@ -48,13 +63,13 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
 @Component({
   selector: 'o3r-in-page-nav-pres',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgbScrollSpyModule],
   templateUrl: './in-page-nav-pres.template.html',
   styleUrls: ['./in-page-nav-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InPageNavPresComponent {
+export class InPageNavPresComponent implements OnChanges, OnDestroy {
   /** Id of the scroll spy */
   @Input()
   public id = 'in-page-nav';
@@ -62,6 +77,20 @@ export class InPageNavPresComponent {
   /** List of links */
   @Input()
   public links: InPageNavLink[] = [];
+
+  private scrollSpyService = inject(NgbScrollSpyService);
+
+  public ngOnChanges(simpleChanges: SimpleChanges) {
+    if ((simpleChanges.links.isFirstChange() || simpleChanges.links.currentValue !== simpleChanges.links.previousValue) && this.links) {
+      this.scrollSpyService.start({
+        fragments: this.links.map((link) => link.id)
+      });
+    }
+  }
+
+  public ngOnDestroy() {
+    this.scrollSpyService.stop();
+  }
 }
 
 export const IN_PAGE_NAV_PRES_DIRECTIVES = [

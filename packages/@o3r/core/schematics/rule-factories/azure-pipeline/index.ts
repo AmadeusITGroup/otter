@@ -1,9 +1,8 @@
 import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getProjectFromTree, getTemplateFolder } from '@o3r/schematics';
+import { getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
 
 /**
  * Create the default Azure Pipeline configuration.
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
@@ -13,7 +12,6 @@ export function createAzurePipeline(options: { projectName?: string | null | und
 
   /**
    * Generate The Azure Pipeline configuration.
-   *
    * @param tree
    * @param context
    */
@@ -21,7 +19,7 @@ export function createAzurePipeline(options: { projectName?: string | null | und
     if (tree.exists('/azure-pipelines.yml')) {
       return tree;
     }
-    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       context.logger.warn(`The project "${options.projectName!}" is not an application, the pipeline generation will be skipped.`);
       return tree;
@@ -39,7 +37,6 @@ export function createAzurePipeline(options: { projectName?: string | null | und
 
   /**
    * Indicate manually if the Azure Pipeline configuration should be generated.
-   *
    * @param tree
    * @param context
    */
@@ -47,7 +44,7 @@ export function createAzurePipeline(options: { projectName?: string | null | und
     if (tree.exists('/azure-pipelines.yml')) {
       return tree;
     }
-    const workspaceProject = getProjectFromTree(tree, options.projectName, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       return tree;
     }

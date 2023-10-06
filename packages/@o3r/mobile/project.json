@@ -48,7 +48,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/mobile/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/mobile/src/**/*.ts"
+          "packages/@o3r/mobile/src/**/*.ts",
+          "packages/@o3r/mobile/package.json"
         ]
       }
     },

@@ -1,6 +1,6 @@
 import { chain, externalSchematic, noop, Rule, schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
-import { SchematicOptionObject, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { O3rCliError, SchematicOptionObject, setupSchematicsDefaultParams } from '@o3r/schematics';
 import type { PackageJson } from 'type-fest';
 
 /**
@@ -32,7 +32,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
     try {
       const packageJson = tree.readJson('./package.json') as PackageJson;
       if (!packageJson.dependencies?.[packageName] && !packageJson.devDependencies?.[packageName]) {
-        throw new Error(`Package ${packageName} not installed`);
+        throw new O3rCliError(`Package ${packageName} not installed`);
       }
       if (typeof applyRule !== 'boolean' && context.interactive) {
         applyRule = await askConfirmation(ruleQuestion, true);
@@ -63,7 +63,7 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
       }
     } catch {
       if (applyRule) {
-        throw new Error(`
+        throw new O3rCliError(`
         You need to install '${packageName}' to be able to generate component with the option ${optionName}.
         Please run 'ng add ${packageName}'.
       `);

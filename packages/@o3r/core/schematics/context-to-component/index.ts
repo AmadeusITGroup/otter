@@ -20,7 +20,8 @@ import {
   askConfirmationToConvertComponent,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
-  NoOtterComponent
+  NoOtterComponent,
+  O3rCliError
 } from '@o3r/schematics';
 import { basename, dirname, posix } from 'node:path';
 import * as ts from 'typescript';
@@ -31,7 +32,7 @@ const checkContext = (componentPath: string, tree: Tree) => {
     posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.context.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
-    throw new Error(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
+    throw new O3rCliError(`Unable to add context to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 };
 

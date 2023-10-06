@@ -35,7 +35,7 @@ export class AppRoutingModule {}
 ### Available Strategies
 Angular already provide 2 strategies:
 * **[NoPreloading](https://angular.io/api/router/NoPreloading)** : no preloading at all
-* **[PreloadAllModules](https://angular.io/api/router/PreloadAllModules)** : preload every pages as soon as possible
+* **[PreloadAllModules](https://angular.io/api/router/PreloadAllModules)** : preload every page as soon as possible
 
 To be more flexible, the Otter Library provides a custom preloading strategy `O3rOnNavigationPreloadingStrategy`. The purpose is to preload a page only when the user navigates to one of the pages specified in `preloadOn` property.
 You can use it as following:

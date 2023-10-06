@@ -4,6 +4,7 @@ import localeFR from '@angular/common/locales/fr';
 import { isDevMode, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RuntimeChecks, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -17,7 +18,8 @@ import {
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
 import { RulesEngineModule } from '@o3r/rules-engine';
-import { SidenavPresComponent } from '../components/index';
+import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -69,10 +71,25 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     LocalizationModule.forRoot(localizationConfigurationFactory),
     RulesEngineModule.forRoot({ debug: isDevMode() }),
     AppRoutingModule,
-    SidenavPresComponent
+    SidenavPresComponent,
+    NgbOffcanvasModule,
+    ScrollBackTopPresComponent
   ],
   providers: [
-    {provide: MESSAGE_FORMAT_CONFIG, useValue: {}}
+    {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},
+    {
+      provide: HIGHLIGHT_OPTIONS,
+      useValue: {
+        coreLibraryLoader: () => import('highlight.js/lib/core'),
+        languages: {
+          bash: () => import('highlight.js/lib/languages/bash'),
+          css: () => import('highlight.js/lib/languages/css'),
+          json: () => import('highlight.js/lib/languages/json'),
+          typescript: () => import('highlight.js/lib/languages/typescript'),
+          xml: () => import('highlight.js/lib/languages/xml')
+        }
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

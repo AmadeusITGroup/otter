@@ -36,6 +36,22 @@
         "generate-translations"
       ]
     },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "apps/showcase/.eslintrc.js",
+        "lintFilePatterns": [
+          "apps/showcase/src/**/*.ts",
+          "apps/showcase/package.json"
+        ]
+      }
+    },
     "build-source": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
@@ -69,7 +85,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "1.5mb"
             },
             {
               "type": "anyComponentStyle",

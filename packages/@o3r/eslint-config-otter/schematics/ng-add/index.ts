@@ -11,13 +11,16 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {addVsCodeRecommendations, ngAddPackages, getProjectRootDir, getO3rPeerDeps, getProjectDepType, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const {
+        addVsCodeRecommendations, ngAddPackages, getWorkspaceConfig, getO3rPeerDeps, getProjectNewDependenciesType, ngAddPeerDependencyPackages, removePackages
+      } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
-      const dependencyType = getProjectDepType(tree);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const linterSchematicsFolder = path.resolve(__dirname, '..');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
       return () => chain([
         removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
         ngAddPackages(depsInfo.o3rPeerDeps, {

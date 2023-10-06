@@ -1,6 +1,7 @@
 import { logging } from '@angular-devkit/core';
 import { getLibraryCmsMetadata } from '@o3r/extractors';
 import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as glob from 'globby';
 import * as path from 'node:path';
@@ -211,7 +212,7 @@ export class LocalizationExtractor {
 
     if (typeof loc.defaultValue === 'undefined' && typeof loc.$ref === 'undefined' && !loc.dictionary) {
       this.logger.error(`${key} has no default value or $ref defined`);
-      throw new Error(`${key} has no default value or $ref defined`);
+      throw new O3rCliError(`${key} has no default value or $ref defined`);
     }
 
     return res;
@@ -241,7 +242,7 @@ export class LocalizationExtractor {
 
     if (tsconfigResult.error) {
       this.logger.error(tsconfigResult.error.messageText.toString());
-      throw new Error(tsconfigResult.error.messageText.toString());
+      throw new O3rCliError(tsconfigResult.error.messageText.toString());
     }
 
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
@@ -374,7 +375,7 @@ export class LocalizationExtractor {
           this.logger.error(
             `The key ${data.key} from ${origin!} try to override the previous value (${metadata[data.key].value || 'ref ' + metadata[data.key].ref!} -> ${data.value || 'ref ' + data.ref!})`
           );
-          throw new Error('Duplicate key');
+          throw new O3rCliError('Duplicate key');
         }
       }
 

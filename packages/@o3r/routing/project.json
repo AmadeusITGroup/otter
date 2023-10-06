@@ -70,7 +70,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/routing/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/routing/src/**/*.ts"
+          "packages/@o3r/routing/src/**/*.ts",
+          "packages/@o3r/routing/package.json"
         ]
       }
     },

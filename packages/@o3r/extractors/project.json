@@ -36,7 +36,6 @@
         "main": "packages/@o3r/extractors/src/public_api.ts",
         "tsConfig": "packages/@o3r/extractors/tsconfig.build.json",
         "outputPath": "packages/@o3r/extractors/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       },
       "dependsOn": [
@@ -54,7 +53,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/extractors/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/extractors/src/**/*.ts"
+          "packages/@o3r/extractors/src/**/*.ts",
+          "packages/@o3r/extractors/package.json"
         ]
       }
     },

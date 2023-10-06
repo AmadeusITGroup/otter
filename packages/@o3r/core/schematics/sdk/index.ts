@@ -1,6 +1,6 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
+import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
 import type { NgGenerateTypescriptSDKCoreSchematicsSchema, NgGenerateTypescriptSDKShellSchematicsSchema } from '@ama-sdk/schematics';
 import type { PackageJson } from 'type-fest';
@@ -21,7 +21,7 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     const isNx = isNxContext(tree);
     const workspaceConfig = getWorkspaceConfig(tree);
     if (!workspaceConfig) {
-      throw new Error('No workspace configuration file found');
+      throw new O3rCliError('No workspace configuration file found');
     }
     const defaultRoot = getPackagesBaseRootFolder(tree, context, workspaceConfig, 'library');
     const scope = tree.exists('/package.json') && (tree.readJson('/package.json') as PackageJson).name?.split('/')?.[0]?.replace(/^@/, '') || 'sdk';

@@ -28,6 +28,7 @@
           "build",
           "build-cjs",
           "build-esm2015",
+          "build-esm2020",
           "build-react",
           "build-panel",
           "build-wrapper",
@@ -102,8 +103,11 @@
     ],
     "lint": [
       "default",
-      "{workspaceRoot}/.eslintrc.json",
-      "{workspaceRoot}/.eslintignore"
+      "{workspaceRoot}/.eslintrc.js",
+      "{workspaceRoot}/.eslintignore",
+      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/.eslintignore",
+      "{projectRoot}/package.json"
     ],
     "specs": [
       "default",
@@ -188,9 +192,6 @@
       ]
     },
     "build-source": {
-      "dependsOn": [
-        "^build"
-      ],
       "inputs": [
         "source",
         "^source"

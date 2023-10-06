@@ -21,6 +21,10 @@
         ]
       }
     },
+    "externalPresets": {
+      "description": "Preset of non-official module list to automatically install",
+      "type": "string"
+    },
     "projectName": {
       "type": "string",
       "description": "Project name",
@@ -123,6 +127,11 @@
       "type": "boolean",
       "default": false,
       "alias": "g"
+    },
+    "withDevtool": {
+      "description": "Add option to automatically register the devtool module",
+      "type": "boolean",
+      "default": true
     }
   },
   "additionalProperties": true,

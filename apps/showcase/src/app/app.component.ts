@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter, map, Observable } from 'rxjs';
+import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
+import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
 
 @Component({
@@ -8,7 +9,7 @@ import { SideNavLinksGroup } from '../components/index';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   public title = 'showcase';
 
   public linksGroups: SideNavLinksGroup[] = [
@@ -32,10 +33,34 @@ export class AppComponent {
 
   public activeUrl$: Observable<string>;
 
-  constructor(router: Router) {
-    this.activeUrl$ = router.events.pipe(
+  private offcanvasRef: NgbOffcanvasRef | undefined;
+
+  private subscriptions = new Subscription();
+
+  constructor(router: Router, private offcanvasService: NgbOffcanvas) {
+    const onNavigationEnd$ = router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
-      map((event) => event.urlAfterRedirects)
+      share()
     );
+    this.activeUrl$ = onNavigationEnd$.pipe(
+      map((event) => event.urlAfterRedirects),
+      shareReplay(1)
+    );
+    this.subscriptions.add(onNavigationEnd$.subscribe(() => {
+      if (this.offcanvasRef) {
+        this.offcanvasRef.dismiss();
+      }
+    }));
+  }
+
+  public open(content: TemplateRef<any>) {
+    this.offcanvasRef = this.offcanvasService.open(content, { ariaLabelledBy: 'offcanvas-basic-title' });
+    this.subscriptions.add(this.offcanvasRef.dismissed.subscribe(() => {
+      this.offcanvasRef = undefined;
+    }));
+  }
+
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }

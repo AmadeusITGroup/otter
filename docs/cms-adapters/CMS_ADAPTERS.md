@@ -24,7 +24,7 @@ npx ng add @o3r/components
 
 First thing to do is to define your given filenames for the classes/configuration in the _package.json_ of the library/app where you run the extractor.  
 When running in a library it will use this configuration as the names for the metadata files.  
-When running the extractor in an application, it will search for this filenames in each node_module (package.json file) of each library,  
+When running the extractor in an application, it will search for these filenames in each node_module (package.json file) of each library,  
 in order to concat the metadata from the file with other libraries metadata and app metadata. 
 
 ```
@@ -93,7 +93,7 @@ The Localization Extractor is accessible via a NgCLI builder: `@o3r/localization
 
 For an up-to-date documentation, run `ng help @o3r/localization:extractor`
 
-* _--ignore-duplicate-keys_ option ca be specified in order to not fail the extraction process if duplicate keys are found. Also the duplicate keys will be removed from the bundle keeping the first one found.
+* _--ignore-duplicate-keys_ option ca be specified in order to not fail the extraction process if duplicate keys are found. Also, the duplicate keys will be removed from the bundle keeping the first one found.
 * If the _localisation extractor_ is run on an application, _libraries_ option can be specified to concat keys found in application files with the ones from specified _libraries_. The extractor will search a _'localisation.metadata.json'_ file in the node_modules package of each specified library (the file defined in the package.json of the library).  
 
 ```
@@ -144,11 +144,11 @@ For an up-to-date documentation, run `ng help @o3r/styling:extractor`
 
 * _--filePatterns_ option can be specified in order to provide a list of glob patterns to get the scss files to extract the metadata from.
 * If the _style extractor_ is run on an application, _--libraries_ option can be specified to concat keys found in application files with the ones from specified _libraries_. The extractor will search a _'style.metadata.json'_ file in the node_modules package of each specified library.
-* The option _--outputFile_ is used to specified the output metadata file name is different of _'style.metadata.json'_.
+* The option _--outputFile_ is used to specify the output metadata file name is different of _'style.metadata.json'_.
 * A _--watch_ option can be specified to turn the metadata generator to watch mode.
 * The output metadata file can be minimized using the _--inline_ option to indicate that the generated JSON file have to be minified.
 
-__Note:__ The duplicate CSS Variable will be specified as warning and overrided by the latest key received.
+__Note:__ The duplicate CSS Variable will be specified as warning and overridden by the latest key received.
 
 ### Rules engine extractor
 

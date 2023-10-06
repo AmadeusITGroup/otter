@@ -5,7 +5,7 @@
 @forward './scss/theming/otter-theme/dark.theme';
 
 // Mixins
-@forward './scss/theming/mixins' show apply-theme, override-theme;
+@forward './scss/theming/mixins' show apply-theme, override-theme, define-var;
 
 // Palettes
 @forward './scss/theming/palettes/amadeus' as palettes-*;

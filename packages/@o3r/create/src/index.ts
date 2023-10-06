@@ -2,11 +2,16 @@
 
 import { spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 import * as minimist from 'minimist';
 import type { PackageJson } from 'type-fest';
 
-const { properties } = require(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json')) as {properties: Record<string, {alias?: string}>};
-const { version } = require(resolve(__dirname, 'package.json')) as PackageJson;
+const { properties } = JSON.parse(
+  readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
+) as { properties: Record<string, { alias?: string }> };
+const { version } = JSON.parse(
+  readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
+) as PackageJson;
 
 const logo = `
 

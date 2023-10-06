@@ -1,4 +1,5 @@
 import {logging} from '@angular-devkit/core';
+import { O3rCliError } from '@o3r/schematics';
 import globby from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
@@ -60,7 +61,7 @@ export class ComponentParser {
 
     if (tsconfigResult.error) {
       this.logger.error(tsconfigResult.error.messageText.toString());
-      throw new Error(tsconfigResult.error.messageText.toString());
+      throw new O3rCliError(tsconfigResult.error.messageText.toString());
     }
 
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];

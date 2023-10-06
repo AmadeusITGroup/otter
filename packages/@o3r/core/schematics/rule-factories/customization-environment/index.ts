@@ -13,7 +13,7 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {
-  getFileInfo, getProjectRootDir, getTemplateFolder, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
+  getFileInfo, getTemplateFolder, getWorkspaceConfig, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
 import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
@@ -23,7 +23,6 @@ import { posix } from 'node:path';
 
 /**
  * Enable customization capabilities
- *
  * @param rootPath @see RuleFactory.rootPath
  * @param o3rCoreVersion
  * @param options
@@ -33,12 +32,11 @@ import { posix } from 'node:path';
 export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, options?: { projectName?: string | undefined }, isLibrary?: boolean): Rule {
   /**
    * Generate customization folder
-   *
    * @param tree
    * @param context
    */
   const generateC11nFolder = (tree: Tree, context: SchematicContext) => {
-    const workingDirectory = getProjectRootDir(tree, options?.projectName) || '.';
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     if (tree.exists(posix.join(workingDirectory, 'src', 'customization', 'presenters-map.empty.ts'))) {
       return tree;
     }
@@ -56,7 +54,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
   /**
    * Edit main module with the customization required information
-   *
    * @param tree
    * @param context
    */
@@ -78,7 +75,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Insert import on top of the main module file
-     *
      * @param rec
      * @param name
      * @param file
@@ -89,7 +85,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Add elements in the metadata of the ngModule (customComponents, imports etc.)
-     *
      * @param rec
      * @param metadataField
      * @param name
@@ -106,7 +101,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Add custom code before the module definition
-     *
      * @param rec
      * @param line
      */
@@ -134,7 +128,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
   };
 
   return (tree, _context) => {
-    const workingDirectory = getProjectRootDir(tree, options?.projectName);
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
 
     return chain([
       generateC11nFolder,

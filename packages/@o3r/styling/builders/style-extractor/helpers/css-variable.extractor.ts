@@ -1,4 +1,5 @@
 import { getLibraryCmsMetadata } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import type { CssMetadata, CssVariable, CssVariableType } from '@o3r/styling';
 import * as fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
@@ -188,7 +189,7 @@ export class CssVariableExtractor {
             }
           }
           if (!(varName instanceof SassString)) {
-            throw new Error('invalid variable name');
+            throw new O3rCliError('invalid variable name');
           }
 
           let parsedValue: string;

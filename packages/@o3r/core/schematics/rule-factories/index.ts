@@ -7,3 +7,4 @@ export * from './playwright/index';
 export * from './renovate/index';
 export * from './store/index';
 export * from './monorepo/index';
+export * from './generic-updates/index';

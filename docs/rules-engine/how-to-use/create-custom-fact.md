@@ -2,7 +2,7 @@
 
 First of all, you need to create the observable that will emit the value of the fact everytime it changes. You can plug to any existing store to get the data.
 
-Example with order : 
+Example with order: 
 ```typescript
 export const getCurrentOrder = () => (source: Observable<OrderStore>) =>
   source.pipe(
@@ -38,7 +38,7 @@ export interface OrderFacts extends FactDefinitions {
 ```
 
 
-And the module (Note that you do not import CartStore here) :
+And the module (Note that you do not import CartStore here):
 ```typescript
 
 @NgModule({
@@ -52,7 +52,7 @@ And the module (Note that you do not import CartStore here) :
 export class OrderFactsModule { }
 ```
 
-Finally import it your app module, inject the service in your app component and register the facts :
+Finally, import it your app module, inject the service in your app component and register the facts:
 ```typescript
 public ngOnInit() {
   //...

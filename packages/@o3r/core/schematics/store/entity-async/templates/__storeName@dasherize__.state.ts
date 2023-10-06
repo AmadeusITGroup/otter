@@ -5,7 +5,7 @@ import {AsyncStoreItem} from '@o3r/core';
 /**
  * <%= hasSDK ? modelName : storeName %> model
  */
-export interface <%= storeModelName %> extends AsyncStoreItem<% if (hasSDK) {%>, <%= modelName %><% } %>{
+export interface <%= storeModelName %> extends AsyncStoreItem<% if (hasSDK) {%>, <%= modelName %><% } %> {
   <% if (!hasSDK) {%><%= modelIdPropName %>: string;<% } %>
 }
 
