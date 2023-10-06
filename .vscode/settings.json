@@ -55,6 +55,8 @@
     "**/node_modules/**": true,
     "tools/github-actions/*/packaged-action/**": true
   },
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
   "otter.generate.store.testFramework": "jest",
   "otter.packageManager": "yarn"
