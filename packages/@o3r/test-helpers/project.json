@@ -18,7 +18,6 @@
         "main": "packages/@o3r/test-helpers/src/public_api.ts",
         "tsConfig": "packages/@o3r/test-helpers/tsconfig.build.json",
         "outputPath": "packages/@o3r/test-helpers/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       },
       "dependsOn": [
@@ -48,7 +47,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/test-helpers/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/test-helpers/src/**/*.ts"
+          "packages/@o3r/test-helpers/src/**/*.ts",
+          "packages/@o3r/test-helpers/package.json"
         ]
       }
     },

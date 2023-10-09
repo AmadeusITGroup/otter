@@ -14,7 +14,8 @@ import {
   askUserInput,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
-  NoOtterComponent
+  NoOtterComponent,
+  O3rCliError
 } from '@o3r/schematics';
 import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
@@ -89,7 +90,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
   }
 
   if (!defaultTranslationVariableName) {
-    throw new Error(`Unable to find initialization of ${translationsVariableName!} in ${componentPath}.`);
+    throw new O3rCliError(`Unable to find initialization of ${translationsVariableName!} in ${componentPath}.`);
   }
 
   const importDeclaration = componentSourceFile.statements.find((statement): statement is ts.ImportDeclaration & { moduleSpecifier: ts.StringLiteral } =>
@@ -101,7 +102,7 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
     && !!statement.importClause.namedBindings.elements.find((element) => ts.isIdentifier(element.name) && element.name.escapedText.toString() === defaultTranslationVariableName)
   );
   if (!importDeclaration) {
-    throw new Error(`Unable to find import declaration of ${defaultTranslationVariableName} in ${componentPath}`);
+    throw new O3rCliError(`Unable to find import declaration of ${defaultTranslationVariableName} in ${componentPath}`);
   }
   const translationsPath = posix.join(dirname(componentPath), `${importDeclaration.moduleSpecifier.text}.ts`);
 

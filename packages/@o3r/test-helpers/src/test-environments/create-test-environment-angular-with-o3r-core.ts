@@ -2,7 +2,7 @@ import { ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { createTestEnvironmentAngular, CreateTestEnvironmentAngularOptions } from './create-test-environment-angular';
-import { createWithLock, packageManagerExec, packageManagerInstall, packageManagerRun } from '../utilities';
+import { createWithLock, packageManagerAdd, packageManagerExec, packageManagerInstall } from '../utilities';
 
 export interface CreateTestEnvironmentAngularWithO3rCoreOptions extends CreateTestEnvironmentAngularOptions {
   /**
@@ -66,33 +66,28 @@ export async function createTestEnvironmentAngularWithO3rCore(inputOptions: Part
   ];
   await createWithLock(async () => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
-    if (options.baseAngularAppPath && existsSync(options.baseAngularAppPath)) {
-      cpSync(options.baseAngularAppPath, appFolderPath, {recursive: true});
-    } else {
-      await createTestEnvironmentAngular({...options, useLocker: false});
-    }
     const execAppOptions: ExecSyncOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
       // eslint-disable-next-line @typescript-eslint/naming-convention
       env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
     };
+    if (options.baseAngularAppPath && existsSync(options.baseAngularAppPath)) {
+      cpSync(options.baseAngularAppPath, appFolderPath, {recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source)});
+      packageManagerInstall(execAppOptions);
+    } else {
+      await createTestEnvironmentAngular({...options, useLocker: false});
+    }
     const o3rVersion = '999.0.0';
-    const o3rCoreOptions = [
-      '--no-enableApisManager',
-      '--no-enableStyling',
-      '--no-enableAnalytics',
-      '--no-enableCustomization',
-      '--no-enablePlaywright',
-      '--no-enablePrefetchBuilder',
-      '--no-enableRulesEngine',
-      '--no-enableCms',
-      '--no-enableConfiguration',
-      '--no-enableLocalization'
-    ].join(' ');
-    packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} ${o3rCoreOptions}`, execAppOptions);
+    if (options.generateMonorepo) {
+      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion}`, execAppOptions);
+      // FIXME: workaround for yarn pnp (same issue with node_modules but the runner won't complain if package is present in root instead of project)
+      packageManagerAdd(`@o3r/core@${o3rVersion}`, {...execAppOptions, cwd: path.join(appFolderPath, 'projects', 'test-app')});
+      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --project-name=test-app`, execAppOptions);
+    } else {
+      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion}`, execAppOptions);
+    }
 
     packageManagerInstall(execAppOptions);
-    packageManagerRun('build', execAppOptions);
   }, {lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options, dependenciesToCheck});
 }

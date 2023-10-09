@@ -28,6 +28,7 @@ import {
   isO3rClassComponent,
   isO3rClassDecorator,
   NoOtterComponent,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { basename, dirname, posix } from 'node:path';
@@ -43,7 +44,7 @@ const checkConfiguration = (componentPath: string, tree: Tree) => {
     posix.join(dirname(componentPath), `${basename(componentPath, '.component.ts')}.configuration.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
-    throw new Error(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);
+    throw new O3rCliError(`Unable to add configuration to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 
   const componentSourceFile = ts.createSourceFile(
@@ -62,7 +63,7 @@ const checkConfiguration = (componentPath: string, tree: Tree) => {
     && ts.isIdentifier(classElement.name)
     && configProperties.includes(classElement.name.escapedText.toString())
   )) {
-    throw new Error(`Unable to add config to this component because it already have at least one of these properties: ${configProperties.join(', ')}.`);
+    throw new O3rCliError(`Unable to add config to this component because it already have at least one of these properties: ${configProperties.join(', ')}.`);
   }
 };
 
@@ -165,7 +166,7 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
                 && parameter.name.escapedText.toString() === 'configurationService'
               )
                   ) {
-                    throw new Error(`Unable to add configurationService because there is already a constructor's parameter with this name in ${componentPath}.`);
+                    throw new O3rCliError(`Unable to add configurationService because there is already a constructor's parameter with this name in ${componentPath}.`);
                   }
                   const configurationServiceVariableName = configurationService?.name.escapedText.toString() || 'configurationService';
                   const configServiceParameter = generateParametersDeclarationFromString(`@Optional() ${configurationServiceVariableName}: ConfigurationBaseService`);

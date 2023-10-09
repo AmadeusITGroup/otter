@@ -48,10 +48,14 @@ export interface CascadingPullRequestInfo {
   body: string | null;
   /** Determine if the pull request is still open */
   isOpen: boolean;
+  /** Name of the branch origin of the pull request */
+  originBranchName: string;
   /** ID of the pull request */
   id: string | number;
   /** Context of the Pull Request (parsed from content) */
   context?: PullRequestContext;
+  /** Determine if the pull request can be merged */
+  mergeable: boolean | null;
 }
 
 /** Check suite possible conclusions */

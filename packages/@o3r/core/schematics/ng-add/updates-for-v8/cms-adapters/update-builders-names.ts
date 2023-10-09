@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule, Tree
+  chain, Rule
 } from '@angular-devkit/schematics';
-import { readAngularJson } from '@o3r/schematics';
+import { getWorkspaceConfig } from '@o3r/schematics';
 
 /**
  * Update otter builders names
@@ -11,11 +11,16 @@ export function updateBuildersNames(): Rule {
 
   /**
    * Change otter builders names into angular.json
-   *
    * @param tree
+   * @param context
    */
-  const updateAngularJson: Rule = (tree: Tree) => {
-    const workspace = readAngularJson(tree);
+  const updateAngularJson: Rule = (tree, context) => {
+    const workspace = getWorkspaceConfig(tree);
+
+    if (!workspace) {
+      context.logger.error('No workspace detected, the extractors will not be added');
+      return tree;
+    }
 
     const projectsInAngularJson = Object.keys(workspace.projects);
     const buildersMappingFromV7 = {

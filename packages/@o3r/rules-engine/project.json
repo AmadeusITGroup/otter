@@ -103,7 +103,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/rules-engine/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/rules-engine/src/**/*.ts"
+          "packages/@o3r/rules-engine/src/**/*.ts",
+          "packages/@o3r/rules-engine/package.json"
         ]
       }
     },

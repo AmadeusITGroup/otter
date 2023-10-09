@@ -25,8 +25,7 @@
         "outputPath": "packages/@ama-sdk/swagger-builder/dist",
         "assets": [
           "packages/@ama-sdk/swagger-builder/src/schemas/*.json"
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       }
     },
     "lint": {
@@ -40,7 +39,8 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/swagger-builder/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/swagger-builder/src/**/*.ts"
+          "packages/@ama-sdk/swagger-builder/src/**/*.ts",
+          "packages/@ama-sdk/swagger-builder/package.json"
         ]
       }
     },

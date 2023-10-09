@@ -1,20 +1,18 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-
-import { getDestinationPath, getProjectFromTree } from '@o3r/schematics';
+import { getDestinationPath, getWorkspaceConfig, O3rCliError } from '@o3r/schematics';
 import { NgGeneratePlaywrightScenarioSchematicsSchema } from './schema';
 
 /**
  * Add a Playwright scenario to an Otter project
- *
  * @param options
  */
 export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenarioSchematicsSchema): Rule {
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
-      throw new Error('Cannot create a playwright scenario');
+      throw new O3rCliError('Cannot create a playwright scenario');
     }
 
     return tree;
@@ -24,22 +22,11 @@ export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenar
 
   /**
    * Generates playwright scenario file.
-   *
    * @param tree File tree
    * @param context Context of the rule
    */
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-    let scenariosPath = options.path;
-    if (!scenariosPath) {
-      const workspaceProject = getProjectFromTree(tree, null, 'application');
-      const configurationIndex = '@o3r/testing:playwright-scenario';
-      const playwrightOptions = workspaceProject?.schematics?.[configurationIndex] as {path?: string} | undefined;
-      if (!playwrightOptions || !playwrightOptions.path || typeof playwrightOptions.path !== 'string') {
-        throw new Error('Cannot create a playwright scenario without a path. Provide a path in angular.json');
-      }
-      scenariosPath = playwrightOptions.path;
-    }
-    const scenarioPath = getDestinationPath('@o3r/core:page', scenariosPath, tree);
+    const scenarioPath = getDestinationPath('@o3r/testing:playwright-scenario', options.path, tree, options.projectName);
 
     const templateSource = apply(url('./templates'), [
       template({

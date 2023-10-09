@@ -4,7 +4,6 @@ import { getConfigurationMetadata } from './metadata-manager';
 
 /**
  * Extract storybook argument type base for component configuration
- *
  * @param library Name of the library
  * @param componentName Name of the storybook component
  * @param metadata Configuration Metadata
@@ -57,7 +56,7 @@ export function extractConfiguration(library: string, componentName: string, met
         break;
       }
       default: {
-        throw new Error(`Not supported type ${config.type as string} of ${config.name}`);
+        throw new Error(`Not supported type ${config.type} of ${config.name}`);
       }
     }
     acc.argTypes[`${CONFIGURATION_PREFIX}${config.name}`] = {
@@ -79,7 +78,6 @@ const regexp = new RegExp(`^${CONFIGURATION_PREFIX}`);
 
 /**
  * Retrieve config fields from properties received from storybook UI
- *
  * @param props
  * @returns A map of config fields and their values
  */

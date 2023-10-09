@@ -1,5 +1,5 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, isNgClassComponent, isO3rClassComponent } from '@o3r/schematics';
+import { applyEsLintFix, isNgClassComponent, isO3rClassComponent, O3rCliError } from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
@@ -29,11 +29,11 @@ export function convertToO3rComponent(options: ConvertToO3rComponentSchematicsSc
     const ngComponentDeclaration = sourceFile.statements.find((s): s is ts.ClassDeclaration => ts.isClassDeclaration(s) && isNgClassComponent(s));
 
     if (!ngComponentDeclaration) {
-      throw new Error(`No Angular component found in ${options.path}.`);
+      throw new O3rCliError(`No Angular component found in ${options.path}.`);
     }
 
     if (isO3rClassComponent(ngComponentDeclaration)) {
-      throw new Error(`${ngComponentDeclaration.name?.escapedText.toString() || 'It'} is already an Otter component.`);
+      throw new O3rCliError(`${ngComponentDeclaration.name?.escapedText.toString() || 'It'} is already an Otter component.`);
     }
 
     changes.push(

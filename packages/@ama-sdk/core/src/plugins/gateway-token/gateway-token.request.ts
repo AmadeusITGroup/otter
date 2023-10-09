@@ -1,4 +1,5 @@
-import { ApiClient, ApiFetchClient } from '../../fwk';
+import type { ApiClient } from '../../fwk';
+import { ApiFetchClient } from '../../clients';
 import {AdditionalParamsRequest} from '../additional-params';
 import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
 import {ExceptionReply} from '../exception';
@@ -7,7 +8,6 @@ import {Oauth2Api, Response} from './gateway-authentication';
 
 /**
  * Plugin to get the gateway access token and save it
- *
  * @deprecated please use AmadeusGatewayTokenRequestPlugin from @ama-sdk/amadeus-gateway-sdk instead, will be removed in v10
  * @example
  * When configuring the ApiManager
@@ -79,7 +79,6 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
 
   /**
    * Initialize your plugin
-   *
    * @param gatewayUrl The URL of the gateway
    * @param gatewayClientId The client id to authenticate to the gateway
    * @param gatewayClientPrivate The client private to authenticate to the gateway
@@ -105,7 +104,6 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
   /**
    * Check if the gateway authorization token is stored and include it in the Authorization header.
    * If it is not stored yet, a call is triggered to the gateway in order to get this authorization token.
-   *
    * @param gatewayUrl URL of the gateway
    * @param gatewayClientId Client id related to the gateway client configuration
    * @param gatewayClientPrivate Client private related to the gateway client configuration
@@ -158,7 +156,6 @@ export class GatewayTokenRequestPlugin implements RequestPlugin {
   /**
    * Check if the gateway authorization token is stored and include it in the Authorization header.
    * If it is not stored yet, a call is triggered to the gateway in order to get this authorization token.
-   *
    * @returns a function that take the actual headers as parameter and return an Promise containing the Authorization header and its value
    */
   private addGatewayToken(): (_headers: Headers) => Promise<{[key: string]: string}> {

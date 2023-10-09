@@ -8,6 +8,7 @@ import {
   generateImplementsExpressionWithTypeArguments,
   getLibraryNameFromPath,
   getSimpleUpdatedMethod,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
@@ -18,7 +19,7 @@ import { NgGenerateRulesEngineToComponentSchematicsSchema } from './schema';
 const rulesEngineProperties = ['rulesEngineService'];
 const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tree) => {
   if (!componentPath || !tree.exists(componentPath)) {
-    throw new Error(`Unable to add rules-engine: component "${componentPath || ''}" does not exist`);
+    throw new O3rCliError(`Unable to add rules-engine: component "${componentPath || ''}" does not exist`);
   }
   const componentSourceFile = ts.createSourceFile(
     componentPath,
@@ -39,7 +40,7 @@ const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tr
     parameterElement.modifiers?.some((mod) => constructorPropertiesModifiers.includes(mod.kind))
     && rulesEngineProperties.includes((parameterElement.name as ts.Identifier).escapedText.toString())
   )) {
-    throw new Error(`Unable to add rules-engine: component "${componentPath}" already has at least one of these properties: ${rulesEngineProperties.join(', ')}.`);
+    throw new O3rCliError(`Unable to add rules-engine: component "${componentPath}" already has at least one of these properties: ${rulesEngineProperties.join(', ')}.`);
   }
 };
 

@@ -25,6 +25,14 @@
       },
       "default": [],
       "description": "List of project name to ignore"
+    },
+    "ignoreProjectForLabels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "List of labels for which the list of project labels should be ignored"
     }
   },
   "additionalItems": true

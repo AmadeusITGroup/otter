@@ -35,15 +35,6 @@
       "description": "Do not install dependency packages.",
       "type": "boolean",
       "default": false
-    },
-    "preset": {
-      "type": "string",
-      "description": "Preset of module list to automatically install",
-      "default": "basic",
-      "enum": [
-        "basic",
-        "cms"
-      ]
     }
   },
   "required": ["name"],

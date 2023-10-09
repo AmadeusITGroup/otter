@@ -93,6 +93,14 @@
         "libs"
       ]
     },
+    "application": {
+      "description": "Generate a new Otter Application",
+      "factory": "./schematics/application/index#generateApplication",
+      "schema": "./schematics/application/schema.json",
+      "aliases": [
+        "new-application", "app"
+      ]
+    },
     "sdk": {
       "description": "Generate a new SDK package in an Otter project",
       "factory": "./schematics/sdk/index#generateSdk",

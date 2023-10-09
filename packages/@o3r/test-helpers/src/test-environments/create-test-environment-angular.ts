@@ -1,5 +1,5 @@
-import { ExecSyncOptions } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { cpSync, existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import {
   createWithLock,
@@ -7,10 +7,8 @@ import {
   getPackageManager,
   packageManagerAdd,
   PackageManagerConfig,
-  packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun,
   setPackagerManagerConfig
 } from '../utilities';
 
@@ -85,19 +83,31 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
 
     // Create angular app
     if (options.generateMonorepo) {
-      const createOptions = `--directory=${options.appDirectory} --no-create-application --skip-git --package-manager=${getPackageManager()}`;
-      packageManagerCreate(`@angular@${options.angularVersion || 'latest'} ${options.appName} ${createOptions}`,
+      const createOptions = `--directory=${options.appDirectory} --no-create-application --skip-git --skip-install --package-manager=${getPackageManager()}`;
+      execFileSync('npm', `create @angular${options.angularVersion ? `@${options.angularVersion}` : ''} ${options.appName} -- ${createOptions}`.split(' '),
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        {...execAppOptions, cwd: options.cwd});
+        {...execAppOptions, cwd: options.cwd, shell: process.platform === 'win32'});
+      // By default node_modules inside projects are not git-ignored
+      const gitIgnorePath = path.join(appFolderPath, '.gitignore');
+      if (existsSync(gitIgnorePath)) {
+        const gitIgnore = readFileSync(gitIgnorePath, {encoding: 'utf8'});
+        writeFileSync(gitIgnorePath, gitIgnore.replace(/\/(dist|node_modules)/g, '$1'));
+      }
       setPackagerManagerConfig(options, execAppOptions);
       packageManagerInstall(execAppOptions);
-      packageManagerExec(`ng g application ${options.appName} --style=scss --routing`, execAppOptions);
+      packageManagerExec('ng g application dont-modify-me --style=scss --routing --skip-install', execAppOptions);
+      packageManagerExec(`ng g application ${options.appName} --style=scss --routing --skip-install`, execAppOptions);
     } else {
-      const createOptions = `--directory=${options.appDirectory} --style=scss --routing --skip-git --package-manager=${getPackageManager()}`;
-      packageManagerCreate(`@angular@${options.angularVersion || 'latest'} ${options.appName} ${createOptions}`,
+      const createOptions = `--directory=${options.appDirectory} --style=scss --routing --skip-git --skip-install --package-manager=${getPackageManager()}`;
+      execFileSync('npm', `create @angular${options.angularVersion ? `@${options.angularVersion}` : ''} ${options.appName} -- ${createOptions}`.split(' '),
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        {...execAppOptions, cwd: options.cwd});
+        {...execAppOptions, cwd: options.cwd, shell: process.platform === 'win32'});
       setPackagerManagerConfig(options, execAppOptions);
+      packageManagerInstall(execAppOptions);
+    }
+    packageManagerExec('ng config cli.cache.environment all', execAppOptions);
+    if (options.globalFolderPath) {
+      packageManagerExec(`ng config cli.cache.path "${path.join(options.globalFolderPath, '.angular', 'cache')}"`, execAppOptions);
     }
 
     // Add dependencies
@@ -114,16 +124,37 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
       '@schematics/angular': options.angularVersion
     };
     packageManagerAdd(
-      `${Object.entries(dependenciesToInstall).map(([depName, version]) => `${depName}@${version || 'latest'}`).join(' ')}`,
+      `${Object.entries(dependenciesToInstall).map(([depName, version]) => `${depName}${version ? `@~${version}` : ''}`).join(' ')}`,
       execAppOptions
     );
 
     // Run ng-adds
-    packageManagerExec('ng add @angular/pwa', execAppOptions);
-    packageManagerExec('ng add @angular/material', execAppOptions);
+    const project = options.generateMonorepo ? '--project=test-app' : '';
+    packageManagerExec(`ng add @angular/pwa ${project}`, execAppOptions);
+    packageManagerExec(`ng add @angular/material ${project}`, execAppOptions);
+
+    if (options.generateMonorepo) {
+      // TODO remove this when https://github.com/AmadeusITGroup/otter/issues/603 has been resolved
+      const workspacePackageJsonPath = path.join(appFolderPath, 'package.json');
+      const packageJsonString = readFileSync(workspacePackageJsonPath, {encoding: 'utf8'});
+      const packageJson = JSON.parse(packageJsonString);
+      writeFileSync(workspacePackageJsonPath, JSON.stringify({
+        ...packageJson,
+        scripts: {...packageJson.scripts, build: getPackageManager() === 'npm' ? 'npm run build --workspaces' : 'yarn workspaces foreach run build'},
+        workspaces: ['projects/*']
+      }, null, 2));
+      writeFileSync(path.join(appFolderPath, 'projects', 'test-app', 'package.json'), packageJsonString.replace(/"test-app"/, '"test-app-project"'));
+      writeFileSync(path.join(appFolderPath, 'projects', 'dont-modify-me', 'package.json'), packageJsonString.replace(/"test-app"/, '"dont-modify-me"'));
+
+      // TODO remove this if we manage to make 'workspace <> ng add' work with private registry
+      cpSync(path.join(appFolderPath, '.npmrc'), path.join(appFolderPath, 'projects', 'test-app', '.npmrc'));
+
+      if (getPackageManager() === 'yarn') {
+        execFileSync('yarn', ['plugin', 'import', 'workspace-tools'], {...execAppOptions, shell: process.platform === 'win32'});
+      }
+    }
 
     packageManagerInstall(execAppOptions);
-    packageManagerRun('build', execAppOptions);
 
     return Promise.resolve();
   }, {lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options, dependenciesToCheck});

@@ -21,6 +21,10 @@
         ]
       }
     },
+    "externalPresets": {
+      "description": "Preset of non-official module list to automatically install",
+      "type": "string"
+    },
     "projectName": {
       "type": "string",
       "description": "Project name",
@@ -90,6 +94,43 @@
     "skipInstall": {
       "type": "boolean",
       "description": "Skip the install process",
+      "default": true
+    },
+    "commit": {
+      "description": "Initial git repository commit information. (Available at workspace setup only)",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          },
+          "required": [
+            "name",
+            "email"
+          ]
+        }
+      ],
+      "default": true,
+      "additionalProperties": true
+    },
+    "skipGit": {
+      "description": "Do not initialize a git repository. (Available at workspace setup only)",
+      "type": "boolean",
+      "default": false,
+      "alias": "g"
+    },
+    "withDevtool": {
+      "description": "Add option to automatically register the devtool module",
+      "type": "boolean",
       "default": true
     }
   },

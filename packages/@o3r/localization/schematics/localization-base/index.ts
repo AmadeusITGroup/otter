@@ -1,11 +1,9 @@
-import { apply, chain, MergeStrategy, mergeWith, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   findFirstNodeOfKind,
   getAppModuleFilePath,
   getPackageManagerRunner,
-  getProjectDepType,
-  getProjectFromTree,
-  getProjectRootDir,
+  getProjectNewDependenciesType,
   getTemplateFolder,
   getWorkspaceConfig,
   ignorePatterns,
@@ -14,7 +12,6 @@ import {
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
-  readAngularJson,
   readPackageJson,
   writeAngularJson
 } from '@o3r/schematics';
@@ -25,7 +22,6 @@ import {
   isImported
 } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -36,31 +32,33 @@ const angularCdkDep = '@angular/cdk';
 
 /**
  * Add Otter localization support
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLocalization(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-
+  if (!options.projectName) {
+    return noop;
+  }
   const mainAssetsFolder = 'src/assets';
   const devResourcesFolder = 'dev-resources';
 
   /**
    * Generate locales folder
-   *
    * @param tree
    * @param context
    */
   const generateLocalesFolder = (tree: Tree, context: SchematicContext) => {
+    const workingDirectory = (options.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root) || '.';
 
     let gitIgnoreContent = '';
-    if (tree.exists('.gitignore')) {
-      gitIgnoreContent = tree.read('.gitignore')!.toString();
+    const gitIgnorePath = path.posix.join(workingDirectory, '.gitignore');
+    if (tree.exists(gitIgnorePath)) {
+      gitIgnoreContent = tree.read(gitIgnorePath)!.toString();
       if (gitIgnoreContent.indexOf('/*.metadata.json')) {
         return tree;
       }
-      tree.delete('.gitignore');
+      tree.delete(gitIgnorePath);
     }
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
@@ -69,7 +67,8 @@ export function updateLocalization(options: { projectName?: string | null | unde
         devResourcesFolder,
         gitIgnoreContent,
         mainAssetsFolder
-      })
+      }),
+      move(workingDirectory)
     ]);
 
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
@@ -78,15 +77,14 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Add translation generation builders into angular.json
-   *
    * @param tree
    * @param context
    */
   const updateAngularJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
-    const projectName = options.projectName || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree, projectName, 'application');
-    const projectRoot = path.posix.join('/', workspaceProject?.root || '');
+    const workspace = getWorkspaceConfig(tree);
+    const projectName = options.projectName;
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
+    const projectRoot = path.posix.join(workspaceProject?.root || '');
     const distFolder: string =
       (
         workspaceProject &&
@@ -100,7 +98,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
       ) || './dist';
 
     // exit if not an application
-    if (!workspaceProject) {
+    if (!workspace || !projectName || !workspaceProject) {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -207,16 +205,15 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Changed package.json start script to run localization generation
-   *
    * @param tree
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
-    const projectName = options.projectName || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree, projectName || null, 'application');
+    const workspace = getWorkspaceConfig(tree);
+    const projectName = options.projectName;
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     const packageManagerRunner = getPackageManagerRunner(getWorkspaceConfig(tree));
-    if (!workspaceProject) {
+    if (!projectName || !workspace || !workspaceProject) {
       context.logger.debug('No application project found to add translation extraction');
       return tree;
     }
@@ -242,7 +239,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Edit main module with the translation required configuration
-   *
    * @param tree
    * @param context
    */
@@ -327,7 +323,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Set language as default on application bootstrap
-   *
    * @param tree
    * @param context
    */
@@ -389,7 +384,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Add mockTranslationModule to application tests.
-   *
    * @param tree
    * @param context
    */
@@ -439,15 +433,15 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
   /**
    * Add location required dependencies
-   *
    * @param tree
    * @param _context
    * @param context
    */
   const addDependencies: Rule = (tree: Tree, context: SchematicContext) => {
-    const type: NodeDependencyType = getProjectDepType(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const workingDirectory = workspaceProject?.root || '.';
+    const type = getProjectNewDependenciesType(workspaceProject);
     const generatorDependencies = [ngxTranslateCoreDep, intlMessageFormatDep, formatjsIntlNumberformatDep, angularCdkDep];
-    const workingDirectory = getProjectRootDir(tree, options.projectName);
     try {
       return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, workingDirectory, skipNgAddSchematicRun: true})(tree, context);
     } catch (e: any) {
@@ -475,19 +469,22 @@ export function updateLocalization(options: { projectName?: string | null | unde
 
 /**
  *
+ * @param options
+ * @param options.projectName
  */
-export function updateI18n(): Rule {
-
+export function updateI18n(options: {projectName?: string | undefined}): Rule {
+  if (!options.projectName) {
+    return noop;
+  }
   /**
    * Add i18n generation builders into angular.json
-   *
    * @param tree
    */
   const updateAngularJson: Rule = (tree: Tree) => {
-    const workspace = readAngularJson(tree);
-    const workspaceProject = getProjectFromTree(tree);
+    const workspace = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
 
-    if (!workspaceProject) {
+    if (!workspace || !workspaceProject) {
       return tree;
     }
 
@@ -508,8 +505,7 @@ export function updateI18n(): Rule {
       };
     }
 
-    const { name, ...newProject } = workspaceProject;
-    workspace.projects[name] = newProject;
+    workspace.projects[options.projectName!] = workspaceProject;
     return writeAngularJson(tree, workspace);
   };
 

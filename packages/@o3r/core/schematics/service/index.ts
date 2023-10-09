@@ -1,12 +1,11 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getDestinationPath, getProjectFromTree, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateServiceSchematicsSchema } from './schema';
 
 /**
  * add a Service to an Otter project
- *
  * @param options
  */
 export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): Rule {
@@ -42,7 +41,7 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
       currentServiceIndex = '';
     }
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const workspaceConfig = getWorkspaceConfig(tree);
     let packageName = destination;
     if (workspaceProject?.projectType !== 'application') {

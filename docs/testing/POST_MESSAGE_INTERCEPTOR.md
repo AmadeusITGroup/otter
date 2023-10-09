@@ -69,7 +69,7 @@ export interface PostMessageCall {
 }
 ```
 
-The function passed as an argument to the ``listen`` method is optional, but is highly recommend since it enables to filter out unusefull messages (e.g. webpack-dev-server ones).
+The function passed as an argument to the ``listen`` method is optional, but is highly recommend since it enables to filter out unuseful messages (e.g. webpack-dev-server ones).
 
 Also, the ``getMessages`` method poll the internal app memory for new messages. The default poll interval is set to **100 ms**. Also, by default, it retries eternally until it finds a message. To modify those parameters, just call it like:
 

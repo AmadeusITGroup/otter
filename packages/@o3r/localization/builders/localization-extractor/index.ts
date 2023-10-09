@@ -1,4 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
@@ -70,7 +71,7 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
           validators.reduce<boolean>((isInvalid, validator) => isInvalid || !validator(metadataItem.value!), false)
         );
       if (translationsWithIssue.length) {
-        throw new Error(`The following translations are invalid: ${translationsWithIssue.map((translation) => translation.key).join(', ')}`);
+        throw new O3rCliError(`The following translations are invalid: ${translationsWithIssue.map((translation) => translation.key).join(', ')}`);
       }
 
       context.reportProgress(STEP_NUMBER, STEP_NUMBER, 'Generating metadata');

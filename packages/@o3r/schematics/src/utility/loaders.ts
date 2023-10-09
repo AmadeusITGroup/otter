@@ -1,3 +1,4 @@
+import type { DirEntry, FileEntry } from '@angular-devkit/schematics';
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { sync as globbySync } from 'globby';
@@ -6,9 +7,36 @@ import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
 
+function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
+  if (ignoreDirectories.some(i => directory.path.split(path.posix.sep).includes(i))) {
+    return memory;
+  }
+
+  directory.subfiles
+    .filter(fileMatchesCriteria)
+    .forEach((file) => memory.add(directory.file(file)!));
+
+  directory.subdirs
+    .forEach((dir) => findFilesInTreeRec(memory, directory.dir(dir), fileMatchesCriteria, ignoreDirectories));
+
+  return memory;
+}
+
+/**
+ *
+ * Helper function that looks for files in the Tree
+ * @param directory where to perform the search
+ * @param fileMatchesCriteria a function defining the criteria to look for
+ * @param ignoreDirectories optional parameter to ignore folders
+ */
+export function findFilesInTree(directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[] = ['node_modules', '.git', '.yarn']) {
+  const memory = new Set<FileEntry>();
+  findFilesInTreeRec(memory, directory, fileMatchesCriteria, ignoreDirectories);
+  return Array.from(memory);
+}
+
 /**
  * Load the angular.json file
- *
  * @param tree File tree
  * @param angularJsonFile Angular.json file path
  * @throws Angular JSON invalid or non exist
@@ -24,7 +52,6 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
 
 /**
  * Load the Workspace configuration object
- *
  * @param tree File tree
  * @param workspaceConfigFile Workspace config file path, /angular.json in an Angular project
  * @returns null if the given config file does not exist
@@ -38,7 +65,6 @@ export function getWorkspaceConfig<T extends WorkspaceSchema = WorkspaceSchema>(
 
 /**
  * Update angular.json file
- *
  * @param tree File tree
  * @param workspace Angular workspace
  * @param angularJsonFile Angular.json file path
@@ -50,7 +76,6 @@ export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angular
 
 /**
  * Load the target's package.json file
- *
  * @param tree File tree
  * @param workspaceProject Angular workspace project
  * @throws Package JSON invalid or non exist
@@ -67,10 +92,10 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
 
 /**
  * Get the workspace project
- *
  * @param tree File tree
  * @param projectName Name of the Angular project
  * @param projectType
+ * @deprecated please use {@link getWorkspaceConfig} instead. Will be removed in v10
  */
 export function getProjectFromTree(tree: Tree, projectName?: string | null, projectType?: 'application' | 'library'): WorkspaceProject & { name: string } | undefined {
 
@@ -99,9 +124,9 @@ export function getProjectFromTree(tree: Tree, projectName?: string | null, proj
 
 /**
  * Returns the root directory of a project with the given name ( a relative path from the project root)
- *
  * @param tree Files tree
  * @param projectName Name of the project inside the workspace
+ * @deprecated please use {@link getWorkspaceConfig} instead. Will be removed in v10
  */
 export function getProjectRootDir(tree: Tree, projectName?: string | null) {
   return getProjectFromTree(tree, projectName)?.root;
@@ -110,7 +135,7 @@ export function getProjectRootDir(tree: Tree, projectName?: string | null) {
 
 /**
  * Return the type of install to run depending on the project type (Peer or default)
- *
+ * @deprecated please use {@link getProjectNewDependenciesType} instead. Will be removed in v10
  * @param tree
  */
 export function getProjectDepType(tree: Tree) {
@@ -120,9 +145,17 @@ export function getProjectDepType(tree: Tree) {
 }
 
 /**
+ * Return the type of install to run depending on the project type (Peer or default)
+ * @param project
+ * @param tree
+ */
+export function getProjectNewDependenciesType(project?: WorkspaceProject) {
+  return project?.projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
+}
+
+/**
  * Get the default project name
- *
- * @deprecated use {@link getProjectFromTree} function instead, will be removed in Otter V10
+ * @deprecated use {@link getWorkspaceConfig} function instead, will be removed in Otter V10
  * @param projectType
  * @param tree File tree
  */
@@ -132,7 +165,6 @@ export function getDefaultProjectName(tree: Tree, projectType?: 'application' | 
 
 /**
  * Get the folder of the templates for a specific sub-schematics
- *
  * @param rootPath Root directory of the schematics ran
  * @param currentPath Directory of the current sub-schematics ran
  * @param templateFolder Folder containing the templates
@@ -144,7 +176,6 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
 
 /**
  * Get the path of all the files in the Tree
- *
  * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
  * @param excludes Array of globs to be ignored
@@ -162,7 +193,6 @@ export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[]
 
 /**
  * Get all files with specific extension from the specified folder for all the projects described in the workspace
- *
  * @deprecated please use {@link getFilesInFolderFromWorkspaceProjectsInTree}, will be removed in v9
  * @param tree
  * @param folderInProject
@@ -181,7 +211,6 @@ export function getFilesInFolderFromWorkspaceProjects(tree: Tree, folderInProjec
 
 /**
  * Get all files with specific extension from the specified folder for all the projects described in the workspace
- *
  * @param tree
  * @param folderInProject
  * @param extension
@@ -198,7 +227,6 @@ export function getFilesInFolderFromWorkspaceProjectsInTree(tree: Tree, folderIn
 
 /**
  * Get all files with specific extension from the tree
- *
  * @param tree
  * @param extension
  */
@@ -211,7 +239,6 @@ export function getFilesWithExtensionFromTree(tree: Tree, extension: string) {
 
 /**
  * Get all files with specific extension from the root of all the projects described in the workspace
- *
  * @param tree
  * @param extension
  */
@@ -221,7 +248,6 @@ export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: strin
 
 /**
  * Get all files with specific extension from the src folder for all the projects described in the workspace
- *
  * @param tree
  * @param extension
  */
@@ -232,7 +258,6 @@ export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
 
 /**
  * Get all the typescript files from the src folder for all the projects described in the workspace
- *
  * @param tree
  */
 export function getSourceFilesFromWorkspaceProjects(tree: Tree) {

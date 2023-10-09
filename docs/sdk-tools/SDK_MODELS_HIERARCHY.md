@@ -53,7 +53,7 @@ export type MyModelCoreIfy<T extends IgnoreEnum<MyModel>> = T & {
 
 > **Info**: The `IgnoreEnum` helper is used to exclude the enum values (in the base model sub models) from the constraint in case of enum extension.
 
-And then be used in the SDKs as follow:
+And then be used in the SDKs as follows:
 
 ```typescript
 // in the models/base/my-model/index.ts
@@ -95,7 +95,7 @@ export function reviveMyModelFactory<R extends typeof reviveMyModel>(baseRevive:
 
 > **Warning**: The usage of `import type` is mandatory for the import of the **base reviver** to avoid bringing an unused revivers in the final application.
 
-And then be used in the SDKs as follow:
+And then be used in the SDKs as follows:
 
 ```typescript
 // in the models/base/my-model/index.ts

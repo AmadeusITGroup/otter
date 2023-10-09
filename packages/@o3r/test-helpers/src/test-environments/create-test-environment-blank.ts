@@ -1,7 +1,7 @@
-import { execSync, ExecSyncOptions } from 'node:child_process';
+import { ExecSyncOptions } from 'node:child_process';
 import { existsSync, mkdirSync, rmSync } from 'node:fs';
 import * as path from 'node:path';
-import { getPackageManager, PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
+import { PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
 
 export interface CreateTestEnvironmentBlankOptions extends PackageManagerConfig {
   /**
@@ -27,7 +27,6 @@ export function createTestEnvironmentBlank(inputOptions: Partial<CreateTestEnvir
     registry: 'http://127.0.0.1:4873',
     ...inputOptions
   };
-  const packageManager = getPackageManager();
   const appFolderPath = path.join(options.cwd, options.appDirectory);
   if (existsSync(appFolderPath)) {
     return;
@@ -46,9 +45,6 @@ export function createTestEnvironmentBlank(inputOptions: Partial<CreateTestEnvir
   }
 
   mkdirSync(appFolderPath, {recursive: true});
-  if (packageManager === 'yarn') {
-    execSync('yarn init', execAppOptions);
-  }
 
   setPackagerManagerConfig(options, execAppOptions);
 }

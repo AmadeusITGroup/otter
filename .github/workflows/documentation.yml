@@ -32,7 +32,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./tools/github-actions/setup
       - name: Generate doc
         run: yarn doc:generate
@@ -57,7 +57,7 @@ jobs:
       name: azure-static-webapp
       url: ${{ steps.deploy.outputs.static_web_app_url }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v3
         with:
           name: ${{ inputs.artifactName }}

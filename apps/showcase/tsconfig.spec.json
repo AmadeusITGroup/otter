@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.jest",
+  "compilerOptions": {
+    "outDir": "test",
+    "rootDir": "."
+  },
+  "include": [
+    "src/**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}
