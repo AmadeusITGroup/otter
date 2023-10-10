@@ -247,7 +247,8 @@ export class ComponentConfigExtractor {
       category: configDocInfo?.category,
       label: configDocInfo?.label ? configDocInfo.label : name.replace(/([A-Z])/g, ' $1'),
       name,
-      type: 'unknown'
+      type: 'unknown',
+      widget: configDocInfo?.widget
     };
 
     if (propertyNode.questionToken) {

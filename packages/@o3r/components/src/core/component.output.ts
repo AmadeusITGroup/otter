@@ -1,4 +1,4 @@
-import type { CategoryDescription, Output } from '@o3r/core';
+import type { CategoryDescription, ConfigPropertyWidget, Output } from '@o3r/core';
 
 /** Types of components config */
 export type ConfigType = 'Block' | 'Page' | 'AppRuntimeConfiguration' | 'AppBuildConfiguration' | 'ExposedComponent';
@@ -121,6 +121,8 @@ export interface ConfigProperty {
   choices?: string[];
   /** The category of the config property */
   category?: string;
+  /** The CMS widget information */
+  widget?: ConfigPropertyWidget;
 }
 
 /**

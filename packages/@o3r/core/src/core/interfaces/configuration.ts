@@ -94,3 +94,20 @@ export interface CategoryDescription {
 
 /** Types of components config */
 export type ConfigType = 'Block' | 'Page' | 'AppRuntimeConfiguration' | 'AppBuildConfiguration' | 'ExposedComponent';
+
+/**
+ * Interface to define widget parameter to be used on CMS side
+ */
+export interface ConfigPropertyWidgetParameters {
+  [parameterName: string]: string | boolean | number | string[] | boolean[] | number[];
+}
+
+/**
+ * Interface to define the widget to be used on CMS side
+ */
+export interface ConfigPropertyWidget {
+  /** Type of the CMS widget */
+  type: string;
+  /** Parameters provided to the CMS widget */
+  parameters?: ConfigPropertyWidgetParameters;
+}
