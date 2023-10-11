@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface StyleExtractorBuilderSchema extends JsonObject {
+export interface StyleExtractorBuilderSchema extends SchematicOptionObject {
   /** Path to the output file */
   outputFile: string;
 
@@ -17,5 +17,8 @@ export interface StyleExtractorBuilderSchema extends JsonObject {
   libraries: string[];
 
   /** Library/Application name to be assigned into metadata */
-  name: string | null;
+  name?: string | undefined;
+
+  /** Will not display warning for duplicated variable */
+  ignoreDuplicateWarning: boolean;
 }
