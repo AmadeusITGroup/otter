@@ -30,8 +30,8 @@
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~16.2.0",
-    "@nx/eslint-plugin": "~16.9.0",
-    "@nx/jest": "~16.9.0",
+    "@nx/eslint-plugin": "~16.10.0",
+    "@nx/jest": "~16.10.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@types/glob": "^8.0.0",
@@ -56,7 +56,7 @@
     "jsonc-eslint-parser": "~2.3.0",
     "onchange": "^7.0.2",
     "ts-jest": "~29.1.1",
-    "ts-node": "^10.9.1",
+    "ts-node": "~10.9.1",
     "typescript": "~5.1.6"
   },
   "engines": {

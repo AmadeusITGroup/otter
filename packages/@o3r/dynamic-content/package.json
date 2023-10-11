@@ -72,10 +72,10 @@
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
     "@ngrx/store": "~16.2.0",
-    "@nx/eslint-plugin": "~16.9.0",
-    "@nx/jest": "~16.9.0",
-    "@nx/js": "~16.9.0",
-    "@nx/linter": "~16.9.0",
+    "@nx/eslint-plugin": "~16.10.0",
+    "@nx/jest": "~16.10.0",
+    "@nx/js": "~16.10.0",
+    "@nx/linter": "~16.10.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
@@ -100,10 +100,10 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~13.1.1",
     "jsonc-eslint-parser": "~2.3.0",
-    "nx": "~16.9.0",
+    "nx": "~16.10.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.1.6",
-    "zone.js": "~0.14.0"
+    "zone.js": "~0.13.1"
   },
   "engines": {
     "node": ">=18.0.0"

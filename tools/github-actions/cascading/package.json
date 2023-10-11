@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~16.2.0",
-    "@nx/eslint-plugin": "~16.9.0",
+    "@nx/eslint-plugin": "~16.10.0",
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",

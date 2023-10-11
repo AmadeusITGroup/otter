@@ -214,7 +214,8 @@
         }
       },
       "dependsOn": [
-        "i18n"
+        "i18n",
+        "^build-builders"
       ]
     },
     "extract-translations": {
@@ -262,7 +263,10 @@
             ]
           }
         ]
-      }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
     }
   }
 }
