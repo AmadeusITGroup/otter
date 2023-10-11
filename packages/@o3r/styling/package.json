@@ -12,7 +12,7 @@
     "ng": "yarn nx",
     "test": "yarn nx test styling",
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*.scss' dist/schematics",
-    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build styling"
@@ -40,7 +40,16 @@
     "sass": "~1.69.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/material": {
       "optional": true
     },
     "@o3r/extractors": {
@@ -124,5 +133,8 @@
     "node": ">=18.0.0"
   },
   "builders": "./builders.json",
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

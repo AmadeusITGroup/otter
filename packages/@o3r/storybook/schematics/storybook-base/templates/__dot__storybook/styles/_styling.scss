@@ -1,14 +1,14 @@
 @use '@angular/material' as mat;
-@use '@o3r/styling' as o3r;
+@use '@o3r/styling/otter-theme' as otter-theme;
 
 // Generate Material Design Theme
-$meta-theme: o3r.generate-otter-theme() !default;
+$meta-theme: otter-theme.generate-otter-theme() !default;
 
 // Convert Meta theme to Otter
-$theme: o3r.meta-theme-to-otter($meta-theme) !default;
+$theme: otter-theme.meta-theme-to-otter($meta-theme) !default;
 
 // Convert Meta theme to Material Design Theme
-$mat-theme: o3r.meta-theme-to-material($meta-theme) !default;
+$mat-theme: otter-theme.meta-theme-to-material($meta-theme) !default;
 
 // Typography for material theming
 $typography: mat.define-typography-config() !default;

@@ -1,9 +1,10 @@
 @use '@o3r/styling' as o3r;
+@use '@o3r/styling/otter-theme' as o3r;
 
 @import './theme';
 
 // The theme to apply to the whole application
-@include o3r.apply-theme(o3r.$default-theme);
+@include o3r.apply-theme(otter-theme.$default-theme);
 
 // Expose variable override
 @import './component-styling.override';

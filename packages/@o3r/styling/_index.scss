@@ -1,5 +1,4 @@
 // Theming
-@forward './scss/theming/otter-theme/index'; // deprecate, will be removed in v10. The theme should retrieve from @o3r/styling/otter-theme
 @forward './scss/theming/functions';
 @forward './scss/theming/mixins' show apply-theme, override-theme, define-var, var;
 

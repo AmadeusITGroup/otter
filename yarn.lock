@@ -8716,7 +8716,13 @@ __metadata:
     rxjs: ^7.8.1
     sass: ~1.69.0
   peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/core":
+      optional: true
     "@angular-devkit/schematics":
+      optional: true
+    "@angular/material":
       optional: true
     "@o3r/extractors":
       optional: true
