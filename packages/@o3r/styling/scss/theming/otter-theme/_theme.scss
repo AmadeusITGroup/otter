@@ -2,10 +2,10 @@
 @use 'sass:map';
 
 @use '@angular/material' as mat;
-@use '../palettes/amadeus' as amadeus-palette;
+@use './material' as mat-functions;
 @use './dark.theme' as dark-theme;
+@use '../palettes/amadeus' as amadeus-palette;
 @use '../../utils/functions' as utils-functions;
-@use '../functions' as theme-functions;
 
 /// Generate a map of theme variables for Otter and override them with a map of overridden values
 /// Add the variables that are specific to the Otter theme
@@ -144,7 +144,7 @@
 /// @param {map} $application [()] a set of properties to override for one specific implementation
 /// @return {map} containing the palette maps and the otter-theme variables map
 @function generate-otter-theme($primary: mat.define-palette(amadeus-palette.$ama-primary), $highlight: mat.define-palette(amadeus-palette.$ama-highlight), $accent: mat.define-palette(amadeus-palette.$ama-accent), $warn: mat.define-palette(amadeus-palette.$ama-warn), $is-dark-theme: false, $application: ()) {
-  $theme: theme-functions.generate-theme(
+  $theme: mat-functions.generate-theme(
     $primary: $primary,
     $highlight: $highlight,
     $accent: $accent,

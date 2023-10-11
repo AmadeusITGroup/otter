@@ -7725,7 +7725,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^5.0.1
     rxjs: ^7.8.1
-    sass: ~1.68.0
+    sass: ~1.69.0
     sass-loader: ^13.1.0
     semver: ^7.5.2
     shx: ^0.3.4
@@ -8692,8 +8692,7 @@ __metadata:
     nx: ~16.8.0
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
-    sass: ~1.68.0
-    sass-true: ^7.0.0
+    sass: ~1.69.0
     semver: ^7.5.2
     stylelint: ^15.10.1
     stylelint-scss: ^4.0.0
@@ -8713,6 +8712,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     rxjs: ^7.8.1
+    sass: ~1.69.0
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -8721,6 +8721,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    sass:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10664,13 +10666,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
-  languageName: node
-  linkType: hard
-
-"@types/css@npm:^0.0.33":
-  version: 0.0.33
-  resolution: "@types/css@npm:0.0.33"
-  checksum: 2dd93e3638a0f1c0cbd143188ce760efb2fedfe74cbc16b1848f202fd047ba55f2fc33de085777910228abe4e9221b7b30aaec83ff7128bce2f0a0966435dd4b
   languageName: node
   linkType: hard
 
@@ -12905,15 +12900,6 @@ __metadata:
   version: 1.0.0
   resolution: "at-least-node@npm:1.0.0"
   checksum: 463e2f8e43384f1afb54bc68485c436d7622acec08b6fad269b421cb1d29cebb5af751426793d0961ed243146fe4dc983402f6d5a51b720b277818dbf6f2e49e
-  languageName: node
-  linkType: hard
-
-"atob@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "atob@npm:2.1.2"
-  bin:
-    atob: bin/atob.js
-  checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
   languageName: node
   linkType: hard
 
@@ -15484,17 +15470,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "css@npm:3.0.0"
-  dependencies:
-    inherits: ^2.0.4
-    source-map: ^0.6.1
-    source-map-resolve: ^0.6.0
-  checksum: 4273ac816ddf99b99acb9c1d1a27d86d266a533cc01118369d941d8e8a78277a83cad3315e267a398c509d930fbb86504e193ea1ebc620a4a4212e06fe76e8be
-  languageName: node
-  linkType: hard
-
 "cssesc@npm:^3.0.0":
   version: 3.0.0
   resolution: "cssesc@npm:3.0.0"
@@ -15769,13 +15744,6 @@ __metadata:
   version: 10.4.3
   resolution: "decimal.js@npm:10.4.3"
   checksum: 796404dcfa9d1dbfdc48870229d57f788b48c21c603c3f6554a1c17c10195fc1024de338b0cf9e1efe0c7c167eeb18f04548979bcc5fdfabebb7cc0ae3287bae
-  languageName: node
-  linkType: hard
-
-"decode-uri-component@npm:^0.2.0":
-  version: 0.2.2
-  resolution: "decode-uri-component@npm:0.2.2"
-  checksum: 95476a7d28f267292ce745eac3524a9079058bbb35767b76e3ee87d42e34cd0275d2eb19d9d08c3e167f97556e8a2872747f5e65cbebcac8b0c98d83e285f139
   languageName: node
   linkType: hard
 
@@ -20766,7 +20734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^29.3.1, jest-diff@npm:^29.7.0":
+"jest-diff@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-diff@npm:29.7.0"
   dependencies:
@@ -27257,20 +27225,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-true@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "sass-true@npm:7.0.0"
-  dependencies:
-    "@types/css": ^0.0.33
-    css: ^3.0.0
-    jest-diff: ^29.3.1
-    lodash: ^4.17.21
-  peerDependencies:
-    sass: ">=1.45.0"
-  checksum: 2af304dc45628d776a572eb6a381e297d2e357d90abf2086c26af6a1f73c4eaea76760561f4067b8de82afcde60852c58d89769ef3c6122c8e620c32d35dc308
-  languageName: node
-  linkType: hard
-
 "sass@npm:1.64.1":
   version: 1.64.1
   resolution: "sass@npm:1.64.1"
@@ -27284,7 +27238,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.55.0, sass@npm:~1.68.0":
+"sass@npm:^1.42.1, sass@npm:^1.55.0":
   version: 1.68.0
   resolution: "sass@npm:1.68.0"
   dependencies:
@@ -27294,6 +27248,19 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 65ccede83c96768beeb8dcaf67957b7c76b12ff1276bfd2849d7be151d46ba1400048a67717e6e5e4969bc75e87348e5530f5f272833f2e60a891c21a33d8ab0
+  languageName: node
+  linkType: hard
+
+"sass@npm:~1.69.0":
+  version: 1.69.2
+  resolution: "sass@npm:1.69.2"
+  dependencies:
+    chokidar: ">=3.0.0 <4.0.0"
+    immutable: ^4.0.0
+    source-map-js: ">=0.6.2 <2.0.0"
+  bin:
+    sass: sass.js
+  checksum: 25c6aaf993a40ce33e66c6c3a25690ce573a3c890024ba3dea5416a17c7db6ec39542d4b4e62c2c429005737630d6b48ab841f99fd534ac1b441f37d2c34e0c4
   languageName: node
   linkType: hard
 
@@ -27946,16 +27913,6 @@ __metadata:
   peerDependencies:
     webpack: ^5.0.0
   checksum: d5a4e2ab190c93ae5cba68c247fbaa9fd560333c91060602b634c399a8a4b3205b8c07714c3bcdb0a11c6cc5476c06256bd8e824e71fbbb7981e8fad5cba4a00
-  languageName: node
-  linkType: hard
-
-"source-map-resolve@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "source-map-resolve@npm:0.6.0"
-  dependencies:
-    atob: ^2.1.2
-    decode-uri-component: ^0.2.0
-  checksum: fe503b9e5dac1c54be835282fcfec10879434e7b3ee08a9774f230299c724a8d403484d9531276d1670c87390e0e4d1d3f92b14cca6e4a2445ea3016b786ecd4
   languageName: node
   linkType: hard
 

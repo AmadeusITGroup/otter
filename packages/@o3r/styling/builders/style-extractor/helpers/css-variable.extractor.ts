@@ -31,7 +31,6 @@ export class CssVariableExtractor {
 
   /**
    * Parse the CSS variable as reported
-   *
    * @param name CSS Variable name
    * @param value CSS Variable default value
    */
@@ -64,7 +63,6 @@ export class CssVariableExtractor {
 
   /**
    * Type predicate for SassCalculation
-   *
    * @param value
    */
   private static isSassCalculation(value: Value | undefined): value is SassCalculation {
@@ -73,7 +71,6 @@ export class CssVariableExtractor {
 
   /**
    * Get CSS String for given color
-   *
    * @param color Sass Color
    */
   private static getColorString(color: SassColor) {
@@ -82,7 +79,6 @@ export class CssVariableExtractor {
 
   /**
    * Returns the package name from an url
-   *
    * @param url
    */
   private static getPackageName(url: string): string {
@@ -110,7 +106,6 @@ export class CssVariableExtractor {
 
   /**
    * Extract metadata from Sass file
-   *
    * @param sassFilePath SCSS file to parse
    */
   public extractFile(sassFilePath: string): CssVariable[] {
@@ -140,52 +135,58 @@ export class CssVariableExtractor {
       }],
       functions: {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        'metadata-report($name, $value, $tags: null)': (args: Value[]) => {
+        'metadata-report($name, $value, $details: null)': (args: Value[]) => {
           let contextTags: string[] | undefined;
           const varName = args[0];
           const varValue = args[1];
-          const tags = args[2];
+          const details = args[2];
           let description: string | undefined;
           let label: string | undefined;
           let category: string | undefined;
           let type: CssVariableType | undefined;
-          if (tags) {
-            if (tags instanceof SassMap) {
-              for (const [key, value] of tags.contents.toArray()) {
+          if (details) {
+            if (details instanceof SassMap) {
+              for (const [key, value] of details.contents.toArray()) {
                 if (key instanceof SassString) {
                   switch (key.text) {
-                    case 'description':
+                    case 'description': {
                       if (value instanceof SassString) {
                         description = value.text;
                       }
                       break;
-                    case 'label':
+                    }
+                    case 'label': {
                       if (value instanceof SassString) {
                         label = value.text;
                       }
                       break;
-                    case 'type':
+                    }
+                    case 'type': {
                       if (value instanceof SassString) {
                         type = value.text as CssVariableType;
                       }
                       break;
-                    case 'category':
+                    }
+                    case 'category': {
                       if (value instanceof SassString) {
                         category = value.text;
                       }
                       break;
-                    case 'tags':
+                    }
+                    case 'tags': {
                       contextTags = CssVariableExtractor.extractTags(value);
                       break;
-                    default:
+                    }
+                    default: {
                       console.warn(`Unsupported property: ${key.text}`);
                       break;
+                    }
                   }
                 }
               }
             }
             if (!contextTags) {
-              contextTags = CssVariableExtractor.extractTags(tags);
+              contextTags = CssVariableExtractor.extractTags(details);
             }
           }
           if (!(varName instanceof SassString)) {
@@ -240,7 +241,6 @@ export class CssVariableExtractor {
 
   /**
    * Extract metadata
-   *
    * @param libraries List of libraries
    * @param current Metadata extracted for the current project
    */
