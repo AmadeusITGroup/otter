@@ -109,7 +109,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/cli": ~16.2.0
@@ -5605,68 +5605,68 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:~16.2.0":
-  version: 16.2.0
-  resolution: "@ngrx/effects@npm:16.2.0"
+"@ngrx/effects@npm:~16.3.0":
+  version: 16.3.0
+  resolution: "@ngrx/effects@npm:16.3.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
-    "@ngrx/store": 16.2.0
+    "@ngrx/store": 16.3.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 1edf5c214cfb5f7131a718d88b0ce91d8ef4445cc495ea770fb0f22a1c6ac5f1c433a58a35a9bae6434f8d857a89b5440a0506acc7d108936c23ec4169df15fe
+  checksum: 2774395929c91dfc0c289542d7960bbee61feed4305548af579b4ecb68da0f433356fd4b2a812856872d448410e7a2d7ec9a3c31bf14c57e31d45a13f2ddaed8
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:~16.2.0":
-  version: 16.2.0
-  resolution: "@ngrx/entity@npm:16.2.0"
+"@ngrx/entity@npm:~16.3.0":
+  version: 16.3.0
+  resolution: "@ngrx/entity@npm:16.3.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
-    "@ngrx/store": 16.2.0
+    "@ngrx/store": 16.3.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 90050648d586975634c2f03e05325a27db36ba969989719b864751baecc4c35b945882d549ea06b028269b786e09cfce6ed49c70ed0e484396b2e183fe3c5938
+  checksum: 0ff7d44ad27bd7fb8f3b25a31cb21f38959eb47ee26e68f0d8efbde6abfd1536fc050d8cace109493d5d454edc7ad0967aab8f50670323c181059dfa145fa1db
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:~16.2.0":
-  version: 16.2.0
-  resolution: "@ngrx/router-store@npm:16.2.0"
+"@ngrx/router-store@npm:~16.3.0":
+  version: 16.3.0
+  resolution: "@ngrx/router-store@npm:16.3.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/common": ^16.0.0
     "@angular/core": ^16.0.0
     "@angular/router": ^16.0.0
-    "@ngrx/store": 16.2.0
+    "@ngrx/store": 16.3.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 460f4f759aada355f2087b454079c6129c212e424a03a13573ee7b42888dd11222b828278cd41aad9d9127ae9266be81963adcfd6b182cb7046ddc1e71909d44
+  checksum: 1c5180fbab7c95ec131d4e16770b85f5e564dfa27cd819f45688274e81fa4d0e4ae8de95bc7e3a885156ac5747deb123a5a213b48043b1e7b49621b0897cfd32
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:~16.2.0":
-  version: 16.2.0
-  resolution: "@ngrx/store-devtools@npm:16.2.0"
+"@ngrx/store-devtools@npm:~16.3.0":
+  version: 16.3.0
+  resolution: "@ngrx/store-devtools@npm:16.3.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
-    "@ngrx/store": 16.2.0
+    "@ngrx/store": 16.3.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 302497affb616e99abe38962379982cc2c8f24a0f2f5697625ab51992aa4aa9d2196e7b2f7c1a02ecec38266ef77ff1c4bf6fec5a362279aee5ba47747a6d9ce
+  checksum: 05d978457e0dfa5fd3da574d2a79e4a7df3ce63e1cbc19e2741199bc4bebc782e9cf1d8ea02a9fc3540f56e0921f05a66b7dbc7b8bd1b84c8c81cb50a98b0b5f
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:~16.2.0":
-  version: 16.2.0
-  resolution: "@ngrx/store@npm:16.2.0"
+"@ngrx/store@npm:~16.3.0":
+  version: 16.3.0
+  resolution: "@ngrx/store@npm:16.3.0"
   dependencies:
     tslib: ^2.0.0
   peerDependencies:
     "@angular/core": ^16.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 4db8b4a1f557f384ffc046e5cd7d7c5b1012714a516d316c3a9f9e8b2a6a9651aa3475c086d3166ae85ecbde690b90bb1203c7e51f5655da09dc03a748183f28
+  checksum: e31319f2e072a8145bb5093a38a1f6bfc4b723286128ca46bb1e571c7efe25114bc7c6ca8b96c7544030f28847bf1c116880aa8f32af9e8a8659e0083fb9fbc0
   languageName: node
   linkType: hard
 
@@ -6037,12 +6037,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/nx-cloud@npm:16.4.0":
-  version: 16.4.0
-  resolution: "@nrwl/nx-cloud@npm:16.4.0"
+"@nrwl/nx-cloud@npm:16.5.2":
+  version: 16.5.2
+  resolution: "@nrwl/nx-cloud@npm:16.5.2"
   dependencies:
-    nx-cloud: 16.4.0
-  checksum: d72db82bcc0fa07547fc8388069ca012d974803922600885088ef5321f5f92d3944c6b4c005f98d540a414a8c2a53a57a0e365a33df3e0656c6b4ac7d2f1cf64
+    nx-cloud: 16.5.2
+  checksum: 6bbd8f90dd5309e266617930660177fb1a22798f24bf657ee9948cd242abae6d93aaa9deb2dcae4d494d32376972c284813d714fc9ab7d84fab5b53214e32cfa
   languageName: node
   linkType: hard
 
@@ -6589,7 +6589,7 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -6625,7 +6625,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
@@ -6633,7 +6633,7 @@ __metadata:
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6704,7 +6704,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/schematics": ~16.2.0
@@ -6775,7 +6775,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -6847,8 +6847,8 @@ __metadata:
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
     "@ng-bootstrap/ng-bootstrap": ^15.1.1
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/application": "workspace:^"
@@ -6893,7 +6893,7 @@ __metadata:
     tsc-watch: ^6.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   languageName: unknown
   linkType: soft
 
@@ -6917,8 +6917,8 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/analytics": "workspace:^"
@@ -6959,7 +6959,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/schematics": ~16.2.0
@@ -6969,8 +6969,8 @@ __metadata:
     "@angular/forms": ~16.2.0
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
@@ -7020,8 +7020,8 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -7060,12 +7060,12 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -7116,8 +7116,8 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -7161,7 +7161,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
@@ -7174,8 +7174,8 @@ __metadata:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nrwl/devkit": ~16.10.0
     "@nx/angular": ~16.10.0
     "@schematics/angular": ~16.2.0
@@ -7335,7 +7335,7 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -7368,13 +7368,13 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular/compiler-cli": ~16.2.0
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7574,7 +7574,7 @@ __metadata:
     typedoc: ~0.25.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -7605,8 +7605,8 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -7637,14 +7637,14 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
     "@angular/forms": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7725,7 +7725,7 @@ __metadata:
     ng-packagr: ~16.2.0
     npm-run-all: ^4.1.5
     nx: ~16.10.0
-    nx-cloud: ~16.4.0
+    nx-cloud: ~16.5.0
     postcss: ~8.4.31
     postcss-scss: ~4.0.9
     react: ^17.0.2
@@ -7746,7 +7746,7 @@ __metadata:
     typescript: ~5.1.6
     webpack: ~5.88.0
     winston: ^3.8.2
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   languageName: unknown
   linkType: soft
 
@@ -7802,7 +7802,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   languageName: unknown
   linkType: soft
 
@@ -7826,7 +7826,7 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
@@ -7871,7 +7871,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -7882,7 +7882,7 @@ __metadata:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@formatjs/intl-numberformat": ^8.0.2
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -7932,7 +7932,7 @@ __metadata:
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
     "@fullstory/browser": ~1.7.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -7967,12 +7967,12 @@ __metadata:
     smartlook-client: ^8.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@fullstory/browser": ^1.2.1
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     logrocket: ~4.0.0
@@ -8015,7 +8015,7 @@ __metadata:
     "@capacitor/device": ^5.0.0
     "@capacitor/preferences": ^5.0.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -8055,7 +8055,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     winston: ^3.8.2
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -8064,7 +8064,7 @@ __metadata:
     "@capacitor/core": ^5.0.0
     "@capacitor/device": ^5.0.0
     "@capacitor/preferences": ^5.0.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8102,10 +8102,10 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/effects": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/router-store": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/effects": ~16.3.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/router-store": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
@@ -8138,16 +8138,16 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
-    "@ngrx/effects": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/router-store": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/effects": ~16.3.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/router-store": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/routing": "workspace:^"
@@ -8180,9 +8180,9 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/effects": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/effects": ~16.3.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
@@ -8235,7 +8235,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8243,9 +8243,9 @@ __metadata:
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
-    "@ngrx/effects": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/effects": ~16.3.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -8337,7 +8337,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8383,10 +8383,10 @@ __metadata:
     "@angular/router": ~16.2.0
     "@formatjs/intl-numberformat": ~8.7.1
     "@ng-bootstrap/ng-bootstrap": ^15.1.1
-    "@ngrx/effects": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
-    "@ngrx/store-devtools": ~16.2.0
+    "@ngrx/effects": ~16.3.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
+    "@ngrx/store-devtools": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
@@ -8440,7 +8440,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   languageName: unknown
   linkType: soft
 
@@ -8458,8 +8458,8 @@ __metadata:
     "@angular/core": ~16.2.0
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
@@ -8492,12 +8492,12 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
-    "@ngrx/entity": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/entity": ~16.3.0
+    "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -8533,7 +8533,7 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
@@ -8577,12 +8577,12 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
     "@angular/core": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -8709,7 +8709,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8806,7 +8806,7 @@ __metadata:
     "@babel/core": ~7.23.0
     "@babel/preset-typescript": ~7.23.0
     "@compodoc/compodoc": ^1.1.19
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
@@ -8853,7 +8853,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.6.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8861,7 +8861,7 @@ __metadata:
     "@angular/core": ~16.2.0
     "@angular/forms": ~16.2.0
     "@angular/platform-browser": ~16.2.0
-    "@ngrx/store": ~16.2.0
+    "@ngrx/store": ~16.3.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -8951,7 +8951,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -23984,11 +23984,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx-cloud@npm:16.4.0, nx-cloud@npm:~16.4.0":
-  version: 16.4.0
-  resolution: "nx-cloud@npm:16.4.0"
+"nx-cloud@npm:16.5.2, nx-cloud@npm:~16.5.0":
+  version: 16.5.2
+  resolution: "nx-cloud@npm:16.5.2"
   dependencies:
-    "@nrwl/nx-cloud": 16.4.0
+    "@nrwl/nx-cloud": 16.5.2
     axios: 1.1.3
     chalk: ^4.1.0
     dotenv: ~10.0.0
@@ -24000,7 +24000,7 @@ __metadata:
     yargs-parser: ">=21.1.1"
   bin:
     nx-cloud: bin/nx-cloud.js
-  checksum: 41319b77ea3c2a9a80610d50eb52a43f6d86fe84233373697930a6aa887350295785739c9b68cb56f5be60928d67549fa5ec8af3a8091c68851c2758ed5f4dfe
+  checksum: 0b5bcc86eef842b87ed74aafdf56733b8cbc9d75c28ff778ab4d87838e3597cd86baf5cbf76ce49e35e3601a2dca930854d52eb12e03a0f40a7d7d072057f42c
   languageName: node
   linkType: hard
 
@@ -24431,7 +24431,7 @@ __metadata:
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
     typescript: ~5.1.6
-    zone.js: ~0.13.1
+    zone.js: ~0.14.0
   languageName: unknown
   linkType: soft
 
@@ -31317,11 +31317,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zone.js@npm:~0.13.1":
-  version: 0.13.3
-  resolution: "zone.js@npm:0.13.3"
+"zone.js@npm:~0.14.0":
+  version: 0.14.0
+  resolution: "zone.js@npm:0.14.0"
   dependencies:
     tslib: ^2.3.0
-  checksum: 73888a51b0299b4b56c56b97c71fe4a3548a9bdb9e4b4c49dd0e110a4487fbe7f141c08d3e3acff875a6fbb6d581750209ac767ae5d82dca0636ede41aebd436
+  checksum: 8a1c055ff1f3da6e80f27bdc1b3a69cdb0098194ddfd9d9cee19414d5e00f09863f53a5746835ab711ef94bb828f44e4fe9f6c1491a0981dbcd13d3b88f5d997
   languageName: node
   linkType: hard

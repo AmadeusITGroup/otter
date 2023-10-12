@@ -100,7 +100,7 @@
     "@angular/core": "~16.2.0",
     "@angular/forms": "~16.2.0",
     "@angular/platform-browser": "~16.2.0",
-    "@ngrx/store": "~16.2.0",
+    "@ngrx/store": "~16.3.0",
     "@ngx-translate/core": "~15.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/localization": "workspace:^",
@@ -174,7 +174,7 @@
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@ngrx/store": "~16.2.0",
+    "@ngrx/store": "~16.3.0",
     "@ngx-translate/core": "~15.0.0",
     "@nx/eslint-plugin": "~16.10.0",
     "@nx/jest": "~16.10.0",
@@ -218,7 +218,7 @@
     "ts-jest": "~29.1.1",
     "type-fest": "^3.12.0",
     "typescript": "~5.1.6",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   },
   "schematics": "./collection.json",
   "engines": {

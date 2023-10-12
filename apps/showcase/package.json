@@ -33,10 +33,10 @@
     "@angular/platform-browser-dynamic": "~16.2.0",
     "@angular/router": "~16.2.0",
     "@formatjs/intl-numberformat": "~8.7.1",
-    "@ngrx/effects": "~16.2.0",
-    "@ngrx/entity": "~16.2.0",
-    "@ngrx/store": "~16.2.0",
-    "@ngrx/store-devtools": "~16.2.0",
+    "@ngrx/effects": "~16.3.0",
+    "@ngrx/entity": "~16.3.0",
+    "@ngrx/store": "~16.3.0",
+    "@ngrx/store-devtools": "~16.3.0",
     "@ngx-translate/core": "~15.0.0",
     "@nx/jest": "~16.10.0",
     "@o3r/application": "workspace:^",
@@ -61,7 +61,7 @@
     "rxjs": "^7.8.1",
     "sass-loader": "^13.1.0",
     "tslib": "^2.5.3",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1602.0",

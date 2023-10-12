@@ -30,8 +30,8 @@
     "@angular/core": "~16.2.0",
     "@angular/platform-browser-dynamic": "~16.2.0",
     "@angular/router": "~16.2.0",
-    "@ngrx/entity": "~16.2.0",
-    "@ngrx/store": "~16.2.0",
+    "@ngrx/entity": "~16.3.0",
+    "@ngrx/store": "~16.3.0",
     "@nrwl/devkit": "~16.10.0",
     "@nx/angular": "~16.10.0",
     "@schematics/angular": "~16.2.0",
@@ -90,8 +90,8 @@
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@ngrx/entity": "~16.2.0",
-    "@ngrx/store": "~16.2.0",
+    "@ngrx/entity": "~16.3.0",
+    "@ngrx/store": "~16.3.0",
     "@nx/eslint-plugin": "~16.10.0",
     "@nx/jest": "~16.10.0",
     "@nx/js": "~16.10.0",
@@ -132,7 +132,7 @@
     "ts-jest": "~29.1.1",
     "type-fest": "^3.12.0",
     "typescript": "~5.1.6",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.0"
   },
   "generatorDependencies": {
     "@angular-eslint/eslint-plugin": "~16.2.0",
