@@ -14,7 +14,9 @@ import { ngGenerateModule } from './rules/rules.ng';
 export function generateModule(options: NgGenerateModuleSchema): Rule {
 
   return (tree, context) => {
-    const cleanName = strings.dasherize(options.name);
+    const packageJsonName = strings.dasherize(options.name);
+    const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
+
     const isNx = isNxContext(tree);
     const config = getWorkspaceConfig(tree);
     if (!config) {
@@ -24,13 +26,13 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
 
     /** Path to the folder where generate the new module */
     const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
-    const extendedOptions = { ...options, targetPath, name: cleanName };
+    const extendedOptions = { ...options, targetPath, name: cleanName, packageJsonName: packageJsonName };
 
     return chain([
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
       // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
       // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
-      (t, c) => schematic('ng-add-create', { name: options.name, path: targetPath })(t, c),
+      (t, c) => schematic('ng-add-create', { name: packageJsonName, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());

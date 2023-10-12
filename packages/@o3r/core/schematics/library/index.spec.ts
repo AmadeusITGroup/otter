@@ -34,12 +34,12 @@ describe('New module generator', () => {
       skipLinter: true
     }, initialTree);
 
-    expect(tree.readContent('/packages-test/@my/new-module/package.json')).toContain('"name": "@my/new-module"');
-    expect(tree.exists('/packages-test/@my/new-module/collection.json')).toBe(true);
-    expect(tree.exists('/packages-test/@my/new-module/schematics/ng-add/schema.json')).toBe(true);
-    expect(tree.exists('/packages-test/@my/new-module/project.json')).toBe(false);
-    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/@my/new-module/src/public_api');
-    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/@my/new-module/dist');
+    expect(tree.readContent('/packages-test/my-new-module/package.json')).toContain('"name": "@my/new-module"');
+    expect(tree.exists('/packages-test/my-new-module/collection.json')).toBe(true);
+    expect(tree.exists('/packages-test/my-new-module/schematics/ng-add/schema.json')).toBe(true);
+    expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public_api');
+    expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/my-new-module/dist');
     expect(tree.files.length).toBeGreaterThan(16);
   });
 
@@ -62,8 +62,8 @@ describe('New module generator', () => {
         skipLinter: true
       }, initialTree);
 
-      expect(tree.exists('/packages-test/@my/new-module/project.json')).toBe(true);
-      expect(tree.readContent('/packages-test/@my/new-module/project.json')).toContain('"name": "my-new-module');
+      expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(true);
+      expect(tree.readContent('/packages-test/my-new-module/project.json')).toContain('"name": "my-new-module');
     });
 
     it('should generate Nx project.json with given name', async () => {
@@ -83,8 +83,8 @@ describe('New module generator', () => {
         skipLinter: true
       }, initialTree);
 
-      expect(tree.exists('/packages-test/@my/new-module/project.json')).toBe(true);
-      expect(tree.readContent('/packages-test/@my/new-module/project.json')).toContain('"name": "test-module-name"');
+      expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(true);
+      expect(tree.readContent('/packages-test/my-new-module/project.json')).toContain('"name": "test-module-name"');
     });
   });
 });
