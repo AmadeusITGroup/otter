@@ -4,17 +4,17 @@ import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter storybook to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectDepType, getProjectRootDir, removePackages } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
       const { updateStorybook } = await import('../storybook-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const dependencyType = getProjectDepType(tree);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       return () => chain([
         removePackages(['@otter/storybook']),
         updateStorybook(options, __dirname),

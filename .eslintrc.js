@@ -2,7 +2,6 @@
 /* eslint-disable quote-props */
 
 module.exports = {
-  'parser': require.resolve('@typescript-eslint/parser'),
   'parserOptions': {
     'tsconfigRootDir': __dirname,
     'project': [
@@ -13,10 +12,37 @@ module.exports = {
   'overrides': [
     {
       'files': [
+        '*.{t,j}s'
+      ],
+      'parser': require.resolve('@typescript-eslint/parser'),
+      'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
+    },
+    {
+      'files': [
         '*{.,-}jasmine.ts'
       ],
       'rules': {
         'jest/no-jasmine-globals': 'off'
+      }
+    },
+    {
+      'parser': require.resolve('jsonc-eslint-parser'),
+      'files': [
+        '**/*.json'
+      ]
+    },
+    {
+      'files': [
+        '**/package.json'
+      ],
+      'plugins': [
+        '@nx'
+      ],
+      'rules': {
+        '@nx/dependency-checks': ['error', {
+          'buildTargets': ['build', 'build-builders', 'compile', 'test'],
+          'checkObsoleteDependencies': false
+        }]
       }
     }
   ],
@@ -35,8 +61,5 @@ module.exports = {
   },
   'settings': {
     'import/resolver': 'node'
-  },
-  'extends': [
-    '@o3r/eslint-config-otter'
-  ].map(require.resolve)
+  }
 };

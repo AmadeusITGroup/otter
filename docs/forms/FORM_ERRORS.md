@@ -19,7 +19,7 @@
 
 # Form errors
 
-Handling the form errors in Otter context (container/presenter, localization ...), it's a bit different than creating a form in a component and do all the logic there.  
+Handling the form errors in Otter context (container/presenter, localization ...), it's a bit different from creating a form in a component and do all the logic there.  
 <a name="store"></a>
 
 ### Form error store

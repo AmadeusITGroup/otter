@@ -24,21 +24,18 @@ auth:
     file: ../storage/htpasswd
     algorithm: bcrypt
 
-uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
-
 packages:
-  '**':
+  '@o3r/*':
     access: $all
     publish: $authenticated
-    unpublish: $authenticated
-    proxy: npmjs
-  '@o3r/*':
     proxy: no-proxy
   '@ama-sdk/*':
+    access: $all
+    publish: $authenticated
     proxy: no-proxy
   '@ama-terasu/*':
+    access: $all
+    publish: $authenticated
     proxy: no-proxy
 
 no_proxy: localhost,127.0.0.1

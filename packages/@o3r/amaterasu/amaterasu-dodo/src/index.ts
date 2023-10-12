@@ -19,7 +19,6 @@ const destFolder = resolve(__dirname, '..', 'cli');
 
 /**
  * Download Dodo CLI
- *
  * @param platform
  * @param dodoVersion
  */
@@ -72,7 +71,7 @@ module.exports = {
       .filter(([key]) => key.startsWith('-'))
       .map(([key, value]) => value === undefined ? key : `${key}=${value as string}`);
     const argsString = [...args, ...opts]
-      .map((arg) => `"${arg}"`)
+      .map((arg) => `"${arg as string}"`)
       .join(' ');
 
     const context = baseContext.getContext(config);

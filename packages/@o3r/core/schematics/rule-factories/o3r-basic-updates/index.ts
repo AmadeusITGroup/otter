@@ -1,6 +1,6 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { WorkspaceProject } from '@o3r/schematics';
-import { readAngularJson, readPackageJson } from '@o3r/schematics';
+import { getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
 import type { PackageJson } from 'type-fest';
 
 /**
@@ -9,6 +9,7 @@ import type { PackageJson } from 'type-fest';
  *
  * @param pName project name
  * @param o3rCoreVersion
+ * @param _o3rCoreVersion
  * @param projectType
  */
 export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersion?: string, projectType?: WorkspaceProject['projectType']): Rule {
@@ -23,8 +24,13 @@ export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersio
     tree.overwrite(packageJsonPath, JSON.stringify(packageJsonObj, null, 2));
   };
 
-  return (tree: Tree, _context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
+  return (tree: Tree, context: SchematicContext) => {
+    const workspace = getWorkspaceConfig(tree);
+
+    if (!workspace) {
+      context.logger.error('No workspace detected');
+      return tree;
+    }
 
     if (!projectType) { // at the root of the monorepo
       const rootPackageJsonPath = '/package.json';

@@ -18,9 +18,9 @@ The marks names are formatted as following:
 
 ## Performance reporting API configuration
 
-By default, if the rules engine is running in a browser, the performance metrics are reported via the [Performance TImeline API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). If the rules engine is running in a Node, there is no default performance reporting mechanism.
+By default, if the rules engine is running in a browser, the performance metrics are reported via the [Performance Timeline API](https://developer.mozilla.org/en-US/docs/Web/API/Performance_Timeline). If the rules engine is running in a Node, there is no default performance reporting mechanism.
 
-The reporting of the performance metrics can be configured via the a rules engine `performance` option.
+The reporting of the performance metrics can be configured via the rules engine `performance` option.
 The following example shows how to configure the reporting of the performance metrics in a Node application context :
 
 ```typescript

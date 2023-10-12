@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getProjectFromTree } from '@o3r/schematics';
+import { getWorkspaceConfig } from '@o3r/schematics';
 
 import * as ts from 'typescript';
 
 /**
  * Add fixture configuration
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param registerUnitTestFixturePaths should add path mapping for unit test fixtures
@@ -16,12 +15,11 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
   /**
    * Update test tsconfig
-   *
    * @param tree
    * @param _context
    */
   const updateTestTsconfig: Rule = (tree: Tree, _context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree, options.projectName || null);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
       return tree;

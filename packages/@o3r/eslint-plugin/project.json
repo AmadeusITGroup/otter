@@ -40,7 +40,6 @@
         "assets": [
           "packages/@o3r/eslint-plugin/schemas/*.json"
         ],
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       },
       "dependsOn": []
@@ -56,7 +55,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/eslint-plugin/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/eslint-plugin/src/**/*.ts"
+          "packages/@o3r/eslint-plugin/src/**/*.ts",
+          "packages/@o3r/eslint-plugin/package.json"
         ]
       }
     },

@@ -37,7 +37,7 @@ baseUrl etc. from _tsconfig_ ), and hooks to be executed after _ng-packager/ngc_
 
 _ngc_ builder is the one which is used in development build, based on @angular/cli and StyleSheetProcessor from ng-packager. The reason of its creation is that it is faster that _ng-packer_ when used in a package with sub-entries.
 
-#### Usage
+##### Usage
 
 In angular.json file of your lib.
 
@@ -77,6 +77,63 @@ In angular.json file of your lib.
     },
   }
 }
+```
+
+#### Builders: @o3r/core:run-script
+
+A simple angular builder used to launch _package.json_ scripts via _ng cli_.  
+The builder is useful in a monorepo context, where we have a library which is not built with an angular builder. (Ex: It is the case for an sdk generated with _@ama-sdk/schematics_ generator). 
+##### Usage
+  
+Configration example:   
+In your project section from the _angular.json_ file.
+
+```json
+...
+"my-lib": {
+  "projectType": "library",
+  "root": "modules/@scope/components",
+  "sourceRoot": "modules/@scope/components/src",
+  "prefix": "scope",
+  "architect": {
+    "build": {
+      "builder": "@o3r/core:run-script",
+      "options": {
+        "script": "build",
+      }
+    },
+    "custom-name": {
+      "builder": "@o3r/core:run-script",
+      "options": {
+        "script": "my-custom-script",
+      }
+    }
+  }
+}
+```
+
+You should have the corresponding scripts in package.json file.
+
+```json
+{  ...
+  "scripts": {
+    "build": "tsc -b tsconfigs/esm2020", // example
+    "my-custom-script": "prepare-publish ./dist" // example
+    ...
+  }
+  ...
+}
+```
+Now with this configuration in place you can run the scripts via the angular cli.
+```
+npx ng lint my-lib
+or
+yarn run ng lint my-lib
+```
+```
+npx ng run my-lib:custom-name
+or
+yarn run ng run my-lib:custom-name
 ```
 
 ## Middleware

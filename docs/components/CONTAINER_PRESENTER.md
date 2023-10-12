@@ -49,7 +49,7 @@ It has its own _index.ts_ file exporting:
 
 ### Presenter
 
-The presenter is located in the _presenter_ folder of the component..
+The presenter is located in the _presenter_ folder of the component.
 
 It should follow the following naming convention:
 
@@ -115,7 +115,7 @@ passengers/
 * A component interacting with external entities (store, services, etc.) should be split into a container and a presenter
 * A component with no interactions with external entities should only be a presenter
 * By definition, a block is always split into container/presenter
-* Sub-components are located in the related block sub-components folder. If the sub-component is a block, it will then be set either in the components root folder (if it has a functional meaning), or at the root of the functional folder in a dedicated sub folder.
+* Subcomponents are located in the related block subcomponents folder. If the subcomponent is a block, it will then be set either in the components root folder (if it has a functional meaning), or at the root of the functional folder in a dedicated sub folder.
 * A component shared among different blocks and hosted in the same functional folder, should be placed in a shared folder under the functional one.
 * Avoid creating useless intermediate folder:
     * A component with only a presenter and no container should not have a presenter folder

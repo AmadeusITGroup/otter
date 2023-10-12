@@ -4,16 +4,16 @@ import * as path from 'node:path';
 import { registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 /**
  * Add Otter localization to an Angular Project
- *
  * @param options for the dependencies installations
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {applyEsLintFix, install, getProjectDepType, getProjectRootDir, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const { applyEsLintFix, install, getProjectNewDependenciesType, getWorkspaceConfig, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
       const {updateI18n, updateLocalization} = await import('../localization-base');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
@@ -22,10 +22,13 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       context.logger.info('Get information on https://github.com/AmadeusITGroup/otter/tree/main/docs/localization/LOCALIZATION.md#Debugging');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
         updateLocalization(options, __dirname),
-        updateI18n(),
+        updateI18n(options),
         options.skipLinter ? noop() : applyEsLintFix(),
         // install ngx-translate and message format dependencies
         options.skipInstall ? noop : install,
@@ -33,7 +36,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          dependencyType: getProjectDepType(t),
+          projectName: options.projectName,
+          dependencyType,
           workingDirectory
         })(t, c),
         ngAddPeerDependencyPackages(
@@ -49,7 +53,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           '@o3r/core:component-presenter': {
             useLocalization: undefined
           }
-        })
+        }),
+        registerDevtoolRule
       ])(tree, context);
     } catch (e) {
       // o3r localization needs o3r/core as peer dep. o3r/core will install o3r/schematics

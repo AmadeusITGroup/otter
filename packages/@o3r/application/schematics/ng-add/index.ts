@@ -2,6 +2,7 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 
 /**
@@ -12,15 +13,18 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {addImportToModuleFile, getAppModuleFilePath, getProjectDepType, getProjectRootDir, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {
+        addImportToModuleFile, getAppModuleFilePath, getWorkspaceConfig, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType
+      } = await import('@o3r/schematics');
       const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
       const ts = await import('typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root;
 
       const addAngularAnimationPreferences: Rule = () => {
-        const moduleFilePath = getAppModuleFilePath(tree, context);
+        const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
 
         if (!moduleFilePath) {
           return tree;
@@ -65,17 +69,20 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         tree.commitUpdate(recorder);
         return tree;
       };
-      const dependencyType = getProjectDepType(tree);
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
 
+      const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
         ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
           dependencyType,
           workingDirectory
         }),
-        addAngularAnimationPreferences
+        addAngularAnimationPreferences,
+        registerDevtoolRule
       ])(tree, context);
     } catch (e) {
       // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics

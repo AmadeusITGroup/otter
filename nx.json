@@ -28,6 +28,7 @@
           "build",
           "build-cjs",
           "build-esm2015",
+          "build-esm2020",
           "build-react",
           "build-panel",
           "build-wrapper",
@@ -43,6 +44,7 @@
           "build-fixtures-jest",
           "copy-assets",
           "documentation",
+          "generate-translations",
           "extract-translations",
           "extract-components",
           "extract-style",
@@ -51,7 +53,8 @@
           "prepare-build-builders",
           "test",
           "test-int",
-          "build-swagger"
+          "build-swagger",
+          "i18n"
         ],
         "cacheDirectory": ".cache/nx"
       }
@@ -69,6 +72,7 @@
       "global",
       "{projectRoot}/tsconfig*",
       "{projectRoot}/src/**/*",
+      "{projectRoot}/scss/**/*",
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
     ],
@@ -100,8 +104,11 @@
     ],
     "lint": [
       "default",
-      "{workspaceRoot}/.eslintrc.json",
-      "{workspaceRoot}/.eslintignore"
+      "{workspaceRoot}/.eslintrc.js",
+      "{workspaceRoot}/.eslintignore",
+      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/.eslintignore",
+      "{projectRoot}/package.json"
     ],
     "specs": [
       "default",
@@ -111,7 +118,8 @@
     ],
     "source": [
       "default",
-      "!{projectRoot}/**/*.spec.ts"
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.spec.scss"
     ],
     "plugins": [
       "global",
@@ -181,7 +189,20 @@
         "^source"
       ],
       "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build/.tsbuildinfo"
+      ]
+    },
+    "build-source": {
+      "inputs": [
+        "source",
+        "^source"
+      ],
+      "outputs": [
         "{projectRoot}/dist"
+      ],
+      "dependsOn": [
+        "^build"
       ]
     },
     "build-fixtures": {

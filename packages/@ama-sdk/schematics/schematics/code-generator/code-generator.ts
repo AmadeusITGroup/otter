@@ -1,8 +1,6 @@
 import { chain, SchematicContext, TaskConfiguration, TaskConfigurationGenerator, TaskExecutor, Tree } from '@angular-devkit/schematics';
 import { NodeModulesEngineHost } from '@angular-devkit/schematics/tools';
 
-
-
 /**
  * Common configuration for all the code generators
  */

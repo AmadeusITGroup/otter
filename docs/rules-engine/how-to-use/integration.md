@@ -1,6 +1,6 @@
 # Rules engine - Integration in app
 
-Rules engine module comes from the __@o3r/rules-engine__ package and it contains all the mechanisms needed for an otter application to execute a set of UI rules and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
+Rules engine module comes from the __@o3r/rules-engine__ package, and it contains all the mechanisms needed for an otter application to execute a set of UI rules and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
 
 Prerequisite:  
 
@@ -155,7 +155,7 @@ Here is an example:
 // angular.json
   ...
   "extract-rules-engine": {
-    "builder": "@o3r/rules-engine:extractor", // otter cms adapters builder
+    "executor": "@o3r/rules-engine:extractor", // otter cms adapters builder
     "options": {
       "tsConfig": "./tsconfig.cms.json", // ts config file used by the builder
       "libraries": [ // libraries containing facts included in the app

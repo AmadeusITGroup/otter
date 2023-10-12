@@ -3,10 +3,10 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
+import { registerDevtools } from './helpers/devtools-registration';
 
 /**
  * Add Otter components to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
@@ -16,13 +16,12 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const {
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectDepType,
+        getProjectNewDependenciesType,
         getWorkspaceConfig,
         ngAddPackages,
         ngAddPeerDependencyPackages,
         removePackages,
-        registerPackageCollectionSchematics,
-        getProjectRootDir
+        registerPackageCollectionSchematics
       } = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
@@ -33,14 +32,24 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       if (options.enableMetadataExtract) {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
-      const dependencyType = getProjectDepType(tree);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const rule = chain([
         removePackages(['@otter/components']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
+          dependencyType,
+          workingDirectory
+        }),
         ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
         registerPackageCollectionSchematics(packageJson),
-        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
+        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
+        await registerDevtools(options)
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);

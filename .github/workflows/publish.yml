@@ -53,8 +53,9 @@ jobs:
     permissions:
       packages: write
       contents: read
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -67,7 +68,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
+        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true ${{ !inputs.isPullRequest && '--provenance' || ''}}
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -82,7 +83,7 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -117,7 +118,7 @@ jobs:
       packages: write
       contents: read
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output

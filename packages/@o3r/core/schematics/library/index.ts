@@ -1,6 +1,6 @@
 import { chain, noop, Rule, schematic, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
+import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { nxGenerateModule } from './rules/rules.nx';
@@ -18,9 +18,9 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
     const isNx = isNxContext(tree);
     const config = getWorkspaceConfig(tree);
     if (!config) {
-      throw new Error('No workspace configuration file found');
+      throw new O3rCliError('No workspace configuration file found');
     }
-    const defaultRoot = getPackagesBaseRootFolder(tree, context, config);
+    const defaultRoot = getPackagesBaseRootFolder(tree, context, config, 'library');
 
     /** Path to the folder where generate the new module */
     const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
@@ -30,7 +30,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
       // TODO: Waiting for ng-add clean up to uncomment following line hand run ng-add @o3r/core to generated library
       // (t, c) => schematic('ng-add', { ...options, projectName })(t, c),
-      (t, c) => schematic('ng-add-create', { projectName: options.name, path: targetPath })(t, c),
+      (t, c) => schematic('ng-add-create', { name: options.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());

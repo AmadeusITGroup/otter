@@ -139,7 +139,7 @@ Example : yarn artifact-cleaner -b thisismybase64tokenwithuserandencryptedpasswo
 
 ## PR Artifact cleaner
 
-Clean old PR artifacts by identifying using the the build version that is present in the path. If build version is not present in the path this tool cannot yet be used.
+Clean old PR artifacts by identifying using the build version that is present in the path. If build version is not present in the path this tool cannot yet be used.
 
 ### Usage
 
@@ -189,12 +189,12 @@ This package provide generic helpers to support the build chain of Otter and Ama
 ### Scripts available
 
 * **yarn-check** : Check if the current NPM client used is [Yarn](https://yarnpkg.com/en/) (`exit(1)` if not the case).
-* **version-harmonize** : Harmonize the version of the dependencies (in a Monorepos) between the main packages and the children packages.
+* **version-harmonize** : Harmonize the version of the dependencies (in a Monorepo) between the main packages and the children packages.
 
 ## Set Version
 
-Replace the packages version in a monorepos.
-This is use to edit the package.json version of a yarn workspaces packages.
+Replace the packages version in a monorepo.
+This is used to edit the package.json version of a yarn workspaces packages.
 
 ### Usage
 
@@ -211,8 +211,8 @@ Options:
 
 ## Version Harmonize
 
-Replace the dependencies version in a monorepos.
-This align the dependencies range of each packages of a yarn monorepo to the latest range detected in the monorepo.
+Replace the dependencies version in a monorepo.
+This aligns the dependencies range of each packages of a yarn monorepo to the latest range detected in the monorepo.
 
 ### Usage
 

@@ -3,7 +3,7 @@
 Otter Framework exposes functions to the browser console to help to debug and configure your application.
 All the helpers are exposed under the variable **_OTTER_DEVTOOLS_** accessible via `window._OTTER_DEVTOOLS_`.
 
-Currently the following modules expose helpers in the console:
+Currently, the following modules expose helpers in the console:
 
 - **Configuration**: displays and updates the application configuration
 - **Localization**: toggles localization key visualization

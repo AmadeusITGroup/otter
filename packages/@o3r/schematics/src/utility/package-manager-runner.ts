@@ -1,5 +1,6 @@
-import { WorkspaceSchema } from '../interfaces';
 import { logging } from '@angular-devkit/core';
+import { execSync } from 'node:child_process';
+import type { WorkspaceSchema } from '../interfaces';
 
 /** Support NPM package managers */
 export type SupportedPackageManagers = 'npm' | 'yarn';
@@ -77,4 +78,40 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
  */
 export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null) {
   return getPackageManager({ workspaceConfig }) + ' exec' as SupportedPackageManagerExecutors;
+}
+
+/**
+ * Get package manager version
+ *
+ * @param options Option to determine the final package manager
+ */
+export function getPackageManagerVersion(options?: PackageManagerOptions): string | undefined {
+  try {
+    return execSync(`${getPackageManager(options)} --version`, {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      env: {
+        ...process.env,
+        //  NPM updater notifier will prevents the child process from closing until it timeout after 3 minutes.
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NO_UPDATE_NOTIFIER: '1',
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NPM_CONFIG_UPDATE_NOTIFIER: 'false'
+      }
+    }).trim();
+  } catch {
+    return undefined;
+  }
+}
+
+/**
+ * Get package manager information
+ *
+ * @param options Option to determine the final package manager
+ */
+export function getPackageManagerInfo(options?: PackageManagerOptions) {
+  return {
+    name: getPackageManager(options),
+    version: getPackageManagerVersion(options)
+  };
 }

@@ -4,7 +4,7 @@ import { PluginRunner, ReplyPlugin, ReplyPluginContext } from '../core';
 /**
  * Interface of the response information
  */
-export interface ResponseInfo extends Readonly<Response> {
+export interface ResponseInfo extends Readonly<NonNullable<ReplyPluginContext<any>['response']>> {
   /** API Type */
   apiType: string | ApiTypes;
 
@@ -27,7 +27,6 @@ export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implemen
 
   /**
    * Check if the Reply has a Response Info
-   *
    * @param reply API call reply
    * @returns Cast the reply to add responseInfo field
    */
@@ -37,7 +36,6 @@ export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implemen
 
   /**
    * Initialize your plugin
-   *
    * @param customInfo Custom information to add to the reply
    */
   constructor() {}

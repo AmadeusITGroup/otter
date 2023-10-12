@@ -1,6 +1,5 @@
 import type { Type } from '@angular/core';
-import type { DynamicConfigurable } from '@o3r/configuration';
-import type { Configuration, Context } from '@o3r/core';
+import type { Configuration, Context, DynamicConfigurable } from '@o3r/core';
 
 /** Interface for grouping the arrays needed for custom component registration */
 export interface EntryCustomComponents {
@@ -14,7 +13,6 @@ export interface EntryCustomComponents {
 
 /**
  *  Register a custom component
- *
  * @param customComponentsMap an object containing the already registered custom component
  * @param customComponentKey
  * @param customComponent

@@ -1,0 +1,49 @@
+<h1>Dynamic content</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="dynamic-content-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="dynamic-content-description">Description</h2>
+    <div>
+      <p>This module provides a mechanism to retrieve media and data depending on the host or a server-specific URL.</p>
+    </div>
+    <h2 id="dynamic-content-example">Example</h2>
+    <div>
+      <p>
+        Let's take our basic component and use the dynamic content.
+      </p>
+      <p>
+        Click on the "Override" button below to target the dynamic content, this will refresh the page and update the image.
+      </p>
+      <o3r-dynamic-content-pres></o3r-dynamic-content-pres>
+      <div class="row">
+        <o3r-copy-text-pres class="col-12 col-md-8 col-lg-9" language="html" [text]="codeDataDynamicContentPath"></o3r-copy-text-pres>
+        <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
+          <button type="button" class="btn btn-primary" [class.disabled]="bodyDynamicContentPath" (click)="setLocalStorage()">Override</button>
+          <button type="button" class="btn btn-danger" [class.disabled]="!bodyDynamicContentPath" (click)="clearLocalStorage()">Clear</button>
+        </div>
+      </div>
+      <p>
+        Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/dynamic-content" target="_blank" rel="noopener">Source code</a>
+    </div>
+    <h2 id="dynamic-content-install">How to install</h2>
+    <div>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/dynamic-content"></o3r-copy-text-pres>
+    </div>
+    <h2 id="dynamic-content-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/dynamic-content/DYNAMIC_CONTENT.md" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

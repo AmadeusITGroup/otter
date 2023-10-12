@@ -1,0 +1,37 @@
+<div class="card my-3 overflow-hidden">
+  <div class="row g-0">
+    <div class="col-4 bg-body-tertiary d-flex align-items-center justify-center">
+      <img [src]="'otter-dynamic.png' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
+    </div>
+    <div class="col-8 container p-3">
+      <div class="card-bod d-flex flex-column h-100">
+        <div class="row card-title flex-fill d-flex align-items-center m-auto">
+          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 rounded-pill py-3 px-5 position-relative">
+            Welcome!
+            <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
+          </h2>
+        </div>
+        <h5 class="row card-text mt-auto ms-1">Where do you want to go?</h5>
+        <form class="row g-2" [formGroup]="form">
+          <div class="col-12 col-xl-6">
+            <div class="input-group">
+              <label class="input-group-text w-50" for="destination">Destination</label>
+              <select class="form-select" id="destination" formControlName="destination">
+                <option disabled selected value> -- select a destination -- </option>
+                <option value="London">London</option>
+                <option value="Paris">Paris</option>
+                <option value="New-York" disabled>New-York</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-12 col-xl-6">
+            <div class="input-group">
+              <label for="date-outbound" class="input-group-text w-50">Departure</label>
+              <input type="date" class="form-control" id="date-outbound" formControlName="outboundDate">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,18 +1,15 @@
 @use 'sass:map';
 @use 'sass:meta';
-
 @use './functions' as theme-functions;
 @use '../utils/functions' as utils-functions;
 
-@mixin _apply-theme($o3r-theme, $root-name) {
+/// @access private
+@mixin _apply-theme($o3r-theme, $root-name, $details: (category: 'theme')) {
   @if (meta.type-of($o3r-theme) != map) {
-    $logged: utils-functions.log-variable($root-name, $o3r-theme, 'theme');
-    @if ($o3r-theme != null) {
-      --#{$root-name}: #{$o3r-theme};
-    }
+    @include define-var($root-name, $o3r-theme, $details);
   } @else {
     @if (theme-functions.is-variable($o3r-theme)) {
-      @include _apply-theme(map.get($o3r-theme, value), $root-name)
+      @include _apply-theme(map.get($o3r-theme, value), $root-name, map.get($o3r-theme, details))
     } @else {
       @each $key, $value in $o3r-theme {
         $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
@@ -22,25 +19,73 @@
   }
 }
 
-/**
- * Apply an Otter theme to your application
- * @params $o3r-theme Otter theme
- */
+/// Apply an Otter theme to your application
+/// @access public
+/// @param {@see @link https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md#technical-structure-advance} $o3r-theme Otter theme
 @mixin apply-theme($o3r-theme: ()) {
   :root {
     @include _apply-theme($o3r-theme, '');
   }
 }
 
-/**
- * Override an Otter theme at runtime
- * @params $variable-map Map of variable/override value to override
- */
+/// Override an Otter theme at runtime
+/// @param $variable-map Map of variable/override value to override
+/// @deprecated Prefer to override css variable directly
 @mixin override-theme($variable-map) {
   :root {
-    @each $key, $value in $variable-map {
+    @each $name, $value in $variable-map {
+      $key: utils-functions.get-var-key($name);
       --#{$key}: #{$value};
     }
   }
 }
 
+/// Generated CSS Var definition statement and report tags for metadata extraction
+/// @access public
+/// @alias --
+/// @param {string} $name Name of the variable
+/// @param $value Fallback value
+/// @param {map} $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.define-var('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'))
+///   }
+///
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.define-var('--my-scss-var', '#fff')
+///   }
+@mixin define-var($name, $value, $details) {
+  $key: utils-functions.get-var-key($name);
+  $varName: '--#{$key}';
+
+  $logged: utils-functions.log-variable($key, $value, $details);
+  @if ($value != null) {
+    #{$varName}: #{$value};
+  } @else {
+    @debug 'ignored variable #{$varName} because of invalid value';
+  }
+}
+
+/// Generated CSS Var definition statement and report tags for metadata extraction
+/// @access public
+/// @alias define-var
+/// @param {string} $name Name of the variable
+/// @param $value Fallback value
+/// @param {map} $tags map with `description` as key and with a value a string, `tags` as key and with value a list or single tags to indicate to the cms extractors
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.var('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'))
+///   }
+///
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     @include o3r.var('my-scss-var', '#fff')
+///   }
+@mixin var($name, $value, $details) {
+  @include define-var($name, $value, $details)
+}

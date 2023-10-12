@@ -1,4 +1,7 @@
 import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { existsSync, rmSync } from 'node:fs';
+import { join } from 'node:path';
+import { performance } from 'node:perf_hooks';
 
 declare global {
   namespace NodeJS {
@@ -15,14 +18,18 @@ const PACKAGE_MANAGERS_CMD = {
     create: 'npm create',
     exec: 'npm exec',
     install: 'npm install',
-    run: 'npm run'
+    run: 'npm run',
+    workspaceExec: 'npm exec -w',
+    workspaceRun: 'npm run -w'
   },
   yarn: {
     add: 'yarn add',
     create: 'yarn create',
     exec: 'yarn exec',
     install: 'yarn install',
-    run: 'yarn run'
+    run: 'yarn run',
+    workspaceExec: 'yarn workspace',
+    workspaceRun: 'yarn workspace'
   }
 };
 
@@ -35,15 +42,25 @@ export function getPackageManager() {
     'yarn';
 }
 
+/**
+ * Need to add additional dashes when running command like exec on npm
+ * Convert `npm exec test --param` to `npm exec test -- --param`
+ * @param command
+ */
+export function addDashesForNpmCommand(command: string) {
+  return command.replace(/(?<!--)--(.*)$/, '-- --$1');
+}
+
 function execCmd(cmd: string, args: string, options: ExecSyncOptions) {
   try {
+    const startTime = performance.now();
     const output = execFileSync(
       cmd.split(' ')[0],
       [...cmd.split(' ').slice(1), ...args.split(' ')].filter((arg) => !!arg),
       {...options, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8'}
     );
     // eslint-disable-next-line no-console
-    console.log(`${cmd} ${args}\n${output}`);
+    console.log(`${cmd} ${args} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
   } catch (err: any) {
     // Yarn doesn't log errors on stderr, so we need to get them from stdout to have them in the reports
@@ -68,7 +85,7 @@ export function packageManagerAdd(packages: string, options: ExecSyncOptions) {
  */
 export function packageManagerCreate(script: string, options: ExecSyncOptions) {
   if (getPackageManager() === 'npm') {
-    script = `--yes ${script.replace(/(?<!--)--(.*)$/, '-- --$1')}`;
+    script = `--yes ${addDashesForNpmCommand(script)}`;
   }
   return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].create, script, options);
 }
@@ -80,9 +97,22 @@ export function packageManagerCreate(script: string, options: ExecSyncOptions) {
  */
 export function packageManagerExec(script: string, options: ExecSyncOptions) {
   if (getPackageManager() === 'npm') {
-    script = script.replace(/(?<!--)--(.*)$/, '-- --$1');
+    script = addDashesForNpmCommand(script);
   }
   return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].exec, script, options);
+}
+
+/**
+ * Execute a binary command (npx / yarn exec) for a specific workspace
+ * @param workspace
+ * @param script
+ * @param options
+ */
+export function packageManagerWorkspaceExec(workspace: string, script: string, options: ExecSyncOptions) {
+  if (getPackageManager() === 'npm') {
+    script = addDashesForNpmCommand(script);
+  }
+  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceExec, `${workspace} ${script}`, options);
 }
 
 /**
@@ -100,6 +130,19 @@ export function packageManagerInstall(options: ExecSyncOptions) {
  */
 export function packageManagerRun(script: string, options: ExecSyncOptions) {
   return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].run, script, options);
+}
+
+/**
+ * Execute a script from the package.json (npm run / yarn run) for a specific workspace
+ * @param workspace
+ * @param script
+ * @param options
+ */
+export function packageManagerWorkspaceRun(workspace: string, script: string, options: ExecSyncOptions) {
+  if (getPackageManager() === 'npm') {
+    script = addDashesForNpmCommand(script);
+  }
+  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceRun, `${workspace} ${script}`, options);
 }
 
 export interface PackageManagerConfig {
@@ -129,13 +172,15 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
   execFileSync('npm', ['config', 'set', `@ama-sdk:registry=${options.registry}`, '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', `@ama-terasu:registry=${options.registry}`, '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', `@o3r:registry=${options.registry}`, '-L=project'], execOptions);
 
+  const packageJsonPath = join(execOptions.cwd as string, 'package.json');
+  const shouldCleanPackageJson = !existsSync(packageJsonPath);
   switch (getPackageManager()) {
     case 'yarn': {
       // Set yarn version
       if (options.yarnVersion) {
-        execFileSync('yarn', ['config', 'set', 'enableStrictSsl', 'false'], execOptions);
         execFileSync('yarn', ['set', 'version', options.yarnVersion], execOptions);
       }
 
@@ -148,19 +193,23 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       }
       execFileSync('yarn', ['config', 'set', 'nodeLinker', 'pnp'], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-sdk.npmRegistryServer', options.registry], execOptions);
+      execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
       break;
     }
+  }
 
-    case 'npm': {
-      // FIXME to be removed?
-      execFileSync('npm', ['config', 'set', 'legacy-peer-deps=true', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'legacy-peer-deps=true', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'prefer-offline=true', '-L=project'], execOptions);
 
-      if (options.globalFolderPath) {
-        execFileSync('npm', ['config', 'set', `cache=${options.globalFolderPath}`, '-L=project'], execOptions);
-      }
-      break;
-    }
+  if (options.globalFolderPath) {
+    execFileSync('npm', ['config', 'set', `cache=${options.globalFolderPath}/npm-cache`, '-L=project'], execOptions);
+  }
+
+  if (shouldCleanPackageJson && existsSync(packageJsonPath)) {
+    rmSync(packageJsonPath);
   }
 }

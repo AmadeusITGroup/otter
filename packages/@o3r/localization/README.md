@@ -717,5 +717,5 @@ Otter framework provides a set of code generators based on [angular schematics](
 | Schematics                     | Description                                                    | How to use                           |
 | ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
 | add                            | Include Otter localization module in a library / application.  | `ng add @o3r/localization`           |
-| localization-to-component      | Add localization architecture to an Otter component                         | `ng g localization-to-component`     |
-| localization-key-to-component  | Add localization key to an Otter component                     | `ng g localization-key-to-component` |
+| localization-to-component      | Add localization architecture to an Otter component            | `ng g localization-to-component`     |
+| localization-key-to-component  | Add a localization key to an Otter component                   | `ng g localization-key-to-component` |

@@ -13,6 +13,20 @@ module.exports = {
     ],
     'sourceType': 'module'
   },
+  'overrides': [
+    {
+      'files': [
+        '**/package.json'
+      ],
+      'rules': {
+        '@nx/dependency-checks': ['error', {
+          'buildTargets': ['build', 'compile', 'test'],
+          'ignoredDependencies': ['@o3r/testing', 'minimatch'],
+          'checkObsoleteDependencies': false
+        }]
+      }
+    }
+  ],
   'extends': [
     '../../../.eslintrc.js'
   ]

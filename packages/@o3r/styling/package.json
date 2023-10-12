@@ -20,6 +20,9 @@
   "exports": {
     ".": {
       "sass": "./_index.scss"
+    },
+    "./otter-theme": {
+      "sass": "./theming/otter-theme/_index.scss"
     }
   },
   "peerDependencies": {
@@ -32,7 +35,9 @@
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.2.0"
+    "@schematics/angular": "~16.2.0",
+    "rxjs": "^7.8.1",
+    "sass": "~1.69.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -46,6 +51,9 @@
     },
     "@schematics/angular": {
       "optional": true
+    },
+    "sass": {
+      "optional": true
     }
   },
   "dependencies": {
@@ -56,7 +64,7 @@
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.1.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
     "@angular/animations": "~16.2.0",
     "@angular/cdk": "~16.2.0",
     "@angular/common": "~16.2.0",
@@ -67,12 +75,13 @@
     "@angular/material": "~16.2.0",
     "@angular/platform-browser": "~16.2.0",
     "@angular/platform-browser-dynamic": "~16.2.0",
-    "@babel/core": "~7.22.0",
-    "@babel/preset-typescript": "~7.22.0",
+    "@babel/core": "~7.23.0",
+    "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/jest": "~16.7.0",
-    "@nx/js": "~16.7.0",
-    "@nx/linter": "~16.7.0",
+    "@nx/eslint-plugin": "~16.8.0",
+    "@nx/jest": "~16.8.0",
+    "@nx/js": "~16.8.0",
+    "@nx/linter": "~16.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/dev-tools": "workspace:^",
@@ -86,24 +95,24 @@
     "@schematics/angular": "~16.2.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.59.9",
-    "@typescript-eslint/parser": "^5.59.9",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
     "chokidar": "^3.5.2",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-jest": "~27.2.3",
-    "eslint-plugin-jsdoc": "~46.5.0",
+    "eslint-plugin-jest": "~27.4.0",
+    "eslint-plugin-jsdoc": "~46.8.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "globby": "^11.1.0",
-    "jest": "~29.6.2",
+    "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
-    "nx": "~16.7.0",
+    "jsonc-eslint-parser": "~2.3.0",
+    "nx": "~16.8.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.66.0",
-    "sass-true": "^7.0.0",
+    "sass": "~1.69.0",
     "semver": "^7.5.2",
     "stylelint": "^15.10.1",
     "stylelint-scss": "^4.0.0",
@@ -112,7 +121,7 @@
     "zone.js": "~0.13.1"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "builders": "./builders.json",
   "schematics": "./collection.json"

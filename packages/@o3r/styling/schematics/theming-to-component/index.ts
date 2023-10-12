@@ -11,6 +11,7 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
+import { O3rCliError } from '@o3r/schematics';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import { basename, dirname } from 'node:path';
 import type { NgAddThemingSchematicsSchema } from './schema';
@@ -18,12 +19,12 @@ import type { NgAddThemingSchematicsSchema } from './schema';
 
 const checkTheming = (stylePath: string, tree: Tree) => {
   if (!/style\.scss$/.test(stylePath)) {
-    throw new Error('Invalid input path: it must target a style.scss file');
+    throw new O3rCliError('Invalid input path: it must target a style.scss file');
   }
   if (tree.exists(
     stylePath.replace(/\.scss$/, '.theme.scss')
   )) {
-    throw new Error('This component already have theming.');
+    throw new O3rCliError('This component already have theming.');
   }
 };
 
