@@ -93,7 +93,7 @@ describe('new otter application', () => {
       });
       execSync(`npx --yes wait-on http://127.0.0.1:${devServerPort} -t 20000`, execAppOptions);
 
-      execSync('npx playwright install --with-deps', execAppOptions);
+      packageManagerExec('playwright install --with-deps', execAppOptions);
       expect(() => packageManagerRun('test:playwright', execAppOptions)).not.toThrow();
       expect(() => packageManagerRun('test:playwright:sanity', execAppOptions)).not.toThrow();
     });
