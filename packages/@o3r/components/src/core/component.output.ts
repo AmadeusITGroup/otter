@@ -50,21 +50,6 @@ export interface ComponentClassOutput extends Output {
   name: string;
   /** Component path */
   path: string;
-  /**
-   * Component template path
-   * @deprecated will be removed in v10
-   */
-  templatePath: string;
-  /**
-   * Name of the module that declares this component
-   * @deprecated will be removed in v10
-   */
-  moduleName: string;
-  /**
-   * Path where the module can be found
-   * @deprecated will be removed in v10
-   */
-  modulePath: string;
   /** Component selector */
   selector: string;
   /** Component type */
