@@ -67,7 +67,7 @@ available with a default value each. It is up to the theme to override it with i
     separator-color: lighten(get-mandatory($private, 'graphical-line'), 10%),
     corner-border-radius: 20px
   );
-  
+
   @return generate-theme-variables($application-theme-variables, $overridden-properties);
 }
 
@@ -110,7 +110,7 @@ This has to be done on the refex repository via an override function.
 @function _override-mat-theme($mat-theme, $application-variables) {
   $mat-foreground: get-mandatory($mat-theme, 'foreground');
   $mat-background: get-mandatory($mat-theme, 'background');
-  
+
   $foreground-override: (
     divider: get-mandatory($application-variables, 'separator-color'),
     dividers: get-mandatory($application-variables, 'separator-color'),
@@ -121,14 +121,14 @@ This has to be done on the refex repository via an override function.
     icons: get-mandatory($application-variables, 'text'),
     text: get-mandatory($application-variables, 'text')
   );
-  
+
   $background-override: (
     background: get-mandatory($application-variables, 'panel-background'),
     hover: get-mandatory($application-variables, 'panel-hover'),
     card: get-mandatory($application-variables, 'panel-background'),
     dialog: get-mandatory($application-variables, 'dialog-background')
   );
-  
+
   @return map_merge(
     $mat-theme,
     ( foreground: $foreground-override,
@@ -238,7 +238,7 @@ to style a material component with a new palette (e.g. highlight), you will need
 
 ## Use your custom theme
 
-### Customize the refX theme
+### Customize the Otter theme
 
 #### Process
 
@@ -362,10 +362,10 @@ This will allow a component level customization.
 `@o3r/styling` provides functions to access the theme variables.
 The principal functions are the following:
 
-* **get-mandatory**: similar to [map-get](https://sass-lang.com/documentation/modules/map#get) from native SCSS but will fail at build time if the variable is not accessible in the map. This is useful to access to `$theme` sub nodes.
-* **o3r.variable(*`<css-var-name>`*, *`<default-value>`*)**: helper function that will generate and return a css-variable accessor (ex: `or3.variable('my-var', #000)` will generate `var(--my-var, #000)`). The purpose is to allow the override of a component variable global css-var.
-* **o3r.color(*`<theme-palette>`*, *`<value>`*)**: similar to [mat-color](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.color($primary-palette, 500)` will generate `var('--primary-color-500', #050)`).
-* **o3r.contrast(*`<theme-palette>`*, *`<value>`*)**: similar to [mat-contrast](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.contrast($primary-palette, 500)` will generate `var('--primary-color-contrast-500', #505)`).
+* **o3r.get-mandatory**: similar to [map-get](https://sass-lang.com/documentation/modules/map#get) from native SCSS but will fail at build time if the variable is not accessible in the map. This is useful to access to `$theme` sub nodes.
+* **o3r.var(*`<css-var-name>`*, *`<default-value>`*)**: *(alias: o3r.variable)* helper function that will generate and return a css-variable accessor (ex: `or3.variable('my-var', #000)` will generate `var(--my-var, #000)`). The purpose is to allow the override of a component variable global css-var.
+* **o3r.color(*`<theme-palette>`*, *`<value>`*)**: *(deprecated)* similar to [mat-color](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.color($primary-palette, 500)` will generate `var('--primary-color-500', #050)`).
+* **o3r.contrast(*`<theme-palette>`*, *`<value>`*)**: *(deprecated)* similar to [mat-contrast](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.contrast($primary-palette, 500)` will generate `var('--primary-color-contrast-500', #505)`).
 
 ```scss
 //file: ./my-component-pres.style.theme.scss
@@ -375,8 +375,8 @@ The principal functions are the following:
 // Will fail if $theme is not generated
 $primary-palette: o3r.get-mandatory($theme, 'primary');
 
-$page-title-color: o3r.variable('page-manage-title-color', o3r.color($palette-highlight, 500));
-$page-title-background: o3r.variable('page-manage-background', o3r.contrast($palette-highlight, 200));
+$page-title-color: o3r.var('page-manage-title-color', o3r.color($palette-highlight, 500));
+$page-title-background: o3r.var('page-manage-background', o3r.contrast($palette-highlight, 200));
 ```
 
 ### Style Override
@@ -408,3 +408,164 @@ Here is an example of how your files architecture could look:
 >>>> **my-component-pres.style.scss**: component style - import style.theme.scss\
 >>>> **my-component-pres.style.theme.scss**: variables - import app-styling.scss\
 >>>> ...
+
+## Technical structure (advance)
+
+The function `apply-theme` expects a specific structure of [SCSS Map](https://sass-lang.com/documentation/values/maps/). To facilitate the generation of the latter, the function `meta-theme-to-otter` converts an [Angular Material Theme](https://material.angular.io/guide/theming) into a compatible structure.
+
+The theme structure object should respect the following Schema:
+
+```json
+{
+  "$ref": "#/definitions/varNode",
+
+  "definitions": {
+    "varNode": {
+      "type": "object",
+      "patternProperties": {
+        "^[^ ]+$": {
+          "oneOf": [
+            {"$ref": "#/definitions/varNode"},
+            {"$ref": "#/definitions/varValue"}
+          ]
+        }
+      }
+    },
+    "varValue": {
+      "type": "object",
+      "properties": {
+        "required": ["value"],
+        "value": {"type": "string"},
+        "details": {
+          "type": "object",
+          "properties": {
+            "description": {"type": "string"},
+            "label": {"type": "string"},
+            "type": {
+              "type": "string",
+              "enum": ["color", "string"]
+            },
+            "category": {"type": "string"},
+            "tags": {
+              "type": "array",
+              "item": {"type": "string"}
+            },
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Details property
+
+The additional information, specified in the `details` property, is used at extraction time to provide variable context information to display in the CMS.
+
+The **details** property contains the following information:
+
+* **description**: Medium/long description of the variable
+* **label**: Caption describing the variable, if not provided the CMS will use the variable name instead
+* **type**: Additional context to help the CMS display the most relevant input widget (currently only `string` and `color` types are supported)
+* **category**: Way to group different variables in the CMS
+* **tags**: List of tags associated to the variable. It is a way of grouping variables or flagging them.
+
+### Example
+
+This is an example of a theme structure:
+
+```scss
+@use '@o3r/styling' as o3r;
+
+$my-theme: (
+  o3r: (
+    primary: (
+      color: (
+        value: '#000',
+        details: ( // Optional property
+          description: 'My primary color used as website main color', // Optional property
+          label: 'My primary color', // Optional property
+          type: 'color', // Optional property
+          category: 'main color', // Optional property
+          tags: ('main', 'color', 'primary') // Optional property
+        )
+      )
+    )
+  )
+);
+
+@include o3r.apply-theme($my-theme);
+```
+
+This will result in the following CSS:
+
+```css
+:root {
+  --o3r-primary-color: #000;
+}
+```
+
+### Define variable outside of theme mechanism
+
+In certain cases we want to define a variable and make it part of the extracted metadata without defining a full Otter Theme.
+This can be achieved via the `o3r.var` mixin. If we take the previous example, the same result (in term of CSS and metadata) can be done as following:
+
+```scss
+@use '@o3r/styling' as o3r;
+
+:root {
+  @include o3r.var('o3r-primary-color', #000, (description: 'My primary color used as website main color', label: 'My primary color', type: 'color', category: 'main color', tags: ('main', 'color', 'primary')));
+  // As details parameter is optional, it can be reduced to `@include o3r.var('o3r-primary-color', #000)`
+}
+```
+
+> **Note**: The mixin `o3r.var` is an alias of `o3r.define-var`.
+
+Please beware that the **mixin** `o3r.var` and the **function** `o3r.var` are similar and made to work in different contexts:
+
+```scss
+@use '@o3r/styling' as o3r;
+
+body {
+  $myVariable: o3r.var('my-color', #000);
+  background-color: $myVariable;
+}
+// will generate "background-color: var(--my-color, #000)" in CSS
+// the purpose is to be able to use the variable --my-color without defining it value (but using the default value)
+```
+
+```scss
+@use '@o3r/styling' as o3r;
+
+body {
+  @include o3r.var('my-color', #000);
+  background-color: o3r.var('my-color'); // equivalent to `--my-color`
+}
+// will generate "--my-color: #000" in CSS
+// the purpose is to be able to define the variable --my-color
+```
+
+In both cases the variable will be extracted to the metadata with the specified default value.
+
+### Override variable details
+
+Both the function and the mixin `o3r.var` can be used to override variable details.
+
+```scss
+@use '@o3r/styling' as o3r;
+
+// generate CSS variables from a theme:
+@include o3r.apply-theme($my-theme);
+
+:root {
+  // override the value and details of the variable "my-variable" from the theme:
+  @include o3r.var('my-variable', #000, (description: 'new description'));
+
+  // override only the details of the variable "my-variable" from the theme:
+  @include o3r.var('my-variable', null, (description: 'new description'));
+}
+
+// override only the details of the variable "my-variable" from the theme:
+$res: o3r.var('my-variable', null, (description: 'new description'));
+@debug "override details of #{$res}";
+```

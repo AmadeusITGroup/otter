@@ -1,0 +1,33 @@
+@use 'sass:meta';
+@use 'sass:map';
+
+/// Convert a Material Design theme into an Otter theme
+/// @param $meta-theme theme variable
+/// @access private
+@function _meta-theme-to-otter($meta-theme, $root-name) {
+  @if (meta.type-of($meta-theme) != map) {
+    @return (
+      variable: $root-name, // Deprecated, this is not used in the final theme calculation, will be removed in Otter v12
+      value: $meta-theme
+    );
+  }
+
+  @else {
+    $ret: $meta-theme;
+
+    @each $key, $value in $meta-theme {
+      $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
+      $new-value: _meta-theme-to-otter($value, $new-key);
+      $ret: map.merge($ret, ($key: $new-value));
+    }
+
+    @return $ret;
+  }
+}
+
+/// Convert a Meta theme to an Otter theme
+/// @deprecated
+/// @param {map} $meta-theme Meta theme
+@function meta-theme-to-otter($meta-theme: ()) {
+  @return _meta-theme-to-otter($meta-theme, '');
+}

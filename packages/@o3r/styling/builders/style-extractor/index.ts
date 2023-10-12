@@ -72,7 +72,7 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
         .filter((cssVar) => !!acc.variables[cssVar.name])
         .filter((cssVar) => !initialPreviousMetadata.variables[cssVar.name] && acc.variables[cssVar.name].defaultValue !== cssVar.defaultValue)
         .forEach((cssVar) =>
-          context.logger.warn(`Duplicate "${cssVar.name}" (${acc.variables[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`)
+          context.logger[options.ignoreDuplicateWarning ? 'debug' : 'warn'](`Duplicate "${cssVar.name}" (${acc.variables[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`)
         );
 
       // merge all variables form all the files
