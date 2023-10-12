@@ -74,7 +74,7 @@
     "@angular-eslint/eslint-plugin-template": "~16.2.0",
     "@angular-eslint/template-parser": "~16.2.0",
     "@angular/compiler": "~16.2.0",
-    "@nx/eslint-plugin": "~16.8.0",
+    "@nx/eslint-plugin": "~16.10.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
@@ -91,7 +91,7 @@
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "jsonc-eslint-parser": "~2.3.0",
-    "nx": "~16.8.0",
+    "nx": "~16.10.0",
     "typescript": "~5.1.6"
   },
   "peerDependenciesMeta": {

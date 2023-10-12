@@ -8,7 +8,6 @@ import { LibraryMetadataMap, LocalizationExtractor, LocalizationFileMap } from '
 import { LocalizationExtractorBuilderSchema } from './schema';
 import { validators } from './validations';
 
-
 export * from './schema';
 
 export default createBuilder<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
@@ -115,7 +114,6 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
 
   /**
    * Run a translation generation and report the result
-   *
    * @param execution Execution process
    */
   const generateWithReport = async (execution: Promise<BuilderOutput>) => {

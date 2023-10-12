@@ -5,6 +5,7 @@
     "jest.config.js",
     "testing/*",
     "tooling/**/*.js",
-    "schematics/**/*.ts"
+    "schematics/**/*.ts",
+    "builders/**/index.js"
   ]
 }
