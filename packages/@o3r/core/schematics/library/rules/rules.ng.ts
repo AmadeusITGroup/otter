@@ -12,7 +12,10 @@ import { updateNgPackagrFactory, updatePackageDependenciesFactory } from './shar
  * @param options.targetPath Path where the library has been generated
  * @param options Schematic options
  */
-export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath: string }): Rule {
+export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath: string; packageJsonName: string }): Rule {
+
+  const relativeTargetPath = options.targetPath.replace(/^\//, '');
+
   /**
    * Update Ng templates
    * @param tree File tree
@@ -40,7 +43,13 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
     return chain([
       mergeWith(templateNg, MergeStrategy.Overwrite),
       updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rCorePackageJson, options),
-      updateNgPackagrFactory(options.targetPath)
+      updateNgPackagrFactory(options.targetPath),
+      (t) => {
+        const packageJson = t.readJson(path.posix.join(options.targetPath, 'package.json')) as PackageJson;
+        packageJson.name = options.packageJsonName;
+        t.overwrite(path.posix.join(options.targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
+        return t;
+      }
     ])(tree, context);
   };
 
@@ -78,7 +87,9 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
     if (tsconfigBase) {
       const configFile = tree.readJson(tsconfigBase) as TsConfigJson;
       if (configFile?.compilerOptions?.paths) {
-        configFile.compilerOptions.paths[options.name] = [path.posix.join(options.path || '', options.name, 'src', 'public_api')];
+        configFile.compilerOptions.paths = Object.fromEntries(
+          Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
+        configFile.compilerOptions.paths[options.packageJsonName] = [path.posix.join(relativeTargetPath, 'src', 'public_api')];
         tree.overwrite(tsconfigBase, JSON.stringify(configFile, null, 2));
       } else {
         context.logger.warn(`${tsconfigBase} does not contain path mapping, the edition will be skipped`);
@@ -90,9 +101,11 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
     if (tsconfigBuild) {
       const configFile = tree.readJson(tsconfigBuild) as TsConfigJson;
       if (configFile?.compilerOptions?.paths) {
-        configFile.compilerOptions.paths[options.name] = [
-          path.posix.join(options.path || '', options.name, 'dist'),
-          path.posix.join(options.path || '', options.name, 'src', 'public_api')
+        configFile.compilerOptions.paths = Object.fromEntries(
+          Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
+        configFile.compilerOptions.paths[options.packageJsonName] = [
+          path.posix.join(relativeTargetPath, 'dist'),
+          path.posix.join(relativeTargetPath, 'src', 'public_api')
         ];
         tree.overwrite(tsconfigBuild, JSON.stringify(configFile, null, 2));
       } else {
@@ -105,7 +118,7 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
     return chain([
       (t, c) => externalSchematic('@schematics/angular', 'library', {
         name: options.name,
-        projectRoot: options.targetPath,
+        projectRoot: relativeTargetPath,
         prefix: options.prefix
       })(t, c),
       updateNgTemplate,

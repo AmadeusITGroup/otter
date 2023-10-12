@@ -1,5 +1,5 @@
 {
-  "name": "@<%=projectName%>/<%=projectPackageName%>/jest",
+  "name": "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/jest",
   "main": "../../cjs/api/fixtures.jest.js",
   "module": "../../esm2020/api/fixtures.jest.js",
   "es2020": "../../esm2020/api/fixtures.jest.js",
