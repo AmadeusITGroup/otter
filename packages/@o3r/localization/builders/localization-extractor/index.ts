@@ -86,6 +86,14 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
       try {
         await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.outputFile)), { recursive: true });
       } catch { }
+
+      const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
+      const projectRoot = specifiedRoot ? path.resolve(context.workspaceRoot, specifiedRoot) : context.currentDirectory;
+
+      metadata.forEach((data) => {
+        data.path = data.path && path.relative(projectRoot, data.path);
+      });
+
       await new Promise<void>((resolve, reject) =>
         fs.writeFile(
           path.resolve(context.workspaceRoot, options.outputFile),

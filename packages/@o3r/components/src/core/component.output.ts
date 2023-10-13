@@ -77,6 +77,8 @@ export interface ComponentClassOutput extends Output {
   placeholders?: PlaceholderData[];
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
+  /** Path to the localization file */
+  localizationPath?: string;
 }
 
 /**

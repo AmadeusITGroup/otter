@@ -14,6 +14,8 @@ export interface JSONLocalization {
   value?: string;
   /** Reference to another key. */
   ref?: string;
+  /** Path where the localization key is defined */
+  path?: string;
 }
 
 /** Localization Metadata file structure */

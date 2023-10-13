@@ -5,6 +5,11 @@
   "title": "Localization builder",
   "description": "Localization builder options",
   "properties": {
+    "name": {
+      "type": "string",
+      "description": "Library/Application name to be assigned into metadata",
+      "default": ""
+    },
     "tsConfig": {
       "type": "string",
       "description": "Typescript configuration file to build the application",

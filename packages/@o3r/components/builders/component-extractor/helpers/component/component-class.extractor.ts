@@ -28,6 +28,8 @@ export interface ComponentInformation {
   templateUrl?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
+  /** Path to the localization file */
+  localizationPath?: string;
 }
 
 /**
@@ -139,6 +141,7 @@ export class ComponentClassExtractor {
    */
   private getComponentInformation(classNode: ts.ClassDeclaration): ComponentInformation | undefined {
     const regExp = new RegExp(`^(${this.CONFIGURABLE_INTERFACES.join('|')})`);
+    let localizationPath: string | undefined;
     let configName: string | undefined;
     let contextName: string | undefined;
     let name: string | undefined;
@@ -187,7 +190,21 @@ export class ComponentClassExtractor {
       this.logger.debug(`${name!} is ignored because it is not a configurable component`);
     }
 
-    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, templateUrl, linkableToRuleset } : undefined;
+    (classNode.heritageClauses || []).forEach((heritageClause) => {
+      if (
+        !localizationPath
+        && heritageClause.types.some((t) =>
+          ts.isIdentifier(t.expression)
+          && t.expression.escapedText === 'Translatable')
+      ) {
+        const match = classNode.getText().match(/@Localization\(['"](.*)['"]\)/);
+        if (match) {
+          localizationPath = path.join(path.dirname(this.filePath), match[1]);
+        }
+      }
+    });
+
+    return name && type ? { name, localizationPath, configName, contextName, isDynamicConfig: isDynamic, type, selector, templateUrl, linkableToRuleset } : undefined;
   }
 
   /**

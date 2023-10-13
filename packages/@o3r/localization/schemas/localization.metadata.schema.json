@@ -26,6 +26,10 @@
           "description": {
             "type": "string",
             "description": "Description of the key. Used to give some context to the translators"
+          },
+          "path": {
+            "type": "string",
+            "description": "Path where the localization key is defined"
           }
         }
       },
@@ -40,6 +44,10 @@
         "then": { "required": ["key", "description", "dictionary"] },
         "else": { "required": ["key", "description", "dictionary", "value"] },
         "properties": {
+          "path": {
+            "type": "string",
+            "description": "Path where the localization key is defined"
+          },
           "key": {
             "type": "string",
             "description": "Key of the localized string"

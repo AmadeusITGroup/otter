@@ -1,6 +1,8 @@
 import type { JsonObject } from '@angular-devkit/core';
 
 export interface LocalizationExtractorBuilderSchema extends JsonObject {
+  /** Library/Application name to be assigned into metadata */
+  name: string;
 
   /** Typescript configuration file to build the application */
   tsConfig: string;

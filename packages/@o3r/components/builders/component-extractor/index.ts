@@ -78,7 +78,10 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         error: 'Parsing failed'
       };
     } else {
-      const componentExtractor = new ComponentExtractor(libraryName, options.libraries, context.logger, context.workspaceRoot, options.strictMode);
+      const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
+      const projectRoot = specifiedRoot ? path.resolve(context.workspaceRoot, specifiedRoot) : context.currentDirectory;
+      const componentExtractor = new ComponentExtractor(libraryName, options.libraries, context.logger, projectRoot, options.strictMode);
+
       try {
         context.reportProgress(3, STEP_NUMBER, 'Extracting component metadata');
         const componentMetadata = await componentExtractor.extract(parserOutput, options);

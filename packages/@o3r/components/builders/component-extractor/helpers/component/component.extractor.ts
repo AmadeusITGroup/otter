@@ -233,7 +233,8 @@ export class ComponentExtractor {
           type: parsedItemRef.component.type,
           context,
           config,
-          linkableToRuleset: parsedItemRef.component.linkableToRuleset
+          linkableToRuleset: parsedItemRef.component.linkableToRuleset,
+          localizationPath: parsedItemRef.component.localizationPath ? path.relative(this.workspaceRoot, parsedItemRef.component.localizationPath) : undefined
         };
 
       });

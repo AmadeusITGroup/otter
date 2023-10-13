@@ -221,7 +221,8 @@
     "extract-translations": {
       "executor": "@o3r/localization:extractor",
       "inputs": [
-        "source"
+        "source",
+        "{projectRoot}/src/**/*.localization.json"
       ],
       "outputs": [
         "{options.outputFile}"

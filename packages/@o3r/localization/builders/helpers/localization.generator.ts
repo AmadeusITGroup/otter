@@ -189,13 +189,15 @@ export class LocalizationExtractor {
    *
    * @param loc Localization item
    * @param key Key of the localization
+   * @param locFile File path where le localization item is defined
    */
-  private generateMetadataItemFromLocalization(loc: LocalizationJsonValue, key: string): JSONLocalization {
+  private generateMetadataItemFromLocalization(loc: LocalizationJsonValue, key: string, locFile: string): JSONLocalization {
     const res: JSONLocalization = {
       description: loc.description,
       dictionary: !!loc.dictionary,
       referenceData: !!loc.referenceData,
-      key
+      key,
+      path: locFile.replace(this.tsconfigPath, '')
     };
 
     if (loc.defaultValue || loc.defaultValue === '') {
@@ -248,7 +250,8 @@ export class LocalizationExtractor {
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
     const exclude: string[] = tsconfigResult.config.exclude || [];
     const cwd = path.resolve(path.dirname(this.tsconfigPath), tsconfigResult.config.rootDir || '.');
-    return {include, exclude, cwd };
+
+    return { include, exclude, cwd };
   }
 
   /**
@@ -390,7 +393,7 @@ export class LocalizationExtractor {
     Object.keys(localizationMap)
       .forEach((locFile) =>
         Object.keys(localizationMap[locFile].data)
-          .forEach((locKey) => addMetadata(this.generateMetadataItemFromLocalization(localizationMap[locFile].data[locKey], locKey), locFile))
+          .forEach((locKey) => addMetadata(this.generateMetadataItemFromLocalization(localizationMap[locFile].data[locKey], locKey, locFile), locFile))
       );
 
     const localizationMetadata = Object.keys(metadata).map((k) => metadata[k]);
