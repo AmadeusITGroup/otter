@@ -32,7 +32,7 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     const addModuleSpecificFiles = () => mergeWith(apply(url('./templates'), [
       template({
         ...options,
-        rootRelativePath: path.relative(targetPath, tree.root.path.replace(/^\//, './'))
+        rootRelativePath: path.posix.relative(targetPath, tree.root.path.replace(/^\//, './'))
       }),
       move(targetPath),
       renameTemplateFiles()

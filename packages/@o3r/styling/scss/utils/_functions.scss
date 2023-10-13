@@ -1,6 +1,7 @@
 @use 'sass:map';
 @use 'sass:meta';
 @use 'sass:list';
+@use "sass:string";
 
 /// Default value for error function
 /// By default, we fail during build time when encountering an error.
@@ -19,19 +20,6 @@ $test-mode-enabled: false !default;
   }
   @error $message;
 }
-
-/// Map containing the list of possible alternatives for each breakpoint if the value is missing from a property
-/// Ex. If there is no value for xxs on header-height property, the next alternative breakpoint is xs and if the latter
-/// is not available, it will be sm etc.
-/// @type map
-$alternative-breakpoints-map: (
-  xxs: xxs,
-  xs: xs xxs,
-  sm: sm xs xxs,
-  md: md sm xs xxs,
-  lg: lg md sm xs xxs,
-  xl: xl lg md sm xs xxs,
-);
 
 /// Return the tail of a list
 /// @param {list} $list - List to get teh tail
@@ -83,10 +71,25 @@ $alternative-breakpoints-map: (
 }
 
 /// Report variable creation for metadata
-@function log-variable($name, $value: null, $tags: null) {
+/// @access private
+@function log-variable($name, $value: null, $details: null) {
   $metadata-debug: false !default;
   @if (meta.function-exists('metadata-report')) {
-    $metadata-debug: metadata-report($name, $value, $tags);
+    $metadata-debug: metadata-report($name, $value, $details);
   }
   @return $metadata-debug;
+}
+
+/// Retrieve variable key from the variable name
+/// @access private
+/// @param {string} $name Name of the variable
+/// @return {string} formatted key
+@function get-var-key($name) {
+  $key: $name;
+
+  @if (string.slice($name, 1, 2) == '--') {
+    $key: string.slice($name, 3);
+  }
+
+  @return $key;
 }

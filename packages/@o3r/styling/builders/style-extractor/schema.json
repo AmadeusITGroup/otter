@@ -39,6 +39,11 @@
       "type": "boolean",
       "description": "Write metadata inline",
       "default": false
+    },
+    "ignoreDuplicateWarning": {
+      "type": "boolean",
+      "description": "Will not display warning for duplicated variable",
+      "default": false
     }
   },
   "additionalProperties": false,

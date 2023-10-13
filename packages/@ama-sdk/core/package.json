@@ -47,7 +47,6 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@o3r/schematics": "workspace:^",
     "@swc/helpers": "^0.5.0",
     "tslib": "^2.5.3",
     "uuid": "^9.0.0"
@@ -56,6 +55,7 @@
     "@angular-devkit/schematics": "~16.2.0",
     "@angular/cli": "~16.2.0",
     "@angular/common": "~16.2.0",
+    "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~16.2.0",
     "isomorphic-fetch": "^3.0.0",
     "rxjs": "^7.8.1",
@@ -69,6 +69,9 @@
       "optional": true
     },
     "@angular/common": {
+      "optional": true
+    },
+    "@o3r/schematics": {
       "optional": true
     },
     "@schematics/angular": {

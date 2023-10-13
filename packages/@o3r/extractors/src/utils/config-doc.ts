@@ -1,5 +1,5 @@
 import { DocComment, TSDocConfiguration, TSDocParser, TSDocTagDefinition, TSDocTagSyntaxKind } from '@microsoft/tsdoc';
-import type { CategoryDescription } from '@o3r/core';
+import type { CategoryDescription, ConfigPropertyWidget, ConfigPropertyWidgetParameters } from '@o3r/core';
 import * as ts from 'typescript';
 import { getInlineBlockTagContentFromDocComment, getInlineSummaryFromDocComment, getTsDocTextFromNode } from './tsdoc';
 
@@ -23,6 +23,9 @@ export interface ConfigDocInformation {
 
   /** Category (taken from <o3rCategories> tag) */
   categories?: CategoryDescription[];
+
+  /** Widget information (taken from @o3rWidget and @o3rWidgetParam tag) */
+  widget?: ConfigPropertyWidget;
 }
 
 /**
@@ -43,6 +46,46 @@ export function getDescriptionFromDocComment(docComment: DocComment): string {
  */
 export function getTitleFromDocComment(docComment: DocComment): string | undefined {
   return getInlineBlockTagContentFromDocComment(docComment, '@title');
+}
+
+/**
+ * Get widget information from a given DocComment.
+ *
+ * The widget information are extracted from @o3rWidget and @o3rWidgetParam tag.
+ *
+ * @param docText The tsdoc text to get widget information from
+ */
+export function getWidgetInformationFromDocComment(docText: string): ConfigPropertyWidget | undefined {
+  const widgetType = docText.match(/@o3rWidget (.*)/)?.[1].trim();
+  if (!widgetType) {
+    return;
+  }
+
+  const widgetParameters = Array.from(docText.matchAll(/@o3rWidgetParameter (.*)/g))
+    .map((match) => match[1].trim())
+    .reduce((acc: ConfigPropertyWidgetParameters, text) => {
+      const firstSpaceIndex = text.indexOf(' ');
+      if (firstSpaceIndex < 1) {
+        return acc;
+      }
+      const paramName = text.slice(0, firstSpaceIndex);
+      const valueText = text.slice(firstSpaceIndex + 1);
+
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        acc[paramName] = JSON.parse(valueText);
+      } catch (e: any) {
+        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+        throw new Error(`Invalid JSON format:  ${valueText}\n${e.toString()}`);
+      }
+
+      return acc;
+    }, {});
+
+  return {
+    type: widgetType,
+    parameters: Object.keys(widgetParameters || {}).length ? widgetParameters : undefined
+  };
 }
 
 /**
@@ -162,7 +205,8 @@ export class ConfigDocParser {
         label: getLabelFromDocText(docText),
         tags: getTagsFromDocComment(docComment),
         category: getCategoryFromDocText(docText),
-        categories: getCategoriesFromDocText(docText)
+        categories: getCategoriesFromDocText(docText),
+        widget: getWidgetInformationFromDocComment(docText)
       };
     }
   }

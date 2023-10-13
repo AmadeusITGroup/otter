@@ -80,7 +80,6 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@swc/cli": ^0.1.57
     "@swc/core": ^1.3.66
@@ -115,6 +114,7 @@ __metadata:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/cli": ~16.2.0
     "@angular/common": ~16.2.0
+    "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     isomorphic-fetch: ^3.0.0
     rxjs: ^7.8.1
@@ -125,6 +125,8 @@ __metadata:
     "@angular/cli":
       optional: true
     "@angular/common":
+      optional: true
+    "@o3r/schematics":
       optional: true
     "@schematics/angular":
       optional: true
@@ -8483,7 +8485,7 @@ __metadata:
     "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@playwright/test": ~1.38.0
+    "@playwright/test": ~1.39.0
     "@popperjs/core": ^2.11.5
     "@schematics/angular": ~16.2.0
     "@types/bootstrap": ^5.2.6
@@ -8781,7 +8783,6 @@ __metadata:
     pid-from-port: ^1.1.3
     rxjs: ^7.8.1
     sass: ~1.69.0
-    sass-true: ^7.0.0
     semver: ^7.5.2
     stylelint: ^15.10.1
     stylelint-scss: ^4.0.0
@@ -8801,6 +8802,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     rxjs: ^7.8.1
+    sass: ~1.69.0
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
@@ -8809,6 +8811,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
+      optional: true
+    sass:
       optional: true
   languageName: unknown
   linkType: soft
@@ -8893,7 +8897,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@playwright/test": ~1.38.0
+    "@playwright/test": ~1.39.0
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
@@ -8942,7 +8946,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@playwright/test": ~1.38.0
+    "@playwright/test": ~1.39.0
     "@schematics/angular": ~16.2.0
     pixelmatch: ^5.2.1
     pngjs: ^7.0.0
@@ -9453,14 +9457,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@playwright/test@npm:~1.38.0":
-  version: 1.38.1
-  resolution: "@playwright/test@npm:1.38.1"
+"@playwright/test@npm:~1.39.0":
+  version: 1.39.0
+  resolution: "@playwright/test@npm:1.39.0"
   dependencies:
-    playwright: 1.38.1
+    playwright: 1.39.0
   bin:
     playwright: cli.js
-  checksum: c5ec0b23261fe1ef163b6234f69263bc10e7e5a3fb676c7773ffc70b87459a7ab225f57c03b9de649475771638a04c2e00d9b2739304a4dcf5d3edf20a7a4a82
+  checksum: e93e58fc1af4239f239b890374f066c9a758e2492d25e2c1a532f3f00782ab8e7706956a07540fd14882c74e75f5de36273621adce9b79afb8e36e6c15f1d539
   languageName: node
   linkType: hard
 
@@ -10752,13 +10756,6 @@ __metadata:
   dependencies:
     "@types/node": "*"
   checksum: fe81351470f2d3165e8b12ce33542eef89ea893e36dd62e8f7d72566dfb7e448376ae962f9f3ea888547ce8b55a40020ca0e01d637fab5d99567673084542641
-  languageName: node
-  linkType: hard
-
-"@types/css@npm:^0.0.33":
-  version: 0.0.33
-  resolution: "@types/css@npm:0.0.33"
-  checksum: 2dd93e3638a0f1c0cbd143188ce760efb2fedfe74cbc16b1848f202fd047ba55f2fc33de085777910228abe4e9221b7b30aaec83ff7128bce2f0a0966435dd4b
   languageName: node
   linkType: hard
 
@@ -12993,15 +12990,6 @@ __metadata:
   version: 1.0.0
   resolution: "at-least-node@npm:1.0.0"
   checksum: 463e2f8e43384f1afb54bc68485c436d7622acec08b6fad269b421cb1d29cebb5af751426793d0961ed243146fe4dc983402f6d5a51b720b277818dbf6f2e49e
-  languageName: node
-  linkType: hard
-
-"atob@npm:^2.1.2":
-  version: 2.1.2
-  resolution: "atob@npm:2.1.2"
-  bin:
-    atob: bin/atob.js
-  checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
   languageName: node
   linkType: hard
 
@@ -15572,17 +15560,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "css@npm:3.0.0"
-  dependencies:
-    inherits: ^2.0.4
-    source-map: ^0.6.1
-    source-map-resolve: ^0.6.0
-  checksum: 4273ac816ddf99b99acb9c1d1a27d86d266a533cc01118369d941d8e8a78277a83cad3315e267a398c509d930fbb86504e193ea1ebc620a4a4212e06fe76e8be
-  languageName: node
-  linkType: hard
-
 "cssesc@npm:^3.0.0":
   version: 3.0.0
   resolution: "cssesc@npm:3.0.0"
@@ -15857,13 +15834,6 @@ __metadata:
   version: 10.4.3
   resolution: "decimal.js@npm:10.4.3"
   checksum: 796404dcfa9d1dbfdc48870229d57f788b48c21c603c3f6554a1c17c10195fc1024de338b0cf9e1efe0c7c167eeb18f04548979bcc5fdfabebb7cc0ae3287bae
-  languageName: node
-  linkType: hard
-
-"decode-uri-component@npm:^0.2.0":
-  version: 0.2.2
-  resolution: "decode-uri-component@npm:0.2.2"
-  checksum: 95476a7d28f267292ce745eac3524a9079058bbb35767b76e3ee87d42e34cd0275d2eb19d9d08c3e167f97556e8a2872747f5e65cbebcac8b0c98d83e285f139
   languageName: node
   linkType: hard
 
@@ -20854,7 +20824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-diff@npm:^29.3.1, jest-diff@npm:^29.7.0":
+"jest-diff@npm:^29.7.0":
   version: 29.7.0
   resolution: "jest-diff@npm:29.7.0"
   dependencies:
@@ -25322,27 +25292,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:1.38.1":
-  version: 1.38.1
-  resolution: "playwright-core@npm:1.38.1"
+"playwright-core@npm:1.39.0":
+  version: 1.39.0
+  resolution: "playwright-core@npm:1.39.0"
   bin:
     playwright-core: cli.js
-  checksum: 66e83fe040f309b13ad94ba39dea40ac207bfcbbc22de13141af88dbdedd64e1c4e3ce1d0cb070d4efd8050d7e579953ec3681dd8a0acf2c1cc738d9c50e545e
+  checksum: 556e78dee4f9890facf2af8249972e0d6e01a5ae98737b0f6b0166c660a95ffee4cb79350335b1ef96430a0ef01d3669daae9099fa46c8d403d11c623988238b
   languageName: node
   linkType: hard
 
-"playwright@npm:1.38.1":
-  version: 1.38.1
-  resolution: "playwright@npm:1.38.1"
+"playwright@npm:1.39.0":
+  version: 1.39.0
+  resolution: "playwright@npm:1.39.0"
   dependencies:
     fsevents: 2.3.2
-    playwright-core: 1.38.1
+    playwright-core: 1.39.0
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     playwright: cli.js
-  checksum: 4e01d4ee52d9ccf75a80d8492829106802590721d56bff7c5957ff1f21eb3c328ee5bc3c1784a59c4b515df1b98d08ef92e4a35a807f454cd00dc481d30fadc2
+  checksum: 96d8ca5aa25465c1c5d554d0d6071981d55e22477800ff8f5d47a53ca75193d60ece2df538a01b7165b3277dd5493c67603a5acda713029df7fbd95ce2417bc9
   languageName: node
   linkType: hard
 
@@ -27345,20 +27315,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-true@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "sass-true@npm:7.0.0"
-  dependencies:
-    "@types/css": ^0.0.33
-    css: ^3.0.0
-    jest-diff: ^29.3.1
-    lodash: ^4.17.21
-  peerDependencies:
-    sass: ">=1.45.0"
-  checksum: 2af304dc45628d776a572eb6a381e297d2e357d90abf2086c26af6a1f73c4eaea76760561f4067b8de82afcde60852c58d89769ef3c6122c8e620c32d35dc308
-  languageName: node
-  linkType: hard
-
 "sass@npm:1.64.1":
   version: 1.64.1
   resolution: "sass@npm:1.64.1"
@@ -28034,16 +27990,6 @@ __metadata:
   peerDependencies:
     webpack: ^5.0.0
   checksum: d5a4e2ab190c93ae5cba68c247fbaa9fd560333c91060602b634c399a8a4b3205b8c07714c3bcdb0a11c6cc5476c06256bd8e824e71fbbb7981e8fad5cba4a00
-  languageName: node
-  linkType: hard
-
-"source-map-resolve@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "source-map-resolve@npm:0.6.0"
-  dependencies:
-    atob: ^2.1.2
-    decode-uri-component: ^0.2.0
-  checksum: fe503b9e5dac1c54be835282fcfec10879434e7b3ee08a9774f230299c724a8d403484d9531276d1670c87390e0e4d1d3f92b14cca6e4a2445ea3016b786ecd4
   languageName: node
   linkType: hard
 
