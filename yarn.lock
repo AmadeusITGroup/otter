@@ -109,7 +109,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/cli": ~16.2.0
@@ -6037,12 +6037,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/nx-cloud@npm:16.5.2":
-  version: 16.5.2
-  resolution: "@nrwl/nx-cloud@npm:16.5.2"
+"@nrwl/nx-cloud@npm:16.4.0":
+  version: 16.4.0
+  resolution: "@nrwl/nx-cloud@npm:16.4.0"
   dependencies:
-    nx-cloud: 16.5.2
-  checksum: 6bbd8f90dd5309e266617930660177fb1a22798f24bf657ee9948cd242abae6d93aaa9deb2dcae4d494d32376972c284813d714fc9ab7d84fab5b53214e32cfa
+    nx-cloud: 16.4.0
+  checksum: d72db82bcc0fa07547fc8388069ca012d974803922600885088ef5321f5f92d3944c6b4c005f98d540a414a8c2a53a57a0e365a33df3e0656c6b4ac7d2f1cf64
   languageName: node
   linkType: hard
 
@@ -6625,7 +6625,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
@@ -6704,7 +6704,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/schematics": ~16.2.0
@@ -6775,7 +6775,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -6893,7 +6893,7 @@ __metadata:
     tsc-watch: ^6.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -6959,7 +6959,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/schematics": ~16.2.0
@@ -7060,7 +7060,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
@@ -7161,7 +7161,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
@@ -7368,7 +7368,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular/compiler-cli": ~16.2.0
@@ -7574,7 +7574,7 @@ __metadata:
     typedoc: ~0.25.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -7637,7 +7637,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
     "@angular/common": ~16.2.0
@@ -7725,7 +7725,7 @@ __metadata:
     ng-packagr: ~16.2.0
     npm-run-all: ^4.1.5
     nx: ~16.10.0
-    nx-cloud: ~16.5.0
+    nx-cloud: ~16.4.0
     postcss: ~8.4.31
     postcss-scss: ~4.0.9
     react: ^17.0.2
@@ -7746,7 +7746,7 @@ __metadata:
     typescript: ~5.1.6
     webpack: ~5.88.0
     winston: ^3.8.2
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -7802,7 +7802,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -7871,7 +7871,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -7967,7 +7967,7 @@ __metadata:
     smartlook-client: ^8.0.0
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/core": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
@@ -8055,7 +8055,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     winston: ^3.8.2
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
@@ -8138,7 +8138,7 @@ __metadata:
     rxjs: ^7.8.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
@@ -8235,7 +8235,7 @@ __metadata:
     type-fest: ^3.12.0
     typescript: ~5.1.6
     typescript-json-schema: ~0.61.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8337,7 +8337,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8440,7 +8440,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     webpack: ~5.88.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -8492,7 +8492,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8577,7 +8577,7 @@ __metadata:
     ts-jest: ~29.1.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8709,7 +8709,7 @@ __metadata:
     ts-node: ~10.9.1
     tslib: ^2.5.3
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
@@ -8853,7 +8853,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.6.0
     "@angular-devkit/schematics": ~16.2.0
@@ -8951,7 +8951,7 @@ __metadata:
     tslib: ^2.5.3
     typescript: ~5.1.6
     uuid: ^9.0.0
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/schematics": ~16.2.0
     "@o3r/core": "workspace:^"
@@ -23984,11 +23984,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx-cloud@npm:16.5.2, nx-cloud@npm:~16.5.0":
-  version: 16.5.2
-  resolution: "nx-cloud@npm:16.5.2"
+"nx-cloud@npm:16.4.0, nx-cloud@npm:~16.4.0":
+  version: 16.4.0
+  resolution: "nx-cloud@npm:16.4.0"
   dependencies:
-    "@nrwl/nx-cloud": 16.5.2
+    "@nrwl/nx-cloud": 16.4.0
     axios: 1.1.3
     chalk: ^4.1.0
     dotenv: ~10.0.0
@@ -24000,7 +24000,7 @@ __metadata:
     yargs-parser: ">=21.1.1"
   bin:
     nx-cloud: bin/nx-cloud.js
-  checksum: 0b5bcc86eef842b87ed74aafdf56733b8cbc9d75c28ff778ab4d87838e3597cd86baf5cbf76ce49e35e3601a2dca930854d52eb12e03a0f40a7d7d072057f42c
+  checksum: 41319b77ea3c2a9a80610d50eb52a43f6d86fe84233373697930a6aa887350295785739c9b68cb56f5be60928d67549fa5ec8af3a8091c68851c2758ed5f4dfe
   languageName: node
   linkType: hard
 
@@ -24431,7 +24431,7 @@ __metadata:
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
     typescript: ~5.1.6
-    zone.js: ~0.14.0
+    zone.js: ~0.13.1
   languageName: unknown
   linkType: soft
 
@@ -31317,11 +31317,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zone.js@npm:~0.14.0":
-  version: 0.14.0
-  resolution: "zone.js@npm:0.14.0"
+"zone.js@npm:~0.13.1":
+  version: 0.13.3
+  resolution: "zone.js@npm:0.13.3"
   dependencies:
     tslib: ^2.3.0
-  checksum: 8a1c055ff1f3da6e80f27bdc1b3a69cdb0098194ddfd9d9cee19414d5e00f09863f53a5746835ab711ef94bb828f44e4fe9f6c1491a0981dbcd13d3b88f5d997
+  checksum: 73888a51b0299b4b56c56b97c71fe4a3548a9bdb9e4b4c49dd0e110a4487fbe7f141c08d3e3acff875a6fbb6d581750209ac767ae5d82dca0636ede41aebd436
   languageName: node
   linkType: hard

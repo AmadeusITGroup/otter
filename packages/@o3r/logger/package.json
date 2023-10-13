@@ -97,7 +97,7 @@
     "rxjs": "^7.8.1",
     "smartlook-client": "^8.0.0",
     "typescript": "~5.1.6",
-    "zone.js": "~0.14.0"
+    "zone.js": "~0.13.1"
   },
   "engines": {
     "node": ">=18.0.0"

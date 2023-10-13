@@ -132,7 +132,7 @@
     "@angular/platform-browser": "~16.2.0",
     "rxjs": "^7.8.1",
     "tslib": "^2.5.3",
-    "zone.js": "~0.14.0"
+    "zone.js": "~0.13.1"
   },
   "devDependencies": {
     "@actions/core": "^1.10.0",
@@ -200,7 +200,7 @@
     "ng-packagr": "~16.2.0",
     "npm-run-all": "^4.1.5",
     "nx": "~16.10.0",
-    "nx-cloud": "~16.5.0",
+    "nx-cloud": "~16.4.0",
     "postcss": "~8.4.31",
     "postcss-scss": "~4.0.9",
     "react": "^17.0.2",
