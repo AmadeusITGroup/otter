@@ -45,9 +45,10 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
       updatePackageDependenciesFactory(options.targetPath, otterVersion!, o3rCorePackageJson, options),
       updateNgPackagrFactory(options.targetPath),
       (t) => {
-        const packageJson = t.readJson(path.posix.join(options.targetPath, 'package.json')) as PackageJson;
+        const genPackageJsonPath = path.posix.join(options.targetPath, 'package.json');
+        const packageJson = t.readJson(genPackageJsonPath) as PackageJson;
         packageJson.name = options.packageJsonName;
-        t.overwrite(path.posix.join(options.targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
+        t.overwrite(genPackageJsonPath, JSON.stringify(packageJson, null, 2));
         return t;
       }
     ])(tree, context);
