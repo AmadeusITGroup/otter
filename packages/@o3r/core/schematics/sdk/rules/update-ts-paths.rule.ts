@@ -30,10 +30,10 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
 
     configWithPath.content.compilerOptions ||= {};
     configWithPath.content.compilerOptions.paths ||= {};
-    configWithPath.content.compilerOptions.paths[`${scope ? '@' + scope + '/' : ''}${projectName}`] = [
+    configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}`] = [
       `${relativeTargetPath}/src/index`
     ];
-    configWithPath.content.compilerOptions.paths[`${scope ? '@' + scope + '/' : ''}${projectName}/*`] = [
+    configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/*`] = [
       `${relativeTargetPath}/src/*`
     ];
 
