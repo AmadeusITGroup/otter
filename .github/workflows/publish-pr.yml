@@ -36,6 +36,7 @@ jobs:
     permissions:
       packages: write
       contents: read
+      id-token: write
     secrets: inherit
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
