@@ -1,5 +1,5 @@
 {
-  "name": "@<%=projectName%>/<%=projectPackageName%>",
+  "name": "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>",
   "version": "0.0.0-placeholder",
   "description": "<%=projectPackageName%> - SDK",
   "source": "src/index.ts",

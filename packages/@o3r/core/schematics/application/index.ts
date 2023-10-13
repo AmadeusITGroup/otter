@@ -14,14 +14,15 @@ import { Style } from '@schematics/angular/application/schema';
  * @param options Schematic options
  */
 export function generateApplication(options: NgGenerateApplicationSchema): Rule {
-  const cleanName = strings.dasherize(options.name);
+  const packageJsonName = strings.dasherize(options.name);
+  const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
   const addProjectSpecificFiles = (targetPath: string, rootDependencies: Record<string, string | undefined>) => {
 
     return mergeWith(apply(url('./templates'), [
       template({
         ...options,
-        name: cleanName,
+        name: packageJsonName,
         rootDependencies
       }),
       move(targetPath),

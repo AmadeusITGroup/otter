@@ -12,7 +12,7 @@ import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
  * @param options
  * @param rootPath
  */
-export function nxGenerateModule(options: NgGenerateModuleSchema): Rule {
+export function nxGenerateModule(options: NgGenerateModuleSchema & {packageJsonName: string}): Rule {
 
   /**
    * Determine the path where NX schematic will generate the package
@@ -107,6 +107,7 @@ export function nxGenerateModule(options: NgGenerateModuleSchema): Rule {
       updateNgPackagrFactory(targetPath),
       (t) => {
         const packageJson = t.readJson(path.posix.join(targetPath, 'package.json')) as PackageJson;
+        packageJson.name = options.packageJsonName;
         packageJson.scripts ||= {};
         packageJson.scripts.ng = 'nx';
         t.overwrite(path.posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
@@ -118,8 +119,8 @@ export function nxGenerateModule(options: NgGenerateModuleSchema): Rule {
   const nxCliUpdate: Rule = (tree, context) => {
     const mem: Record<string, Buffer | null> = savePreCommandContent(tree);
     const config: Record<string, any> = {
-      name: options.name.replace(/^@/, '').replace('/', '-'),
-      importPath: options.name,
+      name: options.name,
+      importPath: options.packageJsonName,
       buildable: true,
       publishable: true
     };
