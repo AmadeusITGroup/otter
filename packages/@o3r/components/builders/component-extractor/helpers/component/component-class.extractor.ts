@@ -1,5 +1,6 @@
 import { logging } from '@angular-devkit/core';
 import type { ComponentStructure } from '@o3r/components';
+import { isO3rClassComponent } from '@o3r/schematics';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 
@@ -226,7 +227,7 @@ export class ComponentClassExtractor {
     let componentInfo: ComponentInformation | undefined;
 
     this.source.forEachChild((node) => {
-      if (!componentInfo && ts.isClassDeclaration(node)) {
+      if (!componentInfo && ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
         componentInfo = this.getComponentInformation(node);
       }
     });
