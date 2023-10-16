@@ -2,7 +2,6 @@ import { logging } from '@angular-devkit/core';
 import type {
   ComponentClassOutput,
   ComponentConfigOutput,
-  ComponentModuleOutput,
   ComponentOutput,
   ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
@@ -28,12 +27,6 @@ export class ComponentExtractor {
 
   /** List of the loaded libraries component outputs*/
   private libComponentClassOutputs?: ComponentClassOutput[][];
-
-  /**
-   * List of extracted modules
-   * @deprecated will be removed in v10
-   */
-  private modules?: { [component: string]: ComponentModuleOutput };
 
   /**
    * @param libraryName The name of the library/app on which the extractor is run
@@ -178,28 +171,6 @@ export class ComponentExtractor {
   }
 
   /**
-   * Consolidate the modules data to the final format.
-   *
-   * @param parsedData Data extracted from the source code
-   * @deprecated will be removed in v10
-   */
-  private consolidateModules(parsedData: ParserOutput) {
-    return Object.keys(parsedData.modules)
-      .reduce<Record<string, any>>((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
-        const parsedItemRef = parsedData.modules[moduleUrl];
-
-        parsedItemRef.module.exportedItems.forEach((exportedItem) => {
-          acc[exportedItem] = {
-            name: parsedItemRef.module.name,
-            path: moduleUrl
-          };
-        });
-
-        return acc;
-      }, {});
-  }
-
-  /**
    * Consolidate the components data to the final format
    *
    * @param parsedData Data extracted from the source code
@@ -211,7 +182,6 @@ export class ComponentExtractor {
     const res: ComponentClassOutput[] = Object.keys(parsedData.components)
       .map((componentUrl): ComponentClassOutput => {
         const parsedItemRef = parsedData.components[componentUrl];
-        const module = this.modules ? this.modules[parsedItemRef.component.name] : undefined;
         const context = parsedItemRef.component.contextName ? {
           library,
           name: parsedItemRef.component.contextName
@@ -224,11 +194,6 @@ export class ComponentExtractor {
           library,
           name: parsedItemRef.component.name,
           path: path.relative(this.workspaceRoot, parsedItemRef.file),
-          templatePath: parsedItemRef.component.templateUrl ?
-            path.relative(this.workspaceRoot, path.join(path.dirname(parsedItemRef.file), parsedItemRef.component.templateUrl.replace(/[\\/]/g, '/'))) :
-            '',
-          moduleName: module ? module.name : '',
-          modulePath: module ? path.relative(this.workspaceRoot, module.path) : '',
           selector: parsedItemRef.component.selector || '',
           type: parsedItemRef.component.type,
           context,
@@ -325,8 +290,6 @@ export class ComponentExtractor {
     configurations = Array.from((new Map(configurations.map((c) => {
       return [this.hashConfiguration(c), c];
     }))).values());
-
-    this.modules = this.consolidateModules(parserOutput);
 
     let placeholderMetadataFile;
     if (options.placeholdersMetadataFilePath) {

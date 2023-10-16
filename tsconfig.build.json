@@ -19,6 +19,8 @@
       "@o3r/analytics/*": ["packages/@o3r/analytics/dist/*", "packages/@o3r/analytics/*"],
       "@o3r/apis-manager": ["packages/@o3r/apis-manager/dist", "packages/@o3r/apis-manager/src/public_api"],
       "@o3r/application": ["packages/@o3r/application/dist", "packages/@o3r/application/src/public_api"],
+      "@o3r/artifactory-tools": ["packages/@o3r/artifactory-tools/dist", "packages/@o3r/artifactory-tools/src/public_api"],
+      "@o3r/azure-tools": ["packages/@o3r/azure-tools/dist", "packages/@o3r/azure-tools/src/public_api"],
       "@o3r/components": ["packages/@o3r/components/dist", "packages/@o3r/components/src/public_api"],
       "@o3r/configuration": ["packages/@o3r/configuration/dist", "packages/@o3r/configuration/src/public_api"],
       "@o3r/core": ["packages/@o3r/core/dist", "packages/@o3r/core/src/public_api"],
