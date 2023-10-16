@@ -7573,7 +7573,7 @@ __metadata:
     type-fest: ^3.12.0
     typedoc: ~0.25.0
     typescript: ~5.1.6
-    typescript-json-schema: ~0.61.0
+    typescript-json-schema: ~0.62.0
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/core": ~16.2.0
@@ -8234,7 +8234,7 @@ __metadata:
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
-    typescript-json-schema: ~0.61.0
+    typescript-json-schema: ~0.62.0
     zone.js: ~0.13.1
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
@@ -8262,7 +8262,7 @@ __metadata:
     jsonpath-plus: ^7.0.0
     rxjs: ^7.8.1
     typescript: ~5.1.6
-    typescript-json-schema: ~0.61.0
+    typescript-json-schema: ~0.62.0
   peerDependenciesMeta:
     "@angular-devkit/core":
       optional: true
@@ -29700,9 +29700,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript-json-schema@npm:~0.61.0":
-  version: 0.61.0
-  resolution: "typescript-json-schema@npm:0.61.0"
+"typescript-json-schema@npm:~0.62.0":
+  version: 0.62.0
+  resolution: "typescript-json-schema@npm:0.62.0"
   dependencies:
     "@types/json-schema": ^7.0.9
     "@types/node": ^16.9.2
@@ -29714,7 +29714,7 @@ __metadata:
     yargs: ^17.1.1
   bin:
     typescript-json-schema: bin/typescript-json-schema
-  checksum: 8359d5ca8ebcb96dca9cd968b46ea21da40a92ee872a44a7b5c6c8f8f4cd1ffbd0ea457752f3be7d44379ea286ccfaee1d40ab1810321ee45d0ecece80ed45ed
+  checksum: 0b0ba8f86456e7bd0b2d35d3c74a6cb72b168e779352398956d4f237eff011ec2a30b0ab1b3932bd5ceab99e1ea7bc6cc7158e49d49f24daeaf11771c27c7771
   languageName: node
   linkType: hard
 
