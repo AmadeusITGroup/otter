@@ -26,7 +26,7 @@
 }
 
 /// Convert a Meta theme to an Otter theme
-/// @deprecated
+/// @access public
 /// @param {map} $meta-theme Meta theme
 @function meta-theme-to-otter($meta-theme: ()) {
   @return _meta-theme-to-otter($meta-theme, '');
