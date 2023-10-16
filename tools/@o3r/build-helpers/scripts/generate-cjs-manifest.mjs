@@ -12,7 +12,7 @@ const argv = minimist(process.argv.slice(2));
 const cwd = argv.root ? path.resolve(process.cwd(), argv.root) : process.cwd();
 
 const outDir = path.resolve(cwd, argv.outDir || 'dist/');
-const /** @type {string[]} */ folders = (argv._?.length > 0 ? argv._ : ['schematics', 'builders']).map((folder) => path.resolve(outDir, folder));
+const /** @type {string[]} */ folders = (argv._?.length > 0 ? argv._ : ['schematics', 'builders', 'cli']).map((folder) => path.resolve(outDir, folder));
 
 void (async () => {
   const promises = folders.map(async (folder) => {

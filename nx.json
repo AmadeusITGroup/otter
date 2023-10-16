@@ -26,6 +26,7 @@
           "prepare",
           "compile",
           "build",
+          "build-cli",
           "build-cjs",
           "build-esm2015",
           "build-esm2020",
@@ -95,6 +96,11 @@
       "{projectRoot}/migration.json",
       "{projectRoot}/collection.json",
       "{projectRoot}/schematics/**/*",
+      "{projectRoot}/package.json"
+    ],
+    "cli": [
+      "global",
+      "{projectRoot}/cli/**/*",
       "{projectRoot}/package.json"
     ],
     "middlewares": [
@@ -259,6 +265,25 @@
         "{projectRoot}/dist/schemas/**/*.json",
         "{projectRoot}/dist/schematics/**/*.json",
         "{projectRoot}/dist/schematics/**/templates/**"
+      ]
+    },
+    "build-cli": {
+      "dependsOn": [
+        "^build",
+        "compile"
+      ],
+      "inputs": [
+        "cli",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist/cli/package.json",
+        "{projectRoot}/dist/cli/**/*.cjs",
+        "{projectRoot}/dist/cli/**/*.d.cts",
+        "{projectRoot}/dist/cli/**/*.d.cts.map",
+        "{projectRoot}/dist/cli/**/*.js",
+        "{projectRoot}/dist/cli/**/*.d.ts",
+        "{projectRoot}/dist/cli/**/*.d.ts.map"
       ]
     },
     "build-builders": {
