@@ -22,7 +22,7 @@
       "sass": "./_index.scss"
     },
     "./otter-theme": {
-      "sass": "./theming/otter-theme/_index.scss"
+      "sass": "./scss/theming/otter-theme/_index.scss"
     }
   },
   "peerDependencies": {
