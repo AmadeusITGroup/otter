@@ -7,7 +7,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "test": "yarn nx test ama-sdk-schematics",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection}.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection,migration}.json' dist",
     "build": "yarn nx build ama-sdk-schematics",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "install-swagger-cli": "mvn install:install-file -DgroupId=io.swagger -DartifactId=swagger-codegen-cli -Dversion=2.4.0-AMADEUS -Dpackaging=jar -Dfile=./schematics/resources/swagger-codegen-cli.jar",
@@ -15,6 +15,12 @@
     "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
     "build:swagger-java-client-gen": "mvn clean package -f ./schematics/java/client-core/swagger-codegen-java-client/pom.xml",
     "prepare:publish": "prepare-publish ./dist"
+  },
+  "ng-update": {
+    "migrations": "./migration.json",
+    "packageGroup": [
+      "@ama-sdk/core"
+    ]
   },
   "schematics": "./collection.json",
   "keywords": [
@@ -75,6 +81,7 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "copyfiles": "^2.4.1",
+    "cpy": "~10.1.0",
     "cpy-cli": "^4.2.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",

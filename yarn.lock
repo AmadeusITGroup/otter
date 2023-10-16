@@ -85,11 +85,14 @@ __metadata:
     "@swc/core": ^1.3.85
     "@swc/helpers": ^0.5.0
     "@types/jest": ~29.5.2
+    "@types/minimist": ^1.2.2
     "@types/node": ^18.0.0
     "@types/uuid": ^9.0.0
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
+    chokidar: ^3.5.2
     copyfiles: ^2.4.1
+    cpy: ~10.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -102,11 +105,13 @@ __metadata:
     jest: ~29.7.0
     jest-junit: ~16.0.0
     jsonc-eslint-parser: ~2.3.0
+    minimist: ^1.2.6
     rimraf: ^5.0.1
     rxjs: ^7.8.1
     ts-jest: ~29.1.1
     ts-node: ~10.9.1
     tslib: ^2.5.3
+    type-fest: ^3.12.0
     typescript: ~5.1.6
     uuid: ^9.0.0
     zone.js: ~0.13.1
@@ -116,7 +121,11 @@ __metadata:
     "@angular/common": ~16.2.0
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
+    chokidar: ^3.5.2
+    cpy: ~10.1.0
+    globby: ^11.1.0
     isomorphic-fetch: ^3.0.0
+    minimist: ^1.2.6
     rxjs: ^7.8.1
     typescript: ~5.1.6
   peerDependenciesMeta:
@@ -136,6 +145,9 @@ __metadata:
       optional: true
     typescript:
       optional: true
+  bin:
+    amasdk-clear-index: ./cli/clear-index.cjs
+    amasdk-files-pack: ./cli/files-pack.cjs
   languageName: unknown
   linkType: soft
 
@@ -277,6 +289,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
     copyfiles: ^2.4.1
+    cpy: ~10.1.0
     cpy-cli: ^4.2.0
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -15243,6 +15256,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cp-file@npm:^10.0.0":
+  version: 10.0.0
+  resolution: "cp-file@npm:10.0.0"
+  dependencies:
+    graceful-fs: ^4.2.10
+    nested-error-stacks: ^2.1.1
+    p-event: ^5.0.1
+  checksum: 13d480872609c7ce5036624fd7998ad493ba1869a28d8595f515e7a3576145f05197a41989193a250b722836930c50efe2dd8f69e8c8ec2f4b2d511dd1688e4c
+  languageName: node
+  linkType: hard
+
 "cp-file@npm:^9.1.0":
   version: 9.1.0
   resolution: "cp-file@npm:9.1.0"
@@ -15280,6 +15304,22 @@ __metadata:
     p-filter: ^3.0.0
     p-map: ^5.3.0
   checksum: 5139dfc07d181caefe3ec62c956340a1d02c4afeb794f8c199ddfc7e0cb0bdf5f5e4989ec08d6c07984be119bbb07eb323f21e8edb0733051ddf125a1084b565
+  languageName: node
+  linkType: hard
+
+"cpy@npm:~10.1.0":
+  version: 10.1.0
+  resolution: "cpy@npm:10.1.0"
+  dependencies:
+    arrify: ^3.0.0
+    cp-file: ^10.0.0
+    globby: ^13.1.4
+    junk: ^4.0.1
+    micromatch: ^4.0.5
+    nested-error-stacks: ^2.1.1
+    p-filter: ^3.0.0
+    p-map: ^6.0.0
+  checksum: d914326e91f7b04be8f2a694b345a9d0a5ad220032ec9e8528c26e2132f80f028de4b61c42c5ce67a3fcd1018770ac31317c237e4ffc553371dfd6c13ebe0d42
   languageName: node
   linkType: hard
 
@@ -19019,7 +19059,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:^13.1.1, globby@npm:^13.1.2":
+"globby@npm:^13.1.1":
   version: 13.2.0
   resolution: "globby@npm:13.2.0"
   dependencies:
@@ -19029,6 +19069,19 @@ __metadata:
     merge2: ^1.4.1
     slash: ^4.0.0
   checksum: 0a3dd786571788adef1c894f22112834cff5bbe061ae6e0a01c5118c39d44b3f1937ef1dae3f8b9bc24756eba84a0923e565b1ad9a4ec52831d7e2a04c035e75
+  languageName: node
+  linkType: hard
+
+"globby@npm:^13.1.2, globby@npm:^13.1.4":
+  version: 13.2.2
+  resolution: "globby@npm:13.2.2"
+  dependencies:
+    dir-glob: ^3.0.1
+    fast-glob: ^3.3.0
+    ignore: ^5.2.4
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: f3d84ced58a901b4fcc29c846983108c426631fe47e94872868b65565495f7bee7b3defd68923bd480582771fd4bbe819217803a164a618ad76f1d22f666f41e
   languageName: node
   linkType: hard
 
@@ -21658,6 +21711,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"junk@npm:^4.0.1":
+  version: 4.0.1
+  resolution: "junk@npm:4.0.1"
+  checksum: 4f0c94c0b2e46172284d9eaeb57bf1b784d86d218dbc673a1c8e08ef3443d03164238eb067591d0ad9f2c76a6ad012aeb618bb8135a2f0f26a6da931058e131b
+  languageName: node
+  linkType: hard
+
 "just-diff-apply@npm:^5.2.0":
   version: 5.5.0
   resolution: "just-diff-apply@npm:5.5.0"
@@ -23305,7 +23365,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nested-error-stacks@npm:^2.0.0, nested-error-stacks@npm:^2.1.0":
+"nested-error-stacks@npm:^2.0.0, nested-error-stacks@npm:^2.1.0, nested-error-stacks@npm:^2.1.1":
   version: 2.1.1
   resolution: "nested-error-stacks@npm:2.1.1"
   checksum: 5f452fad75db8480b4db584e1602894ff5977f8bf3d2822f7ba5cb7be80e89adf1fffa34dada3347ef313a4288850b4486eb0635b315c32bdfb505577e8880e3
@@ -24410,7 +24470,6 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@types/glob": ^8.0.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
     "@types/vscode": ^1.67.0
@@ -24448,6 +24507,15 @@ __metadata:
   dependencies:
     p-timeout: ^3.1.0
   checksum: 8a3588f7a816a20726a3262dfeee70a631e3997e4773d23219176333eda55cce9a76219e3d2b441b331eb746e14fdb381eb2694ab9ff2fcf87c846462696fe89
+  languageName: node
+  linkType: hard
+
+"p-event@npm:^5.0.1":
+  version: 5.0.1
+  resolution: "p-event@npm:5.0.1"
+  dependencies:
+    p-timeout: ^5.0.2
+  checksum: 3bdd8df6092e6b149f25e9c2eb1c0843b3b4279b07be2a2c72c02b65b267a8908c2040fefd606f2497b0f2bcefcd214f8ca5a74f0c883515d400ccf1d88d5683
   languageName: node
   linkType: hard
 
@@ -24573,6 +24641,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"p-map@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "p-map@npm:6.0.0"
+  checksum: 41e20c30a08da664610ff1ed198519d8cb93567491392c819ce502f523dde1187afab23e75e4c0fe74310d424a6f74ceaebe73ad5496c9e27d91183184fedd37
+  languageName: node
+  linkType: hard
+
 "p-queue@npm:^6.6.2":
   version: 6.6.2
   resolution: "p-queue@npm:6.6.2"
@@ -24599,6 +24674,13 @@ __metadata:
   dependencies:
     p-finally: ^1.0.0
   checksum: 3dd0eaa048780a6f23e5855df3dd45c7beacff1f820476c1d0d1bcd6648e3298752ba2c877aa1c92f6453c7dd23faaf13d9f5149fc14c0598a142e2c5e8d649c
+  languageName: node
+  linkType: hard
+
+"p-timeout@npm:^5.0.2":
+  version: 5.1.0
+  resolution: "p-timeout@npm:5.1.0"
+  checksum: f5cd4e17301ff1ff1d8dbf2817df0ad88c6bba99349fc24d8d181827176ad4f8aca649190b8a5b1a428dfd6ddc091af4606835d3e0cb0656e04045da5c9e270c
   languageName: node
   linkType: hard
 

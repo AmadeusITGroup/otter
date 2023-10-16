@@ -17,7 +17,8 @@
         "build-builders",
         "build-esm2020",
         "build-esm2015",
-        "build-cjs"
+        "build-cjs",
+        "build-cli"
       ]
     },
     "build-esm2015": {
@@ -98,6 +99,12 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
+      }
+    },
+    "build-cli": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cli"
       }
     }
   },
