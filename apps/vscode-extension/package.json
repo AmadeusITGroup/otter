@@ -307,6 +307,9 @@
     "watch": "yarn nx run vscode-extension:compile:watch",
     "prepare:publish": "prepare-publish ./dist"
   },
+  "dependencies": {
+    "eslint": "^8.42.0"
+  },
   "devDependencies": {
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
@@ -325,6 +328,7 @@
     "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@types/eslint": "^8.42.0",
     "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
@@ -332,7 +336,6 @@
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "@vscode/vsce": "^2.16.0",
-    "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.4.0",
     "eslint-plugin-jsdoc": "~46.8.0",
