@@ -198,7 +198,8 @@
       "@o3r/stylelint-plugin",
       "@o3r/styling",
       "@o3r/testing",
-      "@o3r/third-party"
+      "@o3r/third-party",
+      "@o3r/workspace"
     ]
   }
 }

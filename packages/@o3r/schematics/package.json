@@ -3,6 +3,7 @@
   "version": "0.0.0-placeholder",
   "description": "Schematics module of the Otter framework",
   "main": "./dist/src/index.js",
+  "typings": "./src/public_api.d.ts",
   "keywords": [
     "schematics",
     "otter"

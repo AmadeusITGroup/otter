@@ -16,7 +16,8 @@
       "description": "Preset of module list to automatically install",
       "enum": [
         "basic",
-        "cms"
+        "cms",
+        "all"
       ]
     },
     "externalPresets": {

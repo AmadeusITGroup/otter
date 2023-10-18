@@ -8,6 +8,7 @@ import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manage
  */
 export class NpmInstall extends NodePackageInstallTask {
   public quiet = false;
+  public force = false;
 
   constructor(options?: NodePackageInstallTaskOptions) {
     super(options as any);
@@ -15,6 +16,7 @@ export class NpmInstall extends NodePackageInstallTask {
       workspaceConfig: options?.tree && getWorkspaceConfig(options.tree),
       enforcedNpmManager: options?.packageName
     });
+    this.force = !!options?.force;
   }
 
   /** @inheritdoc */
@@ -27,7 +29,7 @@ export class NpmInstall extends NodePackageInstallTask {
         ...config.options,
         command: 'install',
         quiet: this.quiet,
-        packageManager: this.packageManager
+        packageManager: `${this.packageManager!}${this.force && this.packageManager === 'npm' ? ' --force' : ''}`
       }
     };
   }

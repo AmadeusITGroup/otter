@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as winston from 'winston';
 import { clean } from 'semver';
+import { bold } from 'chalk';
 
 const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json'];
 
@@ -17,6 +18,14 @@ const collect = (pattern: string, patterns: string[]) => {
   return patterns;
 };
 
+const logger = winston.createLogger({
+  format: winston.format.combine(
+    winston.format.colorize(),
+    winston.format.simple()
+  ),
+  transports: new winston.transports.Console()
+});
+
 let replaceVersion: string;
 program
   .arguments('<version>')
@@ -26,6 +35,8 @@ program
   .option('-v, --verbose', 'Display debug logs')
   .action((version: string) => {
     const cleanVersion = clean(version);
+    logger.warn(`This CLI is deprecated, please use ${bold('o3r-set-version')} from the package ${bold('@o3r/workspace')}`);
+
     if (!cleanVersion) {
       // eslint-disable-next-line no-console
       console.error(`The version "${version}" is invalid`);
@@ -34,14 +45,6 @@ program
     replaceVersion = cleanVersion;
   })
   .parse(process.argv);
-
-const logger = winston.createLogger({
-  format: winston.format.combine(
-    winston.format.colorize(),
-    winston.format.simple()
-  ),
-  transports: new winston.transports.Console()
-});
 
 const options: any = program.opts();
 logger.level = options.verbose ? 'debug' : 'info';

@@ -1,11 +1,11 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
 /**
- * Generic basic updates to be done on a repository
+ * Update git ignore of the repository
  */
-export function genericUpdates(): Rule {
+export function updateGitIgnore(): Rule {
 
-  const updateGitIgnore = (tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree, _context: SchematicContext) => {
     // update gitignore
     if (tree.exists('/.gitignore')) {
       let gitignore = tree.readText('/.gitignore');
@@ -24,7 +24,5 @@ ${folderToExclude}
     }
     return tree;
   };
-
-  return updateGitIgnore;
 
 }
