@@ -8573,7 +8573,7 @@ __metadata:
     "@types/color": ^3.0.1
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@types/react": 17.0.68
+    "@types/react": 17.0.69
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
     color: ^4.0.0
@@ -10853,17 +10853,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*":
-  version: 8.4.10
-  resolution: "@types/eslint@npm:8.4.10"
-  dependencies:
-    "@types/estree": "*"
-    "@types/json-schema": "*"
-  checksum: 21e009ed9ed9bc8920fdafc6e11ff321c4538b4cc18a56fdd59dc5184ea7bbf363c71638c9bdb59fc1254dddcdd567485136ed68b0ee4750948d4e32cb79c689
-  languageName: node
-  linkType: hard
-
-"@types/eslint@npm:^8.42.0":
+"@types/eslint@npm:*, @types/eslint@npm:^8.42.0":
   version: 8.44.4
   resolution: "@types/eslint@npm:8.44.4"
   dependencies:
@@ -11395,14 +11385,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.68":
-  version: 17.0.68
-  resolution: "@types/react@npm:17.0.68"
+"@types/react@npm:17.0.69":
+  version: 17.0.69
+  resolution: "@types/react@npm:17.0.69"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: c6ca4415b53b1abe91162b29af541a1797a56a6f462ef796e8ebda3eaa4d0609205f4f17b3fce8d9a12235d4ffd8a67c47b5e018ed85c2f3bee0fba8f54638c1
+  checksum: b83d4ec968b712b2b1a444c614b1ef3e59879c6911bc4001158de5de49b80b6a20fc4859353244f0171b94845d4c85a6379071445242ff23bbbc9b0ff24577d7
   languageName: node
   linkType: hard
 
