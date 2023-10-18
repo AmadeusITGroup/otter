@@ -10863,6 +10863,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/eslint@npm:^8.42.0":
+  version: 8.44.4
+  resolution: "@types/eslint@npm:8.44.4"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: 15bafdaba800e2995f38d3a2a929d8e9303035315e8d3535523a21cd719b6769a45884afa955f0b845ffa545a4150429b0178e2c44feeedf59ebb285eeae9825
+  languageName: node
+  linkType: hard
+
 "@types/estree@npm:*, @types/estree@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/estree@npm:1.0.0"
@@ -24514,6 +24524,7 @@ __metadata:
     "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@types/eslint": ^8.42.0
     "@types/glob": ^8.0.0
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0

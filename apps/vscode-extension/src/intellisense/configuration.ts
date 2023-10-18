@@ -1,4 +1,5 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString } from 'vscode';
+import { ESLint } from 'eslint';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */
@@ -11,32 +12,59 @@ interface ConfigurationTags {
 
 export const configurationCompletionTriggerChar = '@';
 
-export const configurationCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
-  const configurationTags: Record<string, ConfigurationTags> = {
-    o3rWidget: {
-      description: 'Tag to use CMS widget for configuration',
-      detail: 'widgetName',
-      // TODO compute snippet thanks to eslint config to propose only valid widgetName
-      snippet: '${1:widgetName}'
-    },
-    o3rWidgetParam: {
-      description: 'Tag to use CMS widget parameter for configuration',
-      detail: 'paramName paramValue',
-      // TODO compute snippet thanks to eslint config to propose only valid paramName and paramValue
-      snippet: '${1:paramName} ${2:paramValue}'
-    }
-  };
-
-  const completions = Object.entries(configurationTags).map(([label, { detail, description, snippet }]) => {
+const getCompletionsItemsFromConfigurationTags = (configurationTags: Record<string, ConfigurationTags>) => {
+  return Object.entries(configurationTags).map(([label, { detail, description, snippet }]) => {
     const completion = new CompletionItem({ label: `${label} `, detail }, CompletionItemKind.Keyword);
     completion.documentation = description;
     completion.insertText = new SnippetString(`${label} ${snippet}`);
 
     return completion;
   });
+};
+
+const findWidgetNameInComment = (comment: string) => {
+  return comment.match(/@o3rWidget (\w+)/)?.[1];
+};
+
+const finWidgetParamNamesInComment = (comment: string) => {
+  return new Set(Array.from(comment.matchAll(/@o3rWidgetParam (\w+)/g)).map((match) => match[1]));
+};
+
+const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string): Record<string, ConfigurationTags> => {
+  const o3rWidgetsTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {};
+
+  if (!Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length) {
+    return {};
+  }
+
+  const widgetName = findWidgetNameInComment(comment);
+  const widgetConfig = widgetName ? o3rWidgetsTagsRulesConfig.widgets[widgetName] : {};
+  const paramsPresent = finWidgetParamNamesInComment(comment);
+  const widgetParamsToPropose = Object.keys(widgetConfig).filter((paramName) => !paramsPresent.has(paramName));
 
   return {
-    provideCompletionItems: (doc, pos) => {
+    ...(!widgetName ? {
+      o3rWidget: {
+        description: 'Tag to use CMS widget for configuration',
+        detail: 'widgetName',
+        snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
+      }
+    } : {}),
+    ...(widgetParamsToPropose.length ? {
+      o3rWidgetParam: {
+        description: 'Tag to use CMS widget parameter for configuration',
+        detail: 'paramName paramValue',
+        snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
+      }
+    } : {})
+  };
+};
+
+export const configurationCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
+  const eslint = new ESLint();
+
+  return {
+    provideCompletionItems: async (doc, pos) => {
       const line = doc.lineAt(pos).text;
       const lineUntilPos = line.slice(0, pos.character);
 
@@ -63,9 +91,14 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
 
       const lineFromTriggerChar = lineUntilPos.slice(lineUntilPos.lastIndexOf(configurationCompletionTriggerChar) + 1);
 
-      return !lineFromTriggerChar.match(/\s/)
-        ? completions
-        : [];
+      if (lineFromTriggerChar.match(/\s/)) {
+        return [];
+      }
+
+      const config = await eslint.calculateConfigForFile(doc.fileName);
+      const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0]);
+
+      return getCompletionsItemsFromConfigurationTags(configurationTags);
     }
   };
 };
