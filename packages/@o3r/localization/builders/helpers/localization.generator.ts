@@ -1,5 +1,5 @@
 import { logging } from '@angular-devkit/core';
-import { getLibraryCmsMetadata } from '@o3r/extractors';
+import { getLibraryCmsMetadata, getLocalizationFileFromAngularElement } from '@o3r/extractors';
 import type { JSONLocalization, LocalizationMetadata } from '@o3r/localization';
 import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
@@ -101,37 +101,6 @@ export class LocalizationExtractor {
     });
 
     return angularItems.length ? angularItems : undefined;
-  }
-
-  /**
-   * Retrieve the localization json file from TS Code
-   *
-   * @param node TSNode of the angular component class
-   * @param source Ts file source
-   */
-  private getLocalizationFileFromAngularElement(node: ts.ClassDeclaration, source: ts.SourceFile): string[] | undefined {
-    const localizationPaths: string[] = [];
-    node.forEachChild((item) => {
-      if (!ts.isPropertyDeclaration(item)) {
-        return;
-      }
-
-      item.forEachChild((decorator) => {
-        if (!ts.isDecorator(decorator)) {
-          return;
-        }
-
-        const text = decorator.getText(source);
-        const result = /^@Localization *\( *['"](.*)['"] *\)/.exec(text);
-        if (!result || !result[1]) {
-          return;
-        }
-
-        localizationPaths.push(result[1]);
-      });
-    });
-
-    return localizationPaths.length ? localizationPaths : undefined;
   }
 
   /**
@@ -300,9 +269,9 @@ export class LocalizationExtractor {
     const localizationFiles = tsFiles
       .map((file) => ({file, source: program.getSourceFile(file)}))
       .map(({ file, source }) => ({ file, classes: source && this.getAngularClassNode(source), source}))
-      .filter(({ classes, source }) => !!classes && !!source)
-      .map(({file, classes, source}) => classes!
-        .map((classItem) => this.getLocalizationFileFromAngularElement(classItem, source!))
+      .filter(({ classes }) => !!classes)
+      .map(({ file, classes }) => classes!
+        .map((classItem) => getLocalizationFileFromAngularElement(classItem))
         .filter((locFiles): locFiles is string[] => !!locFiles)
         .reduce((acc: string[], locFiles) => {
           acc.push(...locFiles.filter((f) => acc.indexOf(f) === -1));
