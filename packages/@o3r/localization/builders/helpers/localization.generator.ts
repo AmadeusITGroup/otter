@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import * as glob from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
+import type { LocalizationExtractorBuilderSchema } from '../localization-extractor/schema';
 
 /** List of Angular decorator to look for */
 const ANGULAR_ANNOTATION = ['Component', 'Injectable', 'Pipe'];
@@ -59,7 +60,7 @@ export class LocalizationExtractor {
 
   private logger: logging.LoggerApi;
 
-  constructor(tsconfigPath: string, logger: logging.LoggerApi) {
+  constructor(tsconfigPath: string, logger: logging.LoggerApi, private options?: Partial<LocalizationExtractorBuilderSchema>) {
     this.tsconfigPath = tsconfigPath;
     this.logger = logger;
   }
@@ -121,6 +122,7 @@ export class LocalizationExtractor {
         }
         return res;
       })
+      .filter(({ref}) => (this.options?.libraries || []).every((lib) => !ref.startsWith(lib)))
       .map(({ref}) => {
         if (!ref.startsWith('.')) {
           try {

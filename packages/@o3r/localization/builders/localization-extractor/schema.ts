@@ -25,4 +25,7 @@ export interface LocalizationExtractorBuilderSchema extends JsonObject {
 
   /** If true, metadata objects are sorted by keys */
   sortKeys: boolean;
+
+  /** If true, metadata from libraries are added */
+  isApplication: boolean;
 }

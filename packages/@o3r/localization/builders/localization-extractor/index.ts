@@ -13,7 +13,7 @@ export * from './schema';
 export default createBuilder<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
-  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger);
+  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger, options);
   const cache: { libs: LibraryMetadataMap; locs: LocalizationFileMap } = {libs: {}, locs: {}};
 
   const execute = async (isFirstLoad = true, files?: { libs?: string[]; locs?: string[]; extraFiles?: string[] }): Promise<BuilderOutput> => {
@@ -28,7 +28,7 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
         cache.locs = await localizationExtractor.extractLocalizationFromTsConfig(files && files.extraFiles);
 
         context.reportProgress(STEP_NUMBER, stepValue++, 'Load metadata');
-        cache.libs = files && files.libs ? await localizationExtractor.getMetadataFromLibraries(files.libs) : {};
+        cache.libs = options.isApplication && files && files.libs ? await localizationExtractor.getMetadataFromLibraries(files.libs) : {};
 
       // Load specific files that have changed
       } else {
@@ -46,7 +46,7 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
             ...newLocs
           };
         }
-        if (files && files.libs) {
+        if (options.isApplication && files && files.libs) {
           context.reportProgress(STEP_NUMBER, stepValue++, 'reload library metadata');
           const newLibs = await localizationExtractor.getMetadataFromFiles(files.libs);
           cache.libs = {
@@ -139,7 +139,6 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
 
     await currentProcess;
 
-    /** SCSS file watcher */
     const watcher = chokidar.watch([...Object.keys(cache.locs), ...(options.extraFilePatterns || [])], {ignoreInitial: true});
     const metadataWatcher = chokidar.watch(Object.keys(cache.libs), {ignoreInitial: true});
     const { include, exclude, cwd } = localizationExtractor.getPatternsFromTsConfig();

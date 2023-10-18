@@ -50,6 +50,11 @@
       "type": "boolean",
       "description": "Sort metadata alphabetically by keys",
       "default": false
+    },
+    "isApplication": {
+      "type": "boolean",
+      "default": true,
+      "description": "If true, metadata from libraries are added"
     }
   },
   "additionalProperties": false,
