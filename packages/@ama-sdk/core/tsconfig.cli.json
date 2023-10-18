@@ -1,0 +1,16 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": ".",
+    "tsBuildInfoFile": "build/.tsbuildinfo.cli"
+  },
+  "include": [
+    "cli/**/*.cts"
+  ],
+  "exclude": [
+  ]
+}

@@ -12,7 +12,7 @@ module.exports = {
   'overrides': [
     {
       'files': [
-        '*.{t,j}s'
+        '*.{c,m,}{t,j}s'
       ],
       'parser': require.resolve('@typescript-eslint/parser'),
       'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
