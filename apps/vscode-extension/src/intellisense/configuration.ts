@@ -43,16 +43,36 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
   const widgetParamsToPropose = Object.keys(widgetConfig).filter((paramName) => !paramsPresent.has(paramName));
 
   return {
+    tags: {
+      description: 'Tag to use CMS tags for configuration interface',
+      detail: '[one, two, three]',
+      snippet: '[${1:one}]'
+    },
+    label: {
+      description: 'Tag to use to define a readable name for configuration property in the CMS',
+      detail: 'Readable configuration property name',
+      snippet: '${1:Name}'
+    },
+    title: {
+      description: 'Tag to use to define a readable name for configuration interface in the CMS',
+      detail: 'Readable configuration name',
+      snippet: '${1:Name}'
+    },
+    o3rCategory: {
+      description: 'Tag to use CMS category for configuration property',
+      detail: 'categoryName',
+      snippet: '${1:categoryName}'
+    },
     ...(!widgetName ? {
       o3rWidget: {
-        description: 'Tag to use CMS widget for configuration',
+        description: 'Tag to use CMS widget for configuration property',
         detail: 'widgetName',
         snippet: `\${1|${Object.keys(o3rWidgetsTagsRulesConfig.widgets).join(',')}|}`
       }
     } : {}),
     ...(widgetParamsToPropose.length ? {
       o3rWidgetParam: {
-        description: 'Tag to use CMS widget parameter for configuration',
+        description: 'Tag to use CMS widget parameter for configuration property',
         detail: 'paramName paramValue',
         snippet: `\${1|${widgetParamsToPropose.join(',')}|} \${2:paramValue}`
       }
