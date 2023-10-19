@@ -3,7 +3,6 @@ import {
   chain, Rule, Tree
 } from '@angular-devkit/schematics';
 import { readAngularJson, WorkspaceSchematics } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 const generatorsMappingFromV7 = {
   '@otter/ng-tools:component': '@o3r/core:component',
@@ -27,7 +26,7 @@ const generatorsMappingFromV7 = {
 };
 
 function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
-  Object.keys(schematicsToUpdate).forEach(generatorName => {
+  (Object.keys(schematicsToUpdate) as (keyof typeof generatorsMappingFromV7)[]).forEach((generatorName) => {
     if (generatorsMappingFromV7[generatorName]) {
       (schematicsToUpdate[generatorsMappingFromV7[generatorName]] || {}).builder = schematicsToUpdate[generatorName];
       // delete the old generator entry
@@ -61,7 +60,7 @@ export function updateOtterGeneratorsNames(): Rule {
       }
     });
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

@@ -13,7 +13,7 @@ describe('Styling Metadata setup', () => {
   });
 
   it('should register the metadata', () => {
-    const mockMetadata = { test: 'fakeValue' } as any;
+    const mockMetadata = { variables: { test: 'fakeValue' } } as any;
     setStyleMetadata(mockMetadata);
 
     // eslint-disable-next-line no-underscore-dangle
@@ -21,7 +21,7 @@ describe('Styling Metadata setup', () => {
   });
 
   it('should retrieve the metadata', () => {
-    const mockMetadata = { test: 'fakeValue' } as any;
+    const mockMetadata = { variables: { test: 'fakeValue' } } as any;
     // eslint-disable-next-line no-underscore-dangle
     window.__OTTER_STORYBOOK_STYLE_METADATA__ = mockMetadata;
 
@@ -83,14 +83,14 @@ describe('Styling Helpers', () => {
 
   describe('getTypeAndValue', () => {
     it('should return a color editor for color', () => {
-      const result = getTypeAndValue({defaultValue: '#000', name: 'test-var'}, {});
+      const result = getTypeAndValue({defaultValue: '#000', name: 'test-var'}, { variables: {} });
 
       expect(result.type).toBe('color');
       expect(result.value).toBe('#000');
     });
 
     it('should return a text editor for color', () => {
-      const result = getTypeAndValue({ defaultValue: '1px solid #000', name: 'test-var' }, {});
+      const result = getTypeAndValue({ defaultValue: '1px solid #000', name: 'test-var' }, { variables: {} });
 
       expect(result.type).toBe('text');
       expect(result.value).toBe('1px solid #000');
@@ -100,7 +100,7 @@ describe('Styling Helpers', () => {
   /* eslint-disable @typescript-eslint/naming-convention */
   describe('extractStyling', () => {
     it('should extract component variable', () => {
-      const result = extractStyling('test-component-', {
+      const result = extractStyling('test-component-', { variables: {
         'test-component-example-1': {
           defaultValue: '#000',
           name: 'test-component-example-1'
@@ -109,7 +109,7 @@ describe('Styling Helpers', () => {
           defaultValue: '1px solid #000',
           name: 'test-component-example-2'
         }
-      });
+      }});
 
       expect(Object.keys(result.argTypes).length).toBe(2);
       expect(Object.keys(result.rawValues).length).toBe(2);
@@ -121,7 +121,7 @@ describe('Styling Helpers', () => {
     });
 
     it('should not extract incorrect variable', () => {
-      const result = extractStyling('test-component-', {
+      const result = extractStyling('test-component-', { variables: {
         'test-component-example-1': {
           defaultValue: '#000',
           name: 'test-component-example-1'
@@ -134,14 +134,14 @@ describe('Styling Helpers', () => {
           defaultValue: '1px solid #000',
           name: 'test-component-example-2'
         }
-      });
+      }});
 
       expect(Object.keys(result.argTypes).length).toBe(2);
       expect(Object.keys(result.rawValues).length).toBe(2);
     });
 
     it('should return the final value of the referenced variable', () => {
-      const result = extractStyling('test-component-', {
+      const result = extractStyling('test-component-', { variables: {
         'test-component-example-1': {
           defaultValue: '#000',
           name: 'test-component-example-1'
@@ -160,7 +160,7 @@ describe('Styling Helpers', () => {
           name: 'primary-600',
           defaultValue: '#0056B1'
         }
-      });
+      }});
 
       const name = `${STYLING_PREFIX}test-component-example-2`;
 
@@ -174,7 +174,7 @@ describe('Styling Helpers', () => {
 
   describe('getThemeVariables', () => {
     it('should extract theme variable only', () => {
-      const result = getThemeVariables({
+      const result = getThemeVariables({ variables: {
         'test-component-example-1': {
           defaultValue: '#000',
           name: 'test-component-example-1'
@@ -194,7 +194,7 @@ describe('Styling Helpers', () => {
           defaultValue: '#0056B1',
           tags: ['theme']
         }
-      });
+      }});
       /* eslint-enable @typescript-eslint/naming-convention */
 
       expect(Object.keys(result).length).toBe(1);

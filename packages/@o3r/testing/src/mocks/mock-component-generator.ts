@@ -143,7 +143,7 @@ export function generateMockComponent<T extends unknown = Record<string, unknown
 
     constructor() {
       Object.keys(outputs)
-        .forEach((outputName) => this[outputName] = new EventEmitter<any>());
+        .forEach((outputName) => (this as any)[outputName] = new EventEmitter<any>());
       if (config && config.isControlValueAccessor) {
         this.writeValue = () => { };
         this.registerOnChange = () => { };

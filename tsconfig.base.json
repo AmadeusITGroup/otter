@@ -10,7 +10,6 @@
     "lib": [
       "DOM",
       "DOM.Iterable",
-      "ScriptHost",
       "ES2021"
     ],
     "module": "es2020",
@@ -26,48 +25,130 @@
     "strict": true,
     "pretty": true,
     "preserveWatchOutput": true,
-    "suppressImplicitAnyIndexErrors": true,
     "jsx": "react",
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "@ama-sdk/core": ["packages/@ama-sdk/core/src/public_api"],
-      "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk"],
-      "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-builder"],
-      "@ama-terasu/cli": ["packages/@ama-terasu/cli/src"],
-      "@ama-terasu/core": ["packages/@ama-terasu/core/src/public_api"],
-      "@ama-terasu/schematics": ["packages/@ama-terasu/schematics/src"],
-      "@o3r/amaterasu-api-spec": ["packages/@o3r/amaterasu/amaterasu-api-spec/src"],
-      "@o3r/amaterasu-dodo": ["packages/@o3r/amaterasu/amaterasu-dodo/src"],
-      "@o3r/amaterasu-otter": ["packages/@o3r/amaterasu/amaterasu-otter/src"],
-      "@o3r/amaterasu-sdk": ["packages/@o3r/amaterasu/amaterasu-sdk/src"],
-      "@o3r/analytics": ["packages/@o3r/analytics/src/public_api"],
-      "@o3r/analytics/*": ["packages/@o3r/analytics/*"],
-      "@o3r/apis-manager": ["packages/@o3r/apis-manager/src/public_api"],
-      "@o3r/application": ["packages/@o3r/application/src/public_api"],
-      "@o3r/chrome-devtools": ["packages/@o3r/chrome-devtools/src"],
-      "@o3r/components": ["packages/@o3r/components/src/public_api"],
-      "@o3r/configuration": ["packages/@o3r/configuration/src/public_api"],
-      "@o3r/core": ["packages/@o3r/core/src/public_api"],
-      "@o3r/dev-tools": ["packages/@o3r/dev-tools/src/public_api"],
-      "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/src/public_api"],
-      "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],
-      "@o3r/eslint-plugin": ["packages/@o3r/eslint-plugin/src"],
-      "@o3r/extractors": ["packages/@o3r/extractors/src/public_api"],
-      "@o3r/forms": ["packages/@o3r/forms/src/public_api"],
-      "@o3r/localization": ["packages/@o3r/localization/src/public_api"],
-      "@o3r/logger": ["packages/@o3r/logger/src/public_api"],
-      "@o3r/mobile": ["packages/@o3r/mobile/src"],
-      "@o3r/routing": ["packages/@o3r/routing/src/public_api"],
-      "@o3r/rules-engine": ["packages/@o3r/rules-engine/src/public_api"],
-      "@o3r/schematics": ["packages/@o3r/schematics/src/public_api"],
-      "@o3r/store-sync": ["packages/@o3r/store-sync/src/public_api"],
-      "@o3r/storybook": ["packages/@o3r/storybook/src/public_api"],
-      "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/src"],
-      "@o3r/styling": ["packages/@o3r/styling/src/public_api"],
-      "@o3r/testing": ["packages/@o3r/testing/src/public_api"],
-      "@o3r/testing/*": ["packages/@o3r/testing/src/*"],
-      "@o3r/third-party": ["packages/@o3r/third-party/src"]
+      "@ama-sdk/core": [
+        "packages/@ama-sdk/core/src/public_api"
+      ],
+      "@ama-sdk/create": [
+        "packages/@ama-sdk/create"
+      ],
+      "@ama-sdk/generator-sdk": [
+        "packages/@ama-sdk/generator-sdk"
+      ],
+      "@ama-sdk/schematics": [
+        "packages/@ama-sdk/schematics"
+      ],
+      "@ama-sdk/swagger-builder": [
+        "packages/@ama-sdk/swagger-builder"
+      ],
+      "@ama-terasu/cli": [
+        "packages/@ama-terasu/cli/src"
+      ],
+      "@ama-terasu/core": [
+        "packages/@ama-terasu/core/src/public_api"
+      ],
+      "@ama-terasu/schematics": [
+        "packages/@ama-terasu/schematics/src"
+      ],
+      "@o3r/amaterasu-api-spec": [
+        "packages/@o3r/amaterasu/amaterasu-api-spec/src"
+      ],
+      "@o3r/amaterasu-dodo": [
+        "packages/@o3r/amaterasu/amaterasu-dodo/src"
+      ],
+      "@o3r/amaterasu-otter": [
+        "packages/@o3r/amaterasu/amaterasu-otter/src"
+      ],
+      "@o3r/amaterasu-sdk": [
+        "packages/@o3r/amaterasu/amaterasu-sdk/src"
+      ],
+      "@o3r/analytics": [
+        "packages/@o3r/analytics/src/public_api"
+      ],
+      "@o3r/analytics/plugins/*": [
+        "packages/@o3r/analytics/plugins/*"
+      ],
+      "@o3r/apis-manager": [
+        "packages/@o3r/apis-manager/src/public_api"
+      ],
+      "@o3r/application": [
+        "packages/@o3r/application/src/public_api"
+      ],
+      "@o3r/chrome-devtools": [
+        "packages/@o3r/chrome-devtools/src"
+      ],
+      "@o3r/components": [
+        "packages/@o3r/components/src/public_api"
+      ],
+      "@o3r/configuration": [
+        "packages/@o3r/configuration/src/public_api"
+      ],
+      "@o3r/core": [
+        "packages/@o3r/core/src/public_api"
+      ],
+      "@o3r/dev-tools": [
+        "packages/@o3r/dev-tools/src/public_api"
+      ],
+      "@o3r/dynamic-content": [
+        "packages/@o3r/dynamic-content/src/public_api"
+      ],
+      "@o3r/eslint-config-otter": [
+        "packages/@o3r/eslint-config-otter"
+      ],
+      "@o3r/eslint-plugin": [
+        "packages/@o3r/eslint-plugin/src"
+      ],
+      "@o3r/extractors": [
+        "packages/@o3r/extractors/src/public_api"
+      ],
+      "@o3r/forms": [
+        "packages/@o3r/forms/src/public_api"
+      ],
+      "@o3r/localization": [
+        "packages/@o3r/localization/src/public_api"
+      ],
+      "@o3r/logger": [
+        "packages/@o3r/logger/src/public_api"
+      ],
+      "@o3r/mobile": [
+        "packages/@o3r/mobile/src"
+      ],
+      "@o3r/routing": [
+        "packages/@o3r/routing/src/public_api"
+      ],
+      "@o3r/rules-engine": [
+        "packages/@o3r/rules-engine/src/public_api"
+      ],
+      "@o3r/schematics": [
+        "packages/@o3r/schematics/src/public_api"
+      ],
+      "@o3r/store-sync": [
+        "packages/@o3r/store-sync/src/public_api"
+      ],
+      "@o3r/storybook": [
+        "packages/@o3r/storybook/src/public_api"
+      ],
+      "@o3r/stylelint-plugin": [
+        "packages/@o3r/stylelint-plugin/src"
+      ],
+      "@o3r/styling": [
+        "packages/@o3r/styling/src/public_api"
+      ],
+      "@o3r/test-helpers": [
+        "packages/@o3r/test-helpers/src/public_api"
+      ],
+      "@o3r/testing": [
+        "packages/@o3r/testing/src/public_api"
+      ],
+      "@o3r/testing/*": [
+        "packages/@o3r/testing/src/*"
+      ],
+      "@o3r/third-party": [
+        "packages/@o3r/third-party/src"
+      ]
     }
   },
   "plugins": [

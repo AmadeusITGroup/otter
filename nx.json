@@ -1,13 +1,12 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
-  "npmScope": "o3r",
   "affected": {
     "defaultBase": "remotes/origin/main"
   },
   "cli": {
-    "defaultCollection": "@o3r/core",
     "schematicCollections": [
       "@schematics/angular",
+      "@nx/angular",
       "@o3r/core"
     ],
     "analytics": false,
@@ -18,18 +17,9 @@
       "path": ".cache/angular"
     }
   },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    "tsconfig.base.json": "*",
-    "tsconfig.build.json": "*",
-    "nx.json": "*"
-  },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/nx-cloud",
+      "runner": "nx-cloud",
       "options": {
         "useDaemonProcess": false,
         "cacheableOperations": [
@@ -51,6 +41,7 @@
           "build-fixtures",
           "build-fixtures-jasmine",
           "build-fixtures-jest",
+          "copy-assets",
           "documentation",
           "extract-translations",
           "extract-components",
@@ -67,24 +58,43 @@
     }
   },
   "namedInputs": {
+    "global": [
+      "{workspaceRoot}/yarn.lock",
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/tsconfig.base.json",
+      "{workspaceRoot}/tsconfig.build.json",
+      "{workspaceRoot}/nx.json"
+    ],
+    "default": [
+      "global",
+      "{projectRoot}/tsconfig*",
+      "{projectRoot}/src/**/*",
+      "{projectRoot}/package.json",
+      "{projectRoot}/project.json"
+    ],
     "jasmine-fixtures": [
+      "global",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "jest-fixtures": [
+      "global",
       "{projectRoot}/**/fixtures/jasmine/**/*.ts"
     ],
     "builders": [
+      "global",
       "{projectRoot}/builders.json",
       "{projectRoot}/builders/**/*",
       "{projectRoot}/package.json"
     ],
     "schematics": [
+      "global",
       "{projectRoot}/migration.json",
       "{projectRoot}/collection.json",
       "{projectRoot}/schematics/**/*",
       "{projectRoot}/package.json"
     ],
     "middlewares": [
+      "global",
       "{projectRoot}/middlewares/**/*",
       "{projectRoot}/package.json"
     ],
@@ -94,23 +104,17 @@
       "{workspaceRoot}/.eslintignore"
     ],
     "specs": [
-      "default"
+      "default",
+      "{projectRoot}/jest.config.*",
+      "{projectRoot}/testing/**/*",
+      "{projectRoot}/mocks/**/*"
     ],
     "source": [
       "default",
-      "!{projectRoot}/plugins/**/*",
-      "!{projectRoot}/builders.json",
-      "!{projectRoot}/builders/**/*",
-      "!{projectRoot}/migration.json",
-      "!{projectRoot}/collection.json",
-      "!{projectRoot}/schematics/**/*",
-      "!{projectRoot}/**/*.spec.ts",
-      "!{projectRoot}/testing/**/*",
-      "!{projectRoot}/mocks/**/*",
-      "!{projectRoot}/jest.config.*",
-      "{projectRoot}/package.json"
+      "!{projectRoot}/**/*.spec.ts"
     ],
     "plugins": [
+      "global",
       "{projectRoot}/plugins/**/*",
       "{projectRoot}/package.json"
     ]
@@ -123,8 +127,33 @@
     },
     "test": {
       "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        "builders",
+        "schematics",
         "specs",
         "^specs"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/ut-report.xml"
+      ]
+    },
+    "test-int": {
+      "inputs": [
+        {
+          "env": "RUNNER_OS"
+        },
+        {
+          "env": "ENFORCED_PACKAGE_MANAGER"
+        },
+        "default",
+        "schematics",
+        "^schematics",
+        "^source"
+      ],
+      "outputs": [
+        "{projectRoot}/dist-test/it-report.xml"
       ]
     },
     "prepare-publish": {
@@ -137,7 +166,11 @@
       "dependsOn": [
         "^build"
       ],
-      "outputs": []
+      "outputs": [],
+      "inputs": [
+        "default",
+        "^default"
+      ]
     },
     "compile": {
       "dependsOn": [
@@ -220,12 +253,14 @@
         "^source"
       ],
       "outputs": [
+        "{projectRoot}/dist/builders/package.json",
         "{projectRoot}/dist/builders/**/*.js",
         "{projectRoot}/dist/builders/**/*.d.ts",
         "{projectRoot}/dist/builders/**/*.d.ts.map",
         "{projectRoot}/dist/schematics/**/*.js",
         "{projectRoot}/dist/schematics/**/*.d.ts",
         "{projectRoot}/dist/schematics/**/*.d.ts.map",
+        "{projectRoot}/dist/middlewares/package.json",
         "{projectRoot}/dist/middlewares/**/*.js",
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
@@ -249,7 +284,9 @@
       "outputs": [
         "{workspaceRoot}/generated-doc/{projectName}/**/*"
       ],
-      "inputs": ["source"]
+      "inputs": [
+        "source"
+      ]
     }
   },
   "generators": {

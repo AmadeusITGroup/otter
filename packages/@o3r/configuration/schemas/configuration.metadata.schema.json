@@ -129,6 +129,44 @@
                 ]
               }
             },
+            "required": {
+              "type": "boolean"
+            },
+            "widget": {
+              "type": "object",
+              "description": "Widget used to display the property",
+              "required": [
+                "type"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "parameters": {
+                  "type": "object",
+                  "description": "map of widget parameters. Each parameter can be a string, number or boolean or an array of those",
+                  "additionalProperties": false,
+                  "patternProperties": {
+                    "^[a-zA-Z0-9-_:.]+$": {
+                      "type": [
+                        "string",
+                        "number",
+                        "boolean",
+                        "array"
+                      ],
+                      "items": {
+                        "type": [
+                          "string",
+                          "number",
+                          "boolean"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
             "reference": {
               "library": "string",
               "name": "string"

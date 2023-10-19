@@ -1,6 +1,8 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { NgAddSchematicsSchema } from './schema';
+import { updateCmsAdapter } from '../cms-adapter';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter styling to an Angular Project
@@ -12,12 +14,28 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     try {
-      const {getO3rPeerDeps, getProjectDepType, ngAddPackages, ngAddPeerDependencyPackages, removePackages} = await import('@o3r/schematics');
+      const {
+        getDefaultOptionsForSchematic,
+        getO3rPeerDeps,
+        getProjectDepType,
+        getWorkspaceConfig,
+        ngAddPackages,
+        ngAddPeerDependencyPackages,
+        removePackages,
+        registerPackageCollectionSchematics,
+        setupSchematicsDefaultParams,
+        updateSassImports,
+        getProjectRootDir
+      } = await import('@o3r/schematics');
+      options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/styling', 'ng-add', options), ...options};
       const {updateThemeFiles, removeV7OtterAssetsInAngularJson} = await import('./theme-files');
-      const {updateSassImports} = await import('@o3r/schematics');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
+      if (options.enableMetadataExtract) {
+        depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      }
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       const dependencyType = getProjectDepType(tree);
       return () => chain([
         removePackages(['@otter/styling']),
@@ -28,9 +46,22 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
-          dependencyType
+          dependencyType,
+          workingDirectory
         }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, options, depsInfo.packageName)
+        registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useOtterTheming: undefined
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-presenter': {
+            useOtterTheming: undefined
+          }
+        }),
+        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, depsInfo.packageName),
+        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ])(tree, context);
     } catch (e) {
       // styling needs o3r/core as peer dep. o3r/core will install o3r/schematics

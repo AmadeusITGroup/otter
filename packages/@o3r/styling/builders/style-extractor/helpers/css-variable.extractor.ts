@@ -1,5 +1,5 @@
 import { getLibraryCmsMetadata } from '@o3r/extractors';
-import type { CssMetadata, CssVariable } from '@o3r/styling';
+import type { CssMetadata, CssVariable, CssVariableType } from '@o3r/styling';
 import * as fs from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import * as path from 'node:path';
@@ -8,6 +8,7 @@ import {
   SassBoolean,
   SassColor,
   SassList,
+  SassMap,
   SassNumber,
   SassString,
   Value
@@ -90,6 +91,22 @@ export class CssVariableExtractor {
     return url.split('/').slice(0, 2).join('/');
   }
 
+  private static extractTags(tags: Value) {
+    let contextTags: string[] | undefined;
+    if (tags instanceof SassString) {
+      contextTags = [tags.text];
+    } else if (tags instanceof SassList) {
+      contextTags = [];
+      for (let i = 0; i < tags.asList.size; i++) {
+        const item = tags.get(i);
+        if (item instanceof SassString) {
+          contextTags.push(item.text);
+        }
+      }
+    }
+    return contextTags;
+  }
+
   /**
    * Extract metadata from Sass file
    *
@@ -124,36 +141,66 @@ export class CssVariableExtractor {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         'metadata-report($name, $value, $tags: null)': (args: Value[]) => {
           let contextTags: string[] | undefined;
-          const name = args[0];
-          const value = args[1];
+          const varName = args[0];
+          const varValue = args[1];
           const tags = args[2];
+          let description: string | undefined;
+          let label: string | undefined;
+          let category: string | undefined;
+          let type: CssVariableType | undefined;
           if (tags) {
-            if (tags instanceof SassString) {
-              contextTags = [tags.text];
-            } else if (tags instanceof SassList) {
-              contextTags = [];
-              for (let i = 0; i < tags.asList.size; i++) {
-                const item = tags.get(i);
-                if (item instanceof SassString) {
-                  contextTags.push(item.text);
+            if (tags instanceof SassMap) {
+              for (const [key, value] of tags.contents.toArray()) {
+                if (key instanceof SassString) {
+                  switch (key.text) {
+                    case 'description':
+                      if (value instanceof SassString) {
+                        description = value.text;
+                      }
+                      break;
+                    case 'label':
+                      if (value instanceof SassString) {
+                        label = value.text;
+                      }
+                      break;
+                    case 'type':
+                      if (value instanceof SassString) {
+                        type = value.text as CssVariableType;
+                      }
+                      break;
+                    case 'category':
+                      if (value instanceof SassString) {
+                        category = value.text;
+                      }
+                      break;
+                    case 'tags':
+                      contextTags = CssVariableExtractor.extractTags(value);
+                      break;
+                    default:
+                      console.warn(`Unsupported property: ${key.text}`);
+                      break;
+                  }
                 }
               }
             }
+            if (!contextTags) {
+              contextTags = CssVariableExtractor.extractTags(tags);
+            }
           }
-          if (!(name instanceof SassString)) {
+          if (!(varName instanceof SassString)) {
             throw new Error('invalid variable name');
           }
 
           let parsedValue: string;
-          if (value instanceof SassString || value instanceof SassNumber || value instanceof SassBoolean) {
-            parsedValue = value.toString();
-          } else if (value instanceof SassColor) {
-            parsedValue = CssVariableExtractor.getColorString(value);
-          } else if (value instanceof SassList) {
+          if (varValue instanceof SassString || varValue instanceof SassNumber || varValue instanceof SassBoolean) {
+            parsedValue = varValue.toString();
+          } else if (varValue instanceof SassColor) {
+            parsedValue = CssVariableExtractor.getColorString(varValue);
+          } else if (varValue instanceof SassList) {
             const invalidIndexes: number[] = [];
             const parsedValueItems: string[] = [];
-            for (let i = 0; i < value.asList.size; i++) {
-              const item = value.get(i);
+            for (let i = 0; i < varValue.asList.size; i++) {
+              const item = varValue.get(i);
               if (item instanceof SassString || item instanceof SassNumber || item instanceof SassBoolean) {
                 parsedValueItems.push(item.toString());
               } else if (item instanceof SassColor) {
@@ -166,20 +213,22 @@ export class CssVariableExtractor {
             }
             parsedValue = parsedValueItems.join(' ');
             if (invalidIndexes.length) {
-              console.warn(`invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${name.text}, it will be ignored`);
+              console.warn(`invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}, it will be ignored`);
             }
-          } else if (CssVariableExtractor.isSassCalculation(value)) {
-            parsedValue = `calc(${value.$arguments[0]})`;
+          } else if (CssVariableExtractor.isSassCalculation(varValue)) {
+            parsedValue = `calc(${varValue.$arguments[0]})`;
           } else {
-            console.warn(`invalid value for variable ${name.text}, it will be ignored`);
-            return new SassString(`[METADATA:VARIABLE] ${name.text} : invalid value`);
+            console.warn(`invalid value for variable ${varName.text}, it will be ignored`);
+            return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
           }
-          const cssVariableObj = this.parseCssVariable(name.text, parsedValue);
+          const cssVariableObj = this.parseCssVariable(varName.text, parsedValue);
           cssVariableObj.tags = contextTags;
-          if (cssVariableObj) {
-            cssVariables.push(cssVariableObj);
-          }
-          return new SassString(`[METADATA:VARIABLE] ${name.text} : ${parsedValue}` + (contextTags ? ` (tags: ${contextTags.join(', ')})` : ''));
+          cssVariableObj.description = description;
+          cssVariableObj.label = label;
+          cssVariableObj.type = type || 'string';
+          cssVariableObj.category = category;
+          cssVariables.push(cssVariableObj);
+          return new SassString(`[METADATA:VARIABLE] ${varName.text} : ${parsedValue}` + (contextTags ? ` (tags: ${contextTags.join(', ')})` : ''));
         }
       }
     };
@@ -203,10 +252,10 @@ export class CssVariableExtractor {
         return libConfig as CssMetadata;
       })
       .reduce<CssMetadata>((acc, libMetadata) => {
-        return Object.keys(libMetadata)
-          .filter((key) => !!acc[key])
+        return Object.keys(libMetadata.variables)
+          .filter((key) => !!acc.variables[key])
           .reduce((libAcc, libKey) => {
-            libAcc[libKey] = libMetadata[libKey];
+            libAcc.variables[libKey] = libMetadata.variables[libKey];
             return libAcc;
           }, acc);
       }, {...current});

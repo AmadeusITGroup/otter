@@ -40,19 +40,19 @@
     },
     "useComponentFixtures": {
       "type": "boolean",
-      "description": "Generate component fixtures for tests",
-      "default": true,
-      "x-prompt": "Generate component fixtures for tests?"
+      "description": "Generate component fixtures for tests"
     },
     "useOtterConfig": {
       "type": "boolean",
-      "description": "Generate component with Otter configuration",
-      "default": true
+      "description": "Generate component with Otter configuration"
     },
     "useContext": {
       "type": "boolean",
-      "description": "Generate component context",
-      "default": true
+      "description": "Generate component context"
+    },
+    "useRulesEngine": {
+      "type": "boolean",
+      "description": "Generate component with rules-engine"
     },
     "description": {
       "type": "string",

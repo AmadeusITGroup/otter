@@ -44,6 +44,18 @@ Several examples of the rule engine usage are available on the following links:
 - [readme](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/readme.md)
 - [runtime-facts](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/runtime-facts.md)
 
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                | Description                                                   | How to use                       |
+|---------------------------|---------------------------------------------------------------|----------------------------------|
+| add                       | Include Otter rules-engine module in a library / application. | `ng add @o3r/rules-engine`       |
+| rules-engine-to-component | Add rules-engine to an Otter component                        | `ng g rules-engine-to-component` |
+| facts-service             | Generate a facts service                                      | `ng g facts-service`             |
+| operators                 | Generate an operator                                          | `ng g operator`                  |
+
+
 ## Details
 
 More details regarding the way the rules engine is working can be found in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/).

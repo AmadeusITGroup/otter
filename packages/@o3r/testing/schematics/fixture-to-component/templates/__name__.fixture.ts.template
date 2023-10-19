@@ -1,0 +1,18 @@
+<%
+if (page) {
+%>import {O3rPageFixture} from '@o3r/testing/core';
+
+export class <%= componentFixture %> extends O3rPageFixture {}<%
+} else {
+%>import {ComponentFixtureProfile, O3rComponentFixture} from '@o3r/testing/core';
+
+/**
+ * A component fixture abstracts all the interaction you can have with the component's DOM
+ * for testing purpose, including instantiating the fixtures of sub-components.
+ * It should be used both for component testing and automated testing.
+ */
+export interface <%= componentFixture %> extends ComponentFixtureProfile {}
+
+export class <%= componentFixture %>Component extends O3rComponentFixture implements <%= componentFixture %> {}<%
+}
+%>

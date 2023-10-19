@@ -9,7 +9,7 @@ import { getProjectFromTree, getTemplateFolder } from '@o3r/schematics';
  * @param rootPath @see RuleFactory.rootPath
  * @param options.enableStorybook
  */
-export function createAzurePipeline(options: { projectName: string | null; enableStorybook: boolean }, rootPath: string): Rule {
+export function createAzurePipeline(options: { projectName?: string | null | undefined; enableStorybook: boolean }, rootPath: string): Rule {
 
   /**
    * Generate The Azure Pipeline configuration.

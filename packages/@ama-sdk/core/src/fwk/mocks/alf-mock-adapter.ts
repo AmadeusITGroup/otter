@@ -159,7 +159,7 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
   const alfCalls = buildAlfCalls(log, operationAdapter);
 
   // build the mock map for each operationId in sequential
-  const mock = alfCalls.filter((alfCall) => alfCall.operationId).reduce((mockMap, alfCall) => {
+  const mock = alfCalls.filter((alfCall) => alfCall.operationId).reduce<Record<string, any[]>>((mockMap, alfCall) => {
     if (!mockMap[alfCall.operationId!]) {
       mockMap[alfCall.operationId!] = [];
     }
@@ -176,16 +176,17 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
  * Get the mock adapter corresponding to the logs retrieved from ALF
  *
  * @param binFilePath the path to the file containing the logs downloaded from Alf in .bin format
- * @param operationAdapter an array of PathObject to map request with their operationId
+ * @param operationAdapter an array of PathObject or a function that returns an array of PathObject or a Promise that resolves to an array of PathObject, to map request with their operationId
  * @returns a sequential mock adapter containing each response found in Alf
  */
-export function getAlfMockAdapter(binFilePath: string, operationAdapter: PathObject[]): SequentialMockAdapter {
+export function getAlfMockAdapter(binFilePath: string, operationAdapter: PathObject[] | (() => PathObject[] | Promise<PathObject[]>)): SequentialMockAdapter {
   return new SequentialMockAdapter(operationAdapter, async () => {
     const response = await fetch(binFilePath);
     if (response.ok) {
       const content = await response.text();
 
-      return buildMockMap(content, operationAdapter);
+      const adapter = typeof operationAdapter === 'function' ? await operationAdapter() : operationAdapter;
+      return buildMockMap(content, adapter);
     }
     return {};
   });

@@ -8,7 +8,7 @@ import { NgGenerateStoreSchematicsSchema } from './schema';
  */
 export function ngGenerateStore(options: NgGenerateStoreSchematicsSchema): Rule {
   const parameterToChildSchematics: Partial<NgGenerateStoreSchematicsSchema> = Object.entries(options)
-    .reduce((acc, [key, value]) => {
+    .reduce<Record<string, any>>((acc, [key, value]) => {
       acc[key] = value === null ? undefined : value;
       return acc;
     }, {});

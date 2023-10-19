@@ -1,19 +1,53 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import {registerPackageCollectionSchematics} from '@o3r/schematics';
+import { updateCmsAdapter } from '../cms-adapter';
+import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 /**
  * Add Otter rules-engine to an Angular Project
  */
-export function ngAdd(): Rule {
+export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const {
+        ngAddPackages,
+        getDefaultOptionsForSchematic,
+        getO3rPeerDeps,
+        getProjectDepType,
+        getProjectRootDir,
+        getWorkspaceConfig,
+        ngAddPeerDependencyPackages,
+        removePackages,
+        setupSchematicsDefaultParams
+      } = await import('@o3r/schematics');
+      options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options};
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
+      if (options.enableMetadataExtract) {
+        depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
+      }
       const dependencyType = getProjectDepType(tree);
+      const workingDirectory = getProjectRootDir(tree, options.projectName);
       const rule = chain([
+        registerPackageCollectionSchematics(packageJson),
+        setupSchematicsDefaultParams({
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component': {
+            useRulesEngine: undefined
+          },
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '@o3r/core:component-container': {
+            useRulesEngine: undefined
+          }
+        }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
+        ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/rules-engine - install builder dependency'),
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory }),
+        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
       ]);
 
       context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);

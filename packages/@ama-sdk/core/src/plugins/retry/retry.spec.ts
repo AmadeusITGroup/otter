@@ -41,14 +41,11 @@ describe('Retry Fetch Plugin', () => {
     runners.push(runner);
     const call = Promise.reject({text: 'test', ok: true});
 
-    try {
-      const res = runner.transform(call as any);
-      await res;
-    } catch (error) {
-      expect(error).not.toBeUndefined();
-    } finally {
-      expect(condition).toHaveBeenCalledTimes(2);
-    }
+    const callback = jest.fn();
+    runner.transform(call as any).catch(callback);
+    await jest.runAllTimersAsync();
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({}));
+    expect(condition).toHaveBeenCalledTimes(2);
   });
 
   it('should retry on fetch rejection with wait', async () => {
@@ -61,18 +58,13 @@ describe('Retry Fetch Plugin', () => {
     runners.push(runner);
     const call = Promise.reject({text: 'test', ok: true});
 
-    const startDate = Date.now();
-    try {
-      const res = runner.transform(call as any);
-      await res;
-    } catch (error) {
-      expect(error).not.toBeUndefined();
-    } finally {
-      expect(condition).toHaveBeenCalledTimes(2);
-      const endDate = Date.now();
-
-      expect(endDate).toBeGreaterThanOrEqual(startDate + 2 * delay);
-    }
+    const callback = jest.fn();
+    runner.transform(call as any).catch(callback);
+    await jest.advanceTimersByTimeAsync(delay);
+    expect(callback).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(delay);
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({}));
+    expect(condition).toHaveBeenCalledTimes(2);
   });
 
   it('should retry on not ok call', async () => {
@@ -84,14 +76,11 @@ describe('Retry Fetch Plugin', () => {
     runners.push(runner);
     const call = Promise.resolve({text: 'test', ok: false});
 
-    try {
-      const res = runner.transform(call as any);
-      await res;
-    } catch (error) {
-      expect(error).not.toBeUndefined();
-    } finally {
-      expect(condition).toHaveBeenCalledTimes(3);
-    }
+    const callback = jest.fn();
+    runner.transform(call as any).catch(callback);
+    await jest.runAllTimersAsync();
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({}));
+    expect(condition).toHaveBeenCalledTimes(3);
   });
 
   it('should retry on not ok call with wait', async () => {
@@ -104,18 +93,13 @@ describe('Retry Fetch Plugin', () => {
     runners.push(runner);
     const call = Promise.resolve({text: 'test', ok: false});
 
-    const startDate = Date.now();
-    try {
-      const res = runner.transform(call as any);
-      await res;
-    } catch (error) {
-      expect(error).not.toBeUndefined();
-    } finally {
-      expect(condition).toHaveBeenCalledTimes(3);
-      const endDate = Date.now();
-
-      expect(endDate).toBeGreaterThanOrEqual(startDate + 3 * delay);
-    }
+    const callback = jest.fn();
+    runner.transform(call as any).catch(callback);
+    await jest.advanceTimersByTimeAsync(2 * delay);
+    expect(callback).not.toHaveBeenCalled();
+    await jest.advanceTimersByTimeAsync(delay);
+    expect(callback).toHaveBeenCalledWith(expect.objectContaining({}));
+    expect(condition).toHaveBeenCalledTimes(3);
   });
 
 });

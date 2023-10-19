@@ -1,6 +1,5 @@
 import { SchematicsException, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as commentJson from 'comment-json';
 import { sync as globbySync } from 'globby';
 import { minimatch } from 'minimatch';
 import * as path from 'node:path';
@@ -13,14 +12,28 @@ import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
  * @param tree File tree
  * @param angularJsonFile Angular.json file path
  * @throws Angular JSON invalid or non exist
+ * @deprecate use {@link getWorkspaceConfig} function instead, will be removed in Otter v10
  */
 export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): WorkspaceSchema {
-  const workspaceConfig = tree.read(angularJsonFile);
-  if (!workspaceConfig) {
+  if (!tree.exists(angularJsonFile)) {
     throw new SchematicsException('Could not find Angular workspace configuration');
   }
+  const workspaceConfig = tree.readJson(angularJsonFile);
+  return workspaceConfig as any;
+}
 
-  return commentJson.parse(workspaceConfig.toString()) as any;
+/**
+ * Load the Workspace configuration object
+ *
+ * @param tree File tree
+ * @param workspaceConfigFile Workspace config file path, /angular.json in an Angular project
+ * @returns null if the given config file does not exist
+ */
+export function getWorkspaceConfig<T extends WorkspaceSchema = WorkspaceSchema>(tree: Tree, workspaceConfigFile = '/angular.json'): WorkspaceSchema | null {
+  if (!tree.exists(workspaceConfigFile)) {
+    return null;
+  }
+  return tree.readJson(workspaceConfigFile) as unknown as T;
 }
 
 /**
@@ -31,7 +44,7 @@ export function readAngularJson(tree: Tree, angularJsonFile = '/angular.json'): 
  * @param angularJsonFile Angular.json file path
  */
 export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angularJsonFile = '/angular.json') {
-  tree.overwrite(angularJsonFile, commentJson.stringify(workspace, null, 2));
+  tree.overwrite(angularJsonFile, JSON.stringify(workspace, null, 2));
   return tree;
 }
 
@@ -43,13 +56,13 @@ export function writeAngularJson(tree: Tree, workspace: WorkspaceSchema, angular
  * @throws Package JSON invalid or non exist
  */
 export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) {
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-  const workspaceConfig = tree.read(`${workspaceProject.root}/package.json`);
-  if (!workspaceConfig) {
+  const packageJsonPath = `${workspaceProject.root}/package.json`;
+  if (!tree.exists(packageJsonPath)) {
     throw new SchematicsException('Could not find NPM Package');
   }
 
-  return commentJson.parse(workspaceConfig.toString()) as PackageJson;
+  const workspaceConfig = tree.readJson(packageJsonPath);
+  return workspaceConfig as PackageJson;
 }
 
 /**
@@ -60,8 +73,13 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
  * @param projectType
  */
 export function getProjectFromTree(tree: Tree, projectName?: string | null, projectType?: 'application' | 'library'): WorkspaceProject & { name: string } | undefined {
-  const workspace = readAngularJson(tree);
-  const projectGuessedName = projectName || workspace.defaultProject;
+
+  const workspace = getWorkspaceConfig(tree);
+  if (!workspace) {
+    return undefined;
+  }
+
+  const projectGuessedName = projectName || Object.keys(workspace.projects)[0];
   // eslint-disable-next-line max-len
   let workspaceProject: WorkspaceProject & { name: string } | undefined = projectGuessedName && workspace.projects[projectGuessedName] && (!projectType || workspace.projects[projectGuessedName]?.projectType === projectType) ?
     {
@@ -78,6 +96,17 @@ export function getProjectFromTree(tree: Tree, projectName?: string | null, proj
   }
   return workspaceProject;
 }
+
+/**
+ * Returns the root directory of a project with the given name ( a relative path from the project root)
+ *
+ * @param tree Files tree
+ * @param projectName Name of the project inside the workspace
+ */
+export function getProjectRootDir(tree: Tree, projectName?: string | null) {
+  return getProjectFromTree(tree, projectName)?.root;
+}
+
 
 /**
  * Return the type of install to run depending on the project type (Peer or default)
@@ -119,15 +148,15 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
  * @param basePath Base path from which starting the list
  * @param tree Schematics file tree
  * @param excludes Array of globs to be ignored
+ * @param recursive determine if the function will walk through the sub folders
  */
-export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = []): string[] {
+export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = [], recursive = true): string[] {
   if (excludes.length && excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
     return [];
   }
   return [
     ...tree.getDir(basePath).subfiles.map((file) => path.posix.join(basePath, file)),
-    ...tree.getDir(basePath).subdirs
-      .flatMap((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir), excludes))
+    ...(recursive ? tree.getDir(basePath).subdirs.flatMap((dir) => getAllFilesInTree(tree, path.posix.join(basePath, dir), excludes, recursive)) : [])
   ];
 }
 
@@ -187,7 +216,7 @@ export function getFilesWithExtensionFromTree(tree: Tree, extension: string) {
  * @param extension
  */
 export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: string) {
-  return getFilesInFolderFromWorkspaceProjects(tree, '', extension);
+  return getFilesInFolderFromWorkspaceProjectsInTree(tree, '', extension);
 }
 
 /**
@@ -197,7 +226,7 @@ export function getFilesFromRootOfWorkspaceProjects(tree: Tree, extension: strin
  * @param extension
  */
 export function getFilesFromWorkspaceProjects(tree: Tree, extension: string) {
-  return getFilesInFolderFromWorkspaceProjects(tree, 'src', extension);
+  return getFilesInFolderFromWorkspaceProjectsInTree(tree, 'src', extension);
 }
 
 

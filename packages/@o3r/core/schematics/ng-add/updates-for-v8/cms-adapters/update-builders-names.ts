@@ -3,7 +3,6 @@ import {
   chain, Rule, Tree
 } from '@angular-devkit/schematics';
 import { readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
 
 /**
  * Update otter builders names
@@ -37,7 +36,7 @@ export function updateBuildersNames(): Rule {
       const workspaceProject = workspace.projects[projectName];
       if (workspaceProject.architect) {
         Object.keys(workspaceProject.architect).forEach(architectName => {
-          const builderName: string = workspaceProject.architect![architectName].builder;
+          const builderName: keyof typeof buildersMappingFromV7 = workspaceProject.architect![architectName].builder;
           if (buildersMappingFromV7[builderName]) {
             workspaceProject.architect![architectName].builder = buildersMappingFromV7[builderName];
           }
@@ -46,7 +45,7 @@ export function updateBuildersNames(): Rule {
       }
     });
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

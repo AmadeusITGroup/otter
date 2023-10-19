@@ -38,7 +38,7 @@
       }
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "rootDir": "packages/@ama-sdk/generator-sdk/src",
         "main": "packages/@ama-sdk/generator-sdk/src/generators/sdk-generator.ts",
@@ -48,7 +48,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -63,18 +63,21 @@
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
-      "dependsOn": ["^build"],
+      "executor": "@nx/jest:jest",
+      "dependsOn": [
+        "^build"
+      ],
       "options": {
         "jestConfig": "packages/@ama-sdk/generator-sdk/jest.config.js",
         "silent": true
       }
     },
     "test-int": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/generator-sdk/testing/jest.config.it.js",
-        "silent": true
+        "silent": false,
+        "passWithNoTests": true
       }
     },
     "prepare-publish": {

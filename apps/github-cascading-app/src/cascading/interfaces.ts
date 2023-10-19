@@ -25,6 +25,8 @@ export interface CascadingConfiguration {
    * - **$target** : Target branch
    */
   pullRequestTitle: string;
+  /** Prefix of the branch created for creating process */
+  branchNamePrefix: string;
 }
 
 export interface PullRequestContext {
@@ -54,3 +56,17 @@ export interface CascadingPullRequestInfo {
 
 /** Check suite possible conclusions */
 export type CheckConclusion = 'cancelled' | 'neutral' | 'success' | 'failure' | 'timed_out' | 'action_required' | 'stale' | null;
+
+/**
+ * Default configuration
+ */
+export const DEFAULT_CONFIGURATION: Readonly<CascadingConfiguration> = {
+  ignoredPatterns: [] as string[],
+  defaultBranch: '',
+  cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
+  versionCapturePattern: '/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$',
+  bypassReviewers: false,
+  labels: [] as string[],
+  pullRequestTitle: '[cascading] from $origin to $target',
+  branchNamePrefix: 'cascading'
+} as const;

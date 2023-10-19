@@ -1,21 +1,24 @@
 {
+  "name": "amaterasu-dodo",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "name": "amaterasu-dodo",
-  "root": "packages/@o3r/amaterasu/amaterasu-dodo",
   "sourceRoot": "packages/@o3r/amaterasu/amaterasu-dodo/src",
   "prefix": "o3r",
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": ["{projectRoot}/dist/package.json"],
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["compile"]
+      "dependsOn": [
+        "compile"
+      ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "packages/@o3r/amaterasu/amaterasu-dodo/src/index.ts",
         "tsConfig": "packages/@o3r/amaterasu/amaterasu-dodo/tsconfig.build.json",
@@ -29,7 +32,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -38,11 +41,13 @@
       },
       "options": {
         "eslintConfig": "packages/@o3r/amaterasu/amaterasu-dodo/.eslintrc.js",
-        "lintFilePatterns": ["packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts"]
+        "lintFilePatterns": [
+          "packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts"
+        ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/amaterasu/amaterasu-dodo/jest.config.js",
         "silent": true

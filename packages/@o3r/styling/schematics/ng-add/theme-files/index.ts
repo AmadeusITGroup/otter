@@ -71,11 +71,11 @@ export function updateThemeFiles(rootPath: string): Rule {
  * @param options.projectName
  * @returns
  */
-export function removeV7OtterAssetsInAngularJson(options: { projectName: string | null }): Rule {
+export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
     const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
+    const projectName = options.projectName || Object.keys(workspace.projects)[0];
     const workspaceProject = getProjectFromTree(tree, projectName, 'application');
 
     // exit if not an application

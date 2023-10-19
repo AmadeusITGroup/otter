@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddLocalizationKeySchematicsSchema",
+  "title": "Add Otter Localization key to an existing component",
+  "description": "Add Otter Localization key to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "key": {
+      "type": "string",
+      "description": "Localization key without the component prefix"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the localization"
+    },
+    "value": {
+      "type": "string",
+      "description": "Default value of the localization",
+      "default": ""
+    },
+    "dictionnary": {
+      "type": "boolean",
+      "description": "Is a dictionnary key",
+      "default": false
+    },
+    "updateTemplate": {
+      "type": "boolean",
+      "description": "Update the template by replacing matching value by the localization key",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path",
+    "key"
+  ]
+}

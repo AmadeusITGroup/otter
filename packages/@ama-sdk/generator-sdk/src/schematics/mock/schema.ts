@@ -1,4 +1,4 @@
-import {JsonObject} from '@angular-devkit/core';
+import type {JsonObject} from '@angular-devkit/core';
 
 export interface NgGenerateMockSchematicsSchema extends JsonObject {
   /** Name of the api model to generate */

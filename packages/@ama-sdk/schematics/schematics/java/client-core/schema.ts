@@ -1,9 +1,9 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateJavaClientCoreSchematicsSchema extends JsonObject {
+export interface NgGenerateJavaClientCoreSchematicsSchema extends SchematicOptionObject {
   /** Path to the swagger specification used to generate the SDK */
-  swaggerSpecPath: string;
+  specPath: string;
 
   /** Swagger config file */
-  swaggerConfigPath: string | null;
+  specConfigPath?: string | undefined;
 }

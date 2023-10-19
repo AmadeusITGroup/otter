@@ -148,8 +148,8 @@ export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = fals
   const base64Encoder = createBase64UrlEncoder();
   const stringEncoder = typeof window.TextEncoder !== 'undefined' ? new TextEncoder() : new Encoder();
 
-  return async ({publicKey, keyId}: {publicKey: Promise<CryptoKey> | CryptoKey; keyId: string}, jwePayload: Record<string, unknown>, publicProperties: string[]) => {
-    const jweHeader = {
+  return async ({ publicKey, keyId }: { publicKey: Promise<CryptoKey> | CryptoKey; keyId: string }, jwePayload: Record<string, unknown>, publicProperties: string[]) => {
+    const jweHeader: Record<string, unknown> = {
       alg: 'RSA-OAEP-256',
       enc: 'A256GCM',
       typ: 'JWE',

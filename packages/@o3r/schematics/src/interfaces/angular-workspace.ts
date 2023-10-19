@@ -6,6 +6,11 @@ import type {
   SchematicOptions
 } from '@angular/cli/lib/config/workspace-schema';
 
+/**
+ * Type representing supported testing frameworks: 'jest' or 'jasmine'.
+ */
+export type AvailableTestFrameworks = 'jest' | 'jasmine';
+
 export interface WorkspaceProjectI18n {
   locales: Record<string, string>;
   sourceLocale?: string;
@@ -13,6 +18,15 @@ export interface WorkspaceProjectI18n {
 export interface WorkspaceTool {
   [k: string]: any;
 }
+
+/** Defines the directories where the apps/libs will stay inside a monorepo */
+export interface WorkspaceLayout {
+  /** Libraries directory name */
+  libsDir: string;
+  /** Applications directory name */
+  appsDir: string;
+}
+
 
 export interface WorkspaceSchematics extends SchematicOptions {
   /** @deprecated */
@@ -22,7 +36,6 @@ export interface WorkspaceSchematics extends SchematicOptions {
   /** @deprecated */
   '@otter/ng-tools:component'?: {
     path: string;
-    useStorybook: boolean;
   };
   /** @deprecated */
   '@otter/ng-tools:service'?: {
@@ -39,7 +52,6 @@ export interface WorkspaceSchematics extends SchematicOptions {
 
   '@o3r/components:component'?: {
     path: string;
-    useStorybook: boolean;
   };
   '@o3r/services:service'?: {
     path: string;
@@ -50,7 +62,13 @@ export interface WorkspaceSchematics extends SchematicOptions {
   '@o3r/core:schematics'?: {
     path: string;
   };
-
+  '*:ng-add'?: {
+    enableMetadataExtract?: boolean;
+  };
+  '*:*'?: WorkspaceLayout & {
+    /** in adition to the WorkspaceLayout, an optional testFramework attribute is available */
+    testFramework?: AvailableTestFrameworks;
+  };
 }
 export interface WorkspaceProject extends NgWorkspaceProject {
   architect?: WorkspaceTool;

@@ -1,5 +1,5 @@
 import {SchematicContext, SchematicsException, Tree, UpdateRecorder} from '@angular-devkit/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import {
   addImportToModule,
   addProviderToModule,
@@ -19,12 +19,13 @@ import {getProjectFromTree} from './loaders';
  *
  * @param tree File tree
  * @param context Context of the rule
+ * @param projectName The name of the project where to search for an app module file
  */
-export function getAppModuleFilePath(tree: Tree, context: SchematicContext) {
-  const workspaceProject = getProjectFromTree(tree, null, 'application');
+export function getAppModuleFilePath(tree: Tree, context: SchematicContext, projectName?: string | null) {
+  const workspaceProject = getProjectFromTree(tree, projectName, 'application');
   // exit if not an application
   if (!workspaceProject) {
-    context.logger.debug('Register localization on main module only in application project');
+    context.logger.debug('Aborted. App module file path will be searched only in application project.');
     return undefined;
   }
 
@@ -108,7 +109,11 @@ export function isApplicationThatUsesRouterModule(tree: Tree) {
   const workspaceProject = getProjectFromTree(tree, null, 'application');
   return workspaceProject?.sourceRoot &&
     globbySync(path.posix.join(workspaceProject.sourceRoot, '**', '*.ts')).some((filePath) => {
-      const sourceFile = ts.createSourceFile(filePath, fs.readFileSync(filePath).toString(), ts.ScriptTarget.ES2015, true);
+      const fileContent = fs.readFileSync(filePath).toString();
+      if (!/RouterModule/.test(fileContent)) {
+        return false;
+      }
+      const sourceFile = ts.createSourceFile(filePath, fileContent, ts.ScriptTarget.ES2015, true);
       try {
         return !!getRouterModuleDeclaration(sourceFile);
       } catch {}

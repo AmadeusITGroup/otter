@@ -1,8 +1,0 @@
-import type {Configuration} from '@o3r/core';
-import {computeConfigurationName} from '@o3r/configuration';
-
-export interface <%=componentConfig%> extends Configuration {}
-
-export const <%=configKey%>_DEFAULT_CONFIG: <%=componentConfig%> = {};
-
-export const <%=configKey%>_CONFIG_ID = computeConfigurationName('<%= componentSelector %>-pres', '<%=projectName%>');

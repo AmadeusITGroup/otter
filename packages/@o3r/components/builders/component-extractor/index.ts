@@ -77,7 +77,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         error: 'Parsing failed'
       };
     } else {
-      const componentExtractor = new ComponentExtractor(libraryName, options.libraries, context.logger, context.workspaceRoot);
+      const componentExtractor = new ComponentExtractor(libraryName, options.libraries, context.logger, context.workspaceRoot, options.strictMode);
       try {
         context.reportProgress(3, STEP_NUMBER, 'Extracting component metadata');
         const componentMetadata = await componentExtractor.extract(parserOutput, options);

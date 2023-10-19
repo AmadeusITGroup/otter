@@ -1,54 +1,71 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgAddSchematicsSchema extends JsonObject {
+export type PresetNames = 'basic' | 'cms';
+
+export interface NgAddSchematicsSchema extends SchematicOptionObject {
+  /** Preset of module list to automatically install */
+  preset: PresetNames;
+
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
-  /** Enable prefetch builder */
-  enablePrefetchBuilder: boolean;
-
-  /** Enable playwright */
-  enablePlaywright: boolean;
-
-  /** Enable otter customization */
+  /**
+   * Enable otter customization
+   * @deprecated will be removed in favor of preset feature
+   */
   enableCustomization: boolean;
 
-  /** Enable otter analytics */
+  /**
+   * Enable otter analytics
+   * @deprecated will be removed in favor of preset feature
+   */
   enableAnalytics: boolean;
 
-  /** Enable otter styling */
+  /**
+   * Enable otter styling
+   * @deprecated will be removed in favor of preset feature
+   */
   enableStyling: boolean;
 
-   /** Enable otter rules-engine */
+   /**
+    * Enable otter rules-engine
+    * @deprecated will be removed in favor of preset feature
+    */
   enableRulesEngine: boolean;
 
-  /** Enable CMS */
-  enableCms: boolean;
-
-  /** Enable localization */
+  /**
+   * Enable localization
+   * @deprecated will be removed in favor of preset feature
+   */
   enableLocalization: boolean;
 
-  /** Enable configuration setup */
+  /**
+   * Enable configuration setup
+   * @deprecated will be removed in favor of preset feature
+   */
   enableConfiguration: boolean;
 
-  /** Enable Storybook */
+  /**
+   * Enable Storybook
+   * @deprecated will be removed in favor of preset feature
+   */
   enableStorybook: boolean;
-
-  /** Set the Otter Generator as default ngCLI generator */
-  isDefaultGenerator: boolean;
 
   /** Skip the linter process */
   skipLinter: boolean;
 
-  /** Generate the Azure Pipeline for the new project */
+  /**
+   * Generate the Azure Pipeline for the new project
+   * @deprecated will be removed in favor of preset feature
+   */
   generateAzurePipeline: boolean;
-
-  /** Testing framework */
-  testingFramework: 'jest' | 'jasmine';
 
   /** Skip the install process */
   skipInstall: boolean;
 
-  /** Enable Apis manager */
+  /**
+   * Enable Apis manager
+   * @deprecated will be removed in favor of preset feature
+   */
   enableApisManager: boolean;
 }

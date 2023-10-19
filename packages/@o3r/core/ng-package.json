@@ -7,6 +7,6 @@
     "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "chokidar", "comment-json", "globby", "semver", "tslib", "uuid", "@o3r/schematics"
+    "chokidar", "globby", "semver", "tslib", "uuid", "@o3r/schematics"
   ]
 }

@@ -146,7 +146,15 @@ Check Unit Tests:
 yarn run test
 ```
 
-Each module can be test independently thanks to [Nx](https://nx.dev/packages/nx/documents/run) commands:
+Check Integration Tests:
+
+```shell
+yarn run test-int
+```
+
+[Verdaccio](./.verdaccio/README.md) is used to run the integration tests as close as possible to a real npm publication.
+
+Each module can be tested independently thanks to [Nx](https://nx.dev/packages/nx/documents/run) commands:
 
 ```shell
 # ex: Test Core package only

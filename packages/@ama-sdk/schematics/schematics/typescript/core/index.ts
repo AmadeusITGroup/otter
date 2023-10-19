@@ -12,28 +12,28 @@ import {
   url
 } from '@angular-devkit/schematics';
 import type { Operation, PathObject } from '@ama-sdk/core';
-import { existsSync, promises as fs } from 'node:fs';
+import {existsSync, readFileSync} from 'node:fs';
 import * as path from 'node:path';
+import * as semver from 'semver';
 import * as sway from 'sway';
-import { executeSwaggerJarsRuleFactory } from '../../helpers/execute-jars';
+
+import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
+import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
 
 const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
 
 const getPathObjectTemplate = (pathObj: PathObject) => {
   return `{
       ${
-  Object.keys(pathObj).map((propName) => {
-    const value = (propName as keyof PathObject) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
+  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+    const value = (propName) === 'regexp' ? getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
     return `${propName}: ${value}`;
   }).join(',')
 }
     }`;
 };
-
-/** Base path where to find codegen jars */
-const jarBasePath = path.resolve(__dirname, 'swagger-codegen-typescript', 'target');
 
 /**
  * Generate a typescript SDK source code base on swagger specification
@@ -42,11 +42,13 @@ const jarBasePath = path.resolve(__dirname, 'swagger-codegen-typescript', 'targe
  */
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
 
-  const specPath = path.resolve(process.cwd(), options.swaggerSpecPath);
+  const specPath = path.resolve(process.cwd(), options.specPath);
+  const targetPath = options.directory || '';
+  const globalProperty = options.globalProperty;
 
   const generateOperationFinder = async (): Promise<PathObject[]> => {
     const swayOptions = {
-      definition: path.resolve(options.swaggerSpecPath)
+      definition: path.resolve(options.specPath)
     };
     const swayApi = await sway.create(swayOptions);
     const extraction = swayApi.getPaths().map((obj) => ({
@@ -70,10 +72,10 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param _context
    */
   const clearGeneratedCode = (tree: Tree, _context: SchematicContext) => {
-    treeGlob(tree, path.posix.join('src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.posix.join('src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.posix.join('src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
-    treeGlob(tree, path.posix.join('src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'api', '**', '*.ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'models', 'base', '**', '!(index).ts')).forEach((file) => tree.delete(file));
+    treeGlob(tree, path.posix.join(targetPath, 'src', 'spec', '!(operation-adapter|index).ts')).forEach((file) => tree.delete(file));
     return tree;
   };
 
@@ -94,7 +96,7 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
         swayOperationAdapter,
         empty: ''
       }),
-      move('/'),
+      move(targetPath),
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
   };
@@ -105,29 +107,49 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    * @param tree
    * @param _context
    */
-  const updateSpec = async (tree: Tree, _context: SchematicContext) => {
-    const specContent = await fs.readFile(specPath, {encoding: 'utf8'});
-    if (tree.exists('/readme.md')) {
+  const updateSpec = (tree: Tree, _context: SchematicContext) => {
+    const readmeFile = path.posix.join(targetPath, 'readme.md');
+    const specContent = readFileSync(specPath).toString();
+    if (tree.exists(readmeFile)) {
       const swaggerVersion = /version: ([0-9]+\.[0-9]+\.[0-9]+)/.exec(specContent);
 
       if (swaggerVersion) {
-        const readmeContent = tree.read('/readme.md')!.toString('utf8');
-        tree.overwrite('/readme.md', readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${swaggerVersion[1]}`));
+        const readmeContent = tree.read(readmeFile)!.toString('utf8');
+        tree.overwrite(readmeFile, readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${swaggerVersion[1]}`));
       }
     }
 
-    if (tree.exists('/swagger-spec.yaml')) {
-      tree.overwrite('/swagger-spec.yaml', specContent);
+    if (tree.exists(path.posix.join(targetPath, 'swagger-spec.yaml'))) {
+      tree.overwrite(path.posix.join(targetPath, 'swagger-spec.yaml'), specContent);
     } else {
-      tree.create('/swagger-spec.yaml', specContent);
+      tree.create(path.posix.join(targetPath, 'swagger-spec.yaml'), specContent);
     }
     return () => tree;
+  };
+
+  const runGeneratorRule = (tree: Tree, context: SchematicContext) => {
+    const generatorOptions: Partial<OpenApiCliOptions> = {specPath, globalProperty};
+    const packageJsonFile: {openApiSupportedVersion?: string} = JSON.parse((readFileSync(path.join(__dirname, '..', '..', '..', 'package.json'))).toString());
+    const packageOpenApiSupportedVersion: string | undefined = packageJsonFile.openApiSupportedVersion?.replace(/\^|~/, '');
+    let openApiVersion = '';
+    try {
+      openApiVersion = (tree.readJson(path.posix.join(targetPath, 'openapitools.json')) as any)?.['generator-cli']?.version;
+    } catch {
+      context.logger.warn('No openapitools.json file found in the project');
+    }
+    if (!!packageOpenApiSupportedVersion && semver.valid(packageOpenApiSupportedVersion) && (!packageOpenApiSupportedVersion || !semver.satisfies(openApiVersion, packageOpenApiSupportedVersion))) {
+      generatorOptions.generatorVersion = packageOpenApiSupportedVersion;
+    }
+    if (options.specConfigPath) {
+      generatorOptions.specConfigPath = options.specConfigPath;
+    }
+    return () => (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(generatorOptions, {rootDirectory: options.directory || undefined});
   };
 
   return chain([
     clearGeneratedCode,
     generateSource,
     updateSpec,
-    executeSwaggerJarsRuleFactory(jarBasePath, specPath, 'typescriptFetch')
+    runGeneratorRule
   ]);
 }

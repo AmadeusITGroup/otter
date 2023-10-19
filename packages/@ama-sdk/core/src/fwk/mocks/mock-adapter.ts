@@ -21,8 +21,17 @@ export interface MockAdapter {
    * Retrieves an operation ID from an API request
    *
    * @param request the api request
+   * @deprecated Please use retrieveOperationId instead
    */
   getOperationId(request: EncodedApiRequest): string;
+
+  /**
+   * Retrieves an operation ID from an API request
+   *
+   * @param request the api request
+   */
+  retrieveOperationId(request: EncodedApiRequest): Promise<string>;
+
   /**
    * Initializes the adapter
    */

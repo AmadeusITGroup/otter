@@ -1,2 +1,1 @@
-src/**/templates/**/*.ts
-src/**/templates/**/*.js
+schematics/**/templates/**/*

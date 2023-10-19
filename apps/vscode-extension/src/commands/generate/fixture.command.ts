@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner } from '../helpers';
+import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
 
 const availableMethods: string[] = [
   'clickOnButton',
@@ -41,19 +41,16 @@ export function generateFixtureGenerateCommand(_context: ExtensionContext) {
         const terminal = vscode.window.createTerminal('Otter Component generator');
         const relativePath = vscode.workspace.asRelativePath(fixtureDocUri.path);
 
-        const config = vscode.workspace.getConfiguration('otter.generate');
-        const defaultOptions = [
-          `--skip-linter ${!!config.get<boolean>('skipLinter')}`
-        ];
+        const defaultOptions = await getSchematicDefaultOptions('@o3r/testing:add-functions-to-fixture');
         const fixtureDoc = await vscode.workspace.openTextDocument(fixtureDocUri);
         const selectedClasses = textSelected.match(/class="([^"]+)"/)?.[1] || textSelected;
         const options = [
-          ...defaultOptions,
+          ...stringifyOptions(defaultOptions),
           `--path ${relativePath}`,
           ...chosenMethods.map((m) => `--methods ${m}`),
           `--selector=".${selectedClasses.replace(/ /g, '.')}"`
         ];
-        terminal.sendText(`${getPackageScriptRunner()} ng generate @o3r/core:fixture ${options.join(' ')}`, true);
+        terminal.sendText(`${await getPackageScriptRunner()} ng generate @o3r/testing:add-functions-to-fixture ${options.join(' ')}`, true);
         terminal.show();
         await vscode.window.showTextDocument(fixtureDoc);
       } else {

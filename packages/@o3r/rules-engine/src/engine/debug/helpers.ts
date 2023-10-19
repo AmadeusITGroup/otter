@@ -103,7 +103,7 @@ export function handleRuleEvaluationDebug(
     outputActions,
     id: executionId,
     triggers: reasons,
-    temporaryFacts: rule.outputRuntimeFacts.concat(rule.inputRuntimeFacts).reduce((acc, runtimeFactName) => {
+    temporaryFacts: rule.outputRuntimeFacts.concat(rule.inputRuntimeFacts).reduce<Record<string, Facts>>((acc, runtimeFactName) => {
       if (typeof runtimeFactValues[runtimeFactName] !== 'undefined') {
         acc[runtimeFactName] = runtimeFactValues[runtimeFactName];
       }

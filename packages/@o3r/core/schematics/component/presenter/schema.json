@@ -40,43 +40,27 @@
     },
     "useComponentFixtures": {
       "type": "boolean",
-      "description": "Generate component fixtures for tests",
-      "default": true,
-      "x-prompt": "Generate component fixtures for tests?"
+      "description": "Generate component fixtures for tests"
     },
     "useOtterTheming": {
       "type": "boolean",
-      "description": "Generate component with Otter theming architecture",
-      "default": true,
-      "x-prompt": "Generate your component with Otter theming architecture?"
+      "description": "Generate component with Otter theming architecture"
     },
     "useOtterConfig": {
       "type": "boolean",
-      "description": "Generate component with Otter configuration",
-      "default": true
+      "description": "Generate component with Otter configuration"
     },
     "useOtterAnalytics": {
       "type": "boolean",
-      "description": "Generate component with Otter analytics architecture",
-      "default": false,
-      "x-prompt": "Do you want to generate your component with Otter analytics architecture?"
-    },
-    "useStorybook": {
-      "type": "boolean",
-      "description": "Generate component stories for storybook",
-      "default": true,
-      "x-prompt": "Generate component stories for storybook?"
+      "description": "Generate component with Otter analytics architecture"
     },
     "useLocalization": {
       "type": "boolean",
-      "description": "Generate component with localization",
-      "default": true,
-      "x-prompt": "Generate component with localization?"
+      "description": "Generate component with localization"
     },
     "useContext": {
       "type": "boolean",
-      "description": "Generate component context",
-      "default": true
+      "description": "Generate component context"
     },
     "description": {
       "type": "string",
@@ -86,8 +70,7 @@
     "activateDummy": {
       "type": "boolean",
       "description": "Generate dummy values",
-      "default": false,
-      "x-prompt": "Generate dummy I/O, localization and analytics events"
+      "default": false
     },
     "skipLinter": {
       "type": "boolean",

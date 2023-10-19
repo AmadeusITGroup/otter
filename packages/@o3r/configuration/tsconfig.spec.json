@@ -6,12 +6,15 @@
     "rootDir": ".",
   },
   "include": [
-    "./src/**/*.spec.ts"
+    "**/*.spec.ts"
   ],
   "exclude": [],
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.builders.json"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import type * as PostCSS from 'postcss';
-import { PluginContext, PostcssResult, Problem, utils } from 'stylelint';
+import { PostcssResult, Problem, RuleContext, utils } from 'stylelint';
 import { getNamespacedRuleName } from '../../utils/get-namespaced-rule-name';
 
 const o3rImportRegexp = new RegExp(/^@use ['"]@o3r\/styling['"] as (.*);/m);
@@ -27,7 +27,7 @@ export const messagesAlias = utils.ruleMessages(ruleName, {
  * @param _secondaryOptions
  * @param context
  */
-export const rule = (primary: any, _secondaryOptions: Record<string, any>, context: PluginContext) => {
+export const rule = (primary: any, _secondaryOptions: Record<string, any>, context: RuleContext) => {
   return (root: PostCSS.Root, result: PostcssResult) => {
     const validOptions = utils.validateOptions(result, ruleName, {
       actual: primary

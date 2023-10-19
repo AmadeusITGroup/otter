@@ -1,4 +1,4 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',
@@ -9,15 +9,18 @@ module.exports = {
     ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@<%=projectName%>/<%=projectPackageName%> unit tests' }]
   ],
   moduleNameMapper: {
-    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1'],
+    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/src'],
+    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/src/$1'],
   },
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/testing/tsconfig.spec.json',
-      isolatedModules: true,
-      stringifyContentPathRegex: '\\.html$',
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/testing/tsconfig.spec.json',
+        isolatedModules: true,
+        stringifyContentPathRegex: '\\.html$',
+      }
+    ]
   }
 };

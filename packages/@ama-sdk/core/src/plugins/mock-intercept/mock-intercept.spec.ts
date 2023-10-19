@@ -10,12 +10,14 @@ const testMock: Mock<any> = {
 const getMockSpy = jest.fn().mockReturnValue(testMock);
 const getLatestMockSpy = jest.fn().mockReturnValue(testMock);
 const getOperationIdSpy = jest.fn().mockReturnValue('testOperation');
+const retrieveOperationIdSpy = jest.fn().mockReturnValue(Promise.resolve('testOperation'));
 const initializeSpy = jest.fn().mockReturnValue(Promise.resolve());
 const testMockAdapter: MockAdapter = {
   getMock: getMockSpy,
   getLatestMock: getLatestMockSpy,
   getOperationId: getOperationIdSpy,
-  initialize: initializeSpy
+  initialize: initializeSpy,
+  retrieveOperationId: retrieveOperationIdSpy
 };
 
 const requestPlugins: RequestPlugin[] = [new MockInterceptRequest({adapter: new SequentialMockAdapter([], {})})];
@@ -69,7 +71,8 @@ describe('Mock intercept', () => {
           initialize: initializeSpy,
           getMock: getMockSpy,
           getLatestMock: getLatestMockSpy,
-          getOperationId: getOperationIdSpy
+          getOperationId: getOperationIdSpy,
+          retrieveOperationId: retrieveOperationIdSpy
         };
         plugin = new MockInterceptFetch({adapter: asyncMockAdapter});
       });
@@ -127,11 +130,12 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const beforeTime = new Date().getTime();
-      await loadedPlugin.transform(Promise.resolve({} as any));
-      const afterTime = new Date().getTime();
-
-      expect(afterTime - beforeTime).toBeGreaterThanOrEqual(695);
+      const callback = jest.fn();
+      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      await jest.advanceTimersByTimeAsync(699);
+      expect(callback).not.toHaveBeenCalled();
+      await jest.advanceTimersByTimeAsync(1);
+      expect(callback).toHaveBeenCalled();
     });
 
     it('should delay the response based on callback', async () => {
@@ -146,11 +150,12 @@ describe('Mock intercept', () => {
           })
         }
       });
-      const beforeTime = new Date().getTime();
-      await loadedPlugin.transform(Promise.resolve({} as any));
-      const afterTime = new Date().getTime();
-
-      expect(afterTime - beforeTime).toBeGreaterThanOrEqual(795);
+      const callback = jest.fn();
+      loadedPlugin.transform(Promise.resolve({} as any)).then(callback);
+      await jest.advanceTimersByTimeAsync(799);
+      expect(callback).not.toHaveBeenCalled();
+      await jest.advanceTimersByTimeAsync(1);
+      expect(callback).toHaveBeenCalled();
     });
   });
 });

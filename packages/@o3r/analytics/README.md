@@ -19,6 +19,15 @@ ng add @o3r/analytics
 
 > **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                 | Description                                                    | How to use                        |
+| -------------------------- | -------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter analytics module in a library / application.     | `ng add @o3r/analytics`           |
+| analytics-to-component     | Add analytics to an Otter component                            | `ng g analytics-to-component`     |
+
 ## More information
 
 Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/analytics/ANALYTICS.md).

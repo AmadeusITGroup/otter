@@ -1,4 +1,5 @@
 export * from './ast';
+export * from './component';
 export * from './dependencies';
 export * from './file-info';
 export * from './generation';
@@ -11,6 +12,8 @@ export * from './template-property.helper';
 export * from './matching-peers';
 export * from './package-manager-runner';
 export * from './package-version';
+export * from './question';
 export * from './monorepo';
 export * from './update-imports';
 export * from './collection';
+export * from './logo';

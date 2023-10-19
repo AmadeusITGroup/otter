@@ -1,46 +1,43 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
 import type { ComponentStructure } from '../structures.types';
 
-export interface NgGenerateComponentPresenterSchematicsSchema extends JsonObject {
+export interface NgGenerateComponentPresenterSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
   /** name of the component to generate */
   componentName: string;
 
   /** Selector prefix */
-  prefix: string | null;
+  prefix?: string | undefined;
 
   /** Component Structure */
   componentStructure: ComponentStructure;
 
   /** Description of the component generated */
-  description: string | null;
+  description?: string | undefined;
 
   /** Component Folder */
-  path: string | null;
+  path?: string | undefined;
 
   /** Indicates if the component should generate fixtures */
-  useComponentFixtures: boolean;
+  useComponentFixtures?: boolean | undefined;
 
   /** Indicates if the component should use otter theming architecture */
-  useOtterTheming: boolean;
+  useOtterTheming?: boolean | undefined;
 
   /** Indicates if the component should use otter configuration */
-  useOtterConfig: boolean;
+  useOtterConfig?: boolean | undefined;
 
   /** Indicates if the component should use otter analytics architecture */
-  useOtterAnalytics: boolean;
-
-  /** Indicates if the component should use storybook */
-  useStorybook: boolean;
+  useOtterAnalytics?: boolean | undefined;
 
   /** Indicates if the component should use localization */
   useLocalization: boolean;
 
   /** Indicates if the component should use generate context */
-  useContext: boolean;
+  useContext?: boolean | undefined;
 
   /** Determine if the dummy IO should be generated */
   activateDummy: boolean;
