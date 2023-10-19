@@ -123,7 +123,8 @@ export default class extends SdkGenerator {
   public writing() {
     const properties = {
       ...this.properties,
-      dot: '.'
+      dot: '.',
+      empty: ''
     };
 
     const processDestinationPath = (destinationPath: string) => {
@@ -132,7 +133,7 @@ export default class extends SdkGenerator {
         return matchVars.reduce((acc, matchVar) => {
           const varName = matchVar.replace(/__/g, '') as keyof typeof properties;
           const varValue = properties[varName];
-          return varValue ? acc.replace(matchVar, varValue) : acc;
+          return varValue !== undefined ? acc.replace(matchVar, varValue) : acc;
         }, destinationPath);
       }
       return destinationPath;

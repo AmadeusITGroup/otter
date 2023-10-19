@@ -1,37 +1,51 @@
-import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, UpdateRecorder, url } from '@angular-devkit/schematics';
 import {
-  getFileInfo, getProjectRootDir, getTemplateFolder, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  UpdateRecorder,
+  url
+} from '@angular-devkit/schematics';
+import {
+  getFileInfo, getTemplateFolder, getWorkspaceConfig, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
 import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { posix } from 'node:path';
 
 /**
  * Enable customization capabilities
- *
  * @param rootPath @see RuleFactory.rootPath
  * @param o3rCoreVersion
- * @param _options
- * @param _options.projectName
+ * @param options
+ * @param options.projectName
  * @param isLibrary
  */
-export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, options?: { projectName?: string | null | undefined }, isLibrary?: boolean): Rule {
+export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?: string, options?: { projectName?: string | undefined }, isLibrary?: boolean): Rule {
   /**
    * Generate customization folder
-   *
    * @param tree
    * @param context
    */
   const generateC11nFolder = (tree: Tree, context: SchematicContext) => {
-    if (tree.exists('src/customization/presenters-map.empty.ts')) {
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+    if (tree.exists(posix.join(workingDirectory, 'src', 'customization', 'presenters-map.empty.ts'))) {
       return tree;
     }
     const templateSource = apply(
       url(getTemplateFolder(rootPath, __dirname)),
       [
         template({}),
-        renameTemplateFiles()
+        renameTemplateFiles(),
+        move(workingDirectory)
       ]
     );
 
@@ -40,12 +54,11 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
   /**
    * Edit main module with the customization required information
-   *
    * @param tree
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const fileInfo = getFileInfo(tree, context);
+    const fileInfo = getFileInfo(tree, context, options?.projectName);
     if (!fileInfo.moduleFilePath || !fileInfo.appModuleFile || !fileInfo.sourceFile) {
       return tree;
     }
@@ -62,7 +75,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Insert import on top of the main module file
-     *
      * @param rec
      * @param name
      * @param file
@@ -73,7 +85,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Add elements in the metadata of the ngModule (customComponents, imports etc.)
-     *
      * @param rec
      * @param metadataField
      * @param name
@@ -90,7 +101,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     /**
      * Add custom code before the module definition
-     *
      * @param rec
      * @param line
      */
@@ -118,7 +128,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
   };
 
   return (tree, _context) => {
-    const workingDirectory = getProjectRootDir(tree, options?.projectName);
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
 
     return chain([
       generateC11nFolder,
@@ -127,6 +137,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
         skipConfirmation: true,
         version: o3rCoreVersion,
         parentPackageInfo: '@o3r/core - customization environment update',
+        projectName: options?.projectName,
         dependencyType: isLibrary ? NodeDependencyType.Peer : NodeDependencyType.Default,
         workingDirectory
       })

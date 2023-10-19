@@ -22,7 +22,8 @@
       "options": {
         "eslintConfig": "tools/github-actions/cascading/.eslintrc.js",
         "lintFilePatterns": [
-          "tools/github-actions/cascading/src/**/*.ts"
+          "tools/github-actions/cascading/src/**/*.ts",
+          "tools/github-actions/cascading/package.json"
         ]
       }
     },

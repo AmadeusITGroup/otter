@@ -1,0 +1,13 @@
+/// Map containing the list of possible alternatives for each breakpoint if the value is missing from a property
+/// Ex. If there is no value for xxs on header-height property, the next alternative breakpoint is xs and if the latter
+/// is not available, it will be sm etc.
+/// @deprecate will be removed in v12 as not used anymore by material neither bootstrap
+/// @type map
+$alternative-breakpoints-map: (
+  xxs: xxs,
+  xs: xs xxs,
+  sm: sm xs xxs,
+  md: md sm xs xxs,
+  lg: lg md sm xs xxs,
+  xl: xl lg md sm xs xxs,
+);

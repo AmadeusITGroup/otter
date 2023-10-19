@@ -17,7 +17,7 @@ jobs:
       actions: write
       contents: read
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Clean Branch Cache
         if: inputs.branch || github.event.ref_type == 'branch'
         uses: actions/github-script@v6

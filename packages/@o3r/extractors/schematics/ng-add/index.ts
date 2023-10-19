@@ -6,22 +6,24 @@ import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter extractors to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {getProjectDepType, ngAddPackages, getO3rPeerDeps, getProjectRootDir} = await import('@o3r/schematics');
+      const { getProjectNewDependenciesType, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       return chain([
         (t, c) => ngAddPackages(depsInfo.o3rPeerDeps, {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: `${depsInfo.packageName!} - setup`,
-          dependencyType: getProjectDepType(t),
+          projectName: options.projectName,
+          dependencyType,
           workingDirectory
         })(t, c),
         updateCmsAdapter(options, __dirname)

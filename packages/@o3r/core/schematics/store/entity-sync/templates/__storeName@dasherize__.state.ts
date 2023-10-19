@@ -4,7 +4,7 @@
 /**
  * <%= storeName %> model
  */
-export interface <%= storeModelName %> <% if (hasSDK) {%> extends <%= modelName %> <% } %>{
+export interface <%= storeModelName %> <% if (hasSDK) {%> extends <%= modelName %> <% } %> {
   <% if (!hasSDK) {%><%= modelIdPropName %>: string;<% } %>
 }
 

@@ -201,17 +201,33 @@ export class CascadingProbot extends Cascading {
         labels
       });
     }
+    return {
+      ...data,
+      originBranchName: data.head.ref,
+      isOpen: data.state === 'open',
+      authorId: data.user?.id,
+      id: data.number,
+      context: this.retrieveContext(data.body || '')
+    };
   }
 
   /** @inheritdoc */
-  protected async updatePullRequestMessage(id: string | number, body: string, title?: string) {
-    await this.options.octokit.pulls.update({
+  protected async updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo> {
+    const { data } = await this.options.octokit.pulls.update({
       ...this.options.repo,
       // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
       pull_number: +id,
       body,
       title
     });
+
+    return {
+      ...data,
+      originBranchName: data.head.ref,
+      id: data.number,
+      isOpen: data.state === 'open',
+      context: this.retrieveContext(data.body || '')
+    };
   }
 
   /** @inheritdoc */
@@ -220,27 +236,30 @@ export class CascadingProbot extends Cascading {
       .filter(({ head, base }) => (!targetBranch || base.ref === targetBranch) && (!baseBranch || head.ref === baseBranch))
       .sort((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
       .map((pr): CascadingPullRequestInfo => ({
+        ...pr,
+        originBranchName: pr.head.ref,
         authorId: pr.user?.id,
         id: pr.number,
-        body: pr.body,
+        mergeable: null,
         isOpen: pr.state === 'open',
         context: this.retrieveContext(pr.body || '')
       }));
   }
 
   /** @inheritdoc */
-  protected async getPullRequestFromId(id: string | number) {
-    const pr = (await this.options.octokit.pulls.get({
+  protected async getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo> {
+    const { data } = await this.options.octokit.pulls.get({
       ...this.options.repo,
       // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
       pull_number: +id
-    })).data;
+    });
     return {
-      authorId: pr.user?.id,
-      id: pr.number,
-      body: pr.body,
-      isOpen: pr.state === 'open',
-      context: this.retrieveContext(pr.body || '')
+      ...data,
+      originBranchName: data.head.ref,
+      authorId: data.user?.id,
+      id: data.number,
+      isOpen: data.state === 'open',
+      context: this.retrieveContext(data.body || '')
     };
   }
 }

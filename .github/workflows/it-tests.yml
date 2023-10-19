@@ -22,7 +22,7 @@ jobs:
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - name: Setup verdaccio once for all tests
@@ -57,7 +57,7 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - uses: ./.github/actions/setup-java

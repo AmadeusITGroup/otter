@@ -1,0 +1,30 @@
+// FIXME sass-loader cannot resolve scss files with pnp
+//@import "bootstrap/scss/bootstrap";
+//@import "bootstrap-icons/font/bootstrap-icons";
+@import "bootstrap/dist/css/bootstrap.css";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+@import "highlight.js/styles/github.css";
+
+code {
+  font-family: 'Consolas', monospace;
+}
+
+h1 {
+  margin: 3rem 0 2rem;
+}
+
+h2 {
+  margin: 1.5rem 0 1rem;
+}
+
+h1, h2 {
+  scroll-margin-top: 5rem;
+}
+
+.right-nav {
+  top: 6rem;
+  max-height: calc(100vh - 6rem);
+  overflow-y: auto;
+  flex-grow: 1;
+  margin-top: -3rem;
+}

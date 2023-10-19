@@ -9,9 +9,9 @@ const angularJsonGenericNgAdd: WorkspaceSchema = {
     '@o3r/services:service': {path: ''},
     '@o3r/store:store': {path: ''},
     '@o3r/core:schematics': {path: ''},
-    '*:ng-add': { enableMetadataExtract: true },
+    '*:ng-add': { enableMetadataExtract: true } as any,
     '*:*': {libsDir: 'libs', appsDir: 'apps'}
-  }
+  } as any
 };
 
 const angularJsonSpecificNgAdd: WorkspaceSchema = {
@@ -24,7 +24,7 @@ const angularJsonSpecificNgAdd: WorkspaceSchema = {
     '@o3r/core:ng-add': {projectName: 'otter'},
     '*:ng-add': { enableMetadataExtract: true },
     '*:*': {libsDir: 'libs', appsDir: 'apps', testFramework: 'jest'}
-  }
+  } as any
 };
 
 const angularJsonNoGeneric: WorkspaceSchema = {
@@ -36,7 +36,7 @@ const angularJsonNoGeneric: WorkspaceSchema = {
     '@o3r/core:schematics': {path: ''},
     '@o3r/core:ng-add': {projectName: 'otter'},
     '*:ng-add': { enableMetadataExtract: true }
-  }
+  } as any
 };
 
 describe('Get schematics options', () => {

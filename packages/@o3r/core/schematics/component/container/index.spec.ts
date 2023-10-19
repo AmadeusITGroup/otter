@@ -4,6 +4,7 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
 import { CONTAINER_FOLDER } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
@@ -180,8 +181,11 @@ describe('Component container', () => {
     }, initialTree)).rejects.toThrow();
   });
 
-  // TODO mock require.resolve('@o3r/rules-engine/package.json') once https://github.com/jestjs/jest/issues/9543 is fixed
-  it.skip('should generate a container component with rules engine', async () => {
+  it('should generate a container component with rules engine', async () => {
+    const packageJson = initialTree.readJson('package.json') as PackageJson;
+    packageJson.dependencies ??= {};
+    packageJson.dependencies['@o3r/rules-engine'] = '0.0.0';
+    initialTree.overwrite('package.json', JSON.stringify(packageJson));
     const externalSchematicsSpy = jest.fn((tree: Tree) => tree);
     const externalCollection = {
       createSchematic: () => externalSchematicsSpy

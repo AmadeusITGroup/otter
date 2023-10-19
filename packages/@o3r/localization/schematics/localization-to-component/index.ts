@@ -27,6 +27,7 @@ import {
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
@@ -45,7 +46,7 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
     posix.join(dirname(componentPath), `${baseFileName}.translation.ts`)
   ];
   if (files.some((file) => tree.exists(file))) {
-    throw new Error(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);
+    throw new O3rCliError(`Unable to add localization to this component because it already has at least one of these files: ${files.join(', ')}.`);
   }
 
   const componentSourceFile = ts.createSourceFile(
@@ -63,7 +64,7 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
     && ts.isIdentifier(classElement.name)
     && localizationProperties.includes(classElement.name.escapedText.toString())
   )) {
-    throw new Error(`Unable to add localization to this component because it already has at least one of these properties: ${localizationProperties.join(', ')}.`);
+    throw new O3rCliError(`Unable to add localization to this component because it already has at least one of these properties: ${localizationProperties.join(', ')}.`);
   }
 };
 

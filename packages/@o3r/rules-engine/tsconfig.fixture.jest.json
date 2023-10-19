@@ -9,6 +9,7 @@
     "emitDeclarationOnly": false,
     "tsBuildInfoFile": "build/.tsbuildinfo.jest",
     "incremental": true,
+    "composite": true,
     "outDir": "./dist"
   },
   "include": ["src/**/fixtures/jest/**/*.ts"],

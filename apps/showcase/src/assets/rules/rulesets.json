@@ -1,0 +1,115 @@
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/rules-engine/schemas/rulesets.schema.json",
+  "rulesets": [
+    {
+      "id": "6194b61a-1bf3-4c02-8b7c-20f782d68324",
+      "name": "showcase",
+      "disabled": false,
+      "rules": [
+        {
+          "id": "5467e501-b9ff-414f-8026-56885d0d7a4c",
+          "name": "New-York availability",
+          "disabled": false,
+          "outputRuntimeFacts": [],
+          "inputFacts": ["outboundDate"],
+          "inputRuntimeFacts": [],
+          "rootElement": {
+            "elementType": "RULE_BLOCK",
+            "blockType": "IF_ELSE",
+            "condition": {
+              "all": [
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "outboundDate"
+                  },
+                  "operator": "duringSummer"
+                }
+              ]
+            },
+            "successElements": [
+              {
+                "elementType": "ACTION",
+                "actionType": "UPDATE_CONFIG",
+                "component": "RulesEnginePresConfig",
+                "library": "showcase",
+                "property": "destinations",
+                "value": [
+                  { "cityCode": "LON", "available": true },
+                  { "cityCode": "PAR", "available": true },
+                  { "cityCode": "NYC", "available": true }
+                ]
+
+              }
+            ],
+            "failureElements": []
+          }
+        },
+        {
+          "id": "1467e501-b9ff-414f-8026-56885d0d7a4e",
+          "name": "Destination selected",
+          "disabled": false,
+          "outputRuntimeFacts": [],
+          "inputFacts": ["destination"],
+          "inputRuntimeFacts": [],
+          "rootElement": {
+            "elementType": "RULE_BLOCK",
+            "blockType": "IF_ELSE",
+            "condition": {
+              "all": [
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "destination"
+                  },
+                  "operator": "isDefined"
+                }
+              ]
+            },
+            "successElements": [
+              {
+                "elementType": "ACTION",
+                "actionType": "UPDATE_LOCALISATION",
+                "key": "o3r-rules-engine-pres.question",
+                "value": "o3r-rules-engine-pres.whenQuestion"
+              }
+            ],
+            "failureElements": []
+          }
+        },
+        {
+          "id": "5467e501-b9ff-414f-8026-56885d0d7a4c",
+          "name": "The otter is in vacations",
+          "disabled": false,
+          "outputRuntimeFacts": [],
+          "inputFacts": ["outboundDate"],
+          "inputRuntimeFacts": [],
+          "rootElement": {
+            "elementType": "RULE_BLOCK",
+            "blockType": "IF_ELSE",
+            "condition": {
+              "all": [
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "outboundDate"
+                  },
+                  "operator": "duringSummer"
+                }
+              ]
+            },
+            "successElements": [
+              {
+                "elementType": "ACTION",
+                "actionType": "UPDATE_ASSET",
+                "asset": "otter.png",
+                "value": "otter-summer.png"
+              }
+            ],
+            "failureElements": []
+          }
+        }
+      ]
+    }
+  ]
+}

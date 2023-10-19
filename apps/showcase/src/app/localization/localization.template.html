@@ -1,0 +1,68 @@
+<h1>Localization</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="localization-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="localization-description">Description</h2>
+    <div>
+      <p>This module provides a fallback language/translation support and debug tools.</p>
+    </div>
+
+    <h2 id="localization-example">Example</h2>
+    <div>
+      <p>
+        Let's take our basic component and localize it.
+      </p>
+      <p>
+        Selecting a destination will change the language based on the city.
+      </p>
+      <o3r-localization-pres></o3r-localization-pres>
+      <p>
+        Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/localization" target="_blank" rel="noopener">Source code</a>
+    </div>
+    <h2 id="localization-install">How to install</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/localization"></o3r-copy-text-pres>
+    <h2 id="localization-component-generation">How to generate a localized component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g component ComponentName --use-localization"></o3r-copy-text-pres>
+    <h2 id="localization-add-loc-later">How to add localization to a component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g localization-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
+    <h2 id="localization-add-loc-key-later">How to add a localization key to a component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g localization-key-to-component --path='path/to/the/component/class/file' --key='localizationKey' --value='defaultValue'"></o3r-copy-text-pres>
+    <h2 id="localization-bundle">Localization bundle</h2>
+    <div>
+      <h3>How to generate a component bundle</h3>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:i18n"></o3r-copy-text-pres>
+      <p>It will create an <code>i18n</code> folder in the component folder, with an <code>en-GB.json</code> file containing the mapping between the localization key and the associated default value.</p>
+      <p>Check the list of options available by running:</p>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:i18n --help"></o3r-copy-text-pres>
+      <h3>How to generate an application bundle</h3>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:generate-translations"></o3r-copy-text-pres>
+      <p>It will create the application bundle for each supported language.</p>
+      <p>Check the list of options available by running:</p>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:generate-translations --help"></o3r-copy-text-pres>
+    </div>
+    <h2 id="localization-metadata">Metadata</h2>
+    <div>
+      <h3>How to extract</h3>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-translations"></o3r-copy-text-pres>
+      <p>It will extract components' translations and generate the following file: <code>localisation.metadata.json</code></p>
+      <p>Check the list of options available by running:</p>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-translations --help"></o3r-copy-text-pres>
+    </div>
+    <h2 id="localization-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/README.md" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

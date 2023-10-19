@@ -1,5 +1,5 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import { LoggerClient } from '@o3r/logger';
+import type { LoggerClient } from '@o3r/logger';
 
 import * as FullStory from '@fullstory/browser';
 
@@ -9,7 +9,6 @@ import * as FullStory from '@fullstory/browser';
 export class FullStoryClient implements LoggerClient {
   /**
    * Constructor.
-   *
    * @param orgId FullStory organization ID
    */
   constructor(orgId: string) {

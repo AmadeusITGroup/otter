@@ -22,5 +22,5 @@ outputs:
     description: 'NPM Tag to apply'
     value: ${{ steps.get-npm-tag.outputs.tag }}
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'packaged-action/index.js'

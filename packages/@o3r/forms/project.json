@@ -30,7 +30,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/forms/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/forms/src/**/*.ts"
+          "packages/@o3r/forms/src/**/*.ts",
+          "packages/@o3r/forms/package.json"
         ]
       }
     },

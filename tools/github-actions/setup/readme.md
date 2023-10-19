@@ -5,7 +5,7 @@
 Action to install needed dependencies and handles caching on demand for Otter project.
 Including :
 
-* nodejs 16
+* nodejs 18
 
 ## Task options
 

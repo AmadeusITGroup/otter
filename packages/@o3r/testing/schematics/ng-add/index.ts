@@ -1,12 +1,22 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTestFramework, getWorkspaceConfig, setupSchematicsDefaultParams } from '@o3r/schematics';
+import {
+  addVsCodeRecommendations,
+  getO3rPeerDeps,
+  getProjectNewDependenciesType,
+  getTestFramework,
+  getWorkspaceConfig,
+  ngAddPackages,
+  ngAddPeerDependencyPackages,
+  O3rCliError,
+  registerPackageCollectionSchematics,
+  removePackages, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
 import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
-import type { PackageJson } from 'type-fest';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { updatePlaywright } from './playwright';
 
 function canResolvePlaywright(): boolean {
@@ -20,28 +30,17 @@ function canResolvePlaywright(): boolean {
 
 /**
  * Add Otter testing to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const {
-        addVsCodeRecommendations,
-        getProjectDepType,
-        getProjectFromTree,
-        getO3rPeerDeps,
-        ngAddPackages,
-        ngAddPeerDependencyPackages,
-        removePackages,
-        registerPackageCollectionSchematics
-      } = await import('@o3r/schematics');
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(testPackageJsonPath, { encoding: 'utf-8' })) as PackageJson;
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
-      const dependencyType = getProjectDepType(tree);
-      const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
-      const workingDirectory = workspaceProject?.root;
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const projectType = workspaceProject?.projectType || 'application';
 
       let installJest;
@@ -83,10 +82,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
           dependencyType: dependencyType,
           workingDirectory
         }),
-        installPlaywright ? updatePlaywright({...options, workingDirectory}) : noop,
+        installPlaywright ? updatePlaywright(options) : noop,
         ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
@@ -133,7 +133,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
             jestConfigFilesForWorkspace
           );
         } else {
-          throw new Error (`Could not find working directory for project ${workspaceProject?.name || ''}`);
+          throw new O3rCliError(`Could not find working directory for project ${options.projectName || ''}`);
         }
       }
 
@@ -144,7 +144,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       context.logger.error(`[ERROR]: Adding @o3r/testing has failed.
       If the error is related to missing @o3r dependencies you need to install '@o3r/core' or '@o3r/schematics' to be able to use the testing package.
       Please run 'ng add @o3r/core' or 'ng add @o3r/schematics'. Otherwise, use the error message as guidance.`);
-      throw (e);
+      throw new O3rCliError(e);
     }
   };
 }

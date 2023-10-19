@@ -7,3 +7,4 @@ export * from './ng-add/index';
 export * from './remove-packages/index';
 export * from './update-imports/index';
 export * from './vscode-extensions/index';
+export * from './dev-tools/index';

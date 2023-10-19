@@ -3,7 +3,6 @@ import type { WorkspaceSchema, WorkspaceSchematics } from '../interfaces';
 
 /**
  * Register the collection schematic to the workspace
- *
  * @param workspace Workspace to add the collection to
  * @param collection Collection to add to the workspace schematic collection
  * @returns the updated workspace
@@ -20,33 +19,37 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
 /**
  * Get default options for a schematic
  * This will look inside angular.json file for schematics with keys containing wildcards like `*:ng-add` or `@o3r/core:*`
- *
  * @param workspace
  * @param collection
  * @param schematicName
  * @param options
  * @param options.projectName
  */
-export function getDefaultOptionsForSchematic(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options: { projectName?: string | undefined }) {
+export function getDefaultOptionsForSchematic
+  <T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options?: { projectName?: string | undefined }): T {
   if (!workspace) {
-    return {};
+    return {} as T;
   }
   const schematicsDefaultParams = [
     workspace.schematics,
-    ...options.projectName ? [workspace.projects[options.projectName]?.schematics] : []
+    ...options?.projectName ? [workspace.projects[options.projectName]?.schematics] : []
   ];
-  return schematicsDefaultParams.flatMap((schematics) => schematics ?
-    Object.entries<Record<string, string>>(schematics)
-      .filter(([key, _]) => key === `*:${schematicName}` || key === `${collection}:*`)
-      .map(([_, value]) => value) :
-    []
-  ).reduce((out, defaultParams) => ({...out, ...defaultParams}), {});
+
+  return schematicsDefaultParams.reduce((acc, schematics) => {
+    if (!schematics) {
+      return acc;
+    }
+    return Object.entries<Record<string, string>>(schematics)
+      .filter(([key, _]) => key === `*:${schematicName}` || key === `${collection}:*` || key === `${collection}:${schematicName}`)
+      .sort(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
+      .map(([_, value]) => value)
+      .reduce((config, value) => ({...config, ...value}), acc);
+  }, {} as T);
 }
 
 /**
  * Retrieves the schematics options of a given schematics name
  * If the schematics name is not found, then the generic options (*:*) will be returned. If the latter is not present the function returns undefined
- *
  * @param config
  * @param context
  */

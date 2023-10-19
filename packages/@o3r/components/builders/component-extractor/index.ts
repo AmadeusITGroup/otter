@@ -1,6 +1,7 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import type { ComponentConfigOutput } from '@o3r/components';
 import { CmsMedataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -42,7 +43,7 @@ function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], 
   });
   if (errors.length) {
     if (strictMode) {
-      throw new Error(`Duplicate (library, name) tuples are not allowed :\n ${errors}`);
+      throw new O3rCliError(`Duplicate (library, name) tuples are not allowed :\n ${errors}`);
     }
     console.warn(`Duplicate (library, name) tuples found. Please fix it as it would throw an error in strict mode :\n ${errors}`);
   }

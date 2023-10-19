@@ -4,24 +4,29 @@ import * as path from 'node:path';
 
 /**
  * Add Otter store-sync to an Otter Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectRootDir } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
       // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const workingDirectory = getProjectRootDir(tree, options.projectName);
+      const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
       return chain([
         // optional custom action dedicated to this module
         options.skipLinter ? noop() : applyEsLintFix(),
         // install packages needed in the current module
         options.skipInstall ? noop : install,
         // add the missing Otter modules in the current project
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: `${depsInfo.packageName!} - setup`, workingDirectory })
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: `${depsInfo.packageName!} - setup`,
+          projectName: options.projectName,
+          workingDirectory
+        })
       ]);
     } catch (e) {
       // If the installation is initialized in a non-Otter application, mandatory packages will be missing. We need to notify the user

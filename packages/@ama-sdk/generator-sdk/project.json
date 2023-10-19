@@ -43,8 +43,7 @@
         "rootDir": "packages/@ama-sdk/generator-sdk/src",
         "main": "packages/@ama-sdk/generator-sdk/src/generators/sdk-generator.ts",
         "tsConfig": "packages/@ama-sdk/generator-sdk/tsconfig.build.json",
-        "outputPath": "packages/@ama-sdk/generator-sdk/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@ama-sdk/generator-sdk/dist"
       }
     },
     "lint": {
@@ -58,7 +57,8 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/generator-sdk/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/generator-sdk/src/**/*.ts"
+          "packages/@ama-sdk/generator-sdk/src/**/*.ts",
+          "packages/@ama-sdk/generator-sdk/package.json"
         ]
       }
     },

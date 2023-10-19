@@ -41,7 +41,7 @@ export interface FormsPocPresConfig extends Configuration {
 ```    
 In both cases the submit logic is handled in the container. 
 When submit is triggered either by the presenter or the page, it is only notifying the container that a submit action was fired. The event is captured in the container and it is calling the execution of submit logic.  
-The container will handle business logic at submit and when it has finished, it will emit an event (__submitted__) with a boolean value (true if the submit is considered successful, false otherwise) which can be intercepted at page level.   
+The container will handle business logic at submit and when it has finished, it will emit an event (__submitted__) with a boolean value (`true` if the submit is considered successful, `false` otherwise) which can be intercepted at page level.   
 
 <a name="page-submit"></a>
 #### Submit from page

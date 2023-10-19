@@ -8,6 +8,7 @@ import {
   createAzurePipeline,
   filterPackageJsonScripts,
   generateRenovateConfig,
+  genericUpdates,
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
@@ -38,11 +39,11 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const o3rCoreVersion = corePackageJsonContent.version;
   const {
-    addVsCodeRecommendations, applyEsLintFix, getProjectFromTree, install, mapImportV7toV8, ngAddPackages,
+    addVsCodeRecommendations, applyEsLintFix, getWorkspaceConfig, install, isStandaloneRepository, mapImportV7toV8, ngAddPackages,
     readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext, getO3rPeerDeps
   } = await import('@o3r/schematics');
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
-  const workspaceProject = tree.exists('angular.json') ? getProjectFromTree(tree, options.projectName) : undefined;
+  const workspaceProject = options.projectName && getWorkspaceConfig(tree)?.projects?.[options.projectName] || undefined;
   const projectType = workspaceProject?.projectType;
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
@@ -95,7 +96,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       removePackages(packagesToRemove),
       ...(!isMultipackagesContext(tree) ? projectRootRules : [])
     ];
-  } else {
+  }
+  if (!isStandaloneRepository(tree)) {
     monorepoRules = [
       ...projectRootRules,
       addWorkspacesToProject(),
@@ -103,17 +105,19 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ];
   }
   const commonRules = [
+    genericUpdates(),
     o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
     ngAddPackages(internalPackagesToInstallWithNgAdd,
       { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
     ),
-
-    ...(Object.entries(externalPackagesToInstallWithNgAdd).map(([packageName, packageVersion]) =>
-      ngAddPackages(
-        [packageName],
-        { skipConfirmation: true, version: packageVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
-      )
-    )),
+    ngAddPackages(Object.keys(externalPackagesToInstallWithNgAdd), {
+      skipConfirmation: true,
+      version: Object.values(externalPackagesToInstallWithNgAdd),
+      parentPackageInfo: '@o3r/core - setup',
+      projectName: options.projectName,
+      dependencyType: type,
+      workingDirectory: projectDirectory
+    }),
     // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
     !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
     // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active

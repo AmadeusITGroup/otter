@@ -22,7 +22,8 @@
       "options": {
         "eslintConfig": "tools/github-actions/new-version/.eslintrc.js",
         "lintFilePatterns": [
-          "tools/github-actions/new-version/src/**/*.ts"
+          "tools/github-actions/new-version/src/**/*.ts",
+          "tools/github-actions/new-version/package.json"
         ]
       }
     },

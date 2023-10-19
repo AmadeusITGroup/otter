@@ -2,6 +2,7 @@ import { logging } from '@angular-devkit/core';
 import type { ConfigProperty, ConfigPropertyTypes, ConfigType, NestedConfiguration } from '@o3r/components';
 import { CategoryDescription } from '@o3r/core';
 import { ConfigDocParser } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import { readFileSync } from 'node:fs';
 import * as ts from 'typescript';
 
@@ -96,7 +97,7 @@ export class ComponentConfigExtractor {
     if (!this.strictMode) {
       this.logger.warn(`${message.replace(/([^.])$/, '$1.')} Will throw in strict mode.`);
     } else {
-      throw new Error(errorMessage || message);
+      throw new O3rCliError(errorMessage || message);
     }
   }
 

@@ -17,10 +17,7 @@
       "options": {
         "project": "packages/@o3r/apis-manager/ng-package.json",
         "tsConfig": "packages/@o3r/apis-manager/tsconfig.build.json"
-      },
-      "dependsOn": [
-        "^build"
-      ]
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -45,7 +42,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/apis-manager/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/apis-manager/src/**/*.ts"
+          "packages/@o3r/apis-manager/src/**/*.ts",
+          "packages/@o3r/apis-manager/package.json"
         ]
       }
     },
