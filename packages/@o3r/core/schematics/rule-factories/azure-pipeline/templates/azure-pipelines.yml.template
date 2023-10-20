@@ -70,27 +70,6 @@ stages:
     - publish: package.tgz
       condition: succeeded()
       artifact: packagedApp
-<% if (enableStorybook) { %>
-- stage: Storybook
-  dependsOn: []
-  jobs:
-    - job: storybook
-      steps:
-        - template: azure/templates/steps/setup.yml
-
-        - script: yarn cms-adapters:metadata
-          displayName: 'Extract metadata'
-
-        - script: yarn storybook
-          displayName: 'Build Storybook'
-
-        - task: PublishBuildArtifacts@1
-          displayName: 'Publish Storybook static files'
-          condition: succeeded()
-          inputs:
-            pathToPublish: $(System.DefaultWorkingDirectory)/storybook-static
-            artifactName: storybook
-<% } %>
 - stage: Test
   dependsOn: []
   jobs:

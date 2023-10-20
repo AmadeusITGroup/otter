@@ -117,20 +117,6 @@ export interface RootContext extends Context {
 
 export interface AmaCliModule {
   /**
-   * Name of the CLI module
-   *
-   * @deprecated will be read from package.json instead
-   */
-  name: string;
-
-  /**
-   * Description of the module
-   *
-   * @deprecated will be read from package.json instead
-   */
-  description: string;
-
-  /**
    * Initialization the module and export yargs instance
    *
    * @param yargsAma Global CLI configuration

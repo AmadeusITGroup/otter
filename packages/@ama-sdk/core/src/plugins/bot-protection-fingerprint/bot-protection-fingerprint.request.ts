@@ -6,26 +6,6 @@ import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
 export type BotProtectionFingerprintRetriever = () => string | undefined | Promise<string | undefined>;
 
 /**
- * Implementation of a retriever based on a cookie.
- * Creates a reused RegExp based on the cookieName and tries to extract its value from document.cookie.
- *
- * @param cookieName Name of the cookie to search for
- * @deprecated Imperva integration should rely on the latest impervaProtectionRetrieverFactory
- */
-export function cookieRetrieverFactory(cookieName: string): BotProtectionFingerprintRetriever {
-  const cookieRegExp = new RegExp(`(?:^|;)\\s*${cookieName}\\s*=\\s*([^;]+)`);
-  return () => {
-    if (typeof document === 'undefined') {
-      throw new Error('[SDK][Plug-in][BotProtectionFingerprintRequest] Trying to use cookieRetrieverFactory but "document" is not defined.');
-    }
-    const cookieMatcher = document.cookie && document.cookie.match(cookieRegExp);
-    if (cookieMatcher) {
-      return cookieMatcher[cookieMatcher.length - 1];
-    }
-  };
-}
-
-/**
  * Represents the object exposed by Imperva for the integration of their Advanced Bot Protection script with Singe Page Apps.
  */
 export interface ImpervaProtection {
@@ -116,32 +96,6 @@ export function akamaiTelemetryRetrieverFactory(bmakOpt?: AkamaiObject): BotProt
       return;
     }
     return bmak.get_telemetry();
-  };
-}
-
-/**
- * Implementation of a retriever based on the way Imperva stores the fingerprint information in localStorage.
- * Since it contains the expiry time of the fingerprint we are able to ignore it if it has to be recomputed.
- *
- * @param storageKey The name of the property in local storage where the fingerprint is saved
- * @param ignoreExpired Return the fingerprint even if it is expired. Default: false
- * @deprecated Imperva integration should rely on the latest impervaProtectionRetrieverFactory
- */
-export function impervaLocalStorageRetrieverFactory(storageKey: string, ignoreExpired = false): BotProtectionFingerprintRetriever {
-  return () => {
-    if (typeof localStorage === 'undefined') {
-      throw new Error('[SDK][Plug-in][BotProtectionFingerprintRequest] Trying to use localStorageRetrieverFactory but localStorage is not defined.');
-    }
-    const storedFingerprint = localStorage.getItem(storageKey);
-
-    try {
-      const parsedFingerprint = storedFingerprint && JSON.parse(storedFingerprint) as { token?: string; renewTime?: number };
-
-      if (parsedFingerprint && (ignoreExpired || parsedFingerprint.renewTime && parsedFingerprint.renewTime >= Date.now())) {
-        return parsedFingerprint.token;
-      }
-    } catch {
-    }
   };
 }
 

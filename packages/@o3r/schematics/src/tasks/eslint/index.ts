@@ -10,13 +10,6 @@ export interface LinterOptions {
    * Indicates if the linter process should succeed even if there are lint errors remaining
    *
    * @default true
-   * @deprecated will be removed in v10, please use `continueOnError`
-   */
-  force?: boolean;
-  /**
-   * Indicates if the linter process should succeed even if there are lint errors remaining
-   *
-   * @default true
    */
   continueOnError?: boolean;
   /**
@@ -32,8 +25,7 @@ export class EslintFixTask implements TaskConfigurationGenerator<NodePackageTask
 
   constructor(public files: string[], public workingDirectory?: string, public configFile?: string, options?: LinterOptions) {
     this.linterOptions = {
-      continueOnError: options?.force ?? true,
-      force: true,
+      continueOnError: true,
       hideWarnings: true,
       ...options
     };
@@ -52,7 +44,7 @@ export class EslintFixTask implements TaskConfigurationGenerator<NodePackageTask
           '--fix',
           ...(this.linterOptions?.hideWarnings ? ['--quiet'] : []),
           ...(this.configFile ? ['--config', this.configFile] : []),
-          ...(this.linterOptions?.continueOnError ?? this.linterOptions?.force ? ['|| exit 0'] : [])
+          ...(this.linterOptions?.continueOnError ? ['|| exit 0'] : [])
         ].join(' '),
         packageManager: getPackageManager()
       }

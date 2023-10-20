@@ -1,8 +1,6 @@
 import * as path from 'node:path';
-import * as winston from 'winston';
 import { PackageJson } from 'type-fest';
 import { satisfies } from 'semver';
-import { getPackageManager } from './package-manager';
 
 /** Interface containing a npm package name, needed version and optionally found version */
 export interface PackageVersion {
@@ -13,15 +11,6 @@ export interface PackageVersion {
   /** Npm package installed version found */
   foundVersion?: string;
 }
-
-const logger = winston.createLogger({
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.colorize({ all: true }),
-    winston.format.simple()
-  ),
-  transports: new winston.transports.Console()
-});
 
 /**
  * Check if the first level of peer deps of a given package are installed.
@@ -63,40 +52,3 @@ export function getPackagesToInstallOrUpdate(packageName: string) {
   });
   return { packagesToInstall, packagesWrongVersion };
 }
-
-/**
- * Log an instruction with the packages to install or update to match a package peer dependencies
- *
- * @deprecated use `checkPackagesRule` functions exposed by `@o3r/schematics` instead. Will be removed in Otter v10
- * @param packageName
- * @param angularJsonString
- */
-export function checkPackagesToInstallOrUpdate(packageName: string, angularJsonString?: string | null) {
-
-  const packageManager = getPackageManager(angularJsonString);
-  const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
-
-  if (packagesWrongVersion.length) {
-    logger.warn('');
-    logger.warn(`The following packages have a mismatch version installed to satisfy "${packageName}" needed versions:`);
-    packagesWrongVersion.forEach(dep => {
-      logger.warn(`${dep.packageName} found version is ${dep.foundVersion!}. "${packageName}" needs ${dep.version}`);
-    });
-    logger.warn('');
-    logger.warn('You might consider reinstalling the packages with the good versions:');
-    packagesWrongVersion.forEach((dep) => logger.warn(`${packageManager} run ng update ${dep.packageName}@${dep.version}`));
-  }
-
-  if (packagesToInstall.length) {
-    logger.error('');
-    logger.error(`The following packages need to be installed to have "${packageName}" working. Run the commands one by one:`);
-    packagesToInstall.forEach((dep) => logger.error(`${packageManager} run ng add ${dep.packageName}@${dep.version}`));
-    throw new Error('Missing peer dependencies');
-  }
-
-  if (!packagesToInstall.length && !packagesWrongVersion.length) {
-    logger.info(`The package ${packageName} has all peer deps installed.\n`);
-  }
-
-}
-

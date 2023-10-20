@@ -166,7 +166,7 @@
     "migrations": "./migration.json",
     "packageGroup": [
       "@ama-sdk/core",
-      "@ama-sdk/generator-sdk",
+      "@ama-sdk/schematics",
       "@ama-sdk/swagger-builder",
       "@ama-terasu/cli",
       "@ama-terasu/core",

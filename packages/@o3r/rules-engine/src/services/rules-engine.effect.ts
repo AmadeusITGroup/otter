@@ -12,7 +12,7 @@ import {
 import {fromApiEffectSwitchMapById} from '@o3r/core';
 import {DynamicContentService} from '@o3r/dynamic-content';
 import {LocalizationService} from '@o3r/localization';
-import {combineLatest, EMPTY, firstValueFrom, Observable, of} from 'rxjs';
+import {combineLatest, EMPTY, Observable, of} from 'rxjs';
 import {distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
 import {RulesEngineService} from './rules-engine.service';
 import {Store} from '@ngrx/store';
@@ -147,45 +147,5 @@ export class PlaceholderTemplateResponseEffect {
           unknownTypeFound
         }))
       ) : of({renderedTemplate: template, unknownTypeFound});
-  }
-
-  /**
-   * Renders the html template, replacing facts and urls
-   *
-   * @param template
-   * @param vars
-   * @param facts
-   * @deprecated will be removed in v10
-   */
-  public async renderHTML(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { name: string; factValue: any }[]) {
-    let unknownTypeFound = false;
-    if (vars && template) {
-      for (const varName in vars) {
-        if (Object.prototype.hasOwnProperty.call(vars, varName)) {
-          const ejsVar = new RegExp(`<%=\\s*${varName}\\s*%>`, 'g');
-          switch (vars[varName].type) {
-            case 'relativeUrl': {
-              const url = await firstValueFrom(this.dynamicContentService.getMediaPathStream(vars[varName].value));
-              template = template.replace(ejsVar, url);
-              break;
-            }
-            case 'fullUrl': {
-              template = template.replace(ejsVar, vars[varName].value);
-              break;
-            }
-            case 'fact': {
-              const fact = facts ? facts.find((el) => el.name === varName) : undefined;
-              template = template.replace(ejsVar, fact ? fact.factValue : '');
-              break;
-            }
-            default : {
-              unknownTypeFound = true;
-              break;
-            }
-          }
-        }
-      }
-    }
-    return {renderedTemplate: template, unknownTypeFound};
   }
 }

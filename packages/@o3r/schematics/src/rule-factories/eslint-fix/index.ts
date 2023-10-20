@@ -12,8 +12,7 @@ import { EslintFixTask, LinterOptions } from '../../tasks';
  */
 export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], options?: LinterOptions): Rule {
   const linterOptions: LinterOptions = {
-    continueOnError: options?.force ?? true,
-    force: true,
+    continueOnError: true,
     hideWarnings: true,
     ...options
   };

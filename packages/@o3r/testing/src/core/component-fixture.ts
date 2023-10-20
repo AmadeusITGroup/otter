@@ -116,14 +116,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * Otherwise returns the element.
    *
    * @param _element ElementProfile to test
-   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@see throwOnUndefinedElement} instead. Will be removed in v10
-   */
-  protected throwOnUndefined<T extends O3rElement>(_element?: T): T;
-  /**
-   * Throws an exception if the element is undefined.
-   * Otherwise returns the element.
-   *
-   * @param _element ElementProfile to test
    * @param _timeout specific timeout that will throw when reach
    */
   protected throwOnUndefined<T extends O3rElement>(_element: Promise<T | undefined>, _timeout?: number): Promise<T | undefined> {

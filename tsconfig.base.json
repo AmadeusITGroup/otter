@@ -35,9 +35,6 @@
       "@ama-sdk/create": [
         "packages/@ama-sdk/create"
       ],
-      "@ama-sdk/generator-sdk": [
-        "packages/@ama-sdk/generator-sdk"
-      ],
       "@ama-sdk/schematics": [
         "packages/@ama-sdk/schematics"
       ],

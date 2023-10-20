@@ -15,8 +15,7 @@
       },
       "dependsOn": [
         "build-builders",
-        "compile",
-        "build-fixtures"
+        "compile"
       ]
     },
     "compile": {
@@ -43,21 +42,6 @@
       ],
       "options": {
         "script": "prepare:compile"
-      }
-    },
-    "build-fixtures": {
-      "executor": "nx:noop"
-    },
-    "build-fixtures-jest": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:fixtures:jest"
-      }
-    },
-    "build-fixtures-jasmine": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:fixtures:jasmine"
       }
     },
     "lint": {

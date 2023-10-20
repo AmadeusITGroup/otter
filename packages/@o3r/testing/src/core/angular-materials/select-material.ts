@@ -48,11 +48,4 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
   public selectByLabel(_label: string, _timeout?: number): Promise<void> {
     throw new TranspilationPurposeOnlyError('Should target a proper implementation');
   }
-
-  /**
-   * @deprecated Usage of "getValue" is not recommended on Material Select elements. Use "getPlainText()" instead.
-   */
-  public getValue() {
-    return super.getValue();
-  }
 }
