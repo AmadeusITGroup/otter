@@ -28,6 +28,12 @@ export class AppComponent implements OnDestroy {
         { url: '/dynamic-content', label: 'Dynamic content' },
         { url: '/rules-engine', label: 'Rules engine' }
       ]
+    },
+    {
+      label: '',
+      links: [
+        { url: '/sdk', label: 'SDK Generator' }
+      ]
     }
   ];
 

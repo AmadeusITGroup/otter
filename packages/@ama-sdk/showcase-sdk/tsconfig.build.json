@@ -1,0 +1,47 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "types": [],
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": true,
+    "importHelpers": true,
+    "strict": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "lib": [
+      "dom",
+      "es2015",
+      "dom.iterable",
+      "scripthost",
+      "es2017.object"
+    ],
+    "incremental": true,
+    "composite": true,
+    "declaration": true,
+    "declarationMap": false,
+    "rootDir": "./src",
+    "baseUrl": ".",
+    "paths": {
+      "@ama-sdk/showcase-sdk/helpers/*": [
+        "./src/helpers/*"
+      ],
+      "@ama-sdk/showcase-sdk/helpers": [
+        "./src/helpers/index"
+      ],
+      "@ama-sdk/showcase-sdk": [
+        "./src/index"
+      ],
+      "@ama-sdk/showcase-sdk/*": [
+        "./src/*"
+      ],
+      "@ama-sdk/showcase-sdk/spec": [
+        "./src/spec/index"
+      ]
+    }
+  }
+}
