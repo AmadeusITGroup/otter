@@ -52,6 +52,9 @@
     "@angular/material": {
       "optional": true
     },
+    "@o3r/core": {
+      "optional": true
+    },
     "@o3r/dynamic-content": {
       "optional": true
     },
