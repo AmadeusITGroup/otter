@@ -39,15 +39,29 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
 
+    const packageManager = getPackageManager({ workspaceConfig });
+    const yarnrcPath = '.yarnrc.yml';
+    const yarnrcBeforeSdkGeneration = tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '';
+
     return chain([
       externalSchematic<NgGenerateTypescriptSDKShellSchematicsSchema>('@ama-sdk/schematics', 'typescript-shell', {
         ...options,
         package: projectName,
         name: scope,
         directory: targetPath,
-        packageManager: getPackageManager({workspaceConfig}),
+        packageManager,
         skipInstall: !!options.specPath || options.skipInstall
       }),
+      packageManager === 'yarn' ? (t) => {
+        if (yarnrcBeforeSdkGeneration) {
+          // discard changes done by sdk shell generator standalone on yarnrc
+          t.overwrite(yarnrcPath, yarnrcBeforeSdkGeneration);
+        } else {
+          // delete yarnrc created by sdk shell generator standalone
+          t.delete(yarnrcPath);
+        }
+        return t;
+      } : noop,
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, projectName, scope),
       cleanStandaloneFiles(targetPath),
@@ -58,7 +72,7 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
           ...options,
           specPath: options.specPath,
           directory: targetPath,
-          packageManager: getPackageManager({workspaceConfig})
+          packageManager
         }), [installTaskId]);
       } : noop
     ])(tree, context);

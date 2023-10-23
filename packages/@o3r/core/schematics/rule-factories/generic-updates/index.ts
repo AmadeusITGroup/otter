@@ -1,9 +1,12 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { getPackageManager, WorkspaceSchema } from '@o3r/schematics';
 
 /**
  * Generic basic updates to be done on a repository
+ *
+ * @param workspaceConfig
  */
-export function genericUpdates(): Rule {
+export function genericUpdates(workspaceConfig?: WorkspaceSchema | null): Rule {
 
   const updateGitIgnore = (tree: Tree, _context: SchematicContext) => {
     // update gitignore
@@ -20,6 +23,29 @@ ${folderToExclude}
         `;
         }
       });
+      const packageManager = getPackageManager({workspaceConfig});
+      if (packageManager === 'yarn') {
+        gitignore += `
+
+### yarn ###
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+# !.yarn/cache
+
+# and uncomment the following lines
+.pnp.*
+
+`;
+      }
       tree.overwrite('/.gitignore', gitignore);
     }
     return tree;
