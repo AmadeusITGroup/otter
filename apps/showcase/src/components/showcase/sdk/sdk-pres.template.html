@@ -33,9 +33,12 @@
             [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
           />
         </div>
-        <div class="col-xs-3 col-sm-auto text-center mt-3 mt-sm-auto" *ngIf="isLoading()">
-          <div class="spinner-border" role="status">
+        <div class="col-xs-3 col-sm-auto text-center">
+          <div class="spinner-border mt-3 mt-sm-auto" role="status" *ngIf="isLoading()">
             <span class="visually-hidden">Loading...</span>
+          </div>
+          <div class="text-danger" *ngIf="hasErrors()">
+            Failed to load the list <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
           </div>
         </div>
       </div>
