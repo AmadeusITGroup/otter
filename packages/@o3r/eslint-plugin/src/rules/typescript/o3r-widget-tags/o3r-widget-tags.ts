@@ -1,5 +1,5 @@
 import { TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
-import { createRule } from '../utils';
+import { createRule } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
 

@@ -6,7 +6,7 @@
     "nx": "nx",
     "start": "ng run showcase:run",
     "build": "yarn run generate:translations && ng build",
-    "watch": "ng build-source --watch --configuration development",
+    "watch": "ng compile --watch --configuration development",
     "test": "ng test",
     "start:no-translation": "ng serve",
     "generate:translations:dev": "ng run showcase:generate-translations",

@@ -1,6 +1,6 @@
 import type { TmplAstElement } from '@angular/compiler';
-import { getTemplateParserServices } from '../template-utils';
-import { createRule } from '../utils';
+import { getTemplateParserServices } from '../utils';
+import { createRule } from '../../utils';
 
 interface Options {
   maximumAsyncOnTag: number;
