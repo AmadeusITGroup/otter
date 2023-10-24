@@ -1,7 +1,7 @@
 /* eslint-disable new-cap */
 import { FixtureUsageError } from '../../errors/index';
 import type { ComponentFixtureProfile } from '../component-fixture';
-import { isPromise, withTimeout } from '../helpers';
+import { withTimeout } from '../helpers';
 import { O3rElement, O3rElementConstructor, PlaywrightSourceElement } from './element';
 import { O3rGroup, O3rGroupConstructor } from './group';
 
@@ -50,42 +50,18 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * Otherwise returns the element.
    *
    * @param element ElementProfile to test
-   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@see throwOnUndefinedElement} instead. Will be removed in v10
-   */
-  protected throwOnUndefined<T extends O3rElement>(element?: T): T;
-  /**
-   * Throws an exception if the element is undefined.
-   * Otherwise returns the element.
-   *
-   * @param element ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
-  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T | undefined>, timeout?: number): Promise<T>;
-  /**
-   * Throws an exception if the element is undefined.
-   * Otherwise returns the element.
-   *
-   * @param element ElementProfile to test
-   * @param timeout specific timeout that will throw when reach
-   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@link throwOnUndefinedElement} instead. Will be removed in v10
-   */
-  protected throwOnUndefined<T extends O3rElement>(element?: Promise<T | undefined> | T, timeout?: number): Promise<T> | T {
-    if (isPromise(element)) {
-      return withTimeout(element, timeout)
-        .then((el) => el?.sourceElement.element.count())
-        .then((count) => (count || 0) > 0)
-        .then((isPresent) => {
-          if (!isPresent) {
-            throw new Error('Element not found in ' + this.constructor.name);
-          }
-        })
-        .then(() => element as Promise<T>);
-    }
-
-    if (!element) {
-      throw new Error('Element not found in ' + this.constructor.name);
-    }
-    return element;
+  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T | undefined>, timeout?: number): Promise<T> {
+    return withTimeout(element, timeout)
+      .then((el) => el?.sourceElement.element.count())
+      .then((count) => (count || 0) > 0)
+      .then((isPresent) => {
+        if (!isPresent) {
+          throw new Error('Element not found in ' + this.constructor.name);
+        }
+      })
+      .then(() => element as Promise<T>);
   }
 
   /**

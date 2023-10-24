@@ -99,7 +99,7 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 A code generator is provided to generate an extension of the **Amadeus Digital Experience API**.
 
 ```bash
-yarn yo @ama-sdk/sdk:api-extension
+yarn dlx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension
 ```
 
 > More information on [Generators documentation](../../README.md).

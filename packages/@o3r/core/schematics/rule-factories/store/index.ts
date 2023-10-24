@@ -18,10 +18,10 @@ const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json'
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
-/** @deprecated to be removed in v10 */
-const ngrxStoreLocalstorageDep = 'ngrx-store-localstorage';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
+const o3rStoreSyncDep = '@o3r/store-sync';
+const fastDeepEqualDep = 'fast-deep-equal';
 
 /**
  * Add Redux Store support
@@ -41,8 +41,8 @@ export function updateStore(options: { projectName?: string | undefined; working
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
 
-    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep];
-    const corePeerDeps = [ngrxEntityDep, ngrxStoreDep, ngrxStoreLocalstorageDep];
+    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep, o3rStoreSyncDep, fastDeepEqualDep];
+    const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     let dependenciesList = [...corePeerDeps];
 
     if (projectType === 'application') {
@@ -109,7 +109,7 @@ export function updateStore(options: { projectName?: string | undefined; working
       '.forRoot(rootReducers, {metaReducers, runtimeChecks})'
     );
 
-    insertImportToModuleFile('StorageSync', '@o3r/core');
+    insertImportToModuleFile('StorageSync', '@o3r/store-sync');
     insertImportToModuleFile('RuntimeChecks', '@ngrx/store');
     insertImportToModuleFile('Serializer', '@o3r/core');
     insertImportToModuleFile('environment', '../environments/environment');

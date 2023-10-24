@@ -12,8 +12,7 @@ import {
   createReleaseBranch,
   deleteCrtRcBranch,
   deleteCurrentAlphaOrNextBranch,
-  deletePreviousReleaseBranch,
-  sanitizeChangeLogs
+  deletePreviousReleaseBranch
 } from '../helpers';
 
 program
@@ -57,7 +56,6 @@ async function createRcRelease(version: SemVer) {
 async function createFinalRelease(version: SemVer) {
   logger.info(`Initiating final release process for ${version.format()}.`);
   await checkoutCrtRcBranch(version, logger);
-  await sanitizeChangeLogs(version);
   await commitChangeLogs(version);
   await createReleaseBranch(version, logger);
   if (opts.deletePreviousRelease) {

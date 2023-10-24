@@ -64,17 +64,6 @@ export interface ComponentClassOutput extends Output {
   linkableToRuleset: boolean;
 }
 
-/**
- * Output generated for component module metadata
- * @deprecated will be removed in v10
- */
-export interface ComponentModuleOutput extends Output {
-  /** Module name */
-  name: string;
-  /** Module path */
-  path: string;
-}
-
 /** Property types */
 export type ConfigPropertyTypes = 'boolean' | 'number' | 'string' | 'string[]' | 'element[]' | 'enum' | 'enum[]' | 'unknown' | 'unknown[]';
 

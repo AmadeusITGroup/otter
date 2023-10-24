@@ -139,12 +139,6 @@ export class ComponentClassExtractor {
             contextName = interfaceValue;
           } else {
             switch (interfaceValue) {
-              case 'Block':
-              case 'Page':
-              case 'ExposedComponent':
-                type = this.getComponentStructure(interfaceValue);
-                this.logger.warn(`Interface ${interfaceValue} is deprecated, you should use the @O3rComponent decorator`);
-                break;
               case 'LinkableToRuleset':
                 linkableToRuleset = true;
                 break;

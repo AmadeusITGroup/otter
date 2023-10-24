@@ -2,7 +2,7 @@
 
 This package contains all the [plugins](/packages/@ama-sdk/core/src/plugins), helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
 
-Please refer to the [generator-sdk](/packages/@ama-sdk/generator-sdk/README.md) package for getting started with an API based on `ama-sdk`.
+Please refer to the [ama-sdk-schematics](/packages/@ama-sdk/schematics/README.md) package for getting started with an API based on `ama-sdk`.
 
 ## Available plugins
 
@@ -17,15 +17,11 @@ Please refer to the [generator-sdk](/packages/@ama-sdk/generator-sdk/README.md) 
 - [exception](/packages/@ama-sdk/core/src/plugins/exception)
 - [fetch-cache](/packages/@ama-sdk/core/src/plugins/fetch-cache)
 - [fetch-credentials](/packages/@ama-sdk/core/src/plugins/fetch-credentials)
-- [fetch-options](/packages/@ama-sdk/core/src/plugins/fetch-options)
-- [gateway-token](/packages/@ama-sdk/core/src/plugins/gateway-token)
-- [imperva](/packages/@ama-sdk/core/src/plugins/imperva)
 - [json-token](/packages/@ama-sdk/core/src/plugins/json-token)
 - [keepalive](/packages/@ama-sdk/core/src/plugins/keepalive)
 - [mock-intercept](/packages/@ama-sdk/core/src/plugins/mock-intercept)
 - [perf-metric](/packages/@ama-sdk/core/src/plugins/perf-metric)
 - [pii-tokenizer](/packages/@ama-sdk/core/src/plugins/pii-tokenizer)
-- [public-facts](/packages/@ama-sdk/core/src/plugins/public-facts)
 - [raw-response-info](/packages/@ama-sdk/core/src/plugins/raw-response-info)
 - [retry](/packages/@ama-sdk/core/src/plugins/retry)
 - [reviver](/packages/@ama-sdk/core/src/plugins/reviver)

@@ -32,60 +32,6 @@
         "$source": "projectName"
       }
     },
-    "enableCustomization": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install Otter customization",
-      "x-deprecated": true
-    },
-    "enableAnalytics": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install Otter analytics",
-      "x-deprecated": true
-    },
-    "enableStyling": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install Otter theming and styling extractor",
-      "x-deprecated": true
-    },
-    "enableConfiguration": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install otter configuration package and config extractor setup",
-      "x-deprecated": true
-    },
-    "enableRulesEngine": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install otter rules-engine package",
-      "x-deprecated": true
-    },
-    "enableLocalization": {
-      "type": "boolean",
-      "default": false,
-      "description": "Localization generation setup and localization extractor",
-      "x-deprecated": true
-    },
-    "enableStorybook": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install Storybook configurations",
-      "x-deprecated": true
-    },
-    "enableApisManager": {
-      "type": "boolean",
-      "default": false,
-      "description": "Install otter apis manager",
-      "x-deprecated": true
-    },
-    "generateAzurePipeline": {
-      "type": "boolean",
-      "description": "Generate the Azure Pipeline for the new project",
-      "default": false,
-      "x-deprecated": true
-    },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",

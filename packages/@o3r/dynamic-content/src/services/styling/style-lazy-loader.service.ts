@@ -60,16 +60,6 @@ export class StyleLazyLoader {
    * Load a new CSS File
    * @param styleUrlConfig CSS File config containing URL to load, integrity and crossOrigin attributes
    * and the styleId id of the dynamic style in the body tag
-   * @deprecated use asyncLoadStyleFromDynamicContent instead, will be removed in v10
-   */
-  public loadStyleFromDynamicContent(styleUrlConfig: StyleURL) {
-    void this.asyncLoadStyleFromDynamicContent(styleUrlConfig);
-  }
-
-  /**
-   * Load a new CSS File
-   * @param styleUrlConfig CSS File config containing URL to load, integrity and crossOrigin attributes
-   * and the styleId id of the dynamic style in the body tag
    */
   public async asyncLoadStyleFromDynamicContent(styleUrlConfig: StyleURL) {
     const dynamicContentPath = await firstValueFrom(

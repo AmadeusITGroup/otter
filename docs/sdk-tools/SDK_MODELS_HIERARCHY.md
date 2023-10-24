@@ -1,6 +1,6 @@
 # SDK models hierarchy
 
-The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@ama-sdk/generator-sdk](../packages/@ama-sdk/generator-sdk/) generator.
+The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@ama-sdk/schematics](../packages/@ama-sdk/schematics/) generator.
 
 ## Overview
 
@@ -79,7 +79,7 @@ import type { MyModelCoreIfy } from './my-model';
 
 /**
  * Generate reviver for MyModel core model
- * 
+ *
  * @param baseRevive
  */
 export function reviveMyModelFactory<R extends typeof reviveMyModel>(baseRevive: R) {
