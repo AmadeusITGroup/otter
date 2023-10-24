@@ -28,7 +28,7 @@ jobs:
       - run: unzip logs.zip
       - name: extract version from logs
         id: newVersion
-        run: echo nextVersionTag=$(find *_version.txt | xargs grep -hiPo '(?<=nextVersionTag variable has been set with ).*$') >> "$GITHUB_OUTPUT"
+        run: echo nextVersionTag=$(find -name '*_version.txt' | xargs grep -hiPo '(?<=nextVersionTag variable has been set with ).*$') >> "$GITHUB_OUTPUT"
 
   publish-packages-pr:
     uses: ./.github/workflows/publish.yml
