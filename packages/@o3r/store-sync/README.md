@@ -25,7 +25,7 @@ To facilitate the synchronization, the `StorageSync` class is based on a fork of
 - Support of a `smartSync` setup to improve performances 
 
 ### Configuration
-## Smart sync
+#### Smart sync
 The original ngrx-store-localstorage synchronize all of your states everytime a state is updated which can lead to a lot 
 of accesses to the local and session storage and cause performance issue.
 
