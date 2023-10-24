@@ -45,7 +45,8 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   }
   const o3rCoreVersion = corePackageJsonContent.version;
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
-  const workspaceProject = options.projectName && getWorkspaceConfig(tree)?.projects?.[options.projectName] || undefined;
+  const workspaceConfig = getWorkspaceConfig(tree);
+  const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
   const projectType = workspaceProject?.projectType;
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
