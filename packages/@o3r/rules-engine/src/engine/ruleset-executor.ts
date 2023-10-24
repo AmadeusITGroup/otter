@@ -226,7 +226,8 @@ export class RulesetExecutor {
       }
 
       return combineLatest(this.ruleset.rules.map((rule) => {
-        const values$ = rule.inputFacts.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact));
+        const inputFacts = Array.from(new Set(rule.inputFacts));
+        const values$ = inputFacts.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact));
         return (values$.length ? combineLatest(values$) : of([[]] as (Facts | undefined)[]))
           .pipe(
             startWith(undefined),
@@ -236,7 +237,7 @@ export class RulesetExecutor {
               const output: RuleEvaluationOutput = {actions: undefined};
 
               try {
-                output.actions = this.evaluateRule(rule, rule.inputFacts.reduce<Record<string, Facts | undefined>>((acc, id, index) => {
+                output.actions = this.evaluateRule(rule, inputFacts.reduce<Record<string, Facts | undefined>>((acc, id, index) => {
                   acc[id] = factValues![index];
                   return acc;
                 }, {}), runtimeFactValues);
@@ -263,6 +264,7 @@ export class RulesetExecutor {
           const allExecutionsValid = actionsLists.every((actions) => !!actions);
 
           let execInfo: {
+            executionCounter?: number;
             actionsLists: ActionBlock[][];
             rulesetOutputExecution?: RuleEvaluation[];
             allExecutionsValid?: boolean;
@@ -270,11 +272,10 @@ export class RulesetExecutor {
           } = {actionsLists: (allExecutionsValid ? actionsLists : [[]]) as ActionBlock[][]};
 
           if (this.rulesEngine.engineDebug) {
-            this.executionCounter++;
             execInfo = {
               ...execInfo,
               ...this.rulesEngine.engineDebug.handleDebugRulesetExecutionInfo(
-                currRes!, prevRes, allExecutionsValid, rulesetInputFacts, runtimeFactValues, this.executionCounter, this.ruleset)
+                currRes!, prevRes, allExecutionsValid, rulesetInputFacts, runtimeFactValues, ++this.executionCounter, this.ruleset)
             };
           }
           return execInfo;
@@ -283,7 +284,7 @@ export class RulesetExecutor {
           const outputActions = ([] as ActionBlock[]).concat(...output.actionsLists);
 
           if (this.rulesEngine.engineDebug && output.allExecutionsValid) {
-            this.rulesEngine.engineDebug.addRulesetExecutionEvent(this.ruleset, this.executionCounter,
+            this.rulesEngine.engineDebug.addRulesetExecutionEvent(this.ruleset, output.executionCounter!,
               rulesetInputFacts, outputActions, runtimeFactValues, output.rulesetTriggers!,
               output.rulesetOutputExecution!);
           }
@@ -292,7 +293,7 @@ export class RulesetExecutor {
         }),
         distinctUntilChanged((prev, curr) => prev.length === 0 && curr.length === 0)
       );
-    }), shareReplay(1));
+    }), shareReplay({bufferSize: 1, refCount: true}));
 
     return {
       id: this.ruleset.id,
