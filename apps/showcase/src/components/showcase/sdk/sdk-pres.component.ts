@@ -50,6 +50,11 @@ export class SdkPresComponent {
   public isLoading = signal(true);
 
   /**
+   * Error state of the API
+   */
+  public hasErrors = signal(false);
+
+  /**
    * List of pets filtered according to search term
    */
   public filteredPets = computed(() => {
@@ -91,9 +96,13 @@ export class SdkPresComponent {
    */
   public reload() {
     this.isLoading.set(true);
+    this.hasErrors.set(false);
     return this.petStoreApi.findPetsByStatus({status: 'available'}).then((pets) => {
       this.pets.set(pets.sort((a, b) => a.id && b.id && a.id - b.id || 0));
       this.isLoading.set(false);
+    }).catch(() => {
+      this.isLoading.set(false);
+      this.hasErrors.set(true);
     });
   }
 
