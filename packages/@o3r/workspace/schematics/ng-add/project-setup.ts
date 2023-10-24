@@ -1,5 +1,5 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { addVsCodeRecommendations, applyEsLintFix, getO3rPeerDeps, install, ngAddPackages } from '@o3r/schematics';
+import { addVsCodeRecommendations, applyEsLintFix, getO3rPeerDeps, getWorkspaceConfig, install, ngAddPackages } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -40,10 +40,12 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       vsCodeExtensions.push('dbaeumer.vscode-eslint');
     }
 
+    const workspaceConfig = getWorkspaceConfig(tree);
+
     return () => chain([
       generateRenovateConfig(ownSchematicsFolder),
       addVsCodeRecommendations(vsCodeExtensions),
-      updateGitIgnore(),
+      updateGitIgnore(workspaceConfig),
       addWorkspacesToProject(),
       filterPackageJsonScripts,
       ngAddPackages(internalPackagesToInstallWithNgAdd, {
