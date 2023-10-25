@@ -41,7 +41,10 @@
         },
         "otter.styling.variable.types": {
           "type": "array",
-          "default": ["color", "string"],
+          "default": [
+            "color",
+            "string"
+          ],
           "items": {
             "type": "string"
           }

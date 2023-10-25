@@ -2,7 +2,7 @@
 
 Rules engine module comes from the __@o3r/rules-engine__ package, and it contains all the mechanisms needed for an otter application to execute a set of UI rules and to trigger the resulted actions. The list of supported actions can be found in its own dedicated [file](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/rules-engine/src/interfaces/action.interfaces.ts).
 
-Prerequisite:  
+Prerequisite:
 
 - an otter based application
 
@@ -10,7 +10,7 @@ Prerequisite:
 
 ### Rules engine dependencies
 
-To benefit from the rules engine package, we have to add to the application the npm packages created in otter library (and not only).  
+To benefit from the rules engine package, we have to add to the application the npm packages created in otter library (and not only).
 Here is the command to add the rule engine to your application:
 
 ```shell
@@ -50,9 +50,9 @@ The Actions available on the Rules Engine depend on the Otter modules imported b
 - __UPDATE_ASSET__: requires the import of `AssetPathOverrideStoreModule` from [@o3r/dynamic-content](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/dynamic-content/)
 - __UPDATE_LOCALISATION__: requires the import of `LocalizationOverrideStoreModule` from [@o3r/localization](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/)
 - __UPDATE_CONFIG__: requires the import of `ConfigOverrideStoreModule` from [@o3r/configuration](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/configuration/)
-- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
+- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/components/)
 
-#### Facts modules integration  
+#### Facts modules integration
 
 Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change, the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../facts.md).
 
@@ -77,7 +77,7 @@ export class AppModule {}
 
 ##### App level facts
 
-For example purposes, custom facts have been defined in the otter-demo-app code, at application level, in a dedicated folder __src/facts__. You can have a look at the folder structure and files organization, and the implementation itself.  
+For example purposes, custom facts have been defined in the otter-demo-app code, at application level, in a dedicated folder __src/facts__. You can have a look at the folder structure and files organization, and the implementation itself.
 
 In the _app.module_ we have integrated the following facts modules, as we've done with the ones coming from the library.
 
@@ -149,7 +149,7 @@ With this the application should be ready to retrieve and evaluate the rules, an
 A bit of configuration is needed in order to extract metadata for facts and operators in the rules engine scope.
 
 In _angular.json_ of the app a new build architect needs to be added.
-Here is an example:  
+Here is an example:
 
 ```JSON
 // angular.json
@@ -176,7 +176,7 @@ Now that the new builder step is added, it has to be referenced in the `package.
   "scripts": {
     ...
     "cms-adapters:rules-engine": "ng run o3r-demo-app:extract-rules-engine",
-    "cms-adapters:metadata": "yarn cms-adapters:components && yarn cms-adapters:localizations && yarn cms-adapters:style && yarn cms-adapters:rules-engine", 
+    "cms-adapters:metadata": "yarn cms-adapters:components && yarn cms-adapters:localizations && yarn cms-adapters:style && yarn cms-adapters:rules-engine",
   }
 ```
 
@@ -196,7 +196,7 @@ sub-entries in the cms tsconfig file.
 // tsconfig.cms.json
 // example to resolve the otter library default facts dependant of the otter/store subentries
 {
-  ... 
+  ...
   "extraOptions": {
     "otterSubModuleRefs": ["../store/**/index.ts"], // Relative path to index.ts of your project subentries your facts depends on
   },

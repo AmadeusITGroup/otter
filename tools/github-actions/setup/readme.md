@@ -9,7 +9,7 @@ Including :
 
 ## Task options
 
-See [Action specifications](tools/github-actions/setup/action.yml) directly for more information about the supported parameters.
+See [Action specifications](./action.yml) directly for more information about the supported parameters.
 
 ## Usage example
 
