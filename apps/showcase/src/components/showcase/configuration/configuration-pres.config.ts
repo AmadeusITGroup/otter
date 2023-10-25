@@ -27,7 +27,7 @@ export interface ConfigurationPresConfig extends Configuration {
    * @o3rWidgetParam minItems 1
    * @o3rWidgetParam allDestinationsDifferent true
    * @o3rWidgetParam atLeastOneDestinationAvailable true
-   * @o3rWidgetParam destionationPattern "[A-Z][a-zA-Z-' ]+"
+   * @o3rWidgetParam destinationPattern "[A-Z][a-zA-Z-' ]+"
    */
   destinations: DestinationConfiguration[];
   /**

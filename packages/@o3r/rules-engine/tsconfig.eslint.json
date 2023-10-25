@@ -4,6 +4,7 @@
     ".eslintrc.js",
     "jest.config.js",
     "testing/**",
-    "tooling/**/*.js"
+    "tooling/**/*.js",
+    "builders/**/index.js"
   ]
 }

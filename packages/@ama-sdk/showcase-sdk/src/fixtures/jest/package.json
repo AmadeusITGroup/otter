@@ -1,0 +1,10 @@
+{
+  "name": "@ama-sdk/showcase-sdk/jest",
+  "main": "../../cjs/api/fixtures.jest.js",
+  "module": "../../esm2020/api/fixtures.jest.js",
+  "es2020": "../../esm2020/api/fixtures.jest.js",
+  "esm2020": "../../esm2020/api/fixtures.jest.js",
+  "node": "../../cjs/api/fixtures.jest.js",
+  "default": "../../esm2020/api/fixtures.jest.js",
+  "typings": "./index.d.ts"
+}

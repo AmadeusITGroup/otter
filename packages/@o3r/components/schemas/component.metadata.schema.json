@@ -107,6 +107,13 @@
       "linkableToRuleset": {
         "type": "boolean",
         "description": "Determine if the component is activating a ruleset"
+      },
+      "localizationKeys": {
+        "type": "array",
+        "description": "List of localization keys declared by the component",
+        "items": {
+          "type": "string"
+        }
       }
     }
   }

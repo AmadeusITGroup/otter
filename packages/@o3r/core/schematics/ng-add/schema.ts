@@ -1,6 +1,6 @@
 import type { SchematicOptionObject } from '@o3r/schematics';
 
-export type PresetNames = 'basic' | 'cms';
+export type PresetNames = 'basic' | 'cms' | 'all';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Preset of module list to automatically install */
@@ -26,4 +26,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Add option to automatically register the devtool module */
   withDevtool: boolean;
+
+  /** Force package installation (in case of unmet peer dependencies) */
+  forceInstall: boolean;
 }

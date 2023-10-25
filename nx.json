@@ -7,6 +7,7 @@
     "schematicCollections": [
       "@schematics/angular",
       "@nx/angular",
+      "@o3r/workspace",
       "@o3r/core"
     ],
     "analytics": false,
@@ -33,7 +34,6 @@
           "build-react",
           "build-panel",
           "build-wrapper",
-          "build-source",
           "build-builders",
           "build-schematics",
           "build-extension",
@@ -197,18 +197,6 @@
       "outputs": [
         "{projectRoot}/dist",
         "{projectRoot}/build/.tsbuildinfo"
-      ]
-    },
-    "build-source": {
-      "inputs": [
-        "source",
-        "^source"
-      ],
-      "outputs": [
-        "{projectRoot}/dist"
-      ],
-      "dependsOn": [
-        "^build"
       ]
     },
     "build-fixtures": {

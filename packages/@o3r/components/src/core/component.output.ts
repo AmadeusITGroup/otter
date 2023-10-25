@@ -62,6 +62,8 @@ export interface ComponentClassOutput extends Output {
   placeholders?: PlaceholderData[];
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
+  /** List of localization keys used in the component */
+  localizationKeys?: string[];
 }
 
 /** Property types */

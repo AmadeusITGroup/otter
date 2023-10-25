@@ -1,4 +1,4 @@
-# <%=projectDescription%>
+<% if (projectDescription) { %># <%=projectDescription%><% } %>
 
 ### Based on Swagger spec 0.0.0
 

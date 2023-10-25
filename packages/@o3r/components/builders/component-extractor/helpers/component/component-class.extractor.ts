@@ -1,5 +1,8 @@
 import { logging } from '@angular-devkit/core';
 import type { ComponentStructure } from '@o3r/components';
+import { getLocalizationFileFromAngularElement } from '@o3r/extractors';
+import { isO3rClassComponent } from '@o3r/schematics';
+import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 
@@ -23,6 +26,8 @@ export interface ComponentInformation {
   selector?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
+  /** List of localization keys used in the component */
+  localizationKeys?: string[];
 }
 
 /**
@@ -159,7 +164,18 @@ export class ComponentClassExtractor {
       this.logger.debug(`${name!} is ignored because it is not a configurable component`);
     }
 
-    return name && type ? { name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset } : undefined;
+    const localizationFiles = getLocalizationFileFromAngularElement(classNode);
+
+    const localizationKeys = (localizationFiles || []).reduce((acc: string[], file) => {
+      const resolvedFilePath = path.resolve(path.dirname(this.filePath), file);
+      const data = JSON.parse(fs.readFileSync(resolvedFilePath, 'utf-8'));
+      return acc.concat(Object.keys(data));
+    }, []);
+
+    return name && type ? {
+      name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset,
+      ...(localizationKeys.length ? { localizationKeys } : {})
+    } : undefined;
   }
 
   /**
@@ -198,7 +214,7 @@ export class ComponentClassExtractor {
     let componentInfo: ComponentInformation | undefined;
 
     this.source.forEachChild((node) => {
-      if (!componentInfo && ts.isClassDeclaration(node)) {
+      if (!componentInfo && ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
         componentInfo = this.getComponentInformation(node);
       }
     });

@@ -1,3 +1,5 @@
+import {ApiClient, ApiFetchClient} from '@ama-sdk/core';
+import {PetApi} from '@ama-sdk/showcase-sdk';
 import { registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
@@ -34,6 +36,17 @@ const runtimeChecks: Partial<RuntimeChecks> = {
 
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
+
+function petApiFactory() {
+  const apiConfig: ApiClient = new ApiFetchClient(
+    {
+      basePath: 'https://petstore3.swagger.io/api/v3',
+      requestPlugins: [],
+      fetchPlugins: []
+    }
+  );
+  return new PetApi(apiConfig);
+}
 
 /**
  * localizationConfigurationFactory
@@ -89,7 +102,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
           xml: () => import('highlight.js/lib/languages/xml')
         }
       }
-    }
+    },
+    {provide: PetApi, useFactory: petApiFactory}
   ],
   bootstrap: [AppComponent]
 })

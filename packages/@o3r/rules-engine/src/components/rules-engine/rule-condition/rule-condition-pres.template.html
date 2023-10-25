@@ -3,7 +3,7 @@
 </ng-container>
 <ng-template #displayConditions>
   <ng-container *ngIf="!$any(condition).all && !$any(condition).any && !$any(condition).not">
-    <span class="input-key">{{ lhs }}</span> {{ $any(condition).operator }} <span class="input-value">{{ rhs }}</span>
+    <span class="input-key">{{ lhs }}</span> {{ $any(condition).operator }} <span class="input-value" *ngIf="rhs !== undefined">{{ rhs }}</span>
   </ng-container>
   <ng-container *ngIf="$any(condition).all || $any(condition).any || $any(condition).not">
     <span *ngIf="$any(condition).all">ALL</span>

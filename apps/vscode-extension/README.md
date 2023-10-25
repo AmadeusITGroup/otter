@@ -2,6 +2,11 @@
 
 This package contains the Visual Studio Code extension for Otter framework.
 
+## Intellisense
+
+In VS Code, you benefit of intellisense for:
+ - Configuration metadata tags in the JSDoc (for now, only @o3rWidget and @o3rWidgetParam)
+
 ## Available commands
 
 In VS Code, you can execute command via the palette panel which can be displayed using the `ctrl+shift+p` key combination.

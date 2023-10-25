@@ -22,3 +22,16 @@ To facilitate the synchronization, the `StorageSync` class is based on a fork of
 - Split code in several files
 - Migrate tests to Jest
 - Removal of deprecated `deepmerge` dependency.
+- Support of a `smartSync` setup to improve performances 
+
+### Configuration
+#### Smart sync
+The original ngrx-store-localstorage synchronize all of your states everytime a state is updated which can lead to a lot 
+of accesses to the local and session storage and cause performance issue.
+
+To avoid this pitfall, by default the @o3r/store-sync only synchronizes a state if its value changed and no longer matches
+the storage. 
+This behaviour can be disabled as follows:
+```typescript
+const storage = new StorageSync({keys: [...myStorekeys]}, {disableSmartSync: true});
+```

@@ -3,44 +3,44 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
-import { displayModuleList } from '../rule-factories/module-list';
 import { getExternalPreset, presets } from '../shared/presets';
-import { AddDevInstall, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { NgAddSchematicsSchema } from './schema';
-import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import { AddDevInstall, displayModuleListRule, isPackageInstalled, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { prepareProject } from './project-setup/index';
 
 /**
  * Add Otter library to an Angular Project
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
-  return async (tree: Tree, context: SchematicContext) => {
-    const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
-    const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
-    const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
+  const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
+  const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
+  const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
+
+  return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
+    // check if the workspace package is installed, if not installed and we are in workspace context, we install
+    const workspacePackageName = '@o3r/workspace';
+    if (!options.projectName && !isPackageInstalled(workspacePackageName)) {
+      schematicsDependencies.push(workspacePackageName);
+    }
 
     context.addTask(new AddDevInstall({
       packageName: [
         ...schematicsDependencies.map((dependency) => dependency + o3rCoreVersion)
       ].join(' '),
       hideOutput: false,
-      quiet: false
+      quiet: false,
+      force: options.forceInstall
     } as any));
     await lastValueFrom(context.engine.executePostTasks());
 
     return () => chain([
       // eslint-disable-next-line @typescript-eslint/naming-convention
       setupSchematicsDefaultParams({ '*:ng-add': { registerDevtool: options.withDevtool } }),
-      ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
-      async (t, c) => {
-        const {prepareProject} = await import('./project-setup/index');
-        return prepareProject(options)(t, c);
-      },
-      async (t, c) => {
-        const { registerPackageCollectionSchematics } = await import('@o3r/schematics');
-        return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
-      },
+      ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', options)),
+      options.projectName ? prepareProject(options) : noop(),
+      registerPackageCollectionSchematics(corePackageJsonContent),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
         const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
@@ -57,18 +57,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           externalPresetRunner?.rule || noop()
         ])(t, c);
       },
-      async (t, c) => {
-        const { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } = await import('@o3r/schematics');
-        const displayModuleListRule = displayModuleList(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES);
-        return () => displayModuleListRule(t, c);
-      },
-      (_, c) => {
-        if (!options.projectName && !options.skipGit && options.commit) {
-          const commit: {name?: string; email?: string; message?: string} = typeof options.commit == 'object' ? options.commit : {};
-          commit.message = 'Setup of Otter Framework';
-          c.addTask(new RepositoryInitializerTask(undefined, commit));
-        }
-      }
+      displayModuleListRule({ packageName: options.projectName })
     ])(tree, context);
   };
 }
