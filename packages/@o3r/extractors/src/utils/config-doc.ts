@@ -61,7 +61,7 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
     return;
   }
 
-  const widgetParameters = Array.from(docText.matchAll(/@o3rWidgetParameter (.*)/g))
+  const widgetParameters = Array.from(docText.matchAll(/@o3rWidgetParam (.*)/g))
     .map((match) => match[1].trim())
     .reduce((acc: ConfigPropertyWidgetParameters, text) => {
       const firstSpaceIndex = text.indexOf(' ');

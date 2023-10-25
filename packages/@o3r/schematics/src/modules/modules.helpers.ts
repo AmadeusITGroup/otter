@@ -9,7 +9,7 @@ import { EOL } from 'node:os';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { promisify } from 'node:util';
-import { exec } from 'node:child_process';
+import { execFile } from 'node:child_process';
 import * as chalk from 'chalk';
 import { getPackageManager, PackageManagerOptions, SupportedPackageManagerExecutors } from '../utility';
 
@@ -29,7 +29,6 @@ async function promiseGetRequest<T extends JsonObject>(url: string) {
 
 /**
  * Execute NPM search command if not run with other client
- *
  * @param search search text
  * @param packageManager Package manager to use, determined automatically if not specified
  * @param packageManagerOptions
@@ -39,7 +38,7 @@ async function npmSearchExec(search: string, packageManagerOptions?: PackageMana
   const manager = getPackageManager(packageManagerOptions);
   switch (manager) {
     case 'npm': {
-      const remoteModulesPromise = promisify(exec)(`npm search "${search}" --json`);
+      const remoteModulesPromise = promisify(execFile)('npm', ['search', search, '--json']);
       try {
         const results = JSON.parse((await remoteModulesPromise).stdout) as NpmRegistryPackage[];
         return results
@@ -64,7 +63,6 @@ async function npmSearchExec(search: string, packageManagerOptions?: PackageMana
 
 /**
  * Determine if the given keyword is an Otter tag
- *
  * @param keyword Keyword to identify
  * @param expect tag expected for the Otter keyword
  */
@@ -77,14 +75,12 @@ export const isOtterTag = <T extends string | undefined>(keyword: any, expect?: 
 export interface AvailableModuleOptions extends PackageManagerOptions {
   /**
    * Determine if only the packages that are NOT installed should be returned
-   *
    * @default false
    */
   onlyNotInstalled?: boolean;
 
   /**
    * Npm Registry to fetch to get the package information
-   *
    * @default registry.npmjs.org
    */
   npmRegistryToFetch?: string;
@@ -92,7 +88,6 @@ export interface AvailableModuleOptions extends PackageManagerOptions {
 
 /**
  * Get Available Otter modules on NPMjs.org
- *
  * @param keyword Keyword to search for Otter modules
  * @param scopeWhitelist List of whitelisted scopes
  * @param options
@@ -125,7 +120,6 @@ export async function getAvailableModules(keyword: string, scopeWhitelist: strin
 export interface AvailableModuleOptionsWithLatestPackage extends AvailableModuleOptions {
   /**
    * List of whitelisted scopes
-   *
    * @default {@see OTTER_MODULE_SUPPORTED_SCOPES}
    */
   scopeWhitelist?: string[] | readonly string[];
@@ -134,7 +128,6 @@ export interface AvailableModuleOptionsWithLatestPackage extends AvailableModule
 /**
  * Get Available Otter modules on NPMjs.org and get latest package information
  * Similar to {@link getAvailableModules} with additional calls to retrieve all the package's information
- *
  * @param keyword Keyword to search for Otter modules
  * @param options
  */
@@ -162,13 +155,16 @@ export async function getAvailableModulesWithLatestPackage(keyword: string = OTT
 
 /**
  * Format a module description to be displayed in the terminal
- *
  * @param npmPackage Npm Package to display
  * @param runner runner according to the context
  * @param keywordTags Mapping of the NPM package Keywords and a displayed tag
  * @param logger Logger to use to report package read failure (as debug message)
  */
-export function formatModuleDescription(npmPackage: NpmRegistryPackage, runner: SupportedPackageManagerExecutors = 'npx', keywordTags: Record<string, string> = {}, logger?: logging.LoggerApi) {
+export function formatModuleDescription(
+    npmPackage: NpmRegistryPackage,
+    runner: SupportedPackageManagerExecutors | string = 'npx',
+    keywordTags: Record<string, string> = {},
+    logger?: logging.LoggerApi) {
   let otterVersion: string | undefined;
   const otterCorePackageName = '@o3r/core';
   const otterCoreRange = npmPackage.package?.peerDependencies?.[otterCorePackageName];

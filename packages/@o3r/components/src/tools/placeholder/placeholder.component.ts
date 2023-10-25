@@ -8,14 +8,15 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 import {Store} from '@ngrx/store';
-import {ReplaySubject, Subscription} from 'rxjs';
-import {distinctUntilChanged, switchMap} from 'rxjs/operators';
-import {PlaceholderTemplateStore, selectPlaceholderRenderedTemplates} from '../../stores/placeholder-template';
+import {BehaviorSubject, ReplaySubject, sample, Subject, Subscription} from 'rxjs';
+import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
+import {PlaceholderTemplateStore, selectSortedTemplates} from '../../stores/placeholder-template';
+import {PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage} from './placeholder.interface';
+import {sendOtterMessage} from '@o3r/core';
 
 /**
  * Placeholder component that is bind to the PlaceholderTemplateStore to display a template based on its ID
  * A loading indication can be provided via projection
- *
  * @example
  *  <o3r-placeholder id="my-template-id">Is loading ...</o3r-placeholder>
  */
@@ -30,7 +31,11 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
 
-  private id$ = new ReplaySubject<string>(1);
+  private id$ = new BehaviorSubject<string | undefined>(undefined);
+
+  private readonly afterViewInit$ = new Subject<void>();
+
+  private readonly messages$ = new ReplaySubject<PlaceholderLoadingStatus>(1);
 
   /** Determine if the placeholder content is pending */
   public isPending?: boolean;
@@ -51,30 +56,63 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
   public ngOnInit() {
     this.subscription.add(
       this.id$.pipe(
+        filter((id): id is string => !!id),
         distinctUntilChanged(),
-        switchMap((id) => this.store.select(selectPlaceholderRenderedTemplates(id)))
-      ).subscribe((templates) => {
-        if (templates) {
-          this.isPending = templates.isPending;
-          const orderedRenderedTemplates = templates.orderedRenderedTemplates;
-          if (!orderedRenderedTemplates || !orderedRenderedTemplates.length) {
-            this.template = undefined;
-          } else {
-            // Concatenates the list of templates
-            this.template = orderedRenderedTemplates.join('');
-          }
-        } else {
-          this.isPending = false;
+        switchMap((id: string) =>
+          this.store.select(selectSortedTemplates(id)).pipe(
+            map((placeholders) => ({
+              id,
+              orderedTemplates: placeholders?.orderedTemplates,
+              isPending: placeholders?.isPending
+            })),
+            distinctUntilChanged((previous, current) =>
+              previous.id === current.id &&
+              previous.isPending === current.isPending &&
+              previous.orderedTemplates?.map(placeholder => placeholder.renderedTemplate).join('') ===
+              current.orderedTemplates?.map(placeholder => placeholder.renderedTemplate).join('')
+            )
+          )
+        )
+      ).subscribe(({id, orderedTemplates, isPending}) => {
+        this.isPending = isPending;
+        if (!orderedTemplates?.length) {
           this.template = undefined;
+        } else {
+          // Concatenates the list of templates
+          this.template = orderedTemplates.map(placeholder => placeholder.renderedTemplate).join('');
+        }
+        if (this.isPending === false) {
+          this.messages$.next({
+            templateIds: !this.isPending ? (orderedTemplates || []).map(placeholder => placeholder.resolvedUrl) : [],
+            placeholderId: id
+          });
         }
         this.cd.markForCheck();
       })
     );
+    this.messages$.pipe(
+      sample(this.afterViewInit$),
+      distinctUntilChanged((previous, current) => JSON.stringify(current) === JSON.stringify(previous))
+    ).subscribe({
+      next: (data) =>
+        sendOtterMessage<PlaceholderLoadingStatusMessage>('placeholder-loading-status', data, false),
+      complete: () =>
+        sendOtterMessage<PlaceholderLoadingStatusMessage>('placeholder-loading-status', {
+          placeholderId: this.id$.value,
+          templateIds: []
+        }, false)
+    });
   }
 
+  public ngAfterViewChecked() {
+    // Make sure the view is rendered before posting the status
+    this.afterViewInit$.next();
+  }
 
   /** @inheritdoc */
   public ngOnDestroy() {
+    this.messages$.complete();
+    this.afterViewInit$.complete();
     this.subscription.unsubscribe();
   }
 }

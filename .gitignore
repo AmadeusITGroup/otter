@@ -14,7 +14,7 @@
 /.env
 
 ### yarn ###
-# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 
 .yarn/*
 !.yarn/releases

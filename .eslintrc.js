@@ -36,9 +36,14 @@ module.exports = {
         '**/package.json'
       ],
       'plugins': [
-        '@nx'
+        '@nx',
+        '@o3r'
       ],
       'rules': {
+        '@o3r/json-dependency-versions-harmonize': ['error', {
+          ignoredPackages: ['@o3r/build-helpers'],
+          alignPeerDependencies: false
+        }],
         '@nx/dependency-checks': ['error', {
           'buildTargets': ['build', 'build-builders', 'compile', 'test'],
           'checkObsoleteDependencies': false

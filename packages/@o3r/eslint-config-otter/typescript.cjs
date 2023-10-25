@@ -178,6 +178,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
+    '@typescript-eslint/no-redeclare': 'error',
     '@typescript-eslint/no-shadow': [
       'error',
       {
@@ -281,7 +282,7 @@ module.exports = {
     'jsdoc/check-tag-names': [
       'warn',
       {
-        'definedTags': ['note', 'title', 'o3rCategory', 'o3rWidget', '@o3rWidgetParam']
+        'definedTags': ['note', 'title', 'o3rCategory', 'o3rWidget', 'o3rWidgetParam']
       }
     ],
     'jsdoc/check-types': 'warn',
@@ -445,7 +446,7 @@ module.exports = {
     'no-octal': 'error',
     'no-proto': 'error',
     'no-prototype-builtins': 'error',
-    'no-redeclare': 'error',
+    'no-redeclare': 'off',
     'no-regex-spaces': 'error',
     'no-restricted-imports': ['error', {
       'patterns': [

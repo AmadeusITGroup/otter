@@ -6,11 +6,11 @@ module.exports = {
   roots: ['<rootDir>/src/'],
   reporters: [
     'default',
-    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@<%=projectName%>/<%=projectPackageName%> unit tests' }]
+    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%> unit tests' }]
   ],
   moduleNameMapper: {
-    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/src'],
-    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/src/$1'],
+    '^<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>$': ['<rootDir>/src'],
+    '^<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/(.*)$': ['<rootDir>/src/$1'],
   },
   transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention

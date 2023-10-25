@@ -19,13 +19,13 @@ export const selectPlaceholderTemplateEntity = (placeholderId: string) =>
   createSelector(selectPlaceholderTemplateState, (state) => state?.entities[placeholderId]);
 
 /**
- * Select the ordered rendered templates for a given placeholderId
+ * Select the ordered rendered placeholder template full data (url, priority etc.) for a given placeholderId
  * Return undefined if the placeholder is not found
  * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
  *
  * @param placeholderId
  */
-export const selectPlaceholderRenderedTemplates = (placeholderId: string) => createSelector(
+export const selectSortedTemplates = (placeholderId: string) => createSelector(
   selectPlaceholderTemplateEntity(placeholderId),
   selectPlaceholderRequestState,
   (placeholderTemplate, placeholderRequestState) => {
@@ -34,7 +34,7 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
     }
     // The isPending will be considered true if any of the Url is still pending
     let isPending: boolean | undefined = false;
-    const templates: { rawUrl: string; priority: number; renderedTemplate?: string }[] = [];
+    const templates: { rawUrl: string; priority: number; renderedTemplate?: string; resolvedUrl: string }[] = [];
     placeholderTemplate.urlsWithPriority.forEach(urlWithPriority => {
       const placeholderRequest = placeholderRequestState.entities[urlWithPriority.rawUrl];
       if (placeholderRequest) {
@@ -44,6 +44,7 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
         if (!placeholderRequest.isFailure) {
           templates.push({
             rawUrl: urlWithPriority.rawUrl,
+            resolvedUrl: placeholderRequest.resolvedUrl,
             priority: urlWithPriority.priority,
             renderedTemplate: placeholderRequest.renderedTemplate
           });
@@ -52,13 +53,33 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
     });
     // No need to perform sorting if still pending
     if (isPending) {
-      return {orderedRenderedTemplates: undefined, isPending};
+      return {orderedTemplates: undefined, isPending};
     }
     // Sort templates by priority
-    const orderedRenderedTemplates = templates.sort((template1, template2) => {
+    const orderedTemplates = templates.sort((template1, template2) => {
       return (template2.priority - template1.priority) || 1;
-    }).map(template => template.renderedTemplate)
-      .filter(renderedTemplate => !!renderedTemplate);
+    }).filter(templateData => !!templateData.renderedTemplate);
 
-    return {orderedRenderedTemplates, isPending};
+    return {orderedTemplates, isPending};
+  });
+
+/**
+ * Select the ordered rendered templates for a given placeholderId
+ * Return undefined if the placeholder is not found
+ * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
+ *
+ * @param placeholderId
+ *
+ * @deprecated Please use {@link selectSortedTemplates} instead
+ */
+export const selectPlaceholderRenderedTemplates = (placeholderId: string) => createSelector(
+  selectSortedTemplates(placeholderId),
+  (placeholderData) => {
+    if (!placeholderData) {
+      return;
+    }
+    return {
+      orderedRenderedTemplates: placeholderData.orderedTemplates?.map(placeholder => placeholder.renderedTemplate),
+      isPending: placeholderData.isPending
+    };
   });

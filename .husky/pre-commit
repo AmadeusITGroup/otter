@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn nx affected -t i18n && yarn run version-harmonize && yarn lint-staged
+yarn nx affected -t i18n && yarn lint-staged

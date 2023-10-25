@@ -1,8 +1,10 @@
 {
   "extends": "../../../tsconfig.build",
   "compilerOptions": {
-    "declaration": false,
+    "declaration": true,
     "declarationMap": false,
+    "incremental": true,
+    "composite": true,
     "lib": ["es5", "es6", "scripthost"],
     "sourceMap": false,
     "types": ["node"],

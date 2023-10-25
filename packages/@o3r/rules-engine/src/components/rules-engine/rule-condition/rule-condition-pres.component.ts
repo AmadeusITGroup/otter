@@ -28,16 +28,16 @@ export class RuleConditionPresComponent {
    * Right hand operator as it will be displayed in the template.
    * In the case of a fact with a json path, will resolve the whole fact path, else will only display the value
    */
-  public rhs = 'undefined';
+  public rhs: string | undefined;
 
   /**
-   * Rule condition that will be flatten by the component setter
+   * Rule condition that will be flattened by the component setter
    */
   @Input()
   public set condition(condition: TopLevelCondition | undefined) {
     this._condition = condition;
     this.lhs = (condition as UnaryOperation | BinaryOperation)?.lhs ? this.getOperandName((condition as UnaryOperation | BinaryOperation).lhs) : 'undefined';
-    this.rhs = (condition as BinaryOperation)?.rhs ? this.getOperandName((condition as BinaryOperation).rhs) : 'undefined';
+    this.rhs = (condition as BinaryOperation)?.rhs ? this.getOperandName((condition as BinaryOperation).rhs) : undefined;
   }
 
   public get condition(): TopLevelCondition | undefined {
@@ -46,7 +46,7 @@ export class RuleConditionPresComponent {
 
   private getOperandName(operand: GenericOperand): string {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    const value = `${operand.value !== undefined ? operand.value : 'MISSING_VALUE'}`;
+    const value = `${operand.value ?? 'MISSING_VALUE'}`;
     return (operand as OperandFact).path ? (operand as OperandFact).path!.replace(/^[$]/, value) : value;
   }
 }

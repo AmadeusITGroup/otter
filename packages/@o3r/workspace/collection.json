@@ -1,0 +1,35 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "ng-add": {
+      "description": "Add Otter Library to the project.",
+      "factory": "./schematics/ng-add/index#ngAdd",
+      "schema": "./schematics/ng-add/schema.json",
+      "aliases": ["install", "i"]
+    },
+    "application": {
+      "description": "Generate a new Otter Application",
+      "factory": "./schematics/application/index#generateApplication",
+      "schema": "./schematics/application/schema.json",
+      "aliases": [
+        "new-application",
+        "app"
+      ]
+    },
+    "library": {
+      "description": "Generate a new Otter compatible module",
+      "factory": "./schematics/library/index#generateModule",
+      "schema": "./schematics/library/schema.json",
+      "aliases": [
+        "new-module",
+        "module",
+        "libs"
+      ]
+    },
+    "sdk": {
+      "description": "Generate a new SDK package in an Otter project",
+      "factory": "./schematics/sdk/index#generateSdk",
+      "schema": "./schematics/sdk/schema.json"
+    }
+  }
+}
