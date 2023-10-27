@@ -29,16 +29,16 @@ describe('Rules engine fact', () => {
 
   it('should register the facts', async () => {
     factsService.register();
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 0));
+    await jest.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
   });
 
   it('should update the value of a fact', async () => {
     factsService.register();
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 0));
+    await jest.runAllTimersAsync();
     subjectFact.next('test4');
-    await new Promise<void>((resolve) => setTimeout(() => resolve(), 0));
+    await jest.runAllTimersAsync();
 
     expect(mockEngine.upsertFacts).toHaveBeenCalledTimes(1);
   });

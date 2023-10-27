@@ -16,6 +16,8 @@ export interface SyncStorageSyncOptions {
   filter?: string[];
   /** Spacing for serializer */
   space?: string | number;
+  /** Defines whether the store is loaded as forFeature */
+  syncForFeature?: boolean;
 }
 
 /**
@@ -47,12 +49,16 @@ export interface SyncStorageConfig {
   restoreDates?: boolean;
   /** Callback to define the serialization strategy for the store keys */
   storageKeySerializer?: (key: string) => string;
-  /** Callback to defined the condition to the synchronization */
+  /** Callback to define the condition to the synchronization */
   syncCondition?: (state: any) => any;
+  /** Callback to define the condition to the key synchronization */
+  syncKeyCondition?: (key: string, state: any) => boolean;
   /** check the availability of the storage */
   checkStorageAvailability?: boolean;
   /** Merge reducer to use to deserialize the store */
   mergeReducer?: (state: any, rehydratedState: any, action: any) => any;
   /** Logger to report messages */
   logger?: Logger;
+  /** Post process after sync storage execution */
+  postProcess?: (state: any) => void;
 }

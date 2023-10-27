@@ -13,6 +13,7 @@
   ],
   "include": [
     "./src/**/*.spec.ts",
+    "./schematics/**/*.spec.ts",
     "./testing/mocks/**/*.ts"
   ],
   "exclude": []

@@ -1,14 +1,11 @@
 // Theming
-@forward './scss/theming/variables' as default-*;
-@forward './scss/theming/functions' hide _meta-theme-to-material, _meta-theme-to-otter;
-@forward './scss/theming/otter-theme/theme' show generate-otter-theme, generate-otter-dark-theme;
-@forward './scss/theming/otter-theme/dark.theme';
-
-// Mixins
-@forward './scss/theming/mixins' show apply-theme, override-theme;
+@forward './scss/theming/otter-theme/index'; // deprecate, will be removed in v10. The theme should retrieve from @o3r/styling/otter-theme
+@forward './scss/theming/functions';
+@forward './scss/theming/mixins' show apply-theme, override-theme, define-var, var;
 
 // Palettes
 @forward './scss/theming/palettes/amadeus' as palettes-*;
 
 // Utils
 @forward './scss/utils/functions';
+@forward './scss/utils/variables';

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "PrLabelConfiguration",
+  "type": "object",
+  "properties": {
+    "enableProjectLabel": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable the generation of label based on the list of touched package"
+    },
+    "enableCommitMessageLabel": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable the generation of label based on commit messages"
+    },
+    "projectLabelPrefix": {
+      "type": "string",
+      "default": "project:",
+      "description": "Prefix applied to the label determine from touched project name"
+    },
+    "ignoredProjects": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "List of project name to ignore"
+    },
+    "ignoreProjectForLabels": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "default": [],
+      "description": "List of labels for which the list of project labels should be ignored"
+    }
+  },
+  "additionalItems": true
+}

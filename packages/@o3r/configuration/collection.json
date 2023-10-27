@@ -6,6 +6,12 @@
       "factory": "./schematics/ng-add/index#ngAdd",
       "schema": "./schematics/ng-add/schema.json",
       "aliases": ["install", "i"]
+    },
+    "configuration-to-component": {
+      "description": "Add Otter Configuration to an existing component",
+      "factory": "./schematics/configuration-to-component/index#ngAddConfig",
+      "schema": "./schematics/configuration-to-component/schema.json",
+      "aliases": ["add-config"]
     }
   }
 }

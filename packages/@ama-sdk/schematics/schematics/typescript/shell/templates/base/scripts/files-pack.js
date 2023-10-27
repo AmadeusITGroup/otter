@@ -20,19 +20,19 @@ const files = [
 
 /**  Update package.json exports */
 const updateExports = async () => {
-  const packageJson = JSON.parse(await fs.readFile(path.posix.join(baseDir, 'package.json'), { encoding: 'utf8' }));
-  const packageJsonFiles = sync(path.posix.join(baseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
+  const packageJson = JSON.parse(await fs.readFile(path.join(baseDir, 'package.json'), { encoding: 'utf8' }));
+  const packageJsonFiles = sync(path.join(baseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
   packageJson.exports = packageJson.exports || {};
   for (const packageJsonFile of packageJsonFiles) {
     try {
       const subPackageJson = JSON.parse(await fs.readFile(packageJsonFile, { encoding: 'utf8' }));
-      const folder = './' + path.relative(path.posix.join(baseDir, distFolder), path.dirname(packageJsonFile)).replace(/[/\\]+/g, '/');
+      const folder = './' + path.relative(path.join(baseDir, distFolder), path.dirname(packageJsonFile)).replace(/[/\\]+/g, '/');
       packageJson.exports[folder] = packageJson.exports[folder] || {};
       Object.entries(subPackageJson).forEach(([key, value]) => {
         if (['name', 'sideEffects'].includes(key)) {
           return;
         }
-        packageJson.exports[folder][key] = './' + path.relative(path.posix.join(baseDir, distFolder), path.resolve(path.dirname(packageJsonFile), value)).replace(/[/\\]+/g, '/');
+        packageJson.exports[folder][key] = './' + path.relative(path.join(baseDir, distFolder), path.resolve(path.dirname(packageJsonFile), value)).replace(/[/\\]+/g, '/');
       });
       packageJson.exports[folder].import = packageJson.exports[folder].module || packageJson.exports[folder].esm2020 || packageJson.exports[folder].esm2015 || packageJson.exports[folder].node;
       packageJson.exports[folder].require = packageJson.exports[folder].node;
@@ -46,7 +46,7 @@ const updateExports = async () => {
     }
   }
   delete packageJson.scripts;
-  await fs.writeFile(path.posix.join(baseDir, distFolder, 'package.json'), JSON.stringify(packageJson, null, 2));
+  await fs.writeFile(path.join(baseDir, distFolder, 'package.json'), JSON.stringify(packageJson, null, 2));
 };
 
 (async () => {
@@ -56,13 +56,13 @@ const updateExports = async () => {
     acc.push(
       watch ?
         // eslint-disable-next-line no-console
-        cpx.watch(path.posix.join(baseDir, glob), distFolder).on('copy', (e) => {
+        cpx.watch(path.join(baseDir, glob), distFolder).on('copy', (e) => {
           console.log(`${e.srcPath} copied to ${e.dstPath}`);
           if (!noExports) {
             void updateExports()
           }
         }) :
-        promisify(cpx.copy)(path.posix.join(baseDir, glob), distFolder));
+        promisify(cpx.copy)(path.join(baseDir, glob), distFolder));
     return acc;
   }, []);
   await Promise.all(copies);

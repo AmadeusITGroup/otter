@@ -6,15 +6,15 @@ import * as path from 'node:path';
 import { firstValueFrom } from 'rxjs';
 import { updatePackageJsonScripts } from './index';
 
-const collectionPath = path.posix.join(__dirname, '..', '..', 'collection.json');
-const packageJsonPath = path.posix.join(
+const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
+const packageJsonPath = path.join(
   __dirname,
   '..',
   '..',
   'testing',
   'MOCK_package.json'
 );
-const expectedPackageJsonPath = path.posix.join(
+const expectedPackageJsonPath = path.join(
   __dirname,
   '..',
   '..',

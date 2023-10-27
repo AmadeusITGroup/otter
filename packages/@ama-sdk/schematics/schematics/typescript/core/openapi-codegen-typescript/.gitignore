@@ -1,0 +1,11 @@
+# Output directory
+/test-sdk
+/target
+
+# IDE
+*.iml
+
+.classpath
+.project
+.factorypath
+.settings

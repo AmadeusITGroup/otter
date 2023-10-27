@@ -1,23 +1,33 @@
 import {
   apply,
+  chain,
   MergeStrategy,
   mergeWith,
   move,
   renameTemplateFiles,
-  Rule,
+  Rule, SchematicContext,
   template,
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { readPackageJson } from '../../helpers/read-package';
-import type { NgGenerateTypescriptSDKShellSchematicsSchema } from './schema';
+import {dump, load} from 'js-yaml';
+import {isAbsolute, relative} from 'node:path';
+import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
+import {readPackageJson} from '../../helpers/read-package';
+import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
 
 /**
  * @param options
  */
 export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
 
-  return async (tree: Tree) => {
+  const installRule = (_tree: Tree, context: SchematicContext) => {
+    const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
+    const installTask = new NpmInstall({workingDirectory, packageManager: options.packageManager, allowScripts: false});
+    context.addTask(installTask);
+  };
+
+  const setupRule = async (tree: Tree, context: SchematicContext) => {
     const amaSdkSchematicsPackageJson = await readPackageJson();
 
     /* eslint-disable @typescript-eslint/naming-convention */
@@ -35,8 +45,12 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch'],
       'jest': amaSdkSchematicsPackageJson.devDependencies!.jest,
       'ts-jest': amaSdkSchematicsPackageJson.devDependencies!['ts-jest'],
-      'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript
+      'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript,
+      '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli']
     };
+    const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
+      amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
+    context.logger.warn(JSON.stringify(openApiSupportedVersion));
     const engineVersions = {
       'node': amaSdkSchematicsPackageJson.engines!.node,
       'npm': amaSdkSchematicsPackageJson.engines!.npm,
@@ -47,20 +61,46 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       projectName: options.name,
       projectPackageName: options.package,
       projectDescription: options.description,
+      packageManager: getPackageManagerName(options.packageManager),
       projectHosting: options.hosting,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
+      angularEslintVersion: amaSdkSchematicsPackageJson.devDependencies!['@angular-eslint/eslint-plugin'],
       versions,
+      ...openApiSupportedVersion ? {openApiSupportedVersion} : {},
       engineVersions,
       empty: ''
     };
 
+    if (properties.packageManager === 'yarn') {
+      const yarnrcPath = '.yarnrc.yml';
+      const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
+      yarnrc.nodeLinker ||= 'pnp';
+      yarnrc.packageExtensions ||= {};
+      yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
+        dependencies: {
+          'isomorphic-fetch': '~2.2.1'
+        }
+      };
+      if (tree.exists(yarnrcPath)) {
+        tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
+      } else {
+        tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
+      }
+    }
+    const targetPath = options.directory || tree.root.path;
+
     const baseRule = mergeWith(apply(url('./templates/base'), [
       template(properties),
-      move(tree.root.path),
+      move(targetPath),
       renameTemplateFiles()
     ]), MergeStrategy.Overwrite);
 
-    return baseRule;
+    return baseRule(tree, context);
   };
+
+  return chain([
+    setupRule,
+    ...(options.skipInstall ? [] : [installRule])
+  ]);
 }

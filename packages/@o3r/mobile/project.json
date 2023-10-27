@@ -1,8 +1,7 @@
 {
+  "name": "mobile",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
-  "name": "mobile",
-  "root": "packages/@o3r/mobile",
   "sourceRoot": "packages/@o3r/mobile/src",
   "prefix": "o3r",
   "targets": {
@@ -39,7 +38,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -49,12 +48,13 @@
       "options": {
         "eslintConfig": "packages/@o3r/mobile/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/mobile/src/**/*.ts"
+          "packages/@o3r/mobile/src/**/*.ts",
+          "packages/@o3r/mobile/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/mobile/jest.config.js",
         "silent": true

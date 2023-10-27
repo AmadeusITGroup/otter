@@ -5,6 +5,7 @@ import { sync as globbySync } from 'globby';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as winston from 'winston';
+import { clean } from 'semver';
 
 const defaultIncludedFiles = ['**/package.json', '!/**/templates/**/package.json', '!**/node_modules/**/package.json'];
 
@@ -24,7 +25,13 @@ program
   .option('--include <file>', 'Add files pattern to apply the version replacement', collect, defaultIncludedFiles)
   .option('-v, --verbose', 'Display debug logs')
   .action((version: string) => {
-    replaceVersion = version;
+    const cleanVersion = clean(version);
+    if (!cleanVersion) {
+      // eslint-disable-next-line no-console
+      console.error(`The version "${version}" is invalid`);
+      return process.exit(1);
+    }
+    replaceVersion = cleanVersion;
   })
   .parse(process.argv);
 

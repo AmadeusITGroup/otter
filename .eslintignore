@@ -5,6 +5,7 @@ tmp/
 generated-doc/
 /{packages,apps}/@*/*/dist*/**
 /packages/@*/*/**/templates/**
+/apps/*/**/templates/**
 /.pnp.js
 /.vscode
 /tools/github-actions/*/packaged-action/

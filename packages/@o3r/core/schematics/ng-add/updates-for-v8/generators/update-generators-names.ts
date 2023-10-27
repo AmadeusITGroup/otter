@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule, Tree
+  chain, Rule
 } from '@angular-devkit/schematics';
-import { readAngularJson, WorkspaceSchematics } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
+import { getWorkspaceConfig, WorkspaceSchematics } from '@o3r/schematics';
 
 const generatorsMappingFromV7 = {
   '@otter/ng-tools:component': '@o3r/core:component',
@@ -27,7 +26,7 @@ const generatorsMappingFromV7 = {
 };
 
 function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
-  Object.keys(schematicsToUpdate).forEach(generatorName => {
+  (Object.keys(schematicsToUpdate) as (keyof typeof generatorsMappingFromV7)[]).forEach((generatorName) => {
     if (generatorsMappingFromV7[generatorName]) {
       (schematicsToUpdate[generatorsMappingFromV7[generatorName]] || {}).builder = schematicsToUpdate[generatorName];
       // delete the old generator entry
@@ -45,9 +44,15 @@ export function updateOtterGeneratorsNames(): Rule {
    * Change otter generators names into angular.json
    *
    * @param tree
+   * @param context
    */
-  const updateAngularJson: Rule = (tree: Tree) => {
-    const workspace = readAngularJson(tree);
+  const updateAngularJson: Rule = (tree, context) => {
+    const workspace = getWorkspaceConfig(tree);
+
+    if (!workspace) {
+      context.logger.error('No workspace detected');
+      return tree;
+    }
 
     const projectsInAngularJson = Object.keys(workspace.projects);
     if (workspace.schematics) {
@@ -61,7 +66,7 @@ export function updateOtterGeneratorsNames(): Rule {
       }
     });
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

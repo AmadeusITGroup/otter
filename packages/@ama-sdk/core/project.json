@@ -8,7 +8,7 @@
     "build": {
       "executor": "nx:run-script",
       "outputs": [
-        "packages/@ama-sdk/core/dist/package.json"
+        "{projectRoot}/dist/package.json"
       ],
       "options": {
         "script": "postbuild",
@@ -16,7 +16,7 @@
       },
       "dependsOn": [
         "build-builders",
-        "compile",
+        "build-esm2020",
         "build-esm2015",
         "build-cjs"
       ]
@@ -27,7 +27,7 @@
         "script": "build:esm2015"
       },
       "dependsOn": [
-        "compile"
+        "build-esm2020"
       ],
       "outputs": [
         "{projectRoot}/dist/esm2015"
@@ -39,29 +39,23 @@
         "script": "build:cjs"
       },
       "dependsOn": [
-        "compile"
+        "build-esm2020"
       ],
       "outputs": [
         "{projectRoot}/dist/cjs"
       ]
     },
-    "compile": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{projectRoot}/dist/src",
-        "{projectRoot}/dist/package.json",
-        "{projectRoot}/build/.tsbuildinfo"
-      ],
+    "build-esm2020": {
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@ama-sdk/core/src/public_api.ts",
-        "tsConfig": "packages/@ama-sdk/core/tsconfig.esm2020.json",
-        "outputPath": "packages/@ama-sdk/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
-        "clean": false
-      }
+        "script": "build:esm2020"
+      },
+      "outputs": [
+        "{projectRoot}/dist/src"
+      ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -71,12 +65,13 @@
       "options": {
         "eslintConfig": "packages/@ama-sdk/core/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-sdk/core/src/**/*.ts"
+          "packages/@ama-sdk/core/src/**/*.ts",
+          "packages/@ama-sdk/core/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/core/jest.config.js",
         "silent": true

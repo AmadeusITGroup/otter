@@ -1,0 +1,120 @@
+{
+  "name": "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>",
+  "version": "0.0.0-placeholder",
+  "description": "<%=projectPackageName%> - SDK",
+  "source": "src/index.ts",
+  "main": "cjs/index.js",
+  "module": "esm2020/index.js",
+  "node": "cjs/index.js",
+  "es2020": "esm2020/index.js",
+  "esm2020": "esm2020/index.js",
+  "es2015": "esm2015/index.js",
+  "esm2015": "esm2015/index.js",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "main": "./cjs/index.js",
+      "module": "./esm2020/index.js",
+      "es2020": "./esm2020/index.js",
+      "esm2020": "./esm2020/index.js",
+      "node": "./cjs/index.js",
+      "default": "./esm2020/index.js",
+      "typings": "./index.d.ts",
+      "import": "./esm2020/index.js",
+      "require": "./esm2020/index.js"
+    }
+  },
+  "scripts": {
+    "clean": "rimraf test/ test-dev/ dist/ dist-dev/ dist-test/ build/",
+    "lint:ci": "eslint '**/*[jt]s' --quiet --format junit --output-file ./dist-lint/result.xml",
+    "lint": "eslint '**/*[jt]s' --cache",
+    "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"<%=packageManager%> run files:pack --watch\"",
+    "build": "<%=packageManager%> run build:cjs && <%=packageManager%> run build:esm2015 && <%=packageManager%> run build:esm2020 && <%=packageManager%> run files:pack",
+    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
+    "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
+    "build:esm2020": "tsc -b tsconfigs/esm2020",
+    "set:version": "set-version --placeholder 0.0.0-placeholder",
+    "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
+    "generate": "schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
+    "spec:regen": "<%=packageManager%> run generate && <%=packageManager%> run clear-index",
+    "clear-index": "node scripts/clear-index.js",
+    "files:pack": "node scripts/files-pack.js",
+    "test": "jest --passWithNoTests",
+    "publish:package": "npm publish ./dist",
+    "postinstall": "husky install",
+    "generate:mock": "schematics @ama-sdk/schematics:mock",
+    "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
+    "tools:changelog": "standard-version"
+  },
+  "lint-staged": {
+    "**/*.(js|ts)": [
+      "<%=packageManager%> exec eslint --quiet --fix --global fast"
+    ]
+  },
+  "dependencies": {
+    "@o3r/dev-tools": "~<%= sdkCoreVersion %>",
+    "@swc/helpers": "^0.5.0",
+    "tslib": "<%= versions['tslib'] %>"
+  },
+  "peerDependenciesMeta": {
+    "isomorphic-fetch": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@angular-devkit/core": "<%= angularVersion %>",
+    "@angular-devkit/schematics": "<%= angularVersion %>",
+    "@angular-devkit/schematics-cli": "<%= angularVersion %>",
+    "@angular-eslint/eslint-plugin": "<%= angularEslintVersion %>",
+    "@angular-eslint/eslint-plugin-template": "<%= angularEslintVersion %>",
+    "@angular-eslint/utils": "<%= angularEslintVersion %>",
+    "@angular/compiler": "<%= angularVersion %>",
+    "@commitlint/cli": "^17.0.0",
+    "@schematics/angular": "<%= angularVersion %>",
+    "@commitlint/config-conventional": "^17.0.0",
+    "@ama-sdk/schematics": "~<%= sdkCoreVersion %>",
+    "@ama-sdk/core": "~<%= sdkCoreVersion %>",
+    "@o3r/schematics": "^<%= sdkCoreVersion %>",
+    "@o3r/eslint-config-otter": "^<%= sdkCoreVersion %>",
+    "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
+    "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
+    "@swc/cli": "^0.1.57",
+    "@swc/core": "^1.3.66",
+    "@types/jest": "<%= versions['@types/jest'] %>",
+    "@types/node": "<%= versions['@types/node'] %>",
+    "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",
+    "@typescript-eslint/parser": "<%= versions['@typescript-eslint/parser'] %>",
+    "cpx": "^1.5.0",
+    "eslint": "<%= versions['eslint'] %>",
+    "eslint-plugin-jest": "<%= versions['eslint-plugin-jest'] %>",
+    "eslint-plugin-jsdoc": "<%= versions['eslint-plugin-jsdoc'] %>",
+    "eslint-plugin-prefer-arrow": "<%= versions['eslint-plugin-prefer-arrow'] %>",
+    "eslint-plugin-unicorn": "<%= versions['eslint-plugin-unicorn'] %>",
+    "glob": "^8.0.0",
+    "husky": "~8.0.3",
+    "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>",
+    "jest": "<%= versions['jest'] %>",
+    "jest-junit": "~16.0.0",
+    "lint-staged": "^13.0.0",
+    "minimist": "^1.2.6",
+    "rimraf": "^5.0.1",
+    "standard-version": "^9.0.0",
+    "ts-jest": "<%= versions['ts-jest'] %>",
+    "typedoc": "~0.25.0",
+    "tsc-watch": "^6.0.0",
+    "typescript": "<%= versions['typescript'] %>"
+  },
+  "peerDependencies": {
+    "@ama-sdk/core": "~<%= sdkCoreVersion %>",
+    "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>"
+  },
+  "engines": {
+    "node": "<%= engineVersions['node'] %>",
+    "npm": "<%= engineVersions['npm'] %>",
+    "yarn": "<%= engineVersions['yarn'] %>"
+  }
+}

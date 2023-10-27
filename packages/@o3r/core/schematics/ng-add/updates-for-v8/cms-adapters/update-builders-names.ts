@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule, Tree
+  chain, Rule
 } from '@angular-devkit/schematics';
-import { readAngularJson } from '@o3r/schematics';
-import * as commentJson from 'comment-json';
+import { getWorkspaceConfig } from '@o3r/schematics';
 
 /**
  * Update otter builders names
@@ -12,11 +11,16 @@ export function updateBuildersNames(): Rule {
 
   /**
    * Change otter builders names into angular.json
-   *
    * @param tree
+   * @param context
    */
-  const updateAngularJson: Rule = (tree: Tree) => {
-    const workspace = readAngularJson(tree);
+  const updateAngularJson: Rule = (tree, context) => {
+    const workspace = getWorkspaceConfig(tree);
+
+    if (!workspace) {
+      context.logger.error('No workspace detected, the extractors will not be added');
+      return tree;
+    }
 
     const projectsInAngularJson = Object.keys(workspace.projects);
     const buildersMappingFromV7 = {
@@ -37,7 +41,7 @@ export function updateBuildersNames(): Rule {
       const workspaceProject = workspace.projects[projectName];
       if (workspaceProject.architect) {
         Object.keys(workspaceProject.architect).forEach(architectName => {
-          const builderName: string = workspaceProject.architect![architectName].builder;
+          const builderName: keyof typeof buildersMappingFromV7 = workspaceProject.architect![architectName].builder;
           if (buildersMappingFromV7[builderName]) {
             workspaceProject.architect![architectName].builder = buildersMappingFromV7[builderName];
           }
@@ -46,7 +50,7 @@ export function updateBuildersNames(): Rule {
       }
     });
 
-    tree.overwrite('/angular.json', commentJson.stringify(workspace, null, 2));
+    tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;
   };
 

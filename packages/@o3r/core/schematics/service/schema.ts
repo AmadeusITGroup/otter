@@ -1,8 +1,8 @@
-import {JsonObject} from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateServiceSchematicsSchema extends JsonObject {
+export interface NgGenerateServiceSchematicsSchema extends SchematicOptionObject {
   /** Project name */
-  projectName: string | null;
+  projectName?: string | undefined;
 
   /** Service name */
   name: string;
@@ -11,7 +11,7 @@ export interface NgGenerateServiceSchematicsSchema extends JsonObject {
   featureName: string;
 
   /** Directory containing the services */
-  path: string | null;
+  path?: string | undefined;
 
   /** Skip the linter process */
   skipLinter: boolean;

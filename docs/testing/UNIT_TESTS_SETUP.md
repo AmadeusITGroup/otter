@@ -1,8 +1,8 @@
 # Tests setup
 
-With the focus on simplicity we chosed to use [JEST](https://jestjs.io) as Testing Framework for our unit and integration tests, which aims to work with a minimum set of configurations, on most js projects.  
+With the focus on simplicity, we chose to use [JEST](https://jestjs.io) as Testing Framework for our unit and integration tests, which aims to work with a minimum set of configurations, on most js projects.  
 
-You can follow the [official documentation](https://jestjs.io/docs/getting-started) to setup the testing for your project.  
+You can follow the [official documentation](https://jestjs.io/docs/getting-started) to set up the testing for your project.  
   
 To be easier to integrate the testing structure in your project, in the next section we showcase the testing configuration done for our otter-demo-app.
 
@@ -24,7 +24,7 @@ First thing is to add jest dependencies in your _package.json_. Add the followin
 Add _jest.config.js_ file at the root of your project.
 
 ```javascript
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   preset: 'jest-preset-angular',
   rootDir: '.',
@@ -39,11 +39,15 @@ module.exports = {
     'github-actions'
   ],
   globalSetup: 'jest-preset-angular/global-setup',
-  globals: {
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+  transform: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '^.+\\.tsx?$': [
+      'jest-preset-angular',
+      {
+        tsconfig: '<rootDir>/tsconfig.spec.json',
+        stringifyContentPathRegex: '\\.html$'
+      }
+    ]
   }
 };
 
@@ -61,7 +65,7 @@ import 'jest-preset-angular/setup-jest';
 import '@angular/localize/init';
 ```
 
-_tsconfig.json_ contains a simple setup for typescript transpilation with one mention related to _compilerOptions paths_ where we redirect all imports of the helpers from _@o3r/testing/core_, to the angular implementation of this helpers. It's similar with the configuration done in _jest.config.js_ for module mappers.
+_tsconfig.json_ contains a simple setup for typescript transpilation with one mention related to _compilerOptions paths_ where we redirect all imports of the helpers from _@o3r/testing/core_, to the angular implementation of these helpers. It's similar with the configuration done in _jest.config.js_ for module mappers.
 
 ```json
 {

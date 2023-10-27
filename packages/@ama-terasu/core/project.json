@@ -18,7 +18,7 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "outputs": [
         "{projectRoot}/dist",
         "{projectRoot}/build/.tsbuildinfo"
@@ -26,12 +26,11 @@
       "options": {
         "main": "packages/@ama-terasu/core/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/core/tsconfig.build.json",
-        "outputPath": "packages/@ama-terasu/core/dist",
-        "updateBuildableProjectDepsInPackageJson": false
+        "outputPath": "packages/@ama-terasu/core/dist"
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -41,12 +40,13 @@
       "options": {
         "eslintConfig": "packages/@ama-terasu/core/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-terasu/core/src/**/*.ts"
+          "packages/@ama-terasu/core/src/**/*.ts",
+          "packages/@ama-terasu/core/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-terasu/core/jest.config.js",
         "silent": true

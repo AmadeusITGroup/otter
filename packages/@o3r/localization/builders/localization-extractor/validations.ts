@@ -7,11 +7,13 @@ export type ValidatorType = (str: string) => boolean;
  * @param str translation
  */
 export function checkParentheses(str: string) {
-  const mapBrackets = {
+  /* eslint-disable @typescript-eslint/naming-convention */
+  const mapBrackets: Record<string, string> = {
     '[': ']',
     '{': '}',
     '(': ')'
   };
+  /* eslint-enable @typescript-eslint/naming-convention */
   const closureBrackets = Object.keys(mapBrackets).map((k) => mapBrackets[k]);
   const stack: string[] = [];
 

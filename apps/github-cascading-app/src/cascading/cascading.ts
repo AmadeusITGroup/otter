@@ -12,8 +12,8 @@ export const CANCEL_BYPASS_REVIEWERS_MARK = '!cancel bypass!';
 /** prefix of cascading branch */
 export const CASCADING_BRANCH_PREFIX = 'cascading';
 
-/** prefix of conflicting cascading branch */
-export const CASCADING_CONFLICT_BRANCH_PREFIX = 'conflict';
+/** Time (in ms) to wait before re-checking the mergeable status of a PR */
+export const RETRY_MERGEAGLE_STATUS_CHECK_TIMING = 3000;
 
 /**
  * Handles the cascading to the next branch
@@ -21,26 +21,22 @@ export const CASCADING_CONFLICT_BRANCH_PREFIX = 'conflict';
 export abstract class Cascading {
   /**
    * Load configuration
-   *
    * @param branchName remote branch name used when no local files available
    */
   protected abstract loadConfiguration(branchName?: string): Promise<CascadingConfiguration>;
   /**
    * Delete a remote branch
-   *
    * @param branchName remote branch name
    */
   protected abstract deleteBranch(branchName: string): Promise<void>;
   /**
    * Create a new local branch
-   *
    * @param branchName local branch name
    * @param baseBranch
    */
   protected abstract createBranch(branchName: string, baseBranch: string): Promise<void>;
   /**
    * Pull a given remote branch
-   *
    * @param branchName remote branch name
    * @param baseBranch
    */
@@ -51,57 +47,49 @@ export abstract class Cascading {
   protected abstract getBranches(): Promise<string[]>;
   /**
    * Create a pull request
-   *
    * @param cascadingBranch name of the cascading branch (pull request head)
    * @param targetBranch name of the targeted branch (pull request base)
    * @param body body of the pull request
    * @param title title of the pull request
    * @param labels list of labels to add to the created PR
    */
-  protected abstract createPullRequest(cascadingBranch: string, targetBranch: string, body: string, title: string, labels?: string[]): Promise<void>;
+  protected abstract createPullRequest(cascadingBranch: string, targetBranch: string, body: string, title: string, labels?: string[]): Promise<CascadingPullRequestInfo>;
   /**
    * Update the body and title of a pull request
-   *
    * @param id pull request ID
    * @param body new pull request body
    * @param title new pull request title
    */
-  protected abstract updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<void>;
+  protected abstract updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo>;
   /**
    * Get the pull requests corresponding to the given branches
-   *
    * @param cascadingBranch head branch of the pull request
    * @param targetBranch base branch of the pull request
    */
   protected abstract getPullRequests(cascadingBranch: string, targetBranch: string): Promise<CascadingPullRequestInfo[]>;
   /**
    * Get the pull request corresponding to the given id
-   *
    * @param id pull request number
    */
   protected abstract getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo>;
   /**
    * Determine of the pull request is a cascading pull
-   *
    * @param id ID of the pull request
    */
   protected abstract isCascadingPullRequest(id: string | number): Promise<boolean>;
   /**
    * Determine of the triggered checks of a pull request are passed
-   *
    * @param id ID of the pull request
    * @param conclusion Result of the check suite
    */
   protected abstract areAllChecksPassed(id: string | number, conclusion: CheckConclusion): Promise<boolean>;
   /**
    * Trigger the pull request merge
-   *
    * @param id ID of the pull request
    */
   protected abstract mergePullRequest(id: string | number): Promise<boolean>;
   /**
    * Determine if the base branch is ahead of the target branch
-   *
    * @param baseBranch
    * @param targetBranch
    */
@@ -117,7 +105,6 @@ export abstract class Cascading {
 
   /**
    * Parse Pull Request context from the body
-   *
    * @param content Body of the pull request
    * @returns {undefined} if the context is not found
    */
@@ -133,12 +120,15 @@ export abstract class Cascading {
 
   /**
    * Generate Pull Request body
-   *
    * @param context context of the Pull Request
+   * @param pullRequest
    */
-  protected generatePullRequestBody(context: PullRequestContext) {
+  protected generatePullRequestBody(context: PullRequestContext, pullRequest?: CascadingPullRequestInfo) {
     return renderFile(resolve(__dirname, 'templates', 'pull-request-content.ejs'), {
       ...context,
+      canBeMerged: pullRequest?.mergeable ?? true,
+      id: pullRequest?.id || '',
+      originBranchName: pullRequest?.originBranchName || '',
       // eslint-disable-next-line @typescript-eslint/naming-convention
       CANCEL_RETRIGGER_CASCADING_MARK,
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -148,7 +138,6 @@ export abstract class Cascading {
 
   /**
    * Retrieve the ordered cascading branches from the repository full branch list
-   *
    * @param fullBranchesList full list of branches of the repository
    * @param config Cascading configuration
    */
@@ -205,22 +194,21 @@ export abstract class Cascading {
 
   /**
    * Generate teh cascading branch name
-   *
    * @param baseVersion Version extracted from the base branch
    * @param targetVersion Version extracted from the target branch
-   * @param isConflicting specify if the branch should be flagged as conflicting
+   * @param configurations
    */
-  protected determineCascadingBranchName(baseVersion: string, targetVersion: string, isConflicting = false) {
-    return `${isConflicting ? CASCADING_CONFLICT_BRANCH_PREFIX : CASCADING_BRANCH_PREFIX}/${baseVersion}-${targetVersion}`;
+  protected determineCascadingBranchName(baseVersion: string, targetVersion: string, configurations: CascadingConfiguration) {
+    return `${configurations.branchNamePrefix}/${baseVersion}-${targetVersion}`;
   }
 
   /**
    * Determine if the branch is a cascading branch created by the application
-   *
    * @param branch Name of the branch to check
+   * @param configurations
    */
-  protected isCascadingBranchName(branch: string) {
-    if (!branch.startsWith(CASCADING_BRANCH_PREFIX) && !branch.startsWith(CASCADING_CONFLICT_BRANCH_PREFIX)) {
+  protected isCascadingBranchName(branch: string, configurations: CascadingConfiguration) {
+    if (!branch.startsWith(configurations.branchNamePrefix)) {
       return false;
     }
 
@@ -230,7 +218,6 @@ export abstract class Cascading {
 
   /**
    * Find the pull request open with for the given branches
-   *
    * @param baseBranch name of the base branch (head of the pull request)
    * @param targetBranch name of the target branch (base of the pull request)
    */
@@ -242,7 +229,6 @@ export abstract class Cascading {
 
   /**
    * Create the Pull Request title
-   *
    * @param config
    * @param currentBranch name of the base branch
    * @param targetBranch name of the target branch (base of the pull request)
@@ -254,8 +240,40 @@ export abstract class Cascading {
   }
 
   /**
+   * Update the pull request message based on its context
+   * @param pullRequest Pull Request object
+   * @param context Context of the pull request
+   */
+  protected async updatePullRequestWithNewMessage(pullRequest: CascadingPullRequestInfo, context: PullRequestContext) {
+    this.logger.debug(`Updating the PR ${pullRequest.id}`);
+    const message = await this.generatePullRequestBody({
+      ...context,
+      bypassReviewers: false
+    }, pullRequest);
+
+    return this.updatePullRequestMessage(pullRequest.id, message);
+  }
+
+  /**
+   * Update the pull request message if the pull request cannot be merged
+   * @param pullRequest Pull Request object
+   * @param context Context of the pull request
+   */
+  protected async updateMessageWhenNonMergeable(pullRequest: CascadingPullRequestInfo, context: PullRequestContext) {
+    if (!pullRequest.mergeable) {
+      // recheck if we get a status, if we get update
+      if (pullRequest.mergeable === null) {
+        await new Promise((res) => setTimeout(res, RETRY_MERGEAGLE_STATUS_CHECK_TIMING));
+        pullRequest = await this.getPullRequestFromId(pullRequest.id);
+      }
+      if (pullRequest?.mergeable === false) {
+        await this.updatePullRequestWithNewMessage(pullRequest, context);
+      }
+    }
+  }
+
+  /**
    * Add update message to the pull request body to request re-evaluation of the base branch
-   *
    * @param cascadingBranch name of the cascading branch (head of the pull request)
    * @param currentBranch name of the base branch
    * @param targetBranch name of the target branch (base of the pull request)
@@ -266,6 +284,7 @@ export abstract class Cascading {
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
     if (!openPr) {
+      this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
         await this.createBranch(cascadingBranch, currentBranch);
@@ -275,18 +294,12 @@ export abstract class Cascading {
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
     } else {
-      const message = await this.generatePullRequestBody({
-        ...(openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false}),
-        bypassReviewers: false
-      });
-
-      return this.updatePullRequestMessage(openPr.id, message);
+      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
     }
   }
 
   /**
    * Create a pull request and generate its body and title
-   *
    * @param cascadingBranch name of the cascading branch (head of the pull request)
    * @param currentBranch name of the base branch of the cascading process
    * @param targetBranch name of the branch target (base of the pull request)
@@ -299,7 +312,9 @@ export abstract class Cascading {
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
     if (openPr) {
       this.logger.warn(`Pull Request ${cascadingBranch} -> ${targetBranch} already exists. Creation will be skipped.`);
-      return;
+      return this.updateMessageWhenNonMergeable(openPr,
+        openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false }
+      );
     }
     const title = this.createPullRequestTitle(config, currentBranch, targetBranch);
     const message = await this.generatePullRequestBody({
@@ -308,7 +323,10 @@ export abstract class Cascading {
       isConflicting,
       targetBranch
     });
-    await this.createPullRequest(cascadingBranch, targetBranch, message, title, config.labels);
+    const pr = await this.createPullRequest(cascadingBranch, targetBranch, message, title, config.labels);
+    return this.updateMessageWhenNonMergeable(pr,
+      pr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false }
+    );
   }
 
   protected async isAllowingBypassPullRequest(pullRequest: Pick<CascadingPullRequestInfo, 'id'>) {
@@ -324,7 +342,6 @@ export abstract class Cascading {
 
   /**
    * Launch the cascading process
-   *
    * @param currentBranchName name of the branch to cascade (ex: release/8.0)
    */
   public async cascade(currentBranchName: string) {
@@ -362,7 +379,7 @@ export abstract class Cascading {
 
     const currentBranch = cascadingBranches[branchIndex];
     const targetBranch = cascadingBranches[branchIndex + 1];
-    let cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch);
+    const cascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, config);
     const isAhead = await this.isBranchAhead(currentBranch.branch, targetBranch.branch);
 
     if (!isAhead) {
@@ -370,6 +387,7 @@ export abstract class Cascading {
       return;
     }
 
+    const isConflicting = false;
     if (branches.includes(cascadingBranch)) {
       try {
         await this.merge(currentBranch.branch, cascadingBranch);
@@ -379,28 +397,15 @@ export abstract class Cascading {
         return;
       }
     } else {
-      try {
-        await this.createBranch(cascadingBranch, targetBranch.branch);
-        await this.merge(currentBranch.branch, cascadingBranch);
-      } catch {
-        this.logger.warn(`Fail to merge ${currentBranch.branch} into ${cascadingBranch} before creating the PR, will switch to conflict mode (and create the PR from ${currentBranch.branch})`);
-        try {
-          await this.deleteBranch(cascadingBranch);
-        } catch {
-          this.logger.warn(`Fail to remove the cascading branch "${cascadingBranch}"`);
-        }
-        const conflictCascadingBranch = this.determineCascadingBranchName(currentBranch.semver?.format() || currentBranch.branch, targetBranch.semver?.format() || targetBranch.branch, true);
-        await this.createBranch(conflictCascadingBranch, currentBranch.branch);
-        cascadingBranch = conflictCascadingBranch;
-      }
+      await this.createBranch(cascadingBranch, currentBranch.branch);
     }
-    await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config);
+
+    await this.createPullRequestWithMessage(cascadingBranch, currentBranch.branch, targetBranch.branch, config, isConflicting);
   }
 
   /**
    * Determine if the pull request merged requires to re-evaluate the cascading of it's base branch
    * This is happening when the process failed to update the pull request
-   *
    * @param pullRequest Pull request merged
    * @returns base branch name
    */
@@ -425,7 +430,6 @@ export abstract class Cascading {
 
   /**
    * Merge a cascading pull request ignoring reviewers
-   *
    * @param pullRequest Pull request to merge
    * @param headBranch cascading branch
    * @param conclusion result of the check suite

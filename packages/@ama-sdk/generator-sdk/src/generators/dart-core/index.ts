@@ -84,8 +84,8 @@ module.exports = class extends SdkGenerator {
   }
 
   public install() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'apis', '**', '*.dart'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '*.dart'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'apis', '**', '*.dart'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '*.dart'), {glob: true});
     this.log('Removed previously generated sources');
 
     this.spawnCommandSync('java', [
@@ -104,6 +104,6 @@ module.exports = class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-dart', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-dart', '**'), {glob: true});
   }
 };

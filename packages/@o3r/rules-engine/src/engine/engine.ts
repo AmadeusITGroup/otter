@@ -1,7 +1,7 @@
 import { BehaviorSubject, firstValueFrom, merge, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { EngineDebugger } from './debug/engine.debug';
-import { FactObject, RulesEngineOptions } from './engine.interface';
+import { FactObject, Facts, RulesEngineOptions } from './engine.interface';
 import { Fact } from './fact/index';
 import { filterRulesetsEventStream } from './helpers/filter-ruleset-event.operator';
 import { Operator, operatorList, UnaryOperator } from './operator/index';
@@ -115,7 +115,7 @@ export class RulesEngine {
    * @param id ID of the fact to retrieve
    * @param factValue$ Value stream for the fact
    */
-  public retrieveOrCreateFactStream<T = unknown>(id: string, factValue$?: Observable<T>): Observable<T | undefined> {
+  public retrieveOrCreateFactStream<T = Facts>(id: string, factValue$?: Observable<T>): Observable<T | undefined> {
     // trick to emit undefined if the observable is not immediately emitting (to not bloc execution)
     const obs$ = factValue$ ?
       merge(factValue$, of(undefined).pipe(delay(this.factDefaultDelay || 0), takeUntil(factValue$))) :

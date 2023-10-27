@@ -13,8 +13,8 @@ import { NgGenerateUpdateSchematicsSchema } from './schema';
  */
 export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule {
 
-  const targetPath = options.path ? path.posix.resolve('/', options.path) : '/';
-  const packageJsonPath = path.posix.resolve(targetPath, 'package.json');
+  const targetPath = options.path ? path.posix.join('/', options.path) : '/';
+  const packageJsonPath = path.posix.join(targetPath, 'package.json');
 
   return (tree: Tree, context: SchematicContext) => {
 
@@ -54,7 +54,7 @@ export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule
     }
 
     // generate skeleton
-    const featureName = options.projectName || path.basename(process.cwd());
+    const featureName = options.name || path.basename(process.cwd());
     const templateSource = apply(url('./templates'), [
       template({
         featureName,

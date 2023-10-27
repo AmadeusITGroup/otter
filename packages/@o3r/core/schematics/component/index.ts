@@ -16,12 +16,13 @@ function generateComponentContainer(options: NgGenerateComponentSchematicsSchema
     prefix: options.prefix || undefined,
     componentStructure: options.componentStructure,
     description: options.description || '',
-    componentFolder: options.componentFolder || undefined,
     useComponentFixtures: options.useComponentFixtures,
     useOtterConfig: options.useOtterConfig,
+    useRulesEngine: options.useRulesEngine,
     path: options.path,
     useContext: options.useContext,
-    skipLinter: options.skipLinter
+    skipLinter: options.skipLinter,
+    standalone: options.standalone
   });
 }
 
@@ -37,17 +38,16 @@ function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema
     prefix: options.prefix || undefined,
     componentStructure: options.componentStructure,
     description: options.description || '',
-    componentFolder: options.componentFolder || undefined,
     useComponentFixtures: options.useComponentFixtures,
     useOtterTheming: options.useOtterTheming,
     useOtterConfig: options.useOtterConfig,
     path: options.path,
-    useStorybook: options.useStorybook,
     useLocalization: options.useLocalization,
     useContext: options.useContext,
     activateDummy: options.activateDummy,
     useOtterAnalytics: options.useOtterAnalytics,
-    skipLinter: options.skipLinter
+    skipLinter: options.skipLinter,
+    standalone: options.standalone
   });
 }
 
@@ -64,7 +64,7 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
 
     let currentComponentIndex = '';
-    const barrelPath = path.join(destination, 'index.ts');
+    const barrelPath = path.posix.join(destination, 'index.ts');
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(options.componentName));
     } else {
@@ -79,7 +79,7 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
     }
 
     if (options.useComponentFixtures) {
-      const barrelFixturePath = path.join(destination, 'fixtures.ts');
+      const barrelFixturePath = path.posix.join(destination, 'fixtures.ts');
       if (tree.exists(barrelFixturePath)) {
         const currentComponentFixtureBuffer = tree.read(barrelFixturePath);
         let currentComponentFixture = currentComponentFixtureBuffer ? currentComponentFixtureBuffer.toString() : '';
@@ -110,7 +110,7 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
         const folderName = getComponentFolderName(inputComponentName);
 
         const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
-        const componentDestination = path.join(destination, folderName);
+        const componentDestination = path.posix.join(destination, folderName);
 
         return mergeWith(apply(url('./templates'), [
           template({
@@ -125,8 +125,8 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
 
       return chain([
         generateRootBarrel,
-        generateComponentContainer(options),
         generateComponentPresenter(options),
+        generateComponentContainer(options),
         generateFiles,
         options.skipLinter ? noop() : applyEsLintFix()
       ]);

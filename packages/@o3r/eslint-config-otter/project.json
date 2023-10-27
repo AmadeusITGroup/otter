@@ -6,17 +6,17 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist"
-      ],
-      "options": {
-        "script": "build"
-      },
+      "executor": "nx:noop",
       "dependsOn": [
-        "^build",
+        "compile",
         "build-builders"
       ]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -34,11 +34,7 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
-      },
-      "dependsOn": [
-        "^build",
-        "prepare-build-builders"
-      ]
+      }
     },
     "publish": {
       "executor": "nx:run-commands",

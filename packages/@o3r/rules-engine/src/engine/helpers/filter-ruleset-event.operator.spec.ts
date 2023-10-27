@@ -133,7 +133,7 @@ describe('Filter rulesets event operator', () => {
     return acc;
   }, {});
 
-  const firstValue = rulesets.reduce((accRuleset, ruleset) => {
+  const firstValue = rulesets.reduce<Record<string, RulesetExecutor>>((accRuleset, ruleset) => {
     accRuleset[ruleset.id] = new RulesetExecutor(ruleset, {retrieveOrCreateFactStream: () => of(undefined), operators} as any);
     return accRuleset;
   }, {});
@@ -184,7 +184,7 @@ describe('Filter rulesets event operator', () => {
 
   });
 
-  test('should not emit if ruleset id does not match any registered ruleset', (done) => {
+  test('should not emit if ruleset id does not match any registered ruleset', async () => {
 
     let emittedActions: ActionBlock[] | undefined;
 
@@ -194,10 +194,8 @@ describe('Filter rulesets event operator', () => {
       emittedActions = data;
     });
 
-    setTimeout(() =>{
-      expect(emittedActions).toBe(undefined);
-      done();
-    }, 500);
+    await jest.advanceTimersByTimeAsync(500);
+    expect(emittedActions).toBe(undefined);
   });
 
 });

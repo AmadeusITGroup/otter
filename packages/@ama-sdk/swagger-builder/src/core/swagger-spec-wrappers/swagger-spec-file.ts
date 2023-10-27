@@ -73,7 +73,7 @@ export abstract class SwaggerSpecFile implements SwaggerSpec {
     return Object.keys(this.spec!)
       .filter((k) => ['tags', 'parameters', 'paths', 'definitions'].indexOf(k.toLowerCase()) < 0)
       .reduce<{ [k: string]: any }>((acc, k) => {
-        acc[k] = this.spec![k];
+        acc[k] = this.spec![k as keyof Spec];
         return acc;
       }, {});
   }

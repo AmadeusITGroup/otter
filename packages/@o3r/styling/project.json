@@ -33,7 +33,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -43,15 +43,23 @@
       "options": {
         "eslintConfig": "packages/@o3r/styling/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/styling/src/**/*.ts"
+          "packages/@o3r/styling/src/**/*.ts",
+          "packages/@o3r/styling/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/styling/jest.config.js",
         "silent": true
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/styling/testing/jest.config.it.js",
+        "silent": false
       }
     },
     "prepare-publish": {

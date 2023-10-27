@@ -1,14 +1,48 @@
 name: Download Build Output
 description: Download and restore the `dist` folders from github artifact (check ../upload-build-output)
+inputs:
+  artifactName:
+    description: Name of the artifact on which the outputs are published
+    default: dist
+    required: false
 
 runs:
   using: 'composite'
   steps:
     - uses: actions/download-artifact@v3
+      if: github.event_name != 'workflow_run'
       with:
-        name: dist
+        name: ${{ inputs.artifactName }}
         path: '.'
-    - run: unzip -q -n dist.zip
+
+    - name: 'Download artifact'
+      uses: actions/github-script@v6
+      if: github.event_name == 'workflow_run'
+      with:
+        script: |
+          let allArtifacts = await github.rest.actions.listWorkflowRunArtifacts({
+             ...context.repo,
+             run_id: context.payload.workflow_run.id,
+          });
+          let matchArtifact = allArtifacts.data.artifacts.find((artifact) => artifact.name === '${{ inputs.artifactName }}');
+          if (!matchArtifact) {
+            throw new Error('Could not find an artifact with name "${{ inputs.artifactName }}" for workflow_run ${context.payload.workflow_run.id}');
+          }
+          let download = await github.rest.actions.downloadArtifact({
+             ...context.repo,
+             artifact_id: matchArtifact.id,
+             archive_format: 'zip',
+          });
+          let fs = require('fs');
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/${{ inputs.artifactName }}.zip.zip`, Buffer.from(download.data));
+    - run: unzip -q -n ${{ inputs.artifactName }}.zip.zip
+      if: github.event_name == 'workflow_run'
       shell: bash
-    - run: rm -f dist.zip
+    - run: rm -f ${{ inputs.artifactName }}.zip.zip
+      if: github.event_name == 'workflow_run'
+      shell: bash
+
+    - run: unzip -q -n ${{ inputs.artifactName }}.zip
+      shell: bash
+    - run: rm -f ${{ inputs.artifactName }}.zip
       shell: bash

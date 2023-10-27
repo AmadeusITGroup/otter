@@ -14,12 +14,14 @@ on:
     branches:
       - main
       - 'release/*'
+  merge_group:
+    types: [checks_requested]
 
 jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Audit

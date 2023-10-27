@@ -163,7 +163,7 @@ export function getComponentConfigKey(componentName: string, componentStructureD
  *
  * @param path
  */
-export function getLibraryNameFromPath(path: string | null) {
+export function getLibraryNameFromPath(path: string | null | undefined) {
   if (!path) {
     return null;
   }

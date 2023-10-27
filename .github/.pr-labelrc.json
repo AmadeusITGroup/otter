@@ -1,0 +1,6 @@
+{
+  "$schema": "../tools/@o3r/build-helpers/schemas/pr-labels.configuration.schema.json",
+  "projectLabelPrefix": "project:",
+  "ignoredProjects": [],
+  "ignoreProjectForLabels": ["cascading"]
+}

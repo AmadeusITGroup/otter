@@ -4,7 +4,10 @@ import { existsSync, promises as fs } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
 import type { PackageJson } from 'type-fest';
+import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
 import { dependencies, devDependencies, peerDependencies } from '../../package.json';
+
+const moduleScopeWhitelist = ['@o3r', '@ama-sdk', '@ama-des'];
 
 /** Minimal information of a package (common between package.json and npm search result) */
 export type MinimalPackageInformation = Pick<PackageJson, 'name' | 'description' | 'keywords' | 'maintainers' | 'version'>;
@@ -163,8 +166,7 @@ export const getLocalDependencies = async (): Promise<Record<string, string>> =>
  * @returns list of modules to load
  */
 export const getCliModules = async (options: { localOnly: boolean } = { localOnly: false }): Promise<ModuleDiscovery[]> => {
-  let remoteModules: SearchResult[] = [];
-  const remoteModulesPromise = !options.localOnly && promisify(exec)(`npm search ${MODULES_KEYWORD} --json`);
+  let remoteModules: NpmRegistryPackage[] = [];
   const localDependencies = await getLocalDependencies();
   const explicitModules = Object.keys(localDependencies)
     .map((moduleName) => getDepPackage(moduleName))
@@ -173,9 +175,9 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
       return !!keywords && keywords.includes(MODULES_KEYWORD);
     });
 
-  if (remoteModulesPromise) {
+  if (!options.localOnly) {
     try {
-      remoteModules = JSON.parse((await remoteModulesPromise).stdout) as SearchResult[];
+      remoteModules = await getAvailableModules(MODULES_KEYWORD, moduleScopeWhitelist);
     } catch {
       console.warn('Failed to execute `npm search`, will contains only installed packages');
     }

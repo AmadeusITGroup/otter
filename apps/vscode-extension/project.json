@@ -12,7 +12,7 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "apps/vscode-extension/src/extension.ts",
         "tsConfig": "apps/vscode-extension/tsconfig.build.json",
@@ -25,8 +25,7 @@
             "input": ".",
             "output": "."
           }
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       },
       "configurations": {
         "watch": {
@@ -35,7 +34,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -45,12 +44,13 @@
       "options": {
         "eslintConfig": "apps/vscode-extension/.eslintrc.js",
         "lintFilePatterns": [
-          "apps/vscode-extension/src/**/*.ts"
+          "apps/vscode-extension/src/**/*.ts",
+          "apps/vscode-extension/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "apps/vscode-extension/jest.config.js",
         "silent": true

@@ -708,3 +708,14 @@ en-US **fallbacks to** en-GB, as en-GB has the same language with a different re
 fr-BE **fallbacks to** fr-FR, as fr-FR is first in the supported locales list.
 
 it-IT **fallbacks to** en-GB, as it is the default fallback.
+
+
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                     | Description                                                    | How to use                           |
+| ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |
+| add                            | Include Otter localization module in a library / application.  | `ng add @o3r/localization`           |
+| localization-to-component      | Add localization architecture to an Otter component            | `ng g localization-to-component`     |
+| localization-key-to-component  | Add a localization key to an Otter component                   | `ng g localization-key-to-component` |

@@ -7,7 +7,8 @@
   },
   "include": [
     "./src/**/*.spec.ts",
-    "./schematics/**/*.spec.ts"
+    "./schematics/**/*.spec.ts",
+    "./scss/**/*.spec.ts"
   ],
   "exclude": [],
   "references": [

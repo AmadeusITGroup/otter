@@ -1,3 +1,0 @@
-# <%= componentName %>
-
-<%= description %>

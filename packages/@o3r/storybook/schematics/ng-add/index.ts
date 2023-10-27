@@ -4,22 +4,23 @@ import { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter storybook to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectDepType, removePackages } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
       const { updateStorybook } = await import('../storybook-base');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const dependencyType = getProjectDepType(tree);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       return () => chain([
         removePackages(['@otter/storybook']),
         updateStorybook(options, __dirname),
         options.skipLinter ? noop() : applyEsLintFix(),
         options.skipInstall ? noop() : install,
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType })
+        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType, workingDirectory })
       ])(tree, context);
     } catch (e) {
       // storybook needs o3r/core as peer dep. o3r/core will install o3r/schematics

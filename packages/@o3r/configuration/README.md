@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module contains configuration related features (CMS compatibility, Configuration override, store and debugging)
+This module contains configuration-related features (CMS compatibility, configuration override, store and debugging).
 It comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.
 
 ## How to install
@@ -89,6 +89,16 @@ A component will have to handle different types of configurations.
 - the highest priority is the one passed as input from a parent component
 - the second priority is the one by component type set in the store
 - the lowest priority is the default config set on the component (in the config.ts file of the component)
+
+## Generators
+
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+
+| Schematics                 | Description                                                    | How to use                        |
+| -------------------------- | -------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter configuration module in a library / application. | `ng add @o3r/configuration`       |
+| configuration-to-component | Add configuration to an Otter component                        | `ng g configuration-to-component` |
+
 
 ## More details
 

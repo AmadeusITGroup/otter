@@ -39,20 +39,6 @@ Storybook will require 2 files in the folder `.storybook` added into the root fo
 
 > For more documentation regarding the Storybook setup, your can refer to [Storybook documentation](https://storybook.js.org/docs/react/configure/overview).
 
-To generate a basic story when generating a new component, the configuration `useStorybook` will be added into the *angular.json* file.
-
-## Component generator
-
-The Otter component generator (from `@o3r/core`) will generate the `<component>.stories.ts` file if the parameter `useStorybook` from the *angular.json* is detected. The parameter can be also overridden by the `--useStorybook` option of the generator.
-
-The generated story will come with the following supported feature:
-
-- **Localization**: default translation will be displayed on the previewed component.
-- **Dynamic Configuration**: controllers to manage the configurations will be generated.
-- **Styling**: controllers to modify the theme (global level and component level) will be generated.
-
-> See [Story Helpers section](#stories-helpers) for more explanations.
-
 ## Otter AddOns
 
 To facilitate the customization of an Otter component, 2 Storybook Addons are provided.

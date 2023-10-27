@@ -14,7 +14,7 @@ Example of usage :
     "type": "FACT",
     "value": "isMobileDevice"
   },
-  "operator": "equal",
+  "operator": "equals",
   "rhs": {
     "type": "LITERAL",
     "value": true
@@ -72,7 +72,7 @@ operand: -1 refers to an array, 0 to a union of object with one element and an a
 ### Supported type Metadata
 The types supported by AEM are the following: ``string | boolean | Date | number | object``. 
 If you want to refer to any other types, it will be replaced with the ``unknown`` type as AEM will not be able to parse it.
-You can still use it and create your own validator to ensure your type but it will not be part of the metadata.
+You can still use it and create your own validator to ensure your type, but it will not be part of the metadata.
 
 Note that if you want to refer to a simple type ``string | boolean | Date | number``, you can use the ``SupportedSimpleTypes``
 interface. It will be replaced with this list of types during the metadata extraction.

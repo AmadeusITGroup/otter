@@ -2,8 +2,8 @@ import {createPlugin} from 'stylelint';
 import {getNamespacedRuleName} from './utils/get-namespaced-rule-name';
 import {rules} from './rules/index';
 
-const rulesPlugins = Object.keys(rules).map(ruleName => {
-  return createPlugin(getNamespacedRuleName(ruleName), rules[ruleName]);
-});
+const rulesPlugins = Object.entries(rules).map(([ruleName, rule]) =>
+  createPlugin(getNamespacedRuleName(ruleName), rule as any)
+);
 
 export default rulesPlugins;

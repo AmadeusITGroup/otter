@@ -1,9 +1,0 @@
-{{#apiInfo}}
-{{#apis}}
-{{#operations}}
-export type { {{#operation}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{#hasMore}}, {{/hasMore}}{{/operation}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
-export { {{classname}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
-{{/operations}}
-{{/apis}}
-{{/apiInfo}}
-export * from './enums';

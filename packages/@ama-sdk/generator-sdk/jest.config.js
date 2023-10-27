@@ -1,23 +1,16 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+const getJestConfig = require('../../../jest.config.ut').getJestConfig;
+
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
+  ...getJestConfig(__dirname, false),
+  passWithNoTests: true,
   displayName: require('./package.json').name,
-  preset: 'ts-jest',
-  rootDir: '.',
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
     '\\.it\\.spec\\.ts$'
   ],
-  modulePathIgnorePatterns: ['<rootDir>/.*/templates/.*'],
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
-  reporters: [
-    'default',
-    'github-actions'
-  ],
-  globals: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+  fakeTimers: {
+    // TODO enable fake timers, currently not working because of yeoman-test
+    // enableGlobally: true
   }
 };

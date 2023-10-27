@@ -1,20 +1,31 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getProjectDepType } from '@o3r/schematics';
+import { getProjectNewDependenciesType } from '@o3r/schematics';
 import * as path from 'node:path';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter mobile to an Angular Project
+ * @param options ng add options
  */
-export function ngAdd(): Rule {
+export function ngAdd(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, removePackages } = await import('@o3r/schematics');
+      const { ngAddPackages, getO3rPeerDeps, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const dependencyType = getProjectDepType(tree);
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
+      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       return () => chain([
         removePackages(['@otter/mobile']),
-        ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: depsInfo.packageName, dependencyType})
+        ngAddPackages(depsInfo.o3rPeerDeps, {
+          skipConfirmation: true,
+          version: depsInfo.packageVersion,
+          parentPackageInfo: depsInfo.packageName,
+          projectName: options.projectName,
+          dependencyType,
+          workingDirectory
+        })
       ])(tree, context);
 
     } catch (e) {

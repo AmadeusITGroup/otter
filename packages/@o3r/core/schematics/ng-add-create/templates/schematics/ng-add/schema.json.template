@@ -4,7 +4,7 @@
   "title": "Add <%= featureName %> project",
   "description": "'ng add <%= featureName %>' project",
   "properties": {
-    "projectName": {
+    "name": {
       "type": "string",
       "description": "Project name",
       "$default": {

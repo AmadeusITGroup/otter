@@ -12,6 +12,15 @@ on:
         default: false
         required: false
         description: Version of the artifact to publish
+      isPullRequest:
+        type: boolean
+        default: ${{ github.event_name == 'pull_request' }}
+        required: false
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
     secrets:
       AZURE_VSC_EXT_TOKEN:
         required: false
@@ -32,17 +41,21 @@ on:
         required: false
         description: Profile authentication to publish the Cascading Application
 
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+
 jobs:
   publish:
     runs-on: ubuntu-latest
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
       packages: write
       contents: read
+      id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -55,7 +68,7 @@ jobs:
           is-prerelease: ${{ inputs.prerelease }}
           version: ${{ inputs.version }}
       - name: Publish
-        run: yarn run publish --tag=${{ github.event_name == 'pull_request' && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ github.event_name == 'pull_request' && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true
+        run: yarn run publish --tag=${{ inputs.isPullRequest && 'pr' || steps.get-npm-tag.outputs.tag }} ${{ inputs.isPullRequest && '--userconfig=./.npmrc.pr' || ''}} --always-auth=true ${{ !inputs.isPullRequest && '--provenance' || ''}}
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -64,13 +77,13 @@ jobs:
           AZURE_EMAIL: ${{ secrets.AZURE_EMAIL }}
 
   publish-cascading:
-    if: github.event_name != 'pull_request'
+    if: '!inputs.isPullRequest'
     runs-on: ubuntu-latest
     env:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -100,12 +113,12 @@ jobs:
 
   publish-extensions:
     runs-on: ubuntu-latest
-    environment: ${{github.event_name == 'pull_request' && 'development' || 'production'}}
+    environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
       packages: write
       contents: read
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output

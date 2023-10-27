@@ -1,5 +1,5 @@
 import { ProbotOctokit } from 'probot';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion } from './interfaces';
+import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION } from './interfaces';
 import { Cascading } from './cascading';
 
 export interface CascadingProbotOptions {
@@ -17,19 +17,6 @@ export interface CascadingProbotOptions {
  * Cascading class implementation for Probot framework
  */
 export class CascadingProbot extends Cascading {
-
-  /**
-   * Default configuration
-   */
-  public static readonly DEFAULT_CONFIGURATION: CascadingConfiguration = {
-    ignoredPatterns: [],
-    defaultBranch: '',
-    cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
-    versionCapturePattern: '/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$',
-    bypassReviewers: false,
-    labels: [],
-    pullRequestTitle: '[cascading] from $origin to $target'
-  };
 
   /** List of possible configuration files paths */
   public static readonly CONFIGURATION_FILES = ['.github/cascadingrc.json', '.github/.cascadingrc.json', 'cascadingrc.json', '.cascadingrc.json'];
@@ -78,7 +65,7 @@ export class CascadingProbot extends Cascading {
     }
 
     const config = {
-      ...CascadingProbot.DEFAULT_CONFIGURATION,
+      ...DEFAULT_CONFIGURATION,
       ...remoteConfig
     };
 
@@ -142,12 +129,22 @@ export class CascadingProbot extends Cascading {
   /** @inheritdoc */
   protected async getBranches() {
     this.logger.debug('List remote branches');
-    const res = await this.options.octokit.repos.listBranches({
-      ...this.options.repo,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-      per_page: 100
-    });
-    return res.data.map(({name}) => name);
+    /* eslint-disable camelcase, @typescript-eslint/naming-convention */
+    const per_page = 100;
+    let pageIndex = 1;
+    let getCurrentPage = true;
+    const branchNames: string[] = [];
+    while (getCurrentPage && pageIndex <= 20) {
+      const res = await this.options.octokit.repos.listBranches({
+        ...this.options.repo,
+        per_page,
+        page: pageIndex++
+      });
+      branchNames.push(...res.data.map(({ name }) => name));
+      getCurrentPage = res.data.length === per_page;
+    }
+    return branchNames;
+    /* eslint-enable camelcase, @typescript-eslint/naming-convention */
   }
 
   /** @inheritdoc */
@@ -204,17 +201,33 @@ export class CascadingProbot extends Cascading {
         labels
       });
     }
+    return {
+      ...data,
+      originBranchName: data.head.ref,
+      isOpen: data.state === 'open',
+      authorId: data.user?.id,
+      id: data.number,
+      context: this.retrieveContext(data.body || '')
+    };
   }
 
   /** @inheritdoc */
-  protected async updatePullRequestMessage(id: string | number, body: string, title?: string) {
-    await this.options.octokit.pulls.update({
+  protected async updatePullRequestMessage(id: string | number, body: string, title?: string): Promise<CascadingPullRequestInfo> {
+    const { data } = await this.options.octokit.pulls.update({
       ...this.options.repo,
       // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
       pull_number: +id,
       body,
       title
     });
+
+    return {
+      ...data,
+      originBranchName: data.head.ref,
+      id: data.number,
+      isOpen: data.state === 'open',
+      context: this.retrieveContext(data.body || '')
+    };
   }
 
   /** @inheritdoc */
@@ -223,27 +236,30 @@ export class CascadingProbot extends Cascading {
       .filter(({ head, base }) => (!targetBranch || base.ref === targetBranch) && (!baseBranch || head.ref === baseBranch))
       .sort((prA, prB) => (Date.parse(prA.created_at) - Date.parse(prB.created_at)))
       .map((pr): CascadingPullRequestInfo => ({
+        ...pr,
+        originBranchName: pr.head.ref,
         authorId: pr.user?.id,
         id: pr.number,
-        body: pr.body,
+        mergeable: null,
         isOpen: pr.state === 'open',
         context: this.retrieveContext(pr.body || '')
       }));
   }
 
   /** @inheritdoc */
-  protected async getPullRequestFromId(id: string | number) {
-    const pr = (await this.options.octokit.pulls.get({
+  protected async getPullRequestFromId(id: string | number): Promise<CascadingPullRequestInfo> {
+    const { data } = await this.options.octokit.pulls.get({
       ...this.options.repo,
       // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
       pull_number: +id
-    })).data;
+    });
     return {
-      authorId: pr.user?.id,
-      id: pr.number,
-      body: pr.body,
-      isOpen: pr.state === 'open',
-      context: this.retrieveContext(pr.body || '')
+      ...data,
+      originBranchName: data.head.ref,
+      authorId: data.user?.id,
+      id: data.number,
+      isOpen: data.state === 'open',
+      context: this.retrieveContext(data.body || '')
     };
   }
 }

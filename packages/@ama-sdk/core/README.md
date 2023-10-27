@@ -35,3 +35,14 @@ Please refer to the [generator-sdk](/packages/@ama-sdk/generator-sdk/README.md) 
 - [url-rewrite](/packages/@ama-sdk/core/src/plugins/url-rewrite)
 - [wait-for](/packages/@ama-sdk/core/src/plugins/wait-for)
 - [timeout](/packages/@ama-sdk/core/src/plugins/timeout)
+
+## Available API Client
+
+The **API Clients** are mandatory to the SDK to indicate the service that should be used by the SDK to process the calls.
+A list of API Clients are provided by this package:
+
+| API Client       | Import                                   | Description                                                                    |
+|------------------|------------------------------------------|--------------------------------------------------------------------------------|
+| ApiFetchClient   | @ama-sdk/core                            | Default API Client based on the browser FetchApi                               |
+| ApiBeaconClient  | @ama-sdk/core                            | API Client based on the browser BeaconApi, it is processing synchronous call   |
+| ApiAngularClient | @ama-sdk/core/clients/api-angular-client | API Client using the HttpClient exposed by the `@angular/common` package       |

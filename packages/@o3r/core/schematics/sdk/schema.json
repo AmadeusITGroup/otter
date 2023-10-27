@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "ngGenerateSdkSchematicsSchema",
+  "title": "Generate an SDK in an Otter Project",
+  "description": "Generate an SDK in an Otter Project",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the SDK package",
+      "x-prompt": "Name of the new SDK package?",
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the new module",
+      "default": ""
+    },
+    "prefix": {
+      "type": "string",
+      "description": "Prefix use to package future generation"
+    },
+    "path": {
+      "type": "string",
+      "description": "Target directory to generate the module"
+    },
+    "specPath": {
+      "type": "string",
+      "description": "Path to the swagger specification used to generate the SDK; If not provided, sdk shell will be generated"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": true
+    },
+    "skipInstall": {
+      "description": "Do not install dependency packages.",
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": ["name"],
+  "additionalProperties": true
+}

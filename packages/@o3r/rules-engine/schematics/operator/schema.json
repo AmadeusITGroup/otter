@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgGenerateOperatorSchematicsSchema",
+  "title": "Generate an operator for the rules engine",
+  "description": "Generate an operator for the rules engine",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Directory containing the operators"
+    },
+    "name": {
+      "type": "string",
+      "description": "Operator name",
+      "x-prompt": "Your operator name",
+      "minLength": 1,
+      "$default": {
+        "$source": "argv",
+        "index": 0
+      }
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "unaryOperator": {
+      "type": "boolean",
+      "description": "Operator with one value",
+      "default": false
+    },
+    "description": {
+      "type": "string",
+      "description": "Operator's description"
+    },
+    "lhsType": {
+      "type": "string",
+      "description": "Type of the left hand side operator",
+      "enum": [
+        "string",
+        "boolean",
+        "Date",
+        "number",
+        "null",
+        "undefined",
+        "unknown"
+      ],
+      "default": "unknown"
+    },
+    "rhsType": {
+      "type": "string",
+      "description": "Type of the right hand side operator",
+      "enum": [
+        "string",
+        "boolean",
+        "Date",
+        "number",
+        "null",
+        "undefined",
+        "unknown"
+      ],
+      "default": "unknown"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "name",
+    "path"
+  ]
+}

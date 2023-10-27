@@ -1,5 +1,5 @@
 {
-  "name": "@<%=projectName%>/<%=projectPackageName%>/helpers",
+  "name": "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/helpers",
   "main": "../cjs/helpers/index.js",
   "module": "../esm2020/helpers/index.js",
   "es2020": "../esm2020/helpers/index.js",

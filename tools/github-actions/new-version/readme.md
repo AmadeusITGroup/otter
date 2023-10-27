@@ -43,8 +43,9 @@ See [Action specifications](action.yml) directly for more information about the 
 ```yaml
 - name: New version
   id: new-version
-  uses: AmadeusITGroup/otter/tools/github-actions/new-version@8
+  uses: AmadeusITGroup/otter/tools/github-actions/new-version@9
   with:
     defaultBranch: main
     defaultBranchPrereleaseName: alpha
+    releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
 ```

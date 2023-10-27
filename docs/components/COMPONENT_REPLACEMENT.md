@@ -7,7 +7,7 @@ in order to create the right component at runtime.
 You can see a lot of details in the link above, and you'll probably notice that it is very verbose and cumbersome to
 implement:
 
-* Inputs and outputs have to be bound again, outside of the template
+* Inputs and outputs have to be bound again, outside the template
 * Change detection has to be adapted in order to pass potential changes of those inputs when the parent component changes
 
 In order to alleviate that, we provide a directive ``c11n`` that, when applied to an ``ng-template`` and given the following information will handle all the wiring behind the scene:
@@ -43,7 +43,7 @@ const entry = initializeEntryComponents();
 
 We also need to create 2 functions _initializeEntryComponents_ and _registerCustomComponents_  that will initialize the values for the base application so the app compiles.
 We'll do that in a customization folder src/customization.
-This is just an "empty shell" since it is just adding an empty array to the entryComponents and an empty array to the custom modules. It will register an empty map of custom components.  
+This is just an "empty shell" since it is just adding an empty array to the customComponents and an empty array to the custom modules. It will register an empty map of custom components.  
 However, it allows the customization app to replace this empty functions with functions which provides the setup for custom components.
 
 #### src/customization/presenters-map.empty.ts

@@ -27,7 +27,7 @@
       }
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "packages/@o3r/storybook/src/public_api.ts",
         "tsConfig": "packages/@o3r/storybook/tsconfig.build.json",
@@ -45,7 +45,6 @@
             "output": "./component-wrapper"
           }
         ],
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       },
       "dependsOn": [
@@ -79,7 +78,7 @@
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -89,12 +88,13 @@
       "options": {
         "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/storybook/src/**/*.ts"
+          "packages/@o3r/storybook/src/**/*.ts",
+          "packages/@o3r/storybook/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/storybook/jest.config.js",
         "silent": true

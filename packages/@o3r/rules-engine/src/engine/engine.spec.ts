@@ -37,12 +37,10 @@ describe('Rx Rule Engine', () => {
 
       expect(factValue$).toBeDefined();
 
-      const startDate = new Date().getTime();
+      const promise = firstValueFrom(factValue$);
+      await jest.advanceTimersByTimeAsync(500);
 
-      await expect(firstValueFrom(factValue$)).resolves.toBe(undefined);
-      const endDate = new Date().getTime();
-
-      expect(endDate - startDate).toBeGreaterThanOrEqual(500);
+      await expect(promise).resolves.toBe(undefined);
     });
   });
 });

@@ -1,0 +1,4 @@
+<div class="d-flex bg-body-tertiary">
+  <pre class="me-4" [class.text-wrap]="wrap"><code [highlight]="text" [languages]="language ? [language] : defaultLanguages"></code></pre>
+  <i class="ms-auto bi bi-clipboard" (click)="copy()" title="Click to copy"></i>
+</div>

@@ -53,7 +53,7 @@ const updatedComponentsConfiguration = {
   MY_SECOND_COMPONENT: mySecondUpdateConfiguration
 };
 
-const componentsConfigurationsModel = Object.keys(componentsConfigurations).map((id) => ({id, ...componentsConfigurations[id]}));
+const componentsConfigurationsModel = (Object.keys(componentsConfigurations) as (keyof typeof updatedComponentsConfiguration)[]).map((id) => ({id, ...componentsConfigurations[id]}));
 
 const getEntity = (entities: Dictionary<ConfigurationModel>, entityId: string): ConfigurationModel | undefined => entities[entityId];
 

@@ -4,7 +4,7 @@
   "title": "Generate ng add rule",
   "description": "ng add rule",
   "properties": {
-    "projectName": {
+    "name": {
       "type": "string",
       "description": "Project name",
       "$default": {

@@ -21,7 +21,10 @@ export interface ComponentInformation {
   type: ComponentStructure;
   /** Selector of the component */
   selector?: string;
-  /** Template URL of the component */
+  /**
+   * Template URL of the component
+   * @deprecated will be removed in v10
+   */
   templateUrl?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
@@ -90,6 +93,7 @@ export class ComponentClassExtractor {
    * Get the component template URL from the given decorator node.
    *
    * @param decoratorNode The decorator node to get the component template URL from
+   * @deprecated will be removed in v10
    */
   private getComponentTemplateUrl(decoratorNode: ts.Decorator) {
     if (this.isComponentDecorator(decoratorNode)) {

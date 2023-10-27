@@ -1,8 +1,8 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { main } from '@angular/compiler-cli/src/main';
+import * as ts from 'typescript';
 import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc/file_system';
 import * as chokidar from 'chokidar';
-import * as commentJson from 'comment-json';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { NgcBuilderSchema } from './schema';
@@ -44,10 +44,9 @@ export default createBuilder<NgcBuilderSchema>(async (options, context): Promise
   };
 
   const tsConfigFile = path.resolve(context.currentDirectory, options.tsConfig);
-  const tsConfigString = fs.readFileSync(tsConfigFile, {encoding: 'utf-8'});
 
   try {
-    const tsConfig: any = commentJson.parse(tsConfigString);
+    const tsConfig = ts.readConfigFile(tsConfigFile, (pathFile) => fs.readFileSync(pathFile, {encoding: 'utf8'})).config;
     const dist = tsConfig.compilerOptions.outDir;
     handlePackageJson(dist);
     if (options.watch) {

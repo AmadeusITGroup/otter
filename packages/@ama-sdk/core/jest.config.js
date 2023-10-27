@@ -1,24 +1,12 @@
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
+  ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
-  preset: 'ts-jest',
-  rootDir: '.',
-  moduleNameMapper: getJestModuleNameMapper(__dirname),
-  setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
-  modulePathIgnorePatterns: [
-    '<rootDir>/dist'
-  ],
-  reporters: [
-    'default',
-    'github-actions'
-  ],
-  globals: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/tsconfig.spec.json',
-      stringifyContentPathRegex: '\\.html$'
-    }
+  fakeTimers: {
+    enableGlobally: true,
+    // TODO try to make date utils work with fake Date
+    doNotFake: ['Date']
   }
 };

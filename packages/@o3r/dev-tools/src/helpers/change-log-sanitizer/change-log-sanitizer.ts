@@ -40,7 +40,7 @@ export async function sanitizeChangeLogs(version: SemVer) {
 
   /** Get what's new from the alpha and rc files */
   const currentLogFiles = changeLogsFiles.filter((filePath: string) => filePath.includes(version.version));
-  const newChanges = {};
+  const newChanges: Record<string, any> = {};
   const categoryRegexp = /^### ?(.*)/;
   let category;
   for (const file of currentLogFiles) {

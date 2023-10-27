@@ -108,8 +108,6 @@ The rules engine service will handle the replacement of [LANGUAGE] for you, and 
 Note that the URL caching mechanism is based on the url NOT 'translated', meaning that if you change from en-GB to fr-FR then you decide to switch back and all the calls will be made again.
 This behavior is based on the fact that a real user rarely goes back and forth with the language update.
 
-### Dynamic localization
-
 ### Multiple templates in same placeholder
 You can use placeholder actions to target the same placeholderId with different template URLs.
 It groups the rendered templates in the same placeholder, and you can choose the order by using the `priority` attribute in the action.

@@ -77,9 +77,9 @@ module.exports = class extends SdkGenerator {
 
   public install() {
     this.log('Remove previously generated sdk files');
-    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', '*.swift'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'APIs', '**'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'Models', '*Private.swift'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', '*.swift'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'APIs', '**'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'SwiftSDK', 'Classes', 'Swaggers', 'Models', '*Private.swift'), {glob: true});
 
     this.spawnCommandSync('java', [
       '-cp',
@@ -100,6 +100,6 @@ module.exports = class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-swift', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-swift', '**'), {glob: true});
   }
 };
