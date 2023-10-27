@@ -2,7 +2,10 @@ import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
 import { satisfies } from 'semver';
 
-/** Interface containing a npm package name, needed version and optionally found version */
+/**
+ * Interface containing a npm package name, needed version and optionally found version
+ * @deprecated will be removed in Otter v12.
+ */
 export interface PackageVersion {
   /** Npm package name */
   packageName: string;
@@ -15,7 +18,7 @@ export interface PackageVersion {
 /**
  * Check if the first level of peer deps of a given package are installed.
  * List all not installed packages or packages with version mismatch
- *
+ * @deprecated will be removed in Otter v12.
  * @param packageName
  */
 export function getPackagesToInstallOrUpdate(packageName: string) {
