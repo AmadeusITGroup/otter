@@ -1,4 +1,4 @@
-# @o3r/oar-widget-tags
+# @o3r/o3r-widget-tags
 
 Ensures that @o3rWidget and @o3rWidgetParam are used with correct value.
 
