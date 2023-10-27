@@ -26,11 +26,11 @@ async function run(): Promise<void> {
     core.debug(report);
     const highestSeverityFound: Severity | undefined = severities.reverse().find(severity => reportJson.metadata.vulnerabilities[severity] > 0);
 
-    if (highestSeverityFound) {
+    if (!highestSeverityFound) {
       core.info('No vulnerability detected.');
     } else {
-      core.info(`Highest severity found: ${highestSeverityFound!}`);
-      const isFailed = severities.indexOf(severityConfig) <= severities.indexOf(highestSeverityFound!);
+      core.info(`Highest severity found: ${highestSeverityFound}`);
+      const isFailed = severities.indexOf(severityConfig) <= severities.indexOf(highestSeverityFound);
       if (isFailed) {
         core.error(`Found at least one vulnerability equal to or higher than the configured severity threshold: ${severityConfig}.`);
         throw new Error(`Yarn audit found dependencies with vulnerabilities above the severity threshold: ${severityConfig}. Please look at the Audit report.`);
