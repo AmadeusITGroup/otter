@@ -7264,7 +7264,6 @@ __metadata:
     pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
     set-version: ./dist/src/cli/set-version.js
     version-harmonize: ./dist/src/cli/version-harmonize.js
-    yarn-check: ./dist/src/cli/checks/yarn-check.js
   languageName: unknown
   linkType: soft
 

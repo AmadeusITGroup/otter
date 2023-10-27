@@ -29,8 +29,7 @@
     "peer-dependencies-updater": "./dist/src/cli/peer-dependencies-updater.js",
     "pr-artifact-cleaner": "./dist/src/cli/pr-artifact-cleaner.js",
     "set-version": "./dist/src/cli/set-version.js",
-    "version-harmonize": "./dist/src/cli/version-harmonize.js",
-    "yarn-check": "./dist/src/cli/checks/yarn-check.js"
+    "version-harmonize": "./dist/src/cli/version-harmonize.js"
   },
   "dependencies": {
     "@o3r/artifactory-tools": "workspace:^",
