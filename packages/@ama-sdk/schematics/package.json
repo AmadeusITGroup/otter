@@ -52,7 +52,6 @@
   "dependencies": {
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@o3r/dev-tools": "workspace:^",
     "js-yaml": "^4.1.0",
     "minimatch": "~9.0.3",
     "rxjs": "^7.8.1",
@@ -70,6 +69,7 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/workspace": "workspace:^",
     "@openapitools/openapi-generator-cli": "~2.7.0",
     "@schematics/angular": "~16.2.0",
     "@types/jest": "~29.5.2",

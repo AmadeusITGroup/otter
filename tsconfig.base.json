@@ -98,9 +98,6 @@
       "@o3r/core": [
         "packages/@o3r/core/src/public_api"
       ],
-      "@o3r/dev-tools": [
-        "packages/@o3r/dev-tools/src/public_api"
-      ],
       "@o3r/dynamic-content": [
         "packages/@o3r/dynamic-content/src/public_api"
       ],

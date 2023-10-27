@@ -55,7 +55,6 @@
     ]
   },
   "dependencies": {
-    "@o3r/dev-tools": "~<%= sdkCoreVersion %>",
     "@swc/helpers": "^0.5.0",
     "tslib": "<%= versions['tslib'] %>"
   },

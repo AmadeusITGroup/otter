@@ -1,5 +1,5 @@
 const { resolve } = require('node:path');
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const { getJestModuleNameMapper } = require('@o3r/workspace');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {

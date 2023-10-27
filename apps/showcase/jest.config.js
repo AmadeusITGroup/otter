@@ -1,4 +1,4 @@
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const { getJestModuleNameMapper } = require('@o3r/workspace');
 
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {

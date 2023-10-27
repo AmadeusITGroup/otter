@@ -1,4 +1,4 @@
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const { getJestModuleNameMapper } = require('@o3r/workspace');
 
 globalThis.ngJest = {
   skipNgcc: true
