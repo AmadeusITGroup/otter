@@ -31,7 +31,7 @@
     "@typescript-eslint/parser": "^5.60.1",
     "@vercel/ncc": "~0.38.0",
     "eslint": "^8.42.0",
-    "eslint-plugin-jest": "~27.4.0",
+    "eslint-plugin-jest": "~27.6.0",
     "eslint-plugin-jsdoc": "~46.8.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
