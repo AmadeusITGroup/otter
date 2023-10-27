@@ -13,7 +13,7 @@ export * from './schema';
 export default createBuilder<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
-  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger);
+  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger, options);
   const cache: { libs: LibraryMetadataMap; locs: LocalizationFileMap } = {libs: {}, locs: {}};
 
   const execute = async (isFirstLoad = true, files?: { libs?: string[]; locs?: string[]; extraFiles?: string[] }): Promise<BuilderOutput> => {
