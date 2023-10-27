@@ -88,7 +88,7 @@ export class SdkPresComponent {
   }
 
   private getNextId() {
-    return this.pets().reduce<number>((maxId, pet) => Math.max(maxId, pet.id || 0), 0) + 1;
+    return this.pets().reduce<number>((maxId, pet) => pet.id && pet.id < Number.MAX_SAFE_INTEGER ? Math.max(maxId, pet.id) : maxId, 0) + 1;
   }
 
   /**
