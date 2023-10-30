@@ -102,8 +102,8 @@
               {
                 "elementType": "ACTION",
                 "actionType": "UPDATE_ASSET",
-                "asset": "otter.png",
-                "value": "otter-summer.png"
+                "asset": "otter.svg",
+                "value": "otter-summer.svg"
               }
             ],
             "failureElements": []
