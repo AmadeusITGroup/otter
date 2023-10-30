@@ -91,7 +91,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
     "@popperjs/core": "^2.11.5",
-    "bootstrap": "^5.3.1",
+    "bootstrap": "5.2.0",
     "bootstrap-icons": "^1.10.5",
     "rxjs": "^7.8.1",
     "tslib": "^2.5.3",
