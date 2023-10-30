@@ -1,5 +1,6 @@
 @use '@design-factory/design-factory' with (
-  $prefix: bs-
+  $prefix: bs-,
+  $df-spinner-circumference: 2rem
 );
 @use "bootstrap-icons/font/bootstrap-icons";
 @import "highlight.js/styles/github.css";
