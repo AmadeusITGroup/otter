@@ -38,7 +38,7 @@ describe('New module generator', () => {
     expect(tree.exists('/packages-test/my-new-module/collection.json')).toBe(true);
     expect(tree.exists('/packages-test/my-new-module/schematics/ng-add/schema.json')).toBe(true);
     expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
-    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public_api');
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public-api');
     expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/my-new-module/dist');
     expect(tree.files.length).toBeGreaterThan(16);
   });

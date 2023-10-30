@@ -7,6 +7,7 @@ import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { NgAddSchematicsSchema } from '../ng-add/schema';
 import { type Schema as ApplicationOptions } from '@schematics/angular/application/schema';
 import { Style } from '@schematics/angular/application/schema';
+import { updateProjectTsConfig } from '../rule-factories';
 
 /**
  * Add an Otter application to a monorepo
@@ -71,6 +72,7 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
         projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
+      updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
       (_host: Tree, c: SchematicContext) => {
         c.addTask(new RunSchematicTask <Partial<NgAddSchematicsSchema>>('ng-add', extendedOptions));
       }

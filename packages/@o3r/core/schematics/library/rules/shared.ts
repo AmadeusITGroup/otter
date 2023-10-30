@@ -82,6 +82,7 @@ export function updateNgPackagrFactory(targetPath: string): Rule {
   return (tree) => {
     const ngPackagr = tree.readJson(path.posix.join(targetPath, 'ng-package.json')) as any;
     ngPackagr.$schema = 'https://raw.githubusercontent.com/ng-packagr/ng-packagr/master/src/ng-package.schema.json';
+    ngPackagr.dest = './dist';
     tree.overwrite(path.posix.join(targetPath, 'ng-package.json'), JSON.stringify(ngPackagr, null, 2));
     return tree;
   };

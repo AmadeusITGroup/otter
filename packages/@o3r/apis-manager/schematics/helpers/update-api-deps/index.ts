@@ -52,11 +52,12 @@ export function updateApiDependencies(options: {projectName?: string | undefined
 
     insertImportToModuleFile('appendPreconnect', '@o3r/apis-manager', false);
 
-    insertBeforeModule('appendPreconnect(\'https://YOUR_API_ENDPOINT\');');
+    insertBeforeModule('const PROXY_SERVER = \'https://YOUR_API_ENDPOINT\';');
+
+    insertBeforeModule('appendPreconnect(PROXY_SERVER);');
 
     addImportToModuleFile('ApiManagerModule', '@o3r/apis-manager');
 
-    insertBeforeModule('const PROXY_SERVER = \'https://YOUR_API_ENDPOINT\';');
     insertBeforeModule(`
 export function apiManagerFactory(): ApiManager {
   const apiClient = new ApiFetchClient({
