@@ -115,7 +115,7 @@ const isNgNewOptions = (arg: string) => {
 };
 
 const createNgProject = () => {
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions)], {
+  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions), '--skip-install'], {
     stdio: 'inherit'
   });
 
