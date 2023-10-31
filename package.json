@@ -53,6 +53,7 @@
       "editorconfig-checker -exclude \".*[\\\\/]templates[\\\\/].*\" -ignore-defaults --verbose"
     ]
   },
+  "homepage": "https://amadeusitgroup.github.io/otter/",
   "repository": "https://github.com/AmadeusITGroup/otter",
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "license": "BSD-3-Clause",
