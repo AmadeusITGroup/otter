@@ -76,7 +76,6 @@
     "@angular/compiler-cli": "~16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
     "@nx/eslint-plugin": "~16.10.0",
-    "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",

@@ -50,6 +50,8 @@ jobs:
             ${{ runner.os }}-jest-${{ env.hash }}
             ${{ runner.os }}-jest
             ${{ runner.os }}
+      - name: Build swagger generator
+        run: yarn nx run ama-sdk-schematics:build-swagger
       - name: Test
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}

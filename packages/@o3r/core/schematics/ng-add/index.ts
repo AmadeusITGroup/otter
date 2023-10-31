@@ -16,7 +16,7 @@ import { prepareProject } from './project-setup/index';
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
   const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
   const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
-  const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
+  const schematicsDependencies = ['@o3r/schematics'];
 
   return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     // check if the workspace package is installed, if not installed and we are in workspace context, we install

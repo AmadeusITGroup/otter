@@ -140,7 +140,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   }
   const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
   const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version?.replace(/^v/, '');
-  const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
+  const schematicsDependencies = ['@o3r/schematics'];
   for (const dependency of schematicsDependencies) {
     context.addTask(new DevInstall({
       packageName: dependency + (amaSdkSchematicsVersion ? `@${amaSdkSchematicsVersion}` : ''),
