@@ -190,7 +190,8 @@
       "inputs": [
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
-        "{projectRoot}/src/components/**/i18n"
+        "{projectRoot}/src/components/**/i18n",
+        "{projectRoot}/src/components/**/*.localization.json"
       ],
       "outputs": [
         "{options.outputPath}"
