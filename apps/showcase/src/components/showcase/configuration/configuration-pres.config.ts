@@ -5,6 +5,7 @@ import type {Configuration, NestedConfiguration} from '@o3r/core';
 export interface DestinationConfiguration extends NestedConfiguration {
   /**
    * Name of the destination's city
+   * @o3rRequired
    */
   cityName: string;
   /**
