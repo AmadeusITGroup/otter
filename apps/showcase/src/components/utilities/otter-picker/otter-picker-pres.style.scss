@@ -1,0 +1,24 @@
+o3r-otter-picker-pres {
+  .dropdown-menu {
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    &.show {
+      display: flex;
+    }
+
+    .dropdown-item {
+      display: inline-block;
+      width: auto;
+    }
+  }
+
+  .otter-dropdown {
+    min-width: 9em;
+
+    &.selected {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}

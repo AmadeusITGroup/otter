@@ -1,6 +1,6 @@
 import { Order } from '../../models/base/order/index';
 import { reviveOrder } from '../../models/base/order/order.reviver';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export interface DeleteOrderRequestData {
   /** ID of the order that needs to be deleted */
@@ -67,7 +67,7 @@ export class StoreApi implements Api {
    */
   public async deleteOrder(data: DeleteOrderRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<DeleteOrderRequestData>(data, [] as never[]);
-    const metadataHeaderAccept = metadata?.headerAccept || '';
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
@@ -152,7 +152,11 @@ export class StoreApi implements Api {
     };
 
     let body: RequestBody = '';
-    body = data.Order ? JSON.stringify(data.Order) : '{}';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.Order ? JSON.stringify(data.Order) : '{}';
+    } else {
+      body = data.Order as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/store/order`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);

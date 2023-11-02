@@ -17,6 +17,12 @@
         "script": "build"
       }
     },
+    "regen": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "spec:regen"
+      }
+    },
     "lint": {
       "executor": "@nx/linter:eslint",
       "configurations": {

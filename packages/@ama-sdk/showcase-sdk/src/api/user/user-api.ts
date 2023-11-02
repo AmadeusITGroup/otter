@@ -1,6 +1,6 @@
 import { User } from '../../models/base/user/index';
 import { reviveUser } from '../../models/base/user/user.reviver';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export interface CreateUserRequestData {
   /** Created user object */
@@ -105,7 +105,11 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
-    body = data.User ? JSON.stringify(data.User) : '{}';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.User ? JSON.stringify(data.User) : '{}';
+    } else {
+      body = data.User as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/user`;
     const tokenizedUrl = `${this.client.options.basePath}/user`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
@@ -132,7 +136,11 @@ export class UserApi implements Api {
     };
 
     let body: RequestBody = '';
-    body = data.User ? JSON.stringify(data.User) : '[]';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.User ? JSON.stringify(data.User) : '[]';
+    } else {
+      body = data.User as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/user/createWithList`;
     const tokenizedUrl = `${this.client.options.basePath}/user/createWithList`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
@@ -152,7 +160,7 @@ export class UserApi implements Api {
    */
   public async deleteUser(data: DeleteUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<DeleteUserRequestData>(data, [] as never[]);
-    const metadataHeaderAccept = metadata?.headerAccept || '';
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
@@ -227,7 +235,7 @@ export class UserApi implements Api {
    */
   public async logoutUser(data: LogoutUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<LogoutUserRequestData>(data, [] as never[]);
-    const metadataHeaderAccept = metadata?.headerAccept || '';
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
@@ -253,14 +261,18 @@ export class UserApi implements Api {
    */
   public async updateUser(data: UpdateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', string>): Promise<never> {
     const getParams = this.client.extractQueryParams<UpdateUserRequestData>(data, [] as never[]);
-    const metadataHeaderAccept = metadata?.headerAccept || '';
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
     let body: RequestBody = '';
-    body = data.User ? JSON.stringify(data.User) : '{}';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.User ? JSON.stringify(data.User) : '{}';
+    } else {
+      body = data.User as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/user/${data.username}`;
     const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens.username || data.username}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
