@@ -1,9 +1,11 @@
 @mixin style {
-  h2 {
+  .bubble {
+    border-radius: var(--bs-border-radius-xl);
+
     div {
-      transform: translate(-50%, -50%) rotate(-45deg) ;
-      width: 20px;
-      height: 20px;
+      transform: translate(calc(-50% - var(--bs-border-width)/2), -50%) rotate(-45deg) ;
+      width: 1em;
+      height: 1em;
     }
   }
 
