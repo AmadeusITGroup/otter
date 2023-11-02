@@ -45,7 +45,7 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
 
 /**
  * Get the list of modules mapping
- *
+ * @deprecated Please use `pathsToModuleNameMapper` from `ts-jest`, will be removed in Otter v12.
  * @param rootDir Root directory of the jest project
  * @param testingTsconfigPath Path to the tsconfig.json used for test mapping files
  * @returns

@@ -1,4 +1,5 @@
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { compilerOptions } = require('<%= tsconfigBasePath %>');
 
 globalThis.ngJest = {
   skipNgcc: true
@@ -10,7 +11,7 @@ module.exports = {
   preset: 'jest-preset-angular',
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],
   rootDir: '.',
-  moduleNameMapper: getJestModuleNameMapper(__dirname),
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
   testPathIgnorePatterns: [
     '<rootDir>/dist',
   ],

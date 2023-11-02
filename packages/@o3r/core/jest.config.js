@@ -4,10 +4,6 @@ const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 module.exports = {
   ...getJestConfig(__dirname, true),
   displayName: require('./package.json').name,
-  testPathIgnorePatterns: [
-    '<rootDir>/.*/templates/.*',
-    '\\.it\\.spec\\.ts$'
-  ],
   fakeTimers: {
     enableGlobally: true,
     // TODO try to make date utils work with fake Date
