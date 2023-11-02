@@ -248,7 +248,9 @@ export class ComponentConfigExtractor {
       label: configDocInfo?.label ? configDocInfo.label : name.replace(/([A-Z])/g, ' $1'),
       name,
       type: 'unknown',
-      widget: configDocInfo?.widget
+      widget: configDocInfo?.widget,
+      // Check to not add `"required": false` on all properties by default
+      required: configDocInfo?.required ? true : undefined
     };
 
     if (propertyNode.questionToken) {
