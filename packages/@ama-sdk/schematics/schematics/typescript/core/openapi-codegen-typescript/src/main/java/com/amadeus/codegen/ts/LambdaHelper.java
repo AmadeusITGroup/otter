@@ -498,11 +498,11 @@ public class LambdaHelper {
 
       @Override
       public String formatFragment(String fragment) {
-        if (fragment == "") {
+        if (fragment == null || fragment.equals("")) {
           return "application/json";
         }
         String[] mimeTypes = fragment.split(", ");
-        if (mimeTypes.length < 1 || (mimeTypes.length == 1 && mimeTypes[0] == "")) {
+        if (mimeTypes.length < 1 || (mimeTypes.length == 1 && mimeTypes[0].equals(""))) {
           return "application/json";
         }
         return HeaderJsonMimeType.getFirstJsonMimeType(mimeTypes);
