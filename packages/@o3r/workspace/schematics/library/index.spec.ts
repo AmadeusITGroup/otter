@@ -55,7 +55,7 @@ describe('New module generator', () => {
     expect(spy).toHaveBeenNthCalledWith(3, '@o3r/core', 'ng-add-create', expect.anything());
     expect(tree.exists('/packages-test/my-new-module/tsconfig.json')).toBe(true);
     expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(false);
-    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public_api');
+    expect(JSON.parse(tree.readContent('/tsconfig.base.json')).compilerOptions.paths['@my/new-module']).toContain('packages-test/my-new-module/src/public-api');
     expect(JSON.parse(tree.readContent('/tsconfig.build.json')).compilerOptions.paths['@my/new-module'][0]).toBe('packages-test/my-new-module/dist');
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
