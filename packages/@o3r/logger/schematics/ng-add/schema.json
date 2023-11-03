@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "ngAddSchematicsSchema",
   "title": "Add Otter  logger ",
   "description": "ngAdd Otter  logger ",

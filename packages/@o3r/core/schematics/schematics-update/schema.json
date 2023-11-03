@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "ngGenerateUpdateSchematicsSchema",
   "title": "Generate Otter NgUpdate rule",
   "description": "ng generate Otter ngUpdate rule",
