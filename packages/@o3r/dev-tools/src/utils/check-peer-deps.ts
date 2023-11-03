@@ -4,7 +4,7 @@ import { satisfies } from 'semver';
 
 /**
  * Interface containing a npm package name, needed version and optionally found version
- * @deprecated will be removed in Otter v12.
+ * @deprecated You can use the one exposed in `@o3r/schematics`, will be removed in Otter v12.
  */
 export interface PackageVersion {
   /** Npm package name */
@@ -18,7 +18,7 @@ export interface PackageVersion {
 /**
  * Check if the first level of peer deps of a given package are installed.
  * List all not installed packages or packages with version mismatch
- * @deprecated will be removed in Otter v12.
+ * @deprecated You can use the one exposed in `@o3r/schematics`, will be removed in Otter v12.
  * @param packageName
  */
 export function getPackagesToInstallOrUpdate(packageName: string) {

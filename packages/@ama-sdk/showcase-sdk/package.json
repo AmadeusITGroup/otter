@@ -34,17 +34,14 @@
     "lint:ci": "eslint '**/*[jt]s' --quiet --format junit --output-file ./dist-lint/result.xml",
     "lint": "eslint '**/*[jt]s' --cache",
     "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"yarn run files:pack --watch\"",
-    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run build:entries",
+    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run files:pack",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
-    "build:entries": "yarn run files:pack && yarn exec generate-package-exports",
-    "set:version": "set-version --placeholder 0.0.0-placeholder",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics ../schematics/dist:typescript-core --spec-path ./swagger-spec.yaml",
-    "spec:regen": "yarn run generate --no-dry-run && yarn exec clear-index",
-    "clear-index": "node scripts/clear-index.js",
-    "files:pack": "node scripts/files-pack.js",
+    "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
+    "files:pack": "yarn amasdk-files-pack",
     "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
@@ -52,7 +49,6 @@
     "tools:changelog": "standard-version"
   },
   "dependencies": {
-    "@o3r/dev-tools": "workspace:^",
     "@swc/helpers": "^0.5.0",
     "tslib": "^2.5.3"
   },

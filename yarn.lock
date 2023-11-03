@@ -78,7 +78,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@swc/cli": ^0.1.57
@@ -146,8 +145,8 @@ __metadata:
     typescript:
       optional: true
   bin:
-    amasdk-clear-index: ./cli/clear-index.cjs
-    amasdk-files-pack: ./cli/files-pack.cjs
+    amasdk-clear-index: ./dist/cli/clear-index.cjs
+    amasdk-files-pack: ./dist/cli/files-pack.cjs
   languageName: unknown
   linkType: soft
 
@@ -167,7 +166,6 @@ __metadata:
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -295,7 +293,6 @@ __metadata:
     "@commitlint/config-conventional": ^17.0.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": ~2.7.0
@@ -401,7 +398,6 @@ __metadata:
     "@o3r/amaterasu-otter": "workspace:^"
     "@o3r/amaterasu-sdk": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
@@ -464,7 +460,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/minimist": ^1.2.2
@@ -504,7 +499,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@types/jest": ~29.5.2
@@ -6284,7 +6278,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
@@ -6319,7 +6312,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
@@ -6357,7 +6349,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
@@ -6396,7 +6387,6 @@ __metadata:
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/jest": ~29.5.2
     "@types/js-yaml": ^4.0.5
@@ -6448,7 +6438,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": ~16.2.0
@@ -6487,7 +6476,6 @@ __metadata:
     "@angular/router": ~16.2.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     jasmine: ^5.0.0
@@ -6528,7 +6516,6 @@ __metadata:
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -6562,7 +6549,6 @@ __metadata:
     "@angular-devkit/schematics": ~16.2.0
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
     rxjs: ^7.8.1
@@ -6600,7 +6586,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/routing": "workspace:^"
@@ -6633,7 +6618,6 @@ __metadata:
     "@angular/common": ~16.2.0
     "@angular/core": ~16.2.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6805,7 +6789,6 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -6874,7 +6857,6 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -6922,7 +6904,6 @@ __metadata:
     "@ngrx/store": ~16.3.0
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6977,7 +6958,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7016,7 +6996,6 @@ __metadata:
     "@ngrx/entity": ~16.3.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
@@ -7047,7 +7026,6 @@ __metadata:
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/build-angular": ~16.2.0
     "@angular-devkit/core": ~16.2.0
@@ -7072,7 +7050,6 @@ __metadata:
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -7113,7 +7090,6 @@ __metadata:
     zone.js: ~0.13.1
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/core": ~16.2.0
     "@angular-devkit/schematics": ~16.2.0
@@ -7135,8 +7111,6 @@ __metadata:
     semver: ^7.5.2
     typescript: ~5.1.6
   peerDependenciesMeta:
-    "@ama-sdk/schematics":
-      optional: true
     "@angular/cli":
       optional: true
     "@nrwl/devkit":
@@ -7164,7 +7138,6 @@ __metadata:
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": ~16.2.0
@@ -7211,6 +7184,7 @@ __metadata:
     "@o3r/azure-tools": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/workspace": "workspace:^"
     "@types/fs-extra": ^11.0.0
     "@types/glob": ^8.0.0
     "@types/jest": ~29.5.2
@@ -7292,7 +7266,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7326,7 +7299,6 @@ __metadata:
     "@angular/platform-browser-dynamic": ~16.2.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
     cheerio: ^1.0.0-rc.10
     express-interceptor: ^1.2.0
@@ -7496,7 +7468,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7569,7 +7540,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7602,7 +7572,6 @@ __metadata:
     "@ngrx/entity": ~16.3.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/schematics": "workspace:^"
     rxjs: ^7.8.1
   peerDependenciesMeta:
@@ -7645,9 +7614,9 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@nx/workspace": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/workspace": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@swc-node/register": ^1.6.7
     "@swc/core": ^1.3.85
@@ -7727,7 +7696,6 @@ __metadata:
     "@nx/jest": ~16.10.0
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/ejs": ^3.1.2
@@ -7790,7 +7758,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7895,7 +7862,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7978,7 +7944,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8068,7 +8033,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
@@ -8105,7 +8069,6 @@ __metadata:
     "@ngrx/router-store": ~16.3.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
     jasmine: ^5.0.0
@@ -8148,7 +8111,6 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8206,7 +8168,6 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -8264,7 +8225,6 @@ __metadata:
     "@nx/js": ~16.10.0
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": ~16.2.0
     "@types/jest": ~29.5.2
@@ -8351,7 +8311,6 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8422,7 +8381,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/logger": "workspace:^"
@@ -8456,7 +8414,6 @@ __metadata:
     "@ngrx/entity": ~16.3.0
     "@ngrx/store": ~16.3.0
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     fast-deep-equal: ^3.1.3
@@ -8497,7 +8454,6 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -8630,7 +8586,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8711,7 +8666,6 @@ __metadata:
     "@angular-devkit/schematics": ~16.2.0
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@nx/eslint-plugin": ~16.10.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~16.2.0
@@ -8779,7 +8733,6 @@ __metadata:
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8891,7 +8844,6 @@ __metadata:
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8934,11 +8886,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/workspace@workspace:packages/@o3r/workspace":
+"@o3r/workspace@workspace:^, @o3r/workspace@workspace:packages/@o3r/workspace":
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:
-    "@ama-sdk/schematics": "workspace:^"
     "@angular-devkit/architect": ~0.1602.0
     "@angular-devkit/build-angular": ~16.2.0
     "@angular-devkit/core": ~16.2.0
@@ -8962,7 +8913,6 @@ __metadata:
     "@nx/linter": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -13923,7 +13873,6 @@ __metadata:
     "@actions/github": ^5.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@nx/eslint-plugin": ~16.10.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/jest": ~29.5.2
@@ -23722,7 +23671,6 @@ __metadata:
     "@actions/github": ^5.1.1
     "@angular-eslint/eslint-plugin": ~16.2.0
     "@nx/eslint-plugin": ~16.10.0
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@types/jest": ~29.5.2
@@ -24729,7 +24677,6 @@ __metadata:
     "@nx/jest": ~16.10.0
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dev-tools": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@types/eslint": ^8.42.0

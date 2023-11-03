@@ -1,4 +1,4 @@
-const { getJestProjects } = require('@o3r/dev-tools');
+const { getJestProjects } = require('@o3r/workspace');
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {

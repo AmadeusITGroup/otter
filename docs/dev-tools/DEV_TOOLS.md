@@ -99,11 +99,11 @@ Options:
 ## Set Version
 
 Replace the packages version in a monorepo
-  
+
 ### Usage
 
 ```shell
-Usage: set-version [options] <version>
+Usage: o3r-set-version [options] <version>
 
 Replace the packages version in a monorepos
 
@@ -163,7 +163,7 @@ Example : yarn o3r-pr-artifact-cleaner -b thisismybase64tokenwithuserandencrypte
 
 ## Peer dependencies updater
 
-Update a package.json with the given dependencies versions and their respective peer dependencies.  
+Update a package.json with the given dependencies versions and their respective peer dependencies.
 Relies on `npm info` to retrieve package information.
 
 ### Usage
@@ -179,7 +179,7 @@ Options:
   --verbose                          Display debug log message
   --silent                           Do not exit with error in case of metadata fetch error
 
-Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core" 
+Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core"
 ```
 
 ## Scripts
@@ -199,7 +199,7 @@ This is used to edit the package.json version of a yarn workspaces packages.
 ### Usage
 
 ```bash
-Usage: set-version [options] <version>
+Usage: o3r-set-version [options] <version>
 
 Replace the packages version in a monorepos
 
