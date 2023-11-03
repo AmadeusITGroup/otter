@@ -9,23 +9,26 @@ export interface ConfigDocInformation {
   /** Description */
   description: string;
 
-  /** Title (taken from @title tag) */
+  /** Title (taken from `@title` tag) */
   title?: string;
 
-  /** label (taken from @label tag) */
+  /** label (taken from `@label` tag) */
   label?: string;
 
-  /** Tags (taken from @tags tag) */
+  /** Tags (taken from `@tags` tag) */
   tags?: string[];
 
-  /** Category (taken from @o3rCategory tag) */
+  /** Category (taken from `@o3rCategory` tag) */
   category?: string;
 
   /** Category (taken from <o3rCategories> tag) */
   categories?: CategoryDescription[];
 
-  /** Widget information (taken from @o3rWidget and @o3rWidgetParam tag) */
+  /** Widget information (taken from `@o3rWidget` and `@o3rWidgetParam` tag) */
   widget?: ConfigPropertyWidget;
+
+  /** `@o3rRequired` tag presence */
+  required?: boolean;
 }
 
 /**
@@ -120,6 +123,14 @@ export function getTagsFromDocComment(docComment: DocComment): string[] | undefi
 }
 
 /**
+ * Is the tag `@o3rRequired` present in `docText`
+ * @param docText
+ */
+export function isO3rRequiredTagPresent(docText: string): boolean {
+  return /@o3rRequired/.test(docText);
+}
+
+/**
  * Get category from a given DocComment.
  *
  *  The category is extracted from @o3rCategory tag.
@@ -206,7 +217,8 @@ export class ConfigDocParser {
         tags: getTagsFromDocComment(docComment),
         category: getCategoryFromDocText(docText),
         categories: getCategoriesFromDocText(docText),
-        widget: getWidgetInformationFromDocComment(docText)
+        widget: getWidgetInformationFromDocComment(docText),
+        required: isO3rRequiredTagPresent(docText)
       };
     }
   }

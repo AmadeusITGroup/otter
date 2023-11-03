@@ -69,7 +69,7 @@ export class DynamicContentService {
       map((entities) => assetPath && entities && entities[assetPath] ? entities[assetPath] : assetPath),
       map((finalAssetPath) => this.getMediaPath(finalAssetPath)),
       distinctUntilChanged(),
-      shareReplay(1)
+      shareReplay({bufferSize: 1, refCount: true})
     );
   }
 }

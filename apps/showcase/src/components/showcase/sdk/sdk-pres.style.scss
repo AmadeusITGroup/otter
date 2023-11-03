@@ -2,4 +2,9 @@ o3r-sdk-pres {
 	.table-container {
     min-height: 33rem;
   }
+
+  .scroll-container {
+    width: 100%;
+    overflow-x: auto;
+  }
 }

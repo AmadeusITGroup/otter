@@ -6,6 +6,7 @@ import type { PackageJson } from 'type-fest';
 import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { type Schema as ApplicationOptions } from '@schematics/angular/application/schema';
 import { Style } from '@schematics/angular/application/schema';
+import { updateProjectTsConfig } from '../rule-factories/index';
 
 /**
  * Add an Otter application to a monorepo
@@ -69,6 +70,7 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
         projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
+      updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
       (_, c) => {
         c.addTask(new RunSchematicTask('@o3r/core:ng-add', extendedOptions));
       }

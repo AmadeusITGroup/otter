@@ -50,7 +50,7 @@ export class AppComponent implements OnDestroy {
     );
     this.activeUrl$ = onNavigationEnd$.pipe(
       map((event) => event.urlAfterRedirects),
-      shareReplay(1)
+      shareReplay({bufferSize: 1, refCount: true})
     );
     this.subscriptions.add(onNavigationEnd$.subscribe(() => {
       if (this.offcanvasRef) {

@@ -1,12 +1,12 @@
 <div class="card my-3 overflow-hidden">
   <div class="row g-0">
-    <div class="col-4 bg-body-tertiary d-flex align-items-center justify-center">
-      <img [src]="'otter.png' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
+    <div class="col-4 bg-body-tertiary d-flex align-items-center justify-content-center">
+      <img [src]="'otter.svg' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
     </div>
     <div class="col-8 container p-3">
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
-          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 rounded-pill py-3 px-5 position-relative">
+          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative">
             <ng-container *ngIf="form.value.destination; else simpleWelcome">
               {{ translations.welcomeWithCityName | translate: { cityName: (translations.cityName + '.' + form.value.destination) | translate }  }}
             </ng-container>
