@@ -209,7 +209,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },
@@ -241,7 +242,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },
@@ -275,7 +277,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },
