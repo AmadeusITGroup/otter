@@ -99,6 +99,8 @@ export interface ConfigProperty {
   category?: string;
   /** The CMS widget information */
   widget?: ConfigPropertyWidget;
+  /** If true, the CMS user must specify a value for the property */
+  required?: boolean;
 }
 
 /**

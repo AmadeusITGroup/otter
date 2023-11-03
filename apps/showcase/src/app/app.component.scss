@@ -30,7 +30,7 @@ header {
 .left-nav {
   position: sticky;
   top: 4rem;
-  padding-top: 3rem;
+  padding-top: 2rem;
   max-height: calc(100vh - 4rem);
   overflow-y: auto;
   flex-grow: 1;
@@ -45,7 +45,6 @@ footer {
   align-items: center;
   height: 12rem;
   width: 100%;
-  background: var(--bs-tertiary-bg);
   color: var(--bs-body-color);
   margin-top: 2rem;
 }

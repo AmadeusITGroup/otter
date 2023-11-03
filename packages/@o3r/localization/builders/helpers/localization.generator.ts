@@ -6,6 +6,7 @@ import * as fs from 'node:fs';
 import * as glob from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
+import type { LocalizationExtractorBuilderSchema } from '../localization-extractor/schema';
 
 /** List of Angular decorator to look for */
 const ANGULAR_ANNOTATION = ['Component', 'Injectable', 'Pipe'];
@@ -59,7 +60,7 @@ export class LocalizationExtractor {
 
   private logger: logging.LoggerApi;
 
-  constructor(tsconfigPath: string, logger: logging.LoggerApi) {
+  constructor(tsconfigPath: string, logger: logging.LoggerApi, private options?: Partial<LocalizationExtractorBuilderSchema>) {
     this.tsconfigPath = tsconfigPath;
     this.logger = logger;
   }
@@ -123,14 +124,18 @@ export class LocalizationExtractor {
       })
       .map(({ref}) => {
         if (!ref.startsWith('.')) {
-          try {
-            return require.resolve(ref);
-          } catch {
-            // Should be a local file
+          if (this.options?.libraries?.length && this.options.libraries.every((lib) => !ref.startsWith(lib))) {
+            try {
+              return require.resolve(ref);
+            } catch {
+              // Should be a local file
+            }
           }
+          return undefined;
         }
         return folder ? path.resolve(folder, ref) : ref;
-      });
+      })
+      .filter((ref): ref is string => !!ref);
 
     return referencedFiles.length ? referencedFiles : undefined;
   }
@@ -154,7 +159,7 @@ export class LocalizationExtractor {
   }
 
   /**
-   * Genarate a metadata item from a localization item
+   * Generate a metadata item from a localization item
    *
    * @param loc Localization item
    * @param key Key of the localization
@@ -176,7 +181,12 @@ export class LocalizationExtractor {
     }
 
     if (loc.$ref) {
-      res.ref = loc.$ref.split('#/')[1];
+      const [refPath, refKey] = loc.$ref.split('#/', 2);
+      if (refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib))) {
+        res.ref = refKey;
+      } else {
+        res.ref = loc.$ref;
+      }
     }
 
     if (typeof loc.defaultValue === 'undefined' && typeof loc.$ref === 'undefined' && !loc.dictionary) {
@@ -333,9 +343,10 @@ export class LocalizationExtractor {
     sortKeys: boolean;
   }): LocalizationMetadata {
     const metadata: LocalizationMetadataAsMap = {};
-
-    const addMetadata = (data: JSONLocalization, origin?: string) => {
+    let hasDuplicateKey = false;
+    const addMetadata = (data: JSONLocalization, origin?: string, libraries: string[] = []) => {
       if (metadata[data.key]) {
+        hasDuplicateKey = true;
         if (options.ignoreDuplicateKeys) {
           this.logger.warn(
             `The key ${data.key} from ${origin!} will override the previous value (${metadata[data.key].value || 'ref ' + metadata[data.key].ref!} -> ${data.value || 'ref ' + data.ref!})`
@@ -344,16 +355,18 @@ export class LocalizationExtractor {
           this.logger.error(
             `The key ${data.key} from ${origin!} try to override the previous value (${metadata[data.key].value || 'ref ' + metadata[data.key].ref!} -> ${data.value || 'ref ' + data.ref!})`
           );
-          throw new O3rCliError('Duplicate key');
         }
       }
 
-      metadata[data.key] = data;
+      metadata[data.key] = data.ref && data.ref.includes('#/') && libraries.some((lib) => data.ref!.startsWith(lib)) ? {
+        ...data,
+        ref: data.ref.split('#/')[1]
+      } : data;
     };
 
     Object.keys(options.libraryMetadata)
       .forEach((lib) =>
-        options.libraryMetadata[lib].forEach((dataLoc) => addMetadata(dataLoc, lib))
+        options.libraryMetadata[lib].forEach((dataLoc) => addMetadata(dataLoc, lib, this.options?.libraries))
       );
 
     Object.keys(localizationMap)
@@ -362,7 +375,24 @@ export class LocalizationExtractor {
           .forEach((locKey) => addMetadata(this.generateMetadataItemFromLocalization(localizationMap[locFile].data[locKey], locKey), locFile))
       );
 
-    const localizationMetadata = Object.keys(metadata).map((k) => metadata[k]);
+    if (hasDuplicateKey && !options.ignoreDuplicateKeys) {
+      throw new O3rCliError('Duplicate key');
+    }
+
+    const localizationMetadata = Object.values(metadata);
+    let hasUnknownRef = false;
+
+    localizationMetadata.forEach((data) => {
+      if (data.ref && !data.ref.includes('#/') && !metadata[data.ref]) {
+        hasUnknownRef = true;
+        this.logger.error(`The key ${data.ref} is unknown but referenced by ${data.key}.`);
+      }
+    });
+
+    if (hasUnknownRef) {
+      throw new O3rCliError('Unknown referenced key');
+    }
+
     return options.sortKeys ? localizationMetadata.sort((a, b) => this.compareKeys(a, b)) : localizationMetadata;
   }
 }

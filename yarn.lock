@@ -3461,6 +3461,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@design-factory/design-factory@npm:^15.2.2":
+  version: 15.2.2
+  resolution: "@design-factory/design-factory@npm:15.2.2"
+  dependencies:
+    tslib: ^2.0.0
+  peerDependencies:
+    "@angular/common": ^16.0.0
+    "@angular/core": ^16.0.0
+    "@angular/localize": ^16.0.0
+    "@ng-bootstrap/ng-bootstrap": ~15.1.0
+    "@ng-select/ng-select": ~11.0.0
+    ag-grid-angular: ~29.3.5
+    ag-grid-community: ~29.3.5
+    bootstrap: 5.2.0
+  checksum: 8e781e80207484372d8f51b28da12f28339aded627dc81eedbacfd80ececb0e801ca30b16453b7e8c4e8e61b04de88687ae47e60da13a412c3674b060afea9f3
+  languageName: node
+  linkType: hard
+
 "@discoveryjs/json-ext@npm:0.5.7, @discoveryjs/json-ext@npm:^0.5.0, @discoveryjs/json-ext@npm:^0.5.3":
   version: 0.5.7
   resolution: "@discoveryjs/json-ext@npm:0.5.7"
@@ -6800,7 +6818,7 @@ __metadata:
     "@typescript-eslint/parser": ^5.60.1
     "@typescript-eslint/types": ^5.60.1
     archiver: ^5.3.1
-    bootstrap: ^5.3.1
+    bootstrap: 5.2.0
     bootstrap-icons: ^1.10.5
     chokidar: ^3.5.2
     chrome-webstore-upload: ^1.0.0
@@ -7083,6 +7101,7 @@ __metadata:
     rxjs: ^7.8.1
     semver: ^7.5.2
     ts-jest: ~29.1.1
+    ts-node: ~10.9.1
     tslib: ^2.5.3
     type-fest: ^3.12.0
     typescript: ~5.1.6
@@ -7097,6 +7116,7 @@ __metadata:
     "@angular/common": ~16.2.0
     "@angular/compiler-cli": ~16.2.0
     "@angular/core": ~16.2.0
+    "@angular/forms": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
     "@ngrx/entity": ~16.3.0
@@ -7600,6 +7620,8 @@ __metadata:
     "@angular/compiler": ~16.2.0
     "@angular/compiler-cli": ~16.2.0
     "@angular/core": ~16.2.0
+    "@angular/forms": ~16.2.0
+    "@angular/localize": ~16.2.0
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@babel/core": ~7.23.0
@@ -7607,6 +7629,8 @@ __metadata:
     "@commitlint/cli": ^17.0.0
     "@commitlint/config-conventional": ^17.0.0
     "@compodoc/compodoc": ^1.1.19
+    "@design-factory/design-factory": ^15.2.2
+    "@ng-bootstrap/ng-bootstrap": ^15.1.1
     "@nx/angular": ~16.10.0
     "@nx/eslint-plugin": ~16.10.0
     "@nx/jest": ~16.10.0
@@ -7617,6 +7641,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/workspace": "workspace:^"
+    "@popperjs/core": ^2.11.5
     "@schematics/angular": ~16.2.0
     "@swc-node/register": ^1.6.7
     "@swc/core": ^1.3.85
@@ -7627,7 +7652,11 @@ __metadata:
     "@typescript-eslint/parser": ^5.60.1
     "@typescript-eslint/types": ^5.60.1
     "@yarnpkg/sdks": ^2.7.0
+    ag-grid-angular: ~29.3.5
+    ag-grid-community: ~29.3.5
     babel-loader: ^9.0.0
+    bootstrap: 5.2.0
+    bootstrap-icons: ^1.10.5
     browserslist: ^4.21.4
     concurrently: ^8.0.0
     cpy-cli: ^4.2.0
@@ -8298,6 +8327,7 @@ __metadata:
     "@angular/platform-browser": ~16.2.0
     "@angular/platform-browser-dynamic": ~16.2.0
     "@angular/router": ~16.2.0
+    "@design-factory/design-factory": ^15.2.2
     "@formatjs/intl-numberformat": ~8.8.0
     "@ng-bootstrap/ng-bootstrap": ^15.1.1
     "@ngrx/effects": ~16.3.0
@@ -8329,7 +8359,9 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
     "@typescript-eslint/types": ^5.60.1
-    bootstrap: ^5.3.1
+    ag-grid-angular: ~29.3.5
+    ag-grid-community: ~29.3.5
+    bootstrap: 5.2.0
     bootstrap-icons: ^1.10.5
     eslint: ^8.42.0
     eslint-import-resolver-node: ^0.3.4
@@ -12145,6 +12177,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ag-grid-angular@npm:~29.3.5":
+  version: 29.3.5
+  resolution: "ag-grid-angular@npm:29.3.5"
+  dependencies:
+    tslib: ^2.3.0
+  peerDependencies:
+    "@angular/common": ">= 12.0.0"
+    "@angular/core": ">= 12.0.0"
+    ag-grid-community: ~29.3.5
+  checksum: e937c73cc91c4e4a1b2a74d67dfe710b5596a5f14330cc368a2ffd434e7bfbc84e2a10d6463fccf350cdf1dc1d863f2b81ff8b365ef3becb5dd58ca97555e7a4
+  languageName: node
+  linkType: hard
+
+"ag-grid-community@npm:~29.3.5":
+  version: 29.3.5
+  resolution: "ag-grid-community@npm:29.3.5"
+  checksum: ad071f6ea80ebfa96e79d3e9e77947a52182c783bcee5f7ed377f5de2758f0e88bbf3dbace9272c80e7fb566931fe6a56227dd1e2526670a7e17dd1152d854d6
+  languageName: node
+  linkType: hard
+
 "agent-base@npm:5":
   version: 5.1.1
   resolution: "agent-base@npm:5.1.1"
@@ -13395,12 +13447,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:^5.3.1":
-  version: 5.3.1
-  resolution: "bootstrap@npm:5.3.1"
+"bootstrap@npm:5.2.0":
+  version: 5.2.0
+  resolution: "bootstrap@npm:5.2.0"
   peerDependencies:
-    "@popperjs/core": ^2.11.8
-  checksum: f8176376aa6c6d8947d58a67f0c57fa0b6b7dcd087ff83454e0d727c07cf33e8107e56aa298045d652f84b53b24ac72457af73e41c5631c9ebdc1909039c5dac
+    "@popperjs/core": ^2.11.5
+  checksum: 9dbfb5d26bbdac3e27a6b46cb7456cd4dd75ae3b48644737809885b8ea9c265d3359c4cdbf25a55bb7e5046f51e441557033ba21eeaf24ef8316bfbb3d420084
   languageName: node
   linkType: hard
 

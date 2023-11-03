@@ -11,7 +11,7 @@ import { dirname, join, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
-const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license'];
+const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license', 'homepage'];
 
 /**
  * Find Private package.json

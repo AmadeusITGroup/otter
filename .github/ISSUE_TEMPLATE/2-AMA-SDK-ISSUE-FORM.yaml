@@ -15,7 +15,9 @@ body:
       multiple: true
       options: [
         core,
+        create,
         schematics,
+        showcase-sdk
         swagger-builder
       ]
     validations:

@@ -5,6 +5,7 @@ import type {Configuration, NestedConfiguration} from '@o3r/core';
 export interface RulesEngineDestinationConfiguration extends NestedConfiguration {
   /**
    * IATA code of the destination's city
+   * @o3rRequired
    */
   cityCode: string;
   /**

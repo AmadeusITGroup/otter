@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <div class="table-container">
+      <div class="table-container scroll-container">
         <table class="table table-striped">
           <thead>
           <tr>
@@ -70,20 +70,21 @@
           </tbody>
         </table>
       </div>
+      <div class="scroll-container">
+        <div class="d-flex justify-content-between p-2">
+          <ngb-pagination
+            [collectionSize]="totalPetsAmount()"
+            [page]="currentPage()" (pageChange)="currentPage.set($event)"
+            [pageSize]="pageSize()"
+            [maxSize]="10"
+          ></ngb-pagination>
 
-      <div class="d-flex justify-content-between p-2">
-        <ngb-pagination
-          [collectionSize]="totalPetsAmount()"
-          [page]="currentPage()" (pageChange)="currentPage.set($event)"
-          [pageSize]="pageSize()"
-          [maxSize]="10"
-        ></ngb-pagination>
-
-        <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event)">
-          <option [ngValue]="10">10 items per page</option>
-          <option [ngValue]="50">50 items per page</option>
-          <option [ngValue]="100">100 items per page</option>
-        </select>
+          <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event)">
+            <option [ngValue]="10">10 items per page</option>
+            <option [ngValue]="50">50 items per page</option>
+            <option [ngValue]="100">100 items per page</option>
+          </select>
+        </div>
       </div>
     </form>
   </div>
