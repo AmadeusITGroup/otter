@@ -1,6 +1,41 @@
 <div class="d-flex flex-column gap-2 align-items-center justify-center flex-fill">
-  <h1>Otter</h1>
-  <p>This is a showcase application.</p>
-  <p>You can find examples of Otter features with some explanations.</p>
-  <img width="500" [src]="'otter-a.svg' | dynamicContent" class="otter-logo">
+  <img width="350" [src]="'otter-a.svg' | dynamicContent" class="otter-logo" alt="Otter">
+  <h1 class="h1 display-1 text-center mt-0 mb-5"><b>Easily build a customizable Angular based application</b></h1>
+  <h2 class="h4 mt-5 pt-5 text-secondary">
+    The Otter project is a highly modular framework whose goal is to provide a common platform to <b>accelerate</b> and <b>facilitate</b> the development of <span class="text-danger">Angular</span> based Web Applications.<br />
+    The framework offers the capability to customize the application using <b>Content Management System</b>.
+  </h2>
 </div>
+
+<div class="get-start-section d-flex flex-column gap-2 align-items-center justify-center flex-fill">
+  <h3 class="display-3 text-center mt-0 mb-5">Get started with Otter</h3>
+  <p class="text-secondary">
+    To start a new project you just need to follow the <a target="_blank" href="https://github.com/AmadeusITGroup/otter/blob/main/docs/core/START_NEW_APPLICATION.md">new application guide</a> or use the following command lines:
+  </p>
+
+  <div class="section container mt-3">
+    <div class="row g-3 g-md-5 mb-5 pb-5 justify-content-center">
+      <div class="col-lg-6 py-lg-5 pe-lg-5 pt-lg-5">
+        <h3>Setup the project ...</h3>
+        <p class="mt-4 text-secondary">
+          Create a new project <i>(npm)</i>
+          <o3r-copy-text-pres language="bash" text="npm create @o3r <your-project>"></o3r-copy-text-pres>
+          or <i>(yarn)</i>
+          <o3r-copy-text-pres language="bash" text="yarn create @o3r <your-project>"></o3r-copy-text-pres>
+        </p>
+      </div>
+      <div class="col-lg-6 py-lg-5 pe-lg-5 ps-lg-5 border-lg-start">
+        <h3>... and start to create</h3>
+        <p class="mt-4 text-secondary">
+          A new application:
+          <o3r-copy-text-pres language="bash" text="ng g application <app-name>"></o3r-copy-text-pres>
+          A new SDK:
+          <o3r-copy-text-pres language="bash" text="ng g sdk <sdk-name>"></o3r-copy-text-pres>
+          Or a new library:
+          <o3r-copy-text-pres language="bash" text="ng g library <lib-name>"></o3r-copy-text-pres>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
