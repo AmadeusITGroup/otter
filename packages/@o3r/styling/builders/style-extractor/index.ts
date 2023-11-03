@@ -27,7 +27,7 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
-  const cssVariableExtractor = new CssVariableExtractor();
+  const cssVariableExtractor = new CssVariableExtractor(options);
 
   const execute = async (files: string[], previousMetadata: CssMetadata = {
     variables: {}
