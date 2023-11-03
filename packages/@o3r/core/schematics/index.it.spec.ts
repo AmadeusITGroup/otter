@@ -10,8 +10,8 @@ import {
   prepareTestEnv,
   setupLocalRegistry
 } from '@o3r/test-helpers';
-import { execSync, spawn } from 'node:child_process';
 import { join } from 'node:path';
+import { execSync, spawn } from 'node:child_process';
 import getPidFromPort from 'pid-from-port';
 
 const devServerPort = 4200;
@@ -28,7 +28,7 @@ describe('new otter application', () => {
       execAppOptions.cwd = appFolderPath;
     });
     test('should build empty app', () => {
-      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=cms`, execAppOptions);
+      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=all`, execAppOptions);
       packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion}`, execAppOptions);
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
@@ -117,12 +117,12 @@ describe('new otter application', () => {
     test('should build empty app', () => {
       // FIXME workaround for pnp
       packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, execAppOptions);
-      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, {...execAppOptions, cwd: appFolderPath});
+      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, { ...execAppOptions, cwd: appFolderPath });
 
       packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion}`, execAppOptions);
 
       const projectName = '--project-name=test-app';
-      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=cms ${projectName}`, execAppOptions);
+      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=all ${projectName}`, execAppOptions);
       packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion} ${projectName}`, execAppOptions);
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
@@ -230,7 +230,7 @@ describe('new otter application', () => {
     afterAll(async () => {
       try {
         const pid = await getPidFromPort(devServerPort);
-        execSync(process.platform === 'win32' ? `taskkill /f /t /pid ${pid}` : `kill -15 ${pid}`, {stdio: 'inherit'});
+        execSync(process.platform === 'win32' ? `taskkill /f /t /pid ${pid}` : `kill -15 ${pid}`, { stdio: 'inherit' });
       } catch (e) {
         // http-server already off
       }

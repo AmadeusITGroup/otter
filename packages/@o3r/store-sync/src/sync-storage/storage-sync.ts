@@ -272,7 +272,17 @@ export const syncStateUpdate = (
 
 const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => {
   if ((action.type === INIT || action.type === UPDATE) && rehydratedState) {
-    state = deepFill(state, rehydratedState);
+    const allKeys = Array.from(new Set([...Object.keys(state), ...Object.keys(rehydratedState)]));
+    state = Object.fromEntries(allKeys.map((key) => {
+      // No need to create new object reference if no merge is actually needed
+      if (!rehydratedState[key]) {
+        return [key, state[key]];
+      } else if (!state[key]) {
+        return [key, rehydratedState[key]];
+      } else {
+        return [key, deepFill(state[key], rehydratedState[key])];
+      }
+    }));
   }
 
   return state;

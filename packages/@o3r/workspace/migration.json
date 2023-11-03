@@ -1,0 +1,6 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+
+  }
+}

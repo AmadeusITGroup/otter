@@ -1,0 +1,38 @@
+{
+  "name": "ama-sdk-showcase-sdk",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/showcase-sdk/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile"
+      ]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "configurations": {
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/showcase-sdk/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/showcase-sdk/src/**/*.ts",
+          "packages/@ama-sdk/showcase-sdk/package.json"
+        ]
+      }
+    }
+  },
+  "tags": ["showcase"]
+}

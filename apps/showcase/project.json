@@ -32,8 +32,8 @@
       "dependsOn": [
         "extract-translations",
         "extract-components",
-        "build-source",
-        "generate-translations"
+        "generate-translations",
+        "compile"
       ]
     },
     "lint": {
@@ -52,7 +52,7 @@
         ]
       }
     },
-    "build-source": {
+    "compile": {
       "executor": "@angular-devkit/build-angular:browser",
       "options": {
         "outputPath": "apps/showcase/dist",
@@ -104,7 +104,11 @@
           "namedChunks": true
         }
       },
-      "defaultConfiguration": "production"
+      "defaultConfiguration": "production",
+      "dependsOn": [
+        "^build",
+        "generate-translations"
+      ]
     },
     "serve": {
       "executor": "@o3r/core:multi-watcher",
@@ -119,10 +123,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "showcase:build-source:production"
+          "browserTarget": "showcase:compile:production"
         },
         "development": {
-          "browserTarget": "showcase:build-source:development"
+          "browserTarget": "showcase:compile:development"
         }
       },
       "defaultConfiguration": "development"
@@ -146,7 +150,7 @@
         "exposedComponentSupport": true
       },
       "dependsOn": [
-        "build-source"
+        "compile"
       ]
     },
     "extract-rules-engine": {
@@ -192,7 +196,7 @@
         "{options.outputPath}"
       ],
       "options": {
-        "browserTarget": "showcase:build-source",
+        "browserTarget": "showcase:compile",
         "localizationExtracterTarget": "showcase:extract-translations",
         "locales": [
           "en-GB",
@@ -210,11 +214,13 @@
           "outputPath": "apps/showcase/dist/localizations"
         },
         "development": {
-          "browserTarget": "showcase:build-source:development"
+          "browserTarget": "showcase:compile:development"
         }
       },
       "dependsOn": [
-        "i18n"
+        "i18n",
+        "extract-translations",
+        "^build-builders"
       ]
     },
     "extract-translations": {
@@ -234,7 +240,8 @@
         ]
       },
       "dependsOn": [
-        "build-source"
+        "^build",
+        "^build-builders"
       ]
     },
     "run": {
@@ -262,7 +269,11 @@
             ]
           }
         ]
-      }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
     }
-  }
+  },
+  "tags": ["showcase"]
 }

@@ -25,11 +25,11 @@ A major version will be supported as long as it relies on a [non deprecated vers
 
 The following table provides the status of the Otter versions under support and each of their corresponding Angular version:
 
-| Otter version | Angular version | Support ends |
-|---------------|-----------------|--------------|
-| ^8.2.0        | ^15.0.0         | 2024-05-18   |
-| ^7.6.0        | ^14.0.0         | 2023-11-18   |
-| ^6.3.0        | ^13.0.0         | 2023-05-04   |
+|  Otter version  |  Angular version  |  Support ends  |
+|:---------------:|:-----------------:|:--------------:|
+|        9        |        16         |   2024-11-08   |
+|        8        |        15         |   2024-05-18   |
+|        7        |        14         |   2023-11-18   | 
 
 ## Reporting a Vulnerability
 

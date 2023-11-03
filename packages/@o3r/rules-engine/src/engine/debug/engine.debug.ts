@@ -185,6 +185,7 @@ export class EngineDebugger {
     }
 
     return {
+      executionCounter,
       rulesetOutputExecution,
       allExecutionsValid,
       rulesetTriggers

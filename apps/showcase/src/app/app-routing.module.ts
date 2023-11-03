@@ -9,6 +9,7 @@ const appRoutes: Routes = [
   {path: 'rules-engine', loadComponent: () => import('./rules-engine/index').then((m) => m.RulesEngineComponent)},
   {path: 'home', loadComponent: () => import('./home/index').then((m) => m.HomeComponent)},
   {path: 'run-app-locally', loadComponent: () => import('./run-app-locally/index').then((m) => m.RunAppLocallyComponent)},
+  {path: 'sdk', loadComponent: () => import('./sdk/index').then((m) => m.SdkComponent)},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 
