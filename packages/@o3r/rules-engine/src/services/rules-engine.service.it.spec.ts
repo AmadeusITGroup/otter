@@ -6,7 +6,7 @@ import { select, Store, StoreModule } from '@ngrx/store';
 import { computeConfigurationName, ConfigOverrideStore, ConfigOverrideStoreModule, ConfigurationStoreModule, selectConfigOverride } from '@o3r/configuration';
 import { LocalizationModule } from '@o3r/localization';
 import { mockTranslationModules } from '@o3r/testing/localization';
-import { BehaviorSubject, firstValueFrom, Observable, of } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable, of, Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, take } from 'rxjs/operators';
 import { jsonOneRulesetOneRuleNoCondPlaceholder } from '../../testing/mocks/oneruleset-onerule-nocond-placeholder.mock';
 import { jsonOneRulesetOneRuleNoCond } from '../../testing/mocks/oneruleset-onerule-nocond.mock';
@@ -15,6 +15,7 @@ import { jsonOneRulesetThreeRulesOneThrows } from '../../testing/mocks/onerulese
 import { jsonOneRulesetThreeRulesUndefinedFactUsed } from '../../testing/mocks/oneruleset-threerules-undefinedfactused.mock';
 import { jsonOneRulesetTwoNestedRules } from '../../testing/mocks/oneruleset-twonestedrules.mock';
 import { jsonOneRulesetTwoRules } from '../../testing/mocks/oneruleset-tworules.mock';
+import { jsonOneRulesetTwoRulesAnyAndAll } from '../../testing/mocks/oneruleset-tworules-any-and-all.mock';
 import { jsonOneRulesetValidOneRuleNoCond } from '../../testing/mocks/onerulesetvalid-onerule-nocond.mock';
 import { selectCurrentShoppingCart, selectShoppingCart, setShoppingCartEntity, setXmasHampersInCart, ShoppingCartStore, ShoppingCartStoreModule } from '../../testing/mocks/stores/shopping-cart/index';
 import { ShoppingCart } from '../../testing/mocks/stores/shopping-cart/shopping-cart.model';
@@ -333,5 +334,24 @@ describe('Rules engine service', () => {
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     expect(actions[0].actionType).toBe('UPDATE_PLACEHOLDER');
+  });
+
+  it('should not process unnecessary conditions', async () => {
+    const foieGrasPrice = new Subject<string | undefined>();
+    service.engine.upsertFacts<any>([{
+      id: 'foieGrasPrice',
+      value$: foieGrasPrice.asObservable()
+    }]);
+    store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoRulesAnyAndAll.ruleSets}));
+    const evaluateConditionSpy = jest.spyOn((service.engine as any).rulesetMapSubject.value['e5th46e84-5e4th-54eth65seth46se8th8'], 'evaluateCondition' as any);
+    foieGrasPrice.next(undefined);
+    await firstValueFrom(service.events$);
+    expect(evaluateConditionSpy.mock.calls.length).toBe(4);
+    // It should only call the first condition of the ALL block (as it evaluates as false)
+    expect(evaluateConditionSpy.mock.calls[0][0]).toEqual(jsonOneRulesetTwoRulesAnyAndAll.ruleSets[0].rules[0].rootElement.condition);
+    expect(evaluateConditionSpy.mock.calls[1][0]).toEqual(jsonOneRulesetTwoRulesAnyAndAll.ruleSets[0].rules[0].rootElement.condition.all[0]);
+    // It should only process the first condition of the ANY block (as it evaluates as true)
+    expect(evaluateConditionSpy.mock.calls[2][0]).toEqual(jsonOneRulesetTwoRulesAnyAndAll.ruleSets[0].rules[1].rootElement.condition);
+    expect(evaluateConditionSpy.mock.calls[3][0]).toEqual(jsonOneRulesetTwoRulesAnyAndAll.ruleSets[0].rules[1].rootElement.condition.any[0]);
   });
 });
