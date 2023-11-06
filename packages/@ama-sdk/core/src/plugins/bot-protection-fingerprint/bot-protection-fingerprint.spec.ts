@@ -14,7 +14,7 @@ describe('BotProtectionFingerprint', () => {
   describe('Retrievers', () => {
 
     describe('impervaProtectionRetrieverFactory', () => {
-      const consoleMock = jest.spyOn(console, 'warn');
+      const consoleMock = jest.spyOn(console, 'error');
       let windowBackup: any;
       let tokenValue: string;
       let retriever: BotProtectionFingerprintRetriever;
@@ -52,21 +52,24 @@ describe('BotProtectionFingerprint', () => {
 
       it('Should return undefined and log if no Protection object is received.', async () => {
         expect(await retriever()).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return undefined and log if no Protection object is received within configured timeout.', async () => {
         registerEvent(protectionResolve, 100);
 
         expect(await retriever()).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return undefined and log if token promise rejected.', async () => {
         registerEvent(protectionReject);
 
         expect(await retriever()).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return the token if everything happened within timeout values.', async () => {
@@ -77,7 +80,8 @@ describe('BotProtectionFingerprint', () => {
         tokenValue = 'newToken';
 
         expect(await retriever()).toBe(tokenValue);
-        expect(console.warn).not.toHaveBeenCalled();
+        // eslint-disable-next-line no-console
+        expect(console.error).not.toHaveBeenCalled();
       });
 
     });
