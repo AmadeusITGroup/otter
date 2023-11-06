@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-body">
     <form>
-      <div class="row">
+      <div class="row gap-3">
         <label for="pet-name" class="col-xs-3 col-sm-auto col-form-label">Name</label>
         <div class="col-xs-3 col-sm-auto">
           <input
@@ -12,8 +12,15 @@
             [ngModel]="petName()" (ngModelChange)="petName.set($event)"
           />
         </div>
+        <div class="col-xs-3 col-sm-auto">
+          <o3r-otter-picker-pres
+            [id]="'pet-image'"
+            name="petImage"
+            [ngModel]="petImage()" (ngModelChange)="petImage.set($event)"
+          ></o3r-otter-picker-pres>
+        </div>
         <div class="col-xs-3 col-sm-auto mt-2 mt-sm-0">
-          <button class="btn btn-secondary w-100 w-sm-auto"  (click)="create()">Create a pet</button>
+          <button class="btn btn-secondary w-100 w-sm-auto" (click)="create()">Create a pet</button>
         </div>
       </div>
     </form>
@@ -38,7 +45,8 @@
             <span class="visually-hidden">Loading...</span>
           </div>
           <div class="text-danger" *ngIf="hasErrors()">
-            Failed to load the list <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
+            Failed to load the list
+            <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
           </div>
         </div>
       </div>
@@ -46,26 +54,25 @@
         <table class="table table-striped">
           <thead>
           <tr>
-            <th scope="col">ID</th>
+            <th scope="col" class="table-column-photo">Icon</th>
             <th scope="col">Name</th>
-            <th scope="col">Category</th>
             <th scope="col">Tags</th>
-            <th scope="col">Actions</th>
+            <th scope="col" class="table-column-actions">Actions</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let pet of displayedPets()">
-            <th scope="row">{{ pet.id }}</th>
             <td>
+              <img width="34" height="34" [src]="baseUrl+icon" alt="{{icon}}" *ngIf="pet.photoUrls?.[0] as icon" />
+            </td>
+            <th scope="row">
               <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
-            </td>
+            </th>
+            <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
             <td>
-              <ngb-highlight [result]="pet.category?.name" [term]="searchTerm()"></ngb-highlight>
+              <button class="btn btn-danger btn-sm" title="Delete" (click)="delete(pet)"><i class="bi bi-trash"></i>
+              </button>
             </td>
-            <td>
-              <ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight>
-            </td>
-            <td><button class="btn btn-danger btn-sm" title="Delete" (click)="delete(pet)"><i class="bi bi-trash"></i></button></td>
           </tr>
           </tbody>
         </table>
@@ -79,7 +86,8 @@
             [maxSize]="10"
           ></ngb-pagination>
 
-          <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event)">
+          <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()"
+                  (ngModelChange)="pageSize.set($event)">
             <option [ngValue]="10">10 items per page</option>
             <option [ngValue]="50">50 items per page</option>
             <option [ngValue]="100">100 items per page</option>

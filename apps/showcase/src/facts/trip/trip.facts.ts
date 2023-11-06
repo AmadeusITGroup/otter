@@ -29,7 +29,6 @@ export class TripFactsService extends FactsService<TripFacts> {
 
   /**
    * Update the destination
-   *
    * @param destination
    */
   public updateDestination(destination: string | null) {
@@ -38,7 +37,6 @@ export class TripFactsService extends FactsService<TripFacts> {
 
   /**
    * Update the outbound date
-   *
    * @param outboundDate
    */
   public updateOutboundDate(outboundDate: string | null) {

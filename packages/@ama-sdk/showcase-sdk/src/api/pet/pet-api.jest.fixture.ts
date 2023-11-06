@@ -1,6 +1,7 @@
+import { ApiResponse } from '../../models/base/api-response/index';
 import { Pet } from '../../models/base/pet/index';
 
-import { AddPetRequestData, DeletePetRequestData, FindPetsByStatusRequestData, FindPetsByTagsRequestData, GetPetByIdRequestData, PetApi, UpdatePetRequestData, UpdatePetWithFormRequestData } from './pet-api';
+import { AddPetRequestData, DeletePetRequestData, FindPetsByStatusRequestData, FindPetsByTagsRequestData, GetPetByIdRequestData, PetApi, UpdatePetRequestData, UpdatePetWithFormRequestData, UploadFileRequestData } from './pet-api';
 
 export class PetApiFixture implements Partial<Readonly<PetApi>> {
 
@@ -35,5 +36,9 @@ export class PetApiFixture implements Partial<Readonly<PetApi>> {
    * Fixture associated to function updatePetWithForm
    */
   public updatePetWithForm: jest.Mock<Promise<never>, [UpdatePetWithFormRequestData]> = jest.fn();
+  /**
+   * Fixture associated to function uploadFile
+   */
+  public uploadFile: jest.Mock<Promise<ApiResponse>, [UploadFileRequestData]> = jest.fn();
 }
 
