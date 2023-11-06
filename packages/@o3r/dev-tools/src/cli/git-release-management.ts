@@ -16,7 +16,7 @@ import {
 } from '../helpers';
 
 program
-  .description('Creates next minor/major branches and delete previous ones')
+  .description('[DEPRECATED] Creates next minor/major branches and delete previous ones')
   .requiredOption('--release-version <releaseVersion>', 'Version to create RC or final release for (x.y.z format)', (v) => (/^([0-9]+)\.([0-9]+)\.([0-9]+)$/.test(v) ? v : undefined))
   .requiredOption('--release-action <releaseAction>', 'Action that needs to be performed by the cli : rcRelease or finalRelease')
   .option('--renovate-path <path>', 'Will update renovate file if found ad the given path')
@@ -38,6 +38,7 @@ const logger = winston.createLogger({
  * @param  {object} version
  */
 async function createRcRelease(version: SemVer) {
+  logger.warn('This script is deprecated, will be removed in Otter v12.');
   logger.info(`Initiating release candidate process for ${version.format()}`);
   await checkoutCurrentAlphaOrNextBranch(version, logger);
   await createRcBranch(version, logger);

@@ -21,7 +21,7 @@ const logger = winston.createLogger({
 });
 
 program
-  .description('Replace the dependencies version in a monorepos')
+  .description('[DEPRECATED] Replace the dependencies version in a monorepos')
   .option('-m, --monorepo <package>', 'Path to the private package.json of the monorepo', (filePath) => path.resolve(process.cwd(), filePath), path.resolve(process.cwd(), 'package.json'))
   .option('-t, --dependency-types <...types>', 'List of dependency types to update, comma separated', (types) => types.split(','),
     ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies'])
@@ -123,6 +123,8 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 };
 
 void (async () => {
+  // eslint-disable-next-line max-len
+  logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
   const monorepoPackage: PackageJson = require(options.monorepo);
   const { workspaces, packageManager } = monorepoPackage;
   const packageJsonPatterns = (Array.isArray(workspaces) ? workspaces : (workspaces && workspaces.packages))?.map((packagePath) => path.posix.join(packagePath, 'package.json'));
