@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, Input, OnDestroy, ViewEncapsulation
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { O3rComponent } from '@o3r/core';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
+import { DatePickerInputPresComponent } from '../../utilities';
 import { LocalizationPresTranslation, translations } from './localization-pres.translation';
 import { Subscription } from 'rxjs';
 
@@ -17,7 +18,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    LocalizationModule, CommonModule, ReactiveFormsModule
+    LocalizationModule, CommonModule, ReactiveFormsModule, DatePickerInputPresComponent
   ]
 })
 export class LocalizationPresComponent implements Translatable<LocalizationPresTranslation>, OnDestroy {

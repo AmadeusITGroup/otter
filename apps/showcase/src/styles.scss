@@ -27,6 +27,7 @@ h1, h2 {
   overflow-y: auto;
   flex-grow: 1;
   margin-top: -1rem;
+  z-index: inherit;
 }
 
 // Start overrides of design factory
@@ -43,11 +44,5 @@ h1, h2 {
 }
 .bg-body-tertiary {
   background: var(--bs-tertiary-bg);
-}
-.nav-link.active {
-  color: #000000;
-  border-color: #000000;
-  font-weight: bold;
-  border-bottom: 2px solid;
 }
 // End temporary workarounds

@@ -2,16 +2,27 @@ import { PetApi, Tag } from '@ama-sdk/showcase-sdk';
 import type { Pet } from '@ama-sdk/showcase-sdk';
 import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { NgbHighlight, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { DfMedia } from '@design-factory/design-factory';
+import { NgbHighlight, NgbPagination, NgbPaginationPages } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { OtterPickerPresComponent } from '../../utilities';
+
+const FILTER_PAG_REGEX = /[^0-9]/g;
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'o3r-sdk-pres',
   standalone: true,
-  imports: [CommonModule, NgbHighlight, FormsModule, NgbPagination, OtterPickerPresComponent],
+  imports: [
+    CommonModule,
+    NgbHighlight,
+    FormsModule,
+    NgbPagination,
+    OtterPickerPresComponent,
+    NgbPaginationPages
+  ],
   templateUrl: './sdk-pres.template.html',
   styleUrls: ['./sdk-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -19,6 +30,7 @@ import { OtterPickerPresComponent } from '../../utilities';
 })
 export class SdkPresComponent {
   private petStoreApi = inject(PetApi);
+  private mediaService = inject(DfMedia);
 
   /**
    * Name input used to create new pets
@@ -89,6 +101,11 @@ export class SdkPresComponent {
     this.filteredPets().slice((this.currentPage() - 1) * this.pageSize(), (this.currentPage()) * this.pageSize())
   );
 
+  /**
+   * True if screen size is 'xs' or 'sm'
+   */
+  public isSmallScreen = toSignal<boolean>(this.mediaService.getObservable(['xs', 'sm']));
+
   /** Base URL where the images can be fetched */
   public baseUrl = location.href.split('/#', 1)[0];
 
@@ -133,7 +150,7 @@ export class SdkPresComponent {
       Pet: pet
     });
     if (pet.photoUrls.length) {
-      const filePath = `${this.baseUrl}${pet.photoUrls[0] as string}`;
+      const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
       const blob = await (await fetch(filePath)).blob();
       await this.petStoreApi.uploadFile({
         petId: pet.id!,
@@ -157,5 +174,9 @@ export class SdkPresComponent {
 
   public getTags(pet: Pet) {
     return pet.tags?.map((tag) => tag.name).join(',');
+  }
+
+  public formatPaginationInput(input: HTMLInputElement) {
+    input.value = input.value.replace(FILTER_PAG_REGEX, '');
   }
 }

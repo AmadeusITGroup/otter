@@ -1,4 +1,4 @@
-<div class="card my-3 overflow-hidden">
+<div class="card my-3">
   <div class="row g-0">
     <div class="col-4 bg-body-tertiary d-flex align-items-center justify-center">
       <img [src]="'otter-dynamic.svg' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
@@ -27,7 +27,7 @@
           <div class="col-12 col-xl-6">
             <div class="input-group">
               <label for="date-outbound" class="input-group-text w-50">Departure</label>
-              <input type="date" class="form-control" id="date-outbound" formControlName="outboundDate">
+              <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
         </form>

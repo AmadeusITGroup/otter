@@ -1,4 +1,4 @@
-<div class="card my-3 overflow-hidden">
+<div class="card my-3">
   <div class="row g-0">
     <div class="col-4 bg-body-tertiary d-flex align-items-center justify-center">
       <img src="assets/otter.svg" class="img-fluid rounded-start" aria-hidden="true">
@@ -25,13 +25,13 @@
           <div class="col-12 col-xl-6">
             <div class="input-group">
               <label for="date-outbound" class="input-group-text w-50">Departure</label>
-              <input type="date" class="form-control" id="date-outbound" formControlName="outboundDate">
+              <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
           <div *ngIf="(config$ | async)?.shouldProposeRoundTrip" class="col-12 col-xl-6">
             <div class="input-group">
               <label for="date-inbound" class="input-group-text w-50">Return</label>
-              <input type="date" class="form-control" id="date-inbound" formControlName="inboundDate">
+              <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
         </form>
