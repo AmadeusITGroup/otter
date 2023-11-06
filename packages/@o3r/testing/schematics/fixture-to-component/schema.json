@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "NgAddFixtureSchematicsSchema",
   "title": "Add Otter Fixture to an existing component",
   "description": "Add Otter Fixture to an existing component",
