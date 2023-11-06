@@ -52,9 +52,13 @@ export class AppComponent implements OnDestroy {
       map((event) => event.urlAfterRedirects),
       shareReplay({bufferSize: 1, refCount: true})
     );
-    this.subscriptions.add(onNavigationEnd$.subscribe(() => {
+    this.subscriptions.add(onNavigationEnd$.subscribe((event) => {
       if (this.offcanvasRef) {
         this.offcanvasRef.dismiss();
+      }
+      if (!/dynamic-content/.test(event.urlAfterRedirects) && localStorage.getItem('dynamicPath')) {
+        localStorage.removeItem('dynamicPath');
+        location.reload();
       }
     }));
   }
