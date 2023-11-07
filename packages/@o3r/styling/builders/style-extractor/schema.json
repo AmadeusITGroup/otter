@@ -44,6 +44,11 @@
       "type": "boolean",
       "description": "Will not display warning for duplicated variable",
       "default": false
+    },
+    "ignoreInvalidValue": {
+      "type": "boolean",
+      "description": "Will display only a warning for invalid value",
+      "default": true
     }
   },
   "additionalProperties": false,
