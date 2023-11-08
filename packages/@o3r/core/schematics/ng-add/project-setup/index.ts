@@ -2,7 +2,6 @@ import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { PackageJson } from 'type-fest';
 import {
   o3rBasicUpdates,
   updateAdditionalModules,
@@ -17,7 +16,6 @@ import {
   install,
   mapImportV7toV8,
   ngAddPackages,
-  readPackageJson,
   removePackages,
   renamedPackagesV7toV8,
   updateImports
@@ -27,9 +25,6 @@ import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-build
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';
 import { shouldOtterLinterBeInstalled } from '../utils/index';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-
-const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9]+[0-9]*)\.(?:0|[1-9]+[0-9]*)(?:-[a-zA-Z]+\.(?:0|[1-9]+[0-9]*))?$/);
 
 /**
  * Enable all the otter features requested by the user
@@ -62,21 +57,7 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
     ...depsInfo.o3rPeerDeps
   ]));
-  const projectPackageJson = workspaceProject ? readPackageJson(tree, workspaceProject) : tree.readJson('package.json') as PackageJson;
-  const externalPackagesToInstallWithNgAdd: Record<string, string | undefined> = {};
-  // Ngx-prefetch version is aligned with angular
-  if (projectType === 'application' && context.interactive) {
-
-    const installPrefetch = await askConfirmation('Activate prefetch builder to generate prefetcher JavaScript file (see https://github.com/AmadeusITGroup/ngx-prefetch)?', false);
-    if (installPrefetch) {
-      const angularVersion = projectPackageJson.dependencies?.['@angular/core'] || projectPackageJson.peerDependencies?.['@angular/core'];
-      const angularMajorVersion = angularVersion?.match(simplifiedSemVerRegexp)?.[1];
-      const ngxPrefetchVersion = angularMajorVersion ? `^${angularMajorVersion}.0.0` : undefined;
-      externalPackagesToInstallWithNgAdd['@o3r/ngx-prefetch'] = ngxPrefetchVersion;
-    }
-  }
   const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
-
   const projectDirectory = workspaceProject?.root;
   const optionsAndWorkingDir = { ...options, workingDirectory: projectDirectory };
 
@@ -95,14 +76,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       ngAddPackages(internalPackagesToInstallWithNgAdd,
         { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
       ),
-      ngAddPackages(Object.keys(externalPackagesToInstallWithNgAdd), {
-        skipConfirmation: true,
-        version: Object.values(externalPackagesToInstallWithNgAdd),
-        parentPackageInfo: '@o3r/core - setup',
-        projectName: options.projectName,
-        dependencyType: type,
-        workingDirectory: projectDirectory
-      }),
       // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
       // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
