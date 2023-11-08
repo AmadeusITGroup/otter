@@ -14,7 +14,7 @@ describe('BotProtectionFingerprint', () => {
   describe('Retrievers', () => {
 
     describe('impervaProtectionRetrieverFactory', () => {
-      const consoleMock = jest.spyOn(console, 'error');
+      const consoleMock = jest.spyOn(console, 'error').mockImplementation();
       let windowBackup: any;
       let tokenValue: string;
       let retriever: BotProtectionFingerprintRetriever;
