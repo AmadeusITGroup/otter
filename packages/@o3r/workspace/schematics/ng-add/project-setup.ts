@@ -54,6 +54,12 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
         parentPackageInfo: '@o3r/workspace - setup',
         dependencyType: NodeDependencyType.Peer
       }),
+      ngAddPackages(['@ama-sdk/schematics'], {
+        skipConfirmation: true,
+        version: o3rCoreVersion,
+        parentPackageInfo: '@o3r/workspace - setup',
+        dependencyType: NodeDependencyType.Dev
+      }),
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
       options.skipInstall ? noop() : install
     ])(tree, context);
