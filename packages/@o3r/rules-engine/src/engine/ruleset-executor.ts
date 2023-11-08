@@ -189,8 +189,8 @@ export class RulesetExecutor {
       return !this.evaluateCondition(nestedCondition.not, factsValue, runtimeFactValues);
     }
     if (nestedCondition.all || nestedCondition.any) {
-      const children = (nestedCondition.all || nestedCondition.any).map((condition) => this.evaluateCondition(condition, factsValue, runtimeFactValues));
-      return isAllConditions(nestedCondition) ? children.every((value) => value) : children.some((value) => value);
+      const evaluate = (condition: NestedCondition) => this.evaluateCondition(condition, factsValue, runtimeFactValues);
+      return isAllConditions(nestedCondition) ? nestedCondition.all.every(evaluate) : nestedCondition.any.some(evaluate);
     }
     throw new Error(`Unknown condition block met : ${JSON.stringify(nestedCondition)}`);
   }
