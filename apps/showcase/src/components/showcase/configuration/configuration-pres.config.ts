@@ -23,6 +23,11 @@ export interface ConfigurationPresConfig extends Configuration {
   inXDays: number;
   /**
    * Proposed destinations
+   * @o3rWidget DESTINATION_ARRAY
+   * @o3rWidgetParam minItems 1
+   * @o3rWidgetParam allDestinationsDifferent true
+   * @o3rWidgetParam atLeastOneDestinationAvailable true
+   * @o3rWidgetParam destinationPattern "[A-Z][a-zA-Z-' ]+"
    */
   destinations: DestinationConfiguration[];
   /**

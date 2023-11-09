@@ -18,7 +18,7 @@ export class RulesetHistoryService {
    */
   public readonly rulesetExecutions$: Observable<RulesetExecutionDebug[]> = this.ruleEngineDebugEvents$.pipe(
     map(({events, rulesetMap}) => rulesetReportToHistory(events, rulesetMap)),
-    shareReplay(1)
+    shareReplay({bufferSize: 1, refCount: true})
   );
 
   /**

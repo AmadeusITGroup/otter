@@ -19,6 +19,6 @@
   "disableRoutesGraph": true,
   "disableSearch": true,
   "hideGenerator": true,
-  "customFavicon": ".attachments/logos/otter-128x128.png",
+  "customFavicon": "assets/logo/flavors/otter-128x128.png",
   "templates": "./compodoc-templates/root"
 }

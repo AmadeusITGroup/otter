@@ -43,6 +43,19 @@
     "styled-css"
   ],
   "eslint.nodePath": ".yarn/sdks",
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "json"
+  ],
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "html",
+    "markdown",
+    "json"
+  ],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
@@ -55,6 +68,8 @@
     "**/node_modules/**": true,
     "tools/github-actions/*/packaged-action/**": true
   },
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
   "otter.generate.store.testFramework": "jest",
   "otter.packageManager": "yarn"

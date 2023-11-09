@@ -39,7 +39,7 @@ export class ComponentPanelPresComponent implements OnDestroy {
     rulesetHistoryService: RulesetHistoryService,
     private cd: ChangeDetectorRef
   ) {
-    const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay(1));
+    const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({bufferSize: 1, refCount: true}));
     this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));
     this.subscription.add(
       selectedComponentInfoMessage$.subscribe((info) => {
@@ -52,7 +52,7 @@ export class ComponentPanelPresComponent implements OnDestroy {
       this.isLookingToContainer$
     ]).pipe(
       map(([info, isLookingToContainer]) => isLookingToContainer ? info.container : info),
-      shareReplay(1)
+      shareReplay({bufferSize: 1, refCount: true})
     );
 
     this.config$ = combineLatest([

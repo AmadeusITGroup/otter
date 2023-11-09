@@ -1,3 +1,4 @@
+import { posix } from 'node:path';
 import { logging } from '@angular-devkit/core';
 import { execSync } from 'node:child_process';
 import type { WorkspaceSchema } from '../interfaces';
@@ -10,6 +11,11 @@ export type SupportedPackageManagerRunners = `${SupportedPackageManagers} run` |
 
 /** Support NPM package managers */
 export type SupportedPackageManagerExecutors = `${SupportedPackageManagers} exec` | 'yarn' | 'npx';
+
+const PACKAGE_MANAGER_WORKSPACE_MAPPING: Record<SupportedPackageManagers, string> = {
+  npm: '--workspace',
+  yarn: 'workspace'
+};
 
 /** Option to determine Package Manager */
 export interface PackageManagerOptions {
@@ -25,7 +31,6 @@ export interface PackageManagerOptions {
 
 /**
  * Determine if the given packager manager is supported
- *
  * @param name Name of the package manager
  */
 export function isSupportedPackageManager(name?: any): name is SupportedPackageManagers {
@@ -34,7 +39,6 @@ export function isSupportedPackageManager(name?: any): name is SupportedPackageM
 
 /**
  * Get the Package Manager
- *
  * @param enforcedNpmManager package manager to enforce
  */
 function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers): SupportedPackageManagers {
@@ -46,7 +50,6 @@ function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers): S
 /**
  * Get package manager used in runs
  * Defaults to the package manager setup in process.env if no package manager set in angular.json
- *
  * @param options Option to determine the final package manager
  */
 export function getPackageManager(options?: PackageManagerOptions) {
@@ -64,25 +67,45 @@ export function getPackageManager(options?: PackageManagerOptions) {
 
 /**
  * Get command to run scripts with your package manager
- *
  * @param workspaceConfig Workspace configuration
+ * @param packageName Name of the package of the workspace to run the script (name from package.json)
  */
-export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null) {
-  return getPackageManager({ workspaceConfig }) + ' run' as SupportedPackageManagerRunners;
+export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): SupportedPackageManagerRunners | string {
+  const pckManager = getPackageManager({ workspaceConfig });
+  if (!packageName) {
+    return `${pckManager} run` as SupportedPackageManagerRunners;
+  }
+  return `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} run`;
 }
 
 /**
  * Get command to execute bin command with your package manager
- *
  * @param workspaceConfig Workspace configuration
+ * @param packageName Name of the package of the workspace to execute the command
  */
-export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null) {
-  return getPackageManager({ workspaceConfig }) + ' exec' as SupportedPackageManagerExecutors;
+export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): SupportedPackageManagerExecutors | string {
+  const pckManager = getPackageManager({ workspaceConfig });
+  if (!packageName) {
+    return `${pckManager} exec` as SupportedPackageManagerExecutors;
+  }
+  return `${pckManager} ${PACKAGE_MANAGER_WORKSPACE_MAPPING[pckManager]} ${packageName} exec`;
+}
+
+/**
+ * Determine if the given package is installed
+ * @param packageName name of the package to check
+ * @returns
+ */
+export function isPackageInstalled(packageName: string) {
+  try {
+    return !!require.resolve(posix.join(packageName, 'package.json'));
+  } catch {
+    return false;
+  }
 }
 
 /**
  * Get package manager version
- *
  * @param options Option to determine the final package manager
  */
 export function getPackageManagerVersion(options?: PackageManagerOptions): string | undefined {
@@ -106,7 +129,6 @@ export function getPackageManagerVersion(options?: PackageManagerOptions): strin
 
 /**
  * Get package manager information
- *
  * @param options Option to determine the final package manager
  */
 export function getPackageManagerInfo(options?: PackageManagerOptions) {

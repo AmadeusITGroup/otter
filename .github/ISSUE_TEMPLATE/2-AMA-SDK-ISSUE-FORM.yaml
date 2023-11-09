@@ -15,7 +15,10 @@ body:
       multiple: true
       options: [
         core,
+        create,
         generator-sdk,
+        schematics,
+        showcase-sdk
         swagger-builder
       ]
     validations:
