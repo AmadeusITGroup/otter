@@ -10,9 +10,14 @@
       "$default": {
         "$source": "projectName"
       }
+    },
+    "enableMetadataExtract": {
+      "type": "boolean",
+      "default": false,
+      "description": "Activate metadata extraction"
     }
   },
-  "additionalProperties": false,
+  "additionalProperties": true,
   "required": [
   ]
 }

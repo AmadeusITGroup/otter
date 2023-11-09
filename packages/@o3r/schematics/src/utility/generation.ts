@@ -1,7 +1,8 @@
 import { JsonValue } from '@angular-devkit/core';
 import { Tree } from '@angular-devkit/schematics';
-import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
-import { getProjectFromTree, readAngularJson } from './loaders';
+import { O3rCliError } from './error';
+import { getWorkspaceConfig } from './loaders';
+import { getDefaultOptionsForSchematic } from './collection';
 
 /** Type of generated item */
 export type GeneratedItemType =
@@ -44,26 +45,15 @@ export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string;
 
 /**
  * Get destination path for a generated item
- *
  * @param typeOfItem
  * @param directory
  * @param tree
  * @param project
  */
-export function getDestinationPath(typeOfItem: GeneratedItemType, directory: string | null, tree: Tree, project?: string | null): string {
+export function getDestinationPath(typeOfItem: GeneratedItemType, directory: string | null | undefined, tree: Tree, project?: string | null): string {
   if (directory) {
     return directory;
   }
-
-  /**
-   * @param workspace
-   * @param generatorName
-   */
-  const getSchematicsPropertyFrom = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(
-    workspace: WorkspaceProject | WorkspaceSchema,
-    generatorName: GeneratedItemType): T | null => {
-    return workspace.schematics?.[generatorName] || null;
-  };
 
   /**
    * @param generatorName
@@ -71,8 +61,10 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
    * @param propProject
    */
   const getSchematicsProperty = <T extends { [x: string]: JsonValue } = { [x: string]: JsonValue }>(generatorName: GeneratedItemType, propTree: Tree, propProject?: string | null): T | null => {
-    const workspaceProject = getProjectFromTree(propTree, propProject);
-    return workspaceProject ? getSchematicsPropertyFrom(workspaceProject, generatorName) || getSchematicsPropertyFrom(readAngularJson(propTree), generatorName) : null;
+    const workspace = getWorkspaceConfig(propTree);
+    const [collection, schematicName] = generatorName.split(':');
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return workspace && getDefaultOptionsForSchematic(workspace, collection, schematicName, { projectName: propProject || undefined }) as any as T | undefined || null;
   };
 
   const config = getSchematicsProperty(typeOfItem, tree, project);
@@ -80,5 +72,5 @@ export function getDestinationPath(typeOfItem: GeneratedItemType, directory: str
     return config.path as string;
   }
 
-  throw new Error('No destination directory configured.');
+  throw new O3rCliError('No destination directory configured.');
 }

@@ -38,9 +38,9 @@ module.exports = class extends SdkGenerator {
       if (swaggerConfig.modelPackage) {
         const modelPackage = swaggerConfig.modelPackage.split('.');
         this.log('Remove previously generated mappers');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, 'mapper', '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, 'mapper', '**', '*.java'), {glob: true});
         this.log('Remove previously generated private models');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, 'model', 'base', '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, 'model', 'base', '**', '*.java'), {glob: true});
       }
     }
     this.log('Remove previously generated readme');
@@ -131,6 +131,6 @@ module.exports = class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-mdk', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-mdk', '**'), {glob: true});
   }
 };

@@ -42,12 +42,12 @@ There are three folders:
 
 * `container` component folder; It contains the files related to the container component. Check the [container / presenter documentation](./CONTAINER_PRESENTER.md) for more details
 * `presenter` component folder; It contains the files related to the presenter component. Check the [container / presenter documentation](./CONTAINER_PRESENTER.md) for more details
-* `sub-components` folder; A component may be composed of sub-components. They should be located in a dedicated sub-components folder inside the component folder. We want to keep all components which belongs to the same functional area and are not blocks in the same functional folder.
+* `sub-components` folder; A component may be composed of subcomponents. They should be located in a dedicated subcomponents folder inside the component folder. We want to keep all components which belongs to the same functional area and are not blocks in the same functional folder.
 Nevertheless, if a component is shared among different functional blocks, it will have to be set inside the dedicated shared folder (at the root of components folder).
 
 Optionally, there could be other two folders:
 
-* `contracts`; used to contain all shared models or interfaces over your components (between container and presenter, sub-components or other components).
+* `contracts`; used to contain all shared models or interfaces over your components (between container and presenter, subcomponents or other components).
 * `directives`, which contains directives used in the context of your component. Keeping them in a dedicated folder will help you extract them if they have to be extracted in order to be shared.
 
 If you don't need container/presenter structure because your component is only a presentational component, then the structure will be:
@@ -130,7 +130,7 @@ export  const translations: MyComponentPresTranslation = {
 
 ### Localization (`*.localization.json`)
 
-It defines an object beeing key/value pairs. Each value is a json object having `description` and `defaultValue` properties. Eventually you can reference a global key via $ref using relative path to `global-localization.json` which sits in `src` or in different package in dependencies. The purpose of this file is to provide a default localization for component so that library user can start building pages using components without worrying about localization. `*.localization.json` specifies only default values in english.
+It defines an object being key/value pairs. Each value is a json object having `description` and `defaultValue` properties. Eventually you can reference a global key via $ref using relative path to `global-localization.json` which sits in `src` or in different package in dependencies. The purpose of this file is to provide a default localization for component so that library user can start building pages using components without worrying about localization. `*.localization.json` specifies only default values in english.
 
 ```typescript
 {

@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateRenovateBotSchematicsSchema extends JsonObject {
+export interface NgGenerateRenovateBotSchematicsSchema extends SchematicOptionObject {
   /** The name of the Azure Organization to create the bot in. */
   organizationName: string;
 }

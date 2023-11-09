@@ -1,0 +1,67 @@
+{
+  "name": "@o3r/test-helpers",
+  "private": true,
+  "main": "./dist/src/public_api.js",
+  "typings": "./dist/src/public_api.d.ts",
+  "version": "0.0.0-placeholder",
+  "peerDependencies": {
+    "@angular-devkit/schematics": "^16.0.0",
+    "@o3r/schematics": "workspace:^",
+    "minimist": "^1.2.6",
+    "pid-from-port": "^1.1.3",
+    "semver": "^7.5.2"
+  },
+  "dependencies": {
+    "tslib": "^2.5.3"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "build": "yarn nx build test-helpers",
+    "prepare:build:builders": "yarn run cpy 'collection.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty"
+  },
+  "devDependencies": {
+    "@angular-devkit/schematics": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@nx/eslint-plugin": "~16.8.0",
+    "@o3r/dev-tools": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~16.2.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^18.0.0",
+    "@types/pid-from-port": "^1.1.0",
+    "@types/semver": "^7.3.13",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "cpy-cli": "^4.2.0",
+    "eslint": "^8.42.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-jest": "~27.4.0",
+    "eslint-plugin-jsdoc": "~46.8.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^47.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jsonc-eslint-parser": "~2.3.0",
+    "minimist": "^1.2.6",
+    "pid-from-port": "^1.1.3",
+    "rxjs": "^7.8.1",
+    "semver": "^7.5.2",
+    "ts-jest": "~29.1.1",
+    "type-fest": "^3.12.0",
+    "typescript": "~5.1.6"
+  },
+  "keywords": [
+    "otter-module"
+  ],
+  "schematics": "./collection.json",
+  "peerDependenciesMeta": {
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@o3r/schematics": {
+      "optional": true
+    }
+  }
+}

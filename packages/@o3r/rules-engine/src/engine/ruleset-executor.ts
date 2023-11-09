@@ -84,7 +84,7 @@ export class RulesetExecutor {
    * @param factsValue
    * @param runtimeFactValues
    */
-  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts>, runtimeFactValues: Record<string, Facts>): unknown | unknown[] {
+  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): unknown | unknown[] {
     if (typeof operand === 'undefined') {
       return undefined;
     } else if (isOperandFact(operand)) {
@@ -109,7 +109,7 @@ export class RulesetExecutor {
    * @param runtimeFactValues
    * @protected
    */
-  protected evaluateRule(rule: Rule, factsValue: Record<string, Facts>, runtimeFactValues: Record<string, Facts>) {
+  protected evaluateRule(rule: Rule, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>) {
     return this.evaluateBlock(rule.rootElement, factsValue, runtimeFactValues);
   }
 
@@ -123,7 +123,7 @@ export class RulesetExecutor {
    * @param runtimeFactValues This runtime fact map will be mutated by all the runtime facts actions executed
    * @protected
    */
-  protected evaluateBlock(element: AllBlock, factsValue: Record<string, Facts>, runtimeFactValues: Record<string, Facts>, actions: ActionBlock[] = []) {
+  protected evaluateBlock(element: AllBlock, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>, actions: ActionBlock[] = []) {
     if (this.isIfElseBlock(element)) {
       (!element.condition || this.evaluateCondition(element.condition, factsValue, runtimeFactValues) ? element.successElements : element.failureElements)
         .forEach((elementResult) => this.evaluateBlock(elementResult, factsValue, runtimeFactValues, actions));
@@ -175,7 +175,7 @@ export class RulesetExecutor {
    * @param runtimeFactValues
    * @protected
    */
-  protected evaluateCondition(nestedCondition: NestedCondition, factsValue: Record<string, Facts>, runtimeFactValues: Record<string, Facts>): boolean {
+  protected evaluateCondition(nestedCondition: NestedCondition, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): boolean {
     if (isConditionProperties(nestedCondition)) {
       const operator = this.operators[nestedCondition.operator];
       if (operator === undefined) {
@@ -227,7 +227,7 @@ export class RulesetExecutor {
 
       return combineLatest(this.ruleset.rules.map((rule) => {
         const values$ = rule.inputFacts.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact));
-        return (values$.length ? combineLatest(values$) : of([[]]))
+        return (values$.length ? combineLatest(values$) : of([[]] as (Facts | undefined)[]))
           .pipe(
             startWith(undefined),
             pairwise(),
@@ -236,7 +236,7 @@ export class RulesetExecutor {
               const output: RuleEvaluationOutput = {actions: undefined};
 
               try {
-                output.actions = this.evaluateRule(rule, rule.inputFacts.reduce((acc, id, index) => {
+                output.actions = this.evaluateRule(rule, rule.inputFacts.reduce<Record<string, Facts | undefined>>((acc, id, index) => {
                   acc[id] = factValues![index];
                   return acc;
                 }, {}), runtimeFactValues);

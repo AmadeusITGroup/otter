@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "type": "object",
+  "$id": "RunScriptBuilderSchema",
+  "title": "Run script builder",
+  "description": "Run a script defined in package.json",
+  "properties": {
+    "script": {
+      "type": "string",
+      "description": "A script name in the project's `package.json` file."
+    }
+  },
+  "additionalProperties": false,
+  "required": ["script"]
+}

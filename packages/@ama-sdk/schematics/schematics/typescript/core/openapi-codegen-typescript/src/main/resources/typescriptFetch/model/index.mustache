@@ -1,0 +1,9 @@
+{{#models}}
+{{#model}}
+export type { {{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
+{{^isEnum}}export { revive{{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}.reviver';{{/isEnum}}
+{{/model}}
+{{/models}}
+{{^models.size}}
+export type { };
+{{/models.size}}

@@ -1,4 +1,4 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
+/** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
   displayName: require('./package.json').name,
   preset: 'ts-jest',
@@ -6,18 +6,21 @@ module.exports = {
   roots: ['<rootDir>/src/'],
   reporters: [
     'default',
-    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@<%=projectName%>/<%=projectPackageName%> unit tests' }]
+    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%> unit tests' }]
   ],
   moduleNameMapper: {
-    '^@<%=projectName%>/<%=projectPackageName%>$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    '^@<%=projectName%>/<%=projectPackageName%>/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1'],
+    '^<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>$': ['<rootDir>/src'],
+    '^<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/(.*)$': ['<rootDir>/src/$1'],
   },
-  globals: {
+  transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    'ts-jest': {
-      tsconfig: '<rootDir>/testing/tsconfig.spec.json',
-      isolatedModules: true,
-      stringifyContentPathRegex: '\\.html$',
-    }
+    '^.+\\.tsx?$': [
+      'ts-jest',
+      {
+        tsconfig: '<rootDir>/testing/tsconfig.spec.json',
+        isolatedModules: true,
+        stringifyContentPathRegex: '\\.html$',
+      }
+    ]
   }
 };

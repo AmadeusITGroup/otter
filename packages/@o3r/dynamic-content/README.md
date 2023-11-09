@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-This module provides a mechanism to retrieve media and data depending on the host or a server specific url.
+This module provides a mechanism to retrieve media and data depending on the host or a server-specific url.
 
 ## How to install
 
@@ -102,9 +102,36 @@ export function myContentPath() {
 export class MyModule {}
 ```
 
-## getContentPath
+## getContentPathStream
 
-For non-media resources (ex: localization, configuration) one should refer to the ``getContentPath`` method of the ``DynamicContentService``. Doing so will ensure the correct resource path is computed in an ACS-enabled environment (e.g. when the ``data-dynamiccontentpath`` tag is present in the body).
+For non-media resources (ex: localization, configuration) one should refer to the ``getContentPath`` method of the ``DynamicContentService``. Doing so will ensure the correct resource path is computed in any environment (e.g. when the ``data-dynamiccontentpath`` tag is present in the body).
+
+The content path is always related to the root of the application.
+It also ignores any path overrides from the `AssetPathOverrideStore` store, meaning that you will always get the same file.
+
+```typescript
+import {Observable} from 'rxjs';
+
+@Component({
+  /** */
+})
+export class MyComponent {
+
+  public dynamicConfig$: Observable<Response>;
+
+  constructor(private service: DynamicContentService) {
+    this.dynamicConfig$ = this.service.getContentPathStream('global.config.post.json').pipe(
+      switchMap((filePath) => from(fetch(filePath))
+      ));
+  }
+}
+```
+
+## getMediaPathStream
+
+This method allows to access all media resources: meaning any resource that is INSIDE the media folder.
+The assets path needs to be relative to the media folder.
+Example:
 
 ```typescript
 @Component({
@@ -114,8 +141,18 @@ export class MyComponent {
   constructor(private service: DynamicContentService) {}
 
   async getDynamicConfig() {
-    const result = await fetch(this.dynamicContentService.getContentPath('global.config.post.json'));
-    ...
+    const filePath = await firstValueFrom(this.service.getMediaPathStream('imgs/my-image.png'));
+    const fileContent = await fetch(filePath);
+    //  ...
   }
 }
 ```
+It also looks for overrides in the `AssetPathOverrideStore`, so it will return the new value instead if an override is found.
+
+## AssetPathOverrideStore
+
+A dedicated store is available in case you want to override any media path. 
+This store contains a mapping between the current file path and the one that should be used instead.
+
+This override ONLY WORKS for media resources.
+

@@ -4,7 +4,7 @@ import { combineLatest, firstValueFrom, Observable } from 'rxjs';
 import { map, scan, shareReplay } from 'rxjs/operators';
 import type { ActiveRulesetsEvent, AvailableRulesets, BaseRulesetExecution, DebugEvent, Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../engine';
 import { RulesEngineService } from '../services';
-import { RulesetsStore, selectRulesetsEntities } from '../stores';
+import { RulesetsModel, RulesetsStore, selectRulesetsEntities } from '../stores';
 import { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
 import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
 
@@ -43,7 +43,7 @@ export class OtterRulesEngineDevtools {
     this.rulesEngineReport$ = this.rulesEngineEvents$ && combineLatest([this.rulesEngineEvents$, this.store.pipe(select(selectRulesetsEntities))]).pipe(
       map(([events, rulesetEntities]) => {
         const rulesetMap: Record<string, Ruleset> = Object.entries(rulesetEntities)
-          .reduce((acc, [id, ruleset]) => {
+          .reduce<Record<string, RulesetsModel>>((acc, [id, ruleset]) => {
             if (ruleset) {
               acc[id] = ruleset;
             }

@@ -3,10 +3,14 @@
   "$id": "StyleMetadataSchema",
   "description": "Schema of Application style",
   "type": "object",
-  "additionalProperties": {
-    "$ref": "#/definitions/StyleMetadataValueSchema"
+  "properties": {
+    "variables": {
+      "additionalProperties": {
+        "$ref": "#/definitions/StyleMetadataValueSchema"
+      }
+    }
   },
-
+  "required": ["variables"],
   "definitions": {
     "StyleMetadataValueSchema": {
       "type": "object",

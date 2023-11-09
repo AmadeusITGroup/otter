@@ -1,21 +1,37 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import { CmsMedataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { isO3rClassComponent } from '@o3r/schematics';
 import type { CssMetadata } from '@o3r/styling';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
+import * as ts from 'typescript';
 import { CssVariableExtractor } from './helpers/index';
 import { StyleExtractorBuilderSchema } from './schema';
 
 export * from './schema';
 
+
+/**
+ * Get the library name from package.json
+ *
+ * @param currentDir
+ */
+const defaultLibraryName = (currentDir: string = process.cwd()) => {
+  const packageJsonPath = path.resolve(currentDir, 'package.json');
+  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8'})).name as string;
+};
+
 export default createBuilder<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
+  const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
   const cssVariableExtractor = new CssVariableExtractor();
 
-  const execute = async (files: string[], previousMetadata: CssMetadata = {}): Promise<BuilderOutput> => {
+  const execute = async (files: string[], previousMetadata: CssMetadata = {
+    variables: {}
+  }): Promise<BuilderOutput> => {
     /** Maximum number of steps */
     const STEP_NUMBER = files.length + 1;
     /** List of SCSS files for which the extraction failed */
@@ -28,7 +44,23 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
       await Promise.all(files.map((file, idx) => {
         try {
           context.reportProgress(idx, STEP_NUMBER, `Extracting ${file}`);
-          return cssVariableExtractor.extractFile(file);
+          const variables = cssVariableExtractor.extractFile(file);
+          const themeFileSuffix = '.style.theme.scss';
+          if (file.endsWith(themeFileSuffix)) {
+            const componentPath = path.join(path.dirname(file), `${path.basename(file, themeFileSuffix)}.component.ts`);
+            const componentSourceFile = ts.createSourceFile(
+              componentPath,
+              fs.readFileSync(componentPath).toString(),
+              ts.ScriptTarget.ES2020,
+              true
+            );
+            const componentDeclaration = componentSourceFile.statements.find((s): s is ts.ClassDeclaration => ts.isClassDeclaration(s) && isO3rClassComponent(s));
+            const componentName: string | undefined = componentDeclaration?.name?.escapedText.toString();
+            if (componentName) {
+              return variables.map((variable) => ({ ...variable, component: { library: libraryName, name: componentName }}));
+            }
+          }
+          return variables;
         } catch (error: any) {
           hasFailedFiles.push({file, error});
           return [];
@@ -37,17 +69,17 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
     ).reduce<CssMetadata>((acc, cssVarList) => {
       // Check duplicate CSS variable
       cssVarList
-        .filter((cssVar) => acc[cssVar.name])
-        .filter((cssVar) => !initialPreviousMetadata[cssVar.name] && acc[cssVar.name].defaultValue !== cssVar.defaultValue)
+        .filter((cssVar) => !!acc.variables[cssVar.name])
+        .filter((cssVar) => !initialPreviousMetadata.variables[cssVar.name] && acc.variables[cssVar.name].defaultValue !== cssVar.defaultValue)
         .forEach((cssVar) =>
-          context.logger.warn(`Duplicate "${cssVar.name}" (${acc[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`)
+          context.logger[options.ignoreDuplicateWarning ? 'debug' : 'warn'](`Duplicate "${cssVar.name}" (${acc.variables[cssVar.name].defaultValue} will be replaced by ${cssVar.defaultValue})`)
         );
 
       // merge all variables form all the files
       cssVarList
         .forEach((item) => {
-          acc[item.name] = item;
-          delete (acc[item.name] as any).name;
+          acc.variables[item.name] = item;
+          delete (acc.variables[item.name] as any).name;
         });
       return acc;
     }, previousMetadata);
@@ -133,7 +165,9 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
 
   } else {
     /** Cache */
-    const cacheMetadata: CssMetadata = {};
+    const cacheMetadata: CssMetadata = {
+      variables: {}
+    };
     /** List of library metadata files */
     const metadataFiles: CmsMedataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
     const libMetadataFiles = metadataFiles

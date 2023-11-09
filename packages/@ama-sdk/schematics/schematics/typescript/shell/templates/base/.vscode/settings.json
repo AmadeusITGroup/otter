@@ -1,0 +1,22 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "jest.jestCommandLine": "<%=packageManager%> exec jest",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    <% if (packageManager === 'yarn') { %>
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    <% } %>
+    "**/node_modules/**": true,
+    "src/base/*/*.ts": true
+  },
+  "files.readonlyExclude": {
+    "src/base/*/index.ts": true
+  }
+}

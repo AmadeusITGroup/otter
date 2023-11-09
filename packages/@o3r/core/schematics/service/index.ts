@@ -1,13 +1,11 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getDestinationPath, getProjectFromTree, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateServiceSchematicsSchema } from './schema';
 
-
 /**
  * add a Service to an Otter project
- *
  * @param options
  */
 export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): Rule {
@@ -43,8 +41,8 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
       currentServiceIndex = '';
     }
 
-    const workspaceProject = getProjectFromTree(tree);
-
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const workspaceConfig = getWorkspaceConfig(tree);
     let packageName = destination;
     if (workspaceProject?.projectType !== 'application') {
       let rec = '..';
@@ -54,26 +52,42 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
       packageName = JSON.parse(tree.read(path.resolve(destination, rec, 'package.json'))!.toString()).name?.split('/')[0] || destination;
     }
 
-    const templateSource = apply(url('./templates'), [
-      template({
-        ...strings,
-        ...options,
-        featureName,
-        currentServiceIndex,
-        currentFixtureJasmineIndex,
-        currentFixtureJestIndex,
-        serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName)),
-        packageName
-      }),
+    const templateData = {
+      ...strings,
+      ...options,
+      featureName,
+      currentServiceIndex,
+      currentFixtureJasmineIndex,
+      currentFixtureJestIndex,
+      serviceName: strings.capitalize(strings.camelize(options.name + ' ' + options.featureName)),
+      packageName
+    };
+
+    const baseTemplateSource = apply(url('./templates/base'), [
+      template(templateData),
       renameTemplateFiles(),
       move(destination)
     ]);
+
+    const rules = [mergeWith(baseTemplateSource, MergeStrategy.Overwrite)];
+
+    const testFramework = getTestFramework(workspaceConfig, context);
+    if (testFramework) {
+      rules.push(mergeWith(apply(url(`./templates/${testFramework}`), [
+        template(templateData),
+        renameTemplateFiles(),
+        move(destination)
+      ]), MergeStrategy.Overwrite));
+      context.logger.info(`Added fixture for '${testFramework}'.`);
+    } else {
+      context.logger.info('No test framework has been identified thus no fixture added.');
+    }
+
     if (moduleHasSubEntryPoints(tree, destination)) {
       writeSubEntryPointPackageJson(tree, destination, strings.dasherize(name));
     }
-    const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
-    return rule(tree, context);
+    return chain(rules)(tree, context);
   };
 
   return chain([

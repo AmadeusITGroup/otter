@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "convertToO3rComponentSchematicsSchema",
+  "title": "Convert an Angular component into an Otter component",
+  "description": "Convert an Angular component into an Otter component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component to convert"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "componentType": {
+      "type": "string",
+      "description": "Type of the component",
+      "enum": [
+        "Component",
+        "ExposedComponent",
+        "Block",
+        "Page"
+      ],
+      "default": "Component"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

@@ -1,0 +1,16 @@
+<ul class="nav flex-column">
+  <li *ngFor="let group of linksGroups">
+    <ul class="nav flex-column nav-underline mb-3" [attr.aria-label]="group.label || null" [class.sub-group]="group.label">
+      <li class="nav-item" *ngFor="let link of group.links">
+        <a class="nav-link"
+          [class.active]="activeUrl === link.url"
+          [routerLinkActive]="activeUrl === link.url ? 'active' : ''"
+          ariaCurrentWhenActive="page"
+          [routerLink]="link.url"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+  </li>
+</ul>

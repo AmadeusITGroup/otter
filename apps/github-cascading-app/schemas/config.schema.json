@@ -53,6 +53,11 @@
       "type": "string",
       "description": "Title of the generated pull request\n\nThe text can include the following variables that will be replaced by the cascading app:\n- **$origin** : Origin branch\n- **$target** : Target branch",
       "default": "[cascading] from $origin to $target"
+    },
+    "branchNamePrefix": {
+      "type": "string",
+      "description": "Prefix of the branch created for creating process",
+      "default": "cascading"
     }
   },
   "additionalItems": false

@@ -1,6 +1,6 @@
 import {SchematicContext, Tree} from '@angular-devkit/schematics';
 import {getDecoratorMetadata} from '@schematics/angular/utility/ast-utils';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import {getAppModuleFilePath} from './modules';
 
 /**
@@ -25,15 +25,16 @@ export interface FileInfo {
  *
  * @param tree
  * @param context
+ * @param projectName
  */
-export function getFileInfo(tree: Tree, context: SchematicContext) {
+export function getFileInfo(tree: Tree, context: SchematicContext, projectName?: string | undefined) {
   const fileInfo: FileInfo = {
     moduleFilePath: undefined,
     sourceFile: undefined,
     ngModulesMetadata: undefined,
     appModuleFile: undefined
   };
-  const moduleFilePath = getAppModuleFilePath(tree, context);
+  const moduleFilePath = getAppModuleFilePath(tree, context, projectName);
   if (!moduleFilePath) {
     return fileInfo;
   }

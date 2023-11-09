@@ -14,7 +14,7 @@ export abstract class BaseMockAdapter implements MockAdapter {
   protected mockFactory: (() => Promise<MockMap>) | undefined;
 
   constructor(
-    protected pathObjects: PathObject[],
+    protected pathObjects: PathObject[] | (() => PathObject[] | Promise<PathObject[]>),
     mockMap: MockMap | (() => Promise<MockMap>)
   ) {
     if (typeof mockMap !== 'function') {
@@ -30,11 +30,7 @@ export abstract class BaseMockAdapter implements MockAdapter {
   /** @inheritdoc */
   public abstract getLatestMock(operationId: string): Mock<any>;
 
-  /**
-   * @inheritDoc
-   */
-  public getOperationId(request: EncodedApiRequest): string {
-    const object = getPath(request.basePath, this.pathObjects, request.method);
+  protected extractOperationIdFromPath(request: EncodedApiRequest, object?: PathObject): string {
     if (!object) {
       throw new Error(`No operation has been found for ${request.basePath}`);
     }
@@ -43,6 +39,26 @@ export abstract class BaseMockAdapter implements MockAdapter {
       throw new Error(`No operation has been found for ${request.method}:${request.basePath}`);
     }
     return id;
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public getOperationId(request: EncodedApiRequest): string {
+    if (typeof this.pathObjects === 'function') {
+      throw new Error('The pathObjects argument must be of type PathObject[]');
+    }
+    const object = getPath(request.basePath, this.pathObjects, request.method);
+    return this.extractOperationIdFromPath(request, object);
+  }
+
+  /**
+   * @inheritDoc
+   */
+  public async retrieveOperationId(request: EncodedApiRequest): Promise<string> {
+    const pathObjects = typeof this.pathObjects === 'function' ? await this.pathObjects() : this.pathObjects;
+    const object = getPath(request.basePath, pathObjects, request.method);
+    return this.extractOperationIdFromPath(request, object);
   }
 
   /**

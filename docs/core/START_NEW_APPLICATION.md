@@ -13,7 +13,7 @@ Start a new Otter application.
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
 
-## Creating a new Angular application
+## Creating a new Otter application
 
 ```bash
 # Create new application
@@ -54,7 +54,6 @@ to create components and services consistent with your project.
 {
   "schematics": {
     "@o3r/core:component": {
-      "useStorybook": true,
       "useOtterTheming": true,
       "useOtterAnalytics": true
     }

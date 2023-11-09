@@ -7,9 +7,9 @@ const copyFile = util.promisify(cpx.copy);
 
 const root = path.resolve(__dirname, '..');
 const argv = minimist(process.argv.slice(2));
-const folderName = argv.folderName || '@<%=projectName%>/<%=projectPackageName%>';
+const folderName = argv.folderName || '<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>';
 
 (async () => {
-  await copyFile(path.posix.join(root, 'readme.md'), path.posix.join(root, '.readme-backup'));
-  await copyFile(path.posix.join(root, 'packages', folderName, 'readme.md'), root);
+  await copyFile(path.join(root, 'readme.md'), path.join(root, '.readme-backup'));
+  await copyFile(path.join(root, 'packages', folderName, 'readme.md'), root);
 })();

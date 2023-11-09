@@ -1,7 +1,8 @@
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { LogEntry } from '@angular-devkit/core/src/logger';
 import type { JSONLocalization } from '@o3r/localization';
-import * as fs from 'fs';
+import { O3rCliError } from '@o3r/schematics';
+import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
 import { firstValueFrom, from, merge } from 'rxjs';
@@ -30,7 +31,7 @@ function getAppTranslationFiles(languages: string[], assets: string | string[], 
     objectMode: true
   });
 
-  const filesPerLanguage = languageFileEntries.reduce((acc, languageFileEntry) => {
+  const filesPerLanguage = languageFileEntries.reduce<Record<string, string[]>>((acc, languageFileEntry) => {
     const language = languageFileEntry.name.slice(0, -5); // Remove .json extension from the name
     acc[language] = acc[language] || [];
     acc[language].push(languageFileEntry.path);
@@ -72,7 +73,7 @@ function checkUnusedTranslation(
   missingMetadata.forEach((key) => context.logger[failIfMissingMetadata ? 'error' : 'warn'](`The key "${key}" from "${language}" is not part of the MetaData`));
 
   if (missingMetadata.length && failIfMissingMetadata) {
-    throw new Error(`There is missing metadata for ${language}`);
+    throw new O3rCliError(`There is missing metadata for ${language}`);
   }
 }
 
@@ -127,7 +128,7 @@ export function getTranslationsForLanguage(
   if (defaultLanguage) {
     // Throw an error if we find a circular dependency
     if (dependencyPath.has(defaultLanguage)) {
-      throw new Error(`Circular dependency found: ${[...Array.from(dependencyPath), defaultLanguage].join('->')}`);
+      throw new O3rCliError(`Circular dependency found: ${[...Array.from(dependencyPath), defaultLanguage].join('->')}`);
     } else {
       // Else, recursively resolve its bundle and use it as a base for the current language
       const defaultTranslations = getTranslationsForLanguage(defaultLanguage, filesPerLanguage, defaultLanguageMapping, memory, dependencyPath);
@@ -502,7 +503,7 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
       const filenamesToInclude = `(${options.locales.join('|')}).json`;
       const assets = globbySync(assetsList.map((asset) => path.posix.join(posixWorkspaceRoot, asset, filenamesToInclude)));
       assetsWatchers = assetsWatchers.concat(
-        assets.map((asset) => fs.watch(asset, (_eventType, filename) => generateForAssetsChange(filename, asset)))
+        assets.map((asset) => fs.watch(asset, (_eventType, filename) => generateForAssetsChange(filename as string, asset)))
       );
     }
 

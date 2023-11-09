@@ -27,12 +27,6 @@
       "factory": "./schematics/typescript/shell/index#ngGenerateTypescriptSDK",
       "schema": "./schematics/typescript/shell/schema.json"
     },
-    "typescript-sdk": {
-      "alias": ["typescript-create"],
-      "description": "Generate a typescript SDK repository with code based on swagger specification",
-      "factory": "./schematics/typescript/create/index#ngGenerateTypescriptSDK",
-      "schema": "./schematics/typescript/create/schema.json"
-    },
     "java-client-core": {
       "description": "Generate a Java SDK source code based on swagger specification",
       "factory": "./schematics/java/client-core/index#ngGenerateJavaClientCore",

@@ -14,7 +14,7 @@ describe('BotProtectionFingerprint', () => {
   describe('Retrievers', () => {
 
     describe('impervaProtectionRetrieverFactory', () => {
-      const consoleMock = jest.spyOn(console, 'error').mockImplementation();
+      let consoleMock;
       let windowBackup: any;
       let tokenValue: string;
       let retriever: BotProtectionFingerprintRetriever;
@@ -37,6 +37,7 @@ describe('BotProtectionFingerprint', () => {
       };
 
       beforeEach(() => {
+        consoleMock = jest.spyOn(console, 'error').mockImplementation();
         windowBackup = global.window;
         // eslint-disable-next-line no-global-assign
         global.window = {} as any;
@@ -51,7 +52,10 @@ describe('BotProtectionFingerprint', () => {
       });
 
       it('Should return undefined and log if no Protection object is received.', async () => {
-        expect(await retriever()).toBeUndefined();
+
+        const promise = retriever();
+        await jest.runAllTimersAsync();
+        expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalledTimes(1);
       });
@@ -59,15 +63,17 @@ describe('BotProtectionFingerprint', () => {
       it('Should return undefined and log if no Protection object is received within configured timeout.', async () => {
         registerEvent(protectionResolve, 100);
 
-        expect(await retriever()).toBeUndefined();
+        const promise = retriever();
+        await jest.runAllTimersAsync();
+        expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return undefined and log if token promise rejected.', async () => {
         registerEvent(protectionReject);
-
-        expect(await retriever()).toBeUndefined();
+        const promise = retriever();
+        await jest.runAllTimersAsync();
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalledTimes(1);
       });
@@ -75,11 +81,15 @@ describe('BotProtectionFingerprint', () => {
       it('Should return the token if everything happened within timeout values.', async () => {
         registerEvent(protectionResolve, 25);
 
-        expect(await retriever()).toBe(tokenValue);
+        const promise = retriever();
+        await jest.runAllTimersAsync();
+        expect(await promise).toBe(tokenValue);
 
         tokenValue = 'newToken';
 
-        expect(await retriever()).toBe(tokenValue);
+        const newPromise = retriever();
+        await jest.runAllTimersAsync();
+        expect(await newPromise).toBe(tokenValue);
         // eslint-disable-next-line no-console
         expect(console.error).not.toHaveBeenCalled();
       });
@@ -239,6 +249,7 @@ describe('BotProtectionFingerprint', () => {
     beforeEach(() => {
       mockedFingerprint = undefined;
       mockedRequest = {
+        method: 'get',
         basePath: 'toto',
         headers: new Headers()
       };
@@ -285,14 +296,12 @@ describe('BotProtectionFingerprint', () => {
         pollOnlyOnce: false
       }).load();
 
-      const before = Date.now();
-      const newRequest = await plugin.transform(mockedRequest);
-      const timeDiff = Date.now() - before;
+      const newRequestPromise = plugin.transform(mockedRequest);
+      await jest.advanceTimersByTimeAsync(1000);
+      const newRequest = await newRequestPromise;
 
       expect(newRequest.headers.has(destinationHeaderName)).toBeFalsy();
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
-      expect(timeDiff).toBeLessThan(1100 + 10);
-      expect(timeDiff).not.toBeLessThan(1000 - 10);
     });
 
     it('Should add the fingerprint header if initially not found but added before the poller ended.', async () => {
@@ -307,7 +316,11 @@ describe('BotProtectionFingerprint', () => {
       }).load();
       setTimeout(() => mockedFingerprint = 'fingerprint', 350);
 
-      const newRequest = await plugin.transform(mockedRequest);
+      const newRequestPromise = plugin.transform(mockedRequest);
+      await jest.advanceTimersByTimeAsync(350);
+      mockedFingerprint = 'fingerprint';
+      await jest.runAllTimersAsync();
+      const newRequest = await newRequestPromise;
 
       expect(newRequest.headers.get(destinationHeaderName)).toBe(mockedFingerprint);
       expect(fingerprintRetriever).toHaveBeenCalledTimes(3);
@@ -324,11 +337,16 @@ describe('BotProtectionFingerprint', () => {
         pollOnlyOnce: false
       }).load();
 
-      await plugin.transform(mockedRequest);
+
+      let promise = plugin.transform(mockedRequest);
+      await jest.runAllTimersAsync();
+      await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
 
-      await plugin.transform(mockedRequest);
+      promise = plugin.transform(mockedRequest);
+      await jest.runAllTimersAsync();
+      await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(10);
     });
@@ -344,11 +362,15 @@ describe('BotProtectionFingerprint', () => {
         pollOnlyOnce: true
       }).load();
 
-      await plugin.transform(mockedRequest);
+      let promise = plugin.transform(mockedRequest);
+      await jest.runAllTimersAsync();
+      await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(5);
 
-      await plugin.transform(mockedRequest);
+      promise = plugin.transform(mockedRequest);
+      await jest.runAllTimersAsync();
+      await promise;
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(6);
     });

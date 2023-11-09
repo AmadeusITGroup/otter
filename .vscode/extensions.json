@@ -10,6 +10,8 @@
     "esbenp.prettier-vscode",
     "GitHub.codespaces",
     "GitHub.vscode-pull-request-github",
-    "amadeusitgroup.otter-devtools"
+    "GitHub.vscode-github-actions",
+    "amadeusitgroup.otter-devtools",
+    "mrmlnc.vscode-scss"
   ]
 }

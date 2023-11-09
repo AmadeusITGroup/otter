@@ -1,34 +1,30 @@
 import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { getProjectFromTree, getTemplateFolder, readAngularJson, writeAngularJson } from '@o3r/schematics';
+import { getTemplateFolder, getWorkspaceConfig, writeAngularJson } from '@o3r/schematics';
 
 /**
  * Added styling support
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  */
-export function updateThemeFiles(rootPath: string): Rule {
+export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    if (!workspaceProject) {
+      return noop;
+    }
 
     let currentStyleFile = '';
     let mainStyleName = 'styles.scss';
     let mainStyleFolder = 'src/';
-    if (workspaceProject &&
-      workspaceProject.architect &&
-      workspaceProject.architect.build &&
-      workspaceProject.architect.build.options &&
-      workspaceProject.architect.build.options.styles &&
-      workspaceProject.architect.build.options.styles[0] &&
-      tree.exists(workspaceProject.architect.build.options.styles[0])) {
-
-      const mainStylePath = workspaceProject.architect.build.options.styles[0];
+    const mainStylePath = workspaceProject?.architect?.build?.options?.styles?.find((filePath: string) =>
+      workspaceProject?.root && filePath.startsWith(workspaceProject.root));
+    if (mainStylePath && tree.exists(mainStylePath)) {
       mainStyleName = path.basename(mainStyleName, '.scss').replace(/\.scss$/i, '');
       mainStyleFolder = path.dirname(mainStylePath);
-      currentStyleFile = tree.read(mainStylePath)!.toString();
+      currentStyleFile = tree.readText(mainStylePath);
       if (currentStyleFile.indexOf('./styling/theme') > -1) {
         return tree;
       }
@@ -38,11 +34,11 @@ export function updateThemeFiles(rootPath: string): Rule {
     const npmClient = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
     context.logger.info(`Otter library requires Angular Material, you can install it with "${npmClient} ng add @angular/material"`);
 
-    if (tree.exists(path.join(mainStyleFolder, 'styling', mainStyleName)) ||
-      tree.exists(path.join(mainStyleFolder, 'styling', 'index.scss')) ||
-      tree.exists(path.join(mainStyleFolder, 'styling', '_index.scss')) ||
-      tree.exists(path.join(mainStyleFolder, 'styling', 'styling.scss')) ||
-      tree.exists(path.join(mainStyleFolder, 'styling', '_styling.scss'))
+    if (tree.exists(path.posix.join(mainStyleFolder, 'styling', mainStyleName)) ||
+      tree.exists(path.posix.join(mainStyleFolder, 'styling', 'index.scss')) ||
+      tree.exists(path.posix.join(mainStyleFolder, 'styling', '_index.scss')) ||
+      tree.exists(path.posix.join(mainStyleFolder, 'styling', 'styling.scss')) ||
+      tree.exists(path.posix.join(mainStyleFolder, 'styling', '_styling.scss'))
     ) { // do nothing if the styling is already in place
       return tree;
     }
@@ -66,20 +62,19 @@ export function updateThemeFiles(rootPath: string): Rule {
 
 /**
  * Update assets list in angular.json for styling
- *
  * @param options
  * @param options.projectName
  * @returns
  */
-export function removeV7OtterAssetsInAngularJson(options: { projectName: string | null }): Rule {
+export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
 
   return (tree: Tree, context: SchematicContext) => {
-    const workspace = readAngularJson(tree);
-    const projectName = options.projectName || workspace.defaultProject || Object.keys(workspace.projects)[0];
-    const workspaceProject = getProjectFromTree(tree, projectName, 'application');
+    const workspace = getWorkspaceConfig(tree);
+    const projectName = options.projectName;
+    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
 
     // exit if not an application
-    if (!workspaceProject) {
+    if (!projectName || !workspace || !workspaceProject) {
       context.logger.debug('This is not an application project. No need to search and remove old v7 otter styling assets reference.');
       return tree;
     }

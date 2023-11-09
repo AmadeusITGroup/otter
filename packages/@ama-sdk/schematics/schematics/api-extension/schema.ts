@@ -1,6 +1,6 @@
-import { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface NgGenerateApiExtensionSchematicsSchema extends JsonObject {
+export interface NgGenerateApiExtensionSchematicsSchema extends SchematicOptionObject {
   /** Extension Name */
   name: string;
   /** Type of the core API to extend */

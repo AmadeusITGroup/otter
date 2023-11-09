@@ -38,28 +38,28 @@ module.exports = class extends SdkGenerator {
       if (swaggerConfig.additionalProperties && swaggerConfig.additionalProperties.basePackage) {
         const modelPackage = swaggerConfig.additionalProperties.basePackage.split('.');
         this.log('Remove previously generated base models');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...modelPackage, '**', '*.java'), {glob: true});
       }
       if (swaggerConfig.additionalProperties && swaggerConfig.additionalProperties.endpointsPackage) {
         const enpointsPackage = swaggerConfig.additionalProperties.endpointsPackage.split('.');
         this.log('Remove previously generated endpoints');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...enpointsPackage, '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...enpointsPackage, '**', '*.java'), {glob: true});
       }
       if (swaggerConfig.additionalProperties && swaggerConfig.additionalProperties.restEasyPackage) {
         const resteasyPackage = swaggerConfig.additionalProperties.restEasyPackage.split('.');
         this.log('Remove previously generated resteasy specific packages');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, '*.java'));
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, 'api', '**', '*.java'));
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, 'auth', '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, '*.java'), {glob: true});
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, 'api', '**', '*.java'), {glob: true});
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...resteasyPackage, 'auth', '**', '*.java'), {glob: true});
       }
       if (swaggerConfig.additionalProperties && swaggerConfig.additionalProperties.authenticationPackage) {
         const authPackage = swaggerConfig.additionalProperties.authenticationPackage.split('.');
         this.log('Remove previously generated authentication plugins');
-        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...authPackage, '**', '*.java'));
+        rimraf.sync(path.resolve(this.destinationPath(), 'src', 'main', 'java', ...authPackage, '**', '*.java'), {glob: true});
       }
     }
     this.log('Remove previously generated doc');
-    rimraf.sync(path.resolve(this.destinationPath(), 'docs', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'docs', '**'), {glob: true});
     this.log('Remove previously generated readme');
     rimraf.sync(path.resolve(this.destinationPath(), 'README.md'));
   }
@@ -144,6 +144,6 @@ module.exports = class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-java-resteasy-client', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-java-resteasy-client', '**'), {glob: true});
   }
 };

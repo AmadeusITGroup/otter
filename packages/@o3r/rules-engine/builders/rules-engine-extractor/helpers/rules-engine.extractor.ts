@@ -1,8 +1,9 @@
 import { strings } from '@angular-devkit/core';
 import type { LoggerApi } from '@angular-devkit/core/src/logger';
 import { ConfigDocParser } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import { promises as fs } from 'node:fs';
-import * as glob from 'globby';
+import globby from 'globby';
 import * as path from 'node:path';
 import { lastValueFrom, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -44,7 +45,7 @@ export class RulesEngineExtractor {
    */
   private async extractTypeRef(type: string, sourceFile: string, outputPath: string) {
     const internalLibFiles = this.tsconfig.extraOptions?.otterSubModuleRefs?.length > 0 ?
-      await lastValueFrom(zip(...(this.tsconfig.extraOptions?.otterSubModuleRefs as string[]).map((value: string) => glob(value))).pipe(
+      await lastValueFrom(zip(...(this.tsconfig.extraOptions?.otterSubModuleRefs as string[]).map((value: string) => globby(value))).pipe(
         map((globFiles: string[][]) =>
           globFiles.reduce((acc, files) => [
             ...acc,
@@ -191,7 +192,7 @@ export class RulesEngineExtractor {
               const description = this.commentParser.parseConfigDocFromNode(source, prop)?.description;
               // eslint-disable-next-line max-len
               if (!prop.type || !this.isNativeType(prop.type) && !ts.isTypeReferenceNode(prop.type) && !ts.isUnionTypeNode(prop.type)) {
-                throw new Error(`The fact ${name} has an unsupported type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
+                throw new O3rCliError(`The fact ${name} has an unsupported type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
               }
 
               let mainType = prop.type;
@@ -201,7 +202,7 @@ export class RulesEngineExtractor {
                   !(ts.isLiteralTypeNode(t) && (t.literal.kind === ts.SyntaxKind.NullKeyword || t.literal.kind === ts.SyntaxKind.UndefinedKeyword))
                 );
                 if (mainTypes.length !== 1) {
-                  throw new Error(`The fact ${name} has an unsupported union-type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
+                  throw new O3rCliError(`The fact ${name} has an unsupported union-type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
                 }
                 mainType = mainTypes[0];
               }

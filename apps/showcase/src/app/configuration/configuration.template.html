@@ -1,0 +1,67 @@
+<h1>Configuration</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="configuration-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="configuration-description">Description</h2>
+    <div>
+      <p>
+        This module contains configuration-related features (CMS compatibility, configuration override, store and debugging).
+        <br>
+        It comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.
+      </p>
+    </div>
+    <h2 id="configuration-examples">Examples</h2>
+    <div>
+      <p>
+        Let's take our basic component and add some configurations.
+      </p>
+      <p>
+        Click on "Override" button below to simulate an update of the configuration.
+        <br>
+        This will update the list of destinations and propose round-trip instead of one-way.
+      </p>
+      <o3r-configuration-pres [config]="config()"></o3r-configuration-pres>
+      <div class="row">
+        <o3r-copy-text-pres language="html" [text]="codeConfig()" class="col-12 col-md-8 col-lg-9"></o3r-copy-text-pres>
+        <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
+          <button type="button" class="btn btn-primary" [class.disabled]="config()" (click)="toggleConfig()">Override</button>
+          <button type="button" class="btn btn-danger" [class.disabled]="!config()" (click)="toggleConfig()">Clear</button>
+        </div>
+      </div>
+      <p>
+        Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/configuration" target="_blank" rel="noopener">Source code</a>
+    </div>
+    <h2 id="configuration-install">How to install</h2>
+    <div>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/configuration"></o3r-copy-text-pres>
+    </div>
+    <h2 id="configuration-component-generation">How to generate a configurable component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g component ComponentName --use-otter-config"></o3r-copy-text-pres>
+    <h2 id="configuration-add-config-later">How to add configuration to a component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g configuration-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
+    <h2 id="configuration-metadata">Metadata</h2>
+    <div>
+      <h4>How to extract</h4>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components"></o3r-copy-text-pres>
+      <p>It will extract components' configuration and generate the two following files: <code>component.config.metadata.json</code> and <code>component.class.metadata.json</code></p>
+      <p>Check the list of options available by running:</p>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components --help"></o3r-copy-text-pres>
+    </div>
+    <h2 id="configuration-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://docs.otter.digitalforairlines.com/additional-documentation/configuration/overview.html" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

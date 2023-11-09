@@ -7,7 +7,7 @@ But a component is more than just its class. A component interacts with the DOM 
 They cannot tell you if the component is going to render properly, respond to user input and gestures, or integrate with its parent and child components.
 
 Here is where components fixtures are coming in place. They are classes which contain mainly accessors to the DOM of the components. Each component has its own fixture class.
-The purpose of the fixtures is to help for debugging, testing the component itself, and integration with parents and and child components.
+The purpose of the fixtures is to help for debugging, testing the component itself, and integration with parents and child components.
 
 ## 2. How to create fixtures?
 

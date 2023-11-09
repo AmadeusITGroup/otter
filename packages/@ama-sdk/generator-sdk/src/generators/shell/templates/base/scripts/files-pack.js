@@ -2,7 +2,7 @@ const cpx = require('cpx');
 const minimist = require('minimist');
 const path = require('path');
 const { sync } = require('glob');
-const fs = require('fs').promises;
+const fs = require('fs');
 const promisify = require('util').promisify;
 
 const argv = minimist(process.argv.slice(2));
@@ -20,12 +20,12 @@ const files = [
 
 /**  Update package.json exports */
 const updateExports = async () => {
-  const packageJson = JSON.parse(await fs.readFile(path.join(baseDir, 'package.json'), { encoding: 'utf8' }));
-  const packageJsonFiles = sync(path.join(baseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
+  const packageJson = JSON.parse(fs.readFileSync(path.join(baseDir, 'package.json')).toString());
+  const packageJsonFiles = sync(path.posix.join(baseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
   packageJson.exports = packageJson.exports || {};
   for (const packageJsonFile of packageJsonFiles) {
     try {
-      const subPackageJson = JSON.parse(await fs.readFile(packageJsonFile, { encoding: 'utf8' }));
+      const subPackageJson = JSON.parse(fs.readFileSync(packageJsonFile).toString());
       const folder = './' + path.relative(path.join(baseDir, distFolder), path.dirname(packageJsonFile)).replace(/[/\\]+/g, '/');
       packageJson.exports[folder] = packageJson.exports[folder] || {};
       Object.entries(subPackageJson).forEach(([key, value]) => {

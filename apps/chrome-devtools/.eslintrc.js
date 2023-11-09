@@ -17,10 +17,7 @@ module.exports = {
           'tsconfig.eslint.json'
         ],
         'sourceType': 'module'
-      },
-      'extends': [
-        '../../.eslintrc.js'
-      ]
+      }
     },
     {
       'files': [
@@ -32,5 +29,8 @@ module.exports = {
         '@o3r/eslint-config-otter/template'
       ].map(require.resolve)
     }
+  ],
+  'extends': [
+    '../../.eslintrc.js'
   ]
 };

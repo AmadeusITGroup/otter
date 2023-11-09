@@ -4,9 +4,10 @@ import type {
   ComponentConfigOutput,
   ComponentModuleOutput,
   ComponentOutput,
-  ComponentStructure, PlaceholdersMetadata
+  ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
 import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { ComponentExtractorBuilderSchema } from '../../index';
@@ -28,7 +29,10 @@ export class ComponentExtractor {
   /** List of the loaded libraries component outputs*/
   private libComponentClassOutputs?: ComponentClassOutput[][];
 
-  /** List of extracted modules */
+  /**
+   * List of extracted modules
+   * @deprecated will be removed in v10
+   */
   private modules?: { [component: string]: ComponentModuleOutput };
 
   /**
@@ -36,8 +40,9 @@ export class ComponentExtractor {
    * @param libraries List of libraries to extract metadata from
    * @param logger
    * @param workspaceRoot
+   * @param strictMode
    */
-  constructor(private libraryName: string, libraries: string[], private logger: logging.LoggerApi, private workspaceRoot: string) {
+  constructor(private libraryName: string, libraries: string[], private logger: logging.LoggerApi, private workspaceRoot: string, private strictMode = false) {
     this.libraries = libraries
       .map((lib) => getLibraryCmsMetadata(lib, ''));
   }
@@ -176,10 +181,11 @@ export class ComponentExtractor {
    * Consolidate the modules data to the final format.
    *
    * @param parsedData Data extracted from the source code
+   * @deprecated will be removed in v10
    */
   private consolidateModules(parsedData: ParserOutput) {
     return Object.keys(parsedData.modules)
-      .reduce((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
+      .reduce<Record<string, any>>((acc, moduleUrl): { [key: string]: ComponentModuleOutput } => {
         const parsedItemRef = parsedData.modules[moduleUrl];
 
         parsedItemRef.module.exportedItems.forEach((exportedItem) => {
@@ -263,19 +269,44 @@ export class ComponentExtractor {
     if (!options.exposedComponentSupport) {
       supportedTypes.delete('EXPOSED_COMPONENT');
     }
-    return configs.filter((config) => {
+    return configs.reduce((acc: ComponentConfigOutput[], config) => {
       if (!supportedTypes.has(config.type)) {
         this.logger.warn(`Config type "${config.type}" is not supported for ${config.library}#${config.name}. Excluding it`);
-        return false;
+        return acc;
       }
 
-      if (config.properties.some((property) => property.values === undefined && property.value === undefined)) {
-        this.logger.warn(`At least one property in "${config.library}#${config.name}" has no default value. Excluding it`);
-        return false;
+      const { propertiesWithDefaultValue, propertiesWithoutDefaultValue } = config.properties.reduce((properties: {
+        propertiesWithDefaultValue: ConfigProperty[];
+        propertiesWithoutDefaultValue: ConfigProperty[];
+      }, property) => {
+        if (property.values === undefined && property.value === undefined) {
+          properties.propertiesWithoutDefaultValue = properties.propertiesWithoutDefaultValue.concat(property);
+        } else {
+          properties.propertiesWithDefaultValue = properties.propertiesWithDefaultValue.concat(property);
+        }
+        return properties;
+      }, {
+        propertiesWithDefaultValue: [],
+        propertiesWithoutDefaultValue: []
+      });
+      if (propertiesWithoutDefaultValue.length) {
+        const message = `"${config.library}#${config.name}" has no default value for ${
+          propertiesWithoutDefaultValue.map((prop) => prop.name).join(', ')
+        }. Excluding ${propertiesWithoutDefaultValue.length > 1 ? 'them' : 'it'}`;
+        if (!this.strictMode) {
+          this.logger.warn(message);
+        } else {
+          throw new O3rCliError(message);
+        }
+        const configWithoutIncompatibleProperties: ComponentConfigOutput = {
+          ...config,
+          properties: propertiesWithDefaultValue
+        };
+        return acc.concat(configWithoutIncompatibleProperties);
       }
 
-      return true;
-    });
+      return acc.concat(config);
+    }, []);
 
   }
 

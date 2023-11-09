@@ -7,12 +7,12 @@
 # see https://verdaccio.org/docs/en/docker#docker-and-custom-port-configuration
 #
 # Look here for more config file examples:
-# https://github.com/verdaccio/verdaccio/tree/5.x/packages/config/src/conf/docker.yaml
+# https://github.com/verdaccio/verdaccio/blob/5.x/conf/docker.yaml
 #
 # Read about the best practices
 # https://verdaccio.org/docs/best
 
-storage: /verdaccio/storage/data
+storage: /verdaccio/storage
 
 plugins: /verdaccio/plugins
 
@@ -22,17 +22,23 @@ web:
 auth:
   htpasswd:
     file: /verdaccio/storage/htpasswd
-
-uplinks:
-  npmjs:
-    url: https://registry.npmjs.org/
+    algorithm: bcrypt
 
 packages:
-  '**':
+  '@o3r/*':
     access: $all
     publish: $authenticated
-    unpublish: $authenticated
-    proxy: npmjs
+    proxy: no-proxy
+  '@ama-sdk/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
+  '@ama-terasu/*':
+    access: $all
+    publish: $authenticated
+    proxy: no-proxy
+
+no_proxy: localhost,127.0.0.1
 
 server:
   keepAliveTimeout: 60
@@ -43,4 +49,4 @@ middlewares:
   audit:
     enabled: true
 
-log: { type: stdout, format: pretty, level: http }
+logs: { type: file, format: pretty, level: http, colors: false, path: /verdaccio/storage/verdaccio.log }

@@ -1,12 +1,12 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectDepType,
-  getProjectFromTree,
+  getProjectNewDependenciesType,
+  getWorkspaceConfig,
   ngAddPeerDependencyPackages,
   addImportToModuleFile as o3rAddImportToModuleFile
 } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -17,24 +17,24 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
  * Add additional modules for dev only
- *
  * @param options @see RuleFactory.options
  * @param options.projectName
+ * @param options.workingDirectory the directory where to execute the rule factory
  * @param _rootPath @see RuleFactory.rootPath
  */
-export function updateAdditionalModules(options: { projectName: string | null}, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, _rootPath: string): Rule {
   /**
    * Update package.json to add additional modules dependencies
-   *
    * @param tree
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const type: NodeDependencyType = getProjectDepType(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const type: NodeDependencyType = getProjectNewDependenciesType(workspaceProject);
     const generatorDependencies = [ngrxStoreDevtoolsDep];
 
     try {
-      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, options);
+      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, skipNgAddSchematicRun: true});
     } catch (e) {
       context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
     }
@@ -44,12 +44,11 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
 
   /**
    * Import additional modules in AppModule
-   *
    * @param tree
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -85,13 +84,12 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
 
   /**
    * Register additional modules for development
-   *
    * @param tree
    * @param context
    */
   const registerDevAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
 
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -107,7 +105,7 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree, null, 'application');
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');
@@ -155,12 +153,11 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
 
   /**
    * Register additional modules for production
-   *
    * @param tree
    * @param context
    */
   const registerProdAdditionalModules: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -176,7 +173,7 @@ export function updateAdditionalModules(options: { projectName: string | null}, 
       return tree;
     }
 
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
       context.logger.warn('No application detected in the project, the development modules will not be added.');

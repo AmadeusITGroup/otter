@@ -1,7 +1,7 @@
 # Forms overview
 
 ## Container/presenter and form creation
-Container/presenter architecture was put in place to ensure best reusability/sharing 
+Container/presenter architecture was put in place to ensure the best re-usability/sharing 
 ### Where the form object creation should be done?
   * __form created in presenter__ - it's the presenter which decides how the data is displayed
   * __container__ needs only the value and errors propagated from the presenter
@@ -50,7 +50,7 @@ If the case of multiple forms it's really needed, then we found the following so
    * _AsyncInput_ decorator is provided in __@o3r/forms__ to be applied on the observable input to ensure performance
    * submit form logic is executed on the containers
    * containers emit events when the submit is done
-   * the page (parent) capture the events and continue it's logic
+   * the page (parent) capture the events and continue its logic
 
 This can be applied also, with only one form on the page, when you don't want a submit button in the presenter.
 

@@ -1,7 +1,7 @@
 import { strings } from '@angular-devkit/core';
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { applyEsLintFix } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import * as path from 'node:path';
 
 import { findLastNodeOfKind, getDestinationPath } from '@o3r/schematics';

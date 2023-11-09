@@ -1,5 +1,5 @@
 {
-  "name": "@<%=projectName%>/<%=projectPackageName%>/spec",
+  "name": "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/spec",
   "main": "../cjs/spec/index.js",
   "module": "../esm2020/spec/index.js",
   "es2020": "../esm2020/spec/index.js",

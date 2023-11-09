@@ -1,23 +1,24 @@
 import {chain, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectFromTree,
+  getWorkspaceConfig,
   addImportToModuleFile as o3rAddImportToModuleFile,
   addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
-import * as ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import * as ts from 'typescript';
 import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-utils';
-import * as commentJson from 'comment-json';
 
 /**
  * Update app.module file with api manager, if needed
+ * @param options
+ * @param options.projectName
  */
-export function updateApiDependencies(): Rule {
+export function updateApiDependencies(options: {projectName?: string | undefined}): Rule {
 
   const updateAppModule: Rule = (tree: Tree, context: SchematicContext) => {
-    const moduleFilePath = getAppModuleFilePath(tree, context);
+    const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
     }
@@ -51,11 +52,12 @@ export function updateApiDependencies(): Rule {
 
     insertImportToModuleFile('appendPreconnect', '@o3r/apis-manager', false);
 
-    insertBeforeModule('appendPreconnect(\'https://YOUR_API_ENDPOINT\');');
+    insertBeforeModule('const PROXY_SERVER = \'https://YOUR_API_ENDPOINT\';');
+
+    insertBeforeModule('appendPreconnect(PROXY_SERVER);');
 
     addImportToModuleFile('ApiManagerModule', '@o3r/apis-manager');
 
-    insertBeforeModule('const PROXY_SERVER = \'https://YOUR_API_ENDPOINT\';');
     insertBeforeModule(`
 export function apiManagerFactory(): ApiManager {
   const apiClient = new ApiFetchClient({
@@ -80,7 +82,7 @@ export function apiManagerFactory(): ApiManager {
   };
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {
-    const workspaceProject = getProjectFromTree(tree);
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const tsconfig: string | undefined =
       workspaceProject &&
       workspaceProject.architect &&
@@ -93,7 +95,8 @@ export function apiManagerFactory(): ApiManager {
       return tree;
     }
 
-    const tsconfigObj: any = commentJson.parse(tree.readText(tsconfig));
+    ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig));
+    const tsconfigObj = ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig)).config;
     if (!tsconfigObj.compilerOptions) {
       tsconfigObj.compilerOptions = {};
     }
@@ -107,7 +110,7 @@ export function apiManagerFactory(): ApiManager {
     tsconfigObj.compilerOptions.lib.push('dom');
     tsconfigObj.compilerOptions.lib = tsconfigObj.compilerOptions.lib.reduce((acc: string[], lib: string) => acc.indexOf(lib) >= 0 ? acc : [...acc, lib], []);
 
-    tree.overwrite(tsconfig, commentJson.stringify(tsconfigObj, null, 2));
+    tree.overwrite(tsconfig, JSON.stringify(tsconfigObj, null, 2));
     return tree;
   };
 

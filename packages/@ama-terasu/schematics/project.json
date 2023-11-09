@@ -18,7 +18,7 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "main": "packages/@ama-terasu/schematics/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/schematics/tsconfig.build.json",
@@ -26,12 +26,11 @@
         "assets": [
           "packages/@ama-terasu/schematics/schematics/**/templates/**",
           "packages/@ama-terasu/schematics/collection.json"
-        ],
-        "updateBuildableProjectDepsInPackageJson": false
+        ]
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -41,12 +40,13 @@
       "options": {
         "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@ama-terasu/schematics/src/**/*.ts"
+          "packages/@ama-terasu/schematics/src/**/*.ts",
+          "packages/@ama-terasu/schematics/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-terasu/schematics/jest.config.js",
         "silent": true

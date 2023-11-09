@@ -1,4 +1,4 @@
-import {JsonObject} from '@angular-devkit/core';
+import type {JsonObject} from '@angular-devkit/core';
 
 /** Set the app version */
 export interface AppVersionBuilderSchema extends JsonObject {

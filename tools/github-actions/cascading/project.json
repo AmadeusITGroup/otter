@@ -12,7 +12,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -22,12 +22,13 @@
       "options": {
         "eslintConfig": "tools/github-actions/cascading/.eslintrc.js",
         "lintFilePatterns": [
-          "tools/github-actions/cascading/src/**/*.ts"
+          "tools/github-actions/cascading/src/**/*.ts",
+          "tools/github-actions/cascading/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "tools/github-actions/cascading/jest.config.js",
         "silent": true

@@ -1,3 +1,4 @@
+import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { DeclarationReflection, ReferenceType } from 'typedoc';
@@ -73,7 +74,7 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
   const libraryReg = new RegExp('^(.*?)' + libraryNameForRegExp + '[\\\\/]?(dist)?');
   const matches = moduleIndexPath?.match(libraryReg);
   if (!matches) {
-    throw new Error(`Cannot find specified ${libraryName} in the npm packages`);
+    throw new O3rCliError(`Cannot find specified ${libraryName} in the npm packages`);
   }
   return matches[0];
 }

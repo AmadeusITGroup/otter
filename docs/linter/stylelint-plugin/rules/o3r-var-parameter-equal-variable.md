@@ -8,7 +8,7 @@ Example:
 $my-margin: o3r.variable('my-margin', 1px);
 ```
 
-The `fix` option can automatically fix all of the problems reported by this rule.
+The `fix` option can automatically fix all the problems reported by this rule.
 
 ## Options
 

@@ -21,7 +21,8 @@ export const configurationInitialState: ConfigurationState = configurationAdapte
  */
 export const configurationReducerFeatures: ReducerTypes<ConfigurationState, ActionCreator[]>[] = [
 
-  on(actions.setConfigurationEntities, (state, payload) => configurationAdapter.addMany(Object.keys(payload).map((id) => ({...payload[id], id})), configurationAdapter.removeAll(state))),
+  on(actions.setConfigurationEntities, (state, payload) => configurationAdapter.addMany((Object.keys(payload) as (keyof typeof payload)[]).map((id) =>
+    ({...(payload[id] as any), id})), configurationAdapter.removeAll(state))),
 
   on(actions.updateConfigurationEntities, (state, payload) =>
     configurationAdapter.updateMany(Object.keys(payload.entities).map((id) => ({id: id, changes: payload.entities[id]})), state)),

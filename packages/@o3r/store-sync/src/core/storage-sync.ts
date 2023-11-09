@@ -1,8 +1,10 @@
-import { INIT, UPDATE } from '@ngrx/store';
-import { deepFill } from '@o3r/core';
-import type { StorageSyncOptions } from './interfaces';
-import { isLocalStorageConfig, isSerializer, rehydrateAction } from './storage-sync.helpers';
-import { syncStorage } from '../sync-storage';
+import {INIT, UPDATE} from '@ngrx/store';
+import {deepFill} from '@o3r/core';
+import equal from 'fast-deep-equal';
+import type {StorageSyncOptions} from './interfaces';
+import {isLocalStorageConfig, isSerializer, rehydrateAction} from './storage-sync.helpers';
+import {syncStorage} from '../sync-storage';
+import {StorageSyncConstructorOptions} from './interfaces';
 
 /**
  * Storage synchronizer
@@ -10,13 +12,24 @@ import { syncStorage } from '../sync-storage';
 export class StorageSync {
   private alreadyHydratedStoreSlices: Set<string> = new Set();
   private hasHydrated = false;
+  private storeImage: { [key: string]: any } = {};
 
   public options: StorageSyncOptions;
 
-  constructor(options?: Partial<StorageSyncOptions>) {
+  constructor(options?: StorageSyncConstructorOptions, extraOptions?: {disableSmartSync: boolean}) {
     this.options = {
       keys: [],
+      ...(extraOptions?.disableSmartSync ? {} : {
+        syncKeyCondition: (key, state) => !equal(this.storeImage[key], state[key]),
+        postProcess: (state) => {
+          this.options.keys.forEach(key => {
+            const keyName: string = typeof key === 'object' ? Object.keys(key)[0] : key;
+            this.storeImage[keyName] = state[keyName];
+          });
+        }
+      }),
       ...options,
+      storage: options?.storage as unknown as Storage,
       mergeReducer: typeof options?.mergeReducer !== 'function' ? this.mergeReducer : options.mergeReducer
     };
   }
@@ -52,18 +65,19 @@ export class StorageSync {
   /**
    * Returns a meta reducer that handles storage sync
    */
-  public localStorageSync() {
+  public localStorageSync = () => {
+    const base = (reducer: any) => syncStorage({
+      ...this.options,
+      rehydrate: false,
+      storage: this.options.storage as unknown as Storage,
+      syncCondition: () => this.hasHydrated
+    })(reducer);
+
     return (reducer: any) => {
       if (isLocalStorageConfig(this.options)) {
         return syncStorage(this.options)(reducer);
       }
 
-      const base = syncStorage({
-        ...this.options,
-        rehydrate: false,
-        storage: this.options.storage as unknown as Storage,
-        syncCondition: () => this.hasHydrated
-      })(reducer);
 
       return (state: any, action: any) => {
         let hydratedState = state;
@@ -72,7 +86,7 @@ export class StorageSync {
           this.hasHydrated = true;
           const initialStates = this.options.keys.reduce((acc: Record<string, any>, key) => {
             const storeName = Object.keys(key)[0];
-            const storeSynchronizer = key[storeName];
+            const storeSynchronizer = (key as any)[storeName];
             if (isSerializer(storeSynchronizer)) {
               acc[storeName] = storeSynchronizer.initialState;
             }
@@ -80,7 +94,7 @@ export class StorageSync {
           }, {});
           let overrides = {};
           if (!hasAlreadyHydrated) {
-            overrides = Object.entries(action.payload).reduce((acc, [storeName, value]) => {
+            overrides = Object.entries(action.payload).reduce<Record<string, any>>((acc, [storeName, value]) => {
               if (!initialStates[storeName] || initialStates[storeName] === state[storeName]) {
                 acc[storeName] = value;
               } else if (initialStates[storeName] !== state[storeName]) {
@@ -93,8 +107,8 @@ export class StorageSync {
             hydratedState = { ...state, ...overrides };
           }
         }
-        return base(hydratedState, action);
+        return base(reducer)(hydratedState, action);
       };
     };
-  }
+  };
 }

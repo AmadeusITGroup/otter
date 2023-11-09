@@ -1,0 +1,4 @@
+import type { FactDefinitions } from '@o3r/rules-engine';
+
+export interface <%= factsInterfaceName %> extends FactDefinitions {
+}

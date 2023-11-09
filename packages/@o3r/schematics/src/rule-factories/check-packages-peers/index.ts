@@ -1,9 +1,9 @@
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import * as path from 'node:path';
-import * as commentJson from 'comment-json';
-import { satisfies } from 'semver';
 import type { LoggerApi } from '@angular-devkit/core/src/logger';
+import { SchematicContext, Tree } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import { satisfies } from 'semver';
+import type { PackageJson } from 'type-fest';
+import { getPackageManager, O3rCliError } from '../../utility/index';
 
 /** Interface containing a npm package name, needed version and optionally found version */
 interface PackageVersion {
@@ -13,23 +13,6 @@ interface PackageVersion {
   version: string;
   /** Npm package installed version found */
   foundVersion?: string;
-}
-
-/**
- * Get package manager used in runs
- * Defaults to the package manager setup in process.env if no package manager set in angular.json
- *
- * @param angularJsonString Content of angular.json file
- */
-function getPackageManager(angularJsonString?: string | null) {
-  let packageManager = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
-  if (angularJsonString) {
-    const angularJsonObj = commentJson.parse(angularJsonString) as any;
-    if (angularJsonObj?.cli?.packageManager) {
-      packageManager = angularJsonObj.cli.packageManager;
-    }
-  }
-  return packageManager;
 }
 
 
@@ -44,7 +27,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
   try {
     installedPackage = require(`${packageName}${path.posix.sep}package.json`);
   } catch (err) {
-    throw new Error(`The provided package is not installed: ${packageName}`);
+    throw new O3rCliError(`The provided package is not installed: ${packageName}`);
   }
 
   const packagesToInstall: PackageVersion[] = [];
@@ -83,7 +66,7 @@ function getPackagesToInstallOrUpdate(packageName: string) {
  */
 function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, angularJsonString?: string | null) {
 
-  const packageManager = getPackageManager(angularJsonString);
+  const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
   const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
 
   if (packagesWrongVersion.length) {
@@ -101,7 +84,7 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
     logger.error('');
     logger.error(`The following packages need to be installed to have "${packageName}" working. Run the commands one by one:`);
     packagesToInstall.forEach((dep) => logger.error(`${packageManager} run ng add ${dep.packageName}@${dep.version}`));
-    throw new Error('Missing peer dependencies');
+    throw new O3rCliError('Missing peer dependencies');
   }
 
   if (!packagesToInstall.length && !packagesWrongVersion.length) {

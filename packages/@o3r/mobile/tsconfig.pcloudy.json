@@ -14,7 +14,6 @@
     "removeComments": false,
     "sourceMap": true,
     "strict": true,
-    "suppressImplicitAnyIndexErrors": true,
     "target": "es2015",
     "noUnusedParameters": true
   },

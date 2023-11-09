@@ -2,16 +2,17 @@
   "name": "@ama-sdk/schematics",
   "version": "0.0.0-placeholder",
   "description": "Swagger specification SDK Generator by schematics",
+  "typings": "./src/public_api.d.ts",
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "test": "yarn nx test ama-sdk-schematics",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' 'schematics/**/*.jar' dist/schematics && yarn cpy '{package,collection}.json' dist",
     "build": "yarn nx build ama-sdk-schematics",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "install-swagger-cli": "mvn install:install-file -DgroupId=io.swagger -DartifactId=swagger-codegen-cli -Dversion=2.4.0-AMADEUS -Dpackaging=jar -Dfile=./schematics/resources/swagger-codegen-cli.jar",
-    "build:swagger": "yarn install-swagger-cli && run-p 'build:swagger-*'",
-    "build:swagger-typescript-gen": "mvn clean package -f ./schematics/typescript/core/swagger-codegen-typescript/pom.xml",
+    "build:swagger": "yarn install-swagger-cli && run-p 'build:swagger-*' 'build:openapi-*'",
+    "build:openapi-typescript-gen": "mvn clean package -f ./schematics/typescript/core/openapi-codegen-typescript/pom.xml",
     "build:swagger-java-client-gen": "mvn clean package -f ./schematics/java/client-core/swagger-codegen-java-client/pom.xml",
     "prepare:publish": "prepare-publish ./dist"
   },
@@ -27,69 +28,76 @@
     "@angular-devkit/schematics-cli": {
       "optional": true
     },
-    "@angular/cli": {
+    "@angular/compiler": {
       "optional": true
     },
-    "@angular/compiler": {
+    "@openapitools/openapi-generator-cli": {
       "optional": true
     }
   },
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/core": "~15.2.0",
-    "@angular-devkit/schematics": "~15.2.0",
-    "@angular-devkit/schematics-cli": "~15.2.0",
-    "@angular/cli": "~15.2.0",
-    "@schematics/angular": "~15.2.0"
+    "@angular-devkit/core": "^16.0.5",
+    "@angular-devkit/schematics": "^16.0.5",
+    "@angular-devkit/schematics-cli": "^16.0.5",
+    "@openapitools/openapi-generator-cli": "~2.7.0",
+    "@schematics/angular": "^16.2.0"
   },
   "dependencies": {
-    "@angular-devkit/core": "~15.2.0",
-    "@angular-devkit/schematics": "~15.2.0",
+    "@angular-devkit/core": "~16.2.0",
+    "@angular-devkit/schematics": "~16.2.0",
     "@o3r/dev-tools": "workspace:^",
-    "minimatch": "^6.1.6",
-    "rxjs": "^7.4.0",
+    "js-yaml": "^4.1.0",
+    "minimatch": "~9.0.3",
+    "rxjs": "^7.8.1",
+    "semver": "^7.5.2",
     "sway": "^2.0.6",
-    "tslib": "^2.4.1"
+    "tslib": "^2.5.3"
   },
   "devDependencies": {
     "@ama-sdk/core": "workspace:^",
-    "@angular-devkit/schematics-cli": "~15.2.0",
-    "@angular-eslint/eslint-plugin": "~15.2.0",
-    "@angular/cli": "~15.2.0",
-    "@nrwl/jest": "~15.9.0",
+    "@angular-devkit/schematics-cli": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular/cli": "~16.2.0",
+    "@nx/eslint-plugin": "~16.8.0",
+    "@nx/jest": "~16.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@schematics/angular": "~15.2.0",
-    "@types/jest": "~28.1.2",
+    "@o3r/schematics": "workspace:^",
+    "@openapitools/openapi-generator-cli": "~2.7.0",
+    "@schematics/angular": "~16.2.0",
+    "@types/jest": "~29.5.2",
+    "@types/js-yaml": "^4.0.5",
     "@types/minimatch": "^5.1.2",
-    "@types/node": "^17.0.45",
+    "@types/node": "^18.0.0",
     "@types/pid-from-port": "^1.1.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/eslint-plugin": "^5.19.0",
-    "@typescript-eslint/parser": "^5.19.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
     "copyfiles": "^2.4.1",
     "cpy-cli": "^4.2.0",
-    "eslint": "^8.22.0",
+    "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-jest": "^26.1.4",
-    "eslint-plugin-jsdoc": "^39.3.6",
-    "eslint-plugin-prefer-arrow": "^1.2.3",
-    "eslint-plugin-unicorn": "^45.0.2",
-    "isomorphic-fetch": "~2.2.1",
-    "jest": "~28.1.1",
+    "eslint-plugin-jest": "~27.4.0",
+    "eslint-plugin-jsdoc": "~46.8.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^47.0.0",
+    "isomorphic-fetch": "~3.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jsonc-eslint-parser": "~2.3.0",
     "mem-fs": "^2.2.1",
     "npm-run-all": "^4.1.5",
-    "nx": "~15.9.0",
+    "nx": "~16.8.0",
     "onchange": "^7.0.2",
     "pid-from-port": "^1.1.3",
-    "semver": "^7.3.2",
-    "ts-jest": "^28.0.5",
-    "type-fest": "^3.6.1",
-    "typescript": "~4.9.4"
+    "semver": "^7.5.2",
+    "ts-jest": "~29.1.1",
+    "type-fest": "^3.12.0",
+    "typescript": "~5.1.6"
   },
+  "openApiSupportedVersion": "~6.6.0",
   "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=4",
-    "yarn": "<4.0.0"
+    "node": ">=18.0.0"
   }
 }

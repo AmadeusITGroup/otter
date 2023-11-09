@@ -1,7 +1,8 @@
 import * as path from 'node:path';
 import * as rimraf from 'rimraf';
 import * as sway from 'sway';
-import {Operation, PathObject} from '@ama-sdk/core';
+import { type } from 'node:os';
+import type {Operation, PathObject} from '@ama-sdk/core';
 
 import Generator from 'yeoman-generator';
 
@@ -57,9 +58,9 @@ export default class extends SdkGenerator {
   private _getPathObjectTemplate(pathObj: PathObject) {
     return `{
       ${
-  Object.keys(pathObj).map((propName) => {
-    const value = (propName as keyof PathObject) === 'regexp' ? this._getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
-    return `${propName}: ${value}`;
+  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+    const value = (propName) === 'regexp' ? this._getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
+    return `${propName as string}: ${value}`;
   }).join(',')
 }
     }`;
@@ -98,9 +99,9 @@ export default class extends SdkGenerator {
   }
 
   public async writing() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'));
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'), {glob: true});
     this.log('Removed previously generated sources');
 
     const pathObjects = await this._generateOperationFinder() || [];
@@ -146,14 +147,13 @@ export default class extends SdkGenerator {
       'typescriptFetch',
       '-i',
       this.getSwaggerSpecPath(this.properties.swaggerSpecPath!),
-      '-o',
-      '.'
+      ...(type().startsWith('Windows') ? [] : ['-o', '.'])
     ], { cwd: this.destinationPath() });
     this.log('Generated new sources');
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'));
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'), {glob: true});
     try {
       const packageManagerCommand = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npx' : 'yarn';
       this.spawnCommandSync(packageManagerCommand, ['eslint', path.join('src', 'spec', 'operation-adapter.ts'), '--quiet', '--fix'], { cwd: this.destinationPath() });

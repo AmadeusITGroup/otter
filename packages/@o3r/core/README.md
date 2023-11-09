@@ -13,10 +13,13 @@ This includes a toolbox to customize, administrate and debug an application at r
 
 ## Get Started
 
+The application will contain the minimum setup to follow the otter recommendations and to activate the features requested
+during the installation of the `@o3r/core`.
+
 ### Required environment
 
 * **Git** : [https://gitforwindows.org/](https://gitforwindows.org/)
-* **NodeJs 14.x** : [NodeJS LTS](https://nodejs.org/)
+* **NodeJs 18.x** : [NodeJS LTS](https://nodejs.org/)
 * **Yarn** : [https://yarnpkg.com/lang/en/](https://yarnpkg.com/)
 
 **Yarn** can be installed directly using NPM:
@@ -26,37 +29,13 @@ This includes a toolbox to customize, administrate and debug an application at r
 npm install --global yarn
 ```
 
-### Creating a new Angular application
+### Creating a new Otter application
 
 ```bash
 # Create new application
-npx -y -p @angular/cli ng new
-# ? What name would you like to use for the new workspace and initial project? <application name>
-# ? Would you like to add Angular routing? Yes
-# ? Which stylesheet format would you like to use? SCSS
-
-```
-
-> **Information**: You can also install and run the `Angular CLI` locally with the following commmands:
->
-> ```bash
-> yarn add @angular/cli
-> yarn ng new
-> ```
-
-### Adding Otter dependency
-
-```bash
-# Setup Otter dependencies
-yarn ng add @o3r/core
-# ? Activate Otter localization? Yes
-# ? Work on Otter with symlinks? No
-```
-
-or for NPM users
-
-```bash
-npx ng add @o3r/core
+npm create @o3r my-project
+# Or
+yarn create @o3r my-project
 ```
 
 ### Adding Material design theming
@@ -79,31 +58,73 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 ## Generators
 
-Otter library provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
-| Schematics          | Description                                                                   | How to use                 |
-| ------------------- | ----------------------------------------------------------------------------- | -------------------------- |
-| add                 | Include Otter in a library / application.                                     | `ng add @o3r/core`         |
-| page                | Create a new Page in your application.                                        | `ng g page`                |
-| service             | Create a new Otter Service in your library / application.                     | `ng g service`             |
-| fixture             | Adding functions to an Otter fixture based on a selector and default methods. | `ng g fixture`             |
-| component           | Create a new Otter component in your library / application.                   | `ng g component`           |
-| component-container | Create a new Otter container component in your library / application.         | `ng g component-container` |
-| component-presenter | Create a new Otter presenter component in your library / application.         | `ng g component-presenter` |
-| playwright-scenario | Create a new Playwright scenario in your application.                         | `ng g playwright-scenario` |
-| store               | Create a new store in your library / application.                             | `ng g store`               |
-| store-entity-async  | Create an entity async new store in your library / application.               | `ng g store-entity-async`  |
-| store-entity-sync   | Create an entity sync new store in your library / application.                | `ng g store-entity-sync`   |
-| store-simple-async  | Create a simple async new store in your library / application.                | `ng g store-simple-async`  |
-| store-simple-sync   | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`   |
-| store-action        | Create an action into an existing store.                                      | `ng g store-action`        |
-| storybook-component | Create an Storybook file for a presenter.                                     | `ng g storybook-component` |
-| renovate-bot        | Create a basic Renovate Bot                                                   | `ng g renovate-bot`        |
-| module              | Create a new Otter compatible module in your monorepo                         | `ng g module`              |
-| ng-add-create       | Include `ng add` schematic into your project                                  | `ng g ng-add-create`       |
-| show-modules        | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`        |
-| add-modules         | Add a new Otter Module to the current project                                 | `ng g add-modules`         |
+### Item generators
+
+| Schematics                 | Description                                                                   | How to use                        |
+| -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
+| add                        | Include Otter in a library / application.                                     | `ng add @o3r/core`                |
+| page                       | Create a new Page in your application.                                        | `ng g page`                       |
+| service                    | Create a new Otter Service in your library / application.                     | `ng g service`                    |
+| component                  | Create a new Otter component in your library / application.                   | `ng g component`                  |
+| component-container        | Create a new Otter container component in your library / application.         | `ng g component-container`        |
+| component-presenter        | Create a new Otter presenter component in your library / application.         | `ng g component-presenter`        |
+| playwright-scenario        | Create a new Playwright scenario in your application.                         | `ng g playwright-scenario`        |
+| store                      | Create a new store in your library / application.                             | `ng g store`                      |
+| store-entity-async         | Create an entity async new store in your library / application.               | `ng g store-entity-async`         |
+| store-entity-sync          | Create an entity sync new store in your library / application.                | `ng g store-entity-sync`          |
+| store-simple-async         | Create a simple async new store in your library / application.                | `ng g store-simple-async`         |
+| store-simple-sync          | Create a simple sync new store in your library / application.                 | `ng g store-simple-sync`          |
+| store-action               | Create an action into an existing store.                                      | `ng g store-action`               |
+| renovate-bot               | Create a basic Renovate Bot                                                   | `ng g renovate-bot`               |
+| ng-add-create              | Include `ng add` schematic into your project                                  | `ng g ng-add-create`              |
+| show-modules               | Display the list of available Otter modules on Otter Registry                 | `ng g show-modules`               |
+| add-modules                | Add a new Otter Module to the current project                                 | `ng g add-modules`                |
+| convert-component          | Convert an Angular component into an Otter component                          | `ng g convert-component`          |
+| context-to-component       | Add Otter Context to an existing component                                    | `ng g context-to-component`       |
+
+### Package generators
+
+| Schematics                 | Description                                                                   | How to use                        |
+| -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
+| library                    | Add a new Library to the current Otter project                                | `ng g library`                    |
+| sdk                        | Add a new SDK to the current Otter project                                    | `ng g sdk`                        |
+| application                | Add a new Application to the current Otter project                            | `ng g application`                |
 
 ## Create your own Otter compatible module
 
 You can refer to the [module documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md) to create an Otter compatible module.
+
+## Presets
+
+To accelerate the setup of repositories, different `presets` are provided that will chain the add of different modules.
+Today the following presets are available.
+
+### Preset Basic
+
+This preset is the default one, it does not add any additional modules.
+
+### Preset CMS
+
+Will add all the modules allowing the allowing the full managing of an application by the CMS.
+It includes the following modules:
+
+* @o3r/localization
+* @o3r/styling
+* @o3r/components
+* @o3r/configuration
+* @o3r/dynamic-content
+* @o3r/rules-engine
+
+### External (Custom) Preset
+
+The preset mechanism is supporting, via the `--external-preset` option, presets defined by module providers themself.
+
+The modules can be regrouped in custom Presets by following the next steps:
+
+* Adding a **keyword**, in the module *package.json*'s `keywords` field, following the pattern `otter-preset-<my-preset>`.
+* The module needs to be published to public (or private) NPM Registry.
+* The package's scope should be whitelisted, via a Pull Request, in the following [OTTER_MODULE_SUPPORTED_SCOPES constant](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/schematics/src/modules/modules.constants.ts).
+
+> **Note**: Get more information regarding the **Otter Modules** in the [Module Documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/core/MODULE.md).

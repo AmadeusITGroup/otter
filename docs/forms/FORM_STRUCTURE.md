@@ -25,7 +25,7 @@ This documentation will help you with some best practices to be used at the buil
 
 <a name="container-presenter"></a>
 ## [Container/presenter](../components/COMPONENT_STRUCTURE.md) and reactive forms
-Container/presenter architecture was put in place to ensure the best reusability/sharing 
+Container/presenter architecture was put in place to ensure the best re-usability/sharing 
 <a name="form-creation"></a>
 ### Form creation in container or in presenter?
 
@@ -53,7 +53,7 @@ The need in this case is to display the inline errors, check the form validity a
 This case includes the simple case plus the display of a messages panel containing the form errors and the flexibility to submit from the presenter or from the page. 
 * The presenter containing the form should:
    * implement [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor). It will propagate all the __value/status changes__ done inside the __presenter form object__ to the parent, in our case the container.
-    In this way it will behave as an __HTML input element__ on which we can __apply__ the [ngModel](https://angular.io/api/forms/NgModel) directive or we can bind a [FormControl](https://angular.io/api/forms/FormControl#description). 
+    In this way it will behave as an __HTML input element__ on which we can __apply__ the [ngModel](https://angular.io/api/forms/NgModel) directive, or we can bind a [FormControl](https://angular.io/api/forms/FormControl#description). 
    * implement [Validator](https://angular.io/api/forms/Validator) interface, if your form validators are only synchronous or [AsyncValidator](https://angular.io/api/forms/AsyncValidator) interface if the form needs asynchronous validators. See [FORM_VALIDATION](./FORM_VALIDATION.md) for more details about validation in Otter.  
       * Implementing this interface gives us the possibility to define, in the __validate__ method, the error object model which will be propagated to the parent/container. See [FORM_ERRORS](./FORM_ERRORS.md) for details. 
 * The container will apply a [Form Control Directive](https://angular.io/api/forms/FormControlDirective) to the presenter form to have the possibility to:
@@ -287,7 +287,7 @@ We are keeping the concept of validators from angular forms. Please see [FormVal
   
 In Otter context we call the __basic or primitive__, the validators which are using primitive values (string, number, booleans) as inputs for the validation function.  
 
-This validators are defined and applied at presenter level. They can be set at form creation or later, depending on the use cases.
+These validators are defined and applied at presenter level. They can be set at form creation or later, depending on the use cases.
 Validators values are given as a configuration on the presenter. This gave us the possibility to use the presenter with different set of validators.
 
 <a name="validators-definition"></a> 
@@ -339,7 +339,7 @@ In the use case where we need to display inline errors, we have to apply directi
 
 <a name="validators-translation"></a> 
 ###### Validators translations
-For each defined validator we need a corresponding translation key for the error message. This keys have to be defined in the corresponding __localization.json__ file of the __presenter__. In this way the presenter is aware about it's own validations/error messages.  
+For each defined validator we need a corresponding translation key for the error message. These keys have to be defined in the corresponding __localization.json__ file of the __presenter__. In this way the presenter is aware about its own validations/error messages.  
 
 See [FORM_VALIDATIONS](./FORM_VALIDATION.md) for more details.
 
@@ -351,7 +351,7 @@ As they are related to the business logic we will create them in the __container
 
 <a name="custom-validators-definition"></a> 
 ###### Validators definition 
-The validation function can be defined anywhere but it has to be added to the validators object in the container.
+The validation function can be defined anywhere, but it has to be added to the validators object in the container.
 * Validation function
 ```typescript
 /** Validator which checks that the firstname or lastname are not equal with the parameter 'valueToTest' */
@@ -415,7 +415,7 @@ The validators are applied to the form on the __presenter__ class.
 ###### Validators translations
 For each custom validator we need a corresponding translation key for the error message. 
 As they are defined in the container, the keys have to be defined in the corresponding __localization.json__ file of the __container__. 
-In this way the container knows about it's own validations/error messages.  
+In this way the container knows about its own validations/error messages.  
 
 See [FORM_VALIDATIONS](./FORM_VALIDATION.md) for more details.
 

@@ -27,21 +27,11 @@ export class DynamicContentService {
     return !assetPath ? '' : assetPath.replace(/^\//, '');
   }
 
-  /**
-   * Gets the asset path with the content root path
-   *
-   * @param assetPath asset location (e.g /assets-otter/imgs/my-image.png)
-   */
   private getContentPath(assetPath?: string) {
     const normalizedAssetPath = this.normalizePath(assetPath);
     return this.basePath !== '' ? `${this.basePath}/${normalizedAssetPath}` : assetPath || '';
   }
 
-  /**
-   * Gets the asset path based on the content root path
-   *
-   * @param assetPath asset location (e.g /assets-otter/imgs/my-image.png)
-   */
   private getMediaPath(assetPath?: string) {
     if (this.cmsOnlyAssetsPath && assetPath) {
       return assetPath.startsWith('/') ? assetPath : `${this.cmsOnlyAssetsPath.replace(/\/$/, '')}/${assetPath}`;
@@ -50,27 +40,25 @@ export class DynamicContentService {
   }
 
   /**
-   * Gets the asset path with the content root path
+   * Gets the full path of a content relative to the root
+   * Content path doesn't consider any override, you will always get the same file
    *
-   * @param assetPath asset location (e.g /assets-otter/imgs/my-image.png)
+   * @example getMediaPath('assets/imgs/my-image.png') will give you the basePath + 'assets/imgs/my-image.png'
+   *
+   * @param assetPath asset location in the root folder
    */
   public getContentPathStream(assetPath?: string) {
-    const dynPath = this.getContentPath(assetPath);
-    if (!this.store) {
-      return of(dynPath);
-    }
-    return this.store.pipe(
-      select(selectAssetPathOverride),
-      map((assetPathOverrides) => assetPathOverrides && assetPathOverrides[dynPath] || dynPath),
-      distinctUntilChanged(),
-      shareReplay(1)
-    );
+    return of(this.getContentPath(assetPath));
   }
 
   /**
-   * Gets the asset path based on the content root path
+   * Gets the stream that provides the full path of a media content
+   * A Media content is always stored in the 'assets' media folder, no external content will be accessible through this function
+   * If any override is applied to the content, returns the override path instead
    *
-   * @param assetPath asset location (e.g /assets-otter/imgs/my-image.png)
+   * @example getMediaPathStream('imgs/my-image.png') will give you the basePath + mediaFolder + 'imgs/my-image.png'
+   *
+   * @param assetPath asset location in the media folder (e.g imgs/my-image.png)
    */
   public getMediaPathStream(assetPath?: string) {
     if (!this.store) {

@@ -20,13 +20,12 @@
       ]
     },
     "compile": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nx/js:tsc",
       "options": {
         "rootDir": "packages/@o3r/testing/src",
         "main": "packages/@o3r/testing/src/public_api.ts",
         "tsConfig": "packages/@o3r/testing/tsconfig.build.json",
         "outputPath": "packages/@o3r/testing/dist",
-        "updateBuildableProjectDepsInPackageJson": false,
         "clean": false
       }
     },
@@ -46,7 +45,10 @@
       "options": {
         "script": "build:schematics"
       },
-      "inputs": ["schematics", "^source"],
+      "inputs": [
+        "schematics",
+        "^source"
+      ],
       "outputs": [
         "{projectRoot}/dist/schematics"
       ]
@@ -65,7 +67,7 @@
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -75,15 +77,23 @@
       "options": {
         "eslintConfig": "packages/@o3r/testing/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/testing/src/**/*.ts"
+          "packages/@o3r/testing/src/**/*.ts",
+          "packages/@o3r/testing/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/testing/jest.config.js",
         "silent": true
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/testing/testing/jest.config.it.js",
+        "silent": false
       }
     },
     "prepare-publish": {

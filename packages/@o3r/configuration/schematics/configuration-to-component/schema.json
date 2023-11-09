@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "$id": "NgAddConfigSchematicsSchema",
+  "title": "Add Otter Configuration to an existing component",
+  "description": "Add Otter Configuration to an existing component",
+  "properties": {
+    "projectName": {
+      "type": "string",
+      "description": "Project name",
+      "$default": {
+        "$source": "projectName"
+      }
+    },
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    },
+    "exposeComponent": {
+      "type": "boolean",
+      "description": "Should change a component into an exposed component, to have it extracted in CMS metadata",
+      "default": true
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

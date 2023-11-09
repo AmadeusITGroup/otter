@@ -1,5 +1,6 @@
 import {logging} from '@angular-devkit/core';
-import * as glob from 'globby';
+import { O3rCliError } from '@o3r/schematics';
+import globby from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 import {ComponentClassExtractor, ComponentInformation} from './component-class.extractor';
@@ -33,7 +34,10 @@ export interface FileParserOutputConfiguration extends FileParserOutput {
   configuration: ConfigurationInformationWrapper;
 }
 
-/** @inheritdoc */
+/**
+ * @inheritdoc
+ * @deprecated will be removed in v10
+ */
 export interface FileParserOutputModule extends FileParserOutput {
   /** @inheritdoc */
   module: ModuleInformation;
@@ -47,7 +51,10 @@ export interface ParserOutput {
   /** List of configuration parsed */
   configurations: { [file: string]: FileParserOutputConfiguration };
 
-  /** List of modules parsed */
+  /**
+   * List of modules parsed
+   * @deprecated will be removed in v10
+   */
   modules: { [file: string]: FileParserOutputModule };
 }
 
@@ -73,7 +80,7 @@ export class ComponentParser {
 
     if (tsconfigResult.error) {
       this.logger.error(tsconfigResult.error.messageText.toString());
-      throw new Error(tsconfigResult.error.messageText.toString());
+      throw new O3rCliError(tsconfigResult.error.messageText.toString());
     }
 
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
@@ -85,7 +92,7 @@ export class ComponentParser {
   /** Get the list of file from tsconfig.json */
   private getFilesFromTsConfig() {
     const {include, exclude, cwd} = this.getPatternsFromTsConfig();
-    return glob(include, {ignore: exclude, cwd, absolute: true});
+    return globby(include, {ignore: exclude, cwd, absolute: true});
   }
 
   /**
@@ -127,6 +134,7 @@ export class ComponentParser {
    *
    * @param file Path to the file to extract the component from
    * @param source Typescript SourceFile node of the file
+   * @deprecated will be removed in v10
    */
   private getModule(file: string, source: ts.SourceFile) {
     const moduleExtractor = new ComponentModuleExtractor(source, this.logger, file);

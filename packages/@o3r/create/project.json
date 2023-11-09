@@ -30,7 +30,7 @@
       ]
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -40,7 +40,8 @@
       "options": {
         "eslintConfig": "packages/@o3r/create/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/create/src/**/*.ts"
+          "packages/@o3r/create/src/**/*.ts",
+          "packages/@o3r/create/package.json"
         ]
       }
     },

@@ -25,6 +25,8 @@ export interface CascadingConfiguration {
    * - **$target** : Target branch
    */
   pullRequestTitle: string;
+  /** Prefix of the branch created for creating process */
+  branchNamePrefix: string;
 }
 
 export interface PullRequestContext {
@@ -46,11 +48,29 @@ export interface CascadingPullRequestInfo {
   body: string | null;
   /** Determine if the pull request is still open */
   isOpen: boolean;
+  /** Name of the branch origin of the pull request */
+  originBranchName: string;
   /** ID of the pull request */
   id: string | number;
   /** Context of the Pull Request (parsed from content) */
   context?: PullRequestContext;
+  /** Determine if the pull request can be merged */
+  mergeable: boolean | null;
 }
 
 /** Check suite possible conclusions */
 export type CheckConclusion = 'cancelled' | 'neutral' | 'success' | 'failure' | 'timed_out' | 'action_required' | 'stale' | null;
+
+/**
+ * Default configuration
+ */
+export const DEFAULT_CONFIGURATION: Readonly<CascadingConfiguration> = {
+  ignoredPatterns: [] as string[],
+  defaultBranch: '',
+  cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
+  versionCapturePattern: '/((?:0|[1-9]\\d*)\\.(?:0|[1-9]\\d*)(?:\\.0-[^ ]+)?)$',
+  bypassReviewers: false,
+  labels: [] as string[],
+  pullRequestTitle: '[cascading] from $origin to $target',
+  branchNamePrefix: 'cascading'
+} as const;

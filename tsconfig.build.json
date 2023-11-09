@@ -5,7 +5,7 @@
   "compilerOptions": {
     "allowSyntheticDefaultImports": false,
     "paths": {
-      "@ama-sdk/core": ["packages/@ama-sdk/core/dist"],
+      "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
@@ -39,6 +39,7 @@
       "@o3r/storybook": ["packages/@o3r/storybook/dist", "packages/@o3r/storybook/src/public_api"],
       "@o3r/stylelint-plugin": ["packages/@o3r/stylelint-plugin/dist", "packages/@o3r/stylelint-plugin/src/public_api"],
       "@o3r/styling": ["packages/@o3r/styling/dist", "packages/@o3r/styling/src/public_api"],
+      "@o3r/test-helpers": ["packages/@o3r/test-helpers/dist", "packages/@o3r/test-helpers/src/public_api"],
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"]

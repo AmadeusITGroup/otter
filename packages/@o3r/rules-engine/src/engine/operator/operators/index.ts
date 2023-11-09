@@ -6,6 +6,7 @@ import {dateBasedOperators} from './date-based.operators';
 export * from './array-based.operators';
 export * from './basic.operators';
 export * from './number-based.operators';
+export * from './date-based.operators';
 
 export const operatorList = [...arrayBasedOperators, ...basicOperators, ...numberBasedOperators, ...dateBasedOperators];
 

@@ -17,10 +17,7 @@
       "options": {
         "project": "packages/@o3r/apis-manager/ng-package.json",
         "tsConfig": "packages/@o3r/apis-manager/tsconfig.build.json"
-      },
-      "dependsOn": [
-        "^build"
-      ]
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -35,7 +32,7 @@
       }
     },
     "lint": {
-      "executor": "@nrwl/linter:eslint",
+      "executor": "@nx/linter:eslint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -45,15 +42,23 @@
       "options": {
         "eslintConfig": "packages/@o3r/apis-manager/.eslintrc.js",
         "lintFilePatterns": [
-          "packages/@o3r/apis-manager/src/**/*.ts"
+          "packages/@o3r/apis-manager/src/**/*.ts",
+          "packages/@o3r/apis-manager/package.json"
         ]
       }
     },
     "test": {
-      "executor": "@nrwl/jest:jest",
+      "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/apis-manager/jest.config.js",
         "silent": true
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/apis-manager/testing/jest.config.it.js",
+        "silent": false
       }
     },
     "prepare-publish": {

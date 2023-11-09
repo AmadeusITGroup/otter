@@ -1,41 +1,17 @@
-import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
+import { chain, externalSchematic, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
-import { NgAddSchematicsSchema } from './schema';
 import { displayModuleList } from '../rule-factories/module-list';
-
-/**
- * Install dev dependency on your application
- *
- * Note: it should not be moved to other packages as it should run before the installation
- * of peer dependencies
- */
-class DevInstall extends NodePackageInstallTask {
-  public quiet = false;
-
-  /** @inheritdoc */
-  public toConfiguration() {
-    const installOptions = process.env?.npm_execpath?.includes('yarn')  ? 'yarn' : 'npm';
-    return {
-      name: NodePackageName,
-      options: {
-        command: 'install',
-        quiet: this.quiet,
-        workingDirectory: this.workingDirectory,
-        packageName: `${this.packageName!} ${installOptions === 'yarn' ? '--prefer-dev' : '-D'}`,
-        packageManager: installOptions
-      }
-    };
-  }
-}
+import { getExternalPreset, presets } from '../shared/presets';
+import { AddDevInstall, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { NgAddSchematicsSchema } from './schema';
+import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 
 /**
  * Add Otter library to an Angular Project
- *
  * @param options
  */
 export function ngAdd(options: NgAddSchematicsSchema): Rule {
@@ -43,16 +19,19 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
     const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
     const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
-    for (const dependency of schematicsDependencies) {
-      context.addTask(new DevInstall({
-        packageName: dependency + o3rCoreVersion,
-        hideOutput: false,
-        quiet: false
-      } as any));
-      await lastValueFrom(context.engine.executePostTasks());
-    }
+
+    context.addTask(new AddDevInstall({
+      packageName: [
+        ...schematicsDependencies.map((dependency) => dependency + o3rCoreVersion)
+      ].join(' '),
+      hideOutput: false,
+      quiet: false
+    } as any));
+    await lastValueFrom(context.engine.executePostTasks());
 
     return () => chain([
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      setupSchematicsDefaultParams({ '*:ng-add': { registerDevtool: options.withDevtool } }),
       ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', {})),
       async (t, c) => {
         const {prepareProject} = await import('./project-setup/index');
@@ -63,9 +42,32 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         return () => registerPackageCollectionSchematics(corePackageJsonContent)(t, c);
       },
       async (t, c) => {
+        const { preset, externalPresets, ...forwardOptions } = options;
+        const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
+        const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)?.({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
+        const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
+        if (modules.length) {
+          c.logger.info(`The following modules will be installed: ${modules.join(', ')}`);
+          if (c.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
+            return;
+          }
+        }
+        return () => chain([
+          presetRunner.rule,
+          externalPresetRunner?.rule || noop()
+        ])(t, c);
+      },
+      async (t, c) => {
         const { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } = await import('@o3r/schematics');
         const displayModuleListRule = displayModuleList(OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES);
         return () => displayModuleListRule(t, c);
+      },
+      (_, c) => {
+        if (!options.projectName && !options.skipGit && options.commit) {
+          const commit: {name?: string; email?: string; message?: string} = typeof options.commit == 'object' ? options.commit : {};
+          commit.message = 'Setup of Otter Framework';
+          c.addTask(new RepositoryInitializerTask(undefined, commit));
+        }
       }
     ])(tree, context);
   };

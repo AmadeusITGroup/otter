@@ -1,6 +1,6 @@
-import type { JsonObject } from '@angular-devkit/core';
+import type { SchematicOptionObject } from '@o3r/schematics';
 
-export interface CreateModuleSchematicsSchema extends JsonObject {
+export interface CreateModuleSchematicsSchema extends SchematicOptionObject {
   /** Project name */
   name: string;
 

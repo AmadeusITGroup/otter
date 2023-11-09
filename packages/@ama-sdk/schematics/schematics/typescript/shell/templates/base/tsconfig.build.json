@@ -24,19 +24,19 @@
     "rootDir": "./src",
     "baseUrl": ".",
     "paths": {
-      "@<%=projectName%>/<%=projectPackageName%>/helpers/*": [
+      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/helpers/*": [
         "./src/helpers/*"
       ],
-      "@<%=projectName%>/<%=projectPackageName%>/helpers": [
+      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/helpers": [
         "./src/helpers/index"
       ],
-      "@<%=projectName%>/<%=projectPackageName%>": [
+      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>": [
         "./src/index"
       ],
-      "@<%=projectName%>/<%=projectPackageName%>/*": [
+      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/*": [
         "./src/*"
       ],
-      "@<%=projectName%>/<%=projectPackageName%>/spec": [
+      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/spec": [
         "./src/spec/index"
       ]
     }
