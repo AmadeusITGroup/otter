@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'node:child_process';
+import { execSync, spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
@@ -46,18 +46,52 @@ if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
 
 const packageManager = argv['package-manager'] || defaultPackageManager;
 
+const getYarnVersion = () => {
+  try {
+    return execSync('yarn --version', {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      env: {
+        ...process.env,
+        //  NPM updater notifier will prevents the child process from closing until it timeout after 3 minutes.
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NO_UPDATE_NOTIFIER: '1',
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        NPM_CONFIG_UPDATE_NOTIFIER: 'false'
+      }
+    }).trim();
+  } catch {
+    return 'latest';
+  }
+};
+
+const schematicArgs = [
+  argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
+  '--name', name,
+  '--package', pck,
+  '--package-manager', packageManager,
+  '--directory', targetDirectory,
+  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+];
+
+const getSchematicStepInfo = (schematic: string) => ({
+  args: [binPath, schematic, ...schematicArgs]
+});
+
 const run = () => {
-  const schematicArgs = [
-    argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
-    '--name', name,
-    '--package', pck,
-    '--package-manager', packageManager,
-    '--directory', targetDirectory,
-    ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+
+  const steps: { args: string[]; cwd?: string }[] = [
+    getSchematicStepInfo(schematicsToRun[0]),
+    ...(
+      packageManager === 'yarn'
+        ? [{ args: ['yarn', 'set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        : []
+    ),
+    ...schematicsToRun.slice(1).map(getSchematicStepInfo)
   ];
 
-  const errors = schematicsToRun
-    .map((schematic) => spawnSync(process.execPath, [binPath, schematic, ...schematicArgs], { stdio: 'inherit', cwd: process.cwd()}))
+  const errors = steps
+    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
     .map(({error}) => error)
     .filter((err) => !!err);
 
