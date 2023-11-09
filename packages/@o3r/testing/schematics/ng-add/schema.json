@@ -24,7 +24,7 @@
       "description": "Install playwright"
     }
   },
-  "additionalProperties": false,
+  "additionalProperties": true,
   "required": [
   ]
 }
