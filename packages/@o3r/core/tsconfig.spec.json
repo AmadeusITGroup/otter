@@ -6,7 +6,8 @@
   },
   "include": [
     "./src/**/*.spec.ts",
-    "./schematics/**/*.spec.ts"
+    "./schematics/**/*.spec.ts",
+    "schematics/store/*/mocks/**/*.ts"
   ],
   "exclude": [],
   "references": [
