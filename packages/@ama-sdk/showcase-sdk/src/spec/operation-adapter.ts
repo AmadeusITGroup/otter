@@ -10,6 +10,8 @@ export const OPERATION_ADAPTER: PathObject[] = [{
 },{
   path: '/pet/{petId}',regexp: new RegExp('^/pet/((?:[^/]+?))(?:/(?=$))?$'),operations: [{'method': 'get','operationId': 'getPetById'},{'method': 'post','operationId': 'updatePetWithForm'},{'method': 'delete','operationId': 'deletePet'}]
 },{
+  path: '/pet/{petId}/uploadImage',regexp: new RegExp('^/pet/((?:[^/]+?))/uploadImage(?:/(?=$))?$'),operations: [{'method': 'post','operationId': 'uploadFile'}]
+},{
   path: '/store/inventory',regexp: new RegExp('^/store/inventory(?:/(?=$))?$'),operations: [{'method': 'get','operationId': 'getInventory'}]
 },{
   path: '/store/order',regexp: new RegExp('^/store/order(?:/(?=$))?$'),operations: [{'method': 'post','operationId': 'placeOrder'}]

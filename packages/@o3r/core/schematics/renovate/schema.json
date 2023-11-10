@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "NgGenerateRenovateBotSchematicsSchema",
   "title": "Generate Renovate Bot",
   "description": "ng generate Renovate bot",

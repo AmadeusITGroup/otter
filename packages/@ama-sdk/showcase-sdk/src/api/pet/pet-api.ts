@@ -1,6 +1,8 @@
+import { ApiResponse } from '../../models/base/api-response/index';
+import { reviveApiResponse } from '../../models/base/api-response/api-response.reviver';
 import { Pet } from '../../models/base/pet/index';
 import { revivePet } from '../../models/base/pet/pet.reviver';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export type FindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
 export interface AddPetRequestData {
@@ -37,6 +39,14 @@ export interface UpdatePetWithFormRequestData {
   /** Status of pet that needs to be updated */
   'status'?: string;
 }
+export interface UploadFileRequestData {
+  /** ID of pet to update */
+  'petId': number;
+  /** Additional Metadata */
+  'additionalMetadata'?: string;
+  /**  */
+  'body'?: File;
+}
 /**
  * @Deprecated, please use AddPetRequestData
  */
@@ -71,6 +81,11 @@ export interface UpdatePet extends UpdatePetRequestData {}
  * @Deprecated, please use UpdatePetWithFormRequestData
  */
 export interface UpdatePetWithForm extends UpdatePetWithFormRequestData {}
+
+/**
+ * @Deprecated, please use UploadFileRequestData
+ */
+export interface UploadFile extends UploadFileRequestData {}
 
 export class PetApi implements Api {
 
@@ -110,7 +125,11 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
-    body = data.Pet ? JSON.stringify(data.Pet) : '{}';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.Pet ? JSON.stringify(data.Pet) : '{}';
+    } else {
+      body = data.Pet as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/pet`;
     const tokenizedUrl = `${this.client.options.basePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
@@ -242,7 +261,11 @@ export class PetApi implements Api {
     };
 
     let body: RequestBody = '';
-    body = data.Pet ? JSON.stringify(data.Pet) : '{}';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.Pet ? JSON.stringify(data.Pet) : '{}';
+    } else {
+      body = data.Pet as any;
+    }
     const basePathUrl = `${this.client.options.basePath}/pet`;
     const tokenizedUrl = `${this.client.options.basePath}/pet`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
@@ -261,7 +284,7 @@ export class PetApi implements Api {
    */
   public async updatePetWithForm(data: UpdatePetWithFormRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<UpdatePetWithFormRequestData>(data, ['name', 'status']);
-    const metadataHeaderAccept = metadata?.headerAccept || '';
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
@@ -276,6 +299,36 @@ export class PetApi implements Api {
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePetWithForm');
+    return ret;
+  }
+
+  /**
+   * uploads an image
+   * @param data Data to provide to the API call
+   * @param metadata
+   */
+  public async uploadFile(data: UploadFileRequestData, metadata?: RequestMetadata<'application/octet-stream', 'application/json'>): Promise<ApiResponse> {
+    const getParams = this.client.extractQueryParams<UploadFileRequestData>(data, ['additionalMetadata']);
+    const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
+    const headers: { [key: string]: string | undefined } = {
+      'Content-Type': metadata?.headerContentType || 'application/octet-stream',
+      ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
+    };
+
+    let body: RequestBody = '';
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data.body ? JSON.stringify(data.body) : '{}';
+    } else {
+      body = data.body as any;
+    }
+    const basePathUrl = `${this.client.options.basePath}/pet/${data.petId}/uploadImage`;
+    const tokenizedUrl = `${this.client.options.basePath}/pet/${this.piiParamTokens.petId || data.petId}/uploadImage`;
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+
+    const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const url = this.client.prepareUrl(options.basePath, options.queryParams);
+
+    const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: reviveApiResponse } , 'uploadFile');
     return ret;
   }
 

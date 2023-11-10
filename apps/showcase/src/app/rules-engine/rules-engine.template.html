@@ -24,18 +24,21 @@
       </p>
       <o3r-rules-engine-pres></o3r-rules-engine-pres>
       <p>
+        You can see more information about the rules execution by installing our <a href="https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne" target="_blank" rel="noopener">Otter Chrome extension</a>
+      </p>
+      <p>
         Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
       </p>
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/rules-engine" target="_blank" rel="noopener">Source code</a>
-      <ul class="nav nav-tabs mt-3">
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
+      <ul ngbNav class="nav nav-tabs mt-3">
+        <li ngbNavItem class="nav-item">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="activeRuleTab === 'localization'" (click)="activateRuleTab('localization')">Localization rule</a>
+        <li ngbNavItem class="nav-item">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'localization'" (click)="activateRuleTab('localization')">Localization rule</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
+        <li ngbNavItem class="nav-item">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
         </li>
       </ul>
       <div class="p-3">
