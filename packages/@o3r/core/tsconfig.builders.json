@@ -15,7 +15,8 @@
   "exclude": [
     "**/*.spec.ts",
     "builders/**/templates/**",
-    "schematics/**/templates/**"
+    "schematics/**/templates/**",
+    "schematics/store/*/mocks/**"
   ],
   "references": [
     {
