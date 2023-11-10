@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "FunctionalContentsMetadataSchema",
   "type": "object",
   "title": "Schema of Functional Contents metadata",
@@ -209,7 +209,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },
@@ -241,7 +242,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },
@@ -275,7 +277,8 @@
           ]
         },
         "required": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, the property input will be flagged as mandatory in the CMS view"
         }
       }
     },

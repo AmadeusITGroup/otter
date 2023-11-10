@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "NgAddIframeToComponentSchematicsSchema",
   "title": "Add iframe to an existing component",
   "description": "Add iframe to an existing component",

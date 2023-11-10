@@ -33,4 +33,8 @@ export class PetApiFixture implements Partial<Readonly<PetApi>> {
    * Fixture associated to function updatePetWithForm
    */
   public updatePetWithForm: jasmine.Spy = jasmine.createSpy('updatePetWithForm');
+  /**
+   * Fixture associated to function uploadFile
+   */
+  public uploadFile: jasmine.Spy = jasmine.createSpy('uploadFile');
 }

@@ -13,6 +13,7 @@
   ],
   "exclude": [
     "**/*.spec.ts",
-    "schematics/**/templates/**"
+    "schematics/**/templates/**",
+    "schematics/ng-add/mocks/**"
   ]
 }

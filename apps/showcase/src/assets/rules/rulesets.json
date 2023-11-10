@@ -23,6 +23,13 @@
                     "type": "FACT",
                     "value": "outboundDate"
                   },
+                  "operator": "isDefined"
+                },
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "outboundDate"
+                  },
                   "operator": "duringSummer"
                 }
               ]
@@ -89,6 +96,13 @@
             "blockType": "IF_ELSE",
             "condition": {
               "all": [
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "outboundDate"
+                  },
+                  "operator": "isDefined"
+                },
                 {
                   "lhs": {
                     "type": "FACT",

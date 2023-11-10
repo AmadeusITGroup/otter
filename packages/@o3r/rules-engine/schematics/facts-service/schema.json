@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "NgGenerateFactsServiceSchematicsSchema",
   "title": "Generate a facts service",
   "description": "Generate a facts service",

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "NgAddFunctionsToFixtureSchematicsSchema",
   "title": "Generate Otter Fixture",
   "description": "ng generate Otter fixture based on a selector and default methods",

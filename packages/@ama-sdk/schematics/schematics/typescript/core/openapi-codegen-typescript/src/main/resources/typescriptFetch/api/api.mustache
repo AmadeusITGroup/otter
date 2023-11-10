@@ -3,7 +3,7 @@
 import { {{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/index';
 import { revive{{import}} } from '../../models/base/{{#kebabCase}}{{import}}{{/kebabCase}}/{{#kebabCase}}{{import}}{{/kebabCase}}.reviver';
 {{/imports}}
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, RequestBody, RequestMetadata, utils } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata, utils } from '@ama-sdk/core';
 
 {{#operations}}
   {{#operation}}
@@ -92,7 +92,11 @@ export class {{classname}} implements Api {
       {{/consumes}}
     {{/hasFormParams}}
     {{#bodyParam}}
-    body = data['{{baseName}}'] ? JSON.stringify(data['{{baseName}}']) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
+    if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
+      body = data['{{baseName}}'] ? JSON.stringify(data['{{baseName}}']) : {{#isArray}}'[]'{{/isArray}}{{^isArray}}'{}'{{/isArray}};
+    } else {
+      body = data['{{baseName}}'] as any;
+    }
     {{/bodyParam}}
     const basePathUrl = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
     const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;

@@ -82,7 +82,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    RulesEngineModule.forRoot({ debug: isDevMode() }),
+    RulesEngineModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,

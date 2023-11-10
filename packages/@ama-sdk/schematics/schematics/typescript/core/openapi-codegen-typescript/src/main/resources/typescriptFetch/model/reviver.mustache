@@ -28,6 +28,7 @@ import { utils, reviveArray, reviveMap, reviveDictionarizedArray } from '@ama-sd
 {{#models}}
   {{#model}}
     {{^isEnum}}
+      {{^isEnumRef}}
 export function revive{{classname}}<T extends {{classname}} = {{classname}}>(data: undefined, dictionaries?: any): undefined;
 export function revive{{classname}}(data: {{classname}}, dictionaries?: any): {{classname}} {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}};
 export function revive{{classname}}(data: any, dictionaries?: any): {{classname}} {{#discriminator}}{{#vendorExtensions}}{{#x-discriminator-subtypes}}| {{.}}{{/x-discriminator-subtypes}}{{/vendorExtensions}}{{/discriminator}} | undefined;
@@ -120,6 +121,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
           {{^isPrimitiveType}}
             {{#complexType}}
               {{^isEnum}}
+                {{^isEnumRef}}
                 {{#isMap}}
                   {{#vendorExtensions}}
                     {{^nonObjectDefinition}}
@@ -143,11 +145,14 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
                     {{/vendorExtensions}}
                   {{/isArray}}
                 {{/isMap}}
+                {{/isEnumRef}}
               {{/isEnum}}
             {{/complexType}}
             {{^complexType}}
               {{^isEnum}}
+                {{^isEnumRef}}
   data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} = data.{{baseName}} ? new {{{dataType}}}(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}) : undefined;
+                {{/isEnumRef}}
               {{/isEnum}}
             {{/complexType}}
           {{/isPrimitiveType}}
@@ -158,6 +163,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
   return data as T;
 }
 
+    {{/isEnumRef}}
     {{/isEnum}}
     {{#isEnum}}
 /** As the definition is not an object, no reviver is needed */

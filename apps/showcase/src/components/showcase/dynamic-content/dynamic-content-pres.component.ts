@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
+import { DatePickerInputPresComponent } from '../../utilities';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -10,7 +11,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @Component({
   selector: 'o3r-dynamic-content-pres',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DynamicContentModule],
+  imports: [CommonModule, ReactiveFormsModule, DynamicContentModule, DatePickerInputPresComponent],
   templateUrl: './dynamic-content-pres.template.html',
   styleUrls: ['./dynamic-content-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

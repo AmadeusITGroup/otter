@@ -83,6 +83,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       "utils.DateTime",
       "number",
       "Map",
+      "Blob",
+      "File",
       "any"
     ));
     instantiationTypes.put("array", "Array");
