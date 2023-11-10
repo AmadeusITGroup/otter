@@ -6,16 +6,17 @@ import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
+import { EOL } from 'node:os';
 import * as ts from 'typescript';
 import { CssVariableExtractor } from './helpers/index';
 import { StyleExtractorBuilderSchema } from './schema';
+import type { Logger } from 'sass';
 
 export * from './schema';
 
 
 /**
  * Get the library name from package.json
- *
  * @param currentDir
  */
 const defaultLibraryName = (currentDir: string = process.cwd()) => {
@@ -27,7 +28,19 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
-  const cssVariableExtractor = new CssVariableExtractor();
+  const sassLogger: Logger = {
+    debug: (message, {span}) => context.logger.debug(`${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`),
+    warn: (message, {deprecation, span, stack}) => {
+      let log: string = deprecation ? `Deprecated function used${EOL}` : '';
+      if (stack) {
+        log += `${stack}${EOL}`;
+      }
+      log += `${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`;
+      context.logger.warn(log);
+    }
+  };
+
+  const cssVariableExtractor = new CssVariableExtractor({ logger: sassLogger });
 
   const execute = async (files: string[], previousMetadata: CssMetadata = {
     variables: {}
@@ -144,7 +157,6 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
 
   /**
    * Run a translation generation and report the result
-   *
    * @param filePath File that has changed and requires a regeneration
    * @param cacheMetadata Previous metadata file generated
    */
