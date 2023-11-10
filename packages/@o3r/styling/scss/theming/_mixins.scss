@@ -4,12 +4,16 @@
 @use '../utils/functions' as utils-functions;
 
 /// @access private
-@mixin _apply-theme($o3r-theme, $root-name, $details: (category: 'theme')) {
+@mixin _apply-theme($o3r-theme, $root-name, $details: (tags: ('theme'))) {
   @if (meta.type-of($o3r-theme) != map) {
     @include define-var($root-name, $o3r-theme, $details);
   } @else {
     @if (theme-functions.is-variable($o3r-theme)) {
-      @include _apply-theme(map.get($o3r-theme, value), $root-name, map.get($o3r-theme, details))
+      @if (map.has-key($o3r-theme, details)) {
+        @include _apply-theme(map.get($o3r-theme, value), $root-name, map.get($o3r-theme, details));
+      } @else {
+        @include _apply-theme(map.get($o3r-theme, value), $root-name);
+      }
     } @else {
       @each $key, $value in $o3r-theme {
         $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
@@ -57,6 +61,13 @@
 ///   :root {
 ///     @include o3r.define-var('--my-scss-var', '#fff')
 ///   }
+///
+/// @example
+///   @use '@o3r/styling' as o3r
+///   :root {
+///     // Override the metadata of an existing "--my-scss-var" variable
+///     @include o3r.define-var('--my-scss-var', null, (description: 'My scss variable'))
+///   }
 @mixin define-var($name, $value, $details) {
   $key: utils-functions.get-var-key($name);
   $varName: '--#{$key}';
@@ -65,7 +76,7 @@
   @if ($value != null) {
     #{$varName}: #{$value};
   } @else {
-    @debug 'ignored variable #{$varName} because of invalid value';
+    @debug 'Ignored variable #{$varName} value set because the value is defined as "null"';
   }
 }
 

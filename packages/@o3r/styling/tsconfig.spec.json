@@ -8,6 +8,7 @@
   "include": [
     "./src/**/*.spec.ts",
     "./schematics/**/*.spec.ts",
+    "./builders/**/*.spec.ts",
     "./scss/**/*.spec.ts"
   ],
   "exclude": [],
