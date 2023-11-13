@@ -1,5 +1,5 @@
-import { PetApi, Tag } from '@ama-sdk/showcase-sdk';
-import type { Pet } from '@ama-sdk/showcase-sdk';
+import { PetApi } from '@ama-sdk/showcase-sdk';
+import type { Pet, Tag } from '@ama-sdk/showcase-sdk';
 import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +7,17 @@ import { FormsModule } from '@angular/forms';
 import { DfMedia } from '@design-factory/design-factory';
 import { NgbHighlight, NgbPagination, NgbPaginationPages } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
+import { Store } from '@ngrx/store';
 import { OtterPickerPresComponent } from '../../utilities';
+import {
+  PetStoreModule,
+  removePetEntitiesFromApi,
+  selectAllPet,
+  selectPetStoreFailureStatus,
+  selectPetStorePendingStatus,
+  setPetEntitiesFromApi,
+  upsertPetEntitiesFromApi
+} from '../../../store/pet/index';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
@@ -21,7 +31,8 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
     FormsModule,
     NgbPagination,
     OtterPickerPresComponent,
-    NgbPaginationPages
+    NgbPaginationPages,
+    PetStoreModule
   ],
   templateUrl: './sdk-pres.template.html',
   styleUrls: ['./sdk-pres.style.scss'],
@@ -31,6 +42,7 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
 export class SdkPresComponent {
   private petStoreApi = inject(PetApi);
   private mediaService = inject(DfMedia);
+  private store = inject(Store);
 
   /**
    * Name input used to create new pets
@@ -60,17 +72,17 @@ export class SdkPresComponent {
   /**
    * Complete list of pets retrieved from the API
    */
-  public pets = signal<Pet[]>([]);
+  public pets = this.store.selectSignal(selectAllPet);
 
   /**
    * Loading state of the API
    */
-  public isLoading = signal(true);
+  public isLoading = this.store.selectSignal(selectPetStorePendingStatus);
 
   /**
    * Error state of the API
    */
-  public hasErrors = signal(false);
+  public hasErrors = this.store.selectSignal(selectPetStoreFailureStatus);
 
   /**
    * List of pets filtered according to search term
@@ -110,7 +122,7 @@ export class SdkPresComponent {
   public baseUrl = location.href.split('/#', 1)[0];
 
   constructor() {
-    void this.reload();
+    this.reload();
   }
 
   private getNextId() {
@@ -121,22 +133,20 @@ export class SdkPresComponent {
    * Trigger a full reload of the list of pets by calling the API
    */
   public reload() {
-    this.isLoading.set(true);
-    this.hasErrors.set(false);
-    return this.petStoreApi.findPetsByStatus({status: 'available'}).then((pets) => {
-      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => a.id && b.id && a.id - b.id || 0));
-      this.isLoading.set(false);
-    }).catch(() => {
-      this.isLoading.set(false);
-      this.hasErrors.set(true);
-    });
+    this.store.dispatch(
+      setPetEntitiesFromApi({
+        call: this.petStoreApi
+          .findPetsByStatus({ status: 'available' })
+          .then((pets) => pets.filter((p) => p.category?.name === 'otter').sort((a, b) => a.id && b.id && a.id - b.id || 0))
+      })
+    );
   }
 
   /**
    * Call the API to create a new pet
    */
-  public async create() {
-    const pet: Pet = {
+  public create() {
+    const petInfo: Pet = {
       id: this.getNextId(),
       name: this.petName(),
       category: {name: 'otter'},
@@ -144,31 +154,41 @@ export class SdkPresComponent {
       status: 'available',
       photoUrls: this.petName() ? [this.petImage()] : []
     };
-    this.isLoading.set(true);
-    await this.petStoreApi.addPet({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      Pet: pet
-    });
-    if (pet.photoUrls.length) {
-      const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
-      const blob = await (await fetch(filePath)).blob();
-      await this.petStoreApi.uploadFile({
-        petId: pet.id!,
-        body: new File([blob], filePath, {type: blob.type})
-      });
-    }
-    await this.reload();
+    this.store.dispatch(
+      upsertPetEntitiesFromApi({
+        call: this.petStoreApi
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          .addPet({ Pet: petInfo })
+          .then(async (pet) => {
+            if (petInfo.photoUrls.length) {
+              const filePath = `${this.baseUrl}${petInfo.photoUrls[0]}`;
+              const blob = await (await fetch(filePath)).blob();
+              await this.petStoreApi.uploadFile({
+                petId: petInfo.id!,
+                body: new File([blob], filePath, {type: blob.type})
+              });
+            }
+            return [pet];
+          })
+          .finally(() => this.reload())
+      })
+    );
   }
 
-  public async delete(petToDelete: Pet) {
+  public delete(petToDelete: Pet) {
     if (petToDelete.id) {
-      this.isLoading.set(true);
-      try {
-        await this.petStoreApi.deletePet({petId: petToDelete.id});
-      } catch (ex) {
-        // The backend respond with incorrect header application/json while the response is just a string
-      }
-      await this.reload();
+      this.store.dispatch(
+        removePetEntitiesFromApi({
+          call: this.petStoreApi
+            .deletePet({petId: petToDelete.id})
+            .then(() => [petToDelete.name])
+            .catch(() => {
+              // The backend respond with incorrect header application/json while the response is just a string
+              return [petToDelete.name];
+            })
+            .finally(() => this.reload())
+        })
+      );
     }
   }
 
