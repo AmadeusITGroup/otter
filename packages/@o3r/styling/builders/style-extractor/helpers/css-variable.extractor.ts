@@ -12,6 +12,7 @@ import {
   SassMap,
   SassNumber,
   SassString,
+  StringOptions,
   Value
 } from 'sass';
 
@@ -28,6 +29,10 @@ interface SassCalculation extends Value {
  */
 export class CssVariableExtractor {
   private cache: Record<string, URL> = {};
+
+  constructor(public defaultSassOptions?: StringOptions<'sync'>) {
+
+  }
 
   /**
    * Parse the CSS variable as reported
@@ -105,14 +110,17 @@ export class CssVariableExtractor {
   }
 
   /**
-   * Extract metadata from Sass file
-   * @param sassFilePath SCSS file to parse
+   * Extract metadata from Sass Content
+   * @param sassFilePath SCSS file URL
+   * @param sassFileContent SCSS file content
+   * @param additionalSassOptions
    */
-  public extractFile(sassFilePath: string): CssVariable[] {
+  public extractFileContent(sassFilePath: string, sassFileContent: string, additionalSassOptions?: StringOptions<'sync'>) {
     const cssVariables: CssVariable[] = [];
-    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf-8'});
 
-    const options = {
+    const options: StringOptions<'sync'> = {
+      ...this.defaultSassOptions,
+      ...additionalSassOptions,
       loadPaths: [path.dirname(sassFilePath)],
       importers: [{
         findFileUrl: (url: string) => {
@@ -193,7 +201,7 @@ export class CssVariableExtractor {
             throw new O3rCliError('invalid variable name');
           }
 
-          let parsedValue: string;
+          let parsedValue: string | undefined;
           if (varValue instanceof SassString || varValue instanceof SassNumber || varValue instanceof SassBoolean) {
             parsedValue = varValue.toString();
           } else if (varValue instanceof SassColor) {
@@ -219,17 +227,40 @@ export class CssVariableExtractor {
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
             parsedValue = `calc(${varValue.$arguments[0]})`;
+          } else if (!varValue.realNull) {
+            if (!details) {
+              console.warn(`The value "null" of ${varName.text} is available only for details override`);
+              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
+            }
           } else {
             console.warn(`invalid value for variable ${varName.text}, it will be ignored`);
             return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
           }
+
           const cssVariableObj = this.parseCssVariable(varName.text, parsedValue);
-          cssVariableObj.tags = contextTags;
-          cssVariableObj.description = description;
-          cssVariableObj.label = label;
-          cssVariableObj.type = type || 'string';
-          cssVariableObj.category = category;
-          cssVariables.push(cssVariableObj);
+          const cssVariableDetails = {
+            tags: contextTags,
+            description,
+            label,
+            type: type || 'string',
+            category
+          };
+          if (parsedValue === undefined) {
+            const cssVariableIndex = cssVariables.findIndex(({ name }) => name === cssVariableObj.name);
+            if (cssVariableIndex > -1) {
+              cssVariables[cssVariableIndex] = {
+                ...cssVariables[cssVariableIndex],
+                ...cssVariableDetails
+              };
+              return new SassString(`[METADATA:VARIABLE] update ${varName.text} details` + (contextTags ? ` (tags: ${contextTags.join(', ')})` : ''));
+            }
+            return new SassString(`[METADATA:VARIABLE] ${varName.text} : Failed to update details of undefined variable`);
+          }
+
+          cssVariables.push({
+            ...cssVariableObj,
+            ...cssVariableDetails
+          });
           return new SassString(`[METADATA:VARIABLE] ${varName.text} : ${parsedValue}` + (contextTags ? ` (tags: ${contextTags.join(', ')})` : ''));
         }
       }
@@ -237,6 +268,15 @@ export class CssVariableExtractor {
 
     compileString(sassFileContent, options);
     return cssVariables;
+  }
+
+  /**
+   * Extract metadata from Sass file
+   * @param sassFilePath SCSS file to parse
+   */
+  public extractFile(sassFilePath: string): CssVariable[] {
+    const sassFileContent = fs.readFileSync(sassFilePath, {encoding: 'utf-8'});
+    return this.extractFileContent(sassFilePath, sassFileContent);
   }
 
   /**
