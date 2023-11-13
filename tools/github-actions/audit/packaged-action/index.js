@@ -3959,12 +3959,11 @@ exports["default"] = _default;
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
-
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
     if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
+        desc = { enumerable: true, get: function() { return m[k]; } };
     }
     Object.defineProperty(o, k2, desc);
 }) : (function(o, m, k, k2) {
@@ -3983,94 +3982,138 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-Object.defineProperty(exports, "__esModule", ({ value: true }));
+Object.defineProperty(exports, "__esModule", { value: true });
 const core = __importStar(__nccwpck_require__(647));
 const exec_1 = __nccwpck_require__(193);
 const os = __importStar(__nccwpck_require__(224));
+/**
+ * Severities supported by yarn npm audit from the lowest to the highest criticality
+ */
+const severities = ['info', 'low', 'moderate', 'high', 'critical'];
+const colors = ['', 'green', 'yellow', 'orange', 'red'];
+function computeYarn4Report(response, severityThreshold) {
+    core.info('Computing Report for Yarn 4');
+    const reports = response.split('\n').filter(a => !!a);
+    const severityThresholdIndex = severities.indexOf(severityThreshold);
+    return reports.reduce((currentReport, currentVulnerability) => {
+        const vulnerabilityReport = JSON.parse(currentVulnerability);
+        const vulnerabilitySeverity = vulnerabilityReport?.children.Severity || 'info';
+        const severityIndex = severities.indexOf(vulnerabilitySeverity);
+        if (severityIndex >= severityThresholdIndex) {
+            currentReport.errors.push({
+                severity: vulnerabilitySeverity,
+                moduleName: vulnerabilityReport.value,
+                overview: vulnerabilityReport.children.Issue
+            });
+        }
+        else {
+            currentReport.warnings.push({
+                severity: vulnerabilitySeverity,
+                moduleName: vulnerabilityReport.value,
+                overview: `This issue affects version ${vulnerabilityReport.children['Vulnerable Version']}. ${vulnerabilityReport.children.Issue}`
+            });
+        }
+        currentReport.highestSeverityFound = severities.indexOf(currentReport.highestSeverityFound || 'info') <= severities.indexOf(vulnerabilitySeverity) ?
+          vulnerabilitySeverity : currentReport.highestSeverityFound;
+        currentReport.nbVulnerabilities += 1;
+        return currentReport;
+    }, { nbVulnerabilities: 0, errors: [], warnings: [] });
+}
+function computeYarn3Report(response, severityThreshold) {
+    core.info('Computing Report for Yarn 3');
+    const reportJson = JSON.parse(response);
+    core.debug(response);
+    const nbVulnerabilities = Object.values(reportJson.metadata.vulnerabilities || {}).reduce((acc, curr) => acc + curr, 0);
+    let highestSeverityFound;
+    for (let index = severities.length; index >= 0; index--) {
+        const severity = severities[index];
+        if (reportJson.metadata.vulnerabilities[severity] > 0) {
+            highestSeverityFound = severity;
+            break;
+        }
+    }
+    return Object.values(reportJson.advisories)
+      .reduce((currentVulnerabilities, advisory) => {
+          core.info(`${severities.indexOf(severityThreshold)} - ${severities.indexOf(advisory.severity)}`);
+          if (severities.indexOf(severityThreshold) <= severities.indexOf(advisory.severity)) {
+              currentVulnerabilities.errors.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
+          }
+          else {
+              currentVulnerabilities.warnings.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
+          }
+          return currentVulnerabilities;
+      }, { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound });
+}
 async function run() {
-    /**
-     * Severities supported by yarn npm audit from the lowest to the highest criticality
-     */
-    const severities = ['info', 'low', 'moderate', 'high', 'critical'];
-    const colors = ['', 'green', 'yellow', 'orange', 'red'];
     try {
         const severityConfig = core.getInput('severity');
         const allWorkspaces = core.getInput('allWorkspaces') === 'true';
         const recursive = core.getInput('recursive') === 'true';
         const environment = core.getInput('environment');
+        const versionOutput = await (0, exec_1.getExecOutput)('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
+        const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
         const command = `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
-        const { stdout: report } = await (0, exec_1.getExecOutput)(command, [], { cwd: process.env.GITHUB_WORKSPACE });
+        const { stdout: report, stderr: err } = await (0, exec_1.getExecOutput)(command, [], { cwd: process.env.GITHUB_WORKSPACE, ignoreReturnCode: true });
+        core.warning(err);
         core.setOutput('reportJSON', report);
-        const reportJson = JSON.parse(report);
-        core.debug(report);
-        const highestSeverityFound = severities.reverse().find(severity => reportJson.metadata.vulnerabilities[severity] > 0);
-        if (highestSeverityFound) {
+        const reportData = version >= 4 ? computeYarn4Report(report, severityConfig) : computeYarn3Report(report, severityConfig);
+        if (!reportData.highestSeverityFound) {
             core.info('No vulnerability detected.');
+            return;
         }
         else {
-            core.info(`Highest severity found: ${highestSeverityFound}`);
-            const isFailed = severities.indexOf(severityConfig) <= severities.indexOf(highestSeverityFound);
-            if (isFailed) {
-                core.error(`Found at least one vulnerability equal to or higher than the configured severity threshold: ${severityConfig}.`);
-                throw new Error(`Yarn audit found dependencies with vulnerabilities above the severity threshold: ${severityConfig}. Please look at the Audit report.`);
-            }
-            else {
-                core.info(`Vulnerabilities were detected but all below the configured severity threshold: ${severityConfig}.`);
-            }
-            const vulnerabilities = Object.values(reportJson.advisories)
-                .reduce((currentVulnerabilities, advisory) => {
-                if (severities.indexOf(severityConfig) <= severities.indexOf(advisory.severity)) {
-                    currentVulnerabilities.errors.push(advisory);
-                }
-                else {
-                    currentVulnerabilities.warnings.push(advisory);
-                }
-                return currentVulnerabilities;
-            }, { errors: [], warnings: [] });
-            const nbVulnerabilities = Object.values(reportJson.metadata.vulnerabilities).reduce((acc, curr) => acc + curr, 0);
-            const getBadge = (sev) => `![${sev}](https://img.shields.io/static/v1?label=&logo=npm&message=${sev}&color=${colors[severities.indexOf(sev)]})`;
-            const formatVulnerability = (vulnerability) => `
-### ${vulnerability.module_name} ${getBadge(vulnerability.severity)}
+            core.info(`Highest severity found: ${reportData.highestSeverityFound}`);
+        }
+        const isFailed = reportData.errors.length > 0;
+        const getBadge = (sev) => `![${sev}](https://img.shields.io/static/v1?label=&logo=npm&message=${sev}&color=${colors[severities.indexOf(sev)]})`;
+        const formatVulnerability = (vulnerability) => `
+### ${vulnerability.moduleName} ${getBadge(vulnerability.severity)}
 
 <details>
-  <summary>Details</summary>
+<summary>Details</summary>
 
 ${vulnerability.overview.replaceAll('### ', '#### ')}
 </details>
 
 `;
-            const isVulnerabilityWithKnownSeverity = (advisory) => severities.indexOf(advisory.severity) >= 0;
-            const sortVulnerabilityBySeverity = (advisory1, advisory2) => severities.indexOf(advisory2.severity) - severities.indexOf(advisory1.severity);
-            const body = `# Audit report ${isFailed ? ':x:' : ':white_check_mark:'}
+        const isVulnerabilityWithKnownSeverity = (advisory) => severities.indexOf(advisory.severity) >= 0;
+        const sortVulnerabilityBySeverity = (advisory1, advisory2) => severities.indexOf(advisory2.severity) - severities.indexOf(advisory1.severity);
+        const body = `# Audit report ${isFailed ? ':x:' : ':white_check_mark:'}
 
-${nbVulnerabilities} vulnerabilities founds.
+${reportData.nbVulnerabilities} vulnerabilities found.
 
-${vulnerabilities.errors.length ? `## Vulnerabilities to be fixed
+${reportData.errors.length ? `## Vulnerabilities to be fixed
 
-${vulnerabilities.errors
-                .filter(isVulnerabilityWithKnownSeverity)
-                .sort(sortVulnerabilityBySeverity)
-                .map(formatVulnerability)
-                .join(os.EOL)}
+${reportData.errors
+          .filter(isVulnerabilityWithKnownSeverity)
+          .sort(sortVulnerabilityBySeverity)
+          .map(formatVulnerability)
+          .join(os.EOL)}
 ` : ''}
-${vulnerabilities.warnings.length ? `___
+${reportData.warnings.length ? `___
 
 <details>
 <summary>
 Vunerabilities below the threshold: ${severityConfig}
 </summary>
 
-${vulnerabilities.warnings
-                .filter(isVulnerabilityWithKnownSeverity)
-                .sort(sortVulnerabilityBySeverity)
-                .map(formatVulnerability)
-                .join(os.EOL)
-                .replaceAll('${', '&#36;{')}
+${reportData.warnings
+          .filter(isVulnerabilityWithKnownSeverity)
+          .sort(sortVulnerabilityBySeverity)
+          .map(formatVulnerability)
+          .join(os.EOL)
+          .replaceAll('${', '&#36;{')}
 
 </details>
 ` : ''}
 `;
-            core.setOutput('reportMarkdown', body);
+        core.setOutput('reportMarkdown', body);
+        if (isFailed) {
+            core.error(`Found at least one vulnerability equal to or higher than the configured severity threshold: ${severityConfig}.`);
+            throw new Error(`Yarn audit found dependencies with vulnerabilities above the severity threshold: ${severityConfig}. Please look at the Audit report.`);
+        }
+        else {
+            core.info(`Vulnerabilities were detected but all below the configured severity threshold: ${severityConfig}.`);
         }
     }
     catch (error) {
@@ -4080,8 +4123,6 @@ ${vulnerabilities.warnings
     }
 }
 void run();
-
-
 /***/ }),
 
 /***/ 491:
@@ -4208,7 +4249,7 @@ module.exports = require("util");
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
-/******/ 	
+/******/
 /******/ 	// The require function
 /******/ 	function __nccwpck_require__(moduleId) {
 /******/ 		// Check if module is in cache
@@ -4222,7 +4263,7 @@ module.exports = require("util");
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
-/******/ 	
+/******/
 /******/ 		// Execute the module function
 /******/ 		var threw = true;
 /******/ 		try {
@@ -4231,24 +4272,24 @@ module.exports = require("util");
 /******/ 		} finally {
 /******/ 			if(threw) delete __webpack_module_cache__[moduleId];
 /******/ 		}
-/******/ 	
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/ 	
+/******/
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat */
-/******/ 	
+/******/
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
-/******/ 	
+/******/
 /************************************************************************/
-/******/ 	
+/******/
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __nccwpck_require__(691);
 /******/ 	module.exports = __webpack_exports__;
-/******/ 	
+/******/
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map
