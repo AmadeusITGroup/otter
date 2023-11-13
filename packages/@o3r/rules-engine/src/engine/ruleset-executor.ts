@@ -62,6 +62,113 @@ export class RulesetExecutor {
   }
 
   /**
+   * Plug ruleset to fact streams and trigger a first evaluation
+   *
+   */
+  private prepareRuleset() {
+    const rulesWithContext: Rule[] = [];
+    const rulesWithoutContext: Rule[] = [];
+    const factsThatRerunEverything: string[] = [];
+    this.ruleset.rules.forEach((rule) => {
+      if (rule.outputRuntimeFacts.length > 0 || rule.inputRuntimeFacts.length > 0) {
+        rulesWithContext.push(rule);
+        factsThatRerunEverything.push(...rule.inputFacts);
+      } else {
+        rulesWithoutContext.push(rule);
+      }
+    });
+    const triggerFull: Observable<unknown[]> = factsThatRerunEverything.length === 0 ? of([]) :
+      combineLatest(factsThatRerunEverything.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact)));
+    const result$ = triggerFull.pipe(switchMap(() => {
+      const runtimeFactValues: Record<string, Facts> = {};
+
+      let rulesetInputFacts: string[];
+      if (this.rulesEngine.debugMode) {
+        rulesetInputFacts = Array.from(this.ruleset.rules.reduce((acc, rule) => {
+          rule.inputFacts.forEach((factName) => acc.add(factName));
+          return acc;
+        }, new Set<string>()));
+      }
+
+      return combineLatest(this.ruleset.rules.map((rule) => {
+        const inputFacts = Array.from(new Set(rule.inputFacts));
+        const values$ = inputFacts.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact));
+        return (values$.length ? combineLatest(values$) : of([[]] as (Facts | undefined)[]))
+          .pipe(
+            startWith(undefined),
+            pairwise(),
+            tap(() => this.performanceMark(rule, 'start')),
+            map(([oldFactValues, factValues]) => {
+              const output: RuleEvaluationOutput = {actions: undefined};
+
+              try {
+                output.actions = this.evaluateRule(rule, inputFacts.reduce<Record<string, Facts | undefined>>((acc, id, index) => {
+                  acc[id] = factValues![index];
+                  return acc;
+                }, {}), runtimeFactValues);
+              } catch (error) {
+                output.actions = undefined;
+                output.error = error;
+              }
+
+              if (this.rulesEngine.debugMode) {
+                output.evaluation = handleRuleEvaluationDebug(rule, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
+              } else if (output.error) {
+                this.rulesEngine.logger?.error(output.error);
+                this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
+              }
+              return output;
+            }),
+            tap(() => this.performanceMark(rule, 'end'))
+          );
+      })).pipe(
+        startWith(undefined),
+        pairwise(),
+        map(([prevRes, currRes]) => {
+          const actionsLists = currRes!.map(r => r.actions);
+          const allExecutionsValid = actionsLists.every((actions) => !!actions);
+
+          let execInfo: {
+            executionCounter?: number;
+            actionsLists: ActionBlock[][];
+            rulesetOutputExecution?: RuleEvaluation[];
+            allExecutionsValid?: boolean;
+            rulesetTriggers?: Record<string, Record<string, EvaluationReason>>;
+          } = {actionsLists: (allExecutionsValid ? actionsLists : [[]]) as ActionBlock[][]};
+
+          if (this.rulesEngine.engineDebug) {
+            execInfo = {
+              ...execInfo,
+              ...this.rulesEngine.engineDebug.handleDebugRulesetExecutionInfo(
+                currRes!, prevRes, allExecutionsValid, rulesetInputFacts, runtimeFactValues, ++this.executionCounter, this.ruleset)
+            };
+          }
+          return execInfo;
+        }),
+        map((output) => {
+          const outputActions = ([] as ActionBlock[]).concat(...output.actionsLists);
+
+          if (this.rulesEngine.engineDebug && output.allExecutionsValid) {
+            this.rulesEngine.engineDebug.addRulesetExecutionEvent(this.ruleset, output.executionCounter!,
+              rulesetInputFacts, outputActions, runtimeFactValues, output.rulesetTriggers!,
+              output.rulesetOutputExecution!);
+          }
+
+          return outputActions;
+        }),
+        distinctUntilChanged((prev, curr) => prev.length === 0 && curr.length === 0)
+      );
+    }), shareReplay({bufferSize: 1, refCount: true}));
+
+    return {
+      id: this.ruleset.id,
+      validityRange: this.ruleset.validityRange,
+      linkedComponent: this.ruleset.linkedComponent,
+      rulesResultsSubject$: result$
+    } as EngineRuleset;
+  }
+
+  /**
    * Report performance mark for a rule run
    *
    * @param rule Rule to measure
@@ -193,114 +300,6 @@ export class RulesetExecutor {
       return isAllConditions(nestedCondition) ? nestedCondition.all.every(evaluate) : nestedCondition.any.some(evaluate);
     }
     throw new Error(`Unknown condition block met : ${JSON.stringify(nestedCondition)}`);
-  }
-
-  /**
-   * Plug ruleset to fact streams and trigger a first evaluation
-   *
-   * @param ruleset
-   */
-  public prepareRuleset() {
-    const rulesWithContext: Rule[] = [];
-    const rulesWithoutContext: Rule[] = [];
-    const factsThatRerunEverything: string[] = [];
-    this.ruleset.rules.forEach((rule) => {
-      if (rule.outputRuntimeFacts.length > 0 || rule.inputRuntimeFacts.length > 0) {
-        rulesWithContext.push(rule);
-        factsThatRerunEverything.push(...rule.inputFacts);
-      } else {
-        rulesWithoutContext.push(rule);
-      }
-    });
-    const triggerFull: Observable<unknown[]> = factsThatRerunEverything.length === 0 ? of([]) :
-      combineLatest(factsThatRerunEverything.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact)));
-    const result$ = triggerFull.pipe(switchMap(() => {
-      const runtimeFactValues: Record<string, Facts> = {};
-
-      let rulesetInputFacts: string[];
-      if (this.rulesEngine.debugMode) {
-        rulesetInputFacts = Array.from(this.ruleset.rules.reduce((acc, rule) => {
-          rule.inputFacts.forEach((factName) => acc.add(factName));
-          return acc;
-        }, new Set<string>()));
-      }
-
-      return combineLatest(this.ruleset.rules.map((rule) => {
-        const inputFacts = Array.from(new Set(rule.inputFacts));
-        const values$ = inputFacts.map((fact) => this.rulesEngine.retrieveOrCreateFactStream(fact));
-        return (values$.length ? combineLatest(values$) : of([[]] as (Facts | undefined)[]))
-          .pipe(
-            startWith(undefined),
-            pairwise(),
-            tap(() => this.performanceMark(rule, 'start')),
-            map(([oldFactValues, factValues]) => {
-              const output: RuleEvaluationOutput = {actions: undefined};
-
-              try {
-                output.actions = this.evaluateRule(rule, inputFacts.reduce<Record<string, Facts | undefined>>((acc, id, index) => {
-                  acc[id] = factValues![index];
-                  return acc;
-                }, {}), runtimeFactValues);
-              } catch (error) {
-                output.actions = undefined;
-                output.error = error;
-              }
-
-              if (this.rulesEngine.debugMode) {
-                output.evaluation = handleRuleEvaluationDebug(rule, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
-              } else if (output.error) {
-                this.rulesEngine.logger?.error(output.error);
-                this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
-              }
-              return output;
-            }),
-            tap(() => this.performanceMark(rule, 'end'))
-          );
-      })).pipe(
-        startWith(undefined),
-        pairwise(),
-        map(([prevRes, currRes]) => {
-          const actionsLists = currRes!.map(r => r.actions);
-          const allExecutionsValid = actionsLists.every((actions) => !!actions);
-
-          let execInfo: {
-            executionCounter?: number;
-            actionsLists: ActionBlock[][];
-            rulesetOutputExecution?: RuleEvaluation[];
-            allExecutionsValid?: boolean;
-            rulesetTriggers?: Record<string, Record<string, EvaluationReason>>;
-          } = {actionsLists: (allExecutionsValid ? actionsLists : [[]]) as ActionBlock[][]};
-
-          if (this.rulesEngine.engineDebug) {
-            execInfo = {
-              ...execInfo,
-              ...this.rulesEngine.engineDebug.handleDebugRulesetExecutionInfo(
-                currRes!, prevRes, allExecutionsValid, rulesetInputFacts, runtimeFactValues, ++this.executionCounter, this.ruleset)
-            };
-          }
-          return execInfo;
-        }),
-        map((output) => {
-          const outputActions = ([] as ActionBlock[]).concat(...output.actionsLists);
-
-          if (this.rulesEngine.engineDebug && output.allExecutionsValid) {
-            this.rulesEngine.engineDebug.addRulesetExecutionEvent(this.ruleset, output.executionCounter!,
-              rulesetInputFacts, outputActions, runtimeFactValues, output.rulesetTriggers!,
-              output.rulesetOutputExecution!);
-          }
-
-          return outputActions;
-        }),
-        distinctUntilChanged((prev, curr) => prev.length === 0 && curr.length === 0)
-      );
-    }), shareReplay({bufferSize: 1, refCount: true}));
-
-    return {
-      id: this.ruleset.id,
-      validityRange: this.ruleset.validityRange,
-      linkedComponent: this.ruleset.linkedComponent,
-      rulesResultsSubject$: result$
-    } as EngineRuleset;
   }
 
 }
