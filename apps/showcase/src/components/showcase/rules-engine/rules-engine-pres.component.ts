@@ -1,4 +1,4 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { AsyncPipe, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } from '@o3r/configuration';
@@ -23,12 +23,12 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     DynamicContentModule,
     ReactiveFormsModule,
     RulesEngineModule,
     LocalizationModule,
-    DatePickerInputPresComponent
+    DatePickerInputPresComponent,
+    AsyncPipe
   ]
 })
 export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
@@ -119,7 +119,4 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
     this.subscription.unsubscribe();
   }
 
-  public trackByCityName(_index: number, option: RulesEngineDestinationConfiguration) {
-    return option.cityCode;
-  }
 }

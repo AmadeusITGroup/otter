@@ -106,7 +106,7 @@ export class ApiFetchClient implements ApiClient {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
-    let root: any | undefined;
+    let root: any;
     let body: string | undefined;
     let exception: Error | undefined;
 

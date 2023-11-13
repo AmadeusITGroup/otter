@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
@@ -10,12 +10,12 @@ import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DI
   selector: 'o3r-dynamic-content',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     DynamicContentModule,
     IN_PAGE_NAV_PRES_DIRECTIVES,
     DynamicContentPresComponent,
-    CopyTextPresComponent
+    CopyTextPresComponent,
+    AsyncPipe
   ],
   templateUrl: './dynamic-content.template.html',
   styleUrls: ['./dynamic-content.style.scss'],

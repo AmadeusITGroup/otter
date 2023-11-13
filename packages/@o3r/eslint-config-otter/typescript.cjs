@@ -137,14 +137,12 @@ module.exports = {
         'leadingUnderscore': 'allow',
         'trailingUnderscore': 'allow'
       },
-
       {
         'selector': 'variable',
         'format': ['camelCase', 'UPPER_CASE'],
         'leadingUnderscore': 'allow',
         'trailingUnderscore': 'allow'
       },
-
       {
         'selector': 'typeLike',
         'format': ['PascalCase']
@@ -157,6 +155,10 @@ module.exports = {
       {
         'selector': 'enumMember',
         'format': ['camelCase', 'UPPER_CASE']
+      },
+      {
+        'selector': 'import',
+        'format': ['camelCase', 'PascalCase']
       }
     ],
     '@typescript-eslint/no-array-constructor': 'error',
@@ -186,6 +188,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-this-alias': 'error',
+    '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
     '@typescript-eslint/no-unused-expressions': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',

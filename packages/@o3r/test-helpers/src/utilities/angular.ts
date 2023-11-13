@@ -10,7 +10,8 @@ import * as path from 'node:path';
 export function addImportToAppModule(appFolderPath: string, moduleName: string, modulePath: string) {
   const appModuleFilePath = path.join(appFolderPath, 'src/app/app.module.ts');
   const appModule = readFileSync(appModuleFilePath).toString();
-  writeFileSync(appModuleFilePath, `import { ${moduleName} } from '${modulePath}';\n${
+  const relativeModulePath = path.relative(path.dirname(appModuleFilePath), path.join(appFolderPath, modulePath)).replace(/\\+/g, '/');
+  writeFileSync(appModuleFilePath, `import { ${moduleName} } from '${relativeModulePath}';\n${
     appModule.replace(/(BrowserModule,)/, `$1\n    ${moduleName},`)
   }`);
 }

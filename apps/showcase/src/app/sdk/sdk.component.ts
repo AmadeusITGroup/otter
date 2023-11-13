@@ -1,6 +1,6 @@
-import {AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {RouterLink} from '@angular/router';
+import { AsyncPipe } from '@angular/common';
+import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
 import {
   CopyTextPresComponent,
@@ -16,11 +16,11 @@ import {
   selector: 'o3r-sdk',
   standalone: true,
   imports: [
-    CommonModule,
     CopyTextPresComponent,
     RouterLink,
     SdkPresComponent,
-    IN_PAGE_NAV_PRES_DIRECTIVES
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    AsyncPipe
   ],
   templateUrl: './sdk.template.html',
   styleUrls: ['./sdk.style.scss'],

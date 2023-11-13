@@ -26,9 +26,7 @@
     },
     "build-components": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{projectRoot}/dist/components"
-      ],
+      "outputs": ["{projectRoot}/dist/components"],
       "options": {
         "baseHref": "components",
         "outputPath": "apps/chrome-devtools/dist/components",
@@ -79,15 +77,11 @@
           "buildOptimizer": false
         }
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-panel": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{projectRoot}/dist/panel"
-      ],
+      "outputs": ["{projectRoot}/dist/panel"],
       "options": {
         "baseHref": "panel",
         "outputPath": "apps/chrome-devtools/dist/panel",
@@ -138,24 +132,18 @@
           "buildOptimizer": false
         }
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-extension": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/extension"
-      ],
+      "outputs": ["{projectRoot}/dist/extension"],
       "options": {
         "script": "build:extension"
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

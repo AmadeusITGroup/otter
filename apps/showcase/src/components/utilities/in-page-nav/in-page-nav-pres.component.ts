@@ -11,7 +11,6 @@ import {
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { NgbScrollSpyModule, NgbScrollSpyService } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 
@@ -62,7 +61,7 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
 @Component({
   selector: 'o3r-in-page-nav-pres',
   standalone: true,
-  imports: [CommonModule, NgbScrollSpyModule],
+  imports: [NgbScrollSpyModule],
   templateUrl: './in-page-nav-pres.template.html',
   styleUrls: ['./in-page-nav-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

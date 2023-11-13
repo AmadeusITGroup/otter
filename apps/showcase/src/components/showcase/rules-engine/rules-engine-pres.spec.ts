@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Provider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
@@ -36,7 +37,8 @@ describe('RulesEnginePresComponent', () => {
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
         RulesEngineModule.forRoot(),
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)
+        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
+        AsyncPipe
       ]
     });
     fixture = TestBed.createComponent(RulesEnginePresComponent);

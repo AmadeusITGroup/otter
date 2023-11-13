@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
@@ -26,36 +24,26 @@
       "options": {
         "script": "build:esm2015"
       },
-      "dependsOn": [
-        "build-esm2020"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/esm2015"
-      ]
+      "dependsOn": ["build-esm2020"],
+      "outputs": ["{projectRoot}/dist/esm2015"]
     },
     "build-cjs": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:cjs"
       },
-      "dependsOn": [
-        "build-esm2020"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/cjs"
-      ]
+      "dependsOn": ["build-esm2020"],
+      "outputs": ["{projectRoot}/dist/cjs"]
     },
     "build-esm2020": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:esm2020"
       },
-      "outputs": [
-        "{projectRoot}/dist/src"
-      ]
+      "outputs": ["{projectRoot}/dist/src"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

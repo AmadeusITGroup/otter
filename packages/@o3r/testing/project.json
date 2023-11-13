@@ -7,17 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile",
-        "build-schematics",
-        "build-tools"
-      ]
+      "dependsOn": ["compile", "build-schematics", "build-tools"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -37,37 +31,23 @@
     },
     "build-schematics": {
       "executor": "nx:run-script",
-      "dependsOn": [
-        "^build",
-        "compile",
-        "prepare-build-builders"
-      ],
+      "dependsOn": ["^build", "compile", "prepare-build-builders"],
       "options": {
         "script": "build:schematics"
       },
-      "inputs": [
-        "schematics",
-        "^source"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/schematics"
-      ]
+      "inputs": ["schematics", "^source"],
+      "outputs": ["{projectRoot}/dist/schematics"]
     },
     "build-tools": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/src/tools/protractor"
-      ],
+      "outputs": ["{projectRoot}/dist/src/tools/protractor"],
       "options": {
         "script": "build:tools"
       },
-      "dependsOn": [
-        "^build",
-        "compile"
-      ]
+      "dependsOn": ["^build", "compile"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

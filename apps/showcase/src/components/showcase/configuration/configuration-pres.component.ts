@@ -1,11 +1,11 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { AsyncPipe, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, OnDestroy, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } from '@o3r/configuration';
 import { O3rComponent } from '@o3r/core';
 import { distinctUntilChanged, map, Observable, Subscription } from 'rxjs';
 import { DatePickerInputPresComponent } from '../../utilities';
-import { CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, ConfigurationPresConfig, DestinationConfiguration } from './configuration-pres.config';
+import { CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, ConfigurationPresConfig } from './configuration-pres.config';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -13,7 +13,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 @Component({
   selector: 'o3r-configuration-pres',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, DatePickerInputPresComponent],
+  imports: [ReactiveFormsModule, DatePickerInputPresComponent, AsyncPipe],
   templateUrl: './configuration-pres.template.html',
   styleUrls: ['./configuration-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -79,7 +79,4 @@ export class ConfigurationPresComponent implements OnChanges, OnDestroy, Dynamic
     this.subscription.unsubscribe();
   }
 
-  public trackByCityName(_index: number, option: DestinationConfiguration) {
-    return option.cityName;
-  }
 }

@@ -1,4 +1,3 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CloseInputDatePickerDirective, DfInputIconDirective } from '@design-factory/design-factory';
@@ -9,7 +8,7 @@ import { O3rComponent } from '@o3r/core';
 @Component({
   selector: 'o3r-date-picker-input-pres',
   standalone: true,
-  imports: [CommonModule, FormsModule, CloseInputDatePickerDirective, NgbInputDatepicker, DfInputIconDirective],
+  imports: [FormsModule, CloseInputDatePickerDirective, NgbInputDatepicker, DfInputIconDirective],
   templateUrl: './date-picker-input-pres.template.html',
   styleUrls: ['./date-picker-input-pres.style.scss'],
   providers: [

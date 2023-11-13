@@ -7,10 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -20,9 +17,7 @@
         "outputPath": "packages/@o3r/test-helpers/dist",
         "clean": false
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -37,7 +32,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

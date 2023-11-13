@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
@@ -8,7 +7,7 @@ import { O3rComponent } from '@o3r/core';
 @Component({
   selector: 'o3r-otter-picker-pres',
   standalone: true,
-  imports: [CommonModule, NgbDropdownModule],
+  imports: [NgbDropdownModule],
   templateUrl: './otter-picker-pres.template.html',
   styleUrls: ['./otter-picker-pres.style.scss'],
   providers: [

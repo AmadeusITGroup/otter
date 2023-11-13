@@ -111,12 +111,13 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       context.logger.warn('No application detected in the project, the development modules will not be added.');
       return tree;
     }
+    const mainFilePath = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
 
     // supposing we are in ng 15, the env dev file name is environment.development.ts
-    let envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
+    let envDevFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.development.ts');
     if (!tree.exists(envDevFilePath)) {
       // we are in ng 14, environment dev file name is: environment.ts
-      envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+      envDevFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.ts');
     }
     if (!tree.exists(envDevFilePath)) { // if we don't use the env setup, we skip the step
       context.logger.warn(` Cannot find environment in ${envDevFilePath}`);
@@ -179,13 +180,14 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       context.logger.warn('No application detected in the project, the development modules will not be added.');
       return tree;
     }
+    const mainFilePath = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
 
     // supposing we are in ng 14, environment prod file name is: environment.prod.ts
-    let envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
+    let envProdFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.prod.ts');
 
     if (!tree.exists(envProdFilePath)) {
       // we are in ng 15, environment prod file name is: environment.ts
-      envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+      envProdFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.ts');
     }
 
     if (!tree.exists(envProdFilePath)) { // if we don't use the env setup, we skip the step

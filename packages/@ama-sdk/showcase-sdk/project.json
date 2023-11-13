@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -24,7 +22,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

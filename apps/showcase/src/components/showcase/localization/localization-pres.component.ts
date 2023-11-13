@@ -1,4 +1,4 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { O3rComponent } from '@o3r/core';
@@ -18,7 +18,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    LocalizationModule, CommonModule, ReactiveFormsModule, DatePickerInputPresComponent
+    LocalizationModule, ReactiveFormsModule, DatePickerInputPresComponent
   ]
 })
 export class LocalizationPresComponent implements Translatable<LocalizationPresTranslation>, OnDestroy {

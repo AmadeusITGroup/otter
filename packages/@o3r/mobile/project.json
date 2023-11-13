@@ -7,10 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -21,11 +18,7 @@
     },
     "build-builders": {
       "executor": "nx:run-script",
-      "dependsOn": [
-        "^build",
-        "compile",
-        "prepare-build-builders"
-      ],
+      "dependsOn": ["^build", "compile", "prepare-build-builders"],
       "outputs": [
         "{projectRoot}/dist/pcloudy",
         "{projectRoot}/dist/schematics/**/*.js",
@@ -38,7 +31,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -34,7 +32,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -68,9 +66,7 @@
         "command": "npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
       },
-      "dependsOn": [
-        "prepare-publish"
-      ]
+      "dependsOn": ["prepare-publish"]
     }
   },
   "tags": []

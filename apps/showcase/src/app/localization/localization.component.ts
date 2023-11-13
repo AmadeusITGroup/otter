@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
@@ -9,11 +9,11 @@ import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPa
   selector: 'o3r-localization',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     LocalizationPresComponent,
     CopyTextPresComponent,
-    IN_PAGE_NAV_PRES_DIRECTIVES
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    AsyncPipe
   ],
   templateUrl: './localization.template.html',
   styleUrls: ['./localization.style.scss'],

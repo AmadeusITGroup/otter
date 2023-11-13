@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
@@ -21,7 +21,6 @@ import { duringSummer } from '../../operators/index';
   selector: 'o3r-rules-engine',
   standalone: true,
   imports: [
-    CommonModule,
     RulesEnginePresComponent,
     ConfigurationBaseServiceModule,
     ConfigurationDevtoolsModule,
@@ -37,7 +36,8 @@ import { duringSummer } from '../../operators/index';
     IN_PAGE_NAV_PRES_DIRECTIVES,
     NgbNav,
     NgbNavItem,
-    NgbNavLink
+    NgbNavLink,
+    AsyncPipe
   ],
   templateUrl: './rules-engine.template.html',
   styleUrls: ['./rules-engine.style.scss'],
