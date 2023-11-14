@@ -1,4 +1,6 @@
 **/node_modules/**
+.cache/**
+.yarn/**
 dist/
 test/
 tmp/
@@ -9,3 +11,4 @@ generated-doc/
 /.pnp.js
 /.vscode
 /tools/github-actions/*/packaged-action/
+/**/src/**/package.json

@@ -8,6 +8,7 @@ import { NodePackageInstallTaskOptions } from './interfaces';
  */
 export class AddDevInstall extends NodePackageInstallTask {
   public quiet = false;
+  public force = false;
 
   constructor(options?: NodePackageInstallTaskOptions) {
     super(options as any);
@@ -15,6 +16,7 @@ export class AddDevInstall extends NodePackageInstallTask {
       workspaceConfig: options?.tree && getWorkspaceConfig(options.tree),
       enforcedNpmManager: options?.packageName
     });
+    this.force = !!options?.force;
   }
 
 
@@ -27,7 +29,7 @@ export class AddDevInstall extends NodePackageInstallTask {
       options: {
         ...defaultConfig.options,
         command: 'install',
-        packageName: `${this.packageName!} ${this.packageManager === 'yarn' ? '--prefer-dev' : '--save-dev'}`
+        packageName: `${this.packageName!} ${this.packageManager === 'yarn' ? '--prefer-dev' : '--save-dev'}${this.force && this.packageManager === 'npm' ? ' --force' : ''}`
       }
     };
   }

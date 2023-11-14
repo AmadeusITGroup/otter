@@ -7,6 +7,7 @@ import { getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
  * @param options.projectName
  * @param rootPath @see RuleFactory.rootPath
  * @param options.enableStorybook
+ * @deprecated Should be handle by dedicated CICD package, Will be remove in Otter V10
  */
 export function createAzurePipeline(options: { projectName?: string | null | undefined; enableStorybook: boolean }, rootPath: string): Rule {
 

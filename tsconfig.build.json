@@ -7,6 +7,7 @@
     "paths": {
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/generator-sdk": ["packages/@ama-sdk/generator-sdk/dist", "packages/@ama-sdk/generator-sdk"],
+      "@ama-sdk/showcase-sdk": ["packages/@ama-sdk/showcase-sdk/dist", "packages/@ama-sdk/showcase-sdk"],
       "@ama-sdk/swagger-builder": ["packages/@ama-sdk/swagger-build/dist", "packages/@ama-sdk/swagger-builder"],
       "@ama-terasu/cli": ["packages/@ama-terasu/cli/dist", "packages/@ama-terasu/cli/src/public_api"],
       "@ama-terasu/core": ["packages/@ama-terasu/core/dist", "packages/@ama-terasu/core/src/public_api"],
@@ -42,7 +43,8 @@
       "@o3r/test-helpers": ["packages/@o3r/test-helpers/dist", "packages/@o3r/test-helpers/src/public_api"],
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
-      "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"]
+      "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
+      "@o3r/workspace": ["packages/@o3r/workspace/dist"]
     }
   },
   "angularCompilerOptions": {

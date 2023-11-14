@@ -10,14 +10,16 @@
       "default": "basic",
       "enum": [
         "basic",
-        "cms"
+        "cms",
+        "all"
       ],
       "x-prompt": {
         "message": "Which preset to use to start your application?",
         "type": "list",
         "items": [
           { "value": "basic", "label": "BASIC - Minimum plugin list to install for a basic Otter application. (details on https://www.npmjs.com/package/@o3r/core#preset-basic)" },
-          { "value": "cms", "label": "CMS - Add the Otter modules allowing the full administration of the application via the CMS. (details on https://www.npmjs.com/package/@o3r/core#preset-cms)" }
+          { "value": "cms", "label": "CMS - Add the Otter modules allowing the full administration of the application via the CMS. (details on https://www.npmjs.com/package/@o3r/core#preset-cms)" },
+          { "value": "all", "label": "ALL - Add all the available Otter modules. (details on https://www.npmjs.com/package/@o3r/core#preset-all)" }
         ]
       }
     },
@@ -96,40 +98,13 @@
       "description": "Skip the install process",
       "default": true
     },
-    "commit": {
-      "description": "Initial git repository commit information. (Available at workspace setup only)",
-      "oneOf": [
-        {
-          "type": "boolean"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string",
-              "format": "email"
-            }
-          },
-          "required": [
-            "name",
-            "email"
-          ]
-        }
-      ],
-      "default": true,
-      "additionalProperties": true
-    },
-    "skipGit": {
-      "description": "Do not initialize a git repository. (Available at workspace setup only)",
-      "type": "boolean",
-      "default": false,
-      "alias": "g"
-    },
     "withDevtool": {
       "description": "Add option to automatically register the devtool module",
+      "type": "boolean",
+      "default": true
+    },
+    "forceInstall": {
+      "description": "Force package installation (in case of unmet peer dependencies)",
       "type": "boolean",
       "default": true
     }
