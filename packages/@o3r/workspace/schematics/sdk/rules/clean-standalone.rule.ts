@@ -18,8 +18,14 @@ export function cleanStandaloneFiles(targetPath: string): Rule {
     tree.delete(posix.join(targetPath, '.husky', 'pre-commit'));
 
     const packageJson = tree.readJson(posix.join(targetPath, 'package.json')) as PackageJson;
-    if (packageJson.scripts?.postinstall) {
-      delete packageJson.scripts.postinstall;
+    if (packageJson.scripts) {
+      const excludedScripts = ['postinstall', 'set:version'];
+      packageJson.scripts = Object.fromEntries(
+        Object.entries(packageJson.scripts).filter(([scriptName]) => !excludedScripts.includes(scriptName))
+      );
+    }
+    if (packageJson.devDependencies) {
+      packageJson.devDependencies = Object.fromEntries(Object.entries(packageJson.devDependencies).filter(([depName, _]) => depName !== '@o3r/workspace'));
     }
     tree.overwrite(posix.join(targetPath, 'package.json'), JSON.stringify(packageJson, null, 2));
     return tree;
