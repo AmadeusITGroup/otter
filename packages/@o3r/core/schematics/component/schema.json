@@ -32,13 +32,13 @@
     "componentStructure": {
       "type": "string",
       "enum": [
+        "simple",
         "full",
         "container",
         "presenter"
       ],
-      "description": "Structure of the component you want to generate ('full' | 'container' | 'presenter')",
-      "default": "full",
-      "x-prompt": "Specify the structure of the component you want to generate"
+      "description": "Structure of the component you want to generate ('simple' | 'full' | 'container' | 'presenter')",
+      "default": "simple"
     },
     "useComponentFixtures": {
       "type": "boolean",

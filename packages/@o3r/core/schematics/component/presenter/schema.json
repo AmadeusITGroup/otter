@@ -33,9 +33,10 @@
       "type": "string",
       "enum": [
         "full",
-        "presenter"
+        "presenter",
+        "simple"
       ],
-      "description": "Structure of the component you want to generate ('full' | 'presenter')",
+      "description": "Structure of the component you want to generate ('full' | 'presenter' | 'simple')",
       "default": "presenter"
     },
     "useComponentFixtures": {
