@@ -25,21 +25,33 @@ The cascading process will re-create the Pull Request after merging this one. To
 You can fix the issue locally with the following commands:
 
 <details open>
-  <summary>Using `gh CLI`</summary>
+  <summary>Using <b>gh CLI</b></summary>
 
   ```shell
   gh pr checkout <%= id %>
   git pull --ff origin <%= targetBranch %>
   ```
+
+  and update this Pull Request with
+
+  ```shell
+  gh pr push <%= id %>
+  ```
 </details>
 
 <details>
-  <summary>Using `git` only</summary>
+  <summary>Using <b>git</b> only</summary>
 
   ```shell
   git fetch origin
   git checkout origin/<%= originBranchName %>
   git pull --ff origin <%= targetBranch %>
+  ```
+
+  and update this Pull Request with
+
+  ```shell
+  git push origin <%= targetBranch %>
   ```
 </details>
 
@@ -47,4 +59,4 @@ You can fix the issue locally with the following commands:
 
 ---
 
-<small>This PR has been generated with :heart: by the [Otter](https://github.com/AmadeusITGroup/otter) cascading tool.</small>
+<small>This Pull Request has been generated with :heart: by the [Otter](https://github.com/AmadeusITGroup/otter) cascading tool.</small>

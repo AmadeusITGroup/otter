@@ -114,7 +114,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
             template({
               ...options,
-              rootRelativePath: path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'))
+              rootRelativePath: path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './')),
+              isAngularSetup: tree.exists('/angular.json')
             }),
             move(workingDirectory),
             renameTemplateFiles()
