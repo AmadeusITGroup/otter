@@ -8,6 +8,7 @@ import { Localization, LocalizationModule, LocalizationService, Translatable } f
 import { RulesEngineModule } from '@o3r/rules-engine';
 import { distinctUntilChanged, map, Observable, Subscription } from 'rxjs';
 import { TripFactsService } from '../../../facts/trip/trip.facts';
+import { DatePickerInputPresComponent } from '../../utilities';
 import { RULES_ENGINE_PRES_CONFIG_ID, RULES_ENGINE_PRES_DEFAULT_CONFIG, RulesEngineDestinationConfiguration, RulesEnginePresConfig } from './rules-engine-pres.config';
 import { RulesEnginePresTranslation, translations } from './rules-engine-pres.translation';
 
@@ -26,7 +27,8 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     DynamicContentModule,
     ReactiveFormsModule,
     RulesEngineModule,
-    LocalizationModule
+    LocalizationModule,
+    DatePickerInputPresComponent
   ]
 })
 export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {

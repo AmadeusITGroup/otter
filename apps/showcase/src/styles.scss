@@ -1,20 +1,20 @@
-// FIXME sass-loader cannot resolve scss files with pnp
-//@import "bootstrap/scss/bootstrap";
-//@import "bootstrap-icons/font/bootstrap-icons";
-@import "bootstrap/dist/css/bootstrap.css";
-@import "bootstrap-icons/font/bootstrap-icons.css";
+@use '@design-factory/design-factory' with (
+  $prefix: bs-,
+  $df-spinner-circumference: 2rem
+);
+@use "bootstrap-icons/font/bootstrap-icons";
 @import "highlight.js/styles/github.css";
 
 code {
   font-family: 'Consolas', monospace;
 }
 
-h1 {
-  margin: 3rem 0 2rem;
+header {
+  font-family: design-factory.$headings-font-family;
 }
 
-h2 {
-  margin: 1.5rem 0 1rem;
+h1 {
+  margin-top: 2rem;
 }
 
 h1, h2 {
@@ -26,5 +26,23 @@ h1, h2 {
   max-height: calc(100vh - 6rem);
   overflow-y: auto;
   flex-grow: 1;
-  margin-top: -3rem;
+  margin-top: -1rem;
+  z-index: inherit;
 }
+
+// Start overrides of design factory
+.navbar {
+  box-shadow: none;
+}
+// End overrides
+
+// Start temporary workarounds until we migrate back to bootstrap 5.3
+:root {
+  --bs-primary-bg-subtle: #cfe2ff;
+  --bs-tertiary-color: #2125297f;
+  --bs-tertiary-bg: #f8f9fa;
+}
+.bg-body-tertiary {
+  background: var(--bs-tertiary-bg);
+}
+// End temporary workarounds

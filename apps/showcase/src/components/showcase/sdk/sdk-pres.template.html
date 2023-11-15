@@ -1,7 +1,7 @@
 <div class="card mb-3">
   <div class="card-body">
     <form>
-      <div class="row">
+      <div class="row gap-3">
         <label for="pet-name" class="col-xs-3 col-sm-auto col-form-label">Name</label>
         <div class="col-xs-3 col-sm-auto">
           <input
@@ -12,8 +12,15 @@
             [ngModel]="petName()" (ngModelChange)="petName.set($event)"
           />
         </div>
+        <div class="col-xs-3 col-sm-auto">
+          <o3r-otter-picker-pres
+            [id]="'pet-image'"
+            name="petImage"
+            [ngModel]="petImage()" (ngModelChange)="petImage.set($event)"
+          ></o3r-otter-picker-pres>
+        </div>
         <div class="col-xs-3 col-sm-auto mt-2 mt-sm-0">
-          <button class="btn btn-secondary w-100 w-sm-auto"  (click)="create()">Create a pet</button>
+          <button class="btn btn-secondary w-100 w-sm-auto" (click)="create()">Create a pet</button>
         </div>
       </div>
     </form>
@@ -22,7 +29,7 @@
 <div class="card">
   <div class="card-body">
     <form>
-      <div class="mb-3 row">
+      <div class="mb-3 row gap-3">
         <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
         <div class="col-xs-3 col-sm-auto">
           <input
@@ -33,58 +40,87 @@
             [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
           />
         </div>
-        <div class="col-xs-3 col-sm-auto text-center">
-          <div class="spinner-border mt-3 mt-sm-auto" role="status" *ngIf="isLoading()">
+        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center">
+          <div class="spinner-border" role="status" *ngIf="isLoading()">
             <span class="visually-hidden">Loading...</span>
           </div>
           <div class="text-danger" *ngIf="hasErrors()">
-            Failed to load the list <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
+            Failed to load the list
+            <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
           </div>
         </div>
       </div>
-      <div class="table-container">
-        <table class="table table-striped">
-          <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Category</th>
-            <th scope="col">Tags</th>
-            <th scope="col">Actions</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let pet of displayedPets()">
-            <th scope="row">{{ pet.id }}</th>
-            <td>
-              <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
-            </td>
-            <td>
-              <ngb-highlight [result]="pet.category?.name" [term]="searchTerm()"></ngb-highlight>
-            </td>
-            <td>
-              <ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight>
-            </td>
-            <td><button class="btn btn-danger btn-sm" title="Delete" (click)="delete(pet)"><i class="bi bi-trash"></i></button></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
+    </form>
+    <div class="table-container scroll-container">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col" class="table-column-photo">Icon</th>
+          <th scope="col">Name</th>
+          <th scope="col">Tags</th>
+          <th scope="col" class="table-column-actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let pet of displayedPets()">
+          <td>
+            <img width="34" height="34" [src]="baseUrl+icon" alt="{{icon}}" *ngIf="pet.photoUrls?.[0] as icon" />
+          </td>
+          <th scope="row">
+            <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
+          </th>
+          <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
+          <td>
+            <button class="btn btn-outline-danger df-btn-icononly btn-sm" title="Delete pet: {{pet.name}}" (click)="delete(pet)"><i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="scroll-container">
       <div class="d-flex justify-content-between p-2">
         <ngb-pagination
           [collectionSize]="totalPetsAmount()"
           [page]="currentPage()" (pageChange)="currentPage.set($event)"
           [pageSize]="pageSize()"
-          [maxSize]="10"
-        ></ngb-pagination>
+          aria-label="Default pagination"
+          [boundaryLinks]="!isSmallScreen()"
+          [class.with-boundary-links]="!isSmallScreen()"
+          class="df-custom-pages"
+          size="sm"
+        >
+          <ng-template ngbPaginationPages let-page let-pages="pages">
+            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
+              <div class="d-flex flex-nowrap px-2">
+                <label id="table-pagination-paginationInputLabel" for="table-pagination-paginationInput" class="col-form-label me-4 ms-1">Page</label>
+                <input
+                  #i
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  class="form-control df-custom-pages-input px-2 text-center"
+                  id="table-pagination-paginationInput"
+                  [value]="page"
+                  (keyup.enter)="currentPage.set(+i.value); $event.preventDefault()"
+                  (blur)="currentPage.set(+i.value)"
+                  (input)="formatPaginationInput($any($event).target)"
+                  aria-labelledby="table-pagination-paginationInputLabel table-pagination-paginationDescription"
+                  size="2"
+                />
+                <span id="table-pagination-paginationDescription" class="col-form-label text-nowrap px-4"> of {{pages.length}}</span>
+              </div>
+            </li>
+          </ng-template>
+        </ngb-pagination>
 
-        <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()" (ngModelChange)="pageSize.set($event)">
+        <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()"
+                (ngModelChange)="pageSize.set($event)">
           <option [ngValue]="10">10 items per page</option>
           <option [ngValue]="50">50 items per page</option>
           <option [ngValue]="100">100 items per page</option>
         </select>
       </div>
-    </form>
+    </div>
   </div>
 </div>

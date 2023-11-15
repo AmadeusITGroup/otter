@@ -1,5 +1,5 @@
 {
-  "$schema": "http://json-schema.org/schema",
+  "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "ConfigurationMetadataSchema",
   "description": "Schema of Component configurations",
   "type": "array",
@@ -130,7 +130,8 @@
               }
             },
             "required": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "If true, the property input will be flagged as mandatory in the CMS view"
             },
             "widget": {
               "type": "object",

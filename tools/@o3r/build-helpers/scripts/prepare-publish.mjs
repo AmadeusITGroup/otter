@@ -6,12 +6,12 @@
  */
 
 import minimist from 'minimist';
-import { copyFileSync, existsSync, readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
-const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license'];
+const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license', 'homepage'];
 
 /**
  * Find Private package.json
@@ -59,15 +59,15 @@ const findReadme = (currentFolder) => {
 };
 
 /**
- * Update package.json, copy README.md and LICENSE into dist folder
+ * Update package.json, copy .npmignore, README.md and LICENSE into dist folder
  *
- * @param {string} root
+ * @param {string} rootPath
  * @param {string} distPath
  * @param {string} packageJsonPath
  */
-function preparePublish(root, distPath, packageJsonPath) {
-  const privatePackageJson = findPrivatePackage(root);
-  const distPackageJson = resolve(root, packageJsonPath);
+function preparePublish(rootPath, distPath, packageJsonPath) {
+  const privatePackageJson = findPrivatePackage(rootPath);
+  const distPackageJson = resolve(rootPath, packageJsonPath);
 
   if (!packageJsonPath || !existsSync(distPackageJson)) {
     throw new Error(`No package.json found for ${distPackageJson}`);
@@ -84,6 +84,11 @@ function preparePublish(root, distPath, packageJsonPath) {
 
   writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
   copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
+
+  const npmIgnoreFilePath = resolve(rootPath, '.npmignore');
+  if (existsSync(npmIgnoreFilePath)) {
+    copyFileSync(npmIgnoreFilePath, resolve(distPath, '.npmignore'));
+  }
 
   const readmeDistPath = resolve(distPath, 'README.md');
   const readmeBasePath = findReadme(distPath);

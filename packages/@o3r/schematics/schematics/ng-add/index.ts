@@ -3,7 +3,6 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
-import { AddDevInstall } from '@o3r/schematics';
 
 /**
  * Add Otter schematics to an Angular Project
@@ -11,6 +10,8 @@ import { AddDevInstall } from '@o3r/schematics';
 export function ngAdd(): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
   return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { AddDevInstall } = await import('@o3r/schematics');
     context.logger.info('Running ng add for schematics');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const treePackageJson = tree.readJson('./package.json') as PackageJson;

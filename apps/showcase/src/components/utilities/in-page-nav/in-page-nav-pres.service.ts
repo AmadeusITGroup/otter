@@ -21,7 +21,6 @@ export class InPageNavPresService implements OnDestroy {
 
   /**
    * Initialize the navigation links list
-   *
    * @param inPageNavLinkDirectives
    */
   public initialize(inPageNavLinkDirectives: QueryList<InPageNavLink>) {

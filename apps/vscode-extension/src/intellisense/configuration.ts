@@ -5,9 +5,9 @@ interface ConfigurationTags {
   /** @see CompletionItem.documentation */
   description: string;
   /** @see CompletionItem.detail */
-  detail: string;
+  detail?: string;
   /** @see CompletionItem.insertText */
-  snippet: string;
+  snippet?: string;
 }
 
 export const configurationCompletionTriggerChar = '@';
@@ -16,7 +16,7 @@ const getCompletionsItemsFromConfigurationTags = (configurationTags: Record<stri
   return Object.entries(configurationTags).map(([label, { detail, description, snippet }]) => {
     const completion = new CompletionItem({ label: `${label} `, detail }, CompletionItemKind.Keyword);
     completion.documentation = description;
-    completion.insertText = new SnippetString(`${label} ${snippet}`);
+    completion.insertText = typeof snippet !== 'undefined' ? new SnippetString(`${label} ${snippet}`) : undefined;
 
     return completion;
   });
@@ -57,6 +57,9 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
       description: 'Tag to use to define a readable name for configuration interface in the CMS',
       detail: 'Readable configuration name',
       snippet: '${1:Name}'
+    },
+    o3rRequired: {
+      description: 'Tag to use to define if a value must be specify in the CMS'
     },
     o3rCategory: {
       description: 'Tag to use CMS category for configuration property',

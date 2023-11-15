@@ -15,6 +15,7 @@ import {
   StringOptions,
   Value
 } from 'sass';
+import type { StyleExtractorBuilderSchema } from '../schema';
 
 /**
  * SassCalculation interface
@@ -30,7 +31,7 @@ interface SassCalculation extends Value {
 export class CssVariableExtractor {
   private cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>) {
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private builderOptions?: StyleExtractorBuilderSchema) {
 
   }
 
@@ -198,7 +199,7 @@ export class CssVariableExtractor {
             }
           }
           if (!(varName instanceof SassString)) {
-            throw new O3rCliError('invalid variable name');
+            throw new O3rCliError('Invalid variable name');
           }
 
           let parsedValue: string | undefined;
@@ -223,7 +224,12 @@ export class CssVariableExtractor {
             }
             parsedValue = parsedValueItems.join(' ');
             if (invalidIndexes.length) {
-              console.warn(`invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}, it will be ignored`);
+              const message = `Invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}.`;
+              if (this.builderOptions?.ignoreInvalidValue ?? true) {
+                console.warn(`${message} It will be ignored.`);
+              } else {
+                throw new O3rCliError(message);
+              }
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
             parsedValue = `calc(${varValue.$arguments[0]})`;
@@ -233,8 +239,13 @@ export class CssVariableExtractor {
               return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
             }
           } else {
-            console.warn(`invalid value for variable ${varName.text}, it will be ignored`);
-            return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
+            const message = `Invalid value for variable ${varName.text}.`;
+            if (this.builderOptions?.ignoreInvalidValue ?? true) {
+              console.warn(`${message} It will be ignored.`);
+              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
+            } else {
+              throw new O3rCliError(message);
+            }
           }
 
           const cssVariableObj = this.parseCssVariable(varName.text, parsedValue);

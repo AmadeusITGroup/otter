@@ -159,7 +159,7 @@ export class LocalizationExtractor {
   }
 
   /**
-   * Genarate a metadata item from a localization item
+   * Generate a metadata item from a localization item
    *
    * @param loc Localization item
    * @param key Key of the localization
@@ -182,7 +182,7 @@ export class LocalizationExtractor {
 
     if (loc.$ref) {
       const [refPath, refKey] = loc.$ref.split('#/', 2);
-      if (this.options?.libraries?.some((lib) => refPath.startsWith(lib))) {
+      if (refPath.startsWith('.') || this.options?.libraries?.some((lib) => refPath.startsWith(lib))) {
         res.ref = refKey;
       } else {
         res.ref = loc.$ref;

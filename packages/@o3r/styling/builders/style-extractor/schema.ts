@@ -21,4 +21,10 @@ export interface StyleExtractorBuilderSchema extends SchematicOptionObject {
 
   /** Will not display warning for duplicated variable */
   ignoreDuplicateWarning: boolean;
+
+  /**
+   * Will display only a warning for invalid value
+   * @default true
+   */
+  ignoreInvalidValue: boolean;
 }

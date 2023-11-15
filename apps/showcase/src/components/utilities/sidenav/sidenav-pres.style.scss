@@ -1,24 +1,16 @@
 o3r-sidenav-pres {
-  ul[aria-label] {
-    position: relative;
-
-    &:before {
-      content: attr(aria-label);
-      color: var(--bs-tertiary-color);
-      font-weight: bold;
-    }
-
-    &:after {
-      content: "";
-      border-left: 3px solid var(--bs-border-color);
-      position: absolute;
-      left: 0;
-      top: 2rem;
-      bottom: 0;
-    }
+  .nav-link {
+    display: inline-block;
+    padding-left: 0;
+    padding-right: 0;
   }
 
-  .sub-group li {
-    padding-left: 1.5rem;
+  .sub-group {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .nav-group {
+    margin-bottom: .25em;
   }
 }

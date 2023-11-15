@@ -27,10 +27,10 @@ export interface InPageNavLink {
 })
 export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   /** HTML id of the h2 */
-  public id: string = '';
+  public id = '';
 
   /** InnerText of the h2 */
-  public label: string = '';
+  public label = '';
 
   private nativeElement: HTMLElement;
 
@@ -45,7 +45,6 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
 
   /**
    * Scroll to the h2 HTML element
-   *
    * @param e mouse event
    */
   public scrollTo(e: MouseEvent) {

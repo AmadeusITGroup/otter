@@ -1,4 +1,4 @@
 <div class="d-flex bg-body-tertiary">
   <pre class="me-4" [class.text-wrap]="wrap"><code [highlight]="text" [languages]="language ? [language] : defaultLanguages"></code></pre>
-  <i class="ms-auto bi bi-clipboard" (click)="copy()" title="Click to copy"></i>
+  <button class="btn btn-outline-secondary ms-auto df-btn-icononly" (click)="copy()" title="Click to copy"><i class="bi bi-clipboard"></i></button>
 </div>

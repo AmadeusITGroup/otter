@@ -40,7 +40,7 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
     }
   };
 
-  const cssVariableExtractor = new CssVariableExtractor({ logger: sassLogger });
+  const cssVariableExtractor = new CssVariableExtractor({ logger: sassLogger }, options);
 
   const execute = async (files: string[], previousMetadata: CssMetadata = {
     variables: {}
