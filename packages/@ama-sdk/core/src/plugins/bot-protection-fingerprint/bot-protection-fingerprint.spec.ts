@@ -74,6 +74,7 @@ describe('BotProtectionFingerprint', () => {
         registerEvent(protectionReject);
         const promise = retriever();
         await jest.runAllTimersAsync();
+        expect(await promise).toBeUndefined();
         // eslint-disable-next-line no-console
         expect(console.error).toHaveBeenCalledTimes(1);
       });
