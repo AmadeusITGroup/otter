@@ -25,5 +25,15 @@ describe('Theming mixins', () => {
       const result = compileString(mock, { url });
       expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual(':root{--test-color-1:#000;--test-color-1:#fff;}');
     });
+
+    it('should not generate null variable', () => {
+      const mock = `@use '${testedFile}' as o3r;
+        :root {
+          @include o3r.var('test-color-1', #000, (description: 'test description'));
+          @include o3r.var('test-color-1', null, (description: 'new description'));
+        }`;
+      const result = compileString(mock, { url });
+      expect(result.css.replaceAll(/[\n\r\s]/g, '')).toEqual(':root{--test-color-1:#000;}');
+    });
   });
 });

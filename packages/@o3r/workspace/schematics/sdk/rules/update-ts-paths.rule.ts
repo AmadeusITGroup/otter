@@ -34,6 +34,9 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
       `${relativeTargetPath}/dist`,
       `${relativeTargetPath}/src/index`
     ];
+    configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/fixtures`] = [
+      `${relativeTargetPath}/src/fixtures/jest`
+    ];
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}/*`] = [
       `${relativeTargetPath}/dist/*`,
       `${relativeTargetPath}/src/*`
