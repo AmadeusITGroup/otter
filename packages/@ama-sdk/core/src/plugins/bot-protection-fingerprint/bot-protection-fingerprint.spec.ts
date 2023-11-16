@@ -52,6 +52,7 @@ describe('BotProtectionFingerprint', () => {
       });
 
       it('Should return undefined and log if no Protection object is received.', async () => {
+
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
@@ -71,7 +72,6 @@ describe('BotProtectionFingerprint', () => {
 
       it('Should return undefined and log if token promise rejected.', async () => {
         registerEvent(protectionReject);
-
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
