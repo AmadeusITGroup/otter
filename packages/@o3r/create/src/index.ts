@@ -126,7 +126,7 @@ const createNgProject = () => {
   }
 };
 
-const addOtterCore = (relativeDirectory = '.') => {
+const addOtterFramework = (relativeDirectory = '.') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
   const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...args.filter((arg) => arg.startsWith('-'))], {
     stdio: 'inherit',
@@ -144,4 +144,4 @@ const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
 console.info(logo);
 createNgProject();
-addOtterCore(projectFolder);
+addOtterFramework(projectFolder);

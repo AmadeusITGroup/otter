@@ -16,6 +16,29 @@ module.exports = {
           'tsconfig.spec.json'
         ],
         'sourceType': 'module'
+      },
+      'rules': {
+        '@o3r/o3r-widget-tags': [
+          'error',
+          {
+            'widgets': {
+              'DESTINATION_ARRAY': {
+                'minItems': {
+                  'type': 'number'
+                },
+                'allDestinationsDifferent': {
+                  'type': 'boolean'
+                },
+                'atLeastOneDestinationAvailable': {
+                  'type': 'boolean'
+                },
+                'destinationPattern': {
+                  'type': 'string'
+                }
+              }
+            }
+          }
+        ]
       }
     },
     {

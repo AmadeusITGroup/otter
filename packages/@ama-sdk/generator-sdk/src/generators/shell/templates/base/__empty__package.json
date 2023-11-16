@@ -83,7 +83,7 @@
     "@o3r/eslint-config-otter": "^<%= sdkCoreVersion %>",
     "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
     "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.3.66",
+    "@swc/core": "^1.3.85",
     "@types/jasmine": "~4.3.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",

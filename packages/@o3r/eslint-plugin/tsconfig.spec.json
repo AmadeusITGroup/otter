@@ -6,6 +6,11 @@
       "jest"
     ]
   },
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ],
   "include": [
     "./src/**/*.spec.ts",
   ],

@@ -8,13 +8,12 @@ import { LibraryMetadataMap, LocalizationExtractor, LocalizationFileMap } from '
 import { LocalizationExtractorBuilderSchema } from './schema';
 import { validators } from './validations';
 
-
 export * from './schema';
 
 export default createBuilder<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
-  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger);
+  const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger, options);
   const cache: { libs: LibraryMetadataMap; locs: LocalizationFileMap } = {libs: {}, locs: {}};
 
   const execute = async (isFirstLoad = true, files?: { libs?: string[]; locs?: string[]; extraFiles?: string[] }): Promise<BuilderOutput> => {
@@ -115,7 +114,6 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
 
   /**
    * Run a translation generation and report the result
-   *
    * @param execution Execution process
    */
   const generateWithReport = async (execution: Promise<BuilderOutput>) => {

@@ -19,9 +19,11 @@ body:
         apis-manager,
         application,
         build-helpers,
+        chrome-devtools
         components,
         configuration,
         core,
+        create,
         dev-tools,
         dynamic-content,
         eslint-config-otter,
@@ -29,17 +31,21 @@ body:
         extractors,
         forms,
         github-actions,
+        github-cascading-app,
         localization,
         logger,
         mobile,
         routing,
         rules-engine,
         schematics,
+        showcase,
+        store-sync,
         storybook,
         stylelint-plugin,
         styling,
         testing,
-        third-party
+        third-party,
+        workspace
       ]
     validations:
       required: true

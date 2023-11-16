@@ -28,6 +28,12 @@ export class AppComponent implements OnDestroy {
         { url: '/dynamic-content', label: 'Dynamic content' },
         { url: '/rules-engine', label: 'Rules engine' }
       ]
+    },
+    {
+      label: '',
+      links: [
+        { url: '/sdk', label: 'SDK Generator' }
+      ]
     }
   ];
 
@@ -44,7 +50,7 @@ export class AppComponent implements OnDestroy {
     );
     this.activeUrl$ = onNavigationEnd$.pipe(
       map((event) => event.urlAfterRedirects),
-      shareReplay(1)
+      shareReplay({bufferSize: 1, refCount: true})
     );
     this.subscriptions.add(onNavigationEnd$.subscribe(() => {
       if (this.offcanvasRef) {

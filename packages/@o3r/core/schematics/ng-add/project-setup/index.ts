@@ -4,17 +4,24 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
 import {
-  addWorkspacesToProject,
-  createAzurePipeline,
-  filterPackageJsonScripts,
-  generateRenovateConfig,
-  genericUpdates,
   o3rBasicUpdates,
   updateAdditionalModules,
   updateCustomizationEnvironment,
   updateOtterEnvironmentAdapter,
   updateStore
 } from '../../rule-factories/index';
+import {
+  applyEsLintFix,
+  getO3rPeerDeps,
+  getWorkspaceConfig,
+  install,
+  mapImportV7toV8,
+  ngAddPackages,
+  readPackageJson,
+  removePackages,
+  renamedPackagesV7toV8,
+  updateImports
+} from '@o3r/schematics';
 import { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
@@ -27,7 +34,6 @@ const simplifiedSemVerRegexp = new RegExp(/^[~^]?(0|(?:[1-9]+[0-9]*))\.(?:0|[1-9
 /**
  * Enable all the otter features requested by the user
  * Install all the related dependencies and import the features inside the application
- *
  * @param options installation options to pass to the all the other packages' installation
  */
 export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: Tree, context: SchematicContext) => {
@@ -38,10 +44,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
   }
   const o3rCoreVersion = corePackageJsonContent.version;
-  const {
-    addVsCodeRecommendations, applyEsLintFix, getWorkspaceConfig, install, isStandaloneRepository, mapImportV7toV8, ngAddPackages,
-    readPackageJson, removePackages, renamedPackagesV7toV8, updateImports, isMultipackagesContext, getO3rPeerDeps
-  } = await import('@o3r/schematics');
   const installOtterLinter = await shouldOtterLinterBeInstalled(context);
   const workspaceConfig = getWorkspaceConfig(tree);
   const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
@@ -74,19 +76,13 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
     }
   }
   const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
-  let appLibRules: Rule[] = [];
-  let monorepoRules: Rule[] = [];
-  const projectRootRules = [
-    generateRenovateConfig(coreSchematicsFolder),
-    options.generateAzurePipeline ? createAzurePipeline(options, coreSchematicsFolder) : noop,
-    addVsCodeRecommendations(['AmadeusITGroup.otter-devtools', 'EditorConfig.EditorConfig', 'angular.ng-template'])
-  ];
 
   const projectDirectory = workspaceProject?.root;
   const optionsAndWorkingDir = { ...options, workingDirectory: projectDirectory };
 
-  if (projectType) {// this means we run the ng add in a lib/app inside the workspace
-    appLibRules = [
+  return () => {
+
+    const appLibRules: Rule[] = [
       updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
       updateBuildersNames(),
       updateOtterGeneratorsNames(),
@@ -95,37 +91,24 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
       options.enableCustomization && projectType === 'application' ? updateCustomizationEnvironment(coreSchematicsFolder, o3rCoreVersion, optionsAndWorkingDir, false) : noop,
       projectType === 'application' ? updateAdditionalModules(optionsAndWorkingDir, coreSchematicsFolder) : noop,
       removePackages(packagesToRemove),
-      ...(!isMultipackagesContext(tree) ? projectRootRules : [])
+      o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
+      ngAddPackages(internalPackagesToInstallWithNgAdd,
+        { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
+      ),
+      ngAddPackages(Object.keys(externalPackagesToInstallWithNgAdd), {
+        skipConfirmation: true,
+        version: Object.values(externalPackagesToInstallWithNgAdd),
+        parentPackageInfo: '@o3r/core - setup',
+        projectName: options.projectName,
+        dependencyType: type,
+        workingDirectory: projectDirectory
+      }),
+      // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
+      !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
+      // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
+      options.skipInstall ? noop() : install
     ];
-  }
-  if (!isStandaloneRepository(tree)) {
-    monorepoRules = [
-      ...projectRootRules,
-      addWorkspacesToProject(),
-      filterPackageJsonScripts
-    ];
-  }
-  const commonRules = [
-    genericUpdates(workspaceConfig),
-    o3rBasicUpdates(options.projectName, o3rCoreVersion, projectType),
-    ngAddPackages(internalPackagesToInstallWithNgAdd,
-      { skipConfirmation: true, version: o3rCoreVersion, parentPackageInfo: '@o3r/core - setup', projectName: options.projectName, dependencyType: type, workingDirectory: projectDirectory }
-    ),
-    ngAddPackages(Object.keys(externalPackagesToInstallWithNgAdd), {
-      skipConfirmation: true,
-      version: Object.values(externalPackagesToInstallWithNgAdd),
-      parentPackageInfo: '@o3r/core - setup',
-      projectName: options.projectName,
-      dependencyType: type,
-      workingDirectory: projectDirectory
-    }),
-    // task that should run after the schematics should be after the ng-add task as they will wait for the package installation before running the other dependencies
-    !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
-    // dependencies for store (mainly ngrx, store dev tools, storage sync), playwright, linter are installed by hand if the option is active
-    options.skipInstall ? noop() : install
-  ];
 
-  return () => chain([
-    ...monorepoRules, ...commonRules, ...appLibRules
-  ])(tree, context);
+    return chain(appLibRules)(tree, context);
+  };
 };

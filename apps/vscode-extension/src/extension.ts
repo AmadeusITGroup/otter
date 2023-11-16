@@ -1,4 +1,4 @@
-import { commands, ExtensionContext } from 'vscode';
+import { commands, ExtensionContext, languages } from 'vscode';
 import { generateComponentGenerateCommand } from './commands/generate/component.command';
 import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
 import { wrapCommandWhenExplorerContext } from './commands/helpers';
@@ -20,6 +20,7 @@ import {
   generateAddThemingToComponentCommand,
   generateConvertComponentCommand
 } from './commands/generate/enrich-component';
+import { configurationCompletionItemProvider, configurationCompletionTriggerChar } from './intellisense/configuration';
 
 
 /**
@@ -30,6 +31,7 @@ import {
  */
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
+    languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),

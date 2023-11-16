@@ -6,6 +6,7 @@
 
 /// Generate a map with all the mandatory variables for any implementation with their default values (no theme applied).
 /// It is up to the implementation to override it to fit the application needs.
+/// @access public
 @function generate-theme-variables($is-dark-theme, $implementation-override: ()) {
   $default: (
     primary-background: #FFF,

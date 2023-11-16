@@ -10,7 +10,7 @@ import { AddDevInstall } from '@o3r/schematics';
  */
 export function ngAdd(): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
-  return async (tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     context.logger.info('Running ng add for schematics');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const treePackageJson = tree.readJson('./package.json') as PackageJson;
