@@ -59,7 +59,7 @@ describe('new otter application', () => {
         '--use-rules-engine=false'
       ].join(' ');
       packageManagerExec(`ng g @o3r/core:component test-component ${defaultOptions}`, execAppOptions);
-      addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
       const advancedOptions = [
         '--activate-dummy',
@@ -71,12 +71,12 @@ describe('new otter application', () => {
         '--use-rules-engine=true'
       ].join(' ');
       packageManagerExec(`ng g @o3r/core:component test-component-advanced ${advancedOptions}`, execAppOptions);
-      addImportToAppModule(appFolderPath, 'TestComponentAdvancedContModule', 'src/components/test-component-advanced');
+      addImportToAppModule(appFolderPath, 'TestComponentAdvancedModule', 'src/components/test-component-advanced');
 
       packageManagerExec(`ng g @o3r/core:component test-add-context-component ${defaultOptions}`, execAppOptions);
-      packageManagerExec('ng g @o3r/core:add-context --path="src/components/test-add-context-component/container/test-add-context-component-cont.component.ts"',
+      packageManagerExec('ng g @o3r/core:add-context --path="src/components/test-add-context-component/test-add-context-component.component.ts"',
         execAppOptions);
-      addImportToAppModule(appFolderPath, 'TestAddContextComponentContModule', 'src/components/test-add-context-component');
+      addImportToAppModule(appFolderPath, 'TestAddContextComponentModule', 'src/components/test-add-context-component');
 
       packageManagerExec('ng g @schematics/angular:component test-ng-component', execAppOptions);
       packageManagerExec('ng g @o3r/core:convert-component --path="src/app/test-ng-component/test-ng-component.component.ts"', execAppOptions);
@@ -174,7 +174,7 @@ describe('new otter application', () => {
         `ng g @o3r/core:component test-component ${defaultOptions} ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentContModule', 'projects/test-app/src/components/test-component');
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'projects/test-app/src/components/test-component');
 
       const advancedOptions = [
         '--activate-dummy',
@@ -189,17 +189,17 @@ describe('new otter application', () => {
         `ng g @o3r/core:component test-component-advanced ${advancedOptions} ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentAdvancedContModule', 'projects/test-app/src/components/test-component-advanced');
+      addImportToAppModule(appFolderPath, 'TestComponentAdvancedModule', 'projects/test-app/src/components/test-component-advanced');
 
       packageManagerExec(
         `ng g @o3r/core:component test-add-context-component ${defaultOptions} ${projectName}`,
         execAppOptions
       );
       packageManagerExec(
-        'ng g @o3r/core:add-context --path="projects/test-app/src/components/test-add-context-component/container/test-add-context-component-cont.component.ts"',
+        'ng g @o3r/core:add-context --path="projects/test-app/src/components/test-add-context-component/test-add-context-component.component.ts"',
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestAddContextComponentContModule', 'projects/test-app/src/components/test-add-context-component');
+      addImportToAppModule(appFolderPath, 'TestAddContextComponentModule', 'projects/test-app/src/components/test-add-context-component');
 
       packageManagerExec(
         'ng g @schematics/angular:component test-ng-component --project=test-app',
