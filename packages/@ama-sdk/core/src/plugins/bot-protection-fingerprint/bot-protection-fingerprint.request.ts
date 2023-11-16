@@ -79,7 +79,8 @@ If the application runs on a domain that is not protected by Imperva, this plugi
       try {
         protection = await getProtection();
       } catch (e) {
-        console.warn(e);
+        // eslint-disable-next-line no-console
+        console.error(e);
         return;
       }
     }
@@ -87,7 +88,8 @@ If the application runs on a domain that is not protected by Imperva, this plugi
     try {
       return await protection.token(tokenTimeout);
     } catch (e) {
-      console.warn('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
+      // eslint-disable-next-line no-console
+      console.error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
       return;
     }
   };
