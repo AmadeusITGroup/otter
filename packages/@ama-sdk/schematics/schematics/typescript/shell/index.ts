@@ -11,7 +11,7 @@ import {
   url
 } from '@angular-devkit/schematics';
 import {dump, load} from 'js-yaml';
-import {isAbsolute, relative} from 'node:path';
+import {isAbsolute, posix, relative} from 'node:path';
 import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
 import {readPackageJson} from '../../helpers/read-package';
 import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
@@ -72,14 +72,16 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       empty: ''
     };
 
+    const targetPath = options.directory || tree.root.path;
+
     if (properties.packageManager === 'yarn') {
-      const yarnrcPath = '.yarnrc.yml';
+      const yarnrcPath = posix.join(targetPath, '.yarnrc.yml');
       const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
         dependencies: {
-          'isomorphic-fetch': '~2.2.1'
+          'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch']
         }
       };
       if (tree.exists(yarnrcPath)) {
@@ -88,7 +90,6 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
         tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
       }
     }
-    const targetPath = options.directory || tree.root.path;
 
     const baseRule = mergeWith(apply(url('./templates/base'), [
       template(properties),

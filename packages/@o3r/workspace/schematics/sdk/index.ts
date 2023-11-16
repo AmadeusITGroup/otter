@@ -40,8 +40,6 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     ]), MergeStrategy.Overwrite);
 
     const packageManager = getPackageManager({ workspaceConfig });
-    const yarnrcPath = '.yarnrc.yml';
-    const yarnrcBeforeSdkGeneration = tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '';
 
     return chain([
       externalSchematic<NgGenerateTypescriptSDKShellSchematicsSchema>('@ama-sdk/schematics', 'typescript-shell', {
@@ -53,12 +51,10 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
         skipInstall: !!options.specPath || options.skipInstall
       }),
       packageManager === 'yarn' ? (t) => {
-        if (yarnrcBeforeSdkGeneration) {
-          // discard changes done by sdk shell generator standalone on yarnrc
-          t.overwrite(yarnrcPath, yarnrcBeforeSdkGeneration);
-        } else {
-          // delete yarnrc created by sdk shell generator standalone
-          t.delete(yarnrcPath);
+        const yarnrcPath = path.posix.join(targetPath, '.yarnrc.yml');
+        // delete yarnrc created by sdk shell generator standalone
+        if (tree.exists(yarnrcPath)) {
+          tree.delete(yarnrcPath);
         }
         return t;
       } : noop,
