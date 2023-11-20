@@ -15,5 +15,10 @@ module.exports.getJestConfig = (rootDir) => ({
   testMatch: [
     '<rootDir>/**/*.it.spec.ts'
   ],
+  reporters: [
+    'default',
+    ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'it-report.xml'}],
+    'github-actions'
+  ],
   testTimeout: 30 * 60 * 1000
 });
