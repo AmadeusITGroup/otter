@@ -1,8 +1,8 @@
 import type { Logger } from '@o3r/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import type { EngineDebugger } from './debug/engine.debug';
-import { Fact } from './fact';
-import { Operator } from './operator';
+import type { Fact, Facts } from './fact';
+import type { Operator } from './operator';
 import { ActionBlock, Rule, Ruleset } from './structure';
 
 /** Performance object supporting NodeJs Performance and Web Performance reporting  */
@@ -20,10 +20,6 @@ export interface FactObject<T> {
   /** Stream of the fact value */
   value$: Observable<T | undefined>;
 }
-
-/** Represents all the supported facts types TOCHECK utils.Date vs Date */
-export type Facts = string | number | boolean | null | Date | Record<string, unknown> | unknown[];
-
 
 /** Rule Engine constructor options */
 export interface RulesEngineOptions {

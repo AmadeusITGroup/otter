@@ -63,13 +63,13 @@ export interface Rule {
   id: string;
   /** Runtime facts that are needed for the rule execution (sent by the CMS) */
   inputRuntimeFacts: string[];
-  /** Facts that are needed for the rule execution (sent by the CMS) */
+  /** @deprecated will be removed in v12. Facts that are needed for the rule execution (sent by the CMS) */
   inputFacts: string[];
   /** Runtime facts that are created/updated by the rule*/
   outputRuntimeFacts: string[];
   /** Name of the rule*/
   name: string;
-  /** rootElement of the rule, that contains either a block, either an action list*/
+  /** rootElement of the rule, that contains either a block, either an action list */
   // eslint-disable-next-line no-use-before-define
   rootElement: AllBlock;
 }

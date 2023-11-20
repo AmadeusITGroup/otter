@@ -1,3 +1,5 @@
+import type { Facts } from '../fact/fact.interfaces';
+
 /**
  * Rule Engine operator
  */
@@ -11,7 +13,9 @@ export interface Operator<LeftExposed = unknown, RightExposed = unknown, LeftSup
   /** Right Hand Value validator function */
   validateRhs?: unknown extends RightSupported ? (operand: unknown) => boolean : (operand: unknown) => operand is RightSupported;
   /** Evaluate the values */
-  evaluator: (lhs: LeftSupported, rhs: RightSupported) => boolean;
+  evaluator: (lhs: LeftSupported, rhs: RightSupported, operatorFactValues?: Record<string, Facts>) => boolean;
+  /** List of facts names that the operator can depend on */
+  factImplicitDependencies?: string[];
 }
 
 /**

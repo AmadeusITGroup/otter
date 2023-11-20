@@ -48,6 +48,8 @@ export interface MetadataOperator {
   leftOperand: MetadataOperand;
   /** Definition of the right operand */
   rightOperand?: MetadataOperand;
+  /** List of the names of the facts the operator depends on */
+  factImplicitDependencies?: string[];
 }
 
 /** Action as specified in metadata */

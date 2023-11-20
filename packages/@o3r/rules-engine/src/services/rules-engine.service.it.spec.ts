@@ -92,13 +92,11 @@ describe('Rules engine service', () => {
     jest.spyOn(console, 'warn').mockImplementation();
   });
 
-  it('Should support Block with no condition', (done) => {
+  it('Should support Block with no condition', async () => {
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetOneRuleNoCond.ruleSets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(1);
-      expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
-      done();
-    });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(1);
+    expect(actions[0].actionType).toBe('UPDATE_LOCALISATION');
   });
 
   it('should handle linked components and validity range properly', (done) => {
@@ -111,7 +109,7 @@ describe('Rules engine service', () => {
   });
 
 
-  it('should have configuration updated in the store', (done) => {
+  it('should have configuration updated in the store', async () => {
     service.engine.upsertFacts<any>([{
       id: 'isMobileDevice',
       value$: isMobileDevice$
@@ -123,26 +121,17 @@ describe('Rules engine service', () => {
     ]);
 
     store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetTwoRules.ruleSets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      // RunTime fact should be properly propagated to the next rule depending on it, with the proper value
-      // Actions should be returned in the correct order
-      expect(actions.length).toBe(4);
-      expect(actions[0].actionType).toBe('UPDATE_CONFIG');
-      expect(actions[1].actionType).toBe('UPDATE_ASSET');
-      expect(actions[2].value).toBe('my.custom.ssci.loc.key2');
-      expect(actions[3].value).toBe('my.custom.ssci.loc.key3');
-
-      store.pipe(
-        select(selectConfigOverride),
-        filter((configs) => Object.keys(configs).length > 0),
-        take(1)
-      ).subscribe((configs) => {
-        expect(configs['@otter/library#TheConfig']).toBeDefined();
-        expect(configs['@otter/library#TheConfig']?.theproperty).toEqual(['raviole', 'truelle']);
-        done();
-      });
-    });
-
+    const actions = await firstValueFrom(service.events$);
+    // RunTime fact should be properly propagated to the next rule depending on it, with the proper value
+    // Actions should be returned in the correct order
+    expect(actions.length).toBe(4);
+    expect(actions[0].actionType).toBe('UPDATE_CONFIG');
+    expect(actions[1].actionType).toBe('UPDATE_ASSET');
+    expect(actions[2].value).toBe('my.custom.ssci.loc.key2');
+    expect(actions[3].value).toBe('my.custom.ssci.loc.key3');
+    const configs = await firstValueFrom(store.pipe(select(selectConfigOverride), filter((confs) => Object.keys(confs).length > 0)));
+    expect(configs['@otter/library#TheConfig']).toBeDefined();
+    expect(configs['@otter/library#TheConfig']?.theproperty).toEqual(['raviole', 'truelle']);
   });
 
   it('re-evaluation should work properly', async () => {
@@ -199,33 +188,29 @@ describe('Rules engine service', () => {
     expect(actions[2].value).toBe('my.loc.value3.success');
   });
 
-  it('should ignore all actions from a ruleset if one rules throws', (done) => {
+  it('should ignore all actions from a ruleset if one rules throws', async () => {
     service.engine.upsertFacts<any>([{
       id: 'factWithUndefinedValue',
       value$: of(undefined)
     }]);
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetThreeRulesOneThrows.ruleSets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(0);
-      done();
-    });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(0);
   });
 
-  it('should supported nested rules', (done) => {
+  it('should supported nested rules', async () => {
     service.engine.upsertFacts<any>([{
       id: 'isMobileDevice',
       value$: isMobileDevice$
     }, {id: 'cart', value$: cartFact$}
     ]);
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoNestedRules.ruleSets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(4);
-      expect(actions[0].value).toBe('my.loc.value2.success');
-      expect(actions[1].value).toBe('my.loc.value3.success');
-      expect(actions[2].value).toBe('my.loc.value4.success');
-      expect(actions[3].value).toBe('my.loc.value6.success');
-      done();
-    });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(4);
+    expect(actions[0].value).toBe('my.loc.value2.success');
+    expect(actions[1].value).toBe('my.loc.value3.success');
+    expect(actions[2].value).toBe('my.loc.value4.success');
+    expect(actions[3].value).toBe('my.loc.value6.success');
   });
 
   it('should work properly if the fact is added after the first initialization, should trigger changes', async () => {
@@ -250,54 +235,47 @@ describe('Rules engine service', () => {
     expect(nextActions[1].value).toBe('my.loc.value2.success');
   });
 
-  it('should enable/disable an on demand ruleset', (done) => {
+  it('should enable/disable an on demand ruleset', async () => {
     service.engine.upsertFacts<any>([{
       id: 'isMobileDevice',
       value$: of(true)
     }]);
     store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsOneOnDemand.rulesets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      // should execute the actions from active rulesets at bootstrap
-      expect(actions.length).toBe(4);
-      service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
-      service.events$.pipe(take(1)).subscribe((nextActions) => {
-        // should execute the extra action added by the ruleset on demand (linked to the component)
-        expect(nextActions.length).toBe(5);
-        service.disableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
-        service.events$.pipe(take(1)).subscribe((nextNextActions) => {
-          // should execute the actions from active rulesets after deactivating the ruleset on demand
-          expect(nextNextActions.length).toBe(4);
-          done();
-        });
-      });
-    });
+    const actions = await firstValueFrom(service.events$);
+    // should execute the actions from active rulesets at bootstrap
+    expect(actions.length).toBe(4);
+    service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    const nextActions = await firstValueFrom(service.events$);
+
+    // should execute the extra action added by the ruleset on demand (linked to the component)
+    expect(nextActions.length).toBe(5);
+    service.disableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    const nextNextActions = await firstValueFrom(service.events$);
+    // should execute the actions from active rulesets after deactivating the ruleset on demand
+    expect(nextNextActions.length).toBe(4);
   });
 
-  it('should keep enabled for multiple instances of components', (done) => {
+  it('should keep enabled for multiple instances of components', async () => {
     service.engine.upsertFacts<any>([{
       id: 'isMobileDevice',
       value$: of(true)
     }]);
     store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsOneOnDemand.rulesets}));
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      // should execute the actions from active rulesets at bootstrap
-      expect(actions.length).toBe(4);
-      service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
-      service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
-      service.events$.pipe(take(1)).subscribe((nextActions) => {
-        // should execute once the extra action added by the ruleset on demand (linked to the component multiple instances)
-        expect(nextActions.length).toBe(5);
-        service.disableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
-        service.events$.pipe(take(1)).subscribe((nextNextActions) => {
-          // should keep the ruleset active after deactivating the ruleset for one component instance
-          expect(nextNextActions.length).toBe(5);
-          done();
-        });
-      });
-    });
+    const actions = await firstValueFrom(service.events$);
+    // should execute the actions from active rulesets at bootstrap
+    expect(actions.length).toBe(4);
+    service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    service.enableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    const nextActions = await firstValueFrom(service.events$);
+    // should execute once the extra action added by the ruleset on demand (linked to the component multiple instances)
+    expect(nextActions.length).toBe(5);
+    service.disableRuleSetFor(computeConfigurationName('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    const nextNextActions = await firstValueFrom(service.events$);
+    // should keep the ruleset active after deactivating the ruleset for one component instance
+    expect(nextNextActions.length).toBe(5);
   });
 
-  it('should skip the entire ruleset if undefined fact encountered', (done) => {
+  it('should skip the entire ruleset if undefined fact encountered', async () => {
     const aNumberSubj = new BehaviorSubject<number | undefined>(undefined);
     // const consoleSpy = jest.spyOn(console, 'error').mockImplementation();
     service.engine.upsertFacts<any>([{
@@ -307,25 +285,21 @@ describe('Rules engine service', () => {
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoRules.ruleSets}));
     // eslint-disable-next-line no-console
     expect(consoleSpy).toHaveBeenCalled();
-    service.events$.pipe(take(1)).subscribe((actions) => {
-      expect(actions.length).toBe(1);
-      // Fake emit of same value from sNumber fact, should not do anything
-      aNumberSubj.next(undefined);
-      // eslint-disable-next-line no-console
-      expect(consoleSpy).toHaveBeenCalledTimes(1);
-      // Fake emit of new value from sNumber fact, should trigger error, but not the events$
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      aNumberSubj.next(null as any);
-      // eslint-disable-next-line no-console
-      expect(consoleSpy).toHaveBeenCalledTimes(2);
-      // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
-      aNumberSubj.next(4);
-      service.events$.pipe(take(1)).subscribe((newActions) => {
-        expect(newActions.length).toBe(3);
-        done();
-      });
-
-    });
+    const actions = await firstValueFrom(service.events$);
+    expect(actions.length).toBe(1);
+    // Fake emit of same value from sNumber fact, should not do anything
+    aNumberSubj.next(undefined);
+    // eslint-disable-next-line no-console
+    expect(consoleSpy).toHaveBeenCalledTimes(1);
+    // Fake emit of new value from sNumber fact, should trigger error, but not the events$
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    aNumberSubj.next(null as any);
+    // eslint-disable-next-line no-console
+    expect(consoleSpy).toHaveBeenCalledTimes(2);
+    // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
+    aNumberSubj.next(4);
+    const newActions = await firstValueFrom(service.events$);
+    expect(newActions.length).toBe(3);
   });
 
 

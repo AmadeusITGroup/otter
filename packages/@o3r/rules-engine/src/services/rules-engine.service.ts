@@ -24,6 +24,7 @@ import type {RulesetsStore} from '../stores';
 import {selectActiveRuleSets, selectAllRulesets, selectRuleSetLinkComponents} from '../stores';
 import {RULES_ENGINE_OPTIONS, RulesEngineServiceOptions} from './rules-engine.token';
 import {LoggerService} from '@o3r/logger';
+import { currentTimeSubject$ } from '../facts/current-time/current-time-fact-factories';
 
 @Injectable()
 export class RulesEngineService implements OnDestroy {
@@ -60,6 +61,9 @@ export class RulesEngineService implements OnDestroy {
       debugger: engineConfig?.debug ? new EngineDebugger({eventsStackLimit: engineConfig?.debugEventsStackLimit}) : undefined,
       logger: this.logger
     });
+
+    this.registerOperatorFacts();
+
     this.ruleSets$ = combineLatest([
       this.store.pipe(select(selectActiveRuleSets)),
       this.linkedComponents$.pipe(
@@ -194,6 +198,10 @@ export class RulesEngineService implements OnDestroy {
         }));
       });
     }));
+  }
+
+  private registerOperatorFacts() {
+    this.upsertFacts([{ id: 'o3rCurrentTime', value$: currentTimeSubject$.asObservable() }]);
   }
 
   /**
