@@ -8681,7 +8681,7 @@ __metadata:
     "@types/color": ^3.0.1
     "@types/jest": ~29.5.2
     "@types/node": ^18.0.0
-    "@types/react": 17.0.70
+    "@types/react": 17.0.71
     "@typescript-eslint/eslint-plugin": ^5.60.1
     "@typescript-eslint/parser": ^5.60.1
     color: ^4.0.0
@@ -11493,14 +11493,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:17.0.70":
-  version: 17.0.70
-  resolution: "@types/react@npm:17.0.70"
+"@types/react@npm:17.0.71":
+  version: 17.0.71
+  resolution: "@types/react@npm:17.0.71"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: 24e6051f1beaa96ee40e918d72b44df55224cde4489606266e8bc8f72f5fda561161b453b89348db8b13c54562e81127448f58b1e949904687084beeeeda5a36
+  checksum: c72dbebdced882fa39de867b0179ed91259331172458d69250ff30fdb3c61e3d1f3373dacca3771c3de4b19162fd65758179252b17961729213496a016b918d7
   languageName: node
   linkType: hard
 
