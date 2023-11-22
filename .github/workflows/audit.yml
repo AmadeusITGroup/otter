@@ -33,5 +33,6 @@ jobs:
           recursive: true
           environment: all
       - name: Summary
+        if: success() || failure()
         run: echo "${{ steps.audit.outputs.reportMarkdown }}" >> $GITHUB_STEP_SUMMARY
 
