@@ -177,7 +177,7 @@ ${reportData.warnings.length ? `___
 
 <details>
 <summary>
-Vunerabilities below the threshold: ${severityConfig}
+Vulnerabilities below the threshold: ${severityConfig}
 </summary>
 
 ${reportData.warnings
