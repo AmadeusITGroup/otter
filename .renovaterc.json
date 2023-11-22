@@ -187,6 +187,13 @@
           ".yarn/sdks/**"
         ]
       }
+    },
+    {
+      "matchPackageNames": [
+        "zone.js",
+        "bootstrap"
+      ],
+      "enabled": false
     }
   ]
 }
