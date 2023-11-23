@@ -246,5 +246,5 @@
     "tools/@*/*",
     "apps/*"
   ],
-  "packageManager": "yarn@4.0.1"
+  "packageManager": "yarn@4.0.2"
 }
