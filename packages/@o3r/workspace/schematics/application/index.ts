@@ -72,7 +72,7 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
       addProjectSpecificFiles(targetPath, rootDependencies),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
       (_, c) => {
-        c.addTask(new RunSchematicTask('@o3r/core:ng-add', extendedOptions));
+        c.addTask(new RunSchematicTask('@o3r/core', 'ng-add', extendedOptions));
       }
     ])(tree, context);
   };
