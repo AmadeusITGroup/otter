@@ -19,7 +19,7 @@
   "default": "./src/public_api.js",
   "types": "./src/public_api.d.ts",
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1700.0",
+    "@angular-devkit/architect": "~0.1602.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
     "@angular/cli": "~16.2.0",
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@ama-sdk/schematics": "workspace:^",
-    "@angular-devkit/architect": "~0.1700.0",
+    "@angular-devkit/architect": "~0.1602.0",
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",

@@ -21,7 +21,7 @@
   "peerDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
-    "@angular-devkit/architect": "~0.1700.0",
+    "@angular-devkit/architect": "~0.1602.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
     "@angular/cli": "~16.2.0",
@@ -74,7 +74,7 @@
   "devDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
-    "@angular-devkit/architect": "~0.1700.0",
+    "@angular-devkit/architect": "~0.1602.0",
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
@@ -137,7 +137,7 @@
     "zone.js": "~0.13.1"
   },
   "generatorDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.3.0",
     "@angular/material": "~16.2.0",
     "@ngrx/router-store": "~16.3.0",
     "@ngrx/effects": "~16.3.0",
