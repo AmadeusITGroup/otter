@@ -5684,16 +5684,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~11.0.0":
-  version: 11.0.0
-  resolution: "@ng-select/ng-select@npm:11.0.0"
+"@ng-select/ng-select@npm:~11.2.0":
+  version: 11.2.0
+  resolution: "@ng-select/ng-select@npm:11.2.0"
   dependencies:
     tslib: "npm:^2.3.1"
   peerDependencies:
     "@angular/common": ^16.0.0
     "@angular/core": ^16.0.0
     "@angular/forms": ^16.0.0
-  checksum: 76beb3625c7ea62377a34c4a884b8520cc8fab5c105802a7d036f197dd64ba65a6f3686e1c5d6ddba0a636d8d87cee2746dac8a4408a657ad8d4fef11729dd60
+  checksum: 8ca8cf6ed996adac795b34446fd6c7bc51e9065d1a3eb6c8d9a53b9006ec9ffe1ca66ca78cb625cdd9ce6c6ccdfece209cfa3016aaf25c8c0dff54ae6335a2b7
   languageName: node
   linkType: hard
 
@@ -6965,7 +6965,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
-    "@types/chrome": "npm:^0.0.248"
+    "@types/chrome": "npm:^0.0.253"
     "@types/jest": "npm:~29.5.2"
     "@typescript-eslint/eslint-plugin": "npm:^5.60.1"
     "@typescript-eslint/parser": "npm:^5.60.1"
@@ -7798,7 +7798,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@design-factory/design-factory": "npm:^15.2.2"
     "@ng-bootstrap/ng-bootstrap": "npm:^15.1.1"
-    "@ng-select/ng-select": "npm:~11.0.0"
+    "@ng-select/ng-select": "npm:~11.2.0"
     "@nx/angular": "npm:~16.10.0"
     "@nx/eslint-plugin": "npm:~16.10.0"
     "@nx/jest": "npm:~16.10.0"
@@ -8507,7 +8507,7 @@ __metadata:
     "@design-factory/design-factory": "npm:^15.2.2"
     "@formatjs/intl-numberformat": "npm:~8.9.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^15.1.1"
-    "@ng-select/ng-select": "npm:~11.0.0"
+    "@ng-select/ng-select": "npm:~11.2.0"
     "@ngrx/effects": "npm:~16.3.0"
     "@ngrx/entity": "npm:~16.3.0"
     "@ngrx/store": "npm:~16.3.0"
@@ -10853,13 +10853,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.248":
-  version: 0.0.248
-  resolution: "@types/chrome@npm:0.0.248"
+"@types/chrome@npm:^0.0.253":
+  version: 0.0.253
+  resolution: "@types/chrome@npm:0.0.253"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 228d901fcb8a84949c2bd023106697d074987cffc74e5260bcf56bf1c96ed859a04a176da12b9910ad8c1538aad2315909a6fe16c91fb2ec3ca4f501ef50226f
+  checksum: ff622999cdace8e7ee6dd67a38016f7cb1e4296918813481e56a5da1070fda0bcebe5b01e98097dbc268e6ce2908f96fe79782c772a4ce7eca7e531737cdf7ea
   languageName: node
   linkType: hard
 
