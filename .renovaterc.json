@@ -190,7 +190,6 @@
     },
     {
       "matchPackageNames": [
-        "zone.js",
         "bootstrap"
       ],
       "enabled": false
