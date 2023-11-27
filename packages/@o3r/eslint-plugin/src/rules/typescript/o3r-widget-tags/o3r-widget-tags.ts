@@ -1,5 +1,5 @@
-import { TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
-import { createRule } from '../../utils';
+import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
 
@@ -56,7 +56,8 @@ export default createRule<O3rWidgetTagsRuleOption[], O3rWidgetRuleErrorId>({
             type: 'array',
             items: {
               type: 'string'
-            }
+            },
+            default: defaultSupportedInterfaceNames
           },
           widgets: {
             additionalProperties: {
@@ -108,7 +109,7 @@ export default createRule<O3rWidgetTagsRuleOption[], O3rWidgetRuleErrorId>({
           ...option.widgets
         };
         return acc;
-      }, { widgets: {}, supportedInterfaceNames: ['Configuration', 'NestedConfiguration'] });
+      }, { widgets: {}, supportedInterfaceNames: [] });
     const supportedO3rWidgets = new Set(Object.keys(options.widgets));
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -165,14 +166,7 @@ export default createRule<O3rWidgetTagsRuleOption[], O3rWidgetRuleErrorId>({
         }
 
         const interfaceDeclNode = node.parent?.parent;
-        if (
-          interfaceDeclNode?.type !== TSESTree.AST_NODE_TYPES.TSInterfaceDeclaration
-          || !interfaceDeclNode.extends?.some((ext) =>
-            ext.type === TSESTree.AST_NODE_TYPES.TSInterfaceHeritage
-            && ext.expression.type === TSESTree.AST_NODE_TYPES.Identifier
-            && options.supportedInterfaceNames.includes(ext.expression.name)
-          )
-        ) {
+        if (!isExtendingConfiguration(interfaceDeclNode, options.supportedInterfaceNames)) {
           return context.report({
             messageId: 'notInConfigurationInterface',
             node,
