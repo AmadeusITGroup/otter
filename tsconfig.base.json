@@ -92,14 +92,23 @@
       "@o3r/components": [
         "packages/@o3r/components/src/public_api"
       ],
+      "@o3r/components/*": [
+        "packages/@o3r/components/src/*/public_api"
+      ],
       "@o3r/configuration": [
         "packages/@o3r/configuration/src/public_api"
+      ],
+      "@o3r/configuration/*": [
+        "packages/@o3r/configuration/src/*/public_api"
       ],
       "@o3r/core": [
         "packages/@o3r/core/src/public_api"
       ],
       "@o3r/dynamic-content": [
         "packages/@o3r/dynamic-content/src/public_api"
+      ],
+      "@o3r/dynamic-content/*": [
+        "packages/@o3r/dynamic-content/src/*/public_api"
       ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"
@@ -116,8 +125,14 @@
       "@o3r/localization": [
         "packages/@o3r/localization/src/public_api"
       ],
+      "@o3r/localization/*": [
+        "packages/@o3r/localization/src/*/public_api"
+      ],
       "@o3r/logger": [
         "packages/@o3r/logger/src/public_api"
+      ],
+      "@o3r/logger/*": [
+        "packages/@o3r/logger/src/services/*/public_api"
       ],
       "@o3r/mobile": [
         "packages/@o3r/mobile/src"

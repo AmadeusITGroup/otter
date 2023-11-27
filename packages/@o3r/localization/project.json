@@ -9,12 +9,28 @@
       "executor": "nx:noop",
       "dependsOn": ["build-builders", "compile"]
     },
+    "prepare": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "options": {
+        "script": "prepare:compile"
+      }
+    },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/localization/ng-package.json",
+        "project": "packages/@o3r/localization/src/ng-package.json",
         "tsConfig": "packages/@o3r/localization/tsconfig.build.json"
-      }
+      },
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

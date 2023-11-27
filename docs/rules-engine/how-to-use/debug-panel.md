@@ -5,13 +5,13 @@ This section is only available if you have activated the debug mode on the impor
 
 ```typescript
 import {NgModule} from '@angular/core';
-import {RulesEngineModule, RulesEngineDevtoolsModule} from '@o3r/rules-engine';
+import {RulesEngineRunnerModule, RulesEngineDevtoolsModule} from '@o3r/rules-engine';
 import {AppComponent} from './app.component';
 
 @NgModule({
     imports: [
       RulesEngineDevtoolsModule,
-      RulesEngineModule.forRoot({debug: true}) // Activate rule engine debug mode
+      RulesEngineRunnerModule.forRoot({debug: true}) // Activate rule engine debug mode
     ],
     declarations: [AppComponent],
     bootstrap: [AppComponent]

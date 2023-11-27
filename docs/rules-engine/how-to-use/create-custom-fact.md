@@ -23,7 +23,7 @@ export class OrderFactsService extends FactsService<OrderFacts> {
     currentOrder: this.store.pipe(getCurrentOrder())
   };
 
-  constructor(rulesEngine: RulesEngineService, private store: Store<OrderStore>) {
+  constructor(rulesEngine: RulesEngineRunnerService, private store: Store<OrderStore>) {
     super(rulesEngine);
   }
 }
@@ -43,7 +43,7 @@ And the module (Note that you do not import CartStore here):
 
 @NgModule({
   imports: [
-    RulesEngineModule
+    RulesEngineRunnerModule
   ],
   providers: [
     OrderFactsService

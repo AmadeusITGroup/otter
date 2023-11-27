@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { combineLatest, firstValueFrom, Observable } from 'rxjs';
 import { map, scan, shareReplay } from 'rxjs/operators';
 import type { ActiveRulesetsEvent, AvailableRulesets, BaseRulesetExecution, DebugEvent, Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../engine';
-import { RulesEngineService } from '../services';
+import { RulesEngineRunnerService } from '../services';
 import { RulesetsModel, RulesetsStore, selectRulesetsEntities } from '../stores';
 import { RulesEngineDevtoolsServiceOptions } from './rules-engine-devkit.interface';
 import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS } from './rules-engine-devtools.token';
@@ -28,7 +28,7 @@ export class OtterRulesEngineDevtools {
 
   constructor(
     protected store: Store<RulesetsStore>,
-    private rulesEngineService: RulesEngineService,
+    private rulesEngineService: RulesEngineRunnerService,
     @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options: RulesEngineDevtoolsServiceOptions) {
 
     const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS).rulesEngineStackLimit;

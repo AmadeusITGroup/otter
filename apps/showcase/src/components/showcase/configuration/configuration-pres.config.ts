@@ -1,4 +1,4 @@
-import {computeConfigurationName} from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import type {Configuration, NestedConfiguration} from '@o3r/core';
 
 /** Configuration of a destination */
@@ -47,4 +47,4 @@ export const CONFIGURATION_PRES_DEFAULT_CONFIG: ConfigurationPresConfig = {
   shouldProposeRoundTrip: false
 };
 
-export const CONFIGURATION_PRES_CONFIG_ID = computeConfigurationName('ConfigurationPresConfig', 'showcase');
+export const CONFIGURATION_PRES_CONFIG_ID = computeItemIdentifier('ConfigurationPresConfig', 'showcase');

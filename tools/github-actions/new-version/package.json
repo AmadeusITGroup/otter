@@ -21,7 +21,7 @@
     "semver": "^7.5.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~17.0.1",
+    "@angular-eslint/eslint-plugin": "~17.1.0",
     "@nx/eslint-plugin": "~17.1.1",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
