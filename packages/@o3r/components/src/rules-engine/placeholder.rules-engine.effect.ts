@@ -12,11 +12,11 @@ import {
 import {fromApiEffectSwitchMapById} from '@o3r/core';
 import {DynamicContentService} from '@o3r/dynamic-content';
 import {LocalizationService} from '@o3r/localization';
+import {RulesEngineRunnerService} from '@o3r/rules-engine';
 import {combineLatest, EMPTY, Observable, of} from 'rxjs';
 import {distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
-import {RulesEngineService} from './rules-engine.service';
 import {Store} from '@ngrx/store';
-import {JSONPath} from 'jsonpath-plus';
+import { JSONPath } from 'jsonpath-plus';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -34,14 +34,16 @@ export class PlaceholderTemplateResponseEffect {
       fromApiEffectSwitchMapById(
         (templateResponse, action) => {
           const facts = templateResponse.vars ? Object.values(templateResponse.vars).filter((variable: PlaceholderVariable) => variable.type === 'fact') : [];
-          const factsStreamsList = facts.map((fact) =>
-            this.rulesEngineService.engine.retrieveOrCreateFactStream(fact.value).pipe(
+          const factsStreamsList = this.rulesEngineService ? facts.map((fact) =>
+            this.rulesEngineService!.engine.retrieveOrCreateFactStream(fact.value).pipe(
               map((factValue) => ({
+                name: fact.value,
                 // eslint-disable-next-line new-cap
-                name: fact.value, factValue: (fact.path && factValue) ? JSONPath({wrap: false, json: factValue, path: fact.path}) : factValue
+                factValue: (fact.path && factValue) ? JSONPath({ wrap: false, json: factValue, path: fact.path }) : factValue
               })),
               distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
-            ));
+            )) : [];
+
           const factsStreamsList$ = factsStreamsList.length ? combineLatest(factsStreamsList) : of([]);
           return combineLatest([factsStreamsList$, this.store.select(selectPlaceholderRequestEntityUsage(action.id)).pipe(distinctUntilChanged())]).pipe(
             switchMap(([factsUsedInTemplate, placeholderRequestUsage]) => {
@@ -73,15 +75,14 @@ export class PlaceholderTemplateResponseEffect {
 
   constructor(
     private actions$: Actions,
-    private rulesEngineService: RulesEngineService,
-    private dynamicContentService: DynamicContentService,
     private store: Store<PlaceholderRequestStore>,
-    @Optional() private translationService?: LocalizationService) {
+    @Optional() private rulesEngineService: RulesEngineRunnerService | null,
+    @Optional() private dynamicContentService: DynamicContentService | null,
+    @Optional() private translationService: LocalizationService | null) {
   }
 
   /**
    * Renders the html template, replacing facts and urls and localizationKeys
-   *
    * @param template
    * @param vars
    * @param facts
@@ -92,7 +93,7 @@ export class PlaceholderTemplateResponseEffect {
       set[fact.name] = fact.factValue;
       return set;
     }, {});
-    const replacements$: Observable<{ ejsVar: RegExp; value: string }>[] = [];
+    const replacements$: Observable<{ ejsVar: RegExp; value: string } | null>[] = [];
     if (vars && template) {
       for (const varName in vars) {
         if (Object.prototype.hasOwnProperty.call(vars, varName)) {
@@ -100,10 +101,10 @@ export class PlaceholderTemplateResponseEffect {
           switch (vars[varName].type) {
             case 'relativeUrl': {
               replacements$.push(
-                this.dynamicContentService.getMediaPathStream(vars[varName].value).pipe(
+                this.dynamicContentService?.getMediaPathStream(vars[varName].value).pipe(
                   take(1),
                   map((value: string) => ({ejsVar, value}))
-                )
+                ) || of({ ejsVar, value: vars[varName].value })
               );
               break;
             }
@@ -121,13 +122,13 @@ export class PlaceholderTemplateResponseEffect {
                 acc[paramName] = factset[paramName];
                 return acc;
               }, {});
-              if (this.translationService) {
-                replacements$.push(
+              replacements$.push(
+                this.translationService ?
                   this.translationService.translate(vars[varName].value, linkedParams).pipe(
-                    map((value: string) => ({ejsVar, value}))
-                  )
-                );
-              }
+                    map((value) => (value ? { ejsVar, value } : null))
+                  ) :
+                  of(null)
+              );
               break;
             }
             default : {
@@ -140,9 +141,10 @@ export class PlaceholderTemplateResponseEffect {
     }
     return replacements$.length > 0 && !!template ?
       combineLatest(replacements$).pipe(
-        map((replacements: { ejsVar: RegExp; value: string }[]) => ({
+        map((replacements) => ({
           renderedTemplate: replacements.reduce((acc, replacement) =>
-            acc.replace(replacement.ejsVar, replacement.value), template!
+            replacement ? acc.replace(replacement.ejsVar, replacement.value) : acc,
+            template!
           ),
           unknownTypeFound
         }))

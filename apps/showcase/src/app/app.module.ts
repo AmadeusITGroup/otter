@@ -19,7 +19,7 @@ import {
   translateLoaderProvider,
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
@@ -82,7 +82,7 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    RulesEngineModule.forRoot({ debug: true }),
+    RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,

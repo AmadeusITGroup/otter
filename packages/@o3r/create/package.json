@@ -15,13 +15,13 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@angular/cli": "~17.0.0",
-    "@schematics/angular": "~17.0.0",
+    "@angular/cli": "~17.0.3",
+    "@schematics/angular": "~17.0.3",
     "minimist": "^1.2.6"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~17.0.1",
-    "@angular-eslint/eslint-plugin-template": "~17.0.1",
+    "@angular-eslint/eslint-plugin": "~17.1.0",
+    "@angular-eslint/eslint-plugin-template": "~17.1.0",
     "@nx/eslint": "~17.1.1",
     "@nx/eslint-plugin": "~17.1.1",
     "@nx/jest": "~17.1.1",

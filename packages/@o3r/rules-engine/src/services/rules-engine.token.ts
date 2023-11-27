@@ -13,6 +13,7 @@ export interface RulesEngineServiceOptions {
   debugEventsStackLimit?: number;
 }
 
+/** Default Rules engine options */
 export const DEFAULT_RULES_ENGINE_OPTIONS: RulesEngineServiceOptions = {
   dryRun: false,
   debug: false

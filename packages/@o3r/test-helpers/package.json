@@ -21,12 +21,12 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "~17.0.0",
-    "@angular-eslint/eslint-plugin": "~17.0.1",
+    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-eslint/eslint-plugin": "~17.1.0",
     "@nx/eslint-plugin": "~17.1.1",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~17.0.0",
+    "@schematics/angular": "~17.0.3",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
     "@types/pid-from-port": "^1.1.0",
