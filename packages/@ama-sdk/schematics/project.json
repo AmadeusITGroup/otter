@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders"
-      ]
+      "dependsOn": ["build-builders"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -35,7 +33,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -44,9 +42,7 @@
       },
       "options": {
         "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-sdk/schematics/schematics/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/@ama-sdk/schematics/schematics/**/*.ts"]
       }
     },
     "build-swagger": {
@@ -55,9 +51,7 @@
         "{projectRoot}/schematics/**",
         "!{projectRoot}/schematics/**/target/**"
       ],
-      "outputs": [
-        "{projectRoot}/schematics/**/target/*.jar"
-      ],
+      "outputs": ["{projectRoot}/schematics/**/target/*.jar"],
       "options": {
         "script": "build:swagger"
       }

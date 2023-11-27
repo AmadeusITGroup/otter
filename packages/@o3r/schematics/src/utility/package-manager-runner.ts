@@ -70,7 +70,7 @@ export function getPackageManager(options?: PackageManagerOptions) {
  * @param workspaceConfig Workspace configuration
  * @param packageName Name of the package of the workspace to run the script (name from package.json)
  */
-export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): SupportedPackageManagerRunners | string {
+export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
     return `${pckManager} run` as SupportedPackageManagerRunners;
@@ -83,7 +83,7 @@ export function getPackageManagerRunner(workspaceConfig?: WorkspaceSchema | stri
  * @param workspaceConfig Workspace configuration
  * @param packageName Name of the package of the workspace to execute the command
  */
-export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): SupportedPackageManagerExecutors | string {
+export function getPackageManagerExecutor(workspaceConfig?: WorkspaceSchema | string | null, packageName?: string | undefined): string {
   const pckManager = getPackageManager({ workspaceConfig });
   if (!packageName) {
     return `${pckManager} exec` as SupportedPackageManagerExecutors;

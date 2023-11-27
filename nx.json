@@ -18,49 +18,6 @@
       "path": ".cache/angular"
     }
   },
-  "tasksRunnerOptions": {
-    "default": {
-      "runner": "nx-cloud",
-      "options": {
-        "useDaemonProcess": false,
-        "cacheableOperations": [
-          "prepare",
-          "compile",
-          "build",
-          "build-cli",
-          "build-cjs",
-          "build-esm2015",
-          "build-esm2020",
-          "build-react",
-          "build-panel",
-          "build-wrapper",
-          "build-builders",
-          "build-schematics",
-          "build-extension",
-          "build-components",
-          "build-tools",
-          "build-plugins",
-          "build-fixtures",
-          "build-fixtures-jasmine",
-          "build-fixtures-jest",
-          "copy-assets",
-          "documentation",
-          "generate-translations",
-          "extract-translations",
-          "extract-components",
-          "extract-style",
-          "extract-rules-engine",
-          "lint",
-          "prepare-build-builders",
-          "test",
-          "test-int",
-          "build-swagger",
-          "i18n"
-        ],
-        "cacheDirectory": ".cache/nx"
-      }
-    }
-  },
   "namedInputs": {
     "global": [
       "{workspaceRoot}/yarn.lock",
@@ -77,14 +34,8 @@
       "{projectRoot}/package.json",
       "{projectRoot}/project.json"
     ],
-    "jasmine-fixtures": [
-      "global",
-      "{projectRoot}/**/fixtures/jasmine/**/*.ts"
-    ],
-    "jest-fixtures": [
-      "global",
-      "{projectRoot}/**/fixtures/jasmine/**/*.ts"
-    ],
+    "jasmine-fixtures": ["global", "{projectRoot}/**/fixtures/jasmine/**/*.ts"],
+    "jest-fixtures": ["global", "{projectRoot}/**/fixtures/jasmine/**/*.ts"],
     "builders": [
       "global",
       "{projectRoot}/builders.json",
@@ -98,11 +49,7 @@
       "{projectRoot}/schematics/**/*",
       "{projectRoot}/package.json"
     ],
-    "cli": [
-      "global",
-      "{projectRoot}/cli/**/*",
-      "{projectRoot}/package.json"
-    ],
+    "cli": ["global", "{projectRoot}/cli/**/*", "{projectRoot}/package.json"],
     "middlewares": [
       "global",
       "{projectRoot}/middlewares/**/*",
@@ -135,9 +82,9 @@
   },
   "targetDefaults": {
     "lint": {
-      "inputs": [
-        "lint"
-      ]
+      "inputs": ["lint"],
+      "cache": true,
+      "dependsOn": ["^build"]
     },
     "test": {
       "inputs": [
@@ -149,9 +96,17 @@
         "specs",
         "^specs"
       ],
-      "outputs": [
-        "{projectRoot}/dist-test/ut-report.xml"
-      ]
+      "outputs": ["{projectRoot}/dist-test/ut-report.xml"],
+      "options": {
+        "passWithNoTests": false
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "cache": true
     },
     "test-int": {
       "inputs": [
@@ -166,85 +121,58 @@
         "^schematics",
         "^source"
       ],
-      "outputs": [
-        "{projectRoot}/dist-test/it-report.xml"
-      ]
+      "outputs": ["{projectRoot}/dist-test/it-report.xml"],
+      "options": {
+        "passWithNoTests": false
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      },
+      "cache": true
     },
     "prepare-publish": {
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ]
+      "outputs": ["{projectRoot}/dist/package.json"]
     },
     "publish-extension": {},
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "outputs": [],
-      "inputs": [
-        "default",
-        "^default"
-      ]
+      "inputs": ["default", "^default"],
+      "cache": true
     },
     "compile": {
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "source",
-        "^source"
-      ],
-      "outputs": [
-        "{projectRoot}/dist",
-        "{projectRoot}/build/.tsbuildinfo"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["source", "^source"],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
+      "cache": true
     },
     "build-fixtures": {
-      "inputs": [
-        "jasmine-fixtures",
-        "jest-fixtures"
-      ],
+      "inputs": ["jasmine-fixtures", "jest-fixtures"],
       "outputs": [
         "{projectRoot}/dist/fixtures/jasmine",
         "{projectRoot}/dist/fixtures/jest"
       ],
-      "dependsOn": [
-        "build-fixtures-jasmine",
-        "build-fixtures-jest"
-      ]
+      "dependsOn": ["build-fixtures-jasmine", "build-fixtures-jest"],
+      "cache": true
     },
     "build-fixtures-jasmine": {
-      "inputs": [
-        "jasmine-fixtures"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/fixtures/jasmine"
-      ],
-      "dependsOn": [
-        "compile"
-      ]
+      "inputs": ["jasmine-fixtures"],
+      "outputs": ["{projectRoot}/dist/fixtures/jasmine"],
+      "dependsOn": ["compile"],
+      "cache": true
     },
     "build-fixtures-jest": {
-      "inputs": [
-        "jest-fixtures"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/fixtures/jest"
-      ],
-      "dependsOn": [
-        "compile"
-      ]
+      "inputs": ["jest-fixtures"],
+      "outputs": ["{projectRoot}/dist/fixtures/jest"],
+      "dependsOn": ["compile"],
+      "cache": true
     },
     "prepare-build-builders": {
-      "dependsOn": [
-        "compile"
-      ],
-      "inputs": [
-        "builders",
-        "schematics",
-        "middlewares",
-        "^source"
-      ],
+      "dependsOn": ["compile"],
+      "inputs": ["builders", "schematics", "middlewares", "^source"],
       "outputs": [
         "{projectRoot}/dist/builders.json",
         "{projectRoot}/dist/migration.json",
@@ -253,17 +181,12 @@
         "{projectRoot}/dist/schemas/**/*.json",
         "{projectRoot}/dist/schematics/**/*.json",
         "{projectRoot}/dist/schematics/**/templates/**"
-      ]
+      ],
+      "cache": true
     },
     "build-cli": {
-      "dependsOn": [
-        "^build",
-        "compile"
-      ],
-      "inputs": [
-        "cli",
-        "^source"
-      ],
+      "dependsOn": ["^build", "compile"],
+      "inputs": ["cli", "^source"],
       "outputs": [
         "{projectRoot}/dist/cli/package.json",
         "{projectRoot}/dist/cli/**/*.cjs",
@@ -272,20 +195,12 @@
         "{projectRoot}/dist/cli/**/*.js",
         "{projectRoot}/dist/cli/**/*.d.ts",
         "{projectRoot}/dist/cli/**/*.d.ts.map"
-      ]
+      ],
+      "cache": true
     },
     "build-builders": {
-      "dependsOn": [
-        "^build",
-        "compile",
-        "prepare-build-builders"
-      ],
-      "inputs": [
-        "builders",
-        "schematics",
-        "middlewares",
-        "^source"
-      ],
+      "dependsOn": ["^build", "compile", "prepare-build-builders"],
+      "inputs": ["builders", "schematics", "middlewares", "^source"],
       "outputs": [
         "{projectRoot}/dist/builders/package.json",
         "{projectRoot}/dist/builders/**/*.js",
@@ -299,28 +214,76 @@
         "{projectRoot}/dist/middlewares/**/*.d.ts",
         "{projectRoot}/dist/middlewares/**/*.d.ts.map",
         "{projectRoot}/build/.tsbuildinfo.builders"
-      ]
+      ],
+      "cache": true
     },
     "build-plugins": {
-      "dependsOn": [
-        "^build",
-        "compile"
-      ],
-      "inputs": [
-        "plugins"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/plugins",
-        "{projectRoot}/build/plugins"
-      ]
+      "dependsOn": ["^build", "compile"],
+      "inputs": ["plugins"],
+      "outputs": ["{projectRoot}/dist/plugins", "{projectRoot}/build/plugins"],
+      "cache": true
     },
     "documentation": {
-      "outputs": [
-        "{workspaceRoot}/generated-doc/{projectName}/**/*"
-      ],
-      "inputs": [
-        "source"
-      ]
+      "outputs": ["{workspaceRoot}/generated-doc/{projectName}/**/*"],
+      "inputs": ["source"],
+      "cache": true
+    },
+    "prepare": {
+      "cache": true
+    },
+    "build-cjs": {
+      "cache": true
+    },
+    "build-esm2015": {
+      "cache": true
+    },
+    "build-esm2020": {
+      "cache": true
+    },
+    "build-react": {
+      "cache": true
+    },
+    "build-panel": {
+      "cache": true
+    },
+    "build-wrapper": {
+      "cache": true
+    },
+    "build-schematics": {
+      "cache": true
+    },
+    "build-extension": {
+      "cache": true
+    },
+    "build-components": {
+      "cache": true
+    },
+    "build-tools": {
+      "cache": true
+    },
+    "copy-assets": {
+      "cache": true
+    },
+    "generate-translations": {
+      "cache": true
+    },
+    "extract-translations": {
+      "cache": true
+    },
+    "extract-components": {
+      "cache": true
+    },
+    "extract-style": {
+      "cache": true
+    },
+    "extract-rules-engine": {
+      "cache": true
+    },
+    "build-swagger": {
+      "cache": true
+    },
+    "i18n": {
+      "cache": true
     }
   },
   "generators": {
@@ -336,5 +299,7 @@
   "workspaceLayout": {
     "libsDir": "packages",
     "appsDir": "apps"
-  }
+  },
+  "useDaemonProcess": false,
+  "cacheDirectory": ".cache/nx"
 }

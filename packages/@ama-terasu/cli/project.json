@@ -7,22 +7,15 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
-      "outputs": [
-        "{projectRoot}/dist",
-        "{projectRoot}/build/.tsbuildinfo"
-      ],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
       "options": {
         "main": "packages/@ama-terasu/cli/src/public_api.ts",
         "tsConfig": "packages/@ama-terasu/cli/tsconfig.build.json",
@@ -30,7 +23,7 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

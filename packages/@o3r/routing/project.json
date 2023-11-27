@@ -7,22 +7,14 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
-      "dependsOn": [
-        "^build",
-        "prepare"
-      ],
+      "dependsOn": ["^build", "prepare"],
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
         "project": "packages/@o3r/routing/src/ng-package.json",
@@ -31,21 +23,15 @@
     },
     "prepare": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/src/package.json"
-      ],
-      "inputs": [
-        "{projectRoot}/package.json"
-      ],
-      "dependsOn": [
-        "^build"
-      ],
+      "outputs": ["{projectRoot}/src/package.json"],
+      "inputs": ["{projectRoot}/package.json"],
+      "dependsOn": ["^build"],
       "options": {
         "script": "prepare:compile"
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true

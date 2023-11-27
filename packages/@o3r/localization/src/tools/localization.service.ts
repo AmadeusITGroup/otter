@@ -27,7 +27,7 @@ export class LocalizationService {
   /**
    * Map of localization keys to replace a key to another
    */
-  private keyMapping$?: Observable<Record<string, any | undefined>>;
+  private keyMapping$?: Observable<Record<string, any>>;
 
   /**
    * _showKeys$ exposed as an Observable

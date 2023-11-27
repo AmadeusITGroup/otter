@@ -65,7 +65,7 @@ addons.register(ADDON_ID, (api) => {
         updateTheme(baseTheme);
       }
       return (
-        <AddonPanel active={active} key={key}>
+        <AddonPanel active={active} key={key as any}>
           <ThemePanel
             theme={state.theme}
             themeName={state.selectedThemeName}

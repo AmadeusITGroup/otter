@@ -3,7 +3,8 @@ import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@ang
 
 import { EffectsModule } from '@ngrx/effects';
 import { select, Store, StoreModule } from '@ngrx/store';
-import { computeConfigurationName, ConfigOverrideStore, ConfigOverrideStoreModule, ConfigurationStoreModule, selectConfigOverride } from '@o3r/configuration';
+import { computeConfigurationName, ConfigOverrideStoreModule, ConfigurationStoreModule, selectConfigOverride } from '@o3r/configuration';
+import type { ConfigOverrideStore } from '@o3r/configuration';
 import { LocalizationModule } from '@o3r/localization';
 import { mockTranslationModules } from '@o3r/testing/localization';
 import { BehaviorSubject, firstValueFrom, Observable, of, Subject } from 'rxjs';

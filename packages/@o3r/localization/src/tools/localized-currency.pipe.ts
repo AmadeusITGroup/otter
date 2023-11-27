@@ -23,14 +23,14 @@ export class LocalizedCurrencyPipe extends CurrencyPipe implements OnDestroy, Pi
   /**
    * @inheritdoc
    */
-  public transform(value: number | string, currencyCode?: string, display?: 'code' | 'symbol' | 'symbol-narrow' | string | boolean, digitsInfo?: string, locale?: string): string | null;
-  public transform(value: null | undefined, currencyCode?: string, display?: 'code' | 'symbol' | 'symbol-narrow' | string | boolean, digitsInfo?: string, locale?: string): null;
+  public transform(value: number | string, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null;
+  public transform(value: null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): null;
   public transform(
     // Expose same signatures as angular CurencyPipe
     // eslint-disable-next-line @typescript-eslint/unified-signatures
-    value: number | string | null | undefined, currencyCode?: string, display?: 'code' | 'symbol' | 'symbol-narrow' | string | boolean, digitsInfo?: string, locale?: string): string | null;
+    value: number | string | null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null;
   public transform(
-    value: number | string | null | undefined, currencyCode?: string, display?: 'code' | 'symbol' | 'symbol-narrow' | string | boolean, digitsInfo?: string, locale?: string): string | null {
+    value: number | string | null | undefined, currencyCode?: string, display?: string | boolean, digitsInfo?: string, locale?: string): string | null {
     return super.transform(value, currencyCode, display, digitsInfo, locale || this.localizationService.getCurrentLanguage());
   }
 

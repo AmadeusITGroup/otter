@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Provider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
@@ -30,7 +31,8 @@ describe('RulesEngineComponent', () => {
         EffectsModule.forRoot(),
         RulesEngineModule.forRoot(),
         RouterModule.forRoot([]),
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)
+        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
+        AsyncPipe
       ]
     });
     global.fetch = jest.fn(() =>

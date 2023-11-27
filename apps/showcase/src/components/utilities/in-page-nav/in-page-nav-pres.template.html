@@ -1,8 +1,10 @@
 <h5>On this page</h5>
 <nav [id]="id" class="navbar px-3 mb-3">
   <ul class="nav nav-pills flex-column">
-    <li class="nav-item" *ngFor="let link of links">
-      <a role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)">{{ link.label }}</a>
-    </li>
+    @for (link of links; track link.id) {
+      <li class="nav-item">
+        <a role="button" class="nav-link" ngbScrollSpyItem [fragment]="link.id" (click)="link.scrollTo($event)">{{ link.label }}</a>
+      </li>
+    }
   </ul>
 </nav>

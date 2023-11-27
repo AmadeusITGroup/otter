@@ -18,8 +18,8 @@ export function fromApiEffectSwitchMap<
     T extends FromApiActionPayload<any>,
     S extends ExtractFromApiActionPayloadType<T>,
     U extends Action,
-    V extends Action | never,
-    W extends Action | never>(
+    V extends Action,
+    W extends Action>(
   successHandler: (result: S, action: T) => U | Observable<U>,
   errorHandler?: (error: any, action: T) => Observable<V>,
   cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
@@ -68,8 +68,8 @@ export function fromApiEffectSwitchMap<
 export function fromApiEffectSwitchMapById<T extends FromApiActionPayload<any> & { id: string },
   S extends ExtractFromApiActionPayloadType<T>,
   U extends Action,
-  V extends Action | never,
-  W extends Action | never>(
+  V extends Action,
+  W extends Action>(
   successHandler: (result: S, action: T) => U | Observable<U>,
   errorHandler?: (error: any, action: T) => Observable<V>,
   cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W,

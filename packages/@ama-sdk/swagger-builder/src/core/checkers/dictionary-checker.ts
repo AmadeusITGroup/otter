@@ -115,7 +115,7 @@ export class DictionaryChecker implements Checker {
    * @param currentNode Path Swagger Node to inspect
    * @param field current inspected object field name
    */
-  private getResponsesNode(currentNode: any, field?: string): any | undefined {
+  private getResponsesNode(currentNode: any, field?: string): any {
     if (currentNode === undefined || currentNode === null) {
       return;
     } else if (field === 'responses') {

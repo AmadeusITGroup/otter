@@ -7,16 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile",
-        "build-builders"
-      ]
+      "dependsOn": ["compile", "build-builders"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -36,14 +31,12 @@
         "main": "packages/@o3r/azure-tools/src/public_api.ts",
         "tsConfig": "packages/@o3r/azure-tools/tsconfig.build.json",
         "outputPath": "packages/@o3r/azure-tools/dist",
-        "assets": [
-          "packages/@o3r/azure-tools/configs/*.json"
-        ],
+        "assets": ["packages/@o3r/azure-tools/configs/*.json"],
         "clean": false
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,
@@ -52,9 +45,7 @@
       },
       "options": {
         "eslintConfig": "packages/@o3r/azure-tools/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/azure-tools/src/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/@o3r/azure-tools/src/**/*.ts"]
       }
     },
     "test": {
@@ -83,7 +74,5 @@
       }
     }
   },
-  "tags": [
-    "tools"
-  ]
+  "tags": ["tools"]
 }

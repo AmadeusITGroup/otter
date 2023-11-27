@@ -23,7 +23,8 @@ export class MockInterceptFetch implements FetchPlugin {
         await this.options.adapter.initialize();
 
         let responsePromise = fetchCall;
-        if (!context.options.headers || !(context.options.headers instanceof Headers) || !context.options.headers.has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        if (!context.options.headers || !(context.options.headers instanceof Headers) || !(context.options.headers as Headers).has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
           return responsePromise;
         }
 
@@ -33,7 +34,8 @@ export class MockInterceptFetch implements FetchPlugin {
           responsePromise = new Promise<Response>((resolve) => setTimeout(resolve, delay)).then(() => resp);
         }
 
-        const operationId = context.options.headers.get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        const operationId = (context.options.headers as Headers).get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
         try {
           const mock = this.options.adapter.getLatestMock(operationId);
 

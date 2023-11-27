@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
 import { CopyTextPresComponent } from '../../components';
@@ -8,7 +7,7 @@ import { CopyTextPresComponent } from '../../components';
 @Component({
   selector: 'o3r-home',
   standalone: true,
-  imports: [CommonModule, DynamicContentModule, CopyTextPresComponent],
+  imports: [DynamicContentModule, CopyTextPresComponent],
   templateUrl: './home.template.html',
   styleUrls: ['./home.style.scss'],
   encapsulation: ViewEncapsulation.None,

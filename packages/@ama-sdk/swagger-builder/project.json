@@ -7,15 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -23,13 +19,11 @@
         "main": "packages/@ama-sdk/swagger-builder/src/cli/build.ts",
         "tsConfig": "packages/@ama-sdk/swagger-builder/tsconfig.build.json",
         "outputPath": "packages/@ama-sdk/swagger-builder/dist",
-        "assets": [
-          "packages/@ama-sdk/swagger-builder/src/schemas/*.json"
-        ]
+        "assets": ["packages/@ama-sdk/swagger-builder/src/schemas/*.json"]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
+      "executor": "@nx/eslint:lint",
       "configurations": {
         "ci": {
           "quiet": true,

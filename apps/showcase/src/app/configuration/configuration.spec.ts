@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
@@ -12,7 +13,8 @@ describe('ConfigurationComponent', () => {
       imports: [
         ConfigurationComponent,
         StoreModule.forRoot(),
-        RouterModule.forRoot([])
+        RouterModule.forRoot([]),
+        AsyncPipe
       ]
     });
     fixture = TestBed.createComponent(ConfigurationComponent);
