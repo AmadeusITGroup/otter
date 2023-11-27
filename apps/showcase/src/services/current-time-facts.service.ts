@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CurrentTimeFacts, FactsService, RulesEngineService } from '@o3r/rules-engine';
+import { CurrentTimeFacts, FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class CurrentTimeFactsService extends FactsService<CurrentTimeFacts> {
     o3rCurrentTime: this.currentTimeSubject$.asObservable()
   };
 
-  constructor(rulesEngine: RulesEngineService) {
+  constructor(rulesEngine: RulesEngineRunnerService) {
     super(rulesEngine);
   }
 
