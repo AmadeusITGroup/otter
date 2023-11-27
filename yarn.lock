@@ -78,16 +78,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@swc/cli": "npm:^0.1.57"
     "@swc/core": "npm:^1.3.85"
     "@swc/helpers": "npm:^0.5.0"
@@ -164,11 +164,11 @@ __metadata:
   dependencies:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-devkit/schematics-cli": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-devkit/schematics-cli": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.1.1"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
@@ -178,7 +178,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.7.0"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^18.0.0"
@@ -216,18 +216,18 @@ __metadata:
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-devkit/schematics-cli": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-devkit/schematics-cli": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.7.0"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
     "@types/minimatch": "npm:^5.1.2"
@@ -289,13 +289,13 @@ __metadata:
   dependencies:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-devkit/schematics-cli": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-devkit/schematics-cli": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
     "@angular-eslint/utils": "npm:~17.1.0"
-    "@angular/compiler": "npm:~17.0.2"
+    "@angular/compiler": "npm:~17.0.4"
     "@commitlint/cli": "npm:^17.0.0"
     "@commitlint/config-conventional": "npm:^17.0.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
@@ -303,7 +303,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.7.0"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@swc/cli": "npm:^0.1.57"
     "@swc/core": "npm:^1.3.85"
     "@swc/helpers": "npm:^0.5.0"
@@ -345,7 +345,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/swagger-builder@workspace:packages/@ama-sdk/swagger-builder"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@apidevtools/swagger-parser": "npm:^10.0.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
@@ -397,7 +397,7 @@ __metadata:
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
     "@ama-terasu/core": "workspace:^"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/amaterasu-api-spec": "workspace:^"
@@ -463,7 +463,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -499,10 +499,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -558,24 +558,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1700.0, @angular-devkit/architect@npm:~0.1700.0":
-  version: 0.1700.0
-  resolution: "@angular-devkit/architect@npm:0.1700.0"
+"@angular-devkit/architect@npm:0.1700.3, @angular-devkit/architect@npm:~0.1700.3":
+  version: 0.1700.3
+  resolution: "@angular-devkit/architect@npm:0.1700.3"
   dependencies:
-    "@angular-devkit/core": "npm:17.0.0"
+    "@angular-devkit/core": "npm:17.0.3"
     rxjs: "npm:7.8.1"
-  checksum: 38ccbaa8d11ec1bc165629ff7716999d0904121213d35f9d67a0cb67249af91f61ef35fcd9305337775b23a0d2bfb5c4e080b1afed5000e7d915dc90d13e3342
+  checksum: c3029c3cee733a418ae592655851267c4b1dad7dbf6bf4ce0d3ed97445da8a7c9ba3ef275840869f7800371498cd869d6dae6f20fd34bd90e2ac87352e8b902c
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-angular@npm:^17.0.0, @angular-devkit/build-angular@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular-devkit/build-angular@npm:17.0.0"
+"@angular-devkit/build-angular@npm:^17.0.0, @angular-devkit/build-angular@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@angular-devkit/build-angular@npm:17.0.3"
   dependencies:
     "@ampproject/remapping": "npm:2.2.1"
-    "@angular-devkit/architect": "npm:0.1700.0"
-    "@angular-devkit/build-webpack": "npm:0.1700.0"
-    "@angular-devkit/core": "npm:17.0.0"
+    "@angular-devkit/architect": "npm:0.1700.3"
+    "@angular-devkit/build-webpack": "npm:0.1700.3"
+    "@angular-devkit/core": "npm:17.0.3"
     "@babel/core": "npm:7.23.2"
     "@babel/generator": "npm:7.23.0"
     "@babel/helper-annotate-as-pure": "npm:7.22.5"
@@ -586,7 +586,7 @@ __metadata:
     "@babel/preset-env": "npm:7.23.2"
     "@babel/runtime": "npm:7.23.2"
     "@discoveryjs/json-ext": "npm:0.5.7"
-    "@ngtools/webpack": "npm:17.0.0"
+    "@ngtools/webpack": "npm:17.0.3"
     "@vitejs/plugin-basic-ssl": "npm:1.0.1"
     ansi-colors: "npm:4.1.3"
     autoprefixer: "npm:10.4.16"
@@ -672,20 +672,20 @@ __metadata:
       optional: true
     tailwindcss:
       optional: true
-  checksum: 018e0d9f161683da7cbd45a00051a863c99e551876d294641975c86e35f7b2069949dae4e9eb31fbe7bbe5f87798b4ef647935c2cbd9b8ea6c6f66ce1685257e
+  checksum: 969aead4d905bc55bc9980fe34d265ee948c6556920aa6da704f1c27ab2078ea61ac884387d1647a606455bec15cf45e087503d3677d11ad0740771a94d208fe
   languageName: node
   linkType: hard
 
-"@angular-devkit/build-webpack@npm:0.1700.0":
-  version: 0.1700.0
-  resolution: "@angular-devkit/build-webpack@npm:0.1700.0"
+"@angular-devkit/build-webpack@npm:0.1700.3":
+  version: 0.1700.3
+  resolution: "@angular-devkit/build-webpack@npm:0.1700.3"
   dependencies:
-    "@angular-devkit/architect": "npm:0.1700.0"
+    "@angular-devkit/architect": "npm:0.1700.3"
     rxjs: "npm:7.8.1"
   peerDependencies:
     webpack: ^5.30.0
     webpack-dev-server: ^4.0.0
-  checksum: b09684f11b3a5263b6ace421005e550764ddc14a281e2c72b3d8d0aca95a37c44588359b79cc5cf9abc0d7eee5b22dd91a6366d6f92032a8877f4947b006f315
+  checksum: 242eb19c57293ad6f5f2af1087b61479cbc265746027a806bbb3024c24b9b0c886b04e4b1fae4342539fa7483d04962f57caaf8492e1d2c4894f4ef796e246f5
   languageName: node
   linkType: hard
 
@@ -707,9 +707,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:17.0.0, @angular-devkit/core@npm:^17.0.0, @angular-devkit/core@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular-devkit/core@npm:17.0.0"
+"@angular-devkit/core@npm:17.0.3, @angular-devkit/core@npm:^17.0.0, @angular-devkit/core@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@angular-devkit/core@npm:17.0.3"
   dependencies:
     ajv: "npm:8.12.0"
     ajv-formats: "npm:2.1.1"
@@ -722,42 +722,23 @@ __metadata:
   peerDependenciesMeta:
     chokidar:
       optional: true
-  checksum: 361aafca007e329f7046502c7f7c241d4355d79483e47114dce74dabb3d2bc58df7613d3833c61b49e0558c364ca05c44aa9879e3f9bbeb983f2eb4e931d2722
+  checksum: bb17c7b5cfe6b50d50744bbe2c6ee0f3d50fe9f7595fbdabaa896937240c354c537fafbe174839052b5341b5f93800697fccc058c80c93ed2b461d7d7f378a99
   languageName: node
   linkType: hard
 
-"@angular-devkit/core@npm:17.0.1":
-  version: 17.0.1
-  resolution: "@angular-devkit/core@npm:17.0.1"
+"@angular-devkit/schematics-cli@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@angular-devkit/schematics-cli@npm:17.0.3"
   dependencies:
-    ajv: "npm:8.12.0"
-    ajv-formats: "npm:2.1.1"
-    jsonc-parser: "npm:3.2.0"
-    picomatch: "npm:3.0.1"
-    rxjs: "npm:7.8.1"
-    source-map: "npm:0.7.4"
-  peerDependencies:
-    chokidar: ^3.5.2
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: f2b91e2fd89cbacf61d2aaf5bc1b09a030b03d9b42e16e6dd03061513b314c940cc5f89aef4a5f691dbfe7e948f7ec04ee26e40f5221b76ccd20edc71432b7c1
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/schematics-cli@npm:~17.0.1":
-  version: 17.0.1
-  resolution: "@angular-devkit/schematics-cli@npm:17.0.1"
-  dependencies:
-    "@angular-devkit/core": "npm:17.0.1"
-    "@angular-devkit/schematics": "npm:17.0.1"
+    "@angular-devkit/core": "npm:17.0.3"
+    "@angular-devkit/schematics": "npm:17.0.3"
     ansi-colors: "npm:4.1.3"
     inquirer: "npm:9.2.11"
     symbol-observable: "npm:4.0.0"
     yargs-parser: "npm:21.1.1"
   bin:
     schematics: bin/schematics.js
-  checksum: c016177df2ddf49d52cec39f7fbe1bba4f4da3537d0f0ac99a00c0107c4ca16d6976c1818afcf8a4c4e55f1481afa49974b7fd93991d99d21f367595faeaae39
+  checksum: e5dc0a18d7161e4434adadc85fb9613d2d5090dafaa7922c51ab69b3116afa88294926fe1f97c40f7a34a176affe33dada2c9123e3f9efe9760e70298733f98b
   languageName: node
   linkType: hard
 
@@ -774,29 +755,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:17.0.0, @angular-devkit/schematics@npm:^17.0.0, @angular-devkit/schematics@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular-devkit/schematics@npm:17.0.0"
+"@angular-devkit/schematics@npm:17.0.3, @angular-devkit/schematics@npm:^17.0.0, @angular-devkit/schematics@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@angular-devkit/schematics@npm:17.0.3"
   dependencies:
-    "@angular-devkit/core": "npm:17.0.0"
+    "@angular-devkit/core": "npm:17.0.3"
     jsonc-parser: "npm:3.2.0"
     magic-string: "npm:0.30.5"
     ora: "npm:5.4.1"
     rxjs: "npm:7.8.1"
-  checksum: ff9c7b7948dc00f36810f462d93e316238e2398f3e9ca8116561e043480c663f69dc12e2b93845e6d9b5bbb65282d540b886fd4dd58d5fd4426ddfb7084124cd
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/schematics@npm:17.0.1":
-  version: 17.0.1
-  resolution: "@angular-devkit/schematics@npm:17.0.1"
-  dependencies:
-    "@angular-devkit/core": "npm:17.0.1"
-    jsonc-parser: "npm:3.2.0"
-    magic-string: "npm:0.30.5"
-    ora: "npm:5.4.1"
-    rxjs: "npm:7.8.1"
-  checksum: db2fe56cb3c6cfc46c150d61bfe431adbb8df4392c1a74118144724b4ff445af43238a662009fbf32b3667ed42556384d211599c355a3ec4f3623ad83626b0bd
+  checksum: ee8dda85c68ba401c018fe555e99610ceb16c7395b9232ee000ac5bc24ad3a4d015bd24a6e289b6c87f7134d0fa4e790cbde2b6f4239567f945afb9a3f38ebeb
   languageName: node
   linkType: hard
 
@@ -813,13 +781,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-eslint/bundled-angular-compiler@npm:17.0.1":
-  version: 17.0.1
-  resolution: "@angular-eslint/bundled-angular-compiler@npm:17.0.1"
-  checksum: 6a91adc41e5bf446e814d0490287faa4e2a8e4d1e56962a3ec6b71117088135aea4c5c73e516cb6c7b70eb6b8e5e9e724f0c48a565388d5e1e69fdd0b7ccfe54
-  languageName: node
-  linkType: hard
-
 "@angular-eslint/bundled-angular-compiler@npm:17.1.0":
   version: 17.1.0
   resolution: "@angular-eslint/bundled-angular-compiler@npm:17.1.0"
@@ -827,63 +788,50 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-eslint/eslint-plugin-template@npm:~17.0.1":
-  version: 17.0.1
-  resolution: "@angular-eslint/eslint-plugin-template@npm:17.0.1"
+"@angular-eslint/eslint-plugin-template@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@angular-eslint/eslint-plugin-template@npm:17.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:17.0.1"
-    "@angular-eslint/utils": "npm:17.0.1"
-    "@typescript-eslint/type-utils": "npm:6.10.0"
-    "@typescript-eslint/utils": "npm:6.10.0"
+    "@angular-eslint/bundled-angular-compiler": "npm:17.1.0"
+    "@angular-eslint/utils": "npm:17.1.0"
+    "@typescript-eslint/type-utils": "npm:6.11.0"
+    "@typescript-eslint/utils": "npm:6.11.0"
     aria-query: "npm:5.3.0"
     axobject-query: "npm:4.0.0"
   peerDependencies:
     eslint: ^7.20.0 || ^8.0.0
     typescript: "*"
-  checksum: 3d0095bba828c352514b160118f8554a1478656d5ae90db6d0750c6cfd9e28cdb29abba7408ddd8781b0877a21ee7184d3bc8224437ae999809cfb9d723e43a7
+  checksum: b725dfe4b9e30451aeb11210beb178613e76e41b064a0220f2c583f03b3ea6110c17ae9d6a8b331e9c4dd80a446fd13ea8d2280bc6a79fb066e6e297f9d518ed
   languageName: node
   linkType: hard
 
-"@angular-eslint/eslint-plugin@npm:~17.0.1":
-  version: 17.0.1
-  resolution: "@angular-eslint/eslint-plugin@npm:17.0.1"
+"@angular-eslint/eslint-plugin@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@angular-eslint/eslint-plugin@npm:17.1.0"
   dependencies:
-    "@angular-eslint/utils": "npm:17.0.1"
-    "@typescript-eslint/utils": "npm:6.10.0"
+    "@angular-eslint/utils": "npm:17.1.0"
+    "@typescript-eslint/utils": "npm:6.11.0"
   peerDependencies:
     eslint: ^7.20.0 || ^8.0.0
     typescript: "*"
-  checksum: 54821f2f9af528ad0d242e845c0d72b70a573ad9d4b59d252dda275cc631d4cb28416af6c9058953258027c989767eb96248024bc7daad2b89a9a619f70e12a5
+  checksum: f14d93200887596452ebe88060ac3b5d2a243a0803fb76600143d9b61f8bc96f9779a0bfc6d575f447921ff8b40442d1a886839a467fb2084fb615cdb4034e84
   languageName: node
   linkType: hard
 
-"@angular-eslint/template-parser@npm:~17.0.1":
-  version: 17.0.1
-  resolution: "@angular-eslint/template-parser@npm:17.0.1"
+"@angular-eslint/template-parser@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@angular-eslint/template-parser@npm:17.1.0"
   dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:17.0.1"
+    "@angular-eslint/bundled-angular-compiler": "npm:17.1.0"
     eslint-scope: "npm:^7.0.0"
   peerDependencies:
     eslint: ^7.20.0 || ^8.0.0
     typescript: "*"
-  checksum: 3bd94295f366c238bc5727604efeaf67d0a75843f042d487160c8fd1a4aa8047694a669597817402eb73b1858891b9d4cff1a11044a3acedbaa28eefda9e11b7
+  checksum: 676f3e7783f24c42778852969d2403f16149c7a610336495c622e3c0f953361447c918fd8ce878fc49aabd1743a90f7cd21b79235f0d3f197ec79f48401c27f6
   languageName: node
   linkType: hard
 
-"@angular-eslint/utils@npm:17.0.1":
-  version: 17.0.1
-  resolution: "@angular-eslint/utils@npm:17.0.1"
-  dependencies:
-    "@angular-eslint/bundled-angular-compiler": "npm:17.0.1"
-    "@typescript-eslint/utils": "npm:6.10.0"
-  peerDependencies:
-    eslint: ^7.20.0 || ^8.0.0
-    typescript: "*"
-  checksum: b0a414ebb8f0a961feee31164bd1dcba6a0b4d80df6f1c5450285dabfbe83c0006cdea0a806b4b908ed2ce52c6abca67aa8f5b271204555c6aa227660b288f7c
-  languageName: node
-  linkType: hard
-
-"@angular-eslint/utils@npm:~17.1.0":
+"@angular-eslint/utils@npm:17.1.0, @angular-eslint/utils@npm:~17.1.0":
   version: 17.1.0
   resolution: "@angular-eslint/utils@npm:17.1.0"
   dependencies:
@@ -896,20 +844,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/animations@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/animations@npm:17.0.2"
+"@angular/animations@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/animations@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 17.0.2
-  checksum: 079e6822c671e96c9e538894daf9415118d447fe2cb0dd9e710806a7138ed1701ebbde7c1b5f38111dafce8178bab24c1351472001092701d8a9b692e5b93987
+    "@angular/core": 17.0.4
+  checksum: 994e99ba61ff17f97117aab44f9bfcc1d8642d41ed0c70a5154fd779b31fc5117136090eed0e84221343af420471e655cc6379593f61540bce6bac6af181b3ea
   languageName: node
   linkType: hard
 
-"@angular/cdk@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular/cdk@npm:17.0.0"
+"@angular/cdk@npm:~17.0.1":
+  version: 17.0.1
+  resolution: "@angular/cdk@npm:17.0.1"
   dependencies:
     parse5: "npm:^7.1.2"
     tslib: "npm:^2.3.0"
@@ -920,18 +868,18 @@ __metadata:
   dependenciesMeta:
     parse5:
       optional: true
-  checksum: a1f2cb1ed4ac76b2a2f3c8bbafd16d1a4d676903e27e363e5f572e8fa38feb7a47556df3399c550fb33573001c4940b4df19def6b5003cfd00db08239aa1ebfb
+  checksum: 157b7eb84066768c5dfca8a907a9beefd413ac2af73b3014ab5facfa80fbcd9cc893a5bd1d787ea01d00274b48761d15eab062442cfe4be460b142c056cf04ba
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular/cli@npm:17.0.0"
+"@angular/cli@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@angular/cli@npm:17.0.3"
   dependencies:
-    "@angular-devkit/architect": "npm:0.1700.0"
-    "@angular-devkit/core": "npm:17.0.0"
-    "@angular-devkit/schematics": "npm:17.0.0"
-    "@schematics/angular": "npm:17.0.0"
+    "@angular-devkit/architect": "npm:0.1700.3"
+    "@angular-devkit/core": "npm:17.0.3"
+    "@angular-devkit/schematics": "npm:17.0.3"
+    "@schematics/angular": "npm:17.0.3"
     "@yarnpkg/lockfile": "npm:1.1.0"
     ansi-colors: "npm:4.1.3"
     ini: "npm:4.1.1"
@@ -948,25 +896,25 @@ __metadata:
     yargs: "npm:17.7.2"
   bin:
     ng: bin/ng.js
-  checksum: c84685b0a72e72e1e8a87e6b128a2958e2c9dec19db9164863db99e8e3909fe088e0a08f88bedabefe6f269a2c7458a283918c7af6f7cf48f0666ab470217d58
+  checksum: e3946a74ec86e67c45d84230d4bb82c8d3cecea2d48e5326865bbcd614d22c6e4c79a094c9c759fe5436211c04d050dd8285f79f135a612d3c77406905d2891e
   languageName: node
   linkType: hard
 
-"@angular/common@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/common@npm:17.0.2"
+"@angular/common@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/common@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 17.0.2
+    "@angular/core": 17.0.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: a1f6ca86e343cb8a8ff107e3e9a1dc47b102fcf6fa16459ed03917cd5399def9153e21577a645a135fe3b4441a14119b29e07d62e2de7adf2c89f5edad020a20
+  checksum: ef363e37d327af8b5b3044914b8d227dc8a478ce31af0b3791861aaa076e2b8be0892c8e6409e99312d6884a782373b1ba391267009a8c4f63e405b30be6b95a
   languageName: node
   linkType: hard
 
-"@angular/compiler-cli@npm:^17.0.0, @angular/compiler-cli@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/compiler-cli@npm:17.0.2"
+"@angular/compiler-cli@npm:^17.0.0, @angular/compiler-cli@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/compiler-cli@npm:17.0.4"
   dependencies:
     "@babel/core": "npm:7.23.2"
     "@jridgewell/sourcemap-codec": "npm:^1.4.14"
@@ -977,77 +925,77 @@ __metadata:
     tslib: "npm:^2.3.0"
     yargs: "npm:^17.2.1"
   peerDependencies:
-    "@angular/compiler": 17.0.2
+    "@angular/compiler": 17.0.4
     typescript: ">=5.2 <5.3"
   bin:
     ng-xi18n: bundles/src/bin/ng_xi18n.js
     ngc: bundles/src/bin/ngc.js
     ngcc: bundles/ngcc/index.js
-  checksum: 0cbe9a06d4837aefb86498e5f1062393ae22a9dd2c2112d50986f66e8d545440fdd5cfd4c94833a449424c1b73b7aab03040e7465ae22ce059302828d6e1bc5d
+  checksum: c0e8e2d7867e30352e8b298f66b63a9fe8994b90602a939a77f4fd86732521df59d5841142dbe96e028cf2131f7e841cbb68342dad05deee4f010d615c7ee665
   languageName: node
   linkType: hard
 
-"@angular/compiler@npm:^17.0.0, @angular/compiler@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/compiler@npm:17.0.2"
+"@angular/compiler@npm:^17.0.0, @angular/compiler@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/compiler@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/core": 17.0.2
+    "@angular/core": 17.0.4
   peerDependenciesMeta:
     "@angular/core":
       optional: true
-  checksum: a1f277cc56dde2351cf56028e0cc7450bd09fe12dd7f4671eda7486970c58ccf7944dcf734a6c4eedb198e8f3ca34673d96a6a21754fc135884db1c9508b2c4a
+  checksum: bf6d79179bc4c9eca04bbeb5cf800136e4027bd6919c1542f4473b0473af548012047c20801e9a9ba817e9403d01e9cf7ca4f7a1d3f405f1b000dadc4c7c904e
   languageName: node
   linkType: hard
 
-"@angular/core@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/core@npm:17.0.2"
+"@angular/core@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/core@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
     rxjs: ^6.5.3 || ^7.4.0
     zone.js: ~0.14.0
-  checksum: 70ad997422a96fd86b376a27bfb4498aff9b2e52e2b7f2df69b8c3aa782fb7bbcca32802414e687797b22fd9db9526e79888a5ac24b619028bdfa88c06906bf5
+  checksum: cb28f3a31a6042f4d4d144c43cd859ed58b911cda1da569e3ba4fe4ae7c9dd7a856bf40b61cc67a815cb7ffbfb576074db889166d4dc421a4be7cdc32d4392d3
   languageName: node
   linkType: hard
 
-"@angular/forms@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/forms@npm:17.0.2"
+"@angular/forms@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/forms@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 17.0.2
-    "@angular/core": 17.0.2
-    "@angular/platform-browser": 17.0.2
+    "@angular/common": 17.0.4
+    "@angular/core": 17.0.4
+    "@angular/platform-browser": 17.0.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: bab7f654069e3b8e1505cd736435d61b846ad6cd417aea71f4f24960a09752dc9536d6c28e73e56d9e0c7f2fb1b6d8f487b23a0897bbb11de016def3dba0b122
+  checksum: d650caece7fc323d95be9a4fcae072a7d107f137cc10d7d83d91b2fb0120b449ed56b087a09558cd97466c51d16fe8b693a9ce60e270e65c957f055e5c10c0d5
   languageName: node
   linkType: hard
 
-"@angular/localize@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/localize@npm:17.0.2"
+"@angular/localize@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/localize@npm:17.0.4"
   dependencies:
     "@babel/core": "npm:7.23.2"
     fast-glob: "npm:3.3.1"
     yargs: "npm:^17.2.1"
   peerDependencies:
-    "@angular/compiler": 17.0.2
-    "@angular/compiler-cli": 17.0.2
+    "@angular/compiler": 17.0.4
+    "@angular/compiler-cli": 17.0.4
   bin:
     localize-extract: tools/bundles/src/extract/cli.js
     localize-migrate: tools/bundles/src/migrate/cli.js
     localize-translate: tools/bundles/src/translate/cli.js
-  checksum: a743211df90081aabce8b7f1dc5c923ef2ed8f42a8fc91c372fa5a0a8baa253f8dbdb300a23f94611c9b9f92bbbbca95ab655623924a2e3dea412dc2368aee25
+  checksum: d21ec82e34c09416fab369756e2cc2a0a565dd9627f251ec11cdc350cb17a7f8ef4b321dc2503e9b434d69209df89e2dc0a0ad34335393b8361100c52da42c46
   languageName: node
   linkType: hard
 
-"@angular/material@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@angular/material@npm:17.0.0"
+"@angular/material@npm:~17.0.1":
+  version: 17.0.1
+  resolution: "@angular/material@npm:17.0.1"
   dependencies:
     "@material/animation": "npm:15.0.0-canary.a246a4439.0"
     "@material/auto-init": "npm:15.0.0-canary.a246a4439.0"
@@ -1099,57 +1047,57 @@ __metadata:
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/animations": ^17.0.0 || ^18.0.0
-    "@angular/cdk": 17.0.0
+    "@angular/cdk": 17.0.1
     "@angular/common": ^17.0.0 || ^18.0.0
     "@angular/core": ^17.0.0 || ^18.0.0
     "@angular/forms": ^17.0.0 || ^18.0.0
     "@angular/platform-browser": ^17.0.0 || ^18.0.0
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: f68af0949a3fd56089194e1015c81ffb75a5f9e53079227ed662c29d79263de1b843732de25afc882dea3e54fd3563f8230da77de198bdf60d03c8935502d3cf
+  checksum: 24b05832e100c5122759956cbf59138e9c7dde8a98776e1a3938d82a8b13d77a493937518ef5c4c94c21ce3d90d7ef1b50add40e92cc33bc1800cac592ac3350
   languageName: node
   linkType: hard
 
-"@angular/platform-browser-dynamic@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/platform-browser-dynamic@npm:17.0.2"
+"@angular/platform-browser-dynamic@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/platform-browser-dynamic@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 17.0.2
-    "@angular/compiler": 17.0.2
-    "@angular/core": 17.0.2
-    "@angular/platform-browser": 17.0.2
-  checksum: 38f9ab573db68d3f8a81351267a6cf4fe8248f6264b63a276f77546f0d55a763fac966804e1a878e023176c2a1df4a8645d3265d2d1216bb17d48b6618d52430
+    "@angular/common": 17.0.4
+    "@angular/compiler": 17.0.4
+    "@angular/core": 17.0.4
+    "@angular/platform-browser": 17.0.4
+  checksum: c7dfd191aa66de266578e4d1734d43c2b09392a96e799eaf5f54762a1f9ff50dc0e036745ad0ea2b37b4e463a3640a2c10b18e7f9be981b61c5fbffc79e27560
   languageName: node
   linkType: hard
 
-"@angular/platform-browser@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/platform-browser@npm:17.0.2"
+"@angular/platform-browser@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/platform-browser@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/animations": 17.0.2
-    "@angular/common": 17.0.2
-    "@angular/core": 17.0.2
+    "@angular/animations": 17.0.4
+    "@angular/common": 17.0.4
+    "@angular/core": 17.0.4
   peerDependenciesMeta:
     "@angular/animations":
       optional: true
-  checksum: 7d54522adf2726a0776544b3a708c356fd1f66cca5e8e1af78db2f25157abf0aeabf8efd8702e000f60c3d21f91932bded5ab37e29322489257fa5ee1b88918d
+  checksum: b46bfcaeb9480fcb704da32f7358269eaa555485372899451f6c7af821cc436c447b622d842a792cabc58fb4586286f1b1d20d5576bfd1d1bd5828ac0849ecf7
   languageName: node
   linkType: hard
 
-"@angular/router@npm:~17.0.2":
-  version: 17.0.2
-  resolution: "@angular/router@npm:17.0.2"
+"@angular/router@npm:~17.0.4":
+  version: 17.0.4
+  resolution: "@angular/router@npm:17.0.4"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": 17.0.2
-    "@angular/core": 17.0.2
-    "@angular/platform-browser": 17.0.2
+    "@angular/common": 17.0.4
+    "@angular/core": 17.0.4
+    "@angular/platform-browser": 17.0.4
     rxjs: ^6.5.3 || ^7.4.0
-  checksum: 551a3c7ebf0b132b57a043c9b33d5cccc13358b796237de7c3a8d176aee5eb9f43a0307950a9571cb03112e54f7b4c5b685844ed46e08649341da0902d06ab6e
+  checksum: 374ae34a9baef21bdafa7d46f49714de8d4b7065a1dbab4ce28feb8809f79876e4eb81fbf009ab2cb38f405865fcbb46a99016a482da474da7b0eadda8815d1e
   languageName: node
   linkType: hard
 
@@ -5486,14 +5434,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngtools/webpack@npm:17.0.0":
-  version: 17.0.0
-  resolution: "@ngtools/webpack@npm:17.0.0"
+"@ngtools/webpack@npm:17.0.3":
+  version: 17.0.3
+  resolution: "@ngtools/webpack@npm:17.0.3"
   peerDependencies:
     "@angular/compiler-cli": ^17.0.0
     typescript: ">=5.2 <5.3"
     webpack: ^5.54.0
-  checksum: 6cabed803f1134e188061765f8083a79d9994525e5cf56f4910c651f918c8f66661c336f3fba05b22cefa1d03a2c844ffb6ed8f5083e6370cac4faa15aa63e74
+  checksum: 97ec3284288275c422e47271c12d6fab472d965d7d1619904326ba200f783928f17b9c0d62073d34ca8b6744b1ac9ab9a836f9f269ccaf0be062ac0e397a5b32
   languageName: node
   linkType: hard
 
@@ -6061,7 +6009,7 @@ __metadata:
   resolution: "@o3r/amaterasu-api-spec@workspace:packages/@o3r/amaterasu/amaterasu-api-spec"
   dependencies:
     "@ama-terasu/core": "workspace:^"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -6095,7 +6043,7 @@ __metadata:
   resolution: "@o3r/amaterasu-dodo@workspace:packages/@o3r/amaterasu/amaterasu-dodo"
   dependencies:
     "@ama-terasu/core": "workspace:^"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -6132,7 +6080,7 @@ __metadata:
   resolution: "@o3r/amaterasu-otter@workspace:packages/@o3r/amaterasu/amaterasu-otter"
   dependencies:
     "@ama-terasu/core": "workspace:^"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -6170,7 +6118,7 @@ __metadata:
   resolution: "@o3r/amaterasu-sdk@workspace:packages/@o3r/amaterasu/amaterasu-sdk"
   dependencies:
     "@ama-terasu/core": "workspace:^"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -6204,17 +6152,17 @@ __metadata:
   resolution: "@o3r/analytics@workspace:packages/@o3r/analytics"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6227,7 +6175,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jasmine": "npm:~4.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
@@ -6243,7 +6191,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -6285,16 +6233,16 @@ __metadata:
   resolution: "@o3r/apis-manager@workspace:packages/@o3r/apis-manager"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6306,7 +6254,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
@@ -6321,7 +6269,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     pid-from-port: "npm:^1.1.3"
@@ -6354,16 +6302,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/application@workspace:packages/@o3r/application"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6378,7 +6326,7 @@ __metadata:
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
@@ -6393,7 +6341,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -6426,9 +6374,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6472,9 +6420,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/azure-tools@workspace:packages/@o3r/azure-tools"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6512,7 +6460,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/build-helpers@workspace:tools/@o3r/build-helpers"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-plugin": "workspace:^"
     "@types/node": "npm:^18.0.0"
@@ -6550,22 +6498,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/chrome-devtools@workspace:apps/chrome-devtools"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-eslint/builder": "npm:~17.1.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular-eslint/template-parser": "npm:~17.0.1"
-    "@angular/animations": "npm:~17.0.2"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/localize": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular-eslint/template-parser": "npm:~17.1.0"
+    "@angular/animations": "npm:~17.0.4"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/localize": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@ng-bootstrap/ng-bootstrap": "npm:^15.1.2"
     "@ngrx/entity": "npm:~17.0.0"
     "@ngrx/store": "npm:~17.0.0"
@@ -6603,7 +6551,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
@@ -6620,22 +6568,23 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cdk": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cdk": "npm:~17.0.1"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
+    "@ngrx/effects": "npm:~17.0.0"
     "@ngrx/entity": "npm:~17.0.0"
     "@ngrx/store": "npm:~17.0.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
@@ -6648,10 +6597,11 @@ __metadata:
     "@o3r/extractors": "workspace:^"
     "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
+    "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
@@ -6668,8 +6618,9 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
+    jsonpath-plus: "npm:^7.0.0"
     nx: "npm:~17.1.1"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -6682,30 +6633,43 @@ __metadata:
     "@angular-devkit/architect": ~0.1700.0
     "@angular-devkit/schematics": ~17.0.0
     "@angular/cdk": ~17.0.0
-    "@angular/common": ~17.0.2
-    "@angular/core": ~17.0.2
-    "@angular/forms": ~17.0.2
-    "@angular/platform-browser": ~17.0.2
-    "@angular/platform-browser-dynamic": ~17.0.2
+    "@angular/common": ~17.0.0
+    "@angular/core": ~17.0.0
+    "@angular/forms": ~17.0.0
+    "@angular/platform-browser": ~17.0.0
+    "@angular/platform-browser-dynamic": ~17.0.0
+    "@ngrx/effects": ~17.0.0
     "@ngrx/entity": ~17.0.0
     "@ngrx/store": ~17.0.0
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
+    "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
+    "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
+    "@o3r/rules-engine": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/testing": "workspace:^"
     "@schematics/angular": ~17.0.0
     chokidar: ^3.5.2
     globby: ^11.1.0
+    jsonpath-plus: ^7.0.0
     rxjs: ^7.8.1
     typescript: ~5.2.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
+    "@ngx-translate/core":
+      optional: true
     "@o3r/configuration":
       optional: true
+    "@o3r/dynamic-content":
+      optional: true
     "@o3r/extractors":
+      optional: true
+    "@o3r/localization":
+      optional: true
+    "@o3r/rules-engine":
       optional: true
     "@o3r/schematics":
       optional: true
@@ -6714,6 +6678,8 @@ __metadata:
     chokidar:
       optional: true
     globby:
+      optional: true
+    jsonpath-plus:
       optional: true
     typescript:
       optional: true
@@ -6724,16 +6690,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/configuration@workspace:packages/@o3r/configuration"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6750,7 +6716,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jasmine": "npm:~4.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
@@ -6767,7 +6733,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     pid-from-port: "npm:^1.1.3"
@@ -6813,20 +6779,20 @@ __metadata:
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -6840,7 +6806,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^18.0.0"
@@ -6861,7 +6827,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
@@ -6900,6 +6866,10 @@ __metadata:
   peerDependenciesMeta:
     "@angular/cli":
       optional: true
+    "@ngrx/effects":
+      optional: true
+    "@ngrx/router-store":
+      optional: true
     "@nrwl/devkit":
       optional: true
     "@nx/angular":
@@ -6917,9 +6887,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/create@workspace:packages/@o3r/create"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
     "@nx/eslint": "npm:~17.1.1"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
@@ -6927,7 +6897,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^18.0.0"
@@ -6959,9 +6929,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/dev-tools@workspace:packages/@o3r/dev-tools"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7032,17 +7002,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7072,7 +7042,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -7107,17 +7077,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-config-otter@workspace:packages/@o3r/eslint-config-otter"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular-eslint/template-parser": "npm:~17.0.1"
-    "@angular/compiler": "npm:~17.0.2"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular-eslint/template-parser": "npm:~17.1.0"
+    "@angular/compiler": "npm:~17.0.4"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
@@ -7135,9 +7105,9 @@ __metadata:
   peerDependencies:
     "@angular-devkit/schematics": ~17.0.0
     "@angular-eslint/builder": ~17.1.0
-    "@angular-eslint/eslint-plugin": ~17.0.1
-    "@angular-eslint/eslint-plugin-template": ~17.0.1
-    "@angular-eslint/template-parser": ~17.0.1
+    "@angular-eslint/eslint-plugin": ~17.1.0
+    "@angular-eslint/eslint-plugin-template": ~17.1.0
+    "@angular-eslint/template-parser": ~17.1.0
     "@angular/compiler": ~17.0.2
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7180,12 +7150,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/eslint-plugin@workspace:packages/@o3r/eslint-plugin"
   dependencies:
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/template-parser": "npm:~17.0.1"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/template-parser": "npm:~17.1.0"
     "@angular-eslint/utils": "npm:~17.1.0"
-    "@angular/compiler": "npm:~17.0.2"
+    "@angular/compiler": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7216,10 +7186,10 @@ __metadata:
     type-fest: "npm:^3.12.0"
     typescript: "npm:~5.2.2"
   peerDependencies:
-    "@angular-eslint/template-parser": ~17.0.1
+    "@angular-eslint/template-parser": ~17.1.0
     "@angular-eslint/utils": ~17.1.0
     "@angular/compiler": ~17.0.2
-    "@typescript-eslint/eslint-plugin": 6.11.0
+    "@typescript-eslint/eslint-plugin": ^6.11.0
     "@typescript-eslint/parser": ^6.11.0
     eslint: ^8.22.0
     jsonc-eslint-parser: ~2.4.0
@@ -7235,16 +7205,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/extractors@workspace:packages/@o3r/extractors"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7274,7 +7244,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
     nx: "npm:~17.1.1"
@@ -7305,17 +7275,17 @@ __metadata:
   resolution: "@o3r/forms@workspace:packages/@o3r/forms"
   dependencies:
     "@ama-sdk/core": "workspace:^"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7344,7 +7314,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -7374,25 +7344,25 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^5.1.1"
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular-eslint/template-parser": "npm:~17.0.1"
-    "@angular/animations": "npm:~17.0.2"
-    "@angular/cdk": "npm:~17.0.0"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/localize": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular-eslint/template-parser": "npm:~17.1.0"
+    "@angular/animations": "npm:~17.0.4"
+    "@angular/cdk": "npm:~17.0.1"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/localize": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@commitlint/cli": "npm:^17.0.0"
@@ -7418,7 +7388,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/workspace": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@swc-node/register": "npm:^1.6.7"
     "@swc/core": "npm:^1.3.85"
     "@types/jest": "npm:~29.5.2"
@@ -7449,7 +7419,7 @@ __metadata:
     intl-messageformat: "npm:~10.5.1"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^7.0.0"
@@ -7489,17 +7459,17 @@ __metadata:
   resolution: "@o3r/github-cascading-app@workspace:apps/github-cascading-app"
   dependencies:
     "@actions/github": "npm:^5.1.1"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
     "@angular-eslint/builder": "npm:~17.1.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@azure/functions": "npm:^3.5.1"
     "@nx/eslint": "npm:~17.1.1"
     "@nx/eslint-plugin": "npm:~17.1.1"
@@ -7524,7 +7494,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nock: "npm:^13.0.5"
     nx: "npm:~17.1.1"
@@ -7543,19 +7513,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/localization@workspace:packages/@o3r/localization"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cdk": "npm:~17.0.0"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cdk": "npm:~17.0.1"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7574,7 +7544,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
@@ -7593,7 +7563,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     pid-from-port: "npm:^1.1.3"
@@ -7650,16 +7620,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/logger@workspace:packages/@o3r/logger"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7688,7 +7658,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     logrocket: "npm:~4.0.0"
     logrocket-ngrx: "npm:~0.2.1"
@@ -7728,17 +7698,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/mobile@workspace:packages/@o3r/mobile"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@capacitor/browser": "npm:^5.0.0"
@@ -7757,7 +7727,7 @@ __metadata:
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/store-sync": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@types/node-fetch": "npm:^2.6.2"
@@ -7776,7 +7746,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     node-fetch: "npm:^2.6.7"
     nx: "npm:~17.1.1"
@@ -7818,17 +7788,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/routing@workspace:packages/@o3r/routing"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7861,7 +7831,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -7894,17 +7864,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/rules-engine@workspace:packages/@o3r/rules-engine"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -7917,19 +7887,15 @@ __metadata:
     "@nx/jest": "npm:~17.1.1"
     "@nx/js": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/components": "workspace:^"
-    "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/extractors": "workspace:^"
-    "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@o3r/testing": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jasmine": "npm:~4.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
@@ -7948,7 +7914,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^7.0.0"
     nx: "npm:~17.1.1"
@@ -7974,12 +7940,8 @@ __metadata:
     "@ngrx/entity": ~17.0.0
     "@ngrx/store": ~17.0.0
     "@ngx-translate/core": ~15.0.0
-    "@o3r/components": "workspace:^"
-    "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
-    "@o3r/dynamic-content": "workspace:^"
     "@o3r/extractors": "workspace:^"
-    "@o3r/localization": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~17.0.0
@@ -8015,17 +7977,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/schematics@workspace:packages/@o3r/schematics"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8035,7 +7997,7 @@ __metadata:
     "@nx/js": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -8088,25 +8050,25 @@ __metadata:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
     "@ama-sdk/showcase-sdk": "workspace:^"
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular-eslint/eslint-plugin-template": "npm:~17.0.1"
-    "@angular-eslint/template-parser": "npm:~17.0.1"
-    "@angular/animations": "npm:~17.0.2"
-    "@angular/cdk": "npm:~17.0.0"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/localize": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular-eslint/eslint-plugin-template": "npm:~17.1.0"
+    "@angular-eslint/template-parser": "npm:~17.1.0"
+    "@angular/animations": "npm:~17.0.4"
+    "@angular/cdk": "npm:~17.0.1"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/localize": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@design-factory/design-factory": "npm:^15.2.2"
     "@formatjs/intl-numberformat": "npm:~8.9.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^15.1.2"
@@ -8133,7 +8095,7 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@playwright/test": "npm:~1.40.0"
     "@popperjs/core": "npm:^2.11.5"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/bootstrap": "npm:^5.2.6"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
@@ -8156,7 +8118,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     ngx-highlightjs: "npm:^10.0.0"
     pixelmatch: "npm:^5.2.1"
@@ -8176,16 +8138,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/store-sync@workspace:packages/@o3r/store-sync"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@ngrx/entity": "npm:~17.0.0"
     "@ngrx/store": "npm:~17.0.0"
     "@nx/eslint": "npm:~17.1.1"
@@ -8212,7 +8174,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
@@ -8244,18 +8206,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/storybook@workspace:packages/@o3r/storybook"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8271,7 +8233,7 @@ __metadata:
     "@o3r/localization": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@storybook/addons": "npm:^7.5.3"
     "@storybook/angular": "npm:^7.5.3"
     "@storybook/api": "npm:^7.5.3"
@@ -8333,8 +8295,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/stylelint-plugin@workspace:packages/@o3r/stylelint-plugin"
   dependencies:
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/compiler": "npm:~17.0.2"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/compiler": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8355,7 +8317,7 @@ __metadata:
     eslint-plugin-unicorn: "npm:^47.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-stylelint: "npm:~6.3.0"
+    jest-preset-stylelint: "npm:~6.3.2"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     postcss: "npm:~8.4.31"
@@ -8374,21 +8336,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/animations": "npm:~17.0.2"
-    "@angular/cdk": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/material": "npm:~17.0.0"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/animations": "npm:~17.0.4"
+    "@angular/cdk": "npm:~17.0.1"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/material": "npm:~17.0.1"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8405,7 +8367,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@typescript-eslint/eslint-plugin": "npm:6.11.0"
@@ -8475,12 +8437,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/test-helpers@workspace:packages/@o3r/test-helpers"
   dependencies:
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
@@ -8524,18 +8486,18 @@ __metadata:
   resolution: "@o3r/testing@workspace:packages/@o3r/testing"
   dependencies:
     "@amadeus-it-group/kassette": "npm:^1.6.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/forms": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/forms": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8550,7 +8512,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@playwright/test": "npm:~1.40.0"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^18.0.0"
     "@types/pixelmatch": "npm:^5.2.3"
@@ -8570,7 +8532,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     module-from-string: "npm:^3.2.0"
     nx: "npm:~17.1.1"
@@ -8638,17 +8600,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/third-party@workspace:packages/@o3r/third-party"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
@@ -8674,7 +8636,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     rimraf: "npm:^5.0.1"
@@ -8702,19 +8664,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1700.0"
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/cli": "npm:~17.0.0"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
-    "@angular/router": "npm:~17.0.2"
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@ngrx/entity": "npm:~17.0.0"
@@ -8728,7 +8690,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@schematics/angular": "npm:~17.0.0"
+    "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^18.0.0"
@@ -8749,7 +8711,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-angular: "npm:13.1.3"
+    jest-preset-angular: "npm:~13.1.4"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
     pid-from-port: "npm:^1.1.3"
@@ -9908,14 +9870,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:17.0.0, @schematics/angular@npm:^17.0.0, @schematics/angular@npm:~17.0.0":
-  version: 17.0.0
-  resolution: "@schematics/angular@npm:17.0.0"
+"@schematics/angular@npm:17.0.3, @schematics/angular@npm:^17.0.0, @schematics/angular@npm:~17.0.3":
+  version: 17.0.3
+  resolution: "@schematics/angular@npm:17.0.3"
   dependencies:
-    "@angular-devkit/core": "npm:17.0.0"
-    "@angular-devkit/schematics": "npm:17.0.0"
+    "@angular-devkit/core": "npm:17.0.3"
+    "@angular-devkit/schematics": "npm:17.0.3"
     jsonc-parser: "npm:3.2.0"
-  checksum: 6fcc09f15be89060a600ffceceada5f0040b5d6b3781b4be003d5df2e74cc63e06f8786488a934b418aa3da94d81d18e13a6ce59858501e8649331fefaf6114b
+  checksum: 211990c561c31c24166601594049f89bb2e49bfc5d9558e3510a94bca56b2b2f912bfc2ba1ad79993127daec64c0ddad55f3a78290851cef39e5fc857cce3698
   languageName: node
   linkType: hard
 
@@ -11902,16 +11864,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/scope-manager@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/scope-manager@npm:6.10.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:6.10.0"
-    "@typescript-eslint/visitor-keys": "npm:6.10.0"
-  checksum: 518cd60f9e9f5eef24f566f6a43d05241593a4520db6a93df714adac7b04b8bc2a1a89764f7a0aa23432e35e5f57ab2a3129f8f67ef211fa808c6bda29c28c78
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/scope-manager@npm:6.11.0":
   version: 6.11.0
   resolution: "@typescript-eslint/scope-manager@npm:6.11.0"
@@ -11919,23 +11871,6 @@ __metadata:
     "@typescript-eslint/types": "npm:6.11.0"
     "@typescript-eslint/visitor-keys": "npm:6.11.0"
   checksum: 60702ab23710c59ab0b52ffc66f77e24382cec8f684e3e43d4269cc17f414d3cb3a3bb85e232ea9f1e0f7e85506529978a5eea3c08945c01ed7aed4d4997b472
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/type-utils@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/type-utils@npm:6.10.0"
-  dependencies:
-    "@typescript-eslint/typescript-estree": "npm:6.10.0"
-    "@typescript-eslint/utils": "npm:6.10.0"
-    debug: "npm:^4.3.4"
-    ts-api-utils: "npm:^1.0.1"
-  peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: e4e5b119730fe615a60fb9118ab408a471dab11304a70d469393a0aac6d06238377cd87693129160c600b7a03804e2552d3a7192d291ea3db10d2390983b3628
   languageName: node
   linkType: hard
 
@@ -11963,13 +11898,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/types@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/types@npm:6.10.0"
-  checksum: bc8faf3d00f1d4eaad0760f64a7e428646e65adc5322f41dc9a2d15d5df23e53b09605d69126c373630851cb258c15ba82cf66d949897d3758844964b0e98087
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/types@npm:6.11.0":
   version: 6.11.0
   resolution: "@typescript-eslint/types@npm:6.11.0"
@@ -11992,24 +11920,6 @@ __metadata:
     typescript:
       optional: true
   checksum: 06c975eb5f44b43bd19fadc2e1023c50cf87038fe4c0dd989d4331c67b3ff509b17fa60a3251896668ab4d7322bdc56162a9926971218d2e1a1874d2bef9a52e
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/typescript-estree@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/typescript-estree@npm:6.10.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:6.10.0"
-    "@typescript-eslint/visitor-keys": "npm:6.10.0"
-    debug: "npm:^4.3.4"
-    globby: "npm:^11.1.0"
-    is-glob: "npm:^4.0.3"
-    semver: "npm:^7.5.4"
-    ts-api-utils: "npm:^1.0.1"
-  peerDependenciesMeta:
-    typescript:
-      optional: true
-  checksum: 41fc6dd0cfe8fb4c7ddc30d91e71d23ea1e0cbc261e8022ab089ddde6589eefdb89f66492d2ab4ae20dd45f51657022d9278bccc64aef7c6be0df756a081c0b5
   languageName: node
   linkType: hard
 
@@ -12049,23 +11959,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/utils@npm:6.10.0"
-  dependencies:
-    "@eslint-community/eslint-utils": "npm:^4.4.0"
-    "@types/json-schema": "npm:^7.0.12"
-    "@types/semver": "npm:^7.5.0"
-    "@typescript-eslint/scope-manager": "npm:6.10.0"
-    "@typescript-eslint/types": "npm:6.10.0"
-    "@typescript-eslint/typescript-estree": "npm:6.10.0"
-    semver: "npm:^7.5.4"
-  peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
-  checksum: acf55bc231483f8b8d2d64ad9a261d0499085277b5ce3506cf579297401f78d88253ae52a9afad35cc32a532b53794367e32449283c06b2e89602c63184f011e
-  languageName: node
-  linkType: hard
-
 "@typescript-eslint/utils@npm:6.11.0, @typescript-eslint/utils@npm:^6.9.1":
   version: 6.11.0
   resolution: "@typescript-eslint/utils@npm:6.11.0"
@@ -12090,16 +11983,6 @@ __metadata:
     "@typescript-eslint/types": "npm:5.62.0"
     eslint-visitor-keys: "npm:^3.3.0"
   checksum: dc613ab7569df9bbe0b2ca677635eb91839dfb2ca2c6fa47870a5da4f160db0b436f7ec0764362e756d4164e9445d49d5eb1ff0b87f4c058946ae9d8c92eb388
-  languageName: node
-  linkType: hard
-
-"@typescript-eslint/visitor-keys@npm:6.10.0":
-  version: 6.10.0
-  resolution: "@typescript-eslint/visitor-keys@npm:6.10.0"
-  dependencies:
-    "@typescript-eslint/types": "npm:6.10.0"
-    eslint-visitor-keys: "npm:^3.4.1"
-  checksum: 17a6962e10ffbcc286d202c7dfcc0dfa489c76ab7838b3522e90b3e87cbe2cdd7a24ffab434d9ca6dfed361801f11c3349ba01f808093c65c5365a9179ee5eb0
   languageName: node
   linkType: hard
 
@@ -13366,7 +13249,7 @@ __metadata:
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
@@ -14435,7 +14318,7 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^5.1.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
@@ -19487,7 +19370,7 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^5.1.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
@@ -21969,9 +21852,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jest-preset-angular@npm:13.1.3":
-  version: 13.1.3
-  resolution: "jest-preset-angular@npm:13.1.3"
+"jest-preset-angular@npm:~13.1.4":
+  version: 13.1.4
+  resolution: "jest-preset-angular@npm:13.1.4"
   dependencies:
     bs-logger: "npm:^0.2.6"
     esbuild: "npm:>=0.13.8"
@@ -21990,11 +21873,11 @@ __metadata:
   dependenciesMeta:
     esbuild:
       optional: true
-  checksum: 052db096222aeb41dbf8dd1b83e51adddd9b4a858a7789777be4c0a35989b56d1de4c209558631bd0f8be11742d8b086fbdbf5318e848a36793898cb7f17e855
+  checksum: 26fc6b30858fec6c90e6b0b744e9882910783a6ec77c01f454f3ae084cb382ef0541e039c087b5ae5eb538e0cf694e05b72127ec3b4e727f48546881e5878f01
   languageName: node
   linkType: hard
 
-"jest-preset-stylelint@npm:~6.3.0":
+"jest-preset-stylelint@npm:~6.3.2":
   version: 6.3.2
   resolution: "jest-preset-stylelint@npm:6.3.2"
   peerDependencies:
@@ -23859,7 +23742,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:2.6.0, mime@npm:^2.0.3, mime@npm:^2.5.0":
+"mime@npm:2.6.0, mime@npm:^2.0.3":
   version: 2.6.0
   resolution: "mime@npm:2.6.0"
   bin:
@@ -24364,7 +24247,7 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^5.1.1"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
@@ -25285,16 +25168,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "otter-devtools@workspace:apps/vscode-extension"
   dependencies:
-    "@angular-devkit/build-angular": "npm:~17.0.0"
-    "@angular-devkit/core": "npm:~17.0.0"
-    "@angular-devkit/schematics": "npm:~17.0.0"
-    "@angular-eslint/eslint-plugin": "npm:~17.0.1"
-    "@angular/common": "npm:~17.0.2"
-    "@angular/compiler": "npm:~17.0.2"
-    "@angular/compiler-cli": "npm:~17.0.2"
-    "@angular/core": "npm:~17.0.2"
-    "@angular/platform-browser": "npm:~17.0.2"
-    "@angular/platform-browser-dynamic": "npm:~17.0.2"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@nx/eslint-plugin": "npm:~17.1.1"
     "@nx/jest": "npm:~17.1.1"
     "@o3r/build-helpers": "workspace:^"
@@ -29855,26 +29738,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"superagent@npm:^7.1.3":
-  version: 7.1.5
-  resolution: "superagent@npm:7.1.5"
-  dependencies:
-    component-emitter: "npm:^1.3.0"
-    cookiejar: "npm:^2.1.3"
-    debug: "npm:^4.3.4"
-    fast-safe-stringify: "npm:^2.1.1"
-    form-data: "npm:^4.0.0"
-    formidable: "npm:^2.0.1"
-    methods: "npm:^1.1.2"
-    mime: "npm:^2.5.0"
-    qs: "npm:^6.10.3"
-    readable-stream: "npm:^3.6.0"
-    semver: "npm:^7.3.7"
-  checksum: 30415cd6b773359c3b70023aff941ddb3d40673ff6e55916b21fbd9c8700ad01849f871a65092c518e80ed4e3439a05505a321243d25d57b915ea725ef01b501
-  languageName: node
-  linkType: hard
-
-"superagent@npm:^7.1.6":
+"superagent@npm:^7.1.3, superagent@npm:^7.1.6":
   version: 7.1.6
   resolution: "superagent@npm:7.1.6"
   dependencies:

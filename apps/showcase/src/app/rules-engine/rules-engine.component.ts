@@ -9,14 +9,16 @@ import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, Configuratio
 import { O3rComponent } from '@o3r/core';
 import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
 import { LocalizationOverrideStoreModule } from '@o3r/localization';
+import { ConfigurationRulesEngineActionHandler, ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
+import { AssetRulesEngineActionHandler, AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
 import {
   dateInNextMinutes,
   Operator,
   Rule,
   RulesEngineDevtoolsMessageService,
   RulesEngineDevtoolsModule,
-  RulesEngineModule,
-  RulesEngineService,
+  RulesEngineRunnerModule,
+  RulesEngineRunnerService,
   RulesetsStore,
   setRulesetsEntities,
   UnaryOperator
@@ -38,8 +40,10 @@ import { CurrentTimeFactsService } from '../../services/current-time-facts.servi
     ConfigurationDevtoolsModule,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
-    RulesEngineModule,
+    RulesEngineRunnerModule,
     RulesEngineDevtoolsModule,
+    ConfigurationRulesEngineActionModule,
+    AssetRulesEngineActionModule,
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
     LocalizationOverrideStoreModule,
@@ -76,8 +80,12 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     private store: Store<RulesetsStore>,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
-    rulesEngineService: RulesEngineService
+    rulesEngineService: RulesEngineRunnerService,
+    configHandle: ConfigurationRulesEngineActionHandler,
+    assetsHandler: AssetRulesEngineActionHandler
   ) {
+    rulesEngineService.actionHandlers.add(configHandle);
+    rulesEngineService.actionHandlers.add(assetsHandler);
     configurationDevtoolsMessageService.activate();
     rulesEngineDevtoolsMessageService.activate();
     rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
