@@ -23,8 +23,8 @@ describe('new otter application with rules-engine', () => {
     packageManagerExec(`ng add --skip-confirmation @o3r/rules-engine@${o3rVersion} --enable-metadata-extract`, execAppOptions);
 
     packageManagerExec('ng g @o3r/core:component test-component --activate-dummy --use-rules-engine=false', execAppOptions);
-    packageManagerExec('ng g @o3r/rules-engine:rules-engine-to-component --path=src/components/test-component/container/test-component-cont.component.ts', execAppOptions);
-    addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');
+    packageManagerExec('ng g @o3r/rules-engine:rules-engine-to-component --path=src/components/test-component/test-component.component.ts', execAppOptions);
+    addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();

@@ -3,5 +3,6 @@
   "bypassReviewers": true,
   "labels": ["cascading"],
   "ignoredPatterns": [
+    "-next$"
   ]
 }

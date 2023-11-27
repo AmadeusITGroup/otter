@@ -1,0 +1,772 @@
+{
+  "value": "@adobe/css-tools",
+  "children": {
+    "ID": 1093176,
+    "Issue": "@adobe/css-tools Regular Expression Denial of Service (ReDOS) while Parsing CSS",
+    "URL": "https://github.com/advisories/GHSA-hpx4-r86g-5jrg",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<4.3.1",
+    "Tree Versions": [
+      "4.2.0"
+    ],
+    "Dependents": [
+      "stylus@npm:0.59.0"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-async-generator-functions",
+  "children": {
+    "ID": "@babel/plugin-proposal-async-generator-functions (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-async-generator-functions instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.20.7",
+    "Tree Versions": [
+      "7.20.7"
+    ],
+    "Dependents": [
+      "@angular-devkit/build-angular@virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:16.2.0",
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-class-properties",
+  "children": {
+    "ID": "@babel/plugin-proposal-class-properties (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5",
+      "@nx/js@virtual:dc8fa5b57edb85f15549611a8c08ba797d28b070688577874e1d0fe2dd591952094803b20a358764703c61b72119730baebe1457d5b45fb986ef24d8b047976d#npm:16.10.0"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-class-static-block",
+  "children": {
+    "ID": "@babel/plugin-proposal-class-static-block (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-static-block instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.21.0",
+    "Tree Versions": [
+      "7.21.0"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-dynamic-import",
+  "children": {
+    "ID": "@babel/plugin-proposal-dynamic-import (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-dynamic-import instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-export-namespace-from",
+  "children": {
+    "ID": "@babel/plugin-proposal-export-namespace-from (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-export-namespace-from instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.9",
+    "Tree Versions": [
+      "7.18.9"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-json-strings",
+  "children": {
+    "ID": "@babel/plugin-proposal-json-strings (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-json-strings instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-logical-assignment-operators",
+  "children": {
+    "ID": "@babel/plugin-proposal-logical-assignment-operators (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-logical-assignment-operators instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.20.7",
+    "Tree Versions": [
+      "7.20.7"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-nullish-coalescing-operator",
+  "children": {
+    "ID": "@babel/plugin-proposal-nullish-coalescing-operator (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5",
+      "jscodeshift@virtual:245e67ab05f24f7ee7bcd41ad43e32a0b9b2d9fcb3e9dc10c2b229e5bbadb4f6f698d27db10960da6da29e77e92911d543d153fba147cdd2635dc008c90e1abb#npm:0.14.0"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-numeric-separator",
+  "children": {
+    "ID": "@babel/plugin-proposal-numeric-separator (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-object-rest-spread",
+  "children": {
+    "ID": "@babel/plugin-proposal-object-rest-spread (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-object-rest-spread instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.20.7",
+    "Tree Versions": [
+      "7.20.7"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-optional-catch-binding",
+  "children": {
+    "ID": "@babel/plugin-proposal-optional-catch-binding (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-catch-binding instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-optional-chaining",
+  "children": {
+    "ID": "@babel/plugin-proposal-optional-chaining (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.21.0",
+    "Tree Versions": [
+      "7.21.0"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5",
+      "jscodeshift@virtual:245e67ab05f24f7ee7bcd41ad43e32a0b9b2d9fcb3e9dc10c2b229e5bbadb4f6f698d27db10960da6da29e77e92911d543d153fba147cdd2635dc008c90e1abb#npm:0.14.0"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-private-methods",
+  "children": {
+    "ID": "@babel/plugin-proposal-private-methods (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-private-property-in-object",
+  "children": {
+    "ID": "@babel/plugin-proposal-private-property-in-object (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.21.11",
+    "Tree Versions": [
+      "7.21.11"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5"
+    ]
+  }
+}
+{
+  "value": "@babel/plugin-proposal-unicode-property-regex",
+  "children": {
+    "ID": "@babel/plugin-proposal-unicode-property-regex (deprecation)",
+    "Issue": "This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-unicode-property-regex instead.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.18.6",
+    "Tree Versions": [
+      "7.18.6"
+    ],
+    "Dependents": [
+      "@babel/preset-env@virtual:da33ed1e8cbc10fed5fabf5853cd841887c7e953edcac0934b87b66927a5d5d639b0250f5fb16dba64a90d40ea86f4e6ac32e54c97c2f0f6f9e7117b05bcefc8#npm:7.21.5",
+      "@babel/preset-modules@virtual:435ba64eda3b85944c1ee73dfa98f9af58bfc969e7fe5fec8ae7ec11df48183d3c56ddf2f092d1b05a90880afd66194563d62e52eee656f451df025c09e2cc58#npm:0.1.5",
+      "@babel/preset-modules@virtual:6a82630a4df1c405f5cf89790b45af85ceda5a1f584ea412faf94da5ce54c38f777ae65b1a0dffb60bff0221e5d5cc701b33c2b6937bda8c7303aec9bd59c199#npm:0.1.5"
+    ]
+  }
+}
+{
+  "value": "@npmcli/move-file",
+  "children": {
+    "ID": "@npmcli/move-file (deprecation)",
+    "Issue": "This functionality has been moved to @npmcli/fs",
+    "Severity": "moderate",
+    "Vulnerable Versions": "2.0.1",
+    "Tree Versions": [
+      "2.0.1"
+    ],
+    "Dependents": [
+      "cacache@npm:16.1.3"
+    ]
+  }
+}
+{
+  "value": "@wessberg/ts-evaluator",
+  "children": {
+    "ID": "@wessberg/ts-evaluator (deprecation)",
+    "Issue": "this package has been renamed to ts-evaluator. Please install ts-evaluator instead",
+    "Severity": "moderate",
+    "Vulnerable Versions": "0.0.27",
+    "Tree Versions": [
+      "0.0.27"
+    ],
+    "Dependents": [
+      "guess-parser@virtual:0fcd88f5a65d9f0c8e46f6f15be1fea8282e7fbbccc0d0c335ff34e8a8e5f12e702eb3186a345b2f2e7bfea965c611bd6ac6f05cc918c32a5ffb57cbfa5a347a#npm:0.4.22"
+    ]
+  }
+}
+{
+  "value": "axios",
+  "children": {
+    "ID": 1094762,
+    "Issue": "Axios Cross-Site Request Forgery Vulnerability",
+    "URL": "https://github.com/advisories/GHSA-wf5p-g6vw-rhxx",
+    "Severity": "moderate",
+    "Vulnerable Versions": ">=0.8.1 <1.6.0",
+    "Tree Versions": [
+      "0.27.2",
+      "1.1.3",
+      "1.2.1"
+    ],
+    "Dependents": [
+      "@nestjs/axios@virtual:00126b2c55a1d1570ff9ffc8c468138de1c746a58a121ff6ee3e4abad6f23814cacc79540141105681d241147ba527539c5562579e2b31a1b7fe551e5bf5f96d#npm:0.1.0",
+      "nx-cloud@npm:16.4.0",
+      "nx@virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:16.10.0"
+    ]
+  }
+}
+{
+  "value": "braces",
+  "children": {
+    "ID": 1085715,
+    "Issue": "Regular Expression Denial of Service in braces",
+    "URL": "https://github.com/advisories/GHSA-g95f-p29q-9xw4",
+    "Severity": "low",
+    "Vulnerable Versions": "<2.3.1",
+    "Tree Versions": [
+      "1.8.5"
+    ],
+    "Dependents": [
+      "micromatch@npm:2.3.11"
+    ]
+  }
+}
+{
+  "value": "braces",
+  "children": {
+    "ID": 1089939,
+    "Issue": "Regular Expression Denial of Service (ReDoS) in braces",
+    "URL": "https://github.com/advisories/GHSA-cwfw-4gq5-mrqx",
+    "Severity": "low",
+    "Vulnerable Versions": "<2.3.1",
+    "Tree Versions": [
+      "1.8.5"
+    ],
+    "Dependents": [
+      "micromatch@npm:2.3.11"
+    ]
+  }
+}
+{
+  "value": "chokidar",
+  "children": {
+    "ID": "chokidar (deprecation)",
+    "Issue": "Chokidar 2 will break on node v14+. Upgrade to chokidar 3 with 15x less dependencies.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.7.0",
+    "Tree Versions": [
+      "1.7.0"
+    ],
+    "Dependents": [
+      "cpx@npm:1.5.0"
+    ]
+  }
+}
+{
+  "value": "core-js",
+  "children": {
+    "ID": "core-js (deprecation)",
+    "Issue": "core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "2.6.12",
+    "Tree Versions": [
+      "2.6.12"
+    ],
+    "Dependents": [
+      "z-schema@npm:3.25.1"
+    ]
+  }
+}
+{
+  "value": "debuglog",
+  "children": {
+    "ID": "debuglog (deprecation)",
+    "Issue": "Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.1",
+    "Tree Versions": [
+      "1.0.1"
+    ],
+    "Dependents": [
+      "readdir-scoped-modules@npm:1.1.0"
+    ]
+  }
+}
+{
+  "value": "dommatrix",
+  "children": {
+    "ID": "dommatrix (deprecation)",
+    "Issue": "dommatrix is no longer maintained. Please use @thednp/dommatrix.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.3",
+    "Tree Versions": [
+      "1.0.3"
+    ],
+    "Dependents": [
+      "pdfjs-dist@virtual:710ece31c98c6d75759e39bcfdc31971e3d025289350efe13e5edf91359439d4cfbe41ef24c5dd74428a742c2bb966a24d0114a78f90ce3cb48f7be01834674c#npm:2.16.105"
+    ]
+  }
+}
+{
+  "value": "glob-parent",
+  "children": {
+    "ID": 1091181,
+    "Issue": "glob-parent before 5.1.2 vulnerable to Regular Expression Denial of Service in enclosure regex",
+    "URL": "https://github.com/advisories/GHSA-ww39-953v-wcq6",
+    "Severity": "high",
+    "Vulnerable Versions": "<5.1.2",
+    "Tree Versions": [
+      "2.0.0"
+    ],
+    "Dependents": [
+      "chokidar@npm:1.7.0"
+    ]
+  }
+}
+{
+  "value": "har-validator",
+  "children": {
+    "ID": "har-validator (deprecation)",
+    "Issue": "this library is no longer supported",
+    "Severity": "moderate",
+    "Vulnerable Versions": "5.1.5",
+    "Tree Versions": [
+      "5.1.5"
+    ],
+    "Dependents": [
+      "request@npm:2.88.2"
+    ]
+  }
+}
+{
+  "value": "inside",
+  "children": {
+    "ID": "inside (deprecation)",
+    "Issue": "Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.0",
+    "Tree Versions": [
+      "1.0.0"
+    ],
+    "Dependents": [
+      "@compodoc/compodoc@npm:1.1.19"
+    ]
+  }
+}
+{
+  "value": "json-schema-ref-parser",
+  "children": {
+    "ID": "json-schema-ref-parser (deprecation)",
+    "Issue": "Please switch to @apidevtools/json-schema-ref-parser",
+    "Severity": "moderate",
+    "Vulnerable Versions": "6.1.0",
+    "Tree Versions": [
+      "6.1.0"
+    ],
+    "Dependents": [
+      "json-schema-faker@npm:0.5.0-rcv.46"
+    ]
+  }
+}
+{
+  "value": "postcss",
+  "children": {
+    "ID": 1094544,
+    "Issue": "PostCSS line return parsing error",
+    "URL": "https://github.com/advisories/GHSA-7fh5-64p2-3v2j",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<8.4.31",
+    "Tree Versions": [
+      "8.4.27"
+    ],
+    "Dependents": [
+      "@angular-devkit/build-angular@virtual:8556ad6d4e987c91f960f23bb3e7df47303e9ff158e384a86663b02e5185864055237a98d407f540ac112b8a48f1d86d1a58f68e2866f5bd8cb93d3ad51c62b4#npm:16.2.0"
+    ]
+  }
+}
+{
+  "value": "protractor",
+  "children": {
+    "ID": "protractor (deprecation)",
+    "Issue": "We have news to share - Protractor is deprecated and will reach end-of-life by Summer 2023. To learn more and find out about other options please refer to this post on the Angular blog. Thank you for using and contributing to Protractor. https://goo.gle/state-of-e2e-in-angular",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.0.0",
+    "Tree Versions": [
+      "7.0.0"
+    ],
+    "Dependents": [
+      "@o3r/testing@workspace:packages/@o3r/testing"
+    ]
+  }
+}
+{
+  "value": "readdir-scoped-modules",
+  "children": {
+    "ID": "readdir-scoped-modules (deprecation)",
+    "Issue": "This functionality has been moved to @npmcli/fs",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.1.0",
+    "Tree Versions": [
+      "1.1.0"
+    ],
+    "Dependents": [
+      "@npmcli/arborist@npm:4.3.1"
+    ]
+  }
+}
+{
+  "value": "request",
+  "children": {
+    "ID": 1092972,
+    "Issue": "Server-Side Request Forgery in Request",
+    "URL": "https://github.com/advisories/GHSA-p8p7-x288-28g6",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<=2.88.2",
+    "Tree Versions": [
+      "2.88.2"
+    ],
+    "Dependents": [
+      "@o3r/dev-tools@workspace:packages/@o3r/dev-tools"
+    ]
+  }
+}
+{
+  "value": "request-promise-native",
+  "children": {
+    "ID": "request-promise-native (deprecation)",
+    "Issue": "request-promise-native has been deprecated because it extends the now deprecated request package, see https://github.com/request/request/issues/3142",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.9",
+    "Tree Versions": [
+      "1.0.9"
+    ],
+    "Dependents": [
+      "@o3r/dev-tools@workspace:packages/@o3r/dev-tools"
+    ]
+  }
+}
+{
+  "value": "resolve-url",
+  "children": {
+    "ID": "resolve-url (deprecation)",
+    "Issue": "https://github.com/lydell/resolve-url#deprecated",
+    "Severity": "moderate",
+    "Vulnerable Versions": "0.2.1",
+    "Tree Versions": [
+      "0.2.1"
+    ],
+    "Dependents": [
+      "source-map-resolve@npm:0.5.3"
+    ]
+  }
+}
+{
+  "value": "semver",
+  "children": {
+    "ID": 1094554,
+    "Issue": "semver vulnerable to Regular Expression Denial of Service",
+    "URL": "https://github.com/advisories/GHSA-c2qf-rxjj-qqgw",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<5.7.2",
+    "Tree Versions": [
+      "5.7.1"
+    ],
+    "Dependents": [
+      "@vscode/vsce@npm:2.16.0"
+    ]
+  }
+}
+{
+  "value": "semver",
+  "children": {
+    "ID": 1094556,
+    "Issue": "semver vulnerable to Regular Expression Denial of Service",
+    "URL": "https://github.com/advisories/GHSA-c2qf-rxjj-qqgw",
+    "Severity": "moderate",
+    "Vulnerable Versions": ">=7.0.0 <7.5.2",
+    "Tree Versions": [
+      "7.0.0"
+    ],
+    "Dependents": [
+      "simple-update-notifier@npm:1.1.0"
+    ]
+  }
+}
+{
+  "value": "sinon",
+  "children": {
+    "ID": "sinon (deprecation)",
+    "Issue": "16.1.1",
+    "Severity": "moderate",
+    "Vulnerable Versions": "10.0.0",
+    "Tree Versions": [
+      "10.0.0"
+    ],
+    "Dependents": [
+      "yeoman-test@virtual:60dcba7dbd4432af0e16e024135fa107b25c5859e3a1c1ad0d117ae24afae2c76d3ea9014bf0a304672c6c34be90d2ad306d26c0ba4b2b7b77c454aae5100d46#npm:6.3.0"
+    ]
+  }
+}
+{
+  "value": "source-map-resolve",
+  "children": {
+    "ID": "source-map-resolve (deprecation)",
+    "Issue": "See https://github.com/lydell/source-map-resolve#deprecated",
+    "Severity": "moderate",
+    "Vulnerable Versions": "0.5.3",
+    "Tree Versions": [
+      "0.5.3"
+    ],
+    "Dependents": [
+      "snapdragon@npm:0.8.2"
+    ]
+  }
+}
+{
+  "value": "source-map-url",
+  "children": {
+    "ID": "source-map-url (deprecation)",
+    "Issue": "See https://github.com/lydell/source-map-url#deprecated",
+    "Severity": "moderate",
+    "Vulnerable Versions": "0.4.1",
+    "Tree Versions": [
+      "0.4.1"
+    ],
+    "Dependents": [
+      "source-map-resolve@npm:0.5.3"
+    ]
+  }
+}
+{
+  "value": "sourcemap-codec",
+  "children": {
+    "ID": "sourcemap-codec (deprecation)",
+    "Issue": "Please use @jridgewell/sourcemap-codec instead",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.4.8",
+    "Tree Versions": [
+      "1.4.8"
+    ],
+    "Dependents": [
+      "magic-string@npm:0.25.7"
+    ]
+  }
+}
+{
+  "value": "stringify-package",
+  "children": {
+    "ID": "stringify-package (deprecation)",
+    "Issue": "This module is not used anymore, and has been replaced by @npmcli/package-json",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.1",
+    "Tree Versions": [
+      "1.0.1"
+    ],
+    "Dependents": [
+      "standard-version@npm:9.5.0"
+    ]
+  }
+}
+{
+  "value": "superagent",
+  "children": {
+    "ID": "superagent (deprecation)",
+    "Issue": "Please downgrade to v7.1.5 if you need IE/ActiveXObject support OR upgrade to v8.0.0 as we no longer support IE and published an incorrect patch version (see https://github.com/visionmedia/superagent/issues/1731)",
+    "Severity": "moderate",
+    "Vulnerable Versions": "7.1.6",
+    "Tree Versions": [
+      "7.1.6"
+    ],
+    "Dependents": [
+      "smee-client@npm:1.2.3"
+    ]
+  }
+}
+{
+  "value": "swagger-methods",
+  "children": {
+    "ID": "swagger-methods (deprecation)",
+    "Issue": "This package is no longer being maintained.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.8",
+    "Tree Versions": [
+      "1.0.8"
+    ],
+    "Dependents": [
+      "sway@npm:2.0.6"
+    ]
+  }
+}
+{
+  "value": "tough-cookie",
+  "children": {
+    "ID": 1094596,
+    "Issue": "tough-cookie Prototype Pollution vulnerability",
+    "URL": "https://github.com/advisories/GHSA-72xf-g2v4-qvf3",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<4.1.3",
+    "Tree Versions": [
+      "2.5.0"
+    ],
+    "Dependents": [
+      "request@npm:2.88.2"
+    ]
+  }
+}
+{
+  "value": "urix",
+  "children": {
+    "ID": "urix (deprecation)",
+    "Issue": "Please see https://github.com/lydell/urix#deprecated",
+    "Severity": "moderate",
+    "Vulnerable Versions": "0.1.0",
+    "Tree Versions": [
+      "0.1.0"
+    ],
+    "Dependents": [
+      "source-map-resolve@npm:0.5.3"
+    ]
+  }
+}
+{
+  "value": "uuid",
+  "children": {
+    "ID": "uuid (deprecation)",
+    "Issue": "Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "3.4.0",
+    "Tree Versions": [
+      "3.4.0"
+    ],
+    "Dependents": [
+      "request@npm:2.88.2"
+    ]
+  }
+}
+{
+  "value": "validator",
+  "children": {
+    "ID": 1092430,
+    "Issue": "Inefficient Regular Expression Complexity in validator.js",
+    "URL": "https://github.com/advisories/GHSA-qgmg-gppg-76g5",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<13.7.0",
+    "Tree Versions": [
+      "10.11.0"
+    ],
+    "Dependents": [
+      "z-schema@npm:3.25.1"
+    ]
+  }
+}
+{
+  "value": "w3c-hr-time",
+  "children": {
+    "ID": "w3c-hr-time (deprecation)",
+    "Issue": "Use your platform's native performance.now() and performance.timeOrigin.",
+    "Severity": "moderate",
+    "Vulnerable Versions": "1.0.2",
+    "Tree Versions": [
+      "1.0.2"
+    ],
+    "Dependents": [
+      "jsdom@virtual:50dc6e2a709bd539f520b3dcd26f503592a3745b837ebbc95357a3080b43d34a22dbe893b44b1f5cfd6f4aaec88f67b3aec148f7b318cd9befc86c0f6e3ebb10#npm:16.7.0"
+    ]
+  }
+}
+{
+  "value": "xml2js",
+  "children": {
+    "ID": 1092301,
+    "Issue": "xml2js is vulnerable to prototype pollution",
+    "URL": "https://github.com/advisories/GHSA-776f-qx25-q3cc",
+    "Severity": "moderate",
+    "Vulnerable Versions": "<0.5.0",
+    "Tree Versions": [
+      "0.4.23"
+    ],
+    "Dependents": [
+      "@vscode/vsce@npm:2.16.0"
+    ]
+  }
+}

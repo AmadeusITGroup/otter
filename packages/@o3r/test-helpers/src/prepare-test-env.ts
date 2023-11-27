@@ -18,12 +18,24 @@ import {createWithLock, packageManagerInstall, setPackagerManagerConfig} from '.
 export type PrepareTestEnvType = 'blank' | 'angular' | 'angular-with-o3r-core' | 'angular-monorepo' | 'angular-monorepo-with-o3r-core';
 
 /**
+ * Retrieve the version used by yarn and setup at root level
+ *
+ * @param rootFolderPath: path to the folder where to take the configuration from
+ */
+export function getYarnVersionFromRoot(rootFolderPath: string) {
+  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
+    JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
+  return o3rPackageJson?.packageManager?.split('@')?.[1] || 'latest';
+}
+
+/**
  * Prepare a test environment to be used to run tests targeting a local registry
  * Test app created for 'angular' and 'angular-with-o3r-core' are reused when called multiple times
  * @param folderName name of the folder where the environment will be generated
  * @param type type of environment to prepare
+ * @param yarnVersionParam explicitely set the yarn version for yarn environment. Else it will default to the folder package.json
  */
-export async function prepareTestEnv(folderName: string, type: PrepareTestEnvType) {
+export async function prepareTestEnv(folderName: string, type: PrepareTestEnvType, yarnVersionParam?: string) {
   const rootFolderPath = process.cwd();
   const itTestsFolderPath = path.join(rootFolderPath, '..', 'it-tests');
   const appFolderPath = path.join(itTestsFolderPath, folderName);
@@ -32,9 +44,7 @@ export async function prepareTestEnv(folderName: string, type: PrepareTestEnvTyp
 
   const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
     JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
-  const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
-    JSON.parse(readFileSync(path.join(rootFolderPath, 'package.json')).toString());
-  const yarnVersion: string = o3rPackageJson?.packageManager?.split('@')?.[1] || '3.5.0';
+  const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
   const angularVersion = minVersion(o3rCorePackageJson.devDependencies?.['@angular-devkit/schematics'] || 'latest')?.version;
   const materialVersion = minVersion(o3rCorePackageJson.generatorDependencies?.['@angular/material'] || angularVersion || 'latest')?.version;
   const generateMonorepo = type === 'angular-monorepo' || type === 'angular-monorepo-with-o3r-core';

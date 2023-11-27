@@ -1,22 +1,34 @@
 import {DateInput, Operator, SupportedSimpleTypes} from './operator.interface';
+import type {Facts} from '../fact';
 
 /**
  * Execute Operator
- *
  * @param lhs Left hand side
  * @param rhs Right hand side
  * @param operator Operator to compare values
+ * @param operatorFacts Facts that operator can depend on
  */
-export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operator: Operator<L, R>) {
+export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operator: Operator<L, R>, operatorFacts?: Record<string, Facts | undefined>) {
   const validLhs = (!operator.validateLhs || operator.validateLhs(lhs));
   const validRhs = (!operator.validateRhs || operator.validateRhs(rhs));
+  let operatorFactValues: Record<string, Facts> | undefined;
+  if (operatorFacts && operator.factImplicitDependencies) {
+    operatorFactValues = operator.factImplicitDependencies.reduce((acc, dep) => {
+      if (operatorFacts[dep]) {
+        acc[dep] = operatorFacts[dep]!;
+      } else {
+        throw new Error(`The fact "${dep}" requested by ${operator.name} cannot be found.`);
+      }
+      return acc;
+    }, {} as Record<string, Facts>);
+  }
   if (!validLhs) {
-    throw new Error(`Invalid left operand : ${JSON.stringify(lhs)}`);
+    throw new Error(`Invalid left operand: ${JSON.stringify(lhs)}`);
   }
   if (!validRhs) {
-    throw new Error(`Invalid right operand : ${JSON.stringify(rhs)}`);
+    throw new Error(`Invalid right operand: ${JSON.stringify(rhs)}`);
   }
-  const obs = operator.evaluator(lhs, rhs);
+  const obs = operator.evaluator(lhs, rhs, operatorFactValues);
   return obs;
 }
 

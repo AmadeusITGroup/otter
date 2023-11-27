@@ -35,7 +35,7 @@ describe('BotProtectionFingerprint', () => {
       };
 
       beforeEach(() => {
-        consoleMock = jest.spyOn(console, 'warn').mockImplementation();
+        consoleMock = jest.spyOn(console, 'error').mockImplementation();
         windowBackup = global.window;
         // eslint-disable-next-line no-global-assign
         global.window = {} as any;
@@ -50,10 +50,12 @@ describe('BotProtectionFingerprint', () => {
       });
 
       it('Should return undefined and log if no Protection object is received.', async () => {
+
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return undefined and log if no Protection object is received within configured timeout.', async () => {
@@ -62,16 +64,17 @@ describe('BotProtectionFingerprint', () => {
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return undefined and log if token promise rejected.', async () => {
         registerEvent(protectionReject);
-
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
-        expect(console.warn).toHaveBeenCalledTimes(1);
+        // eslint-disable-next-line no-console
+        expect(console.error).toHaveBeenCalledTimes(1);
       });
 
       it('Should return the token if everything happened within timeout values.', async () => {
@@ -86,7 +89,8 @@ describe('BotProtectionFingerprint', () => {
         const newPromise = retriever();
         await jest.runAllTimersAsync();
         expect(await newPromise).toBe(tokenValue);
-        expect(console.warn).not.toHaveBeenCalled();
+        // eslint-disable-next-line no-console
+        expect(console.error).not.toHaveBeenCalled();
       });
 
     });

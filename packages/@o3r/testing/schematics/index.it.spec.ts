@@ -22,7 +22,7 @@ describe('new otter application with testing', () => {
   test('should add testing to existing application', () => {
     packageManagerExec(`ng add --skip-confirmation @o3r/testing@${o3rVersion}`, execAppOptions);
 
-    packageManagerExec('ng g @o3r/core:component test-component --use-component-fixtures=false', execAppOptions);
+    packageManagerExec('ng g @o3r/core:component test-component --use-component-fixtures=false --component-structure="full"', execAppOptions);
     packageManagerExec('ng g @o3r/testing:add-fixture --path="src/components/test-component/container/test-component-cont.component.ts"', execAppOptions);
     packageManagerExec('ng g @o3r/testing:add-fixture --path="src/components/test-component/presenter/test-component-pres.component.ts"', execAppOptions);
     addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');

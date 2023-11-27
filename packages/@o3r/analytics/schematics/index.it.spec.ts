@@ -26,8 +26,8 @@ describe('new otter application with analytics', () => {
       packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion}`, execAppOptions);
 
       packageManagerExec('ng g @o3r/core:component test-component --use-otter-analytics=false', execAppOptions);
-      packageManagerExec('ng g @o3r/analytics:add-analytics --path="src/components/test-component/container/test-component-cont.component.ts"', execAppOptions);
-      addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');
+      packageManagerExec('ng g @o3r/analytics:add-analytics --path="src/components/test-component/test-component.component.ts"', execAppOptions);
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
       expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();
@@ -49,10 +49,10 @@ describe('new otter application with analytics', () => {
 
       packageManagerExec(`ng g @o3r/core:component test-component --use-otter-analytics=false ${projectName}`, execAppOptions);
       packageManagerExec(
-        'ng g @o3r/analytics:add-analytics --path="projects/test-app/src/components/test-component/container/test-component-cont.component.ts"',
+        'ng g @o3r/analytics:add-analytics --path="projects/test-app/src/components/test-component/test-component.component.ts"',
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
       expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();

@@ -93,16 +93,19 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
   };
 
   switch (options.componentStructure) {
-    case 'container':
+    case 'container': {
       return chain([
         generateRootBarrel,
         generateComponentContainer(options)
       ]);
-    case 'presenter':
+    }
+    case 'simple':
+    case 'presenter': {
       return chain([
         generateRootBarrel,
         generateComponentPresenter(options)
       ]);
+    }
     default: {
       const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
 

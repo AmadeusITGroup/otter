@@ -1,8 +1,10 @@
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
+  getYarnVersionFromRoot,
   packageManagerCreate,
   packageManagerExec,
+  packageManagerInstall,
   packageManagerRun,
   prepareTestEnv,
   setupLocalRegistry
@@ -21,12 +23,15 @@ const packageManager = getPackageManager();
 describe('Create new sdk command', () => {
   setupLocalRegistry();
   beforeEach(async () => {
-    sdkFolderPath = await prepareTestEnv(appName, 'blank');
+    const isYarnTest = packageManager.startsWith('yarn');
+    const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
+    sdkFolderPath = await prepareTestEnv(appName, 'blank', yarnVersion);
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
-    if (packageManager.startsWith('yarn')) {
-      fs.writeFileSync(path.join(sdkFolderPath, 'package.json'), '{"name": "@test/sdk"}');
+    if (isYarnTest) {
+      fs.writeFileSync(path.join(sdkFolderPath, 'package.json'), `{"name": "@test/sdk", "packageManager": "yarn@${yarnVersion}"}`);
+      packageManagerInstall(execAppOptions);
 
       // copy yarnrc config to generated SDK
       mkdirSync(sdkPackagePath, {recursive: true});
