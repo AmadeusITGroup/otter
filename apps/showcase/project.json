@@ -127,7 +127,10 @@
         "name": "showcase",
         "libraries": [],
         "placeholdersMetadataFilePath": "apps/showcase/placeholders.metadata.manual.json",
-        "exposedComponentSupport": true
+        "exposedComponentSupport": true,
+        "globalConfigCategories": [
+          { "name": "globalCategory", "label": "Global category" }
+        ]
       },
       "dependsOn": ["compile"]
     },
