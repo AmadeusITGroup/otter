@@ -7,11 +7,10 @@
       "disabled": false,
       "rules": [
         {
-          "id": "5467e501-b9ff-414f-8026-56885d0d7a4c",
+          "id": "5467e501-b9ff-414f-8026-56885d0d7a4b",
           "name": "New-York availability",
           "disabled": false,
           "outputRuntimeFacts": [],
-          "inputFacts": ["outboundDate"],
           "inputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",
@@ -57,7 +56,6 @@
           "name": "Destination selected",
           "disabled": false,
           "outputRuntimeFacts": [],
-          "inputFacts": ["destination"],
           "inputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",
@@ -85,11 +83,10 @@
           }
         },
         {
-          "id": "5467e501-b9ff-414f-8026-56885d0d7a4c",
-          "name": "The otter is in vacations",
+          "id": "5467e501-b9ff-414f-8026-56885d0d7a4d",
+          "name":"The otter is on vacation",
           "disabled": false,
           "outputRuntimeFacts": [],
-          "inputFacts": ["outboundDate"],
           "inputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",
@@ -109,6 +106,41 @@
                     "value": "outboundDate"
                   },
                   "operator": "duringSummer"
+                }
+              ]
+            },
+            "successElements": [
+              {
+                "elementType": "ACTION",
+                "actionType": "UPDATE_ASSET",
+                "asset": "otter.svg",
+                "value": "otter-summer.svg"
+              }
+            ],
+            "failureElements": []
+          }
+        },
+        {
+          "id": "5467e501-b9ff-414f-8026-56885d0d7a4c",
+          "name": "The otter is late",
+          "disabled": false,
+          "outputRuntimeFacts": [],
+          "inputRuntimeFacts": [],
+          "rootElement": {
+            "elementType": "RULE_BLOCK",
+            "blockType": "IF_ELSE",
+            "condition": {
+              "all": [
+                {
+                  "lhs": {
+                    "type": "FACT",
+                    "value": "outboundDate"
+                  },
+                  "rhs": {
+                      "type": "LITERAL",
+                      "value": "2880"
+                  },
+                  "operator": "dateInNextMinutes"
                 }
               ]
             },

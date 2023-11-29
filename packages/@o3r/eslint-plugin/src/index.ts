@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import noFolderImportForModule from './rules/typescript/no-folder-import-for-module/no-folder-import-for-module';
 import o3rWidgetTags from './rules/typescript/o3r-widget-tags/o3r-widget-tags';
+import noInnerHTML from './rules/template/no-inner-html/no-inner-html';
 import templateAsyncNumberLimitation from './rules/template/template-async-number-limitation/template-async-number-limitation';
 import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versions-harmonize/json-dependency-versions-harmonize';
 import matchingConfigurationName from './rules/typescript/matching-configuration-name/matching-configuration-name';
@@ -8,6 +9,7 @@ import matchingConfigurationName from './rules/typescript/matching-configuration
 module.exports = {
   rules: {
     'no-folder-import-for-module': noFolderImportForModule,
+    'no-inner-html': noInnerHTML,
     'template-async-number-limitation': templateAsyncNumberLimitation,
     'o3r-widget-tags': o3rWidgetTags,
     'json-dependency-versions-harmonize': jsonDependencyVersionsHarmonize,

@@ -1,6 +1,6 @@
 import type { Rule } from '@angular-devkit/schematics';
 import { EOL } from 'node:os';
-import { OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } from './modules.constants';
+import {OTTER_KEYWORD_CMS, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES} from './modules.constants';
 import { getPackageManagerExecutor, getWorkspaceConfig } from '../utility';
 import { formatModuleDescription, getAvailableModulesWithLatestPackage } from './modules.helpers';
 
@@ -34,7 +34,6 @@ export function displayModuleListRule(options?: Partial<DisplayModuleListOptions
   const keyword = options?.keyword || OTTER_MODULE_KEYWORD;
 
   return async (tree, context) => {
-    const { OTTER_KEYWORD_CMS } = await import('@o3r/schematics');
     const tagMap: Record<string, string> = { [OTTER_KEYWORD_CMS]: 'CMS enabler' };
 
     // const { getAvailableModulesWithLatestPackage, formatModuleDescription, getWorkspaceConfig, getPackageManagerExecutor } = await import('@o3r/schematics');

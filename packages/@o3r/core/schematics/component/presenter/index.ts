@@ -44,15 +44,16 @@ export const PRESENTER_FOLDER = 'presenter';
 const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, componentStructureDef: ComponentStructureDef, prefix?: string) => {
   const inputComponentName = getInputComponentName(options.componentName);
   const folderName = getComponentFolderName(inputComponentName);
+  const structure: string = componentStructureDef !== ComponentStructureDef.Simple ? componentStructureDef : '';
 
   return {
     ...options,
-    componentName: getComponentName(inputComponentName, componentStructureDef).replace(/Component$/, ''),
+    componentName: getComponentName(inputComponentName, structure).replace(/Component$/, ''),
     componentSelector: getComponentSelectorWithoutSuffix(options.componentName, prefix || null),
     projectName: options.projectName || getLibraryNameFromPath(options.path),
     folderName,
-    name: getComponentFileName(options.componentName, componentStructureDef), // air-offer | air-offer-pres
-    suffix: componentStructureDef.toLowerCase(), // pres | ''
+    name: getComponentFileName(options.componentName, structure),
+    suffix: structure.toLowerCase(),
     description: options.description || ''
   };
 };
@@ -66,10 +67,13 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
   const fullStructureRequested = options.componentStructure === 'full';
 
   const generateFiles = (tree: Tree, _context: SchematicContext) => {
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
-    const properties = getTemplateProperties(options, ComponentStructureDef.Pres, options.prefix ? options.prefix : workspaceProject?.prefix);
+    const properties = getTemplateProperties(
+      options,
+      options.componentStructure === 'simple' ? ComponentStructureDef.Simple : ComponentStructureDef.Pres,
+      options.prefix || workspaceProject?.prefix
+    );
 
     const destination = getDestinationPath('@o3r/core:component', options.path, tree, options.projectName);
     const componentDestination = path.posix.join(destination, fullStructureRequested ? path.posix.join(properties.folderName, PRESENTER_FOLDER) : properties.folderName);
@@ -80,6 +84,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
     const o3rStylePath = path.posix.join(componentDestination, `${properties.name}.style.scss`);
     const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
     const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
+    const componentSelector = `${properties.componentSelector}${properties.suffix ? ('-' + properties.suffix) : ''}`;
 
     const rules: Rule[] = [];
 
@@ -102,7 +107,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
       ]), MergeStrategy.Overwrite),
       externalSchematic('@schematics/angular', 'component', {
         project: properties.projectName,
-        selector: `${properties.componentSelector}-${properties.suffix}`,
+        selector: componentSelector,
         path: componentDestination,
         name: properties.componentName,
         inlineStyle: false,
@@ -130,7 +135,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
         move(ngStylePath, o3rStylePath),
         (t) => {
           // Styling file is empty by default, as we create component with `viewEncapsulation` set to 'None', we should wrap the styling into the selector of the component
-          t.overwrite(o3rStylePath, `${properties.componentSelector}-${properties.suffix} {\n\t// Your component custom SCSS\n}\n`);
+          t.overwrite(o3rStylePath, `${componentSelector} {\n\t// Your component custom SCSS\n}\n`);
           return t;
         },
         (t) => {

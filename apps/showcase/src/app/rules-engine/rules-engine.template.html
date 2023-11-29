@@ -40,6 +40,9 @@
         <li ngbNavItem class="nav-item">
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeRuleTab === 'operator-fact'" (click)="activateRuleTab('operator-fact')">Operator fact</a>
+        </li>
       </ul>
       <div class="p-3">
         @switch (activeRuleTab) {
@@ -72,6 +75,16 @@
               When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
               </p>
               <o3r-copy-text-pres language="json" [text]="helloNewYorkRule"></o3r-copy-text-pres>
+            </div>
+          }
+          @case ('operator-fact') {
+            <div>
+              <p>
+                When selecting a departure date in less than 2 days, the otter picture changes. We have created the following rule to change the targeted asset.
+                <br>
+                It is using the `inNextMinutes` operator which is based on the current time.
+              </p>
+              <o3r-copy-text-pres language="json" [text]="lateOtterRule"></o3r-copy-text-pres>
             </div>
           }
         }

@@ -24,9 +24,9 @@ describe('new otter application with localization', () => {
 
     packageManagerExec('ng g @o3r/core:component test-component --use-localization=false', execAppOptions);
     packageManagerExec(
-      'ng g @o3r/localization:add-localization --activate-dummy --path="src/components/test-component/presenter/test-component-pres.component.ts"',
+      'ng g @o3r/localization:add-localization --activate-dummy --path="src/components/test-component/test-component.component.ts"',
       execAppOptions);
-    addImportToAppModule(appFolderPath, 'TestComponentContModule', 'src/components/test-component');
+    addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();

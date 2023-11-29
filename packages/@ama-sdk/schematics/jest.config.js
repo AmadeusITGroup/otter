@@ -4,5 +4,9 @@ const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 module.exports = {
   ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
+  testPathIgnorePatterns: [
+    '<rootDir>/.*/templates/.*',
+    '\\.it\\.spec\\.ts$'
+  ],
   testTimeout: 30 * 1000
 };

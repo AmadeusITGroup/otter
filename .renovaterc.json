@@ -187,6 +187,12 @@
           ".yarn/sdks/**"
         ]
       }
+    },
+    {
+      "matchPackageNames": [
+        "bootstrap"
+      ],
+      "enabled": false
     }
   ]
 }

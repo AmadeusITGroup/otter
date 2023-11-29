@@ -1,13 +1,13 @@
+import type { Logger } from '@o3r/logger';
 import { BehaviorSubject, firstValueFrom, merge, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, shareReplay, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { EngineDebugger } from './debug/engine.debug';
-import { FactObject, Facts, RulesEngineOptions } from './engine.interface';
-import { Fact } from './fact/index';
+import { FactObject, RulesEngineOptions } from './engine.interface';
+import type { Fact, Facts } from './fact/index';
 import { filterRulesetsEventStream } from './helpers/filter-ruleset-event.operator';
 import { Operator, operatorList, UnaryOperator } from './operator/index';
 import { RulesetExecutor } from './ruleset-executor';
 import { ActionBlock, Ruleset } from './structure';
-import type { Logger} from '@o3r/logger';
 
 /** Rules engine */
 export class RulesEngine {
