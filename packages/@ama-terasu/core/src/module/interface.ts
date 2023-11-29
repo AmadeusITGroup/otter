@@ -60,7 +60,7 @@ export interface Task {
    * @param promise Promise to bind to
    * @param label Label to display
    */
-  fromPromise: <T extends PromiseLike<unknown>>(promise: T, successLabel?: string, failureLabel?: string) => T;
+  fromPromise: <T>(promise: PromiseLike<T>, successLabel?: string, failureLabel?: string) => PromiseLike<T>;
 }
 
 /** Context of a module to dialog with CLI host */
