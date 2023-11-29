@@ -4,7 +4,7 @@
 
 import { globby as glob } from 'globby';
 import minimist from 'minimist';
-import { promises as fs, existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
@@ -27,9 +27,9 @@ void (async () => {
         throw new Error(`The file ${packageJsonPath} already exists and has a different type`);
       }
       packageJson.type = 'commonjs';
-      await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2))
+      await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
     } else {
-      await fs.writeFile(packageJsonPath, JSON.stringify({type: 'commonjs'}, null, 2))
+      await fs.writeFile(packageJsonPath, JSON.stringify({type: 'commonjs'}, null, 2));
     }
   });
 

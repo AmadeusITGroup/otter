@@ -31,8 +31,7 @@
         "main": "packages/@o3r/schematics/src/public_api.ts",
         "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
         "outputPath": "packages/@o3r/schematics/dist",
-        "assets": ["packages/@o3r/schematics/src/**/templates/**"],
-        "clean": true
+        "assets": ["packages/@o3r/schematics/src/**/templates/**"]
       }
     },
     "lint": {

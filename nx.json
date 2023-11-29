@@ -274,6 +274,9 @@
     "generate-translations": {
       "cache": true
     },
+    "generate-theme": {
+      "cache": true
+    },
     "extract-translations": {
       "cache": true
     },

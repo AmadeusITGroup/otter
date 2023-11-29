@@ -112,6 +112,16 @@ export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[]
 }
 
 /**
+ * Get the path of all the files in the Tree
+ * @param tree Schematics file tree
+ * @param patterns Array of globs to be search in the tree
+ */
+export function globInTree(tree: Tree, patterns: string[]): string[] {
+  const files = getAllFilesInTree(tree);
+  return files.filter((basePath) => patterns.some((p) => minimatch(basePath, p, { dot: true })));
+}
+
+/**
  * Get all files with specific extension from the specified folder for all the projects described in the workspace
  * @param tree
  * @param folderInProject

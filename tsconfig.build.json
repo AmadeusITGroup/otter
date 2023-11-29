@@ -26,6 +26,7 @@
       "@o3r/configuration": ["packages/@o3r/configuration/dist", "packages/@o3r/configuration/src/public_api"],
       "@o3r/configuration/*": ["packages/@o3r/configuration/dist/*", "packages/@o3r/configuration/src/*"],
       "@o3r/core": ["packages/@o3r/core/dist", "packages/@o3r/core/src/public_api"],
+      "@o3r/design": ["packages/@o3r/design/dist", "packages/@o3r/design/src/public_api"],
       "@o3r/dynamic-content": ["packages/@o3r/dynamic-content/dist", "packages/@o3r/dynamic-content/src/public_api"],
       "@o3r/dynamic-content/*": ["packages/@o3r/dynamic-content/dist/*", "packages/@o3r/dynamic-content/src/*"],
       "@o3r/eslint-config-otter": ["packages/@o3r/eslint-config-otter"],

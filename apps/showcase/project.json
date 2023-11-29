@@ -31,6 +31,7 @@
         "extract-translations",
         "extract-components",
         "generate-translations",
+        "generate-theme",
         "compile"
       ]
     },
@@ -90,16 +91,20 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn": ["^build", "generate-translations"]
+      "dependsOn": ["^build", "generate-translations", "generate-theme"]
     },
     "serve": {
       "executor": "@o3r/core:multi-watcher",
       "options": {
         "targets": [
           "showcase:generate-translations:development",
-          "showcase:serve-app"
+          "showcase:serve-app",
+          "showcase:generate-theme:watch"
         ]
-      }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
@@ -154,6 +159,31 @@
         "jestConfig": "apps/showcase/jest.config.js",
         "silent": true
       }
+    },
+    "generate-theme": {
+      "executor": "@o3r/design:generate-css",
+      "outputs": [
+        "{options.defaultStyleFile}",
+        "{options.metadataOutput}",
+        "{projectRoot}/src/**/*.scss"
+      ],
+      "inputs": [
+        "{projectRoot}/src/style/design-token.json"
+      ],
+      "options": {
+        "metadataOutput": "apps/showcase/styling.metadata.json",
+        "defaultStyleFile": "apps/showcase/src/style/theme.scss",
+        "designTokenFilePatterns": "apps/showcase/src/style/design-token.*.json",
+        "rootPath": "apps/showcase/src"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
     },
     "generate-translations": {
       "executor": "@o3r/localization:localization",

@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Add Otter Design",
+  "description": "ngAdd Otter Design",
+  "properties": {
+    "designTokenFilePatterns": {
+      "description": "Path patterns to the Design Token JSON files",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "output": {
+      "type": "string",
+      "description": "Output file where generate the CSS"
+    },
+    "defaultStyleFile": {
+      "type": "string",
+      "default": "src/theme.scss",
+      "description": "File path to generate the variable if not determined by the specification"
+    },
+    "metadataOutput": {
+      "type": "string",
+      "description": "If specified, all the generated CSS variable will be generated in the given file. Otherwise, the output file will be determined based on the Variable parameters."
+    },
+    "rootPath": {
+      "type": "string",
+      "description": "Root path of files where the CSS will be generated"
+    },
+    "watch": {
+      "type": "boolean",
+      "default": false,
+      "description": "Enable Watch mode"
+    },
+    "failOnDuplicate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Determine if the process should stop in case of Token duplication"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "designTokenFilePatterns"
+  ]
+}

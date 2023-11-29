@@ -5,7 +5,8 @@
     "**/dist/": true,
     "**/build/": true,
     "**/node_modules": true,
-    "**/.cache": true
+    "**/.cache": true,
+    "**/src/package.json": true,
   },
   "files.exclude": {
     "**/.git": true,
