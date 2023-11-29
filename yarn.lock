@@ -4009,19 +4009,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fullstory/browser@npm:~1.7.0":
-  version: 1.7.1
-  resolution: "@fullstory/browser@npm:1.7.1"
+"@fullstory/browser@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@fullstory/browser@npm:2.0.0"
   dependencies:
-    "@fullstory/snippet": "npm:1.3.1"
-  checksum: ac279521bf6a4f2a58a7abba74318a27ef2c61e792a6bf0269beb176ea174c6cec0c80af3b49b36997491240bb750327f8fe51b17fe12f828033f32e36d5a583
+    "@fullstory/snippet": "npm:2.0.0"
+  checksum: 41948e11466f5e174771296dc75b24947b9b9fcc131ba382062616b9ea158d947c56996cbcf7074e2db6a2898dad76426313dd0bca8d7b2a1580b2bdf516ac8f
   languageName: node
   linkType: hard
 
-"@fullstory/snippet@npm:1.3.1":
-  version: 1.3.1
-  resolution: "@fullstory/snippet@npm:1.3.1"
-  checksum: c7db2b3183497d88d358711b520756a51e7d4bc5163c876b2dac9f4b07a82ac47786f1e1d2ca7cb84e02b386493b5b9353a95b2f893a917babde344212f12fc4
+"@fullstory/snippet@npm:2.0.0":
+  version: 2.0.0
+  resolution: "@fullstory/snippet@npm:2.0.0"
+  checksum: 311826219924e6fbb28671c7869b5b297cafc28bf0201a8ab686d5de6437805ae613c72300e8e1e23603f63500466e5ae4a21b504d201b11bfff624238e6ec29
   languageName: node
   linkType: hard
 
@@ -7633,7 +7633,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@fullstory/browser": "npm:~1.7.0"
+    "@fullstory/browser": "npm:^2.0.0"
     "@ngrx/store": "npm:~17.0.0"
     "@nx/eslint": "npm:~17.1.1"
     "@nx/eslint-plugin": "npm:~17.1.1"
@@ -7672,7 +7672,7 @@ __metadata:
   peerDependencies:
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
-    "@fullstory/browser": ^1.2.1
+    "@fullstory/browser": ^2.0.0
     "@ngrx/store": ~17.0.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
