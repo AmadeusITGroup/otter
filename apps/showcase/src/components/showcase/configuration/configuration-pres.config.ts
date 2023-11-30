@@ -16,10 +16,14 @@ export interface DestinationConfiguration extends NestedConfiguration {
 
 /**
  * Component configuration example
+ * <o3rCategories>
+ *  <localCategory>Local category 8</localCategory>
+ * </o3rCategories>
  */
 export interface ConfigurationPresConfig extends Configuration {
   /**
    * Default date selected compare to today
+   * @o3rCategory localCategory
    */
   inXDays: number;
   /**
@@ -33,6 +37,7 @@ export interface ConfigurationPresConfig extends Configuration {
   destinations: DestinationConfiguration[];
   /**
    * Propose round trip
+   * @o3rCategory globalCategory
    */
   shouldProposeRoundTrip: boolean;
 }

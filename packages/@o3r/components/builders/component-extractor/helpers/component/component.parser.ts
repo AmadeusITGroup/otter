@@ -1,4 +1,5 @@
 import {logging} from '@angular-devkit/core';
+import type { CategoryDescription } from '@o3r/core';
 import { O3rCliError } from '@o3r/schematics';
 import globby from 'globby';
 import * as path from 'node:path';
@@ -69,18 +70,25 @@ export class ComponentParser {
    * @param logger Logger
    * @param strictMode
    * @param libraries
+   * @param globalConfigCategories
    */
-  constructor(private libraryName: string, private tsconfigPath: string, private logger: logging.LoggerApi, private strictMode: boolean = false, private libraries: string[] = []) {
-
-  }
+  constructor(
+    private libraryName: string,
+    private tsconfigPath: string,
+    private logger: logging.LoggerApi,
+    private strictMode: boolean = false,
+    private libraries: string[] = [],
+    private globalConfigCategories: CategoryDescription[] = []
+  ) {}
 
   /** Get the list of patterns from tsconfig.json */
   private getPatternsFromTsConfig() {
     const tsconfigResult = ts.readConfigFile(this.tsconfigPath, ts.sys.readFile);
 
     if (tsconfigResult.error) {
-      this.logger.error(tsconfigResult.error.messageText.toString());
-      throw new O3rCliError(tsconfigResult.error.messageText.toString());
+      const errorMessage = typeof tsconfigResult.error.messageText === 'string' ? tsconfigResult.error.messageText : tsconfigResult.error.messageText.messageText;
+      this.logger.error(errorMessage);
+      throw new O3rCliError(errorMessage);
     }
 
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
@@ -116,15 +124,39 @@ export class ComponentParser {
   private getConfiguration(file: string, source: ts.SourceFile, checker: ts.TypeChecker) {
     const configurationFileExtractor = new ComponentConfigExtractor(this.libraryName, this.strictMode, source, this.logger, file, checker, this.libraries);
     const configuration = configurationFileExtractor.extract();
-    if (configuration.configurationInformation && this.strictMode) {
-      configuration.configurationInformation.properties = configuration.configurationInformation.properties
-        .filter((prop) => {
-          const res = !(new RegExp(`^${configurationFileExtractor.DEFAULT_UNKNOWN_TYPE}`).test(prop.type));
-          if (!res) {
-            this.logger.warn(`The Property ${prop.name} from ${configuration.configurationInformation!.name} has unknown type, it will be filtered from metadata.`);
+    if (configuration.configurationInformation) {
+      const globalConfigCategoriesMap = new Map(this.globalConfigCategories.map((category) => [category.name, category.label]));
+      (configuration.configurationInformation.categories || []).forEach((category) => {
+        if (globalConfigCategoriesMap.has(category.name)) {
+          this.logger.warn(`The category ${category.name} is already defined in the global ones.`);
+        }
+      });
+      const categoriesMap = new Map((configuration.configurationInformation.categories || []).map((category) => [category.name, category.label]));
+      configuration.configurationInformation.properties.forEach((prop) => {
+        if (prop.category) {
+          if (!categoriesMap.has(prop.category) && globalConfigCategoriesMap.has(prop.category)) {
+            categoriesMap.set(prop.category, globalConfigCategoriesMap.get(prop.category)!);
+          } else {
+            this.logger.warn(
+              `The property ${prop.name} from ${configuration.configurationInformation!.name} has an unknown category ${prop.category}. The category will not be set for this property.`
+            );
+            delete prop.category;
           }
-          return res;
-        });
+        }
+      });
+      const categories = Array.from(categoriesMap).map(([name, label]) => ({ name, label }));
+      configuration.configurationInformation.categories = categories.length ? categories : undefined;
+
+      if (this.strictMode) {
+        configuration.configurationInformation.properties = configuration.configurationInformation.properties
+          .filter((prop) => {
+            const res = !(new RegExp(`^${configurationFileExtractor.DEFAULT_UNKNOWN_TYPE}`).test(prop.type));
+            if (!res) {
+              this.logger.warn(`The property ${prop.name} from ${configuration.configurationInformation!.name} has unknown type, it will be filtered from metadata.`);
+            }
+            return res;
+          });
+      }
     }
     return configuration;
   }
