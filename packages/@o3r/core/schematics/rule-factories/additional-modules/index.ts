@@ -3,11 +3,11 @@ import {
   getAppModuleFilePath,
   getProjectNewDependenciesType,
   getWorkspaceConfig,
-  ngAddPeerDependencyPackages,
-  addImportToModuleFile as o3rAddImportToModuleFile
+  ngAddPeerDependencyPackages
 } from '@o3r/schematics';
 import * as ts from 'typescript';
-import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
+import { addRootImport } from '@schematics/angular/utility';
+import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
@@ -48,6 +48,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -65,21 +66,16 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       return tree;
     }
 
-    const recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
-
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
-      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     addImportToModuleFile(
       'additionalModules',
       '../environments/environment'
     );
 
-    tree.commitUpdate(recorder);
-
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   /**

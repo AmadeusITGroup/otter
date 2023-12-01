@@ -95,10 +95,10 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
       }
       setPackagerManagerConfig(options, execAppOptions);
       packageManagerInstall(execAppOptions);
-      packageManagerExec('ng g application dont-modify-me --style=scss --routing --skip-install --standalone=false', execAppOptions);
-      packageManagerExec(`ng g application ${options.appName} --style=scss --routing --skip-install --standalone=false`, execAppOptions);
+      packageManagerExec('ng g application dont-modify-me --style=scss --routing --skip-install', execAppOptions);
+      packageManagerExec(`ng g application ${options.appName} --style=scss --routing --skip-install`, execAppOptions);
     } else {
-      const createOptions = `--directory=${options.appDirectory} --style=scss --routing --skip-git --skip-install --standalone=false --package-manager=${getPackageManager()}`;
+      const createOptions = `--directory=${options.appDirectory} --style=scss --routing --skip-git --skip-install --package-manager=${getPackageManager()}`;
       execFileSync('npm', `create @angular${options.angularVersion ? `@${options.angularVersion}` : ''} ${options.appName} -- ${createOptions}`.split(' '),
         // eslint-disable-next-line @typescript-eslint/naming-convention
         {...execAppOptions, cwd: options.cwd, shell: process.platform === 'win32'});

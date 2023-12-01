@@ -1,14 +1,22 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import {
+  addImportToModuleFile,
+  applyEsLintFix,
+  getDestinationPath,
+  getModuleIndex,
+  getWorkspaceConfig,
+  insertRoute,
+  O3rCliError,
+  Route
+} from '@o3r/schematics';
 import * as path from 'node:path';
 import * as ts from 'typescript';
-import { addImportToModuleFile, applyEsLintFix, getDestinationPath, getWorkspaceConfig, insertRoute, O3rCliError, Route } from '@o3r/schematics';
 import { NgGeneratePageSchematicsSchema } from './schema';
 import { getAddConfigurationRules } from '../rule-factories/component/configuration';
 import { getAddThemingRules } from '../rule-factories/component/theming';
 import { getAddLocalizationRules } from '../rule-factories/component/localization';
 import { getAddFixtureRules } from '../rule-factories/component/fixture';
-import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
 
 /**
  * Add a Page to an Otter project
@@ -71,8 +79,8 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
             true
           );
           const recorder = tree.beginUpdate(moduleFilePath);
-          const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-          const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+          const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
+
           addImportToModuleFile(
             'RouterModule',
             '@angular/router',

@@ -1,18 +1,18 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as ts from 'typescript';
-import { getDecoratorMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as path from 'node:path';
-
 import {
   getAppModuleFilePath,
+  getModuleIndex,
   isApplicationThatUsesRouterModule,
   ngAddPeerDependencyPackages,
-  addImportToModuleFile as o3rAddImportToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
 import { WorkspaceProject } from '@o3r/schematics';
+import { addRootImport } from '@schematics/angular/utility';
+import { isImported } from '@schematics/angular/utility/ast-utils';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as path from 'node:path';
+import * as ts from 'typescript';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxEffectsDep = '@ngrx/effects';
@@ -68,6 +68,7 @@ export function updateStore(options: { projectName?: string | undefined; working
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -87,11 +88,11 @@ export function updateStore(options: { projectName?: string | undefined; working
     }
 
     let recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+    const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
-      recorder = o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       recorder = o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
@@ -145,7 +146,7 @@ const runtimeChecks: Partial<RuntimeChecks> = {
 
     tree.commitUpdate(recorder);
 
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   return chain([

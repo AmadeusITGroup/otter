@@ -16,8 +16,8 @@ import {
   getFileInfo, getTemplateFolder, getWorkspaceConfig, ngAddPackages, insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
-import { addSymbolToNgModuleMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import { InsertChange } from '@schematics/angular/utility/change';
+import { addRootImport, addRootProvider } from '@schematics/angular/utility';
+import { isImported } from '@schematics/angular/utility/ast-utils';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { posix } from 'node:path';
 
@@ -58,6 +58,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const fileInfo = getFileInfo(tree, context, options?.projectName);
     if (!fileInfo.moduleFilePath || !fileInfo.appModuleFile || !fileInfo.sourceFile) {
       return tree;
@@ -70,8 +71,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     const fileContent = tree.readText(fileInfo.moduleFilePath).replace(/[\r\n ]*/g, '');
     const recorder = tree.beginUpdate(fileInfo.moduleFilePath);
-    const moduleIndex = fileInfo.ngModulesMetadata && fileInfo.ngModulesMetadata[0] ?
-      fileInfo.ngModulesMetadata[0].pos - ('NgModule'.length + 1) : fileInfo.appModuleFile.indexOf('@NgModule');
+    const moduleIndex = fileInfo.moduleIndex;
 
     /**
      * Insert import on top of the main module file
@@ -82,22 +82,6 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
      */
     const insertImportToModuleFile = (rec: UpdateRecorder, name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, fileInfo.sourceFile!, rec, fileInfo.moduleFilePath!, isDefault);
-
-    /**
-     * Add elements in the metadata of the ngModule (customComponents, imports etc.)
-     * @param rec
-     * @param metadataField
-     * @param name
-     */
-    const addToNgModuleMetadata = (rec: UpdateRecorder, metadataField: string, name: string) => {
-      addSymbolToNgModuleMetadata(fileInfo.sourceFile!, fileInfo.moduleFilePath!, metadataField, name)
-        .forEach((change) => {
-          if (change instanceof InsertChange) {
-            rec = rec.insertLeft(change.pos, change.toAdd);
-          }
-        });
-      return rec;
-    };
 
     /**
      * Add custom code before the module definition
@@ -113,9 +97,9 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'Provider', '@angular/core');
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'initializeCustomProviders', '../customization/custom-providers.empty');
 
-    updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'imports', '...entry.customComponentsModules');
-    updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'providers', '...customProviders');
-    updatedRecorder = addToNgModuleMetadata(updatedRecorder, 'imports', 'C11nModule.forRoot({registerCompFunc: registerCustomComponents})');
+    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`...entry.customComponentsModules`));
+    additionalRules.push(addRootProvider(options?.projectName!, ({code}) => code`...customProviders`));
+    additionalRules.push(addRootImport(options?.projectName!, ({code}) => code`C11nModule.forRoot({registerCompFunc: registerCustomComponents})`));
     updatedRecorder = insertImportToModuleFile(updatedRecorder, 'C11nModule', '@o3r/components');
 
     updatedRecorder = insertBeforeModule(updatedRecorder, 'const entry = initializeEntryComponents();');
@@ -124,7 +108,7 @@ export function updateCustomizationEnvironment(rootPath: string, o3rCoreVersion?
 
     tree.commitUpdate(updatedRecorder);
 
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   return (tree, _context) => {
