@@ -19,7 +19,7 @@
   "peerDependencies": {
     "@angular/core": "~17.0.2",
     "@angular/platform-browser-dynamic": "~17.0.2",
-    "@fullstory/browser": "^1.2.1",
+    "@fullstory/browser": "^2.0.0",
     "@ngrx/store": "~17.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
@@ -62,7 +62,7 @@
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@fullstory/browser": "~1.7.0",
+    "@fullstory/browser": "^2.0.0",
     "@ngrx/store": "~17.0.0",
     "@nx/eslint": "~17.1.1",
     "@nx/eslint-plugin": "~17.1.1",
