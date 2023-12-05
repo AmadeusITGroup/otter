@@ -14,9 +14,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const {
-        addImportToModuleFile, getAppModuleFilePath, getWorkspaceConfig, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType
+        addImportToModuleFile, getAppModuleFilePath, getModuleIndex, getWorkspaceConfig, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType
       } = await import('@o3r/schematics');
-      const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
+      const { isImported } = await import('@schematics/angular/utility/ast-utils');
       const ts = await import('typescript');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
 
@@ -44,8 +44,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }
 
         const recorder = tree.beginUpdate(moduleFilePath);
-        const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-        const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+        const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
         insertImportToModuleFile(
           'prefersReducedMotion',

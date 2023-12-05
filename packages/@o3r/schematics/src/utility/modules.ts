@@ -15,7 +15,8 @@ import { getWorkspaceConfig } from './loaders';
 
 
 /**
- * Get the path to the app.module.ts
+ * Get the path to the `app.module.ts`
+ * In case of standalone application, get the path to the `app.config.ts` instead
  * @param tree File tree
  * @param context Context of the rule
  * @param projectName The name of the project where to search for an app module file
@@ -31,9 +32,9 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
   const mainFilePath: string = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
   const mainFile = tree.read(mainFilePath)!.toString();
 
-  const bootstrapModuleRegexpResult = mainFile.match(/bootstrapModule\(([^)]*)\)/m);
+  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^,)]*,)*\s*([^,) ]*)\s*\)/m);
   if (!bootstrapModuleRegexpResult || !bootstrapModuleRegexpResult[1]) {
-    throw new SchematicsException('Could not find bootstrap module');
+    throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
 
   const bootstrapModule = bootstrapModuleRegexpResult[1];
@@ -41,13 +42,13 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
   const bootstrapModuleFileRegExpResult = mainFile.match(findSource);
   if (!bootstrapModuleFileRegExpResult || !bootstrapModuleFileRegExpResult[1]) {
-    throw new SchematicsException('Could not find bootstrap module');
+    throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
 
   /** Path to the main module file */
   const moduleFilePath = path.join(path.dirname(mainFilePath), bootstrapModuleFileRegExpResult[1] + '.ts');
 
-  const exportAppModuleClassRegExp = new RegExp(`class\\s+${bootstrapModule}`, 'gm');
+  const exportAppModuleClassRegExp = new RegExp(`(?:class|const)\\s+${bootstrapModule}`, 'gm');
 
   if (tree.exists(moduleFilePath) && tree.read(moduleFilePath)!.toString().match(exportAppModuleClassRegExp)) {
     return moduleFilePath;
