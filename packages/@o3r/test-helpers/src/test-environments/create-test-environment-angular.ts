@@ -4,6 +4,7 @@ import * as path from 'node:path';
 import {
   createWithLock,
   CreateWithLockOptions,
+  fixAngularVersion,
   getPackageManager,
   packageManagerAdd,
   PackageManagerConfig,
@@ -67,7 +68,7 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
     {name: '@angular-devkit/schematics', expected: options.angularVersion},
     {name: '@angular/material', expected: options.materialVersion}
   ];
-  await createWithLock(() => {
+  await createWithLock(async () => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
     const execAppOptions: ExecSyncOptions = {
       cwd: appFolderPath,
@@ -93,6 +94,7 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
         const gitIgnore = readFileSync(gitIgnorePath, {encoding: 'utf8'});
         writeFileSync(gitIgnorePath, gitIgnore.replace(/\/(dist|node_modules)/g, '$1'));
       }
+      await fixAngularVersion(appFolderPath);
       setPackagerManagerConfig(options, execAppOptions);
       packageManagerInstall(execAppOptions);
       packageManagerExec('ng g application dont-modify-me --style=scss --routing --skip-install', execAppOptions);
@@ -102,6 +104,7 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
       execFileSync('npm', `create @angular${options.angularVersion ? `@${options.angularVersion}` : ''} ${options.appName} -- ${createOptions}`.split(' '),
         // eslint-disable-next-line @typescript-eslint/naming-convention
         {...execAppOptions, cwd: options.cwd, shell: process.platform === 'win32'});
+      await fixAngularVersion(appFolderPath);
       setPackagerManagerConfig(options, execAppOptions);
       packageManagerInstall(execAppOptions);
     }
@@ -155,7 +158,5 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
     }
 
     packageManagerInstall(execAppOptions);
-
-    return Promise.resolve();
   }, {lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options, dependenciesToCheck});
 }
