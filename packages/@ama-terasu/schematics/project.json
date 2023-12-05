@@ -26,13 +26,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
         "lintFilePatterns": [

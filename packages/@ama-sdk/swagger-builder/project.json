@@ -23,13 +23,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@ama-sdk/swagger-builder/.eslintrc.js",
         "lintFilePatterns": [

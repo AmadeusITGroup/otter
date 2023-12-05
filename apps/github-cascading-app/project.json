@@ -16,13 +16,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/github-cascading-app/.eslintrc.js",
         "lintFilePatterns": [

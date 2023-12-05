@@ -35,13 +35,6 @@
       ]
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/showcase/.eslintrc.js",
         "lintFilePatterns": [

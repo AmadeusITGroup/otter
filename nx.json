@@ -82,6 +82,13 @@
   },
   "targetDefaults": {
     "lint": {
+      "configurations":{
+        "ci": {
+          "quiet": true,
+          "cacheLocation": ".cache/eslint"
+        }
+      },
+      "executor": "@nx/eslint:lint",
       "inputs": ["lint"],
       "cache": true,
       "dependsOn": ["^build"]
