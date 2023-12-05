@@ -61,13 +61,6 @@
       "dependsOn": ["^build", "compile"]
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
         "lintFilePatterns": [

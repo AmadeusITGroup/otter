@@ -12,13 +12,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "tools/github-actions/audit/.eslintrc.js",
         "lintFilePatterns": [

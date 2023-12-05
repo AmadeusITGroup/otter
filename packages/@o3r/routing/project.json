@@ -31,16 +31,11 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/routing/.eslintrc.js",
         "lintFilePatterns": [
           "packages/@o3r/routing/src/**/*.ts",
+          "packages/@o3r/routing/schematics/**/*.ts",
           "packages/@o3r/routing/package.json"
         ]
       }
