@@ -29,4 +29,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
 
   /** Determine if the process should stop in case of Token duplication */
   failOnDuplicate?: boolean;
+
+  /** Prefix to happen to generated variables */
+  prefix?: string;
 }

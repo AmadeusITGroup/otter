@@ -1,7 +1,7 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { getMetadataStyleContentUpdater, getMetadataTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
+import { getCssTokenDefinitionRenderer, getMetadataStyleContentUpdater, getMetadataTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
+import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '@o3r/design';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
 
@@ -19,20 +19,34 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
 
       return resolve(context.workspaceRoot, options.defaultStyleFile);
     };
+  const tokenVariableNameRenderer: TokenKeyRenderer | undefined = options.prefix ? (variable) => options.prefix + variable.getKey() : undefined;
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
     determineFileToUpdate: determineCssFileToUpdate,
+    tokenDefinitionRenderer: getCssTokenDefinitionRenderer({ tokenVariableNameRenderer }),
     logger: context.logger
   };
   const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),
-    tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer(),
+    tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer }),
     logger: context.logger
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
     const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot }))
       .map((file) => resolve(context.workspaceRoot, file));
+
+    const inDependencies = designTokenFilePatterns
+      .filter((pathName) => !pathName.startsWith('.') && !pathName.startsWith('*') && !pathName.startsWith('/'))
+      .map((pathName) => {
+        try {
+          return require.resolve(pathName);
+        } catch {
+          return undefined;
+        }
+      })
+      .filter((pathName): pathName is string => !!pathName);
+    files.push(...inDependencies);
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];

@@ -34,12 +34,8 @@ export interface DesignTokenVariableStructure {
   node: DesignToken;
   /** Name of the token in references */
   tokenReferenceName: string;
-  /** Name of the variable as Css Variable */
-  cssVarName: string;
   /** Description of the Token */
   description?: string;
-  /** List of parent groups */
-  groups: string[];
   /** List of the Ancestors references */
   ancestors: ParentReference[];
   /** Reference to the direct parent node */

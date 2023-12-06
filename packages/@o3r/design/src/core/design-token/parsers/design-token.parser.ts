@@ -18,11 +18,8 @@ import {
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => (`${parents.join('.')}.${tokenName}`);
-const getCssVarName = (tokenName: string, parents: string[]) => (getTokenReferenceName(tokenName, parents).replace(/[ .]+/g, '-'));
-const getGroups = (tokenName: string, parents: string[]) => (getTokenReferenceName(tokenName, parents).split(/[ .]+/).slice(0, -1));
 const getExtensions = (parentNode: DesignTokenNode[]) => parentNode.reduce((acc, node) => ({...acc, ...node.$extensions}), {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
-
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
 
@@ -101,17 +98,14 @@ const walkThroughDesignTokenNodes = (
       throw new Error('The first node of the Design Specification can not be a token');
     }
     const parentNames = ancestors.map(({ name }) => name);
-    const cssVarName = `--${getCssVarName(nodeName, parentNames)}`;
     const tokenReferenceName = getTokenReferenceName(nodeName, parentNames);
 
     const tokenVariable: DesignTokenVariableStructure = {
       extensions: getExtensions([...ancestors.map(({ tokenNode }) => tokenNode), node]),
       node,
-      cssVarName,
       tokenReferenceName,
       ancestors,
       parent: ancestors.slice(-1)[0],
-      groups: getGroups(nodeName, parentNames),
       description: node.$description,
       getCssRawValue: function (variableSet = mem) {
         return getCssRawValue(variableSet, this);
@@ -138,7 +132,7 @@ const walkThroughDesignTokenNodes = (
           undefined;
       },
       getKey: function (keyRenderer) {
-        return keyRenderer ? keyRenderer(this) : this.cssVarName;
+        return keyRenderer ? keyRenderer(this) : this.tokenReferenceName.replace(/[ .]+/g, '-');
       }
     };
 

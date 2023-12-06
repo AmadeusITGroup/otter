@@ -91,7 +91,11 @@
         }
       },
       "defaultConfiguration": "production",
-      "dependsOn": ["^build", "generate-translations", "generate-theme"]
+      "dependsOn": [
+        "^build",
+        "generate-translations",
+        "generate-theme"
+      ]
     },
     "serve": {
       "executor": "@o3r/core:multi-watcher",

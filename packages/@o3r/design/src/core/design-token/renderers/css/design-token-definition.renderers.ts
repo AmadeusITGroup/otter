@@ -1,4 +1,4 @@
-import type { DesignTokenVariableStructure, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
+import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
 import { shouldDefineVariableValueFromOtterInfo } from '../design-token.renderer.helpers';
 import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from './design-token-value.renderers';
@@ -14,6 +14,11 @@ interface CssTokenDefinitionRendererOptions {
   tokenValueRenderer?: TokenValueRenderer;
 
   /**
+   * Renderer the name of the CSS Variable (with the initial --)
+   **/
+  tokenVariableNameRenderer?: TokenKeyRenderer;
+
+  /**
    * Private Design Token definition renderer
    * The private variable will not be rendered if not provided
    */
@@ -26,16 +31,18 @@ interface CssTokenDefinitionRendererOptions {
  * @returns
  */
 export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
-  const isCssVariableToDefined = options?.shouldDefineCssVariable || shouldDefineVariableValueFromOtterInfo;
-  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer();
+  const shouldDefineVariable = options?.shouldDefineCssVariable || shouldDefineVariableValueFromOtterInfo;
+  const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
+  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ shouldDefineVariable, tokenVariableNameRenderer });
+
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     let variableString: string | undefined;
-    if (isCssVariableToDefined(variable)) {
-      variableString = `${variable.getKey()}: ${tokenValueRenderer(variable, variableSet)};`;
+    if (shouldDefineVariable(variable)) {
+      variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet)};`;
       if (variable.extensions.o3rScope) {
         variableString = `${variable.extensions.o3rScope} { ${variableString} }`;
       }
-    } else if (options?.privateDefinitionRenderer) {
+    } else if (options?.privateDefinitionRenderer && variable.extensions.o3rPrivate) {
       variableString = options.privateDefinitionRenderer(variable, variableSet);
     }
     if (variableString && variable.description) {

@@ -25,6 +25,9 @@ import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ComponentsDevtoolsModule } from '@o3r/components';
+
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
   strictActionSerializability: false,
@@ -86,7 +89,10 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,
-    ScrollBackTopPresComponent
+    ScrollBackTopPresComponent,
+
+    ApplicationDevtoolsModule,
+    ComponentsDevtoolsModule
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

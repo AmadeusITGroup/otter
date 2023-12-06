@@ -21,15 +21,27 @@ ng add @o3r/design
 
 Otter Design module provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
 
-| Schematics                 | Description                                                    | How to use                        |
-| -------------------------- | -------------------------------------------------------------- | --------------------------------- |
-| add                        | Include Otter design module in a library / application.        | `ng add @o3r/design`              |
-| generate-css               | Generate CSS Theme based on Design Token Files                 | `ng g generate-css`               |
+| Schematics   | Description                                             | How to use           |
+| ------------ | ------------------------------------------------------- | -------------------- |
+| add          | Include Otter design module in a library / application. | `ng add @o3r/design` |
+| generate-css | Generate CSS Theme based on Design Token Files          | `ng g generate-css`  |
 
 ## Builders
 
 Otter Design module provides a set of builders based on [angular builders](https://angular.io/guide/cli-builder).
 
-| Builders                   | Description                                                    |
-| -------------------------- | -------------------------------------------------------------- |
-| generate-css               | Generate CSS Theme and Metadata based on Design Token Files    |
+### generate-css
+
+The `generate-css` builder can generate CSS and CMS Metadata based on given Design Token Json files.
+The following configurations are available:
+
+| Options                     | Default Value  | Description                                                                                                                 |
+| --------------------------- | -------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| **designTokenFilePatterns** | [] *Require*   | Path patterns to the Design Token JSON files. <br /> File in dependencies are supported and resolved with Node Resolver.    |
+| **output**                  | *null*         | Output file where generate the CSS. <br /> The path specified in `o3rTargetFile` will be ignore if this option is specified |
+| **defaultStyleFile**        | src/theme.scss | File path to generate the variable if not determined by the specification                                                   |
+| **metadataOutput**          | *null*         | Path to generate the metadata for CMS. <br /> The Metadata will be generated only if the file path is specified.            |
+| **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                         |
+| **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                          |
+| **prefix**                  | *null*         | Prefix to happen to generated variables.                                                                                    |
+| **watch**                   | false          | Enable Watch mode.                                                                                                          |

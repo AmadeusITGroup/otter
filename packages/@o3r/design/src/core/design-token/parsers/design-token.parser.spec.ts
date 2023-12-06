@@ -22,8 +22,8 @@ describe('Design Token Parser', () => {
       expect(result.size).toBeGreaterThan(0);
       expect(var2).toBeDefined();
       expect(var1).toBeDefined();
-      expect(var2.cssVarName).toBe('--example-test-var2');
-      expect(var1.cssVarName).toBe('--example-var1');
+      expect(var2.getKey()).toBe('example-test-var2');
+      expect(var1.getKey()).toBe('example-var1');
       expect(var2.description).toBe('my var2');
       expect(var2.getType()).toBe('color');
       expect(var1.getType()).toBe('color');

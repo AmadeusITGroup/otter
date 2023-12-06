@@ -8,7 +8,7 @@ import {
   getSassTokenDefinitionRenderer,
   renderDesignTokens
 } from './renderers/index';
-import { parseDesignToken } from './parsers/index';
+import { parseDesignToken, TokenKeyRenderer } from './parsers/index';
 import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenSpecification } from './design-token-specification.interface';
@@ -73,6 +73,31 @@ describe('Design Token generator', () => {
       expect(result).toContain('--example-var-important: #000 !important;');
     });
 
+    test('should render variable with prefix', async () => {
+      let result: string | undefined;
+      const prefix = 'prefix-';
+      const writeFile = jest.fn().mockImplementation((_, content) => result = content);
+      const readFile = jest.fn().mockReturnValue('');
+      const existsFile = jest.fn().mockReturnValue(true);
+      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const designToken = parseDesignToken(exampleVariable);
+      const tokenVariableNameRenderer: TokenKeyRenderer = (variable) => prefix + variable.tokenReferenceName.replace(/\./g, '-');
+      const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({tokenVariableNameRenderer});
+
+      // eslint-disable-next-line @typescript-eslint/await-thenable
+      await renderDesignTokens(designToken, {
+        ...renderDesignTokensOptions,
+        tokenDefinitionRenderer,
+        determineFileToUpdate,
+        existsFile,
+        writeFile,
+        readFile
+      });
+
+      expect(result).not.toContain('--example-var1');
+      expect(result).toContain('--prefix-example-var1');
+    });
+
     test('should render variable in existing CSS', async () => {
       let result: string | undefined;
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
@@ -102,7 +127,7 @@ describe('Design Token generator', () => {
       expect(result).toContain('--example-var1: #000;');
     });
 
-    test('should fallback to sass variable if requested', async () => {
+    test('should render private variable to sass if requested', async () => {
       let result: string | undefined;
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
