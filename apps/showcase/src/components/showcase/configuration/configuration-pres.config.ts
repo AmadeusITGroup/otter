@@ -16,9 +16,7 @@ export interface DestinationConfiguration extends NestedConfiguration {
 
 /**
  * Component configuration example
- * <o3rCategories>
- *  <localCategory>Local category 8</localCategory>
- * </o3rCategories>
+ * @o3rCategories localCategory Local category 8
  */
 export interface ConfigurationPresConfig extends Configuration {
   /**
