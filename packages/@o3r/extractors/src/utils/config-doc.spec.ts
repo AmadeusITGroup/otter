@@ -1,4 +1,4 @@
-import { getWidgetInformationFromDocComment } from './config-doc';
+import { getCategoriesFromDocText, getWidgetInformationFromDocComment } from './config-doc';
 
 describe('config doc', () => {
   describe('getWidgetInformationFromDocComment', () => {
@@ -43,6 +43,26 @@ describe('config doc', () => {
          * @o3rWidgetParam param1 invalid-value
          */
       `)).toThrow();
+    });
+  });
+  describe('getCategoriesFromDocText', () => {
+    it('should get the categories information', () => {
+      const categoriesInfo = getCategoriesFromDocText(`
+        /**
+         * @o3rCategories test1 description of test 1
+         * @o3rCategories test2
+         */
+      `);
+      expect(categoriesInfo).toEqual([
+        {
+          name: 'test1',
+          label: 'description of test 1'
+        },
+        {
+          name: 'test2',
+          label: 'Test2'
+        }
+      ]);
     });
   });
 });
