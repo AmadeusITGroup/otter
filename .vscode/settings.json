@@ -46,7 +46,8 @@
   "eslint.validate": [
     "javascript",
     "typescript",
-    "json"
+    "json",
+    "yaml"
   ],
   "eslint.probe": [
     "javascript",
@@ -54,7 +55,8 @@
     "typescriptreact",
     "html",
     "markdown",
-    "json"
+    "json",
+    "yaml"
   ],
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "nxConsole.generatorAllowlist": [

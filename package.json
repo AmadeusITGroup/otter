@@ -26,7 +26,7 @@
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf -g './{packages,tools,apps}/{@*/,}{amaterasu/,}*/{dist,build,dist-*}/'",
     "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
-    "harmonize:version": "eslint '**/package.json*' --quiet --fix",
+    "harmonize:version": "eslint '**/package.json*' '.yarnrc.yml' --quiet --fix",
     "doc:packages": "yarn nx run-many --target=documentation --parallel $(yarn get:cpus-number)",
     "doc:root": "yarn prepare-doc-root-menu-template && yarn update-doc-summary ./docs && yarn compodoc",
     "doc:generate": "rimraf ./generated-doc && yarn doc:root && yarn doc:packages && yarn doc-links --docs ./docs --generated-doc ./generated-doc",
@@ -47,6 +47,9 @@
       "eslint --quiet --fix"
     ],
     "**/package.json": [
+      "eslint --quiet --fix"
+    ],
+    "**/.yarnrc.yml": [
       "eslint --quiet --fix"
     ],
     "*": [
@@ -237,7 +240,8 @@
     "typescript": "~5.2.2",
     "uuid": "^9.0.0",
     "webpack": "~5.89.0",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "engines": {
     "npm": "please-use-yarn",
