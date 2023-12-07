@@ -1,5 +1,5 @@
 import {of} from 'rxjs';
-import {executeOperator, isRangeNumber, isString, isSupportedSimpleTypes, isValidDate, isValidDateInput, isValidDateRange, numberValidator} from './operator.helpers';
+import {executeOperator, isRangeNumber, isString, isSupportedSimpleTypes, isValidDate, isValidDateInput, isValidDateRange, numberValidator, parseRegExp} from './operator.helpers';
 import {Operator} from './operator.interface';
 
 describe('Operator helpers', () => {
@@ -222,6 +222,13 @@ describe('Operator helpers', () => {
 
       expect(isString('some text')).toBeTruthy();
       expect(isString('')).toBeTruthy();
+    });
+  });
+
+  describe('parseRegExp', () => {
+    it('should validate input properly', () => {
+      expect(parseRegExp('test')).toEqual(new RegExp('test'));
+      expect(parseRegExp('/test/gs')).toEqual(new RegExp('test', 'gs'));
     });
   });
 });
