@@ -246,8 +246,28 @@ export interface MyConfig extends Configuration {
 
 ### Configuration categories
 
-Starting Otter v5.2 categories can be added on configuration properties. This can be achieved by adding the `@o3rCategory` tag in the JSDoc on the configuration property.
-Moreover, categories can be described using the `<o3rCategories>` tag on the configuration interface. Please note that blank lines are not supported for category descriptions - even if the syntax is HTML-like, this text will be interpreted in a JSDoc context.
+Categories can be added on configuration properties. This can be achieved by adding the `@o3rCategory` tag in the JSDoc on the configuration property.
+The categories added on the configuration properties must be defined either globally or in the configuration interface. 
+
+For the first case, the global categories can be defined in the `angular.json` of your project by adding the `globalConfigCategories` property to the options of `@o3r/components:extractor`, for example:
+
+```json
+// in angular.json 
+"extract-components": {
+  "builder": "@o3r/components:extractor",
+  "options": {
+    //...
+    "globalConfigCategories": [
+      { "name": "globalCategory", "label": "Global category" }
+    ]
+  }
+}
+```
+
+
+For the second case, the categories can be described using the `@o3rCategories` tag in the JSDoc on the configuration interface.
+Their syntax is the tag `@o3rCategories` followed by the category name and an optional label (if the label is not provided, it will be assigned
+the value of the category name with the first letter capitalized, for example `@o3rCategories categoryName` is equivalent to `@o3rCategories categoryName CategoryName`).
 
 Example:
 
@@ -257,10 +277,8 @@ Example:
  *
  * @tags [one, two, three]
  *
- * <o3rCategories>
- *   <presentation>configuration linked to display</presentation>
- *   <localization>configuration related to languages and translations</localization>
- * </o3rCategories>
+ * @o3rCategories presentation configuration linked to display
+ * @o3rCategories localization configuration related to languages and translations
  */
 export interface SimpleHeaderPresConfig extends Configuration {
   /**
@@ -274,6 +292,12 @@ export interface SimpleHeaderPresConfig extends Configuration {
    * @o3rCategory localization
    */
   showLanguageSelector: boolean;
+
+  /**
+   * Propose round trip
+   * @o3rCategory globalCategory
+   */
+  shouldProposeRoundTrip: boolean;
 }
 ```
 

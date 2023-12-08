@@ -121,7 +121,7 @@ export interface ComponentConfigOutput extends Output {
   tags?: string[];
   /** Configuration fields */
   properties: ConfigProperty[];
-  /** Category (taken from <o3rCategories> tag) */
+  /** Category (taken from @o3rCategories tag) */
   categories?: CategoryDescription[];
 }
 
