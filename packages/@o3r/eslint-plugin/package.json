@@ -32,6 +32,9 @@
     },
     "jsonc-eslint-parser": {
       "optional": true
+    },
+    "yaml-eslint-parser": {
+      "optional": true
     }
   },
   "peerDependencies": {
@@ -41,7 +44,8 @@
     "@typescript-eslint/eslint-plugin": "^6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.22.0",
-    "jsonc-eslint-parser": "~2.4.0"
+    "jsonc-eslint-parser": "~2.4.0",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
     "@angular-devkit/core": "~17.0.3",
@@ -74,7 +78,8 @@
     "rimraf": "^5.0.1",
     "ts-jest": "~29.1.1",
     "type-fest": "^3.12.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "schematics": "./collection.json"
 }
