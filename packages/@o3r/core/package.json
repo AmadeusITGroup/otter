@@ -124,6 +124,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~13.1.1",
     "jsonc-eslint-parser": "~2.4.0",
+    "memfs": "~4.6.0",
     "minimist": "^1.2.6",
     "ngrx-store-localstorage": "^16.0.0",
     "nx": "~16.10.0",
@@ -134,6 +135,7 @@
     "ts-node": "~10.9.1",
     "type-fest": "^3.12.0",
     "typescript": "~5.1.6",
+    "unionfs": "~4.5.1",
     "zone.js": "~0.13.1"
   },
   "generatorDependencies": {

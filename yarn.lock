@@ -6988,6 +6988,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~13.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.6.0"
     nx: "npm:~16.10.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -6995,6 +6996,7 @@ __metadata:
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.1.6"
+    unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.13.1"
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
@@ -7186,6 +7188,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~13.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.6.0"
     minimist: "npm:^1.2.6"
     ngrx-store-localstorage: "npm:^16.0.0"
     nx: "npm:~16.10.0"
@@ -7197,6 +7200,7 @@ __metadata:
     tslib: "npm:^2.5.3"
     type-fest: "npm:^3.12.0"
     typescript: "npm:~5.1.6"
+    unionfs: "npm:~4.5.1"
     uuid: "npm:^9.0.0"
     zone.js: "npm:~0.13.1"
   peerDependencies:
@@ -7918,6 +7922,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~13.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.6.0"
     nx: "npm:~16.10.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -7926,6 +7931,7 @@ __metadata:
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.1.6"
+    unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.13.1"
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
@@ -8279,6 +8285,7 @@ __metadata:
     jest-preset-angular: "npm:~13.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^7.0.0"
+    memfs: "npm:~4.6.0"
     nx: "npm:~16.10.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -8290,6 +8297,7 @@ __metadata:
     type-fest: "npm:^3.12.0"
     typescript: "npm:~5.1.6"
     typescript-json-schema: "npm:~0.62.0"
+    unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.13.1"
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
@@ -8756,8 +8764,11 @@ __metadata:
     eslint-plugin-unicorn: "npm:^47.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
+    jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    jest-preset-angular: "npm:~13.1.1"
     jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.6.0"
     nx: "npm:~16.10.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -8769,6 +8780,7 @@ __metadata:
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.1.6"
+    unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.13.1"
   peerDependencies:
     "@angular-devkit/architect": ~0.1602.0
@@ -8824,6 +8836,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    memfs: "npm:~4.6.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -8832,16 +8845,23 @@ __metadata:
     tslib: "npm:^2.5.3"
     type-fest: "npm:^3.12.0"
     typescript: "npm:~5.1.6"
+    unionfs: "npm:~4.5.1"
   peerDependencies:
     "@angular-devkit/schematics": ^16.0.0
     "@o3r/schematics": "workspace:^"
+    memfs: ~4.6.0
     minimist: ^1.2.6
     pid-from-port: ^1.1.3
     semver: ^7.5.2
+    unionfs: ~4.5.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
       optional: true
     "@o3r/schematics":
+      optional: true
+    memfs:
+      optional: true
+    unionfs:
       optional: true
   languageName: unknown
   linkType: soft
@@ -13378,6 +13398,13 @@ __metadata:
   version: 4.1.3
   resolution: "arg@npm:4.1.3"
   checksum: 969b491082f20cad166649fa4d2073ea9e974a4e5ac36247ca23d2e5a8b3cb12d60e9ff70a8acfe26d76566c71fd351ee5e6a9a6595157eb36f92b1fd64e1599
+  languageName: node
+  linkType: hard
+
+"arg@npm:^5.0.2":
+  version: 5.0.2
+  resolution: "arg@npm:5.0.2"
+  checksum: 92fe7de222054a060fd2329e92e867410b3ea260328147ee3fb7855f78efae005f4087e698d4e688a856893c56bb09951588c40f2c901cf6996cd8cd7bcfef2c
   languageName: node
   linkType: hard
 
@@ -19822,7 +19849,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fs-monkey@npm:^1.0.4":
+"fs-monkey@npm:^1.0.0, fs-monkey@npm:^1.0.4":
   version: 1.0.5
   resolution: "fs-monkey@npm:1.0.5"
   checksum: 7fcdf9267006800d61f1722cf9fa92ed8be8b3ed86614f6d43ab6f87a30f13bc784020465e20728ca4ea65ea7377bfcdbde52b54bf8c3cc2f43a6d62270ebf64
@@ -21124,6 +21151,13 @@ __metadata:
   bin:
     husky: lib/bin.js
   checksum: b754cf70fdc97c3b60fec5b80056b9c11436464953b1691bf2b5dcf0081fb6685d2c5f47abb8b2b1c49f504aabea5321fdd6496f8b755d9f6e7525a493406abb
+  languageName: node
+  linkType: hard
+
+"hyperdyperid@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "hyperdyperid@npm:1.2.0"
+  checksum: 64abb5568ff17aa08ac0175ae55e46e22831c5552be98acdd1692081db0209f36fff58b31432017b4e1772c178962676a2cc3c54e4d5d7f020d7710cec7ad7a6
   languageName: node
   linkType: hard
 
@@ -23041,6 +23075,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-joy@npm:^9.2.0":
+  version: 9.9.1
+  resolution: "json-joy@npm:9.9.1"
+  dependencies:
+    arg: "npm:^5.0.2"
+    hyperdyperid: "npm:^1.2.0"
+  peerDependencies:
+    quill-delta: ^5
+    rxjs: 7
+    tslib: 2
+  bin:
+    jj: bin/jj.js
+    json-pack: bin/json-pack.js
+    json-pack-test: bin/json-pack-test.js
+    json-patch: bin/json-patch.js
+    json-patch-test: bin/json-patch-test.js
+    json-pointer: bin/json-pointer.js
+    json-pointer-test: bin/json-pointer-test.js
+    json-unpack: bin/json-unpack.js
+  checksum: 580cf35465b838a4fe96dc90be1d8d9b95e3c495fb5e48ad4f5b048fc5173ec47c6fd58fb93728ede42b3f8bbce0344484ac0986f9c3fa9be2f1957c4eedd872
+  languageName: node
+  linkType: hard
+
 "json-parse-better-errors@npm:^1.0.1":
   version: 1.0.2
   resolution: "json-parse-better-errors@npm:1.0.2"
@@ -24446,6 +24503,18 @@ __metadata:
   dependencies:
     fs-monkey: "npm:^1.0.4"
   checksum: 7c9cdb453a6b06e87f11e2dbe6c518fd3c1c1581b370ffa24f42f3fd5b1db8c2203f596e43321a0032963f3e9b66400f2c3cf043904ac496d6ae33eafd0878fe
+  languageName: node
+  linkType: hard
+
+"memfs@npm:~4.6.0":
+  version: 4.6.0
+  resolution: "memfs@npm:4.6.0"
+  dependencies:
+    json-joy: "npm:^9.2.0"
+    thingies: "npm:^1.11.1"
+  peerDependencies:
+    tslib: 2
+  checksum: 640071c277821a5a1564795caf2cc264e383733b94d259abebc5f21f6832789bdf13ce873468383111685d49657f2e9f29fc85c7bb64ff55757bed186cf074ff
   languageName: node
   linkType: hard
 
@@ -31423,6 +31492,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"thingies@npm:^1.11.1":
+  version: 1.15.0
+  resolution: "thingies@npm:1.15.0"
+  peerDependencies:
+    tslib: ^2
+  checksum: c19fd69fe4772f039e2310d633f3c597bd1edb925f7d76233e2198c148ff5715272b1b493ecfcf0ebdecff195a885d80e5c9ed7c0c4348f288d885148ac4bdb7
+  languageName: node
+  linkType: hard
+
 "through2@npm:^2.0.0, through2@npm:^2.0.1, through2@npm:^2.0.3, through2@npm:~2.0.3":
   version: 2.0.5
   resolution: "through2@npm:2.0.5"
@@ -32347,6 +32425,15 @@ __metadata:
     is-extendable: "npm:^0.1.1"
     set-value: "npm:^2.0.1"
   checksum: a3464097d3f27f6aa90cf103ed9387541bccfc006517559381a10e0dffa62f465a9d9a09c9b9c3d26d0f4cbe61d4d010e2fbd710fd4bf1267a768ba8a774b0ba
+  languageName: node
+  linkType: hard
+
+"unionfs@npm:~4.5.1":
+  version: 4.5.1
+  resolution: "unionfs@npm:4.5.1"
+  dependencies:
+    fs-monkey: "npm:^1.0.0"
+  checksum: 036067cf5d42cd4a9cba953f50b7959ce9f7770550ec8defe9cf372e16bf7bf63b8466f1680db16a048ed1ccce1c6e800abaf37e247870a13744d67b370affe2
   languageName: node
   linkType: hard
 
