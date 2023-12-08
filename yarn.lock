@@ -8404,6 +8404,7 @@ __metadata:
     "@angular-devkit/architect": ~0.1700.0
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
+    "@angular/cdk": ~17.0.1
     "@angular/core": ~17.0.2
     "@angular/material": ~17.0.0
     "@o3r/core": "workspace:^"
@@ -8419,6 +8420,8 @@ __metadata:
     "@angular-devkit/core":
       optional: true
     "@angular-devkit/schematics":
+      optional: true
+    "@angular/cdk":
       optional: true
     "@angular/material":
       optional: true
