@@ -71,24 +71,23 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     }
   };
 
-  if (!options.watch) {
-    const res = (await Promise.all([
+  const executeMultiFile = async (): Promise<BuilderOutput> => {
+    return (await Promise.all([
       execute(renderDesignTokenOptionsCss),
       ...(options.metadataOutput ? [execute(renderDesignTokenOptionsMetadata)] : [])
-    ])).find(({ success }) => !success);
+    ])).find(({ success }) => !success) || { success: true };
+  };
 
-    return res || { success: true };
+  if (!options.watch) {
+    return await executeMultiFile();
   } else {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch(designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p))))
         .then((watcher) => watcher.on('all', async () => {
-          const res = (await Promise.all([
-            execute(renderDesignTokenOptionsCss),
-            ...(options.metadataOutput ? [execute(renderDesignTokenOptionsMetadata)] : [])
-          ])).find(({success}) => !success);
+          const res = await executeMultiFile();
 
-          if (res && res.error) {
+          if (res.error) {
             context.logger.error(res.error);
           }
         }));

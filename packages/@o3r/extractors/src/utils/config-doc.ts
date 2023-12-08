@@ -21,7 +21,7 @@ export interface ConfigDocInformation {
   /** Category (taken from `@o3rCategory` tag) */
   category?: string;
 
-  /** Category (taken from <o3rCategories> tag) */
+  /** Category (taken from @o3rCategories tag) */
   categories?: CategoryDescription[];
 
   /** Widget information (taken from `@o3rWidget` and `@o3rWidgetParam` tag) */
@@ -143,27 +143,26 @@ function getCategoryFromDocText(docComment: string): string | undefined {
 }
 
 /**
- * Get category from a given DocComment.
+ * Get categories from a given DocComment.
  *
- *  The category is extracted from <o3rCategories> tag.
+ * The categories are extracted from the @o3rCategories tags.
  *
- * @param docComment The DocComment to get category from
+ * @param docComment The DocComment to get categories from
  */
-function getCategoriesFromDocText(docComment: string): CategoryDescription[] | undefined {
+export function getCategoriesFromDocText(docComment: string): CategoryDescription[] | undefined {
   const categoriesWithDescription: CategoryDescription[] = [];
-  const categoriesString = docComment.match(/<o3rCategories>(.+)<\/o3rCategories>/s);
+  const categoriesString = Array.from(docComment.matchAll(/@o3rCategories (.*)/g)).map((match) => match[1].trim());
   if (categoriesString) {
-    const categoriesArray = categoriesString[1].match(/<(\w+)>([^<]+)/gs);
-    if (categoriesArray) {
-      for (const catStringWithDesc of categoriesArray) {
-        const catWithDesc = catStringWithDesc.match(/<(\w+)>(.+)/s);
-        if (catWithDesc && catWithDesc[1] && catWithDesc[2]) {
-          const category = catWithDesc[1];
-          const description = catWithDesc[2].replace(/\r?\n \*/g, '').trim();
-          categoriesWithDescription.push({label: description, name: category});
-        } else {
-          throw Error(`Invalid categories description format: ${categoriesString[1]}`);
-        }
+    for (const category of categoriesString) {
+      const firstSpaceIndex = category.indexOf(' ');
+      if (firstSpaceIndex === -1) {
+        const categoryName = category;
+        const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
+        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
+      } else {
+        const categoryName = category.slice(0, firstSpaceIndex);
+        const categoryLabel = category.slice(firstSpaceIndex + 1);
+        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
       }
     }
   }

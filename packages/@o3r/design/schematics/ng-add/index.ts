@@ -1,5 +1,5 @@
-import { noop } from '@angular-devkit/schematics';
 import type { Rule } from '@angular-devkit/schematics';
+import { registerGenerateCssBuilder } from './register-generate-css';
 
 /**
  * Add Otter design to an Angular Project
@@ -7,5 +7,5 @@ import type { Rule } from '@angular-devkit/schematics';
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return noop();
+  return registerGenerateCssBuilder();
 }

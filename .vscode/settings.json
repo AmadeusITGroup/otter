@@ -20,7 +20,8 @@
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.quoteStyle": "single",
-  "angular.disableAutomaticNgcc": true,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
   "jest.autoRun": {
     "watch": false,
@@ -47,7 +48,8 @@
   "eslint.validate": [
     "javascript",
     "typescript",
-    "json"
+    "json",
+    "yaml"
   ],
   "eslint.probe": [
     "javascript",
@@ -55,9 +57,9 @@
     "typescriptreact",
     "html",
     "markdown",
-    "json"
+    "json",
+    "yaml"
   ],
-  "typescript.enablePromptUseWorkspaceTsdk": true,
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],
@@ -71,7 +73,5 @@
   },
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
-  "otter.extract.styling.prefix": "o3r",
-  "otter.generate.store.testFramework": "jest",
-  "otter.packageManager": "yarn"
+  "otter.extract.styling.prefix": "o3r"
 }

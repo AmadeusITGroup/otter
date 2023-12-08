@@ -1,0 +1,27 @@
+/**
+ * Component configuration example
+ * <o3rCategories>
+ *  <localCategory>Local category</localCategory>
+ * </o3rCategories>
+ */
+export interface ConfigurationPresConfig extends Configuration {
+  /**
+   * Default date selected compare to today
+   * @o3rCategory localCategory
+   */
+  inXDays: number;
+  /**
+   * Proposed destinations
+   * @o3rWidget DESTINATION_ARRAY
+   * @o3rWidgetParam minItems 1
+   * @o3rWidgetParam allDestinationsDifferent true
+   * @o3rWidgetParam atLeastOneDestinationAvailable true
+   * @o3rWidgetParam destinationPattern "[A-Z][a-zA-Z-' ]+"
+   */
+  destinations: DestinationConfiguration[];
+  /**
+   * Propose round trip
+   * @o3rCategory globalCategory
+   */
+  shouldProposeRoundTrip: boolean;
+}

@@ -19,3 +19,4 @@ export * from './routes';
 export * from './sub-entry';
 export * from './template-property.helper';
 export * from './update-imports';
+export * from './builder';

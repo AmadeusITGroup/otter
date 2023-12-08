@@ -2,6 +2,7 @@
   "name": "chrome-devtools",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
+  "root": "apps/chrome-devtools",
   "sourceRoot": "apps/chrome-devtools/src",
   "prefix": "o3r",
   "targets": {

@@ -19,6 +19,7 @@
     }
   },
   "sourceRoot": "apps/showcase/src",
+  "root": "apps/showcase",
   "prefix": "app",
   "targets": {
     "build": {

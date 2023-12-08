@@ -5,5 +5,10 @@ module.exports = {
   ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
   clearMocks: true,
-  setupFilesAfterEnv: null
+  setupFilesAfterEnv: null,
+  testPathIgnorePatterns: [
+    '<rootDir>/dist',
+    '<rootDir>/.*/templates/.*',
+    '\\.it\\.spec\\.ts$'
+  ]
 };
