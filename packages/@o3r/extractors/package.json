@@ -8,12 +8,15 @@
     "extractors",
     "otter"
   ],
+  "ng-update": {
+    "migrations": "./migration.json"
+  },
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build extractors",
     "postbuild": "patch-package-json-main",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
