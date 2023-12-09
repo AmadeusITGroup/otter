@@ -108,14 +108,25 @@ const isNgNewOptions = (arg: string) => {
   if (arg.startsWith('--')) {
     return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`].includes(arg));
   } else if (arg.startsWith('-')) {
-    return entries.some(([_, {alias}]) => alias && arg === `-${alias}`);
+    return entries.some(([, {alias}]) => alias && arg === `-${alias}`);
   }
 
   return true;
 };
 
+const schematicsCliOptions: any[][] = Object.entries(argv)
+  .filter(([key]) => key !== '_')
+  .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
+  .map(([key, value]) => {
+    const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
+    return typeof value === 'undefined' ? [optionKey] : [optionKey, value];
+  });
+
 const createNgProject = () => {
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions), '--skip-install'], {
+  const options = schematicsCliOptions
+    .filter(([key]) => isNgNewOptions(key))
+    .flat();
+  const { error } = spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options, '--skip-install'], {
     stdio: 'inherit'
   });
 
@@ -128,7 +139,9 @@ const createNgProject = () => {
 
 const addOtterFramework = (relativeDirectory = '.') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
-  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...args.filter((arg) => arg.startsWith('-'))], {
+  const options = schematicsCliOptions
+    .flat();
+  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...options], {
     stdio: 'inherit',
     cwd
   });
