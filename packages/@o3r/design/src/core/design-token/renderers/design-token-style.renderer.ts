@@ -6,7 +6,7 @@ import { isAbsolute, resolve } from 'node:path';
 import type { DesignTokenRendererOptions } from './design-token.renderer.interface';
 
 /**
- * Retrieve the function determining if a given file exists
+ * Retrieve the function determining what is the file to update for a given token
  * @param root Root path
  * @param defaultFile Default file if not requested by the Token
  */

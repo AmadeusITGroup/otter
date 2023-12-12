@@ -71,21 +71,36 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     }
   };
 
-  const executeMultiFile = async (): Promise<BuilderOutput> => {
-    return (await Promise.all([
+  const executeMultiRenderer = async (): Promise<BuilderOutput> => {
+    return (await Promise.allSettled<Promise<BuilderOutput>[]>([
       execute(renderDesignTokenOptionsCss),
       ...(options.metadataOutput ? [execute(renderDesignTokenOptionsMetadata)] : [])
-    ])).find(({ success }) => !success) || { success: true };
+    ])).reduce((acc, res) => {
+      if (res.status === 'fulfilled') {
+        acc.success &&= res.value.success;
+        if (!res.value.error) {
+          acc.error ||= '';
+          acc.error += '\n' + res.value.error;
+        }
+      } else {
+        acc.success = false;
+        if (res.reason) {
+          acc.error ||= '';
+          acc.error += '\n' + res.reason;
+        }
+      }
+      return acc;
+    }, { success: true } as BuilderOutput);
   };
 
   if (!options.watch) {
-    return await executeMultiFile();
+    return await executeMultiRenderer();
   } else {
     try {
       await import('chokidar')
         .then((chokidar) => chokidar.watch(designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p))))
         .then((watcher) => watcher.on('all', async () => {
-          const res = await executeMultiFile();
+          const res = await executeMultiRenderer();
 
           if (res.error) {
             context.logger.error(res.error);

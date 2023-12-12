@@ -1,12 +1,12 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { shouldDefineVariableValueFromOtterInfo } from '../design-token.renderer.helpers';
+import { isNotPrivateVariable } from '../design-token.renderer.helpers';
 import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from './design-token-value.renderers';
 
 interface CssTokenDefinitionRendererOptions {
   /**
    * Determine if the variable should be rendered, based on Otter Extension information
-   * @default {@see shouldDefineCssVariableFromOtterInfo}
+   * @default {@see isNotPrivateVariable}
    */
   shouldDefineCssVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
@@ -31,7 +31,7 @@ interface CssTokenDefinitionRendererOptions {
  * @returns
  */
 export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
-  const shouldDefineVariable = options?.shouldDefineCssVariable || shouldDefineVariableValueFromOtterInfo;
+  const shouldDefineVariable = options?.shouldDefineCssVariable || isNotPrivateVariable;
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
   const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ shouldDefineVariable, tokenVariableNameRenderer });
 

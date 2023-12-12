@@ -43,7 +43,7 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const styleFile = posix.resolve(srcBasePath, 'styles.scss');
     if (!tree.exists(styleFile)) {
-      context.logger.warn(`The theme was not updated ne ${styleFile} was not found`);
+      context.logger.warn(`The theme was not updated as ${styleFile} was not found`);
       return tree;
     }
 

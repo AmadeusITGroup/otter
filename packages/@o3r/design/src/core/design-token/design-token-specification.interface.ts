@@ -12,8 +12,8 @@ export interface DesignTokenGroupExtensions {
   /** Indicate the file where to generate the token */
   o3rTargetFile?: string;
   /**
-   * Indicate that the variable does not need to be generated
-   * If not generated, the generator will used it's targeted value when referred
+   * Indicate that the variable does not need to be generated (up to the generator or its options).
+   * If not generated, the generator will use its targeted value in the variable referring to it.
    */
   o3rPrivate?: boolean;
   /** Indicate that the value of this token is flagged as important */
