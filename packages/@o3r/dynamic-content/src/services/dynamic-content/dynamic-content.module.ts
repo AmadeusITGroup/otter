@@ -40,7 +40,6 @@ export class DynamicContentModule {
 
   /**
    * Customize the location where the application will search for the base path of dynamic content
-   *
    * @param dynamicPath Configuration for dynamic content path
    * @param dynamicPath.content The string will be used as base path of dynamic content
    * @param dynamicPath.cmsAssets The string will be used for the the base path of cms assets

@@ -14,8 +14,8 @@ export interface TripFacts extends FactDefinitions {
   providedIn: 'root'
 })
 export class TripFactsService extends FactsService<TripFacts> {
-  private destination$ = new BehaviorSubject<string | null>(null);
-  private outboundDate$ = new BehaviorSubject<string | null>(null);
+  private readonly destination$ = new BehaviorSubject<string | null>(null);
+  private readonly outboundDate$ = new BehaviorSubject<string | null>(null);
 
   /** @inheritdoc */
   public facts = {

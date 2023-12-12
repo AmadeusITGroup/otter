@@ -8,7 +8,6 @@ export class OperationIdChecker implements Checker {
 
   /**
    * Retrieve the list of operation IDs from a swagger spec
-   *
    * @param swaggerSpec Swagger specification
    */
   private async getOperationIds(swaggerSpec: SwaggerSpec) {
@@ -21,7 +20,6 @@ export class OperationIdChecker implements Checker {
 
   /**
    * Check the uniqueness of the Operation IDs in a swagger spec
-   *
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {

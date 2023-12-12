@@ -43,21 +43,18 @@ export interface Options {
   /**
    * Enforce to align the version of the dependencies with the latest range.
    * If not set, the version will be aligned with the latest range if the latest range is not intersected with the current range.
-   *
    * @default false
    */
   alignPeerDependencies: boolean;
 
   /**
    * Display debug logs
-   *
    * @default false
    */
   verbose: boolean;
 
   /**
    * List of dependency types to update, comma separated
-   *
    * @default ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies']
    */
   dependencyTypes: string[];

@@ -17,8 +17,8 @@ export class DynamicContentService {
   private readonly mediaFolder: string;
 
   constructor(@Inject(DYNAMIC_CONTENT_BASE_PATH_TOKEN) dynamicContentPath: string,
-              @Inject(CMS_ASSETS_PATH_TOKEN) private cmsOnlyAssetsPath: string,
-              @Optional() private store?: Store<AssetPathOverrideStore>) {
+              @Inject(CMS_ASSETS_PATH_TOKEN) private readonly cmsOnlyAssetsPath: string,
+              @Optional() private readonly store?: Store<AssetPathOverrideStore>) {
     this.basePath = dynamicContentPath.replace(/\/$/, '');
     this.mediaFolder = MEDIA_FOLDER_NAME;
   }
@@ -42,9 +42,7 @@ export class DynamicContentService {
   /**
    * Gets the full path of a content relative to the root
    * Content path doesn't consider any override, you will always get the same file
-   *
    * @example getMediaPath('assets/imgs/my-image.png') will give you the basePath + 'assets/imgs/my-image.png'
-   *
    * @param assetPath asset location in the root folder
    */
   public getContentPathStream(assetPath?: string) {
@@ -55,9 +53,7 @@ export class DynamicContentService {
    * Gets the stream that provides the full path of a media content
    * A Media content is always stored in the 'assets' media folder, no external content will be accessible through this function
    * If any override is applied to the content, returns the override path instead
-   *
    * @example getMediaPathStream('imgs/my-image.png') will give you the basePath + mediaFolder + 'imgs/my-image.png'
-   *
    * @param assetPath asset location in the media folder (e.g imgs/my-image.png)
    */
   public getMediaPathStream(assetPath?: string) {

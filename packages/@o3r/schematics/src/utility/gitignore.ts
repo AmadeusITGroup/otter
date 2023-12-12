@@ -2,7 +2,6 @@ import { Tree } from '@angular-devkit/schematics';
 
 /**
  * Add patterns to .gitignore file
- *
  * @param tree Schematics files tree
  * @param patternsToAdd List of patterns with description to add to gitignore files
  */

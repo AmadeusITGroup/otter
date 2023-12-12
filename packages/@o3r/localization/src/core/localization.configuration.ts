@@ -15,7 +15,6 @@ export interface LocalizationConfiguration {
   /**
    * Fallback language map of resource in case translation in language does not exist.
    * translate to unsupported language will try to map to supportedLocales from below property.
-   *
    * @example
    * supportedLocales: ['en-GB', 'en-US', 'fr-FR'], fallbackLocalesMap: {'en-CA': 'en-US', 'de': 'fr-FR'}
    * translate to en-CA -> fallback to en-US, translate to de-DE -> fallback to fr-FR,
@@ -39,7 +38,6 @@ export interface LocalizationConfiguration {
   /**
    * Merge the translations from DynamicContentPath with the local translations
    * Warning: Enable this option will download two localization bundles and can delay the display of the text on application first page
-   *
    * @default false
    */
   mergeWithLocalTranslations: boolean;

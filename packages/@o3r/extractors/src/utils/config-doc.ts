@@ -33,7 +33,6 @@ export interface ConfigDocInformation {
 
 /**
  * Get description from a given DocComment.
- *
  * @param docComment The DocComment to get description from
  */
 export function getDescriptionFromDocComment(docComment: DocComment): string {
@@ -43,8 +42,7 @@ export function getDescriptionFromDocComment(docComment: DocComment): string {
 /**
  * Get title from a given DocComment.
  *
- *  The title is extracted from @title tag.
- *
+ * The title is extracted from @title tag.
  * @param docComment The DocComment to get title from
  */
 export function getTitleFromDocComment(docComment: DocComment): string | undefined {
@@ -55,7 +53,6 @@ export function getTitleFromDocComment(docComment: DocComment): string | undefin
  * Get widget information from a given DocComment.
  *
  * The widget information are extracted from @o3rWidget and @o3rWidgetParam tag.
- *
  * @param docText The tsdoc text to get widget information from
  */
 export function getWidgetInformationFromDocComment(docText: string): ConfigPropertyWidget | undefined {
@@ -94,8 +91,7 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
 /**
  * Get label from a given DocComment.
  *
- *  The label is extracted from @label tag.
- *
+ * The label is extracted from @label tag.
  * @param docText The DocComment to get category from
  */
 function getLabelFromDocText(docText: string): string | undefined {
@@ -108,7 +104,6 @@ function getLabelFromDocText(docText: string): string | undefined {
  *
  * The tags are extracted from @tags tag.
  * The following format should be matched.
- *
  * @example
  * /**
  *  ...
@@ -133,8 +128,7 @@ export function isO3rRequiredTagPresent(docText: string): boolean {
 /**
  * Get category from a given DocComment.
  *
- *  The category is extracted from @o3rCategory tag.
- *
+ * The category is extracted from @o3rCategory tag.
  * @param docComment The DocComment to get category from
  */
 function getCategoryFromDocText(docComment: string): string | undefined {
@@ -146,7 +140,6 @@ function getCategoryFromDocText(docComment: string): string | undefined {
  * Get categories from a given DocComment.
  *
  * The categories are extracted from the @o3rCategories tags.
- *
  * @param docComment The DocComment to get categories from
  */
 export function getCategoriesFromDocText(docComment: string): CategoryDescription[] | undefined {
@@ -174,7 +167,7 @@ export function getCategoriesFromDocText(docComment: string): CategoryDescriptio
  */
 export class ConfigDocParser {
   /** TSDoc parser */
-  private tsDocParser: TSDocParser;
+  private readonly tsDocParser: TSDocParser;
 
   constructor() {
     const customConfiguration = new TSDocConfiguration();
@@ -199,7 +192,6 @@ export class ConfigDocParser {
 
   /**
    * Parse the configuration information from a given node.
-   *
    * @param source Typescript SourceFile node of the file
    * @param node Node to get the TSDoc text from
    */

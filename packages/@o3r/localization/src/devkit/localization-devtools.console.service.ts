@@ -13,7 +13,7 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
 
   constructor(
     private readonly localizationDevtools: OtterLocalizationDevtools,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
+    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
   ) {
     if (this.options.isActivatedOnBootstrap) {
       this.activate();
@@ -33,7 +33,6 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
 
   /**
    * Show localization keys
-   *
    * @param value value enforced by the DevTools extension
    */
   public showLocalizationKeys(value?: boolean): void {

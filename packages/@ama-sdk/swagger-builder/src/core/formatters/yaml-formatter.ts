@@ -10,10 +10,10 @@ import { generatePackageJson } from './utils';
  */
 export class YamlFormatter implements Formatter {
 
-  private filePath: string;
-  private cwd: string;
+  private readonly filePath: string;
+  private readonly cwd: string;
 
-  constructor(private basePath: string) {
+  constructor(private readonly basePath: string) {
     this.filePath = /\.ya?ml$/i.test(this.basePath) ? this.basePath : this.basePath + '.yaml';
     this.cwd = path.dirname(this.filePath);
   }

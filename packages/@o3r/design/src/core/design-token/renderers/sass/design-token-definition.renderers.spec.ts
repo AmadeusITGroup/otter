@@ -5,7 +5,7 @@ import type { DesignTokenSpecification } from '../../design-token-specification.
 import type { DesignTokenVariableSet } from '../../parsers';
 import { getSassTokenDefinitionRenderer } from './design-token-definition.renderers';
 
-describe('getMetadataTokenDefinitionRenderer', () => {
+describe('getSassTokenDefinitionRenderer', () => {
   let exampleVariable!: DesignTokenSpecification;
   let designTokens!: DesignTokenVariableSet;
 
@@ -25,5 +25,17 @@ describe('getMetadataTokenDefinitionRenderer', () => {
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
     expect(result).toBe('$exampleVar1: test-value;');
+  });
+
+  test('should prefix private variable', () => {
+    const tokenValueRenderer = jest.fn().mockReturnValue('test-value');
+    const renderer = getSassTokenDefinitionRenderer({ tokenValueRenderer, isPrivateVariable: (v) => v.tokenReferenceName === 'example.var1'});
+    const variable = designTokens.get('example.var1');
+
+    const result = renderer(variable, designTokens);
+    expect(variable).toBeDefined();
+    expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
+    expect(result).toBeDefined();
+    expect(result).toBe('$_exampleVar1: test-value;');
   });
 });

@@ -26,7 +26,6 @@ export const selectRulesetsStorePendingStatus = createSelector(selectRulesetsSta
 
 /**
  * Check if the given value is a valid date
- *
  * @param d
  */
 const isValidDate = (d: any) => !isNaN(d) && d instanceof Date;

@@ -12,7 +12,6 @@ export interface BootstrapConfig {
 export interface Dataset {
   /**
    * Bootstrap configuration
-   *
    * @example
    * '{ environment: 'prod' }'
    */
@@ -20,7 +19,6 @@ export interface Dataset {
 
   /**
    * Dynamic content path
-   *
    * @example
    * 'my/dynamic/path'
    */
@@ -28,7 +26,6 @@ export interface Dataset {
 
   /**
    * Application basehref url
-   *
    * @example
    * '/my/base/href'
    */

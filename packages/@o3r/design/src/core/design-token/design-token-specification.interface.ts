@@ -12,8 +12,9 @@ export interface DesignTokenGroupExtensions {
   /** Indicate the file where to generate the token */
   o3rTargetFile?: string;
   /**
-   * Indicate that the variable does not need to be generated (up to the generator or its options).
-   * If not generated, the generator will use its targeted value in the variable referring to it.
+   * Indicate that the variable does not need to be generated.
+   * It is up to the generator to describe how to render private variables.
+   * It can choose to ignore the private extension, it can provide a dedicated renderer (for example to prefix it with '_') or it can decide to skip the generation straight to its referenced value.
    */
   o3rPrivate?: boolean;
   /** Indicate that the value of this token is flagged as important */

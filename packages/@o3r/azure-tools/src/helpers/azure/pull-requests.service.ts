@@ -6,9 +6,9 @@ import { Logger } from 'winston';
  * Service to call AzureDevops API about PR
  */
 export class PullRequestService {
-  private connection: WebApi;
+  private readonly connection: WebApi;
 
-  constructor(token: string, private project: string, orgUrl: string, private logger: Logger) {
+  constructor(token: string, private readonly project: string, orgUrl: string, private readonly logger: Logger) {
     this.connection = new WebApi(orgUrl, getPersonalAccessTokenHandler(token));
   }
 

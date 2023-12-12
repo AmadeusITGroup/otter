@@ -32,7 +32,7 @@ export class LocalizationPresComponent implements Translatable<LocalizationPresT
   @Localization('./localization-pres.localization.json')
   public translations: LocalizationPresTranslation;
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   constructor(localizationService: LocalizationService, fb: FormBuilder) {
     this.form = fb.group({

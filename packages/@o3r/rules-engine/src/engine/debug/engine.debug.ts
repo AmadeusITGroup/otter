@@ -10,7 +10,6 @@ import { flagCachedRules, retrieveRulesetTriggers } from './helpers';
 export interface EngineDebuggerOptions {
   /**
    * Limit of events to keep in the stack before subscribing to the debugEvents$ stream.
-   *
    * @default undefined no limit
    */
   eventsStackLimit?: number;
@@ -26,7 +25,7 @@ export class EngineDebugger {
   private registeredRulesets: Pick<Ruleset, 'name' | 'id'>[] = [];
 
   // Keep a small history in case the events$ stream from the engine is subscribed after rules engine initialization
-  private debugEventsSubject$: ReplaySubject<() => (Promise<DebugEvent> | DebugEvent)>;
+  private readonly debugEventsSubject$: ReplaySubject<() => (Promise<DebugEvent> | DebugEvent)>;
 
   private performanceMeasures$!: Observable<PerformanceMeasure[]>;
 
@@ -40,7 +39,6 @@ export class EngineDebugger {
 
   /**
    * Instantiate a rules engine debugger
-   *
    * @param options Options to configure the debugger
    */
   constructor(options?: EngineDebuggerOptions) {
@@ -151,7 +149,6 @@ export class EngineDebugger {
 
   /**
    * Plug the debugger to a Rule Engine
-   *
    * @param rulesEngine
    */
   public registerRuleEngine(rulesEngine: RulesEngine) {
@@ -160,7 +157,6 @@ export class EngineDebugger {
 
   /**
    * Handle ruleset execution debug info
-   *
    * @param currRes
    * @param prevRes
    * @param allExecutionsValid
@@ -195,7 +191,6 @@ export class EngineDebugger {
 
   /**
    * Emits an 'AvailableRulesets' debug event when rulesets are registered to the rules engine
-   *
    * @param rulesets
    */
   public addAvailableRulesets(rulesets: Ruleset[]) {
@@ -210,7 +205,6 @@ export class EngineDebugger {
 
   /**
    * Computes and emits an 'ActiveRulesets' debug event when the active rulesets are changing
-   *
    * @param ruleSetExecutorMap map off all rulesets executors
    * @param restrictiveRuleSets ids of the rulesets to activate; if not provided all registered rulesets will be considered as active
    */
@@ -230,7 +224,6 @@ export class EngineDebugger {
 
   /**
    * Emits an 'AllActions' debug event each time the rules engine outputs the list of actions
-   *
    * @param actions list of outputed actions
    */
   public allActionsChange(actions: ActionBlock[]) {
@@ -240,7 +233,6 @@ export class EngineDebugger {
 
   /**
    * Emits a 'RulesetExecution' debug event at the ouput of a successful ruleset execution
-   *
    * @param ruleset
    * @param executionCounter
    * @param rulesetInputFacts
@@ -260,7 +252,6 @@ export class EngineDebugger {
 
   /**
    * Emits a 'RulesetExecutionError' debug event at the ouput of a failing ruleset execution
-   *
    * @param ruleset
    * @param rulesetInputFacts
    * @param executionCounter
@@ -283,7 +274,6 @@ export class EngineDebugger {
 
   /**
    * Returns a list of fact name and value pairs
-   *
    * @param factsNames List of facts names to get the value for
    */
   public async getFactsSnapshot(factsNames: string[]) {

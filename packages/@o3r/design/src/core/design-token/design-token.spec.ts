@@ -1,8 +1,8 @@
 import {
+  computeFileToUpdatePath,
   DesignTokenRendererOptions,
   getCssStyleContentUpdater,
   getCssTokenDefinitionRenderer,
-  getFileToUpdateDetermination,
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   getSassTokenDefinitionRenderer,
@@ -34,7 +34,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       // eslint-disable-next-line @typescript-eslint/await-thenable
@@ -58,7 +58,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       // eslint-disable-next-line @typescript-eslint/await-thenable
@@ -79,7 +79,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
       const tokenVariableNameRenderer: TokenKeyRenderer = (variable) => prefix + variable.tokenReferenceName.replace(/\./g, '-');
       const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({tokenVariableNameRenderer});
@@ -110,7 +110,7 @@ describe('Design Token generator', () => {
           ${AUTO_GENERATED_END}
         }
       `);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       // eslint-disable-next-line @typescript-eslint/await-thenable
@@ -129,10 +129,11 @@ describe('Design Token generator', () => {
 
     test('should render private variable to sass if requested', async () => {
       let result: string | undefined;
+      const expectedSassVar = '$_exampleTestHeight: 2.3;';
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       const tokenDefinitionRendererWithoutSass = getCssTokenDefinitionRenderer({
@@ -148,7 +149,7 @@ describe('Design Token generator', () => {
         readFile
       });
 
-      expect(result).not.toContain('$exampleTestHeight: 2.3;');
+      expect(result).not.toContain(expectedSassVar);
 
       // eslint-disable-next-line @typescript-eslint/await-thenable
       await renderDesignTokens(designToken, {
@@ -161,7 +162,7 @@ describe('Design Token generator', () => {
       });
 
       expect(writeFile).toHaveBeenCalledTimes(2);
-      expect(result).toContain('$exampleTestHeight: 2.3;');
+      expect(result).toContain(expectedSassVar);
     });
   });
 
@@ -181,7 +182,7 @@ describe('Design Token generator', () => {
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = getFileToUpdateDetermination('.');
+      const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
       // eslint-disable-next-line @typescript-eslint/await-thenable

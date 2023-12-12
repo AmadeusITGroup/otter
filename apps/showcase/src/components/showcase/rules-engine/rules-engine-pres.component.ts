@@ -37,7 +37,7 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
   @Localization('./rules-engine-pres.localization.json')
   public translations: RulesEnginePresTranslation;
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   /**
    * Form group
@@ -53,7 +53,7 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
   public config: Partial<RulesEnginePresConfig> | undefined;
 
   @ConfigObserver()
-  private dynamicConfig$: ConfigurationObserver<RulesEnginePresConfig>;
+  private readonly dynamicConfig$: ConfigurationObserver<RulesEnginePresConfig>;
 
   /** Configuration stream based on the input and the stored configuration*/
   public config$: Observable<RulesEnginePresConfig>;

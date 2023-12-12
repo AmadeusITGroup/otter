@@ -128,7 +128,7 @@ export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
                 const propertiesToAdd = generateClassElementsFromString(`
                   @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
                   private bridge: IframeBridge;
-                  ${!hasSubscriptions ? 'private subscriptions: Subscription[] = [];' : ''}
+                  ${!hasSubscriptions ? 'private readonly subscriptions: Subscription[] = [];' : ''}
                 `);
                 /* eslint-disable indent */
 

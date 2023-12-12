@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
-import { getFileToUpdateDetermination, renderDesignTokens } from './design-token-style.renderer';
+import { computeFileToUpdatePath, renderDesignTokens } from './design-token-style.renderer';
 
 describe('Design Token Renderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -17,9 +17,9 @@ describe('Design Token Renderer', () => {
     designTokens = parser.parseDesignToken(exampleVariable);
   });
 
-  describe('getFileToUpdateDetermination', () => {
+  describe('computeFileToUpdatePath', () => {
     const DEFAULT_FILE = 'test-result.json';
-    const fileToUpdate = getFileToUpdateDetermination('/', DEFAULT_FILE);
+    const fileToUpdate = computeFileToUpdatePath('/', DEFAULT_FILE);
 
     test('should return default file if not specified', () => {
       const variable = designTokens.get('example.var1');
@@ -43,7 +43,7 @@ describe('Design Token Renderer', () => {
       const writeFile = jest.fn();
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = jest.fn().mockReturnValue(getFileToUpdateDetermination('.'));
+      const determineFileToUpdate = jest.fn().mockReturnValue(computeFileToUpdatePath('.'));
       const tokenDefinitionRenderer = jest.fn().mockReturnValue('--test: #000;');
 
       await renderDesignTokens(designTokens, {
@@ -64,7 +64,7 @@ describe('Design Token Renderer', () => {
       const writeFile = jest.fn();
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);
-      const determineFileToUpdate = jest.fn().mockImplementation(getFileToUpdateDetermination('.'));
+      const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
 
       await renderDesignTokens(designTokens, {
         writeFile,

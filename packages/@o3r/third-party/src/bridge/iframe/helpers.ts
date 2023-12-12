@@ -11,7 +11,6 @@ export const IFRAME_BRIDGE_DEFAULT_OPTIONS: IFrameBridgeOptions = {
 
 /**
  * Verifies if a message respects the format expected by an IFrameBridge
- *
  * @param message
  */
 export function isSupportedMessage(message: any): message is InternalIframeMessage {
@@ -23,7 +22,6 @@ export function isSupportedMessage(message: any): message is InternalIframeMessa
 
 /**
  * Generates the html content of an iframe
- *
  * @param scriptUrl script to be executed inside the iframe
  * @param additionalHeader custom html headers stringified
  */

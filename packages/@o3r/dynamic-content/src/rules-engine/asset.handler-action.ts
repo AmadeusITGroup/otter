@@ -13,7 +13,7 @@ export class AssetRulesEngineActionHandler implements RulesEngineActionHandler<A
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_ASSET_UPDATE_ACTION_TYPE] as const;
 
-  constructor(private store: Store<AssetPathOverrideStore>) {
+  constructor(private readonly store: Store<AssetPathOverrideStore>) {
   }
 
   /** @inheritdoc */

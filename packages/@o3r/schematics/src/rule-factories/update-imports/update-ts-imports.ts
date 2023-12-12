@@ -4,7 +4,6 @@ import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, Imp
 
 /**
  * Update imports based on mapping
- *
  * @param mapImports Map of the import to replace
  * @param renamedPackages Map of the import package to replace
  * @param fromRoot Perform on all files in project

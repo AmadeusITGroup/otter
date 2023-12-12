@@ -20,7 +20,6 @@ export class O3rPageFixture<V extends O3rElement = O3rElement> extends O3rCompon
   /**
    * Root element of this fixture. Optional in a Protractor.
    * All further queries will be applied to the element tree if any, otherwise they will be applied to the whole DOM.
-   *
    * @param _rootElement
    */
   constructor(_rootElement?: V) {

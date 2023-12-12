@@ -28,7 +28,7 @@ export class CopyTextPresComponent {
 
   public defaultLanguages = ['bash', 'css', 'html', 'json', 'typescript'] as const;
 
-  constructor(private clipboard: Clipboard) {}
+  constructor(private readonly clipboard: Clipboard) {}
 
   /**
    * Copy the text into the clipboard

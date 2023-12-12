@@ -12,7 +12,7 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
-  private onShowKeysChange?: Subscription;
+  private readonly onShowKeysChange?: Subscription;
 
   /**
    * Internal subscription to the LocalizationService key mapping
@@ -30,8 +30,8 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
   /** last key resolved */
   private lastResolvedKey?: string;
 
-  constructor(private localizationService: LocalizationService, translateService: TranslateService, private changeDetector: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfig: LocalizationConfiguration) {
+  constructor(private readonly localizationService: LocalizationService, translateService: TranslateService, private readonly changeDetector: ChangeDetectorRef,
+              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, changeDetector);
 
     if (localizationConfig.enableTranslationDeactivation) {
@@ -44,7 +44,6 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
 
   /**
    * Calls original transform method and eventually outputs the key if debugMode (in LocalizationConfiguration) is enabled
-   *
    * @inheritdoc
    */
   public transform(query: string, ...args: any[]): any {

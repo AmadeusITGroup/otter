@@ -4,7 +4,6 @@ import { Arguments, terminalWidth } from 'yargs';
 
 /**
  * Format a text to a title
- *
  * @param text text of the title
  */
 export const formatTitle = (text: string) => {
@@ -149,7 +148,6 @@ const cleanProvidedOptionReported = (message: string) => {
 
 /**
  * Change default display of the help command result
- *
  * @param message default help message
  * @param commandContext options of the executed command
  */

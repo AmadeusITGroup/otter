@@ -78,7 +78,6 @@ export interface Rule {
 
 /**
  * List of possible types of actions resulted as output of a rule execution
- *
  * @deprecated the actions are now depending of executing modules
  */
 export type ActionTypes = 'SET_FACT' | 'UPDATE_CONFIG' | 'UPDATE_ASSET' | 'UPDATE_LOCALISATION' | 'UPDATE_PLACEHOLDER';

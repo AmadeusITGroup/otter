@@ -24,7 +24,7 @@ export class ConfigurationPresComponent implements OnChanges, OnDestroy, Dynamic
   public config$: Observable<ConfigurationPresConfig>;
 
   @ConfigObserver()
-  private dynamicConfig$: ConfigurationObserver<ConfigurationPresConfig>;
+  private readonly dynamicConfig$: ConfigurationObserver<ConfigurationPresConfig>;
 
   /** Input configuration to override the default configuration of the component*/
   @Input()
@@ -35,7 +35,7 @@ export class ConfigurationPresComponent implements OnChanges, OnDestroy, Dynamic
    */
   public form: FormGroup<{ destination: FormControl<string | null>; outboundDate: FormControl<string | null>; inboundDate: FormControl<string | null> }>;
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   constructor(@Optional() configurationService: ConfigurationBaseService, fb: FormBuilder) {
     this.dynamicConfig$ = new ConfigurationObserver<ConfigurationPresConfig>(CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, configurationService);

@@ -9,30 +9,25 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
   /**
    * The version of the Open Api Generator jar that will be downloaded and used to generate your sdk
    * If null, it will use the one already defined in your project:
-   *  - the one defined in your openapitools.json
-   *  - the latest version if openapitools.json is missing
-   *
+   * - the one defined in your openapitools.json
+   * - the latest version if openapitools.json is missing
    *  @default ''
    */
   generatorVersion: string;
   /**
    * The Open Api Generator to run
-   *
    * @default 'typescriptFetch' - our own typescript custom generator
    */
   generatorName: string;
   /**
    * Path to a custom generator
-   *
    * @default path to our own custom typescript generator
    */
   generatorCustomPath: string;
   /**
    * Comma separated string of options to give to the openapi-generator-cli
-   *
    * @example debugModels to log the full json structure used to generate models
    * @example debugOperations to log the full json structure used to generate operations
-   *
    * @default ''
    */
   globalProperty: string;

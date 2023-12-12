@@ -11,7 +11,6 @@ import { BuilderConfiguration } from '../interfaces/builder-configuration';
 
 /**
  * Apply post processing to a full swagger spec if needed
- *
  * @param configuration Build configuration
  * @param swaggerSpec Swagger spec consolidated
  */

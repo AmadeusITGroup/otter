@@ -4,7 +4,6 @@ const localizationDecoratorName = 'Localization';
 
 /**
  * Retrieve the localization json files from TS Code
- *
  * @param node TSNode of the angular component class
  */
 export function getLocalizationFileFromAngularElement(node: ts.ClassDeclaration): string[] | undefined {

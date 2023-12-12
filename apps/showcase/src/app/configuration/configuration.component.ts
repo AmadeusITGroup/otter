@@ -40,7 +40,7 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
 })
 export class ConfigurationComponent implements AfterViewInit {
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
   public config = signal<ConfigurationPresConfig | undefined>(undefined);
@@ -55,7 +55,7 @@ export class ConfigurationComponent implements AfterViewInit {
   });
 
   constructor(
-    private inPageNavPresService: InPageNavPresService,
+    private readonly inPageNavPresService: InPageNavPresService,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService
   ) {
     configurationDevtoolsMessageService.activate();

@@ -200,7 +200,6 @@ export class Cascading {
 
   /**
    * Create a fallback pull request from branchToCascade to currentBranch
-   *
    * @param branchToCascade
    * @param title
    * @param baseBranchOverride
@@ -230,7 +229,6 @@ export class Cascading {
 
   /**
    * Get the first merge commit of the pull request
-   *
    * @param pullRequestNumber
    */
   public async getFirstMergeCommit(pullRequestNumber: number) {
@@ -250,7 +248,6 @@ export class Cascading {
 
   /**
    * Assign a pull request a user
-   *
    * @param pullRequestNumber
    * @param username
    */

@@ -74,11 +74,11 @@ export class PlaceholderTemplateResponseEffect {
   );
 
   constructor(
-    private actions$: Actions,
-    private store: Store<PlaceholderRequestStore>,
-    @Optional() private rulesEngineService: RulesEngineRunnerService | null,
-    @Optional() private dynamicContentService: DynamicContentService | null,
-    @Optional() private translationService: LocalizationService | null) {
+    private readonly actions$: Actions,
+    private readonly store: Store<PlaceholderRequestStore>,
+    @Optional() private readonly rulesEngineService: RulesEngineRunnerService | null,
+    @Optional() private readonly dynamicContentService: DynamicContentService | null,
+    @Optional() private readonly translationService: LocalizationService | null) {
   }
 
   /**

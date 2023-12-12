@@ -3,7 +3,6 @@ import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
 
 /**
  * Function to run to determine if we need to retry the call
- *
  * @param numberOfRetry [description]
  * @param condition     [description]
  * @example:
@@ -36,7 +35,6 @@ export class RetryFetch implements FetchPlugin {
 
   /**
    * Retry Fetch plugin
-   *
    * @param numberOfRetry Number of retry
    * @param condition     Condition of retrying,  return true to launch the retry process
    * @param sleepBetweenRetry
@@ -52,7 +50,6 @@ export class RetryFetch implements FetchPlugin {
 
   /**
    * Launch a retry
-   *
    * @param context
    */
   private retry(context: FetchPluginContext) {

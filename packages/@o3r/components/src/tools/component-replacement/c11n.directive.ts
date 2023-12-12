@@ -65,9 +65,9 @@ export class C11nDirective <
   private readonly uninitializedInputs = new Set<string>();
 
   constructor(public viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private differsService: KeyValueDiffers,
-    private injector: Injector) {
+    private readonly componentFactoryResolver: ComponentFactoryResolver,
+    private readonly differsService: KeyValueDiffers,
+    private readonly injector: Injector) {
   }
 
   /**

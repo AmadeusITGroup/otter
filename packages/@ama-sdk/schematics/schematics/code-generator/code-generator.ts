@@ -7,7 +7,6 @@ import { NodeModulesEngineHost } from '@angular-devkit/schematics/tools';
 export type CodegenTaskOptions = {
   /**
    * Path to the Swagger specification
-   *
    * @default 'swagger-spec.yaml'
    */
   specPath: string;
@@ -26,7 +25,6 @@ export type CodegenTaskOptions = {
  * Handle the task registration, configuration and the schematic's schedule.
  *
  * As is, the CodeGenerator does not implement any actual code generation and needs to be extended to be functional
- *
  * @example {@link OpenApiCliGenerator}
  */
 export class CodeGenerator<T extends CodegenTaskOptions> {
@@ -38,7 +36,6 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
   /**
    * Configure the code generation task
    * Merge the generator's default options with the dynamic one provided by the schematics
-   *
    * @param options to override the generator's {@link getDefaultOptions}
    */
   private getTaskConfiguration(options: Partial<T>): TaskConfigurationGenerator<T> {
@@ -56,7 +53,6 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
 
   /**
    * Register the task in the rule's {@link SchematicContext}
-   *
    * @param factoryOptions execution options (root directory for instance)
    * @param factoryOptions.rootDirectory
    */
@@ -83,7 +79,6 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
 
   /**
    * Returns the schematic that will run the code generator
-   *
    * @param _factoryOptions execution options (root directory for instance)
    * @param _factoryOptions.rootDirectory
    */
@@ -95,7 +90,6 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
 
   /**
    * Returns the schematic to register, configure and run your code generator task
-   *
    * @param generatorOptions to configure the generator and the specification file to use
    * @param factoryOptions to configure the generator execution context
    * @param factoryOptions.rootDirectory directory where all your commands will be run - fallback to process.cwd

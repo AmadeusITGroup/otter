@@ -14,7 +14,6 @@ export class SwaggerSpecSplit implements SwaggerSpec {
 
   /**
    * Determine if the given Json file is a Split Swagger Configuration file
-   *
    * @param sourcePath Json file to test
    */
   public static async isSplitConfigurationFile(sourcePath: string): Promise<boolean> {
@@ -62,7 +61,6 @@ export class SwaggerSpecSplit implements SwaggerSpec {
 
   /**
    * Get the product path
-   *
    * @param cwd Current directory
    * @param product Product label
    */

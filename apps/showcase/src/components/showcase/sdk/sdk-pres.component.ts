@@ -27,8 +27,8 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SdkPresComponent {
-  private petStoreApi = inject(PetApi);
-  private mediaService = inject(DfMedia);
+  private readonly petStoreApi = inject(PetApi);
+  private readonly mediaService = inject(DfMedia);
 
   /**
    * Name input used to create new pets

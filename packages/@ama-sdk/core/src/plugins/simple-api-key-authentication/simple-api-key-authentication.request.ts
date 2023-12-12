@@ -39,7 +39,6 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  * You can also call the method {@link setOfficeId} to change it programmatically.
  *
  * Examples of usage:
- *
  * @example Static API key no override
  *
  * const plugin = new SimpleApiKeyAuthenticationRequest('myApiKey');
@@ -56,7 +55,6 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  *   )
  * );
  * const plugin = new SimpleApiKeyAuthenticationRequest(apiKeyFactory);
- *
  * @example Dynamic API key and Office ID using setters
  *
  * const plugin = new SimpleApiKeyAuthenticationRequest('initialApiKey');
@@ -69,17 +67,16 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  */
 export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
   /** Options of the plugin */
-  private options: SimpleApiKeyAuthenticationRequestOptions;
+  private readonly options: SimpleApiKeyAuthenticationRequestOptions;
 
   /** Api key to use for authentication */
   private apiKey: string | (() => (string | Promise<string>));
 
   /** Encoder used to create the Amadeus Context JWT */
-  private jwtEncoder = createJwtEncoder();
+  private readonly jwtEncoder = createJwtEncoder();
 
   /**
    * Initialize the plugin
-   *
    * @param apiKey The API key to use for authentication
    * @param options Options of the plugin
    */
@@ -93,7 +90,6 @@ export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
 
   /**
    * Change the API key used for authentication
-   *
    * @param apiKey The API key to use for authentication
    */
   public setApiKey(apiKey: string | (() => string | Promise<string>)) {
@@ -102,7 +98,6 @@ export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
 
   /**
    * Change the Office ID override
-   *
    * @param officeId The Office ID to use as override
    */
   public setOfficeId(officeId: string | (() => string | Promise<string>)) {

@@ -13,7 +13,6 @@ const openApiConfigPath = 'openapitools.json';
 
 /**
  * Rule to update package.json scripts using yeoman generator from `@ama-sdk/generator-sdk`
- *
  * @param tree Tree
  * @param context SchematicContext
  */
@@ -72,7 +71,6 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
 /**
  * Create or udpate the OpenApi configuration with the version supported by the application
  * Set a storage directory for the generator jar to avoid any issue with pnp setups as it would try to install it directly in the node_module
- *
  * @param tree
  */
 const createOpenApiToolsConfig: Rule = (tree) => {
@@ -100,7 +98,6 @@ const createOpenApiToolsConfig: Rule = (tree) => {
 
 /**
  * Install the npm open api generator cli package
- *
  * @param tree
  * @param context
  */
@@ -122,7 +119,6 @@ const installOpenApiToolsCli: Rule = async (tree, context) => {
 
 /**
  * Replace the swagger ignore file with an openapi one
- *
  * @param tree
  */
 const replaceSwaggerIgnore: Rule = (tree) => {
@@ -163,7 +159,6 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
 
 /**
  * Add Otter ama-sdk-schematics to a Project
- *
  * @param options
  */
 export function ngAdd(): Rule {

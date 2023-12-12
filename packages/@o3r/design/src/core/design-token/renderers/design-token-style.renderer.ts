@@ -10,7 +10,7 @@ import type { DesignTokenRendererOptions } from './design-token.renderer.interfa
  * @param root Root path
  * @param defaultFile Default file if not requested by the Token
  */
-export const getFileToUpdateDetermination = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
+export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
   if (token.extensions.o3rTargetFile) {
     return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(root, token.extensions.o3rTargetFile);
   }
@@ -27,7 +27,7 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
   const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf-8'}));
   const writeFile = options?.writeFile || fs.writeFile;
   const existsFile = options?.existsFile || existsSync;
-  const determineFileToUpdate = options?.determineFileToUpdate || getFileToUpdateDetermination();
+  const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();
   const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer();
   const styleContentUpdater = options?.styleContentUpdater || getCssStyleContentUpdater();
   const updates = Array.from(variableSet.values()).reduce((acc, designToken) => {
