@@ -36,7 +36,10 @@ export class DatePickerInputPresComponent implements ControlValueAccessor {
 
   private onTouched!: () => void;
 
-  /** Trigger when a date is selected */
+  /**
+   * Trigger when a date is selected
+   * @param date
+   */
   public selectDate(date: NgbDate | null) {
     this.selectedDate.set(date);
     this.onChanges(date ? `${date.year}-${date.month}-${date.day}` : '');

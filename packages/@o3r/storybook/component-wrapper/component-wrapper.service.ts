@@ -3,7 +3,7 @@ import { Observable, ReplaySubject, Subject } from 'rxjs';
 
 export class ComponentWrapperService {
 
-  private configChangeSubject$: Subject<{componentId: string; props: Configuration}> = new ReplaySubject(1);
+  private readonly configChangeSubject$: Subject<{componentId: string; props: Configuration}> = new ReplaySubject(1);
 
   /**
    * Stream which emits each time a config property has been changed in storybook UI

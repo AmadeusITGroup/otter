@@ -5,7 +5,6 @@ import { getCurrentFolder, getPackageScriptRunner, getSchematicDefaultOptions, s
 
 /**
  * Generate component command
- *
  * @param _context
  * @param folder
  * @returns

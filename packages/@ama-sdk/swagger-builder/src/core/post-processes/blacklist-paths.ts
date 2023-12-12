@@ -5,7 +5,7 @@ import { PostProcess } from './post-process.interface';
  */
 export class PathsBlacklister implements PostProcess {
 
-  constructor(private pathPatterns: (string | RegExp)[] = []) {}
+  constructor(private readonly pathPatterns: (string | RegExp)[] = []) {}
 
   /** @inheritdoc */
   public execute(swaggerSpec: any) {

@@ -7,7 +7,7 @@ export abstract class FactsService<T extends FactDefinitions> {
   /** Set of facts provided */
   public abstract facts: FactSet<T>;
 
-  constructor(private rulesEngine: RulesEngineRunnerService) {
+  constructor(private readonly rulesEngine: RulesEngineRunnerService) {
   }
 
   /** Register the set of facts */

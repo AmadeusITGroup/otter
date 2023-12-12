@@ -22,7 +22,7 @@ export class RequestParametersService implements ParamsType {
   private _query: {[key: string]: any} = {};
   private _post: {[key: string]: any} = {};
 
-  private config: RequestParametersConfig;
+  private readonly config: RequestParametersConfig;
 
   constructor(@Inject(REQUEST_PARAMETERS_CONFIG_TOKEN) config: PartialRequestParametersConfig) {
     this.config = defaultRequestParametersConfig;
@@ -37,7 +37,6 @@ export class RequestParametersService implements ParamsType {
   /**
    * Depending on the strategy, set the internal values for the parameters.
    * See StorageStrategy for more info.
-   *
    * @param key
    * @param value
    */
@@ -96,7 +95,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific query parameter value, given the key.
-   *
    * @param key
    */
   public getQueryParameter(key: string): string | undefined {
@@ -105,7 +103,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific query parameter value as boolean, given the key.
-   *
    * @param key
    */
   public getQueryParameterAsBoolean(key: string): boolean | undefined {
@@ -115,7 +112,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific post parameter value, given the key.
-   *
    * @param key
    */
   public getPostParameter(key: string): string | undefined {
@@ -124,7 +120,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific post parameter value as boolean, given the key.
-   *
    * @param key
    */
   public getPostParameterAsBoolean(key: string): boolean | undefined {
@@ -134,7 +129,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific parameter value, given the key.
-   *
    * @param key
    */
   public getParameter(key: string): string | undefined {
@@ -143,7 +137,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get a specific parameter value as boolean, given the key.
-   *
    * @param key
    */
   public getParameterAsBoolean(key: string): boolean | undefined {
@@ -153,7 +146,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Clear GET parameters from the storage
-   *
    * @param paramsToClear the list on key that you want to clear in get parameters
    */
   public clearQueryParameters(paramsToClear?: string[]) {
@@ -170,7 +162,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Clear POST parameters from the storage
-   *
    * @param paramsToClear the list on key that you want to clean in post parameters
    */
   public clearPostParameters(paramsToClear?: string[]) {
@@ -187,7 +178,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Get all the parameters in a map.
-   *
    * @param priority the parameter to be given priority in case same key is in get and post params.
    */
   public getParams(priority: ParamsList = 'query') {
@@ -196,7 +186,6 @@ export class RequestParametersService implements ParamsType {
 
   /**
    * Filter Parameters(both Query/POST) from the storage
-   *
    * @param paramstoFilter the list on key that you want to filter from parameters
    * @param priority the priorty of the parameter type(POST/Query)
    */

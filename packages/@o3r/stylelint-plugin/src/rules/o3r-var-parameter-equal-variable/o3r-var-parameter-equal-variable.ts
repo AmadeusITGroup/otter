@@ -22,7 +22,6 @@ export const messagesAlias = utils.ruleMessages(ruleName, {
 
 /**
  * The rule which will be given to stylelint.createPlugin method.
- *
  * @param primary
  * @param _secondaryOptions
  * @param context

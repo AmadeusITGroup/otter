@@ -13,15 +13,15 @@ import { OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS, OTTER_RULES_ENGINE_DEVTOOL
 export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
   private readonly options: RulesEngineDevtoolsServiceOptions;
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
-  private forceEmitRulesEngineReport = new BehaviorSubject<void>(undefined);
+  private readonly forceEmitRulesEngineReport = new BehaviorSubject<void>(undefined);
 
-  private sendMessage = sendOtterMessage<AvailableRulesEngineMessageContents>;
+  private readonly sendMessage = sendOtterMessage<AvailableRulesEngineMessageContents>;
 
   constructor(
     private readonly rulesEngineDevtools: OtterRulesEngineDevtools,
-    private logger: LoggerService,
+    private readonly logger: LoggerService,
     @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options?: RulesEngineDevtoolsServiceOptions) {
     this.options = {
       ...OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS,
@@ -35,7 +35,6 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
-   *
    * @param only restricted list of messages to re-send
    */
   private handleReEmitRequest(only?: RulesEngineMessageDataTypes[]) {
@@ -46,7 +45,6 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   *
    * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */

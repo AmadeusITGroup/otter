@@ -13,7 +13,7 @@ export class LocalizationRulesEngineActionHandler implements RulesEngineActionHa
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_LOCALISATION_UPDATE_ACTION_TYPE] as const;
 
-  constructor(private store: Store<LocalizationOverrideStore>) {
+  constructor(private readonly store: Store<LocalizationOverrideStore>) {
   }
 
   /** @inheritdoc */

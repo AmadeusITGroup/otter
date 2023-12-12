@@ -11,9 +11,9 @@ import {LocalizationService} from './localization.service';
   pure: false
 })
 export class LocalizedDecimalPipe extends DecimalPipe implements OnDestroy, PipeTransform {
-  private onLangChange: Subscription;
+  private readonly onLangChange: Subscription;
 
-  constructor(private localizationService: LocalizationService, private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private readonly localizationService: LocalizationService, private readonly changeDetectorRef: ChangeDetectorRef) {
     super(localizationService.getCurrentLanguage());
     this.onLangChange = this.localizationService.getTranslateService().onLangChange.subscribe(() =>
       this.changeDetectorRef.markForCheck()

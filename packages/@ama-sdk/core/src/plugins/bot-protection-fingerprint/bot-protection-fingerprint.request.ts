@@ -12,7 +12,6 @@ export interface ImpervaProtection {
   /**
    * Returns a Promise that resolves with the most recent valid token.
    * Rejects if token generation failed or reached the specified timeout
-   *
    * @param timeout
    */
   token: (timeout: number) => Promise<string>;
@@ -29,7 +28,6 @@ declare global {
  * Implementation based on Imperva's SPA integration feature developed for Amadeus.
  * This relies on a custom window property protectionLoaded that we feed with a callback that Imperva calls when the ABP script is loaded or when the callback is attached.
  * This callback is called with the Protection object used internally by the ABP that exposes a __token()__ function that returns a Promise of the most up-to-date token.
- *
  * @param protectionTimeout How long the retrieve will wait for the onProtectionLoaded event to be fired
  * @param tokenTimeout How long the ABP script will wait for a new token before rejecting the promise
  */
@@ -88,7 +86,6 @@ export interface AkamaiObject {
 /**
  * Implementation of a retriever for Akamai based on bmak object from window or as parameter.
  * Will return the telemetry, or undefined if bmak object is not found
- *
  * @param bmakOpt BMak object from Akamai. Default to `window.bmak` on browser if not provided.
  */
 export function akamaiTelemetryRetrieverFactory(bmakOpt?: AkamaiObject): BotProtectionFingerprintRetriever {
@@ -152,13 +149,13 @@ export interface BotProtectionFingerprintRequestOptions {
 
 /**
  * Plug-in that allows to interact with Anti-Bot protection tools fingerprint like following:
- *   - Wait for the fingerprint to be present in the document before sending any call
- *   - Forward the fingerprint in a chosen request header with all the calls
+ * - Wait for the fingerprint to be present in the document before sending any call
+ * - Forward the fingerprint in a chosen request header with all the calls
  *
  * This plugin is modular and must be instantiated with the logic that retrieves the fingerprint value, also called {@link BotProtectionFingerprintRetriever}.
  * This file exports two factories of {@link BotProtectionFingerprintRetriever} to cover our two most common usecases:
- *  - Imperva ABP
- *  - Akamai telemetry
+ * - Imperva ABP
+ * - Akamai telemetry
  * But you can also provide your own logic.
  *
  * In case this logic is unpredictable or subject to race conditions, you can configure a poller that will retry a maximum of N times every X milliseconds.
@@ -170,7 +167,6 @@ export interface BotProtectionFingerprintRequestOptions {
  * authentication calls also contain the fingerprint.
  * You can reuse the same instance that you give to the SDK, or create a simpler instance without a poller in case you
  * make sure to load this plug-in before the AmadeusGatewayTokenRequestPlugin.
- *
  * @example Reusing the same instance
  *
  * export function apiFactory(eventTrackService: EventTrackService): ApiManager {

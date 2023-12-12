@@ -7,7 +7,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Updates the AsyncStoreItem properties of each entity matching an id from the list of given ids, when a request has failed.
-   *
    * @param state        Actual state
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which has failed
@@ -16,7 +15,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Adds AsyncStoreItem property to the global store, or the entity if it already exists, when a request is triggered.
-   *
    * @param state       Actual state
    * @param id          Id of the entity to update
    * @param requestId   Id of the request which is triggered
@@ -25,7 +23,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Adds AsyncStoreItem properties for each entity matching the given ids, when a request is triggered
-   *
    * @param state        Actual state
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which is triggered
@@ -34,7 +31,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Updates the state with the given entity. Update the global or the current entity's status if it exists.
-   *
    * @param state        Actual state
    * @param entity       Payload item;
    * @param requestId    Id of request which has resolved if any
@@ -43,7 +39,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Updates the state with the given entity. Update the global or the current entity's status if it exists.
-   *
    * @param state        Actual state
    * @param entity       Payload item;
    * @param requestId    Id of request which has resolved if any
@@ -53,7 +48,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Updates the state with the given entities. Updates also AsyncStoreItem properties of each entity, when a request is resolved.
-   *
    * @param state        Actual state
    * @param entities     Payload items;
    * @param requestId    Id of request which has resolved if any
@@ -62,7 +56,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
   /**
    * Updates the state with the given entities. Updates also AsyncStoreItem properties of each entity, when a request is resolved.
-   *
    * @param state        Actual state
    * @param entities     Payload items;
    * @param requestId    Id of request which has resolved if any
@@ -73,7 +66,6 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
 
 /**
  * Create an Asynchronous Request Entity Adapter
- *
  * @param  adapter  Entity Adapter
  */
 export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapter: EntityAdapter<T>): EntityAsyncRequestAdapter<T> {

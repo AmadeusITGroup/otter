@@ -6,13 +6,11 @@ import type { ConfigurationModel } from '../stores/index';
 export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptions {
   /**
    * Default library name to use if not specified in the function call
-   *
    * @default `@o3r/components`
    */
   defaultLibraryName: string;
   /**
    * Default JSON file name if not specified in the function
-   *
    * @default partial-static-config.json
    */
   defaultJsonFilename: string;
@@ -45,7 +43,6 @@ export type AvailableConfigurationMessageContents =
 
 /**
  * Determine if the given message is a Configuration message
- *
  * @param message message to check
  */
 export const isConfigurationMessage = (message: any): message is AvailableConfigurationMessageContents => {

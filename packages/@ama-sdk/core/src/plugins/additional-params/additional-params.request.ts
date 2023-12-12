@@ -12,7 +12,6 @@ export interface AdditionalParameters {
 /**
  * Check if the value is a string or undefined.
  * Used to determine the request body type at runtime.
- *
  * @param value
  */
 export function isStringOrUndefined(value: any): value is string | undefined {
@@ -25,11 +24,10 @@ export function isStringOrUndefined(value: any): value is string | undefined {
  */
 export class AdditionalParamsRequest implements RequestPlugin {
 
-  private additionalParams: AdditionalParameters;
+  private readonly additionalParams: AdditionalParameters;
 
   /**
    * Initialize your plugin
-   *
    * @param additionalParams Parameters to add or modify
    */
   constructor(additionalParams: AdditionalParameters) {

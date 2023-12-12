@@ -1,7 +1,6 @@
 /**
  *
- * Represents an element that is exposed in a Sass import.
- *
+ *Represents an element that is exposed in a Sass import.
  * @property value: The name of the exposed element.
  * @property type: The type of the exposed element, either 'function' or 'var'.
  * @property replacement: The name of the replacement element, if any.

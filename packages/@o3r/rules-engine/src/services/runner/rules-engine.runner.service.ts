@@ -34,8 +34,8 @@ export class RulesEngineRunnerService implements OnDestroy {
   public readonly actionHandlers = new Set<RulesEngineActionHandler>();
 
   constructor(
-    private store: Store<RulesetsStore>,
-    private logger: LoggerService,
+    private readonly store: Store<RulesetsStore>,
+    private readonly logger: LoggerService,
     @Optional() @Inject(RULES_ENGINE_OPTIONS) engineConfig?: RulesEngineServiceOptions) {
     this.enabled = !engineConfig?.dryRun;
     this.engine = new RulesEngine({

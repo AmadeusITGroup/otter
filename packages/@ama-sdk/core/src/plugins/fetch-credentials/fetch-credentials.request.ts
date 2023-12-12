@@ -9,7 +9,7 @@ export class FetchCredentialsRequest implements RequestPlugin {
    * Value that will be set as the "credentials" option of the fetch API.
    * Defaulted to "same-origin"
    */
-  private credentialsValue: RequestCredentials;
+  private readonly credentialsValue: RequestCredentials;
 
   constructor(credentialsValue: RequestCredentials = 'same-origin') {
     this.credentialsValue = credentialsValue;

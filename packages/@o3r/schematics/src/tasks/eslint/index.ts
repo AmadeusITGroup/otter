@@ -8,13 +8,11 @@ import { getPackageManager } from '../../utility/package-manager-runner';
 export interface LinterOptions {
   /**
    * Indicates if the linter process should succeed even if there are lint errors remaining
-   *
    * @default true
    */
   continueOnError?: boolean;
   /**
    * If enabled, only errors are reported (--quiet option of ESLint CLI)
-   *
    * @default true
    */
   hideWarnings?: boolean;

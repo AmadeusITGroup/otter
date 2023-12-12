@@ -24,7 +24,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /**
    * Install the specified java open api generator
-   *
    * @param version of the OpenApi Generator jar to use
    * @param spawnOptions to configure your command line environment
    */
@@ -45,7 +44,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /**
    * Run the OpenApi generator jar with the configuration specified to generate a SDK based on the specified specification
-   *
    * @param generatorOptions contains the version of the generator to use, the output dir, the specification file and config to use etc.
    * @param spawnOptions to configure your command line environment
    */

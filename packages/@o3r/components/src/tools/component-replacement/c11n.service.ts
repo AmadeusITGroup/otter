@@ -6,7 +6,7 @@ import { C11N_PRESENTERS_MAP_TOKEN } from './c11n.token';
 
 @Injectable()
 export class C11nService {
-  private presentersMap: Map<string, any>;
+  private readonly presentersMap: Map<string, any>;
 
   constructor(@Inject(C11N_PRESENTERS_MAP_TOKEN) presentersMap: Map<string, any>) {
     this.presentersMap = presentersMap;

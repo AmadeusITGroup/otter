@@ -19,8 +19,8 @@ export type PrepareTestEnvType = 'blank' | 'angular' | 'angular-with-o3r-core' |
 
 /**
  * Retrieve the version used by yarn and setup at root level
- *
  * @param rootFolderPath: path to the folder where to take the configuration from
+ * @param rootFolderPath
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
   const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =

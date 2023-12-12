@@ -15,7 +15,7 @@ export class ApplicationDevtoolsConsoleService implements DevtoolsServiceInterfa
   private readonly options: ApplicationDevtoolsServiceOptions;
 
   constructor(
-    private applicationDevtools: OtterApplicationDevtools,
+    private readonly applicationDevtools: OtterApplicationDevtools,
     @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions
   ) {
     this.options = { ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };

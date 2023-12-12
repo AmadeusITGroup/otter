@@ -2,7 +2,6 @@ import {utils} from '@ama-sdk/core';
 
 /**
  * Check if an object is a date
- *
  * @param obj
  */
 export function isDate(obj: any) {
@@ -11,7 +10,6 @@ export function isDate(obj: any) {
 
 /**
  * Check if an object is not an array or a date
- *
  * @param obj
  */
 export function isObject(obj: any) {
@@ -20,7 +18,6 @@ export function isObject(obj: any) {
 
 /**
  * Return a new reference of the given object
- *
  * @param obj
  */
 export function immutablePrimitive(obj: any) {
@@ -42,7 +39,6 @@ export function immutablePrimitive(obj: any) {
  * Deep fill of base object using source
  * It will do a deep merge of the objects, overriding arrays
  * All properties not present in source, but present in base, will remain
- *
  * @param base
  * @param source
  */

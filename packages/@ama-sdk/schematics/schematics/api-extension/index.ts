@@ -12,7 +12,6 @@ import { NgGenerateApiExtensionSchematicsSchema } from './schema';
 
 /**
  * Generate a Extension of a API core definition
- *
  * @param options
  */
 export function ngGenerateApiExtension(options: NgGenerateApiExtensionSchematicsSchema): Rule {

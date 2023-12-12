@@ -2,7 +2,6 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 
 /**
  * Update VsCode recommendations for the current project
- *
  * @param recommendations list of recommendations
  */
 export const addVsCodeRecommendations = (recommendations: string[]): Rule => {

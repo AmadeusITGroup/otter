@@ -4,7 +4,6 @@ import { getLocalizationMetadata } from './metadata-manager';
 
 /**
  * Get storybook Localization configuration from metadata
- *
  * @param translations Localization map
  * @param metadata Localization Metadata
  */
@@ -28,7 +27,6 @@ export function extractLocalization(translations: Record<string, string>, metada
 
 /**
  * Retrieve final value from reference
- *
  * @param metadata Localization Metadata
  * @param memory discovered references
  * @param ref metadata reference
@@ -57,7 +55,6 @@ function discoverRef(metadata: LocalizationMetadata, memory: Record<string, stri
 
 /**
  * Get localization map from metatada
- *
  * @param metadata Localization Metadata
  */
 export function getLocalizations(metadata: LocalizationMetadata = getLocalizationMetadata()): Record<string, string> {
@@ -77,7 +74,6 @@ export function getLocalizations(metadata: LocalizationMetadata = getLocalizatio
 
 /**
  * Apply component localization to the loaded component
- *
  * @param localization Localization map
  * @param props Properties set to storybook control
  */

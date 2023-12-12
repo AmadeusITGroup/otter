@@ -52,7 +52,7 @@ export class OtterPickerPresComponent implements ControlValueAccessor {
 
   private onChanges!: (val: string) => void;
   private onTouched!: () => void;
-  private isDisabled = signal(false);
+  private readonly isDisabled = signal(false);
 
   /**
    * Select an otter and notify the parent

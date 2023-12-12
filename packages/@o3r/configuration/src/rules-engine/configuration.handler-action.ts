@@ -14,7 +14,7 @@ export class ConfigurationRulesEngineActionHandler implements RulesEngineActionH
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_CONFIGURATION_UPDATE_ACTION_TYPE] as const;
 
-  constructor(private store: Store<ConfigurationStore>) {
+  constructor(private readonly store: Store<ConfigurationStore>) {
   }
 
   /** @inheritdoc */

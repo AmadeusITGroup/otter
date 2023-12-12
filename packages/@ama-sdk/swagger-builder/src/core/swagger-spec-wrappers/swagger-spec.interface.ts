@@ -16,7 +16,6 @@ export interface SwaggerSpec {
 
   /**
    * Parse the Swagger spec
-   *
    * @param ignoredSwaggerPath List of external swagger path to ignore
    */
   parse(ignoredSwaggerPath?: string[]): Promise<void>;

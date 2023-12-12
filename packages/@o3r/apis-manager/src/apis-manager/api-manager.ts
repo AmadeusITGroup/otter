@@ -12,7 +12,6 @@ export class ApiManager {
 
   /**
    * Map of registered Api Client associated to specific API
-   *
    * @warning This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
    */
   public get registeredApiConfigurations() {
@@ -21,7 +20,6 @@ export class ApiManager {
 
   /**
    * Create an API manager using a custom ApiClient
-   *
    * @param defaultConfiguration
    */
   constructor(defaultConfiguration: ApiClient, apiConfigurations: { [key: string]: ApiClient } = {}) {
@@ -31,7 +29,6 @@ export class ApiManager {
 
   /**
    * Retrieve a configuration for a specific API
-   *
    * @param api API to get the configuration for
    */
   public getConfiguration(api?: string): ApiClient {
@@ -40,7 +37,6 @@ export class ApiManager {
 
   /**
    * Set or override API configuration
-   *
    * @param apiClient API configuration to override to the given api
    * @param api API name to override, the default configuration will be used if not specified
    */

@@ -17,10 +17,10 @@ export class IframeBridge {
   private readonly internalMessages$: Observable<InternalIframeMessage>;
 
   /** Promise that will resolve once the handshake has been completed, undefined if it's already done. */
-  private handshakePromise?: Promise<void>;
+  private readonly handshakePromise?: Promise<void>;
 
   /** Options to configure the behaviour of the Bridge. */
-  private options: IFrameBridgeOptions;
+  private readonly options: IFrameBridgeOptions;
 
   /**
    * Observable that emits all the messages received from the IFrame and that are
@@ -28,7 +28,7 @@ export class IframeBridge {
    */
   public readonly messages$: Observable<InternalIframeMessage>;
 
-  constructor(parent: Window, private child: HTMLIFrameElement, options: Partial<IFrameBridgeOptions> = {}) {
+  constructor(parent: Window, private readonly child: HTMLIFrameElement, options: Partial<IFrameBridgeOptions> = {}) {
     this.options = {...IFRAME_BRIDGE_DEFAULT_OPTIONS, ...options};
     this.channelId = v4();
     this.internalMessages$ = fromEvent(parent, 'message').pipe(
@@ -81,7 +81,6 @@ export class IframeBridge {
 
   /**
    * Method to send a message to the script run in the iframe
-   *
    * @param message message object
    * @param messageId message identifier
    */
@@ -92,7 +91,6 @@ export class IframeBridge {
 
   /**
    * Method to send a message to the script run in the iframe and wait for an answer
-   *
    * @param message
    * @param timeoutMilliseconds
    */

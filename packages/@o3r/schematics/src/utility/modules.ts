@@ -83,7 +83,6 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
 /**
  * Get the path to the main.ts
- *
  * @param tree File tree
  * @param context Context of the rule
  * @param projectName

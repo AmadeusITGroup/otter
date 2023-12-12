@@ -5,7 +5,7 @@ import { PostProcess } from './post-process.interface';
  */
 export class PropagateXvendor implements PostProcess {
 
-  constructor(private vendorExtToPropagate: string = 'x-unknown') {}
+  constructor(private readonly vendorExtToPropagate = 'x-unknown') {}
 
   private getRecApiFlag(definitionName: string, definition: any, originDefs: any, processedDefs: any) {
     if (!definition.allOf || definition[this.vendorExtToPropagate]) {

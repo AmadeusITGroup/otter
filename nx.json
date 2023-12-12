@@ -61,7 +61,8 @@
       "{workspaceRoot}/.eslintignore",
       "{projectRoot}/.eslintrc.js",
       "{projectRoot}/.eslintignore",
-      "{projectRoot}/package.json"
+      "{projectRoot}/package.json",
+      "{projectRoot}/packages/@o3r/eslint-config-otter/*.cjs"
     ],
     "specs": [
       "default",

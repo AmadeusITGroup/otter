@@ -14,17 +14,17 @@ export class FetchCacheRequest implements RequestPlugin {
   /**
    * Value that will be set as the options of the fetch API.
    */
-  private fetchCache?: RequestCache;
+  private readonly fetchCache?: RequestCache;
 
   /**
    * Value that will be set in the request header to drive the cache management in older browser such as IE11.
    */
-  private cacheControl?: string;
+  private readonly cacheControl?: string;
 
   /**
    * Should the plugin add additional cache headers for instance for IE11 compatibility.
    */
-  private shouldAddCacheControlHeaders: boolean;
+  private readonly shouldAddCacheControlHeaders: boolean;
 
   constructor(fetchCache?: RequestCache, cacheControl?: string, shouldAddCacheControlHeaders?: boolean) {
     this.fetchCache = fetchCache;

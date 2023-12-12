@@ -32,7 +32,6 @@ const logger = winston.createLogger({
 
 /**
  * Returns true if the url match one of the artifact types
- *
  * @param fullUrl
  * @param types
  */

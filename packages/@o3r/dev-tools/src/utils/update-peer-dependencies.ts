@@ -54,7 +54,6 @@ const dependencyParser = (value: string): Dependency | undefined => {
  * Relies on npm info to retrieve package information.
  * Example: updatePeerDependencies(['@random/package@~2.21.0', '@o3r/core'], './package.json')
  * @deprecated will be removed in Otter v12.
- *
  * @param dependencies
  * @param packageJsonPath
  * @param verbose

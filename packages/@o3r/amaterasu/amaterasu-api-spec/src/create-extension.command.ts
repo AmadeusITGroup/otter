@@ -11,7 +11,6 @@ export interface CreateExtensionOptions {
   path: string;
   /**
    * Set default options instead of requiring input
-   *
    * @default false
    */
   yes?: boolean;
@@ -23,7 +22,6 @@ export interface CreateExtensionOptions {
 
 /**
  * Create an Otter Extension
- *
  * @param context Context of the command
  * @param options Options
  */

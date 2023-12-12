@@ -13,7 +13,7 @@ export class DynamicContentPipe implements PipeTransform, OnDestroy {
   /** Path to the media */
   private mediaPath = '';
 
-  constructor(private service: DynamicContentService, private cd: ChangeDetectorRef) {}
+  constructor(private readonly service: DynamicContentService, private readonly cd: ChangeDetectorRef) {}
 
   /** @inheritDoc */
   public transform(query?: string) {

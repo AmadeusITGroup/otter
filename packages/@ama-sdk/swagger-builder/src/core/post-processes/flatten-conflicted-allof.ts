@@ -4,7 +4,6 @@ import { PostProcess } from './post-process.interface';
 /**
  * Flatten conflicted AllOf post process
  * The purpose is to apply the composition to the definitions depending of a _ started definition
- *
  * @example
  * // override MyCustomDefinition from @dxapi-spec/core-private to add the "example" field
  * definitions:

@@ -71,7 +71,7 @@ export class NewVersion {
   /** Name of the pre-release part of versions computed from the default branch */
   public defaultBranchPrereleaseName?: string;
 
-  constructor(private options: NewVersionOptions<BaseLogger>) {
+  constructor(private readonly options: NewVersionOptions<BaseLogger>) {
     this.isDefaultBranch = options.defaultBranch === options.baseBranch;
     this.isBaseBranchSupported = this.isDefaultBranch || options.releaseBranchRegExp.test(options.baseBranch);
     this.defaultBranchPrereleaseName = options.defaultBranchPrereleaseName || options.defaultBranch;
@@ -124,7 +124,6 @@ export class NewVersion {
   /**
    * Compute the next version following the version mask.
    * If your default branch is behind your release branches, the version minor will be bumped
-   *
    * @param tags
    * @param versionMask
    */

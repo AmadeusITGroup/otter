@@ -1,7 +1,6 @@
 
 /**
  * Determine if the given item is a promise
- *
  * @param item Item to check
  */
 export const isPromise = <T>(item: T | Promise<T>): item is Promise<T> => !!item && typeof (item as Promise<T>).then === 'function';
@@ -17,7 +16,6 @@ export class TimeoutError extends Error {
 
 /**
  * Apply timeout to a given promise
- *
  * @param promise Promise to timeout
  * @param timeout timeout of the given promise (in ms)
  */

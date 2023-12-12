@@ -15,7 +15,6 @@ export const getJestProjects = workspaceGetJestProjects;
 
 /**
  * Find the closest package.json file containing workspace definition in the parent directories
- *
  * @param directory Current directory to search for
  * @param rootDir First directory of the recursion
  */

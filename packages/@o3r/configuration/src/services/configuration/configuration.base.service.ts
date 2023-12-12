@@ -23,14 +23,13 @@ import { ConfigurationBaseServiceModule } from './configuration.base.module';
 })
 export class ConfigurationBaseService {
 
-  private extendedConfiguration: {[key: string]: boolean} = {};
+  private readonly extendedConfiguration: {[key: string]: boolean} = {};
 
-  constructor(private store: Store<ConfigurationStore & ConfigOverrideStore>) {
+  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {
   }
 
   /**
    * Update a specific component config or add it to the store if does not exist
-   *
    * @param configuration to edit/add
    * @param configurationId Configuration ID
    */
@@ -40,7 +39,6 @@ export class ConfigurationBaseService {
 
   /**
    * Update a specific component config
-   *
    * @param configuration Partial config to edit
    * @param configurationId Configuration ID
    */
@@ -50,7 +48,6 @@ export class ConfigurationBaseService {
 
   /**
    * This function will get the configuration stored in the data attribute of the html's body tag
-   *
    * @param configTagName Value used to identify the data attribute where the config is pushed in the index.html
    */
   public getConfigFromBodyTag<T extends Configuration>(configTagName = 'staticconfig') {
@@ -63,7 +60,6 @@ export class ConfigurationBaseService {
 
   /**
    * Transform the custom configuration in store configuration model
-   *
    * @param customConfigObject Configuration object (extracted from body tag for static config or downloaded in case of dynamic config)
    */
   public computeConfiguration<T extends Configuration>(customConfigObject: CustomConfig<T>[]) {
@@ -72,7 +68,6 @@ export class ConfigurationBaseService {
 
   /**
    * Complete a stored configuration by adding the missing fields
-   *
    * @param extension Configuration extension to be included in the store
    * @param configurationId Configuration ID to extend
    * @param forceUpdate Force update the configuration in the store
@@ -91,7 +86,6 @@ export class ConfigurationBaseService {
 
   /**
    * Operator to get the configuration from store for a given component and merge it with the global config
-   *
    * @param id Id of the component
    * @param defaultValue Default value of the configuration
    */
@@ -112,7 +106,6 @@ export class ConfigurationBaseService {
 
   /**
    * Get an observable of the configuration from store for a given component and merge it with the global config + the config overrides from the rules engine
-   *
    * @param id Id of the component
    */
   public getConfig(id: string): Observable<any> {

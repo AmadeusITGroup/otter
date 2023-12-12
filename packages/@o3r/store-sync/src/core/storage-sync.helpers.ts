@@ -5,7 +5,6 @@ import type { SyncStorageConfig } from '../sync-storage';
 
 /**
  * Defines if an object is a Serializer
- *
  * @param obj Object to test
  * @returns True if the object is a Serializer
  */
@@ -25,7 +24,6 @@ export const rehydrateAction = createAction(REHYDRATE_ACTION_LABEL, props<{
 
 /**
  * Defines if the storage is a non-async storage
- *
  * @param options The storage config
  * @returns in case the storage used is a non-async storage
  */

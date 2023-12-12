@@ -13,12 +13,12 @@ const isLocalizationMessage = (message: any): message is AvailableLocalizationMe
 @Injectable()
 export class LocalizationDevtoolsMessageService implements OnDestroy {
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
   constructor(
-      private logger: LoggerService,
-      private localizationDevTools: OtterLocalizationDevtools,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS) {
+      private readonly logger: LoggerService,
+      private readonly localizationDevTools: OtterLocalizationDevtools,
+    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS) {
 
     if (this.options.isActivatedOnBootstrap) {
       this.activate();
@@ -27,7 +27,6 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   *
    * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */

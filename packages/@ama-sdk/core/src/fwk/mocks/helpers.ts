@@ -2,7 +2,6 @@ import { PathObject } from './path-object';
 
 /**
  * Gets an operation ID from a path object and HTTP method
- *
  * @param pathObject the path object to check on
  * @param method the HTTP method
  */
@@ -19,7 +18,6 @@ export function getOperationId(pathObject: PathObject, method: string): string |
 
 /**
  * Gets a PathObject from a requested URL
- *
  * @param requestUrl the URL string
  * @param pathObjects the list of available path objects
  * @param method the optional HTTP method used in case of several matches

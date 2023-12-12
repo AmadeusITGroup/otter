@@ -9,7 +9,6 @@ export interface WindowWithDevtools extends Window {
 export interface DevtoolsCommonOptions {
   /**
    * Activated the application bootstrap
-   *
    * @default false
    */
   isActivatedOnBootstrap: boolean;

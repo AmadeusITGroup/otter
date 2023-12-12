@@ -5,7 +5,6 @@ import { getPackageManager } from '../utility/package-manager-runner';
 
 /**
  * Install the Otter packages
- *
  * @param tree
  * @param context
  */

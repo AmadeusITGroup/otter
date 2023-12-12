@@ -46,7 +46,6 @@ function plurialize(singular: string): string {
 
 /**
  * returns the folder name
- *
  * @param modelName
  */
 export function getDasherizeModelName(modelName: string): string {
@@ -55,7 +54,6 @@ export function getDasherizeModelName(modelName: string): string {
 
 /**
  * Add mock
- *
  * @param options
  */
 export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {

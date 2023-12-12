@@ -5,7 +5,6 @@ import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
  * Type that represents public facts.
  * Even though the type itself is permissive to mirror what the backend accepts, it is strongly recommended to extend
  * it from an application in order to type it with the facts expected by the rules setup for that application.
- *
  * @example
  * interface BookingPublicFacts extends PublicFacts {
  *   fact1: string;
@@ -26,7 +25,6 @@ export type ClientFactsFactory<T extends PublicFacts = PublicFacts> = (request: 
 export interface ClientFactsRequestPluginOptions<T extends PublicFacts = PublicFacts> {
   /**
    * Name of the header where to store the encoded facts
-   *
    * @defaultValue 'ama-client-facts'
    */
   headerName?: string;
@@ -67,13 +65,12 @@ export function createJwtFactsEncoder() {
  * Private facts are represented as strings.
  *
  * The plugin allows to define two layers of facts:
- *   - Global: synchronous map of facts sent with every request
- *   - Request: function that is called with all the request information where you can return specific facts for every request
+ * - Global: synchronous map of facts sent with every request
+ * - Request: function that is called with all the request information where you can return specific facts for every request
  * If both are defined for a request, the priority is given to request specific facts.
  *
  * Facts are added to every requests as a Header that is configurable.
  * Public facts are stringified and encoded in base64 before.
- *
  * @example only global public facts
  * const clientFactsPlugin = new ClientFactsRequestPlugin<BookingPublicFacts>({
  *   initialGlobalFacts: {
@@ -132,7 +129,7 @@ export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> imple
   /** Private facts that will be sent as-is with every request */
   private privateFacts?: string;
 
-  private jwtEncoder = createJwtFactsEncoder();
+  private readonly jwtEncoder = createJwtFactsEncoder();
 
   constructor(options: ClientFactsRequestPluginOptions<T>) {
     this.headerName = options.headerName || 'ama-client-facts';
@@ -143,7 +140,6 @@ export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> imple
 
   /**
    * Change the value of the global facts
-   *
    * @param facts
    */
   public setGlobalFacts(facts: T) {
@@ -152,7 +148,6 @@ export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> imple
 
   /**
    * Change the value of the private facts
-   *
    * @param facts
    */
   public setPrivateFacts(facts: string) {
