@@ -4,7 +4,6 @@ import * as path from 'node:path';
 
 /**
  * If ng-package.json is found under the /src/ folder of the module, it means sub entry points mechanism is implemented
- *
  * @param tree tree
  * @param destination the destination path
  */
@@ -14,7 +13,6 @@ export function moduleHasSubEntryPoints(tree: Tree, destination: string) {
 /**
  * Checks if exists and returns the 'store' project from angular.json.
  * Otherwise, it returns the default project if exists, if not it returns the first project
- *
  * @param tree tree
  * @param destination the destination path
  * @param entityName the entity name

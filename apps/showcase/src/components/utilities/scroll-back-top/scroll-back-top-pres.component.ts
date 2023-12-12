@@ -16,9 +16,9 @@ import { fromEvent, map } from 'rxjs';
 })
 export class ScrollBackTopPresComponent {
 
-  private document = inject(DOCUMENT);
+  private readonly document = inject(DOCUMENT);
 
-  private viewport = inject(ViewportScroller);
+  private readonly viewport = inject(ViewportScroller);
 
   public showScroll$ = fromEvent(this.document, 'scroll').pipe(
     takeUntilDestroyed(),

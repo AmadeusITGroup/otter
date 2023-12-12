@@ -24,7 +24,7 @@ import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DI
 })
 export class DynamicContentComponent implements AfterViewInit {
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
   public bodyDynamicContentPath = document.body.dataset.dynamiccontentpath;
@@ -34,7 +34,7 @@ export class DynamicContentComponent implements AfterViewInit {
 </body>`;
 
   constructor(
-    private inPageNavPresService: InPageNavPresService
+    private readonly inPageNavPresService: InPageNavPresService
   ) {}
 
   public ngAfterViewInit() {

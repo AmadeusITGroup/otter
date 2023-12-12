@@ -3,7 +3,6 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
 
 /**
  * Creates a JWT encoding function which transforms the provided token-value associations as a unsecured JWT format https://tools.ietf.org/html/rfc7519#section-6
- *
  * @param applicationId Identifier of the application
  * @param expirationDelay Delay after which the generated JWT has to be considered obsolete (in seconds)
  */
@@ -28,7 +27,6 @@ export function createJwtPiiEncoder(applicationId: string, expirationDelay = 360
 
 /**
  * Creates a JWE encoding function which transforms the provided token-value associations into a secured JWT format https://tools.ietf.org/html/rfc7519
- *
  * @param applicationId Identifier of the application
  * @param expirationDelay Delay after which the generated JWE has to be considered obsolete (in seconds). Default to 3600s.
  * @param key Object containing the public key and its id
@@ -73,14 +71,12 @@ export interface PiiTokenizerRequestPluginOptions {
 
   /**
    * Name of the header to append the generated JWT containing the token-value associations to
-   *
    * @default ama-client-facts
    */
   headerName?: string;
 
   /**
    * Name of the header that will contain the response to a deeplink token challenge, if any
-   *
    * @default ama-client-facts-challenge
    */
   challengeHeaderName?: string;
@@ -115,14 +111,12 @@ export interface PiiTokenizerRequestPluginOptions {
  * If the key parameter is specified, the generated token will be encrypted.
  *
  * There are two modes:
- *   - JWT Encoder, which encodes a token with the provided values
- *   - DeepLink, which just appends a provided token to the headers.
- *     It is used if deepLinkOptions is provided, overriding the JWT Encoder.
+ * - JWT Encoder, which encodes a token with the provided values
+ * - DeepLink, which just appends a provided token to the headers.
+ * It is used if deepLinkOptions is provided, overriding the JWT Encoder.
  *
  * Note that the tokenization should be enabled in the ApiClient to use the JWT Encoder mode but it's
  * not necessary for the DeepLink mode.
- *
- *
  * @example JWT
  *
  * const client = new ApiFetchClient({
@@ -169,20 +163,19 @@ export interface PiiTokenizerRequestPluginOptions {
 export class PiiTokenizerRequest implements RequestPlugin {
 
   /** Name of the header to append the token-value associations to */
-  private tokensHeader: string;
+  private readonly tokensHeader: string;
 
   /** Name of the header that will contain the response to a deeplink token challenge, if any */
-  private challengeHeader: string;
+  private readonly challengeHeader: string;
 
   /** Token encoding function */
-  private tokenEncoder;
+  private readonly tokenEncoder;
 
   /** Boolean to specify if an error should be silent or crash the application */
-  private silent: boolean;
+  private readonly silent: boolean;
 
   /**
    * Initialize your plugin
-   *
    * @param options Options of the plugin
    */
   constructor(options: PiiTokenizerRequestPluginOptions) {
@@ -198,7 +191,6 @@ export class PiiTokenizerRequest implements RequestPlugin {
 
   /**
    * Append the generated token based on the request options to the tokens header
-   *
    * @param requestOptions Request options to generate the token
    */
   private async appendEncodedToken(requestOptions: RequestOptions) {

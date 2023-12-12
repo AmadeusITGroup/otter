@@ -95,7 +95,6 @@ fse.ensureDirSync(path.resolve(process.cwd(), path.dirname(filePath)));
 
 /**
  * Report error on artifact downloading
- *
  * @param e
  */
 const reportError = (e: Error) => {
@@ -172,7 +171,6 @@ async function retrieveArtifactFromJFrog() {
 
 /**
  * Get the latest version, if it exists, of the specified artifact
- *
  * @param packages Array of packages from the Azure feed
  * @param artifactName Name of the artifact to get the latest version from
  */
@@ -232,7 +230,6 @@ async function retrieveArtifactFromAzure() {
 }
 /**
  * Download an artifact on the specified artifact repository manager
- *
  * @param registry Registry url
  */
 function retrieveArtifact() {

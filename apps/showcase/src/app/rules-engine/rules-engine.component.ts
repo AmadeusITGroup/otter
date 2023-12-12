@@ -67,17 +67,17 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
   public lateOtterRule = '';
 
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
   public activeRuleTab = 'configuration';
 
   constructor(
-    private inPageNavPresService: InPageNavPresService,
-    private dynamicContentService: DynamicContentService,
-    private tripFactsService: TripFactsService,
+    private readonly inPageNavPresService: InPageNavPresService,
+    private readonly dynamicContentService: DynamicContentService,
+    private readonly tripFactsService: TripFactsService,
     public currentTimeFactsService: CurrentTimeFactsService,
-    private store: Store<RulesetsStore>,
+    private readonly store: Store<RulesetsStore>,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
     rulesEngineService: RulesEngineRunnerService,

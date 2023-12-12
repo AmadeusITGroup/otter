@@ -27,7 +27,7 @@ export class StyleLazyLoader {
 
   private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
 
-  constructor(private dcService: DynamicContentService) {
+  constructor(private readonly dcService: DynamicContentService) {
   }
 
   /**

@@ -3,7 +3,6 @@ import { PackageJson } from 'type-fest';
 
 /**
  * Retrieve the peer dependencies with the given pattern from the given package json file
- *
  * @param packageJsonPath
  * @param pattern
  */
@@ -30,7 +29,6 @@ const basicsPackageName = new Set([
 
 /**
  * Get the list of o3r peer deps from a given package.json file
- *
  * @param packageJsonPath The package json on which we search for o3r peer deps
  * @param filterBasics If activated it will remove the basic peer deps (o3r/core, o3r/dev-tools, o3r/workspace and o3r/schematics) from the list of results
  * @param packagePattern Pattern of the package name to look in the packages peer dependencies.

@@ -7,7 +7,7 @@
 export function getPackageManager(angularJsonString?: string | null) {
   let packageManager = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npm' : 'yarn';
   if (angularJsonString) {
-    const angularJsonObj = JSON.parse(angularJsonString) ;
+    const angularJsonObj = JSON.parse(angularJsonString);
     if (angularJsonObj?.cli?.packageManager) {
       packageManager = angularJsonObj.cli.packageManager;
     }

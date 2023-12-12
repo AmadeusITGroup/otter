@@ -44,7 +44,6 @@ export class ApiFetchClient implements ApiClient {
 
   /**
    * Initialize your API Client instance
-   *
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiFetchClientConstructor) {

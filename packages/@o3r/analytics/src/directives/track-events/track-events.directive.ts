@@ -13,7 +13,6 @@ import {BaseTrackEvents} from './base-track-events';
 /**
  * Directive to capture the events given as input, on the reference element.
  * The captured event will be exposed via EventTrackService
- *
  * @example:
  * <my-component
  *    (click)="doSomething()"

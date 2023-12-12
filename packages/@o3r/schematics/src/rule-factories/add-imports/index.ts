@@ -5,7 +5,6 @@ import * as ts from 'typescript';
 
 /**
  * Rule to add imports to a file
- *
  * @param filePath
  * @param imports
  */

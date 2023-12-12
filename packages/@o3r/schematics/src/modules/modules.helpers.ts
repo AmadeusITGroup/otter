@@ -162,7 +162,7 @@ export async function getAvailableModulesWithLatestPackage(keyword: string = OTT
  */
 export function formatModuleDescription(
     npmPackage: NpmRegistryPackage,
-    runner: string = 'npx',
+    runner = 'npx',
     keywordTags: Record<string, string> = {},
     logger?: logging.LoggerApi) {
   let otterVersion: string | undefined;

@@ -30,7 +30,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE] as const;
 
-  constructor(store: Store<PlaceholderTemplateStore>, private logger: LoggerService, @Optional() translateService?: LocalizationService) {
+  constructor(store: Store<PlaceholderTemplateStore>, private readonly logger: LoggerService, @Optional() translateService?: LocalizationService) {
 
     const lang$ = translateService ? translateService.getTranslateService().onLangChange.pipe(
       map(({ lang }) => lang),

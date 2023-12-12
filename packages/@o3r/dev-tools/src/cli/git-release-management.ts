@@ -34,7 +34,6 @@ const logger = winston.createLogger({
 
 /**
  * Performs the operations needed for the release candidate step
- *
  * @param  {object} version
  */
 async function createRcRelease(version: SemVer) {
@@ -51,7 +50,6 @@ async function createRcRelease(version: SemVer) {
 
 /**
  * Performs the operations needed for the final release step
- *
  * @param  {object} version
  */
 async function createFinalRelease(version: SemVer) {

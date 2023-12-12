@@ -19,7 +19,6 @@ export interface MsCrypto {
 
 /**
  * Promisify window.msCrypto functions
- *
  * @param cryptoOutput Output of the window.msCrypto function
  */
 export function promisifyMsCrypto<T>(cryptoOutput: CryptoFunctionOutput<T>) {

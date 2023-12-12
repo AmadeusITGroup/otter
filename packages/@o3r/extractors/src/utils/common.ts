@@ -6,7 +6,6 @@ import type { CmsMedataData, DocumentationNode } from '../interfaces';
 
 /**
  * Check if a component implements an interface given as a parameter
- *
  * @param {DocumentationNode} node
  * @param {string} interfaceName
  */
@@ -18,7 +17,6 @@ export function checkComponentImplementsInterface(node: DocumentationNode, inter
 
 /**
  * Check if an interface extends an interface given as a parameter
- *
  * @param DocumentationNode} node
  * @param node
  * @param {string} interfaceName
@@ -32,7 +30,6 @@ export function checkInterfaceExtendsInterface(node: DocumentationNode, interfac
 /**
  * Return the default value of the given reflection.
  * The value is cleaned to be usable by the CMS.
- *
  * @param reflection Code reflection
  */
 export function getReflectionDefaultValue(reflection: DeclarationReflection) {
@@ -45,7 +42,6 @@ export function getReflectionDefaultValue(reflection: DeclarationReflection) {
 
 /**
  * Get absolute path of a provided library
- *
  * @param libraryName Library name (ex: @refx/components)
  * @param executionDir
  */
@@ -82,7 +78,6 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
 
 /**
  * Get cms metadata files from the node_modules package of the provided library
- *
  * @param modulePath Absolute path of the library (ex: my/absolute/path/@refx/components)
  */
 export function getLibraryCmsMetadataFileNames(modulePath: string) {
@@ -91,7 +86,6 @@ export function getLibraryCmsMetadataFileNames(modulePath: string) {
 
 /**
  * Get cms metadata file paths from the node_modules package of the provided library
- *
  * @param libraryName Library name (ex: @refx/components)
  * @param executionDir
  */

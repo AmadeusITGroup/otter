@@ -26,7 +26,6 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
 
   /**
    * Select an element in a dropdown by value.
-   *
    * @param _value
    * @param _timeout
    */

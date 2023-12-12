@@ -11,7 +11,7 @@ import { RulesetHistoryService } from '../services/ruleset-history.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnDestroy {
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   public rulesetExecutions$: Observable<RulesetExecutionDebug[]>;
 

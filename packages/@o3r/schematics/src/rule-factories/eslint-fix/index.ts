@@ -4,7 +4,6 @@ import { EslintFixTask, LinterOptions } from '../../tasks';
 
 /**
  * Apply EsLint fix
- *
  * @param prootPath Root path
  * @param _prootPath
  * @param extension List of file extensions to lint

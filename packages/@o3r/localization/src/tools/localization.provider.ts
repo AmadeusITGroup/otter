@@ -9,7 +9,6 @@ import { TranslationsLoader } from './translations-loader';
 /**
  * Creates a loader of translations bundles based on the configuration
  * (endPointUrl and language determine which bundle we load and where do we fetch it from)
- *
  * @param localizationConfiguration
  * @param logger service to handle the log of warning and errors
  * @param dynamicContentService (optional)

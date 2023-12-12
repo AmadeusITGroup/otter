@@ -29,12 +29,11 @@ export class StyleLazyLoader {
 
   private readonly DEFAULT_STYLE_ELEMENT_ID = 'external-theme';
 
-  constructor(private dcService: DynamicContentService) {
+  constructor(private readonly dcService: DynamicContentService) {
   }
 
   /**
    * Load a new CSS from an absolute URL, if we already HTML element exists with the url, otherwise
-   *
    * @param styleUrlConfig object containing CSS File absolute URL to load, integrity and crossOrigin attributes
    * and the styleId id of the dynamic style in the body tag.
    */
@@ -61,7 +60,6 @@ export class StyleLazyLoader {
 
   /**
    * Load a new CSS File
-   *
    * @param styleUrlConfig CSS File config containing URL to load, integrity and crossOrigin attributes
    * and the styleId id of the dynamic style in the body tag
    */

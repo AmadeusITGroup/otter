@@ -18,7 +18,6 @@ export const scriptToInject = 'extension/wrap.js';
 
 /**
  * Determine if the message is an ApplicationInformationContentMessage
- *
  * @param data the message
  * @returns true if the message is an ApplicationInformationContentMessage
  */
@@ -26,7 +25,6 @@ export const isApplicationInformationMessage = (data?: AvailableMessageContents)
 
 /**
  * Determine if the message is a RuleEngineEventsMessage
- *
  * @param data the message
  * @returns true if the message is a RuleEngineEventsMessage
  */
@@ -34,7 +32,6 @@ export const isRuleEngineEventsMessage = (data?: AvailableMessageContents): data
 
 /**
  * Determine if the message is a ConfigurationsMessage
- *
  * @param data the message
  * @returns true if the message is a ConfigurationsMessage
  */
@@ -42,7 +39,6 @@ export const isConfigurationsMessage = (data?: AvailableMessageContents): data i
 
 /**
  * Determine if the message is a SelectedComponentInfoMessage
- *
  * @param data the message
  * @returns true if the message is a SelectedComponentInfoMessage
  */
@@ -55,13 +51,13 @@ export const isSelectedComponentInfoMessage = (data?: AvailableMessageContents):
 export class ChromeExtensionConnectionService implements OnDestroy {
 
   private backgroundPageConnection?: chrome.runtime.Port;
-  private messageSubject = new ReplaySubject<AvailableMessageContents>(1);
-  private subscription = new Subscription();
+  private readonly messageSubject = new ReplaySubject<AvailableMessageContents>(1);
+  private readonly subscription = new Subscription();
 
   /** Stream of messages received from the service worker */
   public message$ = this.messageSubject.asObservable();
 
-  private configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);
+  private readonly configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);
   public configurations$ = this.configurations.asObservable();
 
   constructor(appRef: ApplicationRef) {
@@ -80,7 +76,6 @@ export class ChromeExtensionConnectionService implements OnDestroy {
 
   /**
    * Send message to the page through the service worker
-   *
    * @param dataType
    * @param content
    */

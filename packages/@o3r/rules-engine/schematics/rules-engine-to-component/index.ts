@@ -114,7 +114,7 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
 
             const propertiesToAdd = generateClassElementsFromString(`
               private readonly componentName = computeItemIdentifier('${node.name?.escapedText as string}', '${projectName}');
-              private rulesEngineService = inject(RulesEngineRunnerService, {optional: true});
+              private readonly rulesEngineService = inject(RulesEngineRunnerService, {optional: true});
             `);
 
             const newNgOnInit = getSimpleUpdatedMethod(node, factory, 'ngOnInit', generateBlockStatementsFromString(`

@@ -20,7 +20,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Root element of this fixture.
    * All further queries will be applied to the element tree if any, otherwise they will be applied to the whole DOM.
-   *
    * @param rootElement
    */
   constructor(rootElement: V) {
@@ -30,7 +29,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Throws an exception if the element is undefined.
    * Otherwise returns the element.
-   *
    * @param element ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
@@ -48,7 +46,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Throws an exception if the element is undefined.
    * Otherwise returns the element.
-   *
    * @param element ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
@@ -66,7 +63,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Get the element associated to the selector if present
-   *
    * @param selector Selector to access the element
    * @param elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options Options supported
@@ -97,7 +93,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Get text from the element associated to the given selector, or undefined if the element is not found or not visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
@@ -120,7 +115,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Check if the element associated to the given selector is visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
@@ -140,7 +134,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Click on the element associated to the given selector if it exists and is visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement

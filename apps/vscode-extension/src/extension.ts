@@ -26,7 +26,6 @@ import { configurationCompletionItemProvider, configurationCompletionTriggerChar
 /**
  * Function to register commands.
  * This function is called by VSCode when the extension is activated.
- *
  * @param context
  */
 export function activate(context: ExtensionContext) {

@@ -66,7 +66,6 @@ export function getModuleIndex(sourceFile: SourceFile, sourceContent: string): P
 
 /**
  * Get file information in schematics context
- *
  * @param tree
  * @param context
  * @param projectName

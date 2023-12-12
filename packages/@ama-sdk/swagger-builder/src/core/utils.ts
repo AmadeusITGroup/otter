@@ -18,7 +18,6 @@ export const X_VENDOR_CONFLICT_TAG = 'x-generated-from-conflict';
 
 /**
  * Retrieve a remote specification targeted via http(s)
- *
  * @param targetedSwaggerSpec Path to the swagger spec
  * @param currentDirectory Directory from which the SwaggerSpec path is based one
  */
@@ -50,7 +49,6 @@ export async function retrieveRemoteSwagger(targetedSwaggerSpec: string, current
 
 /**
  * Get the path to the targeted swagger spec
- *
  * @param targetedSwaggerSpec Path to the swagger spec
  * @param currentDirectory Directory from which the SwaggerSpec path is based one
  */
@@ -69,7 +67,6 @@ export function getTargetPath(targetedSwaggerSpec: string, currentDirectory: str
 
 /**
  * Generate a prefix for a specific item
- *
  * @param name Name of the item for which the prefix is needed
  * @param swaggerPath Path to the swagger spec the item come from
  */
@@ -81,7 +78,6 @@ export function calculatePrefix(name: string, swaggerPath?: string) {
 
 /**
  * Get the Swagger Spec wrapper according to the type of swagger spec
- *
  * @param targetedSwaggerSpec Path to the swagger spec
  * @param currentDirectory Directory from which the SwaggerSpec path is based one
  * @param targetType Type of target used for the Swagger Spec
@@ -118,7 +114,6 @@ export async function getTargetInformation(
 
 /**
  * Add a tag to a swagger spec object
- *
  * @param swaggerSpec Swagger spec to edit
  * @param tag Tag to add to the Swagger Spec
  */
@@ -145,7 +140,6 @@ export function addTagToSpecObj(swaggerSpec: Partial<Spec>, tag: any): any {
 
 /**
  * Add an item to a swagger spec object
- *
  * @param swaggerSpec Swagger spec to edit
  * @param nodeType Type of item to add (definitions, parameters, responses, ...)
  * @param itemName Name of the item to add
@@ -178,7 +172,6 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
 
 /**
  * Add a definition to a swagger spec object
- *
  * @param swaggerSpec Swagger spec to edit
  * @param definitionName Name of the definition to add
  * @param definition Content of the definition
@@ -192,7 +185,6 @@ export function addDefinitionToSpecObj(swaggerSpec: Partial<Spec>, definitionNam
 
 /**
  * Add a response to a swagger spec object
- *
  * @param swaggerSpec Swagger spec to edit
  * @param responseName Name of the response to add
  * @param response Content of the response
@@ -206,7 +198,6 @@ export function addResponseToSpecObj(swaggerSpec: Partial<Spec>, responseName: s
 
 /**
  * Add a parameter to a swagger spec object
- *
  * @param swaggerSpec Swagger spec to edit
  * @param parameterName Name of the parameter to add
  * @param parameter Content of the parameter
@@ -220,7 +211,6 @@ export function addParameterToSpecObj(swaggerSpec: Partial<Spec>, parameterName:
 
 /**
  * Get the validity of a given JSON object
- *
  * @param jsonObject Object to check
  * @param schema Json Schema to apply to the obejct
  * @param errorMessage Error message display to the error
@@ -250,7 +240,6 @@ export async function getCurrentArtifactVersion(): Promise<string | undefined> {
 
 /**
  * Determine if a pattern is a glob pattern
- *
  * @param pattern Pattern to test
  */
 export function isGlobPattern(pattern: string) {

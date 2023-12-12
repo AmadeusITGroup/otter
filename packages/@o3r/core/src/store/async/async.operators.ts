@@ -8,7 +8,6 @@ import { AsyncRequest, ExtractFromApiActionPayloadType, FromApiActionPayload } f
 /**
  * Custom operator to use instead of SwitchMap with effects based on FromApi actions.
  * It makes sure to emit an action when the inner subscription is unsubscribed in order to keep the store up-to-date with pending information.
- *
  * @param successHandler function that returns the action to emit in case the FromApi call is a success
  * @param errorHandler function that returns the action to emit in case the FromApi call fails
  * @param cancelRequestActionFactory function that returns the action to emit in case the FromApi action is 'cancelled' because a new action was received by the switchMap

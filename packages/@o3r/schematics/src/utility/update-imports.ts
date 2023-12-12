@@ -22,7 +22,6 @@ export interface ImportsMapping {
 
 /**
  * Update the imports of a given file according to replace mapping
- *
  * @param logger Logger to report messages
  * @param tree File System tree
  * @param sourceFile Source file to analyze

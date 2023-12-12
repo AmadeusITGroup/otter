@@ -11,7 +11,6 @@ export class TimeoutFetch implements FetchPlugin {
 
   /**
    * Timeout Fetch plugin.
-   *
    * @param timeout Timeout in millisecond
    */
   constructor(timeout = 60000) {

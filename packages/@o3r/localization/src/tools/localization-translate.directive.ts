@@ -14,7 +14,7 @@ export class LocalizationTranslateDirective extends TranslateDirective {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
-  private onShowKeysChange?: Subscription;
+  private readonly onShowKeysChange?: Subscription;
 
   /**
    * Should we display keys instead of translations
@@ -40,8 +40,8 @@ export class LocalizationTranslateDirective extends TranslateDirective {
     }
   }
 
-  constructor(private localizationService: LocalizationService, translateService: TranslateService, element: ElementRef, _ref: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfig: LocalizationConfiguration) {
+  constructor(private readonly localizationService: LocalizationService, translateService: TranslateService, element: ElementRef, _ref: ChangeDetectorRef,
+              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, element, _ref);
 
     if (localizationConfig.enableTranslationDeactivation) {
@@ -54,7 +54,6 @@ export class LocalizationTranslateDirective extends TranslateDirective {
 
   /**
    * Overriding parent's setContent to plug debugging feature
-   *
    * @param node
    * @param content
    */

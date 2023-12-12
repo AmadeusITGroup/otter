@@ -44,11 +44,11 @@ export class AppComponent implements OnDestroy {
 
   private offcanvasRef: NgbOffcanvasRef | undefined;
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
   constructor(
     router: Router,
-    private offcanvasService: NgbOffcanvas,
+    private readonly offcanvasService: NgbOffcanvas,
     applicationDevtoolsMessageService: ApplicationDevtoolsMessageService,
     componentsDevtoolsMessageService: ComponentsDevtoolsMessageService) {
 

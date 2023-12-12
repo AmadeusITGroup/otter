@@ -3,7 +3,6 @@ import {defaultTimeUnits, TimeUnit} from './duration.model';
 
 /**
  * Pad a number with zeroes
- *
  * @param num
  * @param digits
  */

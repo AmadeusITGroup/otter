@@ -5,7 +5,6 @@ export {ElementProfile} from '../element';
 
 /**
  * Playwright type for source element
- *
  * @param element is the DOM element
  * @param page is the tab in the browser where the test is run
  */
@@ -17,7 +16,6 @@ export type PlaywrightSourceElement = {
 
 /**
  * Remove text formatting (endline etc.) and return the content.
- *
  * @param innerText
  */
 export function getPlainText(innerText: string) {

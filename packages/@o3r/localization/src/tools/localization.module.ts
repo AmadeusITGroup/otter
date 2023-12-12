@@ -16,7 +16,6 @@ import { TextDirectionality } from './text-directionality.service';
 
 /**
  * creates LocalizationConfiguration, which is used if the application
- *
  * @param configuration Localization configuration
  */
 export function createLocalizationConfiguration(configuration?: Partial<LocalizationConfiguration>): LocalizationConfiguration {
@@ -28,7 +27,6 @@ export function createLocalizationConfiguration(configuration?: Partial<Localiza
 
 /**
  * Factory to inject the LOCALE_ID token with the current language into Angular context
- *
  * @param localizationService Localization service
  */
 export function localeIdNgBridge(localizationService: LocalizationService) {
@@ -56,11 +54,10 @@ export class LocalizationModule {
   /**
    * forRoot method should be called only once from the application index.ts
    * It will do several things:
-   *   - provide the configuration for the whole application
-   *   - register all locales specified in the LocalizationConfiguration
-   *   - configure TranslateService
-   *   - inject LOCALE_ID token
-   *
+   * - provide the configuration for the whole application
+   * - register all locales specified in the LocalizationConfiguration
+   * - configure TranslateService
+   * - inject LOCALE_ID token
    * @param configuration LocalizationConfiguration
    */
   public static forRoot(

@@ -7,7 +7,6 @@ import { getWorkspaceConfig } from './loaders';
 
 /**
  * Find the relative path to a configuration file at the monorepo root
- *
  * @param tree
  * @param files List of files to look for, the first of the list will used
  * @param originPath Path from where to calculate the relative path
@@ -24,7 +23,6 @@ export function findConfigFileRelativePath(tree: Tree, files: string[], originPa
 
 /**
  * Determine if we are in an Nx Monorepo context
- *
  * @param tree
  */
 export function isNxContext(tree: Tree) {
@@ -33,7 +31,6 @@ export function isNxContext(tree: Tree) {
 
 /**
  * Determine if a repository is standalone (not part of a monorepo)
- *
  * @param tree
  */
 export function isStandaloneRepository(tree: Tree) {
@@ -43,7 +40,6 @@ export function isStandaloneRepository(tree: Tree) {
 
 /**
  * Determine if we are in a project with multi packages
- *
  * @param tree
  */
 export function isMultipackagesContext(tree: Tree) {
@@ -71,7 +67,6 @@ export const BASE_ROOT_FOLDERS_MAP: Record<WorkspaceProject['projectType'], keyo
  * Retrieve the project base root generation folder, based on the given projectType.
  * - The default project root will be returned if there is no project root found in nx.json or angular.json (in schematics options)
  * - The root path '/' will be returned if no project type given
- *
  * @param tree
  * @param context
  * @param config

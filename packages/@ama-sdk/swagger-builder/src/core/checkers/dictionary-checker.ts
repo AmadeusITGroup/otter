@@ -40,7 +40,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Extract definition names referred in the whole Swagger node
-   *
    * @param currentNode Swagger Node to inspect
    * @param definitionNameMemory List of the definitions to extract
    * @param field current inspected object field name
@@ -68,7 +67,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Extract dictionary references in the whole Swagger node
-   *
    * @param currentNode Swagger Node to inspect
    * @param dictionaryMemory List of the dictionaries to extract
    * @param field current inspected object field name
@@ -111,7 +109,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Get the responses Swagger Node for a Path Swagger Node
-   *
    * @param currentNode Path Swagger Node to inspect
    * @param field current inspected object field name
    */
@@ -131,7 +128,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Get the list of Reply Definitions referred inside the Path Swagger Node
-   *
    * @param pathNode Path Swagger Node to inspect
    */
   private async getReplyDefinitionsFromPath(pathNode: any): Promise<string[]> {
@@ -151,7 +147,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Find the list of definition referred by the given Swagger Definition
-   *
    * @param definition Definition name
    * @param definitions List of Definition Swagger Node
    */
@@ -163,7 +158,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Find the list of dictionaries referred by the given Swagger Definition
-   *
    * @param definition Definition name
    * @param definitions List of Definition Swagger Node
    */
@@ -182,7 +176,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Find the list of definition referring the given Swagger Definition
-   *
    * @param definition Definition name
    * @param definitions List of Definition Swagger Node
    */
@@ -204,7 +197,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Find the reply definitions referring the given definition
-   *
    * @param definitionName Definition name
    * @param replyDefinitions List of reply Definitions Swagger Node
    * @param definitions List of Definition Swagger Node
@@ -239,7 +231,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Generate the definition with the list of references associated to it
-   *
    * @param swaggerSpec Swagger specification object
    */
   private async generateDefinitionsWithRefererLists(swaggerSpec: SwaggerSpec): Promise<{ definitionsWithReferer: { [definitionName: string]: DefinitionWithRefs }; replyDefinitions: string[] }> {
@@ -272,7 +263,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Get all the dictionary referenced by the given definition
-   *
    * @param definitionName Definition name
    * @param definitions List of Definition Swagger Node
    * @param stack stack of swagger fields
@@ -299,7 +289,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Determine if the given dictionary reference is targeting the given Definition Swagger Node
-   *
    * @param currentNode Path Swagger Node to inspect
    * @param dictionaryReference Dictionary reference
    * @param field current inspected object field name
@@ -326,7 +315,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Determine if the given dictionary reference is targeting the given definition
-   *
    * @param dictionaryReference Dictionary reference
    * @param definitionName Definition name
    * @param definitions List of Definition Swagger Node
@@ -349,7 +337,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Find the reference paths from one specification to another.
-   *
    * @param from Definition from which we need to find a path
    * @param to Definition to which we need to find a path
    * @param definitions List of Definition Swagger Node
@@ -384,7 +371,6 @@ export class DictionaryChecker implements Checker {
 
   /**
    * Check a the dictionary references of a DxAPI Type Swagger Specification
-   *
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {

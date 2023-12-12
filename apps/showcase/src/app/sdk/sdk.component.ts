@@ -29,10 +29,10 @@ import {
 })
 export class SdkComponent implements AfterViewInit {
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
-  constructor(private inPageNavPresService: InPageNavPresService) {}
+  constructor(private readonly inPageNavPresService: InPageNavPresService) {}
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

@@ -14,7 +14,6 @@ const jarBasePath = path.resolve(__dirname, 'swagger-codegen-java-client', 'targ
 
 /**
  * Generate a Java client SDK source code base on swagger specification
- *
  * @param options
  */
 export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchematicsSchema): Rule {
@@ -22,7 +21,6 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
   const specPath = path.resolve(process.cwd(), options.specPath);
   /**
    * rule to clear previous SDK generation
-   *
    * @param tree
    * @param context
    */
@@ -59,7 +57,6 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
 
   /**
    * rule to update readme and generate mandatory code source
-   *
    * @param tree
    * @param _context
    */

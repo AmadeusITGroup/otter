@@ -10,7 +10,6 @@ import { formatHelpMessage } from '../helpers';
 
 /**
  * Generate a formatted usage message
- *
  * @param moduleName Nome of the module
  * @param command CLI Command
  * @param longDescription Long description of the command to add additional information
@@ -24,7 +23,6 @@ export const generateUsageMessage = (moduleName: string, command?: string, longD
 
 /**
  * Show Help message
- *
  * @param amaYargs instance of current Yarg
  * @param arg Argument of the command
  */

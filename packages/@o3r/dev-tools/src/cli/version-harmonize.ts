@@ -41,7 +41,6 @@ logger.level = options.verbose ? 'debug' : 'info';
 
 /**
  * Retrieve the best range for a dependency.
- *
  * @param dependencies List of extracted dependencies
  * @param dependencyName Name of the dependency to retrieve the best range
  * @returns Dependency information of the best range
@@ -70,7 +69,6 @@ const getLatestRange = (dependencies: DependencyInfo[], dependencyName: string):
 
 /**
  * Update the package.json with the best range for a dependency
- *
  * @param packageJsonUpdates List of package.json to update
  * @param bestRangeDependencies Mapping of the best range for each dependency
  */
@@ -104,7 +102,6 @@ const updatePackageJson = async (packageJsonUpdates: DependencyToUpdate[], bestR
 
 /**
  * Update the package.json with the version of the package manager used by the monorepo
- *
  * @param packageJsonPaths List of package.json paths to update
  * @param packageManager Package manager
  */

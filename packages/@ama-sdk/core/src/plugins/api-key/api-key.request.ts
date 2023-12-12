@@ -5,12 +5,11 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
  */
 export class ApiKeyRequest implements RequestPlugin {
 
-  private apiKey: string | (() => string | Promise<string>);
-  private apiKeyHeader: string;
+  private readonly apiKey: string | (() => string | Promise<string>);
+  private readonly apiKeyHeader: string;
 
   /**
    * Initialize your plugin
-   *
    * @param apiKey       API Key of your API
    * @param apiKeyHeader Header where to store your API key
    */

@@ -14,14 +14,12 @@ export interface CanStartConditionResult<T = any> {
 
 /**
  * Condition function to determine if the call can start
- *
  * @returns True if the call can start, False if it should be canceled
  */
 export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) => CanStartConditionResult<T> | Promise<CanStartConditionResult<T>>;
 
 /**
  * Plugin to determine if and when a call should be processed
- *
  * @example
  * // Use the plugin for an orchestrator 1 per 1
  * class OrchestratorOnePerOne {
@@ -71,7 +69,6 @@ export class WaitForFetch<T = any> implements FetchPlugin {
 
   /**
    * Wait For Fetch plugin
-   *
    * @param canStartCondition Condition that should be passed to start the call
    * @param timeout           Timeout of the condition function (return false when reached)
    * @param callback          Callback function called when the fetch call has been processed

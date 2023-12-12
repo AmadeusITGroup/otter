@@ -231,6 +231,7 @@ module.exports = {
     ],
     '@typescript-eslint/unbound-method': 'warn',
     '@typescript-eslint/unified-signatures': 'error',
+    '@typescript-eslint/prefer-readonly': 'error',
     'camelcase': 'error',
     'comma-dangle': 'error',
     'comma-style': [

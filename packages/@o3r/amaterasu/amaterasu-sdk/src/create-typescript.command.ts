@@ -13,7 +13,6 @@ export interface CreateTypescriptSdkOptions {
   path: string;
   /**
    * Set default options instead of requiring input
-   *
    * @default false
    */
   yes?: boolean;
@@ -23,7 +22,6 @@ export interface CreateTypescriptSdkOptions {
 
 /**
  * Create an empty Typescript SDK
- *
  * @param context Context of the command
  * @param options Options
  */

@@ -31,7 +31,7 @@ export class InPageNavLinkDirective implements InPageNavLink, AfterViewInit {
   /** InnerText of the h2 */
   public label = '';
 
-  private nativeElement: HTMLElement;
+  private readonly nativeElement: HTMLElement;
 
   constructor({ element }: ViewContainerRef) {
     this.nativeElement = element.nativeElement;
@@ -76,7 +76,7 @@ export class InPageNavPresComponent implements OnChanges, OnDestroy {
   @Input()
   public links: InPageNavLink[] = [];
 
-  private scrollSpyService = inject(NgbScrollSpyService);
+  private readonly scrollSpyService = inject(NgbScrollSpyService);
 
   public ngOnChanges(simpleChanges: SimpleChanges) {
     if ((simpleChanges.links.isFirstChange() || simpleChanges.links.currentValue !== simpleChanges.links.previousValue) && this.links) {

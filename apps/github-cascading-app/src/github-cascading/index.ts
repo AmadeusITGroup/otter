@@ -4,7 +4,6 @@ import app from '../app';
 
 /**
  * Handle Webhooks from Github
- *
  * @param probot Instance of probot
  * @param context Request context
  * @param req HTTP Request

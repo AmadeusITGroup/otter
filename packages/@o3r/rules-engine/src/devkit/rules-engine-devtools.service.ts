@@ -28,7 +28,7 @@ export class OtterRulesEngineDevtools {
 
   constructor(
     protected store: Store<RulesetsStore>,
-    private rulesEngineService: RulesEngineRunnerService,
+    private readonly rulesEngineService: RulesEngineRunnerService,
     @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options: RulesEngineDevtoolsServiceOptions) {
 
     const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS).rulesEngineStackLimit;
@@ -79,7 +79,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Get the list of executions for the given ruleset
-   *
    * @param rulesetId
    */
   public async getRulesetExecutions(rulesetId: string): Promise<(RulesetExecutionEvent | RulesetExecutionErrorEvent)[] | undefined> {
@@ -91,7 +90,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Check if the ruleset is activ in the moment when the function is called
-   *
    * @param rulesetId
    * @returns True if the ruleset is active; False if the ruleset is inactive or it does not exist
    */
@@ -101,7 +99,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Get the list of rules executed for the specified ruleset
-   *
    * @param rulesetId
    */
   public async getRulesEvaluationsForRuleset(rulesetId: string) {
@@ -111,7 +108,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Get the list of input facts (name, current value) for the specified ruleset, at the moment when the function is called
-   *
    * @param rulesetId
    */
   public async getInputFactsForRuleset(rulesetId: string) {
@@ -121,7 +117,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Get the list of triggers for the specified ruleset
-   *
    * @param rulesetId
    */
   public async getTriggersForRuleset(rulesetId: string) {
@@ -130,7 +125,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Get the list of outputed actions emitted by the given ruleset, at the moment when the function is called
-   *
    * @param rulesetId
    */
   public async getOutputActionsForRuleset(rulesetId: string) {
@@ -148,7 +142,6 @@ export class OtterRulesEngineDevtools {
 
   /**
    * Retrieve the ruleset information (rules, linkedComponent, validity range etc.) for a ruleset id
-   *
    * @param rulesetId
    */
   public getRulesetInformation(rulesetId: string): Promise<Ruleset | undefined> {
