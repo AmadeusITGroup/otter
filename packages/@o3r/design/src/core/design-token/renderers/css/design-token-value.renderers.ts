@@ -1,12 +1,12 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { isNotPrivateVariable } from '../design-token.renderer.helpers';
+import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 
 interface CssTokenValueRendererOptions {
   /**
-   * Determine if the variable should be rendered, based on Otter Extension information
-   * @default {@see isNotPrivateVariable}
+   * Determine if the variable is private and should not be rendered
+   * @default {@see isO3rPrivateVariable}
    */
-  shouldDefineVariable?: (variable: DesignTokenVariableStructure) => boolean;
+  isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
   /**
    * Renderer the name of the CSS Variable (without initial --)
@@ -19,11 +19,11 @@ interface CssTokenValueRendererOptions {
  * @param options
  */
 export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions): TokenValueRenderer => {
-  const isVariableToBeDefined = options?.shouldDefineVariable || isNotPrivateVariable;
+  const isPrivateVariable = options?.isPrivateVariable || isO3rPrivateVariable;
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
 
   const referenceRenderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>): string => {
-    if (isVariableToBeDefined(variable)) {
+    if (!isPrivateVariable(variable)) {
       return `var(--${variable.getKey(tokenVariableNameRenderer)})`;
     } else {
       // eslint-disable-next-line no-use-before-define

@@ -1,14 +1,14 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { isNotPrivateVariable } from '../design-token.renderer.helpers';
+import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from './design-token-value.renderers';
 
 interface CssTokenDefinitionRendererOptions {
   /**
-   * Determine if the variable should be rendered, based on Otter Extension information
-   * @default {@see isNotPrivateVariable}
+   * Determine if the variable is private and should not be rendered
+   * @default {@see isO3rPrivateVariable}
    */
-  shouldDefineCssVariable?: (variable: DesignTokenVariableStructure) => boolean;
+  isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
 
   /** Custom Design Token value renderer */
   tokenValueRenderer?: TokenValueRenderer;
@@ -31,13 +31,13 @@ interface CssTokenDefinitionRendererOptions {
  * @returns
  */
 export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
-  const shouldDefineVariable = options?.shouldDefineCssVariable || isNotPrivateVariable;
+  const isPrivateVariable = options?.isPrivateVariable || isO3rPrivateVariable;
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
-  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ shouldDefineVariable, tokenVariableNameRenderer });
+  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ isPrivateVariable, tokenVariableNameRenderer });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     let variableString: string | undefined;
-    if (shouldDefineVariable(variable)) {
+    if (!isPrivateVariable(variable)) {
       variableString = `--${variable.getKey(tokenVariableNameRenderer)}: ${tokenValueRenderer(variable, variableSet)};`;
       if (variable.extensions.o3rScope) {
         variableString = `${variable.extensions.o3rScope} { ${variableString} }`;
