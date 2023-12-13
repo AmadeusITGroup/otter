@@ -383,9 +383,13 @@ export class LocalizationExtractor {
     let hasUnknownRef = false;
 
     localizationMetadata.forEach((data) => {
-      if (data.ref && !data.ref.includes('#/') && !metadata[data.ref]) {
-        hasUnknownRef = true;
-        this.logger.error(`The key ${data.ref} is unknown but referenced by ${data.key}.`);
+      if (data.ref && !data.ref.includes('#/')) {
+        if (!metadata[data.ref]) {
+          hasUnknownRef = true;
+          this.logger.error(`The key ${data.ref} is unknown but referenced by ${data.key}.`);
+        } else if (typeof data.description === 'undefined') {
+          data.description = metadata[data.ref].description;
+        }
       }
     });
 
