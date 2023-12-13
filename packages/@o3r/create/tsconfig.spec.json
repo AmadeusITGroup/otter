@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.jest",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "outDir": "test",
+    "rootDir": "."
+  },
+  "include": [
+    "./src/**/*.spec.ts"
+  ]
+}
