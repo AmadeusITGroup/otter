@@ -1,6 +1,7 @@
 {
   "name": "@o3r/dev-tools",
   "version": "0.0.0-placeholder",
+  "deprecated": "@o3r/dev-tools package is deprecated and will no longer be updated as of v12",
   "description": "Various CLI scripts to help your CI/CD process and your dependency management",
   "main": "./dist/src/public_api.js",
   "typings": "./dist/src/public_api.d.ts",
@@ -92,5 +93,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }
