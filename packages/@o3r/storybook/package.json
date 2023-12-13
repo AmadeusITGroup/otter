@@ -107,7 +107,7 @@
     "@types/color": "^3.0.1",
     "@types/jest": "~29.5.2",
     "@types/node": "^18.0.0",
-    "@types/react": "17.0.71",
+    "@types/react": "17.0.73",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
     "concurrently": "^8.0.0",
