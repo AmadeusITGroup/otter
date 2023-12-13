@@ -43,14 +43,17 @@ export class AppComponent implements OnDestroy {
 
   private subscriptions = new Subscription();
 
-  constructor(router: Router, private offcanvasService: NgbOffcanvas) {
+  constructor(
+    router: Router,
+    private offcanvasService: NgbOffcanvas
+  ) {
     const onNavigationEnd$ = router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()
     );
     this.activeUrl$ = onNavigationEnd$.pipe(
       map((event) => event.urlAfterRedirects),
-      shareReplay({bufferSize: 1, refCount: true})
+      shareReplay({ bufferSize: 1, refCount: true })
     );
     this.subscriptions.add(onNavigationEnd$.subscribe((event) => {
       if (this.offcanvasRef) {
