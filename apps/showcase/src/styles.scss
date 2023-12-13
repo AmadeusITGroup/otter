@@ -30,9 +30,22 @@ h1, h2 {
   z-index: inherit;
 }
 
+.hljs-built_in, .hljs-symbol {
+  color: #bd5208;
+}
+.hljs-name, .hljs-quote, .hljs-selector-tag, .hljs-selector-pseudo {
+  color: #218338;
+}
+
 // Start overrides of design factory
 .navbar {
   box-shadow: none;
+}
+@include design-factory.media-breakpoint-down(lg) {
+  .nav-pills .nav-link {
+    font-size: 1.25rem;
+    --bs-nav-link-padding-y: 1rem;
+  }
 }
 // End overrides
 
