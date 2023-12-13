@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-import { bold, grey } from 'chalk';
+import { blue, bold, green, grey } from 'chalk';
 import { program } from 'commander';
 import * as globby from 'globby';
 import { promises as fs } from 'node:fs';
@@ -19,6 +19,8 @@ const logger = winston.createLogger({
   ),
   transports: new winston.transports.Console()
 });
+
+logger.warn(`Version-harmonize is ${bold.yellow('deprecated')}, please use the ${green('@o3r/json-dependency-versions-harmonize')} from ESLint ${blue('@o3r/eslint-plugin')} plugin`);
 
 program
   .description('[DEPRECATED] Replace the dependencies version in a monorepos')
