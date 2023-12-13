@@ -16,8 +16,7 @@
   ],
   "exclude": [
     "**/*.spec.ts",
-    "**/templates/**/*.ts",
-    "**/mocks/**/*.ts",
-    "schematics/**/templates/**"
+    "**/templates/**",
+    "**/mocks/**/*.ts"
   ]
 }

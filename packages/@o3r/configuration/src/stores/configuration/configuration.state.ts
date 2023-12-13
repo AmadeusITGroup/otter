@@ -26,3 +26,8 @@ export interface ConfigurationStore {
   /** Configuration state */
   [CONFIGURATION_STORE_NAME]: ConfigurationState;
 }
+
+/**
+ * ID of the global configuration
+ */
+export const globalConfigurationId = 'global';

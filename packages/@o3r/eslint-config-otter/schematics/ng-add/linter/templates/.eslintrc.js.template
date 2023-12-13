@@ -17,6 +17,34 @@ module.exports = {
     'es6': true,
     'jasmine': true
   },
+  'overrides': [
+    {
+      'files': [
+        '*.{m,c,}{t,j}s'
+      ],
+      'parser': require.resolve('@typescript-eslint/parser'),
+      'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
+    },
+    {
+      'parser': require.resolve('jsonc-eslint-parser'),
+      'files': [
+        '**/*.json'
+      ]
+    },
+    {
+      'files': [
+        '**/package.json'
+      ],
+      'plugins': [
+        '@o3r'
+      ],
+      'rules': {
+        '@o3r/json-dependency-versions-harmonize': ['error', {
+          ignoredPackages: [],
+          alignPeerDependencies: false
+        }]
+      }
+  ]
   'extends': [
     '@o3r/eslint-config-otter'
   ].map(require.resolve)
