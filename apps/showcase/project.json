@@ -241,7 +241,8 @@
         "libraries": [],
         "extraFilePatterns": [
           "src/i18n/*.localization.json"
-        ]
+        ],
+        "strictMode": true
       },
       "dependsOn": [
         "^build",

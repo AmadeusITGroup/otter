@@ -1,4 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import { validateJson } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
@@ -72,6 +73,13 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
       if (translationsWithIssue.length) {
         throw new O3rCliError(`The following translations are invalid: ${translationsWithIssue.map((translation) => translation.key).join(', ')}`);
       }
+
+      validateJson(
+        metadata,
+        require('@o3r/localization/schemas/localization.metadata.schema.json'),
+        'The output of localization metadata is not valid regarding the json schema, please check the details below : \n',
+        options.strictMode
+      );
 
       context.reportProgress(STEP_NUMBER, STEP_NUMBER, 'Generating metadata');
 

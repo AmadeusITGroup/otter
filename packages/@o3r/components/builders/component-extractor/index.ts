@@ -84,14 +84,20 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         const componentMetadata = await componentExtractor.extract(parserOutput, options);
 
         // Validate configuration part of components metadata
-        validateJson(componentMetadata.configurations, require(require.resolve('@o3r/configuration/schemas/configuration.metadata.schema.json')),
+        validateJson(
+          componentMetadata.configurations,
+          require('@o3r/configuration/schemas/configuration.metadata.schema.json'),
           'The output of configuration metadata is not valid regarding the json schema, please check the details below : \n',
-          options.strictMode);
+          options.strictMode
+        );
 
         // Validate components part of components metadata
-        validateJson(componentMetadata.components, require(path.resolve(__dirname, '..', '..', 'schemas', 'component.metadata.schema.json')),
+        validateJson(
+          componentMetadata.components,
+          require('@o3r/components/schemas/component.metadata.schema.json'),
           'The output of components metadata is not valid regarding the json schema, please check the details below : \n',
-          options.strictMode);
+          options.strictMode
+        );
 
         // Ensure that each tuple (library,name) is unique
         checkUniquenessLibraryAndName(componentMetadata.configurations);
