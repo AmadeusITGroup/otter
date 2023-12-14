@@ -5,6 +5,7 @@
 );
 @use "bootstrap-icons/font/bootstrap-icons";
 @import "highlight.js/styles/github.css";
+@import "./style/theme.scss";
 
 code {
   font-family: 'Consolas', monospace;

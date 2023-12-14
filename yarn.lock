@@ -6992,6 +6992,86 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@o3r/design@workspace:^, @o3r/design@workspace:packages/@o3r/design":
+  version: 0.0.0-use.local
+  resolution: "@o3r/design@workspace:packages/@o3r/design"
+  dependencies:
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/build-angular": "npm:~17.0.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.1.0"
+    "@angular/cli": "npm:~17.0.3"
+    "@angular/common": "npm:~17.0.4"
+    "@angular/compiler": "npm:~17.0.4"
+    "@angular/compiler-cli": "npm:~17.0.4"
+    "@angular/core": "npm:~17.0.4"
+    "@angular/platform-browser": "npm:~17.0.4"
+    "@angular/platform-browser-dynamic": "npm:~17.0.4"
+    "@babel/core": "npm:~7.23.0"
+    "@babel/preset-typescript": "npm:~7.23.0"
+    "@compodoc/compodoc": "npm:^1.1.19"
+    "@nx/eslint": "npm:~17.1.1"
+    "@nx/eslint-plugin": "npm:~17.1.1"
+    "@nx/jest": "npm:~17.1.1"
+    "@nx/js": "npm:~17.1.1"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/core": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@o3r/styling": "workspace:^"
+    "@o3r/test-helpers": "workspace:^"
+    "@schematics/angular": "npm:~17.0.3"
+    "@types/jest": "npm:~29.5.2"
+    "@types/minimist": "npm:^1.2.2"
+    "@types/node": "npm:^18.0.0"
+    "@types/semver": "npm:^7.3.13"
+    "@typescript-eslint/eslint-plugin": "npm:6.11.0"
+    "@typescript-eslint/parser": "npm:^6.11.0"
+    chokidar: "npm:^3.5.2"
+    cpy-cli: "npm:^4.2.0"
+    eslint: "npm:^8.42.0"
+    eslint-import-resolver-node: "npm:^0.3.4"
+    eslint-plugin-jest: "npm:~27.6.0"
+    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^47.0.0"
+    globby: "npm:^11.1.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    jsonschema: "npm:~1.4.1"
+    minimist: "npm:^1.2.6"
+    nx: "npm:~17.1.1"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.1.1"
+    ts-node: "npm:~10.9.1"
+    tslib: "npm:^2.5.3"
+    type-fest: "npm:^3.12.0"
+    typescript: "npm:~5.2.2"
+    zone.js: "npm:~0.14.2"
+  peerDependencies:
+    "@o3r/core": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@o3r/styling": "workspace:^"
+    chokidar: ^3.5.2
+    globby: ^11.1.0
+  peerDependenciesMeta:
+    "@o3r/core":
+      optional: true
+    "@o3r/schematics":
+      optional: true
+    "@o3r/styling":
+      optional: true
+    chokidar:
+      optional: true
+    globby:
+      optional: true
+  bin:
+    o3r-css-from-design-token: ./dist/cli/generate-css-from-design-token.cli.cjs
+  languageName: unknown
+  linkType: soft
+
 "@o3r/dev-tools@workspace:packages/@o3r/dev-tools":
   version: 0.0.0-use.local
   resolution: "@o3r/dev-tools@workspace:packages/@o3r/dev-tools"
@@ -8156,6 +8236,7 @@ __metadata:
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
+    "@o3r/design": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"

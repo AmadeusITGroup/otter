@@ -1,0 +1,56 @@
+{
+  "$schema": "../../schemas/design-token.schema.json",
+  "example": {
+    "var1": {
+      "$type": "color",
+      "$value": "#000"
+    },
+    "var-important": {
+      "$extensions": {
+        "o3rImportant": true
+      },
+      "$type": "color",
+      "$value": "#000"
+    },
+    "var3": {
+      "$extensions": {
+        "o3rPrivate": true
+      },
+      "$type": "color",
+      "$value": "#000"
+    },
+    "color": {
+      "$description": "test color",
+      "$value": "{example.var1}"
+    },
+    "color2": {
+      "$description": "test color with default value",
+      "$value": "{example.var3}"
+    },
+    "test.var2": {
+      "$description": "my var2",
+      "$type": "color",
+      "$value": "#fff"
+    },
+    "test": {
+      "height": {
+        "$extensions": {
+          "o3rPrivate": true
+        },
+        "$value": 2.3,
+        "$type": "number"
+      },
+      "width": {
+        "$value": "{example.test.height}"
+      },
+      "border": {
+        "$type": "border",
+        "$value": {
+          "color": "{example.color}",
+          "style": "dashed",
+          "width": "{example.test.width}"
+        }
+      }
+    }
+  }
+}
