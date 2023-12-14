@@ -16,7 +16,7 @@ runs:
         path: '.'
 
     - name: 'Download artifact'
-      uses: actions/github-script@v6
+      uses: actions/github-script@v7
       if: github.event_name == 'workflow_run'
       with:
         script: |
@@ -24,7 +24,7 @@ runs:
              ...context.repo,
              run_id: context.payload.workflow_run.id,
           });
-          let matchArtifact = allArtifacts.data.artifacts.find((artifact) => artifact.name === '${{ inputs.artifactName }}');
+          let matchArtifact = allArtifacts.data.artifacts.findLast((artifact) => artifact.name === '${{ inputs.artifactName }}');
           if (!matchArtifact) {
             throw new Error('Could not find an artifact with name "${{ inputs.artifactName }}" for workflow_run ${context.payload.workflow_run.id}');
           }

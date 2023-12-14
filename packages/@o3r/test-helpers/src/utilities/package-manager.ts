@@ -25,7 +25,7 @@ const PACKAGE_MANAGERS_CMD = {
   yarn: {
     add: 'yarn add',
     create: 'yarn create',
-    exec: 'yarn exec',
+    exec: 'yarn',
     install: 'yarn install',
     run: 'yarn run',
     workspaceExec: 'yarn workspace',

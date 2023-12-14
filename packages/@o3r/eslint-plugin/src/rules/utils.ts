@@ -1,4 +1,4 @@
-import { ESLintUtils } from '@typescript-eslint/experimental-utils';
+import { ESLintUtils, TSESTree } from '@typescript-eslint/experimental-utils';
 import * as path from 'node:path';
 
 /** Current package version (format: <major>.<minor>)*/
@@ -12,3 +12,22 @@ export const createRule = ESLintUtils.RuleCreator((name) => {
   }
   return `https://github.com/AmadeusITGroup/otter/tree/release/${version}/docs/linter/eslint-plugin/rules/${name}.md`;
 });
+
+/** Default supported interface names */
+export const defaultSupportedInterfaceNames = ['Configuration', 'NestedConfiguration'];
+
+/**
+ * Returns true if the node extends one of the `supportedInterfaceNames`
+ * @param interfaceDeclNode
+ * @param supportedInterfaceNames
+ */
+export const isExtendingConfiguration = (interfaceDeclNode: TSESTree.Node | undefined, supportedInterfaceNames: string[] = []) => {
+  const supportedInterfaceNamesSet = new Set(supportedInterfaceNames.length > 0 ? supportedInterfaceNames : defaultSupportedInterfaceNames);
+  return interfaceDeclNode?.type === TSESTree.AST_NODE_TYPES.TSInterfaceDeclaration
+    && interfaceDeclNode.extends?.some((ext) =>
+      ext.type === TSESTree.AST_NODE_TYPES.TSInterfaceHeritage
+      && ext.expression.type === TSESTree.AST_NODE_TYPES.Identifier
+      && supportedInterfaceNamesSet.has(ext.expression.name)
+    );
+};
+
