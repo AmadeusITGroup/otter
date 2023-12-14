@@ -533,7 +533,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@amadeus-it-group/kassette@npm:^1.6.0":
+"@amadeus-it-group/kassette@npm:^1.7.0":
   version: 1.7.0
   resolution: "@amadeus-it-group/kassette@npm:1.7.0"
   dependencies:
@@ -7467,6 +7467,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@o3r/workspace": "workspace:^"
+    "@playwright/test": "npm:~1.41.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~17.0.3"
     "@swc-node/register": "npm:^1.6.7"
@@ -7509,6 +7510,8 @@ __metadata:
     ngx-highlightjs: "npm:^10.0.0"
     npm-run-all: "npm:^4.1.5"
     nx: "npm:~17.2.0"
+    pixelmatch: "npm:^5.2.1"
+    pngjs: "npm:^7.0.0"
     postcss: "npm:~8.4.31"
     postcss-scss: "npm:~4.0.9"
     react: "npm:^18.0.0"
@@ -8153,6 +8156,7 @@ __metadata:
     "@ama-sdk/core": "workspace:^"
     "@ama-sdk/schematics": "workspace:^"
     "@ama-sdk/showcase-sdk": "workspace:^"
+    "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@angular-devkit/architect": "npm:~0.1700.3"
     "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-devkit/core": "npm:~17.0.3"
@@ -8210,6 +8214,7 @@ __metadata:
     ag-grid-community: "npm:~31.0.0"
     bootstrap: "npm:5.2.0"
     bootstrap-icons: "npm:^1.10.5"
+    concurrently: "npm:^8.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
@@ -8650,7 +8655,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/testing@workspace:packages/@o3r/testing"
   dependencies:
-    "@amadeus-it-group/kassette": "npm:^1.6.0"
+    "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
@@ -8714,7 +8719,7 @@ __metadata:
     typescript: "npm:~5.2.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@amadeus-it-group/kassette": ^1.6.0
+    "@amadeus-it-group/kassette": ^1.7.0
     "@angular-devkit/schematics": ~17.0.0
     "@angular/common": ~17.0.2
     "@angular/core": ~17.0.2

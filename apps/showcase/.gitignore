@@ -1,2 +1,7 @@
 /*.metadata.json
 /dev-resources
+
+# Playwright
+dist-e2e-playwright
+playwright-reports
+test-results

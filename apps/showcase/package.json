@@ -14,8 +14,9 @@
     "cms-adapters:localizations": "ng run showcase:extract-translations",
     "cms-adapters:metadata": "yarn run cms-adapters:localizations",
     "update:otter": "ng update @o3r/core",
-    "test:playwright": "playwright test --config=e2e-playwright/playwright-config.ts",
-    "test:playwright:sanity": "playwright test --config=e2e-playwright/playwright-config.sanity.ts",
+    "test:playwright": "concurrently -m 1 -P 'yarn run test:playwright:* {*}' --",
+    "test:playwright:scenario": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.ts",
+    "test:playwright:sanity": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.sanity.ts",
     "postbuild:patch": "yarn patch:package",
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
@@ -69,6 +70,7 @@
     "zone.js": "~0.14.2"
   },
   "devDependencies": {
+    "@amadeus-it-group/kassette": "^1.7.0",
     "@angular-devkit/architect": "~0.1700.3",
     "@angular-devkit/build-angular": "~17.0.3",
     "@angular-devkit/core": "~17.0.3",
@@ -83,6 +85,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/testing": "workspace:^",
     "@playwright/test": "~1.41.0",
     "@schematics/angular": "~17.0.3",
     "@types/bootstrap": "^5.2.6",
@@ -91,6 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
     "@typescript-eslint/types": "^6.11.0",
+    "concurrently": "^8.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",

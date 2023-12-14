@@ -1,6 +1,6 @@
 <div class="card p-2 flex-row">
   <div class="w-50">
-    <p>Gregorian date: <b>{{dateFormControl.value}}</b></p>
+    <p>Gregorian date: <b class="visual-testing-ignore">{{dateFormControl.value}}</b></p>
   </div>
   <div class="w-50">
     <ng-template c11n [component]="presenter$ | async" [inputs]="{id: 'date-outbound'}" [formControl]="dateFormControl"></ng-template>
