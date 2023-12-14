@@ -32,12 +32,13 @@ const logger = winston.createLogger({
   transports: new winston.transports.Console()
 });
 
+logger.warn('This script is deprecated, will be removed in Otter v12.');
+
 /**
  * Performs the operations needed for the release candidate step
  * @param  {object} version
  */
 async function createRcRelease(version: SemVer) {
-  logger.warn('This script is deprecated, will be removed in Otter v12.');
   logger.info(`Initiating release candidate process for ${version.format()}`);
   await checkoutCurrentAlphaOrNextBranch(version, logger);
   await createRcBranch(version, logger);
