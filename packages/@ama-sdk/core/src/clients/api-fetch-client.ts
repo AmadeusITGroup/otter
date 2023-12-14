@@ -115,7 +115,7 @@ export class ApiFetchClient implements ApiClient {
     // Execute call
     try {
 
-      const controller = typeof AbortController !== 'undefined' ? new AbortController() : undefined;
+      const controller = new AbortController();
       if (controller) {
         options.signal = controller.signal;
       }
