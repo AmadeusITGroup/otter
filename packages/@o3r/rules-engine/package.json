@@ -8,6 +8,11 @@
     "otter-module",
     "otter-cms"
   ],
+  "exports": {
+    "./schemas/*.json": {
+      "default": "./schemas/*.json"
+    }
+  },
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
