@@ -81,7 +81,7 @@
     "@typescript-eslint/parser": "^6.11.0",
     "copyfiles": "^2.4.1",
     "cpy": "~10.1.0",
-    "cpy-cli": "^4.2.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
@@ -100,7 +100,7 @@
     "pid-from-port": "^1.1.3",
     "semver": "^7.5.2",
     "ts-jest": "~29.1.1",
-    "type-fest": "^3.12.0",
+    "type-fest": "^4.3.1",
     "typescript": "~5.2.2"
   },
   "openApiSupportedVersion": "~6.6.0",
