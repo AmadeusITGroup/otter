@@ -15,9 +15,9 @@ import { AppFile, Device, PCloudyResponse } from './pcloudy.interfaces';
  * Authentication token is managed within the class
  */
 export class PCloudyApi {
-  private token$: Promise<string>;
-  private server: string;
-  private logger: Logger;
+  private readonly token$: Promise<string>;
+  private readonly server: string;
+  private readonly logger: Logger;
 
   constructor(logger: Logger, userName: string, apiKey: string, server = 'https://device.pcloudy.com') {
     this.server = server;
@@ -42,8 +42,7 @@ export class PCloudyApi {
       `${this.server}${endpoint}`, {
         method: 'post',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({...body, token}),
-        timeout: 120000
+        body: JSON.stringify({...body, token})
       })).json() as { result: PCloudyResponse<T> };
     if (result.code !== 200) {
       throw Error(`Call to ${this.server}${endpoint} failed with error code ${result?.error || 'undefined'}`);
@@ -61,14 +60,13 @@ export class PCloudyApi {
    */
   public async authenticate(username: string, apiKey: string): Promise<string> {
     this.logger.debug(`Request authentication for ${username}`);
-    const {result}: { result: { code: number; token: string } } = await (
+    const {result} = await (
       await fetch(`${this.server}/api/access`, {
         headers: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
           Authorization: 'Basic ' + Buffer.from(username + ':' + apiKey).toString('base64')
-        },
-        timeout: 120000
-      })).json();
+        }
+      })).json() as { result: { code: number; token: string } };
     if (result && result.code === 200 && result.token) {
       this.logger.debug('User has been successfully authenticated', result);
       return result.token;
@@ -174,8 +172,7 @@ export class PCloudyApi {
       await fetch(
         `${this.server}/api/upload_file`, {
           method: 'post',
-          body: formData,
-          timeout: 120000
+          body: formData
         })
     )?.json() as { result: { error?: string; file: string } };
     if (result?.error) {

@@ -1,5 +1,6 @@
 @use '@design-factory/design-factory' with (
   $prefix: bs-,
-  $df-spinner-circumference: 2rem
+  $df-spinner-circumference: 2rem,
+  $font-path: '@design-factory/design-factory/assets/fonts'
 );
 @use "bootstrap-icons/font/bootstrap-icons";

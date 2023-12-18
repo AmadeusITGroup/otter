@@ -199,6 +199,26 @@
         "bootstrap"
       ],
       "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchCurrentVersion": "<5",
+      "matchPackageNames": [
+        "chalk"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchCurrentVersion": "<14",
+      "matchPackageNames": [
+        "globby"
+      ],
+      "enabled": false
     }
   ]
 }
