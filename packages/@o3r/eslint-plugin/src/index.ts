@@ -7,6 +7,7 @@ import jsonDependencyVersionsHarmonize from './rules/json/json-dependency-versio
 import yarnrcPackageExtensionHarmonize from './rules/yaml/yarnrc-package-extensions-harmonize/yarnrc-package-extensions-harmonize';
 import matchingConfigurationName from './rules/typescript/matching-configuration-name/matching-configuration-name';
 import noMultipleTypeConfigurationProperty from './rules/typescript/no-multiple-type-configuration-property/no-multiple-type-configuration-property';
+import o3rCategoriesTags from './rules/typescript/o3r-categories-tags/o3r-categories-tags';
 
 module.exports = {
   rules: {
@@ -17,10 +18,12 @@ module.exports = {
     'json-dependency-versions-harmonize': jsonDependencyVersionsHarmonize,
     'matching-configuration-name': matchingConfigurationName,
     'yarnrc-package-extensions-harmonize': yarnrcPackageExtensionHarmonize,
-    'no-multiple-type-configuration-property': noMultipleTypeConfigurationProperty
+    'no-multiple-type-configuration-property': noMultipleTypeConfigurationProperty,
+    'o3r-categories-tags': o3rCategoriesTags
   },
   configs: {
     '@o3r/no-folder-import-for-module': 'error',
+    '@o3r/o3r-categories-tags': 'error',
     '@o3r/json-dependency-versions-harmonize': 'error',
     '@o3r/no-multiple-type-configuration-property': 'error',
     '@o3r/template-async-number-limitation': 'warn',
@@ -31,6 +34,7 @@ module.exports = {
         '@o3r/matching-configuration-name': 'error',
         '@o3r/no-multiple-type-configuration-property': 'error',
         '@o3r/no-folder-import-for-module': 'error',
+        '@o3r/o3r-categories-tags': 'error',
         '@o3r/template-async-number-limitation': 'off'
       }
     },
