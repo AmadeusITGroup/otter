@@ -37,15 +37,6 @@ export interface ConfigExample extends Configuration {
 ## Invalid code example
 
 ```typescript
-export interface ConfigExample extends Configuration {
-  /**
-   * @o3rCategory unknownCategory
-   */
-  prop: string | number;
-}
-```
-
-```typescript
 /**
  * @o3rCategories globalCategory
  */
@@ -56,6 +47,20 @@ export interface ConfigExample extends Configuration {
   prop: string;
 }
 ```
+It will fail with: `globalCategory` is already defined globally.
+
+```typescript
+/**
+ * @o3rCategories localCategory
+ */
+export interface ConfigExample extends Configuration {
+  /**
+   * @o3rCategory unknownCategory
+   */
+  prop: string | number;
+}
+```
+It will fail with: `unknownCategory` is not supported. Supported `@o3rCategory`: `globalCategory`, `localCategory`.
 
 ```typescript
 /**
@@ -68,3 +73,18 @@ export interface ConfigExample extends Configuration {
    */
   prop: string;
 }
+```
+It will fail with: `@o3rCategory` must be defined only once.
+
+```typescript
+/**
+ * @o3rCategories localCategory
+ */
+export interface Example {
+  /**
+   * @o3rCategory localCategory
+   */
+  prop: string;
+}
+```
+It will fail with: `@o3rCategory` and `@o3rCategories` can only be used in `Configuration` interface.

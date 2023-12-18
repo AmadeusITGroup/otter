@@ -47,4 +47,4 @@ export const getNodeComment = (node: TSESTree.Node, sourceCode: TSESLint.SourceC
  * Wraps `commentValue` into a comment
  * @param commentValue
  */
-export const createCommentString = (commentValue: string) => `/*${commentValue}*/`;
+export const createCommentString = (commentValue: string) => `/*${ commentValue.replace(/\*\//g, '*\\/') }*/`;

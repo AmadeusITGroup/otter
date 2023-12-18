@@ -46,7 +46,7 @@ export default createRule<O3rCategoriesTagsRuleOption[], Messages>({
       alreadyDefined: '{{ currentCategory }} is already defined globally.',
       undefinedCategory: '{{ currentCategory }} is not supported. Supported @o3rCategory: {{ supportedCategories }}.',
       onlyOneCategoryAllowed: '@o3rCategory must be defined only once.',
-      notInConfigurationInterface: '@o3rCategory can only be used in `Configuration` interface.',
+      notInConfigurationInterface: '@o3rCategory and @o3rCategories can only be used in `Configuration` interface.',
       suggestReplaceO3rCategory: 'Replace {{ currentCategory }} by {{ suggestedCategory }}.'
     }
   },
@@ -72,7 +72,9 @@ export default createRule<O3rCategoriesTagsRuleOption[], Messages>({
         const { loc, value: docText } = comment;
         const categories = Array.from(docText.matchAll(/@o3rCategory (\w+)/g)).map((match) => match[1]);
 
-        if (categories.length > 1) {
+        if (categories.length < 1) {
+          return;
+        } else if (categories.length > 1) {
           return context.report({
             messageId: 'onlyOneCategoryAllowed',
             node,
