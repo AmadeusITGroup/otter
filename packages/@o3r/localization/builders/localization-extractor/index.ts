@@ -76,7 +76,7 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
 
       validateJson(
         metadata,
-        require('@o3r/localization/schemas/localization.metadata.schema.json'),
+        require('../../schemas/localization.metadata.schema.json'),
         'The output of localization metadata is not valid regarding the json schema, please check the details below : \n',
         options.strictMode
       );

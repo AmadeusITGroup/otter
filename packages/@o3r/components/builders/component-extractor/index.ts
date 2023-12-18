@@ -94,7 +94,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         // Validate components part of components metadata
         validateJson(
           componentMetadata.components,
-          require('@o3r/components/schemas/component.metadata.schema.json'),
+          require('../../schemas/component.metadata.schema.json'),
           'The output of components metadata is not valid regarding the json schema, please check the details below : \n',
           options.strictMode
         );
