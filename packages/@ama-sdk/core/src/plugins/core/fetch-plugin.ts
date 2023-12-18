@@ -21,7 +21,7 @@ export interface FetchPluginContext {
   /** Api Client processing the call the the API */
   apiClient: ApiClient;
 
-  // TODO Now supported for all the o modern browser - should become mandatory in @ama-sdk/core@10.0
+  // TODO Now supported for all the modern browsers - should become mandatory in @ama-sdk/core@10.0
   /** Abort controller to abort fetch call */
   controller?: AbortController;
 }

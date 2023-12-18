@@ -45,8 +45,8 @@ describe('Timeout Fetch Plugin', () => {
   it('should not reject if the timeout has been paused and reject if restarted', async () => {
     const timeoutPauseEvent = {
       emitEvent: (_status: TimeoutStatus) => {},
-      handler: (timeoutPauseCallbacl: (status: TimeoutStatus) => void) => {
-        timeoutPauseEvent.emitEvent = timeoutPauseCallbacl;
+      handler: (timeoutPauseCallback: (status: TimeoutStatus) => void) => {
+        timeoutPauseEvent.emitEvent = timeoutPauseCallback;
         return () => {};
       }
     };
@@ -57,10 +57,9 @@ describe('Timeout Fetch Plugin', () => {
     const callback = jest.fn();
     runner.transform(call).catch(callback);
     timeoutPauseEvent.emitEvent('timeoutStopped');
-    const timeout = new Promise<any>((resolve) => setTimeout(() => resolve({test: true}), 200));
-    await timeout;
+    await jest.advanceTimersByTimeAsync(200);
     timeoutPauseEvent.emitEvent('timeoutStarted');
-    await call;
+    await jest.advanceTimersByTimeAsync(200);
     expect(callback).toHaveBeenCalledWith(new ResponseTimeoutError('in 100ms'));
   });
 
@@ -78,7 +77,7 @@ describe('Timeout Fetch Plugin', () => {
     const call = new Promise<any>((resolve) => setTimeout(() => resolve({test: true}), 500));
     timeoutPauseEvent.emitEvent('timeoutStopped');
     const promise = runner.transform(call);
-    await call;
+    await jest.runAllTimersAsync();
 
     expect(await promise).toEqual({test: true} as any);
   });
