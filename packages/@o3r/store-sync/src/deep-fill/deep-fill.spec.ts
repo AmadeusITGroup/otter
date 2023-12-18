@@ -1,4 +1,5 @@
-import {deepFill, immutablePrimitive, isObject} from './deep-fill';
+import {utils} from '@ama-sdk/core';
+import { deepFillWithDate} from './deep-fill';
 
 describe('Deep fill function', () => {
 
@@ -9,14 +10,14 @@ describe('Deep fill function', () => {
     const base = Object.freeze({a: 1, b: '2', c: true});
     const source = Object.freeze({a: undefined});
 
-    expect(deepFill(base, source)).toEqual(base);
+    expect(deepFillWithDate(base, source)).toEqual(base);
   });
 
   it('should keep properties from base not present in the source', () => {
     const base = Object.freeze({a: 1, b: '2', c: true});
     const source = Object.freeze({c: false, a: 3});
 
-    expect(deepFill(base, source)).toEqual({a: 3, b: '2', c: false});
+    expect(deepFillWithDate(base, source)).toEqual({a: 3, b: '2', c: false});
   });
 
   it('should move properties existing in source but not in base', () => {
@@ -26,7 +27,7 @@ describe('Deep fill function', () => {
     const base: SpecificType = {a: 1};
     const source: Partial<SpecificType> = {b: 3};
 
-    expect(deepFill(base, source)).toEqual({a: 1, b: 3});
+    expect(deepFillWithDate(base, source)).toEqual({a: 1, b: 3});
   });
 
   it('should move undefined properties existing in source but not in base', () => {
@@ -36,30 +37,30 @@ describe('Deep fill function', () => {
     const base: SpecificType = {a: 1};
     const source: Partial<SpecificType> = {b: 3, c: undefined};
 
-    expect(deepFill(base, source)).toEqual({a: 1, b: 3, c: undefined});
+    expect(deepFillWithDate(base, source)).toEqual({a: 1, b: 3, c: undefined});
   });
 
   it('should replace the booleans', () => {
     const base = Object.freeze({c: false});
     const source = Object.freeze({c: true});
 
-    expect(deepFill(base, source)).toEqual({c: true});
+    expect(deepFillWithDate(base, source)).toEqual({c: true});
   });
 
   it('should keep the object value and a new reference', () => {
-    const now = new Date();
+    const now = new utils.DateTime();
     const base = Object.freeze({a: 1, b: [1, 2, 3], c: now});
-    const filled = deepFill(base, base);
+    const filled = deepFillWithDate(base, base);
 
     expect(filled === base).toBe(false);
-    expect(deepFill(base, base)).toEqual({a: 1, b: [1, 2, 3], c: now});
+    expect(deepFillWithDate(base, base)).toEqual({a: 1, b: [1, 2, 3], c: now});
   });
 
   it('should replace primitives from base by source', () => {
     const base = Object.freeze({a: 1, b: '2', c: true});
     const source = Object.freeze({c: false});
 
-    expect(deepFill(base, source)).toEqual({a: 1, b: '2', c: false});
+    expect(deepFillWithDate(base, source)).toEqual({a: 1, b: '2', c: false});
   });
 
   it('should replace arrays from base by source', () => {
@@ -67,7 +68,7 @@ describe('Deep fill function', () => {
     const base: Partial<Config> = Object.freeze({a: 1, b: [4, 5, 6], c: true});
     const source: Partial<Config> = Object.freeze({b: [1, 2, 3], c: false});
 
-    expect(deepFill(base, source)).toEqual({a: 1, b: [1, 2, 3], c: false});
+    expect(deepFillWithDate(base, source)).toEqual({a: 1, b: [1, 2, 3], c: false});
   });
 
   it('should go inside internal objects', () => {
@@ -83,7 +84,7 @@ describe('Deep fill function', () => {
       }
     });
 
-    expect(deepFill(base, source)).toEqual({
+    expect(deepFillWithDate(base, source)).toEqual({
       notPresent: 'coucou',
       internal: {
         a: 1
@@ -107,7 +108,7 @@ describe('Deep fill function', () => {
       }
     });
 
-    expect(deepFill(base, source)).toEqual({
+    expect(deepFillWithDate(base, source)).toEqual({
       notPresent: 'coucou',
       internal: {
         a: 1,
@@ -117,7 +118,7 @@ describe('Deep fill function', () => {
   });
 
   it('should replace with the new date', () => {
-    interface InternalTypeProp { a: number; b: Date }
+    interface InternalTypeProp { a: number; b: utils.Date }
     interface ObjectTypeProp { present: string; internal: Partial<InternalTypeProp> }
 
     const today = new Date();
@@ -125,11 +126,11 @@ describe('Deep fill function', () => {
       present: 'coucou',
       internal: {
         a: 2,
-        b: new Date(today)
+        b: new utils.Date(today)
       }
     });
 
-    const newDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const newDate = new utils.Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
     const source: Partial<ObjectTypeProp> = Object.freeze({
       internal: {
@@ -137,7 +138,7 @@ describe('Deep fill function', () => {
       }
     });
 
-    expect(deepFill(base, source)).toEqual({
+    expect(deepFillWithDate(base, source)).toEqual({
       present: 'coucou',
       internal: {
         a: 2,
@@ -147,7 +148,7 @@ describe('Deep fill function', () => {
   });
 
   it('should replace with the new date time', () => {
-    interface InternalTypeProp { a: number; b: Date }
+    interface InternalTypeProp { a: number; b: utils.DateTime }
     interface ObjectTypeProp { present: string; internal: Partial<InternalTypeProp> }
 
     const today = new Date();
@@ -155,11 +156,11 @@ describe('Deep fill function', () => {
       present: 'coucou',
       internal: {
         a: 2,
-        b: new Date(today)
+        b: new utils.DateTime(today)
       }
     });
 
-    const newDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 10, 30, 0);
+    const newDate = new utils.DateTime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 10, 30, 0);
 
     const source: Partial<ObjectTypeProp> = Object.freeze({
       internal: {
@@ -167,44 +168,12 @@ describe('Deep fill function', () => {
       }
     });
 
-    expect(deepFill(base, source)).toEqual({
+    expect(deepFillWithDate(base, source)).toEqual({
       present: 'coucou',
       internal: {
         a: 2,
         b: newDate
       }
-    });
-  });
-
-  describe('IsObject function', () => {
-    it('should return true for an object which is not utils date or Date or array', () => {
-      const obj = {a: 1, b: [1, 2, 3], c: 'my string config'};
-
-      expect(isObject(obj)).toBeTruthy();
-    });
-
-    it('should return false for an array', () => {
-      const obj = [0, 1, 2];
-
-      expect(isObject(obj)).toBeFalsy();
-    });
-  });
-
-  describe('ImmutablePrimitive function', () => {
-    it('should return a new reference of the object', () => {
-      const obj = {a: 1, b: [1, 2, 3], c: 'myString'};
-      const isEqualRef = immutablePrimitive(obj) === obj;
-
-      expect(isEqualRef).toBeFalsy();
-      expect(immutablePrimitive(obj)).toEqual(obj);
-    });
-
-    it('should return a new reference of the array', () => {
-      const obj = [0, 1, 2];
-      const isEqualReference = obj === immutablePrimitive(obj);
-
-      expect(isEqualReference).toBeFalsy();
-      expect(immutablePrimitive(obj)).toEqual(obj);
     });
   });
 });

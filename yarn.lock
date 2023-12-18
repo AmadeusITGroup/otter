@@ -6829,7 +6829,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/architect": "npm:~0.1700.3"
     "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-devkit/core": "npm:~17.0.3"
@@ -6893,7 +6892,6 @@ __metadata:
     uuid: "npm:^9.0.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/architect": ~0.1700.0
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
@@ -7589,6 +7587,15 @@ __metadata:
     winston: "npm:^3.8.2"
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.14.2"
+  dependenciesMeta:
+    "@swc/core":
+      built: true
+    esbuild:
+      built: true
+    fsevents:
+      built: true
+    nx:
+      built: true
   languageName: unknown
   linkType: soft
 
@@ -8277,6 +8284,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/store-sync@workspace:packages/@o3r/store-sync"
   dependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
@@ -8322,6 +8330,7 @@ __metadata:
     typescript: "npm:~5.2.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@ama-sdk/core": "workspace:^"
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
     "@ngrx/entity": ~17.0.0

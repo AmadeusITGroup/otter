@@ -44,3 +44,23 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, pac
   };
 
 }
+
+/**
+ * Get the list of o3r generator deps from a given package.json file
+ * @param packageJsonPath The package json on which we search for o3r generator deps
+ * @param packagePattern Pattern of the package name to look in the packages generator dependencies.
+ */
+export function getO3rGeneratorDeps(packageJsonPath: string, packagePattern = /^@(?:o3r|ama-sdk)/) {
+  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  const packageName = packageJsonContent.name;
+  const packageVersion = packageJsonContent.version;
+  const optionalPackages = Object.entries(packageJsonContent.generatorDependencies || {})
+    .filter(([, dep]) => dep?.optional)
+    .map(([depName]) => depName);
+
+  const o3rGeneratorDeps = Object.keys(packageJsonContent.peerDependencies || [])
+    .filter(peerDep => packagePattern.test(peerDep) && !optionalPackages.includes(peerDep));
+
+  return { packageName, packageVersion, o3rGeneratorDeps };
+
+}

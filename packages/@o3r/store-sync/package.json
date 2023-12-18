@@ -19,6 +19,7 @@
     "test": "yarn nx test store-sync"
   },
   "peerDependencies": {
+    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/core": "~17.0.0",
     "@angular-devkit/schematics": "~17.0.0",
     "@ngrx/entity": "~17.0.0",
@@ -44,6 +45,7 @@
     "tslib": "^2.5.3"
   },
   "devDependencies": {
+    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/build-angular": "~17.0.3",
     "@angular-devkit/core": "~17.0.3",
     "@angular-devkit/schematics": "~17.0.3",
