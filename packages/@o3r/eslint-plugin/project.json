@@ -24,7 +24,10 @@
       "options": {
         "script": "build:builders"
       },
-      "dependsOn": []
+      "dependsOn": [
+        "prepare-build-builders",
+        "compile"
+      ]
     },
     "compile": {
       "executor": "@nx/js:tsc",

@@ -15,7 +15,9 @@
     "ng": "yarn nx",
     "build": "yarn nx build stylelint-plugin",
     "postbuild": "patch-package-json-main",
-    "prepare:publish": "prepare-publish ./dist"
+    "prepare:publish": "prepare-publish ./dist",
+    "prepare:build:builders": "yarn cpy './collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
     "tslib": "^2.5.3"
@@ -25,6 +27,8 @@
     "stylelint": "^15.10.1"
   },
   "devDependencies": {
+    "@angular-devkit/core": "~17.0.3",
+    "@angular-devkit/schematics": "~17.0.3",
     "@angular-eslint/eslint-plugin": "~17.1.0",
     "@angular/compiler": "~17.0.4",
     "@babel/core": "~7.23.0",
@@ -39,6 +43,7 @@
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
@@ -55,5 +60,6 @@
     "stylelint": "^15.10.1",
     "ts-jest": "~29.1.1",
     "typescript": "~5.2.2"
-  }
+  },
+  "schematics": "./collection.json"
 }

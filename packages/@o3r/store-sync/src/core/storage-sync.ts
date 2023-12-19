@@ -1,5 +1,5 @@
 import {INIT, UPDATE} from '@ngrx/store';
-import {deepFill} from '@o3r/core';
+import { deepFillWithDate } from '../deep-fill/deep-fill';
 import equal from 'fast-deep-equal';
 import type {StorageSyncOptions} from './interfaces';
 import {isLocalStorageConfig, isSerializer, rehydrateAction} from './storage-sync.helpers';
@@ -45,14 +45,14 @@ export class StorageSync {
   public readonly mergeReducer = (state: any, rehydratedState: any, action: any) => {
     if (rehydratedState) {
       if (action.type === INIT) {
-        state = deepFill(state, rehydratedState);
+        state = deepFillWithDate(state, rehydratedState);
       }
       if (action.type === UPDATE && Array.isArray(action.features)) {
 
         const notHandledFeatures = action.features.filter((featName: string) => !this.alreadyHydratedStoreSlices.has(featName));
 
         notHandledFeatures.filter((featName: string) => !!rehydratedState[featName]).forEach((fName: string) => {
-          state[fName] = state[fName] ? deepFill(state[fName], rehydratedState[fName]) : rehydratedState[fName];
+          state[fName] = state[fName] ? deepFillWithDate(state[fName], rehydratedState[fName]) : rehydratedState[fName];
           this.alreadyHydratedStoreSlices.add(fName);
         });
 

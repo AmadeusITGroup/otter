@@ -2,7 +2,9 @@ import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
 import {
   getAppModuleFilePath,
   getModuleIndex,
+  getWorkspaceConfig,
   isApplicationThatUsesRouterModule,
+  ngAddPackages,
   ngAddPeerDependencyPackages,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
@@ -13,6 +15,7 @@ import { isImported } from '@schematics/angular/utility/ast-utils';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 import * as ts from 'typescript';
+import * as fs from 'node:fs';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxEffectsDep = '@ngrx/effects';
@@ -20,7 +23,6 @@ const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
-const o3rStoreSyncDep = '@o3r/store-sync';
 const fastDeepEqualDep = 'fast-deep-equal';
 
 /**
@@ -32,6 +34,28 @@ const fastDeepEqualDep = 'fast-deep-equal';
  * @param projectType
  */
 export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+
+  const addStoreModules: Rule = (tree) => {
+    const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
+    const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', 'package.json');
+    const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
+    const o3rCoreVersion = corePackageJsonContent.version;
+    const workspaceConfig = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+    const projectDirectory = workspaceProject?.root;
+
+    return ngAddPackages(['@o3r/store-sync'],
+      {
+        skipConfirmation: true,
+        version: o3rCoreVersion,
+        parentPackageInfo: '@o3r/core - setup',
+        projectName: options.projectName,
+        dependencyType: NodeDependencyType.Default,
+        workingDirectory: projectDirectory
+      }
+    );
+  };
+
   /**
    * Changed package.json start script to run localization generation
    *
@@ -41,7 +65,7 @@ export function updateStore(options: { projectName?: string | undefined; working
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
 
-    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep, o3rStoreSyncDep, fastDeepEqualDep];
+    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep, fastDeepEqualDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     let dependenciesList = [...corePeerDeps];
 
@@ -150,7 +174,7 @@ const runtimeChecks: Partial<RuntimeChecks> = {
   };
 
   return chain([
-    ...(projectType === 'application' ? [registerModules] : []),
+    ...(projectType === 'application' ? [registerModules, addStoreModules] : []),
     updatePackageJson
   ]);
 }

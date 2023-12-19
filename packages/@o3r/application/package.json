@@ -97,5 +97,5 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "schematics": "./dist/collection.json"
+  "schematics": "./collection.json"
 }

@@ -19,7 +19,6 @@
   "default": "./src/public_api.js",
   "types": "./src/public_api.d.ts",
   "peerDependencies": {
-    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1700.0",
     "@angular-devkit/core": "~17.0.0",
     "@angular-devkit/schematics": "~17.0.0",
@@ -73,7 +72,6 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@ama-sdk/core": "workspace:^",
     "@angular-devkit/architect": "~0.1700.3",
     "@angular-devkit/build-angular": "~17.0.3",
     "@angular-devkit/core": "~17.0.3",
@@ -140,6 +138,7 @@
     "@ngrx/router-store": "~17.0.0",
     "@ngrx/effects": "~17.0.0",
     "@ngrx/store-devtools": "~17.0.0",
+    "@o3r/store-sync": "workspace:^",
     "@types/jest": "~29.5.2",
     "nx": "~17.1.1",
     "@typescript-eslint/parser": "^6.11.0",
