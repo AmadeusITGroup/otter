@@ -8496,6 +8496,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:9.6.8"
+    ng-mocks: "npm:^14.12.1"
     ngx-highlightjs: "npm:^10.0.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:2.2.2"
@@ -23517,6 +23518,18 @@ __metadata:
     typescript: "npm:~5.3.3"
   languageName: unknown
   linkType: soft
+
+"ng-mocks@npm:^14.12.1":
+  version: 14.12.1
+  resolution: "ng-mocks@npm:14.12.1"
+  peerDependencies:
+    "@angular/common": 5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14 || 15.0.0-alpha - 15 || 16.0.0-alpha - 16 || 17.0.0-alpha - 17
+    "@angular/core": 5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14 || 15.0.0-alpha - 15 || 16.0.0-alpha - 16 || 17.0.0-alpha - 17
+    "@angular/forms": 5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14 || 15.0.0-alpha - 15 || 16.0.0-alpha - 16 || 17.0.0-alpha - 17
+    "@angular/platform-browser": 5.0.0-alpha - 5 || 6.0.0-alpha - 6 || 7.0.0-alpha - 7 || 8.0.0-alpha - 8 || 9.0.0-alpha - 9 || 10.0.0-alpha - 10 || 11.0.0-alpha - 11 || 12.0.0-alpha - 12 || 13.0.0-alpha - 13 || 14.0.0-alpha - 14 || 15.0.0-alpha - 15 || 16.0.0-alpha - 16 || 17.0.0-alpha - 17
+  checksum: 10/b998d0f9cdc6b769892c62979c9b3b131fe2d4e591fbe7d3eea80ba38f6be8eee6e5ef7a651a6bd55e2bc744ecfe6eb83057a36a479938e3bc9b1dc3c4077d11
+  languageName: node
+  linkType: hard
 
 "ng-packagr@npm:~17.2.0":
   version: 17.2.1
