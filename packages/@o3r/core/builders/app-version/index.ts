@@ -26,13 +26,7 @@ export default createBuilder<AppVersionBuilderSchema>(async (options, context): 
   if (!fs.existsSync(packageJsonFile)) {
     return PACKAGE_JSON_NOT_FOUND;
   }
-  const packageJson = await new Promise<string>((resolve, reject) =>
-    fs.readFile(
-      packageJsonFile,
-      {encoding: 'utf-8'},
-      (err, data) => err ? reject(err) : resolve(data)
-    )
-  );
+  const packageJson = await fs.promises.readFile(packageJsonFile, {encoding: 'utf-8'});
   let version: string;
   try {
     version = JSON.parse(packageJson).version;

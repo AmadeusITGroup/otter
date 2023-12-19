@@ -55,7 +55,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
   const execute = async (): Promise<BuilderOutput> => {
     context.reportProgress(0, STEP_NUMBER, 'Checking required options');
     const tsConfig = path.resolve(context.workspaceRoot, options.tsConfig);
-    const tsconfigExists = await new Promise<boolean>((resolve) => fs.exists(tsConfig, resolve));
+    const tsconfigExists = fs.existsSync(tsConfig);
     if (!tsconfigExists) {
       context.logger.error(`${tsConfig} not found`);
 
