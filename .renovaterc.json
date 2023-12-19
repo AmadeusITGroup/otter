@@ -42,6 +42,12 @@
   ],
   "automerge": true,
   "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 4am on monday"
+    ]
+  },
   "packageRules": [
     {
       "matchPackageNames": [
@@ -187,6 +193,13 @@
           ".yarn/sdks/**"
         ]
       }
+    },
+    {
+      "matchPackageNames": [
+        "zone.js",
+        "bootstrap"
+      ],
+      "enabled": false
     }
   ]
 }

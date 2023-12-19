@@ -30,7 +30,7 @@ addons.register(ADDON_ID, (api) => {
   addons.add(`${ADDON_ID}/theme-panel`, {
     type: types.PANEL,
     title: 'Theme',
-    render: ({active, key}) => {
+    render: ({active}) => {
       const themes: Record<string, Record<string, string>> = api.getCurrentParameter('themes');
       const themeNames = themes && Object.keys(themes);
       selectedThemeName = !selectedThemeName && themeNames && themeNames[0] || selectedThemeName;
@@ -59,13 +59,13 @@ addons.register(ADDON_ID, (api) => {
       };
 
       if (!active) {
-        return <span key={key! + '-empty'}></span>;
+        return <span></span>;
       }
       if (!updatedTheme) {
         updateTheme(baseTheme);
       }
       return (
-        <AddonPanel active={active} key={key}>
+        <AddonPanel active={active}>
           <ThemePanel
             theme={state.theme}
             themeName={state.selectedThemeName}

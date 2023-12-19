@@ -23,6 +23,9 @@
     },
     "./otter-theme": {
       "sass": "./scss/theming/otter-theme/_index.scss"
+    },
+    "./schemas/*.json": {
+      "default": "./schemas/*.json"
     }
   },
   "peerDependencies": {
@@ -64,7 +67,7 @@
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.3.0",
     "@angular/animations": "~16.2.0",
     "@angular/cdk": "~16.2.0",
     "@angular/common": "~16.2.0",

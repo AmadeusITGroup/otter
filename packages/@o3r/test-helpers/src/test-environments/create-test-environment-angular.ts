@@ -140,7 +140,7 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
       const packageJson = JSON.parse(packageJsonString);
       writeFileSync(workspacePackageJsonPath, JSON.stringify({
         ...packageJson,
-        scripts: {...packageJson.scripts, build: getPackageManager() === 'npm' ? 'npm run build --workspaces' : 'yarn workspaces foreach run build'},
+        scripts: {...packageJson.scripts, build: getPackageManager() === 'npm' ? 'npm run build --workspaces' : 'yarn workspaces foreach -A run build'},
         workspaces: ['projects/*']
       }, null, 2));
       writeFileSync(path.join(appFolderPath, 'projects', 'test-app', 'package.json'), packageJsonString.replace(/"test-app"/, '"test-app-project"'));
@@ -149,7 +149,7 @@ export async function createTestEnvironmentAngular(inputOptions: Partial<CreateT
       // TODO remove this if we manage to make 'workspace <> ng add' work with private registry
       cpSync(path.join(appFolderPath, '.npmrc'), path.join(appFolderPath, 'projects', 'test-app', '.npmrc'));
 
-      if (getPackageManager() === 'yarn') {
+      if (getPackageManager() === 'yarn' && options.yarnVersion && Number.parseInt(options.yarnVersion.split('.')[0], 10) < 4) {
         execFileSync('yarn', ['plugin', 'import', 'workspace-tools'], {...execAppOptions, shell: process.platform === 'win32'});
       }
     }

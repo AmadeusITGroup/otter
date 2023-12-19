@@ -99,7 +99,7 @@ Options:
 ## Set Version
 
 Replace the packages version in a monorepo
-  
+
 ### Usage
 
 ```shell
@@ -163,7 +163,7 @@ Example : yarn pr-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpas
 
 ## Peer dependencies updater
 
-Update a package.json with the given dependencies versions and their respective peer dependencies.  
+Update a package.json with the given dependencies versions and their respective peer dependencies.
 Relies on `npm info` to retrieve package information.
 
 ### Usage
@@ -179,17 +179,12 @@ Options:
   --verbose                          Display debug log message
   --silent                           Do not exit with error in case of metadata fetch error
 
-Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core" 
+Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core"
 ```
 
 ## Scripts
 
 This package provide generic helpers to support the build chain of Otter and Ama sdk packages
-
-### Scripts available
-
-* **yarn-check** : Check if the current NPM client used is [Yarn](https://yarnpkg.com/en/) (`exit(1)` if not the case).
-* **version-harmonize** : Harmonize the version of the dependencies (in a Monorepo) between the main packages and the children packages.
 
 ## Set Version
 
@@ -210,6 +205,8 @@ Options:
 ```
 
 ## Version Harmonize
+
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12, it is replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md).
 
 Replace the dependencies version in a monorepo.
 This aligns the dependencies range of each packages of a yarn monorepo to the latest range detected in the monorepo.

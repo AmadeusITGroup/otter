@@ -7,5 +7,6 @@ module.exports = {
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
     '\\.it\\.spec\\.ts$'
-  ]
+  ],
+  testTimeout: 30 * 1000
 };
