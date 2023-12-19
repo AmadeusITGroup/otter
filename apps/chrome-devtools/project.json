@@ -26,7 +26,7 @@
       ]
     },
     "build-components": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
       "outputs": ["{projectRoot}/dist/components"],
       "options": {
         "baseHref": "components",
@@ -81,7 +81,7 @@
       "dependsOn": ["^build"]
     },
     "build-panel": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
       "outputs": ["{projectRoot}/dist/panel"],
       "options": {
         "baseHref": "panel",

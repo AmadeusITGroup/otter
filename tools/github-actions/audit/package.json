@@ -22,7 +22,7 @@
     "@nx/eslint-plugin": "~17.1.1",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
-    "@types/node": "^18.0.0",
+    "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "6.11.0",
     "@typescript-eslint/parser": "^6.11.0",
     "@vercel/ncc": "~0.38.0",
@@ -31,7 +31,7 @@
     "eslint-plugin-jest": "~27.6.0",
     "eslint-plugin-jsdoc": "~46.9.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^49.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "typescript": "~5.2.2"
   },
