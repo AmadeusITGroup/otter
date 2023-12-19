@@ -11,7 +11,19 @@
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["compile"]
+      "dependsOn": ["compile", "build-builders"]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
     },
     "compile": {
       "executor": "@nx/js:tsc",

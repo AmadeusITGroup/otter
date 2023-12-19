@@ -33,7 +33,7 @@ export class EslintFixTask implements TaskConfigurationGenerator<NodePackageTask
     return {
       name: NodePackageName,
       options: {
-        command: 'eslint',
+        command: 'exec',
         quiet: false,
         workingDirectory: this.workingDirectory,
         packageName: [
