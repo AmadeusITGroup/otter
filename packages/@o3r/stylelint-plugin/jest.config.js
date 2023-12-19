@@ -4,7 +4,7 @@ const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 module.exports = {
   ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
-  setupFiles: ['<rootDir>/testing/jest.setup.ts'],
+  preset: 'jest-preset-stylelint',
   setupFilesAfterEnv: null,
   testEnvironment: 'node'
 };

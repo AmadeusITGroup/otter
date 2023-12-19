@@ -1,8 +1,8 @@
-import type { TestRule } from 'jest-preset-stylelint';
-
-declare const stylelintTestRule: TestRule;
-
+import { getTestRule } from 'jest-preset-stylelint';
 import { messages, messagesAlias, ruleName } from './o3r-var-parameter-equal-variable';
+import plugins from '../../index';
+
+const stylelintTestRule = getTestRule({ plugins });
 
 stylelintTestRule({
   ruleName,

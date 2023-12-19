@@ -23,8 +23,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "tools/github-actions/cascading/jest.config.js",
-        "silent": true
+        "jestConfig": "tools/github-actions/cascading/jest.config.js"
       }
     }
   },

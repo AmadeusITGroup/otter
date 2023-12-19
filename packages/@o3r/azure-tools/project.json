@@ -44,8 +44,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/azure-tools/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/azure-tools/jest.config.js"
       }
     },
     "prepare-publish": {

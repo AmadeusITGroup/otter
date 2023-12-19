@@ -58,8 +58,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/testing/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/testing/jest.config.js"
       }
     },
     "test-int": {

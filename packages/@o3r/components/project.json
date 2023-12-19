@@ -60,8 +60,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/components/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/components/jest.config.js"
       }
     },
     "test-int": {

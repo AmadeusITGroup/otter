@@ -72,8 +72,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/storybook/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/storybook/jest.config.js"
       }
     },
     "prepare-publish": {

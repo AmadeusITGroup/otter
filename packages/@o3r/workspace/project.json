@@ -52,8 +52,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/workspace/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/workspace/jest.config.js"
       }
     },
     "prepare-publish": {

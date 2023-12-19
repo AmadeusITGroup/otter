@@ -155,8 +155,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/chrome-devtools/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/chrome-devtools/jest.config.js"
       }
     },
     "copy-assets": {

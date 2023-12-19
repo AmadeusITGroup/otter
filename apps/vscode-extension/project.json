@@ -43,8 +43,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/vscode-extension/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/vscode-extension/jest.config.js"
       }
     },
     "prepare-publish": {

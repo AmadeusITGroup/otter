@@ -45,8 +45,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/artifactory-tools/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/artifactory-tools/jest.config.js"
       }
     },
     "prepare-publish": {
