@@ -23,6 +23,7 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
 
 /**
  * Check if a message can be cast as an {@link ImpervaCaptchaMessage}
+ *
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {

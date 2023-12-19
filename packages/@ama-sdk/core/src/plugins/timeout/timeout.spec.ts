@@ -45,8 +45,8 @@ describe('Timeout Fetch Plugin', () => {
   it('should not reject if the timeout has been paused and reject if restarted', async () => {
     const timeoutPauseEvent = {
       emitEvent: (_status: TimeoutStatus) => {},
-      handler: (timeoutPauseCallbacl: (status: TimeoutStatus) => void) => {
-        timeoutPauseEvent.emitEvent = timeoutPauseCallbacl;
+      handler: (timeoutPauseCallback: (status: TimeoutStatus) => void) => {
+        timeoutPauseEvent.emitEvent = timeoutPauseCallback;
         return () => {};
       }
     };
