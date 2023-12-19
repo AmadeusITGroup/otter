@@ -6062,12 +6062,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/nx-cloud@npm:16.4.0":
-  version: 16.4.0
-  resolution: "@nrwl/nx-cloud@npm:16.4.0"
+"@nrwl/nx-cloud@npm:16.5.2":
+  version: 16.5.2
+  resolution: "@nrwl/nx-cloud@npm:16.5.2"
   dependencies:
-    nx-cloud: "npm:16.4.0"
-  checksum: b34c62ff08df0009c54235543a33a87cde5db2100da54e8a3020643983a0271c4f6f97f6e87cac3c9502ddee82e6fac3fda6ce94b8c7ddc07a805ea4d25093aa
+    nx-cloud: "npm:16.5.2"
+  checksum: e0fbbe68d33a95a123bc45c23aa72d02a2d81445bab61dce63b0fb4f1dfb81b2f3dd8456ab61460e10548b123c4d3250315027398d45e0f1da2145552bb01316
   languageName: node
   linkType: hard
 
@@ -7780,7 +7780,7 @@ __metadata:
     ng-packagr: "npm:~16.2.0"
     npm-run-all: "npm:^4.1.5"
     nx: "npm:~16.10.0"
-    nx-cloud: "npm:~16.4.0"
+    nx-cloud: "npm:~16.5.0"
     postcss: "npm:~8.4.31"
     postcss-scss: "npm:~4.0.9"
     react: "npm:^17.0.2"
@@ -25903,11 +25903,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx-cloud@npm:16.4.0, nx-cloud@npm:~16.4.0":
-  version: 16.4.0
-  resolution: "nx-cloud@npm:16.4.0"
+"nx-cloud@npm:16.5.2, nx-cloud@npm:~16.5.0":
+  version: 16.5.2
+  resolution: "nx-cloud@npm:16.5.2"
   dependencies:
-    "@nrwl/nx-cloud": "npm:16.4.0"
+    "@nrwl/nx-cloud": "npm:16.5.2"
     axios: "npm:1.1.3"
     chalk: "npm:^4.1.0"
     dotenv: "npm:~10.0.0"
@@ -25919,7 +25919,7 @@ __metadata:
     yargs-parser: "npm:>=21.1.1"
   bin:
     nx-cloud: bin/nx-cloud.js
-  checksum: 98976a5a422ac370c4439046bd023df0f96be3f411d02985acdb0588717706c26b64bb5223449ba36d3b39165d0052dce78cdc56227b37a51bc8093713df17a4
+  checksum: 3c463a1bef131867e125d76013579703fa5b63afc91dc502c64fcda128b9b9e369e54aa2d9e296df1bc3888aca94d0be8ceda52aa915c4e252472a8ef90a0cf0
   languageName: node
   linkType: hard
 
