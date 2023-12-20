@@ -114,7 +114,7 @@ Options:
 ## Set Version
 
 Replaces the value of the `version` field of the `package.json` matched by the pattern provided to the `--include` options.
-  
+
 ### Usage
 
 ```shell
@@ -178,7 +178,7 @@ Example : yarn pr-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpas
 
 ## Peer dependencies updater
 
-Updates a package.json with the given dependencies' versions and their respective peer dependencies.  
+Updates a package.json with the given dependencies' versions and their respective peer dependencies.
 Relies on `npm info` to retrieve package information.
 
 ### Usage
@@ -194,7 +194,7 @@ Options:
   --verbose                          Display debug log message
   --silent                           Do not exit with error in case of metadata fetch error
 
-Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core" 
+Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core"
 ```
 
 ## Scripts
@@ -225,6 +225,8 @@ Options:
 ```
 
 ## Version Harmonize
+
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12, it is replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](../linter/eslint-plugin/rules/json-dependency-versions-harmonize.md).
 
 Replaces the dependencies' version in a monorepos.
 This align the dependencies' range of each package of a yarn monorepo to the latest range detected in the monorepo.

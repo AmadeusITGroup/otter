@@ -22,14 +22,13 @@
     "globby": "^11.1.0",
     "js-yaml": "^4.1.0",
     "jsonschema": "~1.4.1",
-    "mkdirp": "^1.0.4",
     "openapi-types": "^12.0.0",
     "pascal-case": "^3.1.1",
     "semver": "^7.5.2",
     "tslib": "^2.5.3"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.3.0",
     "@nx/eslint-plugin": "~16.10.0",
     "@nx/jest": "~16.10.0",
     "@o3r/build-helpers": "workspace:^",
@@ -37,7 +36,6 @@
     "@types/glob": "^8.0.0",
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
-    "@types/mkdirp": "^1.0.0",
     "@types/node": "^18.0.0",
     "@types/semver": "^7.3.13",
     "@types/swagger-schema-official": "^2.0.22",

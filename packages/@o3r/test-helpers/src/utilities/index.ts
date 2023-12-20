@@ -4,3 +4,4 @@ export * from './exec';
 export * from './locker';
 export * from './package-manager';
 export * from './verdaccio';
+export * from './virtual-fs';

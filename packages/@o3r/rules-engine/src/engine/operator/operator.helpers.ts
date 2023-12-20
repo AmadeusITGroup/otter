@@ -107,3 +107,19 @@ export function isSupportedSimpleTypes(value: unknown): value is SupportedSimple
 export function isString(value: unknown): value is string {
   return typeof value === 'string';
 }
+
+/**
+ * Parse input to return RegExp
+ *
+ * @param value value to test whether pattern exists (can be string or array of strings)
+ * @param inputString regexp pattern
+ */
+export function parseRegExp(inputRegExp: string) {
+  if (inputRegExp.startsWith('/')) {
+    const finalSlash = inputRegExp.lastIndexOf('/');
+    const regexpPattern = inputRegExp.slice(1, finalSlash);
+    const regexpFlags = inputRegExp.slice(finalSlash + 1);
+    return new RegExp(regexpPattern, regexpFlags);
+  }
+  return new RegExp(inputRegExp);
+}

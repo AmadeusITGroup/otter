@@ -61,6 +61,27 @@
       "type": "string",
       "description": "Path to the placeholders data file",
       "default": "placeholders.metadata.json"
+    },
+    "globalConfigCategories": {
+      "type": "array",
+      "description": "List of categories with description",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "label"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Configuration category name"
+          },
+          "label": {
+            "type": "string",
+            "description": "Configuration category description"
+          }
+        }
+      }
     }
   },
   "additionalProperties": false,

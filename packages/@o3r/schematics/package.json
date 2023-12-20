@@ -26,6 +26,7 @@
     "@angular-devkit/schematics": "~16.2.0",
     "@angular/cli": "~16.2.0",
     "@schematics/angular": "~16.2.0",
+    "eslint": "^8.42.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.1.6"
   },
@@ -34,6 +35,9 @@
       "optional": true
     },
     "@angular-devkit/core": {
+      "optional": true
+    },
+    "eslint": {
       "optional": true
     }
   },
@@ -48,7 +52,7 @@
     "@angular-devkit/build-angular": "~16.2.0",
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.3.0",
     "@angular/cli": "~16.2.0",
     "@angular/common": "~16.2.0",
     "@angular/compiler": "~16.2.0",

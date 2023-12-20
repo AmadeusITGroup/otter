@@ -32,7 +32,16 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           workingDirectory
         }),
         ngAddPeerDependencyPackages(
-          ['eslint', '@angular-eslint/builder', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin', 'eslint-plugin-jsdoc', 'eslint-plugin-prefer-arrow', 'eslint-plugin-unicorn'],
+          [
+            'eslint',
+            '@angular-eslint/builder',
+            '@typescript-eslint/parser',
+            '@typescript-eslint/eslint-plugin',
+            'eslint-plugin-jsdoc',
+            'eslint-plugin-prefer-arrow',
+            'eslint-plugin-unicorn',
+            'jsonc-eslint-parser'
+          ],
           path.resolve(__dirname, '..', '..', 'package.json'),
           NodeDependencyType.Dev,
           {...options, workingDirectory, skipNgAddSchematicRun: true},
