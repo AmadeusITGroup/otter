@@ -3,13 +3,13 @@ Plugin to raise an exception on a fetch request timeout.
 The timeout can be configured to stop and restart from the beginning depending on events.
 
 ## Timeout pause/restart mechanism
-You can configure an ``TimeoutPauseEventHandler`` to stop the timeout from throwing errors upon some events.
+You can configure a ``TimeoutPauseEventHandler`` to stop the timeout from throwing errors upon some events.
 
-One of these example is the Captcha. If your user is currently resolving a captcha, the request might not go through
-until the captcha is fully resolved. This is not something you actually want.
+One of these example is the Captcha. If your user is currently resolving a Captcha, the request might not go through
+until the Captcha is fully resolved. This is not something you actually want.
 
 ### Imperva Captcha event 
-Today the @ama-sdk/core plugin exposes the ``impervaCaptchaEventHandlerFactory`` that will emit event if a captcha has 
+Today the @ama-sdk/core plugin exposes the ``impervaCaptchaEventHandlerFactory`` that will emit an event if a Captcha has 
 been displayed on your website. It is only compatible with Imperva UI events and can be used as follows:
 
 ```typescript
@@ -18,7 +18,7 @@ import {impervaCaptchaEventHandlerFactory, TimeoutFetch} from './timeout.fetch';
 const fetchPlugin = new TimeoutFetch(60000, impervaCaptchaEventHandlerFactory({whiteListedHostNames: ['myCaptchaDomain']}));
 ```
 
-Only events posted from the white listed domain will be listened to, make sure to correctly configure the factory,
+Only events posted from the white listed domain will be listened to, make sure to correctly configure the factory.
 
 ### Custom event
 You can create your own ``TimeoutPauseEventHandler`` that will call the timeoutPauseCallback whenever you need to pause
