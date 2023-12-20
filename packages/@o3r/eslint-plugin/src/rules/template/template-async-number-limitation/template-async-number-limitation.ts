@@ -42,9 +42,8 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag', any>({
 
   defaultOptions,
 
-  create: (context) => {
+  create: (context, [options]: [Options]) => {
     const parserServices = getTemplateParserServices(context);
-    const options = context.options[0] || defaultOptions[0];
     const asyncRegExp = /\| *async\b/g;
 
 

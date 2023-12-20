@@ -37,7 +37,12 @@ type O3rWidgetRuleErrorId =
 
 const createCommentString = (comment: string) => `/*${comment}*/`;
 
-export default createRule<O3rWidgetTagsRuleOption[], O3rWidgetRuleErrorId>({
+const defaultOptions: [Required<O3rWidgetTagsRuleOption>] = [{
+  supportedInterfaceNames: defaultSupportedInterfaceNames,
+  widgets: {}
+}];
+
+export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidgetRuleErrorId>({
   name: 'o3r-widget-tags',
   meta: {
     hasSuggestions: true,
@@ -99,17 +104,8 @@ export default createRule<O3rWidgetTagsRuleOption[], O3rWidgetRuleErrorId>({
       suggestReplaceO3rWidgetType: 'Replace {{ currentType }} by {{ suggestedType }}.'
     }
   },
-  defaultOptions: [],
-  create: (context) => {
-    const options: Required<O3rWidgetTagsRuleOption> = context.options
-      .reduce((acc: Required<O3rWidgetTagsRuleOption>, option) => {
-        acc.supportedInterfaceNames = (acc.supportedInterfaceNames || []).concat(option.supportedInterfaceNames || []);
-        acc.widgets = {
-          ...acc.widgets,
-          ...option.widgets
-        };
-        return acc;
-      }, { widgets: {}, supportedInterfaceNames: [] });
+  defaultOptions,
+  create: (context, [options]: [Required<O3rWidgetTagsRuleOption>]) => {
     const supportedO3rWidgets = new Set(Object.keys(options.widgets));
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
