@@ -51,7 +51,8 @@
     "test": {
       "executor": "@nrwl/jest:jest",
       "options": {
-        "jestConfig": "<%= projectRoot %>/jest.config.js"
+        "jestConfig": "<%= projectRoot %>/jest.config.js",
+        "silent": true
       }
     },
     "publish": {

@@ -12,9 +12,7 @@
   ],
   "scripts": {
     "nx": "nx",
-    "nx:esm": "yarn node --experimental-vm-modules $(yarn bin nx)",
     "ng": "yarn nx",
-    "unit:test": "yarn nx:esm run stylelint-plugin:unit-test",
     "build": "yarn nx build stylelint-plugin",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
@@ -54,7 +52,6 @@
     "eslint-plugin-unicorn": "^49.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
-    "jest-preset-stylelint": "~7.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~17.1.1",
     "postcss": "~8.4.31",

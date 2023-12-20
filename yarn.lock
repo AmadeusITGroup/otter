@@ -8468,7 +8468,6 @@ __metadata:
     eslint-plugin-unicorn: "npm:^49.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    jest-preset-stylelint: "npm:~7.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     postcss: "npm:~8.4.31"
@@ -22445,15 +22444,6 @@ __metadata:
     esbuild:
       optional: true
   checksum: 26fc6b30858fec6c90e6b0b744e9882910783a6ec77c01f454f3ae084cb382ef0541e039c087b5ae5eb538e0cf694e05b72127ec3b4e727f48546881e5878f01
-  languageName: node
-  linkType: hard
-
-"jest-preset-stylelint@npm:~7.0.0":
-  version: 7.0.0
-  resolution: "jest-preset-stylelint@npm:7.0.0"
-  peerDependencies:
-    jest: ^29.0.2
-  checksum: 93196a2e1ac3d4337420c24a0265f82c3e414d5bce88679b2bb1a443f838ea189ff819aac67e719c8f96688688b918535035c7ffa4059a2b6a74ca4da7757017
   languageName: node
   linkType: hard
 

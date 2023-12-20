@@ -43,23 +43,9 @@
       }
     },
     "test": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "unit:test"
-      },
-      "dependsOn": ["build"]
-    },
-    "unit-test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js",
-        "passWithNoTests": false
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
+        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
       }
     },
     "prepare-publish": {
