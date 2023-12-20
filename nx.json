@@ -194,7 +194,7 @@
       "cache": true
     },
     "build-cli": {
-      "dependsOn": ["^build", "compile"],
+      "dependsOn": ["^build"],
       "inputs": ["cli", "^source"],
       "outputs": [
         "{projectRoot}/dist/cli/package.json",
@@ -208,7 +208,7 @@
       "cache": true
     },
     "build-builders": {
-      "dependsOn": ["^build", "compile", "prepare-build-builders"],
+      "dependsOn": ["^build", "prepare-build-builders"],
       "inputs": ["builders", "schematics", "middlewares", "^source"],
       "outputs": [
         "{projectRoot}/dist/builders/package.json",
@@ -227,7 +227,7 @@
       "cache": true
     },
     "build-plugins": {
-      "dependsOn": ["^build", "compile"],
+      "dependsOn": ["^build"],
       "inputs": ["plugins"],
       "outputs": ["{projectRoot}/dist/plugins", "{projectRoot}/build/plugins"],
       "cache": true
