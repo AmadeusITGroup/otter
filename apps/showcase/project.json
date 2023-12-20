@@ -164,8 +164,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/showcase/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/showcase/jest.config.js"
       }
     },
     "generate-theme": {

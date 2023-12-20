@@ -45,10 +45,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js",
-        "silent": true
-      },
-      "dependsOn": ["build"]
+        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+      }
     },
     "prepare-publish": {
       "executor": "nx:run-script",

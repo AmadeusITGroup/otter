@@ -52,8 +52,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@ama-sdk/schematics/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@ama-sdk/schematics/jest.config.js"
       }
     },
     "test-int": {

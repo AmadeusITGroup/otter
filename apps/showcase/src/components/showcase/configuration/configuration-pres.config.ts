@@ -35,7 +35,7 @@ export interface ConfigurationPresConfig extends Configuration {
   destinations: DestinationConfiguration[];
   /**
    * Propose round trip
-   * @o3rCategory globalCategory
+   * @o3rCategory localCategory
    */
   shouldProposeRoundTrip: boolean;
 }

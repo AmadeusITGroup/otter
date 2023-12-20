@@ -33,8 +33,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/amaterasu/amaterasu-otter/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/amaterasu/amaterasu-otter/jest.config.js"
       }
     },
     "prepare-publish": {

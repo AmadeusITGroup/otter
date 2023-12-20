@@ -106,7 +106,8 @@
       ],
       "outputs": ["{projectRoot}/dist-test/ut-report.xml"],
       "options": {
-        "passWithNoTests": false
+        "passWithNoTests": false,
+        "silent": true
       },
       "configurations": {
         "ci": {

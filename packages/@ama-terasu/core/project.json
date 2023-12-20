@@ -34,8 +34,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@ama-terasu/core/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@ama-terasu/core/jest.config.js"
       }
     },
     "prepare-publish": {
