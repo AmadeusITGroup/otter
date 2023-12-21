@@ -25,4 +25,7 @@ export interface LocalizationExtractorBuilderSchema extends JsonObject {
 
   /** If true, metadata objects are sorted by keys */
   sortKeys: boolean;
+
+  /** If activated, this option will fail when any property not supported by the CMS is found, it will be ignored if not activated */
+  strictMode: boolean;
 }

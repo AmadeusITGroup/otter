@@ -7,7 +7,7 @@ export interface NoMultipleTypeConfigurationPropertyOption {
   supportedInterfaceNames?: string[];
 }
 
-export default createRule<NoMultipleTypeConfigurationPropertyOption[], 'error' | 'suggestion'>({
+export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, ...any], 'error' | 'suggestion'>({
   name: 'no-multiple-type-configuration-property',
   meta: {
     hasSuggestions: true,
@@ -35,9 +35,11 @@ export default createRule<NoMultipleTypeConfigurationPropertyOption[], 'error' |
       suggestion: 'Replace {{currentValue}} by {{recommendedValue}}'
     }
   },
-  defaultOptions: [],
-  create: (context) => {
-    const supportedInterfaceNames = context.options.reduce((acc: string[], option) => acc.concat(option.supportedInterfaceNames || []), []);
+  defaultOptions: [{
+    supportedInterfaceNames: defaultSupportedInterfaceNames
+  }],
+  create: (context, [options]: [Required<NoMultipleTypeConfigurationPropertyOption>]) => {
+    const supportedInterfaceNames = options.supportedInterfaceNames;
     const sourceCode = context.getSourceCode();
 
     const rule = (node: TSESTree.TSUnionType | TSESTree.TSIntersectionType) => {

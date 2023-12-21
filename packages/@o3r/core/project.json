@@ -39,7 +39,10 @@
           "packages/@o3r/core/src/**/*.ts",
           "packages/@o3r/core/package.json"
         ]
-      }
+      },
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",

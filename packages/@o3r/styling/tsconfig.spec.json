@@ -8,12 +8,16 @@
   "include": [
     "./src/**/*.spec.ts",
     "./scss/**/*.spec.ts",
-    "./schematics/**/*.spec.ts"
+    "./schematics/**/*.spec.ts",
+    "./builders/**/*.spec.ts"
   ],
   "exclude": [],
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.builders.json"
     }
   ]
 }

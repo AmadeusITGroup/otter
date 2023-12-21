@@ -1,4 +1,4 @@
-import { isString, isSupportedSimpleTypes } from '../operator.helpers';
+import { isString, isSupportedSimpleTypes, parseRegExp } from '../operator.helpers';
 import { Operator, SupportedSimpleTypes, UnaryOperator } from '../operator.interface';
 
 /**
@@ -83,7 +83,21 @@ export const isUndefined: UnaryOperator<any> = {
   evaluator: (input) => input === undefined || input === null
 };
 
+/**
+ * Check if the text variable matches the specified RegExp pattern
+ * @title matches the pattern
+ */
+export const matchesPattern: Operator<string, string> = {
+  name: 'matchesPattern',
+  evaluator: (value, inputRegExp) => {
+    const regExp = parseRegExp(inputRegExp);
+    return regExp.test(value);
+  },
+  validateLhs: isString,
+  validateRhs: isString
+};
+
 /** List of all default basic operators */
 export const basicOperators = [
-  equals, inArray, inString, isDefined, isUndefined, notEquals, notInArray, notInString
+  equals, inArray, inString, isDefined, isUndefined, matchesPattern, notEquals, notInArray, notInString
 ];

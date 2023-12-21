@@ -20,7 +20,7 @@ import { ParserOutput } from './component.parser';
 export class ComponentExtractor {
 
   /** List of libraries to extract component metadata from */
-  private libraries: CmsMedataData[];
+  private readonly libraries: CmsMedataData[];
 
   /** List of loaded libraries configurations */
   private libConfigurations?: ComponentConfigOutput[][];
@@ -35,7 +35,7 @@ export class ComponentExtractor {
    * @param workspaceRoot
    * @param strictMode
    */
-  constructor(private libraryName: string, libraries: string[], private logger: logging.LoggerApi, private workspaceRoot: string, private strictMode = false) {
+  constructor(private readonly libraryName: string, libraries: string[], private readonly logger: logging.LoggerApi, private readonly workspaceRoot: string, private readonly strictMode = false) {
     this.libraries = libraries
       .map((lib) => getLibraryCmsMetadata(lib, ''));
   }

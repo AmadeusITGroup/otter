@@ -195,12 +195,39 @@
       }
     },
     {
+      "groupName": "Update of bootstrap disabled as it is not supported by design-factory (Can be removed when upgrading design-factory to v16)",
+      "matchCurrentVersion": "<=5.2.0",
       "matchPackageNames": [
         "bootstrap"
       ],
       "enabled": false
     },
     {
+      "groupName": "Update of zone-js disabled as it is not supported by Angular < 17 (Can be removed when v10 goes into main)",
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchCurrentVersion": "<0.14",
+      "matchPackageNames": [
+        "zone.js"
+      ],
+      "enabled": false
+    },
+    {
+      "groupName": "Update of @angular-devkit/architect disabled as it is not supported by Angular < 17 (Can be removed when v10 goes into main)",
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchCurrentVersion": "<0.1700",
+      "matchPackageNames": [
+        "@angular-devkit/architect"
+      ],
+      "enabled": false
+    },
+    {
+      "groupName": "Major update of chalk disabled as it drops support on CommonJS",
       "matchUpdateTypes": [
         "major"
       ],
@@ -211,6 +238,7 @@
       "enabled": false
     },
     {
+      "groupName": "Major update of globby disabled as it drops support on CommonJS",
       "matchUpdateTypes": [
         "major"
       ],

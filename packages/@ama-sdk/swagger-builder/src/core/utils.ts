@@ -1,4 +1,4 @@
-import { existsSync, promises as fs } from 'node:fs';
+import fs from 'node:fs';
 import https from 'node:https';
 import { Validator } from 'jsonschema';
 import { load } from 'js-yaml';
@@ -55,12 +55,12 @@ export async function retrieveRemoteSwagger(targetedSwaggerSpec: string, current
 export function getTargetPath(targetedSwaggerSpec: string, currentDirectory: string) {
   const localPath = path.resolve(currentDirectory, targetedSwaggerSpec);
 
-  if (existsSync(localPath)) {
+  if (fs.existsSync(localPath)) {
     return localPath;
   }
 
   const file = (require.resolve.paths(targetedSwaggerSpec) || [])
-    .find((p) => existsSync(path.resolve(p, targetedSwaggerSpec)));
+    .find((p) => fs.existsSync(path.resolve(p, targetedSwaggerSpec)));
 
   return file;
 }
@@ -94,7 +94,7 @@ export async function getTargetInformation(
   const localPath = getTargetPath(targetedSwaggerSpec, currentDirectory);
 
   if (localPath) {
-    const stats = await fs.stat(localPath);
+    const stats = await fs.promises.stat(localPath);
     if (stats.isFile()) {
       const fileType = path.extname(localPath).replace('.', '');
       if (/json/i.test(fileType)) {
@@ -231,8 +231,8 @@ export function checkJson(jsonObject: object, schema: Record<string, unknown>, e
  */
 export async function getCurrentArtifactVersion(): Promise<string | undefined> {
   const currentPackageJsonPath = path.resolve(process.cwd(), 'package.json');
-  if (existsSync(currentPackageJsonPath)) {
-    const rawPackageJson = await fs.readFile(currentPackageJsonPath, {encoding: 'utf8'});
+  if (fs.existsSync(currentPackageJsonPath)) {
+    const rawPackageJson = await fs.promises.readFile(currentPackageJsonPath, {encoding: 'utf8'});
     return JSON.parse(rawPackageJson).version;
   }
   return undefined;

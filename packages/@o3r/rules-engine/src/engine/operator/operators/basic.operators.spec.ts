@@ -1,4 +1,4 @@
-import {equals, inArray, inString, isDefined, isUndefined, notEquals, notInArray, notInString} from './basic.operators';
+import {equals, inArray, inString, isDefined, isUndefined, matchesPattern, notEquals, notInArray, notInString} from './basic.operators';
 
 describe('Basic operator', () => {
   describe('equals', () => {
@@ -159,6 +159,35 @@ describe('Basic operator', () => {
       expect(isUndefined.evaluator(1)).toBeFalsy();
       expect(isUndefined.evaluator(null as any)).toBeTruthy();
       expect(isUndefined.evaluator(undefined as any)).toBeTruthy();
+    });
+  });
+
+  describe('matchesPattern', () => {
+    test('should have a valid name', () => {
+      expect(matchesPattern.name).toBe('matchesPattern');
+    });
+
+    test('should exclude non-string right hand operand', () => {
+      expect(matchesPattern.validateRhs).toBeDefined();
+      if (!matchesPattern.validateRhs) {
+        return;
+      }
+
+      expect(matchesPattern.validateRhs('test')).toBeTruthy();
+      expect(matchesPattern.validateRhs(/string/ as any)).toBeFalsy();
+      expect(matchesPattern.validateRhs(null as any)).toBeFalsy();
+      expect(matchesPattern.validateRhs(undefined as any)).toBeFalsy();
+      expect(matchesPattern.validateRhs(123 as any)).toBeFalsy();
+    });
+
+    test('should pass if the left hand value matches the right hand value', () => {
+      expect(matchesPattern.evaluator('test', 'T')).toBeFalsy();
+      expect(matchesPattern.evaluator('test', '/T/i')).toBeTruthy();
+      expect(matchesPattern.evaluator('test', '^t[ea]st')).toBeTruthy();
+      expect(matchesPattern.evaluator('test', 'notTest')).toBeFalsy();
+      expect(matchesPattern.evaluator('test/path/to/file', '\\/path/to/file')).toBeTruthy();
+      expect(matchesPattern.evaluator('8000', '^8[0-9]{3}')).toBeTruthy();
+      expect(matchesPattern.evaluator('8000', '/^8[0-9]{3}$/')).toBeTruthy();
     });
   });
 });

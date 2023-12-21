@@ -5,6 +5,7 @@
     "rootDir": "."
   },
   "include": [
+    "./builders/**/*.spec.ts",
     "./src/**/*.spec.ts",
     "./schematics/**/*.spec.ts",
     "schematics/store/*/mocks/**/*.ts"

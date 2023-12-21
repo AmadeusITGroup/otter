@@ -12,16 +12,20 @@
     "ng": "yarn nx",
     "test": "yarn nx test styling",
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*' dist/schematics",
+    "copy:schemas": "yarn cpy 'schemas/**/*' dist/schemas",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
-    "build:cli": "tsc -b tsconfig.cli.json --pretty",
+    "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && generate-cjs-manifest",
     "build": "yarn nx build styling",
-    "postbuild": "patch-package-json-main"
+    "postbuild": "yarn copy:schemas && patch-package-json-main"
   },
   "exports": {
     "./package.json": {
       "default": "./package.json"
+    },
+    "./schemas/*.json": {
+      "default": "./schemas/*.json"
     },
     ".": {
       "es2020": "./dist/src/public_api.js",

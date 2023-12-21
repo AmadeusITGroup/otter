@@ -230,7 +230,8 @@
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "outputFile": "apps/showcase/localisation.metadata.json",
         "libraries": [],
-        "extraFilePatterns": ["src/i18n/*.localization.json"]
+        "extraFilePatterns": ["src/i18n/*.localization.json"],
+        "strictMode": true
       },
       "dependsOn": ["^build", "^build-builders"]
     },

@@ -59,6 +59,7 @@ Example of usage :
 | Number[]    | allRangeNumber            | all between            | Check if every values of the variable are included in a specified range |
 | Number[]    | oneRangeNumber            | one between            | Check if one of the values of the variable is included in a specified range |
 | String      | inString                  | within                 | Check if the text variable is part of the specified value |
+| String      | matchesPattern            | matches                | Check if the text variable matches a specific pattern |
 | String      | notInString               | not within             | Check if the text variable is not part in the specified value |
 | String      | stringContains            | contains               | Check if the specified text value is included in the text variable |
 | String      | notStringContains         | does not contain       | Check if the specified text value is not included in the text variable |
@@ -71,6 +72,14 @@ Example of usage :
 | All[]       | lengthGreaterThanOrEquals | number of ≥            | Check if the number of values of the variable is greater or equal to a specific value |
 | All[]       | lengthGreaterThan         | number of >            | Check if the number of values of the variable is greater than a specific value |
 
+> **Note**: For the operators comparing a text variable to a pattern (such as `matchesPattern`, `oneMatches`, and `allMatch`), 
+> we support the ES RegExp `/^myRegExp.*$/i` (containing the pattern and optional flags) or just the RegExp content `^myregexp.*$`.
+> 
+> The special characters used in the pattern should contain a double backslash (`\\`).
+> For example, to check if a string contains a `\t`, the pattern would need to include `\\t`.
+> 
+> > Also, to avoid the wrong detection of an ES RegExp instead of RegExp content, a content beginning with a slash `/` character
+> > (such as a path `/path/to/file`) should be preceded by a double backslash `\\` (for example `\\/path/to/file`)
 
 You can create your own operator in your application and add it to the engine.
 Note that the @title provides a string for the operator that can be displayed in an edition UI for better clarity (ex: < for lessThan).
@@ -180,4 +189,3 @@ ngOnInit() {
 ```
 
 Here, `CurrentTimeFactsService` also provides a `tick()` method that, when called, it recomputes the current time. It is up to the application to decide how ofter the current time should be recomputed (at a given time interval, on page navigation, etc).
-
