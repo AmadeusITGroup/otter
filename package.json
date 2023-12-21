@@ -12,6 +12,7 @@
     "build": "yarn nx run-many --target=build --parallel $(yarn get:cpus-number)",
     "build:affected": "yarn nx affected --target=build --parallel $(yarn get:cpus-number) --output-style stream",
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,workspace --parallel $(yarn get:cpus-number)",
+    "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger --parallel $(yarn get:cpus-number)",
     "prepare:publish": "prepare-publish $(yarn workspaces:list | shx sed \"s/^(.+)\\$/\\$1\\/dist/\")",
     "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail --access=public",
@@ -22,7 +23,7 @@
     "test": "yarn nx run-many --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test:affected": "yarn nx affected --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test-int": "yarn nx run-many --target=test-int --parallel 2",
-    "postinstall": "husky install && yarn build:tools && yarn harmonize:version",
+    "postinstall": "husky install && yarn build:lint && yarn harmonize:version",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
     "clear": "rimraf -g './{packages,tools,apps}/{@*/,}{amaterasu/,}*/{dist,build,dist-*}/'",
     "set:version": "yarn o3r-set-version --placeholder 0.0.0-placeholder --include '{apps,packages}/**/dist/package.json'",
@@ -245,6 +246,9 @@
   },
   "dependenciesMeta": {
     "@swc/core": {
+      "built": true
+    },
+    "es5-ext": {
       "built": true
     },
     "esbuild": {

@@ -7590,6 +7590,8 @@ __metadata:
   dependenciesMeta:
     "@swc/core":
       built: true
+    es5-ext:
+      built: true
     esbuild:
       built: true
     fsevents:
