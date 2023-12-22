@@ -57,10 +57,16 @@
     ],
     "lint": [
       "default",
+      "{projectRoot}/.eslintignore",
+      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/**/*.ts",
+      "{projectRoot}/**/*.cts",
+      "{projectRoot}/**/*.mts",
+      "{projectRoot}/src/**/*.js",
+      "{projectRoot}/src/**/*.mjs",
+      "{projectRoot}/src/**/*.cjs",
       "{workspaceRoot}/.eslintrc.js",
       "{workspaceRoot}/.eslintignore",
-      "{projectRoot}/.eslintrc.js",
-      "{projectRoot}/.eslintignore",
       "{workspaceRoot}/packages/@o3r/eslint-config-otter/*.cjs",
       "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
     ],

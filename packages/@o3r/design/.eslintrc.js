@@ -4,6 +4,7 @@
 module.exports = {
   'root': true,
   'parserOptions': {
+    'EXPERIMENTAL_useSourceOfProjectReferenceRedirect': true,
     'tsconfigRootDir': __dirname,
     'project': [
       'tsconfig.build.json',

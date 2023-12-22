@@ -12,7 +12,7 @@ type Messages =
   | 'notInConfigurationInterface'
   | 'suggestReplaceO3rCategory';
 
-export default createRule<O3rCategoriesTagsRuleOption[], Messages>({
+export default createRule<[O3rCategoriesTagsRuleOption, ...any], Messages>({
   name: 'o3r-categories-tags',
   meta: {
     hasSuggestions: true,
@@ -37,7 +37,8 @@ export default createRule<O3rCategoriesTagsRuleOption[], Messages>({
             type: 'array',
             items: {
               type: 'string'
-            }
+            },
+            default: []
           }
         }
       }
@@ -50,14 +51,11 @@ export default createRule<O3rCategoriesTagsRuleOption[], Messages>({
       suggestReplaceO3rCategory: 'Replace {{ currentCategory }} by {{ suggestedCategory }}.'
     }
   },
-  defaultOptions: [],
-  create: (context) => {
-    const options: Required<O3rCategoriesTagsRuleOption> = context.options
-      .reduce((acc: Required<O3rCategoriesTagsRuleOption>, option) => {
-        acc.supportedInterfaceNames = (acc.supportedInterfaceNames || []).concat(option.supportedInterfaceNames || []);
-        acc.globalConfigCategories = (acc.globalConfigCategories || []).concat(option.globalConfigCategories || []);
-        return acc;
-      }, { globalConfigCategories: [], supportedInterfaceNames: [] });
+  defaultOptions: [{
+    supportedInterfaceNames: defaultSupportedInterfaceNames,
+    globalConfigCategories: []
+  }],
+  create: (context, [options]: [Required<O3rCategoriesTagsRuleOption>]) => {
     const globalConfigCategories = new Set(options.globalConfigCategories);
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
