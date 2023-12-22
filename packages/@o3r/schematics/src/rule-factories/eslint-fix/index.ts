@@ -1,4 +1,4 @@
-import { DirEntry, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { DirEntry, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { dirname, join } from 'node:path';
 import { EslintFixTask, LinterOptions } from '../../tasks';
 
@@ -10,6 +10,12 @@ import { EslintFixTask, LinterOptions } from '../../tasks';
  * @param options Linter options
  */
 export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], options?: LinterOptions): Rule {
+  try {
+    require.resolve('eslint/package.json');
+  } catch {
+    return noop();
+  }
+
   const linterOptions: LinterOptions = {
     continueOnError: true,
     hideWarnings: true,

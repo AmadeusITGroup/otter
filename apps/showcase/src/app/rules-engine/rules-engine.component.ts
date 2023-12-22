@@ -1,7 +1,7 @@
 import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NgbNav, NgbNavItem, NgbNavLink } from '@ng-bootstrap/ng-bootstrap';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
@@ -53,6 +53,8 @@ import { CurrentTimeFactsService } from '../../services/current-time-facts.servi
     NgbNav,
     NgbNavItem,
     NgbNavLink,
+    NgbNavContent,
+    NgbNavOutlet,
     AsyncPipe
   ],
   templateUrl: './rules-engine.template.html',

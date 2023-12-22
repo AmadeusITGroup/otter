@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import yaml from 'js-yaml';
-import mkdirp from 'mkdirp';
 import path from 'node:path';
 import { Formatter } from './formatter.interface';
 import { generatePackageJson } from './utils';
@@ -22,22 +21,22 @@ export class YamlFormatter implements Formatter {
   public async generate(spec: any): Promise<void> {
     const content = yaml.dump(spec, {indent: 2});
 
-    await mkdirp(this.cwd);
-    await new Promise<void>((resolve, reject) => fs.writeFile(this.filePath, content, (err) => err ? reject(err) : resolve()));
+    await fs.promises.mkdir(this.cwd, {recursive: true});
+    await fs.promises.writeFile(this.filePath, content);
     // eslint-disable-next-line no-console, no-restricted-syntax
     console.info(`Swagger spec generated: ${this.filePath}`);
   }
 
   /** @inheritdoc */
   public async generateArtifact(artifactName: string, spec: any): Promise<void> {
-    await mkdirp(this.cwd);
+    await fs.promises.mkdir(this.cwd, {recursive: true});
 
     const content = JSON.stringify({
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath)
     }, null, 2);
 
-    await new Promise<void>((resolve, reject) => fs.writeFile(path.resolve(this.cwd, 'package.json'), content, (err) => err ? reject(err) : resolve()));
+    await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
     // eslint-disable-next-line no-console, no-restricted-syntax
     console.info(`Artifact generated for ${this.filePath}`);
   }

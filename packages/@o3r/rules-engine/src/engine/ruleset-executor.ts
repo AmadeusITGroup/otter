@@ -58,7 +58,7 @@ export class RulesetExecutor {
     this.ruleset = ruleset;
     this.rulesEngine = rulesEngine;
     this.operators = rulesEngine.operators;
-    this.engineRuleset = this.prepareRuleset();
+    this.engineRuleset = this.plugRuleset();
   }
 
   /**
@@ -215,7 +215,7 @@ export class RulesetExecutor {
   /**
    * Plug ruleset to fact streams and trigger a first evaluation
    */
-  public prepareRuleset() {
+  protected plugRuleset() {
     const inputFactsForRule: Record<string, string[]> = {};
     const findRuleInputFacts = (obj: AllBlock): string[] => {
       const ruleInputFacts = new Set<string>();
@@ -319,5 +319,13 @@ export class RulesetExecutor {
       linkedComponent: this.ruleset.linkedComponent,
       rulesResultsSubject$: result$
     } as EngineRuleset;
+  }
+
+  /**
+   * Plug ruleset to fact streams and trigger a first evaluation
+   * @deprecated This function is not made to be accessible from Outside of the class, will be removed in v10
+   */
+  public prepareRuleset() {
+    return this.plugRuleset();
   }
 }

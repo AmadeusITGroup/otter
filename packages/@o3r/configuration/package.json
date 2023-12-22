@@ -12,8 +12,8 @@
     "./middlewares": {
       "default": "./middlewares/index.js"
     },
-    "./schemas/*": {
-      "default": "./schemas/*"
+    "./schemas/*.json": {
+      "default": "./schemas/*.json"
     }
   },
   "scripts": {

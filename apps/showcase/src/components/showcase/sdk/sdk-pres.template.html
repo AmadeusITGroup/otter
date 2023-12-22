@@ -125,7 +125,7 @@
         </ngb-pagination>
 
         <select class="form-select w-auto" name="pageSize" [ngModel]="pageSize()"
-                (ngModelChange)="pageSize.set($event)">
+                (ngModelChange)="pageSize.set($event)" aria-label="Select the number of items per page">
           <option [ngValue]="10">10 items per page</option>
           <option [ngValue]="50">50 items per page</option>
           <option [ngValue]="100">100 items per page</option>

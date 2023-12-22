@@ -15,7 +15,7 @@ interface CssTokenDefinitionRendererOptions {
 
   /**
    * Renderer the name of the CSS Variable (with the initial --)
-   **/
+   */
   tokenVariableNameRenderer?: TokenKeyRenderer;
 
   /**

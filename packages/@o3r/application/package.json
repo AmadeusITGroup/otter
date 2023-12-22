@@ -8,8 +8,8 @@
     "otter-module"
   ],
   "exports": {
-    "./schemas/*": {
-      "default": "./schemas/*"
+    "./schemas/*.json": {
+      "default": "./schemas/*.json"
     }
   },
   "scripts": {

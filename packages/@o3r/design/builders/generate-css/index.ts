@@ -1,7 +1,7 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { getCssTokenDefinitionRenderer, getMetadataStyleContentUpdater, getMetadataTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '@o3r/design';
+import { getCssTokenDefinitionRenderer, getMetadataStyleContentUpdater, getMetadataTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '../../src/public_api';
+import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
 

@@ -57,12 +57,18 @@
     ],
     "lint": [
       "default",
+      "{projectRoot}/.eslintignore",
+      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/**/*.ts",
+      "{projectRoot}/**/*.cts",
+      "{projectRoot}/**/*.mts",
+      "{projectRoot}/src/**/*.js",
+      "{projectRoot}/src/**/*.mjs",
+      "{projectRoot}/src/**/*.cjs",
       "{workspaceRoot}/.eslintrc.js",
       "{workspaceRoot}/.eslintignore",
-      "{projectRoot}/.eslintrc.js",
-      "{projectRoot}/.eslintignore",
-      "{projectRoot}/package.json",
-      "{projectRoot}/packages/@o3r/eslint-config-otter/*.cjs"
+      "{workspaceRoot}/packages/@o3r/eslint-config-otter/*.cjs",
+      "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
     ],
     "specs": [
       "default",
@@ -91,8 +97,7 @@
       },
       "executor": "@nx/eslint:lint",
       "inputs": ["lint"],
-      "cache": true,
-      "dependsOn": ["^build"]
+      "cache": true
     },
     "test": {
       "inputs": [

@@ -80,6 +80,9 @@
       "@o3r/application": [
         "packages/@o3r/application/src/public_api"
       ],
+      "@o3r/application/schemas/*": [
+        "packages/@o3r/application/schemas/*"
+      ],
       "@o3r/artifactory-tools": [
         "packages/@o3r/artifactory-tools/src"
       ],
@@ -92,11 +95,17 @@
       "@o3r/components": [
         "packages/@o3r/components/src/public_api"
       ],
+      "@o3r/components/schemas/*": [
+        "packages/@o3r/components/schemas/*"
+      ],
       "@o3r/components/*": [
         "packages/@o3r/components/src/*/public_api"
       ],
       "@o3r/configuration": [
         "packages/@o3r/configuration/src/public_api"
+      ],
+      "@o3r/configuration/schemas/*": [
+        "packages/@o3r/configuration/schemas/*"
       ],
       "@o3r/configuration/*": [
         "packages/@o3r/configuration/src/*/public_api"
@@ -106,6 +115,9 @@
       ],
       "@o3r/design": [
         "packages/@o3r/design/src/public_api"
+      ],
+      "@o3r/design/schemas/*": [
+        "packages/@o3r/design/src/schemas/*"
       ],
       "@o3r/dynamic-content": [
         "packages/@o3r/dynamic-content/src/public_api"
@@ -128,6 +140,9 @@
       "@o3r/localization": [
         "packages/@o3r/localization/src/public_api"
       ],
+      "@o3r/localization/schemas/*": [
+        "packages/@o3r/localization/schemas/*"
+      ],
       "@o3r/localization/*": [
         "packages/@o3r/localization/src/*/public_api"
       ],
@@ -146,6 +161,9 @@
       "@o3r/rules-engine": [
         "packages/@o3r/rules-engine/src/public_api"
       ],
+      "@o3r/rules-engine/schemas/*": [
+        "packages/@o3r/rules-engine/schemas/*"
+      ],
       "@o3r/schematics": [
         "packages/@o3r/schematics/src/public_api"
       ],
@@ -161,8 +179,14 @@
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
       ],
+      "@o3r/styling/schemas/*": [
+        "packages/@o3r/styling/schemas/*"
+      ],
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
+      ],
+      "@o3r/test-helpers/setup-jest": [
+        "packages/@o3r/test-helpers/src/setup-jest"
       ],
       "@o3r/testing": [
         "packages/@o3r/testing/src/public_api"

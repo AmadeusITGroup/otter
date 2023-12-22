@@ -19,7 +19,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
   public static async isSplitConfigurationFile(sourcePath: string): Promise<boolean> {
     try {
       if (fs.existsSync(sourcePath)) {
-        const apiConfiguration = JSON.parse(await new Promise<string>((resolve, reject) => fs.readFile(sourcePath, { encoding: 'utf8' }, (err, data) => err ? reject(err) : resolve(data))));
+        const apiConfiguration = JSON.parse(await fs.promises.readFile(sourcePath, { encoding: 'utf8' }));
         checkJson(apiConfiguration, apiConfigurationSchema);
         return true;
       }
@@ -140,7 +140,7 @@ export class SwaggerSpecSplit implements SwaggerSpec {
   public async parse(ignoredSwaggerPath?: string[]): Promise<void> {
     if (!this.apiConfiguration) {
       if (fs.existsSync(this.sourcePath)) {
-        this.apiConfiguration = JSON.parse(await new Promise<string>((resolve, reject) => fs.readFile(this.sourcePath, {encoding: 'utf8'}, (err, data) => err ? reject(err) : resolve(data))));
+        this.apiConfiguration = JSON.parse(await fs.promises.readFile(this.sourcePath, {encoding: 'utf8'}));
         checkJson(this.apiConfiguration!, apiConfigurationSchema, `${this.sourcePath} is invalid`);
       } else {
         throw new Error(`The Swagger ${this.sourcePath} does not exist`);

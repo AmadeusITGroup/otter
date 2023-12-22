@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import yaml from 'js-yaml';
-import mkdirp from 'mkdirp';
 import path from 'node:path';
 import { Formatter } from './formatter.interface';
 import { generatePackageJson } from './utils';
@@ -33,8 +32,8 @@ export class SplitYamlFormatter implements Formatter {
    * @param content Content of the file to write
    */
   private async writeFileYaml(filePath: string, content: any) {
-    await mkdirp(path.dirname(filePath));
-    return new Promise<void>((resolve, reject) => fs.writeFile(filePath, yaml.dump(content, { indent: 2 }), (err) => err ? reject(err) : resolve()));
+    await fs.promises.mkdir(path.dirname(filePath), {recursive: true});
+    await fs.promises.writeFile(filePath, yaml.dump(content, { indent: 2 }));
   }
 
   /**
@@ -43,8 +42,8 @@ export class SplitYamlFormatter implements Formatter {
    * @param content Content of the file to write
    */
   private async writeFileJson(filePath: string, content: any) {
-    await mkdirp(path.dirname(filePath));
-    return new Promise<void>((resolve, reject) => fs.writeFile(filePath, JSON.stringify(content, null, 2), (err) => err ? reject(err) : resolve()));
+    await fs.promises.mkdir(path.dirname(filePath), {recursive: true});
+    await fs.promises.writeFile(filePath, JSON.stringify(content, null, 2));
   }
 
   private async rewriterReferences(currentNode: any, field?: string): Promise<any> {
@@ -193,14 +192,14 @@ export class SplitYamlFormatter implements Formatter {
 
   /** @inheritdoc */
   public async generateArtifact(artifactName: string, spec: any): Promise<void> {
-    await mkdirp(this.cwd);
+    await fs.promises.mkdir(this.cwd, {recursive: true});
 
     const content = JSON.stringify({
       ...generatePackageJson(artifactName, spec),
       main: path.relative(this.cwd, this.filePath)
     }, null, 2);
 
-    await new Promise<void>((resolve, reject) => fs.writeFile(path.resolve(this.cwd, 'package.json'), content, (err) => err ? reject(err) : resolve()));
+    await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
     // eslint-disable-next-line no-console, no-restricted-syntax
     console.info(`Artifact generated for ${this.filePath}`);
   }

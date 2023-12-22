@@ -26,6 +26,7 @@
     "@angular-devkit/schematics": "~17.0.0",
     "@angular/cli": "~17.0.0",
     "@schematics/angular": "~17.0.0",
+    "eslint": "^8.42.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.2.2"
   },
@@ -34,6 +35,9 @@
       "optional": true
     },
     "@angular-devkit/core": {
+      "optional": true
+    },
+    "eslint": {
       "optional": true
     }
   },

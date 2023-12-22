@@ -15,7 +15,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
    *
    * If specified, all the generated CSS variable will be generated in the given file.
    * Otherwise, the output file will be determined based on the Variable parameters
-   **/
+   */
   output?: string;
 
   /** File path to generate the variable if not determined by the specification */

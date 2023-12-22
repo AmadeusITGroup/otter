@@ -6,8 +6,20 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
-      "dependsOn": ["build-builders", "compile"]
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/package.json"
+      ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "build-builders",
+        "compile"
+      ]
     },
     "compile": {
       "executor": "@nx/js:tsc",

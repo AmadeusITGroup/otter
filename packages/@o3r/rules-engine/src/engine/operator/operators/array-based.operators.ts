@@ -1,4 +1,4 @@
-import {isRangeNumber, isString, isSupportedSimpleTypes, numberValidator} from '../operator.helpers';
+import {isRangeNumber, isString, isSupportedSimpleTypes, numberValidator, parseRegExp} from '../operator.helpers';
 import { Operator, SupportedSimpleTypes } from '../operator.interface';
 
 /**
@@ -108,8 +108,8 @@ export const allLower: Operator<number[], number | string> = {
  */
 export const allMatch: Operator<string[], string> = {
   name: 'allMatch',
-  evaluator: (array, inputString) => {
-    const regExp = new RegExp(inputString);
+  evaluator: (array, inputRegExp) => {
+    const regExp = parseRegExp(inputRegExp);
     return array.every((elementValue) => regExp.test(elementValue));
   },
   validateLhs: Array.isArray,
@@ -180,8 +180,8 @@ export const oneLower: Operator<number[], number | string> = {
  */
 export const oneMatches: Operator<string[], string> = {
   name: 'oneMatches',
-  evaluator: (arrayString, value) => {
-    const regExp = new RegExp(value);
+  evaluator: (arrayString, inputRegExp) => {
+    const regExp = parseRegExp(inputRegExp);
     return arrayString.some((elementValue) => regExp.test(elementValue));
   },
   validateLhs: Array.isArray,

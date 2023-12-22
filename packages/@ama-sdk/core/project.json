@@ -49,7 +49,10 @@
           "packages/@ama-sdk/core/src/**/*.ts",
           "packages/@ama-sdk/core/package.json"
         ]
-      }
+      },
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",

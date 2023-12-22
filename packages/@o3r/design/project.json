@@ -20,14 +20,9 @@
       ]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/design/src/public_api.ts",
-        "tsConfig": "packages/@o3r/design/tsconfig.build.json",
-        "outputPath": "packages/@o3r/design/dist",
-        "assets": [
-          "packages/@o3r/design/schemas/**"
-        ]
+        "script": "build:source"
       },
       "inputs": [
         "{projectRoot}/cli/*.cts",
