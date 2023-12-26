@@ -22,6 +22,16 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
  * Process the parsed Design Token variables and render then according to the given options and renderers
  * @param variableSet Complete list of the parsed Design Token
  * @param options Parameters of the Design Token Renderer
+ * @example Basic renderer usage
+ * ```typescript
+ * import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
+ *
+ * // List of Design Token item parsed
+ * const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
+ *
+ * // Render the CSS Variable
+ * await renderDesignTokens(parsedTokenDesign, { logger: console });
+ * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
   const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf-8'}));
