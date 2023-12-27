@@ -74,7 +74,8 @@
       "default",
       "{projectRoot}/jest.config.*",
       "{projectRoot}/testing/**/*",
-      "{projectRoot}/mocks/**/*"
+      "{projectRoot}/mocks/**/*",
+      "{workspaceRoot}/jest.config.js"
     ],
     "source": [
       "default",
@@ -107,7 +108,7 @@
         "builders",
         "schematics",
         "specs",
-        "^specs"
+        "{workspaceRoot}/jest.config.ut.js"
       ],
       "outputs": ["{projectRoot}/dist-test/ut-report.xml"],
       "options": {
@@ -133,7 +134,9 @@
         "default",
         "schematics",
         "^schematics",
-        "^source"
+        "^source",
+        "specs",
+        "{workspaceRoot}/jest.config.it.js"
       ],
       "outputs": ["{projectRoot}/dist-test/it-report.xml"],
       "options": {

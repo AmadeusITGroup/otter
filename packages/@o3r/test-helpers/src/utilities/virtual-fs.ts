@@ -8,7 +8,7 @@ import { Union } from 'unionfs';
  * @param shouldReadFromDisk Use false to not read files from disk
  */
 export function useVirtualFileSystem(shouldReadFromDisk = true) {
-  const virtualFileSystem = Volume.fromJSON({}) as VolumeInterface & typeof actualFileSystem;
+  const virtualFileSystem = Volume.fromJSON({}) as any as Omit<VolumeInterface, keyof typeof actualFileSystem> & typeof actualFileSystem;
   const fileSystem = new Union();
   if (shouldReadFromDisk) {
     // Use actual file system as read-only to fallback when file not present on virtual
