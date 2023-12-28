@@ -7,18 +7,18 @@ You can run the following commands inside this folder
 ## How to start
 
 Unix:
-```bash
+```shell
 docker run -d -it --rm --name verdaccio -p 4873:4873 -v "$(pwd)/conf":/verdaccio/conf -v "$(pwd)/storage":/verdaccio/storage:z verdaccio/verdaccio
 ```
 
 Windows:
-```bash
+```shell
 docker run -d -it --rm --name verdaccio -p 4873:4873 -v "%cd%/conf":/verdaccio/conf -v "%cd%/storage":/verdaccio/storage verdaccio/verdaccio
 ```
 
 ## How to stop
 
-```bash
+```shell
 docker ps -a -q --filter="name=verdaccio" | xargs docker container stop
 ```
 

@@ -312,7 +312,7 @@ export class EventTrackService {
    * and the end of the composite rendering (upper bound measurement - a time mark that occurs after the real composite)
    * For the first load of the application, the start time is considered as the start of navigation to ensure a cumulative measure.
    * It is using the 'NgZone' service to runOutsideAngular to prevent any change detection to occur, nor angular error handling, speeding up the measurement.
-   * @example markFMP() is called in ngAfterViewInit(), the end time will be computed once the render pipeline stage completed the changes triggered by the javascript
+   * Example {@link markFMP} is called in {@link ngAfterViewInit}, the end time will be computed once the render pipeline stage completed the changes triggered by the javascript
    */
   public getTiming(): Promise<EventTiming> {
     const startTime = this.isFirstLoad ? 0 : Math.round(window.performance.now());

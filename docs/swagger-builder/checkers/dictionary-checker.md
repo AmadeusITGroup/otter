@@ -4,8 +4,8 @@ The purpose of the tool is to validate dictionary references
 
 ## Usage
 
-```bash
-$ swagger-dictionary-check --help
+```shell
+swagger-dictionary-check --help
 
 # Usage: swagger-dictionary-check [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 

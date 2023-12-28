@@ -28,7 +28,7 @@ The full list of official modules can be found in the [Documentation Home page](
 
 You can simply generate an Otter module within your monorepo by running the following command:
 
-```bash
+```shell
 ng generate @o3r/core:module
 ```
 
@@ -45,7 +45,7 @@ To ensure and facilitate that, the `@o3r/core` provides a schematic which will g
 
 Run the following command in the module where the `ng add` needs to be included:
 
-```bash
+```shell
 ng generate @o3r/core:ng-add-create
 ```
 

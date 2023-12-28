@@ -21,6 +21,7 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
 /**
  * Plugin to determine if and when a call should be processed
  * @example
+ * ```typescript
  * // Use the plugin for an orchestrator 1 per 1
  * class OrchestratorOnePerOne {
  *   stack: ({id: string, resolve: (result: boolean) => void})[] = [];
@@ -55,6 +56,7 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
  * const orchestrator = new OrchestratorOnePerOne();
  * const waitForPlugin = new WaitForFetch<string>(() => orchestrator.push(), undefined, (context) => orchestrator.pop(context.data));
  * const api = new Api('https://wwww.digitalforairlines.com/api', undefined, undefined, [waitForPlugin]);
+ * ```
  */
 export class WaitForFetch<T = any> implements FetchPlugin {
 

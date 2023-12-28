@@ -16,9 +16,14 @@ export interface LocalizationConfiguration {
    * Fallback language map of resource in case translation in language does not exist.
    * translate to unsupported language will try to map to supportedLocales from below property.
    * @example
-   * supportedLocales: ['en-GB', 'en-US', 'fr-FR'], fallbackLocalesMap: {'en-CA': 'en-US', 'de': 'fr-FR'}
-   * translate to en-CA -> fallback to en-US, translate to de-DE -> fallback to fr-FR,
-   * translate to en-NZ -> fallback to en-GB, translate to en -> fallback to en-GB.
+   * ```typescript
+   * {
+   *   supportedLocales: ['en-GB', 'en-US', 'fr-FR'],
+   *   fallbackLocalesMap: {'en-CA': 'en-US', 'de': 'fr-FR'}
+   * }
+   * // translate to en-CA -> fallback to en-US, translate to de-DE -> fallback to fr-FR,
+   * // translate to en-NZ -> fallback to en-GB, translate to en -> fallback to en-GB.
+   * ```
    */
   fallbackLocalesMap?: {
     [supportedLocale: string]: string;

@@ -42,8 +42,11 @@ export class DynamicContentService {
   /**
    * Gets the full path of a content relative to the root
    * Content path doesn't consider any override, you will always get the same file
-   * @example getMediaPath('assets/imgs/my-image.png') will give you the basePath + 'assets/imgs/my-image.png'
    * @param assetPath asset location in the root folder
+   * @example
+   * ```typescript
+   * getMediaPath('assets/imgs/my-image.png') // will give you the basePath + 'assets/imgs/my-image.png'
+   * ```
    */
   public getContentPathStream(assetPath?: string) {
     return of(this.getContentPath(assetPath));
@@ -53,8 +56,11 @@ export class DynamicContentService {
    * Gets the stream that provides the full path of a media content
    * A Media content is always stored in the 'assets' media folder, no external content will be accessible through this function
    * If any override is applied to the content, returns the override path instead
-   * @example getMediaPathStream('imgs/my-image.png') will give you the basePath + mediaFolder + 'imgs/my-image.png'
    * @param assetPath asset location in the media folder (e.g imgs/my-image.png)
+   * @example
+   * ```typescript
+   * getMediaPathStream('imgs/my-image.png') // will give you the basePath + mediaFolder + 'imgs/my-image.png'
+   * ```
    */
   public getMediaPathStream(assetPath?: string) {
     if (!this.store) {

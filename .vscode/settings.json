@@ -7,6 +7,7 @@
     "**/node_modules": true,
     "**/.cache": true,
     "**/src/package.json": true,
+    "tools/github-actions/*/packaged-action/**": true
   },
   "files.exclude": {
     "**/.git": true,

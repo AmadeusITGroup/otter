@@ -111,15 +111,17 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * @param config.template
  * @param config.isControlValueAccessor
  * @example
+ * ```typescript
  * // hero.component.ts
- * @Component({selector: 'hero'})
+ * \@Component({selector: 'hero'})
  * class HeroComponent {
- * @Input() name: string;
- * @Output() doSomething: EventEmitter<void>
+ *   \@Input() name: string;
+ *   \@Output() doSomething: EventEmitter<void>
  * }
  *
  * // mock generation
  * class MockComponent extends generateMockComponent('hero.component.ts') {}
+ * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export function generateMockComponent<T extends unknown = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {

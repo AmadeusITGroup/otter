@@ -24,14 +24,14 @@ during the installation of the `@o3r/core`.
 
 **Yarn** can be installed directly using NPM:
 
-```bash
+```shell
 # Installing yarn
 npm install --global yarn
 ```
 
 ### Creating a new Otter application
 
-```bash
+```shell
 # Create new application
 npm create @o3r my-project
 # Or
@@ -40,7 +40,7 @@ yarn create @o3r my-project
 
 ### Adding Material design theming
 
-```bash
+```shell
 # Add Material Design
 yarn ng add @angular/material
 # ? Choose a prebuilt theme name, or "custom" for a custom theme: Indigo/Pink

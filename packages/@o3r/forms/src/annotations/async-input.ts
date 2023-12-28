@@ -8,9 +8,11 @@ import { switchMap } from 'rxjs/operators';
  * and subscribe to the next one
  * @param privateFieldName
  * @example
-@Input()
-@AsyncInput()
-myStream$: Observable<number>;
+ * ```typescript
+ * \@Input()
+ * \@AsyncInput()
+ * myStream$: Observable<number>;
+ * ```
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export function AsyncInput(privateFieldName?: string) {

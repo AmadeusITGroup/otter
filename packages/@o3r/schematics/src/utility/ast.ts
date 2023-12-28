@@ -86,7 +86,10 @@ export function getExportedSymbolsFromFile(program: ts.Program, sourcePath: stri
 
 /**
  * Decorator with arguments
- * @example `@Decorator({ propName: 'value' })`
+ * @example
+ * ```typescript
+ * \@Decorator({ propName: 'value' })
+ * ```
  */
 export type DecoratorWithArg = ts.Decorator & {
   expression: ts.CallExpression & {

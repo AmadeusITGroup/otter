@@ -104,13 +104,15 @@ function getLabelFromDocText(docText: string): string | undefined {
  *
  * The tags are extracted from @tags tag.
  * The following format should be matched.
+ * @param docComment The DocComment to get tags from
  * @example
+ * ```typescript
  * /**
  *  ...
  *  @tags [booking, ssci, servicing
  *  upSell, pax_page]
  *  \/
- * @param docComment The DocComment to get tags from
+ * ```
  */
 export function getTagsFromDocComment(docComment: DocComment): string[] | undefined {
   const tags = getInlineBlockTagContentFromDocComment(docComment, '@tags');

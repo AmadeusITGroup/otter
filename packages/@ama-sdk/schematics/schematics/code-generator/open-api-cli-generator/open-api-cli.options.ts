@@ -26,8 +26,14 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
   generatorCustomPath: string;
   /**
    * Comma separated string of options to give to the openapi-generator-cli
-   * @example debugModels to log the full json structure used to generate models
-   * @example debugOperations to log the full json structure used to generate operations
+   * @example To log the full json structure used to generate models
+   * ```typescript
+   * 'debugModels'
+   * ```
+   * @example To log the full json structure used to generate operations
+   * ```typescript
+   * 'debugOperations'
+   * ```
    * @default ''
    */
   globalProperty: string;

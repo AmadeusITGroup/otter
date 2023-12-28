@@ -6,10 +6,12 @@ import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
  * Even though the type itself is permissive to mirror what the backend accepts, it is strongly recommended to extend
  * it from an application in order to type it with the facts expected by the rules setup for that application.
  * @example
+ * ```typescript
  * interface BookingPublicFacts extends PublicFacts {
  *   fact1: string;
  *   fact2: string;
  * }
+ * ```
  */
 export type PublicFacts = Record<string, string | number | undefined>;
 
@@ -72,12 +74,15 @@ export function createJwtFactsEncoder() {
  * Facts are added to every requests as a Header that is configurable.
  * Public facts are stringified and encoded in base64 before.
  * @example only global public facts
+ * ```typescript
  * const clientFactsPlugin = new ClientFactsRequestPlugin<BookingPublicFacts>({
  *   initialGlobalFacts: {
  *     country: 'FRA'
  *   }
  * });
+ * ```
  * @example request public facts
+ * ```typescript
  * const clientFactsPlugin = new ClientFactsRequestPlugin<BookingPublicFacts>({
  *   factsFactory: (request) => {
  *     if (request.basePath.includes('/order/')) {
@@ -88,7 +93,9 @@ export function createJwtFactsEncoder() {
  *     return {};
  *   }
  * });
+ * ```
  * @example global public facts based on Store value
+ * ```typescript
  * const clientFactsPlugin = new ClientFactsRequestPlugin<BookingPublicFacts>({});
  *
  * store.pipe(
@@ -97,7 +104,9 @@ export function createJwtFactsEncoder() {
  *        const facts = getFactsFromOrder(order);
  *        clientFactsPlugin.setGlobalFacts(facts);
  * });
+ * ```
  * @example request public facts based on Store value
+ * ```typescript
  *  const clientFactsPlugin = new ClientactsRequestPlugin<BookingPublicFacts>({
  *   factsFactory: (request) => {
  *     if (request.basePath.includes('/order/') && request.method !== 'GET') {
@@ -110,10 +119,13 @@ export function createJwtFactsEncoder() {
  *     return {};
  *   }
  * });
+ * ```
  * @example private facts based on encrypted POST parameter
+ * ```typescript
  * const clientFactsPlugin = new ClientFactsRequestPlugin({
  *   privateFacts: requestParametersService.getPostParameter('private-facts')
  * });
+ * ```
  */
 export class ClientFactsRequestPlugin<T extends PublicFacts = PublicFacts> implements RequestPlugin {
 
