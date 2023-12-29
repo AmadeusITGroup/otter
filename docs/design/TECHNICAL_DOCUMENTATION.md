@@ -6,16 +6,16 @@ The purpose of these tools is to reduce the steps between the design of the solu
 ## Design Token
 
 The [Design Token specification](https://design-tokens.github.io/community-group/format/) define a dialog format between the design tools (such as [Figma](https://www.figma.com)) and a style language (CSS , Sass, Less, etc...).
-The Otter Framework provide a **Builder**, **Schematic** ann **Command Line Interface** to generate CSS Variable and/or Sass Variable, based on the inputted Design Token files.
+The Otter Framework provides **Builder**, **Schematic** and **Command Line Interface** to generate CSS Variable and/or Sass Variable, based on the inputted Design Token files.
 
 ### Global architecture of the Parser and Renderer
 
-The Design Token code generator tool is technically split in two mains features :
+The Design Token code generator tool is technically split in two main features :
 
 - The **parsers** that will parse and decode the Design Token Specification.
 - The **renderers** that will generate the output (mainly code) based on the decoded Design Token Specification.
 
-Both of these features can be customized a different levels. They can be customize thanks to parameter exposes by parsers and renderers **factory functions**, or they be completely re-implemented and injected into the Design Token Code generator.
+Both of these features can be customized at different levels. They can be customized thanks to parameters exposed by parsers and renderers **factory functions**, or they can be completely re-implemented and injected into the Design Token Code generator.
 
 ### Parsers
 
@@ -26,8 +26,8 @@ This parser handle the Design Token Specification as JSON file (or loaded object
 
 The package is exposing 3 renderers:
 
-- **CSS** Renderer generating CSS Variable according to the specification *(default renderer)*
-- **Sass** Renderer generator Sass Variable according to the specification
+- **CSS** Renderer generating CSS Variables according to the specification *(default renderer)*
+- **Sass** Renderer generating Sass Variables according to the specification
 - **Metadata** renderer that will create the metadata file compatible with the Otter CMS solution.
 
 ### Example of Code Generator usage

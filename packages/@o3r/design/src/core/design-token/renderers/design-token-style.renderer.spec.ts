@@ -11,9 +11,9 @@ describe('Design Token Renderer', () => {
 
   beforeAll(async () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
-    exampleVariable = JSON.parse(file);
+    exampleVariable = { document: JSON.parse(file) };
     // Add different target file
-    (exampleVariable.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss'};
+    (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss'};
     designTokens = parser.parseDesignToken(exampleVariable);
   });
 

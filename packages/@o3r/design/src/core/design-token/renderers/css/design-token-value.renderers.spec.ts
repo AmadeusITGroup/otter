@@ -11,7 +11,7 @@ describe('getCssTokenValueRenderer', () => {
 
   beforeAll(async () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
-    exampleVariable = JSON.parse(file);
+    exampleVariable = { document: JSON.parse(file) };
     designTokens = parser.parseDesignToken(exampleVariable);
   });
 
@@ -22,7 +22,7 @@ describe('getCssTokenValueRenderer', () => {
     const result = renderer(variable, designTokens);
     expect(variable).toBeDefined();
     expect(result).toBeDefined();
-    expect(result).toBe((exampleVariable as any).example.var1.$value);
+    expect(result).toBe((exampleVariable.document as any).example.var1.$value);
   });
 
   test('should render valid CSS var', () => {
@@ -42,6 +42,6 @@ describe('getCssTokenValueRenderer', () => {
     const result = renderer(variable, designTokens);
     expect(variable).toBeDefined();
     expect(result).toBeDefined();
-    expect(result).toBe(`var(--example-var3, ${(exampleVariable as any).example.var3.$value})`);
+    expect(result).toBe(`var(--example-var3, ${(exampleVariable.document as any).example.var3.$value})`);
   });
 });

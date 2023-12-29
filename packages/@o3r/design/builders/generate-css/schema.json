@@ -33,7 +33,7 @@
     },
     "rootPath": {
       "type": "string",
-      "description": "Root path of files where the CSS will be generated"
+      "description": "Root path used to determine the CSS file to edit when specified by the token extension (will use the file where the Design Token is defined as `rootPath` if not specified)"
     },
     "watch": {
       "type": "boolean",

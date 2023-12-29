@@ -20,7 +20,7 @@ describe('Design Token generator', () => {
   let exampleVariable!: DesignTokenSpecification;
 
   beforeAll(async () => {
-    exampleVariable = JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), {encoding: 'utf-8'}));
+    exampleVariable = {document: JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), {encoding: 'utf-8'}))};
   });
 
   describe('CSS renderer', () => {

@@ -14,7 +14,9 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   const determineCssFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
     (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
-        return resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
+        return token.context?.basePath && !options.rootPath ?
+          resolve(token.context.basePath, token.extensions.o3rTargetFile) :
+          resolve(context.workspaceRoot, options.rootPath || '', token.extensions.o3rTargetFile);
       }
 
       return resolve(context.workspaceRoot, options.defaultStyleFile);
@@ -33,8 +35,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
-    const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot }))
-      .map((file) => resolve(context.workspaceRoot, file));
+    const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true }));
 
     const inDependencies = designTokenFilePatterns
       .filter((pathName) => !pathName.startsWith('.') && !pathName.startsWith('*') && !pathName.startsWith('/'))

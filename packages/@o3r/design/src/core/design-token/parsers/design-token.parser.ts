@@ -2,6 +2,7 @@ import { promises as fs } from 'node:fs';
 import type { DesignTokenVariableSet, DesignTokenVariableStructure, ParentReference } from './design-token-parser.interface';
 import type {
   DesignToken,
+  DesignTokenContext,
   DesignTokenExtensions,
   DesignTokenGroup,
   DesignTokenGroupExtensions,
@@ -14,6 +15,7 @@ import {
   isDesignTokenGroup,
   isTokenTypeStrokeStyleValueComplex
 } from '../design-token-specification.interface';
+import { dirname } from 'node:path';
 
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 
@@ -80,7 +82,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
 
 const walkThroughDesignTokenNodes = (
   node: DesignTokenNode,
-  source: DesignTokenSpecification,
+  context: DesignTokenContext | undefined,
   ancestors: ParentReference[],
   mem: DesignTokenVariableSet,
   nodeName?: string): DesignTokenVariableSet => {
@@ -89,7 +91,7 @@ const walkThroughDesignTokenNodes = (
     Object.entries(node)
       .filter(([tokenName, tokenNode]) => !tokenName.startsWith('$') && (isDesignToken(tokenNode) || isDesignTokenGroup(tokenNode)))
       .forEach(([tokenName, tokenNode]) => walkThroughDesignTokenNodes(
-        tokenNode as DesignTokenGroup | DesignToken, source, nodeName ? [...ancestors, { name: nodeName, tokenNode: node }] : ancestors, mem, tokenName
+        tokenNode as DesignTokenGroup | DesignToken, context, nodeName ? [...ancestors, { name: nodeName, tokenNode: node }] : ancestors, mem, tokenName
       ));
   }
 
@@ -101,6 +103,7 @@ const walkThroughDesignTokenNodes = (
     const tokenReferenceName = getTokenReferenceName(nodeName, parentNames);
 
     const tokenVariable: DesignTokenVariableStructure = {
+      context,
       extensions: getExtensions([...ancestors.map(({ tokenNode }) => tokenNode), node]),
       node,
       tokenReferenceName,
@@ -150,7 +153,7 @@ const walkThroughDesignTokenNodes = (
  * @param specification Design Token content as specified on https://design-tokens.github.io/community-group/format/
  */
 export const parseDesignToken = (specification: DesignTokenSpecification): DesignTokenVariableSet => {
-  return walkThroughDesignTokenNodes(specification, specification, [], new Map());
+  return walkThroughDesignTokenNodes(specification.document, specification.context, [], new Map());
 };
 
 interface ParseDesignTokenFileOptions {
@@ -160,6 +163,9 @@ interface ParseDesignTokenFileOptions {
    * @param filePath Path to the file to read
    */
   readFile?: (filePath: string) => string | Promise<string>;
+
+  /** Custom context to provide to the parser and override the information determined by the specification parse process */
+  specificationContext?: DesignTokenContext;
 }
 
 /**
@@ -169,5 +175,8 @@ interface ParseDesignTokenFileOptions {
  */
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
   const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf-8' }));
-  return parseDesignToken(JSON.parse(await readFile(specificationFilePath)));
+  const context: DesignTokenContext = {
+    basePath: dirname(specificationFilePath)
+  };
+  return parseDesignToken({ document: JSON.parse(await readFile(specificationFilePath)), context });
 };

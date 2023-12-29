@@ -7,12 +7,12 @@ import type { DesignTokenRendererOptions } from './design-token.renderer.interfa
 
 /**
  * Retrieve the function determining what is the file to update for a given token
- * @param root Root path
+ * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
  */
 export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
   if (token.extensions.o3rTargetFile) {
-    return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(root, token.extensions.o3rTargetFile);
+    return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root, token.extensions.o3rTargetFile);
   }
 
   return defaultFile;

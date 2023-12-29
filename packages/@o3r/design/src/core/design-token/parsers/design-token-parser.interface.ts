@@ -1,4 +1,4 @@
-import type { DesignToken, DesignTokenExtensions, DesignTokenGroup, DesignTokenGroupExtensions } from '../design-token-specification.interface';
+import type { DesignToken, DesignTokenContext, DesignTokenExtensions, DesignTokenGroup, DesignTokenGroupExtensions } from '../design-token-specification.interface';
 
 export interface ParentReference {
   /** Design Token name */
@@ -28,6 +28,8 @@ export type DesignTokenVariableSet = Map<string, DesignTokenVariableStructure>;
 
 /** Parsed Design Token variable */
 export interface DesignTokenVariableStructure {
+  /** Context of the Token determined or provided during the parsing process */
+  context?: DesignTokenContext;
   /** Design Token Extension */
   extensions: DesignTokenGroupExtensions & DesignTokenExtensions;
   /** Reference to the Design Token node */

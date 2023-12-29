@@ -48,6 +48,4 @@ The following configurations are available:
 
 ## Technical documentation
 
-A documentation providing explanation regarding the usage and the customization of the `Design Token` Parser and Renderers is available
-the
-[Technical documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md).
+A documentation providing explanation regarding the usage and the customization of the `Design Token` Parser and Renderers is available in the [Technical documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md).
