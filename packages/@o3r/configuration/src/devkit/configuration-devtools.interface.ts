@@ -1,18 +1,25 @@
 import type { Dictionary } from '@ngrx/entity';
-import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
+import type {
+  Configuration,
+  ConnectContentMessage,
+  ContextualizationDevtoolsCommonOptions,
+  CustomConfig,
+  DevtoolsCommonOptions,
+  MessageDataTypes,
+  OtterMessageContent,
+  RequestMessagesContentMessage
+} from '@o3r/core';
 import type { ConfigurationModel } from '../stores/index';
 
 /** Option for Configuration devtools service */
-export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptions {
+export interface ConfigurationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {
   /**
    * Default library name to use if not specified in the function call
-   *
    * @default `@o3r/components`
    */
   defaultLibraryName: string;
   /**
    * Default JSON file name if not specified in the function
-   *
    * @default partial-static-config.json
    */
   defaultJsonFilename: string;
@@ -45,7 +52,6 @@ export type AvailableConfigurationMessageContents =
 
 /**
  * Determine if the given message is a Configuration message
- *
  * @param message message to check
  */
 export const isConfigurationMessage = (message: any): message is AvailableConfigurationMessageContents => {
@@ -55,3 +61,14 @@ export const isConfigurationMessage = (message: any): message is AvailableConfig
     message.dataType === 'requestMessages' ||
     message.dataType === 'connect');
 };
+
+/**
+ * Contextualization devtools exposed for configuration in CMS integration
+ */
+export interface ConfigurationContextualizationDevtools {
+  /**
+   * Replace N configurations in one shot
+   * @param configs array of configurations to update
+   */
+  updateConfigurations: (configurations: CustomConfig<Configuration>[]) => void;
+}

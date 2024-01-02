@@ -1,9 +1,10 @@
-import { Rule } from '@angular-devkit/schematics';
+import { chain, Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from '../schema';
 
 const DEVTOOL_MODULE_NAME = 'RulesEngineDevtoolsModule';
-const DEVTOOL_SERVICE_NAME = 'RulesEngineDevtoolsService';
+const MESSAGE_DEVTOOL_SERVICE_NAME = 'RulesEngineDevtoolsMessageService';
+const CONSOLE_DEVTOOL_SERVICE_NAME = 'RulesEngineDevtoolsConsoleService';
 const PACKAGE_NAME: string = require(path.resolve(__dirname, '..', '..', '..', 'package.json')).name;
 
 /**
@@ -15,10 +16,18 @@ const PACKAGE_NAME: string = require(path.resolve(__dirname, '..', '..', '..', '
  */
 export const registerDevtools = async (options: NgAddSchematicsSchema): Promise<Rule> => {
   const { registerDevtoolsToApplication } = await import('@o3r/schematics');
-  return registerDevtoolsToApplication({
-    moduleName: DEVTOOL_MODULE_NAME,
-    packageName: PACKAGE_NAME,
-    serviceName: DEVTOOL_SERVICE_NAME,
-    projectName: options.projectName
-  });
+  return chain([
+    registerDevtoolsToApplication({
+      moduleName: DEVTOOL_MODULE_NAME,
+      packageName: PACKAGE_NAME,
+      serviceName: MESSAGE_DEVTOOL_SERVICE_NAME,
+      projectName: options.projectName
+    }),
+    registerDevtoolsToApplication({
+      moduleName: DEVTOOL_MODULE_NAME,
+      packageName: PACKAGE_NAME,
+      serviceName: CONSOLE_DEVTOOL_SERVICE_NAME,
+      projectName: options.projectName
+    })
+  ]);
 };
