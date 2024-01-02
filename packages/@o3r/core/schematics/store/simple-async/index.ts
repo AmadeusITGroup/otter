@@ -1,18 +1,15 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-
-import { applyEsLintFix, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { ExtraFormattedProperties } from '../common/helpers';
-
 import { NgGenerateSimpleAsyncStoreSchematicsSchema } from './schema';
 
 /**
  * Create an Otter friendly simple async store
- *
  * @param options
  */
-export function ngGenerateSimpleAsyncStore(options: NgGenerateSimpleAsyncStoreSchematicsSchema): Rule {
+function ngGenerateSimpleAsyncStoreFn(options: NgGenerateSimpleAsyncStoreSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
@@ -74,3 +71,9 @@ export function ngGenerateSimpleAsyncStore(options: NgGenerateSimpleAsyncStoreSc
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Create an Otter friendly simple async store
+ * @param options
+ */
+export const ngGenerateSimpleAsyncStore = createSchematicWithMetricsIfInstalled(ngGenerateSimpleAsyncStoreFn);

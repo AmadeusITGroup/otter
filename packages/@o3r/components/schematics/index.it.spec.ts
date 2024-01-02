@@ -7,7 +7,7 @@ import {
   setupLocalRegistry
 } from '@o3r/test-helpers';
 
-const appName = 'test-app-apis-components';
+const appName = 'test-app-components';
 const o3rVersion = '999.0.0';
 const execAppOptions = getDefaultExecSyncOptions();
 let appFolderPath: string;

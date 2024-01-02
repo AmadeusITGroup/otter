@@ -1,5 +1,6 @@
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { LogEntry } from '@angular-devkit/core/src/logger';
+import { createBuilderWithMetricsIfInstalled } from '@o3r/extractors';
 import type { JSONLocalization } from '@o3r/localization';
 import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
@@ -318,7 +319,7 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
 }
 
 
-export default createBuilder<LocalizationBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   // Load Targets to get build options
@@ -520,4 +521,4 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
       metadataWatcher.once('error', (err) => reject(err));
     });
   }
-});
+}));

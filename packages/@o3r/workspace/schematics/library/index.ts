@@ -1,6 +1,6 @@
 import { chain, externalSchematic, noop, Rule, strings } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { applyEsLintFix, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateModuleSchema } from './schema';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { nxGenerateModule } from './rules/rules.nx';
@@ -10,7 +10,7 @@ import { ngGenerateModule } from './rules/rules.ng';
  * Add an Otter compatible module to a monorepo
  * @param options Schematic options
  */
-export function generateModule(options: NgGenerateModuleSchema): Rule {
+function generateModuleFn(options: NgGenerateModuleSchema): Rule {
 
   return (tree, context) => {
     const packageJsonName = strings.dasherize(options.name);
@@ -30,7 +30,7 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
     return chain([
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
       (t, c) => externalSchematic('@o3r/core', 'ng-add', { ...options, projectName: extendedOptions.name })(t, c),
-      (t, c) => externalSchematic('@o3r/core', 'ng-add-create', { name: extendedOptions.name, path: targetPath })(t, c),
+      (t, c) => externalSchematic('@o3r/core', 'ng-add-create', { name: extendedOptions.name, projectName: extendedOptions.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix(),
       options.skipInstall ? noop() : (t, c) => {
         c.addTask(new NodePackageInstallTask());
@@ -39,3 +39,9 @@ export function generateModule(options: NgGenerateModuleSchema): Rule {
     ])(tree, context);
   };
 }
+
+/**
+ * Add an Otter compatible module to a monorepo
+ * @param options Schematic options
+ */
+export const generateModule = createSchematicWithMetricsIfInstalled(generateModuleFn);

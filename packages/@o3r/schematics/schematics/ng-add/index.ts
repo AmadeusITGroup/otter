@@ -3,13 +3,14 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 
 /**
  * Add Otter schematics to an Angular Project
  */
-export function ngAdd(): Rule {
+function ngAddFn(): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
-  return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
+  return () => async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { AddDevInstall } = await import('@o3r/schematics');
     context.logger.info('Running ng add for schematics');
@@ -34,3 +35,8 @@ export function ngAdd(): Rule {
     return () => tree;
   };
 }
+
+/**
+ * Add Otter schematics to an Angular Project
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

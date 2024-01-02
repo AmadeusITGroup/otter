@@ -1,4 +1,5 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
@@ -7,7 +8,7 @@ import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
  * Add Otter store-sync to an Otter Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
@@ -51,3 +52,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter store-sync to an Otter Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

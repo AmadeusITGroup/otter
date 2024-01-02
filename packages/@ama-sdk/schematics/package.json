@@ -34,6 +34,9 @@
     "@angular-devkit/schematics-cli": {
       "optional": true
     },
+    "@angular/cli": {
+      "optional": true
+    },
     "@angular/compiler": {
       "optional": true
     },
@@ -46,6 +49,8 @@
     "@angular-devkit/core": "~17.0.0",
     "@angular-devkit/schematics": "~17.0.0",
     "@angular-devkit/schematics-cli": "^17.0.1",
+    "@angular/cli": "^17.0.1",
+    "@o3r/schematics": "workspace:^",
     "@openapitools/openapi-generator-cli": "~2.7.0",
     "@schematics/angular": "~17.0.0"
   },

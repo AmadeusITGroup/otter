@@ -1,6 +1,7 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -48,7 +49,7 @@ const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tr
  * Generate the code to enable rules-engine on a component
  * @param options
  */
-export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineToComponentSchematicsSchema): Rule {
+function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComponentSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, _context: SchematicContext) => {
     const componentPath = options.path!;
@@ -165,3 +166,10 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+
+/**
+ * Generate the code to enable rules-engine on a component
+ * @param options
+ */
+export const ngGenerateRulesEngineToComponent = createSchematicWithMetricsIfInstalled(ngGenerateRulesEngineToComponentFn);

@@ -24,10 +24,14 @@
     "@angular-devkit/core": "~17.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "typescript": "~5.2.2"
   },
   "peerDependenciesMeta": {
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
       "optional": true
     }
   },
@@ -38,6 +42,7 @@
     "typedoc": "~0.25.0"
   },
   "devDependencies": {
+    "@angular-devkit/architect": "~0.1700.3",
     "@angular-devkit/build-angular": "~17.0.3",
     "@angular-devkit/core": "~17.0.3",
     "@angular-devkit/schematics": "~17.0.3",
@@ -60,6 +65,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

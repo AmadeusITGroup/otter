@@ -1,7 +1,8 @@
 import { BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import { MultiWatcherBuilderSchema } from './schema';
 
-export default createBuilder<MultiWatcherBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   /** List of parallel build references */
@@ -37,4 +38,4 @@ export default createBuilder<MultiWatcherBuilderSchema>(async (options, context)
   });
 
   return firstStopped;
-});
+}));

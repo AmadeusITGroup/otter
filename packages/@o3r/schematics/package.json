@@ -25,6 +25,7 @@
     "@angular-devkit/core": "~17.0.0",
     "@angular-devkit/schematics": "~17.0.0",
     "@angular/cli": "~17.0.0",
+    "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~17.0.0",
     "eslint": "^8.42.0",
     "rxjs": "^7.8.1",
@@ -35,6 +36,9 @@
       "optional": true
     },
     "@angular-devkit/core": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
       "optional": true
     },
     "eslint": {
@@ -69,6 +73,7 @@
     "@nx/js": "~17.2.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~17.0.3",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

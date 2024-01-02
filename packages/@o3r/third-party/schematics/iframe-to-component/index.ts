@@ -11,6 +11,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -52,10 +53,9 @@ const checkIframePresence = (componentPath: string, tree: Tree) => {
 
 /**
  * Add iframe to an existing component
- *
  * @param options
  */
-export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
+export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const { templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
@@ -120,123 +120,130 @@ export function ngAddIframe(options: NgAddIframeSchematicsSchema): Rule {
 
                   const hasSubscriptions = node.members.find((classElement) =>
                     ts.isPropertyDeclaration(classElement)
-                  && ts.isIdentifier(classElement.name)
-                  && classElement.name.escapedText.toString() === 'subscriptions'
+                    && ts.isIdentifier(classElement.name)
+                    && classElement.name.escapedText.toString() === 'subscriptions'
                   );
 
                   /* eslint-disable indent */
-                const propertiesToAdd = generateClassElementsFromString(`
-                  @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
-                  private bridge: IframeBridge;
-                  ${!hasSubscriptions ? 'private readonly subscriptions: Subscription[] = [];' : ''}
-                `);
-                /* eslint-disable indent */
+                  const propertiesToAdd = generateClassElementsFromString(`
+                    @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
+                    private bridge: IframeBridge;
+                    ${!hasSubscriptions ? 'private subscriptions: Subscription[] = [];' : ''}
+                  `);
+                  /* eslint-disable indent */
 
-                const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
-                if (this.frame.nativeElement.contentDocument) {
-                  this.frame.nativeElement.contentDocument.write(
-                    generateIFrameContent(
-                      '', // third-party-script-url
-                      '' // third-party-html-headers-to-add
-                    )
-                  );
-                  this.frame.nativeElement.contentDocument.close();
-                }
-                if (this.frame.nativeElement.contentWindow) {
-                  this.bridge = new IframeBridge(window, this.frame.nativeElement);
-                  this.subscriptions.push(
-                    this.bridge.messages$.subscribe((message) => {
-                      switch (message.action) {
-                        // custom logic based on received message
-                        default:
-                          console.warn('Received unsupported action: ', message.action);
-                      }
-                    })
-                  );
-                }
-              `));
-
-                const newNgOnDestroy = getSimpleUpdatedMethod(node, factory, 'ngOnDestroy', generateBlockStatementsFromString(`
-                  this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+                  const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
+                  if (this.frame.nativeElement.contentDocument) {
+                    this.frame.nativeElement.contentDocument.write(
+                      generateIFrameContent(
+                        '', // third-party-script-url
+                        '' // third-party-html-headers-to-add
+                      )
+                    );
+                    this.frame.nativeElement.contentDocument.close();
+                  }
+                  if (this.frame.nativeElement.contentWindow) {
+                    this.bridge = new IframeBridge(window, this.frame.nativeElement);
+                    this.subscriptions.push(
+                      this.bridge.messages$.subscribe((message) => {
+                        switch (message.action) {
+                          // custom logic based on received message
+                          default:
+                            console.warn('Received unsupported action: ', message.action);
+                        }
+                      })
+                    );
+                  }
                 `));
 
-                const newMembers = node.members
-                  .filter((classElement) => !(
-                    findMethodByName('ngAfterViewInit')(classElement)
-                  || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
-                  ))
-                  .concat(
-                    propertiesToAdd,
-                    newNgAfterViewInit,
-                    ...(hasSubscriptions ? [] : [newNgOnDestroy])
-                  )
-                  .sort(sortClassElement);
+                  const newNgOnDestroy = getSimpleUpdatedMethod(node, factory, 'ngOnDestroy', generateBlockStatementsFromString(`
+                    this.subscriptions.forEach((subscription) => subscription.unsubscribe());
+                  `));
 
-                addCommentsOnClassProperties(
-                  newMembers,
-                  {
-                    bridge: 'Iframe object template reference',
-                    subscriptions: 'List of subscriptions to unsubscribe on destroy'
-                  }
-                );
+                  const newMembers = node.members
+                    .filter((classElement) => !(
+                      findMethodByName('ngAfterViewInit')(classElement)
+                    || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
+                    ))
+                    .concat(
+                      propertiesToAdd,
+                      newNgAfterViewInit,
+                      ...(hasSubscriptions ? [] : [newNgOnDestroy])
+                    )
+                    .sort(sortClassElement);
 
-                return factory.updateClassDeclaration(
-                  node,
-                  newModifiers,
-                  node.name,
-                  node.typeParameters,
-                  heritageClauses,
-                  newMembers
-                );
-              }
-              return ts.visitEachChild(node, visit, ctx);
-            };
-            return ts.visitNode(rootNode, visit) as ts.SourceFile;
-          },
-          fixStringLiterals
-        ]);
+                  addCommentsOnClassProperties(
+                    newMembers,
+                    {
+                      bridge: 'Iframe object template reference',
+                      subscriptions: 'List of subscriptions to unsubscribe on destroy'
+                    }
+                  );
 
-        const printer = ts.createPrinter({
-          removeComments: false,
-          newLine: ts.NewLineKind.LineFeed
-        });
+                  return factory.updateClassDeclaration(
+                    node,
+                    newModifiers,
+                    node.name,
+                    node.typeParameters,
+                    heritageClauses,
+                    newMembers
+                  );
+                }
+                return ts.visitEachChild(node, visit, ctx);
+              };
+              return ts.visitNode(rootNode, visit) as ts.SourceFile;
+            },
+            fixStringLiterals
+          ]);
 
-        tree.overwrite(options.path, printer.printFile(result.transformed[0]));
+          const printer = ts.createPrinter({
+            removeComments: false,
+            newLine: ts.NewLineKind.LineFeed
+          });
+
+          tree.overwrite(options.path, printer.printFile(result.transformed[0]));
+          return tree;
+        }
+      ]);
+
+      const updateTemplateFile: Rule = () => {
+        const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
+        if (templatePath && tree.exists(templatePath)) {
+          tree.commitUpdate(
+            tree
+              .beginUpdate(templatePath)
+              .insertLeft(0, '<iframe #frame src="about:blank" style="display: none"></iframe>\n')
+          );
+        }
+
         return tree;
-      }
-    ]);
+      };
 
-    const updateTemplateFile: Rule = () => {
-      const templatePath = templateRelativePath && posix.join(dirname(options.path), templateRelativePath);
-      if (templatePath && tree.exists(templatePath)) {
-        tree.commitUpdate(
-          tree
-            .beginUpdate(templatePath)
-            .insertLeft(0, '<iframe #frame src="about:blank" style="display: none"></iframe>\n')
-        );
+      return chain([
+        updateComponentFile,
+        updateTemplateFile,
+        options.skipLinter ? noop() : applyEsLintFix()
+      ]);
+    } catch (e) {
+      debugger;
+      if (e instanceof NoOtterComponent && context.interactive) {
+        const shouldConvertComponent = await askConfirmationToConvertComponent();
+        if (shouldConvertComponent) {
+          return chain([
+            externalSchematic('@o3r/core', 'convert-component', {
+              path: options.path
+            }),
+            ngAddIframeFn(options)
+          ]);
+        }
       }
-
-      return tree;
-    };
-
-    return chain([
-      updateComponentFile,
-      updateTemplateFile,
-      options.skipLinter ? noop() : applyEsLintFix()
-    ]);
-  } catch (e) {
-    if (e instanceof NoOtterComponent && context.interactive) {
-      const shouldConvertComponent = await askConfirmationToConvertComponent();
-      if (shouldConvertComponent) {
-        return chain([
-          externalSchematic('@o3r/core', 'convert-component', {
-            path: options.path
-          }),
-          ngAddIframe(options)
-        ]);
-      }
+      throw e;
     }
-    throw e;
-  }
   };
 }
+
+/**
+ * Add iframe to an existing component
+ * @param options
+ */
+export const ngAddIframe = createSchematicWithMetricsIfInstalled(ngAddIframeFn);

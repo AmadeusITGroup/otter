@@ -1,4 +1,5 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 
@@ -9,10 +10,9 @@ const doCustomAction: Rule = (tree, _context) => {
 
 /**
  * Add Otter test-helpers to an Otter Project
- *
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (_tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
@@ -42,3 +42,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter test-helpers to an Otter Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

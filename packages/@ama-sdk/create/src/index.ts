@@ -91,7 +91,7 @@ const run = () => {
   ];
 
   const errors = steps
-    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
+    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'pipe', cwd: step.cwd || process.cwd() }))
     .map(({error}) => error)
     .filter((err) => !!err);
 

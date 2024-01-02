@@ -12,6 +12,7 @@ import {
   applyEsLintFix,
   askConfirmationToConvertComponent,
   askUserInput,
+  createSchematicWithMetricsIfInstalled,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -115,10 +116,9 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
 
 /**
  * Add localization key to an existing component
- *
  * @param options
  */
-export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSchema): Rule {
+export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const { selector, templateRelativePath } = getO3rComponentInfoOrThrowIfNotFound(tree, options.path);
@@ -246,7 +246,7 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
             externalSchematic('@o3r/core', 'convert-component', {
               path: options.path
             }),
-            ngAddLocalizationKey(options)
+            ngAddLocalizationKeyFn(options)
           ]);
         }
       } else if (e instanceof NoLocalizationArchitecture && context.interactive) {
@@ -256,14 +256,14 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
             schematic('localization-to-component', {
               path: options.path
             }),
-            ngAddLocalizationKey(options)
+            ngAddLocalizationKeyFn(options)
           ]);
         }
       } else if (e instanceof KeyAlreadyExists && context.interactive) {
         const newKey = await askUserInput(
           `${e.message}\nPlease choose another key name:`
         );
-        return ngAddLocalizationKey({
+        return ngAddLocalizationKeyFn({
           ...options,
           key: newKey
         });
@@ -272,3 +272,9 @@ export function ngAddLocalizationKey(options: NgAddLocalizationKeySchematicsSche
     }
   };
 }
+
+/**
+ * Add localization key to an existing component
+ * @param options
+ */
+export const ngAddLocalizationKey = createSchematicWithMetricsIfInstalled(ngAddLocalizationKeyFn);

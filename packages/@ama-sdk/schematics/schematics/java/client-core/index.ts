@@ -2,7 +2,9 @@ import {
   chain,
   Rule,
   SchematicContext,
-  Tree} from '@angular-devkit/schematics';
+  Tree
+} from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { promises as fs } from 'node:fs';
 import * as path from 'node:path';
 import { treeGlob } from '../../helpers/tree-glob';
@@ -16,7 +18,7 @@ const jarBasePath = path.resolve(__dirname, 'swagger-codegen-java-client', 'targ
  * Generate a Java client SDK source code base on swagger specification
  * @param options
  */
-export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchematicsSchema): Rule {
+function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsSchema): Rule {
 
   const specPath = path.resolve(process.cwd(), options.specPath);
   /**
@@ -84,3 +86,10 @@ export function ngGenerateJavaClientCore(options: NgGenerateJavaClientCoreSchema
     })
   ]);
 }
+
+
+/**
+ * Generate a Java client SDK source code base on swagger specification
+ * @param options
+ */
+export const ngGenerateJavaClientCore = createSchematicWithMetricsIfInstalled(ngGenerateJavaClientCoreFn);

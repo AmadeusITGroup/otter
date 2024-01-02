@@ -1,6 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getComponentFolderName, getDestinationPath, getInputComponentName, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getComponentFolderName, getDestinationPath, getInputComponentName, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateComponentSchematicsSchema } from './schema';
 
@@ -53,10 +53,9 @@ function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema
 
 /**
  * Add Otter component to an Angular Project
- *
  * @param options
  */
-export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema): Rule {
+function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Rule {
 
   const generateRootBarrel: Rule = (tree: Tree, _context: SchematicContext) => {
     const inputComponentName = getInputComponentName(options.componentName);
@@ -136,3 +135,9 @@ export function ngGenerateComponent(options: NgGenerateComponentSchematicsSchema
     }
   }
 }
+
+/**
+ * Add Otter component to an Angular Project
+ * @param options
+ */
+export const ngGenerateComponent = createSchematicWithMetricsIfInstalled(ngGenerateComponentFn);
