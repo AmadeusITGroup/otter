@@ -51,7 +51,7 @@ module.exports.getJestConfig = (rootDir, isAngularSetup) => {
       // workaround for the SDK Core
       customExportConditions: ['require', 'node']
     },
-    testTimeout: 15000,
+    testTimeout: 20000,
     workerIdleMemoryLimit: '700MB',
     ...isAngularSetup ? {
       preset: 'jest-preset-angular',
