@@ -11,7 +11,7 @@ Various artifactory tools
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-artifact-retriever [options]
 
 Gets an artifact from Artifactory: artifact-group, artifact-name and artifact-version are mandatory
@@ -38,13 +38,13 @@ Options:
 
 ### JFrog Example
 
-```bash
+```shell
 artifact-retriever.js --registry "https://jfrog.io/repoName" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
 ### Azure Artifacts Example
 
-```bash
+```shell
 artifact-retriever.js --repository-manager "Azure Artifacts" --organization "AmadeusDigitalAirline" --project "Otter" --feed "otter" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
@@ -55,7 +55,7 @@ The purpose is to check if the update is not breaking the application using the 
 
 ### Usage
 
-```bash
+```shell
 Usage: dep-validator [options] <gitUrl>
 
 Execute dependency tests
@@ -82,7 +82,7 @@ Cleans old artifacts from artifactory repositories
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Cleans old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory
@@ -105,7 +105,7 @@ Cleans old PR artifacts by identifying using the the build version that is prese
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-pr-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Cleans old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory

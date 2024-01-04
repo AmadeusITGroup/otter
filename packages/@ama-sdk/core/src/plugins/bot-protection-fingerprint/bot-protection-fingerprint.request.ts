@@ -168,7 +168,7 @@ export interface BotProtectionFingerprintRequestOptions {
  * You can reuse the same instance that you give to the SDK, or create a simpler instance without a poller in case you
  * make sure to load this plug-in before the AmadeusGatewayTokenRequestPlugin.
  * @example Reusing the same instance
- *
+ * ```typescript
  * export function apiFactory(eventTrackService: EventTrackService): ApiManager {
  *   const botProtection = new BotProtectionFingerprintRequest({
  *     destinationHeaderName: 'X-D-Token',
@@ -194,18 +194,22 @@ export interface BotProtectionFingerprintRequestOptions {
  *     LoggingApi: {basePath: '/api'}
  *   });
  * }
+ * ```
  * @example Using a custom FingerprintRetriever
- *
+ * ```typescript
  * const botProtection = new BotProtectionFingerprintRequest({
  *   destinationHeaderName: 'X-D-Token',
  *   fingerprintRetriever: () => 'test'
  * });
- * @example For akamai
+ * ```
  *
+ * @example For akamai
+ * ```typescript
  * const botProtection = new BotProtectionFingerprintRequest({
  *   destinationHeaderName: 'Akamai-BM-Telemetry',
  *   fingerprintRetriever: akamaiTelemetryRetrieverFactory()
  * });
+ * ```
  */
 export class BotProtectionFingerprintRequest implements RequestPlugin {
   /**

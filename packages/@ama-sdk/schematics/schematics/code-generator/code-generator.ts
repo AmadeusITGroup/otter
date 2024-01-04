@@ -25,7 +25,7 @@ export type CodegenTaskOptions = {
  * Handle the task registration, configuration and the schematic's schedule.
  *
  * As is, the CodeGenerator does not implement any actual code generation and needs to be extended to be functional
- * @example {@link OpenApiCliGenerator}
+ * @see {@link OpenApiCliGenerator}
  */
 export class CodeGenerator<T extends CodegenTaskOptions> {
   /**

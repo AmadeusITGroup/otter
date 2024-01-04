@@ -8,7 +8,7 @@ Get an artifact from the ArtiFactory
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-artifact-retriever [options]
 
 Get an artifact from Artifactory, artifact-group, artifact-name and artifact-version are mandatory
@@ -33,13 +33,13 @@ Options:
 
 ### JFrog Example
 
-```bash
+```shell
 artifact-retriever.js --registry "https://jfrog.io/repoName" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
 ### Azure Artifacts Example
 
-```bash
+```shell
 artifact-retriever.js --repository-manager "Azure Artifacts" --organization "OrganizationName" --project "Otter" --feed "otter" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
@@ -50,7 +50,7 @@ The purpose is to check if the update is not breaking application using the curr
 
 ### Usage
 
-```bash
+```shell
 Usage: dep-validator [options] <gitUrl>
 
 Execute dependency tests
@@ -78,7 +78,7 @@ The purpose is to reduce the number of Pull Requests conflict caused by the edit
 
 ### Usage
 
-```bash
+```shell
 Usage: changelog-generator [options] <project>
 
 Update ChangeLog with new changes
@@ -120,7 +120,7 @@ Clean old artifacts from artifactory repositories
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Clean old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory
@@ -143,7 +143,7 @@ Clean old PR artifacts by identifying using the build version that is present in
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-pr-artifact-cleaner -b <Base 64 encoding of username:password (password already encrypted from artifactory UI)> [options]
 
 Clean old artifacts from artifactory repositories, base 64 encoding of username:password is mandatory
@@ -168,7 +168,7 @@ Relies on `npm info` to retrieve package information.
 
 ### Usage
 
-```bash
+```shell
 Usage: peer-dependencies-updater <package@version> [other packages]
 
 Update the given packages version and their peer dependencies range in the provided package.json file (defaulted to local ./package.json)
@@ -193,7 +193,7 @@ This is used to edit the package.json version of a yarn workspaces packages.
 
 ### Usage
 
-```bash
+```shell
 Usage: o3r-set-version [options] <version>
 
 Replace the packages version in a monorepos
@@ -213,7 +213,7 @@ This aligns the dependencies range of each packages of a yarn monorepo to the la
 
 ### Usage
 
-```bash
+```shell
 Usage: version-harmonize [options]
 
 Replace the dependencies version in a monorepos
@@ -256,7 +256,7 @@ The sub-entries should be specified as JSON files (`package.json` per default) i
 
 ### Usage
 
-```bash
+```shell
 Usage: generate-package-exports [options]
 
 Update package.json exports

@@ -12,12 +12,14 @@ import {BaseTrackEvents} from '../base-track-events';
 /**
  * Directive to capture the 'click' event on the reference element.
  * The captured event will be exposed via EventTrackService
- * @example:
+ * @example
+ * ```html
  * <my-component
  *    (click)="doSomething()"
  *    trackClick
  *    [trackEventContext]="{context: 'click on the component with tag: my-component'}">
  * </my-component>
+ * ```
  */
 @Directive({
   selector: '[trackClick]'

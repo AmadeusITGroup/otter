@@ -277,7 +277,10 @@ module.exports = {
     ],
     'jsdoc/check-access': 'warn',
     'jsdoc/check-alignment': 'error',
-    'jsdoc/check-examples': 'off',
+    // TODO: Activate when available on ESLint 8+ (cf. https://github.com/eslint/eslint/issues/14745)
+    // 'jsdoc/check-examples': ['error', {
+    //   'exampleCodeRegex': '^```(?:javascript|typescript|java|json|yaml|shell)?([\\s\\S]*)```\\s*$'
+    // }],
     'jsdoc/check-indentation': 'off',
     'jsdoc/check-line-alignment': 'off',
     'jsdoc/check-param-names': 'warn',

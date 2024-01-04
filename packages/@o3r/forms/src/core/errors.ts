@@ -3,15 +3,19 @@ export interface ErrorMessageObject {
   /**
    *  Translation key of the short error message (e.g. used for inline errors)
    *  @example
-   *  translationKey = 'travelerForm.firstName.required'; => corresponds to {'travelerForm.firstName.required': 'First name is required!'} in localization json;
+   * ```typescript
+   *  translationKey = 'travelerForm.firstName.required'; // => corresponds to {'travelerForm.firstName.required': 'First name is required!'} in localization json;
+   * ```
    */
   translationKey: string;
 
   /**
    * Translation key of the long error message (e.g. used on a message panel)
    * @example
-   * longTranslationKey = 'travelerForm.firstName.required.long'; => corresponds to {'travelerForm.firstName.required.long': 'The first name in the registration form cannot be empty!'}
-   * in localization json;
+   * ```typescript
+   * longTranslationKey = 'travelerForm.firstName.required.long'; // => corresponds to {'travelerForm.firstName.required.long': 'The first name in the registration form cannot be empty!'}
+   * // in localization json;
+   * ```
    */
   longTranslationKey?: string;
 
@@ -22,8 +26,13 @@ export interface ErrorMessageObject {
    * Original error object defined by the corresponding validator
    * @note It's optional since custom errors don't need to provide the validation error
    * @example
-   * - {required: true}
-   * - {max: {max 12, actual: 31}}
+   * ```typescript
+   * {required: true}
+   * ```
+   * @example
+   * ```typescript
+   * {max: {max 12, actual: 31}}
+   * ```
    */
   validationError?: {[key: string]: any};
 

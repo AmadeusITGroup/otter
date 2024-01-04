@@ -3,20 +3,24 @@ import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
 
 /**
  * Function to run to determine if we need to retry the call
- * @param numberOfRetry [description]
- * @param condition     [description]
- * @example:
+ * @param numberOfRetry
+ * @param condition
+ * @example
+ * ```typescript
  * const condition = async (context: FetchPluginContext, data?: Response, error?: Error) => {
  *   const status = data.status;
  *   return status !== 200;
  * }
  * const plugin = new RetryConditionType(5, condition);
- * @example:
+ * ```
+ * @example
+ * ```typescript
  * const condition = async (context: FetchPluginContext, data?: Response, error?: Error) => {
  *   const receivedData = data && await data.text();
  *   return !!data && /^error$/.test(data);
  * }
  * const plugin = new RetryConditionType(5, condition);
+ * ```
  */
 export type RetryConditionType = (context: FetchPluginContext, data?: Response, error?: Error) => boolean | Promise<boolean>;
 

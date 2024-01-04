@@ -118,15 +118,16 @@ export interface PiiTokenizerRequestPluginOptions {
  * Note that the tokenization should be enabled in the ApiClient to use the JWT Encoder mode but it's
  * not necessary for the DeepLink mode.
  * @example JWT
- *
+ *```typescript
  * const client = new ApiFetchClient({
  *   basePath: 'https://my.proxy.address'
  *   requestPlugins: [
  *     new PiiTokenizerRequest({applicationId: 'EXAMPLE_JWT'})
  *   ]
  * })
+ * ```
  * @example JWE without publicProperties
- *
+ * ```typescript
  * const client = new ApiFetchClient({
  *   basePath: 'https://my.proxy.address'
  *   requestPlugins: [
@@ -135,8 +136,9 @@ export interface PiiTokenizerRequestPluginOptions {
  *     new PiiTokenizerRequest({applicationId: 'EXAMPLE_JWE', key: {publickKey: myPublicKey, keyId: myKeyId}})
  *   ]
  * })
+ * ```
  * @example JWE with publicProperties
- *
+ * ```typescript
  * const client = new ApiFetchClient({
  *   basePath: 'https://my.proxy.address'
  *   requestPlugins: [
@@ -144,8 +146,9 @@ export interface PiiTokenizerRequestPluginOptions {
  *     new PiiTokenizerRequest({applicationId: 'EXAMPLE_JWE', key: {publickKey: myPublicKey, keyId: myKeyId}, publicProperties: ['iss', 'sub', 'myPublicProperty']})
  *   ]
  * })
+ * ```
  * @example DeepLink
- *
+ * ```typescript
  * const client = new ApiFetchClient({
  *   basePath: 'https://my.proxy.address'
  *   requestPlugins: [
@@ -159,6 +162,7 @@ export interface PiiTokenizerRequestPluginOptions {
  * // Call with DeepLink, the parameters are passed as tokens
  * // DeepLink Options are provided, hence DeepLink will be used
  * await cartApi.retrieveCart({cartId: '$cartId$', lastName: '$lastName$'}, {deepLinkOptions})
+ * ```
  */
 export class PiiTokenizerRequest implements RequestPlugin {
 

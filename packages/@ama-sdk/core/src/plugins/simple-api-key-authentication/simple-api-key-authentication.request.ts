@@ -40,23 +40,26 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  *
  * Examples of usage:
  * @example Static API key no override
- *
+ * ```typescript
  * const plugin = new SimpleApiKeyAuthenticationRequest('myApiKey');
+ * ```
  * @example Static API key with static override
- *
+ * ```typescript
  * const plugin = new SimpleApiKeyAuthenticationRequest('myApiKey', {
  *   officeId: 'NCE1A098A'
  * });
+ * ```
  * @example Dynamic API key as a promise
- *
+ * ```typescript
  * const apiKeyFactory = () => firstValueFrom(store.pipe(
  *     select(someStateSelector)
  *     map(state => determineApiKeyToUse(state))
  *   )
  * );
  * const plugin = new SimpleApiKeyAuthenticationRequest(apiKeyFactory);
+ * ```
  * @example Dynamic API key and Office ID using setters
- *
+ * ```typescript
  * const plugin = new SimpleApiKeyAuthenticationRequest('initialApiKey');
  * store.pipe(
  *   select(someStateSelector)
@@ -64,6 +67,7 @@ const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
  *   plugin.setApiKey(determineApiKeyToUse(state));
  *   plugin.setOfficeId(determineOfficeIdOverride(state));
  * });
+ * ```
  */
 export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
   /** Options of the plugin */
