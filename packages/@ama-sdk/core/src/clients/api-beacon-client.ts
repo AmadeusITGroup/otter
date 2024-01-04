@@ -78,7 +78,7 @@ export class ApiBeaconClient implements ApiClient {
     let opts = options;
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
-        const changedOpt = plugin.load().transform(opts);
+        const changedOpt = plugin.load({logger: this.options.logger}).transform(opts);
         if (isPromise(changedOpt)) {
           throw new Error(`Request plugin ${plugin.constructor.name} has async transform method. Only sync methods are supported with the Beacon client.`);
         } else {

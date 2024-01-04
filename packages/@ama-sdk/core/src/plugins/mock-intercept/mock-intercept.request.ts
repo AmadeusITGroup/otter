@@ -20,6 +20,7 @@ export class MockInterceptRequest implements RequestPlugin {
     };
   }
 
+  /** @inheritdoc */
   public load(): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (data: RequestOptions) => {
