@@ -45,8 +45,7 @@ export class MockInterceptFetch implements FetchPlugin {
           return responsePromise.then(() => response);
 
         } catch {
-          // eslint-disable-next-line no-console
-          console.error(`Failed to retrieve the latest mock for Operation ID ${operationId}, fallback to default mock`);
+          (context.logger || console).error(`Failed to retrieve the latest mock for Operation ID ${operationId}, fallback to default mock`);
           return responsePromise;
         }
       }

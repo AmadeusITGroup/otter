@@ -1,5 +1,6 @@
 import { v4 } from 'uuid';
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import { PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext } from '../core';
+import type { Logger } from '../../fwk/logger';
 
 /**
  * Plugin to add a header with an ID that can be used to track all the calls done by one or several APIs of the SDK.
@@ -32,7 +33,7 @@ export class SessionIdRequest implements RequestPlugin {
   /**
    * The session ID used to track API calls
    */
-  public sessionId: string;
+  public sessionId?: string;
 
   /**
    * Constructor.
@@ -41,22 +42,22 @@ export class SessionIdRequest implements RequestPlugin {
    * @param activateRequestId Indicates if the request ID part should be added to the ID.
    */
   constructor(sessionIdHeader = 'Ama-Client-Ref', activateRequestId = true) {
+    // Declaration done first since generateSessionId uses the logger
     this.sessionIdHeader = sessionIdHeader;
     this.requestIdActivated = activateRequestId;
-    this.sessionId = this.generateSessionId();
   }
 
-  private logSessionId(sessionId: string, date: string) {
-    // eslint-disable-next-line no-console, no-restricted-syntax
-    console.info(`Your debug ID associated to the header "${this.sessionIdHeader}" is: ${sessionId}.`);
-    // eslint-disable-next-line no-console, no-restricted-syntax
-    console.info(`Generated at: ${date}`);
+  private logSessionId(sessionId: string, date: string, logger?: Logger) {
+    (logger?.info || logger?.log || console.info).bind(logger || console)(`Your debug ID associated to the header "${this.sessionIdHeader}" is: ${sessionId}.`);
+    (logger?.info || logger?.log || console.info).bind(logger || console)(`Generated at: ${date}`);
   }
 
-  public load(): PluginRunner<RequestOptions, RequestOptions> {
+  /** @inheritdoc */
+  public load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions> {
+    const sessionId = this.sessionId ||= this.generateSessionId(context?.logger);
     return {
       transform: (data: RequestOptions) => {
-        data.headers.append(this.sessionIdHeader, this.requestIdActivated ? `${this.sessionId}:${this.generateRequestId()}` : this.sessionId);
+        data.headers.append(this.sessionIdHeader, this.requestIdActivated ? `${sessionId}:${this.generateRequestId()}` : sessionId);
         return data;
       }
     };
@@ -65,7 +66,7 @@ export class SessionIdRequest implements RequestPlugin {
   /**
    * Generates a session ID and stores it in session / backup storage.
    */
-  public generateSessionId() {
+  public generateSessionId(logger?: Logger) {
     // Check if we already have a session ID in the shared memory
     if (SessionIdRequest.sharedMemory[this.sessionIdHeader]) {
       return SessionIdRequest.sharedMemory[this.sessionIdHeader] as string;
@@ -80,8 +81,8 @@ export class SessionIdRequest implements RequestPlugin {
           const parsedSessionIdObject = JSON.parse(sessionIdObjectFromStorage);
           // update the shared memory and log the ID to the user
           SessionIdRequest.sharedMemory[this.sessionIdHeader] = parsedSessionIdObject.id;
-          this.logSessionId(parsedSessionIdObject.id, parsedSessionIdObject.generatedTime);
-          return parsedSessionIdObject.id;
+          this.logSessionId(parsedSessionIdObject.id, parsedSessionIdObject.generatedTime, logger);
+          return parsedSessionIdObject.id as string;
         } catch { /* if the content of the session storage was corrupted somehow we'll just generate a new one */ }
       }
     }
@@ -90,7 +91,7 @@ export class SessionIdRequest implements RequestPlugin {
     const sessionId = v4();
     const generatedTime = new Date().toJSON();
     // log it
-    this.logSessionId(sessionId, generatedTime);
+    this.logSessionId(sessionId, generatedTime, logger);
     // and store it
     SessionIdRequest.sharedMemory[this.sessionIdHeader] = sessionId;
     if (typeof sessionStorage !== 'undefined') {

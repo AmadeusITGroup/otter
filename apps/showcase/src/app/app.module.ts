@@ -22,6 +22,7 @@ import {
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
 import { RulesEngineModule } from '@o3r/rules-engine';
+import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/logger';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,12 +40,13 @@ const runtimeChecks: Partial<RuntimeChecks> = {
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
 
-function petApiFactory() {
+function petApiFactory(logger: Logger) {
   const apiConfig: ApiClient = new ApiFetchClient(
     {
       basePath: 'https://petstore3.swagger.io/api/v3',
       requestPlugins: [],
-      fetchPlugins: []
+      fetchPlugins: [],
+      logger
     }
   );
   return new PetApi(apiConfig);
@@ -108,7 +110,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
         }
       }
     },
-    {provide: PetApi, useFactory: petApiFactory}
+    {provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger()},
+    {provide: PetApi, useFactory: petApiFactory, deps: [LoggerService]}
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { Plugin, PluginRunner } from './plugin';
+import type { Plugin, PluginContext, PluginRunner } from './plugin';
 
 export type RequestBody = string | FormData;
 
@@ -53,10 +53,18 @@ export interface RequestOptions extends RequestInit {
 }
 
 /**
+ * Interface of an SDK request plugin context.
+ */
+export interface RequestPluginContext extends PluginContext {}
+
+/**
  * Interface of an SDK request plugin.
  * The plugin will be run on the request of a call
  */
 export interface RequestPlugin extends Plugin<RequestOptions, RequestOptions> {
-  /** Load the plugin with the context */
-  load(): PluginRunner<RequestOptions, RequestOptions>;
+  /**
+   * Load the plugin with the context
+   * @param context Context of request plugin
+   */
+  load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions>;
 }
