@@ -33,7 +33,7 @@
     },
     "rootPath": {
       "type": "string",
-      "description": "Root path used to determine the CSS file to edit when specified by the token extension (will use the file where the Design Token is defined as `rootPath` if not specified)"
+      "description": "Root path used to determine the CSS file to edit if specified by the o3rTargetFile token extension. It will default to the Design Token file folder."
     },
     "watch": {
       "type": "boolean",

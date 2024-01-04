@@ -26,26 +26,26 @@ interface CssTokenDefinitionRendererOptions {
 }
 
 /**
- * Retrieve the Design Token Variable renderer for CSS
+ * Retrieve the Design Token variable renderer for CSS
  * @param options
  * @returns
- * @example CSS Renderer with Sass Fallback
+ * @example CSS renderer with Sass fallback
  * ```typescript
  * import { getSassTokenDefinitionRenderer } from '@o3r/design';
  *
- * // List of Design Token item parsed
+ * // List of parsed Design Token items
  * const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
  *
- * // Sass Variable Renderer
+ * // Sass variable renderer
  * const sassTokenDefinitionRenderer = getSassTokenDefinitionRenderer();
  *
- * // CSS Variable Renderer
+ * // CSS variable renderer
  * const cssTokenDefinitionRenderer = getCssTokenDefinitionRenderer({
  *   // Specify that the private variable should be rendered in Sass variable
  *   privateDefinitionRenderer: sassTokenDefinitionRenderer
  * });
  *
- * // Render the CSS Variable
+ * // Render the CSS variables
  * await renderDesignTokens(parsedTokenDesign, { tokenDefinitionRenderer: cssTokenDefinitionRenderer });
  * ```
  */

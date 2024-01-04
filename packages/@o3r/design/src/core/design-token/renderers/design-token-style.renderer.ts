@@ -6,7 +6,7 @@ import { isAbsolute, resolve } from 'node:path';
 import type { DesignTokenRendererOptions } from './design-token.renderer.interface';
 
 /**
- * Retrieve the function determining what is the file to update for a given token
+ * Retrieve the function that determines which file to update for a given token
  * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
  */
@@ -19,17 +19,17 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 };
 
 /**
- * Process the parsed Design Token variables and render then according to the given options and renderers
+ * Process the parsed Design Token variables and render them according to the given options and renderers
  * @param variableSet Complete list of the parsed Design Token
- * @param options Parameters of the Design Token Renderer
+ * @param options Parameters of the Design Token renderer
  * @example Basic renderer usage
  * ```typescript
  * import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
  *
- * // List of Design Token item parsed
+ * // List of parsed Design Token items
  * const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
  *
- * // Render the CSS Variable
+ * // Render the CSS variables
  * await renderDesignTokens(parsedTokenDesign, { logger: console });
  * ```
  */

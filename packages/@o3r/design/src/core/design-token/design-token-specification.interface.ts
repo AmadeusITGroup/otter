@@ -214,17 +214,17 @@ export type DesignTokenNode<E extends DesignTokenExtensions = DesignTokenExtensi
 export type DesignTokenGroup<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> =
   DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenNode<E, G> | E | string | boolean | undefined };
 
-/** Context of the Design Token Specification document */
+/** Context of the Design Token specification document */
 export type DesignTokenContext = {
-  /** Base path use to calculate the path of the file to render the Tokens to */
+  /** Base path used to compute the path of the file to render the Tokens into */
   basePath?: string;
 };
 
-/** Design Token Specification */
+/** Design Token specification */
 export type DesignTokenSpecification<C extends DesignTokenContext = DesignTokenContext, E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> = {
   /** Specification as described on {@link https://design-tokens.github.io/community-group/format/} */
   document: DesignTokenGroup<E, G>;
-  /** Information relative of the context of the specification document */
+  /** Specification document context information */
   context?: C;
 };
 

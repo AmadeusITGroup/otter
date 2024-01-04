@@ -1,34 +1,34 @@
 # Design tools technical documentation
 
-Otter framework exposes a set of tools to optimize the interactions between the designers and the developers.
-The purpose of these tools is to reduce the steps between the design of the solution and the integration to the applications.
+The Otter framework exposes a set of tools to optimize the interactions between graphic designers and developers.
+The purpose of these tools is to reduce the steps between the design of the solution and its integration into the application via the use of Design Tokens.
 
 ## Design Token
 
-The [Design Token specification](https://design-tokens.github.io/community-group/format/) define a dialog format between the design tools (such as [Figma](https://www.figma.com)) and a style language (CSS , Sass, Less, etc...).
-The Otter Framework provides **Builder**, **Schematic** and **Command Line Interface** to generate CSS Variable and/or Sass Variable, based on the inputted Design Token files.
+The [Design Token specification](https://design-tokens.github.io/community-group/format/) defines an interface between design tools (such as [Figma](https://www.figma.com)) and a style language (CSS , Sass, Less, etc...).
+The Otter Framework can help you translate a Design Token file into CSS and/or Sass variables thanks to the provided **Builders**, **Schematics** and **Command Line Interfaces**.
 
 ### Global architecture of the Parser and Renderer
 
-The Design Token code generator tool is technically split in two main features :
+The Design Token code generator tool is split into two main technical features:
 
-- The **parsers** that will parse and decode the Design Token Specification.
-- The **renderers** that will generate the output (mainly code) based on the decoded Design Token Specification.
+- The **parsers** that will parse and decode the Design Token specification.
+- The **renderers** that will generate the output (mainly code) based on the decoded Design Token specification.
 
 Both of these features can be customized at different levels. They can be customized thanks to parameters exposed by parsers and renderers **factory functions**, or they can be completely re-implemented and injected into the Design Token Code generator.
 
 ### Parsers
 
 Currently the [o3r/design](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design) package provides only a single [parser](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/design/src/core/design-token/parsers).
-This parser handle the Design Token Specification as JSON file (or loaded object resulting of a parsing of the JSON file) and result to an object facilitating the tree navigation and the final value calculation to the renderers.
+This parser handles Design Token specifications (as a JSON file or a loaded object resulting from the parsing of a JSON file) to generate an object facilitating the tree navigation and the value computed by the renderers.
 
 ### Renderers
 
-The package is exposing 3 renderers:
+The package exposes 3 renderers:
 
-- **CSS** Renderer generating CSS Variables according to the specification *(default renderer)*
-- **Sass** Renderer generating Sass Variables according to the specification
-- **Metadata** renderer that will create the metadata file compatible with the Otter CMS solution.
+- **CSS** renderer generating CSS variables according to the specification *(default renderer)*
+- **Sass** renderer generating Sass variables according to the specification
+- **Metadata** renderer creating the [style metadata](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/styling/schemas/style.metadata.schema.json) file compatible with the Otter CMS solution
 
 ### Example of Code Generator usage
 
@@ -39,46 +39,46 @@ import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
 
 (async () => {
 
-  /** List of Design Token item parsed */
+  /** List of parsed Design Token items*/
   const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
 
-  // Render the CSS Variable
+  // Render the CSS variables
   await renderDesignTokens(parsedTokenDesign, { logger: console });
 
 })();
 ```
 
-##### Example: CSS Renderer with Sass Fallback
+##### Example: CSS renderer with Sass fallback
 
 ```typescript
 import { getCssTokenDefinitionRenderer, getSassTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
 
 (async () => {
 
-  /** List of Design Token item parsed */
+  /** List of parsed Design Token items */
   const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
 
-  /** Sass Variable Renderer */
+  /** Sass variable renderer */
   const sassTokenDefinitionRenderer = getSassTokenDefinitionRenderer();
 
-  /** CSS Variable Renderer */
+  /** CSS variable renderer */
   const cssTokenDefinitionRenderer = getCssTokenDefinitionRenderer({
     // Specify that the private variable should be rendered in Sass variable
     privateDefinitionRenderer: sassTokenDefinitionRenderer
   });
 
-  // Render the CSS Variable
+  // Render the CSS variables
   await renderDesignTokens(parsedTokenDesign, { tokenDefinitionRenderer: cssTokenDefinitionRenderer });
 
 })();
 ```
 
-##### Example: Implement a Less Renderer
+##### Example: Implement a Less renderer
 
 ```typescript
 import { getCssTokenDefinitionRenderer, getSassTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
 
-/** Option of the Less variable renderer */
+/** Options of the Less variable renderer */
 interface LessTokenDefinitionRendererOptions {
   isPrivateVariable?: (variable: DesignTokenVariableStructure) => boolean;
   tokenValueRenderer?: TokenValueRenderer;
@@ -97,13 +97,13 @@ const getLessTokenDefinitionRenderer = (options?: LessTokenDefinitionRendererOpt
 
 (async () => {
 
-  /** List of Design Token item parsed */
+  /** List of parsed Design Token items */
   const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
 
-  /** Less Variable Renderer */
+  /** Less variable renderer */
   const lessTokenDefinitionRenderer = getLessTokenDefinitionRenderer();
 
-  // Render the CSS Variable
+  // Render the CSS variables
   await renderDesignTokens(parsedTokenDesign, { tokenDefinitionRenderer: lessTokenDefinitionRenderer });
 
 })();
@@ -126,13 +126,13 @@ const getCustomMetadataTokenValueRenderer = (options?: MetadataTokenValueRendere
 
 (async () => {
 
-  /** List of Design Token item parsed */
+  /** List of parsed Design Token items */
   const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
 
   /** Renderer of the token */
   const tokenValueRenderer = getCustomMetadataTokenValueRenderer();
 
-  /** Metadata Variable Renderer */
+  /** Metadata variable renderer */
   const metadataTokenDefinitionRenderer = getMetadataTokenDefinitionRenderer({ tokenValueRenderer });
 
   // Render the Metadata file

@@ -16,7 +16,6 @@ interface MetadataTokenDefinitionRendererOptions {
 /**
  * Retrieve the Design Token Variable renderer for Metadata
  * @param options
- * @returns
  * @example Customize metadata renderer
  * ```typescript
  * const getCustomMetadataTokenValueRenderer = (options?: MetadataTokenValueRendererOptions): TokenValueRenderer => {
@@ -30,12 +29,10 @@ interface MetadataTokenDefinitionRendererOptions {
  * };
  *
  * // List of Design Token item parsed
- * const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
+ * // List of parsed Design Token items
  *
- * // Renderer of the token
  * const tokenValueRenderer = getCustomMetadataTokenValueRenderer();
  *
- * // Metadata Variable Renderer
  * const metadataTokenDefinitionRenderer = getMetadataTokenDefinitionRenderer({ tokenValueRenderer });
  *
  * // Render the Metadata file
