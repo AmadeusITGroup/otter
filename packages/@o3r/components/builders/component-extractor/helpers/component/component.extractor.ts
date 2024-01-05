@@ -5,7 +5,7 @@ import type {
   ComponentOutput,
   ComponentStructure, ConfigProperty, PlaceholdersMetadata
 } from '@o3r/components';
-import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
+import { CmsMetadataData, getLibraryCmsMetadata } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -20,7 +20,7 @@ import { ParserOutput } from './component.parser';
 export class ComponentExtractor {
 
   /** List of libraries to extract component metadata from */
-  private readonly libraries: CmsMedataData[];
+  private readonly libraries: CmsMetadataData[];
 
   /** List of loaded libraries configurations */
   private libConfigurations?: ComponentConfigOutput[][];
