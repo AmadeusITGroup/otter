@@ -4,11 +4,5 @@ const getJestConfig = require('../../../jest.config.ut').getJestConfig;
 module.exports = {
   ...getJestConfig(__dirname, false),
   displayName: require('./package.json').name,
-  clearMocks: true,
-  setupFilesAfterEnv: null,
-  testPathIgnorePatterns: [
-    '<rootDir>/dist',
-    '<rootDir>/.*/templates/.*',
-    '\\.it\\.spec\\.ts$'
-  ]
+  clearMocks: true
 };

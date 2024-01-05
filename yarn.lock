@@ -7031,9 +7031,11 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
+    minimatch: "npm:~9.0.3"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
     rxjs: "npm:^7.8.1"
+    sass: "npm:~1.69.5"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
@@ -7046,6 +7048,8 @@ __metadata:
     "@o3r/styling": "workspace:^"
     chokidar: ^3.5.2
     globby: ^11.1.0
+    minimatch: ~9.0.3
+    sass: ~1.69.0
   peerDependenciesMeta:
     "@o3r/core":
       optional: true
@@ -7056,6 +7060,8 @@ __metadata:
     chokidar:
       optional: true
     globby:
+      optional: true
+    sass:
       optional: true
   bin:
     o3r-css-from-design-token: ./dist/cli/generate-css-from-design-token.cli.cjs

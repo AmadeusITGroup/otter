@@ -129,7 +129,7 @@ describe('Design Token generator', () => {
 
     test('should render private variable to sass if requested', async () => {
       let result: string | undefined;
-      const expectedSassVar = '$_exampleTestHeight: 2.3;';
+      const expectedSassVar = '$exampleTestHeight: 2.3;';
       const writeFile = jest.fn().mockImplementation((_, content) => result = content);
       const readFile = jest.fn().mockReturnValue('');
       const existsFile = jest.fn().mockReturnValue(true);

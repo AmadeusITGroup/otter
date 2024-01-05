@@ -1,7 +1,8 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
 import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 
-interface CssTokenValueRendererOptions {
+/** Options for {@link getCssTokenValueRenderer} */
+export interface CssTokenValueRendererOptions {
   /**
    * Determine if the variable is private and should not be rendered
    * @default {@see isO3rPrivateVariable}

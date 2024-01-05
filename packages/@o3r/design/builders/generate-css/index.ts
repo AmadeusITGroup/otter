@@ -1,6 +1,14 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { getCssTokenDefinitionRenderer, getMetadataStyleContentUpdater, getMetadataTokenDefinitionRenderer, parseDesignTokenFile, renderDesignTokens } from '../../src/public_api';
+import {
+  getCssTokenDefinitionRenderer,
+  getMetadataStyleContentUpdater,
+  getMetadataTokenDefinitionRenderer,
+  getSassTokenDefinitionRenderer,
+  parseDesignTokenFile,
+  renderDesignTokens,
+  tokenVariableNameSassRenderer
+} from '../../src/public_api';
 import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
@@ -22,11 +30,16 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       return resolve(context.workspaceRoot, options.defaultStyleFile);
     };
   const tokenVariableNameRenderer: TokenKeyRenderer | undefined = options.prefix ? (variable) => options.prefix + variable.getKey() : undefined;
+  const sassRenderer = getSassTokenDefinitionRenderer({ tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v) });
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
     determineFileToUpdate: determineCssFileToUpdate,
-    tokenDefinitionRenderer: getCssTokenDefinitionRenderer({ tokenVariableNameRenderer }),
+    tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
+      tokenVariableNameRenderer: options.prefix ? (variable) => options.prefix + variable.getKey() : undefined,
+      privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined
+    }),
     logger: context.logger
   };
+
   const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),

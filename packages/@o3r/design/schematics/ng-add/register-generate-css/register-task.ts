@@ -1,6 +1,6 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
 import { getWorkspaceConfig, registerBuilder } from '@o3r/schematics';
-import type { GenerateCssSchematicsSchema } from '../../generate-css/schema';
+import type { GenerateCssSchematicsSchema } from '../../../builders/generate-css/schema';
 import { posix } from 'node:path';
 
 /**
@@ -15,7 +15,11 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const themeFile = posix.resolve(srcBasePath, 'style', 'theme.scss');
     const taskParameters: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
-      designTokenFilePatterns: `${posix.resolve(srcBasePath, 'style', '*.json')}`
+      renderPrivateVariableTo: 'sass',
+      designTokenFilePatterns: [
+        `${posix.resolve(srcBasePath, 'style', '*.json')}`,
+        `${posix.resolve(srcBasePath, '**', '*.theme.json')}`
+      ]
     };
     if (!workspaceProject) {
       logger.warn(`No angular.json found, the task ${taskName} will not be created`);

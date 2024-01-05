@@ -3,7 +3,8 @@ import type { TokenDefinitionRenderer } from '../design-token.renderer.interface
 import { getMetadataTokenValueRenderer } from './design-token-value.renderers';
 import type { CssVariable } from '@o3r/styling';
 
-interface MetadataTokenDefinitionRendererOptions {
+/** Options for {@link getMetadataTokenDefinitionRenderer} */
+export interface MetadataTokenDefinitionRendererOptions {
   /** Custom Design Token value renderer */
   tokenValueRenderer?: TokenValueRenderer;
 

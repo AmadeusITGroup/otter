@@ -50,7 +50,9 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "chokidar": "^3.5.2",
-    "globby": "^11.1.0"
+    "globby": "^11.1.0",
+    "minimatch": "~9.0.3",
+    "sass": "~1.69.0"
   },
   "peerDependenciesMeta": {
     "@o3r/core": {
@@ -66,6 +68,9 @@
       "optional": true
     },
     "globby": {
+      "optional": true
+    },
+    "sass": {
       "optional": true
     }
   },
@@ -115,8 +120,10 @@
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "jsonschema": "~1.4.1",
+    "minimatch": "~9.0.3",
     "nx": "~17.1.1",
     "rxjs": "^7.8.1",
+    "sass": "~1.69.5",
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
     "type-fest": "^4.3.1",

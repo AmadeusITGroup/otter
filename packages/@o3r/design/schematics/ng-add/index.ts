@@ -1,5 +1,6 @@
-import type { Rule } from '@angular-devkit/schematics';
+import { chain, type Rule } from '@angular-devkit/schematics';
 import { registerGenerateCssBuilder } from './register-generate-css';
+import { extractToken } from '../ extract-token';
 
 /**
  * Add Otter design to an Angular Project
@@ -7,5 +8,8 @@ import { registerGenerateCssBuilder } from './register-generate-css';
  */
 export function ngAdd(): Rule {
   /* ng add rules */
-  return registerGenerateCssBuilder();
+  return chain([
+    registerGenerateCssBuilder(),
+    extractToken({ componentFilePatterns: ['**/*.scss'], includeTags: true })
+  ]);
 }

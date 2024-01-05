@@ -1,13 +1,18 @@
 import type { DesignContentFileUpdater } from '../design-token.renderer.interface';
 
-const AUTO_GENERATED_START = '/* --- BEGIN THEME Auto-generated --- */';
-const AUTO_GENERATED_END = '/* --- END THEME Auto-generated --- */';
 const SANITIZE_TAG_INPUTS_REGEXP = /[.*+?^${}()|[\]\\]/g;
 
 const generateVars = (variables: string[], startTag: string, endTag: string, addCssScope = false) =>
   `${addCssScope ? ':root {\n' : ''}${startTag}\n${variables.join('\n')}\n${endTag}${addCssScope ? '\n}' : ''}`;
 
-interface CssStyleContentUpdaterOptions {
+/** Default CSS starting tag */
+export const AUTO_GENERATED_START = '/* --- BEGIN THEME Auto-generated --- */';
+
+/** Default CSS ending tag */
+export const AUTO_GENERATED_END = '/* --- END THEME Auto-generated --- */';
+
+/** Options for {@link getCssStyleContentUpdater} */
+export interface CssStyleContentUpdaterOptions {
   /**
    * Opening tag marking the content edition part
    * @default {@see AUTO_GENERATED_START}

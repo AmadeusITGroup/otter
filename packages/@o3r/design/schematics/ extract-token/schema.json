@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ngAddSchematicsSchema",
+  "title": "Extract Design Token From Sass",
+  "description": "Extract Design Token From Sass o3r variable helpers",
+  "properties": {
+    "includeTags": {
+      "description": "Include the tags in the original Sass file",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "startTag": {
+              "type": "string"
+            },
+            "endTag": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "startTag",
+            "endTag"
+          ]
+        }
+      ],
+      "default": true
+    },
+    "componentFilePatterns": {
+      "description": "List of file pattern of component theme files",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "componentFilePattern"
+  ]
+}
