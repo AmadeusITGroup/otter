@@ -1,5 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { CmsMedataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { CmsMetadataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
 import { isO3rClassComponent } from '@o3r/schematics';
 import type { CssMetadata } from '@o3r/styling';
 import * as chokidar from 'chokidar';
@@ -181,7 +181,7 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
       variables: {}
     };
     /** List of library metadata files */
-    const metadataFiles: CmsMedataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
+    const metadataFiles: CmsMetadataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
     const libMetadataFiles = metadataFiles
       .filter(({ styleFilePath }) => !!styleFilePath)
       .map(({ styleFilePath }) => styleFilePath!.replace(/[\\/]/g, '/'));

@@ -2,7 +2,7 @@ import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { DeclarationReflection, ReferenceType } from 'typedoc';
-import type { CmsMedataData, DocumentationNode } from '../interfaces';
+import type { CmsMetadataData, DocumentationNode } from '../interfaces';
 
 /**
  * Check if a component implements an interface given as a parameter
@@ -91,7 +91,7 @@ export function getLibraryCmsMetadataFileNames(modulePath: string) {
  */
 export function getLibraryCmsMetadata(libraryName: string, executionDir: string = process.cwd()) {
   const modulePath = getLibraryModulePath(libraryName, executionDir);
-  const cmsMetadata = getLibraryCmsMetadataFileNames(modulePath) as CmsMedataData;
+  const cmsMetadata = getLibraryCmsMetadataFileNames(modulePath) as CmsMetadataData;
   return {
     componentFilePath: cmsMetadata.componentFilePath && path.join(modulePath, cmsMetadata.componentFilePath),
     configurationFilePath: cmsMetadata.configurationFilePath && path.join(modulePath, cmsMetadata.configurationFilePath),
@@ -100,5 +100,5 @@ export function getLibraryCmsMetadata(libraryName: string, executionDir: string 
     rulesEngineFactsFilePath: cmsMetadata.rulesEngineFactsFilePath && path.join(modulePath, cmsMetadata.rulesEngineFactsFilePath),
     rulesEngineOperatorsFilePath: cmsMetadata.rulesEngineOperatorsFilePath && path.join(modulePath, cmsMetadata.rulesEngineOperatorsFilePath),
     libraryName
-  } as CmsMedataData;
+  } as CmsMetadataData;
 }
