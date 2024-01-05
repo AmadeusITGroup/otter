@@ -9,7 +9,7 @@ describe('Design Token Parser', () => {
 
   beforeAll(async () => {
     const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
-    exampleVariable = JSON.parse(file);
+    exampleVariable = {document: JSON.parse(file)};
   });
 
   describe('parseDesignToken', () => {
@@ -55,7 +55,7 @@ describe('Design Token Parser', () => {
       expect(result.size).toBe(0);
       expect(parseDesignToken).toHaveBeenCalledTimes(1);
       expect(readFile).toHaveBeenCalledTimes(1);
-      expect(parseDesignToken).toHaveBeenCalledWith({ test: { $value: '#000', $type: 'color' } });
+      expect(parseDesignToken).toHaveBeenCalledWith({context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
     });
 
     test('should throw if invalid JSON Token', async () => {

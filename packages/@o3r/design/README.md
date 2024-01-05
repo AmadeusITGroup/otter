@@ -45,3 +45,7 @@ The following configurations are available:
 | **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
 | **prefix**                  | *null*         | Prefix to append to generated variables.                                                                                             |
 | **watch**                   | false          | Enable Watch mode.                                                                                                                   |
+
+## Technical documentation
+
+Documentation providing explanations on the use and customization of the `Design Token` parser and renderers is available in the [technical documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md).

@@ -6,22 +6,32 @@ import { isAbsolute, resolve } from 'node:path';
 import type { DesignTokenRendererOptions } from './design-token.renderer.interface';
 
 /**
- * Retrieve the function determining what is the file to update for a given token
- * @param root Root path
+ * Retrieve the function that determines which file to update for a given token
+ * @param root Root path used if no base path
  * @param defaultFile Default file if not requested by the Token
  */
 export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'styles.scss') => (token: DesignTokenVariableStructure) => {
   if (token.extensions.o3rTargetFile) {
-    return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(root, token.extensions.o3rTargetFile);
+    return isAbsolute(token.extensions.o3rTargetFile) ? token.extensions.o3rTargetFile : resolve(token.context?.basePath || root, token.extensions.o3rTargetFile);
   }
 
   return defaultFile;
 };
 
 /**
- * Process the parsed Design Token variables and render then according to the given options and renderers
+ * Process the parsed Design Token variables and render them according to the given options and renderers
  * @param variableSet Complete list of the parsed Design Token
- * @param options Parameters of the Design Token Renderer
+ * @param options Parameters of the Design Token renderer
+ * @example Basic renderer usage
+ * ```typescript
+ * import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
+ *
+ * // List of parsed Design Token items
+ * const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
+ *
+ * // Render the CSS variables
+ * await renderDesignTokens(parsedTokenDesign, { logger: console });
+ * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
   const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf-8'}));

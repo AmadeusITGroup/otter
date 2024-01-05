@@ -16,7 +16,28 @@ interface MetadataTokenDefinitionRendererOptions {
 /**
  * Retrieve the Design Token Variable renderer for Metadata
  * @param options
- * @returns
+ * @example Customize metadata renderer
+ * ```typescript
+ * const getCustomMetadataTokenValueRenderer = (options?: MetadataTokenValueRendererOptions): TokenValueRenderer => {
+ *   const defaultMetadataRender = getMetadataTokenValueRenderer(options);
+ *   return  (variable, variableSet) => {
+ *     const defaultMetadataObj = JSON.parse(defaultMetadataRender(variable, variableSet));
+ *     // Add custom field
+ *     defaultMetadataObj.myField = 'custom value';
+ *     return JSON.stringify(defaultMetadataObj);
+ *   };
+ * };
+ *
+ * // List of Design Token item parsed
+ * // List of parsed Design Token items
+ *
+ * const tokenValueRenderer = getCustomMetadataTokenValueRenderer();
+ *
+ * const metadataTokenDefinitionRenderer = getMetadataTokenDefinitionRenderer({ tokenValueRenderer });
+ *
+ * // Render the Metadata file
+ * await renderDesignTokens(parsedTokenDesign, { tokenDefinitionRenderer: lessTokenDefinitionRenderer });
+ * ```
  */
 export const getMetadataTokenDefinitionRenderer = (options?: MetadataTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
