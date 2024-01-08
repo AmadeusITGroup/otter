@@ -5,12 +5,14 @@
   "keywords": [
     "github"
   ],
+  "main": "github-cascading/index.js",
   "scripts": {
     "build": "tsc -b ./tsconfig.build.json && yarn cpy 'src/**/templates/**' dist/ && node ./scripts/prepare-azure-function.mjs",
     "start": "probot run ./dist/app.js",
     "test": "jest"
   },
   "dependencies": {
+    "@azure/functions": "^4.1.0",
     "ejs": "^3.1.9",
     "probot": "^12.3.1",
     "semver": "^7.5.2",
@@ -29,7 +31,6 @@
     "@angular/core": "~17.0.4",
     "@angular/platform-browser": "~17.0.4",
     "@angular/platform-browser-dynamic": "~17.0.4",
-    "@azure/functions": "^3.5.1",
     "@nx/eslint": "~17.2.0",
     "@nx/eslint-plugin": "~17.2.0",
     "@nx/jest": "~17.2.0",
