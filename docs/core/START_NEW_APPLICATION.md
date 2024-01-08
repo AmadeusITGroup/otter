@@ -45,7 +45,7 @@ export class AppModule { }
 ```
 
 You will also find recommendations for your application such accessibility configuration like the
-[Application Reduced Motion](docs/application/REDUCED_MOTION.md)
+[Application Reduced Motion](../application/REDUCED_MOTION.md)
 
 It will also update your ``angular.json`` with the feature enabled for your project. This will configure the different generators
 to create components and services consistent with your project.

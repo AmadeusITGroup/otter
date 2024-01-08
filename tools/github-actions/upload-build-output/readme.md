@@ -8,7 +8,7 @@ You can then use the download build output action for the download (check [Downl
 
 ## Task options
 
-See [Action specifications](tools/github-actions/upload-build-output/action.yml) directly for more information about the supported parameters.
+See [Action specifications](./action.yml) directly for more information about the supported parameters.
 
 ## Usage example
 

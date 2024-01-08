@@ -19,7 +19,7 @@ Localization module is built on top of an open source [ngx-translate](https://gi
 
 - Fallback language. In case some resource key does not exist in language X, the loader tries to fetch translation bundle from the endpoint location in fallback language Y in the first place and ends by loading json bundles from the application (root of dist folder **/** by default) if previous steps have failed (bundles output path in dist folder is also configurable via a shell option).
 
-- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts).
+- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.service.ts).
 
 - Support for resource keys with parameters
 
@@ -29,7 +29,7 @@ Localization module is built on top of an open source [ngx-translate](https://gi
 
 - Intelligent fallback support. For any un-supported language request, localization service fallback to fallback locale map language OR first nearest supported language. More information in the `intelligent fallback` section below.
 
-- Ability to toggle translations on and off to help identify the key corresponding to a translation. 
+- Ability to toggle translations on and off to help identify the key corresponding to a translation.
 
 # How to use
 
@@ -407,7 +407,7 @@ import {
   LazyMessageFormatConfig,
   LocalizationModule,
   translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler 
+  TranslateMessageFormatLazyCompiler
 } from  "@o3r/localization";
 import { TranslateModule } from  "@ngx-translate/core";
 import { MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler';
@@ -446,8 +446,8 @@ class AppModule {}
 
 ### How to localize plural expression
 
-For pluralizations, we are using _TranslateMessageFormatCompiler_, coming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for _ngx-translate_ that uses _messageformat.js_ to compile translations using ICU syntax for handling pluralization and gender.  
-[ICU Message Format](http://userguide.icu-project.org/formatparse/messages) is a standardized syntax for dealing with the translation of user-visible strings into various languages that may have different requirements for the correct declension of words (e.g. according to number, gender, case) - or to simplify: pluralization.  
+For pluralizations, we are using _TranslateMessageFormatCompiler_, coming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for _ngx-translate_ that uses _messageformat.js_ to compile translations using ICU syntax for handling pluralization and gender.
+[ICU Message Format](http://userguide.icu-project.org/formatparse/messages) is a standardized syntax for dealing with the translation of user-visible strings into various languages that may have different requirements for the correct declension of words (e.g. according to number, gender, case) - or to simplify: pluralization.
 Simple pluralization rules like _0, 1 or other_ fits well for English but may not fit for many other languages (Eastern Europe languages, Asiatic languages) where pluralization rules are much more complex. If this does not fit your requirement we recommend to reformulate your text, so that you do not need to use pluralization. Example: instead of saying 'You have added 2 baggages' you may want to say 'Pieces of baggage: 2' which should be fine for most languages no matter which number is considered to be plural.
 
 #### Integration with ngx-translate
@@ -492,7 +492,7 @@ import {MESSAGE_FORMAT_CONFIG} from 'ngx-translate-messageformat-compiler';
 ```
 The value of _translations.nbOfErrors_ is the translation key 'o3r-list-inline-messages-pres.nbOfErrors'. The next step translates the key passing some parameters to translate pipe.
 __Output__
-The output will be 
+The output will be
 - _No errors_ if _countMessages_ is 0
 - _1 error_ if _countMessages_ is 1
 - _'Value of count messages' errors_ if _countMessages_ is greater than 1 (ex: 10 Errors)
@@ -508,7 +508,7 @@ Sometimes you may want to display a different resource based on some property va
 ```
 
 ```typescript
-// in component html 
+// in component html
 <ul>
   <li>{{ translations.people | translate: { gender: 'female', how: 'influential' } }}</li>
   <li>{{ translations.people | translate: { gender: 'male', how: 'funny' } }}</li>
@@ -519,22 +519,22 @@ Note again that _translations.people_ matches _global.people_ key
 
 __Output__
 ```
-- She is influential  
-- He is funny  
-- They are affectionate  
+- She is influential
+- He is funny
+- They are affectionate
 ```
 
 # Debugging
 
 ## Runtime: toggle translation on and off
 
-In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at __runtime__.  
+In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at __runtime__.
 While deactivated, the ``translate`` __pipe__ and __directive__ will output the translation keys instead of their resolved values.
 
 > __Important__: this mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
 
-First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.  
-This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.  
+First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.
+This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.
 Not enabling it allows to avoid all those subscriptions, and should be the baseline for a production environment.
 
 Example:

@@ -29,25 +29,25 @@ application/components.
 ### Component config types
 
 ```
-        
+
     store config
         │                                                               Input config
-        │                                                               (from parent)                                    
+        │                                                               (from parent)
         │                   Component default config                          │
         │                      (in config.ts file)                            │
         │                               │                                     │
         │       overrides               │                                     │
         └──────────────────────────────>│                                     │
-                                        │                                     │ 
+                                        │                                     │
     global config                       │                                     │
-  (no common props)                     │                                     │ 
-        │                               │                                     │ 
-        │                               │                                     │   
-        │       merge                   │                                     │ 
+  (no common props)                     │                                     │
+        │                               │                                     │
+        │                               │                                     │
+        │       merge                   │                                     │
         └──────────────────────────────>│                                     │
                                         │                                     │
-                                        │                                     │ 
-                                        │           overrides                 │  
+                                        │                                     │
+                                        │           overrides                 │
                                         │<────────────────────────────────────
                                         │
                                         ↓
@@ -102,4 +102,4 @@ Otter framework provides a set of code generators based on [angular schematics](
 
 ## More details
 
-Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/configuraiton/OVERVIEW.md).
+Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md).

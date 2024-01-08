@@ -41,7 +41,7 @@ yarn yo ./node_modules/@ama-sdk/generator-sdk/src/generators/dart-core --swagger
 ```
 
 For more details please check:
-[Dart generator doc](packages/@ama-sdk/generator-sdk/src/generators/dart-core/templates/swagger-codegen-dart/README.md)
+[Dart generator doc](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/generator-sdk/src/generators/dart-core/templates/swagger-codegen-dart/README.md)
 
 
 ### Java Resteasy client SDK
@@ -53,5 +53,5 @@ yarn yo ./node_modules/@ama-sdk/generator-sdk/src/generators/java-client-core --
 ```
 
 For more details please check:
-[Java resteasy client generator doc](packages/@ama-sdk/generator-sdk/src/generators/java-resteasy-client-core/templates/swagger-codegen-java-resteasy-client/README.md)
+[Java resteasy client generator doc](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/generator-sdk/src/generators/java-resteasy-client-core/templates/swagger-codegen-java-resteasy-client/README.md)
 

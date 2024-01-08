@@ -29,7 +29,7 @@ ng add @o3r/localization
 
 - Fallback language. In case some resource key does not exist in language X, the loader tries to fetch translation bundle from the endpoint location in fallback language Y in the first place and ends by loading json bundles from the application (root of dist folder **/** by default) if previous steps have failed (bundles output path in dist folder is also configurable via a shell option).
 
-- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts).
+- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.service.ts).
 
 - Support for resource keys with parameters
 
@@ -399,7 +399,7 @@ import {
   LazyMessageFormatConfig,
   LocalizationModule,
   translateLoaderProvider,
-  TranslateMessageFormatLazyCompiler 
+  TranslateMessageFormatLazyCompiler
 } from  "@o3r/localization";
 import { TranslateModule } from  "@ngx-translate/core";
 import { MESSAGE_FORMAT_CONFIG } from 'ngx-translate-messageformat-compiler';
@@ -439,8 +439,8 @@ class AppModule {}
 
 ### How to localize plural expression
 
-For pluralizations we are using *TranslateMessageFormatCompiler*, comming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for *ngx-translate* that uses *messageformat.js* to compile translations using ICU syntax for handling pluralization and gender.  
-[ICU Message Format](http://userguide.icu-project.org/formatparse/messages) is a standardized syntax for dealing with the translation of user-visible strings into various languages that may have different requirements for the correct declension of words (e.g. according to number, gender, case) - or to simplify: pluralization.  
+For pluralizations we are using *TranslateMessageFormatCompiler*, comming from [ngx-translate-messageformat-compiler](https://www.npmjs.com/package/ngx-translate-messageformat-compiler) package, which is a compiler for *ngx-translate* that uses *messageformat.js* to compile translations using ICU syntax for handling pluralization and gender.
+[ICU Message Format](http://userguide.icu-project.org/formatparse/messages) is a standardized syntax for dealing with the translation of user-visible strings into various languages that may have different requirements for the correct declension of words (e.g. according to number, gender, case) - or to simplify: pluralization.
 Simple pluralization rules like *0, 1 or other* fits well for English but may not fit for many other languages (eastern Europe languages, asiatic languages) where pluralization rules are much more complex. If this does not fit your requirement we recommend to reformulate your text, so that you do not need to use pluralization. Example: instead of saying 'You have added 2 baggages' you may want to say 'Pieces of baggage: 2' which should be fine for most of languages no matter which number is considered to be plural.
 
 #### Integration with ngx-translate
@@ -504,7 +504,7 @@ Sometimes you may want to display a different resource based on some property va
 ```
 
 ```typescript
-// in component html 
+// in component html
 <ul>
   <li>{{ translations.people | translate: { gender: 'female', how: 'influential' } }}</li>
   <li>{{ translations.people | translate: { gender: 'male', how: 'funny' } }}</li>
@@ -517,22 +517,22 @@ Note again that *translations.people* matches *global.people* key
 **Output**
 
 ```
-- She is influential  
-- He is funny  
-- They are affectionate  
+- She is influential
+- He is funny
+- They are affectionate
 ```
 
 ## Debugging
 
 ### Runtime: toggle translation on and off
 
-In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at **runtime**.  
+In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at **runtime**.
 While deactivated, the ``translate`` **pipe** and **directive** will output the translation keys instead of their resolved values.
 
 > **Important**: this mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
 
-First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.  
-This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.  
+First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.
+This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.
 Not enabling it allows to avoid all those subscriptions, and should be the baseline for a production environment.
 
 Example:
