@@ -104,9 +104,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -190,9 +190,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -242,9 +242,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -314,9 +314,9 @@ __metadata:
     chokidar: "npm:^3.5.2"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     husky: "npm:~8.0.3"
     isomorphic-fetch: "npm:~3.0.0"
@@ -365,9 +365,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -417,9 +417,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -427,7 +427,7 @@ __metadata:
     loglevel: "npm:^1.8.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
-    ora: "npm:~7.0.1"
+    ora: "npm:~8.0.0"
     progress: "npm:^2.0.3"
     prompts: "npm:^2.4.2"
     ts-jest: "npm:~29.1.1"
@@ -475,9 +475,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -513,9 +513,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -6071,9 +6071,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
@@ -6105,9 +6105,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -6142,9 +6142,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
@@ -6180,9 +6180,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
@@ -6234,9 +6234,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -6312,9 +6312,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -6384,9 +6384,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -6445,9 +6445,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     fs-extra: "npm:^11.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -6489,9 +6489,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     nx: "npm:~17.1.1"
@@ -6518,9 +6518,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^14.0.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~17.1.1"
@@ -6591,15 +6591,15 @@ __metadata:
     bootstrap: "npm:5.2.0"
     bootstrap-icons: "npm:^1.10.5"
     chokidar: "npm:^3.5.2"
-    chrome-webstore-upload: "npm:^2.0.0"
+    chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^8.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -6664,9 +6664,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -6782,9 +6782,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -6874,9 +6874,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -6963,9 +6963,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -7023,9 +7023,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7095,9 +7095,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     form-data: "npm:^4.0.0"
     fs-extra: "npm:^11.0.0"
     globby: "npm:^11.1.0"
@@ -7173,9 +7173,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7233,9 +7233,9 @@ __metadata:
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jasmine: "npm:^4.1.3"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~17.1.1"
     typescript: "npm:~5.2.2"
@@ -7255,9 +7255,9 @@ __metadata:
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^27.2.1
-    eslint-plugin-jsdoc: ~46.9.0
+    eslint-plugin-jsdoc: ~48.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
-    eslint-plugin-unicorn: ^49.0.0
+    eslint-plugin-unicorn: ^50.0.0
     typescript: ~5.2.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -7308,9 +7308,9 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7378,9 +7378,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     intl-messageformat: "npm:~10.5.1"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -7449,9 +7449,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7551,9 +7551,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     highlight.js: "npm:^11.8.0"
     husky: "npm:~8.0.3"
@@ -7641,9 +7641,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7707,9 +7707,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     intl-messageformat: "npm:~10.5.1"
     isomorphic-fetch: "npm:~3.0.0"
@@ -7807,9 +7807,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7893,9 +7893,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     fast-deep-equal: "npm:^3.1.3"
     form-data: "npm:^4.0.0"
     jest: "npm:~29.7.0"
@@ -7980,9 +7980,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -8061,9 +8061,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -8165,9 +8165,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -8270,9 +8270,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     highlight.js: "npm:^11.8.0"
     intl-messageformat: "npm:~10.5.1"
@@ -8329,9 +8329,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     fast-deep-equal: "npm:^3.1.3"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -8413,9 +8413,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -8478,9 +8478,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -8542,9 +8542,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -8625,9 +8625,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -8705,9 +8705,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -8810,9 +8810,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -8884,9 +8884,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -10305,13 +10305,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sindresorhus/is@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "@sindresorhus/is@npm:6.1.0"
-  checksum: e15c4abdca53a938e177d70c4e0562234a7ae32fa7c09ca318919d6ad28aa4ba68f58bd5339c3c38f2e912d40a201df169b9ed84579f2ef6f25d9da2d7b05334
-  languageName: node
-  linkType: hard
-
 "@sindresorhus/merge-streams@npm:^1.0.0":
   version: 1.0.0
   resolution: "@sindresorhus/merge-streams@npm:1.0.0"
@@ -11092,15 +11085,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@szmarczak/http-timer@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "@szmarczak/http-timer@npm:5.0.1"
-  dependencies:
-    defer-to-connect: "npm:^2.0.1"
-  checksum: fc9cb993e808806692e4a3337c90ece0ec00c89f4b67e3652a356b89730da98bc824273a6d67ca84d5f33cd85f317dcd5ce39d8cc0a2f060145a608a7cb8ce92
-  languageName: node
-  linkType: hard
-
 "@thednp/event-listener@npm:^2.0.4":
   version: 2.0.4
   resolution: "@thednp/event-listener@npm:2.0.4"
@@ -11519,7 +11503,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/http-cache-semantics@npm:*, @types/http-cache-semantics@npm:^4.0.2":
+"@types/http-cache-semantics@npm:*":
   version: 4.0.4
   resolution: "@types/http-cache-semantics@npm:4.0.4"
   checksum: a59566cff646025a5de396d6b3f44a39ab6a74f2ed8150692e0f31cc52f3661a68b04afe3166ebe0d566bd3259cb18522f46e949576d5204781cd6452b7fe0c5
@@ -13634,9 +13618,9 @@ __metadata:
     audit-types: "npm:~0.5.6"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     typescript: "npm:~5.2.2"
   languageName: unknown
@@ -14074,17 +14058,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bl@npm:^5.0.0":
-  version: 5.1.0
-  resolution: "bl@npm:5.1.0"
-  dependencies:
-    buffer: "npm:^6.0.3"
-    inherits: "npm:^2.0.4"
-    readable-stream: "npm:^3.4.0"
-  checksum: 0340d3d70def4213cd9cbcd8592f7c5922d3668e7b231286c354613fac4a8411ad373cff26e06162da7423035bbd5caafce3e140a5f397be72fcd1e9d86f1179
-  languageName: node
-  linkType: hard
-
 "blocking-proxy@npm:^1.0.0":
   version: 1.0.1
   resolution: "blocking-proxy@npm:1.0.1"
@@ -14442,16 +14415,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^6.0.3":
-  version: 6.0.3
-  resolution: "buffer@npm:6.0.3"
-  dependencies:
-    base64-js: "npm:^1.3.1"
-    ieee754: "npm:^1.2.1"
-  checksum: b6bc68237ebf29bdacae48ce60e5e28fc53ae886301f2ad9496618efac49427ed79096750033e7eab1897a4f26ae374ace49106a5758f38fb70c78c9fda2c3b1
-  languageName: node
-  linkType: hard
-
 "builtin-modules@npm:^3.3.0":
   version: 3.3.0
   resolution: "builtin-modules@npm:3.3.0"
@@ -14506,28 +14469,6 @@ __metadata:
   version: 5.0.4
   resolution: "cacheable-lookup@npm:5.0.4"
   checksum: 618a8b3eea314060e74cb3285a6154e8343c244a34235acf91cfe626ee0705c24e3cd11e4b1a7b3900bd749ee203ae65afe13adf610c8ab173e99d4a208faf75
-  languageName: node
-  linkType: hard
-
-"cacheable-lookup@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "cacheable-lookup@npm:7.0.0"
-  checksum: 69ea78cd9f16ad38120372e71ba98b64acecd95bbcbcdad811f857dc192bad81ace021f8def012ce19178583db8d46afd1a00b3e8c88527e978e049edbc23252
-  languageName: node
-  linkType: hard
-
-"cacheable-request@npm:^10.2.14":
-  version: 10.2.14
-  resolution: "cacheable-request@npm:10.2.14"
-  dependencies:
-    "@types/http-cache-semantics": "npm:^4.0.2"
-    get-stream: "npm:^6.0.1"
-    http-cache-semantics: "npm:^4.1.1"
-    keyv: "npm:^4.5.3"
-    mimic-response: "npm:^4.0.0"
-    normalize-url: "npm:^8.0.0"
-    responselike: "npm:^3.0.0"
-  checksum: 102f454ac68eb66f99a709c5cf65e90ed89f1b9269752578d5a08590b3986c3ea47a5d9dff208fe7b65855a29da129a2f23321b88490106898e0ba70b807c912
   languageName: node
   linkType: hard
 
@@ -14657,9 +14598,9 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -14704,7 +14645,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:5.3.0, chalk@npm:^5.0.0, chalk@npm:^5.3.0":
+"chalk@npm:5.3.0, chalk@npm:^5.3.0":
   version: 5.3.0
   resolution: "chalk@npm:5.3.0"
   checksum: 6373caaab21bd64c405bfc4bd9672b145647fc9482657b5ea1d549b3b2765054e9d3d928870cdf764fb4aad67555f5061538ff247b8310f110c5c888d92397ea
@@ -14817,19 +14758,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chrome-webstore-upload@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "chrome-webstore-upload@npm:2.0.0"
-  dependencies:
-    got: "npm:^14.0.0"
-  checksum: f3f69c1ff3e57ede393302afdb9081efb7acd7479bcbaa9282bb2e7a40d980657e02877023c47c0c7afe063d91746336411ae01754f3e9575f80ee7a0dddf9c8
+"chrome-webstore-upload@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "chrome-webstore-upload@npm:3.0.2"
+  checksum: d888f2c99bb82be2e3fad282d5db50c8b9dee6857a2151f93f42853cd0b76090192b8bec9a447d29ddb58c0f2900407d67ac665920246c11fa40739d845b9877
   languageName: node
   linkType: hard
 
-"ci-info@npm:^3.2.0, ci-info@npm:^3.8.0":
+"ci-info@npm:^3.2.0":
   version: 3.9.0
   resolution: "ci-info@npm:3.9.0"
   checksum: 75bc67902b4d1c7b435497adeb91598f6d52a3389398e44294f6601b20cfef32cf2176f7be0eb961d9e085bb333a8a5cae121cb22f81cf238ae7f58eb80e9397
+  languageName: node
+  linkType: hard
+
+"ci-info@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "ci-info@npm:4.0.0"
+  checksum: c983bb7ff1b06648f4a47432201abbd58291147d8ab5043dbb5c03e1a0e3fb2347f40d29b66a3044f28ffeb5dade01ac35aa6bd4e7464a44d9a49a3d7532415a
   languageName: node
   linkType: hard
 
@@ -14908,7 +14854,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-spinners@npm:^2.5.0, cli-spinners@npm:^2.9.0":
+"cli-spinners@npm:^2.5.0, cli-spinners@npm:^2.9.2":
   version: 2.9.2
   resolution: "cli-spinners@npm:2.9.2"
   checksum: a0a863f442df35ed7294424f5491fa1756bd8d2e4ff0c8736531d886cec0ece4d85e8663b77a5afaf1d296e3cbbebff92e2e99f52bbea89b667cbe789b994794
@@ -15841,7 +15787,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js-compat@npm:^3.31.0, core-js-compat@npm:^3.33.1":
+"core-js-compat@npm:^3.31.0, core-js-compat@npm:^3.33.1, core-js-compat@npm:^3.34.0":
   version: 3.35.0
   resolution: "core-js-compat@npm:3.35.0"
   dependencies:
@@ -16585,7 +16531,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"defer-to-connect@npm:^2.0.0, defer-to-connect@npm:^2.0.1":
+"defer-to-connect@npm:^2.0.0":
   version: 2.0.1
   resolution: "defer-to-connect@npm:2.0.1"
   checksum: 8a9b50d2f25446c0bfefb55a48e90afd58f85b21bcf78e9207cd7b804354f6409032a1705c2491686e202e64fc05f147aa5aa45f9aa82627563f045937f5791b
@@ -17137,7 +17083,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"emoji-regex@npm:^10.2.1, emoji-regex@npm:^10.3.0":
+"emoji-regex@npm:^10.3.0":
   version: 10.3.0
   resolution: "emoji-regex@npm:10.3.0"
   checksum: b9b084ebe904f13bb4b66ee4c29fb41a7a4a1165adcc33c1ce8056c0194b882cc91ebdc782f1a779b5d7ea7375c5064643a7734893d7c657b44c5c6b9d7bf1e7
@@ -18097,9 +18043,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:~46.9.0":
-  version: 46.9.1
-  resolution: "eslint-plugin-jsdoc@npm:46.9.1"
+"eslint-plugin-jsdoc@npm:~48.0.0":
+  version: 48.0.2
+  resolution: "eslint-plugin-jsdoc@npm:48.0.2"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.41.0"
     are-docs-informative: "npm:^0.0.2"
@@ -18111,8 +18057,8 @@ __metadata:
     semver: "npm:^7.5.4"
     spdx-expression-parse: "npm:^4.0.0"
   peerDependencies:
-    eslint: ^7.0.0 || ^8.0.0
-  checksum: 0b176d690738b3e5dad9bceccb8640b95070e8981ce0dce48227969d6c9fe972554aeccfc013bf231cf1eb51dacc3b0987c597b553f4b0e52f637f4587b509be
+    eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
+  checksum: 03f55ea97314759450b5e985344c60559907276a905792e9f31af7770f14baba76b28a9a9d9de47a38bb8617c9a0dc6b53d68a77d14b0f2701469d89ed453165
   languageName: node
   linkType: hard
 
@@ -18125,14 +18071,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unicorn@npm:^49.0.0":
-  version: 49.0.0
-  resolution: "eslint-plugin-unicorn@npm:49.0.0"
+"eslint-plugin-unicorn@npm:^50.0.0":
+  version: 50.0.1
+  resolution: "eslint-plugin-unicorn@npm:50.0.1"
   dependencies:
     "@babel/helper-validator-identifier": "npm:^7.22.20"
     "@eslint-community/eslint-utils": "npm:^4.4.0"
-    ci-info: "npm:^3.8.0"
+    "@eslint/eslintrc": "npm:^2.1.4"
+    ci-info: "npm:^4.0.0"
     clean-regexp: "npm:^1.0.0"
+    core-js-compat: "npm:^3.34.0"
     esquery: "npm:^1.5.0"
     indent-string: "npm:^4.0.0"
     is-builtin-module: "npm:^3.2.1"
@@ -18144,8 +18092,8 @@ __metadata:
     semver: "npm:^7.5.4"
     strip-indent: "npm:^3.0.0"
   peerDependencies:
-    eslint: ">=8.52.0"
-  checksum: 7f73f41356cdf720675998c558ab13872d76302dde3a49661df0b5219fd328627e3d7e418aaa3e94cf8764d1ef8b606f7ea01f019eccc0bf0522def8e6769caa
+    eslint: ">=8.56.0"
+  checksum: dd5e45f624a94172965858d7a15434df0ea98e14a300d90cfe7f0cbbd893883e1488036f77cb49162e2b61802c1d5386facfcaf5fd995357a7065013bfb8fe7f
   languageName: node
   linkType: hard
 
@@ -19205,13 +19153,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data-encoder@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "form-data-encoder@npm:4.0.2"
-  checksum: 71a00a1e954267f8b87d4301936dda7177cfe18714a92930c87ebc132acb8b19ed12e9b9f8ad47af52c1cc582fd45c1771f66f850a6d319147731160f6b9b3fa
-  languageName: node
-  linkType: hard
-
 "form-data@npm:^2.5.0":
   version: 2.5.1
   resolution: "form-data@npm:2.5.1"
@@ -19513,9 +19454,9 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     semver: "npm:^7.5.2"
     typescript: "npm:~5.2.2"
@@ -19573,7 +19514,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-stream@npm:^6.0.0, get-stream@npm:^6.0.1":
+"get-stream@npm:^6.0.0":
   version: 6.0.1
   resolution: "get-stream@npm:6.0.1"
   checksum: 781266d29725f35c59f1d214aedc92b0ae855800a980800e2923b3fbc4e56b3cb6e462c42e09a1cf1a00c64e056a78fa407cbe06c7c92b7e5cd49b4b85c2a497
@@ -19927,25 +19868,6 @@ __metadata:
     p-cancelable: "npm:^2.0.0"
     responselike: "npm:^2.0.0"
   checksum: a30c74029d81bd5fe50dea1a0c970595d792c568e188ff8be254b5bc11e6158d1b014570772d4a30d0a97723e7dd34e7c8cc1a2f23018f60aece3070a7a5c2a5
-  languageName: node
-  linkType: hard
-
-"got@npm:^14.0.0":
-  version: 14.0.0
-  resolution: "got@npm:14.0.0"
-  dependencies:
-    "@sindresorhus/is": "npm:^6.1.0"
-    "@szmarczak/http-timer": "npm:^5.0.1"
-    cacheable-lookup: "npm:^7.0.0"
-    cacheable-request: "npm:^10.2.14"
-    decompress-response: "npm:^6.0.0"
-    form-data-encoder: "npm:^4.0.2"
-    get-stream: "npm:^8.0.1"
-    http2-wrapper: "npm:^2.2.1"
-    lowercase-keys: "npm:^3.0.0"
-    p-cancelable: "npm:^4.0.1"
-    responselike: "npm:^3.0.0"
-  checksum: 3afcf60c8313cacb3bdc1a153b9b48e6c974241dab09ceb9155bfd4f2aad161a32e9b2f541584c78e8ac2e9615b241e453d06cfa2a4518b7e3899b46948ab9f3
   languageName: node
   linkType: hard
 
@@ -20472,7 +20394,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http2-wrapper@npm:^2.2.0, http2-wrapper@npm:^2.2.1":
+"http2-wrapper@npm:^2.2.0":
   version: 2.2.1
   resolution: "http2-wrapper@npm:2.2.1"
   dependencies:
@@ -21306,10 +21228,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-unicode-supported@npm:^1.1.0, is-unicode-supported@npm:^1.2.0, is-unicode-supported@npm:^1.3.0":
+"is-unicode-supported@npm:^1.2.0, is-unicode-supported@npm:^1.3.0":
   version: 1.3.0
   resolution: "is-unicode-supported@npm:1.3.0"
   checksum: 20a1fc161afafaf49243551a5ac33b6c4cf0bbcce369fcd8f2951fbdd000c30698ce320de3ee6830497310a8f41880f8066d440aa3eb0a853e2aa4836dd89abc
+  languageName: node
+  linkType: hard
+
+"is-unicode-supported@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "is-unicode-supported@npm:2.0.0"
+  checksum: 000b80639dedaf59a385f1c0a57f97a4d1435e0723716f24cc19ad94253a7a0a9f838bdc9ac49b10a29ac93b01f52ae9b2ed358a8876caf1eb74d73b4ede92b2
   languageName: node
   linkType: hard
 
@@ -23138,13 +23067,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log-symbols@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "log-symbols@npm:5.1.0"
+"log-symbols@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "log-symbols@npm:6.0.0"
   dependencies:
-    chalk: "npm:^5.0.0"
-    is-unicode-supported: "npm:^1.1.0"
-  checksum: 7291b6e7f1b3df6865bdaeb9b59605c832668ac2fa0965c63b1e7dd3700349aec09c1d7d40c368d5041ff58b7f89461a56e4009471921301af7b3609cbff9a29
+    chalk: "npm:^5.3.0"
+    is-unicode-supported: "npm:^1.3.0"
+  checksum: 510cdda36700cbcd87a2a691ea08d310a6c6b449084018f7f2ec4f732ca5e51b301ff1327aadd96f53c08318e616276c65f7fe22f2a16704fb0715d788bc3c33
   languageName: node
   linkType: hard
 
@@ -23237,13 +23166,6 @@ __metadata:
   version: 2.0.0
   resolution: "lowercase-keys@npm:2.0.0"
   checksum: 1c233d2da35056e8c49fae8097ee061b8c799b2f02e33c2bf32f9913c7de8fb481ab04dab7df35e94156c800f5f34e99acbf32b21781d87c3aa43ef7b748b79e
-  languageName: node
-  linkType: hard
-
-"lowercase-keys@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "lowercase-keys@npm:3.0.0"
-  checksum: 67a3f81409af969bc0c4ca0e76cd7d16adb1e25aa1c197229587eaf8671275c8c067cd421795dbca4c81be0098e4c426a086a05e30de8a9c587b7a13c0c7ccc5
   languageName: node
   linkType: hard
 
@@ -23712,13 +23634,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mimic-response@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "mimic-response@npm:4.0.0"
-  checksum: 33b804cc961efe206efdb1fca6a22540decdcfce6c14eb5c0c50e5ae9022267ab22ce8f5568b1f7247ba67500fe20d523d81e0e9f009b321ccd9d472e78d1850
-  languageName: node
-  linkType: hard
-
 "min-indent@npm:^1.0.0":
   version: 1.0.1
   resolution: "min-indent@npm:1.0.1"
@@ -24151,9 +24066,9 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -24496,13 +24411,6 @@ __metadata:
   version: 6.1.0
   resolution: "normalize-url@npm:6.1.0"
   checksum: 5ae699402c9d5ffa330adc348fcd6fc6e6a155ab7c811b96e30b7ecab60ceef821d8f86443869671dda71bbc47f4b9625739c82ad247e883e9aefe875bfb8659
-  languageName: node
-  linkType: hard
-
-"normalize-url@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "normalize-url@npm:8.0.0"
-  checksum: 4347d6ee39d9e1e7138c9e7c0b459c1e07304d9cd7c62d92c1ca01ed1f0c5397b292079fe7cfa953f469722ae150eec82e14b97e2175af39ede0b58f99ef8cac
   languageName: node
   linkType: hard
 
@@ -25115,20 +25023,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ora@npm:~7.0.1":
-  version: 7.0.1
-  resolution: "ora@npm:7.0.1"
+"ora@npm:~8.0.0":
+  version: 8.0.1
+  resolution: "ora@npm:8.0.1"
   dependencies:
     chalk: "npm:^5.3.0"
     cli-cursor: "npm:^4.0.0"
-    cli-spinners: "npm:^2.9.0"
+    cli-spinners: "npm:^2.9.2"
     is-interactive: "npm:^2.0.0"
-    is-unicode-supported: "npm:^1.3.0"
-    log-symbols: "npm:^5.1.0"
-    stdin-discarder: "npm:^0.1.0"
-    string-width: "npm:^6.1.0"
+    is-unicode-supported: "npm:^2.0.0"
+    log-symbols: "npm:^6.0.0"
+    stdin-discarder: "npm:^0.2.1"
+    string-width: "npm:^7.0.0"
     strip-ansi: "npm:^7.1.0"
-  checksum: 4ec001b6f1b8592be93d8a5e7e4f271f0fcd85868ceb0f00d0c1bff57be282aeeaaaacbd4bdefdf1b852de5d7813ac564da7a3c08000761beeade6097fc8a9af
+  checksum: 3d37bb3f53e965e5176004af319f82feef7323ee0b2428db5ee6f689b9b9ba939d7b1e81691d4614333c4fb9e294790eb049db9c1e990b14b9bbe150c6f09993
   languageName: node
   linkType: hard
 
@@ -25189,9 +25097,9 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.6.0"
-    eslint-plugin-jsdoc: "npm:~46.9.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^49.0.0"
+    eslint-plugin-unicorn: "npm:^50.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -25208,13 +25116,6 @@ __metadata:
   version: 2.1.1
   resolution: "p-cancelable@npm:2.1.1"
   checksum: 7f1b64db17fc54acf359167d62898115dcf2a64bf6b3b038e4faf36fc059e5ed762fb9624df8ed04b25bee8de3ab8d72dea9879a2a960cd12e23c420a4aca6ed
-  languageName: node
-  linkType: hard
-
-"p-cancelable@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "p-cancelable@npm:4.0.1"
-  checksum: 64de7b0be4c8bacc006488e0e90aa66fbcceb4da4f6fb84584573145f015f9650fe6ac26470897b3e82a3b528f6c60ea276b84cc315e35c45e9f12dec062a295
   languageName: node
   linkType: hard
 
@@ -27732,15 +27633,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"responselike@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "responselike@npm:3.0.0"
-  dependencies:
-    lowercase-keys: "npm:^3.0.0"
-  checksum: e0cc9be30df4f415d6d83cdede3c5c887cd4a73e7cc1708bcaab1d50a28d15acb68460ac5b02bcc55a42f3d493729c8856427dcf6e57e6e128ad05cba4cfb95e
-  languageName: node
-  linkType: hard
-
 "restore-cursor@npm:^3.1.0":
   version: 3.1.0
   resolution: "restore-cursor@npm:3.1.0"
@@ -29163,12 +29055,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"stdin-discarder@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "stdin-discarder@npm:0.1.0"
-  dependencies:
-    bl: "npm:^5.0.0"
-  checksum: 85131f70ae2830144133b7a6211d56f9ac2603573f4af3d0b66e828af5e13fcdea351f9192f86bb7fed2c64604c8097bf36d50cb77d54e898ce4604c3b7b6b8f
+"stdin-discarder@npm:^0.2.1":
+  version: 0.2.2
+  resolution: "stdin-discarder@npm:0.2.2"
+  checksum: 642ffd05bd5b100819d6b24a613d83c6e3857c6de74eb02fc51506fa61dc1b0034665163831873868157c4538d71e31762bcf319be86cea04c3aba5336470478
   languageName: node
   linkType: hard
 
@@ -29270,17 +29160,6 @@ __metadata:
     emoji-regex: "npm:^9.2.2"
     strip-ansi: "npm:^7.0.1"
   checksum: 7369deaa29f21dda9a438686154b62c2c5f661f8dda60449088f9f980196f7908fc39fdd1803e3e01541970287cf5deae336798337e9319a7055af89dafa7193
-  languageName: node
-  linkType: hard
-
-"string-width@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "string-width@npm:6.1.0"
-  dependencies:
-    eastasianwidth: "npm:^0.2.0"
-    emoji-regex: "npm:^10.2.1"
-    strip-ansi: "npm:^7.0.1"
-  checksum: 8aefb456a230c8d7fe254049b1b2d62603da1a3b6c7fc9f3332f6779583cc1c72653f9b6e4cd0c1c92befee1565d4a0a7542d09ba4ceb6d96af02fbd8425bb03
   languageName: node
   linkType: hard
 

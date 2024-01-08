@@ -125,7 +125,7 @@
   "resolutions": {
     "@storybook/csf-tools/@babel/traverse": "^7.23.2",
     "jasmine-marbles/rxjs": "^7.8.1",
-    "git-url-parse": "^13.1.0",
+    "git-url-parse": "^14.0.0",
     "gonzales-pe-sl/minimist": "^1.2.0"
   },
   "dependencies": {
@@ -204,9 +204,9 @@
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.9.0",
+    "eslint-plugin-jsdoc": "~48.0.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^49.0.0",
+    "eslint-plugin-unicorn": "^50.0.0",
     "globby": "^11.1.0",
     "highlight.js": "^11.8.0",
     "husky": "~8.0.3",
