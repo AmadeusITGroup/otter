@@ -39,17 +39,6 @@ jobs:
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
-      - name: Cache Jest
-        uses: actions/cache@v3
-        env:
-          hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
-        with:
-          path: .cache/jest
-          key: ${{ runner.os }}-jest-${{ env.hash }}
-          restore-keys: |
-            ${{ runner.os }}-jest-${{ env.hash }}
-            ${{ runner.os }}-jest
-            ${{ runner.os }}
       - name: Build swagger generator
         run: yarn nx run ama-sdk-schematics:build-swagger
       - name: Test

@@ -12,22 +12,42 @@ describe('Localization Builder', () => {
   let architectHost: TestingArchitectHost;
   let virtualFileSystem: typeof fs;
 
-  beforeEach(async () => {
+  beforeEach(() => {
     virtualFileSystem = useVirtualFileSystem();
+  });
 
+  beforeEach(() => {
     const registry = new schema.CoreSchemaRegistry();
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     architectHost = new TestingArchitectHost(path.resolve(__dirname, workspaceRoot), __dirname);
     architect = new Architect(architectHost, registry);
+  });
+
+  beforeEach(() => {
     architectHost.addBuilder('.:localization', require('./index').default);
+  });
+
+  beforeEach(() => {
     architectHost.addBuilder('noop', createBuilder(() => ({success: true})));
+  });
+
+  beforeEach(() => {
     architectHost.addTarget({project: 'showcase', target: 'compile'}, 'noop', {
       outputPath: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/dist`)
     });
+  });
+
+  beforeEach(() => {
     architectHost.addTarget({project: 'showcase', target: 'extract-translations'}, 'noop', {
       outputFile: path.resolve(__dirname, `${workspaceRoot}/apps/showcase/localisation.metadata.json`)
     });
+  });
+
+  beforeEach(async () => {
     await virtualFileSystem.promises.mkdir(path.resolve(__dirname, `${workspaceRoot}/apps/showcase`), {recursive: true});
+  });
+
+  beforeEach(async () => {
     await virtualFileSystem.promises.writeFile(path.resolve(__dirname, `${workspaceRoot}/apps/showcase/localisation.metadata.json`), '[]');
   });
   afterEach(() => {
