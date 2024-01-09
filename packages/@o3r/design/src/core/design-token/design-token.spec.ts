@@ -198,8 +198,7 @@ describe('Design Token generator', () => {
       expect(() => JSON.parse(result)).not.toThrow();
       expect(metadataSchema).toBeDefined();
       expect(validate).toBeDefined();
-      // TODO Uncomment when #1042 is fixed
-      // expect(validate(JSON.stringify(result), metadataSchema).errors).toHaveLength(0);
+      expect(validate(JSON.parse(result), metadataSchema).errors).toHaveLength(0);
     });
   });
 });
