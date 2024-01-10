@@ -86,7 +86,7 @@ describe('Configuration DevTools console', () => {
 
   it('should upsert new configurations', () => {
     mockStore.dispatch = jest.fn();
-    service.loadConfiguration('[{"library":"@scope/package","name":"componentTest","config":{"lolProp":123}}]');
+    service.updateConfigurations('[{"library":"@scope/package","name":"componentTest","config":{"lolProp":123}}]');
 
     expect(mockStore.dispatch).toHaveBeenCalledWith(expect.objectContaining(
       {

@@ -31,6 +31,27 @@
           "type": "string",
           "default": "",
           "description": "If not empty, will add a prefix to all the generated variables"
+        },
+        "otter.styling.variable.categories": {
+          "type": "array",
+          "default": [],
+          "items": {
+            "type": "string"
+          }
+        },
+        "otter.styling.variable.types": {
+          "type": "array",
+          "default": [
+            "color",
+            "string"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "otter.styling.variable.details": {
+          "type": "boolean",
+          "default": true
         }
       }
     },

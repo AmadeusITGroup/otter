@@ -22,6 +22,16 @@ env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
 jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        base-branch: 'main'
+        config-file: '.github/markdown.links.config.json'
+        folder-path: 'packages/,apps/,tools/'
+
   test:
     strategy:
       fail-fast: false

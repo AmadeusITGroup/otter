@@ -1,6 +1,6 @@
 # SDK models hierarchy
 
-The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@ama-sdk/schematics](../packages/@ama-sdk/schematics/) generator.
+The purpose of this documentation is to provide a high-level overview of models' hierarchy of an SDK generated via the [@ama-sdk/schematics](../../packages/@ama-sdk/schematics/) generator.
 
 ## Overview
 
