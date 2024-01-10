@@ -1,15 +1,15 @@
 /* eslint-disable no-console */
 import { Inject, Injectable, Optional } from '@angular/core';
-import type { Configuration, CustomConfig, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
+import type { Configuration, ContextualizationDataset, CustomConfig, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
 import { firstValueFrom } from 'rxjs';
-import { ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
+import { ConfigurationContextualizationDevtools, ConfigurationDevtoolsServiceOptions } from './configuration-devtools.interface';
 import { OtterConfigurationDevtools } from './configuration-devtools.service';
 import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInterface {
+export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInterface, ConfigurationContextualizationDevtools {
 
   /** Name of the Window property to access to the devtools */
   public static readonly windowModuleName = 'configuration';
@@ -20,7 +20,13 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   ) {
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 
-    if (this.options.isActivatedOnBootstrap) {
+    if (
+      this.options.isActivatedOnBootstrap
+      || (
+        this.options.isActivatedOnBootstrapWhenCMSContext
+        && (document.body.dataset as ContextualizationDataset).cmscontext === 'true'
+      )
+    ) {
       this.activate();
     }
   }
@@ -108,7 +114,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
     const content = await this.configurationDevtools.getConfiguration();
 
     console.log('BOOKMARK');
-    console.log(`javascript:window._OTTER_DEVTOOLS_.loadConfiguration('${JSON.stringify(content).replace(/[']/g, '\\\'')}')`);
+    console.log(`javascript:window._OTTER_DEVTOOLS_.updateConfigurations('${JSON.stringify(content).replace(/[']/g, '\\\'')}')`);
   }
 
   /**
@@ -122,8 +128,17 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
   /**
    * Load a json configuration
    * @param configurations configurations to load
+   * @deprecated please use `updateConfigurations` instead, will be removed in Otter v12.
    */
   public loadConfiguration(configurations: string | CustomConfig<Configuration>[]): void {
+    this.configurationDevtools.loadConfiguration(configurations);
+  }
+
+  /**
+   * Replace N configurations in one shot
+   * @param configurations array of configurations to update
+   */
+  public updateConfigurations(configurations: string | CustomConfig<Configuration>[]): void {
     this.configurationDevtools.loadConfiguration(configurations);
   }
 }

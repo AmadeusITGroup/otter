@@ -83,3 +83,7 @@ Steps:
   ex: ```yarn ng update @o3r/core@5.4.0-alpha.21-pr.115535 --force```
 
 The command above will run all schematics update for all packages defined in "ng-update" -> "packageGroup" section in `package.json` file of _@o3r/core_
+
+## Testing your schematic with a local version
+
+Please refer to the [Verdaccio](../../.verdaccio/README.md) setup.

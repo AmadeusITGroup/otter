@@ -226,7 +226,7 @@ Options:
 
 ## Version Harmonize
 
-> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12, it is replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](../linter/eslint-plugin/rules/json-dependency-versions-harmonize.md).
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12, it is replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](https://github.com/AmadeusITGroup/otter/tree/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md).
 
 Replaces the dependencies' version in a monorepos.
 This align the dependencies' range of each package of a yarn monorepo to the latest range detected in the monorepo.

@@ -1,13 +1,9 @@
-import { commands, ExtensionContext, languages } from 'vscode';
-import { generateComponentGenerateCommand } from './commands/generate/component.command';
-import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
-import { wrapCommandWhenExplorerContext } from './commands/helpers';
-import { generateServiceGenerateCommand } from './commands/generate/service.command';
-import { generateStoreGenerateCommand } from './commands/generate/store.command';
+import {
+  commands,
+  ExtensionContext, languages } from 'vscode';
 import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
 import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
-import { generateModuleGenerateCommand } from './commands/generate/module.command';
-import { generateModuleAddCommand } from './commands/module/add-module.command';
+import { generateComponentGenerateCommand } from './commands/generate/component.command';
 import {
   generateAddAnalyticsToComponentCommand,
   generateAddConfigurationToComponentCommand,
@@ -20,7 +16,14 @@ import {
   generateAddThemingToComponentCommand,
   generateConvertComponentCommand
 } from './commands/generate/enrich-component';
+import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
+import { generateModuleGenerateCommand } from './commands/generate/module.command';
+import { generateServiceGenerateCommand } from './commands/generate/service.command';
+import { generateStoreGenerateCommand } from './commands/generate/store.command';
+import { wrapCommandWhenExplorerContext } from './commands/helpers';
+import { generateModuleAddCommand } from './commands/module/add-module.command';
 import { configurationCompletionItemProvider, configurationCompletionTriggerChar } from './intellisense/configuration';
+import { stylingCompletionItemProvider, stylingCompletionTriggerChar } from './intellisense/styling';
 
 
 /**
@@ -31,6 +34,7 @@ import { configurationCompletionItemProvider, configurationCompletionTriggerChar
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(
     languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
+    languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),

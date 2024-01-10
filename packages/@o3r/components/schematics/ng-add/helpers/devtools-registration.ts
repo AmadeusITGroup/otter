@@ -3,7 +3,7 @@ import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from '../schema';
 
 const DEVTOOL_MODULE_NAME = 'ComponentsDevtoolsModule';
-const DEVTOOL_SERVICE_NAME = 'ComponentsDevtoolsService';
+const DEVTOOL_SERVICE_NAME = 'ComponentsDevtoolsMessageService';
 const PACKAGE_NAME: string = require(path.resolve(__dirname, '..', '..', '..', 'package.json')).name;
 
 /**

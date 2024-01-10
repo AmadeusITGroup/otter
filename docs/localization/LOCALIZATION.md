@@ -19,7 +19,7 @@ Localization module is built on top of an open source [ngx-translate](https://gi
 
 - Fallback language. In case some resource key does not exist in language X, the loader tries to fetch translation bundle from the endpoint location in fallback language Y in the first place and ends by loading json bundles from the application (root of dist folder **/** by default) if previous steps have failed (bundles output path in dist folder is also configurable via a shell option).
 
-- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/projects/ngx-translate/core/src/lib/translate.service.ts).
+- Resource keys can be translated from templates (*.html) via a [pipe](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.pipe.ts) or [directive](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.directive.ts) as well as from typescript (*.ts) via a [service](https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.service.ts).
 
 - Support for resource keys with parameters
 

@@ -1,0 +1,11 @@
+{
+  "ignorePatterns": [
+    "https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md"
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "/%40",
+      "replacement": "/@"
+    }
+  ]
+}

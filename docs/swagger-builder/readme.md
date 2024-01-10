@@ -81,7 +81,7 @@ The configurations can be specified in a JSON file following a provided [Json Sc
 
 | Feature           | CLI Option                          | Description                                                                                                                                                 | Default value |
 | :---------------- | :---------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------ |
-| **Configuration** | **--configuration** (alias: **-c**) | [Configuration file](#List-of-available-configurations) to provide parameters to the **Swagger Builder**                                                    | *null*        |
+| **Configuration** | **--configuration** (alias: **-c**) | [Configuration file](#list-of-available-configurations) to provide parameters to the **Swagger Builder**                                                    | *null*        |
 | **APIs**          | **--apis**                          | Path to the files containing a [list of APIs](./multi-apis.md) to generate. Each APIs will be merged with the ones in the CLI argument (if specified). | *null*        |
 
 ## Additional Checking tools
@@ -96,11 +96,8 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 
 ## Generate your own extension
 
-A code generator is provided to generate an extension of the **Amadeus Digital Experience API**.
+A code generator is provided to generate an API specification extension.
 
 ```shell
 yarn dlx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension
 ```
-
-> More information on [Generators documentation](../../README.md).
->
