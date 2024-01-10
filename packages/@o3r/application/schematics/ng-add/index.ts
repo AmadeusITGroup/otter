@@ -3,6 +3,7 @@ import { chain } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+import { generateCmsConfigFile } from './helpers/cms-registration';
 
 
 /**
@@ -81,7 +82,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           workingDirectory
         }),
         addAngularAnimationPreferences,
-        registerDevtoolRule
+        registerDevtoolRule,
+        generateCmsConfigFile(options)
       ])(tree, context);
     } catch (e) {
       // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics
