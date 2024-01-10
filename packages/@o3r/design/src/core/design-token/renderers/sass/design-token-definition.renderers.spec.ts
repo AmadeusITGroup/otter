@@ -2,8 +2,8 @@ import * as parser from '../../parsers/design-token.parser';
 import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getSassTokenDefinitionRenderer } from './design-token-definition.renderers';
+import type { DesignTokenVariableSet, TokenKeyRenderer } from '../../parsers';
+import { getSassTokenDefinitionRenderer, tokenVariableNameSassRenderer } from './design-token-definition.renderers';
 
 describe('getSassTokenDefinitionRenderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -28,14 +28,17 @@ describe('getSassTokenDefinitionRenderer', () => {
   });
 
   test('should prefix private variable', () => {
-    const tokenValueRenderer = jest.fn().mockReturnValue('test-value');
-    const renderer = getSassTokenDefinitionRenderer({ tokenValueRenderer, isPrivateVariable: (v) => v.tokenReferenceName === 'example.var1'});
+    const tokenVariableNameRenderer: TokenKeyRenderer = (v) => '_' + tokenVariableNameSassRenderer(v);
+
+    const options = { tokenVariableNameRenderer };
+    const tokenValueRenderer = jest.spyOn(options, 'tokenVariableNameRenderer');
+    const renderer = getSassTokenDefinitionRenderer(options);
     const variable = designTokens.get('example.var1');
 
     const result = renderer(variable, designTokens);
     expect(variable).toBeDefined();
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
-    expect(result).toBe('$_exampleVar1: test-value;');
+    expect(result).toBe('$_exampleVar1: #000;');
   });
 });

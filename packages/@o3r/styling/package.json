@@ -26,6 +26,10 @@
     },
     "./schemas/*.json": {
       "default": "./schemas/*.json"
+    },
+    "./builders/*/helpers": {
+      "default": "./builders/*/helpers/index.js",
+      "types": "./builders/*/helpers/index.d.ts"
     }
   },
   "peerDependencies": {

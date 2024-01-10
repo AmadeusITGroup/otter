@@ -48,6 +48,17 @@
     "prefix": {
       "type": "string",
       "description": "Prefix to happen to generated variables"
+    },
+    "prefixPrivate": {
+      "type": "string",
+      "description": "Prefix to happen to generated Sass variables if generated"
+    },
+    "renderPrivateVariableTo": {
+      "type": "string",
+      "enum": [
+        "sass"
+      ],
+      "description": "Generate the Private Variable to the given language (the variable is not generated if not specified)"
     }
   },
   "additionalProperties": true,

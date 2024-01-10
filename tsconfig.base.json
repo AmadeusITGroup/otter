@@ -182,6 +182,9 @@
       "@o3r/styling/schemas/*": [
         "packages/@o3r/styling/schemas/*"
       ],
+      "@o3r/styling/builders/*/helpers": [
+        "packages/@o3r/styling/builders/*/helpers/index"
+      ],
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
       ],

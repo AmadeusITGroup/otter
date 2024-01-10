@@ -2,7 +2,8 @@ import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer
 import type { CssVariable } from '@o3r/styling';
 import { getCssTokenValueRenderer } from '../css';
 
-interface MetadataTokenValueRendererOptions {
+/** Options for {@link getMetadataTokenValueRenderer} */
+export interface MetadataTokenValueRendererOptions {
   /**
    * Custom CSS Design Token value renderer
    */

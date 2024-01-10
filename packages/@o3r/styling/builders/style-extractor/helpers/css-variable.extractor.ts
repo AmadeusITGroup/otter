@@ -31,7 +31,7 @@ interface SassCalculation extends Value {
 export class CssVariableExtractor {
   private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private builderOptions?: StyleExtractorBuilderSchema) {
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
 
   }
 

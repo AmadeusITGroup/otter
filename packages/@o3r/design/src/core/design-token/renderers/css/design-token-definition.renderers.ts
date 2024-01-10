@@ -3,7 +3,8 @@ import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from './design-token-value.renderers';
 
-interface CssTokenDefinitionRendererOptions {
+/** Options for {@link CssTokenDefinitionRendererOptions} */
+export interface CssTokenDefinitionRendererOptions {
   /**
    * Determine if the variable is private and should not be rendered
    * @default {@see isO3rPrivateVariable}
