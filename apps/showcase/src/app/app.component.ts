@@ -29,7 +29,8 @@ export class AppComponent implements OnDestroy {
         { url: '/configuration', label: 'Configuration' },
         { url: '/localization', label: 'Localization' },
         { url: '/dynamic-content', label: 'Dynamic content' },
-        { url: '/rules-engine', label: 'Rules engine' }
+        { url: '/rules-engine', label: 'Rules engine' },
+        { url: '/component-replacement', label: 'Component Replacement' }
       ]
     },
     {
