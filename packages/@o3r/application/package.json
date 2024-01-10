@@ -16,7 +16,7 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build application",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "prepare:publish": "prepare-publish ./dist"
   },
@@ -97,5 +97,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }
