@@ -9,7 +9,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-Set of tools to generate CSS themes and [Metadata](https://github.com/AmadeusITGroup/otter/tree/main/docs/cms-adapters/CMS_ADAPTERS) based on the [Design Token Specifications](https://design-tokens.github.io/community-group/format/).
+Set of tools to generate CSS themes and [Metadata](https://github.com/AmadeusITGroup/otter/tree/main/docs/cms-adapters/CMS_ADAPTERS.md) based on the [Design Token Specifications](https://design-tokens.github.io/community-group/format/).
 
 ## How to install
 
