@@ -10,11 +10,13 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
+import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
 import {dump, load} from 'js-yaml';
 import {isAbsolute, posix, relative} from 'node:path';
 import {getPackageManagerName, NpmInstall} from '../../helpers/node-install';
 import {readPackageJson} from '../../helpers/read-package';
 import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
+import { lastValueFrom } from 'rxjs';
 
 /**
  * @param options
@@ -102,6 +104,13 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
 
   return chain([
     setupRule,
+    async (_, context) => {
+      const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
+      context.addTask(
+        new RepositoryInitializerTask(workingDirectory)
+      );
+      await lastValueFrom(context.engine.executePostTasks());
+    },
     ...(options.skipInstall ? [] : [installRule])
   ]);
 }
