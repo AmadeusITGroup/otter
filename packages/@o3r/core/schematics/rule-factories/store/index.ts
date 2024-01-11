@@ -65,13 +65,12 @@ export function updateStore(options: { projectName?: string | undefined; working
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
 
-    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep, fastDeepEqualDep];
+    const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep, fastDeepEqualDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     let dependenciesList = [...corePeerDeps];
 
     if (projectType === 'application') {
       dependenciesList = [...dependenciesList, ...appDeps];
-      dependenciesList = isApplicationThatUsesRouterModule(tree, options) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
     }
 
 
