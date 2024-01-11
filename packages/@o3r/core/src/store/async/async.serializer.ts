@@ -1,4 +1,4 @@
-import { EntityState } from '@ngrx/entity';
+import type { EntityState } from '@ngrx/entity';
 import { asyncStoreItemAdapter } from './async.adapter';
 import { AsyncStoreItem, EntityStatus } from './async.interfaces';
 

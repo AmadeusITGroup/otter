@@ -44,10 +44,10 @@
     "@angular/cli": {
       "optional": true
     },
-    "@ngrx/effects": {
+    "@ngrx/entity": {
       "optional": true
     },
-    "@ngrx/router-store": {
+    "@ngrx/store": {
       "optional": true
     },
     "@nrwl/devkit": {
