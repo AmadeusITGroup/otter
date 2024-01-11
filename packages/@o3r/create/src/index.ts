@@ -77,8 +77,14 @@ const logo = `
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
 const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
+// Default styling to Sass
 if (!args.some((a) => a.startsWith('--style'))) {
   args.push('--style', 'scss');
+}
+
+// Default Preset to Basic
+if (!args.some((a) => a.startsWith('--preset'))) {
+  args.push('--preset', 'basic');
 }
 
 const hasPackageManagerArg = args.some((a) => a.startsWith('--package-manager'));
