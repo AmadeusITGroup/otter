@@ -1,5 +1,6 @@
 import { createJweEncoder, createJwtEncoder } from '../../utils/json-token';
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import { PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext } from '../core';
+import type { Logger } from '../../fwk/logger';
 
 /**
  * Creates a JWT encoding function which transforms the provided token-value associations as a unsecured JWT format https://tools.ietf.org/html/rfc7519#section-6
@@ -196,21 +197,22 @@ export class PiiTokenizerRequest implements RequestPlugin {
   /**
    * Append the generated token based on the request options to the tokens header
    * @param requestOptions Request options to generate the token
+   * @param logger Logger (optional, fallback to console logger if undefined)
    */
-  private async appendEncodedToken(requestOptions: RequestOptions) {
+  private async appendEncodedToken(requestOptions: RequestOptions, logger?: Logger) {
     try {
       return await this.tokenEncoder(requestOptions.tokenizedOptions!.values);
     } catch (e) {
       if (this.silent) {
-        // eslint-disable-next-line no-console
-        console.error('Couldn\'t encode the token');
+        (logger || console).error('Couldn\'t encode the token');
       } else {
         throw new Error('Couldn\'t encode the token');
       }
     }
   }
 
-  public load(): PluginRunner<RequestOptions, RequestOptions> {
+  /** @inheritdoc */
+  public load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (data: RequestOptions) => {
         if (data.metadata?.deepLinkOptions) {
@@ -221,13 +223,12 @@ export class PiiTokenizerRequest implements RequestPlugin {
           }
         }
         else if (!data.tokenizedOptions) {
-          // eslint-disable-next-line no-console
-          console.error('No tokenized options found. Please make sure tokenization is enabled on your ApiClient');
+          (context?.logger || console).error('No tokenized options found. Please make sure tokenization is enabled on your ApiClient');
         }
         else if (Object.keys(data.tokenizedOptions.values).length > 0) {
           data.basePath = data.tokenizedOptions.url;
           data.queryParams = {...data.queryParams, ...data.tokenizedOptions.queryParams};
-          const token = await this.appendEncodedToken(data);
+          const token = await this.appendEncodedToken(data, context?.logger);
           if (token) {
             data.headers.append(this.tokensHeader, token);
           }
