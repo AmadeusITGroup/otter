@@ -353,7 +353,7 @@
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/vscode": "^1.67.0",
-    "@typescript-eslint/eslint-plugin": "6.11.0",
+    "@typescript-eslint/eslint-plugin": "6.18.1",
     "@typescript-eslint/parser": "^6.11.0",
     "@vscode/vsce": "^2.16.0",
     "eslint-import-resolver-node": "^0.3.4",
