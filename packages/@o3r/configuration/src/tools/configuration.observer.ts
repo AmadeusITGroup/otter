@@ -7,10 +7,10 @@ import { ConfigurationBaseService } from '../services/configuration/configuratio
 export class ConfigurationObserver<T extends Configuration> implements Observer<Partial<T> | undefined> {
 
   /** Inner observable */
-  private observable: Observable<T>;
+  private readonly observable: Observable<T>;
 
   /** Inner subscriber */
-  private subscriber: BehaviorSubject<Partial<T>> = new BehaviorSubject<Partial<T>>({});
+  private readonly subscriber: BehaviorSubject<Partial<T>> = new BehaviorSubject<Partial<T>>({});
 
   /** @inheritdoc */
   public closed?: boolean;

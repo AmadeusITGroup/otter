@@ -7,15 +7,23 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile", "build-builders"]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -26,13 +34,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/stylelint-plugin/.eslintrc.js",
         "lintFilePatterns": [
@@ -44,12 +45,8 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js",
-        "silent": true
-      },
-      "dependsOn": [
-        "build"
-      ]
+        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+      }
     },
     "prepare-publish": {
       "executor": "nx:run-script",

@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders"
-      ]
+      "dependsOn": ["build-builders"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -35,18 +33,9 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-sdk/schematics/schematics/**/*.ts"
-        ]
+        "lintFilePatterns": ["packages/@ama-sdk/schematics/schematics/**/*.ts"]
       }
     },
     "build-swagger": {
@@ -55,9 +44,7 @@
         "{projectRoot}/schematics/**",
         "!{projectRoot}/schematics/**/target/**"
       ],
-      "outputs": [
-        "{projectRoot}/schematics/**/target/*.jar"
-      ],
+      "outputs": ["{projectRoot}/schematics/**/target/*.jar"],
       "options": {
         "script": "build:swagger"
       }
@@ -65,8 +52,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@ama-sdk/schematics/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@ama-sdk/schematics/jest.config.js"
       }
     },
     "test-int": {

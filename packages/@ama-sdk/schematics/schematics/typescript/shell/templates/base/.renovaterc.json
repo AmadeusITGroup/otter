@@ -65,7 +65,7 @@
     {
       "matchPackageNames": [
         "@ama-sdk/core",
-        "@ama-sdk/generator-sdk"
+        "@ama-sdk/schematics"
       ],
       "rangeStrategy": "bump",
       "groupName": "SDK Core and Generator dependencies",

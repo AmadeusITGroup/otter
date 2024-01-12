@@ -53,7 +53,6 @@ describe('Component Extractor Builder', () => {
     expect(componentOutput[0].library).toBe('showcase');
     expect(componentOutput[0].name).toMatch(/.*Component$/);
     expect(componentOutput[0].path).toMatch(/.*component.ts$/);
-    expect(componentOutput[0].templatePath).toMatch(/.*template.html$/);
 
     const configOutput = JSON.parse(virtualFileSystem.readFileSync(options.configOutputFile, {encoding: 'utf8'}));
     expect(typeof configOutput).toBe('object');

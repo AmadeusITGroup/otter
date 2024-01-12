@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v10_0": {
+      "version": "10.0.0-alpha.0",
+      "description": "Updates of the Otter Extractors module to v10.0.x",
+      "factory": "./schematics/ng-update/v10-0/index#updateV10_0"
+    }
+  }
+}

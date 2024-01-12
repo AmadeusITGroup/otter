@@ -19,7 +19,7 @@ runs:
       with:
         maven-version: ${{ inputs.mvn-version }}
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       if: inputs.install-jdk == 'true'
       with:
         java-version: '17'

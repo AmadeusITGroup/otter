@@ -84,3 +84,6 @@ coverage
 
 # OS
 *.DS_Store
+
+# Nx
+.nx/cache

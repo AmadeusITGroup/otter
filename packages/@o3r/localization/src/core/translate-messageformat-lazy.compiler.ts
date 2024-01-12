@@ -8,14 +8,12 @@ import { IntlMessageFormat, Options } from 'intl-messageformat';
 export interface LazyMessageFormatConfig extends Options {
   /**
    * Enables compiled translation caching
-   *
    * @default true
    */
   enableCache?: boolean;
 
   /**
    * Enables HTML in translation
-   *
    * @default true
    */
   ignoreTag?: boolean;
@@ -40,7 +38,7 @@ export const MESSAGE_FORMAT_CONFIG = new InjectionToken<LazyMessageFormatConfig>
 export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
 
   /** Configuration */
-  private config: LazyMessageFormatConfig;
+  private readonly config: LazyMessageFormatConfig;
 
   /** Cache of compiled translations */
   private cache: { [x: string]: IntlMessageFormat } = {};

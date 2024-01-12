@@ -43,6 +43,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./tools/github-actions/setup
       - name: New Version
+        if: github.event_name != 'merge_group'
         id: newVersion
         uses: ./tools/github-actions/new-version
         with:

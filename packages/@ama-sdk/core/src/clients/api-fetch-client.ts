@@ -44,7 +44,6 @@ export class ApiFetchClient implements ApiClient {
 
   /**
    * Initialize your API Client instance
-   *
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiFetchClientConstructor) {
@@ -106,7 +105,7 @@ export class ApiFetchClient implements ApiClient {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
-    let root: any | undefined;
+    let root: any;
     let body: string | undefined;
     let exception: Error | undefined;
 

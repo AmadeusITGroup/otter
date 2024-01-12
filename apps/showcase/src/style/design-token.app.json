@@ -1,0 +1,36 @@
+{
+  "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
+  "bs": {
+    "primary": {
+      "$description": "Application Primary color",
+      "$type": "color",
+      "$value": "{color.primary}"
+    },
+    "nav-pills": {
+      "$extensions": {
+        "o3rScope": ".nav-pills"
+      },
+      "link-active-color": {
+        "$value": "{color.primary}"
+      }
+    },
+    "tertiary": {
+      "bg": {
+        "$extensions": {
+          "o3rImportant": true
+        },
+        "$value": "{color.neutral.gray-light}"
+      }
+    }
+  },
+  "run-app-locally": {
+    "$extensions": {
+      "o3rTargetFile": "app/run-app-locally/run-app-locally.style.scss"
+    },
+    "tertiary": {
+      "bg": {
+        "$value": "{color.primary.50}"
+      }
+    }
+  }
+}

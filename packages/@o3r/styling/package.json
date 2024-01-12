@@ -12,7 +12,7 @@
     "ng": "yarn nx",
     "test": "yarn nx test styling",
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*.scss' dist/schematics",
-    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "build": "yarn nx build styling"
@@ -26,24 +26,47 @@
     },
     "./schemas/*.json": {
       "default": "./schemas/*.json"
+    },
+    "./builders/*/helpers": {
+      "default": "./builders/*/helpers/index.js",
+      "types": "./builders/*/helpers/index.d.ts"
     }
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1602.0",
-    "@angular-devkit/core": "~16.2.0",
-    "@angular-devkit/schematics": "~16.2.0",
-    "@angular/core": "~16.2.0",
-    "@angular/material": "~16.2.0",
+    "@angular-devkit/architect": "~0.1700.0",
+    "@angular-devkit/core": "~17.0.0",
+    "@angular-devkit/schematics": "~17.0.0",
+    "@angular/cdk": "~17.0.1",
+    "@angular/core": "~17.0.2",
+    "@angular/material": "~17.0.0",
     "@o3r/core": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/extractors": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.2.0",
+    "@schematics/angular": "~17.0.0",
     "rxjs": "^7.8.1",
     "sass": "~1.69.0"
   },
   "peerDependenciesMeta": {
+    "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/cdk": {
+      "optional": true
+    },
+    "@angular/material": {
+      "optional": true
+    },
+    "@o3r/core": {
+      "optional": true
+    },
+    "@o3r/dynamic-content": {
       "optional": true
     },
     "@o3r/extractors": {
@@ -63,31 +86,30 @@
     "tslib": "^2.5.3"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1602.0",
-    "@angular-devkit/build-angular": "~16.2.0",
-    "@angular-devkit/core": "~16.2.0",
-    "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@angular/animations": "~16.2.0",
-    "@angular/cdk": "~16.2.0",
-    "@angular/common": "~16.2.0",
-    "@angular/compiler": "~16.2.0",
-    "@angular/compiler-cli": "~16.2.0",
-    "@angular/core": "~16.2.0",
-    "@angular/forms": "~16.2.0",
-    "@angular/material": "~16.2.0",
-    "@angular/platform-browser": "~16.2.0",
-    "@angular/platform-browser-dynamic": "~16.2.0",
+    "@angular-devkit/architect": "~0.1700.3",
+    "@angular-devkit/build-angular": "~17.0.3",
+    "@angular-devkit/core": "~17.0.3",
+    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-eslint/eslint-plugin": "~17.1.0",
+    "@angular/animations": "~17.0.4",
+    "@angular/cdk": "~17.0.1",
+    "@angular/common": "~17.0.4",
+    "@angular/compiler": "~17.0.4",
+    "@angular/compiler-cli": "~17.0.4",
+    "@angular/core": "~17.0.4",
+    "@angular/forms": "~17.0.4",
+    "@angular/material": "~17.0.1",
+    "@angular/platform-browser": "~17.0.4",
+    "@angular/platform-browser-dynamic": "~17.0.4",
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/eslint-plugin": "~16.10.0",
-    "@nx/jest": "~16.10.0",
-    "@nx/js": "~16.10.0",
-    "@nx/linter": "~16.10.0",
+    "@nx/eslint": "~17.1.1",
+    "@nx/eslint-plugin": "~17.1.1",
+    "@nx/jest": "~17.1.1",
+    "@nx/js": "~17.1.1",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
-    "@o3r/dev-tools": "workspace:^",
     "@o3r/dynamic-content": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -95,42 +117,45 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/styling": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@schematics/angular": "~16.2.0",
+    "@schematics/angular": "~17.0.3",
     "@types/jest": "~29.5.2",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "chokidar": "^3.5.2",
-    "cpy-cli": "^4.2.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "eslint-plugin-jsdoc": "~48.0.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^50.0.0",
     "globby": "^11.1.0",
     "jest": "~29.7.0",
     "jest-environment-jsdom": "~29.7.0",
     "jest-junit": "~16.0.0",
-    "jest-preset-angular": "~13.1.1",
+    "jest-preset-angular": "~13.1.4",
     "jsonc-eslint-parser": "~2.4.0",
     "memfs": "~4.6.0",
-    "nx": "~16.10.0",
+    "nx": "~17.1.1",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.69.0",
+    "sass": "~1.69.5",
     "semver": "^7.5.2",
-    "stylelint": "^15.10.1",
-    "stylelint-scss": "^4.0.0",
+    "stylelint": "^16.0.2",
+    "stylelint-scss": "^6.0.0",
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
-    "typescript": "~5.1.6",
+    "typescript": "~5.2.2",
     "unionfs": "~4.5.1",
-    "zone.js": "~0.13.1"
+    "zone.js": "~0.14.2"
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "builders": "./builders.json",
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

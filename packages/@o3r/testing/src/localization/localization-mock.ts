@@ -39,7 +39,6 @@ export interface MockTranslations {
 
 /**
  * Function to get the list of modules required to test component using Localization module
- *
  * @param localizationConfiguration Localization configuration
  * @param translations              Translations to use
  * @param translationCompilerProvider

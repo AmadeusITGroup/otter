@@ -18,17 +18,16 @@ export class SplitYamlFormatter implements Formatter {
   /** Parameters file */
   public readonly PARAMETERS_FILE = 'parameters';
 
-  private filePath: string;
-  private cwd: string;
+  private readonly filePath: string;
+  private readonly cwd: string;
 
-  constructor(private basePath: string) {
+  constructor(private readonly basePath: string) {
     this.filePath = /\.json$/i.test(this.basePath) ? this.basePath : this.basePath + '.json';
     this.cwd = path.dirname(this.filePath);
   }
 
   /**
    * Write a YAML file
-   *
    * @param filePath Path to the file to write
    * @param content Content of the file to write
    */
@@ -39,7 +38,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Write a JSON file
-   *
    * @param filePath Path to the file to write
    * @param content Content of the file to write
    */
@@ -74,7 +72,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Generate the definition files based on the given Swagger spec
-   *
    * @param spec Swagger specification
    */
   private async generateDefinitionFiles(spec: any) {
@@ -96,7 +93,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Generate the definition files based on the given Swagger specification
-   *
    * @param spec Swagger specification
    */
   private generateParameterFile(spec: any) {
@@ -113,7 +109,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Generate the product files based on the given Swagger specification
-   *
    * @param spec Swagger specification
    */
   private async generateProductFiles(spec: any): Promise<string[]> {
@@ -158,7 +153,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Generate the template file based on the given Swagger specification
-   *
    * @param spec Swagger specification
    */
   private generateEnvelop(spec: any) {
@@ -174,7 +168,6 @@ export class SplitYamlFormatter implements Formatter {
 
   /**
    * Generate the API description JSON file based on the list of products of the Swagger specification
-   *
    * @param products List of product of the Swagger spec
    */
   private generateJsonFile(products: string[]) {

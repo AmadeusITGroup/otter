@@ -2,7 +2,6 @@ import {strings} from '@angular-devkit/core';
 
 /**
  * Returns all elements from the provided component name path
- *
  * @param componentName
  */
 function getComponentModuleItems(componentName: string): string[] {
@@ -11,7 +10,6 @@ function getComponentModuleItems(componentName: string): string[] {
 
 /**
  * Returns the component name as the last element of the provided component name path
- *
  * @param componentName
  */
 export function getInputComponentName(componentName: string): string {
@@ -21,7 +19,6 @@ export function getInputComponentName(componentName: string): string {
 
 /**
  * returns the component folder name
- *
  * @param componentName
  */
 export function getComponentFolderName(componentName: string): string {
@@ -31,7 +28,6 @@ export function getComponentFolderName(componentName: string): string {
 
 /**
  * Returns the component file name
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -42,7 +38,6 @@ export function getComponentFileName(componentName: string, componentStructureDe
 
 /**
  * Returns the component selector without suffix
- *
  * @param componentName
  * @param prefix
  */
@@ -53,7 +48,6 @@ export function getComponentSelectorWithoutSuffix(componentName: string, prefix:
 
 /**
  * Returns the component module name (e.g. AirOfferModule)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -64,7 +58,6 @@ export function getComponentModuleName(componentName: string, componentStructure
 
 /**
  * Returns the component analytics name (e.g. AirOfferAnalytics)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -75,7 +68,6 @@ export function getComponentAnalyticsName(componentName: string, componentStruct
 
 /**
  * Returns the component name (e.g. AirOfferComponent)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -86,7 +78,6 @@ export function getComponentName(componentName: string, componentStructureDef: s
 
 /**
  * Returns the component block name (e.g. AirOffer)
- *
  * @param componentName
  */
 export function getComponentBlockName(componentName: string) {
@@ -96,7 +87,6 @@ export function getComponentBlockName(componentName: string) {
 
 /**
  * Return the component in kebab-case (e.g. air-offer)
- *
  * @param blockName
  */
 export function getKebabCaseBlockName(blockName: string) {
@@ -105,7 +95,6 @@ export function getKebabCaseBlockName(blockName: string) {
 
 /**
  * Returns the component config name (e.g. AirOfferConfig)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -116,7 +105,6 @@ export function getComponentConfigName(componentName: string, componentStructure
 
 /**
  * Returns the component translation name (e.g. AirOfferTranslation)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -127,7 +115,6 @@ export function getComponentTranslationName(componentName: string, componentStru
 
 /**
  * Returns the component context name (e.g. AirOfferContext)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -138,7 +125,6 @@ export function getComponentContextName(componentName: string, componentStructur
 
 /**
  * Returns the component fixture name (e.g. AirOfferFixture)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -149,7 +135,6 @@ export function getComponentFixtureName(componentName: string, componentStructur
 
 /**
  * Returns the component config key name (e.g. AIR_OFFER_CONT or AIR_OFFER_PRES)
- *
  * @param componentName
  * @param componentStructureDef
  */
@@ -160,7 +145,6 @@ export function getComponentConfigKey(componentName: string, componentStructureD
 
 /**
  * Return the library name from path in a monorepos
- *
  * @param path
  */
 export function getLibraryNameFromPath(path: string | null | undefined) {

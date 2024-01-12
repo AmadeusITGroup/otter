@@ -11,7 +11,6 @@ export const selectPlaceholderRequestEntities = createSelector(selectPlaceholder
 
 /**
  * Select a specific PlaceholderRequest entity using a raw url as id
- *
  * @param rawUrl
  */
 export const selectPlaceholderRequestEntityUsage = (rawUrl: string) => createSelector(

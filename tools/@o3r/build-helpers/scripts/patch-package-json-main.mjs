@@ -9,7 +9,7 @@ import { join, resolve } from 'node:path';
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 
-const fields = ['main', 'types', 'typings', 'module', 'esm2015', 'esm2020', 'schematics', 'builders'];
+const fields = ['main', 'default', 'types', 'typings', 'module', 'esm2015', 'esm2020', 'schematics', 'builders'];
 const packageJsonPath = join(root, 'dist', 'package.json');
 const packageJson = JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'}));
 

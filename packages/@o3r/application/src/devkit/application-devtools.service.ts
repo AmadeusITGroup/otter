@@ -8,8 +8,8 @@ import { ApplicationInformation } from './application-devkit.interface';
 export class OtterApplicationDevtools {
 
   constructor(
-    @Optional() @Inject(DOCUMENT) private document?: any,
-    @Optional() @Inject(ENVIRONMENT_CONFIG_TOKEN) private env?: BuildTimeProperties) {
+    @Optional() @Inject(DOCUMENT) private readonly document?: any,
+    @Optional() @Inject(ENVIRONMENT_CONFIG_TOKEN) private readonly env?: BuildTimeProperties) {
   }
 
 

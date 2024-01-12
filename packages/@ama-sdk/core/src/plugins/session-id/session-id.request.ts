@@ -27,7 +27,7 @@ export class SessionIdRequest implements RequestPlugin {
   /**
    * Indicates if the request ID part should be added to the ID.
    */
-  private requestIdActivated: boolean;
+  private readonly requestIdActivated: boolean;
 
   /**
    * The session ID used to track API calls
@@ -36,7 +36,6 @@ export class SessionIdRequest implements RequestPlugin {
 
   /**
    * Constructor.
-   *
    * @param sessionIdHeader The request header in which the ID will be added.
    * @param activateRequestId Indicates if the request ID part should be added to the ID.
    */

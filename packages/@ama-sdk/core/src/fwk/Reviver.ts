@@ -4,7 +4,6 @@ export type ReviverType<T, V extends { [key: string]: any} = { [key: string]: an
 /**
  * Used in case of maps (dictionaries): All values of the map must be of the same type. reviveWithType will be called
  * for each of these elements.
- *
  * @param dictionaries
  * @param reviver
  */
@@ -24,7 +23,6 @@ export function reviveMap<T>(data: { [key: string]: any }, dictionaries: any = n
 
 /**
  * Used in case of arrays: It will call the reviveWithType for each element of the array.
- *
  * @param data
  * @param dictionaries
  * @param reviver
@@ -39,7 +37,6 @@ export function reviveArray<T>(data: any[], dictionaries: any = null, reviver: R
 
 /**
  * Used in case of arrays dictionarized Array
- *
  * @param ids : list of the ids to be able to get the associated values from the dictionary
  * @param dictionary : Specific dictionary associated to T
  * @param reviver : Function to revive the Data object, once retrieved from the dictionary.

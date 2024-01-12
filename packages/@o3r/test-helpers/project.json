@@ -10,6 +10,9 @@
       "outputs": [
         "{projectRoot}/dist/package.json"
       ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
@@ -26,9 +29,7 @@
         "outputPath": "packages/@o3r/test-helpers/dist",
         "clean": false
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -43,13 +44,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/test-helpers/.eslintrc.js",
         "lintFilePatterns": [
@@ -61,8 +55,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/test-helpers/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/test-helpers/jest.config.js"
       }
     }
   },

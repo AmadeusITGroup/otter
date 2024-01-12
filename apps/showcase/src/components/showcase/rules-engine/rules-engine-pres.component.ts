@@ -1,11 +1,11 @@
-import { CommonModule, formatDate } from '@angular/common';
+import { AsyncPipe, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } from '@o3r/configuration';
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { distinctUntilChanged, map, Observable, Subscription } from 'rxjs';
 import { TripFactsService } from '../../../facts/trip/trip.facts';
 import { DatePickerInputPresComponent } from '../../utilities';
@@ -23,12 +23,12 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     DynamicContentModule,
     ReactiveFormsModule,
-    RulesEngineModule,
+    RulesEngineRunnerModule,
     LocalizationModule,
-    DatePickerInputPresComponent
+    DatePickerInputPresComponent,
+    AsyncPipe
   ]
 })
 export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
@@ -37,7 +37,7 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
   @Localization('./rules-engine-pres.localization.json')
   public translations: RulesEnginePresTranslation;
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   /**
    * Form group
@@ -53,7 +53,7 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
   public config: Partial<RulesEnginePresConfig> | undefined;
 
   @ConfigObserver()
-  private dynamicConfig$: ConfigurationObserver<RulesEnginePresConfig>;
+  private readonly dynamicConfig$: ConfigurationObserver<RulesEnginePresConfig>;
 
   /** Configuration stream based on the input and the stored configuration*/
   public config$: Observable<RulesEnginePresConfig>;
@@ -119,7 +119,4 @@ export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<
     this.subscription.unsubscribe();
   }
 
-  public trackByCityName(_index: number, option: RulesEngineDestinationConfiguration) {
-    return option.cityCode;
-  }
 }

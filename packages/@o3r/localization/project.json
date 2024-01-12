@@ -7,17 +7,30 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
+    },
+    "prepare": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "inputs": [
+        "{projectRoot}/package.json"
+      ],
+      "options": {
+        "script": "prepare:compile"
+      }
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/localization/ng-package.json",
+        "project": "packages/@o3r/localization/src/ng-package.json",
         "tsConfig": "packages/@o3r/localization/tsconfig.build.json"
-      }
+      },
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -32,13 +45,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/localization/.eslintrc.js",
         "lintFilePatterns": [
@@ -50,8 +56,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/localization/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/localization/jest.config.js"
       }
     },
     "test-int": {

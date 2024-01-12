@@ -137,14 +137,12 @@ module.exports = {
         'leadingUnderscore': 'allow',
         'trailingUnderscore': 'allow'
       },
-
       {
         'selector': 'variable',
         'format': ['camelCase', 'UPPER_CASE'],
         'leadingUnderscore': 'allow',
         'trailingUnderscore': 'allow'
       },
-
       {
         'selector': 'typeLike',
         'format': ['PascalCase']
@@ -157,6 +155,10 @@ module.exports = {
       {
         'selector': 'enumMember',
         'format': ['camelCase', 'UPPER_CASE']
+      },
+      {
+        'selector': 'import',
+        'format': ['camelCase', 'PascalCase']
       }
     ],
     '@typescript-eslint/no-array-constructor': 'error',
@@ -186,6 +188,7 @@ module.exports = {
       }
     ],
     '@typescript-eslint/no-this-alias': 'error',
+    '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
     '@typescript-eslint/no-unused-expressions': 'error',
     '@typescript-eslint/no-unused-vars': [
       'error',
@@ -228,6 +231,7 @@ module.exports = {
     ],
     '@typescript-eslint/unbound-method': 'warn',
     '@typescript-eslint/unified-signatures': 'error',
+    '@typescript-eslint/prefer-readonly': 'error',
     'camelcase': 'error',
     'comma-dangle': 'error',
     'comma-style': [
@@ -273,7 +277,10 @@ module.exports = {
     ],
     'jsdoc/check-access': 'warn',
     'jsdoc/check-alignment': 'error',
-    'jsdoc/check-examples': 'off',
+    // TODO: Activate when available on ESLint 8+ (cf. https://github.com/eslint/eslint/issues/14745)
+    // 'jsdoc/check-examples': ['error', {
+    //   'exampleCodeRegex': '^```(?:javascript|typescript|java|json|yaml|shell)?([\\s\\S]*)```\\s*$'
+    // }],
     'jsdoc/check-indentation': 'off',
     'jsdoc/check-line-alignment': 'off',
     'jsdoc/check-param-names': 'warn',

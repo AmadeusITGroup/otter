@@ -28,7 +28,7 @@ export function nxRegisterProjectTasks(_options: NgGenerateSdkSchema, targetPath
         }
       },
       lint: {
-        executor: '@nx/linter:eslint',
+        executor: '@nx/eslint:lint',
         configurations: {
           ci: {
             quiet: true,

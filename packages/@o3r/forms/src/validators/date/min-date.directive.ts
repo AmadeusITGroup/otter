@@ -51,7 +51,6 @@ export class MinDateValidator implements Validator, OnChanges {
 
   /**
    * Minimum Date validator
-   *
    * @param minDate Minimum date to compare to
    */
   public static minDate(minDate: utils.Date | null): ValidatorFn {

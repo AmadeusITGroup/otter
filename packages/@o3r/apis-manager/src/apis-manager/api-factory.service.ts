@@ -17,7 +17,7 @@ export class ApiFactoryService {
   /** Map of loaded APIs */
   private loadedApis: Record<string, Api> = {};
 
-  constructor(@Inject(API_TOKEN) private apiManager: ApiManager, @Optional() @Inject(INITIAL_APIS_TOKEN) apis?: (Api | ApiClassType)[]) {
+  constructor(@Inject(API_TOKEN) private readonly apiManager: ApiManager, @Optional() @Inject(INITIAL_APIS_TOKEN) apis?: (Api | ApiClassType)[]) {
     if (apis) {
       this.updateApiMapping(apis);
     }
@@ -25,7 +25,6 @@ export class ApiFactoryService {
 
   /**
    * Determine if the given parameter is a API class
-   *
    * @param apiClass object to check
    */
   private isApiClass<T extends Api = Api>(apiClass: any): apiClass is ApiClassType<T> {
@@ -34,7 +33,6 @@ export class ApiFactoryService {
 
   /**
    * Retrieve a specific API with loaded configuration
-   *
    * @param apiClass class of the API to retrieve
    * @param refreshCache Ignore cached API instance and refresh it
    */
@@ -53,7 +51,6 @@ export class ApiFactoryService {
   /**
    * Update the Map of loaded APIs.
    * Note: Can be used to override the a specific API
-   *
    * @param map Map of loaded APIs to update
    */
   public updateApiMapping(map: (Api | ApiClassType)[] | Record<string, (Api | ApiClassType)>) {
@@ -76,7 +73,6 @@ export class ApiFactoryService {
 
   /**
    * Clear the cache of loaded APIs
-   *
    * @param apis Whitelist of APIs to clear from the cache, if specified only these apis will be removed from the cache
    */
   public clearCache(apis?: ApiName[]) {
@@ -89,7 +85,6 @@ export class ApiFactoryService {
 
   /**
    * Retrieve the configuration for a specific API
-   *
    * @param apiClass class of the API for which retrieving the configuration
    */
   public getConfigFor(apiClass: ApiName): ApiClient {

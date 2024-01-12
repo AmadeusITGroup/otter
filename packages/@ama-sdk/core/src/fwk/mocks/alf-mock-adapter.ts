@@ -41,7 +41,6 @@ interface AlfCall {
 
 /**
  * Split the logs
- *
  * @param log alf log
  * @returns an array containing one message each
  */
@@ -51,7 +50,6 @@ function splitCalls(log: string): string[] {
 
 /**
  * Get AlfCall corresponding to this log if it is a request received by the SI
- *
  * @param log alf log
  * @param corrId correlationId
  * @param operationAdapter operation adapter to bind each request with its operationId
@@ -79,7 +77,6 @@ function getRequest(log: string, corrId: string, operationAdapter: PathObject[])
 
 /**
  * Returns true if log is detected as a HTTP response
- *
  * @param log alf log
  * @returns true if found
  */
@@ -90,7 +87,6 @@ function isResponse(log: string): boolean {
 
 /**
  * Return JSON data found
- *
  * @param log alf log
  * @returns JSON data that can be either the request or the response
  */
@@ -103,7 +99,6 @@ function getData(log: string): string {
  * Retrieve path from logPath and parse it to find all the calls.
  * If the logs file contains more than one entry point this methods will separate them in Steps.
  * First call will represent the request and last call the response.
- *
  * @param log Content of the alf logs
  * @param operationAdapter operation adapter to bind each request/response with its operationId
  * @returns an array of AlfCall found in the logs
@@ -149,7 +144,6 @@ function buildAlfCalls(log: string, operationAdapter: PathObject[]): AlfCall[] {
 
 /**
  * Build the actual mock map corresponding to these alfCalls
- *
  * @param log Content of the alf logs
  * @param operationAdapter operation adapter to bind each request/response with its operationId
  * @returns mock map, key is the operation id, value is an array of the API replies
@@ -174,7 +168,6 @@ function buildMockMap(log: string, operationAdapter: PathObject[]): MockMap {
 
 /**
  * Get the mock adapter corresponding to the logs retrieved from ALF
- *
  * @param binFilePath the path to the file containing the logs downloaded from Alf in .bin format
  * @param operationAdapter an array of PathObject or a function that returns an array of PathObject or a Promise that resolves to an array of PathObject, to map request with their operationId
  * @returns a sequential mock adapter containing each response found in Alf

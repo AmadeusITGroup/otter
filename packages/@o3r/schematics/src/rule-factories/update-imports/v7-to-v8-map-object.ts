@@ -1922,7 +1922,7 @@ export const mapImportV7toV8: ImportsMapping = {
     Output: {
       newPackage: '@o3r/core'
     },
-    CmsMedataData: {
+    CmsMetadataData: {
       newPackage: '@o3r/core'
     },
     checkComponentImplementsInterface: {

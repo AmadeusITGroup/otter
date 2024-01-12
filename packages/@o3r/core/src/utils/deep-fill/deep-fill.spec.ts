@@ -1,5 +1,4 @@
-import {utils} from '@ama-sdk/core';
-import {deepFill, immutablePrimitive, isDate, isObject} from './deep-fill';
+import {deepFill, immutablePrimitive, isObject} from './deep-fill';
 
 describe('Deep fill function', () => {
 
@@ -48,7 +47,7 @@ describe('Deep fill function', () => {
   });
 
   it('should keep the object value and a new reference', () => {
-    const now = new utils.DateTime();
+    const now = new Date();
     const base = Object.freeze({a: 1, b: [1, 2, 3], c: now});
     const filled = deepFill(base, base);
 
@@ -118,7 +117,7 @@ describe('Deep fill function', () => {
   });
 
   it('should replace with the new date', () => {
-    interface InternalTypeProp { a: number; b: utils.Date }
+    interface InternalTypeProp { a: number; b: Date }
     interface ObjectTypeProp { present: string; internal: Partial<InternalTypeProp> }
 
     const today = new Date();
@@ -126,11 +125,11 @@ describe('Deep fill function', () => {
       present: 'coucou',
       internal: {
         a: 2,
-        b: new utils.Date(today)
+        b: new Date(today)
       }
     });
 
-    const newDate = new utils.Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
+    const newDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
     const source: Partial<ObjectTypeProp> = Object.freeze({
       internal: {
@@ -148,7 +147,7 @@ describe('Deep fill function', () => {
   });
 
   it('should replace with the new date time', () => {
-    interface InternalTypeProp { a: number; b: utils.DateTime }
+    interface InternalTypeProp { a: number; b: Date }
     interface ObjectTypeProp { present: string; internal: Partial<InternalTypeProp> }
 
     const today = new Date();
@@ -156,11 +155,11 @@ describe('Deep fill function', () => {
       present: 'coucou',
       internal: {
         a: 2,
-        b: new utils.DateTime(today)
+        b: new Date(today)
       }
     });
 
-    const newDate = new utils.DateTime(today.getFullYear(), today.getMonth() + 1, today.getDate(), 10, 30, 0);
+    const newDate = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate(), 10, 30, 0);
 
     const source: Partial<ObjectTypeProp> = Object.freeze({
       internal: {
@@ -177,22 +176,8 @@ describe('Deep fill function', () => {
     });
   });
 
-  describe('IsDate function', () => {
-    it('should return true for an utils date or datetime object', () => {
-      const obj = new utils.Date();
-
-      expect(isDate(obj)).toBeTruthy();
-    });
-
-    it('should return false for an object not utils date nor datetime', () => {
-      const obj = {a: 1, b: [0, 1, 2]};
-
-      expect(isDate(obj)).toBeFalsy();
-    });
-  });
-
   describe('IsObject function', () => {
-    it('should return true for an object which is not utils date or datetime or array', () => {
+    it('should return true for an object which is not utils date or Date or array', () => {
       const obj = {a: 1, b: [1, 2, 3], c: 'my string config'};
 
       expect(isObject(obj)).toBeTruthy();

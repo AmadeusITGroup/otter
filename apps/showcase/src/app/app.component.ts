@@ -4,6 +4,9 @@ import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
 
+import { ApplicationDevtoolsMessageService } from '@o3r/application';
+import { ComponentsDevtoolsMessageService } from '@o3r/components';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,7 +29,8 @@ export class AppComponent implements OnDestroy {
         { url: '/configuration', label: 'Configuration' },
         { url: '/localization', label: 'Localization' },
         { url: '/dynamic-content', label: 'Dynamic content' },
-        { url: '/rules-engine', label: 'Rules engine' }
+        { url: '/rules-engine', label: 'Rules engine' },
+        { url: '/component-replacement', label: 'Component Replacement' }
       ]
     },
     {
@@ -41,12 +45,17 @@ export class AppComponent implements OnDestroy {
 
   private offcanvasRef: NgbOffcanvasRef | undefined;
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
   constructor(
     router: Router,
-    private offcanvasService: NgbOffcanvas
-  ) {
+    private readonly offcanvasService: NgbOffcanvas,
+    applicationDevtoolsMessageService: ApplicationDevtoolsMessageService,
+    componentsDevtoolsMessageService: ComponentsDevtoolsMessageService) {
+
+    applicationDevtoolsMessageService.activate();
+    componentsDevtoolsMessageService.activate();
+
     const onNavigationEnd$ = router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()

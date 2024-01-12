@@ -29,7 +29,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "removeComments": false,
-    "declarationMap": true,
+    "declarationMap": false,
     "skipLibCheck": true,
     "pretty": true,
     "preserveWatchOutput": true,

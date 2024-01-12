@@ -4,7 +4,6 @@ import { EslintFixTask, LinterOptions } from '../../tasks';
 
 /**
  * Apply EsLint fix
- *
  * @param prootPath Root path
  * @param _prootPath
  * @param extension List of file extensions to lint
@@ -18,8 +17,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
   }
 
   const linterOptions: LinterOptions = {
-    continueOnError: options?.force ?? true,
-    force: true,
+    continueOnError: true,
     hideWarnings: true,
     ...options
   };

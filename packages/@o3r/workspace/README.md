@@ -29,7 +29,7 @@ This packages exposes the following Command Line Interfaces:
 Replaces the value of the `version` field of the `JSON` files matched by the pattern provided to the `--include` options.
 
 ```shell
-Usage: set-version [options] <version>
+Usage: o3r-set-version [options] <version>
 
 Replace the packages version in a monorepos
 

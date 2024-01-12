@@ -17,7 +17,6 @@ export class ComponentsDevtoolsModule {
 
   /**
    * Initialize Otter Devtools
-   *
    * @param options
    */
   public static instrument(options: Partial<ComponentsDevtoolsServiceOptions>): ModuleWithProviders<ComponentsDevtoolsModule> {

@@ -1,5 +1,7 @@
 /**
  * If setImmediate not available, fallback to setTimeout
+ * @param fn
+ * @param {...any} args
  */
 globalThis.setImmediate ||= ((fn: any, ...args: any) => {
   // eslint-disable-next-line @typescript-eslint/no-implied-eval

@@ -2,7 +2,7 @@
 
 This package contains all the [plugins](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins), helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
 
-Please refer to the [generator-sdk](../generator-sdk/README.md) package for getting started with an API based on `ama-sdk`.
+Please refer to the [ama-sdk-schematics](../schematics/README.md) package for getting started with an API based on `ama-sdk`.
 
 ## Available plugins
 
@@ -17,15 +17,11 @@ Please refer to the [generator-sdk](../generator-sdk/README.md) package for gett
 - [exception](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/exception)
 - [fetch-cache](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-cache)
 - [fetch-credentials](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-credentials)
-- [fetch-options](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-options)
-- [gateway-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/gateway-token)
-- [imperva](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/imperva)
 - [json-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/json-token)
 - [keepalive](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/keepalive)
 - [mock-intercept](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/mock-intercept)
 - [perf-metric](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/perf-metric)
 - [pii-tokenizer](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/pii-tokenizer)
-- [public-facts](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/public-facts)
 - [raw-response-info](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/raw-response-info)
 - [retry](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/retry)
 - [reviver](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/reviver)

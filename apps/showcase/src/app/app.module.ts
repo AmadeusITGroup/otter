@@ -21,11 +21,15 @@ import {
   translateLoaderProvider,
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { C11nModule, ComponentsDevtoolsModule, registerCustomComponent } from '@o3r/components';
+import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
@@ -67,6 +71,13 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
+/**
+ * Factory function to register custom components
+ */
+export function registerCustomComponents(): Map<string, any> {
+  return registerCustomComponent(new Map(), 'exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent);
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -85,11 +96,14 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    RulesEngineModule.forRoot({ debug: true }),
+    RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,
     ScrollBackTopPresComponent,
+    ApplicationDevtoolsModule,
+    ComponentsDevtoolsModule,
+    C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule
   ],

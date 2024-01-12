@@ -93,7 +93,7 @@ export class ApiAngularClient implements ApiClient {
     revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: HttpResponse<any> | undefined;
-    let root: any | undefined;
+    let root: any;
     let exception: Error | undefined;
 
     const origin = options.headers.get('Origin');
