@@ -111,10 +111,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
           tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
+          const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
           const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
             template({
               ...options,
-              rootRelativePath: path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './')),
+              rootRelativePath,
               isAngularSetup: tree.exists('/angular.json')
             }),
             move(workingDirectory),
@@ -123,7 +124,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
 
           const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
             template({
-              ...options
+              ...options,
+              rootRelativePath
             }),
             move(tree.root.path),
             renameTemplateFiles()
