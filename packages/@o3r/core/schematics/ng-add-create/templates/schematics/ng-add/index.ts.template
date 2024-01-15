@@ -1,12 +1,22 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, install, ngAddPackages, getO3rPeerDeps  } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import { type DependencyToAdd } from '@o3r/schematics';
+
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 const doCustomAction: Rule = (tree, _context) => {
   // your custom code here
   return tree;
 };
+
+const dependenciesToInstall = [
+  // Add the dependencies to install here
+];
+
+const dependenciesToNgAdd = [
+  // Add the dependencies to install with NgAdd here
+];
 
 /**
  * Add Otter <%= featureName %> to an Otter Project
@@ -14,19 +24,38 @@ const doCustomAction: Rule = (tree, _context) => {
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (_tree, context) => {
-    // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
-    const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-    return chain([
-      // optional custom action dedicated to this module
-      doCustomAction,
-      options.skipLinter ? noop() : applyEsLintFix(),
-      // install packages needed in the current module
-      options.skipInstall ? noop : install,
-      // add the missing Otter modules in the current project
-      ngAddPackages(depsInfo.o3rPeerDeps, { skipConfirmation: true, version: depsInfo.packageVersion, parentPackageInfo: `${depsInfo.packageName!} - setup` })
-    ]);
+  return async (tree, context) => {
+    try {
+      // use dynamic import to properly raise an exception if it is not an Otter project.
+      const { getProjectNewDependenciesTypes, getPackageInstallConfig, applyEsLintFix, install } = await import('@o3r/schematics');
+      // current package version
+      const version = JSON.stringify(fs.readFileSync(packageJsonPath)).version;
+      const dependencies = [...dependenciesToInstall, ...dependenciesToNgAdd].reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${version}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      return chain([
+        // optional custom action dedicated to this module
+        doCustomAction,
+        options.skipLinter ? noop() : applyEsLintFix(),
+        setupDependencies({
+          projectName: options.projectName,
+          dependencies,
+          ngAddToRun: dependenciesToNgAdd,
+          skipInstall: options.skipInstall
+        })
+      ]);
+    } catch (e) {
+      // If the installation is initialized in a non-Otter application, mandatory packages will be missing. We need to notify the user
+      context.logger.error(`[ERROR]: Adding <%= featureName %> has failed.
+      If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the <%= featureName %> package. Please run 'ng add @o3r/core' .
+      Otherwise, use the error message as guidance.`);
+      throw (e);
+    }
   };
 }
-
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

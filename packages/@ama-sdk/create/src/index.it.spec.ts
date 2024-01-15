@@ -13,7 +13,7 @@ import * as fs from 'node:fs';
 import { cpSync, mkdirSync } from 'node:fs';
 import * as path from 'node:path';
 
-const appName = 'test-sdk';
+const projectName = 'test-sdk';
 const sdkPackageName = '@my-test/sdk';
 let sdkFolderPath: string;
 let sdkPackagePath: string;
@@ -25,7 +25,7 @@ describe('Create new sdk command', () => {
   beforeEach(async () => {
     const isYarnTest = packageManager.startsWith('yarn');
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
-    sdkFolderPath = await prepareTestEnv(appName, 'blank', yarnVersion);
+    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion })).workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
@@ -51,19 +51,20 @@ describe('Create new sdk command', () => {
 
   test('should generate a full SDK when the specification is provided', () => {
     expect(() =>
-      packageManagerCreate(`@ama-sdk typescript ${sdkPackageName} --package-manager ${packageManager} --spec-path ./swagger-spec.yml`, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+      packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', './swagger-spec.yml']}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
-    expect(() => packageManagerCreate(`@ama-sdk typescript ${sdkPackageName}`, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName]}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() =>
-      packageManagerExec(
-        `schematics @ama-sdk/schematics:typescript-core --spec-path ${path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')}`,
-        { ...execAppOptions, cwd: sdkPackagePath }
+      packageManagerExec({
+        script: 'schematics',
+        args: ['@ama-sdk/schematics:typescript-core', '--spec-path', path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')]
+      }, { ...execAppOptions, cwd: sdkPackagePath }
       )).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    expect(() => packageManagerRun('doc:generate', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({ script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 });

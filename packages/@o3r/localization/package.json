@@ -46,6 +46,7 @@
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~17.2.0",
     "chokidar": "^3.5.2",
+    "globby": "^11.1.0",
     "intl-messageformat": "~10.5.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.2.2"
@@ -70,6 +71,9 @@
       "optional": true
     },
     "chokidar": {
+      "optional": true
+    },
+    "globby": {
       "optional": true
     },
     "typescript": {
@@ -141,6 +145,7 @@
     "semver": "^7.5.2",
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
+    "type-fest": "^4.10.2",
     "typescript": "~5.2.2",
     "unionfs": "~4.5.1",
     "zone.js": "~0.14.2"

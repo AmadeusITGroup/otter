@@ -52,13 +52,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
-        exclude:
-          - os: windows-latest
-            packageManager: yarn
+        testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
+      PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./tools/github-actions/download-build-output

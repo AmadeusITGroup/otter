@@ -4,6 +4,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+import { getPackageInstallConfig } from '@o3r/schematics';
 
 /**
  * Add Otter configuration to an Angular Project
@@ -14,8 +15,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     try {
       const {
-        ngAddPackages,
-        getProjectNewDependenciesType,
+        setupDependencies,
+        getProjectNewDependenciesTypes,
         getWorkspaceConfig,
         getO3rPeerDeps,
         registerPackageCollectionSchematics,
@@ -25,8 +26,15 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
       context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
       return () => chain([
@@ -45,13 +53,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
             useOtterConfig: undefined
           }
         }),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
         () => registerDevtools(options)
       ])(tree, context);

@@ -60,6 +60,12 @@
         "jestConfig": "packages/@o3r/design/jest.config.js"
       }
     },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/design/testing/jest.config.it.js"
+      }
+    },
     "prepare-publish": {
       "executor": "nx:run-script",
       "options": {

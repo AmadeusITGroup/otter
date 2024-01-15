@@ -17,7 +17,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
   /**
    * Update test tsconfig
    * @param tree
-   * @param _context
+   * @param context
    */
   const updateTestTsconfig: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -92,6 +92,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
     }, {});
 
     if (registerUnitTestFixturePaths) {
+      configWithPath.content.compilerOptions.baseUrl ||= '.';
       configWithPath.content.compilerOptions.paths['@o3r/testing/core'] = ['node_modules/@o3r/testing/core/angular'];
       configWithPath.content.compilerOptions.paths['@o3r/testing/core/*'] = ['node_modules/@o3r/testing/core/angular/*'];
     }

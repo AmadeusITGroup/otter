@@ -79,11 +79,12 @@ const getSchematicStepInfo = (schematic: string) => ({
 
 const run = () => {
 
+  const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
     getSchematicStepInfo(schematicsToRun[0]),
     ...(
       packageManager === 'yarn'
-        ? [{ runner: 'yarn', args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
         : []
     ),
     ...schematicsToRun.slice(1).map(getSchematicStepInfo)

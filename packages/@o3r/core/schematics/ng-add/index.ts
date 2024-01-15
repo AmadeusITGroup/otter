@@ -1,22 +1,23 @@
-import { chain, externalSchematic, noop } from '@angular-devkit/schematics';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-import {
-  AddDevInstall,
-  createSchematicWithMetricsIfInstalled,
-  displayModuleListRule,
-  getWorkspaceConfig,
-  isPackageInstalled,
-  registerPackageCollectionSchematics,
-  setupSchematicsDefaultParams
-} from '@o3r/schematics';
+import { chain, noop, Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
 import { getExternalPreset, presets } from '../shared/presets';
+import { NgAddSchematicsSchema } from './schema';
+import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import { createSchematicWithMetricsIfInstalled, displayModuleListRule, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { prepareProject } from './project-setup/index';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  type DependencyToAdd,
+  setupDependencies,
+  type SetupDependenciesOptions
+} from '@o3r/schematics';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+
+const workspacePackageName = '@o3r/workspace';
+const o3rDevDependencies = [
+  '@o3r/schematics'
+];
 
 /**
  * Add Otter library to an Angular Project
@@ -24,33 +25,38 @@ import type { NgAddSchematicsSchema } from './schema';
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
-  const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
-  const schematicsDependencies = ['@o3r/schematics'];
+  const o3rCoreVersion = corePackageJsonContent.version!;
 
-  return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
-    // check if the workspace package is installed, if not installed and we are in workspace context, we install
-    const workspacePackageName = '@o3r/workspace';
-    if (!options.projectName && !isPackageInstalled(workspacePackageName)) {
-      schematicsDependencies.push(workspacePackageName);
+  return (): Rule => {
+    const dependenciesSetupConfig: SetupDependenciesOptions = {
+      projectName: options.projectName,
+      dependencies: o3rDevDependencies.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${o3rCoreVersion}`,
+            types: [NodeDependencyType.Dev]
+          }]
+        };
+        return acc;
+      }, {} as Record<string, DependencyToAdd>),
+      ngAddToRun: [...o3rDevDependencies]
+    };
+
+    if (!options.projectName) {
+      dependenciesSetupConfig.dependencies[workspacePackageName] = {
+        toWorkspaceOnly: true,
+        inManifest: [{
+          range: `~${o3rCoreVersion}`,
+          types: [NodeDependencyType.Default]
+        }]
+      };
+      (dependenciesSetupConfig.ngAddToRun ||= []).push(workspacePackageName);
     }
-    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const workingDirectory = workspaceProject?.root || '.';
-    context.addTask(new AddDevInstall({
-      packageName: [
-        ...schematicsDependencies.map((dependency) => dependency + o3rCoreVersion)
-      ].join(' '),
-      hideOutput: false,
-      quiet: false,
-      workingDirectory,
-      force: options.forceInstall
-    } as any));
-    await lastValueFrom(context.engine.executePostTasks());
 
-    return () => chain([
+    return chain([
       // eslint-disable-next-line @typescript-eslint/naming-convention
       setupSchematicsDefaultParams({ '*:ng-add': { registerDevtool: options.withDevtool } }),
-      ...schematicsDependencies.map((dep) => externalSchematic(dep, 'ng-add', options)),
-      options.projectName ? prepareProject(options) : noop(),
+      options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),
       async (t, c) => {
         const { preset, externalPresets, ...forwardOptions } = options;
@@ -68,8 +74,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           externalPresetRunner?.rule || noop()
         ])(t, c);
       },
-      displayModuleListRule({ packageName: options.projectName })
-    ])(tree, context);
+      options.projectName ? displayModuleListRule({ packageName: options.projectName }) : noop(),
+      setupDependencies(dependenciesSetupConfig)
+    ]);
   };
 }
 

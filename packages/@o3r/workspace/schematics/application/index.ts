@@ -1,18 +1,20 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, Schematic, strings, template, url } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, type DependencyToAdd, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, setupDependencies } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgGenerateApplicationSchema } from './schema';
 import type { PackageJson } from 'type-fest';
-import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import { type Schema as ApplicationOptions } from '@schematics/angular/application/schema';
 import { Style } from '@schematics/angular/application/schema';
 import { updateProjectTsConfig } from '../rule-factories/index';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as fs from 'node:fs';
 
 /**
  * Add an Otter application to a monorepo
  * @param options Schematic options
  */
 function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
+  const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson;
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
@@ -63,6 +65,18 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     };
     const angularOptions = getOptions(angularAppSchema);
 
+    const dependencies: Record<string, DependencyToAdd> = {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      '@o3r/core': {
+        inManifest: [
+          {
+            range: `~${ownPackageJsonContent.version!}`,
+            types: [NodeDependencyType.Default]
+          }
+        ]
+      }
+    };
+
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? {...acc, [key]: value} : acc), {}),
@@ -71,9 +85,12 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
-      (_, c) => {
-        c.addTask(new RunSchematicTask('@o3r/core', 'ng-add', extendedOptions));
-      }
+      setupDependencies({
+        dependencies,
+        skipInstall: options.skipInstall,
+        ngAddToRun: Object.keys(dependencies),
+        projectName: options.name
+      })
     ])(tree, context);
   };
 

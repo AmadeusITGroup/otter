@@ -5,6 +5,7 @@ import * as fs from 'node:fs';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+import { type DependencyToAdd, getPackageInstallConfig } from '@o3r/schematics';
 
 /**
  * Add Otter components to an Angular Project
@@ -17,10 +18,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const {
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectNewDependenciesType,
+        getProjectNewDependenciesTypes,
         getWorkspaceConfig,
-        ngAddPackages,
-        ngAddPeerDependencyPackages,
+        setupDependencies,
         removePackages,
         registerPackageCollectionSchematics
       } = await import('@o3r/schematics');
@@ -35,19 +35,33 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }
 
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      const devDependencies: Record<string, DependencyToAdd> = {
+        chokidar: {
+          inManifest: [{
+            range: packageJson.peerDependencies.chokidar,
+            types: [NodeDependencyType.Dev]
+          }]
+        }
+      };
       const rule = chain([
         removePackages(['@otter/components']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies: {
+            ...dependencies,
+            ...devDependencies
+          },
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
         registerPackageCollectionSchematics(packageJson),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
         await registerDevtools(options)

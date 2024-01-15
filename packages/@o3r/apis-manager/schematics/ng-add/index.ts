@@ -1,5 +1,5 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageInstallConfig } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 
@@ -10,27 +10,34 @@ import type { NgAddSchematicsSchema } from './schema';
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, applyEsLintFix, getWorkspaceConfig, getProjectNewDependenciesType } = await import('@o3r/schematics');
+      const { setupDependencies, getO3rPeerDeps, applyEsLintFix, getWorkspaceConfig, getProjectNewDependenciesTypes } = await import('@o3r/schematics');
       const { updateApiDependencies } = await import('../helpers/update-api-deps');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
       const rulesToExecute: Rule[] = [];
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root;
       const projectType = workspaceProject?.projectType || 'application';
       if (projectType === 'application') {
         rulesToExecute.push(updateApiDependencies(options));
       }
 
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+
       return () => chain([
         ...rulesToExecute,
         options.skipLinter ? noop : applyEsLintFix(),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType: getProjectNewDependenciesType(workspaceProject),
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         })
       ])(tree, context);
 

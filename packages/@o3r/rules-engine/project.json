@@ -99,8 +99,7 @@
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js",
-        "silent": false
+        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {

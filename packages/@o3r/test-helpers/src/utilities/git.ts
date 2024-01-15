@@ -7,7 +7,7 @@ import { execFileSync, ExecFileSyncOptionsWithStringEncoding, execSync } from 'n
 export function setupGit(workingDirectory?: string) {
   const authorName = 'otter it tests';
   const authorEmail = 'fake-email@it-tests.otter';
-  execSync('git init -b master && git add -A && git commit -m "initial commit" && git tag -a after-init -m "after-init"', {
+  execSync('git init -b master && git add -A && git commit --allow-empty -m "initial commit" && git tag -a after-init -m "after-init"', {
     cwd: workingDirectory,
     env: {
       /* eslint-disable @typescript-eslint/naming-convention, camelcase */

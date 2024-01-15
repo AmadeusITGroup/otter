@@ -207,6 +207,7 @@
       ]
     },
     "generate-dark-theme": {
+      "cache": true,
       "executor": "@o3r/design:generate-css",
       "outputs": [
         "{options.defaultStyleFile}",
@@ -236,6 +237,7 @@
       ]
     },
     "generate-horizon-theme": {
+      "cache": true,
       "executor": "@o3r/design:generate-css",
       "outputs": [
         "{options.defaultStyleFile}",

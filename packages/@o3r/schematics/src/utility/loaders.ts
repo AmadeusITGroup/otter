@@ -76,11 +76,19 @@ export function readPackageJson(tree: Tree, workspaceProject: WorkspaceProject) 
 
 /**
  * Return the type of install to run depending on the project type (Peer or default)
+ * @deprecated use {@link getProjectNewDependenciesTypes instead}, will be removed in V11
  * @param project
- * @param tree
  */
 export function getProjectNewDependenciesType(project?: WorkspaceProject) {
   return project?.projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
+}
+
+/**
+ * Return the types of install to run depending on the project type
+ * @param project
+ */
+export function getProjectNewDependenciesTypes(project?: WorkspaceProject): NodeDependencyType[] {
+  return project?.projectType === 'library' ? [NodeDependencyType.Peer, NodeDependencyType.Dev] : [NodeDependencyType.Default];
 }
 
 /**

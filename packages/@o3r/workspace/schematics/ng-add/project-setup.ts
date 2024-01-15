@@ -1,5 +1,12 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
-import { addVsCodeRecommendations, applyEsLintFix, getO3rPeerDeps, getWorkspaceConfig, install, ngAddPackages } from '@o3r/schematics';
+import {
+  addVsCodeRecommendations,
+  applyEsLintFix,
+  getO3rPeerDeps,
+  getWorkspaceConfig,
+  setupDependencies
+} from '@o3r/schematics';
+import type { DependencyToAdd } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
@@ -20,6 +27,9 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     'EditorConfig.EditorConfig',
     'angular.ng-template'
   ];
+  const dependenciesToInstall = [
+    '@ama-sdk/schematics'
+  ];
   const ownSchematicsFolder = path.resolve(__dirname, '..');
   const ownPackageJsonPath = path.resolve(ownSchematicsFolder, '..', 'package.json');
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
@@ -29,12 +39,21 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     if (!ownPackageJsonContent) {
       context.logger.error('Could not find @o3r/workspace package. Are you sure it is installed?');
     }
-    const o3rCoreVersion = ownPackageJsonContent.version;
     const installOtterLinter = await shouldOtterLinterBeInstalled(context);
     const internalPackagesToInstallWithNgAdd = Array.from(new Set([
       ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
       ...depsInfo.o3rPeerDeps
     ]));
+
+    const dependencies = [...internalPackagesToInstallWithNgAdd, ...dependenciesToInstall].reduce((acc, dep) => {
+      acc[dep] = {
+        inManifest: [{
+          range: `~${depsInfo.packageVersion}`,
+          types: [NodeDependencyType.Default]
+        }]
+      };
+      return acc;
+    }, {} as Record<string, DependencyToAdd>);
 
     if (installOtterLinter) {
       vsCodeExtensions.push('dbaeumer.vscode-eslint');
@@ -47,21 +66,13 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
       filterPackageJsonScripts,
-      ngAddPackages(internalPackagesToInstallWithNgAdd, {
-        skipConfirmation: true,
-        version: o3rCoreVersion,
-        parentPackageInfo: '@o3r/workspace - setup',
-        dependencyType: NodeDependencyType.Peer
-      }),
-      ngAddPackages(['@ama-sdk/schematics'], {
-        skipConfirmation: true,
-        version: o3rCoreVersion,
-        parentPackageInfo: '@o3r/workspace - setup',
-        dependencyType: NodeDependencyType.Dev
+      setupDependencies({
+        dependencies,
+        skipInstall: options.skipInstall,
+        ngAddToRun: internalPackagesToInstallWithNgAdd
       }),
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
-      addWorkspacesToProject(),
-      options.skipInstall ? noop() : install
+      addWorkspacesToProject()
     ])(tree, context);
   };
 };

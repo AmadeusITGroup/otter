@@ -1,30 +1,32 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
+  getExternalDependenciesVersionRange,
   getModuleIndex,
+  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
   isApplicationThatUsesRouterModule,
-  ngAddPackages,
-  ngAddPeerDependencyPackages,
   insertBeforeModule as o3rInsertBeforeModule,
-  insertImportToModuleFile as o3rInsertImportToModuleFile
+  insertImportToModuleFile as o3rInsertImportToModuleFile,
+  type SetupDependenciesOptions
 } from '@o3r/schematics';
 import { WorkspaceProject } from '@o3r/schematics';
 import { addRootImport } from '@schematics/angular/utility';
 import { isImported } from '@schematics/angular/utility/ast-utils';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 import * as ts from 'typescript';
 import * as fs from 'node:fs';
 
-const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
+const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
+const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', 'package.json');
+const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
+const o3rCoreVersion = corePackageJsonContent.version;
+
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
-// TODO Remove this explicit dependency when correctly brought by the ng-add of @o3r/store-sync
-const fastDeepEqualDep = 'fast-deep-equal';
 
 /**
  * Add Redux Store support
@@ -33,55 +35,48 @@ const fastDeepEqualDep = 'fast-deep-equal';
  * @param options.projectName
  * @param options.workingDirectory
  * @param projectType
+ * @param options.dependenciesSetupConfig
+ * @param options.workingDirector
  */
-export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+export function updateStore(
+  options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions },
+  projectType?: WorkspaceProject['projectType']): Rule {
 
   const addStoreModules: Rule = (tree) => {
-    const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
-    const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', 'package.json');
-    const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
-    const o3rCoreVersion = corePackageJsonContent.version;
     const workspaceConfig = getWorkspaceConfig(tree);
     const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
-    const projectDirectory = workspaceProject?.root;
 
-    return ngAddPackages(['@o3r/store-sync'],
-      {
-        skipConfirmation: true,
-        version: o3rCoreVersion,
-        parentPackageInfo: '@o3r/core - setup',
-        projectName: options.projectName,
-        dependencyType: NodeDependencyType.Default,
-        workingDirectory: projectDirectory
-      }
-    );
+    const storeSyncPackageName = '@o3r/store-sync';
+
+    options.dependenciesSetupConfig.dependencies[storeSyncPackageName] = {
+      inManifest: [{
+        range: `~${o3rCoreVersion}`,
+        types: getProjectNewDependenciesTypes(workspaceProject)
+      }]
+    };
+    (options.dependenciesSetupConfig.ngAddToRun ||= []).push(storeSyncPackageName);
   };
 
   /**
-   * Changed package.json start script to run localization generation
+   * Change package.json with the new dependencies
    * @param tree
-   * @param context
    */
-  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
-    const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
+  const updatePackageJson: Rule = (tree: Tree) => {
+    const workspaceConfig = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
 
-    const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep, fastDeepEqualDep];
+    const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep];
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
-    let dependenciesList = [...corePeerDeps];
+    const dependenciesList = projectType === 'application' ? [...corePeerDeps, ...appDeps] : [...corePeerDeps];
 
-    if (projectType === 'application') {
-      dependenciesList = [...dependenciesList, ...appDeps];
-    }
-
-
-    return () => {
-      try {
-        return ngAddPeerDependencyPackages(dependenciesList, packageJsonPath, type, {...options, skipNgAddSchematicRun: true})(tree, context);
-      } catch (e: any) {
-        context.logger.warn(`Could not find generatorDependency ${dependenciesList.join(', ')} in file ${packageJsonPath}`);
-        return tree;
-      }
-    };
+    Object.entries(getExternalDependenciesVersionRange(dependenciesList, corePackageJsonPath)).forEach(([dep, range]) => {
+      options.dependenciesSetupConfig.dependencies[dep] = {
+        inManifest: [{
+          range,
+          types: getProjectNewDependenciesTypes(workspaceProject)
+        }]
+      };
+    });
   };
 
   /**

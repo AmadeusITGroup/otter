@@ -27,10 +27,8 @@
       "options": {
         "main": "packages/@o3r/test-helpers/src/public_api.ts",
         "tsConfig": "packages/@o3r/test-helpers/tsconfig.build.json",
-        "outputPath": "packages/@o3r/test-helpers/dist",
-        "clean": false
-      },
-      "dependsOn": ["^build"]
+        "outputPath": "packages/@o3r/test-helpers/dist"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
