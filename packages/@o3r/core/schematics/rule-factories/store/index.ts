@@ -23,14 +23,15 @@ const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
+// TODO Remove this explicit dependency when correctly brought by the ng-add of @o3r/store-sync
 const fastDeepEqualDep = 'fast-deep-equal';
 
 /**
  * Add Redux Store support
- *
  * @param options @see RuleFactory.options
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
+ * @param options.workingDirectory
  * @param projectType
  */
 export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
@@ -58,7 +59,6 @@ export function updateStore(options: { projectName?: string | undefined; working
 
   /**
    * Changed package.json start script to run localization generation
-   *
    * @param tree
    * @param context
    */
@@ -86,7 +86,6 @@ export function updateStore(options: { projectName?: string | undefined; working
 
   /**
    * Edit main module with the translation required configuration
-   *
    * @param tree
    * @param context
    */
