@@ -23,7 +23,7 @@
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
+    "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
     "@vercel/ncc": "~0.38.0",
     "audit-types": "~0.5.6",

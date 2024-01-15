@@ -45,7 +45,7 @@
     "@o3r/rules-engine": "workspace:^",
     "@types/chrome": "^0.0.256",
     "@types/jest": "~29.5.2",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
+    "@typescript-eslint/eslint-plugin": "6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
     "@typescript-eslint/types": "^6.11.0",
     "archiver": "^6.0.1",
