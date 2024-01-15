@@ -46,7 +46,6 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
       generateRenovateConfig(ownSchematicsFolder),
       addVsCodeRecommendations(vsCodeExtensions),
       updateGitIgnore(workspaceConfig),
-      addWorkspacesToProject(),
       filterPackageJsonScripts,
       ngAddPackages(internalPackagesToInstallWithNgAdd, {
         skipConfirmation: true,
@@ -61,6 +60,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
         dependencyType: NodeDependencyType.Dev
       }),
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
+      addWorkspacesToProject(),
       options.skipInstall ? noop() : install
     ])(tree, context);
   };
