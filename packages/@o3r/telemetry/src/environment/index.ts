@@ -4,14 +4,14 @@ import { execSync } from 'node:child_process';
 import * as path from 'node:path';
 
 /** Support NPM package managers */
-type SupportedPackageManagers = 'npm' | 'yarn';
+type SupportedPackageManagers = 'npm' | 'yarn' | 'yarn1';
 
 /**
  * Determine if the given packager manager is supported
  * @param name Name of the package manager
  */
 function isSupportedPackageManager(name?: any): name is SupportedPackageManagers {
-  return name === 'yarn' || name === 'npm';
+  return ['yarn', 'yarn1', 'npm'].includes(name);
 }
 
 /**
@@ -19,7 +19,7 @@ function isSupportedPackageManager(name?: any): name is SupportedPackageManagers
  */
 function getPackageManager() {
   if (isSupportedPackageManager(process.env?.ENFORCED_PACKAGE_MANAGER)) {
-    return process.env.ENFORCED_PACKAGE_MANAGER;
+    return (process.env.ENFORCED_PACKAGE_MANAGE === 'npm') ? 'npm' : 'yarn';
   }
   return (process.env?.npm_execpath?.includes('yarn') && 'yarn') || 'npm';
 }

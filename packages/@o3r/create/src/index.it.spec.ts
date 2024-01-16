@@ -9,6 +9,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
+  isYarn1Enforced,
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
@@ -33,7 +34,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inProjectPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
@@ -57,7 +58,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inProjectPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();

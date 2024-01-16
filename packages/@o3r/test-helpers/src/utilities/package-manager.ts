@@ -1,5 +1,5 @@
 import { execFileSync, ExecSyncOptions } from 'node:child_process';
-import { existsSync, rmSync } from 'node:fs';
+import { appendFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { performance } from 'node:perf_hooks';
 
@@ -30,6 +30,15 @@ const PACKAGE_MANAGERS_CMD = {
     run: ['yarn', 'run'],
     workspaceExec: ['yarn', 'workspace'],
     workspaceRun: ['yarn', 'workspace']
+  },
+  yarn1: {
+    add: ['yarn', 'add'],
+    create: ['yarn', 'create'],
+    exec: ['yarn', 'run'],
+    install: ['yarn', 'install'],
+    run: ['yarn', 'run'],
+    workspaceExec: ['yarn', 'workspace'],
+    workspaceRun: ['yarn', 'workspace']
   }
 };
 
@@ -41,12 +50,28 @@ type CommandArguments = {
 };
 
 /**
- * Get the package manager to be used for the tests by reading environment variable ENFORCED_PACKAGE_MANAGER
+ * Get the package manager with its version to be used for the tests by reading environment variable ENFORCED_PACKAGE_MANAGER
+ * 'yarn', 'yarn1', 'npm'
  */
-export function getPackageManager() {
+export function getVersionedPackageManager() {
   return (process.env.ENFORCED_PACKAGE_MANAGER && process.env.ENFORCED_PACKAGE_MANAGER in PACKAGE_MANAGERS_CMD) ?
     process.env.ENFORCED_PACKAGE_MANAGER as keyof typeof PACKAGE_MANAGERS_CMD :
     'yarn';
+}
+
+/**
+ * Get the package manager to be used for the tests based on env ENFORCED_PACKAGE_MANAGER
+ * 'yarn', 'npm'
+ */
+export function getPackageManager() {
+  return getVersionedPackageManager() === 'npm' ? 'npm' : 'yarn';
+}
+
+/**
+ * is Yarn 1 enforced
+ */
+export function isYarn1Enforced() {
+  return process.env.ENFORCED_PACKAGE_MANAGER === 'yarn1';
 }
 
 /**
@@ -90,7 +115,7 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
  * @param options
  */
 export function packageManagerAdd(packages: string, options: ExecSyncOptions) {
-  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].add, packages], options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].add, packages], options);
 }
 
 /**
@@ -101,7 +126,7 @@ export function packageManagerAdd(packages: string, options: ExecSyncOptions) {
  */
 export function packageManagerCreate(command: CommandArguments, options: ExecSyncOptions, packageManagerOverride?: keyof typeof PACKAGE_MANAGERS_CMD) {
   const { script, args } = command;
-  const packageManager = packageManagerOverride || getPackageManager();
+  const packageManager = packageManagerOverride || getVersionedPackageManager();
   return execCmd([...PACKAGE_MANAGERS_CMD[packageManager].create, script, ...addDashesForNpmCommand(args, packageManager)], options);
 }
 
@@ -112,7 +137,7 @@ export function packageManagerCreate(command: CommandArguments, options: ExecSyn
  */
 export function packageManagerExec(command: CommandArguments, options: ExecSyncOptions) {
   const { script, args } = command;
-  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].exec, script, ...addDashesForNpmCommand(args)], options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].exec, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
@@ -123,7 +148,7 @@ export function packageManagerExec(command: CommandArguments, options: ExecSyncO
  */
 export function packageManagerWorkspaceExec(workspaceProjectName: string, command: CommandArguments, options: ExecSyncOptions) {
   const { script, args } = command;
-  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceExec, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].workspaceExec, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
@@ -142,7 +167,7 @@ export function packageManagerExecOnProject(projectName: string, isInWorkspace: 
  * @param options
  */
 export function packageManagerInstall(options: ExecSyncOptions) {
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].install, options);
+  return execCmd(PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].install, options);
 }
 
 /**
@@ -152,7 +177,7 @@ export function packageManagerInstall(options: ExecSyncOptions) {
  */
 export function packageManagerRun(command: CommandArguments, options: ExecSyncOptions) {
   const { script, args } = command;
-  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].run, script, ...addDashesForNpmCommand(args)], options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].run, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
@@ -163,7 +188,7 @@ export function packageManagerRun(command: CommandArguments, options: ExecSyncOp
  */
 export function packageManagerWorkspaceRun(workspaceProjectName: string, command: CommandArguments, options: ExecSyncOptions) {
   const { script, args } = command;
-  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceRun, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getVersionedPackageManager()].workspaceRun, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
@@ -209,7 +234,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
-  switch (getPackageManager()) {
+  switch (getVersionedPackageManager()) {
     case 'yarn': {
       // Set yarn version
       if (options.yarnVersion) {
@@ -229,6 +254,27 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       execFileSync('yarn', ['config', 'set', 'npmScopes.ama-terasu.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'npmScopes.o3r.npmRegistryServer', options.registry], execOptions);
       execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
+      break;
+    }
+    case 'yarn1': {
+      if (options.yarnVersion) {
+        execFileSync('yarn', ['set', 'version', options.yarnVersion], execOptions);
+        execFileSync('yarn', ['config', 'set', '@ama-sdk:registry', options.registry], execOptions);
+        execFileSync('yarn', ['config', 'set', '@ama-terasu:registry', options.registry], execOptions);
+        execFileSync('yarn', ['config', 'set', '@o3r:registry', options.registry], execOptions);
+        execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
+      }
+      const ignoreRootCheckConfig = '--add.ignore-workspace-root-check';
+      const yarnRcPath = join(execOptions.cwd as string, '.yarnrc');
+
+      if (existsSync(yarnRcPath)) {
+        const content = readFileSync(yarnRcPath, { encoding: 'utf8' });
+        if (!content.includes(ignoreRootCheckConfig)) {
+          appendFileSync(yarnRcPath, `\n${ignoreRootCheckConfig} true`);
+        }
+      } else {
+        console.warn(`File not found at '${yarnRcPath}'.`);
+      }
       break;
     }
   }

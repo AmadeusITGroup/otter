@@ -255,7 +255,7 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
 
   exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(runner, ['install'], spawnSyncOpts));
 };
-
+// const isYarn1 = packageManager === 'yarn' && argv['yarn-version']?.split('.')[0] === '1';
 const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
   const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
