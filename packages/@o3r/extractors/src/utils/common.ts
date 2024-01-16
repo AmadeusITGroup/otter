@@ -70,7 +70,7 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
   };
 
   const moduleIndexPath = getPackagePath(packageJsonInDist) || getPackagePath(packageJson);
-  const libraryNameForRegExp = libraryName.replace('/', '[\\\\/]').replace(/-/g, '[\\\\/-]');
+  const libraryNameForRegExp = libraryName.replace(/[\\/]+/g, '[\\\\/]').replace(/-/g, '[\\\\/-]');
   const libraryReg = new RegExp('^(.*?)' + libraryNameForRegExp + '[\\\\/]?(dist)?');
   const matches = moduleIndexPath?.match(libraryReg);
   if (!matches) {

@@ -1,9 +1,10 @@
 import { chain, Rule } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getDecoratorMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import { getAppModuleFilePath, getDefaultOptionsForSchematic, getWorkspaceConfig } from '../../utility';
+import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
+import { getAppModuleFilePath, getDefaultOptionsForSchematic, getMainFilePath, getWorkspaceConfig } from '../../utility';
 import type { WorkspaceSchematics } from '../../interfaces';
 import { addImportToModuleFile as o3rAddImportToModuleFile } from '../../utility';
+import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 
 /** Options for the devtools register rule factory */
 export interface DevtoolRegisterOptions {
@@ -53,6 +54,64 @@ const registerModule = (options: DevtoolRegisterOptions): Rule => (tree, context
 };
 
 /**
+ * Rule to inject a service after `bootstrapModule` or `bootstrapApplication`
+ * @param options
+ */
+export const injectServiceInMain = (options: DevtoolRegisterOptions): Rule => (tree, context) => {
+  if (!options.serviceName) {
+    return tree;
+  }
+
+  const mainFilePath = getMainFilePath(tree, context, options.projectName);
+
+  if (!mainFilePath || !tree.exists(mainFilePath)) {
+    return tree;
+  }
+
+  const content = tree.readText(mainFilePath);
+  if (content.includes(`inject(${options.serviceName})`)) {
+    return tree;
+  }
+
+  const match = /bootstrap(Module|Application)\([^)]*\)/.exec(content);
+  if (!match) {
+    return tree;
+  }
+
+  const sourceFile = ts.createSourceFile(
+    mainFilePath,
+    content,
+    ts.ScriptTarget.ES2015,
+    true
+  );
+
+  const recorder = tree.beginUpdate(mainFilePath);
+  const changes = [];
+
+  if (!isImported(sourceFile, options.serviceName, options.packageName)) {
+    changes.push(insertImport(sourceFile, mainFilePath, options.serviceName, options.packageName));
+  }
+  if (!isImported(sourceFile, 'inject', '@angular/core')) {
+    changes.push(insertImport(sourceFile, mainFilePath, 'inject', '@angular/core'));
+  }
+  if (!isImported(sourceFile, 'runInInjectionContext', '@angular/core')) {
+    changes.push(insertImport(sourceFile, mainFilePath, 'runInInjectionContext', '@angular/core'));
+  }
+
+  changes.push(
+    new InsertChange(
+      mainFilePath,
+      match.index + match[0].length,
+      `\n  .then((m) => { runInInjectionContext(m.injector, () => { inject(${options.serviceName}); }); return m; })`
+    )
+  );
+
+  applyToUpdateRecorder(recorder, changes);
+  tree.commitUpdate(recorder);
+  return tree;
+};
+
+/**
  * Register Devtools to the application
  * @param tree
  * @param context
@@ -75,6 +134,7 @@ export const registerDevtoolsToApplication = (options: DevtoolRegisterOptions): 
 
   return chain([
     registerModule(options),
+    injectServiceInMain(options),
     (_, ctx) => ctx.logger.info(
       `The devtools module ${options.moduleName} has been registered and automatically activated${options.serviceName ? ', its activation can be driven via ' + options.serviceName : ''}.`
     )

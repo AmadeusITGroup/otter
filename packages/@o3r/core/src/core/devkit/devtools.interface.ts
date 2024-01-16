@@ -8,11 +8,29 @@ export interface WindowWithDevtools extends Window {
 /** Common option used by the different DevKit services */
 export interface DevtoolsCommonOptions {
   /**
-   * Activated the application bootstrap
+   * Activated on the application bootstrap
    *
    * @default false
    */
   isActivatedOnBootstrap: boolean;
+}
+
+/** Common option used by the different Contextualization DevKit services */
+export interface ContextualizationDevtoolsCommonOptions {
+  /**
+   * Activated on the application bootstrap when integrated in CMS context
+   *
+   * @default true
+   */
+  isActivatedOnBootstrapWhenCMSContext: boolean;
+}
+
+/**
+ * Dataset injected on the page when in CMS context
+ */
+export interface ContextualizationDataset {
+  /** `"true"` when in CMS context */
+  cmscontext?: string;
 }
 
 /** Interface describing an Otter Devtools service */

@@ -6,6 +6,7 @@
     "rootDir": ".",
   },
   "include": [
+    "./builders/**/*.spec.ts",
     "./src/**/*.spec.ts",
     "./schematics/**/*.spec.ts"
   ],

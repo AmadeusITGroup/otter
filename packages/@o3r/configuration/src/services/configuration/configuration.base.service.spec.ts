@@ -3,7 +3,8 @@ import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { Configuration, CustomConfig } from '@o3r/core';
-import { ConfigurationStore, selectConfigurationEntities, upsertConfigurationEntities, upsertConfigurationEntity } from '../../stores/index';
+import { Subscription } from 'rxjs';
+import { ConfigurationStore, globalConfigurationId, selectConfigOverride, selectConfigurationEntities, upsertConfigurationEntities, upsertConfigurationEntity } from '../../stores/index';
 import { ConfigurationBaseService } from './configuration.base.service';
 
 
@@ -52,7 +53,6 @@ describe('ConfigurationBaseService', () => {
 
     service = TestBed.inject(ConfigurationBaseService);
     mockStore = TestBed.inject(MockStore);
-    mockStore.overrideSelector(selectConfigurationEntities, {});
     jest.spyOn(mockStore, 'dispatch');
   });
 
@@ -94,5 +94,76 @@ describe('ConfigurationBaseService', () => {
         }
       })
     );
+  });
+
+  describe('getConfig emissions', () => {
+    const configId = 'my-config';
+    const configInitialValue = {
+      id: configId,
+      prop: 'value1'
+    };
+    const spy = jest.fn();
+    let subscription: Subscription;
+
+    beforeEach(() => {
+      mockStore.overrideSelector(selectConfigurationEntities, { [configId]: configInitialValue });
+      subscription = service.getConfig(configId).subscribe(spy);
+      spy.mockReset();
+    });
+
+    afterAll(() => {
+      subscription?.unsubscribe();
+    });
+
+    it('should not emit if we do not change the INITIAL_CONFIG value', () => {
+      mockStore.overrideSelector(selectConfigurationEntities, {
+        [configId]: configInitialValue,
+        ANOTHER_CONFIG: {
+          id: 'ANOTHER_CONFIG',
+          prop: 'value1'
+        }
+      });
+      mockStore.refreshState();
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should emit if we change the INITIAL_CONFIG value', () => {
+      mockStore.overrideSelector(selectConfigurationEntities, {
+        [configId]: { ...configInitialValue, prop: 'change' }
+      });
+      mockStore.refreshState();
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(expect.objectContaining({ prop: 'change' }));
+    });
+
+    it('should not emit if we change the global config as the INITIAL_CONFIG will override its value', () => {
+      mockStore.overrideSelector(selectConfigurationEntities, {
+        [globalConfigurationId]: {
+          id: globalConfigurationId,
+          prop: 'will not override'
+        },
+        [configId]: configInitialValue
+      });
+      mockStore.refreshState();
+      expect(spy).not.toHaveBeenCalled();
+    });
+
+    it('should emit if we change the override config', () => {
+      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'change' }});
+      mockStore.refreshState();
+      expect(spy).toHaveBeenCalledTimes(1);
+      expect(spy).toHaveBeenCalledWith(expect.objectContaining({ prop: 'change' }));
+    });
+
+    it('should not emit if we change the config value when it is overriden by the override config', () => {
+      mockStore.overrideSelector(selectConfigOverride, { [configId]: { prop: 'override' }});
+      mockStore.refreshState();
+      spy.mockReset();
+      mockStore.overrideSelector(selectConfigurationEntities, {
+        [configId]: { ...configInitialValue, prop: 'change' }
+      });
+      mockStore.refreshState();
+      expect(spy).not.toHaveBeenCalled();
+    });
   });
 });

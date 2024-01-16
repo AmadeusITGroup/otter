@@ -55,7 +55,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
   const execute = async (): Promise<BuilderOutput> => {
     context.reportProgress(0, STEP_NUMBER, 'Checking required options');
     const tsConfig = path.resolve(context.workspaceRoot, options.tsConfig);
-    const tsconfigExists = await new Promise<boolean>((resolve) => fs.exists(tsConfig, resolve));
+    const tsconfigExists = fs.existsSync(tsConfig);
     if (!tsconfigExists) {
       context.logger.error(`${tsConfig} not found`);
 
@@ -67,7 +67,7 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
 
     context.reportProgress(1, STEP_NUMBER, 'Generating component parser');
     const libraryName = options.name || defaultLibraryName(context.currentDirectory);
-    const parser = new ComponentParser(libraryName, tsConfig, context.logger, options.strictMode, options.libraries);
+    const parser = new ComponentParser(libraryName, tsConfig, context.logger, options.strictMode, options.libraries, options.globalConfigCategories);
 
     context.reportProgress(2, STEP_NUMBER, 'Gathering project data');
     const parserOutput = await parser.parse();
@@ -84,14 +84,20 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         const componentMetadata = await componentExtractor.extract(parserOutput, options);
 
         // Validate configuration part of components metadata
-        validateJson(componentMetadata.configurations, require(require.resolve('@o3r/configuration/schemas/configuration.metadata.schema.json')),
+        validateJson(
+          componentMetadata.configurations,
+          require('@o3r/configuration/schemas/configuration.metadata.schema.json'),
           'The output of configuration metadata is not valid regarding the json schema, please check the details below : \n',
-          options.strictMode);
+          options.strictMode
+        );
 
         // Validate components part of components metadata
-        validateJson(componentMetadata.components, require(path.resolve(__dirname, '..', '..', 'schemas', 'component.metadata.schema.json')),
+        validateJson(
+          componentMetadata.components,
+          require('../../schemas/component.metadata.schema.json'),
           'The output of components metadata is not valid regarding the json schema, please check the details below : \n',
-          options.strictMode);
+          options.strictMode
+        );
 
         // Ensure that each tuple (library,name) is unique
         checkUniquenessLibraryAndName(componentMetadata.configurations);

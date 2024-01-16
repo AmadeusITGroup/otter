@@ -19,9 +19,10 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            let download = await github.rest.actions.downloadWorkflowRunLogs({
+            let download = await github.rest.actions.downloadWorkflowRunAttemptLogs({
                ...context.repo,
                run_id: context.payload.workflow_run.id,
+               attempt_number: 1
             });
             let fs = require('fs');
             fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/logs.zip`, Buffer.from(download.data));
@@ -39,7 +40,7 @@ jobs:
       id-token: write
     secrets: inherit
     with:
-      version: ${{ needs.version.outputs.nextVersionTag }}
+      version: ${{ needs.version.outputs.nextVersionTag }}-${{ github.event.workflow_run.run_attempt }}
       prerelease: true
       isPullRequest: true
       gitRef: ${{ github.event.workflow_run.pull_requests[0].base.ref }}

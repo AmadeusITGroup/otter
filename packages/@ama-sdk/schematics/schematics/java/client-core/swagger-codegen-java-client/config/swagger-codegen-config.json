@@ -1,0 +1,19 @@
+{
+  "modelPackage" : "com.amadeus.dapi",
+  "apiPackage"   : "com.amadeus.dapi",
+  "invokerPackage" : "com.amadeus.dapi",
+  "generateApiTests": "false",
+  "groupId" : "com.amadeus.dapi",
+  "artifactId"  : "dapi-client-sdk",
+  "dateLibrary" : "java8",
+  "java8": true,
+  "hideGenerationTimestamp": true,
+  "additionalProperties": {
+    "endpointsImplPackage": "com.amadeus.dapi.api.impl",
+    "endpointsPackage": "com.amadeus.dapi.api.interfaces",
+    "basePackage": "com.amadeus.dapi.model.base",
+    "corePackage": "com.amadeus.dapi.model.core",
+    "sdkCorePackage": "com.amadeus.des.sdk.core",
+    "sdkUtilsPackage": "com.amadeus.des.sdk.utils"
+  }
+}
