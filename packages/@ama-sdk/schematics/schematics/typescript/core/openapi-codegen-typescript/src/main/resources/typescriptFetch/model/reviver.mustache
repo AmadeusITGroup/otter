@@ -120,8 +120,6 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
         {{#allVars}}
           {{^isPrimitiveType}}
             {{#complexType}}
-              {{^isEnum}}
-                {{^isEnumRef}}
                 {{#isMap}}
                   {{#vendorExtensions}}
                     {{^nonObjectDefinition}}
@@ -145,8 +143,6 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
                     {{/vendorExtensions}}
                   {{/isArray}}
                 {{/isMap}}
-                {{/isEnumRef}}
-              {{/isEnum}}
             {{/complexType}}
             {{^complexType}}
               {{^isEnum}}

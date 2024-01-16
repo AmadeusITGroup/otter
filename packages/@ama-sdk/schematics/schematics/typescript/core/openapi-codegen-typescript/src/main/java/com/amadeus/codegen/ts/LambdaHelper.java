@@ -426,9 +426,12 @@ public class LambdaHelper {
         @Override public String formatFragment(String fragment) {
             //Retrieve all the imported classes
             List<String> allMatches = new ArrayList<String>();
-            Matcher m = Pattern.compile("import\\s\\{\\s?([A-z]+)\\s?\\}").matcher(fragment);
-            while (m.find()) {
-                allMatches.add(m.group(1));
+            Matcher importLinesMatcher = Pattern.compile("import\\s\\{(.*)}.*;").matcher(fragment);
+            while (importLinesMatcher.find()) {
+              Matcher importsMatcher = Pattern.compile("(\\w+)").matcher(importLinesMatcher.group(1));
+              while (importsMatcher.find()) {
+                allMatches.add(importsMatcher.group(1));
+              }
             }
             //For each class check if the import is used
             ListIterator<String> litr = allMatches.listIterator();
@@ -436,22 +439,20 @@ public class LambdaHelper {
                 String importedClass = litr.next();
                 int count =0;
                 //Looking if the import is used in the fragment
-                Matcher m2 = Pattern.compile("^((?!\\s*import|\\s*\\*|\\/\\*))(.*[^\\w\\/]"+importedClass+"[^\\w\\/])",
+                Matcher m2 = Pattern.compile("^(?!(?:\\s*import\\s?\\{))(?:.*\\W)?"+ importedClass + "[^\\w\\/]",
                         Pattern
                         .MULTILINE)
                         .matcher
                         (fragment);
-                while (m2.find()) {
-                    count++;
-                }
-                if (count == 0) {
+                if (!m2.find()) {
                     //Import unused found, removing it
-                    fragment = Pattern.compile("^(\\s*import\\s\\{\\s?"+importedClass+"\\s*}[^;]*;?\\r?\\n?)",
-                            Pattern.MULTILINE)
-                            .matcher(fragment).replaceAll("");
+                    fragment = Pattern.compile("(.*import\\s\\{(?:.*\\W)?)" + importedClass +",?\\s*(\\W.*)")
+                      .matcher(fragment)
+                      .replaceAll("$1$2");
                 }
             }
-            return fragment;
+          //If an import is empty, remove it
+          return Pattern.compile("import\\s\\{(\\s,?)*}\\sfrom\\s.*;\n").matcher(fragment).replaceAll("");
         }
     }
 
