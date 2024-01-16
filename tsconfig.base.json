@@ -95,9 +95,6 @@
       "@o3r/core": [
         "packages/@o3r/core/src/public_api"
       ],
-      "@o3r/design": [
-        "packages/@o3r/design/src/public_api"
-      ],
       "@o3r/dev-tools": [
         "packages/@o3r/dev-tools/src/public_api"
       ],
@@ -145,12 +142,6 @@
       ],
       "@o3r/styling": [
         "packages/@o3r/styling/src/public_api"
-      ],
-      "@o3r/styling/schemas/*": [
-        "packages/@o3r/styling/schemas/*"
-      ],
-      "@o3r/styling/builders/*/helpers": [
-        "packages/@o3r/styling/builders/*/helpers/index"
       ],
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
