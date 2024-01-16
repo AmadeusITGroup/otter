@@ -29,7 +29,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "6.18.1",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",

@@ -78,7 +78,7 @@ describe('RequestParametersService', () => {
 
     it('should set session storage _query', () => {
       expect(sessionCustomStorage.getItem('_query')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(JSON.parse(queryParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(JSON.parse(queryParams));
     });
 
     it('should set property query', () => {
@@ -103,7 +103,7 @@ describe('RequestParametersService', () => {
 
     it('should set session storage _post', () => {
       expect(sessionCustomStorage.getItem('_post')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(JSON.parse(postParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(JSON.parse(postParams));
     });
 
     it('should set property post', () => {
@@ -175,7 +175,7 @@ describe('RequestParametersService', () => {
 
     it('should not modify session storage _query', () => {
       expect(sessionCustomStorage.getItem('_query')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(expect.objectContaining(JSON.parse(presetQueryParams)));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(expect.objectContaining(JSON.parse(presetQueryParams)));
     });
 
     it('should rehydrate query data from the session storage', () => {
@@ -184,7 +184,7 @@ describe('RequestParametersService', () => {
 
     it('should not modify session storage _post', () => {
       expect(sessionCustomStorage.getItem('_post')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(expect.objectContaining(JSON.parse(presetPostParams)));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(expect.objectContaining(JSON.parse(presetPostParams)));
     });
 
     it('should rehydrate post data from the session storage', () => {
@@ -225,7 +225,7 @@ describe('RequestParametersService', () => {
 
     it('should merge data with session storage _query', () => {
       expect(sessionCustomStorage.getItem('_query')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(expect.objectContaining(JSON.parse(mergedQuery)));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(expect.objectContaining(JSON.parse(mergedQuery)));
     });
 
     it('should set query data with merged ones', () => {
@@ -234,7 +234,7 @@ describe('RequestParametersService', () => {
 
     it('should merge data with session storage _post', () => {
       expect(sessionCustomStorage.getItem('_post')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(expect.objectContaining(JSON.parse(mergedPost)));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(expect.objectContaining(JSON.parse(mergedPost)));
     });
 
     it('should set post data with merged ones', () => {
@@ -269,7 +269,7 @@ describe('RequestParametersService', () => {
 
     it('should replace data with session storage _query', () => {
       expect(sessionCustomStorage.getItem('_query')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(JSON.parse(queryParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(JSON.parse(queryParams));
     });
 
     it('should set query data', () => {
@@ -278,7 +278,7 @@ describe('RequestParametersService', () => {
 
     it('should replace data with session storage _post', () => {
       expect(sessionCustomStorage.getItem('_post')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(JSON.parse(postParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(JSON.parse(postParams));
     });
 
     it('should set post data', () => {
@@ -313,7 +313,7 @@ describe('RequestParametersService', () => {
 
     it('should replace data with session storage _query', () => {
       expect(sessionCustomStorage.getItem('_query')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(JSON.parse(queryParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(JSON.parse(queryParams));
     });
 
     it('should set query data', () => {
@@ -322,7 +322,7 @@ describe('RequestParametersService', () => {
 
     it('should not touch session storage _post since no parameters provided', () => {
       expect(sessionCustomStorage.getItem('_post')).toBeDefined();
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(JSON.parse(presetPostParams));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(JSON.parse(presetPostParams));
     });
 
     it('should set post data to the content of the session storage', () => {
@@ -355,7 +355,7 @@ describe('RequestParametersService', () => {
     it('should set local storage _query', () => {
       expect(localCustomStorage.getItem('_query')).toBeDefined();
       expect(sessionCustomStorage.getItem('_query')).toBeNull();
-      expect(JSON.parse(localCustomStorage.getItem('_query')!)).toEqual(JSON.parse(queryParams));
+      expect(JSON.parse(localCustomStorage.getItem('_query'))).toEqual(JSON.parse(queryParams));
     });
 
     it('should set property query', () => {
@@ -365,7 +365,7 @@ describe('RequestParametersService', () => {
     it('should set local storage _post', () => {
       expect(localCustomStorage.getItem('_post')).toBeDefined();
       expect(sessionCustomStorage.getItem('_post')).toBeNull();
-      expect(JSON.parse(localCustomStorage.getItem('_post')!)).toEqual(JSON.parse(postParams));
+      expect(JSON.parse(localCustomStorage.getItem('_post'))).toEqual(JSON.parse(postParams));
     });
 
     it('should set property post', () => {
@@ -402,25 +402,25 @@ describe('RequestParametersService', () => {
     it('should remove only qParam1 from query parameters', () => {
       service.clearQueryParameters(['qParam1']);
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(expect.objectContaining({qParam2: 'q2'}));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(expect.objectContaining({qParam2: 'q2'}));
     });
 
     it('should remove only pParam1 from post parameters', () => {
       service.clearPostParameters(['pParam1']);
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(expect.objectContaining({pParam2: 'p2'}));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(expect.objectContaining({pParam2: 'p2'}));
     });
 
     it('should remove all query parameters', () => {
       service.clearQueryParameters();
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_query')!)).toEqual(JSON.parse('{}'));
+      expect(JSON.parse(sessionCustomStorage.getItem('_query'))).toEqual(JSON.parse('{}'));
     });
 
     it('should remove all post parameters', () => {
       service.clearPostParameters();
 
-      expect(JSON.parse(sessionCustomStorage.getItem('_post')!)).toEqual(JSON.parse('{}'));
+      expect(JSON.parse(sessionCustomStorage.getItem('_post'))).toEqual(JSON.parse('{}'));
     });
   });
 

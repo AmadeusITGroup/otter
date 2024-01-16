@@ -108,7 +108,7 @@ const findOptionGroups = (message: string) => {
   return lines.reduce((acc, line, idx) => {
     const isOptionLine = /^ +-/.test(line);
     if (searching && isOptionLine) {
-      acc.push(lines[idx - 1]!);
+      acc.push(lines[idx - 1]);
       searching = false;
     } else if (!isOptionLine) {
       searching = true;

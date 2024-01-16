@@ -23,7 +23,7 @@ export function getInputComponentName(componentName: string): string {
  */
 export function getComponentFolderName(componentName: string): string {
   const inputComponentName = getInputComponentName(componentName);
-  return strings.dasherize(inputComponentName)!.replace(/\s/g, '');
+  return strings.dasherize(inputComponentName).replace(/\s/g, '');
 }
 
 /**

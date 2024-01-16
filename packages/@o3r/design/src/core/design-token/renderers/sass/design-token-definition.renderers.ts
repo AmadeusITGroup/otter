@@ -16,6 +16,7 @@ export interface SassTokenDefinitionRendererOptions {
 
 /**
  * Default Sass variable name renderer
+ * @param variable
  */
 export const tokenVariableNameSassRenderer: TokenKeyRenderer = (variable) => {
   const tokens = variable.getKey().split('-');
