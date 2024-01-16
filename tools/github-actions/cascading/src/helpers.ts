@@ -26,7 +26,7 @@ export function sortBranches(branches: string[]) {
 }
 
 /**
- * Extract just the branches matching the release/min.maj[.0-alpha|beta|next|rc] format
+ * Extract just the branches matching the release/min.maj[.0-next|prerelease|rc] format
  * @param gitOutput
  */
 export function extractBranchesFromGitOutput(gitOutput: string) {
@@ -35,7 +35,7 @@ export function extractBranchesFromGitOutput(gitOutput: string) {
       .replace(/ /g, '')
       .replace('remotes/origin/', '')
     )
-    .filter((val) => /release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(alpha|beta|next|rc))?$/.test(val));
+    .filter((val) => /release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(next|prerelease|rc))?$/.test(val));
 }
 
 /**

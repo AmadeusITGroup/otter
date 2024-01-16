@@ -5,7 +5,7 @@
 This task computes new version candidates based on the repository tags as well as the branch on which it is executed.
 It supports in terms of branching model:
 
-* By default, release branches named ``release/Major.Minor[.0-alpha|beta|next|rc]`` (configurable through releaseBranchRegExp)
+* By default, release branches named ``release/Major.Minor[.0-next|prerelease|rc]`` (configurable through releaseBranchRegExp)
 * One default branch that can be parametrised (``master``, ``develop``, ...)
 
 If the plugin doesn't support the current branch it raises a warning that says that the version cannot be computed.
@@ -21,9 +21,9 @@ If run on a compatible branch, the plug-in will compute the next version as foll
 * If no tag is found, the plug-in returns ``Major.Minor.0``
 * If run on a pull request build, it doesn't increment the patch version but instead concatenate ``-pr.buildId`` to the latest, or to ``Major.Minor.0``
 
-### On a pre-release branch ``release/Major.Minor.0-(alpha|beta|next|rc)``
+### On a pre-release branch ``release/Major.Minor.0-(next|prerelease|rc)``
 
-It behaves the same as above, but instead of producing ``Major.Minor.0`` it would produce ``release/Major.Minor.0-(alpha|beta|next|rc).0``
+It behaves the same as above, but instead of producing ``Major.Minor.0`` it would produce ``release/Major.Minor.0-(next|prerelease|rc).0``
 
 ### On a default branch
 
@@ -46,6 +46,6 @@ See [Action specifications](action.yml) directly for more information about the 
   uses: AmadeusITGroup/otter/tools/github-actions/new-version@9
   with:
     defaultBranch: main
-    defaultBranchPrereleaseName: alpha
-    releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
+    defaultBranchPrereleaseName: prerelease
+    releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
 ```
