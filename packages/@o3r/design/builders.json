@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/architect/src/builders-schema.json",
+  "builders": {
+    "generate-css": {
+      "implementation": "./builders/generate-css/",
+      "schema": "./builders/generate-css/schema.json",
+      "description": "Generate CSS from Design Token files"
+    }
+  }
+}
