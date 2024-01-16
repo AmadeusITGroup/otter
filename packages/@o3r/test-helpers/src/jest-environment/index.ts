@@ -48,12 +48,16 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
    */
   private readonly testEnvironments: Record<string, TestEnvironment> = {};
 
+  /** identifier of the package on which the tests are run */
+  private readonly packageScope: string | undefined;
+
   constructor(config: JestEnvironmentConfig, context: EnvironmentContext) {
     super(config, context);
     // testEnvironment is undefined now but will be defined when test runs
     this.global.o3rEnvironment = {} as typeof this.global.o3rEnvironment;
     this.appFolder = context.docblockPragmas['jest-environment-o3r-app-folder'] as string;
     this.prepareTestEnvType = context.docblockPragmas['jest-environment-o3r-type'] as PrepareTestEnvType | undefined;
+    this.packageScope = context.docblockPragmas['jest-environment-o3r-package-scope'] as string | undefined;
   }
 
   /**
@@ -87,7 +91,7 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
     // Create test environment before test starts
     if (event.name === 'test_start') {
       const appFolder = `${this.appFolder}${this.appIndex++ || ''}`;
-      this.testEnvironments[event.test.name] = await prepareTestEnv(appFolder, {type: this.prepareTestEnvType});
+      this.testEnvironments[event.test.name] = await prepareTestEnv(appFolder, {type: this.prepareTestEnvType, packageScope: this.packageScope});
       this.global.o3rEnvironment.testEnvironment = this.testEnvironments[event.test.name];
     }
     // Cleanup test environment after test succeeds

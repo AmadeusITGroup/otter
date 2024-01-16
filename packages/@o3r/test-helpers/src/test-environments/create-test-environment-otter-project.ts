@@ -5,6 +5,7 @@ import {
   createWithLock,
   CreateWithLockOptions,
   getPackageManager,
+  isYarn1Enforced,
   type Logger,
   PackageManagerConfig,
   packageManagerCreate,
@@ -74,9 +75,10 @@ export async function createTestEnvironmentOtterProjectWithApp(inputOptions: Par
     try { mkdirSync(appFolderPath, { recursive: true }); } catch { }
     setPackagerManagerConfig(options, execAppOptions);
 
+    const versionToInstall = isYarn1Enforced() ? '' : `@${o3rVersion}`;
     // Create Project
     const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(options.yarnVersion ? ['--yarn-version', options.yarnVersion] : [])];
-    packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd}, 'npm');
+    packageManagerCreate({ script: `@o3r${versionToInstall}`, args: [options.appDirectory, ...createOptions] }, { ...execAppOptions, cwd: options.cwd}, !isYarn1Enforced() ? 'npm' : undefined);
     const gitIgnorePath = path.join(appFolderPath, '.gitignore');
     if (existsSync(gitIgnorePath)) {
       const gitIgnore = readFileSync(gitIgnorePath, { encoding: 'utf8' });

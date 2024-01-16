@@ -3,7 +3,7 @@ import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statS
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import { createWithLock, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
+import { createWithLock, getVersionedPackageManager, isYarn1Enforced, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
 import { createTestEnvironmentOtterProjectWithApp } from './test-environments/create-test-environment-otter-project';
 import { O3rCliError } from '@o3r/schematics';
 
@@ -15,8 +15,7 @@ export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
 /**
  * Retrieve the version used by yarn and setup at root level
- * @param rootFolderPath: path to the folder where to take the configuration from
- * @param rootFolderPath
+ * @param rootFolderPath path to the folder where to take the configuration from
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
   const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
@@ -31,6 +30,11 @@ export interface PrepareTestEnvOptions {
   yarnVersion?: string;
   /** Logger to use for logging */
   logger?: Logger;
+  /**
+   * Scope of package used to run the create command
+   * Used on yarn1 tests, because it is not able to differetiate from which package scope to run the create
+   */
+  packageScope?: string;
 }
 
 /**
@@ -43,14 +47,15 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
-  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
+  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests', options?.packageScope || '');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
   const cacheFolderPath = path.resolve(globalFolderPath, 'cache');
   const o3rVersion = '999.0.0';
 
   JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
-  const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
+  const yarn1Version = execSync('npm view yarn version', { encoding: 'utf8' }).trim();
+  const yarnVersion: string = yarnVersionParam || (isYarn1Enforced() && yarn1Version) || getYarnVersionFromRoot(rootFolderPath);
   const execAppOptions: ExecSyncOptions = {
     cwd: workspacePath,
     stdio: 'inherit',
@@ -77,17 +82,18 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const packageManagerConfig = {
     yarnVersion,
     globalFolderPath,
-    registry: 'http://127.0.0.1:4873'
+    registry: 'http://127.0.0.1:4873',
+    ...(isYarn1Enforced() ? {packageScope: options?.packageScope} : {})
   };
 
   // Create it-tests folder
   if (!existsSync(itTestsFolderPath)) {
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
-      mkdirSync(itTestsFolderPath);
+      mkdirSync(itTestsFolderPath, { recursive: true });
       setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath});
       return Promise.resolve();
-    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
+    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: path.join('it-tests', options?.packageScope || '')});
   }
 
   // Remove existing app
@@ -109,7 +115,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   let isInWorkspace = false;
   let untouchedProject: undefined | string;
   let untouchedProjectPath: undefined | string;
-  const appDirectory = `${type}-${getPackageManager()}`;
+  const appDirectory = `${type}-${getVersionedPackageManager()}`;
   switch (type) {
     case 'blank': {
       await createTestEnvironmentBlank({
