@@ -48,8 +48,8 @@ jobs:
         uses: ./tools/github-actions/new-version
         with:
           defaultBranch: main
-          defaultBranchPrereleaseName: alpha
-          releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
+          defaultBranchPrereleaseName: prerelease
+          releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
       - name: Create release
         if: github.event_name != 'pull_request' && github.event_name != 'merge_group'
         run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}

@@ -142,7 +142,7 @@ export class NewVersion {
       // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
       parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
     } else {
-      const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'alpha', 'beta', 'rc'];
+      const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
       parsedSortedTags = parsedSortedTags.filter((parsedTag) =>
         parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`)
       );
