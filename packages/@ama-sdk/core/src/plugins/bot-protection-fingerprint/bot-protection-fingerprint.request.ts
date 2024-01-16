@@ -201,7 +201,6 @@ export interface BotProtectionFingerprintRequestOptions {
  *   fingerprintRetriever: () => 'test'
  * });
  * ```
- *
  * @example For akamai
  * ```typescript
  * const botProtection = new BotProtectionFingerprintRequest({
@@ -230,6 +229,7 @@ export class BotProtectionFingerprintRequest implements RequestPlugin {
    * configured in the BotProtectionFingerprintPollerOptions.
    *
    * If pollOnlyOnce is set to true, the poller won't be executed again after it has been fully executed once.
+   * @param logger
    */
   private async waitForFingerprint(logger?: Logger) {
     const pollerOptions = this.options.pollerOptions;

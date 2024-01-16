@@ -64,6 +64,7 @@ export class SessionIdRequest implements RequestPlugin {
 
   /**
    * Generates a session ID and stores it in session / backup storage.
+   * @param logger
    */
   public generateSessionId(logger?: Logger) {
     // Check if we already have a session ID in the shared memory
