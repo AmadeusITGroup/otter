@@ -169,6 +169,7 @@ __metadata:
     "@angular-devkit/schematics-cli": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
+    "@angular/cli": "npm:~17.0.3"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -176,6 +177,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.7.0"
     "@schematics/angular": "npm:~17.0.3"
@@ -269,12 +271,16 @@ __metadata:
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
     "@angular-devkit/schematics-cli": ^17.0.1
+    "@angular/cli": ^17.0.1
+    "@o3r/schematics": "workspace:^"
     "@openapitools/openapi-generator-cli": ~2.7.0
     "@schematics/angular": ~17.0.0
   peerDependenciesMeta:
     "@ama-sdk/core":
       optional: true
     "@angular-devkit/schematics-cli":
+      optional: true
+    "@angular/cli":
       optional: true
     "@angular/compiler":
       optional: true
@@ -6779,6 +6785,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
@@ -6832,6 +6839,7 @@ __metadata:
     "@ngrx/store": ~17.1.0
     "@nrwl/devkit": ~17.2.0
     "@nx/angular": ~17.2.0
+    "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~17.0.0
     chokidar: ^3.5.2
     globby: ^11.1.0
@@ -6848,6 +6856,8 @@ __metadata:
     "@nrwl/devkit":
       optional: true
     "@nx/angular":
+      optional: true
+    "@o3r/telemetry":
       optional: true
     chokidar:
       optional: true
@@ -7272,6 +7282,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/extractors@workspace:packages/@o3r/extractors"
   dependencies:
+    "@angular-devkit/architect": "npm:~0.1700.3"
     "@angular-devkit/build-angular": "npm:~17.0.3"
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
@@ -7295,6 +7306,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -7330,9 +7342,12 @@ __metadata:
     "@angular-devkit/core": ~17.0.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     typescript: ~5.2.2
   peerDependenciesMeta:
     "@o3r/schematics":
+      optional: true
+    "@o3r/telemetry":
       optional: true
   languageName: unknown
   linkType: soft
@@ -8080,6 +8095,7 @@ __metadata:
     "@nx/js": "npm:~17.2.0"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8113,6 +8129,7 @@ __metadata:
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
     "@angular/cli": ~17.0.0
+    "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~17.0.0
     eslint: ^8.42.0
     rxjs: ^7.8.1
@@ -8121,6 +8138,8 @@ __metadata:
     "@angular-devkit/architect":
       optional: true
     "@angular-devkit/core":
+      optional: true
+    "@o3r/telemetry":
       optional: true
     eslint:
       optional: true
@@ -8527,6 +8546,48 @@ __metadata:
     "@schematics/angular":
       optional: true
     sass:
+      optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r/telemetry@workspace:^, @o3r/telemetry@workspace:packages/@o3r/telemetry":
+  version: 0.0.0-use.local
+  resolution: "@o3r/telemetry@workspace:packages/@o3r/telemetry"
+  dependencies:
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
+    "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@nx/eslint-plugin": "npm:~17.2.0"
+    "@nx/jest": "npm:~17.2.0"
+    "@nx/js": "npm:~17.2.0"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
+    "@typescript-eslint/parser": "npm:^6.11.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:^8.42.0"
+    eslint-import-resolver-node: "npm:^0.3.4"
+    eslint-plugin-jest: "npm:~27.6.0"
+    eslint-plugin-jsdoc: "npm:~48.0.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^50.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    nx: "npm:~17.2.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.1.1"
+    tslib: "npm:^2.5.3"
+    typescript: "npm:~5.2.2"
+  peerDependencies:
+    "@angular-devkit/architect": ~0.1700.3
+    "@angular-devkit/core": ~17.0.3
+    "@angular-devkit/schematics": ~17.0.3
+    rxjs: ^7.8.1
+  peerDependenciesMeta:
+    "@angular-devkit/architect":
       optional: true
   languageName: unknown
   linkType: soft

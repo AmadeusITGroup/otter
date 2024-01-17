@@ -3,6 +3,7 @@ import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, 
 import {
   addImportToModuleFile,
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   getDestinationPath,
   getModuleIndex,
   getWorkspaceConfig,
@@ -22,7 +23,7 @@ import { getAddFixtureRules } from '../rule-factories/component/fixture';
  * Add a Page to an Otter project
  * @param options
  */
-export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
+function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
 
   const isApplication = (tree: Tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -219,3 +220,9 @@ export function ngGeneratePage(options: NgGeneratePageSchematicsSchema): Rule {
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Add a Page to an Otter project
+ * @param options
+ */
+export const ngGeneratePage = createSchematicWithMetricsIfInstalled(ngGeneratePageFn);

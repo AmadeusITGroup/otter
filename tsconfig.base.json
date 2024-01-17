@@ -185,6 +185,9 @@
       "@o3r/styling/builders/*/helpers": [
         "packages/@o3r/styling/builders/*/helpers/index"
       ],
+      "@o3r/telemetry": [
+        "packages/@o3r/telemetry/src/public_api"
+      ],
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
       ],

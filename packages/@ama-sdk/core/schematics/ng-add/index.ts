@@ -1,5 +1,6 @@
 import {chain, type Rule} from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as ts from 'typescript';
 import * as path from 'node:path';
 
@@ -7,7 +8,7 @@ import * as path from 'node:path';
  * Rule to import all the necessary dependency to run an @ama-sdk based application
  * Helps to migrate from previous versions with an import replacement
  */
-export function ngAdd(): Rule {
+function ngAddFn(): Rule {
 
   const checkSchematicsDependency: Rule = async (_, context) => {
     try {
@@ -79,3 +80,9 @@ export function ngAdd(): Rule {
     addMandatoryPeerDeps
   ]);
 }
+
+/**
+ * Rule to import all the necessary dependency to run an @ama-sdk based application
+ * Helps to migrate from previous versions with an import replacement
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

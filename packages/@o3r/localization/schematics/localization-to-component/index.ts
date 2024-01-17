@@ -22,6 +22,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
@@ -70,10 +71,9 @@ const checkLocalization = (componentPath: string, tree: Tree, baseFileName: stri
 
 /**
  * Add localization architecture to an existing component
- *
  * @param options
  */
-export function ngAddLocalization(options: NgAddLocalizationSchematicsSchema): Rule {
+export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const baseFileName = basename(options.path, '.component.ts');
@@ -367,7 +367,7 @@ const mockTranslationsCompilerProvider: Provider = {
             externalSchematic('@o3r/core', 'convert-component', {
               path: options.path
             }),
-            ngAddLocalization(options)
+            ngAddLocalizationFn(options)
           ]);
         }
       }
@@ -375,3 +375,9 @@ const mockTranslationsCompilerProvider: Provider = {
     }
   };
 }
+
+/**
+ * Add localization architecture to an existing component
+ * @param options
+ */
+export const ngAddLocalization = createSchematicWithMetricsIfInstalled(ngAddLocalizationFn);

@@ -1,6 +1,6 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
 import { ngRegisterProjectTasks } from './rules/rules.ng';
 import { nxRegisterProjectTasks } from './rules/rules.nx';
@@ -12,7 +12,7 @@ import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schema
  * Add an Otter compatible SDK to a monorepo
  * @param options Schematic options
  */
-export function generateSdk(options: NgGenerateSdkSchema): Rule {
+function generateSdkFn(options: NgGenerateSdkSchema): Rule {
   const splitName = options.name?.split('/');
   const scope = splitName.length > 1 ? splitName[0].replace(/^@/, '') : '';
   const projectName = strings.dasherize(splitName?.length === 2 ? splitName[1] : options.name);
@@ -73,3 +73,9 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     ])(tree, context);
   };
 }
+
+/**
+ * Add an Otter compatible SDK to a monorepo
+ * @param options Schematic options
+ */
+export const generateSdk = createSchematicWithMetricsIfInstalled(generateSdkFn);

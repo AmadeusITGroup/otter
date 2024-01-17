@@ -6,14 +6,14 @@ import type { PackageJson } from 'type-fest';
 import { getExternalPreset, presets } from '../shared/presets';
 import { NgAddSchematicsSchema } from './schema';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-import { AddDevInstall, displayModuleListRule, isPackageInstalled, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { AddDevInstall, createSchematicWithMetricsIfInstalled, displayModuleListRule, isPackageInstalled, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { prepareProject } from './project-setup/index';
 
 /**
  * Add Otter library to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
   const o3rCoreVersion = corePackageJsonContent.version ? `@${corePackageJsonContent.version}` : '';
   const schematicsDependencies = ['@o3r/schematics'];
@@ -61,3 +61,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     ])(tree, context);
   };
 }
+
+/**
+ * Add Otter library to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

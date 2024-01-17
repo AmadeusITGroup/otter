@@ -9,7 +9,7 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { firstValueFrom } from 'rxjs';
-import { ngAddLocalizationKey } from './index';
+import { ngAddLocalizationKeyFn } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';
@@ -170,7 +170,7 @@ describe('Add Localization', () => {
       it('should throw if no Otter component', async () => {
         const runner = new SchematicTestRunner('schematics', collectionPath);
 
-        await expect(firstValueFrom(runner.callRule(ngAddLocalizationKey({
+        await expect(firstValueFrom(runner.callRule(ngAddLocalizationKeyFn({
           path: ngComponentPath,
           skipLinter: false,
           key: 'dummyLoc1',

@@ -16,6 +16,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   getComponentFileName,
   getComponentFolderName,
   getComponentName,
@@ -62,7 +63,7 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
  * Add Otter component to an Angular Project
  * @param options
  */
-export function ngGenerateComponentPresenter(options: NgGenerateComponentSchematicsSchema): Rule {
+function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSchema): Rule {
 
   const fullStructureRequested = options.componentStructure === 'full';
 
@@ -204,3 +205,9 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
     !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }
+
+/**
+ * Add Otter component to an Angular Project
+ * @param options
+ */
+export const ngGenerateComponentPresenter = createSchematicWithMetricsIfInstalled(ngGenerateComponentPresenterFn);

@@ -3,7 +3,7 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { firstValueFrom } from 'rxjs';
-import { ngAddConfig } from './index';
+import { ngAddConfigFn } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
@@ -117,7 +117,7 @@ export class NgComponent {}
     it('should throw if no Otter component', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
-      await expect(firstValueFrom(runner.callRule(ngAddConfig({
+      await expect(firstValueFrom(runner.callRule(ngAddConfigFn({
         path: ngComponentPath,
         skipLinter: false,
         projectName: 'test-project',

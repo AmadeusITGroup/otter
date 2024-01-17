@@ -1,15 +1,14 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
-import { addImportsRule, applyEsLintFix } from '@o3r/schematics';
+import { addImportsRule, applyEsLintFix, createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { NgGenerateFactsServiceSchematicsSchema } from './schema';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import * as path from 'node:path';
 
 /**
  * Generate the facts service
- *
  * @param options
  */
-export function ngGenerateFactsService(options: NgGenerateFactsServiceSchematicsSchema): Rule {
+function ngGenerateFactsServiceFn(options: NgGenerateFactsServiceSchematicsSchema): Rule {
 
   const generateFiles = () => {
     const name = dasherize(options.name);
@@ -60,3 +59,9 @@ export function ngGenerateFactsService(options: NgGenerateFactsServiceSchematics
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Generate the facts service
+ * @param options
+ */
+export const ngGenerateFactsService = createSchematicWithMetricsIfInstalled(ngGenerateFactsServiceFn);

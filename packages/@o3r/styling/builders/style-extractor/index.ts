@@ -1,5 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { CmsMetadataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
 import { isO3rClassComponent } from '@o3r/schematics';
 import type { CssMetadata } from '@o3r/styling';
 import * as chokidar from 'chokidar';
@@ -24,7 +24,7 @@ const defaultLibraryName = (currentDir: string = process.cwd()) => {
   return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8'})).name as string;
 };
 
-export default createBuilder<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
@@ -229,4 +229,4 @@ export default createBuilder<StyleExtractorBuilderSchema>(async (options, contex
         .on('error', (err) => reject(err))
     );
   }
-});
+}));

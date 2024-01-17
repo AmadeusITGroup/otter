@@ -1,6 +1,7 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
+  createSchematicWithMetricsIfInstalled,
   getO3rPeerDeps,
   getProjectNewDependenciesType,
   getTestFramework,
@@ -32,7 +33,7 @@ function canResolvePlaywright(): boolean {
  * Add Otter testing to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -151,3 +152,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter testing to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

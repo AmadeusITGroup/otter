@@ -1,6 +1,6 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import type { ComponentConfigOutput } from '@o3r/components';
-import { CmsMetadataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
@@ -47,7 +47,7 @@ function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], 
   }
 }
 
-export default createBuilder<ComponentExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   const execute = async (): Promise<BuilderOutput> => {
@@ -199,4 +199,4 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         .on('error', (err) => reject(err))
     );
   }
-});
+}));

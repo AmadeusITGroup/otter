@@ -1,5 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import {registerPackageCollectionSchematics} from '@o3r/schematics';
+import {createSchematicWithMetricsIfInstalled, registerPackageCollectionSchematics} from '@o3r/schematics';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
@@ -10,7 +10,7 @@ import { registerDevtools } from './helpers/devtools-registration';
  * Add Otter rules-engine to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
@@ -73,3 +73,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter rules-engine to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

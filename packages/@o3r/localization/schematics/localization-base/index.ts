@@ -1,5 +1,6 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
+  createSchematicWithMetricsIfInstalled,
   findFirstNodeOfKind,
   getAppModuleFilePath,
   getModuleIndex,
@@ -474,7 +475,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
  * @param options
  * @param options.projectName
  */
-export function updateI18n(options: {projectName?: string | undefined}): Rule {
+function updateI18nFn(options: {projectName?: string | undefined}): Rule {
   if (!options.projectName) {
     return noop;
   }
@@ -515,3 +516,5 @@ export function updateI18n(options: {projectName?: string | undefined}): Rule {
     updateAngularJson
   ]);
 }
+
+export const updateI18n = createSchematicWithMetricsIfInstalled(updateI18nFn);

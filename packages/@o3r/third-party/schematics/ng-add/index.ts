@@ -1,11 +1,12 @@
 import type { Rule } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 /**
  * Add Otter third-party to an Angular Project
  */
-export function ngAdd(): Rule {
+function ngAddFn(): Rule {
   return async (_, context) => {
     try {
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -21,3 +22,8 @@ export function ngAdd(): Rule {
     }
   };
 }
+
+/**
+ * Add Otter third-party to an Angular Project
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
