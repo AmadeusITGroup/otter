@@ -69,7 +69,8 @@ jobs:
         run: yarn ${{ env.testCmd }} --output-style=stream
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@v4
+        # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
+        uses: actions/upload-artifact@v3
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
