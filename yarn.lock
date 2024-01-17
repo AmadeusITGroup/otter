@@ -1168,14 +1168,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/functions@npm:^3.5.1":
-  version: 3.5.1
-  resolution: "@azure/functions@npm:3.5.1"
+"@azure/functions@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "@azure/functions@npm:4.1.0"
   dependencies:
-    iconv-lite: "npm:^0.6.3"
     long: "npm:^4.0.0"
-    uuid: "npm:^8.3.0"
-  checksum: 09730bfdd43b2975b3f1913e4f6c3806dc2d005da248119bcaff133f61dd02bf38d944d90dc58a974807b4d8f4d0291e7629ddd01f6c8d79742372f40a33c65f
+    undici: "npm:^5.13.0"
+  checksum: caa611cc147f8b7cd24fbda146a396a9ff3e5fa2b989ece9da080f522841ade532ac53329e4d03c6dd949b74400f4f48a1b3035dbbc56f4206f36bbbb11b9c4b
   languageName: node
   linkType: hard
 
@@ -7550,7 +7549,7 @@ __metadata:
     "@angular/core": "npm:~17.0.4"
     "@angular/platform-browser": "npm:~17.0.4"
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
-    "@azure/functions": "npm:^3.5.1"
+    "@azure/functions": "npm:^4.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -30568,7 +30567,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici@npm:^5.25.4":
+"undici@npm:^5.13.0, undici@npm:^5.25.4":
   version: 5.28.2
   resolution: "undici@npm:5.28.2"
   dependencies:
@@ -30884,7 +30883,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"uuid@npm:^8.3.0, uuid@npm:^8.3.2":
+"uuid@npm:^8.3.2":
   version: 8.3.2
   resolution: "uuid@npm:8.3.2"
   bin:
