@@ -124,7 +124,8 @@ jobs:
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@v4
+        # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
+        uses: actions/upload-artifact@v3
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}
           path: 'packages/**/dist-test/it-report.xml'
