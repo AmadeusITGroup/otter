@@ -5324,30 +5324,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/effects@npm:~17.0.0":
-  version: 17.0.1
-  resolution: "@ngrx/effects@npm:17.0.1"
+"@ngrx/effects@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@ngrx/effects@npm:17.1.0"
   dependencies:
     "@ngrx/operators": "npm:17.0.0-beta.0"
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^17.0.0
-    "@ngrx/store": 17.0.1
+    "@ngrx/store": 17.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 52bdf9d426309fcd01ede038cbf2cf599a35739a66db23364591ad601ec94a410bd58d9c65123404565f8ac7e019540a4733c036da0ffa1880ce0a2f66bc85db
+  checksum: a65225173238a1e6a6e972cd1dd2dcc518518da1ac4d05e1263b547bd10f4c593ee2640f32833c0fe50183cec7db7a41370825191c137973aab99f48887cd69c
   languageName: node
   linkType: hard
 
-"@ngrx/entity@npm:~17.0.0":
-  version: 17.0.1
-  resolution: "@ngrx/entity@npm:17.0.1"
+"@ngrx/entity@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@ngrx/entity@npm:17.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^17.0.0
-    "@ngrx/store": 17.0.1
+    "@ngrx/store": 17.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: e0b7bab35d360571333f9f79fa3c7b9eb1510d800ff9e23e755338c2906bfb20443a85601f86c4bf6d035fca815b426098156fd3d5ceb5d3f6a442633130a2fd
+  checksum: 322e10e694982270dc599b2cb80e2cd5948c5fced7dadf717efdf147ad5db9b685b32bf8efc2af146265ac40686fa314ca04383e29ca16946875154a04541dbf
   languageName: node
   linkType: hard
 
@@ -5362,42 +5362,42 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ngrx/router-store@npm:~17.0.0":
-  version: 17.0.1
-  resolution: "@ngrx/router-store@npm:17.0.1"
+"@ngrx/router-store@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@ngrx/router-store@npm:17.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/common": ^17.0.0
     "@angular/core": ^17.0.0
     "@angular/router": ^17.0.0
-    "@ngrx/store": 17.0.1
+    "@ngrx/store": 17.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 2245a278ddfb2b249a4df751c79e7ea8d658ef475e1c923b000a38deba88c6c7097d8876a702329be788eee090891e9ff028d405bd4e1bf4d4603abc7ec051c3
+  checksum: 616de92bb8a2a51b53b7763b3a08faa4100a5d922098499a019c8e778bfa77fd0822aba7eb91fec0bb06627d5a8453b5b5cebf319eb83ecbf9253c3761c33565
   languageName: node
   linkType: hard
 
-"@ngrx/store-devtools@npm:~17.0.0":
-  version: 17.0.1
-  resolution: "@ngrx/store-devtools@npm:17.0.1"
+"@ngrx/store-devtools@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@ngrx/store-devtools@npm:17.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
-    "@ngrx/store": 17.0.1
+    "@ngrx/store": 17.1.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 8b7b68eb548a014f3a721a960265cce65982f4b01fad83cc5f9cc27f9c9de7393ccea7c4f7a86c7c9c912377d7680494c021a483cb4c58d5a6e5caab7d8406ca
+  checksum: 79881fe5c2d290e4d81d26367bf49d519729083477fbca521115b6526981d6b7116319058240a14dee0923c0ee524e789405c02f5acfc3548100da61aae4fb1a
   languageName: node
   linkType: hard
 
-"@ngrx/store@npm:~17.0.0":
-  version: 17.0.1
-  resolution: "@ngrx/store@npm:17.0.1"
+"@ngrx/store@npm:~17.1.0":
+  version: 17.1.0
+  resolution: "@ngrx/store@npm:17.1.0"
   dependencies:
     tslib: "npm:^2.0.0"
   peerDependencies:
     "@angular/core": ^17.0.0
     rxjs: ^6.5.3 || ^7.5.0
-  checksum: 872bf10547e87bff142c4397a8da9a175e31c1a6cb6c7ae6b32dacfbe3e17ca26591fe2dcd400e0c5d2eefc03e555839a6a5d3c8755e6e9d3c742a894e2eef41
+  checksum: 1ab3b9182b89fd2b9595ccbec6e208f865d8aa8b0583af60ad217040d13afa953aa1a99a5fdb8c693d2c12729b645b9a5f65e87e71805841e3e4a440cb08e47e
   languageName: node
   linkType: hard
 
@@ -6136,7 +6136,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -6179,7 +6179,7 @@ __metadata:
     "@angular/platform-browser": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
     "@angular/router": ~17.0.2
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~17.0.0
@@ -6487,8 +6487,8 @@ __metadata:
     "@design-factory/design-factory": "npm:^15.2.2"
     "@ng-bootstrap/ng-bootstrap": "npm:^16.0.0"
     "@ng-select/ng-select": "npm:~12.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
     "@o3r/application": "workspace:^"
@@ -6558,9 +6558,9 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/effects": "npm:~17.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/effects": "npm:~17.1.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
     "@o3r/analytics": "workspace:^"
@@ -6614,9 +6614,9 @@ __metadata:
     "@angular/forms": ~17.0.0
     "@angular/platform-browser": ~17.0.0
     "@angular/platform-browser-dynamic": ~17.0.0
-    "@ngrx/effects": ~17.0.0
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/effects": ~17.1.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -6679,8 +6679,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -6722,8 +6722,8 @@ __metadata:
   peerDependencies:
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6771,8 +6771,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -6829,8 +6829,8 @@ __metadata:
     "@angular/forms": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
     "@angular/router": ~17.0.2
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@nrwl/devkit": ~17.2.0
     "@nx/angular": ~17.2.0
     "@schematics/angular": ~17.0.0
@@ -7080,7 +7080,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -7118,7 +7118,7 @@ __metadata:
     "@angular/compiler-cli": ~17.0.2
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     cheerio: ^1.0.0-rc.10
@@ -7357,8 +7357,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -7394,8 +7394,8 @@ __metadata:
     "@angular/common": ~17.0.2
     "@angular/core": ~17.0.2
     "@angular/forms": ~17.0.2
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     rxjs: ^7.8.1
@@ -7439,11 +7439,11 @@ __metadata:
     "@design-factory/design-factory": "npm:^15.2.2"
     "@ng-bootstrap/ng-bootstrap": "npm:^16.0.0"
     "@ng-select/ng-select": "npm:~12.0.0"
-    "@ngrx/effects": "npm:~17.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/router-store": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
-    "@ngrx/store-devtools": "npm:~17.0.0"
+    "@ngrx/effects": "npm:~17.1.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/router-store": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
+    "@ngrx/store-devtools": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/angular": "npm:~17.2.0"
     "@nx/eslint": "npm:~17.2.0"
@@ -7609,7 +7609,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
@@ -7666,7 +7666,7 @@ __metadata:
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
     "@formatjs/intl-numberformat": ^8.0.2
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -7716,7 +7716,7 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@fullstory/browser": "npm:^2.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -7755,7 +7755,7 @@ __metadata:
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
     "@fullstory/browser": ^2.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     logrocket: ~7.0.0
@@ -7798,7 +7798,7 @@ __metadata:
     "@capacitor/device": "npm:^5.0.0"
     "@capacitor/preferences": "npm:^5.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -7846,7 +7846,7 @@ __metadata:
     "@capacitor/core": ^5.0.0
     "@capacitor/device": ^5.0.0
     "@capacitor/preferences": ^5.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7884,10 +7884,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/effects": "npm:~17.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/router-store": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/effects": "npm:~17.1.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/router-store": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -7925,10 +7925,10 @@ __metadata:
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
     "@angular/router": ~17.0.2
-    "@ngrx/effects": ~17.0.0
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/router-store": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/effects": ~17.1.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/router-store": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7960,9 +7960,9 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/effects": "npm:~17.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/effects": "npm:~17.1.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
@@ -8020,9 +8020,9 @@ __metadata:
     "@angular/common": ~17.0.2
     "@angular/core": ~17.0.2
     "@angular/platform-browser-dynamic": ~17.0.2
-    "@ngrx/effects": ~17.0.0
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/effects": ~17.1.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/extractors": "workspace:^"
@@ -8160,10 +8160,10 @@ __metadata:
     "@formatjs/intl-numberformat": "npm:~8.9.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^16.0.0"
     "@ng-select/ng-select": "npm:~12.0.0"
-    "@ngrx/effects": "npm:~17.0.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
-    "@ngrx/store-devtools": "npm:~17.0.0"
+    "@ngrx/effects": "npm:~17.1.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
+    "@ngrx/store-devtools": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -8237,8 +8237,8 @@ __metadata:
     "@angular/core": "npm:~17.0.4"
     "@angular/platform-browser": "npm:~17.0.4"
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/js": "npm:~17.2.0"
@@ -8275,8 +8275,8 @@ __metadata:
     "@ama-sdk/core": "workspace:^"
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
-    "@ngrx/entity": ~17.0.0
-    "@ngrx/store": ~17.0.0
+    "@ngrx/entity": ~17.1.0
+    "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -8311,7 +8311,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
     "@o3r/build-helpers": "workspace:^"
@@ -8359,7 +8359,7 @@ __metadata:
     "@angular-devkit/core": ~17.0.0
     "@angular-devkit/schematics": ~17.0.0
     "@angular/core": ~17.0.2
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
@@ -8608,7 +8608,7 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
@@ -8662,7 +8662,7 @@ __metadata:
     "@angular/core": ~17.0.2
     "@angular/forms": ~17.0.2
     "@angular/platform-browser": ~17.0.2
-    "@ngrx/store": ~17.0.0
+    "@ngrx/store": ~17.1.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -8786,8 +8786,8 @@ __metadata:
     "@angular/router": "npm:~17.0.4"
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
-    "@ngrx/entity": "npm:~17.0.0"
-    "@ngrx/store": "npm:~17.0.0"
+    "@ngrx/entity": "npm:~17.1.0"
+    "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~17.2.0"
     "@nx/jest": "npm:~17.2.0"
