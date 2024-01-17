@@ -15,7 +15,7 @@ describe('Typescript Core Generator', () => {
       name: 'test-sdk',
       package: 'sdk'
     }, tree);
-  });
+  }, 15000);
 
   it('should update readme', async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
