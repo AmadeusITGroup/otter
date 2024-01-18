@@ -1,7 +1,7 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter apis manager to an Angular Project

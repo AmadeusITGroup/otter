@@ -13,12 +13,14 @@ const doCustomAction: Rule = (tree, _context) => {
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (_tree, context) => {
+  return async (tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps } = await import('@o3r/schematics');
+      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
       // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const workingDirectory = workspaceProject?.root || '.';
       return chain([
         // optional custom action dedicated to this module
         doCustomAction,
@@ -27,6 +29,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         options.skipInstall ? noop : install,
         // add the missing Otter modules in the current project
         ngAddPackages(depsInfo.o3rPeerDeps, {
+          workingDirectory,
           skipConfirmation: true,
           version: depsInfo.packageVersion,
           projectName: options.projectName,

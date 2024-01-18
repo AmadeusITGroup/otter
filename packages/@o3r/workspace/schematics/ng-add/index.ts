@@ -3,7 +3,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createSchematicWithMetricsIfInstalled, getPackageManagerExecutor, getWorkspaceConfig, registerPackageCollectionSchematics } from '@o3r/schematics';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 import { RepositoryInitializerTask } from '@angular-devkit/schematics/tasks';
 import { prepareProject } from './project-setup';
 

@@ -3,7 +3,7 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
 import { updateCmsAdapter } from '../cms-adapter';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter extractors to an Angular Project

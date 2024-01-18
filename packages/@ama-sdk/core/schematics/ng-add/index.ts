@@ -1,14 +1,16 @@
-import {chain, type Rule} from '@angular-devkit/schematics';
+import { chain, type Rule } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
-import * as ts from 'typescript';
 import * as path from 'node:path';
+import * as ts from 'typescript';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Rule to import all the necessary dependency to run an @ama-sdk based application
  * Helps to migrate from previous versions with an import replacement
+ * @param options schema options
  */
-function ngAddFn(): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
   const checkSchematicsDependency: Rule = async (_, context) => {
     try {
@@ -55,15 +57,16 @@ function ngAddFn(): Rule {
   };
 
 
-  const addMandatoryPeerDeps: Rule = async (_, context) => {
-    const { getPeerDepWithPattern } = await import('@o3r/schematics');
-
+  const addMandatoryPeerDeps: Rule = async (tree, context) => {
+    const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');
+    const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'), [
       'chokidar',
       'cpy',
       'minimist'
     ]);
     context.addTask(new NodePackageInstallTask({
+      workingDirectory,
       packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)
         // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
         .map(([dependency, version]) => `${dependency}@${version || 'latest'}`)

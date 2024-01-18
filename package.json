@@ -40,6 +40,7 @@
     "verdaccio:login": "yarn cpy --cwd=./.verdaccio/conf .npmrc . --rename=.npmrc-logged && npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r http://127.0.0.1:4873 --config-path \".verdaccio/conf/.npmrc-logged\"",
     "verdaccio:publish": "yarn verdaccio:clean && yarn set:version 999.0.0 --include \"!**/!(dist)/package.json\" --include !package.json && yarn verdaccio:login && yarn run publish --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://127.0.0.1:4873 --@ama-sdk:registry=http://127.0.0.1:4873 --@ama-terasu:registry=http://127.0.0.1:4873",
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
+    "verdaccio:all": "yarn verdaccio:stop && yarn verdaccio:start && yarn verdaccio:publish",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
     "workspaces:list": "yarn workspaces list --no-private --json | shx sed \"s/.*\\\"location\\\":\\\"(.*?)\\\".*/\\$1/\""
   },
