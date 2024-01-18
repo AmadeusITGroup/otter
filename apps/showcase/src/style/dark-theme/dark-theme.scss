@@ -1,3 +1,4 @@
+@import "highlight.js/styles/a11y-dark.css";
 
 :root {
 /* --- BEGIN THEME Auto-generated --- */
@@ -17,7 +18,7 @@
 --color-primary-A700: #839aff;
 --color-primary-A400: #9caeff;
 --color-primary-A200: #cfd8ff;
---color-primary-A100: #ffffff;
+--color-primary-A100: #000000;
 --color-primary: var(--color-primary-500);
 --color-accent-50: #e8f7ff;
 --color-accent-100: #c5eaff;
@@ -84,5 +85,10 @@
 --radius-5: 5px;
 --radius-10: 10px;
 --radius-25: 25px;
+--bs-body-bg: #000000;
+--bs-body-color: #ffffff;
+--bs-tertiary-bg: #333333;
+.card { --bs-card-color: #ffffff; }
+.card { --bs-card-bg: #000000; }
 /* --- END THEME Auto-generated --- */
 }

@@ -54,6 +54,8 @@ export class StyleLazyLoader {
       style.crossOrigin = styleUrlConfig.crossOrigin;
     }
     style.href = styleUrlConfig.href;
+
+    return style;
   }
 
   /**

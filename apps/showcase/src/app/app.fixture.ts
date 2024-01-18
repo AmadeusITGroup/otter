@@ -23,6 +23,8 @@ export interface AppFixture extends ComponentFixtureProfile {
   navigateToRulesEngine(): Promise<void>;
   /** Go to Component-replacement page */
   navigateToComponentReplacement(): Promise<void>;
+  /** Go to Design-token page */
+  navigateToDesignToken(): Promise<void>;
   /** Go to SDK-generator page */
   navigateToSDKGenerator(): Promise<void>;
 }
@@ -69,8 +71,13 @@ export class AppFixtureComponent extends O3rComponentFixture implements AppFixtu
   }
 
   /** @inheritDoc */
-  public async navigateToSDKGenerator() {
+  public async navigateToDesignToken() {
     await (await this.getSideNav()).clickOnLink(7);
+  }
+
+  /** @inheritDoc */
+  public async navigateToSDKGenerator() {
+    await (await this.getSideNav()).clickOnLink(8);
   }
 
 }
