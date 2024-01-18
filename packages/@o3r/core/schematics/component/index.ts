@@ -1,6 +1,14 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getComponentFolderName, getDestinationPath, getInputComponentName, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  getComponentFolderName,
+  getDestinationPath,
+  getInputComponentName,
+  moduleHasSubEntryPoints,
+  writeSubEntryPointPackageJson
+} from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateComponentSchematicsSchema } from './schema';
 

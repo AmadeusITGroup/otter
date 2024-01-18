@@ -8,6 +8,7 @@
     "build": "yarn nx build telemetry",
     "postbuild": "patch-package-json-main",
     "prepare:build:builders": "yarn run cpy 'collection.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
+    "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "dependencies": {
@@ -55,5 +56,14 @@
   "schematics": "./collection.json",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "exports": {
+    ".": {
+      "default": "./dist/src/public_api.js",
+      "typings": "./dist/src/public_api.d.ts"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
   }
 }

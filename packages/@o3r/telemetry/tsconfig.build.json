@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "outDir": "./dist",
+    "module": "CommonJS",
     "rootDir": "src",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
