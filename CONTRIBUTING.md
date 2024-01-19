@@ -61,7 +61,7 @@ To ease the process, we are providing a set of:
 
 * [Editors configuration](.editorconfig)
 * [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
-* [Component generator](./docs/core/OTTER_ANGULAR_TOOLS.md#schematics) (and more)
+* [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
 ## Code review process
 

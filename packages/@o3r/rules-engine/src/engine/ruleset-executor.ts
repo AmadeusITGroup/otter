@@ -51,7 +51,6 @@ export class RulesetExecutor {
 
   /**
    * Create a new ruleset executor
-   *
    * @param ruleset Ruleset to evaluate
    * @param rulesEngine Instance of the rules engine
    */
@@ -59,13 +58,12 @@ export class RulesetExecutor {
     this.ruleset = ruleset;
     this.rulesEngine = rulesEngine;
     this.operators = rulesEngine.operators;
-    this.engineRuleset = this.prepareRuleset();
+    this.engineRuleset = this.plugRuleset();
   }
 
   /**
    * Recursively explores a rule to identify and collect input facts.
    * Input facts are identified based on the 'FACT' type and operator-specific implicit dependencies.
-   *
    * @param currentObject The current object being explored.
    * @param ruleInputFacts A set to store the identified input facts for the rule.
    */
@@ -90,7 +88,6 @@ export class RulesetExecutor {
 
   /**
    * Report performance mark for a rule run
-   *
    * @param rule Rule to measure
    * @param status status of the rule evaluation
    */
@@ -106,7 +103,6 @@ export class RulesetExecutor {
 
   /**
    * Get operand value stream according to its type
-   *
    * @param operand operand of the condition
    * @param factsValue
    * @param runtimeFactValues
@@ -130,7 +126,6 @@ export class RulesetExecutor {
    * Process a root rule from a ruleset, and return the associated actions to be processed
    * Will also update the runtimeFactValues map that is ruleset wise
    * Note that runtimeFactValues will be mutated by all the runtime facts actions executed
-   *
    * @param rule
    * @param factsValue
    * @param runtimeFactValues
@@ -143,7 +138,6 @@ export class RulesetExecutor {
   /**
    * Recursively process a block to extract all the actions keeping the order
    * Note that runtimeFactValues will be mutated by all the runtime facts actions executed
-   *
    * @param element
    * @param actions
    * @param factsValue
@@ -166,7 +160,6 @@ export class RulesetExecutor {
 
   /**
    * Returns true if the element is a IfElse block
-   *
    * @param element
    * @protected
    */
@@ -176,7 +169,6 @@ export class RulesetExecutor {
 
   /**
    * Returns true if the element is an action block
-   *
    * @param element
    * @protected
    */
@@ -186,7 +178,6 @@ export class RulesetExecutor {
 
   /**
    * Returns true if the action sets a temporary fact
-   *
    * @param element
    * @protected
    */
@@ -196,7 +187,6 @@ export class RulesetExecutor {
 
   /**
    * Evaluate a condition block
-   *
    * @param nestedCondition
    * @param factsValue
    * @param runtimeFactValues
@@ -225,7 +215,7 @@ export class RulesetExecutor {
   /**
    * Plug ruleset to fact streams and trigger a first evaluation
    */
-  public prepareRuleset() {
+  protected plugRuleset() {
     const inputFactsForRule: Record<string, string[]> = {};
     const findRuleInputFacts = (obj: AllBlock): string[] => {
       const ruleInputFacts = new Set<string>();
@@ -329,5 +319,13 @@ export class RulesetExecutor {
       linkedComponent: this.ruleset.linkedComponent,
       rulesResultsSubject$: result$
     } as EngineRuleset;
+  }
+
+  /**
+   * Plug ruleset to fact streams and trigger a first evaluation
+   * @deprecated This function is not made to be accessible from Outside of the class, will be removed in v10
+   */
+  public prepareRuleset() {
+    return this.plugRuleset();
   }
 }

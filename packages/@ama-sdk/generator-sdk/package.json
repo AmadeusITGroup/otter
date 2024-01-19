@@ -51,7 +51,7 @@
   "devDependencies": {
     "@angular-devkit/core": "~16.2.0",
     "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.2.0",
+    "@angular-eslint/eslint-plugin": "~16.3.0",
     "@nx/eslint-plugin": "~16.10.0",
     "@nx/jest": "~16.10.0",
     "@o3r/build-helpers": "workspace:^",
@@ -71,7 +71,7 @@
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.9.0",
+    "eslint-plugin-jsdoc": "~46.10.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^47.0.0",
     "isomorphic-fetch": "~3.0.0",

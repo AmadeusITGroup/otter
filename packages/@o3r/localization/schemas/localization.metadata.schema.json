@@ -26,6 +26,17 @@
           "description": {
             "type": "string",
             "description": "Description of the key. Used to give some context to the translators"
+          },
+          "referenceData": {
+            "type": "boolean",
+            "description": "Determine if the value has to be overriden"
+          },
+          "tags": {
+            "type": "array",
+            "description": "tags used to filter, categorize",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -37,8 +48,8 @@
           "dictionary"
         ],
         "if": { "properties": { "dictionary": { "const": false } } },
-        "then": { "required": ["key", "description", "dictionary"] },
-        "else": { "required": ["key", "description", "dictionary", "value"] },
+        "then": { "required": ["key", "description", "dictionary", "value"] },
+        "else": { "required": ["key", "description", "dictionary"] },
         "properties": {
           "key": {
             "type": "string",
@@ -62,6 +73,10 @@
             "items": {
               "type": "string"
             }
+          },
+          "referenceData": {
+            "type": "boolean",
+            "description": "Determine if the value has to be overriden"
           }
         }
       }

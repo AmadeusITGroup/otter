@@ -30,8 +30,10 @@
       <div class="row">
         <o3r-copy-text-pres language="html" [text]="codeConfig()" class="col-12 col-md-8 col-lg-9"></o3r-copy-text-pres>
         <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
-          <button type="button" class="btn btn-primary" [class.disabled]="config()" (click)="toggleConfig()">Override</button>
-          <button type="button" class="btn btn-danger" [class.disabled]="!config()" (click)="toggleConfig()">Clear</button>
+          <button type="button" class="btn btn-primary" disabled="{{config()}}"
+                  [class.disabled]="config()" (click)="toggleConfig()">Override</button>
+          <button type="button" class="btn btn-danger" disabled="{{!config()}}"
+                  [class.disabled]="!config()" (click)="toggleConfig()">Clear</button>
         </div>
       </div>
       <p>
@@ -49,7 +51,7 @@
     <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g configuration-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
     <h2 id="configuration-metadata">Metadata</h2>
     <div>
-      <h4>How to extract</h4>
+      <h3>How to extract</h3>
       <o3r-copy-text-pres [wrap]="true" language="bash" text="ng run project-name:extract-components"></o3r-copy-text-pres>
       <p>It will extract components' configuration and generate the two following files: <code>component.config.metadata.json</code> and <code>component.class.metadata.json</code></p>
       <p>Check the list of options available by running:</p>

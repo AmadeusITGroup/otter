@@ -4,7 +4,8 @@ import { ConfigurationDevtoolsServiceOptions } from './configuration-devtools.in
 export const OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS: ConfigurationDevtoolsServiceOptions = {
   defaultLibraryName: '@o3r/components',
   defaultJsonFilename: 'partial-static-config.json',
-  isActivatedOnBootstrap: false
+  isActivatedOnBootstrap: false,
+  isActivatedOnBootstrapWhenCMSContext: true
 };
 
 // eslint-disable-next-line max-len

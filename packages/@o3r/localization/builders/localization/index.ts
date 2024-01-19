@@ -297,7 +297,7 @@ function startMetadataGenerator(localizationExtractorTarget: Target, context: Bu
  * @param context Ng Builder context
  */
 async function checkMetadata(localizationMetaDataFile: string, localizationExtractorTarget: Target, context: BuilderContext): Promise<BuilderOutput | undefined> {
-  let metaDataExists = await new Promise<boolean>((resolve) => fs.exists(localizationMetaDataFile, resolve));
+  let metaDataExists = fs.existsSync(localizationMetaDataFile);
   if (!metaDataExists) {
     context.logger.warn(`The file ${localizationMetaDataFile} does not exist, the extractor will be run`);
     context.reportProgress(2, STEP_NUMBER, 'Generating Localization metadata file');
@@ -306,7 +306,7 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
     if (!extractorBuildResult.success) {
       return extractorBuildResult;
     } else {
-      metaDataExists = await new Promise<boolean>((resolve) => fs.exists(localizationMetaDataFile, resolve));
+      metaDataExists = fs.existsSync(localizationMetaDataFile);
       if (!metaDataExists) {
         return {
           success: false,

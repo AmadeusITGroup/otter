@@ -9,7 +9,9 @@ The **Otter** project is a highly modular framework whose goal is to provide a c
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
 Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
 
-> **Note**:  The full documentation is available [here](./docs/README.md).
+> **Note**: The full documentation is available [here](./docs/README.md). 
+> 
+> **Note**: A showcase to help you integrate some simple use case is available [here](https://amadeusitgroup.github.io/otter/#/home) 
 
 ## Built With
 

@@ -24,25 +24,25 @@ ng add @o3r/rules-engine
 
 To facilitate the understanding of the usage of the rule engines, the documentation has been split in several sessions:
 
-- [integration](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/integration.md)
-- [cms-json-imports](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/cms-json-imports.md)
-- [create-custom-fact](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/create-custom-fact.md)
-- [debug-panel](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/debug-panel.md)
-- [debug](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/debug.md)
-- [dedicated-component-ruleset](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/dedicated-component-ruleset.md)
-- [performance-metrics](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/performance-metrics.md)
-- [placeholders](https://github.com/AmadeusITGroup/otter/tree/main/docs/how-to-use/placeholders.md)
+- [integration](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/integration.md)
+- [cms-json-imports](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/cms-json-imports.md)
+- [create-custom-fact](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/create-custom-fact.md)
+- [debug-panel](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug-panel.md)
+- [debug](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/debug.md)
+- [dedicated-component-ruleset](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/dedicated-component-ruleset.md)
+- [performance-metrics](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/performance-metrics.md)
+- [placeholders](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/how-to-use/placeholders.md)
 
 ## Examples
 
 Several examples of the rule engine usage are available on the following links:
 
-- [basic-rule](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/basic-rule.md)
-- [complex-fact](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/complex-fact.md)
-- [custom-operator](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/custom-operator.md)
-- [nested-conditions](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/nested-conditions.md)
-- [readme](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/readme.md)
-- [runtime-facts](https://github.com/AmadeusITGroup/otter/tree/main/docs/examples/runtime-facts.md)
+- [basic-rule](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/basic-rule.md)
+- [complex-fact](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/complex-fact.md)
+- [custom-operator](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/custom-operator.md)
+- [nested-conditions](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/nested-conditions.md)
+- [readme](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/readme.md)
+- [runtime-facts](https://github.com/AmadeusITGroup/otter/tree/main/docs/rules-engine/examples/runtime-facts.md)
 
 ## Generators
 

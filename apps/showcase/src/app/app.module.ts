@@ -12,8 +12,10 @@ import { RuntimeChecks, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { prefersReducedMotion } from '@o3r/application';
+import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import {
   LocalizationConfiguration,
+  LocalizationDevtoolsModule,
   LocalizationModule,
   MESSAGE_FORMAT_CONFIG,
   translateLoaderProvider,
@@ -60,7 +62,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     },
     fallbackLanguage: 'en-GB',
     bundlesOutputPath: 'localizations/',
-    useDynamicContent: !isDevMode()
+    useDynamicContent: !isDevMode(),
+    enableTranslationDeactivation: true
   };
 }
 
@@ -86,7 +89,9 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,
-    ScrollBackTopPresComponent
+    ScrollBackTopPresComponent,
+    LocalizationDevtoolsModule,
+    ConfigurationDevtoolsModule
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},
@@ -107,4 +112,4 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
