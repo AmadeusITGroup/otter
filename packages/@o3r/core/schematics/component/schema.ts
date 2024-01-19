@@ -26,6 +26,9 @@ export interface NgGenerateComponentSchematicsSchema extends SchematicOptionObje
   /** Indicates if the component should use otter theming architecture */
   useOtterTheming?: boolean | undefined;
 
+  /** Indicates if the component should use Design Token Specifications */
+  useOtterDesignToken?: boolean | undefined;
+
   /** Indicates if the component should use otter configuration */
   useOtterConfig?: boolean | undefined;
 
