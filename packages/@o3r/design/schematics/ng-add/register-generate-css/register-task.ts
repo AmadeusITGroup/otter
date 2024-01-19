@@ -13,13 +13,19 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const themeFile = posix.resolve(srcBasePath, 'style', 'theme.scss');
-    const taskParameters: GenerateCssSchematicsSchema = {
+    const taskOptions: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
       renderPrivateVariableTo: 'sass',
       designTokenFilePatterns: [
         `${posix.resolve(srcBasePath, 'style', '*.json')}`,
         `${posix.resolve(srcBasePath, '**', '*.theme.json')}`
       ]
+    };
+    const taskParameters = {
+      options: taskOptions,
+      configuration: {
+        watch: { watch: true }
+      }
     };
     if (!workspaceProject) {
       logger.warn(`No angular.json found, the task ${taskName} will not be created`);
