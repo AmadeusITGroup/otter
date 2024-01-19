@@ -566,6 +566,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         }
         boolean containsExtensions = false;
         ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
+        group.add(model.allVars);
         group.add(model.vars);
         group.add(model.requiredVars);
         group.add(model.optionalVars);
@@ -632,6 +633,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         }
         boolean nonObjectDefinition = false;
         ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
+        group.add(model.allVars);
         group.add(model.vars);
         group.add(model.requiredVars);
         group.add(model.optionalVars);

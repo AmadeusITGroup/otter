@@ -30,8 +30,8 @@
   },
   "scripts": {
     "clean": "rimraf test/ test-dev/ dist/ dist-dev/ dist-test/ build/",
-    "lint:ci": "eslint '**/*[jt]s' --quiet --format junit --output-file ./dist-lint/result.xml",
-    "lint": "eslint '**/*[jt]s' --cache",
+    "lint:ci": "eslint \"**/*[jt]s\" --quiet --format junit --output-file ./dist-lint/result.xml",
+    "lint": "eslint \"**/*[jt]s\" --cache",
     "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"<%=packageManager%> run files:pack --watch\"",
     "build": "<%=packageManager%> run build:cjs && <%=packageManager%> run build:esm2015 && <%=packageManager%> run build:esm2020 && <%=packageManager%> run files:pack",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
