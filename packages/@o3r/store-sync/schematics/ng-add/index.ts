@@ -34,6 +34,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         (_, ctx) => {
           const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'), ['fast-deep-equal']);
           ctx.addTask(new NodePackageInstallTask({
+            workingDirectory,
             packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)
               // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
               .map(([dependency, version]) => `${dependency}@${version || 'latest'}`)

@@ -20,7 +20,7 @@ import {
   renamedPackagesV7toV8,
   updateImports
 } from '@o3r/schematics';
-import { NgAddSchematicsSchema } from '../schema';
+import type { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';

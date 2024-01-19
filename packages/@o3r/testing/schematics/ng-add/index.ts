@@ -16,7 +16,7 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
-import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
+import type { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
 import { updatePlaywright } from './playwright';
 

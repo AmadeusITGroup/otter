@@ -5,7 +5,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { addWorkspacesToProject, filterPackageJsonScripts } from './helpers/npm-workspace';
 import { generateRenovateConfig } from './helpers/renovate';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 import { shouldOtterLinterBeInstalled } from './helpers/linter';
 import { updateGitIgnore } from './helpers/gitignore-update';
 
