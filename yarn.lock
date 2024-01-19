@@ -179,7 +179,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.8.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
     "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -228,7 +228,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.8.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
     "@schematics/angular": "npm:~17.0.3"
     "@types/jest": "npm:~29.5.2"
     "@types/js-yaml": "npm:^4.0.5"
@@ -273,7 +273,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ^17.0.1
     "@angular/cli": ^17.0.1
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.8.0
+    "@openapitools/openapi-generator-cli": ~2.9.0
     "@schematics/angular": ~17.0.0
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -308,7 +308,7 @@ __metadata:
     "@nx/jest": "npm:~17.2.0"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.8.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
     "@schematics/angular": "npm:~17.0.3"
     "@swc/cli": "npm:^0.1.57"
     "@swc/core": "npm:^1.3.85"
@@ -9340,9 +9340,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.8.0":
-  version: 2.8.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.8.0"
+"@openapitools/openapi-generator-cli@npm:~2.9.0":
+  version: 2.9.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.9.0"
   dependencies:
     "@nestjs/axios": "npm:3.0.1"
     "@nestjs/common": "npm:10.3.0"
@@ -9356,14 +9356,14 @@ __metadata:
     console.table: "npm:0.10.0"
     fs-extra: "npm:10.1.0"
     glob: "npm:7.2.3"
-    inquirer: "npm:8.2.5"
+    inquirer: "npm:8.2.6"
     lodash: "npm:4.17.21"
     reflect-metadata: "npm:0.1.13"
-    rxjs: "npm:7.8.0"
+    rxjs: "npm:7.8.1"
     tslib: "npm:2.6.2"
   bin:
     openapi-generator-cli: main.js
-  checksum: a04dd044826563feeb3df1dce7a9f6424d0138628dbc031b634bbddb0291c1a84834b9ec4f791b38cc4637303ba3f3dd787c4a6778fecf806465475e8d9e0838
+  checksum: 7b1fdbaaf56507b58c5becc3ce0de71d066ae0c96cfd45975c09ed0569c3f00607fc515feeb1bcafe8dcf3a1864802def3ac75d359e26b3c84966017bc8cde1e
   languageName: node
   linkType: hard
 
@@ -20607,9 +20607,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:8.2.5":
-  version: 8.2.5
-  resolution: "inquirer@npm:8.2.5"
+"inquirer@npm:8.2.6":
+  version: 8.2.6
+  resolution: "inquirer@npm:8.2.6"
   dependencies:
     ansi-escapes: "npm:^4.2.1"
     chalk: "npm:^4.1.1"
@@ -20625,8 +20625,8 @@ __metadata:
     string-width: "npm:^4.1.0"
     strip-ansi: "npm:^6.0.0"
     through: "npm:^2.3.6"
-    wrap-ansi: "npm:^7.0.0"
-  checksum: 50a240dfeaca37a14e6a6d11d7d6f7da947be3a9fe1e34ac41db6a49fc27022e7b3875ebe8ccd739497359808694488f3509792cc986f9ac48c43135f4e14172
+    wrap-ansi: "npm:^6.0.1"
+  checksum: f642b9e5a94faaba54f277bdda2af0e0a6b592bd7f88c60e1614b5795b19336c7025e0c2923915d5f494f600a02fe8517413779a794415bb79a9563b061d68ab
   languageName: node
   linkType: hard
 
@@ -27684,15 +27684,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rxjs@npm:7.8.0":
-  version: 7.8.0
-  resolution: "rxjs@npm:7.8.0"
-  dependencies:
-    tslib: "npm:^2.1.0"
-  checksum: ff9359cc7875edecc8fc487481366b876b488901178cca8f2bdad03e00d2b5a19b01d2b02d3b4ebd47e574264db8460c6c2386076c3189b359b5e8c70a6e51e3
-  languageName: node
-  linkType: hard
-
 "rxjs@npm:7.8.1, rxjs@npm:^7.5.5, rxjs@npm:^7.8.0, rxjs@npm:^7.8.1":
   version: 7.8.1
   resolution: "rxjs@npm:7.8.1"
@@ -31585,7 +31576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wrap-ansi@npm:^6.2.0":
+"wrap-ansi@npm:^6.0.1, wrap-ansi@npm:^6.2.0":
   version: 6.2.0
   resolution: "wrap-ansi@npm:6.2.0"
   dependencies:
