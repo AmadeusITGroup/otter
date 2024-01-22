@@ -1,7 +1,6 @@
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
-  packageManagerAdd,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
@@ -110,20 +109,14 @@ describe('new otter application', () => {
 
   describe('monorepo', () => {
     beforeAll(async () => {
-      const workspacePath = await prepareTestEnv(`${appName}-monorepo`, 'angular-monorepo');
+      const workspacePath = await prepareTestEnv(`${appName}-monorepo`, 'angular-monorepo-with-o3r-core');
       appFolderPath = join(workspacePath, 'projects', 'test-app');
       execAppOptions.cwd = workspacePath;
     });
     test('should build empty app', () => {
-      // FIXME workaround for pnp
-      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, execAppOptions);
-      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, { ...execAppOptions, cwd: appFolderPath });
-
-      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion}`, execAppOptions);
 
       const projectName = '--project-name=test-app';
       packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=all ${projectName}`, execAppOptions);
-      packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion} ${projectName}`, execAppOptions);
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
       packageManagerExec(
