@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as os from 'node:os';
 import { execSync } from 'node:child_process';
+import * as path from 'node:path';
 
 /** Support NPM package managers */
 type SupportedPackageManagers = 'npm' | 'yarn';
@@ -45,10 +46,17 @@ function getPackageManagerVersion(): string | undefined {
   }
 }
 
+interface PackageManagerInfo {
+  /** Name of the package manager used */
+  name: SupportedPackageManagers;
+  /** Version of the package manager */
+  version?: string;
+}
+
 /**
  * Get package manager information
  */
-function getPackageManagerInfo() {
+function getPackageManagerInfo(): PackageManagerInfo {
   return {
     name: getPackageManager(),
     version: getPackageManagerVersion()
@@ -56,29 +64,98 @@ function getPackageManagerInfo() {
 }
 
 /**
+ * Operation System information
+ */
+interface OperatingSystemInfo {
+  /** Operating System CPU architecture */
+  architecture: string;
+  /** Operating System platform */
+  platform: string;
+  /** Operating System version */
+  version: string;
+}
+
+/**
+ * NodeJS information
+ */
+interface NodeInfo {
+  /** Version of NodeJS */
+  version: string;
+}
+
+/**
+ * Otter information
+ */
+interface OtterInfo {
+  /** Version of `@o3r/core` or `@o3r/telemetry` */
+  version?: string;
+}
+
+/**
+ * Project information
+ */
+interface ProjectInfo {
+  /** Name of the project */
+  name: string;
+}
+
+export interface EnvironmentMetricData {
+  /** OS information */
+  os: OperatingSystemInfo;
+  /** NodeJS information */
+  node: NodeInfo;
+  /** Package manager information */
+  packageManager: PackageManagerInfo;
+  /** Otter information */
+  otter: OtterInfo;
+  /** Is process run in a CI */
+  ci: boolean;
+  /** Project information */
+  project?: ProjectInfo;
+}
+
+/**
  * Get all environment information
  * Could be useful for debugging issue
  */
-export const getEnvironmentInfo = () => {
+export const getEnvironmentInfo = (): EnvironmentMetricData => {
   const osInfo = {
     architecture: os.arch(),
     platform: os.platform(),
     version: os.release()
   };
+
   const nodeInfo = {
     version: process.version
   };
+
   const packageManagerInfo = getPackageManagerInfo();
+
   let otterCorePackageJsonPath: string | undefined;
   try {
     otterCorePackageJsonPath = require.resolve('@o3r/core/package.json');
   } catch {
-    // Do not throw error if @o3r/core is not found
+    // Fallback to the @o3r/telemetry package version if @o3r/core is not found
+    otterCorePackageJsonPath = path.posix.join(__dirname, '..', '..', 'package.json');
   }
   const otterInfo = {
     version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
   };
-  return { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo };
+
+  const ci = typeof process.env.CI !== undefined && process.env.CI?.toLowerCase() !== 'false';
+
+  let projectName: string | undefined;
+  try {
+    projectName = JSON.parse(fs.readFileSync(path.posix.join(process.cwd(), 'package.json'), { encoding: 'utf-8' })).name;
+  } catch {}
+
+  return {
+    os: osInfo,
+    node: nodeInfo,
+    packageManager: packageManagerInfo,
+    otter: otterInfo, ci,
+    ...(projectName ? { project: { name: projectName } } : {})
+  };
 };
 
 /**
@@ -86,7 +163,7 @@ export const getEnvironmentInfo = () => {
  * @see getEnvironmentInfo
  */
 export const getEnvironmentInfoStringify = () => {
-  const { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo } = getEnvironmentInfo();
+  const { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo, ci } = getEnvironmentInfo();
   return `
 - User Agent Architecture: ${osInfo.architecture}
 - User Agent Platform: ${osInfo.platform}
@@ -95,5 +172,6 @@ export const getEnvironmentInfoStringify = () => {
 - Package Manager Name: ${packageManagerInfo.name}
 - Package Manager Version: ${packageManagerInfo.version || 'undefined'}
 - Otter Version: ${otterInfo.version || 'undefined'}
+- CI: ${ci}
 `;
 };
