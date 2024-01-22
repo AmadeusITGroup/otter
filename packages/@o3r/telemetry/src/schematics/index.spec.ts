@@ -18,15 +18,17 @@ jest.mock('node:perf_hooks', () => {
 });
 
 import { callRule, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { lastValueFrom } from 'rxjs';
+import { lastValueFrom, of } from 'rxjs';
 import { createSchematicWithMetrics, SchematicWrapper } from './index';
 
 let context: SchematicContext;
 let debug: jest.Mock;
+let executePostTasks: jest.Mock;
 
 describe('createSchematicWithMetricsIfInstalled', () => {
   beforeEach(() => {
     debug = jest.fn();
+    executePostTasks = jest.fn().mockReturnValue(of(''));
     context = {
       schematic: {
         description: {
@@ -35,6 +37,9 @@ describe('createSchematicWithMetricsIfInstalled', () => {
           },
           name: 'MySchematic'
         }
+      },
+      engine: {
+        executePostTasks
       },
       interactive: false,
       logger: {
@@ -55,6 +60,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
     expect(originalSchematic).toHaveBeenCalled();
     expect(originalSchematic).toHaveBeenCalledWith(options);
     expect(rule).toHaveBeenCalled();
+    expect(executePostTasks).toHaveBeenCalled();
     expect(debug).toHaveBeenCalled();
     expect(debug).toHaveBeenCalledWith(JSON.stringify({
       environment: { env: 'env' },
@@ -76,6 +82,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
     expect(originalSchematic).toHaveBeenCalled();
     expect(originalSchematic).toHaveBeenCalledWith(options);
     expect(rule).toHaveBeenCalled();
+    expect(executePostTasks).toHaveBeenCalled();
     expect(debug).toHaveBeenCalled();
     expect(debug).toHaveBeenCalledWith(JSON.stringify({
       environment: { env: 'env' },
@@ -97,6 +104,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
     expect(originalSchematic).toHaveBeenCalled();
     expect(originalSchematic).toHaveBeenCalledWith(options);
     expect(rule).toHaveBeenCalled();
+    expect(executePostTasks).not.toHaveBeenCalled();
     expect(debug).toHaveBeenCalled();
     expect(debug).toHaveBeenCalledWith(expect.stringContaining('error example'));
   });

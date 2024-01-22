@@ -1,4 +1,9 @@
+import { getPackageManagerRunner } from '@o3r/schematics';
 import type { BuilderWrapper } from '@o3r/telemetry';
+import { prompt, Question } from 'inquirer';
+import { execFileSync } from 'node:child_process';
+import { existsSync, promises } from 'node:fs';
+import * as path from 'node:path';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 
@@ -8,10 +13,63 @@ const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
  * @param builderFn
  */
 export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
+  const packageJsonPath = path.join(ctx.workspaceRoot, 'package.json');
+  const packageJson = existsSync(packageJsonPath)
+    ? JSON.parse(await promises.readFile(packageJsonPath, {encoding: 'utf8'}))
+    : {};
   let wrapper: BuilderWrapper = noopBuilderWrapper;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
-    wrapper = createBuilderWithMetrics;
-  } catch {}
+    if (packageJson.config?.o3rMetrics) {
+      wrapper = createBuilderWithMetrics;
+    }
+  } catch (e: any) {
+    // Do not throw if `@o3r/telemetry is not installed
+    if (packageJson.config?.o3rMetrics === true) {
+      ctx.logger.info('`config.o3rMetrics` is set to true in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
+    } else if ((!process.env.CI || process.env.CI === 'false') && typeof packageJson.config?.o3rMetrics === 'undefined') {
+      ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
+
+      const question: Question = {
+        type: 'confirm',
+        name: 'isReplyPositive',
+        message: `
+Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
+It will help us to improve our tools.
+For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/README.md.
+        `
+      };
+      const { isReplyPositive } = await prompt([question]);
+
+      if (isReplyPositive) {
+        const pmr = getPackageManagerRunner(packageJson);
+
+        try {
+          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
+          execFileSync(`${pmr} ng add @o3r/telemetry@${version}`);
+        } catch {
+          ctx.logger.warn('Failed to install `@o3r/telemetry`.');
+        }
+
+        try {
+          const { createBuilderWithMetrics } = await import('@o3r/telemetry');
+          wrapper = createBuilderWithMetrics;
+        } catch {
+          // If pnp context package installed in the same process will not be available
+        }
+      } else {
+        ctx.logger.info('You can activate it at any time by running `ng add @o3r/telemetry`.');
+
+        packageJson.config ||= {};
+        packageJson.config.o3rMetrics = false;
+
+        if (existsSync(packageJsonPath)) {
+          await promises.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
+        } else {
+          ctx.logger.warn(`No package.json found in ${ctx.workspaceRoot}.`);
+        }
+      }
+    }
+  }
   return wrapper(builderFn)(opts, ctx);
 };

@@ -62,8 +62,8 @@ describe('Create new sdk command', () => {
       packageManagerExec({
         script: 'schematics',
         args: ['@ama-sdk/schematics:typescript-core', '--spec-path', path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')]
-      }, { ...execAppOptions, cwd: sdkPackagePath }
-      )).not.toThrow();
+      }, { ...execAppOptions, cwd: sdkPackagePath })
+    ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() => packageManagerRun({ script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });

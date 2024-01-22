@@ -1,3 +1,4 @@
+import type { JsonObject } from '@angular-devkit/core';
 import { callRule, Rule } from '@angular-devkit/schematics';
 import { performance } from 'node:perf_hooks';
 import { lastValueFrom } from 'rxjs';
@@ -26,6 +27,7 @@ export const createSchematicWithMetrics: SchematicWrapper =
     try {
       const rule = schematicFn(options);
       await lastValueFrom(callRule(rule, tree, context));
+      await lastValueFrom(context.engine.executePostTasks());
     }
     catch (e: any) {
       const err = e instanceof Error ? e : new Error(error);
@@ -48,11 +50,26 @@ export const createSchematicWithMetrics: SchematicWrapper =
         error
       };
       context.logger.debug(JSON.stringify(data, null, 2));
-      void sendData(data, context.logger).catch((e) => {
-        // Do not throw error if we don't manage to collect data
-        const err = (e instanceof Error ? e : new Error(error));
-        context.logger.error(err.stack || err.toString());
-      });
+      const packageJson = (tree.exists('/package.json') ? tree.readJson('/package.json') : {}) as JsonObject;
+      const shouldSendData = !!(
+        (options as any).o3rMetrics
+        ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
+        ?? (packageJson.config as JsonObject)?.o3rMetrics
+      );
+      if (shouldSendData) {
+        if (typeof ((options as any).o3rMetrics ?? typeof process.env.O3R_METRICS) === 'undefined') {
+          context.logger.info(
+            'Telemetry is globally activated for the project (`config.o3rMetrics` in package.json). '
+            + 'If you personally don\'t want to send telemetry, you can deactivate it by setting `O3R_METRICS` to false in your environment variables, '
+            + 'or by calling the schematic with `--no-o3r-metrics`.'
+          );
+        }
+        void sendData(data, context.logger).catch((e) => {
+          // Do not throw error if we don't manage to collect data
+          const err = (e instanceof Error ? e : new Error(error));
+          context.logger.error(err.stack || err.toString());
+        });
+      }
     }
   };
 

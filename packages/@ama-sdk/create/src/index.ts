@@ -70,7 +70,8 @@ const schematicArgs = [
   '--package', pck,
   '--package-manager', packageManager,
   '--directory', targetDirectory,
-  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : []),
+  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
 ];
 
 const getSchematicStepInfo = (schematic: string) => ({
