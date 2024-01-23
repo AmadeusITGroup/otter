@@ -3,6 +3,10 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { firstValueFrom } from 'rxjs';
 import { ngAdd } from './index';
+jest.mock('@o3r/schematics', () => ({
+  ...jest.requireActual('@o3r/schematics'),
+  createSchematicWithMetricsIfInstalled: jest.fn().mockImplementation((fn) => fn)
+}));
 
 describe('Ng add @ama-sdk/core', () => {
   it('should update imports', async () => {
