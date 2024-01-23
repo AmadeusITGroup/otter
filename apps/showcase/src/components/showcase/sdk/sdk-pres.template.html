@@ -40,7 +40,7 @@
             [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
           />
         </div>
-        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center">
+        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center visual-testing-ignore">
           @if (isLoading()) {
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>

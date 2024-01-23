@@ -197,6 +197,12 @@
       "@o3r/testing": [
         "packages/@o3r/testing/src/public_api"
       ],
+      "@o3r/testing/core": [
+        "packages/@o3r/testing/src/core/angular"
+      ],
+      "@o3r/testing/core/*": [
+        "packages/@o3r/testing/src/core/angular/*"
+      ],
       "@o3r/testing/*": [
         "packages/@o3r/testing/src/*"
       ],

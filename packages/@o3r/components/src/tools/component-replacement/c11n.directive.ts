@@ -172,7 +172,9 @@ export class C11nDirective<
    */
   public ngOnDestroy() {
     this.componentSubscriptions.forEach((s) => s.unsubscribe());
-    this.componentRef.destroy();
+    if (this.componentRef) {
+      this.componentRef.destroy();
+    }
   }
 
 }

@@ -94,7 +94,7 @@
     }
   },
   "peerDependencies": {
-    "@amadeus-it-group/kassette": "^1.6.0",
+    "@amadeus-it-group/kassette": "^1.7.0",
     "@angular-devkit/schematics": "~17.0.0",
     "@angular/common": "~17.0.2",
     "@angular/core": "~17.0.2",
@@ -158,7 +158,7 @@
     "tslib": "^2.5.3"
   },
   "devDependencies": {
-    "@amadeus-it-group/kassette": "^1.6.0",
+    "@amadeus-it-group/kassette": "^1.7.0",
     "@angular-devkit/build-angular": "~17.0.3",
     "@angular-devkit/core": "~17.0.3",
     "@angular-devkit/schematics": "~17.0.3",

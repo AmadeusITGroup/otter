@@ -1,0 +1,43 @@
+name: E2E Tests
+
+on:
+  workflow_call:
+    inputs:
+      skipNxCache:
+        type: boolean
+        default: false
+        required: false
+        description: Skip the nx cache
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN:
+        required: false
+        description: Token to use Nx Cloud token
+
+env:
+  NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./tools/github-actions/download-build-output
+      - uses: ./tools/github-actions/setup
+      - run: yarn playwright install
+      - name: Run e2e tests
+        run: |
+          npx --yes http-server apps/showcase/dist/browser -p 8080 -s &
+          npx --yes wait-on $PLAYWRIGHT_TARGET_URL -t 5000
+          yarn test-e2e
+        shell: bash
+        env:
+          PLAYWRIGHT_TARGET_URL: http://127.0.0.1:8080
+
+      - name: Publish tests reports
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: e2e-report
+          path: apps/showcase/playwright-reports

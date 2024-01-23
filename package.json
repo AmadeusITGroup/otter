@@ -22,6 +22,7 @@
     "lint:affected": "yarn nx affected --target=lint --parallel $(yarn get:cpus-number)",
     "test": "yarn nx run-many --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
     "test:affected": "yarn nx affected --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
+    "test-e2e": "yarn nx run-many --target=test-e2e --parallel $(yarn get:cpus-number)",
     "test-int": "yarn nx run-many --target=test-int --parallel 2",
     "postinstall": "husky install && yarn build:lint && yarn harmonize:version",
     "build:storybook": "yarn doc:generate:json && yarn ng run storybook:extract-style && build-storybook",
@@ -132,6 +133,8 @@
   "dependencies": {
     "@angular/core": "~17.0.4",
     "@angular/platform-browser": "~17.0.4",
+    "pixelmatch": "^5.2.1",
+    "pngjs": "^7.0.0",
     "rxjs": "^7.8.1",
     "tslib": "^2.5.3",
     "zone.js": "~0.14.2"
@@ -183,6 +186,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/workspace": "workspace:^",
+    "@playwright/test": "~1.41.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~17.0.3",
     "@swc-node/register": "^1.6.7",
