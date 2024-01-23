@@ -9,5 +9,5 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-A set of helpers to retrieve tool usage metrics
+A set of helpers to retrieve tool usage metrics.
 
