@@ -12,7 +12,8 @@ export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetrics
     .map(async (target: Target) => {
       const baseOptions = await context.getTargetOptions(target);
       const builderName = await context.getBuilderNameForTarget(target);
-      const buildOptions = await context.validateOptions(baseOptions, builderName);
+      const buildOptions = await context.validateOptions({ ...baseOptions, watch: true }, builderName)
+        .catch(() => context.validateOptions(baseOptions, builderName));
 
       if (buildOptions && typeof buildOptions.watch !== 'undefined') {
         buildOptions.watch = true;
