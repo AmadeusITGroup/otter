@@ -70,7 +70,7 @@ jobs:
         run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
         shell: bash
       - name: Cache test-app yarn
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .cache/test-app
