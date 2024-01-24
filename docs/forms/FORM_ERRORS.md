@@ -161,7 +161,7 @@ The error object structure has to be created in the presenter because the __basi
 #### Build error messages
 
 We put in place a generic helper [__getFlatControlErrors__](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/core/helpers.ts) in __@o3r/forms__.
-This gets a flattened list of all the errors in the form and it's descendants, concatenating the __custom errors__; The object returned by the helper has [ControlFlatErrors](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/core/flat-error.ts) type.
+This gets a flattened list of all the errors in the form and it's descendants, concatenating the __custom errors__; The object returned by the helper has [ControlFlatErrors](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/src/core/flat-errors.ts) type.
 
 ```typescript
 /**

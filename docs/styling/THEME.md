@@ -17,7 +17,7 @@ the list or on the different containers.
 * **Are these changes specific to a component?** If the airline changes are really specific and impact the product
 designs, this will be done on component level. This is not part of the theme customization.
 
-For more information on the Amadeus palettes you can refer to [Amadeus Color Guidelines](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/styling/scss/theming/palettes/_refx.scss).
+For more information on the Amadeus palettes you can refer to [Amadeus Color Guidelines](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/styling/scss/theming/palettes/_amadeus.scss).
 
 ## Create your theme
 

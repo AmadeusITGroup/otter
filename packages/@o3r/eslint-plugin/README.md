@@ -21,4 +21,4 @@ ng add @o3r/eslint-plugin
 
 ## Rules
 
-The list of rules is available in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/linter/eslint-plugin/rules.md).
+The list of rules is available in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/linter/eslint-plugin/rules).
