@@ -48,6 +48,12 @@ test.describe.serial('Sanity test', () => {
       await expect(page).toHaveScreenshot([browserName, 'component-replacement.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
     });
 
+    await test.step('design-token', async () => {
+      await appFixture.navigateToDesignToken();
+      await page.waitForURL('**/design-token');
+      await expect(page).toHaveScreenshot([browserName, 'design-token.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
+    });
+
     await test.step('sdk-generator', async () => {
       const waitForPetStore = page.waitForResponse('**/petstore3.swagger.io/**');
       await appFixture.navigateToSDKGenerator();

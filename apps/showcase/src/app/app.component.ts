@@ -32,7 +32,8 @@ export class AppComponent implements OnDestroy {
         { url: '/localization', label: 'Localization' },
         { url: '/dynamic-content', label: 'Dynamic content' },
         { url: '/rules-engine', label: 'Rules engine' },
-        { url: '/component-replacement', label: 'Component Replacement' }
+        { url: '/component-replacement', label: 'Component Replacement' },
+        { url: '/design-token', label: 'Design Tokens' }
       ]
     },
     {
