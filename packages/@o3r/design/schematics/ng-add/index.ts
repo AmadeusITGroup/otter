@@ -1,6 +1,6 @@
 import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import { registerGenerateCssBuilder } from './register-generate-css';
-import { extractToken } from '../ extract-token';
+import { extractToken } from '../extract-token';
 import { setupSchematicsDefaultParams } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 
