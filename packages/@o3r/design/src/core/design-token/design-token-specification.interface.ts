@@ -5,6 +5,13 @@ export interface DesignTokenMetadata {
   label?: string;
   /** Name of a group of variables */
   category?: string;
+  /** Component reference if the variable is linked to one */
+  component?: {
+    /** Name of the component */
+    name: string;
+    /** Name of the library containing the component */
+    library: string;
+  };
 }
 
 /** Design Token Group Extension fields supported by the default renderer */

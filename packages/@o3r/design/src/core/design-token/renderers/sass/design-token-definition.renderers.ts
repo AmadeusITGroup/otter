@@ -1,6 +1,7 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
 import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from '../css/design-token-value.renderers';
+import type { Logger } from '@o3r/core';
 
 export interface SassTokenDefinitionRendererOptions {
 
@@ -12,6 +13,12 @@ export interface SassTokenDefinitionRendererOptions {
    * @default {@see tokenVariableNameSassRenderer}
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
+
+  /**
+   * Custom logger
+   * Nothing will be logged if not provided
+   */
+  logger?: Logger;
 }
 
 /**
@@ -19,8 +26,7 @@ export interface SassTokenDefinitionRendererOptions {
  * @param variable
  */
 export const tokenVariableNameSassRenderer: TokenKeyRenderer = (variable) => {
-  const tokens = variable.getKey().split('-');
-  return tokens[0] + tokens.slice(1).map((token) => token.charAt(0).toUpperCase() + token.slice(1)).join('');
+  return variable.getKey();
 };
 
 /**
@@ -29,11 +35,11 @@ export const tokenVariableNameSassRenderer: TokenKeyRenderer = (variable) => {
  * @returns
  */
 export const getSassTokenDefinitionRenderer = (options?: SassTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
-  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer();
+  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ logger: options?.logger });
   const keyRenderer = options?.tokenVariableNameRenderer || tokenVariableNameSassRenderer;
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
-    return `$${variable.getKey(keyRenderer)}: ${ tokenValueRenderer(variable, variableSet) };`;
+    return `$${variable.getKey(keyRenderer)}: ${ tokenValueRenderer(variable, variableSet, true) };`;
   };
   return renderer;
 };
