@@ -62,7 +62,7 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
               targetNode = (targetNode as DesignTokenGroup)[name] as DesignTokenGroup | DesignToken;
             });
 
-            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^)])\)/g)]
+            const valueWithVariable = [...variable.defaultValue.matchAll(/var\(--([^,)]+),?[^)]*\)/g)]
               .reduce((acc, [variableString, variableName]) => {
                 return acc.replaceAll(variableString, `{${variableName.replaceAll('-', '.')}}`);
               }, variable.defaultValue);
@@ -90,6 +90,7 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
             designTokenNode.$extensions.o3rPrivate = isPrivate;
             designTokenNode.$extensions.o3rTargetFile = posix.join('.', posix.basename(file));
           });
+        (tokenSpecification as any).$schema = 'https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/design/schemas/design-token.schema.json';
         tree.create(file.replace(/\.scss$/, '.json'), JSON.stringify(tokenSpecification, null, 2));
       });
       return () => tree;
