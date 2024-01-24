@@ -42,7 +42,7 @@ export function getReflectionDefaultValue(reflection: DeclarationReflection) {
 
 /**
  * Get absolute path of a provided library
- * @param libraryName Library name (ex: @refx/components)
+ * @param libraryName Library name (ex: @my-lib/components)
  * @param executionDir
  */
 export function getLibraryModulePath(libraryName: string, executionDir: string = process.cwd()) {
@@ -78,7 +78,7 @@ export function getLibraryModulePath(libraryName: string, executionDir: string =
 
 /**
  * Get cms metadata files from the node_modules package of the provided library
- * @param modulePath Absolute path of the library (ex: my/absolute/path/@refx/components)
+ * @param modulePath Absolute path of the library (ex: my/absolute/path/@my-lib/components)
  */
 export function getLibraryCmsMetadataFileNames(modulePath: string) {
   return JSON.parse(fs.readFileSync(path.join(modulePath, 'package.json')).toString()).cmsMetadata || {};
@@ -86,7 +86,7 @@ export function getLibraryCmsMetadataFileNames(modulePath: string) {
 
 /**
  * Get cms metadata file paths from the node_modules package of the provided library
- * @param libraryName Library name (ex: @refx/components)
+ * @param libraryName Library name (ex: @my-lib/components)
  * @param executionDir
  */
 export function getLibraryCmsMetadata(libraryName: string, executionDir: string = process.cwd()) {

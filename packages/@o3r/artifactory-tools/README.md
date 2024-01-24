@@ -91,7 +91,7 @@ Options:
 
   --artifactory-url <artifactoryUrl>   Artifact URL (Required)
   -a, --duration-kept <durationKept>   All the artifact which have been created since more time than this value(ms) will be deleted (Default to 10080000ms (i.e. 7 days))
-  -r, --repositories <repositories>    Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-refx-pr (Default to npm-otter-pr)
+  -r, --repositories <repositories>    Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-o3r-pr (Default to npm-otter-pr)
   -t, --type-filter <typeFilter>       List of artifact type that should be deleted coma separated (ex: jar,tgz) (Default : tgz)
   --dry-run <dryRun>                   List all files that should be deleted without actually deleting them. (Default to false)
   -h, --help                           Output usage information

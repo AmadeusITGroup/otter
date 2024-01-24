@@ -13,7 +13,7 @@ program
   .option('-d, --duration-kept <durationKept>', 'All artifacts which have not been downloaded and are older than this value(ms) will be deleted. Default to 10080000ms (7 days)', '604800000')
   .option(
     '-r, --repositories <repositories>',
-    'Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-refx-pr (Default to npm-otter-pr)',
+    'Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-o3r-pr (Default to npm-otter-pr)',
     (repos: string) => repos.split(','),
     ['npm-otter-pr']
   )
