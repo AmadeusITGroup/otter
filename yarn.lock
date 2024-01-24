@@ -88,7 +88,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@schematics/angular": "npm:~17.0.3"
-    "@swc/cli": "npm:^0.1.57"
+    "@swc/cli": "npm:^0.3.0"
     "@swc/core": "npm:^1.3.85"
     "@swc/helpers": "npm:^0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -311,7 +311,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.9.0"
     "@schematics/angular": "npm:~17.0.3"
-    "@swc/cli": "npm:^0.1.57"
+    "@swc/cli": "npm:^0.3.0"
     "@swc/core": "npm:^1.3.85"
     "@swc/helpers": "npm:^0.5.0"
     "@types/jest": "npm:~29.5.2"
@@ -10904,13 +10904,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/cli@npm:^0.1.57":
-  version: 0.1.63
-  resolution: "@swc/cli@npm:0.1.63"
+"@swc/cli@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@swc/cli@npm:0.3.0"
   dependencies:
     "@mole-inc/bin-wrapper": "npm:^8.0.1"
     commander: "npm:^7.1.0"
     fast-glob: "npm:^3.2.5"
+    minimatch: "npm:^9.0.3"
+    piscina: "npm:^4.3.0"
     semver: "npm:^7.3.8"
     slash: "npm:3.0.0"
     source-map: "npm:^0.7.3"
@@ -10924,7 +10926,7 @@ __metadata:
     spack: bin/spack.js
     swc: bin/swc.js
     swcx: bin/swcx.js
-  checksum: bbb6bd1c74b001ac2fe02af851ae8a8a3018740452614ed10a34d49e784c3ff014ced91343be6cfe23bdf2b19826fef2b3f4b45129177bc980025c67373f34b5
+  checksum: a344a21f5dd3eb796ca36d2d1e4db44d72e2e0d6d4f11c9b3fcfaabfc70949f78f257dac45689a694bf815de61c004b350e098a219d6c7015b926d8578016c79
   languageName: node
   linkType: hard
 
@@ -25712,17 +25714,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"piscina@npm:^4.1.0":
-  version: 4.2.1
-  resolution: "piscina@npm:4.2.1"
+"piscina@npm:^4.1.0, piscina@npm:^4.3.0":
+  version: 4.3.0
+  resolution: "piscina@npm:4.3.0"
   dependencies:
-    hdr-histogram-js: "npm:^2.0.1"
-    hdr-histogram-percentiles-obj: "npm:^3.0.0"
     nice-napi: "npm:^1.0.2"
   dependenciesMeta:
     nice-napi:
       optional: true
-  checksum: e8d00f9e047a1ccae3c5090b8e3edb55d22dfecee801e8356a61713918c823957e177ac1627a329a23806923f05a7312a9788d53fd126fd0de64f5b9b0d64831
+  checksum: 61ea7630c94e1784171f469b551115b050999206f5ec15c6e3aa69c00abf45b4ce0134a1557b98a1fba5349ff481282a11b8dba65b522ea44ba166f09e4ff672
   languageName: node
   linkType: hard
 
