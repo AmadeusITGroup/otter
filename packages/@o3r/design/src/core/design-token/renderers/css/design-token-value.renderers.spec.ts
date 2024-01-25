@@ -45,4 +45,17 @@ describe('getCssTokenValueRenderer', () => {
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     expect(result).toBe(`var(--example-var3, ${(exampleVariable.document as any).example.var3.$value})`);
   });
+
+  test('should render invalid reference and raise warning', () => {
+    const debug = jest.fn();
+    const renderer = getCssTokenValueRenderer({ logger: { debug }} as any);
+    const variable = designTokens.get('example.wrong-ref');
+
+    const result = renderer(variable, designTokens);
+    expect(variable).toBeDefined();
+    expect(result).toBeDefined();
+    expect(debug).toHaveBeenCalledWith(expect.stringContaining('does.not.exist'));
+    expect(debug).toHaveBeenCalledWith(expect.stringContaining('var(--does-not-exist)'));
+    expect(result).toBe('var(--does-not-exist)');
+  });
 });
