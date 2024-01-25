@@ -37,6 +37,7 @@ jobs:
 
       - name: Publish tests reports
         if: failure()
+        # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
         uses: actions/upload-artifact@v3
         with:
           name: e2e-report
