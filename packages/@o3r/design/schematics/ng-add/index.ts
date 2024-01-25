@@ -1,6 +1,6 @@
 import { chain, type Rule } from '@angular-devkit/schematics';
 import { registerGenerateCssBuilder } from './register-generate-css';
-import { extractToken } from '../ extract-token';
+import { extractToken } from '../extract-token';
 
 /**
  * Add Otter design to an Angular Project

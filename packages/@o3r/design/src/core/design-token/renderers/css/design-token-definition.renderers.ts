@@ -2,6 +2,7 @@ import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer
 import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getCssTokenValueRenderer } from './design-token-value.renderers';
+import type { Logger } from '@o3r/core';
 
 /** Options for {@link CssTokenDefinitionRendererOptions} */
 export interface CssTokenDefinitionRendererOptions {
@@ -24,6 +25,12 @@ export interface CssTokenDefinitionRendererOptions {
    * The private variable will not be rendered if not provided
    */
   privateDefinitionRenderer?: TokenDefinitionRenderer;
+
+  /**
+   * Custom logger
+   * Nothing will be logged if not provided
+   */
+  logger?: Logger;
 }
 
 /**
@@ -53,7 +60,7 @@ export interface CssTokenDefinitionRendererOptions {
 export const getCssTokenDefinitionRenderer = (options?: CssTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
   const isPrivateVariable = options?.isPrivateVariable || isO3rPrivateVariable;
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
-  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ isPrivateVariable, tokenVariableNameRenderer });
+  const tokenValueRenderer = options?.tokenValueRenderer || getCssTokenValueRenderer({ isPrivateVariable, tokenVariableNameRenderer, logger: options?.logger });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     let variableString: string | undefined;

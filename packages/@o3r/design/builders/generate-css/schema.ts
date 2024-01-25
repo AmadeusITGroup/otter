@@ -38,4 +38,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
 
   /** Prefix to happen to generated Sass variables if generated */
   prefixPrivate?: string;
+
+  /** Determine if the builder should fail if a missing Design Token reference is detected */
+  failOnMissingReference?: boolean;
 }

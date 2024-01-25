@@ -40,10 +40,12 @@
           "type": "string"
         },
         "o3rPrivate": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         },
         "o3rImportant": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         },
         "o3rScope": {
           "type": "string"

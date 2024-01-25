@@ -20,7 +20,12 @@ import { dirname } from 'node:path';
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => (`${parents.join('.')}.${tokenName}`);
-const getExtensions = (parentNode: DesignTokenNode[]) => parentNode.reduce((acc, node) => ({...acc, ...node.$extensions}), {} as DesignTokenGroupExtensions & DesignTokenExtensions);
+const getExtensions = (parentNode: DesignTokenNode[]) => {
+  return parentNode.reduce((acc, node) => {
+    const o3rMetadata = { ...acc.o3rMetadata, ...node.$extensions?.o3rMetadata };
+    return ({ ...acc, ...node.$extensions, o3rMetadata });
+  }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
+};
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
@@ -122,12 +127,8 @@ const walkThroughDesignTokenNodes = (
       },
       getReferencesNode: function (variableSet = mem) {
         return this.getReferences(variableSet)
-          .map((ref) => {
-            if (!variableSet.has(ref)) {
-              throw new Error (`Reference to ${ref} not found`);
-            }
-            return variableSet.get(ref)!;
-          });
+          .filter((ref) => variableSet.has(ref))
+          .map((ref) => variableSet.get(ref)!);
       },
       getType: function (variableSet = mem, followReference = true) {
         return node.$type ||
