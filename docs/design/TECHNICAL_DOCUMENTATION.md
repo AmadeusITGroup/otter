@@ -140,3 +140,25 @@ const getCustomMetadataTokenValueRenderer = (options?: MetadataTokenValueRendere
 
 })();
 ```
+
+##### Example: Throw on missing reference
+
+```typescript
+import { getCssTokenValueRenderer, parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
+
+(async () => {
+
+  /** List of parsed Design Token items */
+  const parsedTokenDesign = await parseDesignTokenFile('./path/to/spec.json');
+
+  /** Renderer of the token */
+  const tokenValueRenderer = getCssTokenValueRenderer({ unregisteredReferenceRenderer: (varName) => { throw new Error(`var ${varName} not registered`) } });
+
+  /** Metadata variable renderer */
+  const metadataTokenDefinitionRenderer = getMetadataTokenDefinitionRenderer({ tokenValueRenderer });
+
+  // Render the Metadata file
+  await renderDesignTokens(parsedTokenDesign, { tokenDefinitionRenderer: lessTokenDefinitionRenderer });
+
+})();
+```
