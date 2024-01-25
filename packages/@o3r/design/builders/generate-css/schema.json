@@ -59,6 +59,11 @@
         "sass"
       ],
       "description": "Generate the Private Variable to the given language (the variable is not generated if not specified)"
+    },
+    "failOnMissingReference": {
+      "type": "boolean",
+      "default": false,
+      "description": "Determine if the builder should fail if a missing Design Token reference is detected"
     }
   },
   "additionalProperties": true,

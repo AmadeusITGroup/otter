@@ -5,12 +5,22 @@
       "$type": "color",
       "$value": "#000"
     },
+    "var1-private": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "o3rPrivate": true
+      }
+    },
     "var-important": {
       "$extensions": {
         "o3rImportant": true
       },
       "$type": "color",
       "$value": "#000"
+    },
+    "wrong-ref": {
+      "$value": "{does.not.exist}"
     },
     "var3": {
       "$extensions": {

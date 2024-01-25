@@ -12,9 +12,35 @@ export interface ParentReference {
  * Function rendering the Design Token Value
  * @param tokenStructure Parsed Design Token
  * @param variableSet Complete list of the parsed Design Token
+ * @param enforceReferenceRendering Renderer the variable as reference
  */
 // eslint-disable-next-line no-use-before-define
-export type TokenValueRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+export type TokenValueRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, enforceReferenceRendering?: boolean) => string;
+
+/**
+ * Function rendering the Design Token Reference
+ * @param tokenStructure Parsed Design Token
+ * @param variableSet Complete list of the parsed Design Token
+ */
+// eslint-disable-next-line no-use-before-define
+export type TokenReferenceRender = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+
+/**
+ * Function rendering the Design Token Reference not registered
+ * @param referenceName Name of the un registered variable
+ * @param variableSet Complete list of the parsed Design Token
+ */
+// eslint-disable-next-line no-use-before-define
+export type UnregisteredTokenReferenceRender = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+
+/**
+ * Function rendering the Design Token Reference
+ * @param tokenStructure Parsed Design Token
+ * @param variableSet Complete list of the parsed Design Token
+ */
+// eslint-disable-next-line no-use-before-define
+export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+
 
 /**
  * Function rendering the Design Token Key

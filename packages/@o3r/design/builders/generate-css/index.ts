@@ -2,6 +2,7 @@ import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import {
   getCssTokenDefinitionRenderer,
+  getCssTokenValueRenderer,
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   getSassTokenDefinitionRenderer,
@@ -12,6 +13,7 @@ import {
 import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
+import { EOL } from 'node:os';
 
 /**
  * Generate CSS from Design Token files
@@ -30,21 +32,30 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       return resolve(context.workspaceRoot, options.defaultStyleFile);
     };
   const tokenVariableNameRenderer: TokenKeyRenderer | undefined = options.prefix ? (variable) => options.prefix! + variable.getKey() : undefined;
-  const sassRenderer = getSassTokenDefinitionRenderer({ tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v) });
+  const logger = context.logger;
+  const sassRenderer = getSassTokenDefinitionRenderer({
+    tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
+    logger
+  });
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
     determineFileToUpdate: determineCssFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
-      tokenVariableNameRenderer: options.prefix ? (variable) => options.prefix! + variable.getKey() : undefined,
-      privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined
+      tokenVariableNameRenderer,
+      privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined,
+      tokenValueRenderer: getCssTokenValueRenderer({
+        tokenVariableNameRenderer,
+        unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
+      }),
+      logger
     }),
-    logger: context.logger
+    logger
   };
 
   const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),
     tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer }),
-    logger: context.logger
+    logger
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
@@ -93,16 +104,16 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     ])).reduce((acc, res) => {
       if (res.status === 'fulfilled') {
         acc.success &&= res.value.success;
-        if (!res.value.error) {
+        if (res.value.error) {
           acc.error ||= '';
-          acc.error += '\n' + res.value.error!;
+          acc.error += EOL + res.value.error;
         }
       } else {
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
           // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-          acc.error += '\n' + res.reason;
+          acc.error += EOL + res.reason;
         }
       }
       return acc;

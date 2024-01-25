@@ -24,7 +24,7 @@ describe('getSassTokenDefinitionRenderer', () => {
     expect(variable).toBeDefined();
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
-    expect(result).toBe('$exampleVar1: test-value;');
+    expect(result).toBe('$example-var1: test-value;');
   });
 
   test('should prefix private variable', () => {
@@ -33,12 +33,12 @@ describe('getSassTokenDefinitionRenderer', () => {
     const options = { tokenVariableNameRenderer };
     const tokenValueRenderer = jest.spyOn(options, 'tokenVariableNameRenderer');
     const renderer = getSassTokenDefinitionRenderer(options);
-    const variable = designTokens.get('example.var1');
+    const variable = designTokens.get('example.var1-private');
 
     const result = renderer(variable, designTokens);
     expect(variable).toBeDefined();
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
-    expect(result).toBe('$_exampleVar1: #000;');
+    expect(result).toBe('$_example-var1-private: var(--example-var1-private, #000);');
   });
 });

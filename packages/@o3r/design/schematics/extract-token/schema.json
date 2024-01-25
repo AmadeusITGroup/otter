@@ -38,6 +38,6 @@
   },
   "additionalProperties": true,
   "required": [
-    "componentFilePattern"
+    "componentFilePatterns"
   ]
 }
