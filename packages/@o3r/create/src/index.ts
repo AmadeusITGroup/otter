@@ -73,7 +73,7 @@ const logo = `
                               '|.     ||  ||    ||   ||       ||
                                ''|...|'   '|.'  '|.'  '|...' .||.
 `;
-
+const packageManager = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
 const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
@@ -83,7 +83,6 @@ if (!args.some((a) => a.startsWith('--style'))) {
 
 const hasPackageManagerArg = args.some((a) => a.startsWith('--package-manager'));
 if (!hasPackageManagerArg) {
-  const packageManager = process.env.npm_config_user_agent?.split('/')[0];
   if (packageManager && ['npm', 'pnpm', 'yarn', 'cnpm'].includes(packageManager)) {
     args.push('--package-manager', packageManager);
   }
@@ -114,6 +113,19 @@ const isNgNewOptions = (arg: string) => {
   return true;
 };
 
+const checkIfSupportedPackageManager = () => {
+  if (packageManager !== 'npm') {
+    // eslint-disable-next-line no-console
+    console.error(`Other package managers than 'npm' are experimental for @o3r create for the time being.
+Please use the following command:
+  'npm create @o3r <project-name> -- [...options]'
+
+https://github.com/AmadeusITGroup/otter/tree/main/packages/%40o3r/create#usage
+
+`);
+  }
+};
+
 const createNgProject = () => {
   const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions), '--skip-install'], {
     stdio: 'inherit'
@@ -122,6 +134,7 @@ const createNgProject = () => {
   if (error) {
     // eslint-disable-next-line no-console
     console.error(error);
+    checkIfSupportedPackageManager();
     process.exit(1);
   }
 };
@@ -136,6 +149,7 @@ const addOtterFramework = (relativeDirectory = '.') => {
   if (error) {
     // eslint-disable-next-line no-console
     console.error(error);
+    checkIfSupportedPackageManager();
     process.exit(2);
   }
 };
