@@ -2,14 +2,14 @@
 
 import { spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import * as minimist from 'minimist';
 import type { PackageJson } from 'type-fest';
 
 const { properties } = JSON.parse(
   readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
 ) as { properties: Record<string, { alias?: string }> };
-const { version } = JSON.parse(
+const { version, dependencies, devDependencies } = JSON.parse(
   readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
 ) as PackageJson;
 
@@ -73,7 +73,7 @@ const logo = `
                               '|.     ||  ||    ||   ||       ||
                                ''|...|'   '|.'  '|.'  '|...' .||.
 `;
-const packageManager = process.env.npm_config_user_agent?.split('/')[0];
+
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
 const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
@@ -87,16 +87,15 @@ if (!args.some((a) => a.startsWith('--preset'))) {
   args.push('--preset', 'basic');
 }
 
-const hasPackageManagerArg = args.some((a) => a.startsWith('--package-manager'));
-if (!hasPackageManagerArg) {
-  if (packageManager && ['npm', 'pnpm', 'yarn', 'cnpm'].includes(packageManager)) {
-    args.push('--package-manager', packageManager);
-  }
-}
-
 args.push('--no-create-application');
 
 const argv = minimist(args);
+const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
+let defaultPackageManager = 'npm';
+if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
+  defaultPackageManager = packageManagerEnv;
+}
+const packageManager = argv['package-manager'] || defaultPackageManager;
 
 if (argv._.length === 0) {
   // eslint-disable-next-line no-console
@@ -113,7 +112,7 @@ const isNgNewOptions = (arg: string) => {
   if (arg.startsWith('--')) {
     return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`].includes(arg));
   } else if (arg.startsWith('-')) {
-    return entries.some(([, {alias}]) => alias && arg === `-${alias}`);
+    return entries.some(([, { alias }]) => alias && arg === `-${alias}`);
   }
 
   return true;
@@ -131,7 +130,7 @@ const createNgProject = () => {
   const options = schematicsCliOptions
     .filter(([key]) => isNgNewOptions(key))
     .flat();
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options, '--skip-install'], {
+  const { error } = spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
     stdio: 'inherit'
   });
 
@@ -142,14 +141,31 @@ const createNgProject = () => {
   }
 };
 
-const addOtterFramework = (relativeDirectory = '.') => {
+const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
+  const mandatoryDependencies = [
+    '@angular-devkit/schematics',
+    '@schematics/angular',
+    '@angular-devkit/core',
+    '@angular-devkit/architect'
+  ];
   const cwd = resolve(process.cwd(), relativeDirectory);
   const options = schematicsCliOptions
     .flat();
-  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...options], {
-    stdio: 'inherit',
-    cwd
+
+  const packageJsonPath = resolve(cwd, 'package.json');
+  const packageJson: PackageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  packageJson.devDependencies ||= {};
+  mandatoryDependencies.forEach((dep) => {
+    packageJson.devDependencies![dep] = dependencies?.[dep] || devDependencies?.[dep] || 'latest';
   });
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+  const { error } = spawnSync(process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager,
+    ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+      stdio: 'inherit',
+      cwd
+    }
+  );
 
   if (error) {
     // eslint-disable-next-line no-console
@@ -162,4 +178,4 @@ const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
 console.info(logo);
 createNgProject();
-addOtterFramework(projectFolder);
+addOtterFramework(projectFolder, packageManager);

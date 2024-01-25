@@ -79,18 +79,18 @@ const getSchematicStepInfo = (schematic: string) => ({
 
 const run = () => {
 
-  const steps: { args: string[]; cwd?: string }[] = [
+  const steps: { args: string[]; cwd?: string; runner?: string }[] = [
     getSchematicStepInfo(schematicsToRun[0]),
     ...(
       packageManager === 'yarn'
-        ? [{ args: ['yarn', 'set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner: 'yarn', args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
         : []
     ),
     ...schematicsToRun.slice(1).map(getSchematicStepInfo)
   ];
 
   const errors = steps
-    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'pipe', cwd: step.cwd || process.cwd() }))
+    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'pipe', cwd: step.cwd || process.cwd() }))
     .map(({error}) => error)
     .filter((err) => !!err);
 

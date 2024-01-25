@@ -6869,6 +6869,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/create@workspace:packages/@o3r/create"
   dependencies:
+    "@angular-devkit/architect": "npm:~0.1700.3"
+    "@angular-devkit/core": "npm:~17.0.3"
+    "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
     "@angular/cli": "npm:~17.0.3"
