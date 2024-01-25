@@ -13,7 +13,7 @@ globalThis.ngJest = {
  * @param isAngularSetup {boolean}
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
-module.exports.getJestConfig = (rootDir, isAngularSetup) => {
+module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
   const relativePath = relative(rootDir, '.');
   const moduleNameMapper = Object.entries(pathsToModuleNameMapper(compilerOptions.paths)).reduce((acc, [moduleName, path]) => {
     acc[moduleName] = `<rootDir>/${relativePath}/${path}`;
@@ -30,11 +30,6 @@ module.exports.getJestConfig = (rootDir, isAngularSetup) => {
     testPathIgnorePatterns: [
       '<rootDir>/.*/templates/.*',
       '\\.it\\.spec\\.ts$'
-    ],
-    reporters: [
-      'default',
-      ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'ut-report.xml'}],
-      'github-actions'
     ],
     fakeTimers: {
       enableGlobally: true
@@ -70,3 +65,13 @@ module.exports.getJestConfig = (rootDir, isAngularSetup) => {
     } : {}
   };
 };
+
+module.exports.getJestGlobalConfig = () => {
+  return {
+    reporters: [
+      'default',
+      ['jest-junit', {outputDirectory: '<rootDir>/dist-test', outputName: 'ut-report.xml'}],
+      'github-actions'
+    ],
+  }
+}

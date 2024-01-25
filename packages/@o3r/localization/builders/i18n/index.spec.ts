@@ -6,8 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { I18nBuilderSchema } from './schema';
 
-// TODO: re-enable when #1207 is fixed
-describe.skip('Localization i18n Builder', () => {
+describe('Localization i18n Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
   let architect: Architect;
   let architectHost: TestingArchitectHost;

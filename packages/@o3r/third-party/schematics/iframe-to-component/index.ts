@@ -225,7 +225,6 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
         options.skipLinter ? noop() : applyEsLintFix()
       ]);
     } catch (e) {
-      debugger;
       if (e instanceof NoOtterComponent && context.interactive) {
         const shouldConvertComponent = await askConfirmationToConvertComponent();
         if (shouldConvertComponent) {

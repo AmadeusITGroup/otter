@@ -29,11 +29,15 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
   let applyRule = defaultApplyRule;
   let alwaysApplyRule: string | null = null;
   return async (tree: Tree, context: SchematicContext) => {
-    try {
-      const packageJson = tree.readJson('./package.json') as PackageJson;
-      if (!packageJson.dependencies?.[packageName] && !packageJson.devDependencies?.[packageName]) {
-        throw new O3rCliError(`Package ${packageName} not installed`);
+    const packageJson = tree.readJson('./package.json') as PackageJson;
+    if (!packageJson.dependencies?.[packageName] && !packageJson.devDependencies?.[packageName]) {
+      if (applyRule) {
+        throw new O3rCliError(`
+        You need to install '${packageName}' to be able to generate component with the option ${optionName}.
+        Please run 'ng add ${packageName}'.
+      `);
       }
+    } else {
       if (typeof applyRule !== 'boolean' && context.interactive) {
         applyRule = await askConfirmation(ruleQuestion, true);
         if (applyRule) {
@@ -56,19 +60,11 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
           ], 0, 'yes');
         } else {
           context.logger.info(`
-          You can add it later to this component via this command:
-          ng g ${packageName}:${schematicName} --path="${path}"
-        `);
+              You can add it later to this component via this command:
+              ng g ${packageName}:${schematicName} --path="${path}"
+            `);
         }
       }
-    } catch {
-      if (applyRule) {
-        throw new O3rCliError(`
-        You need to install '${packageName}' to be able to generate component with the option ${optionName}.
-        Please run 'ng add ${packageName}'.
-      `);
-      }
-      applyRule = false;
     }
 
     const options = {

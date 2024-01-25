@@ -104,21 +104,15 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
         try {
           await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.componentOutputFile)), {recursive: true});
         } catch {}
-        await new Promise<void>((resolve, reject) =>
-          fs.writeFile(
-            path.resolve(context.workspaceRoot, options.componentOutputFile),
-            options.inline ? JSON.stringify(componentMetadata.components) : JSON.stringify(componentMetadata.components, null, 2),
-            (err) => err ? reject(err) : resolve()
-          )
+        await fs.promises.writeFile(
+          path.resolve(context.workspaceRoot, options.componentOutputFile),
+          options.inline ? JSON.stringify(componentMetadata.components) : JSON.stringify(componentMetadata.components, null, 2)
         );
 
         context.reportProgress(5, STEP_NUMBER, `Writing configurations in ${options.configOutputFile}`);
-        await new Promise<void>((resolve, reject) =>
-          fs.writeFile(
-            path.resolve(context.workspaceRoot, options.configOutputFile),
-            options.inline ? JSON.stringify(componentMetadata.configurations) : JSON.stringify(componentMetadata.configurations, null, 2),
-            (err) => err ? reject(err) : resolve()
-          )
+        await fs.promises.writeFile(
+          path.resolve(context.workspaceRoot, options.configOutputFile),
+          options.inline ? JSON.stringify(componentMetadata.configurations) : JSON.stringify(componentMetadata.configurations, null, 2)
         );
       } catch (e: any) {
         return {

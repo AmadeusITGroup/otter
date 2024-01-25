@@ -1,4 +1,4 @@
-const getJestConfig = require('./jest.config.ut').getJestConfig;
+const getJestProjectConfig = require('./jest.config.ut').getJestProjectConfig;
 
 
 /**
@@ -6,7 +6,7 @@ const getJestConfig = require('./jest.config.ut').getJestConfig;
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
 module.exports.getJestConfig = (rootDir) => ({
-  ...getJestConfig(rootDir, false),
+  ...getJestProjectConfig(rootDir, false),
   rootDir: '..',
   setupFilesAfterEnv: null,
   testPathIgnorePatterns: [

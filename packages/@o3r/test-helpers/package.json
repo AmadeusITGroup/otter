@@ -3,9 +3,9 @@
   "private": true,
   "version": "0.0.0-placeholder",
   "exports": {
-    "./setup-jest": {
-      "types": "./dist/src/setup-jest.d.ts",
-      "default": "./dist/src/setup-jest.js"
+    "./setup-jest-builders": {
+      "types": "./dist/src/setup-jest-builders/index.d.ts",
+      "default": "./dist/src/setup-jest-builders/index.js"
     },
     ".": {
       "types": "./dist/src/public_api.d.ts",
@@ -60,6 +60,7 @@
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
     "ts-jest": "~29.1.1",
+    "ts-node": "~10.9.1",
     "type-fest": "^4.3.1",
     "typescript": "~5.2.2",
     "unionfs": "~4.5.1"

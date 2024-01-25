@@ -191,8 +191,8 @@
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
       ],
-      "@o3r/test-helpers/setup-jest": [
-        "packages/@o3r/test-helpers/src/setup-jest"
+      "@o3r/test-helpers/setup-jest-builders": [
+        "packages/@o3r/test-helpers/src/setup-jest-builders"
       ],
       "@o3r/testing": [
         "packages/@o3r/testing/src/public_api"
