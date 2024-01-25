@@ -101,7 +101,7 @@ Your second option is to manage your placeholder in a single template and use th
 
 In that use case, you can refer to localization keys in your master placeholder template.
 The module will then translate the template based on the localization service and keep it updated after every language
-change.  
+change.
 As your placeholder URL remains the same, it will be updated dynamically without any server call.
 
 #### Implementation
@@ -139,7 +139,7 @@ Let's consider what this placeholder would look like if it were completely integ
 
 ```html
 "
-<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | translate}}</div>"
+<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | o3rTranslate}}</div>"
 ```
 
 Then, let's create a new localization key for each of your supported languages:
@@ -161,7 +161,7 @@ Then, let's create a new localization key for each of your supported languages:
 ```
 
 Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter. This means you need to create
-an ``increment`` fact to fill the value. 
+an ``increment`` fact to fill the value.
 You can follow the [fact creation documentation](../rules-engine/how-to-use/create-custom-fact.md).
 
 ```typescript
@@ -188,7 +188,7 @@ export class PageFactsService extends FactsService<PageFacts> {
 }
 ```
 
-Once the translation keys and the referenced fact exist, you can link them to your placeholder.   
+Once the translation keys and the referenced fact exist, you can link them to your placeholder.
 See how the original translation pipe has been replaced and how the localization key is bound to the ``increment`` fact:
 
 ```json
@@ -269,5 +269,5 @@ You will probably want to reuse your placeholder in different pages for differen
 You might be tempted to use this generic template for all your events but the value of your counter parameter will
 depend on the event itself (Easter or next Summer Holidays for example).
 This means that ``increment`` might have a different value depending on the context of the page which might be tricky to
-maintain and to debug. 
+maintain and to debug.
 Try to keep it as simple as possible.

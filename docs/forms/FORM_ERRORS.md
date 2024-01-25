@@ -311,7 +311,7 @@ This is only an example of implementation. The _translationKey_ and _translation
 <input type="date" formControlName="dateOfBirth" [id]="id + 'dateOfBirth'"></input>
 <mat-error *ngIf="travelerForm.controls.dateOfBirth.errors?.max">
   // use the translation object for the translationKey and get the translationParams from the error object returned by 'date-inline-input'.
-  {{translations.maxMonthInDate | translate: {max: travelerForm.controls.dateOfBirth.errors?.max.max} }}
+  {{translations.maxMonthInDate | o3rTranslate: {max: travelerForm.controls.dateOfBirth.errors?.max.max} }}
 </mat-error>
 ```
 
@@ -324,7 +324,7 @@ This is only an example of implementation. The _translationKey_ and _translation
 <input type="date" formControlName="dateOfBirth" [id]="id + 'dateOfBirth'"></input>
 <mat-error *ngFor="let customError of travelerForm.controls.dateOfBirth.errors?.customErrors">
   // translation key and params are already accessible in the error object returned by the custom validator
-  {{customError.translationKey | translate: customError.translationParams }}
+  {{customError.translationKey | o3rTranslate: customError.translationParams }}
 </mat-error>
 ```
 

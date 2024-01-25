@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
 import { DEFAULT_LOCALIZATION_CONFIGURATION, LocalizationConfiguration } from '../core';
 import { LocalizationTranslateDirective } from './localization-translate.directive';
-import { LocalizationTranslatePipe } from './localization-translate.pipe';
+import { LocalizationTranslatePipe, O3rLocalizationTranslatePipe } from './localization-translate.pipe';
 import { LocalizationService } from './localization.service';
 import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
 import { LocalizedCurrencyPipe } from './localized-currency.pipe';
@@ -37,9 +37,9 @@ export function localeIdNgBridge(localizationService: LocalizationService) {
 export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partial<LocalizationConfiguration>>('Partial Localization configuration');
 
 @NgModule({
-  declarations: [LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
+  declarations: [O3rLocalizationTranslatePipe, LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
   imports: [TranslateModule, BidiModule, DynamicContentModule, CommonModule],
-  exports: [TranslateModule, LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
+  exports: [TranslateModule, O3rLocalizationTranslatePipe, LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
   providers: [
     {provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]]},
     {provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService]},

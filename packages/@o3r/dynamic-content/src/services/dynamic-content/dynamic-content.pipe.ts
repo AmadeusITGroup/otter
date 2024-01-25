@@ -2,18 +2,18 @@ import { ChangeDetectorRef, OnDestroy, Pipe, PipeTransform } from '@angular/core
 import { Subscription } from 'rxjs';
 import { DynamicContentService } from './dynamic-content.service';
 
-@Pipe({name: 'dynamicContent', pure: false})
-export class DynamicContentPipe implements PipeTransform, OnDestroy {
+@Pipe({name: 'o3rDynamicContent', pure: false})
+export class O3rDynamicContentPipe implements PipeTransform, OnDestroy {
   /** Last query value  */
-  private lastQuery?: string;
+  protected lastQuery?: string;
 
   /** Subscription to retrieve media path */
-  private onMediaPathChange?: Subscription;
+  protected onMediaPathChange?: Subscription;
 
   /** Path to the media */
-  private mediaPath = '';
+  protected mediaPath = '';
 
-  constructor(private readonly service: DynamicContentService, private readonly cd: ChangeDetectorRef) {}
+  constructor(protected readonly service: DynamicContentService, protected readonly cd: ChangeDetectorRef) {}
 
   /** @inheritDoc */
   public transform(query?: string) {
@@ -38,3 +38,7 @@ export class DynamicContentPipe implements PipeTransform, OnDestroy {
     }
   }
 }
+
+/** @deprecated please use O3rDynamicContentPipe, will be removed in v12. */
+@Pipe({name: 'dynamicContent', pure: false})
+export class DynamicContentPipe extends O3rDynamicContentPipe implements PipeTransform {}

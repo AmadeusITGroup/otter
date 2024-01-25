@@ -3,7 +3,7 @@ import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
-import { LocalizationTranslatePipe } from './localization-translate.pipe';
+import { LocalizationTranslatePipe, O3rLocalizationTranslatePipe } from './localization-translate.pipe';
 import { createLocalizationConfiguration, LocalizationModule } from './localization.module';
 import { LocalizationService } from './localization.service';
 import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
@@ -36,7 +36,8 @@ describe('LocalizationTranslatePipe', () => {
 
   let localizationService: LocalizationService;
   let translate: TranslateService;
-  let pipe: LocalizationTranslatePipe;
+  let pipe: O3rLocalizationTranslatePipe;
+  let deprecatedPipe: LocalizationTranslatePipe;
   let ref: any;
 
   describe('enableTranslationDeactivation OFF', () => {
@@ -51,12 +52,13 @@ describe('LocalizationTranslatePipe', () => {
         providers: [LocalizationService]
       }).compileComponents();
 
-      localizationService = TestBed.get(LocalizationService);
+      localizationService = TestBed.inject(LocalizationService);
       // initialize TranslateService via configure of LocalizationService
       localizationService.configure();
-      translate = TestBed.get(TranslateService);
+      translate = TestBed.inject(TranslateService);
       ref = new FakeChangeDetectorRef();
-      pipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.get(LOCALIZATION_CONFIGURATION_TOKEN));
+      pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+      deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
 
       expect(() => localizationService.toggleShowKeys()).toThrow();
     });
@@ -80,25 +82,30 @@ describe('LocalizationTranslatePipe', () => {
             }]
         }).compileComponents();
 
-        localizationService = TestBed.get(LocalizationService);
+        localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
         localizationService.configure();
-        translate = TestBed.get(TranslateService);
+        translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
-        pipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.get(LOCALIZATION_CONFIGURATION_TOKEN));
+        pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+        deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
       });
 
       it('Should not translate if ShowKeys is activated', () => {
         localizationService.toggleShowKeys();
 
         expect(pipe.transform('test')).toEqual('test');
+        expect(deprecatedPipe.transform('test')).toEqual('test');
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
+        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
       });
 
       it('Should translate if ShowKeys is no activated', () => {
         expect(pipe.transform('test')).toEqual('This is a test');
+        expect(deprecatedPipe.transform('test')).toEqual('This is a test');
 
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('This is a test with param-1 and param-2');
+        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('This is a test with param-1 and param-2');
       });
     });
 
@@ -122,27 +129,31 @@ describe('LocalizationTranslatePipe', () => {
             }
           ]
         }).compileComponents();
-        localizationService = TestBed.get(LocalizationService);
+        localizationService = TestBed.inject(LocalizationService);
         // initialize TranslateService via configure of LocalizationService
         localizationService.configure();
-        translate = TestBed.get(TranslateService);
+        translate = TestBed.inject(TranslateService);
         ref = new FakeChangeDetectorRef();
-        pipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.get(LOCALIZATION_CONFIGURATION_TOKEN));
+        pipe = new O3rLocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
+        deprecatedPipe = new LocalizationTranslatePipe(localizationService, translate, ref, TestBed.inject(LOCALIZATION_CONFIGURATION_TOKEN));
       });
 
       it('Should not translate if ShowKeys is activated', () => {
         localizationService.toggleShowKeys();
 
         expect(pipe.transform('test')).toEqual('test');
+        expect(deprecatedPipe.transform('test')).toEqual('test');
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
+        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams');
       });
 
       it('Should display both key and value if ShowKeys is no activated', () => {
         expect(pipe.transform('test')).toEqual('test - This is a test');
+        expect(deprecatedPipe.transform('test')).toEqual('test - This is a test');
 
         expect(pipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams - This is a test with param-1 and param-2');
+        expect(deprecatedPipe.transform('testParams', '{param1: "with param-1", param2: "and param-2"}')).toEqual('testParams - This is a test with param-1 and param-2');
       });
     });
   });
-
 });

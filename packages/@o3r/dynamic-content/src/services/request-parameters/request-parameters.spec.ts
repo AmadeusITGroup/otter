@@ -303,7 +303,7 @@ describe('RequestParametersService', () => {
         imports: [RequestParametersModule.forRoot(getConfiguration)]
       }).compileComponents();
 
-      service = TestBed.get(RequestParametersService);
+      service = TestBed.inject(RequestParametersService);
     });
 
     afterEach(() => {
@@ -505,7 +505,7 @@ describe('RequestParametersService', () => {
         imports: [RequestParametersModule.forRoot(getConfiguration)]
       }).compileComponents();
 
-      service = TestBed.get(RequestParametersService);
+      service = TestBed.inject(RequestParametersService);
     });
 
     it('should be defined', () => {

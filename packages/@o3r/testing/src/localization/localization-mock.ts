@@ -17,15 +17,22 @@ export class TranslatePipeMock implements PipeTransform {
   }
 }
 
+@Pipe({ name: 'o3rTranslate' })
+export class O3rTranslatePipeMock implements PipeTransform {
+  public transform(...args: any[]): string | undefined {
+    return args && args.map((arg) => JSON.parse(arg)).join(', ');
+  }
+}
+
 @NgModule({
-  declarations: [TranslatePipeMock],
-  exports: [TranslatePipeMock]
+  declarations: [TranslatePipeMock, O3rTranslatePipeMock],
+  exports: [TranslatePipeMock, O3rTranslatePipeMock]
 })
 export class LocalizationDependencyMocks {
-  public static forTest(): ModuleWithProviders<LocalizationDependencyMocks> {
+  public static forTest(pipeWithPrefix = false): ModuleWithProviders<LocalizationDependencyMocks> {
     return {
       ngModule: LocalizationDependencyMocks,
-      providers: [{ provide: LocalizationTranslatePipe, useClass: TranslatePipeMock }]
+      providers: [{ provide: LocalizationTranslatePipe, useClass: pipeWithPrefix ? O3rTranslatePipeMock : TranslatePipeMock }]
     };
   }
 }
@@ -49,7 +56,8 @@ export function mockTranslationModules(
   localizationConfiguration: Partial<LocalizationConfiguration> = defaultLocalizationConfiguration,
   translations: MockTranslations = {},
   translationCompilerProvider?: Provider,
-  mockPipe = false
+  mockPipe = false,
+  pipeWithPrefix = false
 ): ModuleWithProviders<LocalizationModule>[] {
   return [
     LocalizationModule.forRoot(() => localizationConfiguration),
@@ -62,6 +70,6 @@ export function mockTranslationModules(
       },
       compiler: translationCompilerProvider
     }),
-    ...(mockPipe ? [LocalizationDependencyMocks.forTest()] : [])
+    ...(mockPipe ? [LocalizationDependencyMocks.forTest(pipeWithPrefix)] : [])
   ];
 }
