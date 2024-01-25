@@ -50,10 +50,10 @@ export class OtterConfigurationDevtools {
 
   /**
    * Get configuration name based on input information
-   * @param selector Selector for a component configuration. It can be a string in the form library#componentName (i.e: @refx/shared-components#HeaderContComponent)
-   * or an object with the component and library names (i.e: {library:"@refx/shared-components", componentName:'HeaderContComponent'})
+   * @param selector Selector for a component configuration. It can be a string in the form library#componentName (i.e: @my-lib/shared-components#HeaderContComponent)
+   * or an object with the component and library names (i.e: {library:"@my-lib/shared-components", componentName:'HeaderContComponent'})
    * @param isFallbackName Determine if the name requested is a fallback name
-   * @returns string in the format library#componentName (i.e: "@refx/shared-components#HeaderContComponent")
+   * @returns string in the format library#componentName (i.e: "@my-lib/shared-components#HeaderContComponent")
    */
   public getComponentConfigName(selector: string | { library?: string; componentName: string }, isFallbackName = false) {
     if (!isFallbackName) {
@@ -99,8 +99,8 @@ export class OtterConfigurationDevtools {
 
   /**
    * Get the configuration for a specific component
-   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: @refx/shared-components#HeaderPresConfig)
-   * or an object with the configuration and library names (i.e: {library:"@refx/shared-components", componentName:'HeaderPresConfig'})
+   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: @my-lib/shared-components#HeaderPresConfig)
+   * or an object with the configuration and library names (i.e: {library:"@my-lib/shared-components", componentName:'HeaderPresConfig'})
    */
   public getCurrentConfigurationFor(selector: string | { library?: string; componentName: string }): Promise<Configuration> {
     return firstValueFrom(

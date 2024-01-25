@@ -71,7 +71,7 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
 
   /**
    * Display the list of configurations loaded in the store and the library they originate from
-   * @returns array with the configurations and libraries for example: ["RefxComponentsCommonRuntimeConfig from @refx/shared-common"]
+   * @returns array with the configurations and libraries for example: ["LibComponentsCommonRuntimeConfig from @my-lib/shared-common"]
    */
   public async displayComponentsWithConfiguration() {
     const selectors = await this.configurationDevtools.getComponentsWithConfiguration();
@@ -80,8 +80,8 @@ export class ConfigurationDevtoolsConsoleService implements DevtoolsServiceInter
 
   /**
    * Display the configuration for a specific component
-   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: '@refx/shared-components#HeaderContConfig')
-   * or an object with the configuration and library names (i.e: {library:"@refx/shared-components", componentName:'HeaderContConfig'}).
+   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: '@my-lib/shared-components#HeaderContConfig')
+   * or an object with the configuration and library names (i.e: {library:"@my-lib/shared-components", componentName:'HeaderContConfig'}).
    * Note the object input componentName expects a configuration name not a component name.
    * @returns Configuration object (i.e: {airlineLogoPath: "img/airlines/icon-BH.svg", displayLanguageSelector: false})
    */
