@@ -1,16 +1,17 @@
 #!/usr/bin/env node
+/* eslint-disable no-console */
 
 import { execSync, spawnSync } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
+const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const defaultScope = 'sdk';
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
 const args = process.argv.slice(2);
 const argv = minimist(args);
 
 if (argv._.length < 2) {
-  // eslint-disable-next-line no-console
   console.error('The SDK type and project name are mandatory');
   console.info('usage: create typescript <@scope/package>');
   process.exit(-1);
@@ -20,7 +21,6 @@ const sdkType = argv._[0];
 let [name, pck] = argv._[1].replace(/^@/, '').split('/');
 
 if (sdkType !== 'typescript') {
-  // eslint-disable-next-line no-console
   console.error('Only the generation of "typescript" SDK is available');
   process.exit(-2);
 }
@@ -38,7 +38,6 @@ const schematicsToRun = [
   ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
 ];
 
-const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 let defaultPackageManager = 'npm';
 if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
@@ -96,8 +95,16 @@ const run = () => {
     .filter((err) => !!err);
 
   if (errors.length > 0) {
-    // eslint-disable-next-line no-console
     errors.forEach((err) => console.error(err));
+    if (packageManagerEnv !== 'npm') {
+      console.error(`Other package managers than 'npm' are experimental for @ama-sdk create for the time being.
+Please use the following command:
+  'npm create @ama-sdk typescript <package-name> -- [...options]'
+
+https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/create#usage
+
+`);
+    }
     process.exit(1);
   }
 };
