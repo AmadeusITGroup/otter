@@ -22,17 +22,16 @@ env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
 jobs:
-  # TODO: Activate on Otter v10. It is disabled because broken links are due to the new major breaking changes
-  # markdown-link-check:
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   steps:
-  #   - uses: actions/checkout@master
-  #   - uses: gaurav-nelson/github-action-markdown-link-check@v1
-  #     with:
-  #       base-branch: 'main'
-  #       config-file: '.github/markdown.links.config.json'
-  #       folder-path: 'packages/,apps/,tools/'
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@master
+    - uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        base-branch: 'main'
+        config-file: '.github/markdown.links.config.json'
+        folder-path: 'packages/,apps/,tools/'
 
   test:
     strategy:
