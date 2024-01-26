@@ -22,7 +22,7 @@ const tokenReferenceRegExp = /\{([^}]+)\}/g;
 const getTokenReferenceName = (tokenName: string, parents: string[]) => (`${parents.join('.')}.${tokenName}`);
 const getExtensions = (parentNode: DesignTokenNode[]) => {
   return parentNode.reduce((acc, node) => {
-    const o3rMetadata = {...acc.o3rMetadata, ...node.$extensions?.o3rMetadata};
+    const o3rMetadata = { ...acc.o3rMetadata, ...node.$extensions?.o3rMetadata };
     return ({ ...acc, ...node.$extensions, o3rMetadata });
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };

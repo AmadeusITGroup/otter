@@ -31,7 +31,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
 
       return resolve(context.workspaceRoot, options.defaultStyleFile);
     };
-  const tokenVariableNameRenderer: TokenKeyRenderer | undefined = options.prefix ? (variable) => options.prefix + variable.getKey() : undefined;
+  const tokenVariableNameRenderer: TokenKeyRenderer | undefined = options.prefix ? (variable) => options.prefix! + variable.getKey() : undefined;
   const logger = context.logger;
   const sassRenderer = getSassTokenDefinitionRenderer({
     tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
@@ -111,6 +111,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           acc.error += EOL + res.reason;
         }
       }

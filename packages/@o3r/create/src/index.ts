@@ -73,7 +73,7 @@ const logo = `
                               '|.     ||  ||    ||   ||       ||
                                ''|...|'   '|.'  '|.'  '|...' .||.
 `;
-
+const packageManager = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
 const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
@@ -89,7 +89,6 @@ if (!args.some((a) => a.startsWith('--preset'))) {
 
 const hasPackageManagerArg = args.some((a) => a.startsWith('--package-manager'));
 if (!hasPackageManagerArg) {
-  const packageManager = process.env.npm_config_user_agent?.split('/')[0];
   if (packageManager && ['npm', 'pnpm', 'yarn', 'cnpm'].includes(packageManager)) {
     args.push('--package-manager', packageManager);
   }
