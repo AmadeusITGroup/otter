@@ -46,27 +46,28 @@ export interface SchematicMetricData extends BaseMetricData {
 export type MetricData = BuilderMetricData | SchematicMetricData;
 
 /**
- * Send metric to a server
- * @param data
- * @param logger
+ * Function sending metrics to the server
+ * @param data Metrics to report
+ * @param logger Optional logger to provide to the function
  */
-export const sendData = async (data: MetricData, logger?: { error: (msg: string) => void }) => {
-  try {
-    const message = JSON.stringify(data);
-    const body = JSON.stringify({
-      messages: [{
-        applicationName: 'OTTER',
-        message
-      }]
-    });
-    await fetch('https://uat.digital-logging.saas.amadeus.com/postUILogs', {
-      method: 'POST',
-      body
-    });
-  } catch (e: any) {
-    // Do not throw error if we don't manage to send data to a server
-    const err = e instanceof Error ? e : new Error(e);
-    // eslint-disable-next-line no-console
-    (logger || console).error(err.stack || err.toString());
-  }
+export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void } | undefined) => Promise<void>;
+
+/**
+ * Send metric to a Amadeus Log Server
+ * @param data Metrics to report
+ * @param _logger Optional logger to provide to the function
+ * @param _logger.error
+ */
+export const sendData: SendDataFn = async (data: MetricData, _logger?: { error: (msg: string) => void }) => {
+  const message = JSON.stringify(data);
+  const body = JSON.stringify({
+    messages: [{
+      applicationName: 'OTTER',
+      message
+    }]
+  });
+  await fetch('https://uat.digital-logging.saas.amadeus.com/postUILogs', {
+    method: 'POST',
+    body
+  });
 };
