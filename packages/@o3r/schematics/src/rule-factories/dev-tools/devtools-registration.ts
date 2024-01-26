@@ -1,7 +1,7 @@
 import { chain, Rule } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
-import { getAppModuleFilePath, getDefaultOptionsForSchematic, getMainFilePath, getWorkspaceConfig } from '../../utility';
+import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
+import { getAppModuleFilePath, getDefaultOptionsForSchematic, getMainFilePath, getModuleIndex, getWorkspaceConfig } from '../../utility';
 import type { WorkspaceSchematics } from '../../interfaces';
 import { addImportToModuleFile as o3rAddImportToModuleFile } from '../../utility';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
@@ -37,8 +37,7 @@ const registerModule = (options: DevtoolRegisterOptions): Rule => (tree, context
   }
 
   let recorder = tree.beginUpdate(moduleFilePath);
-  const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-  const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+  const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
   const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
     recorder = o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);

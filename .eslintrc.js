@@ -12,7 +12,7 @@ module.exports = {
   'overrides': [
     {
       'files': [
-        '*.{m,c,}{t,j}s'
+        '*.{c,m,}{t,j}s'
       ],
       'parser': require.resolve('@typescript-eslint/parser'),
       'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
@@ -25,6 +25,7 @@ module.exports = {
         'jest/no-jasmine-globals': 'off'
       }
     },
+
     {
       'parser': require.resolve('jsonc-eslint-parser'),
       'files': [
@@ -48,6 +49,24 @@ module.exports = {
           'buildTargets': ['build', 'build-builders', 'compile', 'test'],
           'checkObsoleteDependencies': false
         }]
+      }
+    },
+
+    {
+      'parser': require.resolve('yaml-eslint-parser'),
+      'files': [
+        '**/*.y{a,}ml'
+      ]
+    },
+    {
+      'files': [
+        '**/.yarnrc.yml'
+      ],
+      'plugins': [
+        '@o3r'
+      ],
+      'rules': {
+        '@o3r/yarnrc-package-extensions-harmonize': ['error']
       }
     }
   ],

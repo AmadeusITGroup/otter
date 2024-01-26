@@ -10,7 +10,6 @@ const testPackageMaps: Record<AvailableTestFrameworks, string[]> = {
 
 /**
  * Get the test framework
- *
  * @param workspaceOptions the workspace options
  * @param context
  */

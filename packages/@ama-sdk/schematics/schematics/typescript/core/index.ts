@@ -12,6 +12,7 @@ import {
   url
 } from '@angular-devkit/schematics';
 import type { Operation, PathObject } from '@ama-sdk/core';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import {existsSync, readFileSync} from 'node:fs';
 import * as path from 'node:path';
 import * as semver from 'semver';
@@ -39,7 +40,7 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
  * Generate a typescript SDK source code base on swagger specification
  * @param options
  */
-export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
+function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematicsSchema): Rule {
 
   const specPath = path.resolve(process.cwd(), options.specPath);
   const targetPath = options.directory || '';
@@ -150,3 +151,9 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
     runGeneratorRule
   ]);
 }
+
+/**
+ * Generate a typescript SDK source code base on swagger specification
+ * @param options
+ */
+export const ngGenerateTypescriptSDK = createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn);

@@ -1,0 +1,40 @@
+<p class="mb-0 text-center">Hebrew calendar</p>
+<div class="input-group" [dfCloseInputDatePicker]="dp">
+  <input [id]="id"
+        #dpin
+        class="form-control"
+        placeholder="YYYY-MM-DD"
+        [ngModel]="selectedDate()"
+        (ngModelChange)="selectDate($event)"
+        ngbDatepicker
+        #dp="ngbDatepicker"
+        [displayMonths]="1" [navigation]="'arrows'"
+        [outsideDays]="'collapsed'"
+        [showWeekNumbers]="true"
+        [dayTemplate]="dpdt"
+        [dayTemplateData]="dayTemplateData"
+        (dateSelect)="dpin.focus()"
+        [disabled]="isDisabled()"
+        [dfInputIcon]="['append']"
+        />
+  <div class="input-group-append">
+    <button class="input-group-text icon-otter" (click)="dp.toggle()" type="button"><span class="visually-hidden">Toggle
+            datepicker</span></button>
+  </div>
+</div>
+<ng-template #dpdt
+             let-date
+             let-data="data"
+             let-disabled="disabled"
+             let-focused="focused"
+             let-selected="selected"
+             let-currentMonth="currentMonth">
+  <div class="hebrew-day df-datepicker-date"
+       [class.outside]="date.month !== currentMonth"
+       [class.df-datepicker-date-disabled]="disabled"
+       [class.df-datepicker-date-focused]="focused"
+       [class.df-datepicker-date-selected]="selected">
+    <div class="gregorian-num">{{ data.gregorian.day + '/' + (data.gregorian.month) }}</div>
+    <div class="hebrew-num">{{ i18n.getDayNumerals(date) }}</div>
+  </div>
+</ng-template>

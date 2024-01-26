@@ -19,7 +19,7 @@ describe('New Version', () => {
         baseBranch: '2.6',
         isPullRequest: false,
         prPreReleaseTag: 'pr',
-        releaseBranchRegExp: new RegExp(/release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(alpha|beta|next|rc))?$/)
+        releaseBranchRegExp: new RegExp(/release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(next|prerelease|rc))?$/)
       };
 
       const defaultTags = ['0.10.0', '2.6.0', '3.1.5', '3.2.4', '3.2.5.0', 'whatever', '3.3.0-alpha.0', '3.3.0-alpha.0', '3.3.0-rc.0'];
@@ -62,7 +62,7 @@ describe('New Version', () => {
         isPullRequest: false,
         defaultBranch: 'develop',
         prPreReleaseTag: 'pr',
-        releaseBranchRegExp: new RegExp(/release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(alpha|beta|next|rc))?$/)
+        releaseBranchRegExp: new RegExp(/release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(next|prerelease|rc))?$/)
       };
 
       it('should compute release versions correctly', () => {

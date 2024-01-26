@@ -27,7 +27,7 @@ const logger = winston.createLogger({
 });
 
 program
-  .description('Update package.json exports')
+  .description('[DEPRECATED] Update package.json exports')
   .option<string>('--cwd <path>', 'Path to the root of the project', (rootPath) => path.resolve(process.cwd(), rootPath), process.cwd())
   .option<string>('-o, --outDir <path>', 'Path to folder containing the package.json to edit',
     (folderPath) => folderPath,
@@ -47,6 +47,8 @@ program
   )
   .option('-v, --verbose', 'Display debug logs')
   .parse(process.argv);
+
+logger.warn('This script is deprecated, will be removed in Otter v12.');
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
 const { cwd, pattern, exportTypes, ...options} = program.opts() as Options;

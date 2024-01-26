@@ -2,7 +2,7 @@
 
 This package contains all the [plugins](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins), helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
 
-Please refer to the [generator-sdk](../generator-sdk/README.md) package for getting started with an API based on `ama-sdk`.
+Please refer to the [ama-sdk-schematics](../schematics/README.md) package for getting started with an API based on `ama-sdk`.
 
 ## Available plugins
 
@@ -17,15 +17,11 @@ Please refer to the [generator-sdk](../generator-sdk/README.md) package for gett
 - [exception](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/exception)
 - [fetch-cache](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-cache)
 - [fetch-credentials](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-credentials)
-- [fetch-options](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/fetch-options)
-- [gateway-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/gateway-token)
-- [imperva](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/imperva)
 - [json-token](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/json-token)
 - [keepalive](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/keepalive)
 - [mock-intercept](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/mock-intercept)
 - [perf-metric](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/perf-metric)
 - [pii-tokenizer](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/pii-tokenizer)
-- [public-facts](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/public-facts)
 - [raw-response-info](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/raw-response-info)
 - [retry](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/retry)
 - [reviver](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/reviver)
@@ -46,3 +42,27 @@ A list of API Clients are provided by this package:
 | ApiFetchClient   | @ama-sdk/core                            | Default API Client based on the browser FetchApi                               |
 | ApiBeaconClient  | @ama-sdk/core                            | API Client based on the browser BeaconApi, it is processing synchronous call   |
 | ApiAngularClient | @ama-sdk/core/clients/api-angular-client | API Client using the HttpClient exposed by the `@angular/common` package       |
+
+### Logs
+
+In order to ease the logging in the ama-sdk plugins, it is possible to connect to third-party logging services.
+This can be achieved by adding a `Logger` [implementation](/packages/@ama-sdk/core/src/fwk/logger.ts) to the options of an API client.
+
+For example, in the Otter showcase application, we could add a `ConsoleLogger` (from `@o3r/core`) as a parameter to the ApiFetchClient:
+
+```typescript
+const logger = new ConsoleLogger();
+function petApiFactory() {
+  const apiConfig: ApiClient = new ApiFetchClient(
+    {
+      basePath: 'https://petstore3.swagger.io/api/v3',
+      requestPlugins: [new SessionIdRequest()],
+      fetchPlugins: [],
+      logger
+    }
+  );
+  return new PetApi(apiConfig);
+}
+```
+
+> *Note*: Adding a third-party logging service is optional. If undefined, the fallback is the console logger.

@@ -33,7 +33,6 @@ const logoSmall = `
 
 /**
  * Generate Logo for Otter Project
- *
  * @param size Size of the logo to generate
  */
 export const getLogo = (size: 'medium' | 'small' = 'medium') => {

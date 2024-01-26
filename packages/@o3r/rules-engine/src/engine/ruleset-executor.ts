@@ -107,7 +107,7 @@ export class RulesetExecutor {
    * @param factsValue
    * @param runtimeFactValues
    */
-  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): unknown | unknown[] {
+  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): unknown {
     if (typeof operand === 'undefined') {
       return undefined;
     } else if (isOperandFact(operand)) {

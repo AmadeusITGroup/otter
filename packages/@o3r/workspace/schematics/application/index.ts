@@ -1,5 +1,5 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, Schematic, strings, template, url } from '@angular-devkit/schematics';
-import { getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgGenerateApplicationSchema } from './schema';
 import type { PackageJson } from 'type-fest';
@@ -12,7 +12,7 @@ import { updateProjectTsConfig } from '../rule-factories/index';
  * Add an Otter application to a monorepo
  * @param options Schematic options
  */
-export function generateApplication(options: NgGenerateApplicationSchema): Rule {
+function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
   const packageJsonName = strings.dasherize(options.name);
   const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 
@@ -80,3 +80,10 @@ export function generateApplication(options: NgGenerateApplicationSchema): Rule 
   return ngCliUpdate;
 
 }
+
+
+/**
+ * Add an Otter application to a monorepo
+ * @param options Schematic options
+ */
+export const generateApplication = createSchematicWithMetricsIfInstalled(generateApplicationFn);

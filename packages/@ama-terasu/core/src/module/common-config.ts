@@ -42,8 +42,6 @@ export interface DefaultOptions {
 
 /** List of common option/command name to align between the modules */
 export const EXTRA_COMMON_OPTIONS = {
-  /** @deprecated, will be removed in V9 */
-  registryToken: 'registry-token',
   azureToken: 'azure-token',
   path: 'path',
   yarn: 'yarn'
@@ -52,11 +50,6 @@ export const EXTRA_COMMON_OPTIONS = {
 /** Common options */
 // eslint-disable-next-line no-unused-vars
 export const MODULE_OPTIONS: { [X in keyof typeof EXTRA_COMMON_OPTIONS]: DefaultOptions } = {
-  /** @deprecated, will be removed in V9 */
-  registryToken: {
-    alias: 'T',
-    description: 'NPM registry access token'
-  },
   azureToken: {
     alias: 'A',
     description: 'Azure registry Personal Access Token'

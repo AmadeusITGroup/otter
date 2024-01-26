@@ -1,6 +1,7 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
+  createSchematicWithMetricsIfInstalled,
   getO3rPeerDeps,
   getProjectNewDependenciesType,
   getTestFramework,
@@ -15,7 +16,7 @@ import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
-import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
+import type { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
 import { updatePlaywright } from './playwright';
 
@@ -32,7 +33,7 @@ function canResolvePlaywright(): boolean {
  * Add Otter testing to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -111,10 +112,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
           tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
+          const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
           const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
             template({
               ...options,
-              rootRelativePath: path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './')),
+              rootRelativePath,
               isAngularSetup: tree.exists('/angular.json')
             }),
             move(workingDirectory),
@@ -123,7 +125,8 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
 
           const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
             template({
-              ...options
+              ...options,
+              rootRelativePath
             }),
             move(tree.root.path),
             renameTemplateFiles()
@@ -149,3 +152,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter testing to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

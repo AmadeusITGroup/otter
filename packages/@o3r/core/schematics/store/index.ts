@@ -1,12 +1,12 @@
 import { Rule, schematic } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { NgGenerateStoreSchematicsSchema } from './schema';
 
 /**
  * Create an Otter store
- *
  * @param options
  */
-export function ngGenerateStore(options: NgGenerateStoreSchematicsSchema): Rule {
+function ngGenerateStoreFn(options: NgGenerateStoreSchematicsSchema): Rule {
   const parameterToChildSchematics: Partial<NgGenerateStoreSchematicsSchema> = Object.entries(options)
     .reduce<Record<string, any>>((acc, [key, value]) => {
       acc[key] = value === null ? undefined : value;
@@ -25,3 +25,9 @@ export function ngGenerateStore(options: NgGenerateStoreSchematicsSchema): Rule 
       return schematic('store-entity-async', parameterToChildSchematics);
   }
 }
+
+/**
+ * Create an Otter store
+ * @param options
+ */
+export const ngGenerateStore = createSchematicWithMetricsIfInstalled(ngGenerateStoreFn);

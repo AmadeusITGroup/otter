@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
@@ -22,10 +20,7 @@
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
-      "dependsOn": [
-        "prepare",
-        "^build"
-      ],
+      "dependsOn": ["prepare", "^build"],
       "options": {
         "project": "packages/@o3r/analytics/src/ng-package.json",
         "tsConfig": "packages/@o3r/analytics/tsconfig.build.json"
@@ -33,15 +28,9 @@
     },
     "prepare": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/src/package.json"
-      ],
-      "dependsOn": [
-        "^build"
-      ],
-      "inputs": [
-        "{projectRoot}/package.json"
-      ],
+      "outputs": ["{projectRoot}/src/package.json"],
+      "dependsOn": ["^build"],
+      "inputs": ["{projectRoot}/package.json"],
       "options": {
         "script": "prepare:compile"
       }
@@ -68,13 +57,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/analytics/.eslintrc.js",
         "lintFilePatterns": [
@@ -86,8 +68,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/analytics/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/analytics/jest.config.js"
       }
     },
     "test-int": {

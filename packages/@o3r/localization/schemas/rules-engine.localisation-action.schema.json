@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "RulesActionUpdateLocalisationBlock",
+  "type": "object",
+  "description": "Content of action that updates the localizations",
+  "properties": {
+    "actionType": {
+      "type": "string",
+      "description": "Action Type",
+      "const": "UPDATE_LOCALISATION"
+    },
+    "key": {
+      "type": "string",
+      "description": "key of the location to update"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "additionalItems": false,
+  "required": [
+    "actionType",
+    "key",
+    "value"
+  ]
+}

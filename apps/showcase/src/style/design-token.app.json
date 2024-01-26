@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../../packages/@o3r/design/schemas/design-token.schema.json",
+  "bs": {
+    "primary": {
+      "$description": "Application Primary color",
+      "$type": "color",
+      "$value": "{color.primary}"
+    },
+    "nav-pills": {
+      "$extensions": {
+        "o3rScope": ".nav-pills"
+      },
+      "link-active-color": {
+        "$value": "{color.primary}"
+      }
+    }
+  }
+}

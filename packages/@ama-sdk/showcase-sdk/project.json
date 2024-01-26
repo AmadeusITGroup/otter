@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -24,13 +22,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@ama-sdk/showcase-sdk/.eslintrc.js",
         "lintFilePatterns": [

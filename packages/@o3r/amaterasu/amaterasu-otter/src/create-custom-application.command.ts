@@ -10,7 +10,6 @@ export interface CreateCustomAppOptions {
   path: string;
   /**
    * Set default options instead of requiring input
-   *
    * @default false
    */
   yes?: boolean;
@@ -25,7 +24,6 @@ export interface CreateCustomAppOptions {
 
 /**
  * Create a custom application
- *
  * @param context Context of the command
  * @param options Options
  */

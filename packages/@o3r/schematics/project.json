@@ -7,17 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "^build",
-        "compile",
-        "build-builders"
-      ]
+      "dependsOn": ["^build", "compile", "build-builders"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -37,20 +31,10 @@
         "main": "packages/@o3r/schematics/src/public_api.ts",
         "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
         "outputPath": "packages/@o3r/schematics/dist",
-        "assets": [
-          "packages/@o3r/schematics/src/**/templates/**"
-        ],
-        "clean": false
+        "assets": ["packages/@o3r/schematics/src/**/templates/**"]
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/schematics/.eslintrc.js",
         "lintFilePatterns": [
@@ -62,8 +46,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/schematics/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/schematics/jest.config.js"
       }
     },
     "prepare-publish": {

@@ -1,6 +1,6 @@
 /**
  * Specific padding for number
- *
+ * @deprecated You can use the one exposed in `@ama-sdk/core`, will be removed in Otter v12.
  * @param val
  * @param digits
  */

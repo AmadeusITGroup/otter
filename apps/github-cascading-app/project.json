@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "nx:run-script",
@@ -18,13 +16,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/github-cascading-app/.eslintrc.js",
         "lintFilePatterns": [
@@ -36,8 +27,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/github-cascading-app/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/github-cascading-app/jest.config.js"
       }
     }
   },

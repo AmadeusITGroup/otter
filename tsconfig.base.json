@@ -35,9 +35,6 @@
       "@ama-sdk/create": [
         "packages/@ama-sdk/create"
       ],
-      "@ama-sdk/generator-sdk": [
-        "packages/@ama-sdk/generator-sdk"
-      ],
       "@ama-sdk/schematics": [
         "packages/@ama-sdk/schematics"
       ],
@@ -83,14 +80,35 @@
       "@o3r/application": [
         "packages/@o3r/application/src/public_api"
       ],
+      "@o3r/application/schemas/*": [
+        "packages/@o3r/application/schemas/*"
+      ],
+      "@o3r/artifactory-tools": [
+        "packages/@o3r/artifactory-tools/src"
+      ],
+      "@o3r/azure-tools": [
+        "packages/@o3r/azure-tools/src/public_api"
+      ],
       "@o3r/chrome-devtools": [
         "packages/@o3r/chrome-devtools/src"
       ],
       "@o3r/components": [
         "packages/@o3r/components/src/public_api"
       ],
+      "@o3r/components/schemas/*": [
+        "packages/@o3r/components/schemas/*"
+      ],
+      "@o3r/components/*": [
+        "packages/@o3r/components/src/*/public_api"
+      ],
       "@o3r/configuration": [
         "packages/@o3r/configuration/src/public_api"
+      ],
+      "@o3r/configuration/schemas/*": [
+        "packages/@o3r/configuration/schemas/*"
+      ],
+      "@o3r/configuration/*": [
+        "packages/@o3r/configuration/src/*/public_api"
       ],
       "@o3r/core": [
         "packages/@o3r/core/src/public_api"
@@ -98,11 +116,14 @@
       "@o3r/design": [
         "packages/@o3r/design/src/public_api"
       ],
-      "@o3r/dev-tools": [
-        "packages/@o3r/dev-tools/src/public_api"
+      "@o3r/design/schemas/*": [
+        "packages/@o3r/design/src/schemas/*"
       ],
       "@o3r/dynamic-content": [
         "packages/@o3r/dynamic-content/src/public_api"
+      ],
+      "@o3r/dynamic-content/*": [
+        "packages/@o3r/dynamic-content/src/*/public_api"
       ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"
@@ -119,8 +140,17 @@
       "@o3r/localization": [
         "packages/@o3r/localization/src/public_api"
       ],
+      "@o3r/localization/schemas/*": [
+        "packages/@o3r/localization/schemas/*"
+      ],
+      "@o3r/localization/*": [
+        "packages/@o3r/localization/src/*/public_api"
+      ],
       "@o3r/logger": [
         "packages/@o3r/logger/src/public_api"
+      ],
+      "@o3r/logger/*": [
+        "packages/@o3r/logger/src/services/*/public_api"
       ],
       "@o3r/mobile": [
         "packages/@o3r/mobile/src"
@@ -130,6 +160,9 @@
       ],
       "@o3r/rules-engine": [
         "packages/@o3r/rules-engine/src/public_api"
+      ],
+      "@o3r/rules-engine/schemas/*": [
+        "packages/@o3r/rules-engine/schemas/*"
       ],
       "@o3r/schematics": [
         "packages/@o3r/schematics/src/public_api"
@@ -152,6 +185,9 @@
       "@o3r/styling/builders/*/helpers": [
         "packages/@o3r/styling/builders/*/helpers/index"
       ],
+      "@o3r/telemetry": [
+        "packages/@o3r/telemetry/src/public_api"
+      ],
       "@o3r/test-helpers": [
         "packages/@o3r/test-helpers/src/public_api"
       ],
@@ -160,6 +196,12 @@
       ],
       "@o3r/testing": [
         "packages/@o3r/testing/src/public_api"
+      ],
+      "@o3r/testing/core": [
+        "packages/@o3r/testing/src/core/angular"
+      ],
+      "@o3r/testing/core/*": [
+        "packages/@o3r/testing/src/core/angular/*"
       ],
       "@o3r/testing/*": [
         "packages/@o3r/testing/src/*"

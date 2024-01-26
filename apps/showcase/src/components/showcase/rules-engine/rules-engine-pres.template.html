@@ -7,12 +7,11 @@
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
           <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative">
-            <ng-container *ngIf="form.value.destination; else simpleWelcome">
+            @if (form.value.destination) {
               {{ translations.welcomeWithCityName | translate: { cityName: (translations.cityName + '.' + form.value.destination) | translate }  }}
-            </ng-container>
-            <ng-template #simpleWelcome>
+            } @else {
               {{ translations.welcome | translate }}
-            </ng-template>
+            }
             <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
           </h2>
         </div>
@@ -23,9 +22,11 @@
               <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | translate }}</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value>{{ translations.destinationPlaceholder | translate }}</option>
-                <option *ngFor="let destination of destinations$ | async; trackBy: trackByCityName" [disabled]="!destination.available" [value]="destination.cityCode">
-                  {{ (translations.cityName + '.' + destination.cityCode) | translate }}
-                </option>
+                @for (destination of (config$ | async)?.destinations; track destination.cityCode) {
+                  <option [disabled]="!destination.available" [value]="destination.cityCode">
+                    {{ (translations.cityName + '.' + destination.cityCode) | translate }}
+                  </option>
+                }
               </select>
             </div>
           </div>
@@ -35,12 +36,14 @@
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
-          <div *ngIf="(config$ | async)?.shouldProposeRoundTrip" class="col-12 col-xl-6">
-            <div class="input-group">
-              <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | translate }}</label>
-              <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
+          @if ((config$ | async)?.shouldProposeRoundTrip) {
+            <div class="col-12 col-xl-6">
+              <div class="input-group">
+                <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | translate }}</label>
+                <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
+              </div>
             </div>
-          </div>
+          }
         </form>
       </div>
     </div>

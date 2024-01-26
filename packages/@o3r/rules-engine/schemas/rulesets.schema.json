@@ -157,91 +157,19 @@
               "$ref": "#/definitions/RulesActionSetTemporaryFactBlock"
             },
             {
-              "$ref": "#/definitions/RulesActionUpdateConfigBlock"
+              "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/configuration/schemas/rules-engine.config-action.schema.json"
             },
             {
-              "$ref": "#/definitions/RulesActionUpdateAssetBlock"
+              "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/dynamic-content/schemas/rules-engine.asset-action.schema.json"
             },
             {
-              "$ref": "#/definitions/RulesActionUpdateLocalisationBlock"
+              "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/localization/schemas/rules-engine.localisation-action.schema.json"
             },
             {
-              "$ref": "#/definitions/ActionUpdatePlaceholderBlock"
+              "$ref": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/components/schemas/rules-engine.placeholder-action.schema.json"
             }
           ]
         }
-      ]
-    },
-    "ActionUpdatePlaceholderBlock": {
-      "type": "object",
-      "description": "Content of action that updates a placeholder",
-      "properties": {
-        "actionType": {
-          "type": "string",
-          "description": "Action Type",
-          "const": "UPDATE_PLACEHOLDER"
-        },
-        "placeholderId": {
-          "type": "string",
-          "description": "Id of the placeholder to update"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "additionalItems": false,
-      "required": [
-        "actionType",
-        "placeholderId",
-        "value"
-      ]
-    },
-    "RulesActionUpdateLocalisationBlock": {
-      "type": "object",
-      "description": "Content of action that updates the localizations",
-      "properties": {
-        "actionType": {
-          "type": "string",
-          "description": "Action Type",
-          "const": "UPDATE_LOCALISATION"
-        },
-        "key": {
-          "type": "string",
-          "description": "key of the location to update"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "additionalItems": false,
-      "required": [
-        "actionType",
-        "key",
-        "value"
-      ]
-    },
-    "RulesActionUpdateAssetBlock": {
-      "type": "object",
-      "description": "Content of action that updates the assets",
-      "properties": {
-        "actionType": {
-          "type": "string",
-          "description": "Action Type",
-          "const": "UPDATE_ASSET"
-        },
-        "asset": {
-          "type": "string",
-          "description": "asset to update"
-        },
-        "value": {
-          "type": "string"
-        }
-      },
-      "additionalItems": false,
-      "required": [
-        "actionType",
-        "asset",
-        "value"
       ]
     },
     "RulesActionSetTemporaryFactBlock": {
@@ -263,39 +191,6 @@
       "required": [
         "actionType",
         "fact",
-        "value"
-      ]
-    },
-    "RulesActionUpdateConfigBlock": {
-      "type": "object",
-      "description": "Content of action that updates the configuration",
-      "properties": {
-        "actionType": {
-          "type": "string",
-          "description": "Action Type",
-          "const": "UPDATE_CONFIG"
-        },
-        "library": {
-          "type": "string",
-          "description": "Library of the component"
-        },
-        "component": {
-          "type": "string",
-          "description": "name of the component"
-        },
-        "property": {
-          "type": "string",
-          "description": "name of the config property to update"
-        },
-        "value": {}
-      },
-      "additionalItems": false,
-      "required": [
-        "elementType",
-        "actionType",
-        "library",
-        "component",
-        "property",
         "value"
       ]
     },

@@ -29,7 +29,6 @@ export const selectConfigurationTotal = createSelector(selectConfigurationState,
 
 /**
  * Select the configuration for component with id
- *
  * @param props property of the selector
  * @param props.id id of the component
  */

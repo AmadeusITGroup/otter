@@ -1,7 +1,8 @@
 import { BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import { MultiWatcherBuilderSchema } from './schema';
 
-export default createBuilder<MultiWatcherBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<MultiWatcherBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   /** List of parallel build references */
@@ -11,7 +12,8 @@ export default createBuilder<MultiWatcherBuilderSchema>(async (options, context)
     .map(async (target: Target) => {
       const baseOptions = await context.getTargetOptions(target);
       const builderName = await context.getBuilderNameForTarget(target);
-      const buildOptions = await context.validateOptions(baseOptions, builderName);
+      const buildOptions = await context.validateOptions({ ...baseOptions, watch: true }, builderName)
+        .catch(() => context.validateOptions(baseOptions, builderName));
 
       if (buildOptions && typeof buildOptions.watch !== 'undefined') {
         buildOptions.watch = true;
@@ -37,4 +39,4 @@ export default createBuilder<MultiWatcherBuilderSchema>(async (options, context)
   });
 
   return firstStopped;
-});
+}));

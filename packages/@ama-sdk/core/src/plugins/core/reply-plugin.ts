@@ -1,12 +1,12 @@
-import { ApiTypes } from '../../fwk/api';
-import { ReviverType } from '../../fwk/Reviver';
-import { Plugin, PluginRunner } from './plugin';
+import type { ApiTypes } from '../../fwk/api';
+import type { ReviverType } from '../../fwk/Reviver';
+import type { Plugin, PluginContext, PluginRunner } from './plugin';
 
 /**
  * Interface of an SDK reply plugin.
  * The plugin will be run on the reply of a call
  */
-export interface ReplyPluginContext<T> {
+export interface ReplyPluginContext<T> extends PluginContext {
   /** Reply reviver function */
   reviver?: ReviverType<T>;
 
@@ -40,6 +40,9 @@ export interface ReplyPluginContext<T> {
  * The plugin will be run on the reply of a call
  */
 export interface ReplyPlugin<T, V = {[key: string]: any}> extends Plugin<T, V> {
-  /** Load the plugin with the context */
+  /**
+   * Load the plugin with the context
+   * @param context Context of reply plugin
+   */
   load<K>(context: ReplyPluginContext<K>): PluginRunner<T | K, V | undefined>;
 }

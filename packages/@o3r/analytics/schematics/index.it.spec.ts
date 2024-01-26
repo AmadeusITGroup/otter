@@ -52,7 +52,7 @@ describe('new otter application with analytics', () => {
         'ng g @o3r/analytics:add-analytics --path="projects/test-app/src/components/test-component/test-component.component.ts"',
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentModule', 'projects/test-app/src/components/test-component');
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
       expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();

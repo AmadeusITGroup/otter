@@ -1,17 +1,14 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath } from '@o3r/schematics';
 import * as path from 'node:path';
-
-import { getDestinationPath } from '@o3r/schematics';
-import { NgGenerateUpdateSchematicsSchema } from './schema';
 import { updateOtterEnvironmentAdapter } from '../rule-factories/otter-environment';
+import { NgGenerateUpdateSchematicsSchema } from './schema';
 
 /**
  * add a new ngUpdate function
- *
  * @param options
  */
-export function ngGenerateUpdate(options: NgGenerateUpdateSchematicsSchema): Rule {
+function ngGenerateUpdateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, _context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:schematics-update', options.path, tree, options.projectName);
@@ -73,3 +70,9 @@ export function ${updateFunction}(): Rule {
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * add a new ngUpdate function
+ * @param options
+ */
+export const ngGenerateUpdate = createSchematicWithMetricsIfInstalled(ngGenerateUpdateFn);

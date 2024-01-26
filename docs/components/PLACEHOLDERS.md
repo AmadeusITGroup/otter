@@ -167,7 +167,7 @@ You can follow the [fact creation documentation](../rules-engine/how-to-use/crea
 ```typescript
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FactsService, RulesEngineService } from '@o3r/rules-engine';
+import { FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
 import { interval } from 'rxjs';
 import { retrieveUrl } from './fact-factories/index';
 import { PageFacts } from './page.facts';
@@ -181,7 +181,7 @@ export class PageFactsService extends FactsService<PageFacts> {
     increment: interval(2000)
   };
 
-  constructor(rulesEngine: RulesEngineService, private router: Router) {
+  constructor(rulesEngine: RulesEngineRunnerService, private router: Router) {
     super(rulesEngine);
   }
 

@@ -11,7 +11,7 @@ import * as path from 'node:path';
 import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
 import * as chalk from 'chalk';
-import { getPackageManager, PackageManagerOptions, SupportedPackageManagerExecutors } from '../utility';
+import { getPackageManager, PackageManagerOptions } from '../utility';
 
 const DEFAULT_NPM_REGISTRY = 'registry.npmjs.org';
 
@@ -162,7 +162,7 @@ export async function getAvailableModulesWithLatestPackage(keyword: string = OTT
  */
 export function formatModuleDescription(
     npmPackage: NpmRegistryPackage,
-    runner: SupportedPackageManagerExecutors | string = 'npx',
+    runner = 'npx',
     keywordTags: Record<string, string> = {},
     logger?: logging.LoggerApi) {
   let otterVersion: string | undefined;

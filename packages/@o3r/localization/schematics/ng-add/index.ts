@@ -1,7 +1,7 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
@@ -10,7 +10,7 @@ import { registerDevtools } from './helpers/devtools-registration';
  * Add Otter localization to an Angular Project
  * @param options for the dependencies installations
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const { applyEsLintFix, install, getProjectNewDependenciesType, getWorkspaceConfig, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
@@ -65,3 +65,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter localization to an Angular Project
+ * @param options for the dependencies installations
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

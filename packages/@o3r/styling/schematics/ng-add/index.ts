@@ -1,4 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { updateCmsAdapter } from '../cms-adapter';
@@ -9,7 +10,7 @@ import type { NgAddSchematicsSchema } from './schema';
  * Update the styling if the app/lib used otter v7
  * @param options for the dependency installations
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     try {
@@ -72,3 +73,10 @@ Otherwise, use the error message as guidance.`);
     }
   };
 }
+
+/**
+ * Add Otter styling to an Angular Project
+ * Update the styling if the app/lib used otter v7
+ * @param options for the dependency installations
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

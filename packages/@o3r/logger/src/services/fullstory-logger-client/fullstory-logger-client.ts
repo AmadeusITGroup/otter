@@ -1,7 +1,7 @@
 import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
 import type { LoggerClient } from '@o3r/logger';
 
-import * as FullStory from '@fullstory/browser';
+import { FullStory as fullStory, init } from '@fullstory/browser';
 
 /**
  * FullStory client.
@@ -12,7 +12,7 @@ export class FullStoryClient implements LoggerClient {
    * @param orgId FullStory organization ID
    */
   constructor(orgId: string) {
-    FullStory.init({orgId});
+    init({orgId});
   }
 
   /**
@@ -20,9 +20,9 @@ export class FullStoryClient implements LoggerClient {
    */
   public identify(uid: string, vars?: {[key: string]: string}): void {
     if (vars && vars.name) {
-      FullStory.identify(uid, {...vars, displayName: vars.name});
+      fullStory('setIdentity', {uid, properties: {...vars, displayName: vars.name}});
     } else {
-      FullStory.identify(uid, vars);
+      fullStory('setIdentity', {uid, properties: vars});
     }
   }
 
@@ -30,49 +30,49 @@ export class FullStoryClient implements LoggerClient {
    * @inheritdoc
    */
   public event(name: string, properties?: any): void {
-    FullStory.event(name, properties);
+    fullStory('trackEvent', {name, properties});
   }
 
   /**
    * @inheritdoc
    */
   public error(message?: any, ...optionalParams: any[]): void {
-    FullStory.log('error', `${message.toString() as string}\n${optionalParams.toString()}`);
+    fullStory('log', {level: 'error', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
   }
 
   /**
    * @inheritdoc
    */
   public warn(message?: any, ...optionalParams: any[]): void {
-    FullStory.log('warn', `${message.toString() as string}\n${optionalParams.toString()}`);
+    fullStory('log', {level: 'warn', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
   }
 
   /**
    * @inheritdoc
    */
   public log(message?: any, ...optionalParams: any[]): void {
-    FullStory.log('log', `${message.toString() as string}\n${optionalParams.toString()}`);
+    fullStory('log', {level: 'log', msg: `${message.toString() as string}\n${optionalParams.toString()}`});
   }
 
   /**
    * @inheritdoc
    */
   public getSessionURL(): string | undefined {
-    return FullStory.getCurrentSessionURL() || undefined;
+    return fullStory('getSession') || undefined;
   }
 
   /**
    * @inheritdoc
    */
   public stopRecording(): void {
-    FullStory.shutdown();
+    fullStory('shutdown');
   }
 
   /**
    * @inheritdoc
    */
   public resumeRecording(): void {
-    FullStory.restart();
+    fullStory('restart');
   }
 
   /**

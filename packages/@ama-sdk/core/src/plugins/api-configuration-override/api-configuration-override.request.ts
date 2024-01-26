@@ -3,17 +3,15 @@ import { AsyncPluginInput, PluginRunner, RequestOptions, RequestPlugin } from '.
 /**
  *  The purpose of this plugin is to allow to send an encrypted JWT which overrides the configuration used by Digital Commerce.
  *  The plugin takes an already encoded JWT (JWS) and add it in an instance of `ama-client-facts` header.
- *
  *  @note this is the default value for the header name. It can be customized at plugin initialization time.
  */
 export class ApiConfigurationOverride implements RequestPlugin {
 
-  private jws: AsyncPluginInput<string>;
-  private headerName: string;
+  private readonly jws: AsyncPluginInput<string>;
+  private readonly headerName: string;
 
   /**
    * Initialize your plugin
-   *
    * @param jws already formed JWS (signed token)
    * @param headerName the name of the header
    */

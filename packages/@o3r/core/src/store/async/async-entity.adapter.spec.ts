@@ -50,22 +50,22 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     it('should fail requests for given ids, touching the pending when requestId passed', () => {
       const newState = testAdapter.failRequestMany(state, ['myModel1', 'myModel3'], 'test');
 
-      expect(newState.entities.myModel1!.isFailure).toBeTruthy();
-      expect(newState.entities.myModel1!.isPending).toBeFalsy(); // because 'test' request id has been removed
-      expect(newState.entities.myModel2!.isFailure).not.toBeDefined();
-      expect(newState.entities.myModel3!.isFailure).toBeTruthy();
-      expect(newState.entities.myModel3!.isPending).toBeTruthy();
+      expect(newState.entities.myModel1.isFailure).toBeTruthy();
+      expect(newState.entities.myModel1.isPending).toBeFalsy(); // because 'test' request id has been removed
+      expect(newState.entities.myModel2.isFailure).not.toBeDefined();
+      expect(newState.entities.myModel3.isFailure).toBeTruthy();
+      expect(newState.entities.myModel3.isPending).toBeTruthy();
       expect(newState.isFailure).not.toBeDefined();
     });
 
     it('should fail requests for given ids, keeping the pending when no requestId passed', () => {
       const newState = testAdapter.failRequestMany(state, ['myModel1', 'myModel3']);
 
-      expect(newState.entities.myModel1!.isFailure).toBeTruthy();
-      expect(newState.entities.myModel1!.isPending).toBeTruthy(); // we still have one request id
-      expect(newState.entities.myModel2!.isFailure).not.toBeDefined();
-      expect(newState.entities.myModel3!.isFailure).toBeTruthy();
-      expect(newState.entities.myModel3!.isPending).toBeTruthy();
+      expect(newState.entities.myModel1.isFailure).toBeTruthy();
+      expect(newState.entities.myModel1.isPending).toBeTruthy(); // we still have one request id
+      expect(newState.entities.myModel2.isFailure).not.toBeDefined();
+      expect(newState.entities.myModel3.isFailure).toBeTruthy();
+      expect(newState.entities.myModel3.isPending).toBeTruthy();
     });
 
     it('should touch the global failure state if ids are not matching, keeping is pending if no requestId is passed', () => {
@@ -109,7 +109,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(newState.ids.length).toBe(1);
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
-      const newEntity = newState.entities[model4.id]!;
+      const newEntity = newState.entities[model4.id];
 
       expect(newEntity.isPending).toBeTruthy();
       expect(newEntity.isFailure).toBeFalsy();
@@ -121,20 +121,20 @@ describe('createEntityAsyncRequestAdapter tests', () => {
     it('should add requests for given ids with the given requestId', () => {
       const newState = testAdapter.addRequestMany(state, ['myModel1', 'myModel3'], 'testCustom');
 
-      expect(newState.entities.myModel1!.isFailure).not.toBeDefined();
-      expect(newState.entities.myModel1!.isPending).toBeTruthy();
-      expect(newState.entities.myModel1!.requestIds).toEqual(['test', 'testCustom']);
-      expect(newState.entities.myModel2!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel3!.isPending).toBeTruthy();
+      expect(newState.entities.myModel1.isFailure).not.toBeDefined();
+      expect(newState.entities.myModel1.isPending).toBeTruthy();
+      expect(newState.entities.myModel1.requestIds).toEqual(['test', 'testCustom']);
+      expect(newState.entities.myModel2.isPending).not.toBeDefined();
+      expect(newState.entities.myModel3.isPending).toBeTruthy();
       expect(newState.isPending).not.toBeDefined();
     });
 
     it('should do nothing if the ids passed don;t have corresponding entities', () => {
       const newState = testAdapter.addRequestMany(state, ['myModel4', 'myModel5'], 'testCustom');
 
-      expect(newState.entities.myModel1!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel2!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel3!.isPending).not.toBeDefined();
+      expect(newState.entities.myModel1.isPending).not.toBeDefined();
+      expect(newState.entities.myModel2.isPending).not.toBeDefined();
+      expect(newState.entities.myModel3.isPending).not.toBeDefined();
       expect(newState.isPending).not.toBeDefined();
     });
   });
@@ -146,7 +146,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
       expect(newState.requestIds.length).toBe(0);
-      const entity = newState.entities[model4.id]!;
+      const entity = newState.entities[model4.id];
 
       expect(entity).toBeDefined();
       expect(entity.isPending).toBeFalsy();
@@ -161,7 +161,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
       expect(newState.requestIds.length).toBe(0);
-      const entity = newState.entities[model4.id]!;
+      const entity = newState.entities[model4.id];
 
       expect(entity).toBeDefined();
       expect(entity.isPending).toBeFalsy();
@@ -178,7 +178,7 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       expect(newState.isPending).toBeFalsy();
       expect(newState.isFailure).toBeFalsy();
       expect(newState.requestIds.length).toBe(0);
-      const entity = newState.entities[modelWithOtherId1.customId]!;
+      const entity = newState.entities[modelWithOtherId1.customId];
 
       expect(entity).toBeDefined();
       expect(entity.isPending).toBeFalsy();
@@ -194,12 +194,12 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       const payloadEntities = [{id: 'myModel1', a: 100}, {id: 'myModel3', b: 200}];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities, 'test');
 
-      expect(newState.entities.myModel1!.isPending).toBeFalsy(); // because 'test' request id has been removed
-      expect(newState.entities.myModel1!.a).toBe(100);
-      expect(newState.entities.myModel1!.isFailure).not.toBeDefined();
-      expect(newState.entities.myModel2!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel3!.isPending).toBeTruthy(); // one request id left in the list
-      expect(newState.entities.myModel3!.b).toBe(200);
+      expect(newState.entities.myModel1.isPending).toBeFalsy(); // because 'test' request id has been removed
+      expect(newState.entities.myModel1.a).toBe(100);
+      expect(newState.entities.myModel1.isFailure).not.toBeDefined();
+      expect(newState.entities.myModel2.isPending).not.toBeDefined();
+      expect(newState.entities.myModel3.isPending).toBeTruthy(); // one request id left in the list
+      expect(newState.entities.myModel3.b).toBe(200);
       expect(newState.isPending).not.toBeDefined();
     });
 
@@ -207,22 +207,22 @@ describe('createEntityAsyncRequestAdapter tests', () => {
       const payloadEntities = [{id: 'myModel1', a: 100}, {id: 'myModel3', b: 200}];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities);
 
-      expect(newState.entities.myModel1!.isPending).toBe(true);
-      expect(newState.entities.myModel1!.a).toBe(100);
-      expect(newState.entities.myModel2!.isFailure).not.toBeDefined();
-      expect(newState.entities.myModel2!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel3!.isFailure).toBe(undefined);
-      expect(newState.entities.myModel3!.isPending).toBe(true);
-      expect(newState.entities.myModel3!.b).toBe(200);
+      expect(newState.entities.myModel1.isPending).toBe(true);
+      expect(newState.entities.myModel1.a).toBe(100);
+      expect(newState.entities.myModel2.isFailure).not.toBeDefined();
+      expect(newState.entities.myModel2.isPending).not.toBeDefined();
+      expect(newState.entities.myModel3.isFailure).toBe(undefined);
+      expect(newState.entities.myModel3.isPending).toBe(true);
+      expect(newState.entities.myModel3.b).toBe(200);
     });
 
     it('should do nothing if the ids of corresponding entities passed don;t have correspondings in the store', () => {
       const payloadEntities = [{id: 'myModel4', a: 100}, {id: 'myModel5', b: 200}];
       const newState = testAdapter.resolveRequestMany(state, payloadEntities, 'testCustom');
 
-      expect(newState.entities.myModel1!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel2!.isPending).not.toBeDefined();
-      expect(newState.entities.myModel3!.isPending).not.toBeDefined();
+      expect(newState.entities.myModel1.isPending).not.toBeDefined();
+      expect(newState.entities.myModel2.isPending).not.toBeDefined();
+      expect(newState.entities.myModel3.isPending).not.toBeDefined();
       expect(newState.isPending).not.toBeDefined();
     });
 
@@ -238,9 +238,9 @@ describe('createEntityAsyncRequestAdapter tests', () => {
         {customId: modelWithOtherId1.customId, a: 502, b: 997}
       ], 'request', 'customId');
 
-      expect(newState.entities.myModel1!.isPending).toBeFalsy();
-      expect(newState.entities.myModel2!.isPending).toBeTruthy();
-      expect(newState.entities.myModel3!.isPending).toBeTruthy();
+      expect(newState.entities.myModel1.isPending).toBeFalsy();
+      expect(newState.entities.myModel2.isPending).toBeTruthy();
+      expect(newState.entities.myModel3.isPending).toBeTruthy();
       expect(newState.isPending).toBeFalsy();
     });
   });

@@ -1,5 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getProjectNewDependenciesType } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getProjectNewDependenciesType } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 
@@ -7,7 +7,7 @@ import type { NgAddSchematicsSchema } from './schema';
  * Add Otter mobile to an Angular Project
  * @param options ng add options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
@@ -37,3 +37,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter mobile to an Angular Project
+ * @param options ng add options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

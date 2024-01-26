@@ -221,7 +221,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
     }
   }
-  private makeInterceptorFor = (_instance: string) => (hookName: string) => ({
+  private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;
       const newFn =

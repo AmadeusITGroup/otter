@@ -1,9 +1,12 @@
 @use '@design-factory/design-factory' with (
   $prefix: bs-,
-  $df-spinner-circumference: 2rem
+  $df-spinner-circumference: 2rem,
+  $font-path: '@design-factory/design-factory/assets/fonts',
+  $df-scrollspy-color: var(--bs-scrollspy-color)
 );
 @use "bootstrap-icons/font/bootstrap-icons";
 @import "highlight.js/styles/github.css";
+@import "./style/theme.scss";
 
 code {
   font-family: 'Consolas', monospace;

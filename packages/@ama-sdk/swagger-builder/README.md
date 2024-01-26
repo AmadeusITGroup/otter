@@ -9,8 +9,8 @@ This will make it possible to implement extensions of Swagger specification or t
 
 Usage of the tools is explained via the `--help` option :
 
-```bash
-$ npx @ama-sdk/swagger-build --help
+```shell
+npx @ama-sdk/swagger-build --help
 
 # Usage: swagger-build [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 
@@ -103,6 +103,6 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 
 A code generator is provided to generate an API specification extension.
 
-```bash
+```shell
 yarn yo @ama-sdk/sdk:api-extension
 ```

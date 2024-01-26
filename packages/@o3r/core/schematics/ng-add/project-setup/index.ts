@@ -20,7 +20,7 @@ import {
   renamedPackagesV7toV8,
   updateImports
 } from '@o3r/schematics';
-import { NgAddSchematicsSchema } from '../schema';
+import type { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';
@@ -46,14 +46,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(projectType === 'application' ? ['@o3r/application'] : []),
-    ...(options.enableApisManager && !!projectType ? ['@o3r/apis-manager'] : []),
-    ...(options.enableRulesEngine && !!projectType ? ['@o3r/rules-engine'] : []),
-    ...(options.enableStyling && !!projectType ? ['@o3r/styling'] : []),
-    ...(options.enableAnalytics && !!projectType ? ['@o3r/analytics'] : []),
-    ...(options.enableConfiguration ? ['@o3r/configuration'] : []),
-    ...(options.enableLocalization ? ['@o3r/localization'] : []),
-    ...(options.enableCustomization ? ['@o3r/components', '@o3r/configuration'] : []),
-    ...(options.enableStorybook ? ['@o3r/storybook'] : []),
     ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
     ...depsInfo.o3rPeerDeps
   ]));

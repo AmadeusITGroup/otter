@@ -1,6 +1,6 @@
 import {strings} from '@angular-devkit/core';
 import {apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url} from '@angular-devkit/schematics';
-import {applyEsLintFix, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson} from '@o3r/schematics';
+import {applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson} from '@o3r/schematics';
 import * as path from 'node:path';
 import {ExtraFormattedProperties} from '../common/helpers';
 import {NgGenerateSimpleSyncStoreSchematicsSchema} from './schema';
@@ -10,7 +10,7 @@ import {NgGenerateSimpleSyncStoreSchematicsSchema} from './schema';
  *
  * @param options
  */
-export function ngGenerateSimpleSyncStore(options: NgGenerateSimpleSyncStoreSchematicsSchema): Rule {
+function ngGenerateSimpleSyncStoreFn(options: NgGenerateSimpleSyncStoreSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
@@ -65,3 +65,5 @@ export function ngGenerateSimpleSyncStore(options: NgGenerateSimpleSyncStoreSche
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+export const ngGenerateSimpleSyncStore = createSchematicWithMetricsIfInstalled(ngGenerateSimpleSyncStoreFn);

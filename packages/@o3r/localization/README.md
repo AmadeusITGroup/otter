@@ -371,8 +371,6 @@ constructor(private router: Router,
 
 ### How to add RTL support in my app
 
-- Note:  **TextDirectionDirective** is deprecated. Please refer to **TextDirectionService**.
-
 The **TextDirectionService** has to be injected in `app.component.ts` as follows.
 
 ```typescript

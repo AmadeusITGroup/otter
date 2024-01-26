@@ -6,7 +6,6 @@ import * as path from 'node:path';
 import * as ts from 'typescript';
 import {ComponentClassExtractor, ComponentInformation} from './component-class.extractor';
 import {ComponentConfigExtractor, ConfigurationInformationWrapper} from './component-config.extractor';
-import {ComponentModuleExtractor, ModuleInformation} from './component-module.extractor';
 
 /** Output of a file parsing */
 export interface FileParserOutput {
@@ -18,9 +17,6 @@ export interface FileParserOutput {
 
   /** Configuration extracted for the file */
   configuration?: ConfigurationInformationWrapper;
-
-  /** Module extracted for the file */
-  module?: ModuleInformation;
 }
 
 /** @inheritdoc */
@@ -35,15 +31,6 @@ export interface FileParserOutputConfiguration extends FileParserOutput {
   configuration: ConfigurationInformationWrapper;
 }
 
-/**
- * @inheritdoc
- * @deprecated will be removed in v10
- */
-export interface FileParserOutputModule extends FileParserOutput {
-  /** @inheritdoc */
-  module: ModuleInformation;
-}
-
 /** Output of the parser */
 export interface ParserOutput {
   /** List of components parsed */
@@ -51,12 +38,6 @@ export interface ParserOutput {
 
   /** List of configuration parsed */
   configurations: { [file: string]: FileParserOutputConfiguration };
-
-  /**
-   * List of modules parsed
-   * @deprecated will be removed in v10
-   */
-  modules: { [file: string]: FileParserOutputModule };
 }
 
 /**
@@ -73,12 +54,12 @@ export class ComponentParser {
    * @param globalConfigCategories
    */
   constructor(
-    private libraryName: string,
-    private tsconfigPath: string,
-    private logger: logging.LoggerApi,
-    private strictMode: boolean = false,
-    private libraries: string[] = [],
-    private globalConfigCategories: CategoryDescription[] = []
+    private readonly libraryName: string,
+    private readonly tsconfigPath: string,
+    private readonly logger: logging.LoggerApi,
+    private readonly strictMode: boolean = false,
+    private readonly libraries: string[] = [],
+    private readonly globalConfigCategories: CategoryDescription[] = []
   ) {}
 
   /** Get the list of patterns from tsconfig.json */
@@ -162,19 +143,7 @@ export class ComponentParser {
   }
 
   /**
-   * Extract a module of a given file
-   *
-   * @param file Path to the file to extract the component from
-   * @param source Typescript SourceFile node of the file
-   * @deprecated will be removed in v10
-   */
-  private getModule(file: string, source: ts.SourceFile) {
-    const moduleExtractor = new ComponentModuleExtractor(source, this.logger, file);
-    return moduleExtractor.extract();
-  }
-
-  /**
-   * Extract the Components and Configurations and modules implemented in each files from tsconfig
+   * Extract the Components and Configurations implemented in each files from tsconfig
    *
    */
   public async parse(): Promise<ParserOutput> {
@@ -184,10 +153,9 @@ export class ComponentParser {
 
     const components: { [file: string]: FileParserOutputComponent } = {};
     const configurations: { [file: string]: FileParserOutputConfiguration } = {};
-    const modules: { [file: string]: FileParserOutputModule } = {};
 
     // Here for each file we will go through all the extractors because we can't rely on file pattern only
-    // We need to perform some logic before figuring out if we are dealing with a config, component or module
+    // We need to perform some logic before figuring out if we are dealing with a config or component
     // This approach allow to support the configuration in the same file that the component (not recommended)
     filePaths.forEach((filePath) => {
       this.logger.debug(`Parsing ${filePath}`);
@@ -201,13 +169,9 @@ export class ComponentParser {
         if (componentFromSource) {
           components[filePath] = {component: componentFromSource, file: filePath};
         }
-        const moduleFromSource = this.getModule(filePath, source);
-        if (moduleFromSource) {
-          modules[filePath] = {module: moduleFromSource, file: filePath};
-        }
       }
     });
 
-    return {components, configurations, modules};
+    return {components, configurations};
   }
 }

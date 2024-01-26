@@ -13,7 +13,6 @@ export interface ApiClient {
 
   /**
    * Returns a map containing the query parameters
-   *
    * @param data
    * @param names
    */
@@ -25,7 +24,6 @@ export interface ApiClient {
 
   /**
    * prepares the url to be called
-   *
    * @param url base url to be used
    * @param queryParameters key value pair with the parameters. If the value is undefined, the key is dropped
    */
@@ -35,7 +33,6 @@ export interface ApiClient {
   /**
    * Returns tokenized request options:
    * URL/query parameters for which sensitive parameters are replaced by tokens and the corresponding token-value associations
-   *
    * @param tokenizedUrl URL for which parameters containing PII have been replaced by tokens
    * @param queryParameters Original query parameters
    * @param piiParamTokens Tokens of the parameters containing PII
@@ -57,7 +54,6 @@ export interface ApiClient {
 
 /**
  * Check if the object is an Api Client object
- *
  * @param client object to check
  */
 export function isApiClient(client: any): client is ApiClient {

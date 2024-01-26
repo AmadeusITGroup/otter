@@ -8,7 +8,6 @@ export class Validator implements PostProcess {
 
   /**
    * Create a copy of the given Swagger Spec
-   *
    * @param currentNode Current node
    */
   private async copy(currentNode: any): Promise<any> {

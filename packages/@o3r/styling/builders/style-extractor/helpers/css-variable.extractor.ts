@@ -29,9 +29,9 @@ interface SassCalculation extends Value {
  * CSS Variable extractor
  */
 export class CssVariableExtractor {
-  private cache: Record<string, URL> = {};
+  private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private builderOptions?: StyleExtractorBuilderSchema) {
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
 
   }
 

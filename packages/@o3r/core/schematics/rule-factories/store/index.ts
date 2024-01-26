@@ -1,53 +1,76 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import * as ts from 'typescript';
-import { getDecoratorMetadata, isImported } from '@schematics/angular/utility/ast-utils';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as path from 'node:path';
-
 import {
   getAppModuleFilePath,
+  getModuleIndex,
+  getWorkspaceConfig,
   isApplicationThatUsesRouterModule,
+  ngAddPackages,
   ngAddPeerDependencyPackages,
-  addImportToModuleFile as o3rAddImportToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
 import { WorkspaceProject } from '@o3r/schematics';
+import { addRootImport } from '@schematics/angular/utility';
+import { isImported } from '@schematics/angular/utility/ast-utils';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import * as path from 'node:path';
+import * as ts from 'typescript';
+import * as fs from 'node:fs';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
 const ngrxEffectsDep = '@ngrx/effects';
 const ngrxEntityDep = '@ngrx/entity';
 const ngrxStoreDep = '@ngrx/store';
-/** @deprecated to be removed in v10 */
-const ngrxStoreLocalstorageDep = 'ngrx-store-localstorage';
 const ngrxRouterStore = '@ngrx/router-store';
 const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
+// TODO Remove this explicit dependency when correctly brought by the ng-add of @o3r/store-sync
+const fastDeepEqualDep = 'fast-deep-equal';
 
 /**
  * Add Redux Store support
- *
  * @param options @see RuleFactory.options
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
+ * @param options.workingDirectory
  * @param projectType
  */
 export function updateStore(options: { projectName?: string | undefined; workingDirectory?: string | undefined}, projectType?: WorkspaceProject['projectType']): Rule {
+
+  const addStoreModules: Rule = (tree) => {
+    const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
+    const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', 'package.json');
+    const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
+    const o3rCoreVersion = corePackageJsonContent.version;
+    const workspaceConfig = getWorkspaceConfig(tree);
+    const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
+    const projectDirectory = workspaceProject?.root;
+
+    return ngAddPackages(['@o3r/store-sync'],
+      {
+        skipConfirmation: true,
+        version: o3rCoreVersion,
+        parentPackageInfo: '@o3r/core - setup',
+        projectName: options.projectName,
+        dependencyType: NodeDependencyType.Default,
+        workingDirectory: projectDirectory
+      }
+    );
+  };
+
   /**
    * Changed package.json start script to run localization generation
-   *
    * @param tree
    * @param context
    */
   const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const type = projectType === 'library' ? NodeDependencyType.Peer : NodeDependencyType.Default;
 
-    const appDeps = [ngrxEffectsDep, ngrxRouterStoreDevToolDep];
-    const corePeerDeps = [ngrxEntityDep, ngrxStoreDep, ngrxStoreLocalstorageDep];
+    const appDeps = [ngrxEffectsDep, ngrxRouterStore, ngrxRouterStoreDevToolDep, fastDeepEqualDep];
+    const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     let dependenciesList = [...corePeerDeps];
 
     if (projectType === 'application') {
       dependenciesList = [...dependenciesList, ...appDeps];
-      dependenciesList = isApplicationThatUsesRouterModule(tree, options) ? [...dependenciesList, ngrxRouterStore] : dependenciesList;
     }
 
 
@@ -63,11 +86,11 @@ export function updateStore(options: { projectName?: string | undefined; working
 
   /**
    * Edit main module with the translation required configuration
-   *
    * @param tree
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -87,11 +110,11 @@ export function updateStore(options: { projectName?: string | undefined; working
     }
 
     let recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+    const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
-      recorder = o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       recorder = o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
@@ -109,7 +132,7 @@ export function updateStore(options: { projectName?: string | undefined; working
       '.forRoot(rootReducers, {metaReducers, runtimeChecks})'
     );
 
-    insertImportToModuleFile('StorageSync', '@o3r/core');
+    insertImportToModuleFile('StorageSync', '@o3r/store-sync');
     insertImportToModuleFile('RuntimeChecks', '@ngrx/store');
     insertImportToModuleFile('Serializer', '@o3r/core');
     insertImportToModuleFile('environment', '../environments/environment');
@@ -145,11 +168,11 @@ const runtimeChecks: Partial<RuntimeChecks> = {
 
     tree.commitUpdate(recorder);
 
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   return chain([
-    ...(projectType === 'application' ? [registerModules] : []),
+    ...(projectType === 'application' ? [registerModules, addStoreModules] : []),
     updatePackageJson
   ]);
 }

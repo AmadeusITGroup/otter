@@ -1,12 +1,13 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
-import { NgAddSchematicsSchema } from './schema';
+import type { NgAddSchematicsSchema } from './schema';
 
 /**
  * Add Otter storybook to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
@@ -31,3 +32,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter storybook to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

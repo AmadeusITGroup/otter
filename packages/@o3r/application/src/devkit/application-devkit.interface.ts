@@ -27,13 +27,11 @@ export interface ApplicationInformation {
   appVersion: string;
   /**
    * Session Information
-   *
    * @note This is a session ID will be provided only with the Amadeus Otter implementation of the application package.
    */
   session?: SessionInformation;
   /**
    * Log Link
-   *
    * @note This a link to Alf logs, it will be provided only with the Amadeus Otter implementation of the application package.
    */
   logLink?: string;
@@ -67,7 +65,6 @@ export type AvailableApplicationMessageContents =
 
 /**
  * Determine if the given message is a Application message
- *
  * @param message message to check
  */
 export const isApplicationMessage = (message: any): message is AvailableApplicationMessageContents => {

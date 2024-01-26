@@ -17,7 +17,7 @@
     "build": "yarn nx build eslint-plugin",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy './collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
@@ -32,49 +32,54 @@
     },
     "jsonc-eslint-parser": {
       "optional": true
+    },
+    "yaml-eslint-parser": {
+      "optional": true
     }
   },
   "peerDependencies": {
-    "@angular-eslint/template-parser": "~16.3.0",
-    "@angular-eslint/utils": "~16.3.0",
-    "@angular/compiler": "~16.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
+    "@angular-eslint/template-parser": "~17.2.0",
+    "@angular-eslint/utils": "~17.2.0",
+    "@angular/compiler": "~17.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.11.0",
+    "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.22.0",
-    "jsonc-eslint-parser": "~2.4.0"
+    "jsonc-eslint-parser": "~2.4.0",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~16.2.0",
-    "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@angular-eslint/template-parser": "~16.3.0",
-    "@angular-eslint/utils": "~16.3.0",
-    "@angular/compiler": "~16.2.0",
+    "@angular-devkit/core": "~17.0.3",
+    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@angular-eslint/template-parser": "~17.2.0",
+    "@angular-eslint/utils": "~17.2.0",
+    "@angular/compiler": "~17.0.4",
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/eslint-plugin": "~16.10.0",
-    "@nx/jest": "~16.10.0",
+    "@nx/eslint-plugin": "~17.2.0",
+    "@nx/jest": "~17.2.0",
     "@o3r/build-helpers": "workspace:^",
     "@types/jest": "~29.5.2",
-    "@types/node": "^18.0.0",
+    "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
-    "cpy-cli": "^4.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.19.0",
+    "@typescript-eslint/parser": "^6.11.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "eslint-plugin-jsdoc": "~48.0.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^50.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~16.10.0",
+    "nx": "~17.2.0",
     "rimraf": "^5.0.1",
     "ts-jest": "~29.1.1",
-    "type-fest": "^3.12.0",
-    "typescript": "~5.1.6"
+    "type-fest": "^4.3.1",
+    "typescript": "~5.2.2",
+    "yaml-eslint-parser": "^1.2.2"
   },
   "schematics": "./collection.json"
 }

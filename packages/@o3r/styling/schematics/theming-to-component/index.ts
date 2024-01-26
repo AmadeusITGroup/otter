@@ -11,7 +11,7 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { O3rCliError } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, O3rCliError } from '@o3r/schematics';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import { basename, dirname } from 'node:path';
 import type { NgAddThemingSchematicsSchema } from './schema';
@@ -31,10 +31,9 @@ const checkTheming = (stylePath: string, tree: Tree) => {
 
 /**
  * Add theming to an existing component
- *
  * @param options
  */
-export function ngAddTheming(options: NgAddThemingSchematicsSchema): Rule {
+export function ngAddThemingFn(options: NgAddThemingSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
     const stylePath = options.path;
 
@@ -64,3 +63,9 @@ export function ngAddTheming(options: NgAddThemingSchematicsSchema): Rule {
     ])(tree, context);
   };
 }
+
+/**
+ * Add theming to an existing component
+ * @param options
+ */
+export const ngAddTheming = createSchematicWithMetricsIfInstalled(ngAddThemingFn);

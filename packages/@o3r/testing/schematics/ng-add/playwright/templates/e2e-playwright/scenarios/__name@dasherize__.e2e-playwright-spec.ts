@@ -11,6 +11,7 @@ export class <%= classify(scenarioName) %> extends BaseScenario {
     });
   }
 
+  /** @inheritDoc */
   public performFlow() {
     this.<%= camelize(scenarioName) %>();
   }

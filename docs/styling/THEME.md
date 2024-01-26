@@ -256,7 +256,7 @@ as a parameter:
 ```scss
 // _styling.scss
 @use '@angular/material' as mat;
-@use '@o3r/styling' as o3r;
+@use '@o3r/styling/otter-theme' as otter-theme;
 
 $primary: mat.$mat-indigo;
 $highlight: mat.$mat-pink, A200, A100, A400;
@@ -267,13 +267,13 @@ $candy-app-primary: mat.palette(mat.$mat-indigo);
 $candy-app-accent:  mat.palette(mat.$mat-pink, A200, A100, A400);
 
 // Generate Meta Theme
-$candy-meta-theme: o3r.generate-otter-theme($primary: $candy-app-primary, $highlight: $candy-app-accent);
+$candy-meta-theme: otter-theme.generate-otter-theme($primary: $candy-app-primary, $highlight: $candy-app-accent);
 
 // Convert Meta theme to Material Design Theme
-$candy-mat-theme: o3r.meta-theme-to-material($candy-meta-theme) !default;
+$candy-mat-theme: otter-theme.meta-theme-to-material($candy-meta-theme) !default;
 
 // Convert Meta theme to Otter Theme
-$candy-theme: o3r.meta-theme-to-otter($candy-meta-theme) !default;
+$candy-theme: otter-theme.meta-theme-to-otter($candy-meta-theme) !default;
 ```
 
 ```scss
@@ -357,26 +357,33 @@ This will allow a component level customization.
 
 ```
 
-#### Access to theme properties
+#### Access to variables
 
 `@o3r/styling` provides functions to access the theme variables.
 The principal functions are the following:
 
 * **o3r.get-mandatory**: similar to [map-get](https://sass-lang.com/documentation/modules/map#get) from native SCSS but will fail at build time if the variable is not accessible in the map. This is useful to access to `$theme` sub nodes.
 * **o3r.var(*`<css-var-name>`*, *`<default-value>`*)**: *(alias: o3r.variable)* helper function that will generate and return a css-variable accessor (ex: `or3.variable('my-var', #000)` will generate `var(--my-var, #000)`). The purpose is to allow the override of a component variable global css-var.
-* **o3r.color(*`<theme-palette>`*, *`<value>`*)**: *(deprecated)* similar to [mat-color](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.color($primary-palette, 500)` will generate `var('--primary-color-500', #050)`).
-* **o3r.contrast(*`<theme-palette>`*, *`<value>`*)**: *(deprecated)* similar to [mat-contrast](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `o3r.contrast($primary-palette, 500)` will generate `var('--primary-color-contrast-500', #505)`).
+
+#### Access to Otter theme properties
+
+`@o3r/styling/otter-theme` provides functions to access the theme variables.
+The principal functions are the following:
+
+* **otter-theme.color(*`<theme-palette>`*, *`<value>`*)**: similar to [mat-color](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `otter-theme.color($primary-palette, 500)` will generate `var('--primary-color-500', #050)`).
+* **otter-theme.contrast(*`<theme-palette>`*, *`<value>`*)**: similar to [mat-contrast](https://material.angular.io/guide/theming-your-components), it will retrieve the color from the theme palette. Instead of printing directly the color, the function will generate a css-var (ex: `otter-theme.contrast($primary-palette, 500)` will generate `var('--primary-color-contrast-500', #505)`).
 
 ```scss
 //file: ./my-component-pres.style.theme.scss
 
 @use '@o3r/styling' as o3r;
+@use '@o3r/styling/otter-theme' as otter-theme;
 
 // Will fail if $theme is not generated
 $primary-palette: o3r.get-mandatory($theme, 'primary');
 
-$page-title-color: o3r.var('page-manage-title-color', o3r.color($palette-highlight, 500));
-$page-title-background: o3r.var('page-manage-background', o3r.contrast($palette-highlight, 200));
+$page-title-color: o3r.var('page-manage-title-color', otter-theme.color($palette-highlight, 500));
+$page-title-background: o3r.var('page-manage-background', otter-theme.contrast($palette-highlight, 200));
 ```
 
 ### Style Override

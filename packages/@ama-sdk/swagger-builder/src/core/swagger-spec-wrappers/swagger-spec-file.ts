@@ -30,7 +30,6 @@ export abstract class SwaggerSpecFile implements SwaggerSpec {
 
   /**
    * Convert the reference relative paths to absolute paths
-   *
    * @param currentNode Node to inspect in the Swagger spec object
    * @param field Field of the node
    */

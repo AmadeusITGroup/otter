@@ -1,28 +1,28 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
+  createSchematicWithMetricsIfInstalled,
   findFirstNodeOfKind,
   getAppModuleFilePath,
+  getModuleIndex,
   getPackageManagerRunner,
   getProjectNewDependenciesType,
   getTemplateFolder,
   getWorkspaceConfig,
   ignorePatterns,
   ngAddPeerDependencyPackages,
-  addImportToModuleFile as o3rAddImportToModuleFile,
-  addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile,
   readPackageJson,
   writeAngularJson
 } from '@o3r/schematics';
-import * as ts from 'typescript';
 import {
-  getDecoratorMetadata,
   insertImport,
   isImported
 } from '@schematics/angular/utility/ast-utils';
+import { addRootImport, addRootProvider } from '@schematics/angular/utility';
 import { InsertChange } from '@schematics/angular/utility/change';
 import * as path from 'node:path';
+import * as ts from 'typescript';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 const ngxTranslateCoreDep = '@ngx-translate/core';
@@ -243,6 +243,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -261,18 +262,20 @@ export function updateLocalization(options: { projectName?: string | null | unde
     }
 
     const recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
     const appModuleFile = tree.read(moduleFilePath)!.toString();
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : appModuleFile.indexOf('@NgModule');
+    const { moduleIndex } = getModuleIndex(sourceFile, appModuleFile);
 
-    const addImportToModuleFile = (name: string, file: string, moduleFunction: string) =>
-      o3rAddImportToModuleFile(name, file, sourceFile, appModuleFile, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
-    const addProviderToModuleFile = (name: string, file: string, customProvider?: string) =>
-      o3rAddProviderToModuleFile(name, file, sourceFile, appModuleFile, context, recorder, moduleFilePath, moduleIndex, customProvider);
+    const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
+      addRootProvider(options.projectName!, ({code, external}) =>
+        code`{provide: ${external(name, file)}, ${customProvider}}`)
+    );
 
     const insertBeforeModule = (line: string) => o3rInsertBeforeModule(line, appModuleFile, recorder, moduleIndex);
 
@@ -311,14 +314,14 @@ export function updateLocalization(options: { projectName?: string | null | unde
   };
 }`);
 
-    addProviderToModuleFile('MESSAGE_FORMAT_CONFIG', '@o3r/localization', '{provide: MESSAGE_FORMAT_CONFIG, useValue: {}}');
+    addProviderToModuleFile('MESSAGE_FORMAT_CONFIG', '@o3r/localization', 'useValue: {}');
 
     tree.commitUpdate(recorder);
     if (!isImported(sourceFile, 'environment', '../environments/environment')) {
       insertImportToModuleFile('environment', '../environments/environment');
     }
 
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   /**
@@ -328,7 +331,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const setDefaultLanguage: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentFilePath = moduleFilePath && moduleFilePath.replace(/\.module\.ts$/i, '.component.ts');
+    const componentFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.ts');
 
     if (!(componentFilePath && tree.exists(componentFilePath))) {
       context.logger.warn(`File ${componentFilePath!} not found, the default language won't be set`);
@@ -389,7 +392,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
    */
   const addMockTranslationModule: Rule = (tree: Tree, context: SchematicContext) => {
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
-    const componentSpecFilePath = moduleFilePath && moduleFilePath.replace(/\.module\.ts$/i, '.component.spec.ts');
+    const componentSpecFilePath = moduleFilePath && moduleFilePath.replace(/\.(?:module|config)\.ts$/i, '.component.spec.ts');
 
     if (!(componentSpecFilePath && tree.exists(componentSpecFilePath))) {
       return tree;
@@ -472,7 +475,7 @@ export function updateLocalization(options: { projectName?: string | null | unde
  * @param options
  * @param options.projectName
  */
-export function updateI18n(options: {projectName?: string | undefined}): Rule {
+function updateI18nFn(options: {projectName?: string | undefined}): Rule {
   if (!options.projectName) {
     return noop;
   }
@@ -513,3 +516,5 @@ export function updateI18n(options: {projectName?: string | undefined}): Rule {
     updateAngularJson
   ]);
 }
+
+export const updateI18n = createSchematicWithMetricsIfInstalled(updateI18nFn);

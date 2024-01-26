@@ -1,6 +1,6 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import type { ComponentConfigOutput } from '@o3r/components';
-import { CmsMedataData, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
+import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
@@ -14,7 +14,6 @@ export * from './schema';
 
 /**
  * Get the library name from package.json
- *
  * @param currentDir
  */
 export const defaultLibraryName = (currentDir: string = process.cwd()): string => {
@@ -27,7 +26,6 @@ const STEP_NUMBER = 5;
 
 /**
  * Ensure that all tuple (library,name) are unique
- *
  * @param configurations
  * @param strictMode
  */
@@ -49,7 +47,7 @@ function checkUniquenessLibraryAndName(configurations: ComponentConfigOutput[], 
   }
 }
 
-export default createBuilder<ComponentExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   const execute = async (): Promise<BuilderOutput> => {
@@ -140,7 +138,6 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
 
   /**
    * Run a component metadata generation and report the result
-   *
    * @param filename File that has changed and requires a regeneration
    */
   const generateWithReport = async () => {
@@ -157,19 +154,20 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
 
   /**
    * Watch file change in current code and libraries metadata
-   *
    * @param libraries Libraries to watch
    */
   const watchFiles = (libraries: string[]): chokidar.FSWatcher => {
     // TODO find a better way to watch files
     const simpleGlobConfigurationFiles = path.resolve(context.currentDirectory, options.filePattern).replace(/[\\/]/g, '/');
     // Get metadata file for each library
-    const metadataFiles: CmsMedataData[] = libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
+    const metadataFiles: CmsMetadataData[] = libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
     const componentMetadataFiles = metadataFiles
       .filter(({ componentFilePath }) => !!componentFilePath)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       .map(({ componentFilePath }) => componentFilePath!.replace(/[\\/]/g, '/'));
     const configurationMetadataFiles = metadataFiles
       .filter(({ configurationFilePath }) => !!configurationFilePath)
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       .map(({ configurationFilePath }) => configurationFilePath!.replace(/[\\/]/g, '/'));
 
     return chokidar.watch([...componentMetadataFiles, ...configurationMetadataFiles, simpleGlobConfigurationFiles]);
@@ -201,4 +199,4 @@ export default createBuilder<ComponentExtractorBuilderSchema>(async (options, co
         .on('error', (err) => reject(err))
     );
   }
-});
+}));

@@ -12,7 +12,7 @@ const o3rVersion = '999.0.0';
 const execAppOptions = getDefaultExecSyncOptions();
 let appFolderPath: string;
 
-describe.skip('new otter application with Design', () => {
+describe('new otter application with Design', () => {
   setupLocalRegistry();
   beforeAll(async () => {
     appFolderPath = await prepareTestEnv(appName, 'angular-with-o3r-core');

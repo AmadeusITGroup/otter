@@ -58,10 +58,11 @@ export interface PCloudyBaseResponse {
 
 /**
  * Response from PCloudy post api call.
- *
  * @typeParam T the specific response data type expected for the call
- * @example
- * Get application call will return the standard {@link PCloudyBaseResponse} and the application data.
- * The type shall be PCloudyResponse<{files: AppFile[]}>
+ * @example To get application call will return the standard {@link PCloudyBaseResponse} and the application data
+ * ```typescript
+ * // The type shall be
+ * PCloudyResponse<{files: AppFile[]}>
+ * ```
  */
 export type PCloudyResponse<T> = PCloudyBaseResponse & T;

@@ -1,7 +1,6 @@
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
-  packageManagerAdd,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
@@ -86,7 +85,7 @@ describe('new otter application', () => {
       // should pass the e2e tests
       packageManagerExec('ng g @o3r/testing:playwright-scenario --name=test-scenario', execAppOptions);
       packageManagerExec('ng g @o3r/testing:playwright-sanity --name=test-sanity', execAppOptions);
-      spawn(`npx http-server -p ${devServerPort} ./dist`, [], {
+      spawn(`npx http-server -p ${devServerPort} ./dist/browser`, [], {
         ...execAppOptions,
         shell: true,
         stdio: ['ignore', 'ignore', 'inherit']
@@ -110,51 +109,45 @@ describe('new otter application', () => {
 
   describe('monorepo', () => {
     beforeAll(async () => {
-      const workspacePath = await prepareTestEnv(`${appName}-monorepo`, 'angular-monorepo');
+      const workspacePath = await prepareTestEnv(`${appName}-monorepo`, 'angular-monorepo-with-o3r-core');
       appFolderPath = join(workspacePath, 'projects', 'test-app');
       execAppOptions.cwd = workspacePath;
     });
     test('should build empty app', () => {
-      // FIXME workaround for pnp
-      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, execAppOptions);
-      packageManagerAdd(`@o3r/core@${o3rVersion} @o3r/analytics@${o3rVersion}`, { ...execAppOptions, cwd: appFolderPath });
-
-      packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion}`, execAppOptions);
 
       const projectName = '--project-name=test-app';
       packageManagerExec(`ng add --skip-confirmation @o3r/core@${o3rVersion} --preset=all ${projectName}`, execAppOptions);
-      packageManagerExec(`ng add --skip-confirmation @o3r/analytics@${o3rVersion} ${projectName}`, execAppOptions);
       expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
       packageManagerExec(
         `ng g @o3r/core:store-entity-async --store-name="test-entity-async" --model-name="Bound" --model-id-prop-name="id" ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestEntityAsyncStoreModule', 'projects/test-app/src/store/test-entity-async');
+      addImportToAppModule(appFolderPath, 'TestEntityAsyncStoreModule', 'src/store/test-entity-async');
 
       packageManagerExec(
         `ng g @o3r/core:store-entity-sync --store-name="test-entity-sync" --model-name="Bound" --model-id-prop-name="id" ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestEntitySyncStoreModule', 'projects/test-app/src/store/test-entity-sync');
+      addImportToAppModule(appFolderPath, 'TestEntitySyncStoreModule', 'src/store/test-entity-sync');
 
       packageManagerExec(
         `ng g @o3r/core:store-simple-async --store-name="test-simple-async" --model-name="Bound" ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestSimpleAsyncStoreModule', 'projects/test-app/src/store/test-simple-async');
+      addImportToAppModule(appFolderPath, 'TestSimpleAsyncStoreModule', 'src/store/test-simple-async');
 
       packageManagerExec(
         `ng g @o3r/core:store-simple-sync --store-name="test-simple-sync" ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestSimpleSyncStoreModule', 'projects/test-app/src/store/test-simple-sync');
+      addImportToAppModule(appFolderPath, 'TestSimpleSyncStoreModule', 'src/store/test-simple-sync');
 
       packageManagerExec(
         `ng g @o3r/core:service test-service --feature-name="base" ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestServiceBaseModule', 'projects/test-app/src/services/test-service');
+      addImportToAppModule(appFolderPath, 'TestServiceBaseModule', 'src/services/test-service');
 
       packageManagerExec(
         `ng g @o3r/core:page test-page --app-routing-module-path="projects/test-app/src/app/app-routing.module.ts" ${projectName}`,
@@ -174,7 +167,7 @@ describe('new otter application', () => {
         `ng g @o3r/core:component test-component ${defaultOptions} ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentModule', 'projects/test-app/src/components/test-component');
+      addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
 
       const advancedOptions = [
         '--activate-dummy',
@@ -189,7 +182,7 @@ describe('new otter application', () => {
         `ng g @o3r/core:component test-component-advanced ${advancedOptions} ${projectName}`,
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestComponentAdvancedModule', 'projects/test-app/src/components/test-component-advanced');
+      addImportToAppModule(appFolderPath, 'TestComponentAdvancedModule', 'src/components/test-component-advanced');
 
       packageManagerExec(
         `ng g @o3r/core:component test-add-context-component ${defaultOptions} ${projectName}`,
@@ -199,7 +192,7 @@ describe('new otter application', () => {
         'ng g @o3r/core:add-context --path="projects/test-app/src/components/test-add-context-component/test-add-context-component.component.ts"',
         execAppOptions
       );
-      addImportToAppModule(appFolderPath, 'TestAddContextComponentModule', 'projects/test-app/src/components/test-add-context-component');
+      addImportToAppModule(appFolderPath, 'TestAddContextComponentModule', 'src/components/test-add-context-component');
 
       packageManagerExec(
         'ng g @schematics/angular:component test-ng-component --project=test-app',
@@ -215,7 +208,7 @@ describe('new otter application', () => {
       // should pass the e2e tests
       packageManagerExec(`ng g @o3r/testing:playwright-scenario --name=test-scenario ${projectName}`, execAppOptions);
       packageManagerExec(`ng g @o3r/testing:playwright-sanity --name=test-sanity ${projectName}`, execAppOptions);
-      spawn(`npx http-server -p ${devServerPort} ./projects/test-app/dist`, [], {
+      spawn(`npx http-server -p ${devServerPort} ./projects/test-app/dist/browser`, [], {
         ...execAppOptions,
         shell: true,
         stdio: ['ignore', 'ignore', 'inherit']

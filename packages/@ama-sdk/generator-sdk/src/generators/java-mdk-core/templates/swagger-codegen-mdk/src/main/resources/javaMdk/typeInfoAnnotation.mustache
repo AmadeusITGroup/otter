@@ -1,7 +1,0 @@
-{{#jackson}}
-  @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "{{discriminator}}", visible = true )
-  @JsonSubTypes({
-  {{#childrenEnums}}
-    @JsonSubTypes.Type(value = {{classname}}{{frontendModelSuffix}}.class, name = "{{classname}}"),
-  {{/childrenEnums}}
-  }){{/jackson}}

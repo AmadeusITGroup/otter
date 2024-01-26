@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
@@ -9,11 +9,11 @@ import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPa
   selector: 'o3r-localization',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     LocalizationPresComponent,
     CopyTextPresComponent,
-    IN_PAGE_NAV_PRES_DIRECTIVES
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    AsyncPipe
   ],
   templateUrl: './localization.template.html',
   styleUrls: ['./localization.style.scss'],
@@ -22,10 +22,10 @@ import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPa
 })
 export class LocalizationComponent implements AfterViewInit {
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
-  constructor(private inPageNavPresService: InPageNavPresService) {}
+  constructor(private readonly inPageNavPresService: InPageNavPresService) {}
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

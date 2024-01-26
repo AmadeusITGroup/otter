@@ -12,7 +12,6 @@ export class PostMessageInterceptor {
 
   /**
    * Executes a script in the app
-   *
    * @param methodName
    * @param {...any} args
    */
@@ -22,7 +21,6 @@ export class PostMessageInterceptor {
 
   /**
    * Executes an async script in the app
-   *
    * @param methodName
    * @param {...any} args
    */
@@ -54,7 +52,6 @@ export class PostMessageInterceptor {
 
   /**
    * Listens for post messages
-   *
    * @param conditionFn an optional boolean function that will evaluate if the message should be saved or not in the stack
    */
   public async listen(conditionFn?: ConditionFn) {
@@ -70,7 +67,6 @@ export class PostMessageInterceptor {
 
   /**
    * Get all the post messages
-   *
    * @param timeoutInterval Interval in milliseconds between two checks
    * @param retries How many retries to be executed (-1 for infinite retries)
    */

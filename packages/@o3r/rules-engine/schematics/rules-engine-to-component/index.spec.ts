@@ -33,11 +33,11 @@ describe('Enable rules-engine on component', () => {
     expect(fileContent).toMatch(/import \{.*inject.*} from '@angular\/core'/);
     expect(fileContent).toMatch(/import \{.*OnInit.*} from '@angular\/core'/);
     expect(fileContent).toMatch(/import \{.*OnDestroy.*} from '@angular\/core'/);
-    expect(fileContent).toMatch(/import \{.*computeConfigurationName.*} from '@o3r\/configuration'/);
-    expect(fileContent).toMatch(/import \{.*RulesEngineService.*} from '@o3r\/rules-engine'/);
+    expect(fileContent).toMatch(/import \{.*computeItemIdentifier.*} from '@o3r\/core'/);
+    expect(fileContent).toMatch(/import \{.*RulesEngineRunnerService.*} from '@o3r\/rules-engine'/);
     expect(fileContent).toMatch(/implements.*(?=.*OnInit)(?=.*OnDestroy).*\{/);
-    expect(fileContent).toMatch(/componentName = computeConfigurationName\('EmptyComponent', 'test-project'\)/);
-    expect(fileContent).toMatch(/rulesEngineService = inject\(RulesEngineService, \{\s*optional: true\s*}\)/);
+    expect(fileContent).toMatch(/componentName = computeItemIdentifier\('EmptyComponent', 'test-project'\)/);
+    expect(fileContent).toMatch(/rulesEngineService = inject\(RulesEngineRunnerService, \{\s*optional: true\s*}\)/);
     expect(fileContent).toMatch(/ngOnInit[^{]*\{[^}]*this.rulesEngineService.enableRuleSetFor\(this.componentName\);/m);
     expect(fileContent).toMatch(/ngOnDestroy[^{]*\{[^}]*this.rulesEngineService.disableRuleSetFor\(this.componentName\);/m);
   });
@@ -58,7 +58,7 @@ describe('Enable rules-engine on component', () => {
         template: ''
       })
       export class EmptyComponent {
-        rulesEngineService = inject(RulesEngineService);
+        rulesEngineService = inject(RulesEngineRunnerService);
       }
     `);
     const runner = new SchematicTestRunner('schematics', collectionPath);
@@ -77,7 +77,7 @@ describe('Enable rules-engine on component', () => {
         template: ''
       })
       export class EmptyComponent {
-        constructor(private rulesEngineService: RulesEngineService){};
+        constructor(private rulesEngineService: RulesEngineRunnerService){};
       }
     `);
     const runner = new SchematicTestRunner('schematics', collectionPath);

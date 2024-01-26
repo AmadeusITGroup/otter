@@ -3,7 +3,6 @@ import {NodeDependency, NodeDependencyType} from '@schematics/angular/utility/de
 
 /**
  *  Method to extract the provided package version range from a package.json file
- *
  *  @param packageNames list of package we want to retrieve the version
  *  @param packageJsonPath Path to the package.json to refer to
  *  @returns The version range value retrieved from the provided package.json file
@@ -18,7 +17,6 @@ export function getExternalDependenciesVersionRange<T extends string>(packageNam
 
 /**
  * Method used to build the list of node dependencies to be installed
- *
  * @param dependenciesVersions map of dependency and its associated required version
  * @param type node type of the dependency
  * @returns the list of node dependencies to be installed
