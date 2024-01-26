@@ -633,7 +633,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         }
 
         // We store on the model's vendor extension a parameter saying our vars have vendor extensions (hence, a dictionary)
-        if (containsExtensions == true) {
+        if (containsExtensions) {
           model.vendorExtensions.put("requireDictionary", Boolean.TRUE);
         }
       }
