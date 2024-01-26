@@ -3,7 +3,7 @@ import {
   KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, ViewContainerRef
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
-import type { BaseContextOutput, Configuration, Context, ContextInput, DynamicConfigurable, Functionify } from '@o3r/core';
+import type { BaseContextOutput, Configuration, Context, ContextInput, Functionify } from '@o3r/core';
 import { Subscription } from 'rxjs';
 
 @Directive({
@@ -25,7 +25,7 @@ export class C11nDirective<
   D extends Configuration = Configuration,
   I extends ContextInput = ContextInput,
   O extends BaseContextOutput = BaseContextOutput,
-  T extends Context<I, O> & DynamicConfigurable<D> = Context<I, O> & DynamicConfigurable<D>> implements OnChanges, OnDestroy {
+  T extends Context<I, O> = Context<I, O>> implements OnChanges, OnDestroy {
 
   /** The component information passed to the directive */
   @Input() public component!: T;

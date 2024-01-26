@@ -1,19 +1,14 @@
+import { CommonModule, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, OnChanges, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { C11nModule, C11nService } from '@o3r/components';
+import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } from '@o3r/configuration';
 import { Context, O3rComponent } from '@o3r/core';
-import { ConfigObserver } from '@o3r/configuration';
-import { ConfigurationBaseService } from '@o3r/configuration';
-import { ConfigurationObserver } from '@o3r/configuration';
-import { DynamicConfigurable } from '@o3r/configuration';
+import { Observable } from 'rxjs';
+import { DatePickerInputPresComponent, DatePickerInputPresContextInput, DatePickerInputPresContextOutput } from '../../utilities/index';
 import { COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG } from './component-replacement-pres.config';
 import { COMPONENT_REPLACEMENT_PRES_CONFIG_ID } from './component-replacement-pres.config';
 import { ComponentReplacementPresConfig } from './component-replacement-pres.config';
-import { Observable } from 'rxjs';
-import { DatePickerInputPresComponent } from '../../utilities/date-picker-input/date-picker-input-pres.component';
-import { Configuration } from '@o3r/core';
-import { DatePickerInputPresContextInput, DatePickerInputPresContextOutput } from '../../utilities/date-picker-input/date-picker-input-pres.context';
-import { C11nModule, C11nService } from '@o3r/components';
-import { CommonModule, formatDate } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 
@@ -40,13 +35,14 @@ export class ComponentReplacementPresComponent implements OnChanges, DynamicConf
   public config: Partial<ComponentReplacementPresConfig> | undefined;
 
   /** Observable of the presenter that we want to use, processed by the c11n directive */
-  public presenter$!: Observable<Context<DatePickerInputPresContextInput, DatePickerInputPresContextOutput> & DynamicConfigurable<Configuration>>;
+  public presenter$!: Observable<Context<DatePickerInputPresContextInput, DatePickerInputPresContextOutput>>;
 
   public dateFormControl = new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS));
 
   constructor(
     private readonly c11nService: C11nService,
-    @Optional() configurationService: ConfigurationBaseService) {
+    @Optional() configurationService: ConfigurationBaseService
+  ) {
     this.dynamicConfig$ = new ConfigurationObserver<ComponentReplacementPresConfig>(COMPONENT_REPLACEMENT_PRES_CONFIG_ID, COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG, configurationService);
     this.config$ = this.dynamicConfig$.asObservable();
     this.loadPresenter();

@@ -1,16 +1,16 @@
 import type {Context} from '@o3r/core';
+import type { DatePickerInputPresContextInput, DatePickerInputPresContextOutput } from '../date-picker-input/index';
 
 /**
  * The ContextInput interface describes all the inputs of the component
  */
-export interface DatePickerInputPresContextInput {
-  id: string;
+export interface DatePickerInputHebrewPresContextInput extends DatePickerInputPresContextInput {
 }
 
 /**
  * The ContextOutput interface describes all the outputs of the component
  */
-export interface DatePickerInputPresContextOutput {}
+export interface DatePickerInputHebrewPresContextOutput extends DatePickerInputPresContextOutput {}
 
 /**
  * The context interface describes all the inputs and outputs of the component
@@ -20,4 +20,4 @@ export interface DatePickerInputPresContextOutput {}
  * - To have a common contract between multiple presenters of the same sort
  * - To extract the component medata in cms-adapters
  */
-export interface DatePickerInputPresContext extends Context<DatePickerInputPresContextInput, DatePickerInputPresContextOutput> {}
+export interface DatePickerInputHebrewPresContext extends Context<DatePickerInputHebrewPresContextInput, DatePickerInputHebrewPresContextOutput> {}

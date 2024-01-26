@@ -4,6 +4,7 @@ import type {Context} from '@o3r/core';
  * The ContextInput interface describes all the inputs of the component
  */
 export interface DatePickerInputPresContextInput {
+  /** ID of the html element used for selection */
   id: string;
 }
 
