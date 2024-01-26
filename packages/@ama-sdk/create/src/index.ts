@@ -11,7 +11,6 @@ const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.
 const args = process.argv.slice(2);
 const argv = minimist(args);
 
-const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 let defaultPackageManager = 'npm';
 if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
@@ -45,14 +44,6 @@ const schematicsToRun = [
   `${schematicsPackage}:typescript-shell`,
   ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
 ];
-
-const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
-let defaultPackageManager = 'npm';
-if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
-  defaultPackageManager = packageManagerEnv;
-}
-
-const packageManager = argv['package-manager'] || defaultPackageManager;
 
 const getYarnVersion = () => {
   try {
@@ -105,15 +96,6 @@ const run = () => {
 
   if (errors.length > 0) {
     errors.forEach((err) => console.error(err));
-    if (packageManagerEnv !== 'npm') {
-      console.error(`Other package managers than 'npm' are experimental for @ama-sdk create for the time being.
-Please use the following command:
-  'npm create @ama-sdk typescript <package-name> -- [...options]'
-
-https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/create#usage
-
-`);
-    }
     process.exit(1);
   }
 };

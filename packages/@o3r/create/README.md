@@ -17,8 +17,6 @@ npm create @o3r <project-name> -- [...options]
 
 ### Yarn
 
-This feature is experimental for yarn package manager
-
 ```shell
 yarn create @o3r <project-name> [...options]
 ```

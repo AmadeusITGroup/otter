@@ -17,8 +17,6 @@ npm create @ama-sdk typescript <package-name> -- [...options]
 
 ### Yarn
 
-This feature is experimental for yarn package manager
-
 ```shell
 yarn create @ama-sdk typescript <project-name> [...options]
 ```
