@@ -249,13 +249,16 @@
       "cache": true
     },
     "build-cjs": {
-      "cache": true
+      "cache": true,
+      "inputs": ["source", "^source"],
+      "dependsOn": ["compile"],
+      "outputs": ["{projectRoot}/dist/cjs"]
     },
     "build-esm2015": {
-      "cache": true
-    },
-    "build-esm2020": {
-      "cache": true
+      "cache": true,
+      "dependsOn": ["compile"],
+      "inputs": ["source", "^source"],
+      "outputs": ["{projectRoot}/dist/esm2015"]
     },
     "build-react": {
       "cache": true
