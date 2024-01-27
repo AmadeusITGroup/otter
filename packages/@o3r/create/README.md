@@ -9,14 +9,20 @@ This package is simplifying the start of an [Otter Framework](https://github.com
 
 ## Usage
 
-### NPM
-
 ```shell
 npm create @o3r <project-name> -- [...options]
 ```
 
-### Yarn
+or
 
 ```shell
 yarn create @o3r <project-name> [...options]
+```
+
+> **Warning** : Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
+
+You can generate an environment with a specific package manager thanks to the `--package-manager` options:
+
+```shell
+npm create @o3r <project-name> -- --package-manager=yarn [...options]
 ```
