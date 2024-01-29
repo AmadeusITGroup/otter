@@ -104,5 +104,7 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 A code generator is provided to generate an API specification extension.
 
 ```shell
-yarn yo @ama-sdk/sdk:api-extension
+npx -p @ama-sdk/sdk:api-extension -p @angular-devkit/schematics-cli schematics @ama-sdk/swagger-builder:api-extension <my-extension>
 ```
+
+> **Note**: get more details on how to generate an API specification extension [here](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md#debug-the-typescript-generator).
