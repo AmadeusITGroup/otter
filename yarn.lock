@@ -4093,6 +4093,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@formatjs/ecma402-abstract@npm:1.18.2":
+  version: 1.18.2
+  resolution: "@formatjs/ecma402-abstract@npm:1.18.2"
+  dependencies:
+    "@formatjs/intl-localematcher": "npm:0.5.4"
+    tslib: "npm:^2.4.0"
+  checksum: e761653887e4446188daa023f4cb7245790ed65eb56cef4821225467e63f271f1addff386cfcbb4eb73eb67704b1f3a2b35ea4082fcadd4d05cfa0b3be3d5577
+  languageName: node
+  linkType: hard
+
 "@formatjs/fast-memoize@npm:2.2.0":
   version: 2.2.0
   resolution: "@formatjs/fast-memoize@npm:2.2.0"
@@ -4132,14 +4142,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@formatjs/intl-numberformat@npm:~8.9.0":
-  version: 8.9.0
-  resolution: "@formatjs/intl-numberformat@npm:8.9.0"
+"@formatjs/intl-localematcher@npm:0.5.4":
+  version: 0.5.4
+  resolution: "@formatjs/intl-localematcher@npm:0.5.4"
   dependencies:
-    "@formatjs/ecma402-abstract": "npm:1.18.0"
-    "@formatjs/intl-localematcher": "npm:0.5.2"
     tslib: "npm:^2.4.0"
-  checksum: e06179b08ab10b902db6e531e7fc5c1de7d5d7df00de0677310b3fa68cb20bea750021224aa1f0db8fbd60460c58473f04958fe52b166aad4d7a5e3a4c8071e4
+  checksum: 780cb29b42e1ea87f2eb5db268577fcdc53da52d9f096871f3a1bb78603b4ba81d208ea0b0b9bc21548797c941ce435321f62d2522795b83b740f90b0ceb5778
+  languageName: node
+  linkType: hard
+
+"@formatjs/intl-numberformat@npm:~8.10.0":
+  version: 8.10.0
+  resolution: "@formatjs/intl-numberformat@npm:8.10.0"
+  dependencies:
+    "@formatjs/ecma402-abstract": "npm:1.18.2"
+    "@formatjs/intl-localematcher": "npm:0.5.4"
+    tslib: "npm:^2.4.0"
+  checksum: 1866bca7a24474af619265ecefb755c32705efade420e89be768cba4c1cab670d6f21456834bf2056d4560b0bad31b341798933c4bc222228c7844ed6d03d143
   languageName: node
   linkType: hard
 
@@ -8341,7 +8360,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@angular/router": "npm:~17.0.4"
     "@design-factory/design-factory": "npm:^15.2.2"
-    "@formatjs/intl-numberformat": "npm:~8.9.0"
+    "@formatjs/intl-numberformat": "npm:~8.10.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^16.0.0"
     "@ng-select/ng-select": "npm:~12.0.0"
     "@ngrx/effects": "npm:~17.1.0"
