@@ -9,16 +9,22 @@ This package is simplifying the start of new SDK repository.
 
 ## Usage
 
-### NPM
-
 ```shell
 npm create @ama-sdk typescript <package-name> -- [...options]
 ```
 
-### Yarn
+or
 
 ```shell
 yarn create @ama-sdk typescript <project-name> [...options]
+```
+
+> **Warning** : Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
+
+You can generate an environment with a specific package manager thanks to the `--package-manager` options:
+
+```shell
+npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...options]
 ```
 
 ## Options list
