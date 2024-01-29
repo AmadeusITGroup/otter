@@ -153,7 +153,7 @@
     }
   },
   "dependencies": {
-    "esbuild": "~0.19.0",
+    "esbuild": "~0.20.0",
     "module-from-string": "^3.2.0",
     "tslib": "^2.5.3"
   },
