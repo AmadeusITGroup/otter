@@ -21,7 +21,6 @@
   "bin": {
     "artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",
     "artifact-retriever": "./dist/src/cli/artifact-retriever.js",
-    "change-log-sanitizer": "./dist/src/cli/change-log-sanitizer.js",
     "comment-pr": "./dist/src/cli/comment-pr.js",
     "generate-package-exports": "./dist/src/cli/generate-package-exports.js",
     "git-release-management": "./dist/src/cli/git-release-management.js",

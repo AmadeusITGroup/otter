@@ -7,6 +7,14 @@
 
 Various CLI scripts to help your CI/CD and your dependency management
 
+> :warning: **Deprecate**: `@o3r/dev-tools` package is deprecated and will no longer be updated as of Otter v12.
+> The following CLI scripts have been moved to other otter packages:
+> * `artifact-cleaner`: please use `o3r-artifact-cleaner` from the package `@o3r/artifactory-tools`
+> * `pr-artifact-cleaner`: please use `o3r-pr-artifact-cleaner` from the package `@o3r/artifactory-tools`
+> * `comment-pr`: please use `o3r-comment-pr` from the package `@o3r/azure-tools`
+> * `version-harmonize`: replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](https://github.com/AmadeusITGroup/otter/tree/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)
+
+
 ## How to install
 
 This package can be used via `npx` command to executed on of the listed command line interfaces.
@@ -16,6 +24,8 @@ npx -p @o3r/dev-tools ...
 ```
 
 ## Artifact Retriever
+
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12.
 
 Gets an artifact from the ArtiFactory
 
@@ -58,60 +68,9 @@ artifact-retriever.js --registry "https://jfrog.io/repoName" -u <username> -p <p
 artifact-retriever.js --repository-manager "Azure Artifacts" --organization "AmadeusDigitalAirline" --project "Otter" --feed "otter" -u <username> -p <password> -v "1.0.0" -g "io.swagger" -a "typescriptFetch-swagger-codegen" --out /path/to/typescriptFetch-swagger-codegen.jar
 ```
 
-## Dependency Validator
-
-Validator of dependencies.
-The purpose is to check if the update is not breaking the application using the current package.
-
-### Usage
-
-```shell
-Usage: dep-validator [options] <gitUrl>
-
-Execute dependency tests
-
-
-Options:
-
-  -u, --username <username>   Git username
-  -p, --password <password>   Git user password
-  -w, --workspace <path>      Path to the folder containing the repository to clone
-  --workspace-project <path>  Path to the project root folder inside the workspace
-  -b, --build <tasks>         Tasks to run to build the dependency
-  -t, --test <tasks>          Tasks to run to test the dependency
-  -P, --project <path>        Project root path
-  --include <packages>        Packages to include in the process
-  --exclude <packages>        Packages to exclude from the process
-  --no-lerna                  Disable lerna file parsing
-  --no-trustedVersionNumber   Determine if the version number is trusted (used for version number generated in Pull Request)
-```
-
-## Changelog Generator
-
-Updates changelog file with the new changes.
-The purpose is to reduce the number of Pull Requests conflicts caused by the edition of the Changelog file.
-
-### Usage
-
-```shell
-Usage: changelog-generator [options] <project>
-
-Update ChangeLog with new changes
-
-
-Options:
-
-  -g, --generate-on <major|minor|patch>  Versions change when generating a changelog (comma separated)
-  -u, --username <username>              Git username
-  -p, --password <password>              Git user password
-  -o, --output <file>                    Path to the changelog file (default: README.md)
-  --pattern <pattern>                    JIRA task pattern (default: '[A-Z]{2,}-[0-9]+')
-  --config <path>                        Path to a configuration file
-  --only-task-done                       Included only task done in this changelog
-  -h, --help                             output usage information
-```
-
 ## Set Version
+
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12.
 
 Replaces the value of the `version` field of the `package.json` matched by the pattern provided to the `--include` options.
 
@@ -130,6 +89,8 @@ Options:
 ```
 
 ## Artifact cleaner
+
+> :warning: **Deprecate**: This script is deprecated, please use `o3r-artifact-cleaner` from the package `@o3r/artifactory-tools`
 
 Cleans old artifacts from artifactory repositories
 
@@ -153,6 +114,8 @@ Example : yarn artifact-cleaner -b thisismybase64tokenwithuserandencryptedpasswo
 ```
 
 ## PR Artifact cleaner
+
+> :warning: **Deprecate**: This is deprecated, please use `o3r-pr-artifact-cleaner` from the package `@o3r/artifactory-tools`
 
 Cleans old PR artifacts by identifying using the the build version that is present in the path. If build version is not present in the path this tool cannot yet be used.
 
@@ -178,6 +141,8 @@ Example : yarn pr-artifact-cleaner -b thisismybase64tokenwithuserandencryptedpas
 
 ## Peer dependencies updater
 
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12.
+
 Updates a package.json with the given dependencies' versions and their respective peer dependencies.
 Relies on `npm info` to retrieve package information.
 
@@ -195,33 +160,6 @@ Options:
   --silent                           Do not exit with error in case of metadata fetch error
 
 Example : peer-dependencies-updater "@random/package@~2.21.0" "@o3r/core"
-```
-
-## Scripts
-
-This package provides generic helpers to support the build chain of Otter and Ama sdk packages
-
-### Scripts available
-
-* **yarn-check** : Checks if the current NPM client used is [Yarn](https://yarnpkg.com/en/) (`exit(1)` if not the case).
-* **version-harmonize** : Harmonizes the version of the dependencies (in a Monorepos) between the main packages and the children packages.
-
-## Set version
-
-Replaces the packages' version in a monorepos.
-This is used to edit the package.json version of a yarn workspaces' packages.
-
-### Usage
-
-```shell
-Usage: set-version [options] <version>
-
-Replace the packages version in a monorepos
-
-Options:
-  -p, --placeholder <placeholder>  Pattern of the version placeholder (default: "0.0.0")
-  --include <file>                 Add files pattern to apply the verison replacement (default: ["*/lerna.json","**/package.json","!**/node_modules/**/{package,lerna}.json"])
-  -h, --help                       display help for command
 ```
 
 ## Version Harmonize
@@ -270,6 +208,8 @@ The configuration can be provided in the package.json file as follows:
 ```
 
 ## Generate Package Exports
+
+> :warning: **Deprecate**: This script is deprecated and will be removed in Otter v12.
 
 Edits the generated package.json file to add the exports of the packages based on defined sub-entries.
 The sub-entries should be specified as JSON files (`package.json` per default) in the folder to expose.

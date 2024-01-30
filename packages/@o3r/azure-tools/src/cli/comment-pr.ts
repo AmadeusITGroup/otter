@@ -62,7 +62,7 @@ void (async () => {
   const orgUrl = process.env.SYSTEM_TEAMFOUNDATIONCOLLECTIONURI;
 
   const prService = new PullRequestService(opts.accessToken, project, orgUrl, logger);
-  const threads = await prService.findThreadsByIdentifier(repositoryId, pullRequestId, opts.threadIdentifier);
+  const threads = opts.threadIdentifier ? await prService.findThreadsByIdentifier(repositoryId, pullRequestId, opts.threadIdentifier) : [];
 
   if (opts.mode === 'Replace') {
     await Promise.all(threads.filter(thread => !!thread.id).map((thread) => prService.deleteThread(repositoryId, pullRequestId, thread.id!)));

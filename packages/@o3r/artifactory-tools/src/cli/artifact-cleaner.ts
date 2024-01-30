@@ -4,22 +4,25 @@
 
 import { program } from 'commander';
 import {Headers} from 'request';
-import * as request from 'request-promise-native';
 import * as winston from 'winston';
 
 program
   .description('Clean old artifacts from artifactory repositories')
   .requiredOption('--artifactory-url <artifactoryUrl>', 'Artifactory URL')
-  .option('-d, --duration-kept <durationKept>', 'All artifacts which have not been downloaded and are older than this value(ms) will be deleted. Default to 10080000ms (7 days)', '604800000')
-  .option(
+  .requiredOption('-b, --basicAuth <basicAuth>', 'Base64 encoding of username:password (password already encrypted from artifactory UI)')
+  .requiredOption(
     '-r, --repositories <repositories>',
-    'Artifact repositories to clean up (coma separated) ex : npm-otter-pr,npm-o3r-pr (Default to npm-otter-pr)',
-    (repos: string) => repos.split(','),
-    ['npm-otter-pr']
+    'Artifact repositories to clean up (comma separated) ex: \'repo1,repo2\'',
+    (repos: string) => repos.split(',')
   )
-  .option('-t, --type-filter <typeFilter>', 'List of artifact type that should be deleted coma separated (ex: jar,tgz) (Default : tgz)', (type: string) => type.split(','), ['tgz,json'])
-  .option('--dry-run <dryRun>', 'List all files that should be deleted without actually deleting them', false)
-  .option('-b, --basicAuth <basicAuth>', 'Base 64 encoding of username:password (password already encrypted from artifactory UI)')
+  .option('-d, --duration-kept <durationKept>', 'All artifacts older than this value (in ms) will be deleted. (Default: 604800000 ms, i.e., 7 days)', (v) => +v, 604800000)
+  .option(
+    '-t, --type-filter <typeFilter>',
+    'List of artifact types that should be deleted (comma separated) ex: \'jar,tgz\' (Default: [\'tgz\',\'json\'])',
+    (type: string) => type.split(','),
+    ['tgz','json']
+  )
+  .option('--dry-run <dryRun>', 'List all files that would be deleted without actually deleting them', false)
   .parse(process.argv);
 
 const opts = program.opts();
@@ -45,10 +48,6 @@ const matchFilter = (fullUrl: string, types: string[]) => {
   return false;
 };
 
-if (!opts.basicAuth) {
-  logger.error('Authentication is mandatory, please specify a base 64 encoded user:password');
-  process.exit(1);
-}
 let url = opts.artifactoryUrl as string;
 const options: { headers: Headers } = {
   headers: {
@@ -64,11 +63,15 @@ logger.info(`Url called : ${url}`);
 
 void (async () => {
   logger.info(`Requesting old artifacts using  ${url}`);
-  const responseSearch = await request.get(url, options).promise().catch((e) => {
+  let responseSearch;
+  let responseSearchObj: { results: { uri: string }[] };
+  try {
+    responseSearch = await fetch(url, options);
+    responseSearchObj = await responseSearch.json();
+  } catch (e) {
     logger.warn('No result found ', e);
     process.exit(0);
-  });
-  const responseSearchObj: { results: { uri: string }[] } = JSON.parse(responseSearch);
+  }
   /** uris will contain the list of all artifacts that need to be deleted */
   const uris = responseSearchObj.results
     .map((res) => res.uri)
@@ -77,7 +80,7 @@ void (async () => {
   for (const uri of uris) {
     logger.info(`Deleting ${uri}...`);
     if (!opts.dryRun) {
-      const response = await request.delete(uri, options).promise();
+      const response = await fetch(uri, {...options, method: 'DELETE'});
       logger.info(response);
     }
   }
