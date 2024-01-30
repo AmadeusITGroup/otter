@@ -489,10 +489,19 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         }
 
         // exclude the classname for revivers
-        List<String> filteredSubTypes = new ArrayList<String>();
+        List<AbstractMap.SimpleEntry<String, String>> filteredSubTypes = new ArrayList<AbstractMap.SimpleEntry<String, String>>();
         for (String subType : sanitizedAllowableValues) {
           if (!StringUtils.equals(model.classname, subType)) {
-            filteredSubTypes.add(subType);
+            String mappedModelName = subType;
+            if (model.discriminator.getMappedModels() != null) {
+              for (CodegenDiscriminator.MappedModel mappedModel : new ArrayList<CodegenDiscriminator.MappedModel>(model.discriminator.getMappedModels())) {
+                if (subType.equals(mappedModel.getMappingName())) {
+                  mappedModelName = mappedModel.getModelName();
+                  break;
+                }
+              }
+            }
+            filteredSubTypes.add(new AbstractMap.SimpleEntry(subType, mappedModelName));
           }
         }
 
@@ -546,50 +555,16 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
    */
   @Override
   public ModelsMap postProcessModels(ModelsMap objs) {
-    List<Map<String, String>> importsMap = objs.getImports();
-    for (Map _map : importsMap) {
-      String _import = (String) _map.get("import");
-      _map.put("import", _import.substring(_import.lastIndexOf(".") + 1));
-    }
+    List<ModelMap> models = objs.getModels();
 
-    // Store additional imports from vendor extensions
-    if (importsMap != null) {
-      List<String> alreadyImported = new ArrayList();
-      List<ModelMap> models = objs.getModels();
-      for (ModelMap modelMap : models) {
-        CodegenModel model = modelMap.getModel();
-        if (model.isEnum) {
-          nonObjectModels.add(model.name);
-        }
-        if (model.name.endsWith("_allOf")) {
-          model.vendorExtensions.put("x-intermediate-class", model.getDiscriminator() == null ? "composition" : "inheritance");
-        }
-        boolean containsExtensions = false;
-        ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
-        group.add(model.allVars);
-        group.add(model.vars);
-        group.add(model.requiredVars);
-        group.add(model.optionalVars);
-        for (List<CodegenProperty> container : group) {
-          for (CodegenProperty prop : container) {
-            Map<String, Object> vendorExtensions = prop.vendorExtensions;
-            if (vendorExtensions.containsKey("x-field-type")) {
-              containsExtensions = true;
-              String fieldType = (String) vendorExtensions.get("x-field-type");
-              if (!this.languageSpecificPrimitives.contains(fieldType) && !alreadyImported.contains(fieldType)) {
-                alreadyImported.add(fieldType);
-                HashMap addImport = new HashMap();
-                addImport.put("import", vendorExtensions.get("x-field-type"));
-                importsMap.add(addImport);
-              }
-            }
-          }
-
-          // We store on the model's vendor extension a parameter saying our vars have vendor extensions (hence, a dictionary)
-          if (containsExtensions == true) {
-            model.vendorExtensions.put("requireDictionary", Boolean.TRUE);
-          }
-        }
+    // Set additional properties and check non model objects
+    for (ModelMap modelMap : models) {
+      CodegenModel model = modelMap.getModel();
+      if (model.isEnum) {
+        nonObjectModels.add(toModelName(model.name));
+      }
+      if (model.name.endsWith("_allOf")) {
+        model.vendorExtensions.put("x-intermediate-class", model.getDiscriminator() == null ? "composition" : "inheritance");
       }
     }
 
@@ -611,7 +586,65 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   }
 
   /**
-   * This post-processing is to avoid the use of revivers from non-object models (e.g. enums in definition)
+   * Post process the import of a ModelsMap, make sure to include the field and the subtypes with their revivers
+   * @param objs
+   * @return
+   */
+  private ModelsMap postProcessImports(ModelsMap objs) {
+    List<ModelMap> models = objs.getModels();
+    // Store additional imports from vendor extensions
+    List<Map<String, String>> importsMap = objs.getImports();
+    List<String> alreadyImported = new ArrayList();
+    for (Map _map : importsMap) {
+      String _import = (String) _map.get("import");
+      _map.put("import", _import.substring(_import.lastIndexOf(".") + 1));
+      alreadyImported.add(_import.substring(_import.lastIndexOf(".") + 1));
+    }
+    for (ModelMap modelMap : models) {
+      CodegenModel model = modelMap.getModel();
+      boolean containsExtensions = false;
+      ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
+      group.add(model.allVars);
+      group.add(model.vars);
+      group.add(model.requiredVars);
+      group.add(model.optionalVars);
+      for (List<CodegenProperty> container : group) {
+        for (CodegenProperty prop : container) {
+          Map<String, Object> vendorExtensions = prop.vendorExtensions;
+          List<String> importKeys = new ArrayList<String>();
+          if (vendorExtensions.containsKey("x-field-type")) {
+            containsExtensions = true;
+            importKeys.add((String) vendorExtensions.get("x-field-type"));
+          }
+          Map<String, Object> vendors = model.vendorExtensions;
+          if (vendors != null && vendors.containsKey("x-discriminator-subtypes")) {
+            for (AbstractMap.SimpleEntry<String, String> entry : (List<AbstractMap.SimpleEntry<String, String>>) vendors.get("x-discriminator-subtypes")) {
+              importKeys.add(entry.getValue());
+            }
+          }
+          for (String importModel : importKeys) {
+            if (!this.languageSpecificPrimitives.contains(importModel) && !alreadyImported.contains(importModel)) {
+              alreadyImported.add(importModel);
+              HashMap<String, String> addImport = new HashMap();
+              addImport.put("import", importModel);
+              importsMap.add(addImport);
+            }
+          }
+        }
+
+        // We store on the model's vendor extension a parameter saying our vars have vendor extensions (hence, a dictionary)
+        if (containsExtensions) {
+          model.vendorExtensions.put("requireDictionary", Boolean.TRUE);
+        }
+      }
+    }
+
+    return objs;
+  }
+
+  /**
+   * This post-processing is to avoid the use of revivers from non-object models (e.g. enums in definition),
+   * to remove intermediate classes with no use in the project and to adjust the imports
    */
   @Override
   public Map<String, ModelsMap> postProcessAllModels(Map<String, ModelsMap> objs) {
@@ -680,6 +713,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
           return entry;
         }).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
     }
+    for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
+      entry.setValue(this.postProcessImports(entry.getValue()));
+    }
     return objs;
   }
 
@@ -722,7 +758,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       );
     }
     CodegenComposedSchemas composedSchema = model.getComposedSchemas();
-    if (composedSchema != null) {
+    if (composedSchema != null && composedSchema.getAllOf() != null) {
       List<CodegenProperty> filteredAllOf = composedSchema.getAllOf().stream()
         .filter(allOfProp -> intermediateModels.indexOf(allOfProp.baseType) == -1)
         .collect(Collectors.toList());
