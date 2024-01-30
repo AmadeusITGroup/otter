@@ -1,12 +1,10 @@
-const getJestConfig = require('../../../jest.config.ut').getJestConfig;
+const getJestGlobalConfig = require('../../../jest.config.ut').getJestGlobalConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestConfig(__dirname, false),
-  displayName: require('./package.json').name,
-  fakeTimers: {
-    enableGlobally: true,
-    // TODO try to make date utils work with fake Date
-    doNotFake: ['Date']
-  }
+  ...getJestGlobalConfig(),
+  projects: [
+    '<rootDir>/testing/jest.config.ut.js',
+    '<rootDir>/testing/jest.config.ut.builders.js'
+  ]
 };

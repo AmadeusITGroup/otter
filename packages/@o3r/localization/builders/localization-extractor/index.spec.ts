@@ -6,8 +6,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { LocalizationExtractorBuilderSchema } from './schema';
 
-// TODO: re-enable when #1207 is fixed
-describe.skip('Localization Extractor Builder', () => {
+describe('Localization Extractor Builder', () => {
   const workspaceRoot = path.join('..', '..', '..', '..', '..');
   let architect: Architect;
   let architectHost: TestingArchitectHost;

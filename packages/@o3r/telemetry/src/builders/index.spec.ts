@@ -27,7 +27,6 @@ describe('Builder with metrics', () => {
   let architectHost: TestingArchitectHost;
 
   beforeEach(() => {
-    jest.useRealTimers();
     const registry = new schema.CoreSchemaRegistry();
     registry.addPostTransform(schema.transforms.addUndefinedDefaults);
     architectHost = new TestingArchitectHost(__dirname, __dirname);

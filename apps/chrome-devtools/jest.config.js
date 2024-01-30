@@ -1,16 +1,9 @@
-const getJestConfig = require('../../jest.config.ut').getJestConfig;
+const getJestGlobalConfig = require('../../jest.config.ut').getJestGlobalConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestConfig(__dirname, true),
-  displayName: require('./package.json').name,
-  transformIgnorePatterns: ['^.+\\.js$'],
-  globals: {
-    chrome: {
-      runtime: {},
-      devtools: {
-        inspectedWindow: {}
-      }
-    }
-  }
+  ...getJestGlobalConfig(),
+  projects: [
+    '<rootDir>/testing/jest.config.ut.js'
+  ]
 };
