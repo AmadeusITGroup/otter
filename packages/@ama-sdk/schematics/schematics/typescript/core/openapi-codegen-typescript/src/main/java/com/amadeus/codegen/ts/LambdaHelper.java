@@ -439,14 +439,14 @@ public class LambdaHelper {
                 String importedClass = litr.next();
                 int count =0;
                 //Looking if the import is used in the fragment
-                Matcher m2 = Pattern.compile("^(?!(?:\\s*import\\s?\\{))(?:.*\\W)?"+ importedClass + "[^\\w\\/]",
+                Matcher m2 = Pattern.compile("^(?!(\\s*import\\s?\\{)|(\\s*\\*)|(/\\*))(?:.*[^\\w'\"])?"+ importedClass + "[^\\w\\/]",
                         Pattern
                         .MULTILINE)
                         .matcher
                         (fragment);
                 if (!m2.find()) {
                     //Import unused found, removing it
-                    fragment = Pattern.compile("(.*import\\s\\{(?:.*\\W)?)" + importedClass +",?\\s*(\\W.*)")
+                    fragment = Pattern.compile("(.*import\\s\\{(?:.*\\W)?)" + importedClass +"\\s*,?\\s*(\\W.*)")
                       .matcher(fragment)
                       .replaceAll("$1$2");
                 }
