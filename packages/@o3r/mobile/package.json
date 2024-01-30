@@ -89,6 +89,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/store-sync": "workspace:^",
     "@schematics/angular": "~17.0.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/node-fetch": "^2.6.2",

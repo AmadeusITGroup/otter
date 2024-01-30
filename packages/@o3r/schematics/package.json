@@ -75,6 +75,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~17.0.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",

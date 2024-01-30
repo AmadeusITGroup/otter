@@ -88,6 +88,7 @@
     "@o3r/testing": "workspace:^",
     "@playwright/test": "~1.41.0",
     "@schematics/angular": "~17.0.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/bootstrap": "^5.2.6",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

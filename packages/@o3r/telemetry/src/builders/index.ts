@@ -12,8 +12,7 @@ type BuilderWrapperFn<S, O extends BuilderOutput = BuilderOutput> =
 /**
  * Type of a function that wraps a builder
  */
-export type BuilderWrapper = <S, O extends BuilderOutput = BuilderOutput>
-  (builderFn: BuilderWrapperFn<S, O>, sendData?: SendDataFn) => BuilderWrapperFn<S, O>;
+export type BuilderWrapper = <S, O extends BuilderOutput = BuilderOutput>(builderFn: BuilderWrapperFn<S, O>, sendData?: SendDataFn) => BuilderWrapperFn<S, O>;
 
 /**
  * Wrapper method of a builder to retrieve some metrics around the builder run
