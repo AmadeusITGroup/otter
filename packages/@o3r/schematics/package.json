@@ -1,6 +1,9 @@
 {
   "name": "@o3r/schematics",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Schematics module of the Otter framework",
   "main": "./dist/src/index.js",
   "typings": "./src/public_api.d.ts",

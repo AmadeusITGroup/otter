@@ -1,6 +1,9 @@
 {
   "name": "@ama-sdk/schematics",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Swagger specification SDK Generator by schematics",
   "typings": "./src/public_api.d.ts",
   "scripts": {

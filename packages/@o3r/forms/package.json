@@ -1,6 +1,9 @@
 {
   "name": "@o3r/forms",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides utilities to enhance angular form (asynchronous decorator, additional validator, error store...).",
   "keywords": [
     "forms",

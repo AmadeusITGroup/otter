@@ -1,6 +1,9 @@
 {
   "name": "@o3r/eslint-config-otter",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Recommended eslint configuration for Otter project",
   "main": "index.cjs",
   "exports": {

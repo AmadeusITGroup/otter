@@ -1,6 +1,9 @@
 {
   "name": "@o3r/amaterasu-sdk",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
   "description": "Ama-terasu module for DES SDK generation",

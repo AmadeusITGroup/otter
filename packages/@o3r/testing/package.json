@@ -1,6 +1,9 @@
 {
   "name": "@o3r/testing",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "The module provides testing (e2e, unit test) utilities to help you build your own E2E pipeline integrating visual testing.",
   "keywords": [
     "testing",

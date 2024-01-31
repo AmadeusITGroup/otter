@@ -1,6 +1,9 @@
 {
   "name": "@o3r/workspace",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Workspace tooling of the Otter Framework",
   "keywords": [
     "workspace",

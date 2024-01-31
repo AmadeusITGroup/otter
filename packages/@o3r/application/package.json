@@ -1,6 +1,9 @@
 {
   "name": "@o3r/application",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides development help to monitor your Otter Application",
   "keywords": [
     "application",

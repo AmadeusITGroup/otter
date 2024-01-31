@@ -1,6 +1,9 @@
 {
   "name": "@o3r/components",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module contains component-related features (Component replacement, CMS compatibility, helpers, pipes, debugging developer tools...)\nIt comes with an integrated ng builder to help you generate components compatible with Otter features (CMS integration, localization, etc.).",
   "keywords": [
     "components",

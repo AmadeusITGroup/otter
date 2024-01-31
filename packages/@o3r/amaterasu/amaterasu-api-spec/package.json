@@ -1,6 +1,9 @@
 {
   "name": "@o3r/amaterasu-api-spec",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Commands relative to the Digital Apis",
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",

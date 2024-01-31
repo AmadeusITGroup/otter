@@ -1,6 +1,9 @@
 {
   "name": "@o3r/dynamic-content",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides a mechanism to retrieve media and data depending on the host or a server specific url.",
   "keywords": [
     "dynamic-content",

@@ -1,6 +1,9 @@
 {
   "name": "@ama-sdk/swagger-builder",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Swagger API Builder",
   "readme": "./readme.md",
   "scripts": {

@@ -3,6 +3,9 @@
   "displayName": "Otter",
   "description": "Otter Framework toolings for Visual Studio Code",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "publisher": "AmadeusITGroup",
   "engines": {
     "vscode": "^1.67.0"

@@ -1,6 +1,9 @@
 {
   "name": "@o3r/localization",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides a runtime dynamic language/translation support and debug tools.",
   "keywords": [
     "localization",

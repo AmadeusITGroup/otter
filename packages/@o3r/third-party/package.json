@@ -1,6 +1,9 @@
 {
   "name": "@o3r/third-party",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides a bridge to communicate with third parties via an iFrame solution.",
   "typings": "dist/index.d.ts",
   "keywords": [
