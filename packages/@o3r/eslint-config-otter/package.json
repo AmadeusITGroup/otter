@@ -43,7 +43,7 @@
     "build": "yarn cpy --flat {typescript,typescript-fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
@@ -56,6 +56,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~17.0.0",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
     "eslint": "^8.22.0",
@@ -79,6 +80,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~17.0.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",
     "@typescript-eslint/parser": "^6.11.0",
@@ -126,5 +128,8 @@
       "optional": true
     }
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

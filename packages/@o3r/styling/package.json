@@ -118,6 +118,7 @@
     "@o3r/styling": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~17.0.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.19.0",

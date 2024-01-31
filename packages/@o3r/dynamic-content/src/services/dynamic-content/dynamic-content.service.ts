@@ -17,8 +17,8 @@ export class DynamicContentService {
   private readonly mediaFolder: string;
 
   constructor(@Inject(DYNAMIC_CONTENT_BASE_PATH_TOKEN) dynamicContentPath: string,
-              @Inject(CMS_ASSETS_PATH_TOKEN) private readonly cmsOnlyAssetsPath: string,
-              @Optional() private readonly store?: Store<AssetPathOverrideStore>) {
+      @Inject(CMS_ASSETS_PATH_TOKEN) private readonly cmsOnlyAssetsPath: string,
+      @Optional() private readonly store?: Store<AssetPathOverrideStore>) {
     this.basePath = dynamicContentPath.replace(/\/$/, '');
     this.mediaFolder = MEDIA_FOLDER_NAME;
   }

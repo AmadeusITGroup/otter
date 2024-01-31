@@ -60,6 +60,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/uuid": "^9.0.0",

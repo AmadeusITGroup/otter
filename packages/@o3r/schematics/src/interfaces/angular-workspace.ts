@@ -64,7 +64,7 @@ export interface WorkspaceProject extends NgWorkspaceProject {
 
 export interface WorkspaceSchema extends NgWorkspaceSchema {
   projects: {
-      [k: string]: WorkspaceProject;
+    [k: string]: WorkspaceProject;
   };
   schematics?: WorkspaceSchematics;
 }

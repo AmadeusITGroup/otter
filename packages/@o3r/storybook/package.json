@@ -104,6 +104,7 @@
     "@storybook/angular": "^7.5.3",
     "@storybook/api": "^7.5.3",
     "@storybook/components": "^7.5.3",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/color": "^3.0.1",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

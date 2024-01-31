@@ -107,7 +107,7 @@ type DesignTokenTypeStrokeStyleDetailsValue = {
 
 /** Value of the Design Token Stroke Style */
 export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue |
-  'solid' | 'dashed' | 'dotted' | 'double'| 'groove' | 'ridge' | 'outset' | 'inset';
+  'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset';
 
 /** Design Token Stroke Style */
 export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleValue> extends DesignTokenBase<T> {
