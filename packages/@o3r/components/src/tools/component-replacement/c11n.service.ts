@@ -27,7 +27,7 @@ export class C11nService {
    * @param presKey The presenter key to retrieve
    */
   public getPresenter<T extends Context>(defaultPres: Type<T>, presKey = 'customPresKey') {
-    return (source: Observable<Configuration>): Observable<T> =>
+    return (source: Observable<Configuration>): Observable<Type<T>> =>
       source.pipe(
         distinctUntilChanged((p, q) => p[presKey] === q[presKey]),
         map((config) => {

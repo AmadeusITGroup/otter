@@ -7,16 +7,19 @@ const migrationPath = path.join(__dirname, '..', '..', '..', 'migration.json');
 
 
 describe('Update v10', () => {
+  let initialTree: Tree;
+  let runner: SchematicTestRunner;
+  beforeEach(() => {
+    initialTree = Tree.empty();
+    initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
+    initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'package.mocks.json')));
+    initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
+    runner = new SchematicTestRunner('schematics', migrationPath);
+  });
+
   describe('Update pipes', () => {
-    let initialTree: Tree;
-    let runner: SchematicTestRunner;
     beforeEach(() => {
-      initialTree = Tree.empty();
-      initialTree.create('angular.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'angular.mocks.json')));
-      initialTree.create('package.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', 'package.mocks.json')));
-      initialTree.create('.eslintrc.json', fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'testing', 'mocks', '__dot__eslintrc.mocks.json')));
       initialTree.create('src/components/example.template.html', '{{ 120 | duration }}');
-      runner = new SchematicTestRunner('schematics', migrationPath);
     });
 
     it('should replace the pipe with standalone component', async () => {
@@ -72,6 +75,31 @@ describe('Update v10', () => {
       expect(tree.readText('src/components/example.module.ts')).not.toMatch('DurationPipeModule');
       expect(tree.readText('src/components/example.template.html')).toMatch('| o3rDuration');
       expect(tree.readText('src/components/example.template.html')).not.toMatch('| duration');
+    });
+  });
+
+  describe('Update c11n presenter$ declaration', () => {
+    it('shoud update the c11n presenter$ declaration', async () => {
+      const componentPath = 'src/components/example.component.ts';
+      initialTree.create(componentPath, `
+        import { Component } from '@angular/core';
+        import { O3rComponent } from '@o3r/core';
+        import { Observable } from 'rxjs';
+
+        @O3rComponent({ componentType: 'Component' })
+        @Component({
+          selector: 'o3r-example',
+          standalone: true,
+          templateUrl: './example.template.html'
+        })
+        export class ExampleComponent {
+          public presenter$!: Observable<MyComp>;
+        }
+      `);
+      const tree = await runner.runSchematic('migration-v10_0', {}, initialTree);
+      const newContent = tree.readText(componentPath);
+      expect(newContent).toContain('public presenter$!: Observable<Type<MyComp>>;');
+      expect(newContent).toMatch(/import.*Type.*from '@angular\/core';/);
     });
   });
 });
