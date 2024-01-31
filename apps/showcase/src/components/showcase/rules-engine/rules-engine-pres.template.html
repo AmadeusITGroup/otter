@@ -1,30 +1,30 @@
 <div class="card my-3">
   <div class="row g-0">
     <div class="col-4 bg-body-tertiary d-flex align-items-center justify-content-center">
-      <img [src]="'otter.svg' | dynamicContent" class="img-fluid rounded-start" aria-hidden="true">
+      <img [src]="'otter.svg' | o3rDynamicContent" class="img-fluid rounded-start" aria-hidden="true">
     </div>
     <div class="col-8 container p-3">
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
           <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative">
             @if (form.value.destination) {
-              {{ translations.welcomeWithCityName | translate: { cityName: (translations.cityName + '.' + form.value.destination) | translate }  }}
+              {{ translations.welcomeWithCityName | o3rTranslate: { cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate }  }}
             } @else {
-              {{ translations.welcome | translate }}
+              {{ translations.welcome | o3rTranslate }}
             }
             <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
           </h2>
         </div>
-        <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | translate }}</h3>
+        <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | o3rTranslate }}</h3>
         <form class="row g-2" [formGroup]="form">
           <div class="col-12 col-xl-6" [class.col-xl-12]="(config$ | async)?.shouldProposeRoundTrip">
             <div class="input-group">
-              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | translate }}</label>
+              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
               <select class="form-select" id="destination" formControlName="destination">
-                <option disabled selected value>{{ translations.destinationPlaceholder | translate }}</option>
+                <option disabled selected value>{{ translations.destinationPlaceholder | o3rTranslate }}</option>
                 @for (destination of (config$ | async)?.destinations; track destination.cityCode) {
                   <option [disabled]="!destination.available" [value]="destination.cityCode">
-                    {{ (translations.cityName + '.' + destination.cityCode) | translate }}
+                    {{ (translations.cityName + '.' + destination.cityCode) | o3rTranslate }}
                   </option>
                 }
               </select>
@@ -32,14 +32,14 @@
           </div>
           <div class="col-12 col-xl-6">
             <div class="input-group">
-              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | translate }}</label>
+              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | o3rTranslate }}</label>
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
           @if ((config$ | async)?.shouldProposeRoundTrip) {
             <div class="col-12 col-xl-6">
               <div class="input-group">
-                <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | translate }}</label>
+                <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | o3rTranslate }}</label>
                 <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
               </div>
             </div>

@@ -97,7 +97,7 @@ describe('Add Localization', () => {
       }, initialTree);
 
       const templateFileContent = tree.readText(templatePath);
-      expect(templateFileContent).toBe('<div>{{ translations.dummyLoc1 | translate }}</div>');
+      expect(templateFileContent).toBe('<div>{{ translations.dummyLoc1 | o3rTranslate }}</div>');
 
       const translationFileContent = tree.readText(translationPath);
       expect(translationFileContent).toContain('dummyLoc1: string;');

@@ -201,7 +201,7 @@ export  class SimpleHeaderPresModule {}
 
 <!-- using a pipe -->
 
-{{ "o3r-simple-header-pres.motto" | translate }} // => this will output Let's shape the future of travel
+{{ "o3r-simple-header-pres.motto" | o3rTranslate }} // => this will output Let's shape the future of travel
 <!-- using a directive -->
 
 <div [translate]="o3r-simple-header-pres.locWithArg" [translateParams]="{user: 'otter friend'}"> // => this will output Hello, otter friend!
@@ -214,7 +214,7 @@ export  class SimpleHeaderPresModule {}
 
 <!-- for resource with HTML markup use binding -->
 
-<span [innerHTML]="'someKeyWithHtml' | translate"></span>
+<span [innerHTML]="'someKeyWithHtml' | o3rTranslate"></span>
 
 ```
 
@@ -226,7 +226,7 @@ As a result "**hello bold**" will be printed inside the span element.
 
 <!-- dynamic resource -->
 
-{{ "someBagsAdded" | translate:{bags: 5} }} // => will output "You have added 5 bags"
+{{ "someBagsAdded" | o3rTranslate:{bags: 5} }} // => will output "You have added 5 bags"
 
 ```
 
@@ -479,7 +479,7 @@ import {MESSAGE_FORMAT_CONFIG} from 'ngx-translate-messageformat-compiler';
 ```typescript
 // component html template
 ...
-</span> {{translations.nbOfErrors | translate: {count: countMessages} }}
+</span> {{translations.nbOfErrors | o3rTranslate: {count: countMessages} }}
 ...
 ```
 
@@ -504,9 +504,9 @@ Sometimes you may want to display a different resource based on some property va
 ```typescript
 // in component html
 <ul>
-  <li>{{ translations.people | translate: { gender: 'female', how: 'influential' } }}</li>
-  <li>{{ translations.people | translate: { gender: 'male', how: 'funny' } }}</li>
-  <li>{{ translations.people | translate: { how: 'affectionate' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { gender: 'female', how: 'influential' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { gender: 'male', how: 'funny' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { how: 'affectionate' } }}</li>
 </ul>
 ```
 

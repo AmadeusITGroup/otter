@@ -103,7 +103,7 @@ describe('Add Localization', () => {
       expect(componentFileContent).toContain('@Localization(\'./test.localization.json\')');
 
       const templateFileContent = tree.readText(templatePath);
-      expect(templateFileContent).toContain('<div>Localization: {{ translations.dummyLoc1 | translate }}</div>');
+      expect(templateFileContent).toContain('<div>Localization: {{ translations.dummyLoc1 | o3rTranslate }}</div>');
 
       const specFileContent = tree.readText(specPath);
       expect(specFileContent).toContain('const localizationService = TestBed.inject(LocalizationService);');

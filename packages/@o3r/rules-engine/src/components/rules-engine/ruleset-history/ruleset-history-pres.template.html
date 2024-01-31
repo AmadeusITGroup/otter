@@ -106,8 +106,8 @@
       <li *ngIf="trigger.value?.factName">
         <o3r-rule-key-value-pres
           [key]="trigger.value.factName"
-          [oldValue]="trigger.value.oldValue | fallbackTo"
-          [value]="trigger.value.newValue | fallbackTo"
+          [oldValue]="trigger.value.oldValue | o3rFallbackTo"
+          [value]="trigger.value.newValue | o3rFallbackTo"
           [type]="'state'"></o3r-rule-key-value-pres>
       </li>
     </ng-container>
@@ -145,7 +145,7 @@
     <li *ngFor="let input of inputs">
       <o3r-rule-key-value-pres
         [key]="input.factName"
-        [value]="input.value | fallbackTo"
+        [value]="input.value | o3rFallbackTo"
         [type]="'state'"></o3r-rule-key-value-pres>
     </li>
     <li *ngFor="let input of runtimeInputs">{{input}} (scope limited to ruleset)</li>

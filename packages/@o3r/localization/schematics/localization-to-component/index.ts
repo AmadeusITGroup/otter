@@ -227,7 +227,7 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
           tree.commitUpdate(
             tree
               .beginUpdate(templatePath)
-              .insertLeft(0, '<div>Localization: {{ translations.dummyLoc1 | translate }}</div>\n')
+              .insertLeft(0, '<div>Localization: {{ translations.dummyLoc1 | o3rTranslate }}</div>\n')
           );
         }
 

@@ -17,9 +17,8 @@ function padNum(num: number, digits: number) {
 /**
  * Converts a duration in seconds into the HH:mm format
  */
-@Pipe({name: 'duration'})
-export class DurationPipe implements PipeTransform {
-
+@Pipe({name: 'o3rDuration', standalone: true})
+export class O3rDurationPipe implements PipeTransform {
   /**
    * @param value the value in seconds
    * @param pattern the desired output format.
@@ -65,3 +64,10 @@ export class DurationPipe implements PipeTransform {
 
   }
 }
+
+/**
+ * Converts a duration in seconds into the HH:mm format
+ * @deprecated please use O3rDurationPipe, will be removed in v12.
+ */
+@Pipe({name: 'duration'})
+export class DurationPipe extends O3rDurationPipe implements PipeTransform {}

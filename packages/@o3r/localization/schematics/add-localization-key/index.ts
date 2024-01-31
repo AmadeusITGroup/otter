@@ -227,7 +227,7 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
         if (templatePath) {
           tree.overwrite(
             templatePath,
-            tree.readText(templatePath).replaceAll(options.value, `{{ translations.${properties.keyName} | translate }}`)
+            tree.readText(templatePath).replaceAll(options.value, `{{ translations.${properties.keyName} | o3rTranslate }}`)
           );
         }
       };
