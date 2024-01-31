@@ -98,7 +98,8 @@
       },
       "executor": "@nx/eslint:lint",
       "inputs": ["lint"],
-      "cache": true
+      "cache": true,
+      "dependsOn": ["^build"]
     },
     "test": {
       "inputs": [
