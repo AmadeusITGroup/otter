@@ -47,7 +47,8 @@ module.exports = {
         }],
         '@nx/dependency-checks': ['error', {
           'buildTargets': ['build', 'build-builders', 'compile', 'test'],
-          'checkObsoleteDependencies': false
+          'checkObsoleteDependencies': false,
+          'ignoredDependencies': ['ora']
         }]
       }
     },

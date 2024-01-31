@@ -24636,7 +24636,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:17.2.8, nx@npm:~17.2.0":
+"nx@npm:17.2.8":
   version: 17.2.8
   resolution: "nx@npm:17.2.8"
   dependencies:
