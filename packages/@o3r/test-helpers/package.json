@@ -34,7 +34,7 @@
   "devDependencies": {
     "@angular-devkit/schematics": "~17.0.3",
     "@angular-eslint/eslint-plugin": "~17.2.0",
-    "@nx/eslint-plugin": "~17.2.0",
+    "@nx/eslint-plugin": "~17.3.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~17.0.3",
