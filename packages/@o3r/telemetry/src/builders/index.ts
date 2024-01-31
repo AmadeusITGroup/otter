@@ -38,7 +38,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       // context.builder.builderName does not contain the package name
       const builderName = context.builder.name as string;
       context.logger.info(`${builderName} run in ${duration}ms`);
-      const environment = getEnvironmentInfo();
+      const environment = await getEnvironmentInfo();
       const data: BuilderMetricData = {
         environment,
         duration,

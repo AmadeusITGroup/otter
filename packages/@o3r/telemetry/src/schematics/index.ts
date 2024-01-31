@@ -35,7 +35,7 @@ export const createSchematicWithMetrics: SchematicWrapper =
     finally {
       const endTime = Math.floor(performance.now());
       const duration = endTime - startTime;
-      const environment = getEnvironmentInfo();
+      const environment = await getEnvironmentInfo();
       const schematic = {
         name: `${context.schematic.description.collection.name}:${context.schematic.description.name}`,
         options,

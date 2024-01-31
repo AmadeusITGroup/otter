@@ -118,7 +118,7 @@ export interface EnvironmentMetricData {
  * Get all environment information
  * Could be useful for debugging issue
  */
-export const getEnvironmentInfo = (): EnvironmentMetricData => {
+export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
   const osInfo = {
     architecture: os.arch(),
     platform: os.platform(),
@@ -136,17 +136,17 @@ export const getEnvironmentInfo = (): EnvironmentMetricData => {
     otterCorePackageJsonPath = require.resolve('@o3r/core/package.json');
   } catch {
     // Fallback to the @o3r/telemetry package version if @o3r/core is not found
-    otterCorePackageJsonPath = path.posix.join(__dirname, '..', '..', 'package.json');
+    otterCorePackageJsonPath = path.join(__dirname, '..', '..', 'package.json');
   }
   const otterInfo = {
-    version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
+    version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
   };
 
   const ci = typeof process.env.CI !== undefined && process.env.CI?.toLowerCase() !== 'false';
 
   let projectName: string | undefined;
   try {
-    projectName = JSON.parse(fs.readFileSync(path.posix.join(process.cwd(), 'package.json'), { encoding: 'utf-8' })).name;
+    projectName = JSON.parse(await fs.promises.readFile(path.join(process.cwd(), 'package.json'), { encoding: 'utf-8' })).name;
   } catch {}
 
   return {
@@ -162,8 +162,8 @@ export const getEnvironmentInfo = (): EnvironmentMetricData => {
  * Stringify the result of `getEnvironmentInfo`
  * @see getEnvironmentInfo
  */
-export const getEnvironmentInfoStringify = () => {
-  const { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo, ci } = getEnvironmentInfo();
+export const getEnvironmentInfoStringify = async () => {
+  const { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo, ci } = await getEnvironmentInfo();
   return `
 - User Agent Architecture: ${osInfo.architecture}
 - User Agent Platform: ${osInfo.platform}
