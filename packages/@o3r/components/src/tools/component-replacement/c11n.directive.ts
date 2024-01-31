@@ -1,6 +1,6 @@
 import {
   ComponentRef, Directive, forwardRef, Injector, Input, KeyValueChangeRecord, KeyValueDiffer,
-  KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, ViewContainerRef
+  KeyValueDiffers, OnChanges, OnDestroy, SimpleChange, SimpleChanges, Type, ViewContainerRef
 } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, NgControl } from '@angular/forms';
 import type { BaseContextOutput, Configuration, Context, ContextInput, Functionify } from '@o3r/core';
@@ -28,7 +28,7 @@ export class C11nDirective<
   T extends Context<I, O> = Context<I, O>> implements OnChanges, OnDestroy {
 
   /** The component information passed to the directive */
-  @Input() public component!: T;
+  @Input() public component!: Type<T>;
 
   /** The information related to configuration */
   @Input() public config?: D;

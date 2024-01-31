@@ -188,10 +188,10 @@ Here we need to do a couple of things:
 * Prepare an ``outputs`` object
 
 ```` typescript
-import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, Optional} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnDestroy, OnInit, Optional, Type} from '@angular/core';
 import {DummyContConfig, DUMMY_CONT_CONFIG_ID, DUMMY_CONT_DEFAULT_CONFIG} from './dummy-cont.config';
 import {DummyContContext} from './dummy-cont.context';
-import {DummyPresContextInput, DummyPresContextOutput} from '../presenter/index';
+import {DummyPresContext} from '../presenter/index';
 import {DummyPresComponent} from '../presenter/dummy-pres.component';
 import {ConfigurationBaseService, ConfigurationObserver} from '@o3r/configuration';
 import {Block} from '@o3r/core';
@@ -217,7 +217,7 @@ export class DummyContComponent implements DynamicConfigurable<DummyContConfig>,
   public config$: Observable<DummyContConfig>;
 
   /** Observable of the presenter that we want to use, processed by the c11n directive */
-  public presenter$: Observable<Context<DummyPresContextInput, DummyPresContextOutput>>;
+  public presenter$: Observable<Type<DummyPresContext>>;
 
   /** Convenience object to prepare all the outputs binding in advance */
   public outputs: Functionify<DummyPresContextOutput>;

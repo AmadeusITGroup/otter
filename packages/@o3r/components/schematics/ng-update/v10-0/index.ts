@@ -1,6 +1,6 @@
 /* eslint-disable camelcase, @typescript-eslint/naming-convention */
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, PipeReplacementInfo, updatePipes } from '@o3r/schematics';
+import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { addImportsRule, createSchematicWithMetricsIfInstalled, findFilesInTree, PipeReplacementInfo, updatePipes } from '@o3r/schematics';
 
 const pipeReplacementInfo: PipeReplacementInfo = {
   capitalize: {
@@ -33,6 +33,21 @@ const pipeReplacementInfo: PipeReplacementInfo = {
   }
 };
 
+const c11nPresenterDeclarationRegExp = /(presenter\$!?\s*:\s*Observable)<(.*)>/g;
+
+const updateC11nPresenterDeclaration: Rule = (tree) => {
+  const files = findFilesInTree(tree.getDir('/'), (filePath) => /\.component.ts$/.test(filePath));
+  return chain(
+    files.map((file) => c11nPresenterDeclarationRegExp.test(file.content.toString())
+      ? chain([
+        () => tree.overwrite(file.path, file.content.toString().replace(c11nPresenterDeclarationRegExp, '$1<Type<$2>>')),
+        addImportsRule(file.path, [{ from: '@angular/core', importNames: ['Type'] }])
+      ])
+      : noop()
+    )
+  );
+};
+
 /**
  * Update of Otter library V10.0
  */
@@ -40,7 +55,8 @@ function updateV10_0Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
 
     const updateRules: Rule[] = [
-      updatePipes(pipeReplacementInfo)
+      updatePipes(pipeReplacementInfo),
+      updateC11nPresenterDeclaration
     ];
 
     return chain(updateRules)(tree, context);
