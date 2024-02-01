@@ -80,7 +80,8 @@
             "bundleName": "horizon-theme"
           }
         ],
-        "scripts": []
+        "scripts": [],
+        "preserveSymlinks": true
       },
       "configurations": {
         "production": {
