@@ -1,6 +1,9 @@
 {
   "name": "@o3r/chrome-devtools",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Otter Chrome Devtools",
   "main": "dist/extension/core.js",
   "types": "dist/extension/core.d.ts",

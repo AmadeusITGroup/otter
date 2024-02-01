@@ -1,6 +1,9 @@
 {
   "name": "@o3r/github-cascading-app",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Github Cascading App",
   "keywords": [
     "github"

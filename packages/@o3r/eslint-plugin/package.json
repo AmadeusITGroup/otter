@@ -1,6 +1,9 @@
 {
   "name": "@o3r/eslint-plugin",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "The module provides in-house eslint plugins to use in your own eslint configuration.",
   "main": "dist/src/public_api.js",
   "keywords": [

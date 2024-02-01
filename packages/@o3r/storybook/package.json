@@ -1,6 +1,9 @@
 {
   "name": "@o3r/storybook",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "The Otter Framework provides several tools for Otter-based projects.",
   "keywords": [
     "storybook",

@@ -1,6 +1,9 @@
 {
   "name": "@o3r/azure-tools",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Various Azure DevOps tools",
   "keywords": [
     "otter",

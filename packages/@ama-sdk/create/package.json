@@ -1,6 +1,9 @@
 {
   "name": "@ama-sdk/create",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Create a new SDK",
   "keywords": [
     "create"

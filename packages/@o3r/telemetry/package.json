@@ -1,6 +1,9 @@
 {
   "name": "@o3r/telemetry",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "A set of helpers to retrieve tool usage metrics.",
   "keywords": [
     "otter-module"

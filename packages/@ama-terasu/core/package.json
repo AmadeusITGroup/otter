@@ -3,6 +3,9 @@
   "main": "dist/src/public_api.js",
   "typings": "dist/src/public_api.d.ts",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Command Line Interface to administrate a DES project",
   "scripts": {
     "nx": "nx",

@@ -1,6 +1,9 @@
 {
   "name": "@ama-terasu/cli",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Command Line Interface to administrate a Digital Experience Suite projects",
   "main": "dist/src/cli/ama.js",
   "scripts": {

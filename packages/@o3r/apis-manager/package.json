@@ -1,6 +1,9 @@
 {
   "name": "@o3r/apis-manager",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides services to help you communicate with your APIs. Its responsibility is to provide an API configuration to a service factory so that it could instantiate an API with the right configurations.\nIt contains a default configuration and a map of specific configurations for an API / a set of APIs.\nConfigurations are only exposed through the method `getConfiguration`, which will merge the default configuration and the requested one.",
   "keywords": [
     "apis-manager",

@@ -1,6 +1,9 @@
 {
   "name": "@o3r/routing",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module helps you to configure an Otter application's routing (POST parameter management, preloading strategy, guard recommendation).",
   "keywords": [
     "routing",

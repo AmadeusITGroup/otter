@@ -1,6 +1,9 @@
 {
   "name": "@ama-sdk/core",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Digital API - SDK Core",
   "module": "dist/src/public_api.js",
   "esm2015": "dist/esm2015/public_api.js",

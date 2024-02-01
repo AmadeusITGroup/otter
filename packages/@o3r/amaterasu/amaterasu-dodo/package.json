@@ -1,6 +1,9 @@
 {
   "name": "@o3r/amaterasu-dodo",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/src/index.js",
   "typings": "dist/src/index.d.ts",
   "description": "Bridge to Dodo CLI",

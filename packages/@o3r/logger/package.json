@@ -1,6 +1,9 @@
 {
   "name": "@o3r/logger",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "This module provides a bridge to target different loggers (logrocket, fullstory, smartlook) with a common interface.\nIt is reporting the logs emitted by the different Otter Modules.",
   "keywords": [
     "logger",
