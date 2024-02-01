@@ -1,16 +1,16 @@
 # Configuration
 To extract the configuration metadata from an application/library the _component extractor_ will be used. It extracts the list of all the config interfaces defined in a library or application. The output is a json file `component.config.metadata.json` containing an array of all the components configurations (app configs, pages, components).
-It will also generate the component classes and types metadata from an Otter library/application, outputting them in a json file `component.class.metadata.json`.   
+It will also generate the component classes and types metadata from an Otter library/application, outputting them in a json file `component.class.metadata.json`.
 
 Note that the component.class.metadata.json is used at the moment only in rules engine scope, but in the future will be a requirement for the next steps of the Adobe SPA Editor.
 ## How to use it
 
 Since the v3 of Otter, you should use the component-extraction builder directly in your angular.json
 
-First thing to do is to define your given filenames for the configuration in the _package.json_ of the library/app where you run the extractor.  
-When running in a library it will use this configuration as the names for the metadata files.  
-When running the extractor in an application, it will search for these filenames in each node_module (package.json file) of each library,  
-in order to concat the metadata from the file with other libraries metadata and app metadata. 
+First thing to do is to define your given filenames for the configuration in the _package.json_ of the library/app where you run the extractor.
+When running in a library it will use this configuration as the names for the metadata files.
+When running the extractor in an application, it will search for these filenames in each node_module (package.json file) of each library,
+in order to concat the metadata from the file with other libraries metadata and app metadata.
 
 ```
 // in package.json file
@@ -27,11 +27,11 @@ The Component Extractor is accessible via a NgCLI builder: `@o3r/components:extr
 
 For an up-to-date documentation, run `ng help @o3r/components:extractor`
 
-* If the _component extractor_ is run on an application which is using components from an otter library, the _libraries_ option can be specified to concat classes/configuration files generated for application with ones from specified _libraries_. The extractor will search a _'component.config.metadata.json'_ and a _component.class.metadata.json_ file in the node_modules package of each defined library (the name of the files to search will be read from the _cmsMetadata_ property in _package.json_ file defined for each library).  
+* If the _component extractor_ is run on an application which is using components from an otter library, the _libraries_ option can be specified to concat classes/configuration files generated for application with ones from specified _libraries_. The extractor will search a _'component.config.metadata.json'_ and a _component.class.metadata.json_ file in the node_modules package of each defined library (the name of the files to search will be read from the _cmsMetadata_ property in _package.json_ file defined for each library).
 * Here is an example on the otter demo app
 
 ```
-// in angular.json  
+// in angular.json
 "extract-components": {
   "builder": "@o3r/components:extractor",
   "options": {
@@ -244,15 +244,51 @@ export interface MyConfig extends Configuration {
 }
 ```
 
+These tags will be exported inside the extracted metadata (see the [CMS Adapters documentation](../cms-adapters)) provided
+they are supported in the [CMS JSON schema](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40o3r/configuration/schemas/configuration.metadata.schema.json). Please refer to the schema for the latest supported model.
+
+For instance, if you want to add a title to your component's configuration as a way to have a user friendly naming and a label for your property, you can set the following tags:
+```typescript
+/**
+ * This is an incredible config but the name is not so easy to read for CMS users
+ *
+ * @title My Incredible Config
+ */
+export interface MyConfigWithADifficultName extends Configuration {
+  /**
+   * My great property
+   *
+   * @label Human readable title
+   */
+  myConfigProperty: string;
+}
+```
+
+If you use any non supported tags in your tsdocs, it will be ignored by the extractor. For example, in the following example, the invalidTag will not be part of the
+extracted metadata.
+```typescript
+/**
+ * Yet another Configuration
+ *
+ * @invalidTag This tag will be ignored by the configuration extractor
+ */
+export interface MyConfig extends Configuration {
+  /**
+   * Some description
+   */
+  someConfigProperty: string;
+}
+```
+
 ### Configuration categories
 
 Categories can be added on configuration properties. This can be achieved by adding the `@o3rCategory` tag in the JSDoc on the configuration property.
-The categories added on the configuration properties must be defined either globally or in the configuration interface. 
+The categories added on the configuration properties must be defined either globally or in the configuration interface.
 
 For the first case, the global categories can be defined in the `angular.json` of your project by adding the `globalConfigCategories` property to the options of `@o3r/components:extractor`, for example:
 
-```json
-// in angular.json 
+```json5
+// in angular.json
 "extract-components": {
   "builder": "@o3r/components:extractor",
   "options": {
