@@ -46,7 +46,7 @@
     "publish:package": "npm publish ./dist",
     "postinstall": "husky install",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
-    "doc:generate": "cpx ./readme.md ./.readme-backup && typedoc && cpx ./.readme-backup ./readme.md && rimraf ./.readme-backup",
+    "doc:generate": "typedoc",
     "tools:changelog": "standard-version"
   },
   "lint-staged": {

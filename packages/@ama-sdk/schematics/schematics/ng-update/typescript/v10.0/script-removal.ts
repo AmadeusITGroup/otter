@@ -14,7 +14,7 @@ export const updateScriptPackageJson = (): Rule => (tree, context) => {
 
   const pck = tree.readJson('/package.json') as PackageJson;
   if (pck.scripts?.['doc:generate'] === 'node scripts/override-readme.js && typedoc && node scripts/restore-readme.js') {
-    pck.scripts['doc:generate'] = 'cpx ./readme.md ./.readme-backup && typedoc && cpx ./.readme-backup ./readme.md && rimraf ./.readme-backup';
+    pck.scripts['doc:generate'] = 'typedoc';
   }
   if (pck.scripts?.['files:pack'] === 'node scripts/files-pack.js') {
     pck.scripts['files:pack'] = 'amasdk-files-pack';

@@ -64,5 +64,6 @@ describe('Create new sdk command', () => {
         { ...execAppOptions, cwd: sdkPackagePath }
       )).not.toThrow();
     expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun('doc:generate', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 });
