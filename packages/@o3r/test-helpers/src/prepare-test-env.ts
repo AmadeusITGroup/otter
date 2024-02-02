@@ -6,7 +6,7 @@ import { minVersion } from 'semver';
 import { createTestEnvironmentAngular } from './test-environments/create-test-environment-angular';
 import { createTestEnvironmentAngularWithO3rCore } from './test-environments/create-test-environment-angular-with-o3r-core';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import {createWithLock, packageManagerInstall, setPackagerManagerConfig} from './utilities';
+import { createWithLock, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities';
 
 /**
  * 'blank' only create yarn/npm config
@@ -134,24 +134,7 @@ export async function prepareTestEnv(folderName: string, type: PrepareTestEnvTyp
   }
 
   // Setup git and initial commit to easily make checks on the diff inside the tests
-  try {
-    const authorName = 'otter it tests';
-    const authorEmail = 'fake-email@it-tests.otter';
-    execSync('git init -b master && git add -A && git commit -m "initial commit"', {
-      cwd: appFolderPath,
-      env: {
-        /* eslint-disable @typescript-eslint/naming-convention, camelcase */
-        GIT_AUTHOR_NAME: authorName,
-        GIT_COMMITTER_NAME: authorName,
-        GIT_AUTHOR_EMAIL: authorEmail,
-        GIT_COMMITTER_EMAIL: authorEmail
-        /* eslint-enable @typescript-eslint/naming-convention, camelcase */
-      }
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Unable to setup git for the test-app', err);
-  }
+  setupGit(appFolderPath);
 
   return appFolderPath;
 }

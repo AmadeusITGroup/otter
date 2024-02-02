@@ -1,5 +1,6 @@
 import {
   getDefaultExecSyncOptions,
+  getGitDiff,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
@@ -20,6 +21,9 @@ describe('new otter application with extractors', () => {
   });
   test('should add extractors to existing application', () => {
     packageManagerExec(`ng add --skip-confirmation @o3r/extractors@${o3rVersion}`, execAppOptions);
+
+    const diff = getGitDiff(appFolderPath);
+    expect(diff.modified).toContain('package.json');
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();

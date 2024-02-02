@@ -1,6 +1,7 @@
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
+  getGitDiff,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRun,
@@ -19,12 +20,15 @@ describe('new otter application with rules-engine', () => {
     appFolderPath = await prepareTestEnv(appName, 'angular-with-o3r-core');
     execAppOptions.cwd = appFolderPath;
   });
-  test('should add rules engine to existing application', () => {
+  test('should add rules engine to existing application', async () => {
     packageManagerExec(`ng add --skip-confirmation @o3r/rules-engine@${o3rVersion} --enable-metadata-extract`, execAppOptions);
 
     packageManagerExec('ng g @o3r/core:component test-component --activate-dummy --use-rules-engine=false', execAppOptions);
     packageManagerExec('ng g @o3r/rules-engine:rules-engine-to-component --path=src/components/test-component/test-component.component.ts', execAppOptions);
-    addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
+    await addImportToAppModule(appFolderPath, 'TestComponentModule', 'src/components/test-component');
+
+    const diff = getGitDiff(appFolderPath);
+    expect(diff.modified).toContain('package.json');
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();
