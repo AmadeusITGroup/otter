@@ -11,7 +11,7 @@ import * as path from 'node:path';
 import { promisify } from 'node:util';
 import { execFile } from 'node:child_process';
 import * as chalk from 'chalk';
-import { getPackageManager, PackageManagerOptions } from '../utility';
+import { getPackageManager, type PackageManagerOptions } from '../utility/index';
 
 const DEFAULT_NPM_REGISTRY = 'registry.npmjs.org';
 

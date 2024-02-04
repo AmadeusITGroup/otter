@@ -1,5 +1,5 @@
 import * as fs from 'node:fs';
-import { PackageJson } from 'type-fest';
+import type { PackageJson } from 'type-fest';
 
 /**
  * Retrieve the peer dependencies with the given pattern from the given package json file

@@ -5,8 +5,8 @@
     "access": "public"
   },
   "description": "Schematics module of the Otter framework",
-  "main": "./dist/src/index.js",
-  "typings": "./src/public_api.d.ts",
+  "main": "./src/public_api.ts",
+  "typings": "./src/public_api.ts",
   "keywords": [
     "schematics",
     "otter"
@@ -15,13 +15,15 @@
     "nx": "nx",
     "ng": "yarn nx",
     "build": "yarn nx build schematics",
-    "postbuild": "patch-package-json-main",
+    "postbuild": "yarn cpy 'package.json' dist && patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
+    "build:source": "tsc -b tsconfig.build.json --pretty",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
+    "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
   },
   "bin": {
-    "environment": "./dist/src/cli/environment.js"
+    "o3r-environment": "./dist/cli/environment.js"
   },
   "peerDependencies": {
     "@angular-devkit/architect": "~0.1700.0",

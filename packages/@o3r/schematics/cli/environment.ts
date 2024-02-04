@@ -1,3 +1,3 @@
-import { getEnvironmentInfoStringify } from '../utility/index';
+import { getEnvironmentInfoStringify } from '../src/utility/index';
 
 console.info(`Environment information: ${getEnvironmentInfoStringify()}`);

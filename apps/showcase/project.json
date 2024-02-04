@@ -164,11 +164,6 @@
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
-      "inputs": ["source"],
-      "outputs": [
-        "{options.outputFactsDirectory}/rules.facts.metadata.json",
-        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
-      ],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "libraries": ["packages/@o3r/rules-engine"],
@@ -193,6 +188,7 @@
         "{projectRoot}/src/**/*.scss"
       ],
       "inputs": [
+        "global",
         "{projectRoot}/src/style/design-token.*.json"
       ],
       "options": {
@@ -218,6 +214,7 @@
         "{projectRoot}/src/**/*.scss"
       ],
       "inputs": [
+        "global",
         "{projectRoot}/src/style/dark-theme/dark-theme.*.json",
         "{projectRoot}/src/style/design-token.app.json"
       ],
@@ -246,6 +243,7 @@
         "{projectRoot}/src/**/*.scss"
       ],
       "inputs": [
+        "global",
         "{projectRoot}/src/style/horizon-theme/horizon-theme.*.json",
         "{projectRoot}/src/style/design-token.app.json"
       ],
@@ -275,6 +273,7 @@
     "generate-translations": {
       "executor": "@o3r/localization:localization",
       "inputs": [
+        "global",
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
         "{projectRoot}/src/components/**/i18n",
@@ -323,7 +322,10 @@
     },
     "i18n": {
       "executor": "@o3r/localization:i18n",
-      "inputs": ["{projectRoot}/src/!(i18n)/**/*.localization.json"],
+      "inputs": [
+        "global",
+        "{projectRoot}/src/!(i18n)/**/*.localization.json"
+      ],
       "outputs": ["{projectRoot}/src/!(i18n)/**/i18n/*.json"],
       "options": {
         "localizationConfigs": [

@@ -1,7 +1,7 @@
 import { posix } from 'node:path';
 import { logging } from '@angular-devkit/core';
 import { execSync } from 'node:child_process';
-import type { WorkspaceSchema } from '../interfaces';
+import type { WorkspaceSchema } from '../interfaces/angular-workspace';
 
 /** Support NPM package managers */
 export type SupportedPackageManagers = 'npm' | 'yarn';

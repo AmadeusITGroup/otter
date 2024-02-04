@@ -14,11 +14,8 @@ import {
   getO3rPeerDeps,
   getWorkspaceConfig,
   install,
-  mapImportV7toV8,
   ngAddPackages,
-  removePackages,
-  renamedPackagesV7toV8,
-  updateImports
+  removePackages
 } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
@@ -56,7 +53,6 @@ export const prepareProject = (options: NgAddSchematicsSchema) => async (tree: T
   return () => {
 
     const appLibRules: Rule[] = [
-      updateImports(mapImportV7toV8, renamedPackagesV7toV8) as any,
       updateBuildersNames(),
       updateOtterGeneratorsNames(),
       updateOtterEnvironmentAdapter(optionsAndWorkingDir, coreSchematicsFolder),

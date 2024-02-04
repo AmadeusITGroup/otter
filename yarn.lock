@@ -8513,7 +8513,7 @@ __metadata:
     eslint:
       optional: true
   bin:
-    environment: ./dist/src/cli/environment.js
+    o3r-environment: ./dist/cli/environment.js
   languageName: unknown
   linkType: soft
 

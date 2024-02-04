@@ -15,6 +15,7 @@
         "{projectRoot}/src/package.json"
       ],
       "inputs": [
+        "global",
         "{projectRoot}/package.json"
       ],
       "options": {

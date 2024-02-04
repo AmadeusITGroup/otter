@@ -175,6 +175,7 @@
   "builders": "./builders.json",
   "ng-update": {
     "migrations": "./migration.json",
+    "requirements": "^8.0.0",
     "packageGroup": [
       "@ama-sdk/core",
       "@ama-sdk/schematics",

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Tree } from '@angular-devkit/schematics';
+import type { Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 
 /**

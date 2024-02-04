@@ -1,12 +1,11 @@
 import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { NodeDependency } from '@schematics/angular/utility/dependencies';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { type NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
 import type { PackageJson } from 'type-fest';
-import { SchematicOptionObject } from '../../interfaces';
+import type { SchematicOptionObject } from '../../interfaces/index';
 import type { NgAddPackageOptions } from '../../tasks/index';
 import { getExternalDependenciesVersionRange, getNodeDependencyList, getPackageManager, getWorkspaceConfig, registerCollectionSchematics, writeAngularJson } from '../../utility/index';
 

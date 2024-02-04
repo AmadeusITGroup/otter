@@ -1,4 +1,4 @@
-import { Tree } from '@angular-devkit/schematics';
+import type { Tree } from '@angular-devkit/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import * as ts from 'typescript';
 import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';

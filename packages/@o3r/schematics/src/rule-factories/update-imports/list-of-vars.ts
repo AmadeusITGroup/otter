@@ -1,13 +1,12 @@
 /**
- *
- *Represents an element that is exposed in a Sass import.
- * @property value: The name of the exposed element.
- * @property type: The type of the exposed element, either 'function' or 'var'.
- * @property replacement: The name of the replacement element, if any.
+ * Represents an element that is exposed in a Sass import.
  */
 export interface SassImportExposedElement {
+  /** The name of the exposed element */
   value: string;
+  /** The type of the exposed element, either 'function' or 'var' */
   type: 'function' | 'var';
+  /** The name of the replacement element, if any */
   replacement?: string | undefined;
 }
 

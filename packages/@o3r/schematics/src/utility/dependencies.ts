@@ -1,5 +1,5 @@
 import * as fs from 'node:fs';
-import {NodeDependency, NodeDependencyType} from '@schematics/angular/utility/dependencies';
+import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 /**
  *  Method to extract the provided package version range from a package.json file

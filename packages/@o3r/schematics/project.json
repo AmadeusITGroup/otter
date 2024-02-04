@@ -11,7 +11,12 @@
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": ["^build", "compile", "build-builders"]
+      "dependsOn": [
+        "^build",
+        "compile",
+        "build-builders",
+        "build-cli"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -25,13 +30,16 @@
         "script": "build:builders"
       }
     },
-    "compile": {
-      "executor": "@nx/js:tsc",
+    "build-cli": {
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/schematics/src/public_api.ts",
-        "tsConfig": "packages/@o3r/schematics/tsconfig.build.json",
-        "outputPath": "packages/@o3r/schematics/dist",
-        "assets": ["packages/@o3r/schematics/src/**/templates/**"]
+        "script": "build:cli"
+      }
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:source"
       }
     },
     "lint": {

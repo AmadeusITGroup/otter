@@ -1,5 +1,11 @@
 {
   "compileOnSave": false,
+  "include": [
+    "**/*.ts"
+  ],
+  "exclude": [
+    "**/dist/**"
+  ],
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": false,

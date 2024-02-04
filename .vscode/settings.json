@@ -37,7 +37,7 @@
     "nx.json": ".nxignore",
     ".yarnrc.yml": ".npmrc, .npmrc.*",
     ".eslintrc.*": ".eslintignore, .eslintrc-*",
-    "jest.config.js": "jest.config.*",
+    "jest.config.js": "jest.config.*"
   },
   "stylelint.validate": [
     "css",

@@ -1,7 +1,7 @@
 import { chain, Rule } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
-import { getAppModuleFilePath, getDefaultOptionsForSchematic, getMainFilePath, getModuleIndex, getWorkspaceConfig } from '../../utility';
+import { getAppModuleFilePath, getDefaultOptionsForSchematic, getMainFilePath, getModuleIndex, getWorkspaceConfig } from '../../utility/index';
 import type { WorkspaceSchematics } from '../../interfaces';
 import { addImportToModuleFile as o3rAddImportToModuleFile } from '../../utility';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
