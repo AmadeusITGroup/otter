@@ -24,7 +24,10 @@
     "prepare": {
       "executor": "nx:run-script",
       "outputs": ["{projectRoot}/src/package.json"],
-      "inputs": ["{projectRoot}/package.json"],
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json"
+      ],
       "options": {
         "script": "prepare:compile"
       }

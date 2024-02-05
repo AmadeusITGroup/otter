@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.jest",
   "compilerOptions": {
     "composite": true,
+    "incremental": true,
     "outDir": "test",
     "rootDir": ".",
   },

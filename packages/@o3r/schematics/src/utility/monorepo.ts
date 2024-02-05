@@ -1,6 +1,6 @@
 import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { WorkspaceLayout, WorkspaceProject, WorkspaceSchema } from '../interfaces';
+import type { WorkspaceLayout, WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
 import { getSchematicOptions } from './collection';
 import type { PackageJson } from 'type-fest';
 import { getWorkspaceConfig } from './loaders';

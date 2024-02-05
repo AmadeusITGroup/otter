@@ -1,6 +1,6 @@
 import { DirEntry, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { dirname, join } from 'node:path';
-import { EslintFixTask, LinterOptions } from '../../tasks';
+import { EslintFixTask, LinterOptions } from '../../tasks/index';
 
 /**
  * Apply EsLint fix

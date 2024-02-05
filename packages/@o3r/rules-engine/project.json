@@ -29,7 +29,10 @@
     },
     "prepare": {
       "executor": "nx:run-script",
-      "inputs": ["{projectRoot}/package.json"],
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json"
+      ],
       "outputs": ["{projectRoot}/src/package.json"],
       "dependsOn": ["^build"],
       "options": {
@@ -38,10 +41,6 @@
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
-      "outputs": [
-        "{options.outputFactsDirectory}/rules.facts.metadata.json",
-        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
-      ],
       "options": {
         "tsConfig": "./packages/@o3r/rules-engine/tsconfig.build.json",
         "outputFactsDirectory": "./packages/@o3r/rules-engine/dist",

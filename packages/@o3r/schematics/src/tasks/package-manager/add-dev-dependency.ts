@@ -1,6 +1,6 @@
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager, getWorkspaceConfig } from '../../utility';
+import { getPackageManager, getWorkspaceConfig } from '../../utility/index';
 import { NodePackageInstallTaskOptions } from './interfaces';
 
 /**

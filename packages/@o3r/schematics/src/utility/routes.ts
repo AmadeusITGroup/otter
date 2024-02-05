@@ -1,4 +1,4 @@
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
 
 /**

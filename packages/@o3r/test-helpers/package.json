@@ -2,14 +2,19 @@
   "name": "@o3r/test-helpers",
   "private": true,
   "version": "0.0.0-placeholder",
+  "main": "./src/public_api.ts",
+  "types": "./src/public_api.ts",
   "exports": {
-    "./setup-jest-builders": {
-      "types": "./dist/src/setup-jest-builders/index.d.ts",
-      "default": "./dist/src/setup-jest-builders/index.js"
-    },
     ".": {
-      "types": "./dist/src/public_api.d.ts",
-      "default": "./dist/src/public_api.js"
+      "types": "./dist/src/public_api.ts",
+      "default": "./src/public_api.ts"
+    },
+    "./package.json": {
+      "default": "./package.json"
+    },
+    "./setup-jest-builders": {
+      "types": "./src/setup-jest-builders/index.ts",
+      "default": "./src/setup-jest-builders/index.ts"
     }
   },
   "peerDependencies": {

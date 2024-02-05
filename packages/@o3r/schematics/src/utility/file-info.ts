@@ -1,7 +1,6 @@
 import { SchematicContext, Tree } from '@angular-devkit/schematics';
 import { getDecoratorMetadata } from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import type { SourceFile } from 'typescript';
 import { getAppModuleFilePath } from './modules';
 
 /**
@@ -32,7 +31,7 @@ export interface FileInfo {
  * @param sourceFile
  * @param sourceContent
  */
-export function getModuleIndex(sourceFile: SourceFile, sourceContent: string): Pick<FileInfo, 'ngModulesMetadata' | 'moduleIndex' | 'isStandalone'> {
+export function getModuleIndex(sourceFile: ts.SourceFile, sourceContent: string): Pick<FileInfo, 'ngModulesMetadata' | 'moduleIndex' | 'isStandalone'> {
   const decorators = [
     {name: 'NgModule', isStandalone: false},
     {name: 'Component', isStandalone: true}

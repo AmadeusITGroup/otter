@@ -6,6 +6,9 @@
       "path": "./tsconfig.build.composite.json"
     },
     {
+      "path": "./tsconfig.builders.json"
+    },
+    {
       "path": "./tsconfig.spec.json"
     }
   ]

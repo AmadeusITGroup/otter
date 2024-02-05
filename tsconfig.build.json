@@ -3,7 +3,6 @@
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
-    "allowSyntheticDefaultImports": false,
     "paths": {
       "@ama-sdk/core": ["packages/@ama-sdk/core/dist", "packages/@ama-sdk/core/src/public_api"],
       "@ama-sdk/showcase-sdk": ["packages/@ama-sdk/showcase-sdk/dist", "packages/@ama-sdk/showcase-sdk/src/index"],

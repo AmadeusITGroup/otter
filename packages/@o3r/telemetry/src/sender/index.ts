@@ -1,5 +1,6 @@
 import { EnvironmentMetricData } from '../environment';
 
+
 export interface BaseMetricData {
   /** Environment information */
   environment: EnvironmentMetricData;
@@ -8,7 +9,6 @@ export interface BaseMetricData {
   /** Error message */
   error?: string;
 }
-
 export interface BuilderMetricData extends BaseMetricData {
   /** Builder information */
   builder: {

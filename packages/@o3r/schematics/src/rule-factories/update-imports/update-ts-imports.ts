@@ -1,6 +1,6 @@
 import { Rule } from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility';
+import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility/index';
 
 /**
  * Update imports based on mapping

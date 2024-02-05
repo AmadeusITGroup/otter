@@ -41,6 +41,7 @@
     "build-swagger": {
       "executor": "nx:run-script",
       "inputs": [
+        "global",
         "{projectRoot}/schematics/**",
         "!{projectRoot}/schematics/**/target/**"
       ],
