@@ -153,7 +153,11 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
     .flat();
 
   const packageJsonPath = resolve(cwd, 'package.json');
-  const packageJson: PackageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  const packageJson: PackageJson = JSON.parse(
+    readFileSync(packageJsonPath, { encoding: 'utf-8' })
+      // Replace the ^ with ~ to use the same minor version for angular packages as @angular/cli
+      .replace(/(@(?:angular|schematics).*)\^/g, '$1~')
+  );
   packageJson.devDependencies ||= {};
   mandatoryDependencies.forEach((dep) => {
     packageJson.devDependencies![dep] = dependencies?.[dep] || devDependencies?.[dep] || 'latest';
