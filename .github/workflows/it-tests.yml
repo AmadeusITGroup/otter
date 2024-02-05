@@ -104,7 +104,7 @@ jobs:
         shell: bash
       - name: Test
         id: it-tests
-        run: yarn test-int --output-style=stream
+        run: yarn test-int
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |

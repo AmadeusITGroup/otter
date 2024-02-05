@@ -21,7 +21,8 @@
     "@angular/cli": "~17.0.3",
     "@schematics/angular": "~17.0.3",
     "minimist": "^1.2.6",
-    "tslib": "^2.5.3"
+    "tslib": "^2.5.3",
+    "type-fest": "^4.10.2"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1700.3",
@@ -29,10 +30,10 @@
     "@angular-devkit/schematics": "~17.0.3",
     "@angular-eslint/eslint-plugin": "~17.2.0",
     "@angular-eslint/eslint-plugin-template": "~17.2.0",
-    "@nx/eslint": "~17.3.0",
-    "@nx/eslint-plugin": "~17.3.0",
-    "@nx/jest": "~17.3.0",
-    "@nx/js": "~17.3.0",
+    "@nx/eslint": "~18.0.2",
+    "@nx/eslint-plugin": "~18.0.2",
+    "@nx/jest": "~18.0.2",
+    "@nx/js": "~18.0.2",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -49,15 +50,15 @@
     "eslint-plugin-jest": "~27.6.0",
     "eslint-plugin-jsdoc": "~48.0.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^50.0.0",
+    "eslint-plugin-unicorn": "^51.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~17.3.0",
+    "nx": "~18.0.2",
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.1.1",
-    "type-fest": "^4.3.1",
+    "type-fest": "^4.10.2",
     "typescript": "~5.2.2"
   },
   "engines": {
