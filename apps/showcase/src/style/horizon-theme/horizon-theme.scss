@@ -3,7 +3,10 @@
 /* --- BEGIN THEME Auto-generated --- */
 /* Application Primary color */
 --bs-primary: var(--color-primary);
+--bs-primary-800: var(--color-primary-800);
 .nav-pills { --bs-nav-pills-link-active-color: var(--color-primary); }
+.navbar-toggler { --bs-navbar-color: var(--bs-primary-bg-subtle); }
+.nav.nav-pills .nav-link { --bs-scrollspy-active-color: var(--color-primary-800); }
 --color-primary-50: #f0e4ea;
 --color-primary-100: #d8bbca;
 --color-primary-200: #bf8da6;

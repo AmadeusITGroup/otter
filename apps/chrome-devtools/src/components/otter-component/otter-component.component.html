@@ -40,7 +40,7 @@
       <div ngbAccordion *ngIf="translations | nbProp; else noLocalizations" [closeOthers]="true" #acc="ngbAccordion">
         <div ngbAccordionItem *ngFor="let componentTranslations of translations | keyvalue" [id]="componentTranslations.key" [collapsed]="componentName === componentTranslations.key">
           <h3 ngbAccordionHeader>
-            {{componentTranslations.key}}<i *ngIf="componentTranslations.key === componentName" class="ms-1 bi bi-star"></i>
+            {{componentTranslations.key}}<i *ngIf="componentTranslations.key === componentName" class="ms-1 icon-star"></i>
           </h3>
           <div ngbAccordionCollapse>
             <div ngbAccordionBody>
@@ -65,7 +65,7 @@
       <div ngbAccordion *ngIf="analytics | nbProp; else noAnalytics" [closeOthers]="true" #acc="ngbAccordion">
         <div ngbAccordionItem *ngFor="let componentAnalytics of analytics | keyvalue" [id]="componentAnalytics.key"  [collapsed]="componentName === componentAnalytics.key">
           <h3 ngbAccordionHeader>
-            {{componentAnalytics.key}}<i *ngIf="componentAnalytics.key === componentName" class="ms-1 bi bi-star"></i>
+            {{componentAnalytics.key}}<i *ngIf="componentAnalytics.key === componentName" class="ms-1 icon-star"></i>
           </h3>
           <div ngbAccordionCollapse>
             <div ngbAccordionBody>
