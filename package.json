@@ -125,6 +125,7 @@
     }
   ],
   "resolutions": {
+    "@angular-eslint/builder/nx": "~17.3.0",
     "@storybook/csf-tools/@babel/traverse": "^7.23.2",
     "jasmine-marbles/rxjs": "^7.8.1",
     "git-url-parse": "^14.0.0",
