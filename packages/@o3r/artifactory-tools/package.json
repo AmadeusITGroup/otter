@@ -20,14 +20,12 @@
   },
   "bin": {
     "o3r-artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",
-    "o3r-artifact-retriever": "./dist/src/cli/artifact-retriever.js",
     "o3r-pr-artifact-cleaner": "./dist/src/cli/pr-artifact-cleaner.js"
   },
   "dependencies": {
     "commander": "^11.0.0",
     "fs-extra": "^11.0.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.9",
     "tslib": "^2.5.3",
     "winston": "^3.8.2"
   },

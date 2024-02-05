@@ -6702,7 +6702,6 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     nx: "npm:~17.3.0"
     request: "npm:^2.88.0"
-    request-promise-native: "npm:^1.0.9"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
@@ -6710,7 +6709,6 @@ __metadata:
     winston: "npm:^3.8.2"
   bin:
     o3r-artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
-    o3r-artifact-retriever: ./dist/src/cli/artifact-retriever.js
     o3r-pr-artifact-cleaner: ./dist/src/cli/pr-artifact-cleaner.js
   languageName: unknown
   linkType: soft
@@ -7395,7 +7393,6 @@ __metadata:
   bin:
     artifact-cleaner: ./dist/src/cli/artifact-cleaner.js
     artifact-retriever: ./dist/src/cli/artifact-retriever.js
-    change-log-sanitizer: ./dist/src/cli/change-log-sanitizer.js
     comment-pr: ./dist/src/cli/comment-pr.js
     generate-package-exports: ./dist/src/cli/generate-package-exports.js
     git-release-management: ./dist/src/cli/git-release-management.js
