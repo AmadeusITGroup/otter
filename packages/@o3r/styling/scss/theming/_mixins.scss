@@ -28,7 +28,7 @@
 /// @param {@see @link https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md#technical-structure-advance} $o3r-theme Otter theme
 @mixin apply-theme($o3r-theme: (), $metadata-black-list-pattern: ('_mat-theming-internal')) {
   :root {
-    @include _apply-theme($o3r-theme, '', $details: (tags: ('theme')), $metadata-black-list-pattern: $metadata-black-list-pattern);
+    @include _apply-theme($o3r-theme, '', $metadata-black-list-pattern: $metadata-black-list-pattern);
   }
 }
 
