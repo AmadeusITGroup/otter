@@ -11,6 +11,10 @@ export function updateRuleEngineService(): Rule {
       RulesEngineService: {
         newPackage: '@o3r/rules-engine',
         newValue: 'RulesEngineRunnerService'
+      },
+      RulesEngineModule: {
+        newPackage: '@o3r/rules-engine',
+        newValue: 'RulesEngineRunnerModule'
       }
     }
   });
