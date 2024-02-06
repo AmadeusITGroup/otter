@@ -1,7 +1,11 @@
 import { INIT, UPDATE } from '@ngrx/store';
+import type { RECOMPUTE } from '@ngrx/store-devtools';
 import { deepFill } from '@o3r/core';
 import type { Logger } from '@o3r/core';
 import type { StorageKeyConfiguration, StorageKeys, SyncStorageConfig, SyncStorageSyncOptions } from './interfaces';
+
+/** The recompute action type of ngrx store devtools */
+const RECOMPUTE_ACTION: typeof RECOMPUTE = '@ngrx/store-devtools/recompute';
 
 /**
  * Reviver the date from a JSON field if the string is matching iso format. Return the same value otherwise
@@ -319,6 +323,12 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
   const logger = config.logger || console;
 
   const stateKeys = validateStateKeys(config.keys);
+  const syncForFeature = stateKeys.some((key) => {
+    if (typeof key === 'object') {
+      const currentKey = Object.keys(key)[0];
+      return !!(key?.[currentKey] as SyncStorageSyncOptions)?.syncForFeature;
+    }
+  });
   const rehydratedState = config.rehydrate
     ? rehydrateApplicationState(stateKeys, config.storage, config.storageKeySerializer, config.restoreDates, logger)
     : undefined;
@@ -328,7 +338,9 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
 
     // If state arrives undefined, we need to let it through the supplied reducer
     // in order to get a complete state as defined by user
-    if (action.type === INIT && !state) {
+    const checkForUpdateAndRecompute = syncForFeature && (action.type === UPDATE || action.type === RECOMPUTE_ACTION);
+
+    if ((action.type === INIT || checkForUpdateAndRecompute) && !state) {
       nextState = reducer(state, action);
     } else {
       nextState = { ...state };
