@@ -6,7 +6,7 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": ".",
-    "tsBuildInfoFile": "build/.tsbuildinfo.builders"
+    "tsBuildInfoFile": "build/.tsbuildinfo.cli"
   },
   "references": [
     {
