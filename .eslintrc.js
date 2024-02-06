@@ -48,7 +48,8 @@ module.exports = {
         '@nx/dependency-checks': ['error', {
           'buildTargets': ['build', 'build-builders', 'compile', 'test'],
           'checkObsoleteDependencies': false,
-          'ignoredDependencies': ['ora']
+          'checkVersionMismatches': false,
+          'ignoredDependencies': ['ora', '@o3r/test-helpers']
         }]
       }
     },

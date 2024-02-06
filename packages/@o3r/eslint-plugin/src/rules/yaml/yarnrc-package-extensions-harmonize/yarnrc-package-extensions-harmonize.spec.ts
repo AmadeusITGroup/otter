@@ -1,6 +1,8 @@
-import * as path from 'node:path';
-import * as fs from 'node:fs';
+import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import { TSESLint } from '@typescript-eslint/experimental-utils';
+import * as path from 'node:path';
+
+const virtualFileSystem = useVirtualFileSystem();
 import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
 
 const ruleTester = new TSESLint.RuleTester({
@@ -59,20 +61,20 @@ packageExtensions:
 `;
 
 
-const packageToLint = path.resolve(__dirname, 'local', '.yarnrc.yml');
+const fakeFolder = path.resolve('/fake-folder');
+const packageToLint = path.join(fakeFolder, 'local', '.yarnrc.yml');
 
-beforeAll(() => {
-  fs.mkdirSync(path.resolve(__dirname, 'local'));
-  fs.writeFileSync(path.resolve(__dirname, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
+beforeAll(async () => {
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
+  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
 
-  fs.mkdirSync(path.resolve(__dirname, 'local', 'packages'));
-  fs.mkdirSync(path.resolve(__dirname, 'local', 'packages', 'my-package'));
-  fs.mkdirSync(path.resolve(__dirname, 'local', 'packages', 'my-package-2'));
-  fs.writeFileSync(path.resolve(__dirname, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), {recursive: true});
+  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 });
 
 afterAll(() => {
-  fs.rmSync(path.resolve(__dirname, 'local'), {recursive: true, force: true});
+  cleanVirtualFileSystem();
 });
 
 ruleTester.run('json-dependency-versions-harmonize', yamlDependencyVersionsHarmonize, {
@@ -89,7 +91,7 @@ ruleTester.run('json-dependency-versions-harmonize', yamlDependencyVersionsHarmo
           messageId: 'error',
           data: {
             depName: 'myDep',
-            packageJsonFile: path.resolve(__dirname, 'local', 'package.json'),
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
             version: '^2.0.0'
           },
           suggestions: [
@@ -119,7 +121,7 @@ packageExtensions:
           messageId: 'error',
           data: {
             depName: 'myDep',
-            packageJsonFile: path.resolve(__dirname, 'local', 'package.json'),
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
             version: '^2.0.0'
           },
           suggestions: [
