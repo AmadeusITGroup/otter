@@ -3,16 +3,16 @@ import { getFilesWithExtensionFromTree } from '@o3r/schematics';
 
 export const updateScssImports = (): Rule => {
   const otterThemeFunctions = [
-    'meta-theme-to-otter',
-    'generate-theme-variables',
-    'generate-otter-theme',
-    'generate-otter-dark-theme',
-    'revert-palette',
-    'generate-theme',
-    'meta-theme-to-material',
-    'get',
-    'color',
-    'contrast',
+    'meta-theme-to-otter(',
+    'generate-theme-variables(',
+    'generate-otter-theme(',
+    'generate-otter-dark-theme(',
+    'revert-palette(',
+    'generate-theme(',
+    'meta-theme-to-material(',
+    'get(',
+    'color(',
+    'contrast(',
     '$default-meta-theme',
     '$default-theme',
     '$default-mat-theme'

@@ -88,5 +88,25 @@ describe('Update v10', () => {
       expect(res).toEqual(expected);
     });
 
+    it('should update a file with Otter theme usage without removing the import to the previous dep', async () => {
+      const content = `@use "@o3r/styling" as test-name;
+        $var: (example: #fff);
+        $var2: test-name.get($var, 'example');
+        $var3: test-name.get-mandatory($var, 'example')
+      `;
+      const expected = `@use '@o3r/styling/otter-theme' as otter-theme;
+        @use "@o3r/styling" as test-name;
+        $var: (example: #fff);
+        $var2: otter-theme.get($var, 'example');
+        $var3: test-name.get-mandatory($var, 'example')
+      `.replace(/^ +/gm, '');
+      initialTree.create('/style.scss', content);
+      const runner = new SchematicTestRunner('migrations', collectionPath);
+      const tree = await lastValueFrom(runner.callRule(updateScssImports(), initialTree));
+      const res = tree.readText('/style.scss').replace(/^ +/gm, '').replace(/\n\n/g, '\n');
+
+      expect(res).toEqual(expected);
+    });
+
   });
 });
