@@ -13,11 +13,11 @@
 /// @example
 ///   @use '@o3r/styling' as o3r
 ///   $my-scss-var: o3r.variable('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
-@function variable($name, $value: null, $details: null) {
+@function variable($name, $value: null, $details: null, $metadata-black-list-pattern: ()) {
   $key: utils-functions.get-var-key($name);
   $varName: '--#{$key}';
 
-  $logged: utils-functions.log-variable($key, $value, $details);
+  $logged: utils-functions.log-variable($key, $value, $details, $metadata-black-list-pattern);
   $res: if($value != null, 'var(#{$varName}, #{$value})', 'var(#{$varName})');
   @return #{$res};
 }
@@ -32,8 +32,8 @@
 /// @example
 ///   @use '@o3r/styling' as o3r
 ///   $my-scss-var: o3r.var('my-scss-var', '#fff', (description: 'My scss variable', tags: 'my-scss-var'));
-@function var($name, $value: null, $details: null) {
-  @return variable($name, $value, $details);
+@function var($name, $value: null, $details: null, $metadata-black-list-pattern: ()) {
+  @return variable($name, $value, $details, $metadata-black-list-pattern);
 }
 
 /// Returns true if the given map is an Otter Theme variable
