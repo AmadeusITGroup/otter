@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "azure-devops-node-api": "^12.0.0",
-    "commander": "^11.0.0",
+    "commander": "^12.0.0",
     "tslib": "^2.5.3",
     "winston": "^3.8.2"
   },

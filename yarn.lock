@@ -373,7 +373,7 @@ __metadata:
     "@types/swagger-schema-official": "npm:^2.0.22"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     concurrently: "npm:^8.0.0"
     copyfiles: "npm:^2.4.1"
     eslint: "npm:^8.42.0"
@@ -6607,7 +6607,7 @@ __metadata:
     "@types/request-promise-native": "npm:^1.0.18"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
@@ -6651,7 +6651,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
     azure-devops-node-api: "npm:^12.0.0"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
@@ -7279,7 +7279,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^6.11.0"
     azure-devops-node-api: "npm:^12.0.0"
     chalk: "npm:^4.1.2"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
@@ -8028,7 +8028,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    logrocket: "npm:~7.0.0"
+    logrocket: "npm:~8.0.0"
     logrocket-ngrx: "npm:~0.2.1"
     ng-packagr: "npm:~17.0.0"
     nx: "npm:~17.3.0"
@@ -8046,7 +8046,7 @@ __metadata:
     "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    logrocket: ~7.0.0
+    logrocket: ~8.0.0
     logrocket-ngrx: ~0.2.1
     rxjs: ^7.8.1
     smartlook-client: ^8.0.0
@@ -8104,7 +8104,7 @@ __metadata:
     "@types/node-fetch": "npm:^2.6.2"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
@@ -9170,7 +9170,7 @@ __metadata:
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^6.19.0"
     "@typescript-eslint/parser": "npm:^6.11.0"
-    commander: "npm:^11.0.0"
+    commander: "npm:^12.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
@@ -15190,7 +15190,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:11.1.0, commander@npm:^11.0.0, commander@npm:^11.1.0":
+"commander@npm:11.1.0, commander@npm:^11.1.0":
   version: 11.1.0
   resolution: "commander@npm:11.1.0"
   checksum: 10/66bd2d8a0547f6cb1d34022efb25f348e433b0e04ad76a65279b1b09da108f59a4d3001ca539c60a7a46ea38bcf399fc17d91adad76a8cf43845d8dcbaf5cda1
@@ -23057,10 +23057,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket@npm:~7.0.0":
-  version: 7.0.0
-  resolution: "logrocket@npm:7.0.0"
-  checksum: 10/3a8b329f6cfca0c7975ac5af44544e051ebb3f0dae922fed77d1427fa8b009a81465913fda81acdee6b08e26f0c9e7f789931d9ba4eac7045b9a8b29f258cc1a
+"logrocket@npm:~8.0.0":
+  version: 8.0.0
+  resolution: "logrocket@npm:8.0.0"
+  checksum: 10/b05ee3cd10312a9ea3135f16fb9bd01236889688d462155d2d88d18245dff7d24cd28effa5f2fda11cf2309d9bb4a1404c0999ef8ed8796910c5c844b492a2a2
   languageName: node
   linkType: hard
 
