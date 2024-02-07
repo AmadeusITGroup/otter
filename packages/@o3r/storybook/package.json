@@ -4,6 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "deprecated": "@o3r/storybook package is deprecated and will no longer be updated as of v12",
   "description": "The Otter Framework provides several tools for Otter-based projects.",
   "keywords": [
     "storybook",
