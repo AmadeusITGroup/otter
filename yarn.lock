@@ -83,8 +83,8 @@ __metadata:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular/common": "npm:~17.0.4"
     "@angular/core": "npm:~17.0.4"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -108,7 +108,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -120,7 +120,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     uuid: "npm:^9.0.0"
     zone.js: "npm:~0.14.2"
@@ -172,10 +172,10 @@ __metadata:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
     "@angular/cli": "npm:~17.0.3"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -197,19 +197,19 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
   bin:
     create: ./index.js
@@ -226,8 +226,8 @@ __metadata:
     "@angular-devkit/schematics-cli": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular/cli": "npm:~17.0.3"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -251,7 +251,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -261,7 +261,7 @@ __metadata:
     mem-fs: "npm:^4.0.0"
     minimatch: "npm:~9.0.3"
     npm-run-all2: "npm:^6.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     onchange: "npm:^7.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -270,7 +270,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -310,8 +310,8 @@ __metadata:
     "@angular/compiler": "npm:~17.0.4"
     "@commitlint/cli": "npm:^18.0.0"
     "@commitlint/config-conventional": "npm:^18.0.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.9.0"
@@ -329,7 +329,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     husky: "npm:~8.0.3"
     isomorphic-fetch: "npm:~3.0.0"
@@ -360,8 +360,8 @@ __metadata:
   dependencies:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@apidevtools/swagger-parser": "npm:^10.0.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -381,7 +381,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -392,6 +392,7 @@ __metadata:
     openapi-types: "npm:^12.0.0"
     pascal-case: "npm:^3.1.1"
     semver: "npm:^7.5.2"
+    swagger-schema-official: "npm:~2.0.0-bab6bed"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
@@ -410,8 +411,8 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/amaterasu-api-spec": "workspace:^"
     "@o3r/amaterasu-dodo": "workspace:^"
     "@o3r/amaterasu-otter": "workspace:^"
@@ -434,21 +435,21 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
     loglevel: "npm:^1.8.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ora: "npm:~8.0.0"
     progress: "npm:^2.0.3"
     prompts: "npm:^2.4.2"
     ts-jest: "npm:~29.1.1"
     ts-loader: "npm:^9.2.6"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     webpack: "npm:~5.90.0"
     webpack-cli: "npm:~5.1.0"
@@ -477,8 +478,8 @@ __metadata:
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -493,12 +494,12 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     loglevel: "npm:^1.8.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.2.2"
@@ -517,8 +518,8 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -532,11 +533,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.2.2"
@@ -5736,106 +5737,97 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nrwl/angular@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/angular@npm:17.3.2"
+"@nrwl/angular@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/angular@npm:18.0.2"
   dependencies:
-    "@nx/angular": "npm:17.3.2"
+    "@nx/angular": "npm:18.0.2"
     tslib: "npm:^2.3.0"
-  checksum: 10/2a8c36c36852afa6cb08ea30d19fce27bd323196bbdfa0b203937b131fd6cb3b5ea45394cfc15595566101a957c6c81e86c752395f3f43453ef4fd7cb4c15f89
+  checksum: 10/33bb20f42491e66cca13ff07eb9953390eeb240686bf8e0bd9e2e23c57dac4ee876fde815bb8697725fb02e86bfcae49e9cee2450785fc6570348bb18cdbe2a5
   languageName: node
   linkType: hard
 
-"@nrwl/cypress@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/cypress@npm:17.3.2"
+"@nrwl/cypress@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/cypress@npm:18.0.2"
   dependencies:
-    "@nx/cypress": "npm:17.3.2"
-  checksum: 10/807fd7a4f65623b27723f6ee0ea10e949db4a49ad9d03403c76635fc8b30d013ab64f60ec32ac9a167c1a7431334315d686bc26302c8fbda58a616094c607f31
+    "@nx/cypress": "npm:18.0.2"
+  checksum: 10/19a83c30cb715f5633d0e45c47c7e99a0b4b2eaf610f15842a0f7b54b9f663d1ef07cb9ad8d5b2dcaf13ed4957678c64942d0392e3d2ef406677d05f9dcc3814
   languageName: node
   linkType: hard
 
-"@nrwl/devkit@npm:17.2.8":
-  version: 17.2.8
-  resolution: "@nrwl/devkit@npm:17.2.8"
+"@nrwl/devkit@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/devkit@npm:18.0.2"
   dependencies:
-    "@nx/devkit": "npm:17.2.8"
-  checksum: 10/9fc4715e52543a7040397e0a67bab2d161ff674c73297449f5a4499dd8c92a93893d2f85e634f2f2687f201ac7dda7a56079d5cb5a882f37df36bb283565ba5f
+    "@nx/devkit": "npm:18.0.2"
+  checksum: 10/9f1b37b4ed75102e58cde3c4c5590d1d44d3e6b4b5303aaf8df77771800e21c4c6777559143b769417c4788c2c40307d0971fed76d1558d228725b28bb3ff733
   languageName: node
   linkType: hard
 
-"@nrwl/devkit@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/devkit@npm:17.3.2"
+"@nrwl/eslint-plugin-nx@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/eslint-plugin-nx@npm:18.0.2"
   dependencies:
-    "@nx/devkit": "npm:17.3.2"
-  checksum: 10/9e455ab5a0f1401c13c570c37fb3c911855500af726c01138b56d612c60ec7526cd4bf03c14b7bbb60751e5d6f3807b52b9d794c00d9d8edf654b799a5250545
+    "@nx/eslint-plugin": "npm:18.0.2"
+  checksum: 10/29ed9aa2b79929659005de90b514e080d0dcf897d18a08d9f430028867f38b711be4d53e0256281c6b1f2e1be80042e8202449ddb359c761c8e2374d56b2535d
   languageName: node
   linkType: hard
 
-"@nrwl/eslint-plugin-nx@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/eslint-plugin-nx@npm:17.3.2"
+"@nrwl/jest@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/jest@npm:18.0.2"
   dependencies:
-    "@nx/eslint-plugin": "npm:17.3.2"
-  checksum: 10/86215a14b671abb22ead7a70e3394668f662a0591a181807d6bfaaa30a36c4429dad6f710da4c1905aeb1be6b05d3d49db40a766476459e237a49c874f2e276d
+    "@nx/jest": "npm:18.0.2"
+  checksum: 10/688cd2c78fefc81cf9fe22974319c21d32eb3883b6d3460d6496b6c3c01077709d1f3c0d435aa70b11c0a128861cb24f777e51bbffa3cd2d29bd1904832d6df7
   languageName: node
   linkType: hard
 
-"@nrwl/jest@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/jest@npm:17.3.2"
+"@nrwl/js@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/js@npm:18.0.2"
   dependencies:
-    "@nx/jest": "npm:17.3.2"
-  checksum: 10/4ba8a3c8ba6ee63226157b2b15664524bdb091829f8fb025f77c5664b56b196fd47596db044ac87c63ff7adc27566de5f09333d26fb0ffdeaaef5c9f31471f55
+    "@nx/js": "npm:18.0.2"
+  checksum: 10/e3d48a83f1cd97823267a1882ec1c14d9251120e0076c125da7a695a640aed8e6fa74bca61d19503f7d8748ffb0e90f8b6491cb2d44f208eadd011452c9095cc
   languageName: node
   linkType: hard
 
-"@nrwl/js@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/js@npm:17.3.2"
+"@nrwl/tao@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/tao@npm:18.0.2"
   dependencies:
-    "@nx/js": "npm:17.3.2"
-  checksum: 10/a6c82c6e597291f63ed9dbbcc9224cc768c97bb229576bc44f4b22ea584591d59188e3d764d06fe5b2681e82c379c416b2c8b65265a6c77249f4df32d8f54d76
-  languageName: node
-  linkType: hard
-
-"@nrwl/tao@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/tao@npm:17.3.2"
-  dependencies:
-    nx: "npm:17.3.2"
+    nx: "npm:18.0.2"
     tslib: "npm:^2.3.0"
   bin:
     tao: index.js
-  checksum: 10/190c86b655a12481fb66f4b70045e7ec8dfadbed5e091027714e480da9728003459f1c194ac60433e0c96f433edc5d5cf00f2400e664cf26fa0a78d3d7d3f1d1
+  checksum: 10/76b370d7189fb71ecf4d351d9a47ca2f84b120988c9aeb88ab89ff07fea4287d653ba1a7677e144626c9add98897c078362dc1101850274b313d327a59319957
   languageName: node
   linkType: hard
 
-"@nrwl/web@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/web@npm:17.3.2"
+"@nrwl/web@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/web@npm:18.0.2"
   dependencies:
-    "@nx/web": "npm:17.3.2"
-  checksum: 10/025ae6a3a83ac6b89152bbfe60b92e4b4f04d81e74da2d86bb61eabaaec6a86091cccf60e6fc3373ed27bc9b7efa7023308a18c7c638a62e1b7332e1d0c28429
+    "@nx/web": "npm:18.0.2"
+  checksum: 10/d52f6f9bed836a6de21007fdb6af767bc5d71d8a0c19a918c612db5ffb5557e4331f44681bc92c738ed83a2ba60d82a598c673e78d5a150387fb53e7a1afe79b
   languageName: node
   linkType: hard
 
-"@nrwl/webpack@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/webpack@npm:17.3.2"
+"@nrwl/webpack@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/webpack@npm:18.0.2"
   dependencies:
-    "@nx/webpack": "npm:17.3.2"
-  checksum: 10/79918b163c5218a9f76e3bf4870b97b2985b13821a99bb5af42e78c3b4fb78421068184274265549b788fb29f58119b96f1d3b5ef74eb7d26ded9409fe61ea2b
+    "@nx/webpack": "npm:18.0.2"
+  checksum: 10/d7774d7b321bd9430802029d2adf8eb7a480e1b3dddbf46ac72c450d0d96e5be41c0bf1ed8dfaf6965c5bb03a7848905d33ed9bcffc067ee09068a6258985138
   languageName: node
   linkType: hard
 
-"@nrwl/workspace@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nrwl/workspace@npm:17.3.2"
+"@nrwl/workspace@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nrwl/workspace@npm:18.0.2"
   dependencies:
-    "@nx/workspace": "npm:17.3.2"
-  checksum: 10/f59991aa630394d5bd8e0c36efaab79a7c974804ef1eebeab62dd26007c8021b237aab01949a40587c1edd12218573f12f50a6cc51fbdf5ea21ec9747e7298ed
+    "@nx/workspace": "npm:18.0.2"
+  checksum: 10/b30a0ec4273210c33360738a8c18f7b7b1ccbfb235f16840493e8df9920006d91be6b4a9719a358c1ca0f1776c25711beba2bd80ace9ed5291bff0c8d2e69b62
   languageName: node
   linkType: hard
 
@@ -5852,19 +5844,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nx/angular@npm:17.3.2, @nx/angular@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/angular@npm:17.3.2"
+"@nx/angular@npm:18.0.2, @nx/angular@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/angular@npm:18.0.2"
   dependencies:
-    "@nrwl/angular": "npm:17.3.2"
-    "@nx/cypress": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/eslint": "npm:17.3.2"
-    "@nx/jest": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
-    "@nx/web": "npm:17.3.2"
-    "@nx/webpack": "npm:17.3.2"
-    "@nx/workspace": "npm:17.3.2"
+    "@nrwl/angular": "npm:18.0.2"
+    "@nx/cypress": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/eslint": "npm:18.0.2"
+    "@nx/jest": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
+    "@nx/web": "npm:18.0.2"
+    "@nx/webpack": "npm:18.0.2"
+    "@nx/workspace": "npm:18.0.2"
     "@phenomnomnominal/tsquery": "npm:~5.0.1"
     "@typescript-eslint/type-utils": "npm:^6.9.1"
     chalk: "npm:^4.1.0"
@@ -5887,18 +5879,18 @@ __metadata:
   peerDependenciesMeta:
     esbuild:
       optional: true
-  checksum: 10/9e99ca4852b78b40e1bee3ad1bef7aedc8d622cc0c083066d3f200ba122927d0b7e7c6c595237bebb45a6ff75bb96ec25192ad3014ee54a0c039ed234351d513
+  checksum: 10/d1c85a932050214d93f7aa25d4f9928ca1bd0042d4068918c885225802048ae30218bf8fc7f60febc3ab027b62690ad98f502ad6df1882e1f1dafcedc3b2ab97
   languageName: node
   linkType: hard
 
-"@nx/cypress@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/cypress@npm:17.3.2"
+"@nx/cypress@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/cypress@npm:18.0.2"
   dependencies:
-    "@nrwl/cypress": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/eslint": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
+    "@nrwl/cypress": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/eslint": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
     "@phenomnomnominal/tsquery": "npm:~5.0.1"
     detect-port: "npm:^1.5.1"
     semver: "npm:^7.5.3"
@@ -5908,32 +5900,15 @@ __metadata:
   peerDependenciesMeta:
     cypress:
       optional: true
-  checksum: 10/0f523549ce57fff3fdb629330f21febfd2ea108ef60a656963eb44ebd8a52cb87d79adbf39247642300936e05a5852bbfb1e328b7a5e8a9ea66c154e9eebe043
+  checksum: 10/afa16c2c1da468dfddcad261e48785717ac9d42819d375901c4e4d8f1996a1baebca8cc8a319a278294ea04e9b5e2cd345cb601ed2132057eb7ee43b7acd94d5
   languageName: node
   linkType: hard
 
-"@nx/devkit@npm:17.2.8":
-  version: 17.2.8
-  resolution: "@nx/devkit@npm:17.2.8"
+"@nx/devkit@npm:18.0.2, @nx/devkit@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/devkit@npm:18.0.2"
   dependencies:
-    "@nrwl/devkit": "npm:17.2.8"
-    ejs: "npm:^3.1.7"
-    enquirer: "npm:~2.3.6"
-    ignore: "npm:^5.0.4"
-    semver: "npm:7.5.3"
-    tmp: "npm:~0.2.1"
-    tslib: "npm:^2.3.0"
-  peerDependencies:
-    nx: ">= 16 <= 18"
-  checksum: 10/490a9d12f780da9463eddfa6a42dc99c852e3f62b7cecd2435cee96afc3a4f30946421269a5114a32fe22e8109d42a04b2ab868fb58481fa5c834c9ba2132dfd
-  languageName: node
-  linkType: hard
-
-"@nx/devkit@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/devkit@npm:17.3.2"
-  dependencies:
-    "@nrwl/devkit": "npm:17.3.2"
+    "@nrwl/devkit": "npm:18.0.2"
     ejs: "npm:^3.1.7"
     enquirer: "npm:~2.3.6"
     ignore: "npm:^5.0.4"
@@ -5943,17 +5918,17 @@ __metadata:
     yargs-parser: "npm:21.1.1"
   peerDependencies:
     nx: ">= 16 <= 18"
-  checksum: 10/93873ecb196111733150fe357fd81fe059eaf49ecaafd1aaac145b9c569a4ecc5292d08a0d801cb8e2de1db1d794a5565f957061e98342fa2908d6f684d6f554
+  checksum: 10/60bcea12eb0cb3a9fc9632a520ad0b9f27d2713936e525a2923ace5ecda0bc9d14a5081158356ba5bdd1bc7d0fb6a3fd246f56188643862de47299ca7220f273
   languageName: node
   linkType: hard
 
-"@nx/eslint-plugin@npm:17.3.2, @nx/eslint-plugin@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/eslint-plugin@npm:17.3.2"
+"@nx/eslint-plugin@npm:18.0.2, @nx/eslint-plugin@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/eslint-plugin@npm:18.0.2"
   dependencies:
-    "@nrwl/eslint-plugin-nx": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
+    "@nrwl/eslint-plugin-nx": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
     "@typescript-eslint/type-utils": "npm:^6.13.2"
     "@typescript-eslint/utils": "npm:^6.13.2"
     chalk: "npm:^4.1.0"
@@ -5967,17 +5942,17 @@ __metadata:
   peerDependenciesMeta:
     eslint-config-prettier:
       optional: true
-  checksum: 10/003d3afca68b7ea3f0118b322a9edc38be32d24ef7b324f5f3428f48cc1c102470c836ce51af11a5fa95f729af57e50773e56ad1dc1916160b4ccad9e0f2eeb2
+  checksum: 10/87d78c683a146e9c812000086eb0b1717e8040de8227540b4c3d842bd3f130646969cbcc974f868b88c884467bcbf0462884c3e1b5ec9ea98f7d23135bf44d46
   languageName: node
   linkType: hard
 
-"@nx/eslint@npm:17.3.2, @nx/eslint@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/eslint@npm:17.3.2"
+"@nx/eslint@npm:18.0.2, @nx/eslint@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/eslint@npm:18.0.2"
   dependencies:
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
-    "@nx/linter": "npm:17.3.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
+    "@nx/linter": "npm:18.0.2"
     eslint: "npm:^8.0.0"
     tslib: "npm:^2.3.0"
     typescript: "npm:~5.3.2"
@@ -5986,19 +5961,19 @@ __metadata:
   peerDependenciesMeta:
     js-yaml:
       optional: true
-  checksum: 10/a11f5c0a1c2a803a825e9e9a352364139d1ac8c85211c0ebdbd710d3517ec65b8e7c7d6023f24b0b1c82015698c82b3168c6f79665c014a13b90041f5751e680
+  checksum: 10/d844175889c51c1a22198f00769951175ca1dbae9376b58111f49d4fe06530cdd3f70cd8842ff01f2a767e184e652a395fc0edafc5c76002e4c09f1d9fe6ebb0
   languageName: node
   linkType: hard
 
-"@nx/jest@npm:17.3.2, @nx/jest@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/jest@npm:17.3.2"
+"@nx/jest@npm:18.0.2, @nx/jest@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/jest@npm:18.0.2"
   dependencies:
     "@jest/reporters": "npm:^29.4.1"
     "@jest/test-result": "npm:^29.4.1"
-    "@nrwl/jest": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
+    "@nrwl/jest": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
     "@phenomnomnominal/tsquery": "npm:~5.0.1"
     chalk: "npm:^4.1.0"
     identity-obj-proxy: "npm:3.0.0"
@@ -6008,13 +5983,13 @@ __metadata:
     minimatch: "npm:9.0.3"
     resolve.exports: "npm:1.1.0"
     tslib: "npm:^2.3.0"
-  checksum: 10/eeb4f47d95c8006b4f5ed4f09d77e4fe574436f29f31bc8b07fca1c44c198fee0e4bafdce5e3fb7ed64ee28a4eb9115c50802b1045099efb946503ee47fdfa29
+  checksum: 10/4a5006336480f9422325bf1f78564df5d319e4f45b9f5563efefa6d08197499549009e75849dccd986310dbd2935e44e08eb85cf1d236e5f164787e11b2ec3fc
   languageName: node
   linkType: hard
 
-"@nx/js@npm:17.3.2, @nx/js@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/js@npm:17.3.2"
+"@nx/js@npm:18.0.2, @nx/js@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/js@npm:18.0.2"
   dependencies:
     "@babel/core": "npm:^7.23.2"
     "@babel/plugin-proposal-decorators": "npm:^7.22.7"
@@ -6023,9 +5998,9 @@ __metadata:
     "@babel/preset-env": "npm:^7.23.2"
     "@babel/preset-typescript": "npm:^7.22.5"
     "@babel/runtime": "npm:^7.22.6"
-    "@nrwl/js": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/workspace": "npm:17.3.2"
+    "@nrwl/js": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/workspace": "npm:18.0.2"
     "@phenomnomnominal/tsquery": "npm:~5.0.1"
     babel-plugin-const-enum: "npm:^1.0.1"
     babel-plugin-macros: "npm:^2.8.0"
@@ -6051,112 +6026,112 @@ __metadata:
   peerDependenciesMeta:
     verdaccio:
       optional: true
-  checksum: 10/63972e623b1adfe1cbc5b53c2ff39408d9bf987cbf48eacad4acb2ca196b857cea7ed2fc6c15b6ad17b655151e61d02cd727e3ccf2dacc58b3f43c10dd78b66a
+  checksum: 10/bf7c9225ff932fc223722f40610b6ec605d6fac5eb3b67e65230f66c92f81bd94ce0405758d4b032f00989c10a2f76e28f965867de0433ae008ab53a385cea80
   languageName: node
   linkType: hard
 
-"@nx/linter@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/linter@npm:17.3.2"
+"@nx/linter@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/linter@npm:18.0.2"
   dependencies:
-    "@nx/eslint": "npm:17.3.2"
-  checksum: 10/a6abeaf54c65dca5f38e846f11efc3546d5c17a6c6291088ad1b2b77e2a1ecbdecc8dd6298fb2ee2583f9830f9c93ee566a5c3321a251feab794957d37050d72
+    "@nx/eslint": "npm:18.0.2"
+  checksum: 10/36f689ca37777ee6321759d1c86957acfc39e09ac016f8eb9520e65b92c5cbbd6a3a429b4caa2487a48b1fcdfddcd6129afa146d3da4799022b817ac5c190c09
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-arm64@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-darwin-arm64@npm:17.3.2"
+"@nx/nx-darwin-arm64@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-darwin-arm64@npm:18.0.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-darwin-x64@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-darwin-x64@npm:17.3.2"
+"@nx/nx-darwin-x64@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-darwin-x64@npm:18.0.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-freebsd-x64@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-freebsd-x64@npm:17.3.2"
+"@nx/nx-freebsd-x64@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-freebsd-x64@npm:18.0.2"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm-gnueabihf@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-linux-arm-gnueabihf@npm:17.3.2"
+"@nx/nx-linux-arm-gnueabihf@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-linux-arm-gnueabihf@npm:18.0.2"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-gnu@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-linux-arm64-gnu@npm:17.3.2"
+"@nx/nx-linux-arm64-gnu@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-linux-arm64-gnu@npm:18.0.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-arm64-musl@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-linux-arm64-musl@npm:17.3.2"
+"@nx/nx-linux-arm64-musl@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-linux-arm64-musl@npm:18.0.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-gnu@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-linux-x64-gnu@npm:17.3.2"
+"@nx/nx-linux-x64-gnu@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-linux-x64-gnu@npm:18.0.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@nx/nx-linux-x64-musl@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-linux-x64-musl@npm:17.3.2"
+"@nx/nx-linux-x64-musl@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-linux-x64-musl@npm:18.0.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-arm64-msvc@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-win32-arm64-msvc@npm:17.3.2"
+"@nx/nx-win32-arm64-msvc@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-win32-arm64-msvc@npm:18.0.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@nx/nx-win32-x64-msvc@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/nx-win32-x64-msvc@npm:17.3.2"
+"@nx/nx-win32-x64-msvc@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/nx-win32-x64-msvc@npm:18.0.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@nx/web@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/web@npm:17.3.2"
+"@nx/web@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/web@npm:18.0.2"
   dependencies:
-    "@nrwl/web": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
+    "@nrwl/web": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
     chalk: "npm:^4.1.0"
     detect-port: "npm:^1.5.1"
     http-server: "npm:^14.1.0"
     tslib: "npm:^2.3.0"
-  checksum: 10/da76cc898e40158384eb2103e69bf372dd264646bbc632eb62571be2758790149a1156213d824fe2c2e02a73334a9409091ab0260b465469de6764f70d178040
+  checksum: 10/0ac6dff5aed5a762eee74c50fa736777646f15af57b611422210b74a90e7bbcd5755a64bb0ee55e57c09e72e25a089a33bd5445de461fb27f90e3f046be1443e
   languageName: node
   linkType: hard
 
-"@nx/webpack@npm:17.3.2":
-  version: 17.3.2
-  resolution: "@nx/webpack@npm:17.3.2"
+"@nx/webpack@npm:18.0.2":
+  version: 18.0.2
+  resolution: "@nx/webpack@npm:18.0.2"
   dependencies:
     "@babel/core": "npm:^7.23.2"
-    "@nrwl/webpack": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
-    "@nx/js": "npm:17.3.2"
+    "@nrwl/webpack": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
+    "@nx/js": "npm:18.0.2"
     autoprefixer: "npm:^10.4.9"
     babel-loader: "npm:^9.1.2"
     browserslist: "npm:^4.21.4"
@@ -6189,22 +6164,22 @@ __metadata:
     webpack-dev-server: "npm:^4.9.3"
     webpack-node-externals: "npm:^3.0.0"
     webpack-subresource-integrity: "npm:^5.1.0"
-  checksum: 10/e4dbc72a1331e212cf9ca951c15762ba1e17d5a97fd6ff2ff6517f30c6d10e840a461f8b813d8adafb7275a98de9ab95e0b39117cefb81617aec05699b975783
+  checksum: 10/e3ba34fab370915a582a167d6153df8da2021e4b6afaec2eb776f2480a40ceb4cc3bc3121cd67736e5d9a0b811894be83d1c5d24aefa54133171c5f1eba1501e
   languageName: node
   linkType: hard
 
-"@nx/workspace@npm:17.3.2, @nx/workspace@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "@nx/workspace@npm:17.3.2"
+"@nx/workspace@npm:18.0.2, @nx/workspace@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "@nx/workspace@npm:18.0.2"
   dependencies:
-    "@nrwl/workspace": "npm:17.3.2"
-    "@nx/devkit": "npm:17.3.2"
+    "@nrwl/workspace": "npm:18.0.2"
+    "@nx/devkit": "npm:18.0.2"
     chalk: "npm:^4.1.0"
     enquirer: "npm:~2.3.6"
-    nx: "npm:17.3.2"
+    nx: "npm:18.0.2"
     tslib: "npm:^2.3.0"
     yargs-parser: "npm:21.1.1"
-  checksum: 10/296e1c63e236d2323cc42b235fe0acd6df25dfb3b1db6bd5ed720ad8971059032b2c0354c50f4cd05f6761b56c980169c4ecdb571a87d69f13a13932b9bae3cc
+  checksum: 10/d8dba223ee4af01df233420fb51312d524a9131cbea19757f80aa65e0ee076f0a57f155cbc2973de1bb6feb9a3d6f5f8ce249253b5712913d3af65e63568ec4d
   languageName: node
   linkType: hard
 
@@ -6214,8 +6189,8 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6229,12 +6204,12 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.2.2"
@@ -6249,8 +6224,8 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6264,11 +6239,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     tar: "npm:^6.1.12"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
@@ -6287,8 +6262,8 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6302,12 +6277,12 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.2.2"
@@ -6326,8 +6301,8 @@ __metadata:
   dependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6341,12 +6316,12 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.2.2"
@@ -6375,10 +6350,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6396,19 +6371,19 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     webpack: "npm:~5.90.0"
     zone.js: "npm:~0.14.2"
@@ -6456,10 +6431,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -6476,13 +6451,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -6527,10 +6502,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6550,13 +6525,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -6595,8 +6570,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6614,11 +6589,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     fs-extra: "npm:^11.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     request: "npm:^2.88.0"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -6641,8 +6616,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -6658,10 +6633,10 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
@@ -6677,7 +6652,7 @@ __metadata:
   resolution: "@o3r/build-helpers@workspace:tools/@o3r/build-helpers"
   dependencies:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/node": "npm:^20.0.0"
@@ -6688,10 +6663,10 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^14.0.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     typescript: "npm:~5.2.2"
   peerDependencies:
     typescript: ~5.2.2
@@ -6736,8 +6711,8 @@ __metadata:
     "@ng-select/ng-select": "npm:~12.0.0"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/application": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
@@ -6768,7 +6743,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -6776,7 +6751,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
     tsc-watch: "npm:^6.0.0"
@@ -6809,8 +6784,8 @@ __metadata:
     "@ngrx/effects": "npm:~17.1.0"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/analytics": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -6836,7 +6811,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -6845,7 +6820,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^8.0.0"
     memfs: "npm:~4.6.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
@@ -6866,6 +6841,7 @@ __metadata:
     "@ngrx/effects": ~17.1.0
     "@ngrx/entity": ~17.1.0
     "@ngrx/store": ~17.1.0
+    "@o3r/analytics": "workspace:^"
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -6885,6 +6861,8 @@ __metadata:
     "@angular-devkit/schematics":
       optional: true
     "@ngx-translate/core":
+      optional: true
+    "@o3r/analytics":
       optional: true
     "@o3r/configuration":
       optional: true
@@ -6930,10 +6908,10 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -6955,13 +6933,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -7024,10 +7002,10 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7050,7 +7028,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -7059,14 +7037,14 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.6.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     unionfs: "npm:~4.5.1"
     uuid: "npm:^9.0.0"
@@ -7084,8 +7062,8 @@ __metadata:
     "@angular/router": ~17.0.2
     "@ngrx/entity": ~17.1.0
     "@ngrx/store": ~17.1.0
-    "@nrwl/devkit": ~17.3.0
-    "@nx/angular": ~17.3.0
+    "@nrwl/devkit": ~18.0.2
+    "@nx/angular": ~18.0.2
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~17.0.0
     chokidar: ^3.5.2
@@ -7125,10 +7103,10 @@ __metadata:
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
     "@angular/cli": "npm:~17.0.3"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7146,17 +7124,17 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
   bin:
     create: ./index.js
@@ -7182,10 +7160,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7207,7 +7185,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -7215,13 +7193,13 @@ __metadata:
     jsonschema: "npm:~1.4.1"
     minimatch: "npm:~9.0.3"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.70.0"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
@@ -7260,8 +7238,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/artifactory-tools": "workspace:^"
     "@o3r/azure-tools": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
@@ -7286,7 +7264,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     form-data: "npm:^4.0.0"
     fs-extra: "npm:^11.0.0"
     globby: "npm:^11.1.0"
@@ -7297,7 +7275,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimatch: "npm:~9.0.3"
     node-fetch: "npm:^3.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     request: "npm:^2.88.0"
     request-promise-native: "npm:^1.0.9"
     rimraf: "npm:^5.0.1"
@@ -7305,7 +7283,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     winston: "npm:^3.8.2"
   bin:
@@ -7342,10 +7320,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7364,13 +7342,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -7411,7 +7389,7 @@ __metadata:
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
     "@angular-eslint/template-parser": "npm:~17.2.0"
     "@angular/compiler": "npm:~17.0.4"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
@@ -7427,9 +7405,9 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     typescript: "npm:~5.2.2"
   peerDependencies:
     "@angular-devkit/schematics": ~17.0.0
@@ -7450,7 +7428,7 @@ __metadata:
     eslint-plugin-jest: ^27.2.1
     eslint-plugin-jsdoc: ~48.0.0
     eslint-plugin-prefer-arrow: ^1.2.2
-    eslint-plugin-unicorn: ^50.0.0
+    eslint-plugin-unicorn: ^51.0.0
     typescript: ~5.2.2
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -7489,8 +7467,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -7505,17 +7483,17 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rimraf: "npm:^5.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     yaml-eslint-parser: "npm:^1.2.2"
   peerDependencies:
@@ -7557,10 +7535,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@microsoft/tsdoc": "npm:~0.14.1"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7579,7 +7557,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     intl-messageformat: "npm:~10.5.1"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -7587,7 +7565,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
@@ -7595,7 +7573,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typedoc: "npm:~0.25.0"
     typescript: "npm:~5.2.2"
     typescript-json-schema: "npm:~0.62.0"
@@ -7635,10 +7613,10 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -7655,13 +7633,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -7724,12 +7702,12 @@ __metadata:
     "@ngrx/store": "npm:~17.1.0"
     "@ngrx/store-devtools": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
-    "@nx/angular": "npm:~17.3.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
-    "@nx/workspace": "npm:~17.3.0"
+    "@nx/angular": "npm:~18.0.2"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
+    "@nx/workspace": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -7762,7 +7740,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     highlight.js: "npm:^11.8.0"
     husky: "npm:~8.0.3"
@@ -7778,7 +7756,7 @@ __metadata:
     ng-packagr: "npm:~17.0.0"
     ngx-highlightjs: "npm:^10.0.0"
     npm-run-all2: "npm:^6.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pixelmatch: "npm:^5.2.1"
     pngjs: "npm:^7.0.0"
     postcss: "npm:~8.4.31"
@@ -7835,10 +7813,10 @@ __metadata:
     "@angular/platform-browser": "npm:~17.0.4"
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@azure/functions": "npm:^4.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -7855,14 +7833,14 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nock: "npm:^13.0.5"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     probot: "npm:^13.0.1"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -7896,10 +7874,10 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -7922,7 +7900,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     intl-messageformat: "npm:~10.5.1"
     isomorphic-fetch: "npm:~3.0.0"
@@ -7932,7 +7910,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.6.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
@@ -8003,10 +7981,10 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@fullstory/browser": "npm:^2.0.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -8023,7 +8001,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
@@ -8032,7 +8010,7 @@ __metadata:
     logrocket: "npm:~8.0.0"
     logrocket-ngrx: "npm:~0.2.1"
     ng-packagr: "npm:~17.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     smartlook-client: "npm:^8.0.0"
     ts-jest: "npm:~29.1.1"
@@ -8088,10 +8066,10 @@ __metadata:
     "@capacitor/preferences": "npm:^5.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8112,7 +8090,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     fast-deep-equal: "npm:^3.1.3"
     form-data: "npm:^4.0.0"
     jest: "npm:~29.7.0"
@@ -8121,7 +8099,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     node-fetch: "npm:^3.0.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -8179,10 +8157,10 @@ __metadata:
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/router-store": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -8201,13 +8179,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -8258,10 +8236,10 @@ __metadata:
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -8285,7 +8263,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
@@ -8295,7 +8273,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^8.0.0"
     memfs: "npm:~4.6.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
@@ -8303,7 +8281,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     typescript-json-schema: "npm:~0.62.0"
     unionfs: "npm:~4.5.1"
@@ -8370,10 +8348,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
@@ -8391,20 +8369,20 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonschema: "npm:~1.4.1"
     minimatch: "npm:~9.0.3"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
@@ -8416,6 +8394,7 @@ __metadata:
     "@schematics/angular": ~17.0.0
     eslint: ^8.42.0
     rxjs: ^7.8.1
+    type-fest: ^4.10.2
     typescript: ~5.2.2
   peerDependenciesMeta:
     "@angular-devkit/architect":
@@ -8467,8 +8446,8 @@ __metadata:
     "@ngrx/store": "npm:~17.1.0"
     "@ngrx/store-devtools": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/application": "workspace:^"
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -8503,7 +8482,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     highlight.js: "npm:^11.8.0"
     intl-messageformat: "npm:~10.5.1"
@@ -8543,9 +8522,9 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -8563,14 +8542,14 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     fast-deep-equal: "npm:^3.1.3"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -8618,8 +8597,8 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/components": "workspace:^"
     "@o3r/configuration": "workspace:^"
@@ -8650,11 +8629,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
     rimraf: "npm:^5.0.1"
@@ -8701,8 +8680,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8717,11 +8696,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     postcss: "npm:~8.4.31"
     rimraf: "npm:^5.0.1"
     stylelint: "npm:^16.0.2"
@@ -8757,10 +8736,10 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/dynamic-content": "workspace:^"
@@ -8783,7 +8762,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -8791,7 +8770,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     memfs: "npm:~4.6.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.70.0"
@@ -8852,9 +8831,9 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -8867,11 +8846,11 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
@@ -8894,7 +8873,7 @@ __metadata:
   dependencies:
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~17.0.3"
@@ -8911,7 +8890,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -8923,7 +8902,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     unionfs: "npm:~4.5.1"
   peerDependencies:
@@ -8968,8 +8947,8 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@ngrx/store": "npm:~17.1.0"
     "@ngx-translate/core": "npm:~15.0.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -8993,7 +8972,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     isomorphic-fetch: "npm:~3.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -9001,7 +8980,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     module-from-string: "npm:^3.2.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     pixelmatch: "npm:^5.2.1"
     pngjs: "npm:^7.0.0"
@@ -9012,7 +8991,7 @@ __metadata:
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
@@ -9081,8 +9060,8 @@ __metadata:
     "@babel/core": "npm:~7.23.0"
     "@babel/preset-typescript": "npm:~7.23.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
@@ -9101,13 +9080,13 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
@@ -9152,10 +9131,10 @@ __metadata:
     "@babel/preset-typescript": "npm:~7.23.0"
     "@ngrx/entity": "npm:~17.1.0"
     "@ngrx/store": "npm:~17.1.0"
-    "@nx/eslint": "npm:~17.3.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
-    "@nx/js": "npm:~17.3.0"
+    "@nx/eslint": "npm:~18.0.2"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
+    "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -9178,21 +9157,21 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     minimist: "npm:^1.2.6"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.1"
     ts-node: "npm:~10.9.1"
     tslib: "npm:^2.5.3"
-    type-fest: "npm:^4.3.1"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.2.2"
     uuid: "npm:^9.0.0"
     winston: "npm:^3.8.2"
@@ -13619,7 +13598,7 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -13632,7 +13611,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     typescript: "npm:~5.2.2"
   languageName: unknown
@@ -14639,7 +14618,7 @@ __metadata:
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -14652,7 +14631,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -18161,9 +18140,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-unicorn@npm:^50.0.0":
-  version: 50.0.1
-  resolution: "eslint-plugin-unicorn@npm:50.0.1"
+"eslint-plugin-unicorn@npm:^51.0.0":
+  version: 51.0.1
+  resolution: "eslint-plugin-unicorn@npm:51.0.1"
   dependencies:
     "@babel/helper-validator-identifier": "npm:^7.22.20"
     "@eslint-community/eslint-utils": "npm:^4.4.0"
@@ -18183,7 +18162,7 @@ __metadata:
     strip-indent: "npm:^3.0.0"
   peerDependencies:
     eslint: ">=8.56.0"
-  checksum: 10/dd5e45f624a94172965858d7a15434df0ea98e14a300d90cfe7f0cbbd893883e1488036f77cb49162e2b61802c1d5386facfcaf5fd995357a7065013bfb8fe7f
+  checksum: 10/cea770332423d49d0cd86ca96055be7f14895e1d0a9fb24c8ed4f18a6e1eeff362d4881c46e85d85c37938bb85a6eeae7e347bcf7a3bb7307a8dd309651e0adf
   languageName: node
   linkType: hard
 
@@ -19522,7 +19501,7 @@ __metadata:
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -19535,7 +19514,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     semver: "npm:^7.5.2"
     typescript: "npm:~5.2.2"
@@ -23978,7 +23957,7 @@ __metadata:
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
-    "@nx/eslint-plugin": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
@@ -23992,7 +23971,7 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -24467,21 +24446,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nx@npm:17.3.2, nx@npm:~17.3.0":
-  version: 17.3.2
-  resolution: "nx@npm:17.3.2"
+"nx@npm:18.0.2, nx@npm:~18.0.2":
+  version: 18.0.2
+  resolution: "nx@npm:18.0.2"
   dependencies:
-    "@nrwl/tao": "npm:17.3.2"
-    "@nx/nx-darwin-arm64": "npm:17.3.2"
-    "@nx/nx-darwin-x64": "npm:17.3.2"
-    "@nx/nx-freebsd-x64": "npm:17.3.2"
-    "@nx/nx-linux-arm-gnueabihf": "npm:17.3.2"
-    "@nx/nx-linux-arm64-gnu": "npm:17.3.2"
-    "@nx/nx-linux-arm64-musl": "npm:17.3.2"
-    "@nx/nx-linux-x64-gnu": "npm:17.3.2"
-    "@nx/nx-linux-x64-musl": "npm:17.3.2"
-    "@nx/nx-win32-arm64-msvc": "npm:17.3.2"
-    "@nx/nx-win32-x64-msvc": "npm:17.3.2"
+    "@nrwl/tao": "npm:18.0.2"
+    "@nx/nx-darwin-arm64": "npm:18.0.2"
+    "@nx/nx-darwin-x64": "npm:18.0.2"
+    "@nx/nx-freebsd-x64": "npm:18.0.2"
+    "@nx/nx-linux-arm-gnueabihf": "npm:18.0.2"
+    "@nx/nx-linux-arm64-gnu": "npm:18.0.2"
+    "@nx/nx-linux-arm64-musl": "npm:18.0.2"
+    "@nx/nx-linux-x64-gnu": "npm:18.0.2"
+    "@nx/nx-linux-x64-musl": "npm:18.0.2"
+    "@nx/nx-win32-arm64-msvc": "npm:18.0.2"
+    "@nx/nx-win32-x64-msvc": "npm:18.0.2"
     "@yarnpkg/lockfile": "npm:^1.1.0"
     "@yarnpkg/parsers": "npm:3.0.0-rc.46"
     "@zkochan/js-yaml": "npm:0.0.6"
@@ -24547,7 +24526,7 @@ __metadata:
   bin:
     nx: bin/nx.js
     nx-cloud: bin/nx-cloud.js
-  checksum: 10/bd2c6cf2289103d74ac88524d066cf4420d21ffa4a7554925d76f00ae662f9d607514c32f9d108b7f9e7a10b814870c6e448f3b2a800142dac96507dab1680d3
+  checksum: 10/ee34a4da0e078306c0c95e60f142cad95721bec5c432d5a3cff6ef54cb05e9a4e693c373733150b000668763fd20e2bec18833cf7c0bffa50c70b8f85a6a8c21
   languageName: node
   linkType: hard
 
@@ -24918,8 +24897,8 @@ __metadata:
     "@angular/core": "npm:~17.0.4"
     "@angular/platform-browser": "npm:~17.0.4"
     "@angular/platform-browser-dynamic": "npm:~17.0.4"
-    "@nx/eslint-plugin": "npm:~17.3.0"
-    "@nx/jest": "npm:~17.3.0"
+    "@nx/eslint-plugin": "npm:~18.0.2"
+    "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
@@ -24938,12 +24917,12 @@ __metadata:
     eslint-plugin-jest: "npm:~27.6.0"
     eslint-plugin-jsdoc: "npm:~48.0.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
-    eslint-plugin-unicorn: "npm:^50.0.0"
+    eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    nx: "npm:~17.3.0"
+    nx: "npm:~18.0.2"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.1"
     typescript: "npm:~5.2.2"
@@ -27953,17 +27932,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.5.3":
-  version: 7.5.3
-  resolution: "semver@npm:7.5.3"
-  dependencies:
-    lru-cache: "npm:^6.0.0"
-  bin:
-    semver: bin/semver.js
-  checksum: 10/80b4b3784abff33bacf200727e012dc66768ed5835441e0a802ba9f3f5dd6b10ee366294711f5e7e13d73b82a6127ea55f11f9884d35e76a6a618dc11bc16ccf
-  languageName: node
-  linkType: hard
-
 "semver@npm:7.5.4, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4":
   version: 7.5.4
   resolution: "semver@npm:7.5.4"
@@ -29358,6 +29326,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swagger-schema-official@npm:~2.0.0-bab6bed":
+  version: 2.0.0-d79c205
+  resolution: "swagger-schema-official@npm:2.0.0-d79c205"
+  checksum: 10/a4ae1a58d104c6e24e1daec449f57f5666c0c4ffe63a7c66db0b13492c335220c7ae139f4880e80f535730a5aa727f50d31c153ada2ec80ee79af27fb3ccdbc4
+  languageName: node
+  linkType: hard
+
 "sway@npm:^2.0.6":
   version: 2.0.6
   resolution: "sway@npm:2.0.6"
@@ -30222,7 +30197,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^4.3.1":
+"type-fest@npm:^4.10.2":
   version: 4.10.2
   resolution: "type-fest@npm:4.10.2"
   checksum: 10/2b1ad1270d9fabeeb506ba831d513caeb05bfc852e5e012511d785ce9dc68d773fe0a42bddf857a362c7f3406244809c5b8a698b743bb7617d4a8c470672087f

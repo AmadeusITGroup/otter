@@ -67,7 +67,7 @@ jobs:
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --output-style=stream
+        run: yarn ${{ env.testCmd }}
       - name: Publish tests reports
         if: always()
         # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
