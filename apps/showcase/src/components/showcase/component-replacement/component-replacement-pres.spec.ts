@@ -1,9 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { O3rElement } from '@o3r/testing/core';
 
 import { ComponentReplacementPresComponent } from './component-replacement-pres.component';
 import { Directive, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { C11nMockService, C11nModule, C11nService } from '@o3r/components';
+import { ComponentReplacementPresFixtureComponent } from './component-replacement-pres.fixture';
+let componentFixture: ComponentReplacementPresFixtureComponent;
 
 @Directive({
   selector: '[c11n]',
@@ -41,10 +44,14 @@ describe('ComponentReplacementPresComponent', () => {
 
     fixture = TestBed.createComponent(ComponentReplacementPresComponent);
     component = fixture.componentInstance;
+
+    componentFixture = new ComponentReplacementPresFixtureComponent(new O3rElement(fixture.debugElement));
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
+    expect(componentFixture).toBeTruthy();
   });
 });
