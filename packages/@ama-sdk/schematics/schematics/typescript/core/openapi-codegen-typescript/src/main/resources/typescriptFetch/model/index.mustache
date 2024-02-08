@@ -1,7 +1,7 @@
 {{#models}}
 {{#model}}
 export type { {{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
-{{^isEnum}}export { revive{{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}.reviver';{{/isEnum}}
+{{#keepRevivers}}{{^isEnum}}export { revive{{classname}} } from './{{#kebabCase}}{{classname}}{{/kebabCase}}.reviver';{{/isEnum}}{{/keepRevivers}}
 {{/model}}
 {{/models}}
 {{^models.size}}
