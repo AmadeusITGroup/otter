@@ -6339,6 +6339,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -6422,6 +6423,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -6493,6 +6495,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -6770,6 +6773,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cdk": "npm:~17.0.1"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -6897,6 +6901,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -6988,6 +6993,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -7150,6 +7156,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -7310,6 +7317,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -7525,6 +7533,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -7601,6 +7610,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -7783,15 +7793,7 @@ __metadata:
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.14.2"
   dependenciesMeta:
-    "@swc/core":
-      built: true
-    es5-ext:
-      built: true
     esbuild:
-      built: true
-    fsevents:
-      built: true
-    nx:
       built: true
   languageName: unknown
   linkType: soft
@@ -7806,6 +7808,7 @@ __metadata:
     "@angular-eslint/builder": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@angular-eslint/eslint-plugin-template": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -7861,6 +7864,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cdk": "npm:~17.0.1"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
@@ -7970,6 +7974,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -8051,6 +8056,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -8143,6 +8149,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -8223,6 +8230,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -8338,6 +8346,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -8514,6 +8523,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -8586,6 +8596,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"
@@ -8997,6 +9008,7 @@ __metadata:
   peerDependencies:
     "@amadeus-it-group/kassette": ^1.7.0
     "@angular-devkit/schematics": ~17.0.0
+    "@angular/animations": ~17.0.4
     "@angular/common": ~17.0.2
     "@angular/core": ~17.0.2
     "@angular/forms": ~17.0.2
@@ -9050,6 +9062,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -9119,6 +9132,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/cli": "npm:~17.0.3"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
@@ -24891,6 +24905,7 @@ __metadata:
     "@angular-devkit/core": "npm:~17.0.3"
     "@angular-devkit/schematics": "npm:~17.0.3"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
+    "@angular/animations": "npm:~17.0.4"
     "@angular/common": "npm:~17.0.4"
     "@angular/compiler": "npm:~17.0.4"
     "@angular/compiler-cli": "npm:~17.0.4"

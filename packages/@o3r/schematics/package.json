@@ -63,6 +63,7 @@
     "@angular-devkit/core": "~17.0.3",
     "@angular-devkit/schematics": "~17.0.3",
     "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@angular/animations": "~17.0.4",
     "@angular/cli": "~17.0.3",
     "@angular/common": "~17.0.4",
     "@angular/compiler": "~17.0.4",

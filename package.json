@@ -254,19 +254,7 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "dependenciesMeta": {
-    "@swc/core": {
-      "built": true
-    },
-    "es5-ext": {
-      "built": true
-    },
     "esbuild": {
-      "built": true
-    },
-    "fsevents": {
-      "built": true
-    },
-    "nx": {
       "built": true
     }
   },
