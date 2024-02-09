@@ -71,7 +71,15 @@
     "**/.pnp.*": true,
     "**/.yarn/**": true,
     "**/node_modules/**": true,
-    "tools/github-actions/*/packaged-action/**": true
+    "tools/github-actions/*/packaged-action/**": true,
+    "packages/@ama-sdk/*sdk/src/api/**/*.ts": true,
+    "packages/@ama-sdk/*sdk/src/models/base/**/*.ts": true,
+    "packages/@ama-sdk/*sdk/src/spec/api-mock.ts": true,
+    "packages/@ama-sdk/*sdk/src/spec/operation-adapter.ts": true
+  },
+  "files.readonlyExclude": {
+    "packages/@ama-sdk/*sdk/src/api/*/index.ts": true,
+    "packages/@ama-sdk/*sdk/src/models/base/*/index.ts": true
   },
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
