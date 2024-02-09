@@ -43,7 +43,7 @@
     "otter-module"
   ],
   "scripts": {
-    "build": "yarn cpy --flat {typescript,typescript-fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn postbuild",
+    "build": "yarn cpy --flat {typescript,typescript-fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn cpy rules dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
