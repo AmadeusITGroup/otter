@@ -83,7 +83,7 @@ export class UserApi implements Api {
 
   /**
    * Initialize your interface
-   * @param apiClient
+   *
    * @params apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -94,7 +94,6 @@ export class UserApi implements Api {
    * Create user
    * This can only be done by the logged in user.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async createUser(data: CreateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json' | 'application/xml'>): Promise<never> {
     const getParams = this.client.extractQueryParams<CreateUserRequestData>(data, [] as never[]);
@@ -125,7 +124,6 @@ export class UserApi implements Api {
    * Creates list of users with given input array
    * Creates list of users with given input array
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async createUsersWithListInput(data: CreateUsersWithListInputRequestData, metadata?: RequestMetadata<'application/json', 'application/xml' | 'application/json'>): Promise<User> {
     const getParams = this.client.extractQueryParams<CreateUsersWithListInputRequestData>(data, [] as never[]);
@@ -156,7 +154,6 @@ export class UserApi implements Api {
    * Delete user
    * This can only be done by the logged in user.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async deleteUser(data: DeleteUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<DeleteUserRequestData>(data, [] as never[]);
@@ -180,8 +177,8 @@ export class UserApi implements Api {
 
   /**
    * Get user by user name
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async getUserByName(data: GetUserByNameRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<User> {
     const getParams = this.client.extractQueryParams<GetUserByNameRequestData>(data, [] as never[]);
@@ -205,8 +202,8 @@ export class UserApi implements Api {
 
   /**
    * Logs user into the system
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async loginUser(data: LoginUserRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
     const getParams = this.client.extractQueryParams<LoginUserRequestData>(data, ['username', 'password']);
@@ -230,8 +227,8 @@ export class UserApi implements Api {
 
   /**
    * Logs out current logged in user session
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async logoutUser(data: LogoutUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<LogoutUserRequestData>(data, [] as never[]);
@@ -257,7 +254,6 @@ export class UserApi implements Api {
    * Update user
    * This can only be done by the logged in user.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async updateUser(data: UpdateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', string>): Promise<never> {
     const getParams = this.client.extractQueryParams<UpdateUserRequestData>(data, [] as never[]);

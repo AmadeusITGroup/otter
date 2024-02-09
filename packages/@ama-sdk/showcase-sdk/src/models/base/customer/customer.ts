@@ -5,6 +5,7 @@
  *
  */
 
+
 import { Address } from '../address';
 
 export interface Customer {
