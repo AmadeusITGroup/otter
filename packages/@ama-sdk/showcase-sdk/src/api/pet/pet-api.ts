@@ -103,7 +103,7 @@ export class PetApi implements Api {
 
   /**
    * Initialize your interface
-   * @param apiClient
+   *
    * @params apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -114,7 +114,6 @@ export class PetApi implements Api {
    * Add a new pet to the store
    * Add a new pet to the store
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async addPet(data: AddPetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<AddPetRequestData>(data, [] as never[]);
@@ -143,8 +142,8 @@ export class PetApi implements Api {
 
   /**
    * Deletes a pet
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async deletePet(data: DeletePetRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
     const getParams = this.client.extractQueryParams<DeletePetRequestData>(data, [] as never[]);
@@ -171,7 +170,6 @@ export class PetApi implements Api {
    * Finds Pets by status
    * Multiple status values can be provided with comma separated strings
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async findPetsByStatus(data: FindPetsByStatusRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
     data.status = data.status !== undefined ? data.status : 'available';
@@ -198,7 +196,6 @@ export class PetApi implements Api {
    * Finds Pets by tags
    * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async findPetsByTags(data: FindPetsByTagsRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
     const getParams = this.client.extractQueryParams<FindPetsByTagsRequestData>(data, ['tags']);
@@ -224,7 +221,6 @@ export class PetApi implements Api {
    * Find pet by ID
    * Returns a single pet
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async getPetById(data: GetPetByIdRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<GetPetByIdRequestData>(data, [] as never[]);
@@ -250,7 +246,6 @@ export class PetApi implements Api {
    * Update an existing pet
    * Update an existing pet by Id
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async updatePet(data: UpdatePetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<UpdatePetRequestData>(data, [] as never[]);
@@ -279,8 +274,8 @@ export class PetApi implements Api {
 
   /**
    * Updates a pet in the store with form data
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async updatePetWithForm(data: UpdatePetWithFormRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<UpdatePetWithFormRequestData>(data, ['name', 'status']);
@@ -304,8 +299,8 @@ export class PetApi implements Api {
 
   /**
    * uploads an image
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async uploadFile(data: UploadFileRequestData, metadata?: RequestMetadata<'application/octet-stream', 'application/json'>): Promise<ApiResponse> {
     const getParams = this.client.extractQueryParams<UploadFileRequestData>(data, ['additionalMetadata']);

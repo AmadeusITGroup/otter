@@ -6,18 +6,14 @@
 import { Category } from './category';
 
 export function reviveCategory<T extends Category = Category>(data: undefined, dictionaries?: any): undefined;
-export function reviveCategory(data: Category, dictionaries?: any): Category;
+export function reviveCategory(data: Category, dictionaries?: any): Category ;
 export function reviveCategory(data: any, dictionaries?: any): Category | undefined;
-export function reviveCategory<T extends Category>(data: T, dictionaries?: any): T;
+export function reviveCategory<T extends Category>(data: T, dictionaries?: any): T ;
 export function reviveCategory<T extends Category>(data: any, dictionaries?: any): T | undefined;
 /**
  *
- * @param data
- * @param dictionaries
  */
-export function reviveCategory<T extends Category = Category>(data: any): T | undefined {
-  if (!data) { return; }
-
+export function reviveCategory<T extends Category = Category>(data: any, dictionaries?: any): T | undefined {
+  if (!data) { return ; }
   return data as T;
 }
-
