@@ -5,7 +5,6 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
 
 /**
  * Computes the SHA256 digest of the given string
- *
  * @param value Value to hash
  */
 export async function sha256(value: string) {
@@ -27,7 +26,6 @@ export async function sha256(value: string) {
  * Generates hash-based message authentication code using cryptographic hash function HmacSHA256 and the provided
  * secret key
  * Should only be in a NodeJS MDW context
- *
  * @param value Value to hash
  * @param secretKey Secret cryptographic key
  */
@@ -183,7 +181,6 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
 
   /**
    * Initialize your plugin
-   *
    * @param options Options to initialize the plugin
    */
   constructor(options: MicroGatewayMiddlewareAuthenticationRequestConstructor) {
@@ -217,7 +214,6 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
 
   /**
    * Computes the key used to sign the JWS
-   *
    * @param payload JWT payload
    * @param basePath Resource path
    */
@@ -228,7 +224,6 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
 
   /**
    * Generates the signed JWT based on provided payload and secret key
-   *
    * @param payload JWT payload
    * @param secretKey secret key used to generate the signature
    */
@@ -240,7 +235,6 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
 
   /**
    * Generates a signed Json Web Token
-   *
    * @param path Resource path
    */
   private async generateJWS(path: string) {
@@ -256,7 +250,7 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
         // Handle Authorization Tokens
         const url = new URL(data.basePath);
         const token = await this.generateJWS(url.pathname);
-        data.headers.append('Bearer ', token);
+        data.headers.append('Authorization', `Bearer ${token}`);
         return data;
       }
     };

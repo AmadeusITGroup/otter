@@ -34,15 +34,15 @@
       "require": "./dist/cjs/clients/*.js"
     },
     "./plugins/*": {
-      "module": "./dist/src/plugins/*.js",
-      "esm2020": "./dist/src/plugins/*.js",
-      "esm2015": "./dist/esm2015/plugins/*.js",
-      "es2020": "./dist/cjs/plugins/*.js",
-      "default": "./dist/cjs/plugins/*.js",
-      "typings": "./dist/src/plugins/*.d.ts",
-      "import": "./dist/src/plugins/*.js",
-      "node": "./dist/cjs/plugins/*.js",
-      "require": "./dist/cjs/plugins/*.js"
+      "module": "./dist/src/plugins/*/index.js",
+      "esm2020": "./dist/src/plugins/*/index.js",
+      "esm2015": "./dist/esm2015/plugins/*/index.js",
+      "es2020": "./dist/cjs/plugins/*/index.js",
+      "default": "./dist/cjs/plugins/*/index.js",
+      "typings": "./dist/src/plugins/*/index.d.ts",
+      "import": "./dist/src/plugins/*/index.js",
+      "node": "./dist/cjs/plugins/*/index.js",
+      "require": "./dist/cjs/plugins/*/index.js"
     }
   },
   "typesVersions": {
@@ -51,7 +51,7 @@
         "src/clients/*.d.ts"
       ],
       "plugins/*": [
-        "src/plugins/*.d.ts"
+        "src/plugins/*/index.d.ts"
       ]
     }
   },
