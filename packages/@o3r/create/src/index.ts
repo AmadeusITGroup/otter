@@ -123,6 +123,16 @@ const isNgNewOptions = (arg: string) => {
   return true;
 };
 
+const exitProcessIfErrorInSpawnSync = (exitCode: number, {error, status}: ReturnType<typeof spawnSync>) => {
+  if (error || status !== 0) {
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+    process.exit(exitCode);
+  }
+};
+
 const schematicsCliOptions: any[][] = Object.entries(argv)
   .filter(([key]) => key !== '_' && !optionsList.includes(key))
   .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
@@ -135,15 +145,9 @@ const createNgProject = () => {
   const options = schematicsCliOptions
     .filter(([key]) => isNgNewOptions(key))
     .flat();
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
+  exitProcessIfErrorInSpawnSync(1, spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
     stdio: 'inherit'
-  });
-
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    process.exit(1);
-  }
+  }));
 };
 
 const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm') => {
@@ -169,28 +173,16 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   if (projectPackageManager === 'yarn') {
-    const setVersionError = spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
+    exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
       stdio: 'inherit',
       cwd
-    }).error;
-
-    if (setVersionError) {
-      // eslint-disable-next-line no-console
-      console.error(setVersionError);
-      process.exit(2);
-    }
+    }));
   }
 
-  const installError = spawnSync(runner, ['install'], {
+  exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['install'], {
     stdio: 'inherit',
     cwd
-  }).error;
-
-  if (installError) {
-    // eslint-disable-next-line no-console
-    console.error(installError);
-    process.exit(2);
-  }
+  }));
 };
 
 const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
@@ -199,16 +191,10 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   const options = schematicsCliOptions
     .flat();
 
-  const { error } = spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
     stdio: 'inherit',
     cwd
-  });
-
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    process.exit(3);
-  }
+  }));
 };
 
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';

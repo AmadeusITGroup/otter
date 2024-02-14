@@ -83,7 +83,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
    */
   const generateSource = async () => {
     if (!existsSync(specPath)) {
-      throw new Error(`${specPath} does not exists`);
+      throw new Error(`${specPath} does not exist`);
     }
 
     const pathObjects = await generateOperationFinder();

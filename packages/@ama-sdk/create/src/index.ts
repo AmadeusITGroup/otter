@@ -91,12 +91,15 @@ const run = () => {
   ];
 
   const errors = steps
-    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'pipe', cwd: step.cwd || process.cwd() }))
-    .map(({error}) => error)
-    .filter((err) => !!err);
+    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
+    .filter(({error, status}) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach((err) => console.error(err));
+    errors.forEach(({error}) => {
+      if (error) {
+        console.error(error);
+      }
+    });
     process.exit(1);
   }
 };
