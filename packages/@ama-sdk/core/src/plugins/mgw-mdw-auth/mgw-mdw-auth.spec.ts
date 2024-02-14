@@ -6,7 +6,8 @@ import {
   MicroGatewayMiddlewareAuthenticationRequestConstructor, sha256
 } from './mgw-mdw-auth.request';
 
-const authHeaderKey = 'Bearer ';
+const authHeaderKey = 'Authorization';
+const authHeaderPrefix = 'Bearer ';
 
 let options: RequestOptions;
 
@@ -52,7 +53,7 @@ describe('JSON auth token request plugin', () => {
   it('should check that the jws token is well formatted', async () => {
     const plugin = new MicroGatewayMiddlewareAuthenticationRequest(jsonAuthTokenOptions);
     const result = await plugin.load().transform(options);
-    const token = result.headers.get(authHeaderKey);
+    const token = result.headers.get(authHeaderKey).replace(authHeaderPrefix, '');
     const tokenParts = token.split('.');
 
     expect(token).toBeDefined();
@@ -64,7 +65,7 @@ describe('JSON auth token request plugin', () => {
 
     const plugin = new MicroGatewayMiddlewareAuthenticationRequest(jsonAuthTokenOptions);
     const result = await plugin.load().transform(options);
-    const token = result.headers.get(authHeaderKey);
+    const token = result.headers.get(authHeaderKey).replace(authHeaderPrefix, '');
 
     expect(token).toBeDefined();
 
@@ -83,7 +84,7 @@ describe('JSON auth token request plugin', () => {
 
     const plugin = new MicroGatewayMiddlewareAuthenticationRequest(jsonAuthTokenOptions);
     const result = await plugin.load().transform(options);
-    const token = result.headers.get(authHeaderKey);
+    const token = result.headers.get(authHeaderKey).replace(authHeaderPrefix, '');
 
     expect(token).toBeDefined();
 
@@ -109,7 +110,7 @@ describe('JSON auth token request plugin', () => {
 
     const plugin = new MicroGatewayMiddlewareAuthenticationRequest(jsonAuthTokenOptions);
     const result = await plugin.load().transform(options);
-    const token = result.headers.get(authHeaderKey);
+    const token = result.headers.get(authHeaderKey).replace(authHeaderPrefix, '');
 
     const tokenParts = token.split('.');
     const header = JSON.parse(base64URLDecoder(tokenParts[0]));
