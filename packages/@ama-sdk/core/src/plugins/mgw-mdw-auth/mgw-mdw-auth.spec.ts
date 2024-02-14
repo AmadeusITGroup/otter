@@ -1,4 +1,4 @@
-import { createBase64Decoder, createBase64UrlDecoder, createBase64UrlEncoder } from '../../utils/json-token';
+import { base64EncodeUrl, createBase64Decoder, createBase64UrlDecoder, createBase64UrlEncoder } from '../../utils/json-token';
 import { RequestOptions } from '../core';
 import {
   hmacSHA256,
@@ -8,6 +8,8 @@ import {
 
 const authHeaderKey = 'Authorization';
 const authHeaderPrefix = 'Bearer ';
+const baseUrl = 'https://domain.com';
+const routePath = '/v2/shopping/air-offers';
 
 let options: RequestOptions;
 
@@ -33,7 +35,7 @@ describe('JSON auth token request plugin', () => {
 
   beforeEach(() => {
     options = {
-      basePath: 'https://domain.com/v2/shopping/air-offers',
+      basePath: `${baseUrl}${routePath}`,
       headers: new FakeHeader() as any,
       method: 'GET'
     };
@@ -48,6 +50,7 @@ describe('JSON auth token request plugin', () => {
     const result = await plugin.load().transform(options);
 
     expect(result.headers.has(authHeaderKey)).toBeTruthy();
+    expect(result.headers.get(authHeaderKey)?.startsWith(authHeaderPrefix)).toBeTruthy();
   });
 
   it('should check that the jws token is well formatted', async () => {
@@ -118,10 +121,10 @@ describe('JSON auth token request plugin', () => {
     const signature = tokenParts[2];
 
     // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-    const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat.toString() + options.basePath)));
+    const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat + routePath)));
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const message = `${base64UrlEncoder(JSON.stringify(header))}.${base64UrlEncoder(JSON.stringify(payload))}`;
-    const signCheck = base64UrlEncoder(hmacSHA256(message, secretKey));
+    const signCheck = base64EncodeUrl(hmacSHA256(message, secretKey));
 
     expect(signature).toEqual(signCheck);
   });
