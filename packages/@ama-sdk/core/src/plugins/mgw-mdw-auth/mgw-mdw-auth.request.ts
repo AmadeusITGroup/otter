@@ -250,7 +250,7 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
         // Handle Authorization Tokens
         const url = new URL(data.basePath);
         const token = await this.generateJWS(url.pathname);
-        data.headers.append('Bearer ', token);
+        data.headers.append('Authorization', `Bearer ${token}`);
         return data;
       }
     };
