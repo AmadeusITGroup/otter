@@ -17,6 +17,6 @@ export function updateRuleEngineService(): Rule {
         newValue: 'RulesEngineRunnerModule'
       }
     }
-  });
+  }, undefined, true);
   /* eslint-enable @typescript-eslint/naming-convention */
 }

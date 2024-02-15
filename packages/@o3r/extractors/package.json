@@ -11,9 +11,6 @@
     "extractors",
     "otter"
   ],
-  "ng-update": {
-    "migrations": "./migration.json"
-  },
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
@@ -104,5 +101,8 @@
   "engines": {
     "node": ">=18.0.0"
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

@@ -70,7 +70,7 @@ export const updatePipes = (pipeReplacementInfo: PipeReplacementInfo): Rule => (
     ).filter((matcher) => !!pipeReplacementInfo[matcher[1]]);
     if (matchers.length) {
       const directory = dirname(file.path);
-      const baseFileName = basename(file.path, '.template.html');
+      const baseFileName = basename(basename(file.path, '.html'), '.template');
       const componentFile = join(directory, `${baseFileName}.component.ts`);
       const moduleFile = join(directory, `${baseFileName}.module.ts`);
       let standalone = false;

@@ -13,9 +13,6 @@
   "main": "public_api.js",
   "typings": "public_api.d.ts",
   "types": "public_api.d.ts",
-  "ng-update": {
-    "migrations": "./migration.json"
-  },
   "sideEffects": false,
   "scripts": {
     "nx": "nx",
@@ -226,6 +223,9 @@
     "zone.js": "~0.14.2"
   },
   "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  },
   "engines": {
     "node": ">=18.0.0"
   }
