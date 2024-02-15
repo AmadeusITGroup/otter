@@ -68,9 +68,6 @@ export class O3rElement implements ElementProfile {
 
   /** @inheritdoc */
   public async setValue(input: string) {
-    // Clears the value in the field
-    await this.clearValue();
-
     await this.sourceElement.element.fill(input);
 
     await this.sourceElement.element.press('Tab');
@@ -78,16 +75,7 @@ export class O3rElement implements ElementProfile {
 
   /** @inheritdoc */
   public async clearValue() {
-    const currentValue = await this.getValue();
-
-    if (currentValue !== undefined) {
-      // eslint-disable-next-line @typescript-eslint/prefer-for-of
-      for (let i = 0; i < currentValue.length; i++) {
-        // ensure backspace deletes the value
-        await this.sourceElement.element.press('ArrowRight');
-        await this.sourceElement.element.press('Backspace');
-      }
-    }
+    await this.sourceElement.element.fill('');
   }
 
   /** @inheritdoc */

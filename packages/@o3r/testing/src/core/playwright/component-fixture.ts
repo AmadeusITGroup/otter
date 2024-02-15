@@ -36,10 +36,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     if (!element) {
       throw new Error('Element not found in ' + this.constructor.name);
     }
-    const count = await withTimeout(element.sourceElement.element.count(), timeout);
-    if (!count) {
-      throw new Error('Element not found in ' + this.constructor.name);
-    }
+    await element.sourceElement.element.first().waitFor({state: 'attached', timeout});
     return element;
   }
 
@@ -49,16 +46,13 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param element ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
-  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T | undefined>, timeout?: number): Promise<T> {
-    return withTimeout(element, timeout)
-      .then((el) => el?.sourceElement.element.count())
-      .then((count) => (count || 0) > 0)
-      .then((isPresent) => {
-        if (!isPresent) {
-          throw new Error('Element not found in ' + this.constructor.name);
-        }
-      })
-      .then(() => element as Promise<T>);
+  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T>, timeout?: number): Promise<T> {
+    return withTimeout(
+      element.then(async (el) => {
+        await el.sourceElement.element.first().waitFor({state: 'attached'});
+        return el;
+      }),
+      timeout);
   }
 
   /**
@@ -78,8 +72,8 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
       shouldThrowIfNotPresent?: boolean;
       timeout?: number;
     } = {}
-  ): Promise<O3rElement | undefined> {
-    let element: O3rElement | undefined;
+  ): Promise<O3rElement> {
+    let element: O3rElement;
     if (options.index !== undefined) {
       element = await this.queryNth(selector, options.index, elementConstructor as any);
     } else {
@@ -107,7 +101,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<string | undefined> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (!element || !await element.isVisible()) {
+    if (!await element.isVisible()) {
       return;
     }
     return await element.getText();
@@ -129,7 +123,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<boolean> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    return !!element && await element.isVisible();
+    return await element.isVisible();
   }
 
   /**
@@ -148,38 +142,29 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     timeout?: number;
   } = {}): Promise<void> {
     const element = await this.queryWithOptions(selector, options.elementConstructor, options);
-    if (!!element && await element.isVisible()) {
+    if (await element.isVisible()) {
       await element.click();
     }
   }
 
   /** @inheritdoc */
-  public async query(selector: string, returnType?: undefined): Promise<O3rElement | undefined>;
-  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>): Promise<T | undefined>;
-  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement | undefined> {
-    try {
-      const elements = this.rootElement.sourceElement.element.locator(selector);
-      const element = elements.first();
-      const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
-      return Promise.resolve(new (returnType || O3rElement)(selectedElement));
-    } catch (err) {
-      console.warn(`Failed to query ${selector}`, err);
-      return Promise.resolve(undefined);
-    }
+  public async query(selector: string, returnType?: undefined): Promise<O3rElement>;
+  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>): Promise<T>;
+  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
+    const elements = this.rootElement.sourceElement.element.locator(selector);
+    const element = elements.first();
+    const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
+    return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
   /** @inheritdoc */
-  public async queryNth(selector: string, index: number, returnType?: undefined): Promise<O3rElement | undefined>;
-  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T>): Promise<T | undefined>;
-  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement | undefined> {
-    try {
-      const elements = this.rootElement.sourceElement.element.locator(selector);
-      const element = elements.nth(index);
-      const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
-      return Promise.resolve(new (returnType || O3rElement)(selectedElement));
-    } catch {
-      return Promise.resolve(undefined);
-    }
+  public async queryNth(selector: string, index: number, returnType?: undefined): Promise<O3rElement>;
+  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T>): Promise<T>;
+  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
+    const elements = this.rootElement.sourceElement.element.locator(selector);
+    const element = elements.nth(index);
+    const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
+    return Promise.resolve(new (returnType || O3rElement)(selectedElement));
   }
 
   /** @inheritdoc */
