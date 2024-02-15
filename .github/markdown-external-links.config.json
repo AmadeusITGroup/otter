@@ -7,5 +7,11 @@
       "pattern": "https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/"
     }
   ],
+  "replacementPatterns": [
+    {
+      "pattern": "/%40",
+      "replacement": "/@"
+    }
+  ],
   "aliveStatusCodes": [200, 203]
 }

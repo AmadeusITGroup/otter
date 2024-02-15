@@ -8,8 +8,7 @@ mode and only the Typescript generator is actively supported and will see future
 
 ## Typescript SDK
 
-The Typescript SDK generator is a custom template for the OpenAPITools generator with a full integration of the 
-[@ama-sdk/core](https://www.npmjs.com/package/@ama-sdk/core) client capabilities.
+The Typescript SDK generator is a custom template for the OpenAPITools generator with a full integration of the [@ama-sdk/core](https://www.npmjs.com/package/@ama-sdk/core) client capabilities.
 
 It supports both Swagger 2+ and Open API 3 specifications.
 - [Setup](#setup)
@@ -21,13 +20,13 @@ It supports both Swagger 2+ and Open API 3 specifications.
 
 #### Create a new repository
 
-Generate a new single SDK repository 
+Generate a new single SDK repository
 
 ```shell
 npm create @ama-sdk typescript <project-name> -- [--spec-path=./path/to/spec.yaml]
 ```
 
-or 
+or
 ```shell
 yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]
 ```
@@ -96,10 +95,9 @@ You can also use npx instead of yarn in the command.
 You can correlate this data model with the [templates](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/core/openapi-codegen-typescript/src/main/resources/typescriptFetch) used by the generator.
 
 ### Going further
-For more information on the generated SDK and how the framework supports different feature such as the Composition, you 
-can refer to the dedicated SDK documentation:
-- [Generated SDK hierarchy and extension](https://github.com/AmadeusITGroup/otter/blob/main/docs/sdk-tools/SDK_MODELS_HIERARCHY.md)
-- [Composition and Inheritance support](https://github.com/AmadeusITGroup/otter/blob/main/docs/sdk-tools/COMPOSITION_INHERITANCE.md)
+For more information on the generated SDK and how the framework supports different feature such as the Composition, you can refer to the dedicated SDK documentation:
+- [Generated SDK hierarchy and extension](https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md)
+- [Composition and Inheritance support](https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/COMPOSITION_INHERITANCE.md)
 
 ## Java Client Core SDK
 > **Warning**
