@@ -30,7 +30,7 @@ jobs:
     - uses: gaurav-nelson/github-action-markdown-link-check@v1
       with:
         base-branch: 'main'
-        config-file: '.github/markdown.links.config.json'
+        config-file: '.github/markdown-links.config.json'
         folder-path: 'packages/,apps/,tools/'
 
   test:

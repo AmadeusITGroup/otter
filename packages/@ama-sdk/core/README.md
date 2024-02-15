@@ -46,7 +46,7 @@ A list of API Clients are provided by this package:
 ### Logs
 
 In order to ease the logging in the ama-sdk plugins, it is possible to connect to third-party logging services.
-This can be achieved by adding a `Logger` [implementation](/packages/@ama-sdk/core/src/fwk/logger.ts) to the options of an API client.
+This can be achieved by adding a `Logger` [implementation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/fwk/logger.ts) to the options of an API client.
 
 For example, in the Otter showcase application, we could add a `ConsoleLogger` (from `@o3r/core`) as a parameter to the ApiFetchClient:
 

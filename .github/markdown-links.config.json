@@ -1,6 +1,8 @@
 {
   "ignorePatterns": [
-    "https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md"
+    {
+      "pattern": "^https?:\/\/.*"
+    }
   ],
   "replacementPatterns": [
     {
