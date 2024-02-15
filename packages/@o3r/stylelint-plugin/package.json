@@ -30,10 +30,10 @@
     "stylelint": "^16.0.2"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~17.0.3",
-    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
-    "@angular/compiler": "~17.0.4",
+    "@angular/compiler": "~17.2.0",
     "@babel/core": "~7.23.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",

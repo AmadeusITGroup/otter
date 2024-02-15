@@ -19,9 +19,9 @@
     "tslib": "^2.5.3"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1700.3",
-    "@angular-devkit/core": "~17.0.3",
-    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-devkit/architect": "~0.1702.0",
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
     "rxjs": "^7.8.1"
   },
   "peerDependenciesMeta": {
@@ -30,9 +30,9 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1700.3",
-    "@angular-devkit/core": "~17.0.3",
-    "@angular-devkit/schematics": "~17.0.3",
+    "@angular-devkit/architect": "~0.1702.0",
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
     "@nx/eslint-plugin": "~18.0.2",
     "@nx/jest": "~18.0.2",
