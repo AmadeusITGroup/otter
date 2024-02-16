@@ -9,6 +9,7 @@ import {
   prepareTestEnv,
   setupLocalRegistry
 } from '@o3r/test-helpers';
+import { execFileSync } from 'node:child_process';
 import * as fs from 'node:fs';
 import { cpSync, mkdirSync } from 'node:fs';
 import * as path from 'node:path';
@@ -25,7 +26,7 @@ describe('Create new sdk command', () => {
   beforeEach(async () => {
     const isYarnTest = packageManager.startsWith('yarn');
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
-    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion })).workspacePath;
+    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion, skipGitSetup: true })).workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
@@ -52,11 +53,23 @@ describe('Create new sdk command', () => {
   test('should generate a full SDK when the specification is provided', () => {
     expect(() =>
       packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', './swagger-spec.yml']}, execAppOptions)).not.toThrow();
+    expect(fs.existsSync(path.join(sdkPackagePath, '.git'))).toBe(true);
+    expect(() => execFileSync('git', ['diff', '--quiet', '--exit-code'], { cwd: sdkPackagePath })).not.toThrow(); // git must be ready to commit all files
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+  });
+
+  test('should not generate a git repository when using --skip-git', () => {
+    expect(() => packageManagerCreate({
+      script: '@ama-sdk',
+      args: ['typescript', sdkPackageName, '--skip-git', '--package-manager', packageManager, '--spec-path', './swagger-spec.yml']
+    }, execAppOptions)).not.toThrow();
+    expect(fs.existsSync(path.join(sdkPackagePath, '.git'))).toBe(false);
   });
 
   test('should generate an empty SDK ready to be used', () => {
     expect(() => packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName]}, execAppOptions)).not.toThrow();
+    expect(fs.existsSync(path.join(sdkPackagePath, '.git'))).toBe(true);
+    expect(() => execFileSync('git', ['diff', '--quiet', '--exit-code'], { cwd: sdkPackagePath })).not.toThrow(); // git must be ready to commit all files
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() =>
       packageManagerExec({

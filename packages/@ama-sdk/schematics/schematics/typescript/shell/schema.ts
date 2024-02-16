@@ -18,4 +18,10 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicO
 
   /** Skip NPM install */
   skipInstall: boolean;
+
+  /** Initial git repository commit information. */
+  commit: boolean | { name?: string; email?: string; message?: string };
+
+  /** Do not initialize a git repository. */
+  skipGit: boolean;
 }

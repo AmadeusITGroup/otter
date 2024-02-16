@@ -28,6 +28,34 @@
       "description": "Skip NPM install",
       "default": false
     },
+    "commit": {
+      "description": "Initial git repository commit information.",
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "skipGit": {
+      "description": "Do not initialize a git repository.",
+      "type": "boolean",
+      "default": false
+    },
     "packageManager": {
       "type": "string",
       "enum": [
