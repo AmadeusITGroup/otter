@@ -56,7 +56,7 @@
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
     "minimatch": "~9.0.3",
-    "sass": "~1.70.0"
+    "sass": "~1.71.0"
   },
   "peerDependenciesMeta": {
     "@o3r/core": {
@@ -129,7 +129,7 @@
     "minimatch": "~9.0.3",
     "nx": "~18.0.2",
     "rxjs": "^7.8.1",
-    "sass": "~1.70.0",
+    "sass": "~1.71.0",
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
     "type-fest": "^4.10.2",
