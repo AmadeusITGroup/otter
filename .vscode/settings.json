@@ -24,10 +24,13 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
-  "jest.autoRun": {
-    "watch": false,
-    "onSave": "test-file"
+  "jest.runMode": "on-save",
+  "jest.outputConfig": {
+    "revealOn": "demand",
+    "revealWithFocus": "test-results",
+    "clearOnRun": "none"
   },
+  "testing.openTesting": "neverOpen",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
