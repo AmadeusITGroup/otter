@@ -320,12 +320,4 @@ export class RulesetExecutor {
       rulesResultsSubject$: result$
     } as EngineRuleset;
   }
-
-  /**
-   * Plug ruleset to fact streams and trigger a first evaluation
-   * @deprecated This function is not made to be accessible from Outside of the class, will be removed in v10
-   */
-  public prepareRuleset() {
-    return this.plugRuleset();
-  }
 }
