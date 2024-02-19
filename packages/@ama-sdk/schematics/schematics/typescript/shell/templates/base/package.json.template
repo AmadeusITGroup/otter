@@ -44,7 +44,6 @@
     "files:pack": "amasdk-files-pack",
     "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
-    "postinstall": "husky install",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
     "doc:generate": "typedoc",
     "tools:changelog": "standard-version"
@@ -96,7 +95,6 @@
     "eslint-plugin-prefer-arrow": "<%= versions['eslint-plugin-prefer-arrow'] %>",
     "eslint-plugin-unicorn": "<%= versions['eslint-plugin-unicorn'] %>",
     "globby": "<%= versions['globby'] %>",
-    "husky": "~8.0.3",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>",
     "jest": "<%= versions['jest'] %>",
     "jest-junit": "~16.0.0",
