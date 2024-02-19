@@ -149,5 +149,8 @@
     "node": ">=18.0.0"
   },
   "builders": "./builders.json",
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

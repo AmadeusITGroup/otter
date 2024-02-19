@@ -32,6 +32,8 @@ function updateV10_0Fn(): Rule {
   return (tree: Tree, context: SchematicContext) => {
 
     const updateRules: Rule[] = [
+      // Some of these imports were missed in the generators of v9, so it's easier to just run the update again
+      updateImports(mapImportAsyncStore),
       updateConfiguration
     ];
 

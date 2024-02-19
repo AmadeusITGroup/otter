@@ -3,7 +3,7 @@
   "schematics": {
     "ng-update": {
       "version": "10.0.0-alpha.0",
-      "description": "Updates of the Otter DevTools module to v10.0.x",
+      "description": "Deprecation warning of @o3r/dev-tools for v10.0.*",
       "factory": "./schematics/ng-update/index#ngUpdate"
     }
   }
