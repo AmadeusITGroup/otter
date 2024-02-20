@@ -65,6 +65,15 @@ describe('Create new sdk command', () => {
       }, { ...execAppOptions, cwd: sdkPackagePath })
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
-    expect(() => packageManagerRun({ script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+  });
+
+  test('should fail when there is an error', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path','./missing-file.yml']
+      }, execAppOptions)
+    ).toThrow('missing-file.yml does not exist');
   });
 });
