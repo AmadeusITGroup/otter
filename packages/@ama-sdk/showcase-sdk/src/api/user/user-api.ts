@@ -1,5 +1,4 @@
 import { User } from '../../models/base/user/index';
-import { reviveUser } from '../../models/base/user/user.reviver';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export interface CreateUserRequestData {
@@ -146,7 +145,7 @@ export class UserApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: reviveUser } , 'createUsersWithListInput');
+    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUsersWithListInput');
     return ret;
   }
 
@@ -196,7 +195,7 @@ export class UserApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: reviveUser } , 'getUserByName');
+    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'getUserByName');
     return ret;
   }
 
@@ -221,7 +220,7 @@ export class UserApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: undefined } , 'loginUser');
+    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'loginUser');
     return ret;
   }
 
