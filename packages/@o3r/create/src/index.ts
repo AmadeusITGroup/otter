@@ -6,12 +6,17 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import * as minimist from 'minimist';
 import type { PackageJson } from 'type-fest';
 
+
 const { properties } = JSON.parse(
   readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
 ) as { properties: Record<string, { alias?: string }> };
 const { version, dependencies, devDependencies } = JSON.parse(
   readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
 ) as PackageJson;
+
+const optionsList = [
+  'yarn-version'
+];
 
 const logo = `
 
@@ -119,7 +124,7 @@ const isNgNewOptions = (arg: string) => {
 };
 
 const schematicsCliOptions: any[][] = Object.entries(argv)
-  .filter(([key]) => key !== '_')
+  .filter(([key]) => key !== '_' && !optionsList.includes(key))
   .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
   .map(([key, value]) => {
     const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
@@ -141,16 +146,15 @@ const createNgProject = () => {
   }
 };
 
-const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
+const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm') => {
+  const cwd = resolve(process.cwd(), relativeDirectory);
+  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const mandatoryDependencies = [
     '@angular-devkit/schematics',
     '@schematics/angular',
     '@angular-devkit/core',
     '@angular-devkit/architect'
   ];
-  const cwd = resolve(process.cwd(), relativeDirectory);
-  const options = schematicsCliOptions
-    .flat();
 
   const packageJsonPath = resolve(cwd, 'package.json');
   const packageJson: PackageJson = JSON.parse(
@@ -164,17 +168,46 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   });
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
-  const { error } = spawnSync(process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager,
-    ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+  if (projectPackageManager === 'yarn') {
+    const setVersionError = spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
       stdio: 'inherit',
       cwd
+    }).error;
+
+    if (setVersionError) {
+      // eslint-disable-next-line no-console
+      console.error(setVersionError);
+      process.exit(2);
     }
-  );
+  }
+
+  const installError = spawnSync(runner, ['install'], {
+    stdio: 'inherit',
+    cwd
+  }).error;
+
+  if (installError) {
+    // eslint-disable-next-line no-console
+    console.error(installError);
+    process.exit(2);
+  }
+};
+
+const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
+  const cwd = resolve(process.cwd(), relativeDirectory);
+  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
+  const options = schematicsCliOptions
+    .flat();
+
+  const { error } = spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+    stdio: 'inherit',
+    cwd
+  });
 
   if (error) {
     // eslint-disable-next-line no-console
     console.error(error);
-    process.exit(2);
+    process.exit(3);
   }
 };
 
@@ -182,4 +215,5 @@ const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
 console.info(logo);
 createNgProject();
+prepareWorkspace(projectFolder, packageManager);
 addOtterFramework(projectFolder, packageManager);

@@ -12,21 +12,25 @@ import type { NgAddSchematicsSchema } from './schema';
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { getProjectNewDependenciesType, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
+      const { getPackageInstallConfig, getProjectNewDependenciesTypes, setupDependencies, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true));
       return chain([
-        (t, c) => ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: `${depsInfo.packageName!} - setup`,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
-        })(t, c),
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
+        }),
         updateCmsAdapter(options, __dirname)
       ]);
     } catch (e) {

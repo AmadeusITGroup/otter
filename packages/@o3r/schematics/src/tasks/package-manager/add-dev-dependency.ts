@@ -5,6 +5,7 @@ import { NodePackageInstallTaskOptions } from './interfaces';
 
 /**
  * Install new dev dependency on your package
+ * @deprecated use {@link setupDependencies} instead, will be removed in V11
  */
 export class AddDevInstall extends NodePackageInstallTask {
   public quiet = false;

@@ -2,6 +2,7 @@ import { chain, noop, Rule } from '@angular-devkit/schematics';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import type { DependencyToAdd } from '@o3r/schematics';
 
 const doCustomAction: Rule = (tree, _context) => {
   // your custom code here
@@ -16,24 +17,28 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
+      const { getWorkspaceConfig, applyEsLintFix, setupDependencies, getO3rPeerDeps, getProjectNewDependenciesTypes } = await import('@o3r/schematics');
       // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, {} as Record<string, DependencyToAdd>);
       return chain([
         // optional custom action dedicated to this module
         doCustomAction,
         options.skipLinter ? noop() : applyEsLintFix(),
-        // install packages needed in the current module
-        options.skipInstall ? noop : install,
         // add the missing Otter modules in the current project
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          workingDirectory,
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
+        setupDependencies({
           projectName: options.projectName,
-          parentPackageInfo: `${depsInfo.packageName!} - setup`
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         })
       ]);
     } catch (e) {

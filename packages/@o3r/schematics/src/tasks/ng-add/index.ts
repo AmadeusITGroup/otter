@@ -31,6 +31,7 @@ export interface NgAddPackageOptions {
   skipNgAddSchematicRun?: boolean;
 }
 
+/** @deprecated use {@link setupDependencies} instead, will be removed in V11 */
 export class NodePackageNgAddTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
   public quiet = false;
 

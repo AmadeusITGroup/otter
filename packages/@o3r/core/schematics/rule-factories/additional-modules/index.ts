@@ -1,18 +1,21 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectNewDependenciesType,
+  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  ngAddPeerDependencyPackages
+  type SetupDependenciesOptions
 } from '@o3r/schematics';
 import * as ts from 'typescript';
 import { addRootImport } from '@schematics/angular/utility';
 import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
+import type { PackageJson } from 'type-fest';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -20,26 +23,31 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param options.workingDirectory the directory where to execute the rule factory
- * @param _rootPath @see RuleFactory.rootPath
+ * @param dependenciesSetupConfig
  */
-export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, dependenciesSetupConfig: SetupDependenciesOptions): Rule {
   /**
    * Update package.json to add additional modules dependencies
    * @param tree
-   * @param context
    */
-  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
+  const updatePackageJson: Rule = (tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const type: NodeDependencyType = getProjectNewDependenciesType(workspaceProject);
-    const generatorDependencies = [ngrxStoreDevtoolsDep];
+    const types = getProjectNewDependenciesTypes(workspaceProject);
+    dependenciesSetupConfig.dependencies.chokidar = {
+      inManifest: [{
+        range: packageJson.peerDependencies!.chokidar,
+        types: [NodeDependencyType.Dev]
+      }]
+    };
 
-    try {
-      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, skipNgAddSchematicRun: true});
-    } catch (e) {
-      context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
-    }
+    dependenciesSetupConfig.dependencies[ngrxStoreDevtoolsDep] = {
+      inManifest: [{
+        range: packageJson.generatorDependencies[ngrxStoreDevtoolsDep],
+        types
+      }]
+    };
+
     return tree;
-
   };
 
   /**

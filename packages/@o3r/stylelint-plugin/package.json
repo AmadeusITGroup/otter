@@ -19,7 +19,7 @@
     "build": "yarn nx build stylelint-plugin",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "prepare:build:builders": "yarn cpy './collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy './collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {

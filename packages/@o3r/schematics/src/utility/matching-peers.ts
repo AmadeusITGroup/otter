@@ -37,7 +37,7 @@ const basicsPackageName = new Set([
  * @param packagePattern Pattern of the package name to look in the packages peer dependencies.
  * @param versionRangePrefix Prefix to add to the package version to determine Semver Range
  */
-export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, packagePattern = /^@(?:o3r|ama-sdk)/, versionRangePrefix = '^') {
+export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, packagePattern = /^@(?:o3r|ama-sdk)/, versionRangePrefix = '') {
   const depsInfo = getPeerDepWithPattern(packageJsonPath, packagePattern);
   return {
     packageName: depsInfo.packageName,

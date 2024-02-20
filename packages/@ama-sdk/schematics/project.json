@@ -60,7 +60,6 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@ama-sdk/schematics/testing/jest.config.it.js",
-        "silent": false,
         "passWithNoTests": true
       }
     },

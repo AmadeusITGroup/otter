@@ -30,7 +30,8 @@
       "options": {
         "main": "packages/@o3r/stylelint-plugin/src/public_api.ts",
         "tsConfig": "packages/@o3r/stylelint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/stylelint-plugin/dist"
+        "outputPath": "packages/@o3r/stylelint-plugin/dist",
+        "clean": false
       }
     },
     "lint": {

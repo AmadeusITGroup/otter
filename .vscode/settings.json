@@ -24,23 +24,19 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
+  "jest.debugMode": true,
   "jest.runMode": "on-save",
-  "jest.outputConfig": {
-    "revealOn": "demand",
-    "revealWithFocus": "test-results",
-    "clearOnRun": "none"
-  },
   "testing.openTesting": "neverOpen",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
     "tsconfig.json": "tsconfig.*.json",
     "tsconfig.base.json": "tsconfig.*.json",
-    "package.json": "ng-package.json, project.json, yarn.lock",
+    "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
     "nx.json": ".nxignore",
-    ".yarnrc.yml": ".npmrc, .npmrc.*",
     ".eslintrc.*": ".eslintignore, .eslintrc-*",
-    "jest.config.js": "jest.config.*"
+    "jest.config.js": "jest.config.*",
+    "Dockerfile*": ".dockerignore"
   },
   "stylelint.validate": [
     "css",

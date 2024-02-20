@@ -10,7 +10,7 @@ import { NodeDependency, NodeDependencyType } from '@schematics/angular/utility/
 export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string): Record<T, string> {
   const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
-    acc[packageName] = packageJsonContent.peerDependencies?.[packageName] || packageJsonContent.generatorDependencies?.[packageName];
+    acc[packageName] = packageJsonContent.peerDependencies?.[packageName] || packageJsonContent.generatorDependencies?.[packageName] || packageJsonContent.dependencies?.[packageName] || 'latest';
     return acc;
   }, {}) as Record<T, string>;
 }

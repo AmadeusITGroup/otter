@@ -15,11 +15,6 @@
       "type": "boolean",
       "description": "Skip the linter process",
       "default": true
-    },
-    "skipInstall": {
-      "type": "boolean",
-      "description": "Skip the install process",
-      "default": true
     }
   },
   "additionalProperties": true,

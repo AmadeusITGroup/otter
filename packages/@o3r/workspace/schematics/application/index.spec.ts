@@ -4,6 +4,7 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 
 jest.mock('@o3r/schematics', () => ({
+  setupDependencies: jest.fn().mockReturnValue((tree: any) => tree),
   getPackagesBaseRootFolder: jest.fn().mockReturnValue('/projects'),
   getWorkspaceConfig: jest.fn().mockReturnValue({ projects: {} }),
   isNxContext: jest.fn().mockReturnValue(false),

@@ -1,17 +1,19 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { lastValueFrom } from 'rxjs';
-import { getPackageManager } from '../utility/package-manager-runner';
+import { getPackageManager, type SupportedPackageManagers } from '../utility/package-manager-runner';
 
 /**
  * Install the Otter packages
- * @param tree
- * @param context
+ * @deprecated use {@link setupDependencies} instead, will be removed in V11
+ * @param options
+ * @param options.packageManager
  */
-export async function install(tree: Tree, context: SchematicContext): Promise<Rule> {
-  const packageManager = getPackageManager();
-  context.logger.info('Running application install');
-  context.addTask(new NodePackageInstallTask({packageManager}));
-  await lastValueFrom(context.engine.executePostTasks());
-  return () => tree;
+export function install(options?: {packageManager?: SupportedPackageManagers}): Rule {
+  return async (_, context) => {
+    const packageManager = options?.packageManager || getPackageManager();
+    context.logger.info('Running application install');
+    context.addTask(new NodePackageInstallTask({packageManager}));
+    await lastValueFrom(context.engine.executePostTasks());
+  };
 }

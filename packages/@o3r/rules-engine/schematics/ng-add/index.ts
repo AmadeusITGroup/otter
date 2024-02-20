@@ -6,6 +6,10 @@ import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { registerDevtools } from './helpers/devtools-registration';
 
+const devDependenciesToInstall = [
+  'jsonpath-plus'
+];
+
 /**
  * Add Otter rules-engine to an Angular Project
  * @param options
@@ -15,12 +19,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const {
-        ngAddPackages,
+        setupDependencies,
+        getPackageInstallConfig,
         getDefaultOptionsForSchematic,
         getO3rPeerDeps,
-        getProjectNewDependenciesType,
+        getProjectNewDependenciesTypes,
         getWorkspaceConfig,
-        ngAddPeerDependencyPackages,
+        getExternalDependenciesVersionRange,
         removePackages,
         setupSchematicsDefaultParams
       } = await import('@o3r/schematics');
@@ -32,8 +37,24 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
       }
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
+        .forEach(([dep, range]) => {
+          dependencies[dep] = {
+            inManifest: [{
+              range,
+              types: getProjectNewDependenciesTypes(workspaceProject)
+            }]
+          };
+        });
       const rule = chain([
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
@@ -47,14 +68,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           }
         }),
         removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
-        ngAddPeerDependencyPackages(['jsonpath-plus'], packageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/rules-engine - install builder dependency'),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
         ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
         await registerDevtools(options)

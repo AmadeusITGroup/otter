@@ -1,18 +1,6 @@
 name: 'Setup'
 description: 'Setup for Otter Library'
 
-inputs:
-  enable-build-cache:
-    description: 'Enable Cache'
-    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
-    required: false
-    default: 'false'
-  cache-build-identifier:
-    description: 'Custom identifier to build cache key'
-    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
-    required: false
-    default: 'global'
-
 runs:
   using: "composite"
   steps:

@@ -1,5 +1,5 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageInstallConfig } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 import { updateLinterConfigs } from './linter';
@@ -11,43 +11,60 @@ import { updateLinterConfigs } from './linter';
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
+    const devDependenciesToInstall = [
+      'eslint',
+      '@stylistic/eslint-plugin-ts',
+      '@angular-eslint/builder',
+      '@typescript-eslint/parser',
+      '@typescript-eslint/eslint-plugin',
+      'eslint-plugin-jsdoc',
+      'eslint-plugin-prefer-arrow',
+      'eslint-plugin-unicorn',
+      'jsonc-eslint-parser'
+    ];
+
     try {
       const {
-        addVsCodeRecommendations, ngAddPackages, getWorkspaceConfig, getO3rPeerDeps, getProjectNewDependenciesType, ngAddPeerDependencyPackages, removePackages
+        getExternalDependenciesVersionRange,
+        addVsCodeRecommendations,
+        setupDependencies,
+        getWorkspaceConfig,
+        getO3rPeerDeps,
+        getProjectNewDependenciesTypes,
+        removePackages
       } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const linterSchematicsFolder = path.resolve(__dirname, '..');
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
-      const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true));
+      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
+        .forEach(([dep, range]) => {
+          dependencies[dep] = {
+            inManifest: [{
+              range,
+              types: [NodeDependencyType.Dev]
+            }]
+          };
+        });
+
       return () => chain([
         removePackages(['@otter/eslint-config-otter', '@otter/eslint-plugin']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
-        ngAddPeerDependencyPackages(
-          [
-            'eslint',
-            '@angular-eslint/builder',
-            '@typescript-eslint/parser',
-            '@typescript-eslint/eslint-plugin',
-            'eslint-plugin-jsdoc',
-            'eslint-plugin-prefer-arrow',
-            'eslint-plugin-unicorn',
-            'jsonc-eslint-parser'
-          ],
-          path.resolve(__dirname, '..', '..', 'package.json'),
-          NodeDependencyType.Dev,
-          {...options, workingDirectory, skipNgAddSchematicRun: true},
-          '@o3r/eslint-config-otter - peer installs'
-        ),
         addVsCodeRecommendations(['dbaeumer.vscode-eslint', 'stylelint.vscode-stylelint']),
         updateLinterConfigs(options, linterSchematicsFolder)
       ])(tree, context);
