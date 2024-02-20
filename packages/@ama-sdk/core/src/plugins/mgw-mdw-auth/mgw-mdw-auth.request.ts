@@ -1,25 +1,21 @@
 import { v4 } from 'uuid';
-import { ab2str, str2ab } from '../../utils/crypto';
-import { createBase64Encoder, createBase64UrlEncoder } from '../../utils/json-token';
+import { base64EncodeUrl, createBase64Encoder, createBase64UrlEncoder } from '../../utils/json-token';
 import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import type { createHmac as createHmacType, webcrypto } from 'node:crypto';
+
 
 /**
  * Computes the SHA256 digest of the given string
  * @param value Value to hash
  */
 export async function sha256(value: string) {
-  // Web browsers
-  if (typeof window !== 'undefined' && typeof window.crypto !== 'undefined') {
-    return ab2str(await crypto.subtle.digest('SHA-256', str2ab(value)));
-  }
-  // NodeJS
-  try {
-    return ab2str(require('node:crypto').createHash('sha256')
-      .update(value)
-      .digest('latin1'));
-  } catch (err) {
-    throw new Error('Crypto module is not available.');
-  }
+  const utf8 = new TextEncoder().encode(value);
+  const hashBuffer = await (globalThis.crypto || (require('node:crypto').webcrypto as typeof webcrypto)).subtle.digest('SHA-256', utf8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray
+    .map((bytes) => bytes.toString(16).padStart(2, '0'))
+    .join('');
+  return hashHex;
 }
 
 /**
@@ -31,9 +27,10 @@ export async function sha256(value: string) {
  */
 export function hmacSHA256(value: string, secretKey: string) {
   try {
-    return ab2str(require('node:crypto').createHmac('sha256', secretKey)
-      .update(value)
-      .digest('latin1'));
+    const { createHmac }: { createHmac: typeof createHmacType } = require('node:crypto');
+    return createHmac('sha256', secretKey)
+      .update(value, 'latin1')
+      .digest('base64');
   } catch (err) {
     throw new Error('Crypto module is not available.');
   }
@@ -59,12 +56,12 @@ export interface JsonTokenPayload {
   /**
    * Timestamp in second when the token was generated
    */
-  iat: number;
+  iat: string;
 
   /**
    * Timestamp in second after which the token has to be considered obsolete
    */
-  exp: number;
+  exp: string;
 
   /**
    * Application ID
@@ -200,15 +197,16 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
    * Generates payload with minimal information
    */
   private generatePayload(): JsonTokenPayload {
-    const iatTime = Math.floor(Date.now() / 1000);
-    const expTime = iatTime + this.expIntervalInSec;
-
+    const nonce = this.base64Encoder(v4().toString());
+    const nowInSeconds = Math.floor(Date.now() / 1000);
+    const expTime = nowInSeconds + this.expIntervalInSec;
+    const context = this.base64Encoder(JSON.stringify(this.context));
     return {
       iss: this.applicationId,
-      jti: this.base64Encoder(v4().toString()),
-      iat: iatTime,
-      exp: expTime,
-      context: this.base64Encoder(JSON.stringify(this.context))
+      exp: `${expTime}`,
+      jti: nonce,
+      iat: `${nowInSeconds}`,
+      context
     };
   }
 
@@ -218,8 +216,9 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
    * @param basePath Resource path
    */
   private async generateMicroGatewayAuthenticationSignatureKey(payload: JsonTokenPayload, basePath: string) {
-    const subString = this.apiKey + await sha256(this.secret + payload.jti + payload.iat.toString() + basePath);
-    return sha256(subString);
+    const subKeyString = this.secret + payload.jti + payload.iat + basePath;
+    const keyString = this.apiKey + await sha256(subKeyString);
+    return sha256(keyString);
   }
 
   /**
@@ -230,7 +229,8 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
   private sign(payload: JsonTokenPayload, secretKey: string) {
     const message = `${this.base64UrlEncoder(JSON.stringify(jwsHeader))}.${this.base64UrlEncoder(JSON.stringify(payload))}`;
     const signature = hmacSHA256(message, secretKey);
-    return `${message}.${this.base64UrlEncoder(signature)}`;
+    const encodedSignature = base64EncodeUrl(signature);
+    return `${message}.${encodedSignature}`;
   }
 
   /**
