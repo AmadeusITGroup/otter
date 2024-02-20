@@ -63,7 +63,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   // Remove all cache entries relative to local workspaces (@o3r, @ama-sdk, @ama-terasu)
   if (!!process.env.CI && existsSync(cacheFolderPath)) {
-    const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
+    const workspacesList = execSync('yarn workspaces:list', { stdio: 'pipe' }).toString().split(path.delimiter)
       .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'))
       .filter((workspace) => !!workspace);
     readdirSync(cacheFolderPath).forEach((fileName) => {
