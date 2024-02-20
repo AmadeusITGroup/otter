@@ -46,12 +46,13 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
    * @param element ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
-  protected async throwOnUndefined<T extends O3rElement>(element: Promise<T>, timeout?: number): Promise<T> {
+  protected throwOnUndefined<T extends O3rElement>(element: Promise<T>, timeout?: number): Promise<T> {
     return withTimeout(
-      element.then(async (el) => {
+      (async () => {
+        const el = await element;
         await el.sourceElement.element.first().waitFor({state: 'attached'});
         return el;
-      }),
+      })(),
       timeout);
   }
 
@@ -148,9 +149,9 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public async query(selector: string, returnType?: undefined): Promise<O3rElement>;
-  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>): Promise<T>;
-  public async query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
+  public query(selector: string, returnType?: undefined): Promise<O3rElement>;
+  public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T>): Promise<T>;
+  public query<T extends O3rElement>(selector: string, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.first();
     const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
@@ -158,9 +159,9 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritdoc */
-  public async queryNth(selector: string, index: number, returnType?: undefined): Promise<O3rElement>;
-  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T>): Promise<T>;
-  public async queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
+  public queryNth(selector: string, index: number, returnType?: undefined): Promise<O3rElement>;
+  public queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T>): Promise<T>;
+  public queryNth<T extends O3rElement>(selector: string, index: number, returnType: O3rElementConstructor<T> | undefined): Promise<T | O3rElement> {
     const elements = this.rootElement.sourceElement.element.locator(selector);
     const element = elements.nth(index);
     const selectedElement: PlaywrightSourceElement = {element: element, page: this.rootElement.sourceElement.page};
@@ -216,7 +217,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   }
 
   /** @inheritDoc */
-  public async queryNotPresent(selector: string): Promise<boolean> {
+  public queryNotPresent(selector: string): Promise<boolean> {
     const element = this.rootElement.sourceElement.element.locator(selector).first();
     return element.isHidden();
   }
