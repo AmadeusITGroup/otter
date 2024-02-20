@@ -17,7 +17,8 @@ This module provides utilities to enhance angular form (asynchronous decorator, 
 ng add @o3r/forms
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Container/presenter and form creation
 
@@ -29,13 +30,13 @@ A Container/presenter architecture was put in place to ensure best reusability/s
 * **container** only values and errors are propagated from the presenter
 * **container** can set the default value
 
-### How the container and presenter will communicate in forms context  
+### How the container and presenter will communicate in forms context
 
 * **presenter** implements [ControlValueAccessor](https://angular.io/api/forms/ControlValueAccessor) and [Validator](https://angular.io/api/forms/Validator) (or [AsyncValidator](https://angular.io/api/forms/AsyncValidator)) interfaces
   * **propagate** the value, the form status and the errors
 * **container** applies [FormControlDirective](https://angular.io/api/forms/FormControlDirective) on the presenter html tag
   * **container** sets the default value using **formControl** directive
-  * **listen** to the value and status changes using the same directive  
+  * **listen** to the value and status changes using the same directive
 
 See [FORM_STRUCTURE](https://github.com/AmadeusITGroup/otter/tree/main/docs/forms/FORM_STRUCTURE.md)
 
@@ -45,7 +46,7 @@ See [FORM_STRUCTURE](https://github.com/AmadeusITGroup/otter/tree/main/docs/form
 
 ### Display inline errors
 
-* the error messages returned by validators are used in the inline error display  
+* the error messages returned by validators are used in the inline error display
 * **simple/basic/primitive** validators - set as a configuration of the **presenter**
   * localization of the associated error messages from the presenter
   * the error object associated is computed here and has to be compliant with the store object model
@@ -59,7 +60,7 @@ See [FORM_STRUCTURE](https://github.com/AmadeusITGroup/otter/tree/main/docs/form
 
 * a dedicated _FormErrorStore_ is available on **@o3r/forms**
   * allows the display of errors anywhere on the page
-  * the error object model contains the translation key and params  
+  * the error object model contains the translation key and params
 See [FORM_VALIDATION](https://github.com/AmadeusITGroup/otter/tree/main/docs/forms/FORM_VALIDATION.md) and [FORM_ERRORS](https://github.com/AmadeusITGroup/otter/tree/main/docs/forms/FORM_ERRORS.md)
 
 ## Form submit
@@ -72,7 +73,7 @@ See [FORM_VALIDATION](https://github.com/AmadeusITGroup/otter/tree/main/docs/for
 ### What happens when you have multiple forms and you want to submit?
 
 The answer is that we should avoid as much as possible having multiple form tags in the same page as it adds a lot of complexity. We should try to have only one _form_ tag that encapsulates everything and one submit action.
-  
+
 If multiple forms are really needed, then we found the following solution:
 
 * the submit button is hidden on the presenters

@@ -1,6 +1,8 @@
 # Cascading action
 
-> **Warning**: This action is deprecated, please install the [Otter Cascading App](https://github.com/apps/otter-cascading) instead.
+> [!CAUTION]
+> **Deprecated Action**
+> Please install the [Otter Cascading App](https://github.com/apps/otter-cascading) instead.
 
 ## Overview
 

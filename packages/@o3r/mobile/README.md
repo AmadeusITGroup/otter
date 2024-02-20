@@ -17,4 +17,5 @@ This package contains tooling useful for mobile applications.
 ng add @o3r/mobile
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.

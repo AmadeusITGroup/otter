@@ -17,7 +17,8 @@ A styling framework to apply a theme on an Otter application at build time and r
 ng add @o3r/styling
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

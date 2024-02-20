@@ -306,7 +306,8 @@ $override-refx-theme: (panel-background: #AAA);
 $meta-theme: generate-app-theme($override: $override-refx-theme);
 ```
 
-> **Important** The palette should always be generated with `mat.define-palette` to fit the material angular format!
+> [!IMPORTANT]
+> The palette should always be generated with `mat.define-palette` to fit the material angular format!
 
 #### Architecture
 
@@ -397,7 +398,8 @@ Since the Otter theming mechanism is based on [CSS variable](https://developer.m
 }
 ```
 
-> **Note** : The list of defined variables is accessible (at runtime) in (Chrome) DevTools and can be modified directly in the console without rebuild required.
+> [!NOTE]
+> The list of defined variables is accessible (at runtime) in (Chrome) DevTools and can be modified directly in the console without rebuild required.
 > The full list of available variables of the application is accessible in the `style.metadata.json` and any CSS variable can be added during application runtime (via the DevTools).
 
 ### Component style override
@@ -526,7 +528,8 @@ This can be achieved via the `o3r.var` mixin. If we take the previous example, t
 }
 ```
 
-> **Note**: The mixin `o3r.var` is an alias of `o3r.define-var`.
+> [!NOTE]
+> The mixin `o3r.var` is an alias of `o3r.define-var`.
 
 Please beware that the **mixin** `o3r.var` and the **function** `o3r.var` are similar and made to work in different contexts:
 

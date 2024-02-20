@@ -17,7 +17,8 @@ This module provides a fallback language/translation support and debug tools.
 ng add @o3r/localization
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Features
 
@@ -432,7 +433,8 @@ registerLocaleData(localeAR, 'ar');
 class AppModule {}
 ```
 
-> **Info:** The token `MESSAGE_FORMAT_CONFIG` implement the `LazyMessageFormatConfig` interface from `@o3r/localization`.
+> [!TIP]
+> The token `MESSAGE_FORMAT_CONFIG` implement the `LazyMessageFormatConfig` interface from `@o3r/localization`.
 > The full documentation about MessageFormat configuration is available on <https://github.com/lephyrus/ngx-translate-messageformat-compiler>.
 
 ### How to localize plural expression
@@ -527,7 +529,8 @@ Note again that *translations.people* matches *global.people* key
 In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at **runtime**.
 While deactivated, the ``translate`` **pipe** and **directive** will output the translation keys instead of their resolved values.
 
-> **Important**: this mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
+> [!IMPORTANT]
+> This mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
 
 First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.
 This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.
@@ -706,7 +709,6 @@ en-US **fallbacks to** en-GB, as en-GB has the same language with a different re
 fr-BE **fallbacks to** fr-FR, as fr-FR is first in the supported locales list.
 
 it-IT **fallbacks to** en-GB, as it is the default fallback.
-
 
 ## Generators
 

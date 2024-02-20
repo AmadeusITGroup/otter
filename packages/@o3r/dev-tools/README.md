@@ -7,13 +7,15 @@
 
 Various CLI scripts to help your CI/CD and your dependency management
 
-> :warning: **Deprecate**: `@o3r/dev-tools` package is deprecated and will no longer be updated as of Otter v12.
+> [!CAUTION]
+> **Deprecated package**
+> `@o3r/dev-tools` package is deprecated and will no longer be updated as of Otter v12.
 > The following CLI scripts have been moved to other otter packages:
+>
 > * `artifact-cleaner`: please use `o3r-artifact-cleaner` from the package `@o3r/artifactory-tools`
 > * `pr-artifact-cleaner`: please use `o3r-pr-artifact-cleaner` from the package `@o3r/artifactory-tools`
 > * `comment-pr`: please use `o3r-comment-pr` from the package `@o3r/azure-tools`
 > * `version-harmonize`: replaced by the JSON ESLint rule [@o3r/json-dependency-versions-harmonize](https://github.com/AmadeusITGroup/otter/tree/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)
-
 
 ## How to install
 
@@ -54,7 +56,8 @@ Options:
   -h, --help                           output usage information
 ```
 
-> **Info**: *password* and *username* options can be provided via Environment variables.
+> [!TIP]
+> *password* and *username* options can be provided via Environment variables.
 
 ### JFrog Example
 
