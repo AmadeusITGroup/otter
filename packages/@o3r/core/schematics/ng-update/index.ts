@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, updateImports } from '@o3r/schematics';
+import { alignVersions, createSchematicWithMetricsIfInstalled, updateImports } from '@o3r/schematics';
 import { mapImportAsyncStore } from './v8.2/import-map';
 import { updateConfiguration } from './v10.0/configuration';
 
@@ -34,7 +34,8 @@ function updateV10_0Fn(): Rule {
     const updateRules: Rule[] = [
       // Some of these imports were missed in the generators of v9, so it's easier to just run the update again
       updateImports(mapImportAsyncStore),
-      updateConfiguration
+      updateConfiguration,
+      alignVersions([/@o3r\/.*/, /@ama-sdk\/.*/])
     ];
 
     return chain(updateRules)(tree, context);

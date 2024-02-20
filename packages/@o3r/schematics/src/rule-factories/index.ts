@@ -1,4 +1,5 @@
 export * from './add-imports/index';
+export * from './align-versions/index';
 export * from './eslint-fix/index';
 export * from '../interfaces/rule-factories';
 export * from './get-test-frameworks/index';
