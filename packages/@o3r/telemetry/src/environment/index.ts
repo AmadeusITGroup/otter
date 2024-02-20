@@ -153,7 +153,8 @@ export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
     os: osInfo,
     node: nodeInfo,
     packageManager: packageManagerInfo,
-    otter: otterInfo, ci,
+    otter: otterInfo,
+    ci,
     ...(projectName ? { project: { name: projectName } } : {})
   };
 };
