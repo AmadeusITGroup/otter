@@ -19,7 +19,8 @@ or
 yarn create @o3r <project-name> [...options]
 ```
 
-> **Warning** : Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
+> [!WARNING]
+> Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
 
 You can generate an environment with a specific package manager thanks to the `--package-manager` options:
 

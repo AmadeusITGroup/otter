@@ -56,7 +56,8 @@ The **Swagger Builder** supports two kinds of configuration:
 The **Swagger Builder** supports a set of *configuration* to configure the merging strategy, the post-processing and the output format.
 
 The configurations can be specified in a JSON file following a provided [Json Schema](./packages/@ama-sdk/swagger-builder/src/schemas/builder-configuration.schema.json) or via CLI options.
-> **Warning**: The CLI Options will **be overridden by** the configuration provided in the JSON file.
+> [!WARNING]
+> The CLI Options will **be overridden by** the configuration provided in the JSON file.
 ### List of available configurations
 
 | Configuration           | CLI Option                             | Description                                                                                                                                                                                                                                                                    | Default value |

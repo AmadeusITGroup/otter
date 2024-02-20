@@ -19,7 +19,8 @@ or
 yarn create @ama-sdk typescript <project-name> [...options]
 ```
 
-> **Warning** : Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
+> [!WARNING]
+> Please notice that the command `yarn create` is **not** available for versions *>= 2.0.0* (see [Yarn cli commands](https://yarnpkg.com/cli)).
 
 You can generate an environment with a specific package manager thanks to the `--package-manager` options:
 
@@ -33,4 +34,5 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 - `--package-manager`: Node package manager to be used (`npm` and `yarn` are available).
 - `--debug`: Enable schematics debug mode (including dry run).
 
-> **Note**: if the `--spec-path` is specified, the SDK will be generated based on this specification at the creation time.
+> [!NOTE]
+> If the `--spec-path` is specified, the SDK will be generated based on this specification at the creation time.

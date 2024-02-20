@@ -96,7 +96,7 @@ export interface MyComponentContextInput {
 
   input2: TemplateRef<MyComponentPresContext>;
 }
-  
+
 export interface MyComponentContextOutput {
 
   output1: number;
@@ -125,7 +125,7 @@ export  interface MyComponentPresTranslation extends Translation {
 export  const translations: MyComponentPresTranslation = {
   prop1: 'o3r-my-component-pres.somekey1',
   prop2: 'o3r-my-component-pres.somekey2'
-}; 
+};
 ```
 
 ### Localization (`*.localization.json`)

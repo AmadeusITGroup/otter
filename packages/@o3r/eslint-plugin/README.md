@@ -17,7 +17,8 @@ The module provides in-house eslint plugins to use in your own eslint configurat
 ng add @o3r/eslint-plugin
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Rules
 

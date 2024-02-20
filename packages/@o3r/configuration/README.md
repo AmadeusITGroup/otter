@@ -18,7 +18,8 @@ It comes with an integrated ng builder to help you generate configurations suppo
 ng add @o3r/configuration
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 
@@ -61,7 +62,8 @@ A component will have to handle different types of configurations.
 - Each **component type** will have a default configuration which will be defined in the _.config.ts_ file associated to the
   component
 
-> **WARNING** the field name 'id' should not be used in the configuration, as we created a unique one for the entity configuration store
+> [!WARNING]
+> The field name 'id' should not be used in the configuration, as we created a unique one for the entity configuration store
 
 #### Configuration coming from config store
 

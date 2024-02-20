@@ -11,8 +11,10 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 The Otter Framework provides several tools for Otter based projects.
 
-> :warning: **Deprecate**: `@o3r/storybook` package is deprecated and will no longer be updated as of Otter v12.
-> 
+> [!CAUTION]
+> **Deprecated package**
+> `@o3r/storybook` package is deprecated and will no longer be updated as of Otter v12.
+
 ## Description
 
 The Otter Framework provides 3 sets of tools for Storybook integration:

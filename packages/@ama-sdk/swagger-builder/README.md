@@ -60,7 +60,8 @@ The **Swagger Builder** supports two kinds of configuration:
 The **Swagger Builder** supports a set of *configuration* to configure the merging strategy, the post processing and the output format.
 
 The configurations can be specified in a JSON file following a provided [Json Schema](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/swagger-builder/src/schemas/builder-configuration.schema.json) or via CLI options.
-> **Warning**: The CLI Options will **be overridden by** the configuration provided in the JSON file.
+> [!WARNING]
+> The CLI Options will **be overridden by** the configuration provided in the JSON file.
 
 ### List of available configurations
 
@@ -107,4 +108,5 @@ A code generator is provided to generate an API specification extension.
 npx -p @ama-sdk/sdk:api-extension -p @angular-devkit/schematics-cli schematics @ama-sdk/swagger-builder:api-extension <my-extension>
 ```
 
-> **Note**: get more details on how to generate an API specification extension [here](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md#debug-the-typescript-generator).
+> [!TIP]
+> Get more details on how to generate an API specification extension [here](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md#debug-the-typescript-generator).
