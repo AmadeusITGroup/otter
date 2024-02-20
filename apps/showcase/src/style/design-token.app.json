@@ -6,12 +6,34 @@
       "$type": "color",
       "$value": "{color.primary}"
     },
+    "primary-800": {
+      "$type": "color",
+      "$value": "{color.primary.800}"
+    },
     "nav-pills": {
       "$extensions": {
         "o3rScope": ".nav-pills"
       },
       "link-active-color": {
         "$value": "{color.primary}"
+      }
+    },
+    "navbar": {
+      "color": {
+        "$type": "color",
+        "$value": "var(--bs-primary-bg-subtle)",
+        "$extensions": {
+          "o3rScope": ".navbar-toggler"
+        }
+      }
+    },
+    "scrollspy": {
+      "active-color": {
+        "$type": "color",
+        "$value": "{color.primary.800}",
+        "$extensions": {
+          "o3rScope": ".nav.nav-pills .nav-link"
+        }
       }
     }
   }

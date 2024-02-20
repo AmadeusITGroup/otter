@@ -1,5 +1,5 @@
 <div class="d-flex p-2 border-bottom align-items-center gap-2">
-  <i (click)="toggleInspector()" class="bi bi-box-arrow-in-up-left" [class.text-primary]="inspectorRunning"></i>
+  <i (click)="toggleInspector()" class="icon-external-link-square" [class.text-primary]="inspectorRunning"></i>
   <button *ngIf="(isLookingToContainer$ | async) || (selectedComponentInfo$ | async)?.container" class="btn btn-primary" (click)="toggleContainerPresenter()">
     Switch to {{(isLookingToContainer$ | async) ? 'Presenter' : 'Container'}}
   </button>

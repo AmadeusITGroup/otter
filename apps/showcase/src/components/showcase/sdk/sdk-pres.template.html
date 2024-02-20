@@ -78,8 +78,7 @@
             </th>
             <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
             <td>
-              <button class="btn btn-outline-danger df-btn-icononly btn-sm" title="Delete pet: {{pet.name}}" (click)="delete(pet)"><i class="bi bi-trash"></i>
-              </button>
+              <button class="btn btn-outline-danger df-btn-icononly btn-sm icon-trash-alt" title="Delete pet: {{pet.name}}" (click)="delete(pet)"></button>
             </td>
           </tr>
         }

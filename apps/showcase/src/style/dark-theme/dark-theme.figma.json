@@ -344,6 +344,21 @@
       "bg": {
         "$type": "color",
         "$value": "#333333"
+      },
+      "bg-red": {
+        "$type": "number",
+        "$value": 51
+      },
+      "bg-green": {
+        "$type": "number",
+        "$value": 51
+      },
+      "bg-blue": {
+        "$type": "number",
+        "$value": 51
+      },
+      "bg-rgb": {
+        "$value": "{bs.tertiary.bg-red}, {bs.tertiary.bg-green}, {bs.tertiary.bg-blue}"
       }
     },
     "card": {

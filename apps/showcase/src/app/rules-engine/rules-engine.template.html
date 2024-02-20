@@ -31,13 +31,13 @@
       </p>
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/rules-engine" target="_blank" rel="noopener">Source code</a>
       <ul ngbNav class="nav nav-tabs mt-3">
-        <li ngbNavItem class="nav-item">
+        <li ngbNavItem class="nav-item" role="presentation">
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
         </li>
-        <li ngbNavItem class="nav-item">
+        <li ngbNavItem class="nav-item" role="presentation">
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'localization'" (click)="activateRuleTab('localization')">Localization rule</a>
         </li>
-        <li ngbNavItem class="nav-item">
+        <li ngbNavItem class="nav-item" role="presentation">
           <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
         </li>
         <li class="nav-item">
