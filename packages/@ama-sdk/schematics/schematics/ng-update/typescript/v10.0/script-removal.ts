@@ -50,7 +50,6 @@ The following scripts of this folder are not used anymore, if there is no custom
  */
 export const addCpyDependencies = (): Rule => async (_, context) => {
   const amaSdkSchematicsPackageJson = await readPackageJson();
-  context.addTask(new DevInstall({ packageName: `cpy@${amaSdkSchematicsPackageJson.devDependencies!.cpy as string}`}));
   context.addTask(new DevInstall({ packageName: `globby@${amaSdkSchematicsPackageJson.devDependencies!.globby as string}` }));
   context.addTask(new DevInstall({ packageName: `cpy-cli@${amaSdkSchematicsPackageJson.devDependencies!['cpy-cli'] as string}` }));
   return noop;

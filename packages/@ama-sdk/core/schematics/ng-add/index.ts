@@ -62,7 +62,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'), [
       'chokidar',
-      'cpy',
       'minimist'
     ]);
     context.addTask(new NodePackageInstallTask({
