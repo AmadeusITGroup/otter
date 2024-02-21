@@ -67,7 +67,7 @@
     "smee-client": "^2.0.0",
     "ts-jest": "~29.1.1",
     "tslib": "^2.5.3",
-    "typescript": "~5.2.2",
+    "typescript": "~5.3.3",
     "zone.js": "~0.14.2"
   },
   "engines": {
