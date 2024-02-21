@@ -17,13 +17,13 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@ama-sdk/core": "workspace:^",
-    "@ama-sdk/schematics": "workspace:^",
+    "@ama-sdk/core": "workspace:*",
+    "@ama-sdk/schematics": "workspace:*",
     "@angular-devkit/core": "~17.2.0",
     "@angular-devkit/schematics": "~17.2.0",
     "@angular-devkit/schematics-cli": "~17.2.0",
     "@angular/cli": "~17.2.0",
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:*",
     "@openapitools/openapi-generator-cli": "~2.9.0",
     "@schematics/angular": "~17.2.0",
     "minimist": "^1.2.6",

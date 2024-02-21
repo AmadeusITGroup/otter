@@ -35,9 +35,9 @@
     "version-harmonize": "./dist/src/cli/version-harmonize.js"
   },
   "dependencies": {
-    "@o3r/artifactory-tools": "workspace:^",
-    "@o3r/azure-tools": "workspace:^",
-    "@o3r/workspace": "workspace:^",
+    "@o3r/artifactory-tools": "workspace:*",
+    "@o3r/azure-tools": "workspace:*",
+    "@o3r/workspace": "workspace:*",
     "@types/request-promise-native": "^1.0.18",
     "azure-devops-node-api": "^12.0.0",
     "chalk": "^4.1.2",

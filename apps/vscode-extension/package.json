@@ -332,7 +332,7 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:*",
     "eslint": "^8.42.0"
   },
   "devDependencies": {

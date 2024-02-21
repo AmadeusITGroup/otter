@@ -21,7 +21,7 @@
     "@angular-devkit/architect": "~0.1702.0",
     "@angular-devkit/core": "~17.2.0",
     "@angular-devkit/schematics": "~17.2.0",
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:*",
     "tslib": "^2.5.3"
   },
   "devDependencies": {

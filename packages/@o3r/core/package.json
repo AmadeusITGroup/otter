@@ -74,7 +74,7 @@
     }
   },
   "dependencies": {
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:*",
     "tslib": "^2.5.3",
     "uuid": "^9.0.0"
   },

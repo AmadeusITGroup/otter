@@ -61,8 +61,8 @@
     "webpack-cli": "~5.1.0"
   },
   "dependencies": {
-    "@ama-terasu/core": "workspace:^",
-    "@o3r/schematics": "workspace:^",
+    "@ama-terasu/core": "workspace:*",
+    "@o3r/schematics": "workspace:*",
     "chalk": "^4.1.2",
     "loglevel": "^1.8.0",
     "minimist": "^1.2.6",

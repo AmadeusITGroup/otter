@@ -25,9 +25,9 @@
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
   "dependencies": {
-    "@ama-sdk/core": "workspace:^",
-    "@ama-sdk/schematics": "workspace:^",
-    "@ama-sdk/showcase-sdk": "workspace:^",
+    "@ama-sdk/core": "workspace:*",
+    "@ama-sdk/schematics": "workspace:*",
+    "@ama-sdk/showcase-sdk": "workspace:*",
     "@angular/animations": "~17.2.0",
     "@angular/cdk": "~17.2.0",
     "@angular/common": "~17.2.0",

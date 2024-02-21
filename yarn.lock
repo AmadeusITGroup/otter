@@ -74,7 +74,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ama-sdk/core@workspace:^, @ama-sdk/core@workspace:packages/@ama-sdk/core":
+"@ama-sdk/core@workspace:*, @ama-sdk/core@workspace:^, @ama-sdk/core@workspace:packages/@ama-sdk/core":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
@@ -162,8 +162,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/create@workspace:packages/@ama-sdk/create"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/core": "workspace:*"
+    "@ama-sdk/schematics": "workspace:*"
     "@angular-devkit/core": "npm:~17.2.0"
     "@angular-devkit/schematics": "npm:~17.2.0"
     "@angular-devkit/schematics-cli": "npm:~17.2.0"
@@ -177,7 +177,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:*"
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.9.0"
     "@schematics/angular": "npm:~17.2.0"
@@ -214,7 +214,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/schematics@workspace:^, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics":
+"@ama-sdk/schematics@workspace:*, @ama-sdk/schematics@workspace:^, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
@@ -292,7 +292,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/showcase-sdk@workspace:^, @ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk":
+"@ama-sdk/showcase-sdk@workspace:*, @ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/showcase-sdk@workspace:packages/@ama-sdk/showcase-sdk"
   dependencies:
@@ -406,7 +406,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
-    "@ama-terasu/core": "workspace:^"
+    "@ama-terasu/core": "workspace:*"
     "@angular-eslint/eslint-plugin": "npm:~17.2.0"
     "@nx/eslint-plugin": "npm:~18.0.2"
     "@nx/jest": "npm:~18.0.2"
@@ -416,7 +416,7 @@ __metadata:
     "@o3r/amaterasu-sdk": "workspace:^"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:*"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -470,7 +470,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-terasu/core@workspace:^, @ama-terasu/core@workspace:packages/@ama-terasu/core":
+"@ama-terasu/core@workspace:*, @ama-terasu/core@workspace:^, @ama-terasu/core@workspace:packages/@ama-terasu/core":
   version: 0.0.0-use.local
   resolution: "@ama-terasu/core@workspace:packages/@ama-terasu/core"
   dependencies:
@@ -519,7 +519,7 @@ __metadata:
     "@nx/jest": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:*"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -6182,7 +6182,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/application@workspace:^, @o3r/application@workspace:packages/@o3r/application":
+"@o3r/application@workspace:*, @o3r/application@workspace:^, @o3r/application@workspace:packages/@o3r/application":
   version: 0.0.0-use.local
   resolution: "@o3r/application@workspace:packages/@o3r/application"
   dependencies:
@@ -6258,7 +6258,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/artifactory-tools@workspace:^, @o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools":
+"@o3r/artifactory-tools@workspace:*, @o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools":
   version: 0.0.0-use.local
   resolution: "@o3r/artifactory-tools@workspace:packages/@o3r/artifactory-tools"
   dependencies:
@@ -6304,7 +6304,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/azure-tools@workspace:^, @o3r/azure-tools@workspace:packages/@o3r/azure-tools":
+"@o3r/azure-tools@workspace:*, @o3r/azure-tools@workspace:packages/@o3r/azure-tools":
   version: 0.0.0-use.local
   resolution: "@o3r/azure-tools@workspace:packages/@o3r/azure-tools"
   dependencies:
@@ -6410,11 +6410,11 @@ __metadata:
     "@ngrx/store": "npm:~17.1.0"
     "@nx/eslint-plugin": "npm:~18.0.2"
     "@nx/jest": "npm:~18.0.2"
-    "@o3r/application": "workspace:^"
+    "@o3r/application": "workspace:*"
     "@o3r/build-helpers": "workspace:^"
-    "@o3r/components": "workspace:^"
-    "@o3r/configuration": "workspace:^"
-    "@o3r/core": "workspace:^"
+    "@o3r/components": "workspace:*"
+    "@o3r/configuration": "workspace:*"
+    "@o3r/core": "workspace:*"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
@@ -6457,7 +6457,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/components@workspace:^, @o3r/components@workspace:packages/@o3r/components":
+"@o3r/components@workspace:*, @o3r/components@workspace:^, @o3r/components@workspace:packages/@o3r/components":
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
@@ -6586,7 +6586,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/configuration@workspace:^, @o3r/configuration@workspace:packages/@o3r/configuration":
+"@o3r/configuration@workspace:*, @o3r/configuration@workspace:^, @o3r/configuration@workspace:packages/@o3r/configuration":
   version: 0.0.0-use.local
   resolution: "@o3r/configuration@workspace:packages/@o3r/configuration"
   dependencies:
@@ -6677,7 +6677,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/core@workspace:^, @o3r/core@workspace:packages/@o3r/core":
+"@o3r/core@workspace:*, @o3r/core@workspace:^, @o3r/core@workspace:packages/@o3r/core":
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
@@ -6707,7 +6707,7 @@ __metadata:
     "@nx/js": "npm:~18.0.2"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:*"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~17.2.0"
@@ -6940,11 +6940,11 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@nx/eslint-plugin": "npm:~18.0.2"
     "@nx/jest": "npm:~18.0.2"
-    "@o3r/artifactory-tools": "workspace:^"
-    "@o3r/azure-tools": "workspace:^"
+    "@o3r/artifactory-tools": "workspace:*"
+    "@o3r/azure-tools": "workspace:*"
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/workspace": "workspace:^"
+    "@o3r/workspace": "workspace:*"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/fs-extra": "npm:^11.0.0"
     "@types/glob": "npm:^8.0.0"
@@ -8033,7 +8033,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/schematics@workspace:^, @o3r/schematics@workspace:packages/@o3r/schematics":
+"@o3r/schematics@workspace:*, @o3r/schematics@workspace:^, @o3r/schematics@workspace:packages/@o3r/schematics":
   version: 0.0.0-use.local
   resolution: "@o3r/schematics@workspace:packages/@o3r/schematics"
   dependencies:
@@ -8118,9 +8118,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/showcase@workspace:apps/showcase"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
-    "@ama-sdk/showcase-sdk": "workspace:^"
+    "@ama-sdk/core": "workspace:*"
+    "@ama-sdk/schematics": "workspace:*"
+    "@ama-sdk/showcase-sdk": "workspace:*"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@angular-devkit/architect": "npm:~0.1702.0"
     "@angular-devkit/build-angular": "npm:~17.2.0"
@@ -8817,7 +8817,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/workspace@workspace:^, @o3r/workspace@workspace:packages/@o3r/workspace":
+"@o3r/workspace@workspace:*, @o3r/workspace@workspace:^, @o3r/workspace@workspace:packages/@o3r/workspace":
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:

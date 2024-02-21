@@ -38,7 +38,7 @@
     }
   },
   "dependencies": {
-    "@o3r/schematics": "workspace:^",
+    "@o3r/schematics": "workspace:*",
     "commander": "^12.0.0",
     "globby": "^11.1.0",
     "semver": "^7.5.2",
