@@ -191,7 +191,7 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   const options = schematicsCliOptions
     .flat();
 
-  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
     stdio: 'inherit',
     cwd
   }));
