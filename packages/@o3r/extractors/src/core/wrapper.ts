@@ -27,7 +27,11 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     // Do not throw if `@o3r/telemetry is not installed
     if (packageJson.config?.o3rMetrics === true) {
       ctx.logger.info('`config.o3rMetrics` is set to true in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
-    } else if ((!process.env.CI || process.env.CI === 'false') && typeof packageJson.config?.o3rMetrics === 'undefined') {
+    } else if (
+      (!process.env.CI || process.env.CI === 'false')
+      && (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
+      && typeof packageJson.config?.o3rMetrics === 'undefined'
+    ) {
       ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
       const question: Question = {
