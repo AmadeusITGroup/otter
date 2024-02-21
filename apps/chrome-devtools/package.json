@@ -96,7 +96,7 @@
     "@o3r/rules-engine": "workspace:^",
     "@popperjs/core": "^2.11.5",
     "ag-grid-angular": "~31.0.3",
-    "ag-grid-community": "~31.0.3",
+    "ag-grid-community": "~31.1.0",
     "bootstrap": "5.3.2",
     "rxjs": "^7.8.1",
     "tslib": "^2.5.3",
