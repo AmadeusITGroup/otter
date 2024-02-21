@@ -14,7 +14,7 @@
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,workspace --parallel $(yarn get:cpus-number)",
     "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger --parallel $(yarn get:cpus-number)",
-    "prepare:publish": "prepare-publish $(yarn workspaces:list | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).slice(0, -1).map((l) => l + \"/dist\").join(require(\"os\").EOL)));')",
+    "prepare:publish": "yarn prepare-publish \"$(yarn workspaces:list)\"",
     "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension --parallel $(yarn get:cpus-number)",
@@ -45,7 +45,7 @@
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
     "verdaccio:all": "yarn verdaccio:stop && yarn verdaccio:start && yarn verdaccio:publish",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
-    "workspaces:list": "yarn workspaces list --no-private --json | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).slice(0, -1).map((l) => JSON.parse(l).location).join(require(\"os\").EOL)));'"
+    "workspaces:list": "yarn workspaces list --no-private --json | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).filter((l) => !!l).map((l) => JSON.parse(l).location).join(require(\"node:path\").delimiter)));'"
   },
   "lint-staged": {
     "*.ts": [
