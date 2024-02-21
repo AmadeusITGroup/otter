@@ -166,6 +166,15 @@
       "rangeStrategy": "replace"
     },
     {
+      "matchPackagePatterns": [
+        "bootstrap",
+        "^ag-grid-",
+        "^@design-factory"
+      ],
+      "groupName": "Application dependencies",
+      "groupSlug": "application-dependencies"
+    },
+    {
       "matchUpdateTypes": [
         "major"
       ],
