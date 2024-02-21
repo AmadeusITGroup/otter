@@ -26,14 +26,14 @@ const defaultOptions: [Options] = [{
   ignoredPackages: []
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
+export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
   name: 'json-dependency-versions-harmonize',
   meta: {
     hasSuggestions: true,
     type: 'problem',
     docs: {
       description: 'Ensure that the package dependency versions are aligned with the other package of the workspace.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -135,5 +135,6 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
         }
       };
     }
+    return {};
   }
 });

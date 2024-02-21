@@ -1,4 +1,4 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import { createCommentString, createRule, defaultSupportedInterfaceNames, getNodeComment, isExtendingConfiguration } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
@@ -48,7 +48,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
     type: 'problem',
     docs: {
       description: 'Ensures that @o3rWidget and @o3rWidgetParam are used with correct value',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -63,6 +63,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
             default: defaultSupportedInterfaceNames
           },
           widgets: {
+            type: 'object',
             additionalProperties: {
               type: 'object',
               additionalProperties: false,

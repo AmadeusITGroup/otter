@@ -13,14 +13,14 @@ const defaultOptions: [Options] = [{
   maximumAsyncOnTag: 5
 }];
 
-export default createRule<[Options, ...any], 'tooManyAsyncOnTag', any>({
+export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
   name,
   meta: {
     type: 'problem',
     hasSuggestions: true,
     docs: {
       description: 'Ensures that your template does not use too many Async pipes that can slow down your application.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {

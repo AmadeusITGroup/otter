@@ -1,4 +1,4 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import o3rCategoriesTagsRule, { O3rCategoriesTagsRuleOption } from './o3r-categories-tags';
 
 const ruleTester = new TSESLint.RuleTester({

@@ -20,7 +20,7 @@ export default createRule<[O3rCategoriesTagsRuleOption, ...any], Messages>({
     type: 'problem',
     docs: {
       description: 'Ensures that @o3rCategories and @o3rCategory are used with correct value',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {

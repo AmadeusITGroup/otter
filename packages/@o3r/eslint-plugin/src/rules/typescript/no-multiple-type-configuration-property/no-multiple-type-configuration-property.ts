@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/experimental-utils';
+import { TSESTree } from '@typescript-eslint/utils';
 import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
 
 const separatorRegExp = /\s*[|&]\s*/;
@@ -14,7 +14,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     type: 'problem',
     docs: {
       description: 'Ensures that the configuration property does not accept multiple types.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
