@@ -1,4 +1,4 @@
-import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { ExecSyncOptions } from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
 import { createWithLock, type CreateWithLockOptions, type Logger, PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
@@ -35,7 +35,6 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     ...inputOptions
   };
   await createWithLock(async () => {
-    const yarnVersion = options.yarnVersion || 'latest';
     const appFolderPath = path.join(options.cwd, options.appDirectory);
     const execAppOptions: ExecSyncOptions = {
       cwd: appFolderPath,
@@ -50,9 +49,6 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     }
 
     await fs.mkdir(appFolderPath, {recursive: true});
-
-    options.logger?.info(`Set yarn version to ${yarnVersion} locally in ${appFolderPath}`);
-    execFileSync('yarn', ['set', 'version', yarnVersion], { ...execAppOptions, shell: process.platform === 'win32' });
 
     setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd });
     setPackagerManagerConfig(options, execAppOptions);
