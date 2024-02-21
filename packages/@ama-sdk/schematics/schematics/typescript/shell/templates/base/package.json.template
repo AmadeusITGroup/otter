@@ -87,7 +87,6 @@
     "@types/node": "<%= versions['@types/node'] %>",
     "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",
     "@typescript-eslint/parser": "<%= versions['@typescript-eslint/parser'] %>",
-    "cpy": "<%= versions['cpy'] %>",
     "cpy-cli": "<%= versions['cpy-cli'] %>",
     "eslint": "<%= versions['eslint'] %>",
     "eslint-plugin-jest": "<%= versions['eslint-plugin-jest'] %>",

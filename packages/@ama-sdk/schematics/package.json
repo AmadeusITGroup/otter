@@ -90,7 +90,6 @@
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
     "copyfiles": "^2.4.1",
-    "cpy": "~11.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
