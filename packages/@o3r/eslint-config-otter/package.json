@@ -69,7 +69,7 @@
     "eslint-plugin-jsdoc": "~48.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.2",
     "eslint-plugin-unicorn": "^51.0.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
     "@angular-devkit/core": "~17.2.0",
@@ -97,7 +97,7 @@
     "eslint-plugin-unicorn": "^51.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~18.0.2",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {

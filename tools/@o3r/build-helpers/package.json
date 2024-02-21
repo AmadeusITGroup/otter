@@ -31,7 +31,7 @@
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~17.2.0",
@@ -48,7 +48,7 @@
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^51.0.0",
     "nx": "~18.0.2",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "otter": {
     "versionHarmonize": {

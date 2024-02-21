@@ -48,7 +48,7 @@
     "jasmine": "^5.0.0",
     "jsonpath-plus": "^8.0.0",
     "rxjs": "^7.8.1",
-    "typescript": "~5.2.2",
+    "typescript": "~5.3.3",
     "typescript-json-schema": "~0.63.0"
   },
   "peerDependenciesMeta": {
@@ -148,7 +148,7 @@
     "ts-jest": "~29.1.1",
     "ts-node": "~10.9.1",
     "type-fest": "^4.10.2",
-    "typescript": "~5.2.2",
+    "typescript": "~5.3.3",
     "typescript-json-schema": "~0.63.0",
     "unionfs": "~4.5.1",
     "zone.js": "~0.14.2"

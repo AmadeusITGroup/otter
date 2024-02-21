@@ -73,7 +73,7 @@
     "nx": "~18.0.2",
     "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.0",
-    "typescript": "~5.2.2"
+    "typescript": "~5.3.3"
   },
   "dependencies": {
     "@angular/animations": "~17.2.0",
