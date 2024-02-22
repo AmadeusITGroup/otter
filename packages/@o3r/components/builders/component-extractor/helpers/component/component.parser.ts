@@ -44,6 +44,7 @@ export interface ParserOutput {
  * Component extractor parser.
  */
 export class ComponentParser {
+  private globalConfigCategoriesMap: Map<string, string>;
 
   /**
    * @param libraryName
@@ -60,7 +61,9 @@ export class ComponentParser {
     private readonly strictMode: boolean = false,
     private readonly libraries: string[] = [],
     private readonly globalConfigCategories: CategoryDescription[] = []
-  ) {}
+  ) {
+    this.globalConfigCategoriesMap = new Map(this.globalConfigCategories.map((category) => [category.name, category.label]));
+  }
 
   /** Get the list of patterns from tsconfig.json */
   private getPatternsFromTsConfig() {
@@ -106,22 +109,23 @@ export class ComponentParser {
     const configurationFileExtractor = new ComponentConfigExtractor(this.libraryName, this.strictMode, source, this.logger, file, checker, this.libraries);
     const configuration = configurationFileExtractor.extract();
     if (configuration.configurationInformation) {
-      const globalConfigCategoriesMap = new Map(this.globalConfigCategories.map((category) => [category.name, category.label]));
       (configuration.configurationInformation.categories || []).forEach((category) => {
-        if (globalConfigCategoriesMap.has(category.name)) {
+        if (this.globalConfigCategoriesMap.has(category.name)) {
           this.logger.warn(`The category ${category.name} is already defined in the global ones.`);
         }
       });
       const categoriesMap = new Map((configuration.configurationInformation.categories || []).map((category) => [category.name, category.label]));
       configuration.configurationInformation.properties.forEach((prop) => {
         if (prop.category) {
-          if (!categoriesMap.has(prop.category) && globalConfigCategoriesMap.has(prop.category)) {
-            categoriesMap.set(prop.category, globalConfigCategoriesMap.get(prop.category)!);
-          } else {
-            this.logger.warn(
-              `The property ${prop.name} from ${configuration.configurationInformation!.name} has an unknown category ${prop.category}. The category will not be set for this property.`
-            );
-            delete prop.category;
+          if (!categoriesMap.has(prop.category)) {
+            if (this.globalConfigCategoriesMap.has(prop.category)) {
+              categoriesMap.set(prop.category, this.globalConfigCategoriesMap.get(prop.category)!);
+            } else {
+              this.logger.warn(
+                `The property ${prop.name} from ${configuration.configurationInformation!.name} has an unknown category ${prop.category}. The category will not be set for this property.`
+              );
+              delete prop.category;
+            }
           }
         }
       });
