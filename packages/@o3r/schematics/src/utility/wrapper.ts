@@ -27,7 +27,11 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     // Do not throw if `@o3r/telemetry is not installed
     if ((packageJson.config as JsonObject)?.o3rMetrics) {
       context.logger.warn('`config.o3rMetrics` is set to true in your package.json, please install the telemetry package with `ng add @o3r/telemetry` to enable the collection of metrics.');
-    } else if (context.interactive && (packageJson.config as JsonObject)?.o3rMetrics !== false) {
+    } else if (
+      (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
+      && context.interactive
+      && (packageJson.config as JsonObject)?.o3rMetrics !== false
+    ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
       const isReplyPositive = await askConfirmation(
