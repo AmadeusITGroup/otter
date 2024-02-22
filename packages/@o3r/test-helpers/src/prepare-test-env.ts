@@ -9,12 +9,8 @@ import { O3rCliError } from '@o3r/schematics';
 
 /**
  * - 'blank' only create yarn/npm config
- * - 'o3r-project' create a new otter project with a new application
+ * - 'o3r-project-with-app' create a new otter project with a new application
  */
-//  * - 'angular' also create a new angular app
-//  * - 'angular-with-o3r-core' also preinstall o3r-core with basic preset
-//  * - 'angular-monorepo' is the same as 'angular' but with a monorepo structure
-//  * - 'angular-monorepo-with-o3r-core' is the same as 'angular-with-o3r-core' but with a monorepo structure
 export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
 /**
@@ -43,7 +39,7 @@ export interface PrepareTestEnvOptions {
  * @param options
  */
 export async function prepareTestEnv(folderName: string, options?: PrepareTestEnvOptions) {
-  const type = options?.type || process.env.PREPARE_TEST_ENV_TYPE || 'o3r-project';
+  const type = options?.type || process.env.PREPARE_TEST_ENV_TYPE || 'o3r-project-with-app';
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
