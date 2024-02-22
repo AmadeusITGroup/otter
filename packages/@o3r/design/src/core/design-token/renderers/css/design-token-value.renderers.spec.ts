@@ -42,7 +42,6 @@ describe('getCssTokenValueRenderer', () => {
     const result = renderer(variable, designTokens);
     expect(variable).toBeDefined();
     expect(result).toBeDefined();
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     expect(result).toBe(`var(--example-var3, ${(exampleVariable.document as any).example.var3.$value})`);
   });
 

@@ -1,4 +1,3 @@
-
 {
   "$schema": "https://raw.githubusercontent.com/ng-packagr/ng-packagr/master/src/ng-package.schema.json",
   "dest": "./dist",
@@ -7,6 +6,6 @@
     "entryFile": "src/public_api.ts"
   },
   "allowedNonPeerDependencies": [
-    "chokidar", "globby", "semver", "tslib", "uuid", "@o3r/schematics"
+    "tslib", "uuid", "@o3r/schematics"
   ]
 }

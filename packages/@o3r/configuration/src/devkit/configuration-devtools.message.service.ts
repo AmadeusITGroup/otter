@@ -13,14 +13,14 @@ import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTO
 })
 export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
-  private sendMessage = sendOtterMessage<AvailableConfigurationMessageContents>;
+  private readonly sendMessage = sendOtterMessage<AvailableConfigurationMessageContents>;
 
   constructor(
-      private store: Store<ConfigurationStore>,
-      private logger: LoggerService,
-      private configurationDevtools: OtterConfigurationDevtools,
+      private readonly store: Store<ConfigurationStore>,
+      private readonly logger: LoggerService,
+      private readonly configurationDevtools: OtterConfigurationDevtools,
       @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
 
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
@@ -39,7 +39,6 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
 
   /**
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
-   *
    * @param only restricted list of messages to re-send
    */
   private handleReEmitRequest(only?: ConfigurationMessageDataTypes[]) {
@@ -50,7 +49,6 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   *
    * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */

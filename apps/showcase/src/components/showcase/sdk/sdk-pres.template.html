@@ -40,14 +40,18 @@
             [ngModel]="searchTerm()" (ngModelChange)="searchTerm.set($event)"
           />
         </div>
-        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center">
-          <div class="spinner-border" role="status" *ngIf="isLoading()">
-            <span class="visually-hidden">Loading...</span>
-          </div>
-          <div class="text-danger" *ngIf="hasErrors()">
-            Failed to load the list
-            <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
-          </div>
+        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center visual-testing-ignore">
+          @if (isLoading()) {
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          }
+          @if (hasErrors()) {
+            <div class="text-danger">
+              Failed to load the list
+              <button class="btn btn-md btn-danger" (click)="reload()">Retry</button>
+            </div>
+          }
         </div>
       </div>
     </form>
@@ -62,19 +66,22 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let pet of displayedPets()">
-          <td>
-            <img width="34" height="34" [src]="baseUrl+icon" alt="{{icon}}" *ngIf="pet.photoUrls?.[0] as icon" />
-          </td>
-          <th scope="row">
-            <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
-          </th>
-          <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
-          <td>
-            <button class="btn btn-outline-danger df-btn-icononly btn-sm" title="Delete pet: {{pet.name}}" (click)="delete(pet)"><i class="bi bi-trash"></i>
-            </button>
-          </td>
-        </tr>
+        @for (pet of displayedPets(); track pet.id) {
+          <tr>
+            <td>
+              @if (pet.photoUrls?.[0]; as icon) {
+                <img width="34" height="34" [src]="baseUrl+icon" alt="{{icon}}" />
+              }
+            </td>
+            <th scope="row">
+              <ngb-highlight [result]="pet.name" [term]="searchTerm()"></ngb-highlight>
+            </th>
+            <th><ngb-highlight [result]="getTags(pet)" [term]="searchTerm()"></ngb-highlight></th>
+            <td>
+              <button class="btn btn-outline-danger df-btn-icononly btn-sm icon-trash-alt" title="Delete pet: {{pet.name}}" (click)="delete(pet)"></button>
+            </td>
+          </tr>
+        }
         </tbody>
       </table>
     </div>
@@ -91,26 +98,28 @@
           size="sm"
         >
           <ng-template ngbPaginationPages let-page let-pages="pages">
-            <li class="ngb-custom-pages-item" *ngIf="pages.length > 0">
-              <div class="d-flex flex-nowrap px-2">
-                <label id="table-pagination-paginationInputLabel" for="table-pagination-paginationInput" class="col-form-label me-4 ms-1">Page</label>
-                <input
-                  #i
-                  type="text"
-                  inputmode="numeric"
-                  pattern="[0-9]*"
-                  class="form-control df-custom-pages-input px-2 text-center"
-                  id="table-pagination-paginationInput"
-                  [value]="page"
-                  (keyup.enter)="currentPage.set(+i.value); $event.preventDefault()"
-                  (blur)="currentPage.set(+i.value)"
-                  (input)="formatPaginationInput($any($event).target)"
-                  aria-labelledby="table-pagination-paginationInputLabel table-pagination-paginationDescription"
-                  size="2"
-                />
-                <span id="table-pagination-paginationDescription" class="col-form-label text-nowrap px-4"> of {{pages.length}}</span>
-              </div>
-            </li>
+            @if (pages.length > 0) {
+              <li class="ngb-custom-pages-item">
+                <div class="d-flex flex-nowrap px-2">
+                  <label id="table-pagination-paginationInputLabel" for="table-pagination-paginationInput" class="col-form-label me-4 ms-1">Page</label>
+                  <input
+                    #i
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="form-control df-custom-pages-input px-2 text-center"
+                    id="table-pagination-paginationInput"
+                    [value]="page"
+                    (keyup.enter)="currentPage.set(+i.value); $event.preventDefault()"
+                    (blur)="currentPage.set(+i.value)"
+                    (input)="formatPaginationInput($any($event).target)"
+                    aria-labelledby="table-pagination-paginationInputLabel table-pagination-paginationDescription"
+                    size="2"
+                  />
+                  <span id="table-pagination-paginationDescription" class="col-form-label text-nowrap px-4"> of {{pages.length}}</span>
+                </div>
+              </li>
+            }
           </ng-template>
         </ngb-pagination>
 

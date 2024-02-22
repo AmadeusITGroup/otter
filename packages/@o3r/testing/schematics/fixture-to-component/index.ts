@@ -17,6 +17,7 @@ import {
   addImportsRule,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   getO3rComponentInfoOrThrowIfNotFound,
   NoOtterComponent,
   O3rCliError
@@ -37,10 +38,9 @@ const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) =
 
 /**
  * Add fixture to an existing component
- *
  * @param options
  */
-export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
+export function ngAddFixtureFn(options: NgAddFixtureSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const baseFileName = basename(options.path, '.component.ts');
@@ -131,7 +131,7 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
             externalSchematic('@o3r/core', 'convert-component', {
               path: options.path
             }),
-            ngAddFixture(options)
+            ngAddFixtureFn(options)
           ]);
         }
       }
@@ -139,3 +139,9 @@ export function ngAddFixture(options: NgAddFixtureSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add fixture to an existing component
+ * @param options
+ */
+export const ngAddFixture = createSchematicWithMetricsIfInstalled(ngAddFixtureFn);

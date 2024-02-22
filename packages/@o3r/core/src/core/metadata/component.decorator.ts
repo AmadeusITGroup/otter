@@ -30,7 +30,6 @@ export const otterComponentInfoPropertyName = '__otter-info__';
 
 /**
  * Decorates an Angular component to provide Otter information
- *
  * @param info Information to define the Otter component
  * @returns the component with the information
  */

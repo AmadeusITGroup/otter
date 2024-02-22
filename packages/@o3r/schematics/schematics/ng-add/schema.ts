@@ -1,4 +1,4 @@
-import type { SchematicOptionObject } from '@o3r/schematics';
+import type { SchematicOptionObject } from '../../src/public_api';
 
 export interface NgAddSchematicsSchema extends SchematicOptionObject {
   /** Project name */

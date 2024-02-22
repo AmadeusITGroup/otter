@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgAddDesignTokenSchematicsSchema",
+  "title": "Add Otter Design Token to an existing component",
+  "description": "Add Otter Design Token to an existing component",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component's Design Token specification file"
+    },
+    "stylePath": {
+      "type": "string",
+      "description": "Path to the Style file to update"
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

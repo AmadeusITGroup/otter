@@ -2,7 +2,7 @@ import type { Context, RootContext, ProgressBar as SimpleProgressBar, Task } fro
 import * as chalk from 'chalk';
 import * as logger from 'loglevel';
 import { EOL } from 'node:os';
-import * as ora from 'ora';
+import { default as ora, oraPromise } from 'ora';
 import ProgressBar from 'progress';
 import { Arguments, Argv, terminalWidth } from 'yargs';
 import { error } from 'loglevel';
@@ -10,7 +10,6 @@ import { formatHelpMessage } from '../helpers';
 
 /**
  * Generate a formatted usage message
- *
  * @param moduleName Nome of the module
  * @param command CLI Command
  * @param longDescription Long description of the command to add additional information
@@ -24,7 +23,6 @@ export const generateUsageMessage = (moduleName: string, command?: string, longD
 
 /**
  * Show Help message
- *
  * @param amaYargs instance of current Yarg
  * @param arg Argument of the command
  */
@@ -46,16 +44,8 @@ export const getSpinner: Context['getSpinner'] = (initialLabel): Task => {
     updateLabel: (label) => { spinner.text = label; },
     fail: (text) => spinner.isSpinning && spinner.fail(text),
     succeed: (text) => spinner.isSpinning && spinner.succeed(text),
-    fromPromise: (promise, successLabel, failureLabel) => {
-      const chainPromise = promise.then(
-        // eslint-disable-next-line no-use-before-define
-        successLabel ? (res) => { pSpinner.text = successLabel; return res; } : undefined,
-        // eslint-disable-next-line no-use-before-define
-        failureLabel ? (e) => { pSpinner.text = failureLabel; pSpinner.render(); throw e; } : undefined
-      );
-      const pSpinner = ora.promise(chainPromise, initialLabel);
-      return chainPromise as typeof promise;
-    }
+    fromPromise: (promise, successText, failText) =>
+      oraPromise(promise, {text: initialLabel, successText, failText})
   };
 };
 

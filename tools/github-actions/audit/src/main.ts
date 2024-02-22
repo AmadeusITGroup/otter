@@ -55,7 +55,6 @@ interface OtterAuditReport {
 /**
  * Format the response from yarn 4 npm audit in a common interface that will be used to build the
  * report summary
- *
  * @param response
  * @param severityThreshold
  */
@@ -90,7 +89,6 @@ function computeYarn4Report(response: string, severityThreshold: Severity): Otte
 /**
  * Format the response from yarn 3 npm audit in a common interface that will be used to build the
  * report summary
- *
  * @param response
  * @param severityThreshold
  */

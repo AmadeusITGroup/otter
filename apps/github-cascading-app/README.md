@@ -60,4 +60,5 @@ The following configurations are available:
 | cascadingBranchesPattern | Pattern determining if the branch is part of the cascading strategy                                                                                                                                           | `^releases?/\\d+\\.\\d+`                                 | `string`   |
 | versionCapturePattern    | Pattern containing a capture to extract the version of a cascading branch                                                                                                                                     | `/((?:0\|[1-9]\\d*)\\.(?:0\|[1-9]\\d*)(?:\\.0-[^ ]+)?)$` | `string`   |
 | bypassReviewers          | Pattern containing a capture to extract the version of a cascading branch                                                                                                                                     | `false`                                                  | `boolean`  |
-> **Note**: The `bypassReviewers` option will require to set the `otter-cascading` bot as **bypass user** to be able to merge the `cascading/*` pull requests.
+> [!IMPORTANT]
+> The `bypassReviewers` option will require to set the `otter-cascading` bot as **bypass user** to be able to merge the `cascading/*` pull requests.

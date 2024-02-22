@@ -1,11 +1,13 @@
 # Cascading action
 
-> **Warning**: This action is deprecated, please install the [Otter Cascading App](https://github.com/apps/otter-cascading) instead.
+> [!CAUTION]
+> **Deprecated Action**
+> Please install the [Otter Cascading App](https://github.com/apps/otter-cascading) instead.
 
 ## Overview
 
 This plugin is meant to implement the Bitbucket cascading mechanism on GitHub.
-For the moment, the branching model supported is the following one : release/Maj.min[.0-alpha|beta|next|rc] and a default branch from your choice.
+For the moment, the branching model supported is the following one : release/Maj.min[.0-next|prerelease|rc] and a default branch from your choice.
 This pattern is restrictive on purpose, to prevent any issue where some non-release branches could match as well.
 
 ## Task options
@@ -32,7 +34,7 @@ The cascading task is logging a lot of information, don't hesitate to have a loo
 ## Usage example
 
 ```yaml
-- name: Cascading 
+- name: Cascading
   id: cascading
   uses: AmadeusITGroup/otter/tools/github-actions/cascading@8
     with:

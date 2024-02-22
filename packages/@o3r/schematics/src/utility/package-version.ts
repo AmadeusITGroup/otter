@@ -6,7 +6,6 @@ import type { PackageJson } from 'type-fest';
 
 /**
  * Return the version of the given package json path
- *
  * @param packageJsonPath
  */
 export function getPackageVersion(packageJsonPath: string) {
@@ -17,7 +16,6 @@ export function getPackageVersion(packageJsonPath: string) {
 /**
  * Find the closest package.json file in parent folders
  * Note: It is using file system if no tree provided
- *
  * @param currentPath current path to inspect
  * @param tree current path to inspect
  * @returns

@@ -62,7 +62,6 @@ const dynamicDependenciesPath = resolve(__dirname, '..', '..', DYNAMIC_DEPENDENC
 
 /**
  * Find the closest package.json file in parent folders
- *
  * @param currentPath current path to inspect
  * @returns
  */
@@ -78,7 +77,6 @@ export const findClosestPackageJson = (currentPath: string): string | undefined 
 
 /**
  * Retrieve package.json from a dependency
- *
  * @param packageName Name of a dependency package
  * @returns the package information or undefined if not found
  */
@@ -93,7 +91,6 @@ export const getDepPackage = (packageName: string): PackageJson | undefined => {
 
 /**
  * Get the path to the installed package
- *
  * @param dep dependency to retrieve in the installed packages
  * @param useFsToSearch Use File System access to search for the package instead of Node resolve mechanism
  */
@@ -128,7 +125,6 @@ export const getInstalledInformation = async (dep: MinimalPackageInformation & {
 
 /**
  * Get the module simplified name
- *
  * @param pck package to get name from
  */
 export const getSimplifiedName = (pck: MinimalPackageInformation & { name: string }) => {
@@ -137,7 +133,6 @@ export const getSimplifiedName = (pck: MinimalPackageInformation & { name: strin
 
 /**
  * Determine if the module is officially supported by Otter (or affiliated) teams
- *
  * @param pck package to get name from
  */
 export const isOfficialModule = (pck: MinimalPackageInformation & { name: string }) => {
@@ -160,7 +155,6 @@ export const getLocalDependencies = async (): Promise<Record<string, string>> =>
 
 /**
  * Retrieve the list of modules registered to Amaterasu CLI
- *
  * @param options Options for the module resolution
  * @param options.localOnly Resolve module locally only
  * @returns list of modules to load
@@ -202,7 +196,6 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
 
 /**
  * Determine if the package is installed
- *
  * @param pck package to get name from
  */
 export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & InstalledModuleInformation => {
@@ -211,7 +204,6 @@ export const isInstalled = (pck: ModuleDiscovery): pck is ModuleDiscovery & Inst
 
 /**
  * Formatted description
- *
  * @param pck package to get name from
  */
 export const getFormattedDescription = (pck: ModuleDiscovery): string => {
@@ -220,7 +212,6 @@ export const getFormattedDescription = (pck: ModuleDiscovery): string => {
 
 /**
  * Install a specific package
- *
  * @param pck Package to install
  * @param version Version of the package to install
  */

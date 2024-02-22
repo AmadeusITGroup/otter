@@ -5,8 +5,6 @@ import type { PackageJson } from 'type-fest';
 
 /**
  * Package.json updates to include o3r ng update script
- * Install of dev-tools and schematics packages
- *
  * @param pName project name
  * @param o3rCoreVersion
  * @param _o3rCoreVersion

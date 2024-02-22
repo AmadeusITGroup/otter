@@ -14,7 +14,8 @@ The marks names are formatted as following:
 <rule-engine-name>:<ruleset-name>:<rule-name>:end
 ```
 
-> **Note:** The `<rule engine name>` is the name of the rules engine instance, the default value is `rules-engine` and can be overridden in the instantiation of the rules engine via the *rulesEngineInstanceName* option.
+> [!NOTE]
+> The `<rule engine name>` is the name of the rules engine instance, the default value is `rules-engine` and can be overridden in the instantiation of the rules engine via the *rulesEngineInstanceName* option.
 
 ## Performance reporting API configuration
 

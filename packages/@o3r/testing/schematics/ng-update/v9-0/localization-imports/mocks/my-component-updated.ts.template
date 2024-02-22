@@ -1,6 +1,9 @@
-import {mockTranslationModules, TranslatePipeMock, LocalizationDependencyMocks, MockTranslations} from '@o3r/testing/localization';
+import {TranslatePipeMock, LocalizationDependencyMocks} from '@o3r/testing/localization';
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+import { mockTranslationModules } from '@o3r/testing/localization';
+import { MockTranslations } from '@o3r/testing/localization';
+
 describe('Otter Component with mock translations', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }

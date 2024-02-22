@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, ViewEncapsulation } from '@angular/core';
-import { CommonModule, DOCUMENT, ViewportScroller } from '@angular/common';
+import { AsyncPipe, DOCUMENT, ViewportScroller } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { O3rComponent } from '@o3r/core';
 import { fromEvent, map } from 'rxjs';
@@ -8,7 +8,7 @@ import { fromEvent, map } from 'rxjs';
 @Component({
   selector: 'o3r-scroll-back-top-pres',
   standalone: true,
-  imports: [CommonModule],
+  imports: [AsyncPipe],
   templateUrl: './scroll-back-top-pres.template.html',
   styleUrls: ['./scroll-back-top-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -16,9 +16,9 @@ import { fromEvent, map } from 'rxjs';
 })
 export class ScrollBackTopPresComponent {
 
-  private document = inject(DOCUMENT);
+  private readonly document = inject(DOCUMENT);
 
-  private viewport = inject(ViewportScroller);
+  private readonly viewport = inject(ViewportScroller);
 
   public showScroll$ = fromEvent(this.document, 'scroll').pipe(
     takeUntilDestroyed(),

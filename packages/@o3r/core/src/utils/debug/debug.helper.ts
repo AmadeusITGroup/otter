@@ -2,7 +2,6 @@ import type { BootstrapConfig, Dataset } from '../../core/application/dgp.interf
 
 /**
  * Pad number
- *
  * @param val
  * @param digits
  */
@@ -14,7 +13,6 @@ export function padNumber(val: number, digits = 2): string {
 
 /**
  * Returns TRUE if bootstrap config environment is production FALSE otherwise
- *
  * @param dataset
  * @returns TRUE if bootstrap config environment is production FALSE otherwise
  */

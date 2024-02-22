@@ -1,5 +1,6 @@
 import * as semver from 'semver';
 import type { PackageJson } from 'type-fest';
+import * as fs from 'node:fs';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, normalize, posix , resolve } from 'node:path';
 import { sync as globbySync } from 'globby';
@@ -46,7 +47,7 @@ export const findWorkspacePackageJsons = (directory: string, rootDir?: string): 
   }
   const packagePaths = globbySync(
     (Array.isArray(content.workspaces) ? content.workspaces : content.workspaces.packages || []).map((f) => posix.join(f, 'package.json')),
-    { cwd: directory, onlyFiles: false, absolute: true }
+    { cwd: directory, onlyFiles: false, absolute: true, fs }
   );
   const isPackageWorkspace = packagePaths.some((workspacePath) => normalize(workspacePath) === rootDir);
   const getPackages = () => ([

@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.jest",
   "compilerOptions": {
     "outDir": "test",
-    "rootDir": "."
+    "rootDir": ".",
+    "noUnusedParameters": false
   },
   "include": [
     "src/**/*.spec.ts"

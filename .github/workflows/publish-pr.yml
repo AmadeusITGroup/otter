@@ -16,7 +16,7 @@ jobs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
     steps:
       - name: get logs from workflow run
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             let download = await github.rest.actions.downloadWorkflowRunAttemptLogs({
@@ -53,7 +53,7 @@ jobs:
       checks: write
     steps:
       - name: Update triggering workflow
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           PUBLISH_RESULT: ${{ needs.publish-packages-pr.result }}
         with:

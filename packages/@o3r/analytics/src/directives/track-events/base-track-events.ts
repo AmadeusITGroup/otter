@@ -40,7 +40,7 @@ export abstract class BaseTrackEvents {
   protected isTrackingActive = false;
 
   /** Tracking mode subscription */
-  private subscription: Subscription;
+  private readonly subscription: Subscription;
 
   protected constructor(protected el: ElementRef, protected trackEventsService: EventTrackService, protected renderer: Renderer2) {
     this.subscription = this.trackEventsService.uiTrackingActive$.subscribe((isActive) => {
@@ -55,7 +55,6 @@ export abstract class BaseTrackEvents {
 
   /**
    * Create the listener for the given event
-   *
    * @param event name
    */
   protected nativeListen(event: TrackEventName) {
@@ -85,7 +84,6 @@ export abstract class BaseTrackEvents {
 
   /**
    * Keep the events to be listen and create the listener event for the given event name
-   *
    * @param event name
    */
   public trackEvent(event: TrackEventName) {

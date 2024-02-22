@@ -1,10 +1,11 @@
+import { AsyncPipe } from '@angular/common';
 import { Provider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { TranslateCompiler, TranslateFakeCompiler } from '@ngx-translate/core';
 import { LocalizationService } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { mockTranslationModules } from '@o3r/testing/localization';
 import { RulesEnginePresComponent } from './rules-engine-pres.component';
 
@@ -35,8 +36,9 @@ describe('RulesEnginePresComponent', () => {
         RulesEnginePresComponent,
         StoreModule.forRoot({}),
         EffectsModule.forRoot([]),
-        RulesEngineModule.forRoot(),
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)
+        RulesEngineRunnerModule.forRoot(),
+        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
+        AsyncPipe
       ]
     });
     fixture = TestBed.createComponent(RulesEnginePresComponent);

@@ -8,7 +8,7 @@ import { isCapacitorContext } from './helpers';
 })
 export class CapacitorTargetService implements OnDestroy {
 
-  private subscriptions: Subscription[] = [];
+  private readonly subscriptions: Subscription[] = [];
 
   private async openInCapacitorBrowser(element: EventTarget | null, event: Event) {
     if (await isCapacitorContext() && element instanceof Element) {

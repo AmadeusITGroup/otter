@@ -1,5 +1,6 @@
-
-
+/**
+ * @deprecated will be removed in Otter v12.
+ */
 export interface GavcResponse {
   /** Ex : mvn-built */
   repo: string;

@@ -2,25 +2,25 @@ import { execSync, ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
-import { minVersion } from 'semver';
-import { createTestEnvironmentAngular } from './test-environments/create-test-environment-angular';
-import { createTestEnvironmentAngularWithO3rCore } from './test-environments/create-test-environment-angular-with-o3r-core';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import {createWithLock, packageManagerInstall, setPackagerManagerConfig} from './utilities';
+import { createWithLock, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
+import { createTestEnvironmentOtterProjectWithApp } from './test-environments/create-test-environment-otter-project';
+import { O3rCliError } from '@o3r/schematics';
 
 /**
- * 'blank' only create yarn/npm config
- * 'angular' also create a new angular app
- * 'angular-with-o3r-core' also preinstall o3r-core with basic preset
- * 'angular-monorepo' is the same as 'angular' but with a monorepo structure
- * 'angular-monorepo-with-o3r-core' is the same as 'angular-with-o3r-core' but with a monorepo structure
+ * - 'blank' only create yarn/npm config
+ * - 'o3r-project' create a new otter project with a new application
  */
-export type PrepareTestEnvType = 'blank' | 'angular' | 'angular-with-o3r-core' | 'angular-monorepo' | 'angular-monorepo-with-o3r-core';
+//  * - 'angular' also create a new angular app
+//  * - 'angular-with-o3r-core' also preinstall o3r-core with basic preset
+//  * - 'angular-monorepo' is the same as 'angular' but with a monorepo structure
+//  * - 'angular-monorepo-with-o3r-core' is the same as 'angular-with-o3r-core' but with a monorepo structure
+export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
 /**
  * Retrieve the version used by yarn and setup at root level
- *
  * @param rootFolderPath: path to the folder where to take the configuration from
+ * @param rootFolderPath
  */
 export function getYarnVersionFromRoot(rootFolderPath: string) {
   const o3rPackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
@@ -28,37 +28,42 @@ export function getYarnVersionFromRoot(rootFolderPath: string) {
   return o3rPackageJson?.packageManager?.split('@')?.[1] || 'latest';
 }
 
+export interface PrepareTestEnvOptions {
+  /** Type of environment to prepare */
+  type?: PrepareTestEnvType;
+  /** Explicitly set the yarn version for yarn environment. Else it will default to the folder package.json */
+  yarnVersion?: string;
+  /** Logger to use for logging */
+  logger?: Logger;
+}
+
 /**
  * Prepare a test environment to be used to run tests targeting a local registry
- * Test app created for 'angular' and 'angular-with-o3r-core' are reused when called multiple times
- * @param folderName name of the folder where the environment will be generated
- * @param type type of environment to prepare
- * @param yarnVersionParam explicitely set the yarn version for yarn environment. Else it will default to the folder package.json
+ * @param folderName
+ * @param options
  */
-export async function prepareTestEnv(folderName: string, type: PrepareTestEnvType, yarnVersionParam?: string) {
+export async function prepareTestEnv(folderName: string, options?: PrepareTestEnvOptions) {
+  const type = options?.type || process.env.PREPARE_TEST_ENV_TYPE || 'o3r-project';
+  const logger = options?.logger || console;
+  const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
-  const itTestsFolderPath = path.join(rootFolderPath, '..', 'it-tests');
-  const appFolderPath = path.join(itTestsFolderPath, folderName);
-  const globalFolderPath = path.join(rootFolderPath, '.cache', 'test-app');
-  const cacheFolderPath = path.join(globalFolderPath, 'cache');
+  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
+  const workspacePath = path.resolve(itTestsFolderPath, folderName);
+  const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
+  const cacheFolderPath = path.resolve(globalFolderPath, 'cache');
 
-  const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } =
-    JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
+  JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
   const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
-  const angularVersion = minVersion(o3rCorePackageJson.devDependencies?.['@angular-devkit/schematics'] || 'latest')?.version;
-  const materialVersion = minVersion(o3rCorePackageJson.generatorDependencies?.['@angular/material'] || angularVersion || 'latest')?.version;
-  const generateMonorepo = type === 'angular-monorepo' || type === 'angular-monorepo-with-o3r-core';
-  const generateO3rCore = type === 'angular-with-o3r-core' || type === 'angular-monorepo-with-o3r-core';
   const execAppOptions: ExecSyncOptions = {
-    cwd: appFolderPath,
+    cwd: workspacePath,
     stdio: 'inherit',
     // eslint-disable-next-line @typescript-eslint/naming-convention
     env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
   };
 
   // Remove all cache entries relative to local workspaces (@o3r, @ama-sdk, @ama-terasu)
-  if (!process.env.CI && existsSync(cacheFolderPath)) {
-    const workspacesList = execSync('yarn workspaces:list', {stdio: 'pipe'}).toString().split('\n')
+  if (!!process.env.CI && existsSync(cacheFolderPath)) {
+    const workspacesList = execSync('yarn workspaces:list', { stdio: 'pipe' }).toString().split(path.delimiter)
       .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'))
       .filter((workspace) => !!workspace);
     readdirSync(cacheFolderPath).forEach((fileName) => {
@@ -72,86 +77,88 @@ export async function prepareTestEnv(folderName: string, type: PrepareTestEnvTyp
     });
   }
 
+  const packageManagerConfig = {
+    yarnVersion,
+    globalFolderPath,
+    registry: 'http://127.0.0.1:4873'
+  };
+
   // Create it-tests folder
   if (!existsSync(itTestsFolderPath)) {
+    logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
       mkdirSync(itTestsFolderPath);
-      setPackagerManagerConfig({yarnVersion, globalFolderPath, registry: 'http://localhost:4873'}, {...execAppOptions, cwd: itTestsFolderPath});
+      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath});
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
 
   // Remove existing app
-  if (existsSync(appFolderPath)) {
-    rmSync(appFolderPath, {recursive: true});
+  if (existsSync(workspacePath)) {
+    rmSync(workspacePath, {recursive: true});
   }
 
-  if (type === 'blank') {
-    createTestEnvironmentBlank({
-      appDirectory: folderName,
-      cwd: itTestsFolderPath,
-      globalFolderPath,
-      yarnVersion
-    });
-  } else {
-    // Create new base app if needed
-    const baseAppAngular = `base-app-angular${generateMonorepo ? '-monorepo' : ''}`;
-    await createTestEnvironmentAngular({
-      appName: 'test-app',
-      appDirectory: baseAppAngular,
-      cwd: itTestsFolderPath,
-      globalFolderPath,
-      yarnVersion,
-      angularVersion,
-      materialVersion,
-      replaceExisting: !process.env.CI,
-      generateMonorepo
-    });
+  const prepareFinalApp = (baseApp: string) => {
+    logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
+    const baseProjectPath = path.join(itTestsFolderPath, baseApp);
+    cpSync(baseProjectPath, workspacePath, { recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source) });
+    if (existsSync(path.join(workspacePath, 'package.json'))) {
+      packageManagerInstall(execAppOptions);
+    }
+  };
 
-    if (type === 'angular-with-o3r-core' || type === 'angular-monorepo-with-o3r-core') {
-      // Create new base app if needed
-      await createTestEnvironmentAngularWithO3rCore({
-        appName: 'test-app',
-        appDirectory: `base-app-angular${generateMonorepo ? '-monorepo' : ''}-with-o3r-core`,
+  let projectPath = workspacePath;
+  let projectName = '';
+  let isInWorkspace = false;
+  let untouchedProject: undefined | string;
+  let untouchedProjectPath: undefined | string;
+  const appDirectory = `${type}-${getPackageManager()}`;
+  switch (type) {
+    case 'blank': {
+      await createTestEnvironmentBlank({
+        appDirectory,
         cwd: itTestsFolderPath,
-        globalFolderPath,
-        yarnVersion,
-        angularVersion,
-        materialVersion,
-        baseAngularAppPath: path.join(itTestsFolderPath, baseAppAngular),
-        replaceExisting: !process.env.CI,
-        generateMonorepo
+        logger,
+        ...packageManagerConfig
       });
+      projectPath = workspacePath;
+      break;
+    }
+
+    case 'o3r-project-with-app': {
+      projectName = 'test-app';
+      untouchedProject = 'dont-modify-me';
+      await createTestEnvironmentOtterProjectWithApp({
+        projectName,
+        appDirectory,
+        cwd: itTestsFolderPath,
+        logger,
+        ...packageManagerConfig,
+        replaceExisting: !process.env.CI
+      });
+      projectPath = path.resolve(workspacePath, 'apps', projectName);
+      untouchedProjectPath = path.resolve(workspacePath, 'apps', untouchedProject);
+      isInWorkspace = true;
+      break;
+    }
+
+    default: {
+      throw new O3rCliError(`Unknown test environment type: ${type}`);
     }
   }
 
-  // Copy base app into test app
-  if (type !== 'blank') {
-    const baseApp = `base-app-angular${generateMonorepo ? '-monorepo' : ''}${generateO3rCore ? '-with-o3r-core' : ''}`;
-    const baseAppPath = path.join(itTestsFolderPath, baseApp);
-    cpSync(baseAppPath, appFolderPath, {recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source)});
-    packageManagerInstall(execAppOptions);
-  }
+  prepareFinalApp(appDirectory);
 
   // Setup git and initial commit to easily make checks on the diff inside the tests
-  try {
-    const authorName = 'otter it tests';
-    const authorEmail = 'fake-email@it-tests.otter';
-    execSync('git init -b master && git add -A && git commit -m "initial commit"', {
-      cwd: appFolderPath,
-      env: {
-        /* eslint-disable @typescript-eslint/naming-convention, camelcase */
-        GIT_AUTHOR_NAME: authorName,
-        GIT_COMMITTER_NAME: authorName,
-        GIT_AUTHOR_EMAIL: authorEmail,
-        GIT_COMMITTER_EMAIL: authorEmail
-        /* eslint-enable @typescript-eslint/naming-convention, camelcase */
-      }
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('Unable to setup git for the test-app', err);
-  }
+  setupGit(workspacePath);
 
-  return appFolderPath;
+  return {
+    workspacePath,
+    projectPath,
+    projectName,
+    isInWorkspace,
+    untouchedProject,
+    untouchedProjectPath,
+    packageManagerConfig
+  };
 }

@@ -24,24 +24,6 @@
     "composite": true,
     "declaration": true,
     "declarationMap": false,
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "@ama-sdk/showcase-sdk/helpers/*": [
-        "./src/helpers/*"
-      ],
-      "@ama-sdk/showcase-sdk/helpers": [
-        "./src/helpers/index"
-      ],
-      "@ama-sdk/showcase-sdk": [
-        "./src/index"
-      ],
-      "@ama-sdk/showcase-sdk/*": [
-        "./src/*"
-      ],
-      "@ama-sdk/showcase-sdk/spec": [
-        "./src/spec/index"
-      ]
-    }
+    "rootDir": "./src"
   }
 }

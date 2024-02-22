@@ -23,13 +23,35 @@
       "properties": {
         "tags": {
           "type": "array",
+          "description": "List of tags associated to the variable",
           "items": { "type": "string" }
         },
         "label": {
-          "type": "string"
+          "type": "string",
+          "description": "Label of the variable, it will be used to display the variable name in the CMS if specified"
         },
         "category": {
-          "type": "string"
+          "type": "string",
+          "description": "Category of the variable"
+        },
+        "component": {
+          "type": "object",
+          "description": "Component reference if the variable is linked to one",
+          "properties": {
+            "library": {
+              "type": "string",
+              "description": "Name of the library containing the component"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the component"
+            }
+          },
+          "required": [
+            "library",
+            "name"
+          ],
+          "additionalProperties": false
         }
       }
     },

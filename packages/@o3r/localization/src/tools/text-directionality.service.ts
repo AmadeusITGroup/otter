@@ -7,7 +7,6 @@ import { startWith } from 'rxjs/operators';
 export class TextDirectionality extends Directionality {
   /**
    * The current 'ltr' or 'rtl' value.
-   *
    * @override
    */
   public value!: Direction;

@@ -15,14 +15,13 @@ export interface ExtendedApplicationInformation {
 })
 export class DebugPanelService {
 
-  private applicationInformationSubject = new ReplaySubject<ExtendedApplicationInformation>(1);
+  private readonly applicationInformationSubject = new ReplaySubject<ExtendedApplicationInformation>(1);
 
   /** Application information stream */
   public applicationInformation$ = this.applicationInformationSubject.asObservable();
 
   /**
    * Update the application information
-   *
    * @param message Message from the background service
    */
   public update(message: ApplicationInformationContentMessage) {

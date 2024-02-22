@@ -12,7 +12,6 @@ export interface DiscriminatorRefs {
 
 /**
  * Get the list of tags used in paths
- *
  * @param spec Swagger specification
  */
 export function getTags(spec: any) {
@@ -31,7 +30,6 @@ export function getTags(spec: any) {
 
 /**
  * Find the references from the Swagger specification node
- *
  * @param startingNode Current node to treat
  * @param startingField Name of the current field to treat
  */
@@ -57,7 +55,6 @@ export async function findReferences(startingNode: any, startingField?: string):
 
 /**
  * Find the discriminator field reference in the current node
- *
  * @param currentNode Current node to treat
  * @param discriminator Discriminator field name
  */
@@ -73,7 +70,6 @@ function findDiscriminatorField(currentNode: any, discriminator: string) {
 
 /**
  * Get the a map of definition with discriminator mapped to the possible specified child definitions
- *
  * @param spec Swagger specification
  */
 export function getDiscriminatorLinks(spec: any): DiscriminatorRefs {
@@ -97,7 +93,6 @@ export function getDiscriminatorLinks(spec: any): DiscriminatorRefs {
 
 /**
  * Get a set containing all the definitions deeply accessible from at least one of the paths of the spec
- *
  * @param spec
  * @param discriminatorRefs
  */

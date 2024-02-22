@@ -10,7 +10,6 @@ import { ElementProfile, O3rElement } from '../element';
 export interface RadioElementProfile extends ElementProfile {
   /**
    * Check the radio element
-   *
    * @param  value If specified, determine the value of the radio button
    */
   check(value?: boolean): Promise<void>;

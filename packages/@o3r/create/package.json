@@ -1,6 +1,9 @@
 {
   "name": "@o3r/create",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Create a new Otter based application",
   "keywords": [
     "create",
@@ -15,44 +18,52 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@angular/cli": "~16.2.0",
-    "@schematics/angular": "~16.2.0",
-    "minimist": "^1.2.6"
+    "@angular/cli": "~17.2.0",
+    "@schematics/angular": "~17.2.0",
+    "minimist": "^1.2.6",
+    "tslib": "^2.5.3",
+    "type-fest": "^4.10.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@angular-eslint/eslint-plugin-template": "~16.3.0",
-    "@nx/eslint-plugin": "~16.10.0",
-    "@nx/jest": "~16.10.0",
-    "@nx/js": "~16.10.0",
-    "@nx/linter": "~16.10.0",
+    "@angular-devkit/architect": "~0.1702.0",
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@angular-eslint/eslint-plugin-template": "~17.2.0",
+    "@nx/eslint": "~18.0.2",
+    "@nx/eslint-plugin": "~18.0.2",
+    "@nx/jest": "~18.0.2",
+    "@nx/js": "~18.0.2",
     "@o3r/build-helpers": "workspace:^",
-    "@o3r/dev-tools": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/test-helpers": "workspace:^",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/minimist": "^1.2.2",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
-    "cpy-cli": "^4.2.0",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "eslint-plugin-jest": "~27.9.0",
+    "eslint-plugin-jsdoc": "~48.1.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^51.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~16.10.0",
+    "nx": "~18.0.2",
     "rimraf": "^5.0.1",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.1.1",
-    "type-fest": "^3.12.0",
-    "typescript": "~5.1.6"
+    "type-fest": "^4.10.2",
+    "typescript": "~5.3.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "yarn": "<2.0.0",
+    "npm": "*"
   }
 }

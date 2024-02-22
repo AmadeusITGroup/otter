@@ -1,7 +1,9 @@
-/*
+/**
  * The purpose of this script is to update a properties of a package.json
  * @example
+ * ```shell
  * yarn update-package ./package.json --name @new/name --version 1.0.0
+ * ```
  */
 
 import fs from 'node:fs';

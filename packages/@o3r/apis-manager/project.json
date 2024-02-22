@@ -7,10 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -32,13 +29,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/apis-manager/.eslintrc.js",
         "lintFilePatterns": [
@@ -50,15 +40,13 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/apis-manager/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/apis-manager/jest.config.js"
       }
     },
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/apis-manager/testing/jest.config.it.js",
-        "silent": false
+        "jestConfig": "packages/@o3r/apis-manager/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {

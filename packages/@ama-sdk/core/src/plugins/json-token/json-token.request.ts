@@ -5,12 +5,11 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
  */
 export class JsonTokenRequest implements RequestPlugin {
 
-  private storageTokenKey: string;
-  private sharedMemory: {[key: string]: any};
+  private readonly storageTokenKey: string;
+  private readonly sharedMemory: {[key: string]: any};
 
   /**
    * Initialize your plugin
-   *
    * @param storageTokenKey   Key used to store the token
    * @param sharedMemory      Only useful for NodeJS - Will keep data such as JWT tokens in memory instead of sessionStorage
    */

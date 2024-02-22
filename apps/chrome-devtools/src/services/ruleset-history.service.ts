@@ -23,7 +23,6 @@ export class RulesetHistoryService {
 
   /**
    * Update the ruleset history
-   *
    * @param message Message from the background service
    */
   public update(message: RulesEngineDebugEventsContentMessage) {

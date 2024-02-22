@@ -17,7 +17,8 @@ The module provides testing (e2e, unit test) utilities to help you build your ow
 ng add @o3r/testing
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

@@ -4,6 +4,7 @@ import {
   addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   getComponentFileName,
   getComponentFolderName,
   getComponentModuleName,
@@ -58,7 +59,7 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
  * Add Otter container component to an Angular Project
  * @param options
  */
-export function ngGenerateComponentContainer(options: NgGenerateComponentContainerSchematicsSchema): Rule {
+function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSchematicsSchema): Rule {
 
   const fullStructureRequested = options.componentStructure === 'full';
 
@@ -281,3 +282,9 @@ class Mock${properties.presenterComponentName} {}
     !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }
+
+/**
+ * Add Otter container component to an Angular Project
+ * @param options
+ */
+export const ngGenerateComponentContainer = createSchematicWithMetricsIfInstalled(ngGenerateComponentContainerFn);

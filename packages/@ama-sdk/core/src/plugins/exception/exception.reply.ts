@@ -10,7 +10,7 @@ export class ExceptionReply<V extends Record<string, any> | undefined = Record<s
   /**
    * @param callback Function called in case of exception. If provided, this function is responsible for throwing the exception or not
    */
-  constructor(private callback?: (res: V, error: Error | undefined) => V) {
+  constructor(private readonly callback?: (res: V, error: Error | undefined) => V) {
   }
 
   public load<K>(context: ReplyPluginContext<K>): PluginRunner<V | Record<string, unknown>, V> {

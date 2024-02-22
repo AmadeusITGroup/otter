@@ -90,7 +90,8 @@ class MyClass {
 }
 ```
 
-> **Warning** : Do not forget to import the **ApiManagerModule** in you component module
+> [!WARNING]
+> Do not forget to import the **ApiManagerModule** in you component module
 
 ### Enforce custom Api usage
 
@@ -131,7 +132,8 @@ class MyClass {
 }
 ```
 
-> **Note** : Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
+> [!NOTE]
+> Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
 
 ### Override configuration after instantiation
 

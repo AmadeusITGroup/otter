@@ -20,6 +20,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   generateBlockStatementsFromString,
   generateClassElementsFromString,
   generateParametersDeclarationFromString,
@@ -69,10 +70,9 @@ const checkConfiguration = (componentPath: string, tree: Tree) => {
 
 /**
  * Add configuration to an existing component
- *
  * @param options
  */
-export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
+export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const componentPath = options.path;
@@ -319,7 +319,7 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
             externalSchematic('@o3r/core', 'convert-component', {
               path: options.path
             }),
-            ngAddConfig(options)
+            ngAddConfigFn(options)
           ]);
         }
       }
@@ -327,3 +327,9 @@ export function ngAddConfig(options: NgAddConfigSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add configuration to an existing component
+ * @param options
+ */
+export const ngAddConfig = createSchematicWithMetricsIfInstalled(ngAddConfigFn);

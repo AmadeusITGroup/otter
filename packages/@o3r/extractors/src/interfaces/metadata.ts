@@ -1,10 +1,10 @@
 /**
- * Interface for the CmsMedataData
+ * Interface for the CmsMetadataData
  * The CMS metadata is the contract between the application and the CMS
  * The application exposes its metadata in order to be used by the CMS
  * This interface defines where to find the metadata files extracted from an application
  */
-export interface CmsMedataData {
+export interface CmsMetadataData {
   /** Name of the library/application */
   libraryName: string;
 

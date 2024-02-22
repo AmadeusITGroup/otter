@@ -1,7 +1,6 @@
 import { PetApi, Tag } from '@ama-sdk/showcase-sdk';
 import type { Pet } from '@ama-sdk/showcase-sdk';
 import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { DfMedia } from '@design-factory/design-factory';
@@ -16,7 +15,6 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
   selector: 'o3r-sdk-pres',
   standalone: true,
   imports: [
-    CommonModule,
     NgbHighlight,
     FormsModule,
     NgbPagination,
@@ -29,8 +27,8 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SdkPresComponent {
-  private petStoreApi = inject(PetApi);
-  private mediaService = inject(DfMedia);
+  private readonly petStoreApi = inject(PetApi);
+  private readonly mediaService = inject(DfMedia);
 
   /**
    * Name input used to create new pets

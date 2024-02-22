@@ -4,7 +4,6 @@ import { ConfigOverrideState } from './config-override.state';
 
 /**
  * Deserializer
- *
  * @param rawObject
  */
 export const configOverrideStorageDeserializer = (rawObject: any) => {
