@@ -2,11 +2,11 @@
   "extends": "../../../tsconfig.jest",
   "references": [
     {
-      "path": "./tsconfig.build.json"
+      "path": "./tsconfig.builders.json"
     }
   ],
   "include": [
-    "./src/**/*.spec.ts",
+    "**/*.spec.ts"
   ],
   "exclude": []
 }

@@ -12,6 +12,12 @@
         "build-builders"
       ]
     },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/eslint-config-otter/jest.config.js"
+      }
+    },
     "compile": {
       "executor": "nx:run-script",
       "options": {

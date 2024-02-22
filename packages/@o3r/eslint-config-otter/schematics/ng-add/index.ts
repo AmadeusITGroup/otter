@@ -17,7 +17,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const dependencyType = getProjectNewDependenciesType(workspaceProject);
-      const linterSchematicsFolder = path.resolve(__dirname, '..');
+      const linterSchematicsFolder = __dirname;
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
       const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
