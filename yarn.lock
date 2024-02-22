@@ -105,7 +105,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -193,7 +193,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -246,7 +246,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -324,7 +324,7 @@ __metadata:
     chokidar: "npm:^3.5.2"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -376,7 +376,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -430,7 +430,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -489,7 +489,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -528,7 +528,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -1191,7 +1191,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.7, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.23.5":
+"@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.12.13, @babel/code-frame@npm:^7.16.7, @babel/code-frame@npm:^7.23.5":
   version: 7.23.5
   resolution: "@babel/code-frame@npm:7.23.5"
   dependencies:
@@ -1509,15 +1509,6 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 10/727a7a807100f6a26df859e2f009c4ddbd0d3363287b45daa50bd082ccd0d431d0c4d0e610a91f806e04a1918726cd0f5a0592c9b902a815337feed12e1cafd9
-  languageName: node
-  linkType: hard
-
-"@babel/parser@npm:^7.22.15":
-  version: 7.23.6
-  resolution: "@babel/parser@npm:7.23.6"
-  bin:
-    parser: ./bin/babel-parser.js
-  checksum: 10/6be3a63d3c9d07b035b5a79c022327cb7e16cbd530140ecb731f19a650c794c315a72c699a22413ebeafaff14aa8f53435111898d59e01a393d741b85629fa7d
   languageName: node
   linkType: hard
 
@@ -2629,18 +2620,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/template@npm:^7.22.15, @babel/template@npm:^7.3.3":
-  version: 7.22.15
-  resolution: "@babel/template@npm:7.22.15"
-  dependencies:
-    "@babel/code-frame": "npm:^7.22.13"
-    "@babel/parser": "npm:^7.22.15"
-    "@babel/types": "npm:^7.22.15"
-  checksum: 10/21e768e4eed4d1da2ce5d30aa51db0f4d6d8700bc1821fec6292587df7bba2fe1a96451230de8c64b989740731888ebf1141138bfffb14cacccf4d05c66ad93f
-  languageName: node
-  linkType: hard
-
-"@babel/template@npm:^7.23.9":
+"@babel/template@npm:^7.22.15, @babel/template@npm:^7.23.9, @babel/template@npm:^7.3.3":
   version: 7.23.9
   resolution: "@babel/template@npm:7.23.9"
   dependencies:
@@ -2669,18 +2649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.19, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.6, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
-  version: 7.23.6
-  resolution: "@babel/types@npm:7.23.6"
-  dependencies:
-    "@babel/helper-string-parser": "npm:^7.23.4"
-    "@babel/helper-validator-identifier": "npm:^7.22.20"
-    to-fast-properties: "npm:^2.0.0"
-  checksum: 10/07e70bb94d30b0231396b5e9a7726e6d9227a0a62e0a6830c0bd3232f33b024092e3d5a7d1b096a65bbf2bb43a9ab4c721bf618e115bfbb87b454fa060f88cbf
-  languageName: node
-  linkType: hard
-
-"@babel/types@npm:^7.23.9":
+"@babel/types@npm:^7.0.0, @babel/types@npm:^7.20.7, @babel/types@npm:^7.22.15, @babel/types@npm:^7.22.19, @babel/types@npm:^7.22.5, @babel/types@npm:^7.23.0, @babel/types@npm:^7.23.6, @babel/types@npm:^7.23.9, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.8.3":
   version: 7.23.9
   resolution: "@babel/types@npm:7.23.9"
   dependencies:
@@ -5897,7 +5866,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -5932,7 +5901,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -5970,7 +5939,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6009,7 +5978,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6065,7 +6034,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6146,7 +6115,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6221,7 +6190,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6285,7 +6254,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     fs-extra: "npm:^11.0.0"
@@ -6329,7 +6298,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6359,7 +6328,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^14.0.0"
@@ -6437,7 +6406,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -6506,7 +6475,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -6629,7 +6598,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6725,7 +6694,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -6821,7 +6790,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -6883,7 +6852,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -6962,7 +6931,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     form-data: "npm:^4.0.0"
@@ -7041,7 +7010,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -7104,7 +7073,7 @@ __metadata:
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jasmine: "npm:^4.1.3"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -7127,7 +7096,7 @@ __metadata:
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^27.2.1
-    eslint-plugin-jsdoc: ~48.1.0
+    eslint-plugin-jsdoc: ~48.2.0
     eslint-plugin-prefer-arrow: ^1.2.2
     eslint-plugin-unicorn: ^51.0.0
     typescript: ~5.3.3
@@ -7182,7 +7151,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -7258,7 +7227,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     inquirer: "npm:~8.2.6"
@@ -7334,7 +7303,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -7440,7 +7409,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -7525,7 +7494,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -7593,7 +7562,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -7699,7 +7668,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -7789,7 +7758,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     fast-deep-equal: "npm:^3.1.3"
@@ -7879,7 +7848,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -7964,7 +7933,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -8071,7 +8040,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -8182,7 +8151,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -8244,7 +8213,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     fast-deep-equal: "npm:^3.1.3"
@@ -8332,7 +8301,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -8399,7 +8368,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -8465,7 +8434,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -8549,7 +8518,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -8593,7 +8562,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -8675,7 +8644,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     isomorphic-fetch: "npm:~3.0.0"
@@ -8785,7 +8754,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -8863,7 +8832,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     globby: "npm:^11.1.0"
@@ -9868,24 +9837,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.10.0"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm-eabi@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.12.0"
   conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-android-arm64@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-android-arm64@npm:4.10.0"
-  conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -9896,24 +9851,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.10.0"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-darwin-arm64@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-darwin-arm64@npm:4.12.0"
   conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-darwin-x64@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-darwin-x64@npm:4.10.0"
-  conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
@@ -9924,24 +9865,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.10.0"
-  conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm-gnueabihf@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.12.0"
   conditions: os=linux & cpu=arm
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm64-gnu@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.10.0"
-  conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -9952,24 +9879,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.10.0"
-  conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-arm64-musl@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-linux-arm64-musl@npm:4.12.0"
   conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-riscv64-gnu@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.10.0"
-  conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -9980,24 +9893,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.10.0"
-  conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-linux-x64-gnu@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-linux-x64-gnu@npm:4.12.0"
   conditions: os=linux & cpu=x64 & libc=glibc
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-x64-musl@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.10.0"
-  conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -10008,13 +9907,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-arm64-msvc@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.10.0"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-arm64-msvc@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.12.0"
@@ -10022,24 +9914,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-ia32-msvc@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.10.0"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-ia32-msvc@npm:4.12.0":
   version: 4.12.0
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.12.0"
   conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-x64-msvc@npm:4.10.0":
-  version: 4.10.0
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.10.0"
-  conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
@@ -13473,7 +13351,7 @@ __metadata:
     audit-types: "npm:~0.5.6"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -14384,7 +14262,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -17629,9 +17507,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:~48.1.0":
-  version: 48.1.0
-  resolution: "eslint-plugin-jsdoc@npm:48.1.0"
+"eslint-plugin-jsdoc@npm:~48.2.0":
+  version: 48.2.0
+  resolution: "eslint-plugin-jsdoc@npm:48.2.0"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.42.0"
     are-docs-informative: "npm:^0.0.2"
@@ -17644,7 +17522,7 @@ __metadata:
     spdx-expression-parse: "npm:^4.0.0"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/ae81ac8321f35fb1e598e44964f29ea1b22b1138c128ee4808947b71138d2a9ceffcf909a1e84de4920e3d04aca028277044bc4b552d23bed1b30b12bb0e2cba
+  checksum: 10/4a616f6d888311f63ccf0f4c697714c66978bb3717cb5a6a5af410615d9b28ff4febe3241939135a75636f2a4e95229563acbb7761db39e4ff7e7b23c2129262
   languageName: node
   linkType: hard
 
@@ -18973,7 +18851,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -22455,17 +22333,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lru-cache@npm:^10.0.0, lru-cache@npm:^10.0.3":
+"lru-cache@npm:^10.0.0, lru-cache@npm:^10.0.1, lru-cache@npm:^10.0.3, lru-cache@npm:^9.1.1 || ^10.0.0":
   version: 10.2.0
   resolution: "lru-cache@npm:10.2.0"
   checksum: 10/502ec42c3309c0eae1ce41afca471f831c278566d45a5273a0c51102dee31e0e250a62fa9029c3370988df33a14188a38e682c16143b794de78668de3643e302
-  languageName: node
-  linkType: hard
-
-"lru-cache@npm:^10.0.1, lru-cache@npm:^9.1.1 || ^10.0.0":
-  version: 10.1.0
-  resolution: "lru-cache@npm:10.1.0"
-  checksum: 10/207278d6fa711fb1f94a0835d4d4737441d2475302482a14785b10515e4c906a57ebf9f35bf060740c9560e91c7c1ad5a04fd7ed030972a9ba18bce2a228e95b
   languageName: node
   linkType: hard
 
@@ -23308,7 +23179,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.42.0"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -24237,7 +24108,7 @@ __metadata:
     eslint: "npm:^8.42.0"
     eslint-import-resolver-node: "npm:^0.3.4"
     eslint-plugin-jest: "npm:~27.9.0"
-    eslint-plugin-jsdoc: "npm:~48.1.0"
+    eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
     jest: "npm:~29.7.0"
@@ -24965,7 +24836,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"piscina@npm:^4.2.0, piscina@npm:^4.2.1":
+"piscina@npm:^4.2.0, piscina@npm:^4.2.1, piscina@npm:^4.3.0":
   version: 4.3.2
   resolution: "piscina@npm:4.3.2"
   dependencies:
@@ -24974,18 +24845,6 @@ __metadata:
     nice-napi:
       optional: true
   checksum: 10/bc670e502c76d24d209a7030b57adc997f055c8ba9cc4641dc93e5d2ba677ad4c0a01f6a12c52ebb29c9c704527bd17822871ab7f3b0eddcbd2155488ea7ef63
-  languageName: node
-  linkType: hard
-
-"piscina@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "piscina@npm:4.3.0"
-  dependencies:
-    nice-napi: "npm:^1.0.2"
-  dependenciesMeta:
-    nice-napi:
-      optional: true
-  checksum: 10/61ea7630c94e1784171f469b551115b050999206f5ec15c6e3aa69c00abf45b4ce0134a1557b98a1fba5349ff481282a11b8dba65b522ea44ba166f09e4ff672
   languageName: node
   linkType: hard
 
@@ -26808,7 +26667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^4.2.0":
+"rollup@npm:^4.2.0, rollup@npm:^4.5.0":
   version: 4.12.0
   resolution: "rollup@npm:4.12.0"
   dependencies:
@@ -26859,60 +26718,6 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 10/098eac4dcaf051b71c4efb7e3df059f6563d030b4dfbd2622a4d70acf4d02c463885643c63a21dda45153470f9be5047acd11eab19d4b2ed1c06b8ff57997e8e
-  languageName: node
-  linkType: hard
-
-"rollup@npm:^4.5.0":
-  version: 4.10.0
-  resolution: "rollup@npm:4.10.0"
-  dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.10.0"
-    "@rollup/rollup-android-arm64": "npm:4.10.0"
-    "@rollup/rollup-darwin-arm64": "npm:4.10.0"
-    "@rollup/rollup-darwin-x64": "npm:4.10.0"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.10.0"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.10.0"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.10.0"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.10.0"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.10.0"
-    "@rollup/rollup-linux-x64-musl": "npm:4.10.0"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.10.0"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.10.0"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.10.0"
-    "@types/estree": "npm:1.0.5"
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    "@rollup/rollup-android-arm-eabi":
-      optional: true
-    "@rollup/rollup-android-arm64":
-      optional: true
-    "@rollup/rollup-darwin-arm64":
-      optional: true
-    "@rollup/rollup-darwin-x64":
-      optional: true
-    "@rollup/rollup-linux-arm-gnueabihf":
-      optional: true
-    "@rollup/rollup-linux-arm64-gnu":
-      optional: true
-    "@rollup/rollup-linux-arm64-musl":
-      optional: true
-    "@rollup/rollup-linux-riscv64-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-musl":
-      optional: true
-    "@rollup/rollup-win32-arm64-msvc":
-      optional: true
-    "@rollup/rollup-win32-ia32-msvc":
-      optional: true
-    "@rollup/rollup-win32-x64-msvc":
-      optional: true
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10/e8f55290736faa24b82ec3c2c7dafd422df27dba31ac22d6ff6ca5b8b0f962e59c254622f9b30066740a402b84a68469f8f191f9950a645ec403ee9fe3a37071
   languageName: node
   linkType: hard
 
