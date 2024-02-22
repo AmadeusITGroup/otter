@@ -7218,7 +7218,7 @@ __metadata:
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
-    "@types/inquirer": "npm:~8.2.10"
+    "@types/inquirer": "npm:~9.0.7"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.0.1"
@@ -7230,7 +7230,7 @@ __metadata:
     eslint-plugin-jsdoc: "npm:~48.2.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.0"
-    inquirer: "npm:~8.2.6"
+    inquirer: "npm:~9.2.15"
     intl-messageformat: "npm:~10.5.1"
     jest: "npm:~29.7.0"
     jest-environment-jsdom: "npm:~29.7.0"
@@ -11322,13 +11322,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/inquirer@npm:~8.2.10":
-  version: 8.2.10
-  resolution: "@types/inquirer@npm:8.2.10"
+"@types/inquirer@npm:~9.0.7":
+  version: 9.0.7
+  resolution: "@types/inquirer@npm:9.0.7"
   dependencies:
     "@types/through": "npm:*"
     rxjs: "npm:^7.2.0"
-  checksum: 10/d7c0c5ec95af583191942ac33f8af2eb1fe839da6b4560277a8c251fa289f2dd3a5d14850baf910343700646200258ecff89dc9e1d57df29c16a1082d91a5ae3
+  checksum: 10/84cefdd10d7ca747ae2338ea35518020abbc28f7670ade446e367c4cd333153618b374d30830253f31a9567dd26e7f3093fb3cd20210af5ba27a1a91b89bb97e
   languageName: node
   linkType: hard
 
@@ -19990,7 +19990,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"inquirer@npm:8.2.6, inquirer@npm:~8.2.6":
+"inquirer@npm:8.2.6":
   version: 8.2.6
   resolution: "inquirer@npm:8.2.6"
   dependencies:
@@ -20033,6 +20033,29 @@ __metadata:
     strip-ansi: "npm:^6.0.1"
     wrap-ansi: "npm:^6.2.0"
   checksum: 10/6a44a29a909031ef59a660425bfa8554138dae220f67c894bffaeb5f75e49100cd8dbfe25aa237397474e48211f1a4cc8f8f35062996d9153352f51ca11fa536
+  languageName: node
+  linkType: hard
+
+"inquirer@npm:~9.2.15":
+  version: 9.2.15
+  resolution: "inquirer@npm:9.2.15"
+  dependencies:
+    "@ljharb/through": "npm:^2.3.12"
+    ansi-escapes: "npm:^4.3.2"
+    chalk: "npm:^5.3.0"
+    cli-cursor: "npm:^3.1.0"
+    cli-width: "npm:^4.1.0"
+    external-editor: "npm:^3.1.0"
+    figures: "npm:^3.2.0"
+    lodash: "npm:^4.17.21"
+    mute-stream: "npm:1.0.0"
+    ora: "npm:^5.4.1"
+    run-async: "npm:^3.0.0"
+    rxjs: "npm:^7.8.1"
+    string-width: "npm:^4.2.3"
+    strip-ansi: "npm:^6.0.1"
+    wrap-ansi: "npm:^6.2.0"
+  checksum: 10/7bca66f54fc3ef511e4be4ed781ef975325ad3a3e5ebeb4d070af78bba37966068a21db53fadac89ba808f19fd2fd88149c80cf6bcfd7e7fbc358fd0127a74f9
   languageName: node
   linkType: hard
 

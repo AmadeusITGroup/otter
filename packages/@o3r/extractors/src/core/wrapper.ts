@@ -1,6 +1,6 @@
 import { getPackageManagerRunner } from '@o3r/schematics';
 import type { BuilderWrapper } from '@o3r/telemetry';
-import { prompt, Question } from 'inquirer';
+import { default as inquirer, Question } from 'inquirer';
 import { execFileSync } from 'node:child_process';
 import { existsSync, promises } from 'node:fs';
 import * as path from 'node:path';
@@ -43,7 +43,7 @@ It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/README.md.
         `
       };
-      const { isReplyPositive } = await prompt([question]);
+      const { isReplyPositive } = await inquirer.prompt([question]);
 
       if (isReplyPositive) {
         const pmr = getPackageManagerRunner(packageJson);
