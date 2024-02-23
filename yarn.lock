@@ -6909,7 +6909,6 @@ __metadata:
     "@o3r/styling": "workspace:^"
     chokidar: ^3.5.2
     globby: ^11.1.0
-    minimatch: ~9.0.3
     sass: ~1.71.0
   peerDependenciesMeta:
     "@o3r/core":
