@@ -157,7 +157,8 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
     '@angular-devkit/schematics',
     '@schematics/angular',
     '@angular-devkit/core',
-    '@angular-devkit/architect'
+    '@angular-devkit/architect',
+    '@o3r/schematics'
   ];
 
   const packageJsonPath = resolve(cwd, 'package.json');
