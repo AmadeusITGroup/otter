@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "jsonschema": "~1.4.1",
+    "minimatch": "~9.0.3",
     "minimist": "^1.2.6",
     "tslib": "^2.5.3"
   },
@@ -55,7 +56,6 @@
     "@o3r/styling": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "minimatch": "~9.0.3",
     "sass": "~1.71.0"
   },
   "peerDependenciesMeta": {
@@ -126,7 +126,6 @@
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "jsonschema": "~1.4.1",
-    "minimatch": "~9.0.3",
     "nx": "~18.0.2",
     "rxjs": "^7.8.1",
     "sass": "~1.71.0",
