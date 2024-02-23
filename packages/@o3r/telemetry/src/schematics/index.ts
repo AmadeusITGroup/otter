@@ -27,7 +27,6 @@ export const createSchematicWithMetrics: SchematicWrapper =
     try {
       const rule = schematicFn(options);
       await lastValueFrom(callRule(rule, tree, context));
-      await lastValueFrom(context.engine.executePostTasks());
     }
     catch (e: any) {
       const err = e instanceof Error ? e : new Error(error);
@@ -57,7 +56,7 @@ export const createSchematicWithMetrics: SchematicWrapper =
         ?? (packageJson.config as JsonObject)?.o3rMetrics
       );
       if (shouldSendData) {
-        if (typeof ((options as any).o3rMetrics ?? typeof process.env.O3R_METRICS) === 'undefined') {
+        if (typeof ((options as any).o3rMetrics ?? process.env.O3R_METRICS) === 'undefined') {
           context.logger.info(
             'Telemetry is globally activated for the project (`config.o3rMetrics` in package.json). '
             + 'If you personally don\'t want to send telemetry, you can deactivate it by setting `O3R_METRICS` to false in your environment variables, '
