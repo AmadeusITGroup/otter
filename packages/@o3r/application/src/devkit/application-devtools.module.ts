@@ -17,7 +17,6 @@ export class ApplicationDevtoolsModule {
 
   /**
    * Initialize Otter Devtools
-   *
    * @param options
    */
   public static instrument(options: Partial<ApplicationDevtoolsServiceOptions>): ModuleWithProviders<ApplicationDevtoolsModule> {

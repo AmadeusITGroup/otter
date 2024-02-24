@@ -5,7 +5,7 @@
     "composite": true,
     "module": "CommonJS",
     "outDir": "./dist",
-    "rootDir": "src",
+    "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo"
   },
   "include": [

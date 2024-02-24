@@ -1,6 +1,9 @@
 {
   "name": "@o3r/eslint-config-otter",
   "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Recommended eslint configuration for Otter project",
   "main": "index.cjs",
   "exports": {
@@ -40,59 +43,61 @@
     "otter-module"
   ],
   "scripts": {
-    "build": "yarn cpy --flat {typescript,typescript-fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn postbuild",
+    "build": "yarn cpy --flat {typescript,typescript-fast,index,jasmine,jasmine-fast,template}.cjs package.json dist && yarn cpy rules dist && yarn postbuild",
     "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy '{collection,migration}.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/builder": "~16.3.0",
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@angular-eslint/eslint-plugin-template": "~16.3.0",
-    "@angular-eslint/template-parser": "~16.3.0",
-    "@angular/compiler": "~16.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-eslint/builder": "~17.2.0",
+    "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@angular-eslint/eslint-plugin-template": "~17.2.0",
+    "@angular-eslint/template-parser": "~17.2.0",
+    "@angular/compiler": "~17.2.0",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.2.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
+    "@schematics/angular": "~17.2.0",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
     "eslint": "^8.22.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jasmine": "^4.1.3",
     "eslint-plugin-jest": "^27.2.1",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "eslint-plugin-jsdoc": "~48.1.0",
     "eslint-plugin-prefer-arrow": "^1.2.2",
-    "eslint-plugin-unicorn": "^47.0.0",
-    "typescript": "~5.1.6"
+    "eslint-plugin-unicorn": "^51.0.0",
+    "typescript": "~5.3.3"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~16.2.0",
-    "@angular-devkit/schematics": "~16.2.0",
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@angular-eslint/eslint-plugin-template": "~16.3.0",
-    "@angular-eslint/template-parser": "~16.3.0",
-    "@angular/compiler": "~16.2.0",
-    "@nx/eslint-plugin": "~16.10.0",
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@angular-eslint/eslint-plugin-template": "~17.2.0",
+    "@angular-eslint/template-parser": "~17.2.0",
+    "@angular/compiler": "~17.2.0",
+    "@nx/eslint-plugin": "~18.0.2",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~16.2.0",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
-    "cpy-cli": "^4.2.0",
+    "@schematics/angular": "~17.2.0",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.42.0",
     "eslint-import-resolver-node": "^0.3.4",
     "eslint-plugin-jasmine": "^4.1.3",
-    "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "eslint-plugin-jest": "~27.9.0",
+    "eslint-plugin-jsdoc": "~48.1.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
+    "eslint-plugin-unicorn": "^51.0.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~16.10.0",
-    "typescript": "~5.1.6"
+    "nx": "~18.0.2",
+    "typescript": "~5.3.3"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/schematics": {
@@ -126,5 +131,8 @@
       "optional": true
     }
   },
-  "schematics": "./collection.json"
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
 }

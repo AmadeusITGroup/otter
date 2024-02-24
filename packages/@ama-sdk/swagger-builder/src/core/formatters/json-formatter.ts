@@ -8,10 +8,10 @@ import { generatePackageJson } from './utils';
  */
 export class JsonFormatter implements Formatter {
 
-  private filePath: string;
-  private cwd: string;
+  private readonly filePath: string;
+  private readonly cwd: string;
 
-  constructor(private basePath: string) {
+  constructor(private readonly basePath: string) {
     this.filePath = /\.json$/i.test(this.basePath) ? this.basePath : this.basePath + '.json';
     this.cwd = path.dirname(this.filePath);
   }

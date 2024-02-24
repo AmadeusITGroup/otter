@@ -12,7 +12,6 @@ export const getCurrentFolder = () => {
 
 /**
  * Wrap a command to add the folder path when activated from explorer context
- *
  * @param context vscode context
  * @param command command to execute
  */

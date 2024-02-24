@@ -7,12 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "build-builders",
-        "compile",
-        "build-wrapper",
-        "build-react"
-      ]
+      "dependsOn": ["build-builders", "compile", "build-wrapper", "build-react"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -47,44 +42,25 @@
         ],
         "clean": false
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-wrapper": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/component-wrapper"
-      ],
+      "outputs": ["{projectRoot}/dist/component-wrapper"],
       "options": {
         "script": "build:wrapper"
       },
-      "dependsOn": [
-        "^build",
-        "compile"
-      ]
+      "dependsOn": ["^build", "compile"]
     },
     "build-react": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/addon"
-      ],
+      "outputs": ["{projectRoot}/dist/addon"],
       "options": {
         "script": "build:react"
       },
-      "dependsOn": [
-        "^build",
-        "compile"
-      ]
+      "dependsOn": ["^build", "compile"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
         "lintFilePatterns": [
@@ -96,8 +72,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/storybook/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/storybook/jest.config.js"
       }
     },
     "prepare-publish": {

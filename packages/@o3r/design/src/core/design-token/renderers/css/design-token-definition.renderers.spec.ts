@@ -30,7 +30,6 @@ describe('getMetadataTokenDefinitionRenderer', () => {
 
   test('should use private renderer for private variable', () => {
     const variable = designTokens.get('example.var3');
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     const privateDefinitionRenderer = jest.fn().mockImplementation((v: any) => `$test: ${v.getCssRawValue()}`);
 
     const renderer1 = getCssTokenDefinitionRenderer();

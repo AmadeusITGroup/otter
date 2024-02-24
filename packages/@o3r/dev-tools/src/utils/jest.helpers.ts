@@ -1,31 +1,20 @@
 import { sync as globbySync } from 'globby';
 import { existsSync } from 'node:fs';
-import { dirname, normalize, posix, relative, resolve } from 'node:path';
+import { dirname, normalize, relative, resolve } from 'node:path';
+import { getJestProjects as workspaceGetJestProjects } from '@o3r/workspace';
 
 /**
  * Get the list of Jest Projects in the workspace
- *
+ * @deprecated Please use the one exposed in `@o3r/workspace`, will be removed in Otter v12.
  * @param rootPackageJson Path to the root package.json
  * @param rootDir
  * @param jestConfigPattern Pattern to the jest config files
  * @returns list of Jest projects
  */
-export const getJestProjects = (rootDir = process.cwd(), jestConfigPattern = 'jest.config.{j,t}s') => {
-  const rootPackageJson = resolve(rootDir, 'package.json');
-  if (!existsSync(rootPackageJson)) {
-    console.warn(`No package.json found in ${rootDir}`);
-    return [];
-  }
-  const jestConfigPatterns: string[] | undefined = require(rootPackageJson).workspaces?.map((packagePath: string) => posix.join(packagePath, jestConfigPattern));
-  const jestConfigFileLists = jestConfigPatterns?.map((pattern) => globbySync(pattern, { cwd: rootDir }));
-  return jestConfigFileLists
-    ?.flat()
-    .map((jestConfigFile) => posix.join('<rootDir>', jestConfigFile.replace(/jest\.config\.[jt]s$/, '')).replace(/\\+/g, '/'));
-};
+export const getJestProjects = workspaceGetJestProjects;
 
 /**
  * Find the closest package.json file containing workspace definition in the parent directories
- *
  * @param directory Current directory to search for
  * @param rootDir First directory of the recursion
  */
@@ -45,7 +34,7 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
 
 /**
  * Get the list of modules mapping
- *
+ * @deprecated Please use `pathsToModuleNameMapper` from `ts-jest`, will be removed in Otter v12.
  * @param rootDir Root directory of the jest project
  * @param testingTsconfigPath Path to the tsconfig.json used for test mapping files
  * @returns

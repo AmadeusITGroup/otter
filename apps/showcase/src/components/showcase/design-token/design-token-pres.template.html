@@ -1,0 +1,21 @@
+<div class="card my-3">
+  <div class="row g-0">
+    <div class="col-8 container p-3">
+      <div class="card-body d-flex flex-column h-100">
+        <h3 class="row card-text mt-auto ms-1 h5">Select a theme</h3>
+        <form class="row g-2" [formGroup]="form">
+          <div class="col-12 col-xl-6">
+            <div class="input-group">
+              <label class="input-group-text w-50" for="theme">Theme</label>
+              <select class="form-select" id="theme" formControlName="theme">
+                <option selected value> Default </option>
+                <option value="dark"> Dark </option>
+                <option value="horizon"> Horizon </option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,6 @@
 import { isJsonObject } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
@@ -13,7 +14,6 @@ const openApiConfigPath = 'openapitools.json';
 
 /**
  * Rule to update package.json scripts using yeoman generator from `@ama-sdk/generator-sdk`
- *
  * @param tree Tree
  * @param context SchematicContext
  */
@@ -72,7 +72,6 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
 /**
  * Create or udpate the OpenApi configuration with the version supported by the application
  * Set a storage directory for the generator jar to avoid any issue with pnp setups as it would try to install it directly in the node_module
- *
  * @param tree
  */
 const createOpenApiToolsConfig: Rule = (tree) => {
@@ -100,7 +99,6 @@ const createOpenApiToolsConfig: Rule = (tree) => {
 
 /**
  * Install the npm open api generator cli package
- *
  * @param tree
  * @param context
  */
@@ -122,7 +120,6 @@ const installOpenApiToolsCli: Rule = async (tree, context) => {
 
 /**
  * Replace the swagger ignore file with an openapi one
- *
  * @param tree
  */
 const replaceSwaggerIgnore: Rule = (tree) => {
@@ -140,7 +137,7 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
   }
   const amaSdkSchematicsPackageJsonContent = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
   const amaSdkSchematicsVersion = amaSdkSchematicsPackageJsonContent.version?.replace(/^v/, '');
-  const schematicsDependencies = ['@o3r/dev-tools', '@o3r/schematics'];
+  const schematicsDependencies = ['@o3r/schematics'];
   for (const dependency of schematicsDependencies) {
     context.addTask(new DevInstall({
       packageName: dependency + (amaSdkSchematicsVersion ? `@${amaSdkSchematicsVersion}` : ''),
@@ -163,10 +160,8 @@ const registerPackageSchematics = async (tree: Tree, context: SchematicContext) 
 
 /**
  * Add Otter ama-sdk-schematics to a Project
- *
- * @param options
  */
-export function ngAdd(): Rule {
+function ngAddFn(): Rule {
 
   return (tree, context) => chain([
     registerPackageSchematics,
@@ -178,3 +173,8 @@ export function ngAdd(): Rule {
     }
   ])(tree, context);
 }
+
+/**
+ * Add Otter ama-sdk-schematics to a Project
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

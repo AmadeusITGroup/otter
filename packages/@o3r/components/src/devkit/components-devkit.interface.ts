@@ -27,7 +27,6 @@ export type AvailableComponentsMessageContents =
 
 /**
  * Determine if the given message is a Components message
- *
  * @param message message to check
  */
 export const isComponentsMessage = (message: any): message is AvailableComponentsMessageContents => {

@@ -13,8 +13,8 @@ describe('Session ID Request Plugin', () => {
 
   it('should have the default id to Ama-Client-Ref', async () => {
     const plugin = new SessionIdRequest();
-    const sessionId = plugin.sessionId;
     const runner = plugin.load();
+    const sessionId = plugin.sessionId;
 
     await runner.transform(options);
 
@@ -23,8 +23,8 @@ describe('Session ID Request Plugin', () => {
 
   it('should add the session ID to the headers', async () => {
     const plugin = new SessionIdRequest(TEST_KEY);
-    const sessionId = plugin.sessionId;
     const runner = plugin.load();
+    const sessionId = plugin.sessionId;
 
     await runner.transform(options);
 
@@ -34,6 +34,8 @@ describe('Session ID Request Plugin', () => {
   it('second plugin with same header should use the ID that\'s already in memory', () => {
     const plugin = new SessionIdRequest(TEST_KEY);
     const plugin2 = new SessionIdRequest(TEST_KEY);
+    plugin.load();
+    plugin2.load();
 
     expect(plugin.sessionId).toBe(plugin2.sessionId);
   });
@@ -41,14 +43,16 @@ describe('Session ID Request Plugin', () => {
   it('second plugin with different header should generate a new session ID', () => {
     const plugin = new SessionIdRequest(TEST_KEY);
     const plugin2 = new SessionIdRequest(TEST_KEY2);
+    plugin.load();
+    plugin2.load();
 
     expect(plugin.sessionId).not.toBe(plugin2.sessionId);
   });
 
   it('should generate a correctly formatted ID', async () => {
     const plugin = new SessionIdRequest();
-    const sessionId: string = plugin.sessionId;
     const runner = plugin.load();
+    const sessionId: string = plugin.sessionId;
 
     await runner.transform(options);
 
@@ -58,8 +62,8 @@ describe('Session ID Request Plugin', () => {
 
   it('should be possible to deactivate the request ID part', async () => {
     const plugin = new SessionIdRequest(TEST_KEY, false);
-    const sessionId = plugin.sessionId;
     const runner = plugin.load();
+    const sessionId = plugin.sessionId;
 
     await runner.transform(options);
 

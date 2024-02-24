@@ -1,12 +1,4 @@
-/index.*
-
-/common
-/component
-/configuration
+/build
+/build-*
 /dist*
-/errors
 /src/package.json
-/store
-/types
-/validation
-/utils

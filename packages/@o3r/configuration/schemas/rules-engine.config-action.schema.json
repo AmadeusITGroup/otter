@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "RulesActionUpdateConfigBlock",
+  "type": "object",
+  "description": "Content of action that updates the configuration",
+  "properties": {
+    "actionType": {
+      "type": "string",
+      "description": "Action Type",
+      "const": "UPDATE_CONFIG"
+    },
+    "library": {
+      "type": "string",
+      "description": "Library of the component"
+    },
+    "component": {
+      "type": "string",
+      "description": "name of the component"
+    },
+    "property": {
+      "type": "string",
+      "description": "name of the config property to update"
+    },
+    "value": {}
+  },
+  "additionalItems": false,
+  "required": [
+    "actionType",
+    "library",
+    "component",
+    "property",
+    "value"
+  ]
+}

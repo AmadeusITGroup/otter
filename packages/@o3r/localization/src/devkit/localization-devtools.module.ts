@@ -21,7 +21,6 @@ export class LocalizationDevtoolsModule {
 
   /**
    * Initialize Otter Devtools
-   *
    * @param options
    */
   public static instrument(options: Partial<LocalizationDevtoolsServiceOptions>): ModuleWithProviders<LocalizationDevtoolsModule> {

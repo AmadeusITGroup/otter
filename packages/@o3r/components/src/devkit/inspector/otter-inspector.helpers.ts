@@ -20,7 +20,6 @@ export const INSPECTOR_CLASS = 'otter-devtools-inspector';
 
 /**
  * Determine if a node is an Otter container
- *
  * @param node Element to check
  * @returns true if the node is an Otter container
  */
@@ -30,7 +29,6 @@ export const isContainer = (node: Element | undefined | null): node is Element =
 
 /**
  * Determine the config id of a component instance
- *
  * @param instance component instance
  * @returns the config id of the component instance
  */
@@ -40,7 +38,6 @@ export const getConfigId = (instance: any) => {
 
 /**
  * Recursive method to determin the translations of a node
- *
  * @param node HTMLElement to check
  * @param rec recursive method
  * @returns the trasnslations associated to their component name
@@ -73,7 +70,6 @@ export function getTranslationsRec(node: Element | null, rec: typeof getTranslat
 
 /**
  * Determine the translations of a node
- *
  * @param node HTMLElement to check
  * @returns the translations associated to their component name
  */
@@ -81,7 +77,6 @@ export const getTranslations = (node: Element | null): Record<string, string[]> 
 
 /**
  * Recursive method to determine the analytics of a node
- *
  * @param node Element to check
  * @param rec recursive method
  * @returns the analytics associated to their component name
@@ -114,7 +109,6 @@ export function getAnalyticEventsRec(node: Element | null, rec: typeof getAnalyt
 
 /**
  * Determine the analytics of a node
- *
  * @param node Element to check
  * @returns the analytics associated to their component name
  */
@@ -122,7 +116,6 @@ export const getAnalyticEvents = (node: Element | null): Record<string, string[]
 
 /**
  * Determine all info from an Otter component
- *
  * @param componentClassInstance component instance
  * @param host HTML element hosting the component
  * @returns all info from an Otter component

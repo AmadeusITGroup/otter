@@ -17,7 +17,6 @@ export type Report = CheckerError[];
 export interface Checker {
   /**
    * Check the Swagger specification in input
-   *
    * @param swaggerSpec Swagger specification
    */
   check(swaggerSpec: SwaggerSpec): Promise<Report | undefined>;

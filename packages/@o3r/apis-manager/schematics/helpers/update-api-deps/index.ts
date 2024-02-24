@@ -1,14 +1,14 @@
-import {chain, Rule, SchematicContext, Tree} from '@angular-devkit/schematics';
+import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
+  getModuleIndex,
   getWorkspaceConfig,
-  addImportToModuleFile as o3rAddImportToModuleFile,
-  addProviderToModuleFile as o3rAddProviderToModuleFile,
   insertBeforeModule as o3rInsertBeforeModule,
   insertImportToModuleFile as o3rInsertImportToModuleFile
 } from '@o3r/schematics';
+import { isImported } from '@schematics/angular/utility/ast-utils';
+import { addRootImport, addRootProvider } from '@schematics/angular/utility';
 import * as ts from 'typescript';
-import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-utils';
 
 /**
  * Update app.module file with api manager, if needed
@@ -18,6 +18,7 @@ import {getDecoratorMetadata, isImported} from '@schematics/angular/utility/ast-
 export function updateApiDependencies(options: {projectName?: string | undefined}): Rule {
 
   const updateAppModule: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -36,17 +37,19 @@ export function updateApiDependencies(options: {projectName?: string | undefined
     }
 
     const recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+    const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
-    const addImportToModuleFile = (name: string, file: string) =>
-      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>
       o3rInsertImportToModuleFile(name, file, sourceFile, recorder, moduleFilePath, isDefault);
 
-    const addProviderToModuleFile = (name: string, file: string, customProvider?: string) =>
-      o3rAddProviderToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, customProvider);
+    const addProviderToModuleFile = (name: string, file: string, customProvider: string) => additionalRules.push(
+      addRootProvider(options.projectName!, ({code, external}) =>
+        code`{provide: ${external(name, file)}, ${customProvider}}`)
+    );
 
     const insertBeforeModule = (line: string) => o3rInsertBeforeModule(line, sourceFileContent, recorder, moduleIndex);
 
@@ -68,7 +71,7 @@ export function apiManagerFactory(): ApiManager {
   return new ApiManager(apiClient);
 }`);
 
-    addProviderToModuleFile('API_TOKEN', '@o3r/apis-manager', '{provide: API_TOKEN, useFactory: apiManagerFactory}');
+    addProviderToModuleFile('API_TOKEN', '@o3r/apis-manager', 'useFactory: apiManagerFactory');
 
     insertImportToModuleFile('ApiManager', '@o3r/apis-manager', false);
     insertImportToModuleFile('ApiFetchClient', '@ama-sdk/core', false);
@@ -78,7 +81,7 @@ export function apiManagerFactory(): ApiManager {
 
     context.logger.info('Please update by hand the placeholders for YOUR_API_ENDPOINT and YOUR_API_KEY!');
 
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   const updateTsConfig: Rule = (tree: Tree, context: SchematicContext) => {

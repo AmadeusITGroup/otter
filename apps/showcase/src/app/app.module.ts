@@ -21,11 +21,16 @@ import {
   translateLoaderProvider,
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/logger';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { C11nModule, ComponentsDevtoolsModule, registerCustomComponent } from '@o3r/components';
+import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
@@ -39,12 +44,13 @@ const runtimeChecks: Partial<RuntimeChecks> = {
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');
 
-function petApiFactory() {
+function petApiFactory(logger: Logger) {
   const apiConfig: ApiClient = new ApiFetchClient(
     {
       basePath: 'https://petstore3.swagger.io/api/v3',
       requestPlugins: [],
-      fetchPlugins: []
+      fetchPlugins: [],
+      logger
     }
   );
   return new PetApi(apiConfig);
@@ -67,6 +73,13 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
+/**
+ * Factory function to register custom components
+ */
+export function registerCustomComponents(): Map<string, any> {
+  return registerCustomComponent(new Map(), 'exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent);
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -85,11 +98,14 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    RulesEngineModule.forRoot({ debug: true }),
+    RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,
     ScrollBackTopPresComponent,
+    ApplicationDevtoolsModule,
+    ComponentsDevtoolsModule,
+    C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule
   ],
@@ -108,7 +124,8 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
         }
       }
     },
-    {provide: PetApi, useFactory: petApiFactory}
+    {provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger()},
+    {provide: PetApi, useFactory: petApiFactory, deps: [LoggerService]}
   ],
   bootstrap: [AppComponent]
 })

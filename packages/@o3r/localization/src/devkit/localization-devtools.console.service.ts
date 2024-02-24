@@ -18,7 +18,7 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
     private readonly localizationDevtools: OtterLocalizationDevtools,
     private readonly localizationService: LocalizationService,
     private readonly appRef: ApplicationRef,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
+    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
   ) {
     if (
       this.options.isActivatedOnBootstrap

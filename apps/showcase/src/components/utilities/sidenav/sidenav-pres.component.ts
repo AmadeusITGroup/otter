@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { O3rComponent } from '@o3r/core';
 import { RouterModule } from '@angular/router';
 
@@ -23,7 +22,7 @@ export interface SideNavLinksGroup {
 @Component({
   selector: 'o3r-sidenav-pres',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './sidenav-pres.template.html',
   styleUrls: ['./sidenav-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,

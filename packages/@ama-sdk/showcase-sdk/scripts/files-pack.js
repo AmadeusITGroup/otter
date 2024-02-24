@@ -1,7 +1,7 @@
-const cpx = require('cpx');
+const chokidar = require('chokidar');
 const minimist = require('minimist');
 const path = require('node:path');
-const { sync } = require('glob');
+const { sync } = require('globby');
 const fs = require('node:fs').promises;
 const promisify = require('util').promisify;
 
@@ -53,16 +53,22 @@ const updateExports = async () => {
 
   // Move files into the dist folder
   const copies = files.reduce((acc, glob) => {
-    acc.push(
-      watch ?
+    if (watch) {
+      acc.push(
         // eslint-disable-next-line no-console
-        cpx.watch(path.join(baseDir, glob), distFolder).on('copy', (e) => {
+        chokidar.watch(glob, {cwd: baseDir}).on('all', async (_event, file) => {
+          await fs.copyFile(path.resolve(baseDir, file), path.resolve(baseDir, distFolder, file))
           console.log(`${e.srcPath} copied to ${e.dstPath}`);
           if (!noExports) {
             void updateExports()
           }
-        }) :
-        promisify(cpx.copy)(path.join(baseDir, glob), distFolder));
+        })
+      );
+    } else {
+      acc.push(...sync(glob, { cwd: baseDir, absolute: false })
+        .map((file) => fs.copyFile(path.resolve(baseDir, file), path.resolve(baseDir, distFolder, file)))
+      );
+    }
     return acc;
   }, []);
   await Promise.all(copies);

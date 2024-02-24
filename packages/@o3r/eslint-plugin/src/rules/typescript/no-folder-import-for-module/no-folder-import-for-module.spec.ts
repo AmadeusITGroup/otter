@@ -1,6 +1,8 @@
-import * as path from 'node:path';
-import * as fs from 'node:fs';
+import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
 import { TSESLint } from '@typescript-eslint/experimental-utils';
+import * as path from 'node:path';
+
+const virtualFileSystem = useVirtualFileSystem();
 import noFolderImportForModule from './no-folder-import-for-module';
 
 const ruleTester = new TSESLint.RuleTester({
@@ -10,17 +12,16 @@ const ruleTester = new TSESLint.RuleTester({
     sourceType: 'module'
   }
 });
+const fakeFolder = path.resolve('/fake-folder');
 
-beforeAll(() => {
-  fs.mkdirSync(path.resolve(__dirname, 'local'));
-  fs.mkdirSync(path.resolve(__dirname, 'empty-local'));
-  fs.writeFileSync(path.resolve(__dirname, 'local', 'index.ts'), 'export default {};');
+beforeAll(async () => {
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'empty-local'), {recursive: true});
+  await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'index.ts'), 'export default {};');
 });
 
 afterAll(() => {
-  fs.unlinkSync(path.resolve(__dirname, 'local', 'index.ts'));
-  fs.rmdirSync(path.resolve(__dirname, 'local'));
-  fs.rmdirSync(path.resolve(__dirname, 'empty-local'));
+  cleanVirtualFileSystem();
 });
 
 ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
@@ -33,7 +34,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
   ],
   invalid: [
     {
-      filename: path.resolve(__dirname, 'test.ts'),
+      filename: path.join(fakeFolder, 'test.ts'),
       output: 'import {myImportModule} from "./local/index";',
       code: 'import {myImportModule} from "./local";',
       errors: [
@@ -45,7 +46,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
       ]
     },
     {
-      filename: path.resolve(__dirname, 'test.ts'),
+      filename: path.join(fakeFolder, 'test.ts'),
       output: 'import {randomImport, myImportModule} from "./local/index";',
       code: 'import {randomImport, myImportModule} from "./local";',
       errors: [
@@ -57,7 +58,7 @@ ruleTester.run('no-folder-import-for-module', noFolderImportForModule, {
       ]
     },
     {
-      filename: path.resolve(__dirname, 'test.ts'),
+      filename: path.join(fakeFolder, 'test.ts'),
       code: 'import {myImportModule} from "./empty-local";',
       errors: [
         {

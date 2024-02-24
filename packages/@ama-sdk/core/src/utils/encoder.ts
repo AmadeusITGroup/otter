@@ -7,7 +7,7 @@
 class Stream {
   public static readonly END_OF_STREAM = -1;
 
-  private tokens: number[];
+  private readonly tokens: number[];
 
   constructor(tokens: Uint8Array | number[]) {
     this.tokens = [].slice.call(tokens);
@@ -26,7 +26,6 @@ class Stream {
    * When a token is read from a stream, the first token in the
    * stream must be returned and subsequently removed, and
    * end-of-stream must be returned otherwise.
-   *
    * @returns Get the next token from the stream, or
    * end_of_stream.
    */
@@ -41,7 +40,6 @@ class Stream {
    * When one or more tokens are prepended to a stream, those tokens
    * must be inserted, in given order, before the first token in the
    * stream.
-   *
    * @param token The token(s) to prepend to the
    * stream.
    */
@@ -59,7 +57,6 @@ class Stream {
    * When one or more tokens are pushed to a stream, those tokens
    * must be inserted, in given order, after the last token in the
    * stream.
-   *
    * @param token The tokens(s) to push to the
    * stream.
    */
@@ -76,7 +73,6 @@ class Stream {
 
 /**
  * Returns the byte equivalent given a string
- *
  * @param string Input string of UTF-16 code units.
  * @param s
  * @returns Code points.
@@ -169,7 +165,6 @@ export class Encoder {
 
   /**
    * An ASCII byte is a byte in the range 0x00 to 0x7F, inclusive.
-   *
    * @param a The number to test.
    * @returns True if a is in the range 0x00 to 0x7F, inclusive.
    */

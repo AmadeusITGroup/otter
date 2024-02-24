@@ -6,7 +6,6 @@ import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } 
 
 /**
  * Generate service command
- *
  * @param _context
  * @param folder
  * @returns

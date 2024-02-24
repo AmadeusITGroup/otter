@@ -4,7 +4,6 @@ import { AssetPathOverrideState } from './asset-path-override.state';
 
 /**
  * Deserializer
- *
  * @param rawObject
  */
 export const assetPathOverrideStorageDeserializer = (rawObject: any) => {

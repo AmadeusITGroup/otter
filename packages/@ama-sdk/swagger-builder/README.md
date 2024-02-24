@@ -9,8 +9,8 @@ This will make it possible to implement extensions of Swagger specification or t
 
 Usage of the tools is explained via the `--help` option :
 
-```bash
-$ npx @ama-sdk/swagger-build --help
+```shell
+npx @ama-sdk/swagger-build --help
 
 # Usage: swagger-build [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 
@@ -60,7 +60,8 @@ The **Swagger Builder** supports two kinds of configuration:
 The **Swagger Builder** supports a set of *configuration* to configure the merging strategy, the post processing and the output format.
 
 The configurations can be specified in a JSON file following a provided [Json Schema](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/swagger-builder/src/schemas/builder-configuration.schema.json) or via CLI options.
-> **Warning**: The CLI Options will **be overridden by** the configuration provided in the JSON file.
+> [!WARNING]
+> The CLI Options will **be overridden by** the configuration provided in the JSON file.
 
 ### List of available configurations
 
@@ -103,6 +104,9 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 
 A code generator is provided to generate an API specification extension.
 
-```bash
-yarn yo @ama-sdk/sdk:api-extension
+```shell
+npx -p @ama-sdk/sdk:api-extension -p @angular-devkit/schematics-cli schematics @ama-sdk/swagger-builder:api-extension <my-extension>
 ```
+
+> [!TIP]
+> Get more details on how to generate an API specification extension [here](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md#debug-the-typescript-generator).

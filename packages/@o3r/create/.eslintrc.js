@@ -7,6 +7,7 @@ module.exports = {
     'tsconfigRootDir': __dirname,
     'project': [
       'tsconfig.build.json',
+      'tsconfig.spec.json',
       'tsconfig.eslint.json'
     ],
     'sourceType': 'module'

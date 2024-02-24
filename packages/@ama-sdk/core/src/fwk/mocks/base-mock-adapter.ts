@@ -44,17 +44,6 @@ export abstract class BaseMockAdapter implements MockAdapter {
   /**
    * @inheritDoc
    */
-  public getOperationId(request: EncodedApiRequest): string {
-    if (typeof this.pathObjects === 'function') {
-      throw new Error('The pathObjects argument must be of type PathObject[]');
-    }
-    const object = getPath(request.basePath, this.pathObjects, request.method);
-    return this.extractOperationIdFromPath(request, object);
-  }
-
-  /**
-   * @inheritDoc
-   */
   public async retrieveOperationId(request: EncodedApiRequest): Promise<string> {
     const pathObjects = typeof this.pathObjects === 'function' ? await this.pathObjects() : this.pathObjects;
     const object = getPath(request.basePath, pathObjects, request.method);

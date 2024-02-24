@@ -7,8 +7,8 @@ import { updateImports } from '@o3r/schematics';
  */
 export function updateLocalizationImports(): Rule {
   return (_tree: Tree, _context: SchematicContext) => {
-    // this will double check that the imports of mocks related to localization are targeting the subentry @o3r/testing/localization
+    // this will double-check that the imports of mocks related to localization are targeting the sub-entry @o3r/testing/localization
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    return updateImports(mapImportLocalizationMocks, { '@o3r/testing': '@o3r/testing' }, true);
+    return updateImports(mapImportLocalizationMocks, undefined, true);
   };
 }

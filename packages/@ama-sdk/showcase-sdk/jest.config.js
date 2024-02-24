@@ -1,12 +1,9 @@
-const { getJestConfig } = require('../../../jest.config.ut');
+const getJestGlobalConfig = require('../../../jest.config.ut').getJestGlobalConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestConfig(__dirname, false),
-  displayName: require('./package.json').name,
-  setupFilesAfterEnv: null,
-  moduleNameMapper: {
-    '^@ama-sdk/showcase-sdk$': ['<rootDir>/dist/cjs', '<rootDir>/src'],
-    '^@ama-sdk/showcase-sdk/(.*)$': ['<rootDir>/dist/cjs/$1', '<rootDir>/src/$1'],
-  }
+  ...getJestGlobalConfig(),
+  projects: [
+    '<rootDir>/testing/jest.config.ut.js'
+  ]
 };

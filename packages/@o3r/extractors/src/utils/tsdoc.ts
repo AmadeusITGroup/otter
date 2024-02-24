@@ -3,7 +3,6 @@ import * as ts from 'typescript';
 
 /**
  * Get inline text from a given DocNode.
- *
  * @param docNode The DocNode to get inline text from
  */
 export function getInlineTextFromDocNode(docNode: DocNode): string {
@@ -26,7 +25,6 @@ export function getInlineTextFromDocNode(docNode: DocNode): string {
 
 /**
  * Get summary as inline text from a given DocComment.
- *
  * @param docComment The DocComment to get inline summary from
  */
 export function getInlineSummaryFromDocComment(docComment: DocComment): string {
@@ -50,7 +48,6 @@ export function getInlineBlockTagContentFromDocComment(docComment: DocComment, t
 
 /**
  * Get the TSDoc text from a given node.
- *
  * @param source Typescript SourceFile node of the file
  * @param node Node to get the TSDoc text from
  */

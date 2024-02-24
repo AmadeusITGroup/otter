@@ -9,7 +9,7 @@
    id="svg5"
    xml:space="preserve"
    sodipodi:docname="otter.svg"
-   inkscape:version="1.3 (0e150ed, 2023-07-21)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    inkscape:export-filename="otter.png"
    inkscape:export-xdpi="300"
    inkscape:export-ydpi="300"
@@ -1472,17 +1472,28 @@
        inkscape:label="amadeusitgroup-otter"
        style="display:none"><text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:Amadeus;-inkscape-font-specification:'Amadeus, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#1b69bc;fill-opacity:1;stroke:#24292f;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
-         x="11.602448"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.525px;font-family:Amadeus;-inkscape-font-specification:'Amadeus, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         x="13.469113"
+         y="131.9341"
+         id="text1646-6"
+         inkscape:label="AmadeusItGroup out-border"><tspan
+           sodipodi:role="line"
+           id="tspan1644-0"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.525px;font-family:'Amadeus Neue';-inkscape-font-specification:'Amadeus Neue';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+           x="13.469113"
+           y="131.9341">AmadeusITGroup</tspan></text><text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.525px;font-family:Amadeus;-inkscape-font-specification:'Amadeus, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000835;fill-opacity:1;stroke:#c5d5f9;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+         x="13.469113"
          y="131.9341"
          id="text1646"
          inkscape:label="AmadeusItGroup"><tspan
            sodipodi:role="line"
            id="tspan1644"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.2889px;font-family:Amadeus;-inkscape-font-specification:'Amadeus, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1b69bc;fill-opacity:1;stroke:#24292f;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:1"
-           x="11.602448"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:9.525px;font-family:'Amadeus Neue';-inkscape-font-specification:'Amadeus Neue';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000835;fill-opacity:1;stroke:#c5d5f9;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
+           x="13.469113"
            y="131.9341">AmadeusITGroup</tspan></text><rect
-         style="fill:#24292f;fill-opacity:1;stroke:none;stroke-width:0.823388;paint-order:stroke fill markers"
+         style="display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.823388;paint-order:stroke fill markers"
          id="rect2470"
          width="1.1212564"
          height="14.428765"
@@ -1491,13 +1502,13 @@
          ry="0.27747628"
          transform="matrix(0.99172254,0.12839938,-0.35952036,0.93313724,0,0)" /><text
          xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.4056px;font-family:Amadeus;-inkscape-font-specification:Amadeus;fill:url(#linearGradient4203);fill-opacity:1;stroke:#24292f;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.3472px;font-family:Amadeus;-inkscape-font-specification:Amadeus;display:inline;fill:url(#linearGradient4203);fill-opacity:1;stroke:#24292f;stroke-width:0.5;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
          x="98.224495"
          y="132.54439"
          id="text2480"><tspan
            sodipodi:role="line"
            id="tspan2478"
-           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.4056px;font-family:Calibri;-inkscape-font-specification:Calibri;fill:url(#linearGradient4203);fill-opacity:1;stroke:#24292f;stroke-width:0.5;stroke-dasharray:none;stroke-opacity:1"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.3472px;font-family:'Amadeus Neue';-inkscape-font-specification:'Amadeus Neue';fill:url(#linearGradient4203);fill-opacity:1;stroke:#24292f;stroke-width:0.5;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1;paint-order:markers stroke fill"
            x="98.224495"
            y="132.54439">otter</tspan></text><path
          fill-rule="evenodd"
@@ -1505,7 +1516,7 @@
          d="m 1.942379,123.08979 c -3.3877383,0 -6.1263954,2.75885 -6.1263954,6.17192 0,2.72825 1.754752,5.03766 4.18905796,5.85502 0.3043511,0.0614 0.4158333,-0.13279 0.4158333,-0.29619 0,-0.14309 -0.010034,-0.63354 -0.010034,-1.14455 -1.70421416,0.36793 -2.05910216,-0.73574 -2.05910216,-0.73574 -0.273878,-0.71529 -0.6796801,-0.89913 -0.6796801,-0.89913 -0.557788,-0.37809 0.04063,-0.37809 0.04063,-0.37809 0.6187341,0.0409 0.9434001,0.63354 0.9434001,0.63354 0.54763097,0.94001 1.43008576,0.67441 1.78509946,0.51089 0.050662,-0.39853 0.21305817,-0.67442 0.38548607,-0.82766 -1.35923356,-0.14308 -2.78931953,-0.67441 -2.78931953,-3.04514 0,-0.67441 0.24328,-1.22618 0.628767,-1.65531 -0.06082,-0.15324 -0.273878,-0.7869 0.06095,-1.63499 0,0 0.51728397,-0.16352 1.68364866,0.63353 a 5.8901376,5.8901376 0 0 1 1.53166154,-0.2044 c 0.5172836,0 1.0445996,0.0716 1.531536,0.2044 1.1664909,-0.79705 1.6837746,-0.63353 1.6837746,-0.63353 0.3348234,0.84809 0.1216401,1.48175 0.06082,1.63499 0.3956435,0.42913 0.6288915,0.9809 0.6288915,1.65531 0,2.37073 -1.4300857,2.89177 -2.7994768,3.04514 0.2232156,0.19412 0.4158332,0.56193 0.4158332,1.14442 0,0.82766 -0.010034,1.49191 -0.010034,1.69619 0,0.16353 0.1116083,0.35777 0.4158337,0.29645 2.4343057,-0.81762 4.1890577,-3.1269 4.1890577,-5.85515 0.010034,-3.41307 -2.7386552,-6.17192 -6.1162362,-6.17192 z"
          fill="#24292f"
          id="path8730"
-         style="stroke-width:0.125402" /></g></g><g
+         style="display:inline;fill:#000000;fill-opacity:1;stroke-width:0.125402" /></g></g><g
      inkscape:label="Otter"
      inkscape:groupmode="layer"
      id="layer1"
@@ -8798,15 +8809,15 @@
    id="path2847" />
 	<polygon
    style="display:inline;fill:#f95428;stroke:#000000;stroke-width:14.4999;stroke-dasharray:none;stroke-opacity:1"
-   points="287.53,316.368 224.467,316.368 256.004,261.748 "
+   points="256.004,261.748 287.53,316.368 224.467,316.368 "
    id="polygon2849" />
 	<polygon
    style="fill:#f95428;stroke:#000000;stroke-width:14.4999;stroke-dasharray:none;stroke-opacity:1"
-   points="289.664,267.885 370.303,211.821 398.202,290.022 "
+   points="398.202,290.022 289.664,267.885 370.303,211.821 "
    id="polygon2851" />
 	<polygon
    style="display:inline;fill:#f95428;stroke:#000000;stroke-width:14.4999;stroke-dasharray:none;stroke-opacity:1"
-   points="113.794,290.022 141.693,211.821 222.344,267.885 "
+   points="222.344,267.885 113.794,290.022 141.693,211.821 "
    id="polygon2853" />
 </g><path
      style="display:inline;fill:#9ad14b;stroke-width:0.141418"

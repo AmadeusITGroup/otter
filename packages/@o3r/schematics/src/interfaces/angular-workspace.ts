@@ -29,27 +29,6 @@ export interface WorkspaceLayout {
 
 
 export interface WorkspaceSchematics extends SchematicOptions {
-  /** @deprecated will be removed in v10 */
-  '@otter/ng-tools:api-service'?: {
-    path: string;
-  };
-  /** @deprecated will be removed in v10 */
-  '@otter/ng-tools:component'?: {
-    path: string;
-  };
-  /** @deprecated will be removed in v10 */
-  '@otter/ng-tools:service'?: {
-    path: string;
-  };
-  /** @deprecated will be removed in v10 */
-  '@otter/ng-tools:store'?: {
-    path: string;
-  };
-  /** @deprecated will be removed in v10*/
-  '@otter/ng-tools:schematics'?: {
-    path: string;
-  };
-
   '@o3r/core:component'?: {
     path: string;
   } & WorkspaceSchematics['*:*'];
@@ -85,7 +64,7 @@ export interface WorkspaceProject extends NgWorkspaceProject {
 
 export interface WorkspaceSchema extends NgWorkspaceSchema {
   projects: {
-      [k: string]: WorkspaceProject;
+    [k: string]: WorkspaceProject;
   };
   schematics?: WorkspaceSchematics;
 }

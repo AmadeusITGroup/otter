@@ -17,7 +17,8 @@ This module provides a mechanism to retrieve media and data depending on the hos
 ng add @o3r/dynamic-content
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 
@@ -37,8 +38,8 @@ The module provides two things:
 A pipe to be used in your component templates:
 
 ```html
-<img src="{{'assets-otter/imgs/logo.png' | dynamicContent}}" /> or
-<img [src]="'assets-otter/imgs/logo.png' | dynamicContent" />
+<img src="{{'assets-otter/imgs/logo.png' | o3rDynamicContent}}" /> or
+<img [src]="'assets-otter/imgs/logo.png' | o3rDynamicContent" />
 ```
 
 and a service to be used in your component classes, for example:
@@ -151,7 +152,7 @@ It also looks for overrides in the `AssetPathOverrideStore`, so it will return t
 
 ## AssetPathOverrideStore
 
-A dedicated store is available in case you want to override any media path. 
+A dedicated store is available in case you want to override any media path.
 This store contains a mapping between the current file path and the one that should be used instead.
 
 This override ONLY WORKS for media resources.

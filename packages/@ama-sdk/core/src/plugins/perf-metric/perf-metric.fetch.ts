@@ -92,7 +92,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   /**
    * Opens a mark associated to a call.
-   *
    * @param url URL of the call associated to the mark to open
    * @param requestOptions Options of the call associated to the mark to open
    */
@@ -112,7 +111,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   /**
    * Closes the mark matching the given mark id.
-   *
    * @param markId Id of the mark to close
    * @param response Response of the call associated to the mark to close
    */
@@ -133,7 +131,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
 
   /**
    * Closes the mark matching the given mark id with an error.
-   *
    * @param markId Id of the mark to close
    * @param error Optional error of the call associated to the mark to close
    */
