@@ -84,9 +84,11 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
    * @inheritdoc
    */
   public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
-    Object.entries(keyValues).map(([key, value]) => {
-      this.localizationService.getTranslateService().set(key, value, language || this.localizationDevtools.getCurrentLanguage());
-    });
+    this.localizationService.getTranslateService().setTranslation(
+      language || this.localizationDevtools.getCurrentLanguage(),
+      keyValues,
+      true
+    );
     this.appRef.tick();
   }
 
