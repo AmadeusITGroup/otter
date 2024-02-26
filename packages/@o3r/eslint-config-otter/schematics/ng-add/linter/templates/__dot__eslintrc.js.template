@@ -6,7 +6,6 @@ module.exports = {
   'parserOptions': {
     'tsconfigRootDir': __dirname,
     'project': [
-      'tsconfig.app.json',
       'tsconfig.eslint.json'
     ],
     'ecmaVersion': 12
@@ -44,7 +43,8 @@ module.exports = {
           alignPeerDependencies: false
         }]
       }
-  ]
+    }
+  ],
   'extends': [
     '@o3r/eslint-config-otter'
   ].map(require.resolve)

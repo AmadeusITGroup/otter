@@ -33,12 +33,12 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     } else {
       const eslintConfigFiles = getAllFilesInTree(tree, '/', ['**/.eslintrc.json'], false).filter((file) => /\.eslintrc/i.test(file));
       if (!eslintConfigFiles.length) {
-        const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
-          template({}),
+        return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname)), [
+          template({
+            dot: '.'
+          }),
           renameTemplateFiles()
-        ]);
-        const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
-        return rule(tree, context);
+        ]), MergeStrategy.Overwrite);
       } else {
         context.logger.warn('An unsupported format EsLint configuration already exists, an automatic update cannot be applied.');
         context.logger.warn(`You can manually extends "@o3r/eslint-config-otter" in your configuration ${eslintConfigFiles.map((f) => `"${f}"`).join(', ')}`);

@@ -2,11 +2,18 @@
 /* eslint-disable quote-props */
 module.exports = {
   'extends': [
-    './typescript.cjs',
     'plugin:jest/recommended'
   ],
   'plugins': [
     'jest'
+  ],
+  'overrides': [
+    {
+      'files': ['*.ts', '*.tsx', '*.cts', '*.mts'],
+      'extends': [
+        './typescript.cjs'
+      ],
+    }
   ],
   'rules': {
     'jest/no-conditional-expect': 'warn',
