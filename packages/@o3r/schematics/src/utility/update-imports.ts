@@ -10,6 +10,9 @@ interface ExtractedImport {
   /** Element imported */
   symbol: string;
 
+  /** Is import type */
+  isTypeOnlyImport: boolean;
+
   /** Module from where the symbol is imported */
   location: string;
 }
@@ -63,9 +66,11 @@ export function updateImportsInFile(
       importNodes.push(imp);
 
       // We retrieve all the symbols listed in the import statement
-      const namedImport = imp.importClause && imp.importClause.getChildAt(0);
+      const namedImport = imp.importClause?.namedBindings;
+      const isTypeOnlyImport = !!imp.importClause && ts.isTypeOnlyImportDeclaration(imp.importClause);
       const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport) ?
-        namedImport.elements.map((element) => ({symbol: element.getText(), location: importFrom})) :
+        namedImport.elements.map((element) =>
+          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom})) :
         [];
 
       // And associate them to the Otter package
@@ -98,7 +103,7 @@ export function updateImportsInFile(
         acc[importFrom] = [];
       }
       const newNameForExportedValue = mapImports[oldPackageName]?.[importSymbol.symbol]?.newValue;
-      acc[importFrom].push(newNameForExportedValue || importSymbol.symbol);
+      acc[importFrom].push(`${importSymbol.isTypeOnlyImport ? 'type ' : ''}${newNameForExportedValue || importSymbol.symbol}`);
     });
     return acc;
   }, {} as Record<string, string[]>);

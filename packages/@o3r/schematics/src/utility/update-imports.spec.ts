@@ -81,4 +81,33 @@ describe('updateImportsInFile', () => {
     expect(finalFileContent).toContain('const myVeryOldService = new MyVeryNewService();');
     expect(finalFileContent).not.toContain('my-decent-package');
   });
+
+  it('should not remove existing imports', () => {
+    const fileName = 'test.ts';
+    const originalFileContent = `
+      import type {DontTouchThis} from 'leave-me-alone';
+      import {type DontTouchThat} from 'leave-me-alone';
+    `;
+    const tree = Tree.empty();
+    tree.create(fileName, originalFileContent);
+    const sourceFile = ts.createSourceFile(fileName, originalFileContent, ts.ScriptTarget.ES2015, true);
+    const importsRegexp = /^SomethingElse$/;
+    const renamePackagesRegexp = /^leave-me-alone/;
+    /* eslint-disable @typescript-eslint/naming-convention */
+    const mapImports = {
+      'leave-me-alone': {
+        SomethingElse: {
+          newPackage: 'somewhere-else'
+        }
+      }
+    };
+    const renamedPackages = {};
+    /* eslint-enable @typescript-eslint/naming-convention */
+
+    const unresolvedImports = updateImportsInFile(logger, tree, sourceFile, importsRegexp, renamePackagesRegexp, mapImports, renamedPackages);
+    const finalFileContent = tree.readText(fileName);
+
+    expect(unresolvedImports).toBe(2);
+    expect(finalFileContent).toContain('import {type DontTouchThis, type DontTouchThat} from \'leave-me-alone\';');
+  });
 });
