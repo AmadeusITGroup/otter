@@ -89,7 +89,6 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
       keyValues,
       true
     );
-    this.appRef.tick();
   }
 
   /**
