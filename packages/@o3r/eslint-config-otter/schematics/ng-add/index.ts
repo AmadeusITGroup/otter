@@ -35,7 +35,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const linterSchematicsFolder = path.resolve(__dirname, '..');
+      const linterSchematicsFolder = __dirname;
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const {NodeDependencyType} = await import('@schematics/angular/utility/dependencies');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
