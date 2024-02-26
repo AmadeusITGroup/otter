@@ -11,7 +11,7 @@ interface JsoncParserServices extends ParserServices {
  * @param parserServices Parser services object
  */
 export function isJsoncParserServices(parserServices: any): parserServices is JsoncParserServices {
-  return !!parserServices;
+  return !!parserServices && typeof parserServices.isJSON !== undefined;
 }
 
 /**

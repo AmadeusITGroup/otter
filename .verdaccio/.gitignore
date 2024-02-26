@@ -1,2 +1,2 @@
-conf/.npmrc-logged
+conf/**/.npmrc-logged
 storage

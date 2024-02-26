@@ -7,17 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile",
-        "build-schematics",
-        "build-tools"
-      ]
+      "dependsOn": ["compile", "build-schematics", "build-tools"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -37,43 +31,22 @@
     },
     "build-schematics": {
       "executor": "nx:run-script",
-      "dependsOn": [
-        "^build",
-        "compile",
-        "prepare-build-builders"
-      ],
+      "dependsOn": ["^build", "compile", "prepare-build-builders"],
       "options": {
         "script": "build:schematics"
       },
-      "inputs": [
-        "schematics",
-        "^source"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/schematics"
-      ]
+      "inputs": ["schematics", "^source"],
+      "outputs": ["{projectRoot}/dist/schematics"]
     },
     "build-tools": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/src/tools/protractor"
-      ],
+      "outputs": ["{projectRoot}/dist/src/tools/protractor"],
       "options": {
         "script": "build:tools"
       },
-      "dependsOn": [
-        "^build",
-        "compile"
-      ]
+      "dependsOn": ["^build", "compile"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/testing/.eslintrc.js",
         "lintFilePatterns": [
@@ -85,15 +58,13 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/testing/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/testing/jest.config.js"
       }
     },
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/testing/testing/jest.config.it.js",
-        "silent": false
+        "jestConfig": "packages/@o3r/testing/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {

@@ -7,7 +7,6 @@ import * as path from 'node:path';
 /**
  * Switch to the needed implementation of core testing, when running e2e tests
  * transforms ESM into CJS when needed
- *
  * @param frameworkName Name of the framework used for e2e testing (playwright|protractor)
  * @param customTransformOptions
  */

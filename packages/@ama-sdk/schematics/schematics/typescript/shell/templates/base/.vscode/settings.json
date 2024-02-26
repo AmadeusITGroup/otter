@@ -14,9 +14,13 @@
     "**/.yarn/**": true,
     <% } %>
     "**/node_modules/**": true,
-    "src/base/*/*.ts": true
+    "src/api/**/*.ts": true,
+    "src/models/base/**/*.ts": true,
+    "src/spec/api-mock.ts": true,
+    "src/spec/operation-adapter.ts": true
   },
   "files.readonlyExclude": {
-    "src/base/*/index.ts": true
+    "src/api/*/index.ts": true,
+    "src/models/base/*/index.ts": true
   }
 }

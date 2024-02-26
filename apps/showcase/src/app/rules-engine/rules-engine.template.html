@@ -30,54 +30,65 @@
         Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
       </p>
       <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/rules-engine" target="_blank" rel="noopener">Source code</a>
-      <nav ngbNav #nav="ngbNav" class="nav nav-tabs mt-3">
-        <ng-container ngbNavItem>
-          <a ngbNavLink class="nav-link">Configuration rule</a>
-          <ng-template ngbNavContent>
-            <p>
+      <ul ngbNav class="nav nav-tabs mt-3">
+        <li ngbNavItem class="nav-item" role="presentation">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'configuration'" (click)="activateRuleTab('configuration')">Configuration rule</a>
+        </li>
+        <li ngbNavItem class="nav-item" role="presentation">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'localization'" (click)="activateRuleTab('localization')">Localization rule</a>
+        </li>
+        <li ngbNavItem class="nav-item" role="presentation">
+          <a ngbNavLink class="nav-link" [class.active]="activeRuleTab === 'dynamic-content'" (click)="activateRuleTab('dynamic-content')">Dynamic content rule</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="activeRuleTab === 'operator-fact'" (click)="activateRuleTab('operator-fact')">Operator fact</a>
+        </li>
+      </ul>
+      <div class="p-3">
+        @switch (activeRuleTab) {
+          @case ('configuration') {
+            <div>
+              <p>
               By default, New-York is not selectable and we want to make it available only during the summer.
               <br>
               So we have created facts for the trip information and a new operator to evaluate the selected date.
               After that we set the following rule to make New-York available during the summer.
               <br>
               You can check that New-York will be available if you select dates during the summer (between June 21st and September 21st).
-            </p>
-            <o3r-copy-text-pres language="json" [text]="newYorkAvailableRule"></o3r-copy-text-pres>
-          </ng-template>
-        </ng-container>
-        <ng-container ngbNavItem>
-          <a ngbNavLink class="nav-link">Localization rule</a>
-          <ng-template ngbNavContent>
-            <p>
-              When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
-            </p>
-            <o3r-copy-text-pres language="json" [text]="helloNewYorkRule"></o3r-copy-text-pres>
-          </ng-template>
-        </ng-container>
-        <ng-container ngbNavItem>
-          <a ngbNavLink class="nav-link">Dynamic content rule</a>
-          <ng-template ngbNavContent>
-            <p>
+              </p>
+              <o3r-copy-text-pres language="json" [text]="newYorkAvailableRule"></o3r-copy-text-pres>
+            </div>
+          }
+          @case ('dynamic-content') {
+            <div>
+              <p>
               When selecting a date during the summer, the otter picture changes. We have created the following rule to change the targeted asset.
               <br>
               You can check that the image changes if you select dates during the summer (between June 21st and September 21st).
-            </p>
-            <o3r-copy-text-pres language="json" [text]="summerOtterRule"></o3r-copy-text-pres>
-          </ng-template>
-        </ng-container>
-        <ng-container ngbNavItem>
-          <a ngbNavLink class="nav-link">Operator fact</a>
-          <ng-template ngbNavContent>
-            <p>
-              When selecting a departure date in less than 2 days, the otter picture changes. We have created the following rule to change the targeted asset.
-              <br>
-              It is using the `inNextMinutes` operator which is based on the current time.
-            </p>
-            <o3r-copy-text-pres language="json" [text]="lateOtterRule"></o3r-copy-text-pres>
-          </ng-template>
-        </ng-container>
-      </nav>
-      <div [ngbNavOutlet]="nav" class="mt-2"></div>
+              </p>
+              <o3r-copy-text-pres language="json" [text]="summerOtterRule"></o3r-copy-text-pres>
+            </div>
+          }
+          @case ('localization') {
+            <div>
+              <p>
+              When a destination is selected, the text will change from "Where do you want to go?" to "When do you want to go?". We have created the following rule to change the localization key.
+              </p>
+              <o3r-copy-text-pres language="json" [text]="helloNewYorkRule"></o3r-copy-text-pres>
+            </div>
+          }
+          @case ('operator-fact') {
+            <div>
+              <p>
+                When selecting a departure date in less than 2 days, the otter picture changes. We have created the following rule to change the targeted asset.
+                <br>
+                It is using the `inNextMinutes` operator which is based on the current time.
+              </p>
+              <o3r-copy-text-pres language="json" [text]="lateOtterRule"></o3r-copy-text-pres>
+            </div>
+          }
+        }
+      </div>
     </div>
     <h2 id="rules-engine-install">How to install</h2>
     <div>

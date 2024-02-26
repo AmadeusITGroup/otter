@@ -157,7 +157,7 @@ describe('Form helpers', () => {
       form = new FormGroup({
         firstName: new FormControl()
       });
-      form.get('firstName')!.setErrors({singleError: {expected: true, actual: false}});
+      form.get('firstName').setErrors({singleError: {expected: true, actual: false}});
 
       expect(getFlatControlErrors(form)).toEqual([
         {
@@ -177,7 +177,7 @@ describe('Form helpers', () => {
         firstName: new FormControl()
       });
       form.setErrors({randomGlobalError: true});
-      form.get('firstName')!.setErrors({singleError: {expected: true, actual: false}});
+      form.get('firstName').setErrors({singleError: {expected: true, actual: false}});
 
       const errors = getFlatControlErrors(form);
 
@@ -206,7 +206,7 @@ describe('Form helpers', () => {
       form = new FormGroup({
         firstName: new FormControl()
       });
-      form.get('firstName')!.setErrors({
+      form.get('firstName').setErrors({
         singleError: {expected: true, actual: false},
         anotherError: 'SYSTEM_ERROR'
       });
@@ -238,9 +238,9 @@ describe('Form helpers', () => {
       });
 
       form.setErrors({error1: 10});
-      form.get('cardNumber')!.setErrors({error2: 20});
-      form.get('expiryDate')!.setErrors({error3: 30});
-      form.get('expiryDate')!.get('month')!.setErrors({error4: 40});
+      form.get('cardNumber').setErrors({error2: 20});
+      form.get('expiryDate').setErrors({error3: 30});
+      form.get('expiryDate').get('month').setErrors({error4: 40});
 
       expect(getFlatControlErrors(form)).toEqual([
         { // Global form

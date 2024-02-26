@@ -43,12 +43,13 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./tools/github-actions/setup
       - name: New Version
+        if: github.event_name != 'merge_group'
         id: newVersion
         uses: ./tools/github-actions/new-version
         with:
           defaultBranch: main
-          defaultBranchPrereleaseName: alpha
-          releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
+          defaultBranchPrereleaseName: prerelease
+          releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
       - name: Create release
         if: github.event_name != 'pull_request' && github.event_name != 'merge_group'
         run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
@@ -65,6 +66,14 @@ jobs:
 
   it-tests:
     uses: ./.github/workflows/it-tests.yml
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    needs: [build]
+    with:
+      skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
+
+  e2e-tests:
+    uses: ./.github/workflows/e2e-tests.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     needs: [build]

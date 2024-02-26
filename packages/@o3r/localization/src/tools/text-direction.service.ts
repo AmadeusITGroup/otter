@@ -11,19 +11,18 @@ import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
 @Injectable()
 export class TextDirectionService {
   private subscription?: Subscription;
-  private renderer: Renderer2;
+  private readonly renderer: Renderer2;
 
   constructor(
-    private translateService: TranslateService,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private configuration: LocalizationConfiguration,
-    private rendererFactory: RendererFactory2,
-    private directionality: Directionality) {
+    private readonly translateService: TranslateService,
+    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
+    private readonly rendererFactory: RendererFactory2,
+    private readonly directionality: Directionality) {
     this.renderer = this.rendererFactory.createRenderer(null, null);
   }
 
   /**
    * Updates the dir attribute on body HTML tag.
-   *
    * @returns a subscription that updates the dir attribute
    */
   public onLangChangeSubscription() {

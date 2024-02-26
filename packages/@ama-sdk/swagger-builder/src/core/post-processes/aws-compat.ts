@@ -7,7 +7,6 @@ export class AwsCompatConverter implements PostProcess {
 
   /**
    * Determine if the field need to be kept
-   *
    * @param field Field name
    * @param ancestors
    */
@@ -22,7 +21,6 @@ export class AwsCompatConverter implements PostProcess {
 
   /**
    * Remove the invalid field from a given Swagger Spec
-   *
    * @param currentNode Node to inspect in the Swagger spec object
    * @param ancestors
    * @param field Field of the node

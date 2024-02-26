@@ -1,10 +1,11 @@
 import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager, getWorkspaceConfig } from '../../utility';
+import { getPackageManager, getWorkspaceConfig } from '../../utility/index';
 import { NodePackageInstallTaskOptions } from './interfaces';
 
 /**
  * Install new dev dependency on your package
+ * @deprecated use {@link setupDependencies} instead, will be removed in V11
  */
 export class AddDevInstall extends NodePackageInstallTask {
   public quiet = false;

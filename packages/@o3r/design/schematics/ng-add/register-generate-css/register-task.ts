@@ -1,18 +1,7 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
-import { getWorkspaceConfig } from '@o3r/schematics';
+import { getWorkspaceConfig, registerBuilder } from '@o3r/schematics';
 import type { GenerateCssSchematicsSchema } from '../../../builders/generate-css/schema';
 import { posix } from 'node:path';
-
-/* for v9.6 migration only, it is integrated into @o3r/schematics package in v10 */
-import type { SchematicOptionObject, WorkspaceProject } from '@o3r/schematics';
-function registerBuilder(workspaceProject: WorkspaceProject, taskName: string, taskParameters: SchematicOptionObject, force = false): WorkspaceProject {
-  workspaceProject.architect ||= {};
-  if (workspaceProject.architect[taskName] && !force) {
-    throw new Error(`The builder task ${taskName} already exist`);
-  }
-  workspaceProject.architect[taskName] = taskParameters;
-  return workspaceProject;
-}
 
 /**
  * Register the Design Token CSS generator
@@ -24,13 +13,19 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const themeFile = posix.resolve(srcBasePath, 'style', 'theme.scss');
-    const taskParameters: GenerateCssSchematicsSchema = {
+    const taskOptions: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
       renderPrivateVariableTo: 'sass',
       designTokenFilePatterns: [
         `${posix.resolve(srcBasePath, 'style', '*.json')}`,
         `${posix.resolve(srcBasePath, '**', '*.theme.json')}`
       ]
+    };
+    const taskParameters = {
+      options: taskOptions,
+      configuration: {
+        watch: { watch: true }
+      }
     };
     if (!workspaceProject) {
       logger.warn(`No angular.json found, the task ${taskName} will not be created`);

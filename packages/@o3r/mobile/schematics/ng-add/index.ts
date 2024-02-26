@@ -1,30 +1,36 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getProjectNewDependenciesType } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
+
+const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
 /**
  * Add Otter mobile to an Angular Project
  * @param options ng add options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { ngAddPackages, getO3rPeerDeps, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
+      const { getPackageInstallConfig, getProjectNewDependenciesTypes, setupDependencies, getO3rPeerDeps, getWorkspaceConfig, removePackages } = await import('@o3r/schematics');
       const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
       return () => chain([
         removePackages(['@otter/mobile']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         })
       ])(tree, context);
 
@@ -37,3 +43,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter mobile to an Angular Project
+ * @param options ng add options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

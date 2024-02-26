@@ -13,7 +13,7 @@ import { GavcResponse } from '../helpers/gavc-response';
 const SUPPORTED_REPOSITORY_MANAGERS = ['JFrog', 'Azure Artifacts'];
 
 program
-  .description('Get an artifact from an Artifact repository manager')
+  .description('[DEPRECATED] Get an artifact from an Artifact repository manager')
   .requiredOption('--registry <url>', 'Registry URL. It is ignored for Azure Artifacts.')
   .option('--repository-manager <manager>', `Artifact repository manager. Supported managers are ${SUPPORTED_REPOSITORY_MANAGERS.join(', ')}`, 'JFrog')
   .option('--organization <organization>', 'Azure Artifacts organization', undefined)
@@ -39,6 +39,8 @@ const logger = winston.createLogger({
   format: winston.format.simple(),
   transports: new winston.transports.Console()
 });
+
+logger.warn('This script is deprecated, will be removed in Otter v12.');
 
 if (!SUPPORTED_REPOSITORY_MANAGERS.includes(opts.repositoryManager)) {
   logger.error(`Unsupported repository manager: ${opts.repositoryManager as string}`);

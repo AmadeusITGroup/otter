@@ -5,6 +5,7 @@ import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import { NgcBuilderSchema } from './schema';
 
 export * from './schema';
@@ -12,7 +13,7 @@ export * from './schema';
 /** Maximum number of steps */
 const STEP_NUMBER = 2;
 
-export default createBuilder<NgcBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   context.reportProgress(0, STEP_NUMBER, 'Run ngc.');
 
@@ -64,4 +65,4 @@ export default createBuilder<NgcBuilderSchema>(async (options, context): Promise
       success: false
     };
   }
-});
+}));

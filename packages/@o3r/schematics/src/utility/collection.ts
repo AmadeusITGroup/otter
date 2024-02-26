@@ -39,8 +39,9 @@ export function getDefaultOptionsForSchematic
     if (!schematics) {
       return acc;
     }
+
     return Object.entries<Record<string, string>>(schematics)
-      .filter(([key, _]) => key === `*:${schematicName}` || key === `${collection}:*` || key === `${collection}:${schematicName}`)
+      .filter(([key, _]) => new RegExp(key.replace(/[*]/g, '.*')).test(`${collection}:${schematicName}`))
       .sort(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
       .map(([_, value]) => value)
       .reduce((config, value) => ({...config, ...value}), acc);

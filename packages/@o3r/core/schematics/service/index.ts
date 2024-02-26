@@ -1,14 +1,14 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { applyEsLintFix, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, getTestFramework, getWorkspaceConfig, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { NgGenerateServiceSchematicsSchema } from './schema';
 
 /**
- * add a Service to an Otter project
+ * Add a Service to an Otter project
  * @param options
  */
-export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): Rule {
+function ngGenerateServiceFn(options: NgGenerateServiceSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:service', options.path, tree, options.projectName);
@@ -95,3 +95,9 @@ export function ngGenerateService(options: NgGenerateServiceSchematicsSchema): R
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Add a Service to an Otter project
+ * @param options
+ */
+export const ngGenerateService = createSchematicWithMetricsIfInstalled(ngGenerateServiceFn);

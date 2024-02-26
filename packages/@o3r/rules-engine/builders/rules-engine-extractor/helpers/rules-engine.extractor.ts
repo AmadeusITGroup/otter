@@ -29,7 +29,7 @@ export class RulesEngineExtractor {
   private tsconfig: any;
 
   /** Instance of the comment parser */
-  private commentParser = new ConfigDocParser();
+  private readonly commentParser = new ConfigDocParser();
 
   constructor(tsconfigPath: string, private basePath: string, private logger: LoggerApi) {
     const {config} = ts.readConfigFile(tsconfigPath, ts.sys.readFile);

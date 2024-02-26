@@ -9,7 +9,6 @@ export interface WindowWithDevtools extends Window {
 export interface DevtoolsCommonOptions {
   /**
    * Activated on the application bootstrap
-   *
    * @default false
    */
   isActivatedOnBootstrap: boolean;
@@ -19,7 +18,6 @@ export interface DevtoolsCommonOptions {
 export interface ContextualizationDevtoolsCommonOptions {
   /**
    * Activated on the application bootstrap when integrated in CMS context
-   *
    * @default true
    */
   isActivatedOnBootstrapWhenCMSContext: boolean;

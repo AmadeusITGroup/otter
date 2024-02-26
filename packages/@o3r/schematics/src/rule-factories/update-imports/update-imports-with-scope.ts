@@ -1,15 +1,14 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getFilesFromRootOfWorkspaceProjects, getFilesWithExtensionFromTree } from '../../utility';
+import { getFilesFromRootOfWorkspaceProjects, getFilesWithExtensionFromTree } from '../../utility/index';
 import { listOfExposedElements, SassImportExposedElement } from './list-of-vars';
 
 const imports = new RegExp(/^@import\s+['"]~?@(o3r|otter)\/styling.*\s*/, 'gm');
 
 /**
  * Update SASS imports to use a scoped dependency
- *
  * @param alias The name of the otter styling package
  * @param dependencyName The name of the dependency to update imports on
- * @param exposedElements The list of exposed elemeents
+ * @param exposedElements The list of exposed elements
  * @param fromRoot Perform on all files in project
  */
 export function updateSassImports(alias: string, dependencyName = '@o3r/styling', exposedElements: SassImportExposedElement[] = listOfExposedElements, fromRoot = false): Rule {

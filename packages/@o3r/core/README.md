@@ -24,14 +24,14 @@ during the installation of the `@o3r/core`.
 
 **Yarn** can be installed directly using NPM:
 
-```bash
+```shell
 # Installing yarn
 npm install --global yarn
 ```
 
 ### Creating a new Otter application
 
-```bash
+```shell
 # Create new application
 npm create @o3r my-project
 # Or
@@ -40,7 +40,7 @@ yarn create @o3r my-project
 
 ### Adding Material design theming
 
-```bash
+```shell
 # Add Material Design
 yarn ng add @angular/material
 # ? Choose a prebuilt theme name, or "custom" for a custom theme: Indigo/Pink
@@ -137,7 +137,8 @@ The preset mechanism is supporting, via the `--external-preset` option, presets 
 The modules can be regrouped in custom Presets by following the next steps:
 
 * Adding a **keyword**, in the module *package.json*'s `keywords` field, following the pattern `otter-preset-<my-preset>`.
-* The module needs to be published to public (or private) NPM Registry.
+* The module needs to be published to a public (or private) NPM Registry.
 * The package's scope should be whitelisted, via a Pull Request, in the following [OTTER_MODULE_SUPPORTED_SCOPES constant](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/schematics/src/modules/modules.constants.ts).
 
-> **Note**: Get more information regarding the **Otter Modules** in the [Module Documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/core/MODULE.md).
+> [!TIP]
+> Get more information regarding the **Otter Modules** in the [Module Documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/core/MODULE.md).

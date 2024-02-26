@@ -7,7 +7,7 @@
 
 import minimist from 'minimist';
 import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, resolve, delimiter } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
@@ -99,5 +99,9 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
   }
 }
 
-const distPaths = argv._[0] ? argv._ : [resolve(process.cwd(), 'dist')];
+const distPaths = argv._.length
+  ? argv._
+    .flatMap((files) => files.split(delimiter))
+    .map((p) => join(p, 'dist'))
+  : [resolve(process.cwd(), 'dist')];
 distPaths.forEach((distPath) => preparePublish(root, distPath, join(distPath, 'package.json')));

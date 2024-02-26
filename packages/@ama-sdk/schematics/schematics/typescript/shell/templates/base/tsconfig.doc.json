@@ -10,8 +10,7 @@
     "**/fixtures*.ts",
     "**/*.mock*.ts",
     "**/*.spec.ts",
-    "**/*.perf.ts",
-    "**/*.reviver.ts"
+    "**/*.perf.ts"
   ],
   "include": [
     "./src/models/**/*.ts",

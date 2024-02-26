@@ -3,7 +3,7 @@ import { browser, By, element, ElementFinder } from 'protractor';
 import { FixtureUsageError } from '../../errors/index';
 
 import type { ComponentFixtureProfile } from '../component-fixture';
-import { isPromise, withTimeout } from '../helpers';
+import { withTimeout } from '../helpers';
 import { O3rElement, O3rElementConstructor } from './element';
 import { O3rGroup, O3rGroupConstructor } from './group';
 import { convertPromise } from './utils';
@@ -22,7 +22,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Root element of this fixture. Optional in a Protractor.
    * All further queries will be applied to the element tree if any, otherwise they will be applied to the whole DOM.
-   *
    * @param rootElement
    */
   constructor(rootElement?: V) {
@@ -32,7 +31,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Throws an exception if the element is undefined.
    * Otherwise returns the element.
-   *
    * @param elemnt ElementProfile to test
    * @param _timeout specific timeout that will throw when reach
    */
@@ -46,47 +44,22 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
   /**
    * Throws an exception if the element is undefined.
    * Otherwise returns the element.
-   *
-   * @param elemnt ElementProfile to test
-   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@link throwOnUndefinedElement} instead. Will be removed in v10
-   */
-  protected throwOnUndefined<T extends O3rElement>(elemnt?: T): T;
-  /**
-   * Throws an exception if the element is undefined.
-   * Otherwise returns the element.
-   *
    * @param elemnt ElementProfile to test
    * @param timeout specific timeout that will throw when reach
    */
-  protected async throwOnUndefined<T extends O3rElement>(elemnt: Promise<T | undefined>, timeout?: number): Promise<T>;
-  /**
-   * Throws an exception if the element is undefined.
-   * Otherwise returns the element.
-   *
-   * @param elemnt ElementProfile to test
-   * @param timeout specific timeout that will throw when reach
-   * @deprecated use {@link Promise} only as {@link throwOnUndefined} parameter or use {@link throwOnUndefinedElement} instead. Will be removed in v10
-   */
-  protected throwOnUndefined<T extends O3rElement>(elemnt?: Promise<T | undefined> | T, timeout?: number): Promise<T> | T {
-    if (!elemnt) {
-      throw new Error('Element not found in ' + this.constructor.name);
-    }
-    if (isPromise(elemnt)) {
-      return withTimeout(elemnt, timeout)
-        .then((el) => {
-          if (!el) {
-            throw new Error('Element not found in ' + this.constructor.name);
-          }
-          return el;
-        });
-    }
-    return elemnt;
+  protected async throwOnUndefined<T extends O3rElement>(elemnt: Promise<T | undefined>, timeout?: number): Promise<T> {
+    return withTimeout(elemnt, timeout)
+      .then((el) => {
+        if (!el) {
+          throw new Error('Element not found in ' + this.constructor.name);
+        }
+        return el;
+      });
   }
 
 
   /**
    * Get the element associated to the selector if present
-   *
    * @param selector Selector to access the element
    * @param elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
    * @param options Options supported
@@ -117,7 +90,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Get text from the element associated to the given selector, or undefined if the element is not found or not visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
@@ -140,7 +112,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Check if the element associated to the given selector is visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement
@@ -160,7 +131,6 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /**
    * Click on the element associated to the given selector if it exists and is visible
-   *
    * @param selector Selector to access the element
    * @param options Options supported
    * @param options.elementConstructor Constructor that will be used to create the Element, defaults to O3rElement

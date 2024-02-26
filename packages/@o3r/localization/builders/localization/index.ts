@@ -1,5 +1,6 @@
 import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
 import { LogEntry } from '@angular-devkit/core/src/logger';
+import { createBuilderWithMetricsIfInstalled } from '@o3r/extractors';
 import type { JSONLocalization } from '@o3r/localization';
 import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
@@ -318,7 +319,7 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
 }
 
 
-export default createBuilder<LocalizationBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   // Load Targets to get build options
@@ -336,16 +337,21 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
     context.getBuilderNameForTarget(localizationExtractorTarget)
   ]);
   const [browserTargetOptions, localizationExtracterTargetOptions] = await Promise.all([
-    context.validateOptions<{outputPath: string}>(browserTargetRawOptions, browserTargetBuilder),
+    context.validateOptions<{outputPath: string | {base: string; browser?: string}}>(browserTargetRawOptions, browserTargetBuilder),
     context.validateOptions<LocalizationExtractorBuilderSchema>(localizationExtracterTargetRawOptions, localizationExtracterTargetBuilder)
   ]);
-
+  let browserTargetOptionsOutputPath: string;
   // Check the minimum of mandatory options to the builders
-  if (typeof browserTargetOptions.outputPath !== 'string') {
+  if (typeof browserTargetOptions.outputPath !== 'string' && typeof browserTargetOptions.outputPath?.base !== 'string') {
     return {
       success: false,
       error: `The targetBrowser ${options.browserTarget} does not provide 'outputPath' option`
     };
+  } else if (typeof browserTargetOptions.outputPath !== 'string') {
+    browserTargetOptionsOutputPath = path.join(browserTargetOptions.outputPath.base,
+      typeof browserTargetOptions.outputPath.browser === 'string' ? browserTargetOptions.outputPath.browser : '');
+  } else {
+    browserTargetOptionsOutputPath = browserTargetOptions.outputPath;
   }
   if (typeof localizationExtracterTargetOptions.outputFile !== 'string') {
     return {
@@ -355,7 +361,7 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
   }
 
   /** Path to the build output folder */
-  const outputPath = path.resolve(context.workspaceRoot, browserTargetOptions.outputPath);
+  const outputPath = path.resolve(context.workspaceRoot, browserTargetOptionsOutputPath);
   /** Path to the metadata file */
   const localizationMetaDataFile = path.resolve(context.workspaceRoot, localizationExtracterTargetOptions.outputFile);
 
@@ -399,7 +405,7 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
       context.reportProgress(5, STEP_NUMBER, 'Writing translations');
 
       // Write translation files
-      const writingFolder = options.outputPath || outputPath;
+      const writingFolder = options.outputPath || outputPath || '.';
       if (!fs.existsSync(writingFolder)) {
         fs.mkdirSync(writingFolder, {recursive: true});
       }
@@ -520,4 +526,4 @@ export default createBuilder<LocalizationBuilderSchema>(async (options, context)
       metadataWatcher.once('error', (err) => reject(err));
     });
   }
-});
+}));

@@ -46,6 +46,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
           dependencyTypes: {
             type: 'array',
             description: 'List of dependency types to update',
+            default: defaultOptions[0].dependencyTypes,
             items: {
               type: 'string'
             }

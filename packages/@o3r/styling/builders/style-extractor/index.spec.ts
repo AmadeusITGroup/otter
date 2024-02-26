@@ -36,7 +36,7 @@ describe('Styling Extractor Builder', () => {
       ignoreDuplicateWarning: false,
       outputFile: path.resolve(__dirname, workspaceRoot, 'apps/showcase/style.metadata.json')
     };
-    const run = await architect.scheduleBuilder('.:extractor', options);
+    const run = await architect.scheduleBuilder('.:extractor', options as any);
     const output = await run.result;
     expect(output.error).toBeUndefined();
     await run.stop();

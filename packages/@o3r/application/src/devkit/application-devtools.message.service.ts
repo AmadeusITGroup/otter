@@ -13,13 +13,13 @@ import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_
 export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
   private readonly options: ApplicationDevtoolsServiceOptions;
 
-  private subscriptions = new Subscription();
+  private readonly subscriptions = new Subscription();
 
-  private sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
+  private readonly sendMessage = sendOtterMessage<AvailableApplicationMessageContents>;
 
   constructor(
-      private logger: LoggerService,
-      private applicationDevtools: OtterApplicationDevtools,
+      private readonly logger: LoggerService,
+      private readonly applicationDevtools: OtterApplicationDevtools,
       @Optional() @Inject(OTTER_APPLICATION_DEVTOOLS_OPTIONS) options?: ApplicationDevtoolsServiceOptions) {
     this.options = {
       ...OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
@@ -45,7 +45,6 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
-   *
    * @param only restricted list of messages to re-send
    */
   private handleReEmitRequest(only?: ApplicationMessageDataTypes[]) {
@@ -56,7 +55,6 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   *
    * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */
@@ -84,7 +82,6 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Toggle visual testing rendering
-   *
    * @param enabled activate or deactivate the visual testing mode
    */
   private toggleVisualTestingRender(enabled?: boolean) {

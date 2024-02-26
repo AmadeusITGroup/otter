@@ -17,7 +17,8 @@ This module provides a bridge to target different logger (logrocket, fullstory, 
 ng add @o3r/logger
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Setup
 

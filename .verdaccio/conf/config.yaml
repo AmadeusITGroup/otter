@@ -29,14 +29,21 @@ packages:
     access: $all
     publish: $authenticated
     proxy: no-proxy
+#    proxy: npmjs
   '@ama-sdk/*':
     access: $all
     publish: $authenticated
     proxy: no-proxy
+  #    proxy: npmjs
   '@ama-terasu/*':
     access: $all
     publish: $authenticated
     proxy: no-proxy
+#    proxy: npmjs
+
+#uplinks:
+#  npmjs:
+#    url: https://registry.npmjs.org/
 
 no_proxy: localhost,127.0.0.1
 

@@ -12,7 +12,6 @@ import {
  * Buffers and emits data for lazy/progressive rendering of big lists
  * That could solve issues with long-running tasks when trying to render an array
  * of similar components.
- *
  * @param delayMs Delay between data emits
  * @param concurrency Amount of elements that should be emitted at once
  * @returns

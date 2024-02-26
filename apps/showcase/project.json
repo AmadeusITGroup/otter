@@ -19,13 +19,12 @@
     }
   },
   "sourceRoot": "apps/showcase/src",
+  "root": "apps/showcase",
   "prefix": "app",
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild:patch"
       },
@@ -33,17 +32,13 @@
         "extract-translations",
         "extract-components",
         "generate-translations",
+        "generate-theme",
+        "generate-dark-theme",
+        "generate-horizon-theme",
         "compile"
       ]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/showcase/.eslintrc.js",
         "lintFilePatterns": [
@@ -53,14 +48,12 @@
       }
     },
     "compile": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@angular-devkit/build-angular:application",
       "options": {
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
-        "main": "apps/showcase/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "browser": "apps/showcase/src/main.ts",
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/showcase/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -75,7 +68,17 @@
           }
         ],
         "styles": [
-          "apps/showcase/src/styles.scss"
+          "apps/showcase/src/styles.scss",
+          {
+            "inject": false,
+            "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
+            "bundleName": "dark-theme"
+          },
+          {
+            "inject": false,
+            "input": "apps/showcase/src/style/horizon-theme/horizon-theme.scss",
+            "bundleName": "horizon-theme"
+          }
         ],
         "scripts": []
       },
@@ -96,9 +99,7 @@
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
           "namedChunks": true
@@ -107,7 +108,10 @@
       "defaultConfiguration": "production",
       "dependsOn": [
         "^build",
-        "generate-translations"
+        "generate-translations",
+        "generate-theme",
+        "generate-dark-theme",
+        "generate-horizon-theme"
       ]
     },
     "serve": {
@@ -115,18 +119,24 @@
       "options": {
         "targets": [
           "showcase:generate-translations:development",
-          "showcase:serve-app"
+          "showcase:serve-app",
+          "showcase:generate-theme:watch",
+          "showcase:generate-dark-theme:watch",
+          "showcase:generate-horizon-theme:watch"
         ]
-      }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "browserTarget": "showcase:compile:production"
+          "buildTarget": "showcase:compile:production"
         },
         "development": {
-          "browserTarget": "showcase:compile:development"
+          "buildTarget": "showcase:compile:development"
         }
       },
       "defaultConfiguration": "development"
@@ -137,9 +147,7 @@
         "{options.componentOutputFile}",
         "{options.configOutputFile}"
       ],
-      "inputs": [
-        "source"
-      ],
+      "inputs": ["source"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "configOutputFile": "apps/showcase/component.config.metadata.json",
@@ -152,30 +160,15 @@
           { "name": "globalCategory", "label": "Global category" }
         ]
       },
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
-      "inputs": [
-        "source"
-      ],
-      "outputs": [
-        "{options.outputFactsDirectory}/rules.facts.metadata.json",
-        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
-      ],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
-        "libraries": [
-          "packages/@o3r/rules-engine"
-        ],
-        "factFilePatterns": [
-          "apps/showcase/src/facts/**/*.facts.ts"
-        ],
-        "operatorFilePatterns": [
-          "apps/showcase/src/operators/**/*.ts"
-        ],
+        "libraries": ["packages/@o3r/rules-engine"],
+        "factFilePatterns": ["apps/showcase/src/facts/**/*.facts.ts"],
+        "operatorFilePatterns": ["apps/showcase/src/operators/**/*.ts"],
         "outputFactsDirectory": "apps/showcase",
         "outputOperatorsDirectory": "apps/showcase"
       },
@@ -184,28 +177,115 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/showcase/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/showcase/jest.config.js"
+      }
+    },
+    "generate-theme": {
+      "executor": "@o3r/design:generate-css",
+      "outputs": [
+        "{options.defaultStyleFile}",
+        "{options.metadataOutput}",
+        "{projectRoot}/src/**/*.scss"
+      ],
+      "inputs": [
+        "global",
+        "{projectRoot}/src/style/design-token.*.json"
+      ],
+      "options": {
+        "metadataOutput": "apps/showcase/styling.metadata.json",
+        "defaultStyleFile": "apps/showcase/src/style/theme.scss",
+        "designTokenFilePatterns": "apps/showcase/src/style/design-token.*.json",
+        "rootPath": "apps/showcase/src"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
+    },
+    "generate-dark-theme": {
+      "cache": true,
+      "executor": "@o3r/design:generate-css",
+      "outputs": [
+        "{options.defaultStyleFile}",
+        "{options.metadataOutput}",
+        "{projectRoot}/src/**/*.scss"
+      ],
+      "inputs": [
+        "global",
+        "{projectRoot}/src/style/dark-theme/dark-theme.*.json",
+        "{projectRoot}/src/style/design-token.app.json"
+      ],
+      "options": {
+        "defaultStyleFile": "apps/showcase/src/style/dark-theme/dark-theme.scss",
+        "designTokenFilePatterns": [
+          "apps/showcase/src/style/design-token.app.json",
+          "apps/showcase/src/style/dark-theme/dark-theme.*.json"
+        ],
+        "rootPath": "apps/showcase/src"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
+    },
+    "generate-horizon-theme": {
+      "cache": true,
+      "executor": "@o3r/design:generate-css",
+      "outputs": [
+        "{options.defaultStyleFile}",
+        "{options.metadataOutput}",
+        "{projectRoot}/src/**/*.scss"
+      ],
+      "inputs": [
+        "global",
+        "{projectRoot}/src/style/horizon-theme/horizon-theme.*.json",
+        "{projectRoot}/src/style/design-token.app.json"
+      ],
+      "options": {
+        "defaultStyleFile": "apps/showcase/src/style/horizon-theme/horizon-theme.scss",
+        "designTokenFilePatterns": [
+          "apps/showcase/src/style/design-token.app.json",
+          "apps/showcase/src/style/horizon-theme/horizon-theme.*.json"
+        ],
+        "rootPath": "apps/showcase/src"
+      },
+      "configurations": {
+        "watch": {
+          "watch": true
+        }
+      },
+      "dependsOn": [
+        "^build-builders"
+      ]
+    },
+    "test-e2e": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "test:playwright"
       }
     },
     "generate-translations": {
       "executor": "@o3r/localization:localization",
       "inputs": [
+        "global",
         "{projectRoot}/src/assets/locales",
         "{projectRoot}/src/assets/locales/*",
         "{projectRoot}/src/components/**/i18n",
         "{projectRoot}/src/components/**/*.localization.json"
       ],
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "browserTarget": "showcase:compile",
         "localizationExtracterTarget": "showcase:extract-translations",
-        "locales": [
-          "en-GB",
-          "fr-FR"
-        ],
+        "locales": ["en-GB", "fr-FR"],
         "assets": [
           "apps/showcase/src/assets/locales",
           "apps/showcase/src/assets/locales/*",
@@ -221,51 +301,34 @@
           "browserTarget": "showcase:compile:development"
         }
       },
-      "dependsOn": [
-        "i18n",
-        "extract-translations",
-        "^build-builders"
-      ]
+      "dependsOn": ["i18n", "extract-translations", "^build-builders"]
     },
     "extract-translations": {
       "executor": "@o3r/localization:extractor",
-      "inputs": [
-        "source"
-      ],
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "inputs": ["source"],
+      "outputs": ["{options.outputFile}"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "outputFile": "apps/showcase/localisation.metadata.json",
         "libraries": [],
-        "extraFilePatterns": [
-          "src/i18n/*.localization.json"
-        ],
+        "extraFilePatterns": ["src/i18n/*.localization.json"],
         "strictMode": true
       },
-      "dependsOn": [
-        "^build",
-        "^build-builders"
-      ]
+      "dependsOn": ["^build", "^build-builders"]
     },
     "run": {
       "executor": "@o3r/core:multi-watcher",
       "options": {
-        "targets": [
-          "showcase:generate-translations",
-          "showcase:serve-app"
-        ]
+        "targets": ["showcase:generate-translations", "showcase:serve-app"]
       }
     },
     "i18n": {
       "executor": "@o3r/localization:i18n",
       "inputs": [
+        "global",
         "{projectRoot}/src/!(i18n)/**/*.localization.json"
       ],
-      "outputs": [
-        "{projectRoot}/src/!(i18n)/**/i18n/*.json"
-      ],
+      "outputs": ["{projectRoot}/src/!(i18n)/**/i18n/*.json"],
       "options": {
         "localizationConfigs": [
           {
@@ -275,9 +338,7 @@
           }
         ]
       },
-      "dependsOn": [
-        "^build-builders"
-      ]
+      "dependsOn": ["^build-builders"]
     }
   },
   "tags": ["showcase"]

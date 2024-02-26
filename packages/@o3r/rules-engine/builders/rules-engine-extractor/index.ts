@@ -1,5 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { CmsMedataData, getLibraryCmsMetadata } from '@o3r/extractors';
+import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata } from '@o3r/extractors';
 import { existsSync, promises as fs } from 'node:fs';
 import globby from 'globby';
 import { dirname, resolve } from 'node:path';
@@ -10,7 +10,7 @@ export * from './schema';
 
 const SCHEMA_FOLDER = 'fact-schemas';
 
-export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<RulesEngineExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   const outputFactsFile = resolve(context.currentDirectory, options.outputFactsDirectory, 'rules.facts.metadata.json');
   const outputOperatorsFile = resolve(context.currentDirectory, options.outputOperatorsDirectory, 'rules.operators.metadata.json');
@@ -18,7 +18,7 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
   const schemaFolder = resolve(basePath, SCHEMA_FOLDER);
   const extractor = new RulesEngineExtractor(resolve(context.currentDirectory, options.tsConfig), context.currentDirectory, context.logger);
 
-  const metadataFiles: CmsMedataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
+  const metadataFiles: CmsMetadataData[] = options.libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
   const rulesEngineFactsMetadataFiles = metadataFiles
     .filter(metadataFile => options.ignoreFactsFromLibraries.indexOf(metadataFile.libraryName) === -1 && !!metadataFile.rulesEngineFactsFilePath)
     .map(metadataFile => metadataFile.rulesEngineFactsFilePath)
@@ -112,4 +112,4 @@ export default createBuilder<RulesEngineExtractorBuilderSchema>(async (options, 
   return {
     success: true
   };
-});
+}));

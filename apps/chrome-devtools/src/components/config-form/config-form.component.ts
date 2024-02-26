@@ -26,7 +26,7 @@ export class ConfigFormComponent implements OnChanges {
   public form: FormGroup;
 
   constructor(
-    private connectionService: ChromeExtensionConnectionService,
+    private readonly connectionService: ChromeExtensionConnectionService,
     fb: FormBuilder
   ) {
     this.form = fb.group({});
