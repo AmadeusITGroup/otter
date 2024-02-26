@@ -10,6 +10,9 @@ export const mapImportAsyncStore: ImportsMapping = {
     isSerializer: {
       newPackage: '@o3r/store-sync'
     },
+    StorageSync: {
+      newPackage: '@o3r/store-sync'
+    },
     StoreSyncConfig: {
       newPackage: '@o3r/store-sync'
     },

@@ -1,7 +1,7 @@
 import type { JsonObject } from '@angular-devkit/core';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import type { SchematicWrapper } from '@o3r/telemetry';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+import { prompt, Question } from 'inquirer';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { lastValueFrom } from 'rxjs';
@@ -34,14 +34,16 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     ) {
       context.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
-      const isReplyPositive = await askConfirmation(
-        `
+      const question: Question = {
+        type: 'confirm',
+        name: 'isReplyPositive',
+        message: `
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/README.md.
-        `,
-        false
-      );
+        `
+      };
+      const { isReplyPositive } = await prompt([question]);
 
       if (isReplyPositive) {
         const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
