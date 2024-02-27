@@ -1,4 +1,4 @@
-import { chain, Rule, Schematic, type TaskId, Tree } from '@angular-devkit/schematics';
+import { chain, Rule, Schematic, type SchematicContext, type TaskId, Tree } from '@angular-devkit/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
@@ -72,6 +72,20 @@ export interface SetupDependenciesOptions {
   /** Callback to run after the task ID is calculated */
   scheduleTaskCallback?: (taskIds?: TaskId[]) => void;
 }
+
+/** Result of the Setup Dependencies task scheduling process */
+export interface SetupDependenciesResult {
+  /** List of the task ID resulting of the install process */
+  taskIds: TaskId[];
+}
+
+/**
+ * Determine if the context has information regarding the setup dependencies process
+ * @param context Schematic context
+ */
+export const hasSetupInformation = (context: SchematicContext): context is SchematicContext & { setupDependencies: SetupDependenciesResult } => {
+  return !!(context as any).setupDependencies;
+};
 
 /**
  * Retrieve the package install configuration
@@ -200,7 +214,7 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
         );
       };
 
-      const finalTaskId = [...ngAddToRun]
+      const finalTaskIds = [...ngAddToRun]
         .map((packageName) => {
           let schematic: Schematic<any, any> | undefined;
           try {
@@ -217,8 +231,14 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
           return [...ids, context.addTask(new RunSchematicTask(packageName, 'ng-add', schematicOptions), ids)];
         }, [...(installId || []), ...(options.runAfterTasks || [])]);
 
+      if (hasSetupInformation(context)) {
+        context.setupDependencies.taskIds.push(...finalTaskIds);
+      } else {
+        (context as any).setupDependencies = { taskIds: finalTaskIds };
+      }
+
       if (options.scheduleTaskCallback) {
-        options.scheduleTaskCallback(finalTaskId);
+        options.scheduleTaskCallback(finalTaskIds);
       }
     };
 
