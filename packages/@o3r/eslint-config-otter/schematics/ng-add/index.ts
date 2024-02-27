@@ -35,11 +35,14 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           [
             'eslint',
             '@angular-eslint/builder',
+            '@angular-eslint/eslint-plugin',
             '@typescript-eslint/parser',
             '@typescript-eslint/eslint-plugin',
+            'eslint-plugin-jest',
             'eslint-plugin-jsdoc',
             'eslint-plugin-prefer-arrow',
             'eslint-plugin-unicorn',
+            'jest',
             'jsonc-eslint-parser'
           ],
           path.resolve(__dirname, '..', '..', 'package.json'),
