@@ -80,7 +80,6 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
         `${checkNode.$value.fontWeight} ${checkNode.$value.fontFamily} ${checkNode.$value.fontSize} ${checkNode.$value.letterSpacing} ${checkNode.$value.lineHeight}`;
     }
     default: {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Not supported type ${(checkNode as any).$type || 'unknown'} (value: ${(checkNode as any).$value || 'unknown'})`);
     }
   }

@@ -1,7 +1,6 @@
 export interface Ng {
   /**
    * Retrieves the component instance associated with a given DOM element.
-   *
    * @usageNotes
    * Given the following DOM structure:
    * ```html
@@ -28,7 +27,6 @@ export interface Ng {
    * For example, if `<child-comp>` is used in the template of `<app-comp>`
    * (i.e. a `ViewChild` of `<app-comp>`), calling `getOwningComponent` on `<child-comp>`
    * would return `<app-comp>`.
-   *
    * @param elementOrDir DOM element, component or directive instance
    *    for which to retrieve the root components.
    * @returns Component instance whose view owns the DOM element or null if the element is not
@@ -40,7 +38,6 @@ export interface Ng {
   /**
    * Retrieves the host element of a component or directive instance.
    * The host element is the DOM element that matched the selector of the directive.
-   *
    * @param componentOrDirective Component or directive instance for which the host
    *     element should be retrieved.
    * @returns Host element of the target.

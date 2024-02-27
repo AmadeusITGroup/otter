@@ -3,7 +3,6 @@ import {DateInput, Operator} from '../operator.interface';
 
 /**
  * Check if a date variable is in a specified date range
- *
  * @title is between
  */
 export const inRangeDate: Operator<Date, [DateInput, DateInput], DateInput> = {
@@ -19,9 +18,7 @@ export const inRangeDate: Operator<Date, [DateInput, DateInput], DateInput> = {
 
 /**
  * Check if the value of the variable is in the next x minutes
- *
  * @title is in next minutes
- *
  * @returns false for dates before `now` and for dates after `now` + `nextMinutes`, true for dates between `now` and `now` + `nextMinutes`
  */
 export const dateInNextMinutes: Operator<Date, string | number, DateInput> = {
@@ -43,9 +40,7 @@ export const dateInNextMinutes: Operator<Date, string | number, DateInput> = {
 
 /**
  * Check if the value of the variable is not in the next x minutes
- *
  * @title is not in next minutes
- *
  * @returns false for dates before `now` and for dates between `now` and `now` + `nextMinutes`, true for dates after `now` + `nextMinutes`
  */
 export const dateNotInNextMinutes: Operator<Date, string | number, DateInput> = {
@@ -70,7 +65,6 @@ export const dateNotInNextMinutes: Operator<Date, string | number, DateInput> = 
 
 /**
  * Check if a date variable is prior than a specified date
- *
  * @title is before
  */
 export const dateBefore: Operator<Date, DateInput, DateInput> = {
@@ -86,7 +80,6 @@ export const dateBefore: Operator<Date, DateInput, DateInput> = {
 
 /**
  * Check if a date variable is posterior than a specified date
- *
  * @title is after
  */
 export const dateAfter: Operator<Date, DateInput, DateInput> = {
@@ -102,7 +95,6 @@ export const dateAfter: Operator<Date, DateInput, DateInput> = {
 
 /**
  * Check if a date variable is the same as a specified date
- *
  * @title is equal to
  */
 export const dateEquals: Operator<Date, DateInput, DateInput> = {
@@ -118,7 +110,6 @@ export const dateEquals: Operator<Date, DateInput, DateInput> = {
 
 /**
  * Check if a date variable is different from a specified date
- *
  * @title is not equal
  */
 export const dateNotEquals: Operator<Date, DateInput, DateInput> = {

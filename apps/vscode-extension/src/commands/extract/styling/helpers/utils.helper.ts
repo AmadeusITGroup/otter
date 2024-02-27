@@ -6,7 +6,6 @@ import * as vscode from 'vscode';
 
 /**
  * Sanitize the selector
- *
  * @param selector to clean
  * @returns the cleaned selector
  */
@@ -19,7 +18,6 @@ function cleanSelector(selector: string): string {
 /**
  * Generate the proposed variable name based of the path of selectors.
  * Also make sure to not include any duplicated selectors or any forbidden words from the config `forbiddenWords`
- *
  * @param selectors to used to generate the name
  * @param fileName name of the file to append to the generated name
  * @returns the final proposed name
@@ -47,7 +45,6 @@ function generateScssVarName(selectors: string[], fileName: string): string {
 
 /**
  * Go through the tree of selectors and keep only the path to the selected property
- *
  * @param css String which contains all the css between the beginning of the document and the
  * last character of the selected line, so without close curly bracket of the class containing the property.
  * @param selectors List of all selectors found with a Regex in the css
@@ -96,7 +93,6 @@ function keepOnlyUsedSelector(css: string, selectors: string[]): string[] {
 
 /**
  * Determine if the given value is the value of the property of the targeted line
- *
  * @param value
  * @param line
  */
@@ -107,7 +103,6 @@ export function isPropertyValue(value: string, line: TextLine) {
 
 /**
  * Get the property name of a line
- *
  * @param line
  */
 export function getProperty(line: TextLine) {
@@ -116,7 +111,6 @@ export function getProperty(line: TextLine) {
 
 /**
  * Retrieve the name of parent CSS rule
- *
  * @param document
  * @param line
  */
@@ -134,7 +128,6 @@ export function getClassRuleName(document: TextDocument, line: TextLine) {
 
 /**
  * Generate the name of the variable based on filename, block rule and property name
- *
  * @param document
  * @param line
  * @param endPos
@@ -161,7 +154,6 @@ export function generateVariableName(document: TextDocument, line: TextLine) {
 
 /**
  * Retrieve the line number where to insert the generated code
- *
  * @param document
  */
 export function lineIndexToInsert(document: TextDocument): number {
@@ -178,7 +170,6 @@ export function lineIndexToInsert(document: TextDocument): number {
 
 /**
  * Insert the varibale definition, and the library import if needed, into the given document
- *
  * @param document
  * @param edit
  * @param variableName

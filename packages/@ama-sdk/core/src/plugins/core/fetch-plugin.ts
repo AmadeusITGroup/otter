@@ -1,6 +1,6 @@
 import type { ApiClient } from '../../fwk/core/api-client';
-import { Plugin, PluginAsyncRunner } from './plugin';
-import { RequestOptions } from './request-plugin';
+import type { Plugin, PluginAsyncRunner, PluginContext } from './plugin';
+import type { RequestOptions } from './request-plugin';
 
 export type FetchCall = Promise<Response>;
 
@@ -8,7 +8,7 @@ export type FetchCall = Promise<Response>;
  * Interface of an SDK reply plugin.
  * The plugin will be run on the reply of a call
  */
-export interface FetchPluginContext {
+export interface FetchPluginContext extends PluginContext {
   /** URL targeted */
   url: string;
 
@@ -39,6 +39,9 @@ export interface PluginAsyncStarter {
  * The plugin will be run around the Fetch call
  */
 export interface FetchPlugin extends Plugin<Response, FetchCall> {
-  /** Load the plugin with the context */
+  /**
+   * Load the plugin with the context
+   * @param context Context of fetch plugin
+   */
   load(context: FetchPluginContext): PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter;
 }

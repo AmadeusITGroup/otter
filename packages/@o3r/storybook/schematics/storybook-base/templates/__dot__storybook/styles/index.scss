@@ -2,12 +2,13 @@
 @use '@angular/material' as mat;
 @use '@angular/cdk';
 @use '@o3r/styling' as o3r;
+@use '@o3r/styling/otter-theme' as otter-theme;
 
 // Import the application styling
 @import './styling';
 
 // The theme to apply to the whole application
-@include o3r.apply-theme(o3r.$default-theme);
+@include o3r.apply-theme(otter-theme.$default-theme);
 
 // See https://material.angular.io/guide/theming for details
 @include mat.core($typography);

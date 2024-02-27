@@ -5,7 +5,6 @@ import { CreateModuleSchematicsSchema } from './schema';
 
 /**
  * Generate a new Amaterasu module
- *
  * @param options
  */
 export function generateAmaterasuModule(options: CreateModuleSchematicsSchema): Rule {

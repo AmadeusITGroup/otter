@@ -14,13 +14,11 @@ export interface FlatError {
 /**
  * Represents all errors (validation or custom ones) from a control.
  * Useful for working with form errors
- *
  * @note The control may be form, therefore the controlName may be undefined
  */
 export interface ControlFlatErrors {
   /**
    * The name of a field. e.g firstName, cardNumber. If it's a form, should be undefined
-   *
    * @note For child fields, use [parentControlName].[fieldName]. e.g expiryDate.month
    */
   controlName?: string;

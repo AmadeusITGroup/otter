@@ -17,7 +17,8 @@ This module provides basic utilities and generic rules (install, lint) reused in
 ng add @o3r/schematics
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

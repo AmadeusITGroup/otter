@@ -1,4 +1,4 @@
-import {Architect, createBuilder} from '@angular-devkit/architect';
+import { Architect, createBuilder } from '@angular-devkit/architect';
 import { TestingArchitectHost } from '@angular-devkit/architect/testing';
 import { schema } from '@angular-devkit/core';
 import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';

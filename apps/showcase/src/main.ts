@@ -1,5 +1,4 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import 'bootstrap';
 import { AppModule } from './app/app.module';
 import '@angular/localize/init';
 import { inject, runInInjectionContext } from '@angular/core';

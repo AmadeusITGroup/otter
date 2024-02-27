@@ -10,6 +10,10 @@
       "$default": {
         "$source": "projectName"
       }
+    },
+    "extractDesignToken": {
+      "type": "boolean",
+      "description": "Extract the design token from Sass file in the project"
     }
   },
   "additionalProperties": true,

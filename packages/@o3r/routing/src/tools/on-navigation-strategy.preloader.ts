@@ -14,7 +14,6 @@ export interface O3rOnDemandPreloadingData {
 
 /**
  * Check if the route has preload instructions
- *
  * @param  data Route data
  */
 export function hasPreloadingOnDemand(data: any): data is O3rOnDemandPreloadingData {
@@ -29,17 +28,15 @@ export function hasPreloadingOnDemand(data: any): data is O3rOnDemandPreloadingD
 
 /**
  * Otter Preloading strategy base on previous route
- *
  * @inheritDoc
  */
 @Injectable()
 export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   /**
    * Check if the module should be preloaded based on the data preload array of routes or regex value
-   *
    * @param data Route data
    * @param url
    * @url url URL of current page

@@ -48,14 +48,12 @@ export interface RulesEngineOptions {
 
   /**
    * Instance of the performance reporter to use for performance measurements.
-   *
    * @default window.performance on browser only, undefined on node
    */
   performance?: CrossPlatformPerformance;
 
   /**
    * Name of the rules engine instance
-   *
    * @default RulesEngine
    */
   rulesEngineInstanceName?: string;

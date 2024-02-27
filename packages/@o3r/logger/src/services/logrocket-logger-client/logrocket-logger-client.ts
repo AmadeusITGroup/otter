@@ -12,7 +12,7 @@ export class LogRocketClient implements LoggerClient {
   /**
    * Meta reducer configuration to change what store related items LogRocket records
    */
-  private metaReducerOptions?: Options;
+  private readonly metaReducerOptions?: Options;
 
   /**
    * Constructor.

@@ -2,16 +2,21 @@
 
 import { spawnSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
-import { readFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import * as minimist from 'minimist';
 import type { PackageJson } from 'type-fest';
+
 
 const { properties } = JSON.parse(
   readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
 ) as { properties: Record<string, { alias?: string }> };
-const { version } = JSON.parse(
+const { version, dependencies, devDependencies } = JSON.parse(
   readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
 ) as PackageJson;
+
+const optionsList = [
+  'yarn-version'
+];
 
 const logo = `
 
@@ -73,24 +78,29 @@ const logo = `
                               '|.     ||  ||    ||   ||       ||
                                ''|...|'   '|.'  '|.'  '|...' .||.
 `;
-const packageManager = process.env.npm_config_user_agent?.split('/')[0];
+
 const binPath = join(require.resolve('@angular/cli/package.json'), '../bin/ng.js');
 const args = process.argv.slice(2).filter((a) => a !== '--create-application');
 
+// Default styling to Sass
 if (!args.some((a) => a.startsWith('--style'))) {
   args.push('--style', 'scss');
 }
 
-const hasPackageManagerArg = args.some((a) => a.startsWith('--package-manager'));
-if (!hasPackageManagerArg) {
-  if (packageManager && ['npm', 'pnpm', 'yarn', 'cnpm'].includes(packageManager)) {
-    args.push('--package-manager', packageManager);
-  }
+// Default Preset to Basic
+if (!args.some((a) => a.startsWith('--preset'))) {
+  args.push('--preset', 'basic');
 }
 
 args.push('--no-create-application');
 
 const argv = minimist(args);
+const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
+let defaultPackageManager = 'npm';
+if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
+  defaultPackageManager = packageManagerEnv;
+}
+const packageManager = argv['package-manager'] || defaultPackageManager;
 
 if (argv._.length === 0) {
   // eslint-disable-next-line no-console
@@ -107,55 +117,90 @@ const isNgNewOptions = (arg: string) => {
   if (arg.startsWith('--')) {
     return entries.some(([key]) => [`--${key}`, `--no-${key}`, `--${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`, `--no-${key.replaceAll(/([A-Z])/g, '-$1').toLowerCase()}`].includes(arg));
   } else if (arg.startsWith('-')) {
-    return entries.some(([_, {alias}]) => alias && arg === `-${alias}`);
+    return entries.some(([, { alias }]) => alias && arg === `-${alias}`);
   }
 
   return true;
 };
 
-const checkIfSupportedPackageManager = () => {
-  if (packageManager !== 'npm') {
-    // eslint-disable-next-line no-console
-    console.error(`Other package managers than 'npm' are experimental for @o3r create for the time being.
-Please use the following command:
-  'npm create @o3r <project-name> -- [...options]'
-
-https://github.com/AmadeusITGroup/otter/tree/main/packages/%40o3r/create#usage
-
-`);
+const exitProcessIfErrorInSpawnSync = (exitCode: number, {error, status}: ReturnType<typeof spawnSync>) => {
+  if (error || status !== 0) {
+    if (error) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+    process.exit(exitCode);
   }
 };
+
+const schematicsCliOptions: any[][] = Object.entries(argv)
+  .filter(([key]) => key !== '_' && !optionsList.includes(key))
+  .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
+  .map(([key, value]) => {
+    const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
+    return typeof value === 'undefined' ? [optionKey] : [optionKey, value];
+  });
 
 const createNgProject = () => {
-  const { error } = spawnSync(process.execPath, [binPath, 'new', ...args.filter(isNgNewOptions), '--skip-install'], {
+  const options = schematicsCliOptions
+    .filter(([key]) => isNgNewOptions(key))
+    .flat();
+  exitProcessIfErrorInSpawnSync(1, spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
     stdio: 'inherit'
-  });
-
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    checkIfSupportedPackageManager();
-    process.exit(1);
-  }
+  }));
 };
 
-const addOtterFramework = (relativeDirectory = '.') => {
+const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
-  const { error } = spawnSync(process.execPath, [binPath, 'add', `@o3r/core@${version || 'latest'}`, ...args.filter((arg) => arg.startsWith('-'))], {
+  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
+  const mandatoryDependencies = [
+    '@angular-devkit/schematics',
+    '@schematics/angular',
+    '@angular-devkit/core',
+    '@angular-devkit/architect',
+    '@o3r/schematics'
+  ];
+
+  const packageJsonPath = resolve(cwd, 'package.json');
+  const packageJson: PackageJson = JSON.parse(
+    readFileSync(packageJsonPath, { encoding: 'utf-8' })
+      // Replace the ^ with ~ to use the same minor version for angular packages as @angular/cli
+      .replace(/(@(?:angular|schematics).*)\^/g, '$1~')
+  );
+  packageJson.devDependencies ||= {};
+  mandatoryDependencies.forEach((dep) => {
+    packageJson.devDependencies![dep] = dependencies?.[dep] || devDependencies?.[dep] || 'latest';
+  });
+  writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+  if (projectPackageManager === 'yarn') {
+    exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
+      stdio: 'inherit',
+      cwd
+    }));
+  }
+
+  exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['install'], {
     stdio: 'inherit',
     cwd
-  });
+  }));
+};
 
-  if (error) {
-    // eslint-disable-next-line no-console
-    console.error(error);
-    checkIfSupportedPackageManager();
-    process.exit(2);
-  }
+const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
+  const cwd = resolve(process.cwd(), relativeDirectory);
+  const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
+  const options = schematicsCliOptions
+    .flat();
+
+  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+    stdio: 'inherit',
+    cwd
+  }));
 };
 
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
 console.info(logo);
 createNgProject();
-addOtterFramework(projectFolder);
+prepareWorkspace(projectFolder, packageManager);
+addOtterFramework(projectFolder, packageManager);

@@ -3,7 +3,6 @@ import { Validator } from 'jsonschema';
 
 /**
  * Get the validity of a given JSON object
- *
  * @param jsonObject Object to check
  * @param schema Json Schema to apply to the object
  * @param errorMessage Error message display to the error

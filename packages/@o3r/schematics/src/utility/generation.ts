@@ -1,5 +1,5 @@
-import { JsonValue } from '@angular-devkit/core';
-import { Tree } from '@angular-devkit/schematics';
+import type { JsonValue } from '@angular-devkit/core';
+import type { Tree } from '@angular-devkit/schematics';
 import { O3rCliError } from './error';
 import { getWorkspaceConfig } from './loaders';
 import { getDefaultOptionsForSchematic } from './collection';

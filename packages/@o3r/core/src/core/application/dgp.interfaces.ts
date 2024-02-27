@@ -12,25 +12,28 @@ export interface BootstrapConfig {
 export interface Dataset {
   /**
    * Bootstrap configuration
-   *
    * @example
+   * ```typescript
    * '{ environment: 'prod' }'
+   * ```
    */
   bootstrapconfig?: string;
 
   /**
    * Dynamic content path
-   *
    * @example
+   * ```typescript
    * 'my/dynamic/path'
+   * ```
    */
   dynamiccontentpath?: string;
 
   /**
    * Application basehref url
-   *
    * @example
+   * ```typescript
    * '/my/base/href'
+   * ```
    */
   appbasehref?: string;
 

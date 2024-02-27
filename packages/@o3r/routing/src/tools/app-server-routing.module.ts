@@ -5,11 +5,10 @@ import type { BuildTimeProperties } from '@o3r/core';
 /**
  * AppBaseHref factory function
  * The APP_BASE_HREF will assume one of the following values (ordered by priority):
- *  1- undefined (or disabled) if it's not a PROD environment
- *  2- the content of the data tag data-appbasehref in the body if it exists
- *  3- the content of config.APP_BASE_HREF if defined
- *  4- otherwise, undefined
- *
+ * 1- undefined (or disabled) if it's not a PROD environment
+ * 2- the content of the data tag data-appbasehref in the body if it exists
+ * 3- the content of config.APP_BASE_HREF if defined
+ * 4- otherwise, undefined
  * @param config The application environment configuration
  */
 export function appBaseHrefFactory(config: BuildTimeProperties) {
@@ -29,7 +28,6 @@ export const ENVIRONMENT_CONFIG_TOKEN = new InjectionToken<BuildTimeProperties>(
 export class AppServerRoutingModule {
   /**
    * Injects the APP_BASE_HREF with a custom factory
-   *
    * @param config The application environment configuration
    */
   public static forRoot(config: BuildTimeProperties): ModuleWithProviders<AppServerRoutingModule> {

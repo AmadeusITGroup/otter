@@ -21,7 +21,8 @@ one.
 ng add @o3r/apis-manager
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Usage
 
@@ -108,7 +109,8 @@ class MyClass {
 }
 ```
 
-> **Warning** : Do not forget to import the **ApiManagerModule** in you component module
+> [!WARNING]
+> Do not forget to import the **ApiManagerModule** in you component module
 
 ### Enforce custom API usage
 
@@ -149,7 +151,8 @@ class MyClass {
 }
 ```
 
-> **Note** : Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
+> [!NOTE]
+> Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
 
 ### Override configuration after instantiation
 

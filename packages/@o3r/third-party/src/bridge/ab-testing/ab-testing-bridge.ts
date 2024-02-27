@@ -58,11 +58,11 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
   /**
    * Behaviour subject to control the experiments via the exposed interface
    */
-  private experimentSubject$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
+  private readonly experimentSubject$: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
   /**
    * Options to configure the communication between the AB Testing bridge and third parties
    */
-  private options: AbTestBridgeConfig;
+  private readonly options: AbTestBridgeConfig;
   /**
    * Observable with the list of AB testing experiments currently applied
    */
@@ -72,7 +72,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
    * @param isExperimentEqual check two different experiments match to identify an experiment to start or to stop
    * @param options configure the communication with the A/B testing third party provider
    */
-  constructor(private isExperimentEqual: (value1?: T, value2?: T) => boolean, options?: Partial<AbTestBridgeConfig>) {
+  constructor(private readonly isExperimentEqual: (value1?: T, value2?: T) => boolean, options?: Partial<AbTestBridgeConfig>) {
     this.experiments$ = this.experimentSubject$.pipe(
       distinctUntilChanged((experimentsA: T[], experimentsB: T[]) =>
         experimentsB.length === experimentsA.length && experimentsA.every((eA) => experimentsB.find((eB) => isExperimentEqual(eA, eB))
@@ -120,8 +120,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     const currentExperiments = this.experimentSubject$.getValue();
     if (experiments) {
       // Stop the mentioned experiment
-      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !
-      (Array.isArray(experiments) ? experiments : [experiments]).some(expA => this.isExperimentEqual(expB, expA)))
+      this.experimentSubject$.next(currentExperiments.filter((expB: T) => !(Array.isArray(experiments) ? experiments : [experiments]).some(expA => this.isExperimentEqual(expB, expA)))
       );
     } else {
       // Stop all the experiment

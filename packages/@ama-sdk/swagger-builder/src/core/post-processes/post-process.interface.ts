@@ -4,7 +4,6 @@
 export interface PostProcess {
   /**
    * Execute post process
-   *
    * @param spec Swagger specification
    */
   execute<T = any>(spec: T): Promise<T>;

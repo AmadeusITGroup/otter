@@ -10,7 +10,6 @@ declare global {
 
 /**
  * Set Style Metadata
- *
  * @param metadata CSS Style Metadata
  */
 export function setStyleMetadata(metadata: CssMetadata) {

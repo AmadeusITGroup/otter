@@ -19,7 +19,6 @@ const isHTMLTemplateDocument = (doc: vscode.TextDocument | undefined) => {
 
 /**
  * Generate component command
- *
  * @param _context
  * @returns
  */

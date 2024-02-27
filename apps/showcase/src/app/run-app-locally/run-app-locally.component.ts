@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { O3rComponent } from '@o3r/core';
 import { CopyTextPresComponent } from '../../components/index';
 
@@ -7,7 +6,7 @@ import { CopyTextPresComponent } from '../../components/index';
 @Component({
   selector: 'o3r-run-app-locally',
   standalone: true,
-  imports: [CommonModule, CopyTextPresComponent],
+  imports: [CopyTextPresComponent],
   templateUrl: './run-app-locally.template.html',
   styleUrls: ['./run-app-locally.style.scss'],
   encapsulation: ViewEncapsulation.None,

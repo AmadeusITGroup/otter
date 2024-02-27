@@ -100,7 +100,7 @@ export abstract class Cascading {
    * @param username User name used for git commands
    * @param email Email used for git commands
    */
-  constructor(public logger: BaseLogger, public username: string = 'Auto Cascading', public email: string = 'cascading@otter.com') {
+  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {
   }
 
   /**

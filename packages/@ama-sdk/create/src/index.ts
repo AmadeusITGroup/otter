@@ -11,9 +11,16 @@ const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.
 const args = process.argv.slice(2);
 const argv = minimist(args);
 
+let defaultPackageManager = 'npm';
+if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
+  defaultPackageManager = packageManagerEnv;
+}
+
+const packageManager: string = argv['package-manager'] || defaultPackageManager;
+
 if (argv._.length < 2) {
   console.error('The SDK type and project name are mandatory');
-  console.info('usage: create typescript <@scope/package>');
+  console.info(`usage: ${packageManager} create @ama-sdk typescript <@scope/package>`);
   process.exit(-1);
 }
 
@@ -37,13 +44,6 @@ const schematicsToRun = [
   `${schematicsPackage}:typescript-shell`,
   ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
 ];
-
-let defaultPackageManager = 'npm';
-if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
-  defaultPackageManager = packageManagerEnv;
-}
-
-const packageManager = argv['package-manager'] || defaultPackageManager;
 
 const getYarnVersion = () => {
   try {
@@ -70,7 +70,8 @@ const schematicArgs = [
   '--package', pck,
   '--package-manager', packageManager,
   '--directory', targetDirectory,
-  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : []),
+  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
 ];
 
 const getSchematicStepInfo = (schematic: string) => ({
@@ -79,32 +80,27 @@ const getSchematicStepInfo = (schematic: string) => ({
 
 const run = () => {
 
-  const steps: { args: string[]; cwd?: string }[] = [
+  const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
+  const steps: { args: string[]; cwd?: string; runner?: string }[] = [
     getSchematicStepInfo(schematicsToRun[0]),
     ...(
       packageManager === 'yarn'
-        ? [{ args: ['yarn', 'set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
         : []
     ),
     ...schematicsToRun.slice(1).map(getSchematicStepInfo)
   ];
 
   const errors = steps
-    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
-    .map(({error}) => error)
-    .filter((err) => !!err);
+    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
+    .filter(({error, status}) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach((err) => console.error(err));
-    if (packageManagerEnv !== 'npm') {
-      console.error(`Other package managers than 'npm' are experimental for @ama-sdk create for the time being.
-Please use the following command:
-  'npm create @ama-sdk typescript <package-name> -- [...options]'
-
-https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/create#usage
-
-`);
-    }
+    errors.forEach(({error}) => {
+      if (error) {
+        console.error(error);
+      }
+    });
     process.exit(1);
   }
 };

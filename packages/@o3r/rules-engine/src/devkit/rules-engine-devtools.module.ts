@@ -21,7 +21,6 @@ export class RulesEngineDevtoolsModule {
 
   /**
    * Initialize Otter Devtools
-   *
    * @param options
    */
   public static instrument(options: Partial<RulesEngineDevtoolsServiceOptions>): ModuleWithProviders<RulesEngineDevtoolsModule> {

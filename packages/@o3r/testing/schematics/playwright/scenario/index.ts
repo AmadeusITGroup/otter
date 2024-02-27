@@ -1,13 +1,13 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getDestinationPath, getWorkspaceConfig, O3rCliError } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getDestinationPath, getWorkspaceConfig, O3rCliError } from '@o3r/schematics';
 import { NgGeneratePlaywrightScenarioSchematicsSchema } from './schema';
 
 /**
  * Add a Playwright scenario to an Otter project
  * @param options
  */
-export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenarioSchematicsSchema): Rule {
+function ngGeneratePlaywrightScenarioFn(options: NgGeneratePlaywrightScenarioSchematicsSchema): Rule {
   const isApplication = (tree: Tree/* , context: SchematicContext*/) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
@@ -47,3 +47,9 @@ export function ngGeneratePlaywrightScenario(options: NgGeneratePlaywrightScenar
     generateFiles
   ]);
 }
+
+/**
+ * Add a Playwright scenario to an Otter project
+ * @param options
+ */
+export const ngGeneratePlaywrightScenario = createSchematicWithMetricsIfInstalled(ngGeneratePlaywrightScenarioFn);

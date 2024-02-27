@@ -1,5 +1,5 @@
 import { TSESLint } from '@typescript-eslint/experimental-utils';
-import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
+import { createCommentString, createRule, defaultSupportedInterfaceNames, getNodeComment, isExtendingConfiguration } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
 
@@ -34,8 +34,6 @@ type O3rWidgetRuleErrorId =
   | 'suggestRemoveDuplicatedO3rWidgetParam'
   | 'suggestAddO3rWidgetTag'
   | 'suggestReplaceO3rWidgetType';
-
-const createCommentString = (comment: string) => `/*${comment}*/`;
 
 const defaultOptions: [Required<O3rWidgetTagsRuleOption>] = [{
   supportedInterfaceNames: defaultSupportedInterfaceNames,
@@ -111,7 +109,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
       // eslint-disable-next-line @typescript-eslint/naming-convention
       TSPropertySignature: (node) => {
         const sourceCode = context.getSourceCode();
-        const [comment] = sourceCode.getCommentsBefore(node);
+        const comment = getNodeComment(node, sourceCode);
 
         if (!comment || !comment.value.length) {
           return;

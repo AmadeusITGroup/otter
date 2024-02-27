@@ -15,7 +15,7 @@ export class AppConnectionComponent implements OnDestroy {
   /** Stream of application's state */
   public appState$: Observable<AppState>;
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   constructor(
     connectionService: ChromeExtensionConnectionService,

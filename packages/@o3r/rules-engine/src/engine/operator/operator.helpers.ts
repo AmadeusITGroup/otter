@@ -34,7 +34,6 @@ export function executeOperator<L = unknown, R = unknown>(lhs: L, rhs: R, operat
 
 /**
  * Validate a number operand
- *
  * @param operand value of one of the operands
  */
 export function numberValidator(operand: unknown): operand is number | string {
@@ -44,7 +43,6 @@ export function numberValidator(operand: unknown): operand is number | string {
 
 /**
  * Validate an operand is a range of numbers
- *
  * @param operatorInput value of one of the operands
  */
 export function isRangeNumber(operatorInput: unknown): operatorInput is [number | string, number | string] {
@@ -57,7 +55,6 @@ export function isRangeNumber(operatorInput: unknown): operatorInput is [number 
 
 /**
  * Verifies if the parameter is a valid date for the operator (getTime function available returning a number)
- *
  * @param operatorInput
  */
 export const isValidDate = (operatorInput: any): operatorInput is Date => {
@@ -70,7 +67,6 @@ export const isValidDate = (operatorInput: any): operatorInput is Date => {
 
 /**
  * Verifies if the parameter is a valid input for Date constructor (new Date returns a valid date)
- *
  * @param operatorInput
  */
 export const isValidDateInput = (operatorInput: any): operatorInput is DateInput => {
@@ -79,7 +75,6 @@ export const isValidDateInput = (operatorInput: any): operatorInput is DateInput
 
 /**
  * Verifies if the parameter is a valid date range
- *
  * @param operatorInput
  */
 export const isValidDateRange = (operatorInput: any): operatorInput is [DateInput, DateInput] => {
@@ -92,7 +87,6 @@ export const isValidDateRange = (operatorInput: any): operatorInput is [DateInpu
 
 /**
  * Validate that a value is a supported simple type
- *
  * @param value value to validate
  */
 export function isSupportedSimpleTypes(value: unknown): value is SupportedSimpleTypes {
@@ -101,7 +95,6 @@ export function isSupportedSimpleTypes(value: unknown): value is SupportedSimple
 
 /**
  * Validate that a value is a string
- *
  * @param value
  */
 export function isString(value: unknown): value is string {
@@ -110,9 +103,9 @@ export function isString(value: unknown): value is string {
 
 /**
  * Parse input to return RegExp
- *
  * @param value value to test whether pattern exists (can be string or array of strings)
  * @param inputString regexp pattern
+ * @param inputRegExp
  */
 export function parseRegExp(inputRegExp: string) {
   if (inputRegExp.startsWith('/')) {

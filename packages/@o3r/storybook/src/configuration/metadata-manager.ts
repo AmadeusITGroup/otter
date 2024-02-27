@@ -10,7 +10,6 @@ declare global {
 
 /**
  * Set Configuration Metadata
- *
  * @param metadata Configuration Metadata
  */
 export function setConfigurationMetadata(metadata: ComponentConfigOutput[]) {

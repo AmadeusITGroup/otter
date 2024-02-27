@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile"]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -34,13 +32,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/vscode-extension/.eslintrc.js",
         "lintFilePatterns": [
@@ -52,8 +43,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/vscode-extension/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/vscode-extension/jest.config.js"
       }
     },
     "prepare-publish": {
@@ -68,9 +58,7 @@
         "command": "npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
       },
-      "dependsOn": [
-        "prepare-publish"
-      ]
+      "dependsOn": ["prepare-publish"]
     }
   },
   "tags": []

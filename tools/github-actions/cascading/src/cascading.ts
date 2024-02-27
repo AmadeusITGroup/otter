@@ -32,7 +32,7 @@ export interface CascadingOptions<T extends BaseLogger> {
   /** Whether to assign the first committer to the cascading failure PR */
   assignCommitter: string;
 
-  /** The list of packages changes to ignore if the conflict is only about them (ex: ['@otter/common','@otter/core','@refx/booking-common','@refx/booking-components']) */
+  /** The list of packages changes to ignore if the conflict is only about them (ex: ['@otter/common','@otter/core','@my-lib/booking-common','@my-lib/booking-components']) */
   conflictsIgnoredPackages: string[];
 
   /** Access token for GitHub API authentication */
@@ -200,7 +200,6 @@ export class Cascading {
 
   /**
    * Create a fallback pull request from branchToCascade to currentBranch
-   *
    * @param branchToCascade
    * @param title
    * @param baseBranchOverride
@@ -230,7 +229,6 @@ export class Cascading {
 
   /**
    * Get the first merge commit of the pull request
-   *
    * @param pullRequestNumber
    */
   public async getFirstMergeCommit(pullRequestNumber: number) {
@@ -250,7 +248,6 @@ export class Cascading {
 
   /**
    * Assign a pull request a user
-   *
    * @param pullRequestNumber
    * @param username
    */

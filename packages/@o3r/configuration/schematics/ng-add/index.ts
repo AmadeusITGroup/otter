@@ -1,20 +1,22 @@
-import { chain, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+import { getPackageInstallConfig } from '@o3r/schematics';
 
 /**
  * Add Otter configuration to an Angular Project
  * @param options The options to pass to ng-add execution
  */
-export function ngAdd(options: NgAddSchematicsSchema) {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
-  return async (tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext): Promise<Rule> => {
     try {
       const {
-        ngAddPackages,
-        getProjectNewDependenciesType,
+        setupDependencies,
+        getProjectNewDependenciesTypes,
         getWorkspaceConfig,
         getO3rPeerDeps,
         registerPackageCollectionSchematics,
@@ -24,11 +26,18 @@ export function ngAdd(options: NgAddSchematicsSchema) {
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
       const depsInfo = getO3rPeerDeps(packageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
       context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
-      return chain([
+      return () => chain([
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -44,15 +53,12 @@ export function ngAdd(options: NgAddSchematicsSchema) {
             useOtterConfig: undefined
           }
         }),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
-        await registerDevtools(options)
+        () => registerDevtools(options)
       ])(tree, context);
     } catch (e) {
       // configuration needs o3r/core as peer dep. o3r/core will install o3r/schematics
@@ -64,3 +70,9 @@ export function ngAdd(options: NgAddSchematicsSchema) {
   };
 
 }
+
+/**
+ * Add Otter configuration to an Angular Project
+ * @param options The options to pass to ng-add execution
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

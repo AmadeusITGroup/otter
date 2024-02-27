@@ -15,11 +15,10 @@ export interface AdditionalParametersSync {
  */
 export class AdditionalParamsSyncRequest implements RequestPlugin {
 
-  private additionalParams: AdditionalParametersSync;
+  private readonly additionalParams: AdditionalParametersSync;
 
   /**
    * Initialize your plugin
-   *
    * @param additionalParams Parameters to add or modify
    */
   constructor(additionalParams: AdditionalParametersSync) {

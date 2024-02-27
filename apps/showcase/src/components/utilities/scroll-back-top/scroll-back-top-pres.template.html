@@ -1,1 +1,3 @@
-<button class="btn btn-lg" (click)="scrollTop()" *ngIf="showScroll$ | async"><i class="bi bi-arrow-up-circle-fill"></i></button>
+@if (showScroll$ | async) {
+  <button class="btn btn-lg icon-arrow-circle-up" (click)="scrollTop()"></button>
+}

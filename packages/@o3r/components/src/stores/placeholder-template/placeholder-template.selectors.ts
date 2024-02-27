@@ -12,7 +12,6 @@ export const selectPlaceholderTemplateEntities = createSelector(selectPlaceholde
 
 /**
  * Select a specific PlaceholderTemplate
- *
  * @param placeholderId
  */
 export const selectPlaceholderTemplateEntity = (placeholderId: string) =>
@@ -22,7 +21,6 @@ export const selectPlaceholderTemplateEntity = (placeholderId: string) =>
  * Select the ordered rendered placeholder template full data (url, priority etc.) for a given placeholderId
  * Return undefined if the placeholder is not found
  * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
- *
  * @param placeholderId
  */
 export const selectSortedTemplates = (placeholderId: string) => createSelector(
@@ -67,9 +65,7 @@ export const selectSortedTemplates = (placeholderId: string) => createSelector(
  * Select the ordered rendered templates for a given placeholderId
  * Return undefined if the placeholder is not found
  * Returns {orderedRenderedTemplates: undefined, isPending: true} if any of the request is still pending
- *
  * @param placeholderId
- *
  * @deprecated Please use {@link selectSortedTemplates} instead
  */
 export const selectPlaceholderRenderedTemplates = (placeholderId: string) => createSelector(

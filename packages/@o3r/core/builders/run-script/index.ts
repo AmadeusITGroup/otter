@@ -4,9 +4,10 @@ import { getPackageManagerRunner } from '@o3r/schematics';
 import { execSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import * as fs from 'node:fs';
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import type { RunScriptBuilderSchema } from './schema';
 
-export default createBuilder<RunScriptBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<RunScriptBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   context.reportProgress(1, 1, `Running ${options.script} !!!`);
   const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
@@ -32,4 +33,4 @@ Detection of package manager runner will fallback on the one used to execute the
   } catch (e: any) {
     return { success: false, error: e.message || e.toString() };
   }
-});
+}));

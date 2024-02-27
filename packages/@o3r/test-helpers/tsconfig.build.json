@@ -9,9 +9,6 @@
   },
   "include": ["src/**/*.ts"],
   "exclude": [
-    "**/*.spec.ts",
-    "src/**/fixtures/**/*.ts",
-    "src/builders/**/*.ts",
-    "src/helpers/**/*.ts"
+    "**/*.spec.ts"
   ]
 }

@@ -17,7 +17,8 @@ The component only has 1 input and supports a *content value*.
 Based on the **id** provided to the placeholder component, it will register itself to the event coming from *
 *placeholderTemplate** and will display the template corresponding to its ID in the store.
 
-> **note**: it is **strongly encouraged** to use the placeholder mechanism in concert with
+> [!IMPORTANT]
+> It is **strongly encouraged** to use the placeholder mechanism in concert with
 > the [Rules Engine](../rules-engine/) following [this documentation](../rules-engine/how-to-use/placeholders.md).
 
 ## How to define a placeholder template
@@ -91,17 +92,18 @@ ex: `assets/placeholders/[LANGUAGE]/myPlaceholder.json`)
 The rules engine service will handle the replacement of `[LANGUAGE]` for you, and when you change language a new call
 will be performed to the new 'translated' URL.
 
-> **Note**: the URL caching mechanism is based on the url NOT 'translated', meaning that if you change from en-GB to
+> [!NOTE]
+> The URL caching mechanism is based on the url NOT 'translated', meaning that if you change from en-GB to
 > fr-FR then you decide to switch back and all the calls will be done again.
 > This behavior is based on the fact that a real user rarely goes back and forth with the language update.
 
-
 ### Dynamic localization
+
 Your second option is to manage your placeholder in a single template and use the dynamic localization mechanism.
 
 In that use case, you can refer to localization keys in your master placeholder template.
 The module will then translate the template based on the localization service and keep it updated after every language
-change.  
+change.
 As your placeholder URL remains the same, it will be updated dynamically without any server call.
 
 #### Implementation
@@ -139,12 +141,12 @@ Let's consider what this placeholder would look like if it were completely integ
 
 ```html
 "
-<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | translate}}</div>"
+<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | o3rTranslate}}</div>"
 ```
 
 Then, let's create a new localization key for each of your supported languages:
 
-* en-GB.json
+- en-GB.json
 
 ```json
 {
@@ -152,7 +154,7 @@ Then, let's create a new localization key for each of your supported languages:
 }
 ```
 
-* fr-FR.json
+- fr-FR.json
 
 ```json
 {
@@ -161,13 +163,13 @@ Then, let's create a new localization key for each of your supported languages:
 ```
 
 Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter. This means you need to create
-an ``increment`` fact to fill the value. 
+an ``increment`` fact to fill the value.
 You can follow the [fact creation documentation](../rules-engine/how-to-use/create-custom-fact.md).
 
 ```typescript
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { FactsService, RulesEngineService } from '@o3r/rules-engine';
+import { FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
 import { interval } from 'rxjs';
 import { retrieveUrl } from './fact-factories/index';
 import { PageFacts } from './page.facts';
@@ -181,14 +183,14 @@ export class PageFactsService extends FactsService<PageFacts> {
     increment: interval(2000)
   };
 
-  constructor(rulesEngine: RulesEngineService, private router: Router) {
+  constructor(rulesEngine: RulesEngineRunnerService, private router: Router) {
     super(rulesEngine);
   }
 
 }
 ```
 
-Once the translation keys and the referenced fact exist, you can link them to your placeholder.   
+Once the translation keys and the referenced fact exist, you can link them to your placeholder.
 See how the original translation pipe has been replaced and how the localization key is bound to the ``increment`` fact:
 
 ```json
@@ -215,6 +217,7 @@ Today you cannot only make a reference to a fact with the same name. You also ca
 This means the following is not possible:
 
 ``ruleset.json``
+
 ```json
 {
   "vars": {
@@ -269,5 +272,5 @@ You will probably want to reuse your placeholder in different pages for differen
 You might be tempted to use this generic template for all your events but the value of your counter parameter will
 depend on the event itself (Easter or next Summer Holidays for example).
 This means that ``increment`` might have a different value depending on the context of the page which might be tricky to
-maintain and to debug. 
+maintain and to debug.
 Try to keep it as simple as possible.

@@ -17,7 +17,8 @@ This module provides a fallback language/translation support and debug tools.
 ng add @o3r/localization
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Features
 
@@ -201,7 +202,7 @@ export  class SimpleHeaderPresModule {}
 
 <!-- using a pipe -->
 
-{{ "o3r-simple-header-pres.motto" | translate }} // => this will output Let's shape the future of travel
+{{ "o3r-simple-header-pres.motto" | o3rTranslate }} // => this will output Let's shape the future of travel
 <!-- using a directive -->
 
 <div [translate]="o3r-simple-header-pres.locWithArg" [translateParams]="{user: 'otter friend'}"> // => this will output Hello, otter friend!
@@ -214,7 +215,7 @@ export  class SimpleHeaderPresModule {}
 
 <!-- for resource with HTML markup use binding -->
 
-<span [innerHTML]="'someKeyWithHtml' | translate"></span>
+<span [innerHTML]="'someKeyWithHtml' | o3rTranslate"></span>
 
 ```
 
@@ -226,7 +227,7 @@ As a result "**hello bold**" will be printed inside the span element.
 
 <!-- dynamic resource -->
 
-{{ "someBagsAdded" | translate:{bags: 5} }} // => will output "You have added 5 bags"
+{{ "someBagsAdded" | o3rTranslate:{bags: 5} }} // => will output "You have added 5 bags"
 
 ```
 
@@ -371,8 +372,6 @@ constructor(private router: Router,
 
 ### How to add RTL support in my app
 
-- Note:  **TextDirectionDirective** is deprecated. Please refer to **TextDirectionService**.
-
 The **TextDirectionService** has to be injected in `app.component.ts` as follows.
 
 ```typescript
@@ -434,7 +433,8 @@ registerLocaleData(localeAR, 'ar');
 class AppModule {}
 ```
 
-> **Info:** The token `MESSAGE_FORMAT_CONFIG` implement the `LazyMessageFormatConfig` interface from `@o3r/localization`.
+> [!TIP]
+> The token `MESSAGE_FORMAT_CONFIG` implement the `LazyMessageFormatConfig` interface from `@o3r/localization`.
 > The full documentation about MessageFormat configuration is available on <https://github.com/lephyrus/ngx-translate-messageformat-compiler>.
 
 ### How to localize plural expression
@@ -481,7 +481,7 @@ import {MESSAGE_FORMAT_CONFIG} from 'ngx-translate-messageformat-compiler';
 ```typescript
 // component html template
 ...
-</span> {{translations.nbOfErrors | translate: {count: countMessages} }}
+</span> {{translations.nbOfErrors | o3rTranslate: {count: countMessages} }}
 ...
 ```
 
@@ -506,9 +506,9 @@ Sometimes you may want to display a different resource based on some property va
 ```typescript
 // in component html
 <ul>
-  <li>{{ translations.people | translate: { gender: 'female', how: 'influential' } }}</li>
-  <li>{{ translations.people | translate: { gender: 'male', how: 'funny' } }}</li>
-  <li>{{ translations.people | translate: { how: 'affectionate' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { gender: 'female', how: 'influential' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { gender: 'male', how: 'funny' } }}</li>
+  <li>{{ translations.people | o3rTranslate: { how: 'affectionate' } }}</li>
 </ul>
 ```
 
@@ -529,7 +529,8 @@ Note again that *translations.people* matches *global.people* key
 In order to be able to more easily identify which key corresponds to a given text, the ``LocalizationService`` exposes a function ``toggleShowKeys()`` that can be called in order to deactivate or reactivate the translation mechanism at **runtime**.
 While deactivated, the ``translate`` **pipe** and **directive** will output the translation keys instead of their resolved values.
 
-> **Important**: this mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
+> [!IMPORTANT]
+> This mechanism only applies to the pipe and directive exported by Otter's ``LocalizationModule``. The original ones from ``ngx-translate`` do not support it.
 
 First, this mechanism has to be activated via the ``LocalizationConfiguration`` that you can provide in your ``ApplicationModule``.
 This is mainly for performances reason: the way it works is it adds a new subscription to every ``translate`` pipe and directive in order to know when translations are turned on or off.
@@ -708,7 +709,6 @@ en-US **fallbacks to** en-GB, as en-GB has the same language with a different re
 fr-BE **fallbacks to** fr-FR, as fr-FR is first in the supported locales list.
 
 it-IT **fallbacks to** en-GB, as it is the default fallback.
-
 
 ## Generators
 
