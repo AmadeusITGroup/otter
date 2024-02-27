@@ -1,4 +1,5 @@
-import { chain, externalSchematic, noop, Rule, strings } from '@angular-devkit/schematics';
+import { chain, noop, Rule, strings } from '@angular-devkit/schematics';
+import { RunSchematicTask } from '@angular-devkit/schematics/tasks';
 import * as path from 'node:path';
 import {
   applyEsLintFix,
@@ -57,10 +58,11 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
         dependencies,
         skipInstall: options.skipInstall,
         ngAddToRun: Object.keys(dependencies),
-        projectName: options.name
+        projectName: options.name,
+        scheduleTaskCallback: (ids) => {
+          context.addTask(new RunSchematicTask('@o3r/core', 'ng-add-create', { name: extendedOptions.name, projectName: extendedOptions.name, path: targetPath }), ids);
+        }
       }),
-      (t, c) => externalSchematic('@o3r/core', 'ng-add', { ...options, projectName: extendedOptions.name })(t, c),
-      (t, c) => externalSchematic('@o3r/core', 'ng-add-create', { name: extendedOptions.name, projectName: extendedOptions.name, path: targetPath })(t, c),
       options.skipLinter ? noop() : applyEsLintFix()
     ])(tree, context);
   };
