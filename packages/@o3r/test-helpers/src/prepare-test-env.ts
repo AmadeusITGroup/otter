@@ -2,16 +2,15 @@ import { execSync, ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
-import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
+import { createTestEnvironmentBlank, createTestEnvironmentOtterProjectWithApp, createTestEnvironmentOtterProjectWithLib } from './test-environments/index';
 import { createWithLock, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
-import { createTestEnvironmentOtterProjectWithApp } from './test-environments/create-test-environment-otter-project';
 import { O3rCliError } from '@o3r/schematics';
 
 /**
  * - 'blank' only create yarn/npm config
  * - 'o3r-project-with-app' create a new otter project with a new application
  */
-export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
+export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app' | 'o3r-project-with-lib';
 
 /**
  * Retrieve the version used by yarn and setup at root level
@@ -136,6 +135,23 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       });
       projectPath = path.resolve(workspacePath, 'apps', projectName);
       untouchedProjectPath = path.resolve(workspacePath, 'apps', untouchedProject);
+      isInWorkspace = true;
+      break;
+    }
+
+    case 'o3r-project-with-lib': {
+      projectName = 'test-libs';
+      untouchedProject = 'dont-modify-me';
+      await createTestEnvironmentOtterProjectWithLib({
+        projectName,
+        appDirectory,
+        cwd: itTestsFolderPath,
+        logger,
+        ...packageManagerConfig,
+        replaceExisting: !process.env.CI
+      });
+      projectPath = path.resolve(workspacePath, 'libs', projectName);
+      untouchedProjectPath = path.resolve(workspacePath, 'libs', untouchedProject);
       isInWorkspace = true;
       break;
     }

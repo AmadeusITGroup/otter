@@ -55,7 +55,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
-        testEnvironment: [o3r-project-with-app]
+        testEnvironment: [o3r-project-with-app, o3r-project-with-lib]
     runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
