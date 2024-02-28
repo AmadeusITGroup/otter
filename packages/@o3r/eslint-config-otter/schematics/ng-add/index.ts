@@ -13,13 +13,16 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const devDependenciesToInstall = [
       'eslint',
-      '@stylistic/eslint-plugin-ts',
       '@angular-eslint/builder',
+      '@angular-eslint/eslint-plugin',
+      '@stylistic/eslint-plugin-ts',
       '@typescript-eslint/parser',
       '@typescript-eslint/eslint-plugin',
+      'eslint-plugin-jest',
       'eslint-plugin-jsdoc',
       'eslint-plugin-prefer-arrow',
       'eslint-plugin-unicorn',
+      'jest',
       'jsonc-eslint-parser'
     ];
 
