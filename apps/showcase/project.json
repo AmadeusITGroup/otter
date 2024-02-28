@@ -126,7 +126,8 @@
         ]
       },
       "dependsOn": [
-        "^build-builders"
+        "^build-builders",
+        "^build"
       ]
     },
     "serve-app": {

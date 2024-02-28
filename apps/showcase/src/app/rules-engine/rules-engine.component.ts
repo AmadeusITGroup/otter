@@ -29,6 +29,10 @@ import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';
 import { CurrentTimeFactsService } from '../../services/current-time-facts.service';
+import {
+  LocalizationRulesEngineActionHandler,
+  LocalizationRulesEngineActionModule
+} from '@o3r/localization/rules-engine';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -44,6 +48,7 @@ import { CurrentTimeFactsService } from '../../services/current-time-facts.servi
     RulesEngineDevtoolsModule,
     ConfigurationRulesEngineActionModule,
     AssetRulesEngineActionModule,
+    LocalizationRulesEngineActionModule,
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
     LocalizationOverrideStoreModule,
@@ -84,10 +89,12 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
     rulesEngineService: RulesEngineRunnerService,
     configHandle: ConfigurationRulesEngineActionHandler,
-    assetsHandler: AssetRulesEngineActionHandler
+    assetsHandler: AssetRulesEngineActionHandler,
+    localizationHandler: LocalizationRulesEngineActionHandler
   ) {
     rulesEngineService.actionHandlers.add(configHandle);
     rulesEngineService.actionHandlers.add(assetsHandler);
+    rulesEngineService.actionHandlers.add(localizationHandler);
     configurationDevtoolsMessageService.activate();
     rulesEngineDevtoolsMessageService.activate();
     rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
@@ -114,7 +121,8 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     this.store.dispatch(setRulesetsEntities({ entities: result.rulesets }));
     this.tripFactsService.register();
     // uncomment to test currentTimeFactsService override
-    // this.currentTimeFactsService.register();
+    this.currentTimeFactsService.register();
+    this.currentTimeFactsService.tick();
     const [
       newYorkAvailableRule,
       helloNewYorkRule,
