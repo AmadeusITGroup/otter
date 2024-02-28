@@ -31,6 +31,8 @@ export interface PrepareTestEnvOptions {
   yarnVersion?: string;
   /** Logger to use for logging */
   logger?: Logger;
+  /** Skip git setup */
+  skipGitSetup?: boolean;
 }
 
 /**
@@ -42,6 +44,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const type = options?.type || process.env.PREPARE_TEST_ENV_TYPE || 'o3r-project-with-app';
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
+  const skipGitSetup = options?.skipGitSetup || false;
   const rootFolderPath = process.cwd();
   const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
@@ -145,8 +148,10 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   prepareFinalApp(appDirectory);
 
-  // Setup git and initial commit to easily make checks on the diff inside the tests
-  setupGit(workspacePath);
+  if (!skipGitSetup) {
+    // Setup git and initial commit to easily make checks on the diff inside the tests
+    setupGit(workspacePath);
+  }
 
   return {
     workspacePath,

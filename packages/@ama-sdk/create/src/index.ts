@@ -9,7 +9,9 @@ const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const defaultScope = 'sdk';
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
 const args = process.argv.slice(2);
-const argv = minimist(args);
+const argv = minimist(args, {
+  'boolean': ['skip-git']
+});
 
 let defaultPackageManager = 'npm';
 if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
@@ -64,6 +66,8 @@ const getYarnVersion = () => {
   }
 };
 
+const skipGit = !!argv['skip-git'];
+
 const schematicArgs = [
   argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
   '--name', name,
@@ -71,7 +75,8 @@ const schematicArgs = [
   '--package-manager', packageManager,
   '--directory', targetDirectory,
   ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : []),
-  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
+  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : []),
+  ...(skipGit ? ['--skip-git'] : [])
 ];
 
 const getSchematicStepInfo = (schematic: string) => ({
@@ -81,14 +86,16 @@ const getSchematicStepInfo = (schematic: string) => ({
 const run = () => {
 
   const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
+  const cwd = resolve(process.cwd(), targetDirectory);
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
     getSchematicStepInfo(schematicsToRun[0]),
     ...(
       packageManager === 'yarn'
-        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd}]
         : []
     ),
-    ...schematicsToRun.slice(1).map(getSchematicStepInfo)
+    ...schematicsToRun.slice(1).map(getSchematicStepInfo),
+    ...(skipGit ? [] : [{ runner: 'git', args: ['add', '.'], cwd}])
   ];
 
   const errors = steps

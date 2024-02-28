@@ -10,6 +10,7 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
+import {RepositoryInitializerTask} from '@angular-devkit/schematics/tasks';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import {dump, load} from 'js-yaml';
 import {isAbsolute, posix, relative} from 'node:path';
@@ -27,6 +28,13 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
     const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
     const installTask = new NpmInstall({workingDirectory, packageManager: options.packageManager, allowScripts: false});
     context.addTask(installTask);
+  };
+
+  const initGitRule = (_tree: Tree, context: SchematicContext) => {
+    const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
+    const defaultCommitOptions = { message: 'Initial commit' };
+    const commitOptions = options.commit === true ? defaultCommitOptions : typeof options.commit === 'object' ? {...defaultCommitOptions, ...options.commit} : undefined;
+    context.addTask(new RepositoryInitializerTask(workingDirectory, commitOptions));
   };
 
   const setupRule = async (tree: Tree, context: SchematicContext) => {
@@ -107,7 +115,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
 
   return chain([
     setupRule,
-    ...(options.skipInstall ? [] : [installRule])
+    ...(options.skipInstall ? [] : [installRule]),
+    ...(options.skipGit ? [] : [initGitRule])
   ]);
 }
 

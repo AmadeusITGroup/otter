@@ -67,12 +67,14 @@ describe('Typescript Shell Generator', () => {
     yarnTree = await runner.runSchematic('typescript-shell', {
       name: 'test-scope',
       package: 'test-sdk',
-      skipInstall: true
+      skipInstall: true,
+      skipGit: true
     }, Tree.empty());
     npmTree = await runner.runSchematic('typescript-shell', {
       name: 'test-scope',
       package: 'test-sdk',
       skipInstall: true,
+      skipGit: true,
       packageManager: 'npm'
     }, Tree.empty());
   });
