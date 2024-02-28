@@ -20,9 +20,7 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
   let wrapper: BuilderWrapper = noopBuilderWrapper;
   try {
     const { createBuilderWithMetrics } = await import('@o3r/telemetry');
-    if (packageJson.config?.o3rMetrics) {
-      wrapper = createBuilderWithMetrics;
-    }
+    wrapper = createBuilderWithMetrics;
   } catch (e: any) {
     // Do not throw if `@o3r/telemetry is not installed
     if (packageJson.config?.o3rMetrics === true) {
@@ -30,7 +28,9 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
     } else if (
       (!process.env.CI || process.env.CI === 'false')
       && (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
-      && typeof packageJson.config?.o3rMetrics === 'undefined'
+      && packageJson.config?.o3rMetrics !== false
+      && process.env.O3R_METRICS !== 'false'
+      && (opts as any).o3rMetrics !== false
     ) {
       ctx.logger.debug('`@o3r/telemetry` is not available.\nAsking to add the dependency\n' + e.toString());
 
@@ -41,7 +41,8 @@ export const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) =
 Would you like to share anonymous data about the usage of Otter builders and schematics with the Otter Team at Amadeus ?
 It will help us to improve our tools.
 For more details and instructions on how to change these settings, see https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/README.md.
-        `
+        `,
+        default: false
       };
       const { isReplyPositive } = await prompt([question]);
 
