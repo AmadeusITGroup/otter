@@ -7,6 +7,11 @@ module.exports = {
   ...getJestProjectConfig(rootDir, false),
   displayName: `${require('../package.json').name}/builders`,
   rootDir,
+  fakeTimers: {
+    enableGlobally: true,
+    // This is needed to prevent timeout on builders tests
+    advanceTimers: true
+  },
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
     '<rootDir>/src/.*',

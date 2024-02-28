@@ -13,9 +13,10 @@ describe('Typescript Core Generator', () => {
     tree.create('/readme.md', 'Based on Swagger spec 0.1.0');
     baseTree = await runner.runSchematic('typescript-shell', {
       name: 'test-sdk',
-      package: 'sdk'
+      package: 'sdk',
+      skipInstall: true
     }, tree);
-  }, 15000);
+  });
 
   it('should update readme', async () => {
     const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
@@ -24,7 +25,7 @@ describe('Typescript Core Generator', () => {
     }, baseTree);
 
     expect(tree.readContent('/readme.md')).toContain('Based on Swagger spec 1.0.0');
-  }, 10000);
+  });
 
   it('should clean previous install', async () => {
     baseTree.create('/src/api/my-apy/test.ts', 'fake module');
