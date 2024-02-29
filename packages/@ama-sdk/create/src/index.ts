@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 
 import { execSync, spawnSync } from 'node:child_process';
-import { dirname, join, resolve } from 'node:path';
+import * as url from 'node:url';
+import { dirname, join, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
@@ -40,10 +41,6 @@ if (!pck) {
 
 const targetDirectory = join('.', name, pck);
 const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
-const schematicsToRun = [
-  `${schematicsPackage}:typescript-shell`,
-  ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
-];
 
 const getYarnVersion = () => {
   try {
@@ -69,26 +66,31 @@ const schematicArgs = [
   '--name', name,
   '--package', pck,
   '--package-manager', packageManager,
-  '--directory', targetDirectory,
-  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : []),
   ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
 ];
 
-const getSchematicStepInfo = (schematic: string) => ({
-  args: [binPath, schematic, ...schematicArgs]
-});
+const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
 
 const run = () => {
+  const isSpecPathUrl = url.URL.canParse(argv['spec-path']);
 
   const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
-    getSchematicStepInfo(schematicsToRun[0]),
+    { args: [binPath, `${schematicsPackage}:typescript-shell`, ...schematicArgs, '--directory', targetDirectory] },
     ...(
       packageManager === 'yarn'
-        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...schematicsToRun.slice(1).map(getSchematicStepInfo)
+    ...(argv['spec-path'] ? [{
+      args: [
+        binPath,
+        `${schematicsPackage}:typescript-core`,
+        ...schematicArgs,
+        '--spec-path', isSpecPathUrl ? argv['spec-path'] : relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path']))
+      ],
+      cwd: resolveTargetDirectory
+    }] : [])
   ];
 
   const errors = steps
