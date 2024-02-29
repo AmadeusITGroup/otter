@@ -30,7 +30,6 @@
     "noUnusedParameters": true,
     "removeComments": false,
     "declarationMap": false,
-    "skipLibCheck": true,
     "pretty": true,
     "preserveWatchOutput": true,
     "jsx": "react",
