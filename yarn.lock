@@ -13510,9 +13510,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"audit-67f6b4@workspace:tools/github-actions/audit":
+"audit-gh-action@workspace:tools/github-actions/audit":
   version: 0.0.0-use.local
-  resolution: "audit-67f6b4@workspace:tools/github-actions/audit"
+  resolution: "audit-gh-action@workspace:tools/github-actions/audit"
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
@@ -14422,9 +14422,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cascading-920ed5@workspace:tools/github-actions/cascading":
+"cascading-gh-action@workspace:tools/github-actions/cascading":
   version: 0.0.0-use.local
-  resolution: "cascading-920ed5@workspace:tools/github-actions/cascading"
+  resolution: "cascading-gh-action@workspace:tools/github-actions/cascading"
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
@@ -19104,9 +19104,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"get-npm-tag-5d7ac2@workspace:tools/github-actions/get-npm-tag":
+"get-npm-tag-gh-action@workspace:tools/github-actions/get-npm-tag":
   version: 0.0.0-use.local
-  resolution: "get-npm-tag-5d7ac2@workspace:tools/github-actions/get-npm-tag"
+  resolution: "get-npm-tag-gh-action@workspace:tools/github-actions/get-npm-tag"
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
@@ -23431,9 +23431,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"new-version-c91c90@workspace:tools/github-actions/new-version":
+"new-version-gh-action@workspace:tools/github-actions/new-version":
   version: 0.0.0-use.local
-  resolution: "new-version-c91c90@workspace:tools/github-actions/new-version"
+  resolution: "new-version-gh-action@workspace:tools/github-actions/new-version"
   dependencies:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"

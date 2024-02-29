@@ -39,7 +39,7 @@
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
-    "generate": "schematics ../schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property stringifyDate",
+    "generate": "schematics ../schematics:typescript-core --generator-key ama-sdk-showcase-sdk",
     "spec:regen": "yarn run generate --no-dry-run && amasdk-clear-index",
     "files:pack": "yarn amasdk-files-pack",
     "test": "jest --passWithNoTests",

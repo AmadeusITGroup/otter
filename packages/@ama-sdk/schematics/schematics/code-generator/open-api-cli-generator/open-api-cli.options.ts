@@ -34,9 +34,22 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
    * ```typescript
    * 'debugOperations'
    * ```
+   * @example To generate the dates as string types
+   * ```typescript
+   * 'stringifyDate'
+   * ```
+   * @example To be able to extend the SDK models and ensure that revivers are generated
+   * ```typescript
+   * 'allowModelExtension'
+   * ```
    * @default ''
    */
   globalProperty: string;
+  /**
+   * Run generator by key (from openapitools.json)
+   * @default ''
+   */
+  generatorKey: string;
 };
 
 /**
@@ -49,5 +62,6 @@ export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
   specConfigPath: '',
-  globalProperty: ''
+  globalProperty: '',
+  generatorKey: ''
 };

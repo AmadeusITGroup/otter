@@ -95,4 +95,10 @@ describe('Typescript Shell Generator', () => {
     expect(npmTree.readContent('/package.json')).toContain('npm exec');
     expect(npmTree.readContent('/package.json')).not.toContain('yarn exec');
   });
+
+  it('should generate correct openapitools.json', () => {
+    const openApiTools = JSON.parse(yarnTree.readContent('/openapitools.json'));
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    expect(openApiTools['generator-cli'].generators).toEqual(expect.objectContaining({'test-scope-test-sdk': expect.anything()}));
+  });
 });
