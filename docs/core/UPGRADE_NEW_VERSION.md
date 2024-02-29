@@ -68,11 +68,11 @@ If you already have an `eslint` config, you can use the version-harmonize rule l
 }
 ```
 
-Once this is set up, you can run the version-harmonize before and after the migration using`yarn eslint **/package.json --fix`.
+Once this is set up, you can run the version-harmonize before and after the migration using `yarn eslint **/package.json --fix`.
 
 ## Guide to update your Otter version
-Although the Otter team always tries to automate as much as possible the migration steps, there might be cases where
-automation may not work.
+Although the Otter team always tries to automate the migration steps as much as possible , there may be cases where
+automation does not work.
 
 You can always refer to the dedicated [migration guide](../../migration-guides/README.md) of each version to see the list of
 changes that needs to be applied.
