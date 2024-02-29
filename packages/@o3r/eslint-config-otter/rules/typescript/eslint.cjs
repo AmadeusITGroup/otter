@@ -82,7 +82,6 @@ module.exports = {
           'Inject',
           'Injectable',
           'Input',
-          'InputMerge',
           'Localization',
           'NgModule',
           'Optional',
