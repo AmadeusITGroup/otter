@@ -1,6 +1,7 @@
 {
   "version": "0.0.0-placeholder",
   "private": true,
+  "name": "get-npm-tag-gh-action",
   "description": "Get npm tag GitHub action provided by Otter",
   "main": "tmp/main.js",
   "scripts": {
