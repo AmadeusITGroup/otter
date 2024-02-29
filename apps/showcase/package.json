@@ -110,6 +110,8 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.0.0",
     "jsonc-eslint-parser": "~2.4.0",
+    "lighthouse": "9.6.8",
+    "playwright-lighthouse": "2.2.2",
     "rimraf": "^5.0.1",
     "ts-jest": "~29.1.1",
     "typescript": "~5.3.3",
