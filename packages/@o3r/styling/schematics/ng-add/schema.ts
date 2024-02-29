@@ -6,4 +6,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Activate metadata extraction */
   enableMetadataExtract: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

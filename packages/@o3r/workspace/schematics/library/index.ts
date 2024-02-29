@@ -45,10 +45,11 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
       '@o3r/core': {
         inManifest: [
           {
-            range: `~${ownPackageJsonContent.version!}`,
+            range: `${options.exactO3rVersion ? '' : '~'}${ownPackageJsonContent.version!}`,
             types: [NodeDependencyType.Default]
           }
-        ]
+        ],
+        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       }
     };
 

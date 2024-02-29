@@ -22,6 +22,11 @@
     "enablePlaywright": {
       "type": "boolean",
       "description": "Install playwright"
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,

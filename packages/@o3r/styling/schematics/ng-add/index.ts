@@ -49,12 +49,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
         acc[dep] = {
           inManifest: [{
-            range: `~${depsInfo.packageVersion}`,
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
             types: getProjectNewDependenciesTypes(workspaceProject)
-          }]
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
         };
         return acc;
-      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
       Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
         .forEach(([dep, range]) => {
           dependencies[dep] = {
