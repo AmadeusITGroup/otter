@@ -1,6 +1,7 @@
 {
   "version": "0.0.0-placeholder",
   "private": true,
+  "name": "new-version-gh-action",
   "description": "New version GitHub action provided by Otter",
   "main": "tmp/main.js",
   "scripts": {

@@ -1,6 +1,7 @@
 {
   "version": "0.0.0-placeholder",
   "private": true,
+  "name": "audit-gh-action",
   "description": "Yarn audit GitHub action provided by Otter",
   "main": "tmp/main.js",
   "scripts": {
