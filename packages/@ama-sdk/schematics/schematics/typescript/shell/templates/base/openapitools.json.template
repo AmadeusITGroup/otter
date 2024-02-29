@@ -2,16 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "6.6.0",
+    "version": "<%= openApiSupportedVersion %>",
     "storageDir": ".openapi-generator",
     "generators": {
-      "ama-sdk-showcase-sdk": {
+      "<%=projectName%>-<%=projectPackageName%>": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./swagger-spec.yaml",
-        "globalProperty": {
-          "stringifyDate": true
-        }
+        "inputSpec": "./swagger-spec.yaml"
       }
     }
   }

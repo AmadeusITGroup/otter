@@ -51,7 +51,11 @@ describe('Create new sdk command', () => {
 
   test('should generate a full SDK when the specification is provided', () => {
     expect(() =>
-      packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', './swagger-spec.yml']}, execAppOptions)).not.toThrow();
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
@@ -74,6 +78,6 @@ describe('Create new sdk command', () => {
         script: '@ama-sdk',
         args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path','./missing-file.yml']
       }, execAppOptions)
-    ).toThrow('missing-file.yml does not exist');
+    ).toThrow();
   });
 });

@@ -119,6 +119,90 @@ Example:
 yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property allowModelExtension
 ```
 
+#### Generator Configuration
+
+##### Parameters
+
+It is possible to configure the SDK code generation by passing parameters to the generator command line to override the default configuration values.
+The available parameters are:
+* `--spec-path`: Path to the swagger specification used to generate the SDK
+* `--spec-config-path`: Path to the spec generation configuration
+* `--global-property`: Comma separated string of options to give to the openapi-generator-cli
+* `--output-path`: Output path for the generated SDK
+* `--generator-custom-path`: Path to a custom generator
+
+#### openapitools.json
+
+There is also a possibility to configure the SDK code generation in `openapitools.json`. The structure for this file looks something like this:
+
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
+  "generator-cli": {
+    "version": "0.0.0",
+    "storageDir": ".openapi-generator",
+    "generators": { // optional
+      "example-sdk": { // any name you like (can be referenced using --generator-key)
+        "generatorName": "typescriptFetch",
+        "output": ".",
+        "inputSpec": "./swagger-spec.yaml"
+      }
+    }
+  }
+}
+```
+
+`example-sdk` corresponds to the key of the generator which can be referenced in the generator command as a parameter, for example:
+
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk
+```
+
+The properties `generatorName`, `output`, and `inputSpec` are required and additional properties can be added (available properties described in the schema 
+[here](https://github.com/OpenAPITools/openapi-generator-cli/blob/master/apps/generator-cli/src/config.schema.json)). For example, we can add the previously 
+described global properties `stringifyDate` and  `allowModelExtension`:
+
+```json
+{
+  "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
+  "generator-cli": {
+    "version": "0.0.0",
+    "storageDir": ".openapi-generator",
+    "generators": { 
+      "example-sdk": {
+        "generatorName": "typescriptFetch",
+        "output": ".",
+        "inputSpec": "./swagger-spec.yaml",
+        "globalProperty": {
+          "stringifyDate": true,
+          "allowModelExtension": true
+        }
+      }
+    }
+  }
+}
+```
+
+We have added the possibility in the generator command to both specify the generator key and override specific properties of said key.
+For example, if we want to use the properties of `example-sdk` from `openapitools.json` but override the global properties we can do so like this:
+
+```shell
+yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk --global-property stringifyDate=false
+```
+
+> [!CAUTION]
+> If the parameter `--generator-key` is provided in combination with other parameters to be overridden, the limitation is that not all
+> properties from `openapitools.json` will be taken into account (contrary to the case when there is only the `--generator-key` parameter). 
+> As of now, the only properties that will be taken into account are `output`, `inputSpec`, `config`, `globalProperty` which can be
+> overridden with the parameters `--output-path`, `--spec-path`, `--spec-config-path`, and `--global-property`.
+
+> [!NOTE]
+> The parameter `--generator-custom-path` is not impacted and will always be taken into account if provided.
+
+> [!NOTE]
+> The values provided by the parameter `--global-property` will actually be merged with the values of `globalProperty` from
+> `openapitools.json` (rather than override them like the other properties).
+
 ### Debug
 
 The OpenApi generator extracts an enhanced JSON data model from the specification YAML and uses this data model to feed the templates to generate the code.
