@@ -52,11 +52,14 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       'openapi-generator-cli',
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
-      '-g', generatorOptions.generatorName,
-      '-i', generatorOptions.specPath,
-      ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
-      '-o', generatorOptions.outputPath,
-      ...generatorOptions.globalProperty ? ['--global-property', generatorOptions.globalProperty] : []
+      ...generatorOptions.generatorKey ? ['--generator-key', generatorOptions.generatorKey] :
+        [
+          '-g', generatorOptions.generatorName,
+          '-i', generatorOptions.specPath,
+          ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
+          '-o', generatorOptions.outputPath,
+          ...generatorOptions.globalProperty ? ['--global-property', generatorOptions.globalProperty] : []
+        ]
     ];
     return new Promise<void>((resolve, reject) => {
       spawn(this.packageManagerRunner, args, spawnOptions)
