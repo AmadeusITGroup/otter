@@ -14,19 +14,20 @@ import type { PackageJson } from 'type-fest';
 const argv = minimist(process.argv.slice(2));
 const distFolder = argv.dist || 'dist';
 const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd();
+const posixBaseDir = path.posix.join(...baseDir.split(path.sep));
 const {watch, noExports} = argv;
 
 const files = [
-  'README.md',
-  'LICENSE',
-  'package.json',
-  'src/**/package.json'
+  {glob: 'README.md', cwdForCopy: baseDir},
+  {glob: 'LICENSE', cwdForCopy: baseDir},
+  {glob: 'package.json', cwdForCopy: baseDir},
+  {glob: 'src/**/package.json', cwdForCopy: path.join(baseDir, 'src')}
 ];
 
 /**  Update package.json exports */
 const updateExports = async () => {
   const packageJson = JSON.parse(await fs.readFile(path.join(baseDir, 'package.json'), { encoding: 'utf8' }));
-  const packageJsonFiles = globby.sync(path.join(baseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
+  const packageJsonFiles = globby.sync(path.posix.join(posixBaseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
   packageJson.exports = packageJson.exports || {};
   for (const packageJsonFile of packageJsonFiles) {
     try {
@@ -56,8 +57,8 @@ const updateExports = async () => {
 
 void (async () => {
 
-  const copyToDist = (file: string) => {
-    const distFile = path.resolve(baseDir, distFolder, path.relative(baseDir, file));
+  const copyToDist = (file: string, cwdForCopy: string) => {
+    const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
     // eslint-disable-next-line no-console
     console.log(`${file} copied to ${distFile}`);
     try {
@@ -67,18 +68,18 @@ void (async () => {
   };
 
   // Move files into the dist folder
-  const copies = files.map(async (glob) => {
+  const copies = files.map(async ({glob, cwdForCopy}) => {
     return watch ?
       import('chokidar')
-        .then((chokidar) => chokidar.watch(path.join(baseDir, glob)))
+        .then((chokidar) => chokidar.watch(path.posix.join(posixBaseDir, glob)))
         .then((watcher) => watcher.on('all', (event, file) => {
           if (event !== 'unlink' && event !== 'unlinkDir') {
-            copyToDist(file);
+            copyToDist(file, cwdForCopy);
             return updateExports();
           }
         })) :
-      globby.sync(path.join(baseDir, glob))
-        .forEach((file) => copyToDist(file));
+      globby.sync(path.posix.join(posixBaseDir, glob))
+        .forEach((file) => copyToDist(file, cwdForCopy));
   });
   await Promise.all(copies);
 
