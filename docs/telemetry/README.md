@@ -1,6 +1,20 @@
-# Telemetry
+# Telemetry Privacy Notice
 
-You can help the Otter Team to prioritize features and improvements by permitting the Otter team to send command-line command usage statistics to Amadeus. The Otter Team does not collect usage statistics unless you explicitly opt in.
+The Amadeus Otter team has put in place a telemetry service to collect and analyze technical information about how its open-source builders and schematics are used.
+
+The data collected will be used to help the Otter Team to prioritize features and improvements on the Otter builder and schematics capabilities.
+
+## How to provide the consent?
+
+At the next usage of builder/schematic, you will be prompted to provide or deny your consent:
+![consent](../../.attachments/screenshots/telemetry/consent.png)
+
+In case the consent is given for the whole project and on behalf of all project members, each user will be warned that the consent has been provided for the project and the means to deactivate it.
+![withdraw](../../.attachments/screenshots/telemetry/withdraw.png)
+
+## How is the data collected?
+
+Once the consent is provided the Amadeus Otter Team will send the command-line command usage statistics to collect the technical information.
 
 ## What is collected?
 
@@ -13,13 +27,15 @@ Usage analytics may include the following information:
 - The time it took to run.
 - Project name.
 - The schematic/builder options.
+- IP address
 
-> [!WARNING]
-> We don't use it, but your IP address will also be stored for one month for security reasons.
+> [!NOTE]
+> The IP address is only collected for security purposes and won’t be used as part of the analytics data.
+> The IP address is kept for one month and at the end of the retention period, the data is permanently deleted.
 
-## How to disable telemetry?
+## How to withdraw your consent?
 
-To disable it for:
-- your project, set `config.o3rMetrics` to false in your `package.json`.
-- your machine, set `O3R_METRICS` to false in your environment variables.
-- a builder/schematic run, run it with `--no-o3r-metrics`
+To withdraw your consent, you can either:
+- set `config.o3rMetrics` to false in your `package.json` to disable the consent for the whole project; or
+- set `O3R_METRICS` to `false` in your environment variables in your machine; or
+- By calling the builder/schematic with `--no-o3r-metrics`.
