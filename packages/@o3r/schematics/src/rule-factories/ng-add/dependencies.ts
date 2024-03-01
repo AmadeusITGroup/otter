@@ -71,6 +71,8 @@ export interface SetupDependenciesOptions {
   runAfterTasks?: TaskId[];
   /** Callback to run after the task ID is calculated */
   scheduleTaskCallback?: (taskIds?: TaskId[]) => void;
+  /** Working directory for the installation process only */
+  workingDirectory?: string;
 }
 
 /** Result of the Setup Dependencies task scheduling process */
@@ -200,7 +202,9 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
 
     const runNgAddSchematics: Rule = (_, context) => {
       const packageManager = options.packageManager || getPackageManager();
-      const installId = isInstallNeeded() ? [context.addTask(new NodePackageInstallTask({ packageManager, quiet: true }), options.runAfterTasks)] : undefined;
+      const installId = isInstallNeeded() ? [
+        context.addTask(new NodePackageInstallTask({ packageManager, quiet: true, workingDirectory: options.workingDirectory }), options.runAfterTasks)
+      ] : undefined;
 
       if (installId !== undefined) {
         context.logger.debug(`Schedule the installation of the workspace (${ngAddToRun.size > 0 ? 'for: ' + [...ngAddToRun].join(', ') : options.skipInstall ? 'skipped' : 'forced'})`);
