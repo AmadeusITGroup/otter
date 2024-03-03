@@ -32,12 +32,26 @@
       "import": "./dist/src/clients/*.js",
       "node": "./dist/cjs/clients/*.js",
       "require": "./dist/cjs/clients/*.js"
+    },
+    "./plugins/*": {
+      "module": "./dist/src/plugins/*/index.js",
+      "esm2020": "./dist/src/plugins/*/index.js",
+      "esm2015": "./dist/esm2015/plugins/*/index.js",
+      "es2020": "./dist/cjs/plugins/*/index.js",
+      "default": "./dist/cjs/plugins/*/index.js",
+      "typings": "./dist/src/plugins/*/index.d.ts",
+      "import": "./dist/src/plugins/*/index.js",
+      "node": "./dist/cjs/plugins/*/index.js",
+      "require": "./dist/cjs/plugins/*/index.js"
     }
   },
   "typesVersions": {
     "*": {
       "clients/*": [
         "src/clients/*.d.ts"
+      ],
+      "plugins/*": [
+        "src/plugins/*/index.d.ts"
       ]
     }
   },
