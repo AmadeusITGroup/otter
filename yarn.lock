@@ -179,7 +179,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -230,7 +230,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -276,7 +276,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ^17.0.1
     "@angular/cli": ^17.0.1
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.9.0
+    "@openapitools/openapi-generator-cli": ~2.10.0
     "@schematics/angular": ~17.2.0
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -311,7 +311,7 @@ __metadata:
     "@nx/jest": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.9.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@swc/cli": "npm:^0.3.0"
@@ -9444,9 +9444,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.9.0":
-  version: 2.9.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.9.0"
+"@openapitools/openapi-generator-cli@npm:~2.10.0":
+  version: 2.10.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.10.0"
   dependencies:
     "@nestjs/axios": "npm:3.0.1"
     "@nestjs/common": "npm:10.3.0"
@@ -9467,7 +9467,7 @@ __metadata:
     tslib: "npm:2.6.2"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/7b1fdbaaf56507b58c5becc3ce0de71d066ae0c96cfd45975c09ed0569c3f00607fc515feeb1bcafe8dcf3a1864802def3ac75d359e26b3c84966017bc8cde1e
+  checksum: 10/48b11a8060ff37f467bb415d5a64a111a3289f857a0b207991d2d18b3fb068926e5a2eaf4cdadd69817cd75ec5a4b1b6ab499c6c55db573021041ec2b53b5c12
   languageName: node
   linkType: hard
 
