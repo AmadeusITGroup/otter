@@ -14,7 +14,6 @@ import type { PackageJson } from 'type-fest';
 const argv = minimist(process.argv.slice(2));
 const distFolder = argv.dist || 'dist';
 const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd();
-const posixBaseDir = path.posix.join(...baseDir.split(path.sep));
 const {watch, noExports} = argv;
 
 const files = [
@@ -27,7 +26,7 @@ const files = [
 /**  Update package.json exports */
 const updateExports = async () => {
   const packageJson = JSON.parse(await fs.readFile(path.join(baseDir, 'package.json'), { encoding: 'utf8' }));
-  const packageJsonFiles = globby.sync(path.posix.join(posixBaseDir, distFolder, '*', '**', 'package.json'), {absolute: true});
+  const packageJsonFiles = globby.sync(path.posix.join(distFolder, '*', '**', 'package.json'), {absolute: true});
   packageJson.exports = packageJson.exports || {};
   for (const packageJsonFile of packageJsonFiles) {
     try {
@@ -71,14 +70,14 @@ void (async () => {
   const copies = files.map(async ({glob, cwdForCopy}) => {
     return watch ?
       import('chokidar')
-        .then((chokidar) => chokidar.watch(path.posix.join(posixBaseDir, glob)))
+        .then((chokidar) => chokidar.watch(glob, {cwd: baseDir}))
         .then((watcher) => watcher.on('all', (event, file) => {
           if (event !== 'unlink' && event !== 'unlinkDir') {
             copyToDist(file, cwdForCopy);
             return updateExports();
           }
         })) :
-      globby.sync(path.posix.join(posixBaseDir, glob))
+      globby.sync(glob)
         .forEach((file) => copyToDist(file, cwdForCopy));
   });
   await Promise.all(copies);
