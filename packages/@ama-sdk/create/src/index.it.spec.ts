@@ -10,7 +10,7 @@ import {
   setupLocalRegistry
 } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
-import { cpSync, mkdirSync } from 'node:fs';
+import { cpSync, mkdirSync, renameSync } from 'node:fs';
 import * as path from 'node:path';
 
 const projectName = 'test-sdk';
@@ -58,6 +58,19 @@ describe('Create new sdk command', () => {
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+  });
+
+  test('should generate an SDK with no package scope', () => {
+    const packageName = sdkPackageName.replace('@', '').split('/')[1];
+    const newSdkPackagePath = path.join(sdkFolderPath, packageName);
+    renameSync(sdkPackagePath, newSdkPackagePath);
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', packageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: newSdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
