@@ -33,6 +33,7 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 - `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
 - `--package-manager`: Node package manager to be used (`npm` and `yarn` are available).
 - `--debug`: Enable schematics debug mode (including dry run).
+- `--exact-o3r-version` : use a pinned version for [otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).
 
 > [!NOTE]
 > If the `--spec-path` is specified, the SDK will be generated based on this specification at the creation time.
