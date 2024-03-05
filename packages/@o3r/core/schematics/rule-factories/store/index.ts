@@ -39,7 +39,7 @@ const ngrxRouterStoreDevToolDep = '@ngrx/store-devtools';
  * @param options.workingDirector
  */
 export function updateStore(
-  options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions },
+  options: { projectName?: string | undefined; workingDirector?: string | undefined; dependenciesSetupConfig: SetupDependenciesOptions; exactO3rVersion?: boolean },
   projectType?: WorkspaceProject['projectType']): Rule {
 
   const addStoreModules: Rule = (tree) => {
@@ -50,9 +50,10 @@ export function updateStore(
 
     options.dependenciesSetupConfig.dependencies[storeSyncPackageName] = {
       inManifest: [{
-        range: `~${o3rCoreVersion}`,
+        range: `${options.exactO3rVersion ? '' : '~'}${o3rCoreVersion}`,
         types: getProjectNewDependenciesTypes(workspaceProject)
-      }]
+      }],
+      ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
     };
     (options.dependenciesSetupConfig.ngAddToRun ||= []).push(storeSyncPackageName);
   };

@@ -35,6 +35,11 @@
         "yarn"
       ],
       "description": "Package manager to be used in the generated SDK"
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,

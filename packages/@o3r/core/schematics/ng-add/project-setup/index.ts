@@ -53,9 +53,10 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     .forEach((dep) => {
       dependenciesSetupConfig.dependencies[dep] = {
         inManifest: [{
-          range: `~${o3rCoreVersion}`,
+          range: `${options.exactO3rVersion ? '' : '~'}${o3rCoreVersion}`,
           types: getProjectNewDependenciesTypes(workspaceProject)
-        }]
+        }],
+        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       };
     });
   (dependenciesSetupConfig.ngAddToRun ||= []).push(...internalPackagesToInstallWithNgAdd);

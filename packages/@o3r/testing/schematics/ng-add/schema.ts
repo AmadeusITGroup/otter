@@ -9,4 +9,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Enable playwright */
   enablePlaywright: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

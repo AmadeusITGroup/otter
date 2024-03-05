@@ -29,4 +29,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Force package installation (in case of unmet peer dependencies) */
   forceInstall: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

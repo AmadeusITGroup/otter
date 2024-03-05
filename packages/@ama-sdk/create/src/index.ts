@@ -66,6 +66,7 @@ const schematicArgs = [
   '--name', name,
   '--package', pck,
   '--package-manager', packageManager,
+  ...(argv['exact-o3r-version'] ? ['--exact-o3r-version'] : []),
   ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
 ];
 

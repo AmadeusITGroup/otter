@@ -74,7 +74,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ama-sdk/core@workspace:^, @ama-sdk/core@workspace:packages/@ama-sdk/core":
+"@ama-sdk/core@workspace:*, @ama-sdk/core@workspace:^, @ama-sdk/core@workspace:packages/@ama-sdk/core":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/core@workspace:packages/@ama-sdk/core"
   dependencies:
@@ -162,8 +162,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-sdk/create@workspace:packages/@ama-sdk/create"
   dependencies:
-    "@ama-sdk/core": "workspace:^"
-    "@ama-sdk/schematics": "workspace:^"
+    "@ama-sdk/core": "workspace:*"
+    "@ama-sdk/schematics": "workspace:*"
     "@angular-devkit/core": "npm:~17.2.0"
     "@angular-devkit/schematics": "npm:~17.2.0"
     "@angular-devkit/schematics-cli": "npm:~17.2.0"
@@ -177,7 +177,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@o3r/schematics": "workspace:^"
+    "@o3r/schematics": "workspace:*"
     "@o3r/test-helpers": "workspace:^"
     "@openapitools/openapi-generator-cli": "npm:~2.10.0"
     "@schematics/angular": "npm:~17.2.0"
@@ -214,7 +214,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ama-sdk/schematics@workspace:^, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics":
+"@ama-sdk/schematics@workspace:*, @ama-sdk/schematics@workspace:^, @ama-sdk/schematics@workspace:packages/@ama-sdk/schematics":
   version: 0.0.0-use.local
   resolution: "@ama-sdk/schematics@workspace:packages/@ama-sdk/schematics"
   dependencies:
@@ -8320,7 +8320,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@o3r/schematics@workspace:^, @o3r/schematics@workspace:packages/@o3r/schematics":
+"@o3r/schematics@workspace:*, @o3r/schematics@workspace:^, @o3r/schematics@workspace:packages/@o3r/schematics":
   version: 0.0.0-use.local
   resolution: "@o3r/schematics@workspace:packages/@o3r/schematics"
   dependencies:
