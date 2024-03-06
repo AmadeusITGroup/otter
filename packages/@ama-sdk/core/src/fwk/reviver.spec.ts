@@ -1,4 +1,4 @@
-import {reviveDictionarizedArray} from './Reviver';
+import {reviveArray, reviveDictionarizedArray, reviveMap} from './Reviver';
 
 describe('Revivers :', () => {
   it('reviveDictionarizedArray', () => {
@@ -21,5 +21,31 @@ describe('Revivers :', () => {
 
     expect(result.id1).toEqual({p1: 'v1'});
     expect(result.id2).toEqual({p2: 'v2'});
+  });
+
+  it('should reviveArray propagate the options', () => {
+    const reviver = jest.fn();
+    const options: any = { logger: jest.fn() };
+    reviveArray([1], null, reviver, options);
+
+    expect(reviver).toHaveBeenCalledWith(1, null, options);
+  });
+
+  it('should reviveDictionarizedArray propagate the options', () => {
+    const reviver = jest.fn();
+    const options: any = { logger: jest.fn() };
+    const dictionary = {key: 'test'};
+    reviveDictionarizedArray(['key'], dictionary, reviver, options);
+
+    expect(reviver).toHaveBeenCalledWith('test', dictionary, options);
+  });
+
+  it('should reviveMap propagate the options', () => {
+    const reviver = jest.fn();
+    const options: any = { logger: jest.fn() };
+    const dictionary = { key: 'test' };
+    reviveMap(['key'], dictionary, reviver, options);
+
+    expect(reviver).toHaveBeenCalledWith('key', dictionary, options);
   });
 });
