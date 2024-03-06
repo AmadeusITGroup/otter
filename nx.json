@@ -1,8 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "remotes/origin/main"
-  },
+  "defaultBase": "remotes/origin/main",
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
