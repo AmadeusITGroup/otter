@@ -212,8 +212,7 @@
       "executor": "@o3r/design:generate-css",
       "outputs": [
         "{options.defaultStyleFile}",
-        "{options.metadataOutput}",
-        "{projectRoot}/src/**/*.scss"
+        "{options.metadataOutput}"
       ],
       "inputs": [
         "global",
@@ -242,8 +241,7 @@
       "executor": "@o3r/design:generate-css",
       "outputs": [
         "{options.defaultStyleFile}",
-        "{options.metadataOutput}",
-        "{projectRoot}/src/**/*.scss"
+        "{options.metadataOutput}"
       ],
       "inputs": [
         "global",
