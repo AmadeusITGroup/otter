@@ -179,7 +179,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:*"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.11.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -230,7 +230,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.11.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -276,7 +276,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ^17.0.1
     "@angular/cli": ^17.0.1
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.10.0
+    "@openapitools/openapi-generator-cli": ~2.11.0
     "@schematics/angular": ~17.2.0
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -311,7 +311,7 @@ __metadata:
     "@nx/jest": "npm:~18.0.2"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.10.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.11.0"
     "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@swc/cli": "npm:^0.3.0"
@@ -7995,7 +7995,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    logrocket: "npm:~8.0.0"
+    logrocket: "npm:~8.1.0"
     logrocket-ngrx: "npm:~0.2.1"
     ng-packagr: "npm:~17.2.0"
     nx: "npm:~18.0.2"
@@ -8013,7 +8013,7 @@ __metadata:
     "@ngrx/store": ~17.1.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
-    logrocket: ~8.0.0
+    logrocket: ~8.1.0
     logrocket-ngrx: ~0.2.1
     rxjs: ^7.8.1
     smartlook-client: ^8.0.0
@@ -9447,9 +9447,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.10.0":
-  version: 2.10.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.10.0"
+"@openapitools/openapi-generator-cli@npm:~2.11.0":
+  version: 2.11.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.11.0"
   dependencies:
     "@nestjs/axios": "npm:3.0.1"
     "@nestjs/common": "npm:10.3.0"
@@ -9470,7 +9470,7 @@ __metadata:
     tslib: "npm:2.6.2"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/48b11a8060ff37f467bb415d5a64a111a3289f857a0b207991d2d18b3fb068926e5a2eaf4cdadd69817cd75ec5a4b1b6ab499c6c55db573021041ec2b53b5c12
+  checksum: 10/03643f845eed2f7bf4c19acfc6786638330dc67f3d183024baf7533a9eeb8cb99eae5b0faf7889fd18dbe5f70c6507346cbe47aa4af45a7344906c0cf620ef53
   languageName: node
   linkType: hard
 
@@ -22900,10 +22900,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"logrocket@npm:~8.0.0":
-  version: 8.0.1
-  resolution: "logrocket@npm:8.0.1"
-  checksum: 10/fe4c5b077444423e865b365aa1fa22a2714f48d7f6592e3b57f57ad6872971818f5775fe68e77ea9f6235a346f73b794b90a1e87d220bcc399724a7b4e05a331
+"logrocket@npm:~8.1.0":
+  version: 8.1.0
+  resolution: "logrocket@npm:8.1.0"
+  checksum: 10/a2ea3af2bf34df070ac9d3ec826bf499192f172108c509db9b416b68bc5cd3f435862452a26e0fcaaf5bc4d3355edad21da81b65ac61128e8e32cd3e6f46fcd4
   languageName: node
   linkType: hard
 

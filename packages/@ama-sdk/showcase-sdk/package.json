@@ -73,7 +73,7 @@
     "@nx/jest": "~18.0.2",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@openapitools/openapi-generator-cli": "~2.10.0",
+    "@openapitools/openapi-generator-cli": "~2.11.0",
     "@schematics/angular": "~17.2.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@swc/cli": "^0.3.0",
