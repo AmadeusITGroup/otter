@@ -215,7 +215,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
         if (specVersion) {
           const readmeContent = tree.read(readmeFile)!.toString('utf8');
-          tree.overwrite(readmeFile, readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${specVersion[1]}`));
+          tree.overwrite(readmeFile, readmeContent.replace(/Based on (OpenAPI|Swagger) spec .*/i, `Based on $1 spec ${specVersion[1]}`));
         }
       }
 
