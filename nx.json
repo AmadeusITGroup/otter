@@ -50,7 +50,13 @@
       "{projectRoot}/schematics/**/*",
       "{projectRoot}/package.json"
     ],
-    "cli": ["global", "{projectRoot}/cli/**/*", "{projectRoot}/package.json"],
+    "cli": [
+      "global",
+      "{projectRoot}/tsconfig*",
+      "{projectRoot}/cli/**/*",
+      "{projectRoot}/package.json",
+      "{projectRoot}/project.json"
+    ],
     "middlewares": [
       "global",
       "{projectRoot}/middlewares/**/*",
@@ -97,6 +103,14 @@
       "global",
       "{projectRoot}/plugins/**/*",
       "{projectRoot}/package.json"
+    ],
+    "source-and-cli": [
+      "source",
+      "cli"
+    ],
+    "source-and-builders": [
+      "source",
+      "builders"
     ]
   },
   "targetDefaults": {
@@ -318,7 +332,7 @@
       "cache": true
     },
     "extract-rules-engine": {
-      "inputs": ["source"],
+      "inputs": ["source", "^builders"],
       "outputs": [
         "{options.outputFactsDirectory}/rules.facts.metadata.json",
         "{options.outputOperatorsDirectory}/rules.operators.metadata.json"

@@ -148,7 +148,7 @@
         "{options.componentOutputFile}",
         "{options.configOutputFile}"
       ],
-      "inputs": ["source"],
+      "inputs": ["source", "^source-and-builders"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
         "configOutputFile": "apps/showcase/component.config.metadata.json",
@@ -190,7 +190,8 @@
       ],
       "inputs": [
         "global",
-        "{projectRoot}/src/style/design-token.*.json"
+        "{projectRoot}/src/style/design-token.*.json",
+        "^source-and-builders"
       ],
       "options": {
         "metadataOutput": "apps/showcase/styling.metadata.json",
@@ -217,7 +218,8 @@
       "inputs": [
         "global",
         "{projectRoot}/src/style/dark-theme/dark-theme.*.json",
-        "{projectRoot}/src/style/design-token.app.json"
+        "{projectRoot}/src/style/design-token.app.json",
+        "^source-and-builders"
       ],
       "options": {
         "defaultStyleFile": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -246,7 +248,8 @@
       "inputs": [
         "global",
         "{projectRoot}/src/style/horizon-theme/horizon-theme.*.json",
-        "{projectRoot}/src/style/design-token.app.json"
+        "{projectRoot}/src/style/design-token.app.json",
+        "^source-and-builders"
       ],
       "options": {
         "defaultStyleFile": "apps/showcase/src/style/horizon-theme/horizon-theme.scss",
@@ -304,7 +307,7 @@
     },
     "extract-translations": {
       "executor": "@o3r/localization:extractor",
-      "inputs": ["source"],
+      "inputs": ["source", "^source-and-builders"],
       "outputs": ["{options.outputFile}"],
       "options": {
         "tsConfig": "apps/showcase/tsconfig.cms.json",
