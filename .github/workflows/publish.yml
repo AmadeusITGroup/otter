@@ -49,6 +49,9 @@ on:
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -56,8 +59,8 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
-      packages: write
       contents: read
+      # Needed to publish with provenance
       id-token: write
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
@@ -120,9 +123,6 @@ jobs:
   publish-extensions:
     runs-on: ubuntu-latest
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
-    permissions:
-      packages: write
-      contents: read
     steps:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:

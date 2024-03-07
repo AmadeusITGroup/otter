@@ -6,6 +6,9 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+
 jobs:
   publish-ut-reports:
     runs-on: ubuntu-latest

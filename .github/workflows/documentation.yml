@@ -1,5 +1,8 @@
 name: Build and deploy documentation
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:

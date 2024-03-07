@@ -6,6 +6,9 @@ on:
     types:
       - completed
 
+permissions:
+  contents: read
+
 jobs:
   version:
     if: ${{ github.event.workflow_run.event == 'pull_request' }}
@@ -35,8 +38,8 @@ jobs:
     uses: ./.github/workflows/publish.yml
     needs: [version]
     permissions:
-      packages: write
       contents: read
+      # Needed to publish with provenance (not needed for pull-request but requested by publish.yml workflow)
       id-token: write
     secrets: inherit
     with:
@@ -50,6 +53,7 @@ jobs:
     needs: [publish-packages-pr]
     if: success() || failure()
     permissions:
+      # Needed to notify the parent workflow
       checks: write
     steps:
       - name: Update triggering workflow

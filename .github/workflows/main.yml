@@ -4,6 +4,9 @@ concurrency:
   group: ci-${{ github.ref }}-main
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -34,6 +37,7 @@ jobs:
 
   version:
     permissions:
+      # Needed to publish release on GitHub
       contents: write
     runs-on: ubuntu-latest
     outputs:
@@ -84,8 +88,8 @@ jobs:
     uses: ./.github/workflows/publish.yml
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}
     permissions:
-      packages: write
       contents: read
+      # Needed to publish with provenance
       id-token: write
     secrets: inherit
     needs: [version, build, checks, it-tests]
