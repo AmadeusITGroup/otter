@@ -16,11 +16,6 @@ export interface CreateWithLockOptions extends Partial<LockerOptions> {
   cwd: string;
 
   /**
-   * Use locker to block parallel creation
-   */
-  useLocker?: boolean;
-
-  /**
    * Replace existing app if installed dependencies don't match
    */
   replaceExisting?: boolean;
@@ -42,22 +37,18 @@ export interface CreateWithLockOptions extends Partial<LockerOptions> {
  */
 export async function createWithLock(createFunction: () => Promise<void>, options: CreateWithLockOptions) {
   const locker = new Locker(options);
-  if (options.useLocker && locker.isLocked()) {
+  if (locker.isLocked()) {
     return locker.waitUntilUnlocked();
   }
-  if (options.useLocker) {
-    const hasFolderBeenLocked = locker.lock();
-    if (!hasFolderBeenLocked) {
-      // If lock couldn't be created due to race condition, it means another process is creating the app
-      return locker.waitUntilUnlocked();
-    }
+  const hasFolderBeenLocked = locker.lock();
+  if (!hasFolderBeenLocked) {
+    // If lock couldn't be created due to race condition, it means another process is creating the app
+    return locker.waitUntilUnlocked();
   }
   const appFolderPath = path.join(options.cwd, options.appDirectory);
   if (existsSync(appFolderPath)) {
     if (!options.replaceExisting) {
-      if (options.useLocker) {
-        locker.unlock();
-      }
+      locker.unlock();
       return;
     }
     let areDependenciesMatching = true;
@@ -70,21 +61,15 @@ export async function createWithLock(createFunction: () => Promise<void>, option
     }
     if (areDependenciesMatching) {
       // No need to regenerate
-      if (options.useLocker) {
-        locker.unlock();
-      }
+      locker.unlock();
       return;
     }
   }
   try {
     await createFunction();
   } catch (err) {
-    if (options.useLocker) {
-      locker.unlock();
-    }
+    locker.unlock();
     throw err;
   }
-  if (options.useLocker) {
-    locker.unlock();
-  }
+  locker.unlock();
 }
