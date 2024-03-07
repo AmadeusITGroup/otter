@@ -102,10 +102,6 @@ export class ApiAngularClient implements ApiClient {
     try {
       const headers = Object.fromEntries(options.headers.entries());
 
-      const controller = typeof AbortController !== 'undefined' ? new AbortController() : undefined;
-      if (controller) {
-        options.signal = controller.signal;
-      }
       const asyncResponse = new Promise<HttpResponse<any>>((resolve, reject) => {
         let data: HttpResponse<any>;
         this.options.httpClient.request(options.method, url, {
