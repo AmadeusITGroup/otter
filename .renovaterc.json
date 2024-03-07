@@ -8,6 +8,7 @@
     "group:recommended",
     "group:test",
     "group:linters",
+    "helpers:pinGitHubActionDigestsToSemver",
     "schedule:nonOfficeHours"
   ],
   "ignorePaths": [
