@@ -74,12 +74,12 @@
     "@commitlint/cli": "^17.0.0",
     "@schematics/angular": "<%= angularVersion %>",
     "@commitlint/config-conventional": "^17.0.0",
-    "@ama-sdk/schematics": "~<%= sdkCoreVersion %>",
-    "@ama-sdk/core": "~<%= sdkCoreVersion %>",
-    "@o3r/eslint-config-otter": "^<%= sdkCoreVersion %>",
-    "@o3r/eslint-plugin": "^<%= sdkCoreVersion %>",
-    "@o3r/schematics": "^<%= sdkCoreVersion %>",
-    "@o3r/workspace": "^<%= sdkCoreVersion %>",
+    "@ama-sdk/schematics": "<%= sdkCoreRange %>",
+    "@ama-sdk/core": "<%= sdkCoreRange %>",
+    "@o3r/eslint-config-otter": "<%= sdkCoreRange %>",
+    "@o3r/eslint-plugin": "<%= sdkCoreRange %>",
+    "@o3r/schematics": "<%= sdkCoreRange %>",
+    "@o3r/workspace": "<%= sdkCoreRange %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
     "@swc/cli": "^0.1.57",
     "@swc/core": "^1.3.85",
@@ -106,7 +106,10 @@
     "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
     "typescript": "<%= versions['typescript'] %>"
-  },
+  },<% if (exactO3rVersion) { %>
+  "<%= packageManager == 'yarn' ? 'resolutions' : 'overrides' %>": {
+    "@o3r/schematics": "<%= sdkCoreRange %>"
+  },<% } %>
   "peerDependencies": {
     "@ama-sdk/core": "~<%= sdkCoreVersion %>",
     "isomorphic-fetch": "<%= versions['isomorphic-fetch'] %>"

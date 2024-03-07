@@ -24,11 +24,13 @@ const config = defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     ...process.env.USE_MOCKS ? {
-      launchOptions: { proxy: {server: 'per-context'}},
+      launchOptions: { proxy: {server: 'per-context'}, args: ['--remote-debugging-port=9222']},
       proxy: {server: 'http://localhost:4200'},
       serviceWorkers: 'block',
       ignoreHTTPSErrors: true
-    } : {}
+    } : {
+      launchOptions: { args: ['--remote-debugging-port=9222']}
+    }
   },
   expect: {
     toHaveScreenshot: {

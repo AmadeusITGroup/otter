@@ -96,8 +96,9 @@ export const hasSetupInformation = (context: SchematicContext): context is Schem
  * @param tree Tree to read the file
  * @param projectName Name of the project
  * @param devDependencyOnly If true, the dependency will be added as devDependency
+ * @param exactO3rVersion Use a pinned version of the o3r package
  */
-export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, projectName?: string, devDependencyOnly?: boolean): Record<string, DependencyToAdd> => {
+export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, projectName?: string, devDependencyOnly?: boolean, exactO3rVersion?: boolean): Record<string, DependencyToAdd> => {
   if (!projectName) {
     return {};
   }
@@ -107,10 +108,11 @@ export const getPackageInstallConfig = (packageJsonPath: string, tree: Tree, pro
   return {
     [packageJson.name!]: {
       inManifest: [{
-        range: `~${packageJson.version}`,
+        range: `${exactO3rVersion ? '' : '~'}${packageJson.version}`,
         types: devDependencyOnly ? [NodeDependencyType.Dev] : getProjectNewDependenciesTypes(workspaceProject)
       }],
-      requireInstall: true
+      requireInstall: true,
+      ngAddOptions: { exactO3rVersion: exactO3rVersion }
     }
   };
 };

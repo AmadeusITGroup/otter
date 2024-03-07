@@ -9,4 +9,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Skip the install process */
   skipInstall: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

@@ -22,7 +22,7 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
   }
 };
 
-const setupTelemetry: (opts: {workingDirectory?: string; runNgAdd?: boolean}) => Rule = ({ workingDirectory, runNgAdd }) => (_, context) => {
+const setupTelemetry: (opts: {workingDirectory?: string; runNgAdd?: boolean; exactO3rVersion?: boolean}) => Rule = ({ workingDirectory, runNgAdd, exactO3rVersion }) => (_, context) => {
   const taskIdsFromContext = hasSetupInformation(context) ? context.setupDependencies.taskIds : undefined;
   const version = JSON.parse(readFileSync(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
   return setupDependencies({
@@ -30,9 +30,10 @@ const setupTelemetry: (opts: {workingDirectory?: string; runNgAdd?: boolean}) =>
       // eslint-disable-next-line @typescript-eslint/naming-convention
       '@o3r/telemetry': {
         inManifest: [{
-          range: `~${version}`,
+          range: `${exactO3rVersion ? '' : '~'}${version}`,
           types: [NodeDependencyType.Dev]
-        }]
+        }],
+        ngAddOptions: { exactO3rVersion }
       }
     },
     ngAddToRun: runNgAdd ? ['@o3r/telemetry'] : [],
@@ -84,7 +85,9 @@ For more details and instructions on how to change these settings, see https://g
   const rule = chain([
     typeof shouldInstallTelemetry !== 'undefined' ? applyToSubtree(subtreeDirectory, [setupO3rMetricsInPackageJson(!!shouldInstallTelemetry)]) : noop(),
     schematicFn(opts),
-    shouldInstallTelemetry ? applyToSubtree(subtreeDirectory, [setupTelemetry({ workingDirectory: subtreeDirectory || undefined, runNgAdd: !subtreeDirectory })]) : noop(),
+    shouldInstallTelemetry ? applyToSubtree(subtreeDirectory, [
+      setupTelemetry({ workingDirectory: subtreeDirectory || undefined, runNgAdd: !subtreeDirectory, exactO3rVersion: (opts as any).exactO3rVersion })
+    ]) : noop(),
     typeof shouldInstallTelemetry !== 'undefined' && subtreeDirectory ? applyToSubtree(subtreeDirectory, [setupO3rMetricsInPackageJson(shouldInstallTelemetry)]) : noop()
   ]);
   return wrapper(() => rule)(opts);
