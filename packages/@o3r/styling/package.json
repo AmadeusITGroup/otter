@@ -104,7 +104,7 @@
     "@angular/material": "~17.2.0",
     "@angular/platform-browser": "~17.2.0",
     "@angular/platform-browser-dynamic": "~17.2.0",
-    "@babel/core": "~7.23.0",
+    "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",
     "@nx/eslint": "~18.0.2",

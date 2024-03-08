@@ -101,6 +101,7 @@ if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
 const packageManager = argv['package-manager'] || defaultPackageManager;
+const exactO3rVersion = !!argv['exact-o3r-version'];
 
 if (argv._.length === 0) {
   // eslint-disable-next-line no-console
@@ -171,6 +172,21 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   mandatoryDependencies.forEach((dep) => {
     packageJson.devDependencies![dep] = dependencies?.[dep] || devDependencies?.[dep] || 'latest';
   });
+  if (exactO3rVersion) {
+    const o3rPackages = ['@o3r/core', '@o3r/schematics', '@o3r/workspace'];
+    const resolutions: PackageJson['resolutions'] = {};
+    o3rPackages.forEach((pkg) => {
+      if (packageJson.devDependencies?.[pkg]) {
+        packageJson.devDependencies[pkg] = version;
+      }
+      resolutions[pkg] = version;
+    });
+    if (projectPackageManager === 'yarn') {
+      packageJson.resolutions = resolutions;
+    } else {
+      (packageJson as any).overrides = resolutions;
+    }
+  }
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   if (projectPackageManager === 'yarn') {
@@ -192,9 +208,14 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   const options = schematicsCliOptions
     .flat();
 
-  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@~${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
     stdio: 'inherit',
-    cwd
+    cwd,
+    env: exactO3rVersion && projectPackageManager === 'npm' ? {
+      ...process.env,
+      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+      NPM_CONFIG_SAVE_EXACT: 'true'
+    } : undefined
   }));
 };
 

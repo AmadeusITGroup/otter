@@ -14,7 +14,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return (tree) => {
     return setupDependencies({
       projectName: options.projectName,
-      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, true)
+      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion)
     });
   };
 }

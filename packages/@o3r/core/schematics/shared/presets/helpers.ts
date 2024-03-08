@@ -22,9 +22,10 @@ export function defaultPresetRuleFactory(moduleToInstall: string[], options: Pre
     const dependencies = moduleToInstall.reduce((acc, dep) => {
       acc[dep] = {
         inManifest: [{
-          range: `~${corePackageJsonContent.version}`,
+          range: `${options.exactO3rVersion ? '' : '~'}${corePackageJsonContent.version}`,
           types: getProjectNewDependenciesTypes(workspaceProject)
-        }]
+        }],
+        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       };
       return acc;
     }, {} as Record<string, DependencyToAdd>);

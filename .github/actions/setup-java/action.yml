@@ -15,7 +15,7 @@ runs:
   using: "composite"
   steps:
     - name: Set up Maven
-      uses: stCarolas/setup-maven@v4.5
+      uses: stCarolas/setup-maven@v5
       with:
         maven-version: ${{ inputs.mvn-version }}
     - name: Set up JDK 17

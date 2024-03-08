@@ -29,12 +29,13 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
         acc[dep] = {
           inManifest: [{
-            range: `~${depsInfo.packageVersion}`,
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
             types: getProjectNewDependenciesTypes(workspaceProject)
-          }]
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
         };
         return acc;
-      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
       context.logger.info(`The package ${depsInfo.packageName as string} comes with a debug mechanism`);
       context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/configuration/OVERVIEW.md#Runtime-debugging');
       return () => chain([

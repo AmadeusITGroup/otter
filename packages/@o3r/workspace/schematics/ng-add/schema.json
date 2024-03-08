@@ -45,6 +45,11 @@
       "type": "boolean",
       "default": false,
       "alias": "g"
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,
