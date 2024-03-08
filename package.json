@@ -45,6 +45,7 @@
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
     "verdaccio:all": "yarn verdaccio:stop && yarn verdaccio:start && yarn verdaccio:publish",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
+    "knip": "knip",
     "workspaces:list": "yarn workspaces list --no-private --json | yarn node -e 'let data=\"\"; process.openStdin().on(\"data\", (c) => data+=c).on(\"end\", () => process.stdout.write(data.split(/[\\n\\r]+/).filter((l) => !!l).map((l) => JSON.parse(l).location).join(require(\"node:path\").delimiter)));'"
   },
   "lint-staged": {
@@ -192,6 +193,7 @@
     "@o3r/telemetry": "workspace:^",
     "@o3r/workspace": "workspace:^",
     "@playwright/test": "~1.42.0",
+    "@pnpm/logger": "^5.0.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~17.2.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
@@ -230,6 +232,7 @@
     "js-yaml": "^4.1.0",
     "jsonc-eslint-parser": "~2.4.0",
     "jsonpath-plus": "^8.0.0",
+    "knip": "^5.0.3",
     "lighthouse": "9.6.8",
     "lint-staged": "^15.0.0",
     "minimist": "^1.2.6",

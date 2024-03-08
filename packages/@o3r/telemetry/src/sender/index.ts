@@ -1,7 +1,7 @@
 import { EnvironmentMetricData } from '../environment';
 
 
-export interface BaseMetricData {
+interface BaseMetricData {
   /** Environment information */
   environment: EnvironmentMetricData;
   /** Time it takes to run */
