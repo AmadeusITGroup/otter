@@ -4,7 +4,6 @@ import {
   SchematicContext,
   Tree
 } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { promises as fs } from 'node:fs';
 import * as path from 'node:path';
 import { treeGlob } from '../../helpers/tree-glob';
@@ -92,4 +91,7 @@ function ngGenerateJavaClientCoreFn(options: NgGenerateJavaClientCoreSchematicsS
  * Generate a Java client SDK source code base on swagger specification
  * @param options
  */
-export const ngGenerateJavaClientCore = createSchematicWithMetricsIfInstalled(ngGenerateJavaClientCoreFn);
+export const ngGenerateJavaClientCore = (options: NgGenerateJavaClientCoreSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateJavaClientCoreFn)(options);
+};

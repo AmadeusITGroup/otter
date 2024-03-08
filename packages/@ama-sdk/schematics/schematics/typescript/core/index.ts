@@ -12,7 +12,6 @@ import {
   url
 } from '@angular-devkit/schematics';
 import type { Operation, PathObject } from '@ama-sdk/core';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import * as semver from 'semver';
@@ -247,4 +246,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
  * Generate a typescript SDK source code base on swagger specification
  * @param options
  */
-export const ngGenerateTypescriptSDK = createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn);
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
+};
