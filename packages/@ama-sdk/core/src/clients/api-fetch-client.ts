@@ -114,10 +114,13 @@ export class ApiFetchClient implements ApiClient {
     // Execute call
     try {
 
+      const metadataSignal = options.metadata?.signal;
+      metadataSignal?.throwIfAborted();
+
       const controller = new AbortController();
-      if (controller) {
-        options.signal = controller.signal;
-      }
+      options.signal = controller.signal;
+      metadataSignal?.addEventListener('abort', () => controller.abort());
+
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
       if (this.options.fetchPlugins) {
         loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger})));

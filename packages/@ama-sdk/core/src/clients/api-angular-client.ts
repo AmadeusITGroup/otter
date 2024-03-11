@@ -104,7 +104,9 @@ export class ApiAngularClient implements ApiClient {
 
       const asyncResponse = new Promise<HttpResponse<any>>((resolve, reject) => {
         let data: HttpResponse<any>;
-        this.options.httpClient.request(options.method, url, {
+        const metadataSignal = options.metadata?.signal;
+        metadataSignal?.throwIfAborted();
+        const subscription = this.options.httpClient.request(options.method, url, {
           ...options,
           observe: 'response',
           headers
@@ -112,6 +114,11 @@ export class ApiAngularClient implements ApiClient {
           next: (res) => data = res,
           error: (err) => reject(err),
           complete: () => resolve(data)
+        });
+        metadataSignal?.throwIfAborted();
+        metadataSignal?.addEventListener('abort', () => {
+          subscription.unsubscribe();
+          reject(metadataSignal.reason);
         });
       });
       response = await asyncResponse;
