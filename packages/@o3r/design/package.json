@@ -4,6 +4,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "typings": "./dist/src/public_api.d.ts",
   "description": "A design framework to generate theme on an Otter application based on Design Tokens.",
   "keywords": [
     "design",

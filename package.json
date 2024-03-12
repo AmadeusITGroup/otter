@@ -133,7 +133,7 @@
     "@types/node": "^20.0.0",
     "jasmine-marbles/rxjs": "^7.8.1",
     "git-url-parse": "^14.0.0",
-    "gonzales-pe-sl/minimist": "^1.2.0",
+    "gonzales-pe-sl/minimist": "^1.2.6",
     "typescript-json-schema/typescript": "~5.3.3"
   },
   "dependencies": {
