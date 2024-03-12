@@ -1,5 +1,4 @@
 import { Rule, Tree } from '@angular-devkit/schematics';
-import { getFilesInFolderFromWorkspaceProjectsInTree } from '@o3r/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
@@ -26,10 +25,10 @@ const removeImport = (source: ts.SourceFile, symbolName: string, fileName: strin
 
 /**
  * Update component file with new decorators for otter devtools
- *
  * @param tree Tree
  */
-export const updateComponentDecorators: Rule = (tree: Tree) => {
+export const updateComponentDecorators: Rule = async (tree: Tree) => {
+  const { getFilesInFolderFromWorkspaceProjectsInTree } = await import('@o3r/schematics');
   const componentFiles = new Set<string>(getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'component.ts'));
   componentFiles.forEach((filePath) => {
     const source = ts.createSourceFile(filePath, tree.readText(filePath), ts.ScriptTarget.ES2015, true);

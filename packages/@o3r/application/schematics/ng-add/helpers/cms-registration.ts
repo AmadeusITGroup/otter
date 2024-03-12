@@ -1,13 +1,13 @@
 import { apply, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
 import type { NgAddSchematicsSchema } from '../schema';
-import { getWorkspaceConfig } from '@o3r/schematics';
 
 /**
  * Register Otter Application module to the application
  * @param options
  */
 export const generateCmsConfigFile = (options: NgAddSchematicsSchema): Rule => {
-  return (tree, context) => {
+  return async (tree) => {
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
     const templateSource = apply(url('./templates'),
       [
@@ -17,6 +17,6 @@ export const generateCmsConfigFile = (options: NgAddSchematicsSchema): Rule => {
       ]
     );
 
-    return mergeWith(templateSource, MergeStrategy.Default)(tree, context);
+    return mergeWith(templateSource, MergeStrategy.Default);
   };
 };
