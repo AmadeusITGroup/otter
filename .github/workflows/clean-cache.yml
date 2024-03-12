@@ -10,10 +10,14 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: read
+
 jobs:
   clean-cache:
     runs-on: ubuntu-latest
     permissions:
+      # Needed to delete cache from action
       actions: write
       contents: read
     steps:
