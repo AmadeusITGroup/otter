@@ -11,3 +11,7 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 A set of helpers to retrieve tool usage metrics.
 
+## Privacy notice
+
+https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
+
