@@ -10,6 +10,7 @@ import { RulesetHistoryService } from '../services/ruleset-history.service';
 import { ConfigPanelPresComponent } from './config-panel/config-panel-pres.component';
 import { DebugPanelPresComponent } from './debug-panel/debug-panel-pres.component';
 import { DebugPanelService } from './debug-panel/debug-panel.service';
+import { ThemingPanelPresComponent } from './theming-panel/theming-panel-pres.component';
 
 @Component({
   selector: 'app-root',
@@ -23,6 +24,7 @@ import { DebugPanelService } from './debug-panel/debug-panel.service';
     ConfigPanelPresComponent,
     ComponentPanelPresComponent,
     AppConnectionComponent,
+    ThemingPanelPresComponent,
     AsyncPipe
   ]
 })

@@ -1,0 +1,47 @@
+@if (variables$ | async; as variables) {
+  <form [formGroup]="form" class="mb-2">
+    @if ((themeVariables$ | async)?.length) {
+      <div class="mb-2 input-group">
+        <label class="input-group-text" for="search-styling">
+          <i class="mx-1 icon-search" aria-label="Search"></i>
+        </label>
+        <input class="form-control" formControlName="search" type="text" id="search-styling" placeholder="Search for styling variable" />
+      </div>
+    }
+  </form>
+  @if ((themeVariables$ | async)?.length) {
+    @if (filteredThemeVariables$ | async; as filteredThemeVariables) {
+      @if (filteredThemeVariables.length) {
+        <form [formGroup]="form.controls.variables">
+          <ul class="list-group">
+            @for (themeVar of filteredThemeVariables; track themeVar.name) {
+              <li class="list-group-item form-group d-flex gap-4 align-items-center">
+                <div class="d-flex flex-column gap-2">
+                  <div class="d-flex gap-4 align-items-center flex-fill">
+                    @if (themeVar.type === 'color') {
+                      <input class="form-control form-control-color w-25" type="color" [value]="resolvedVariables()[themeVar.name] | color" (change)="onColorChange(themeVar.name, $event)" />
+                    }
+                    <label class="form-label" [for]="themeVar.name" [style.whiteSpace]="'nowrap'">{{ themeVar | variableLabel }}</label>
+                    <input [id]="themeVar.name" type="text" class="form-control" [formControlName]="themeVar.name" [ngbTypeahead]="variableSearch(themeVar)" />
+                    @if (form.value.variables?.[themeVar.name] !== themeVar.defaultValue) {
+                      <p class="form-text text-warning w-100 d-flex align-items-center gap-2" [style.margin]="0">Override applied <i class="icon-redo" ngbTooltip="Reset value to: {{themeVar.defaultValue}}" (click)="onColorReset(themeVar)"></i></p>
+                    }
+                  </div>
+                  @if (themeVar.description) {
+                    <p class="form-text">{{themeVar.description}}</p>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+        </form>
+      } @else {
+        <h3>No theming variable found for your search.</h3>
+      }
+    } @else {
+      <h3>No theming variable provided.</h3>
+    }
+  }
+} @else {
+  <h3>No metadata provided for styling.</h3>
+}

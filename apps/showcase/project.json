@@ -65,6 +65,11 @@
             "glob": "**/*.json",
             "input": "apps/showcase/dev-resources/localizations",
             "output": "/localizations"
+          },
+          {
+            "glob": "**/*.metadata.json",
+            "input": "apps/showcase",
+            "output": "/metadata"
           }
         ],
         "styles": [
