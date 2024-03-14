@@ -7,21 +7,21 @@ import { findWorkspacePackageJsons, getBestRange, getBestRanges } from './versio
 
 interface Options {
   /** List of package name to ignore when determining the dependencies versions */
-  ignoredPackages: string[];
+  ignoredPackages?: string[];
   /** List of dependencies to ignore */
-  ignoredDependencies: string[];
+  ignoredDependencies?: string[];
   /** List of dependency types to update */
-  dependencyTypes: string[];
+  dependencyTypes?: string[];
   /**
    * Enforce to align the version of the dependencies with the latest range.
    * If not set, the version will be aligned with the latest range if the latest range is not intersected with the current range.
    */
-  alignPeerDependencies: boolean;
+  alignPeerDependencies?: boolean;
   /** Align the resolutions/overrides dependency rules with the latest determined range */
-  alignResolutions: boolean;
+  alignResolutions?: boolean;
 }
 
-const defaultOptions: [Options] = [{
+const defaultOptions: [Required<Options>] = [{
   ignoredDependencies: [],
   dependencyTypes: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies'],
   alignPeerDependencies: false,
@@ -29,14 +29,14 @@ const defaultOptions: [Options] = [{
   ignoredPackages: []
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
+export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
   name: 'json-dependency-versions-harmonize',
   meta: {
     hasSuggestions: true,
     type: 'problem',
     docs: {
       description: 'Ensure that the package dependency versions are aligned with the other package of the workspace.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -83,14 +83,14 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: [Options]) => {
+  create: (context, [options]: Readonly<[Options, ...any]>) => {
     const resolutionsFields = ['resolutions', 'overrides'];
     const parserServices = getJsoncParserServices(context);
     const dirname = path.dirname(context.getFilename());
     const workspace = findWorkspacePackageJsons(dirname);
-    const bestRanges = workspace && getBestRanges(options.dependencyTypes, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages.includes(content.name)));
-    const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
-    const dependencyTypes = [...options.dependencyTypes, ...(options.alignResolutions ? resolutionsFields : [])];
+    const bestRanges = workspace && getBestRanges(options.dependencyTypes!, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
+    const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
+    const dependencyTypes = [...options.dependencyTypes!, ...(options.alignResolutions ? resolutionsFields : [])];
 
     if (parserServices.isJSON) {
       return {
@@ -165,5 +165,6 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
         }
       };
     }
+    return {};
   }
 });

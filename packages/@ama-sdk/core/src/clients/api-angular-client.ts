@@ -136,7 +136,7 @@ export class ApiAngularClient implements ApiClient {
           ...response,
           headers: new Headers(
             response.headers.keys()
-              .map((key) => ([key, response!.headers.get(key)!] as [string, string]))
+              .map((key) => ([key, response.headers.get(key)!] as [string, string]))
           )
         },
         reviver,

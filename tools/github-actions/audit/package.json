@@ -20,23 +20,23 @@
     "audit-types": "~0.5.6"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~17.2.0",
-    "@nx/eslint-plugin": "~18.0.2",
+    "@angular-eslint/eslint-plugin": "~17.2.1",
+    "@nx/eslint-plugin": "~18.0.8",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/node": "^20.0.0",
-    "@typescript-eslint/eslint-plugin": "^7.0.1",
-    "@typescript-eslint/parser": "^7.0.1",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "@vercel/ncc": "~0.38.0",
     "audit-types": "~0.5.6",
-    "eslint": "^8.42.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-jest": "~27.9.0",
-    "eslint-plugin-jsdoc": "~48.2.0",
+    "eslint-plugin-jsdoc": "~48.2.1",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^51.0.0",
+    "eslint-plugin-unicorn": "^51.0.1",
     "jsonc-eslint-parser": "~2.4.0",
-    "typescript": "~5.3.3"
+    "typescript": "~5.4.2"
   },
   "engines": {
     "node": ">=18.0.0"

@@ -26,14 +26,14 @@ const defaultOptions: [Options] = [{
   dependencyTypesInPackages: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies']
 }];
 
-export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
+export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
   name: 'yarnrc-package-extensions-harmonize',
   meta: {
     hasSuggestions: true,
     type: 'problem',
     docs: {
       description: 'Ensure that the package extension versions are aligned with range defined in packages.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -80,7 +80,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
     fixable: 'code'
   },
   defaultOptions,
-  create: (context, [options]: [Options]) => {
+  create: (context, [options]: Readonly<[Options, ...any]>) => {
     const parserServices = getYamlParserServices(context);
     const dirname = path.dirname(context.getFilename());
     const workspace = findWorkspacePackageJsons(dirname);
@@ -134,5 +134,6 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error', any>({
         }
       };
     }
+    return {};
   }
 });
