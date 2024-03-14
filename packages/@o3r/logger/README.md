@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/logger)](https://www.npmjs.com/package/@o3r/logger)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/logger?color=green)](https://www.npmjs.com/package/@o3r/logger)
+
 This module provides a bridge to target different logger (logrocket, fullstory, smartlook) with a common interface.
 
 ## How to install

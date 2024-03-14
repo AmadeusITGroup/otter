@@ -1,5 +1,8 @@
 # SDK Generator
 
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/schematics)](https://www.npmjs.com/package/@ama-sdk/schematics)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/schematics?color=green)](https://www.npmjs.com/package/@ama-sdk/schematics)
+
 This package provides `schematics` generators to create an SDK based on an OpenAPI specifications.
 There are two SDK generators in the Otter Framework: Typescript and Java. The Java generator is currently in maintenance
 mode and only the Typescript generator is actively supported and will see future evolutions.
@@ -88,6 +91,7 @@ Use `generate` to (re)generate your SDK based on the content of `./swagger-spec.
 It is also possible to generate a "light" SDK. This type of SDK does not need to generate revivers, which results in a simplified version of the code and reduces the size of the bundle.
 
 Please note that revivers are generated for SDKs that use:
+
 - non-stringified dates
 - dictionaries
 - extensible models
@@ -95,6 +99,7 @@ Please note that revivers are generated for SDKs that use:
 ##### Dates
 
 If your specification file includes dates, there are multiple options for the generation of your SDK involving the global property option `stringifyDate`:
+
 - By default, the option `stringifyDate` is false so dates will be generated as either `utils.Date`, `utils.DateTime`, or `Date`.
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
 - To leave the handling of the timezone to the application and generate the dates as `string` types, the option `stringifyDate` can be set to true. <br>
@@ -125,11 +130,11 @@ yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.y
 
 It is possible to configure the SDK code generation by passing parameters to the generator command line to override the default configuration values.
 The available parameters are:
-* `--spec-path`: Path to the swagger specification used to generate the SDK
-* `--spec-config-path`: Path to the spec generation configuration
-* `--global-property`: Comma separated string of options to give to the openapi-generator-cli
-* `--output-path`: Output path for the generated SDK
-* `--generator-custom-path`: Path to a custom generator
+- `--spec-path`: Path to the swagger specification used to generate the SDK
+- `--spec-config-path`: Path to the spec generation configuration
+- `--global-property`: Comma separated string of options to give to the openapi-generator-cli
+- `--output-path`: Output path for the generated SDK
+- `--generator-custom-path`: Path to a custom generator
 
 #### openapitools.json
 
@@ -158,8 +163,8 @@ There is also a possibility to configure the SDK code generation in `openapitool
 yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk
 ```
 
-The properties `generatorName`, `output`, and `inputSpec` are required and additional properties can be added (available properties described in the schema 
-[here](https://github.com/OpenAPITools/openapi-generator-cli/blob/master/apps/generator-cli/src/config.schema.json)). For example, we can add the previously 
+The properties `generatorName`, `output`, and `inputSpec` are required and additional properties can be added (available properties described in the schema
+[here](https://github.com/OpenAPITools/openapi-generator-cli/blob/master/apps/generator-cli/src/config.schema.json)). For example, we can add the previously
 described global properties `stringifyDate` and  `allowModelExtension`:
 
 ```json
@@ -168,7 +173,7 @@ described global properties `stringifyDate` and  `allowModelExtension`:
   "generator-cli": {
     "version": "0.0.0",
     "storageDir": ".openapi-generator",
-    "generators": { 
+    "generators": {
       "example-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
@@ -192,7 +197,7 @@ yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk 
 
 > [!CAUTION]
 > If the parameter `--generator-key` is provided in combination with other parameters to be overridden, the limitation is that not all
-> properties from `openapitools.json` will be taken into account (contrary to the case when there is only the `--generator-key` parameter). 
+> properties from `openapitools.json` will be taken into account (contrary to the case when there is only the `--generator-key` parameter).
 > As of now, the only properties that will be taken into account are `output`, `inputSpec`, `config`, `globalProperty` which can be
 > overridden with the parameters `--output-path`, `--spec-path`, `--spec-config-path`, and `--global-property`.
 
@@ -209,6 +214,7 @@ The OpenApi generator extracts an enhanced JSON data model from the specificatio
 If there is an issue with the files generated with the spec provided, the generator provides debugging features that log this data model.
 
 You can use global property options to pass one or both of the following options:
+
 - debugModels - logs the full JSON structure used to generate models
 - debugOperations - logs the full JSON structure used to generate operations
 

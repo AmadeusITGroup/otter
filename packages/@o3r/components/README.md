@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/components)](https://www.npmjs.com/package/@o3r/components)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/components?color=green)](https://www.npmjs.com/package/@o3r/components)
+
 This module contains component related features (Component replacement, CMS compatibility, helpers, pipes, debugging developer tools...)
 It comes with an integrated ng builder to help you generate components compatible with Otter features (CMS integration, localization, etc.).
 
