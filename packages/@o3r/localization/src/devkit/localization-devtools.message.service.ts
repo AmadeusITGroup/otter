@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { ApplicationRef, Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { filterMessageContent } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
 import { fromEvent, Subscription } from 'rxjs';
@@ -16,9 +16,11 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
   private readonly subscriptions = new Subscription();
 
   constructor(
-      private readonly logger: LoggerService,
-      private readonly localizationDevTools: OtterLocalizationDevtools,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS) {
+    private readonly logger: LoggerService,
+    private readonly appRef: ApplicationRef,
+    private readonly localizationDevTools: OtterLocalizationDevtools,
+    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
+  ) {
 
     if (this.options.isActivatedOnBootstrap) {
       this.activate();
@@ -40,6 +42,7 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
       }
       case 'displayLocalizationKeys': {
         this.localizationDevTools.showLocalizationKeys(message.toggle);
+        this.appRef.tick();
         break;
       }
       default: {
