@@ -243,7 +243,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "rimraf": "^5.0.1",
-    "sass": "~1.71.0",
+    "sass": "~1.72.0",
     "sass-loader": "^14.0.0",
     "semver": "^7.5.2",
     "standard-version": "^9.0.0",
