@@ -24,7 +24,7 @@
     "uuid": "^9.0.0"
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "rxjs": "^7.8.1"
@@ -41,18 +41,18 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~17.2.0",
-    "@angular-devkit/core": "~17.2.0",
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/build-angular": "~17.3.0",
+    "@angular-devkit/core": "~17.3.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
-    "@angular/animations": "~17.2.0",
-    "@angular/cli": "~17.2.0",
-    "@angular/common": "~17.2.0",
-    "@angular/compiler": "~17.2.0",
-    "@angular/compiler-cli": "~17.2.0",
-    "@angular/core": "~17.2.0",
-    "@angular/platform-browser": "~17.2.0",
-    "@angular/platform-browser-dynamic": "~17.2.0",
+    "@angular/animations": "~17.3.0",
+    "@angular/cli": "~17.3.0",
+    "@angular/common": "~17.3.0",
+    "@angular/compiler": "~17.3.0",
+    "@angular/compiler-cli": "~17.3.0",
+    "@angular/core": "~17.3.0",
+    "@angular/platform-browser": "~17.3.0",
+    "@angular/platform-browser-dynamic": "~17.3.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",

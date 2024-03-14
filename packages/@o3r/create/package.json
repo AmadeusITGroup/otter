@@ -18,16 +18,16 @@
     "prepare:publish": "prepare-publish ./dist"
   },
   "dependencies": {
-    "@angular/cli": "~17.2.0",
-    "@schematics/angular": "~17.2.0",
+    "@angular/cli": "~17.3.0",
+    "@schematics/angular": "~17.3.0",
     "minimist": "^1.2.6",
     "tslib": "^2.5.3",
     "type-fest": "^4.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1702.0",
-    "@angular-devkit/core": "~17.2.0",
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/architect": "~0.1703.0",
+    "@angular-devkit/core": "~17.3.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
     "@angular-eslint/eslint-plugin-template": "~17.2.0",
     "@nx/eslint": "~18.0.2",

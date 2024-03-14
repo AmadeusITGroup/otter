@@ -44,7 +44,7 @@
   "peerDependencies": {
     "@angular-eslint/template-parser": "~17.2.0",
     "@angular-eslint/utils": "~17.2.0",
-    "@angular/compiler": "~17.2.0",
+    "@angular/compiler": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
     "@typescript-eslint/parser": "^7.0.1",
@@ -53,12 +53,12 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~17.2.0",
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/core": "~17.3.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
     "@angular-eslint/template-parser": "~17.2.0",
     "@angular-eslint/utils": "~17.2.0",
-    "@angular/compiler": "~17.2.0",
+    "@angular/compiler": "~17.3.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.23.0",
     "@compodoc/compodoc": "^1.1.19",

@@ -18,7 +18,7 @@
     }
   },
   "peerDependencies": {
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@o3r/schematics": "workspace:^",
     "memfs": "~4.7.0",
     "minimist": "^1.2.6",
@@ -37,12 +37,12 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "devDependencies": {
-    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-devkit/schematics": "~17.3.0",
     "@angular-eslint/eslint-plugin": "~17.2.0",
     "@nx/eslint-plugin": "~18.0.2",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@schematics/angular": "~17.2.0",
+    "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
