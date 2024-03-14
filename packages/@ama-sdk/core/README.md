@@ -1,5 +1,8 @@
 # @ama-sdk Core
 
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/core)](https://www.npmjs.com/package/@ama-sdk/core)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/core?color=green)](https://www.npmjs.com/package/@ama-sdk/core)
+
 This package contains all the [plugins](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins), helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
 
 Please refer to the [ama-sdk-schematics](../schematics/README.md) package for getting started with an API based on `ama-sdk`.

@@ -4,10 +4,14 @@
 </p>
 
 This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/otter/tree/main/docs/core/MODULE.md).
+
 <br />
 <br />
 
 ## Description
+
+[![Stable Version](https://img.shields.io/npm/v/@o3r/analytics)](https://www.npmjs.com/package/@o3r/analytics)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/analytics?color=green)](https://www.npmjs.com/package/@o3r/analytics)
 
 This module provides a framework to capture, store and report multiple events (ui, performance etc.) emitted by an [Otter Application](https://github.com/AmadeusITGroup/otter).
 

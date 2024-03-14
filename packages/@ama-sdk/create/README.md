@@ -3,6 +3,13 @@
   <img src="https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/otter.png" alt="Super cute Otter!" width="40%"/>
 </p>
 
+## Description
+
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/create)](https://www.npmjs.com/package/@ama-sdk/create)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/create?color=green)](https://www.npmjs.com/package/@ama-sdk/create)
+
+This package is an [NPM initializer](https://docs.npmjs.com/cli/v8/commands/npm-init) to generate an API client SDK based on [OpenAPI specification](https://spec.openapis.org/oas/v3.1.0).
+
 ## Create an SDK package
 
 This package is simplifying the start of new SDK repository.

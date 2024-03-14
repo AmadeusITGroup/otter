@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/forms)](https://www.npmjs.com/package/@o3r/forms)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/forms?color=green)](https://www.npmjs.com/package/@o3r/forms)
+
 This module provides utilities to enhance angular form (asynchronous decorator, additional validator, error store...).
 
 ## How to install
