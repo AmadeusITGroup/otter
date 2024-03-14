@@ -11,7 +11,7 @@ import { ConfigPanelPresComponent } from './config-panel/config-panel-pres.compo
 import { DebugPanelPresComponent } from './debug-panel/debug-panel-pres.component';
 import { DebugPanelService } from './debug-panel/debug-panel.service';
 import { LocalizationPanelPresComponent } from './localization-panel/localization-panel-pres.component';
-
+import { ThemingPanelPresComponent } from './theming-panel/theming-panel-pres.component';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +26,7 @@ import { LocalizationPanelPresComponent } from './localization-panel/localizatio
     ComponentPanelPresComponent,
     AppConnectionComponent,
     LocalizationPanelPresComponent,
+    ThemingPanelPresComponent,
     AsyncPipe
   ]
 })

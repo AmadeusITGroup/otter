@@ -38,6 +38,7 @@ import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
 import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
+import { StylingDevtoolsModule } from '@o3r/styling';
 
 @NgModule({
   imports: [
@@ -45,7 +46,8 @@ import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
     ConfigurationDevtoolsModule,
     ComponentsDevtoolsModule,
     LocalizationDevtoolsModule,
-    RulesEngineDevtoolsModule
+    RulesEngineDevtoolsModule,
+    StylingDevtoolsModule
   ]
 })
 export class AppModule {
@@ -61,6 +63,7 @@ import { ComponentsDevtoolsMessageService } from '@o3r/components';
 import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
 import { LocalizationDevtoolsMessageService } from '@o3r/localization';
 import { RulesEngineDevtoolsMessageService } from '@o3r/rules-engine';
+import { StylingDevtoolsMessageService } from '@o3r/styling';
 
 @Component({
   selector: 'app'
@@ -71,7 +74,9 @@ export class AppComponent {
     componentsDevtoolsMessageService: ComponentsDevtoolsMessageService,
     configurationMessageService: ConfigurationDevtoolsMessageService,
     localizationMessageService: LocalizationDevtoolsMessageService,
-    rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService) {
+    rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
+    stylingDevtoolsMessageService: StylingDevtoolsMessageService
+  ) {
     if (environment.DEBUG_MODE) {
       // It is strongly recommended to activate the Otter Devtools services only in the development mode
       applicationDevtoolsMessageService.activate();
@@ -79,6 +84,7 @@ export class AppComponent {
       configurationMessageService.activate();
       localizationMessageService.activate();
       rulesEngineDevtoolsMessageService.activate();
+      stylingDevtoolsMessageService.activate();
     }
   }
 }

@@ -20,6 +20,7 @@
 --color-primary-A400: #9caeff;
 --color-primary-A200: #cfd8ff;
 --color-primary-A100: #ffffff;
+/* Primary palette */
 --color-primary: var(--color-primary-500);
 --color-accent-50: #e8f7ff;
 --color-accent-100: #c5eaff;
@@ -35,6 +36,7 @@
 --color-accent-A400: #cbe5ff;
 --color-accent-A200: #feffff;
 --color-accent-A100: #ffffff;
+/* Accent palette */
 --color-accent: var(--color-accent-500);
 --color-highlight-50: #f4e5ff;
 --color-highlight-100: #e4beff;
@@ -50,6 +52,7 @@
 --color-highlight-A400: #dcc3ff;
 --color-highlight-A200: #faf6ff;
 --color-highlight-A100: #ffffff;
+/* Highlight palette */
 --color-highlight: var(--color-highlight-500);
 --color-warn-50: #fdede4;
 --color-warn-100: #fbd1bb;
@@ -65,6 +68,7 @@
 --color-warn-A400: #ffb7a8;
 --color-warn-A200: #ffe1db;
 --color-warn-A100: #ffffff;
+/* Warn palette */
 --color-warn: var(--color-warn-500);
 --color-out-of-palette-green: #067f28;
 --color-out-of-palette-comet: #1b2073;
@@ -75,6 +79,7 @@
 --color-neutral-gray-light: #eff5f9;
 --color-neutral-black: #000000;
 --color-neutral-gray-dark: #616161;
+--color-neutral-custom: var(--color-primary);
 --spacing-0: 0px;
 --spacing-1: 1px;
 --spacing-5: 5px;
