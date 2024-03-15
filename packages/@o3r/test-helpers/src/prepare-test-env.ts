@@ -1,4 +1,4 @@
-import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { execFileSync, execSync, ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';

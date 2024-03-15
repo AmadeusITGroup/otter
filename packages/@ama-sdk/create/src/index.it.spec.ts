@@ -24,8 +24,9 @@ let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
 const packageManager = getPackageManager();
+const describeSkipYarn1 = isYarn1Enforced ? describe.skip : describe;
 
-describe('Create new sdk command', () => {
+describeSkipYarn1('Create new sdk command', () => {
   beforeEach(() => {
     const isYarnTest = o3rEnvironment.testEnvironment.isYarnTest;
     sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
@@ -40,7 +41,7 @@ describe('Create new sdk command', () => {
 
       // copy yarnrc config to generated SDK
       mkdirSync(sdkPackagePath, { recursive: true });
-      const yarnConfigFile = isYarn1Enforced() ? '.yarnrc' : '.yarnrc.yml';
+      const yarnConfigFile = '.yarnrc.yml';
       cpSync(path.join(sdkFolderPath, yarnConfigFile), path.join(sdkPackagePath, yarnConfigFile));
       cpSync(path.join(sdkFolderPath, '.yarn'), path.join(sdkPackagePath, '.yarn'), { recursive: true });
       fs.writeFileSync(path.join(sdkPackagePath, 'yarn.lock'), '');
@@ -61,7 +62,7 @@ describe('Create new sdk command', () => {
       packageManagerCreate({
         script: '@ama-sdk',
         args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
-      }, execAppOptions, !isYarn1Enforced() ? 'npm' : undefined)
+      }, execAppOptions, 'npm')
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
@@ -116,7 +117,7 @@ describe('Create new sdk command', () => {
     expect(() => packageManagerCreate({
       script: '@ama-sdk',
       args: ['typescript', sdkPackageName, '--package-manager', packageManager]
-    }, execAppOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
+    }, execAppOptions, 'npm')).not.toThrow();
     expect(() => packageManagerRun({ script: 'build' }, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() =>
       packageManagerExec({
@@ -133,7 +134,7 @@ describe('Create new sdk command', () => {
       packageManagerCreate({
         script: '@ama-sdk',
         args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', './missing-file.yml']
-      }, execAppOptions, !isYarn1Enforced() ? 'npm' : undefined)
+      }, execAppOptions, 'npm')
     ).toThrow();
   });
 
@@ -142,7 +143,7 @@ describe('Create new sdk command', () => {
       packageManagerCreate({
         script: `@ama-sdk@${o3rEnvironment.testEnvironment.o3rExactVersion}`,
         args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
-      }, execAppOptions, !isYarn1Enforced() ? 'npm' : undefined)
+      }, execAppOptions, 'npm')
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf-8'));

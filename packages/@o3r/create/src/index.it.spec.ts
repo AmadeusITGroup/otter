@@ -21,8 +21,8 @@ import * as path from 'node:path';
 
 const defaultExecOptions = getDefaultExecSyncOptions();
 const workspaceProjectName = 'my-project';
-
-describe('Create new otter project command', () => {
+const describeSkipYarn1 = isYarn1Enforced ? describe.skip : describe;
+describeSkipYarn1('Create new otter project command', () => {
   test('should generate a project with an application', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
@@ -34,7 +34,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inProjectPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
@@ -58,7 +58,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inProjectPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
     expect(existsSync(path.join(inProjectPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inProjectPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();

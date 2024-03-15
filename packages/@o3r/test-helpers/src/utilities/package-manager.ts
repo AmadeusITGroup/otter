@@ -270,8 +270,6 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', '@o3r:registry', options.registry], execOptions);
         execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
       }
-      const cacheFolder = 'cache-folder';
-      const globalFolder = 'global-folder';
       const ignoreRootCheckConfig = '--add.ignore-workspace-root-check';
       const yarnRcPath = join(execOptions.cwd as string, '.yarnrc');
 
@@ -281,12 +279,11 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
           appendFileSync(yarnRcPath, `\n${ignoreRootCheckConfig} true`);
         }
         if (options.globalFolderPath) {
-          if (!content.includes(cacheFolder)) {
-            appendFileSync(yarnRcPath, `\n${cacheFolder} "${posix.join(options.globalFolderPath.split(sep).join(posix.sep), 'yarn1-cache', options.packageScope || '')}"`);
-          }
-          if (!content.includes(globalFolder)) {
-            appendFileSync(yarnRcPath, `\n${globalFolder} "${posix.join(options.globalFolderPath.split(sep).join(posix.sep), 'yarn1-global', options.packageScope || '')}"`);
-          }
+          ['cache-folder', 'global-folder'].forEach(folder => {
+            if (!content.includes(folder)) {
+              appendFileSync(yarnRcPath, `\n${folder} "${posix.join(options.globalFolderPath!.split(sep).join(posix.sep), `yarn1-${folder}`, options.packageScope || '')}"`);
+            }
+          });
         }
       } else {
         console.warn(`File not found at '${yarnRcPath}'.`);
