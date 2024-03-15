@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import {
   getAnalyticEvents as devkitGetAnalyticEvents,
@@ -15,6 +16,8 @@ import type {
 import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
+import { AppConnectionComponent } from '../components/app-connection/app-connection.component';
+import { OtterComponentComponent } from '../components/otter-component/otter-component.component';
 import { RulesetHistoryService } from '../services/ruleset-history.service';
 import { ChromeExtensionConnectionService } from '../services/connection.service';
 
@@ -57,7 +60,13 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    OtterComponentComponent,
+    AppConnectionComponent,
+    AsyncPipe
+  ]
 })
 export class AppComponent {
   /** Configuration value stream */

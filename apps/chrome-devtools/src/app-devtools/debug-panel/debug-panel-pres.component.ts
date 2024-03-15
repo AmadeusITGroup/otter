@@ -1,12 +1,17 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
 import { DebugPanelService } from './debug-panel.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'o3r-debug-panel-pres',
   templateUrl: './debug-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    AsyncPipe
+  ]
 })
 export class DebugPanelPresComponent {
   /** Application information stream */

@@ -4,3 +4,8 @@
   $font-path: '@design-factory/design-factory/assets/fonts',
   $utilities-bg: ()
 );
+
+// TODO check why accordion are not working corectly without that
+.collapse:not(.show) {
+  display: none;
+}
