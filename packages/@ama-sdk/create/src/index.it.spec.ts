@@ -26,10 +26,11 @@ const execAppOptions = getDefaultExecSyncOptions();
 const packageManager = getPackageManager();
 
 describe('Create new sdk command', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     const isYarnTest = o3rEnvironment.testEnvironment.isYarnTest;
     sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     const yarnVersion = o3rEnvironment.testEnvironment.packageManagerConfig.yarnVersion;
+    sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 

@@ -1,6 +1,6 @@
 import { execFileSync, ExecSyncOptions } from 'node:child_process';
 import { appendFileSync, existsSync, readFileSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, posix, sep } from 'node:path';
 import { performance } from 'node:perf_hooks';
 
 declare global {
@@ -217,6 +217,12 @@ export interface PackageManagerConfig {
    * Custom registry used to fetch local packages
    */
   registry: string;
+
+  /**
+   * Scope of package used to run the create command
+   * Used on yarn1 tests, because it is not able to differetiate from which package scope to run the create
+   */
+  packageScope?: string;
 }
 
 /**
@@ -264,6 +270,8 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         execFileSync('yarn', ['config', 'set', '@o3r:registry', options.registry], execOptions);
         execFileSync('yarn', ['config', 'set', 'unsafeHttpWhitelist', '127.0.0.1'], execOptions);
       }
+      const cacheFolder = 'cache-folder';
+      const globalFolder = 'global-folder';
       const ignoreRootCheckConfig = '--add.ignore-workspace-root-check';
       const yarnRcPath = join(execOptions.cwd as string, '.yarnrc');
 
@@ -271,6 +279,14 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
         const content = readFileSync(yarnRcPath, { encoding: 'utf8' });
         if (!content.includes(ignoreRootCheckConfig)) {
           appendFileSync(yarnRcPath, `\n${ignoreRootCheckConfig} true`);
+        }
+        if (options.globalFolderPath) {
+          if (!content.includes(cacheFolder)) {
+            appendFileSync(yarnRcPath, `\n${cacheFolder} "${posix.join(options.globalFolderPath.split(sep).join(posix.sep), 'yarn1-cache', options.packageScope || '')}"`);
+          }
+          if (!content.includes(globalFolder)) {
+            appendFileSync(yarnRcPath, `\n${globalFolder} "${posix.join(options.globalFolderPath.split(sep).join(posix.sep), 'yarn1-global', options.packageScope || '')}"`);
+          }
         }
       } else {
         console.warn(`File not found at '${yarnRcPath}'.`);

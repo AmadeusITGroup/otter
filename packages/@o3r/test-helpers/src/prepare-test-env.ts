@@ -30,6 +30,11 @@ export interface PrepareTestEnvOptions {
   yarnVersion?: string;
   /** Logger to use for logging */
   logger?: Logger;
+  /**
+   * Scope of package used to run the create command
+   * Used on yarn1 tests, because it is not able to differetiate from which package scope to run the create
+   */
+  packageScope?: string;
 }
 
 /**
@@ -42,7 +47,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const logger = options?.logger || console;
   const yarnVersionParam = options?.yarnVersion;
   const rootFolderPath = process.cwd();
-  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
+  const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests', options?.packageScope || '');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
   const o3rVersion = '~999';
@@ -61,17 +66,18 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const packageManagerConfig = {
     yarnVersion,
     globalFolderPath,
-    registry
+    registry,
+    ...(isYarn1Enforced() ? {packageScope: options?.packageScope} : {})
   };
 
   // Create it-tests folder
   if (!existsSync(itTestsFolderPath)) {
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
-      mkdirSync(itTestsFolderPath);
+      mkdirSync(itTestsFolderPath, { recursive: true });
       setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath});
       return Promise.resolve();
-    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
+    }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: path.join('it-tests', options?.packageScope || '')});
   }
   const o3rExactVersion = execFileSync('npm', ['info', '@o3r/create', 'version'], {
     ...execAppOptions,
