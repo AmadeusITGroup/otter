@@ -29,7 +29,8 @@
   ],
   "enabledManagers": [
     "npm",
-    "github-actions"
+    "github-actions",
+    "gradle"
   ],
   "npm": {
     "stabilityDays": 0
