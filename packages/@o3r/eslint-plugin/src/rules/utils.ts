@@ -1,4 +1,4 @@
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/experimental-utils';
+import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
 import * as path from 'node:path';
 
 /** Current package version (format: <major>.<minor>)*/

@@ -12,7 +12,7 @@ type Messages =
   | 'notInConfigurationInterface'
   | 'suggestReplaceO3rCategory';
 
-export default createRule<[O3rCategoriesTagsRuleOption, ...any], Messages>({
+export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messages>({
   name: 'o3r-categories-tags',
   meta: {
     hasSuggestions: true,
@@ -20,7 +20,7 @@ export default createRule<[O3rCategoriesTagsRuleOption, ...any], Messages>({
     type: 'problem',
     docs: {
       description: 'Ensures that @o3rCategories and @o3rCategory are used with correct value',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -55,7 +55,7 @@ export default createRule<[O3rCategoriesTagsRuleOption, ...any], Messages>({
     supportedInterfaceNames: defaultSupportedInterfaceNames,
     globalConfigCategories: []
   }],
-  create: (context, [options]: [Required<O3rCategoriesTagsRuleOption>]) => {
+  create: (context, [options]: Readonly<[O3rCategoriesTagsRuleOption, ...any]>) => {
     const globalConfigCategories = new Set(options.globalConfigCategories);
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
