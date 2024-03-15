@@ -12,6 +12,9 @@
     "otter-cms"
   ],
   "exports": {
+    "./package.json": {
+      "node": "./package.json"
+    },
     "./schemas/*.json": {
       "default": "./schemas/*.json"
     }
