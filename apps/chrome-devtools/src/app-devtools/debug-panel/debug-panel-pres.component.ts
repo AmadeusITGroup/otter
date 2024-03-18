@@ -27,16 +27,6 @@ export class DebugPanelPresComponent {
   }
 
   /**
-   * Toggle localization key display
-   * @param event
-   */
-  public toggleLocalizationKey(event: UIEvent) {
-    this.connection.sendMessage('displayLocalizationKeys', {
-      toggle: (event.target as HTMLInputElement).checked
-    });
-  }
-
-  /**
    * Toggle visual testing mode
    * @param event
    */

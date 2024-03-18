@@ -39,7 +39,8 @@ export class LocalizationService {
     private readonly translateService: TranslateService,
     private readonly logger: LoggerService,
     @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
-    @Optional() private readonly store?: Store<LocalizationOverrideStore>) {
+    @Optional() private readonly store?: Store<LocalizationOverrideStore>
+  ) {
     this.configure();
     if (this.store) {
       this.keyMapping$ = this.store.pipe(
@@ -136,6 +137,13 @@ export class LocalizationService {
     this.translateService.addLangs(this.configuration.supportedLocales);
     this.translateService.setDefaultLang(language);
     this.useLanguage(language);
+  }
+
+  /**
+   * Is the translation deactivation enabled
+   */
+  public isTranslationDeactivationEnabled() {
+    return this.configuration.enableTranslationDeactivation;
   }
 
   /**

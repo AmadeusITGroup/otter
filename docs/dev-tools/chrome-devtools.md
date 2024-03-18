@@ -85,7 +85,24 @@ export class AppComponent {
 ```
 
 > [!TIP]
-> The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS` (example: `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`).
+> The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS` (example: `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`). The services need to be injected in the application.
+> `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
+
+### How to enable more features by providing metadata files
+
+In your `angular.json` or `project.json`, you can specify `assets` in the options of `@angular-devkit/build-angular:application`.
+```json
+{
+  "glob": "**/*.metadata.json",
+  "input": "path/to/your/app",
+  "output": "/metadata"
+}
+```
+> [!CAUTION]
+> We recommend to add this asset entry only for the development configuration.
+
+> [!NOTE]
+> For the showcase application, we are exposing the metadata in production mode, to be able to showcase the chrome extension features easily.
 
 ## How to install the extension
 

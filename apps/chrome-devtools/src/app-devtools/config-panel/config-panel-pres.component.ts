@@ -33,7 +33,7 @@ export class ConfigPanelPresComponent {
     connectionService.sendMessage(
       'requestMessages',
       {
-        only: 'configurations'
+        only: ['configurations']
       }
     );
     const configs$ = connectionService.message$.pipe(

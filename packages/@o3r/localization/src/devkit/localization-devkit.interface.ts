@@ -7,8 +7,28 @@ import type {
   RequestMessagesContentMessage
 } from '@o3r/core';
 import { Subscription } from 'rxjs';
+import type { LocalizationMetadata } from '../core';
 
 export interface LocalizationDevtoolsServiceOptions extends DevtoolsCommonOptions, ContextualizationDevtoolsCommonOptions {
+  metadataFilePath: string;
+}
+
+/** Localizations message content */
+export interface LocalizationsContentMessage extends OtterMessageContent<'localizations'> {
+  /** Localizations metadata */
+  localizations: LocalizationMetadata;
+}
+
+/** Languages message content */
+export interface LanguagesContentMessage extends OtterMessageContent<'languages'> {
+  /** Languages available */
+  languages: string[];
+}
+
+/** Switch languages message content */
+export interface SwitchLanguageContentMessage extends OtterMessageContent<'switchLanguage'> {
+  /** Language */
+  language: string;
 }
 
 /** Display localization key message content */
@@ -17,11 +37,42 @@ export interface DisplayLocalizationKeysContentMessage extends OtterMessageConte
   toggle?: boolean;
 }
 
+/** Update localization message content */
+export interface UpdateLocalizationContentMessage extends OtterMessageContent<'updateLocalization'> {
+  /** Localization key */
+  key: string;
+  /** Localization value */
+  value: string;
+  /** Lang */
+  lang?: string;
+}
+
+/** Reload localization Keys message content */
+export interface ReloadLocalizationKeysContentMessage extends OtterMessageContent<'reloadLocalizationKeys'> {
+  /** Lang */
+  lang?: string;
+}
+
+export interface IsTranslationDeactivationEnabledContentMessage extends OtterMessageContent<'isTranslationDeactivationEnabled'> {
+  enabled: boolean;
+}
+
+export interface GetTranslationValuesContentMessage extends OtterMessageContent<'getTranslationValuesContentMessage'> {
+  translations: { [localizationKey: string]: string };
+}
+
 type LocalizationMessageContents =
-  | DisplayLocalizationKeysContentMessage;
+  | LanguagesContentMessage
+  | ReloadLocalizationKeysContentMessage
+  | SwitchLanguageContentMessage
+  | LocalizationsContentMessage
+  | DisplayLocalizationKeysContentMessage
+  | UpdateLocalizationContentMessage
+  | IsTranslationDeactivationEnabledContentMessage
+  | GetTranslationValuesContentMessage;
 
 /** List of possible DataTypes for Localization messages */
-type LocalizationMessageDataTypes = MessageDataTypes<LocalizationMessageContents>;
+export type LocalizationMessageDataTypes = MessageDataTypes<LocalizationMessageContents>;
 
 /** List of all messages for Localization purpose */
 export type AvailableLocalizationMessageContents =
@@ -34,6 +85,11 @@ export type AvailableLocalizationMessageContents =
  * Contextualization devtools exposed for localization in CMS integration
  */
 export interface LocalizationContextualizationDevtools {
+  /**
+   * Is the translation deactivation enabled
+   */
+  isTranslationDeactivationEnabled(): boolean | Promise<boolean>;
+
   /**
    * Show localization keys
    * @param value value enforced by the DevTools extension
