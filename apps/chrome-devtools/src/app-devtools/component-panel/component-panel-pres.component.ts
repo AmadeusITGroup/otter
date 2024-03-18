@@ -4,14 +4,21 @@ import { ConfigurationModel } from '@o3r/configuration';
 import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
+import { OtterComponentComponent } from '../../components/otter-component/otter-component.component';
 import { RulesetHistoryService } from '../../services/ruleset-history.service';
 import { ChromeExtensionConnectionService, isSelectedComponentInfoMessage } from '../../services/connection.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'o3r-component-panel-pres',
   templateUrl: './component-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    OtterComponentComponent,
+    AsyncPipe
+  ]
 })
 export class ComponentPanelPresComponent implements OnDestroy {
   /** Stream of configuration value */

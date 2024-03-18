@@ -34,12 +34,6 @@
         "index": "apps/chrome-devtools/src/app-components.html",
         "main": "apps/chrome-devtools/src/app-components.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
-        "fileReplacements": [
-          {
-            "replace": "apps/chrome-devtools/src/environments/environment.ts",
-            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
-          }
-        ],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -89,12 +83,6 @@
         "index": "apps/chrome-devtools/src/app-devtools.html",
         "main": "apps/chrome-devtools/src/app-devtools.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
-        "fileReplacements": [
-          {
-            "replace": "apps/chrome-devtools/src/environments/environment.ts",
-            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
-          }
-        ],
         "optimization": {
           "scripts": true,
           "styles": {
