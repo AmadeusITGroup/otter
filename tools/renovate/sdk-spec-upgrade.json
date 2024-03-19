@@ -1,0 +1,117 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": [
+    "upgrade",
+    "specification"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "rangeStrategy": "bump",
+      "groupName": "Swagger Specification upgrade",
+      "groupSlug": "spec-upgrade"
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install",
+          "npm run swagger:generate"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchManagers": [
+        "yarn"
+      ],
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn run swagger:generate"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "rangeStrategy": "patch"
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchManagers": [
+        "npm"
+      ],
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install",
+          "npm run swagger:generate"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchManagers": [
+        "yarn"
+      ],
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "rangeStrategy": "patch",
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn run swagger:generate"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    }
+  ]
+}
