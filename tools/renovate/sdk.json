@@ -1,0 +1,91 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": [
+    "upgrade"
+  ],
+  "updateInternalDeps": true,
+  "automerge": true,
+  "platformAutomerge": true,
+  "packageRules": [
+    {
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ],
+      "rangeStrategy": "patch"
+    },
+    {
+      "groupName": "Otter SDK dependencies",
+      "groupSlug": "otter-sdk-dependencies",
+      "matchBaseBranches": [
+        "master",
+        "main",
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ]
+    },
+    {
+      "matchBaseBranches": [
+        "master",
+        "main",
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ],
+      "matchPackageNames": [
+        "npm"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install",
+          "npm run swagger:generate"
+        ],
+        "fileFilters": [
+          "!**/.npmrc"
+        ],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "matchBaseBranches": [
+        "master",
+        "main",
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ],
+      "matchPackageNames": [
+        "yarn"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn run swagger:generate"
+        ],
+        "fileFilters": [
+          "!**/.npmrc"
+        ],
+        "executionMode": "branch"
+      }
+    }
+  ]
+}

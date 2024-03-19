@@ -2,19 +2,16 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "group:allNonMajor",
-    "group:recommended",
-    "group:monorepos",
-    "group:test",
-    "group:linters"
+    "github>AmadeusITGroup/otter//tools/renovate/base",
+    "github>AmadeusITGroup/otter//tools/renovate/sdk",
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(my-specification-package)"
   ],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "baseBranches": [
-    "master"
+    "master",
+    "main"
   ],
-  "endpoint": "https://dev.azure.com/AmadeusDigitalAirline",
-  "platform": "azure",
   "enabledManagers": [
     "npm"
   ],
@@ -32,54 +29,6 @@
   "automerge": true,
   "platformAutomerge": true,
   "packageRules": [
-    {
-      "matchPackagePrefixes": [
-        "@my-api-scope",
-        "@ama-sdk/generator"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "<%=packageManager%> install",
-          "<%=packageManager%> run generate"
-        ],
-        "executionMode": "branch"
-      }
-    },
-    {
-      "matchPackagePrefixes": [
-        "@my-api-scope"
-      ],
-      "rangeStrategy": "bump",
-      "groupName": "Swagger Specification upgrade",
-      "groupSlug": "spec-upgrade"
-    },
-    {
-      "matchPackagePrefixes": [
-        "@my-api-scope"
-      ],
-      "matchBaseBranches": [
-        "/^release\/.*/"
-      ],
-      "rangeStrategy": "in-range-only"
-    },
-    {
-      "matchPackageNames": [
-        "@ama-sdk/core",
-        "@ama-sdk/schematics"
-      ],
-      "rangeStrategy": "bump",
-      "groupName": "SDK Core and Generator dependencies",
-      "groupSlug": "sdk-core-dependencies"
-    },
-    {
-      "excludePackagePrefixes": [
-        "@my-api-scope"
-      ],
-      "matchBaseBranches": [
-        "/^release\/.*/"
-      ],
-      "enabled": false
-    },
     {
       "matchDepTypes": [
         "peerDependencies"

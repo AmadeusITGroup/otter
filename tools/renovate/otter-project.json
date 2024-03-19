@@ -1,0 +1,86 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base"
+  ],
+  "labels": [
+    "upgrade",
+    "otter"
+  ],
+  "updateInternalDeps": true,
+  "automerge": true,
+  "platformAutomerge": true,
+  "enabledManagers": [
+    "npm"
+  ],
+  "npm": {
+    "stabilityDays": 0
+  },
+  "packageRules": [
+    {
+      "matchManagers": [
+        "yarn"
+      ],
+      "matchPackageNames": [
+        "@o3r/core",
+        "@ama-sdk/core",
+        "@otter/core"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn run ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+        ],
+        "fileFilters": [
+          "**"
+        ],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchPackageNames": [
+        "@o3r/core",
+        "@ama-sdk/core",
+        "@otter/core"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install",
+          "npm run ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force"
+        ],
+        "fileFilters": [
+          "**"
+        ],
+        "executionMode": "branch"
+      }
+    },
+    {
+      "matchBaseBranches": [
+        "main",
+        "master"
+      ],
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ],
+      "rangeStrategy": "patch"
+    }
+  ]
+}
