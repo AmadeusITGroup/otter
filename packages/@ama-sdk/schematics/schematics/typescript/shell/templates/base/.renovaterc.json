@@ -2,9 +2,9 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:base",
-    "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(my-specification-package)"
+    "github>kpanot/otter//tools/renovate/base",
+    "github>kpanot/otter//tools/renovate/sdk",
+    "github>kpanot/otter//tools/renovate/sdk-spec-upgrade(my-specification-package)"
   ],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,

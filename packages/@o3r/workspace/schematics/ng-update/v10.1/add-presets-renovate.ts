@@ -1,8 +1,8 @@
 import type { Rule } from '@angular-devkit/schematics';
 
 const renovatePresets = [
-  'github>AmadeusITGroup/otter//tools/renovate/base',
-  'github>AmadeusITGroup/otter//tools/renovate/otter-project'
+  'github>kpanot/otter//tools/renovate/base',
+  'github>kpanot/otter//tools/renovate/otter-project'
 ];
 
 export const addPresetsRenovate = (): Rule => {

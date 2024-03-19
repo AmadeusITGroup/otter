@@ -10,8 +10,8 @@ To be able to benefice of the Renovate Presets exposed by the Otter Framework, y
 {
   "extends": [
     "config:base"
-    "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/otter-project"
+    "github>kpanot/otter//tools/renovate/base",
+    "github>kpanot/otter//tools/renovate/otter-project"
   ],
   "packageRules": [
     // ...
@@ -20,7 +20,7 @@ To be able to benefice of the Renovate Presets exposed by the Otter Framework, y
 ```
 
 > [!NOTE]
-> The Otter Renovate presets are always prefixed with `github>AmadeusITGroup/otter//tools/renovate/` to target the specific configuration files hosted in the Otter repository.
+> The Otter Renovate presets are always prefixed with `github>kpanot/otter//tools/renovate/` to target the specific configuration files hosted in the Otter repository.
 
 ## Available presets
 
