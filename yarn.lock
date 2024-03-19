@@ -179,7 +179,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:*"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.12.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.13.0"
     "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -230,7 +230,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.12.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.13.0"
     "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
@@ -276,7 +276,7 @@ __metadata:
     "@angular-devkit/schematics-cli": ^17.0.1
     "@angular/cli": ^17.0.1
     "@o3r/schematics": "workspace:^"
-    "@openapitools/openapi-generator-cli": ~2.12.0
+    "@openapitools/openapi-generator-cli": ~2.13.0
     "@schematics/angular": ~17.3.0
   peerDependenciesMeta:
     "@ama-sdk/core":
@@ -311,7 +311,7 @@ __metadata:
     "@nx/jest": "npm:~18.1.0"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
-    "@openapitools/openapi-generator-cli": "npm:~2.12.0"
+    "@openapitools/openapi-generator-cli": "npm:~2.13.0"
     "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@swc/cli": "npm:^0.3.0"
@@ -9142,9 +9142,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openapitools/openapi-generator-cli@npm:~2.12.0":
-  version: 2.12.0
-  resolution: "@openapitools/openapi-generator-cli@npm:2.12.0"
+"@openapitools/openapi-generator-cli@npm:~2.13.0":
+  version: 2.13.0
+  resolution: "@openapitools/openapi-generator-cli@npm:2.13.0"
   dependencies:
     "@nestjs/axios": "npm:3.0.1"
     "@nestjs/common": "npm:10.3.0"
@@ -9160,12 +9160,12 @@ __metadata:
     glob: "npm:7.2.3"
     inquirer: "npm:8.2.6"
     lodash: "npm:4.17.21"
-    reflect-metadata: "npm:0.1.13"
+    reflect-metadata: "npm:0.2.1"
     rxjs: "npm:7.8.1"
     tslib: "npm:2.6.2"
   bin:
     openapi-generator-cli: main.js
-  checksum: 10/9558b1d3fe70b8263d3e000618ae4ba9a8a371e60dfdd308992a53d3f382cd64e0f54db844c20dc4099ea8f955097dad120692291698222ec777e2d2216bf3e8
+  checksum: 10/81bd16d1e180366423a9582bd20388c6a812178bb942246ab9cdd0177d342f48ac2dfee2d7ff3cef6708634471b71672adfd8d2b4bbe7e8c1b02bc606997738c
   languageName: node
   linkType: hard
 
@@ -26079,14 +26079,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"reflect-metadata@npm:0.1.13":
-  version: 0.1.13
-  resolution: "reflect-metadata@npm:0.1.13"
-  checksum: 10/732570da35d2d96f8fdd5aac60fb263aa92f6512eaded5962b052bd9e90f22a9dec5aaf0d7ff4bfe97646c9530e8444e8435c2d80b24d0bdf938b5d47f6f5b83
-  languageName: node
-  linkType: hard
-
-"reflect-metadata@npm:^0.2.0":
+"reflect-metadata@npm:0.2.1, reflect-metadata@npm:^0.2.0":
   version: 0.2.1
   resolution: "reflect-metadata@npm:0.2.1"
   checksum: 10/394b293bd4a538b644ed0e8730c5aeb1e08e78972c915b3d2cf3b302241952cfee8f8bd8a0fdf7d8c7fa78d31d0585489061624692e2577d767abd120cad968c
