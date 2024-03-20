@@ -316,7 +316,7 @@ export class RulesEngineExtractor {
         });
       }
     });
-    return operators;
+    return Array.from((new Map(operators.map((operator) => [operator.id, operator]))).values());
   }
 
   /**
