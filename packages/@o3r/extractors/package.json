@@ -53,7 +53,7 @@
     "@angular/platform-browser": "~17.3.0",
     "@angular/platform-browser-dynamic": "~17.3.0",
     "@babel/core": "~7.24.0",
-    "@babel/preset-typescript": "~7.23.3",
+    "@babel/preset-typescript": "~7.24.0",
     "@compodoc/compodoc": "^1.1.19",
     "@nx/eslint": "~18.1.0",
     "@nx/eslint-plugin": "~18.1.0",
