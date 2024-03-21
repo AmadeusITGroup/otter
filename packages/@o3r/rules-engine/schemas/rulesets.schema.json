@@ -120,7 +120,6 @@
         "id",
         "name",
         "inputRuntimeFacts",
-        "inputFacts",
         "outputRuntimeFacts",
         "rootElement"
       ]
