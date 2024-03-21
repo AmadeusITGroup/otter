@@ -85,7 +85,7 @@ export class ComponentPanelPresComponent implements OnDestroy {
     );
     this.connectionService.sendMessage(
       'requestMessages',
-      { only: 'isComponentSelectionAvailable' }
+      { only: ['isComponentSelectionAvailable'] }
     );
   }
 
