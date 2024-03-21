@@ -56,7 +56,7 @@
                 <div>
                   <ng-container *ngIf="ruleEvaluation.error">
                     <span class="ruleset-panel-category-title">Error:</span>
-                    <span class="ruleset-panel-category-body error">{{ruleEvaluation.error.message}}</span>
+                    <pre class="ruleset-panel-category-body error">{{ruleEvaluation.error | json}}</pre>
                   </ng-container>
                   <ng-container [ngTemplateOutlet]="inputs"
                                 [ngTemplateOutletContext]="{
