@@ -109,6 +109,10 @@
     "source-and-builders": [
       "source",
       "builders"
+    ],
+    "source-and-schematics": [
+      "source",
+      "schematics"
     ]
   },
   "targetDefaults": {
@@ -159,10 +163,9 @@
         },
         "default",
         "schematics",
-        "^schematics",
-        "^source",
         "specs",
-        "integration-test"
+        "integration-test",
+        "^source-and-schematics"
       ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"
