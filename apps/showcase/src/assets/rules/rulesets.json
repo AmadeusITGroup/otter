@@ -11,7 +11,6 @@
           "name": "New-York availability",
           "disabled": false,
           "outputRuntimeFacts": [],
-          "inputFacts": ["outboundDate"],
           "inputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",
@@ -58,7 +57,6 @@
           "disabled": false,
           "outputRuntimeFacts": [],
           "inputRuntimeFacts": [],
-          "inputFacts": ["destination"],
           "rootElement": {
             "elementType": "RULE_BLOCK",
             "blockType": "IF_ELSE",
@@ -90,7 +88,6 @@
           "disabled": false,
           "outputRuntimeFacts": [],
           "inputRuntimeFacts": [],
-          "inputFacts": ["outboundDate"],
           "rootElement": {
             "elementType": "RULE_BLOCK",
             "blockType": "IF_ELSE",
@@ -129,7 +126,6 @@
           "disabled": false,
           "outputRuntimeFacts": [],
           "inputRuntimeFacts": [],
-          "inputFacts": ["outboundDate"],
           "rootElement": {
             "elementType": "RULE_BLOCK",
             "blockType": "IF_ELSE",
