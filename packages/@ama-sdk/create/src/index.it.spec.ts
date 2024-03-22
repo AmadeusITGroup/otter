@@ -1,3 +1,11 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-create-sdk
+ * @jest-environment-o3r-type blank
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
@@ -5,28 +13,23 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRun
 } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
 import { cpSync, mkdirSync, renameSync } from 'node:fs';
 import * as path from 'node:path';
 
-const projectName = 'test-sdk';
 const sdkPackageName = '@my-test/sdk';
-const o3rVersion = '999.0.0';
 let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
 const packageManager = getPackageManager();
 
 describe('Create new sdk command', () => {
-  setupLocalRegistry();
-  beforeEach(async () => {
+  beforeEach(() => {
     const isYarnTest = packageManager.startsWith('yarn');
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
-    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion })).workspacePath;
+    sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
@@ -98,7 +101,7 @@ describe('Create new sdk command', () => {
   test('should use pinned versions when --exact-o3r-version is used', () => {
     expect(() =>
       packageManagerCreate({
-        script: `@ama-sdk@${o3rVersion}`,
+        script: `@ama-sdk@${o3rEnvironment.testEnvironment.o3rVersion}`,
         args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
@@ -109,7 +112,7 @@ describe('Create new sdk command', () => {
     [
       ...Object.entries(packageJson.dependencies), ...Object.entries(packageJson.devDependencies), ...Object.entries(resolutions)
     ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rVersion);
+      expect(version).toBe(o3rEnvironment.testEnvironment.o3rVersion);
     });
   });
 });

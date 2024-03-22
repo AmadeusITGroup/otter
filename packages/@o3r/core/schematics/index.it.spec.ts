@@ -1,3 +1,10 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-app-core
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
@@ -5,31 +12,17 @@ import {
   packageManagerExec,
   packageManagerExecOnProject,
   packageManagerInstall,
-  packageManagerRunOnProject,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRunOnProject
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
 import { execSync, spawn } from 'node:child_process';
 import getPidFromPort from 'pid-from-port';
-import { rm } from 'node:fs/promises';
 
 const devServerPort = 4200;
-const appFolder = 'test-app-core';
-const o3rVersion = '999.0.0';
-const execAppOptions = getDefaultExecSyncOptions();
-let projectPath: string;
-let workspacePath: string;
-let projectName: string;
-let isInWorkspace: boolean;
-let untouchedProjectPath: undefined | string;
 describe('new otter application', () => {
-  setupLocalRegistry();
-  beforeAll(async () => {
-    ({ projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath } = await prepareTestEnv(appFolder));
-    execAppOptions.cwd = workspacePath;
-  });
   test('should build empty app', async () => {
+    const { projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     const relativeProjectPath = path.relative(workspacePath, projectPath);
     const projectNameOptions = ['--project-name', projectName];
     packageManagerExec({script: 'ng', args: ['add', `@o3r/core@${o3rVersion}`, '--preset', 'all', ...projectNameOptions, '--skip-confirmation']}, execAppOptions);
@@ -110,7 +103,7 @@ describe('new otter application', () => {
     packageManagerExec({script: 'ng', args: ['g', '@o3r/testing:playwright-scenario', '--name', 'test-scenario', ...projectNameOptions]}, execAppOptions);
     packageManagerExec({script: 'ng', args: ['g', '@o3r/testing:playwright-sanity', '--name', 'test-sanity', ...projectNameOptions]}, execAppOptions);
 
-    const diff = getGitDiff(execAppOptions.cwd as string);
+    const diff = getGitDiff(execAppOptions.cwd);
 
     if (untouchedProjectPath) {
       const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
@@ -148,8 +141,5 @@ describe('new otter application', () => {
     } catch (e) {
       // http-server already off
     }
-  });
-  afterAll(async () => {
-      try { await rm(workspacePath, { recursive: true }); } catch { /* ignore error */ }
   });
 });
