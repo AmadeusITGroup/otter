@@ -14,7 +14,7 @@
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,workspace --parallel $(yarn get:cpus-number)",
     "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger --parallel $(yarn get:cpus-number)",
-    "prepare:publish": "yarn prepare-publish \"$(yarn workspaces:list)\"",
+    "prepare:publish": "yarn prepare-publish \"$(yarn workspaces:list)\" --append dist",
     "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension --parallel $(yarn get:cpus-number)",

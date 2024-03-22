@@ -7,11 +7,12 @@
 
 import minimist from 'minimist';
 import { copyFileSync, existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve, delimiter } from 'node:path';
+import { dirname, join, resolve, delimiter, normalize } from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
 const root = argv.root ? resolve(process.cwd(), argv.root) : process.cwd();
 const /** @type { string[] } */ fields = argv.fields?.split(',') || ['contributors', 'bugs', 'repository', 'license', 'homepage'];
+const appendPath = argv.append && normalize(argv.append);
 
 /**
  * Find Private package.json
@@ -77,10 +78,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
   }
 
   const packageJson = JSON.parse(readFileSync(distPackageJson, {encoding: 'utf-8'}));
-
-  fields.forEach((field) => {
-    packageJson[field] = privatePackageJson.content[field];
-  });
+  fields.forEach((field) => packageJson[field] ||= privatePackageJson.content[field]);
 
   writeFileSync(distPackageJson, JSON.stringify(packageJson, null, 2));
   copyFileSync(resolve(dirname(privatePackageJson.path), 'LICENSE'), resolve(distPath, 'LICENSE'));
@@ -102,6 +100,7 @@ function preparePublish(rootPath, distPath, packageJsonPath) {
 const distPaths = argv._.length
   ? argv._
     .flatMap((files) => files.split(delimiter))
-    .map((p) => join(p, 'dist'))
-  : [resolve(process.cwd(), 'dist')];
+    .map((p) => appendPath ? join(p, appendPath) : p)
+  : [resolve(process.cwd(), appendPath || 'dist')];
+
 distPaths.forEach((distPath) => preparePublish(root, distPath, join(distPath, 'package.json')));
