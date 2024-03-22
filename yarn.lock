@@ -6737,10 +6737,10 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
-    ag-grid-angular: "npm:~31.0.3"
-    ag-grid-community: "npm:~31.0.3"
+    ag-grid-angular: "npm:~31.2.0"
+    ag-grid-community: "npm:~31.2.0"
     archiver: "npm:^6.0.1"
-    bootstrap: "npm:5.3.2"
+    bootstrap: "npm:5.3.3"
     chokidar: "npm:^3.5.2"
     chrome-webstore-upload: "npm:^3.0.0"
     concurrently: "npm:^8.0.0"
@@ -7747,10 +7747,10 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
     "@yarnpkg/sdks": "npm:^3.0.0"
-    ag-grid-angular: "npm:~31.0.3"
-    ag-grid-community: "npm:~31.0.3"
+    ag-grid-angular: "npm:~31.2.0"
+    ag-grid-community: "npm:~31.2.0"
     babel-loader: "npm:^9.0.0"
-    bootstrap: "npm:5.3.2"
+    bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
     concurrently: "npm:^8.0.0"
@@ -8498,9 +8498,9 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
-    ag-grid-angular: "npm:~31.0.3"
-    ag-grid-community: "npm:~31.0.3"
-    bootstrap: "npm:5.3.2"
+    ag-grid-angular: "npm:~31.2.0"
+    ag-grid-community: "npm:~31.2.0"
+    bootstrap: "npm:5.3.3"
     concurrently: "npm:^8.0.0"
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -13080,23 +13080,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-angular@npm:~31.0.3":
-  version: 31.0.3
-  resolution: "ag-grid-angular@npm:31.0.3"
+"ag-grid-angular@npm:~31.2.0":
+  version: 31.2.0
+  resolution: "ag-grid-angular@npm:31.2.0"
   dependencies:
-    ag-grid-community: "npm:~31.0.3"
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">= 14.0.0"
     "@angular/core": ">= 14.0.0"
-  checksum: 10/fed5c5e2ea33cfc23e9516a644ef111bbbfa4da13f26ff8e9499ff57bf930cd0e058394db41946dba821cfc4f3788e4c18df089108ea55c328fe59d85b0a0319
+    ag-grid-community: 31.2.0
+  checksum: 10/09f522d353cbce7d76f9275e797f1bd6066d2e43d8c587476005448a246f78f3f34035b7f57b044f4bbdf7816ee5cafb69600e9311f8d1e081c1d504d2de3f52
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:~31.0.3":
-  version: 31.0.3
-  resolution: "ag-grid-community@npm:31.0.3"
-  checksum: 10/f1658691b7689873e5deca1d9172b78106dc57e83db4d50d235fa167d54b98881bb29880eb864f05c03a4fa5cfa727efa2c8b4e85df427d3cc17829acec579c6
+"ag-grid-community@npm:~31.2.0":
+  version: 31.2.0
+  resolution: "ag-grid-community@npm:31.2.0"
+  checksum: 10/cd8b81eeea959a11f4524f151ccd498f493875735934f8102d66f367dcb8a53e12f143b6236083158ae5717dc2eda71c88a1281f5870f27e465a0dc8422f074d
   languageName: node
   linkType: hard
 
@@ -14178,12 +14178,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bootstrap@npm:5.3.2":
-  version: 5.3.2
-  resolution: "bootstrap@npm:5.3.2"
+"bootstrap@npm:5.3.3":
+  version: 5.3.3
+  resolution: "bootstrap@npm:5.3.3"
   peerDependencies:
     "@popperjs/core": ^2.11.8
-  checksum: 10/5c3eb0634218d206bc2518154432bc80f7eec225db9c0dcb04b80353ba5cb121b8e6d12993ffe025d32ffe511051290461d8ca0adcae7971d82d329025bd16ab
+  checksum: 10/f05183948b00b496400cc13df5798ecab7a85975e7d9a77b314a763b574a990aec0f1bbf1913c648a93b5d8cc82e73bc05f5ec1161d2932aad7ef7f316d9c82d
   languageName: node
   linkType: hard
 
