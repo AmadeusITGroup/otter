@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, JsonPipe } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RuleActionsPresComponent } from '../rule-actions/rule-actions-pres.component';
 import { RuleConditionPresComponent } from '../rule-condition/rule-condition-pres.component';
@@ -8,7 +8,7 @@ import { O3rFallbackToPipe } from '../shared/index';
 import { RulesetHistoryPresComponent } from './ruleset-history-pres.component';
 
 @NgModule({
-  imports: [O3rFallbackToPipe, CommonModule, CommonModule, CommonModule],
+  imports: [O3rFallbackToPipe, CommonModule, CommonModule, CommonModule, JsonPipe],
   declarations: [RulesetHistoryPresComponent, RuleConditionPresComponent, RuleTreePresComponent, RuleActionsPresComponent, RuleKeyValuePresComponent],
   exports: [RulesetHistoryPresComponent]
 })
