@@ -1,8 +1,6 @@
 {
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/nx-schema.json",
-  "affected": {
-    "defaultBase": "remotes/origin/main"
-  },
+  "defaultBase": "remotes/origin/main",
   "cli": {
     "schematicCollections": [
       "@schematics/angular",
@@ -111,6 +109,10 @@
     "source-and-builders": [
       "source",
       "builders"
+    ],
+    "source-and-schematics": [
+      "source",
+      "schematics"
     ]
   },
   "targetDefaults": {
@@ -161,10 +163,9 @@
         },
         "default",
         "schematics",
-        "^schematics",
-        "^source",
         "specs",
-        "integration-test"
+        "integration-test",
+        "^source-and-schematics"
       ],
       "outputs": [
         "{projectRoot}/dist-test/it-report.xml"

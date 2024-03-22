@@ -26,15 +26,6 @@
           "o3rScope": ".navbar-toggler"
         }
       }
-    },
-    "scrollspy": {
-      "active-color": {
-        "$type": "color",
-        "$value": "{color.primary.800}",
-        "$extensions": {
-          "o3rScope": ".nav.nav-pills .nav-link"
-        }
-      }
     }
   }
 }

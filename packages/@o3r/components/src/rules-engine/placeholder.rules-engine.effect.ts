@@ -142,9 +142,10 @@ export class PlaceholderTemplateResponseEffect {
     return replacements$.length > 0 && !!template ?
       combineLatest(replacements$).pipe(
         map((replacements) => ({
-          renderedTemplate: replacements.reduce((acc, replacement) =>
-            replacement ? acc.replace(replacement.ejsVar, replacement.value) : acc,
-            template!
+          renderedTemplate: replacements.reduce(
+            (acc, replacement) =>
+              replacement ? acc.replace(replacement.ejsVar, replacement.value) : acc,
+            template
           ),
           unknownTypeFound
         }))

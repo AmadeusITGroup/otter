@@ -11,7 +11,7 @@ body:
     id: package-name
     attributes:
       label: Package name
-      description: Which package are you facing issue with?
+      description: Which package(s) are you facing issue with?
       multiple: true
       options: [
         core,

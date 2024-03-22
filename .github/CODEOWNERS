@@ -11,3 +11,6 @@
 
 ## Default reviewers for AEM Plugin JSON Schemas
 # /packages/@o3r/application/schemas/ @guillaume-goulet
+
+## Default reviewers for Intellij extension
+/apps/intellij-extension/ @OxyFlax

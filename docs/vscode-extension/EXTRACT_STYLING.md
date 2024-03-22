@@ -51,9 +51,9 @@ After
 $app-header-title-text-color: o3r.variable("app-header-title-text-color", red);
 
 .app-header-class {
-    .title-text {
-        color: $app-header-title-text-color;
-    }
+  .title-text {
+    color: $app-header-title-text-color;
+  }
 }
 ```
 

@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/design)](https://www.npmjs.com/package/@o3r/design)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/design?color=green)](https://www.npmjs.com/package/@o3r/design)
+
 Set of tools to generate CSS themes and [Metadata](https://github.com/AmadeusITGroup/otter/tree/main/docs/cms-adapters/CMS_ADAPTERS.md) based on the [Design Token Specifications](https://design-tokens.github.io/community-group/format/).
 
 ## How to install

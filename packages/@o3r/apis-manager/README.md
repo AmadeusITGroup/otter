@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/apis-manager)](https://www.npmjs.com/package/@o3r/apis-manager)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/apis-manager?color=green)](https://www.npmjs.com/package/@o3r/apis-manager)
+
 This module provides services to help you communicate with your APIs. Its responsibility is to provide an API configuration to a service factory so that it could instantiate an API with the right configurations.
 
 It contains a default configuration and a map of specific configurations for API / set of API.

@@ -5,6 +5,8 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/core)](https://www.npmjs.com/package/@o3r/core)
+
 The **Otter** project is a highly modular framework whose goal is to provide a common platform to accelerate and facilitate the development on Angular web applications.
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
 Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
@@ -59,23 +61,23 @@ Any bug of feature request can be addressed via [issue](https://github.com/Amade
 These documents describe how to set up your development environment to build and test the framework.
 It also explains the basic mechanics of using `git`, `node`, and `npm`.
 
-- [Description](#description)
-- [Built With](#built-with)
-- [Get Started](#get-started)
-- [Contributing](#contributing)
-- [Versioning](#versioning)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-- [Developer](#developer)
-  - [Building and Testing library](#building-and-testing-library)
-    - [Prerequisite Software](#prerequisite-software)
-    - [Getting the sources](#getting-the-sources)
-    - [Installing NPM modules](#installing-npm-modules)
-    - [Build command](#build-command)
-    - [Running tests locally](#running-tests-locally)
-    - [Manage task cache](#manage-task-cache)
-    - [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
-    - [Link local packages](#link-local-packages)
+* [Description](#description)
+* [Built With](#built-with)
+* [Get Started](#get-started)
+* [Contributing](#contributing)
+* [Versioning](#versioning)
+* [License](#license)
+* [Acknowledgments](#acknowledgments)
+* [Developer](#developer)
+  * [Building and Testing library](#building-and-testing-library)
+    * [Prerequisite Software](#prerequisite-software)
+    * [Getting the sources](#getting-the-sources)
+    * [Installing NPM modules](#installing-npm-modules)
+    * [Build command](#build-command)
+    * [Running tests locally](#running-tests-locally)
+    * [Manage task cache](#manage-task-cache)
+    * [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
+    * [Link local packages](#link-local-packages)
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md)
 if you'd like to contribute to the framework.

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { Observable, of, Subscription } from 'rxjs';
 import { catchError, map, startWith, take, timeout } from 'rxjs/operators';
@@ -9,7 +10,11 @@ type AppState = 'loading' | 'timeout' | 'connected';
 @Component({
   selector: 'app-connection',
   templateUrl: './app-connection.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    AsyncPipe
+  ]
 })
 export class AppConnectionComponent implements OnDestroy {
   /** Stream of application's state */

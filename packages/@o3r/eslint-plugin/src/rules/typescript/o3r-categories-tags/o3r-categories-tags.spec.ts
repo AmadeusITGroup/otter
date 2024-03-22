@@ -1,4 +1,4 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import o3rCategoriesTagsRule, { O3rCategoriesTagsRuleOption } from './o3r-categories-tags';
 
 const ruleTester = new TSESLint.RuleTester({
@@ -25,7 +25,7 @@ export interface Config extends Configuration {
 }
 `;
 
-const options: O3rCategoriesTagsRuleOption[] = [{
+const options: Readonly<[O3rCategoriesTagsRuleOption]> = [{
   globalConfigCategories: ['global']
 }];
 
