@@ -58,10 +58,10 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
     if (data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} && !data.{{x-map-name}}) {
       if (dictionaries.{{x-dictionary-name}}) {
                 {{^x-field-is-primitive}}
-      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, revive{{x-field-type}}, options));
+      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, revive{{x-field-type}}, options);
                 {{/x-field-is-primitive}}
                 {{#x-field-is-primitive}}
-      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, options));
+      data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, options);
                 {{/x-field-is-primitive}}
       } else {
         (options?.logger || console).debug('Dictionaries {{x-dictionary-name}} missing from API output.');
@@ -76,7 +76,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
     if (data{{#propertyAccess}}{{baseName}}{{/propertyAccess}} && !data.{{x-field-name}}) {
       if (dictionaries.{{x-dictionary-name}} && typeof dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}] !== 'undefined') {
                 {{^x-field-is-primitive}}
-        data.{{x-field-name}} = revive{{x-field-type}}(dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}], undefined, options));
+        data.{{x-field-name}} = revive{{x-field-type}}(dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}], undefined, options);
                 {{/x-field-is-primitive}}
                 {{#x-field-is-primitive}}
         data.{{x-field-name}} = dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}];
@@ -94,7 +94,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
               {{#x-map-name}}
                 {{#x-field-is-revived}}
     if (data.{{x-map-name}}) {
-      data.{{x-map-name}} = reviveMap<{{x-field-type}}>(data.{{x-map-name}}, null, revive{{x-field-type}}, options));
+      data.{{x-map-name}} = reviveMap<{{x-field-type}}>(data.{{x-map-name}}, null, revive{{x-field-type}}, options);
     }
                 {{/x-field-is-revived}}
               {{/x-map-name}}
@@ -105,7 +105,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
               {{#x-field-name}}
                 {{#x-field-is-revived}}
     if (data.{{x-field-name}}) {
-      data.{{x-field-name}} = revive{{x-field-type}}(data.{{x-field-name}}, undefined, options));
+      data.{{x-field-name}} = revive{{x-field-type}}(data.{{x-field-name}}, undefined, options);
     }
                 {{/x-field-is-revived}}
               {{/x-field-name}}
