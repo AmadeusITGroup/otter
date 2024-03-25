@@ -5,8 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/create)](https://www.npmjs.com/package/@ama-sdk/create)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/create?color=green)](https://www.npmjs.com/package/@ama-sdk/create)
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/create?style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/create)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/create?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/create)
 
 This package is an [NPM initializer](https://docs.npmjs.com/cli/v8/commands/npm-init) to generate an API client SDK based on [OpenAPI specification](https://spec.openapis.org/oas/v3.1.0).
 

@@ -9,8 +9,8 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/eslint-plugin)](https://www.npmjs.com/package/@o3r/eslint-plugin)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/eslint-plugin?color=green)](https://www.npmjs.com/package/@o3r/eslint-plugin)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/eslint-plugin?style=for-the-badge)](https://www.npmjs.com/package/@o3r/eslint-plugin)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/eslint-plugin?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/eslint-plugin)
 
 The module provides in-house eslint plugins to use in your own eslint configuration.
 

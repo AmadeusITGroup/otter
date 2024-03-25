@@ -5,8 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/artifactory-tools)](https://www.npmjs.com/package/@o3r/artifactory-tools)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/artifactory-tools?color=green)](https://www.npmjs.com/package/@o3r/artifactory-tools)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/artifactory-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/artifactory-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
 
 This module provides various tools for the supported repository manager [JFrog](https://jfrog.com/artifactory/), including deleting old artifacts and deleting a specified amount of PR build artifacts.
 

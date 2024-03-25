@@ -5,8 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/create)](https://www.npmjs.com/package/@o3r/create)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/create?color=green)](https://www.npmjs.com/package/@o3r/create)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/create?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/create?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
 
 This package is an [NPM initializer](https://docs.npmjs.com/cli/v8/commands/npm-init) to generate a web application based on the [Otter Framework](https://github.com/AmadeusITGroup/otter).
 

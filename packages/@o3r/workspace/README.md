@@ -5,8 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/workspace)](https://www.npmjs.com/package/@o3r/workspace)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/workspace?color=green)](https://www.npmjs.com/package/@o3r/workspace)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/workspace?style=for-the-badge)](https://www.npmjs.com/package/@o3r/workspace)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/workspace?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/workspace)
 
 This package is an [Otter Framework](https://github.com/AmadeusITGroup/otter) Module providing tools at workspace level.
 
