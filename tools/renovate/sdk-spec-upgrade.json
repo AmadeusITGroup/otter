@@ -3,10 +3,6 @@
   "extends": [
     "config:recommended"
   ],
-  "labels": [
-    "upgrade",
-    "specification"
-  ],
   "packageRules": [
     {
       "matchPackageNames": [

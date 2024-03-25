@@ -37,7 +37,7 @@
     "yarnDedupeHighest"
   ],
   "labels": [
-    "upgrade"
+    "dependencies"
   ],
   "automerge": true,
   "platformAutomerge": true,
