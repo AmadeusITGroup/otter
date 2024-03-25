@@ -8284,6 +8284,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
+    "@types/json-schema": "npm:^7.0.9"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
