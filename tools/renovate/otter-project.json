@@ -3,19 +3,6 @@
   "extends": [
     "config:base"
   ],
-  "labels": [
-    "upgrade",
-    "otter"
-  ],
-  "updateInternalDeps": true,
-  "automerge": true,
-  "platformAutomerge": true,
-  "enabledManagers": [
-    "npm"
-  ],
-  "npm": {
-    "stabilityDays": 0
-  },
   "packageRules": [
     {
       "matchManagers": [
