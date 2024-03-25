@@ -9,8 +9,8 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/dynamic-content)](https://www.npmjs.com/package/@o3r/dynamic-content)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/dynamic-content?color=green)](https://www.npmjs.com/package/@o3r/dynamic-content)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/dynamic-content?style=for-the-badge)](https://www.npmjs.com/package/@o3r/dynamic-content)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/dynamic-content?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/dynamic-content)
 
 This module provides a mechanism to retrieve media and data depending on the host or a server-specific url.
 

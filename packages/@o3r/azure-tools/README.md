@@ -5,8 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/azure-tools)](https://www.npmjs.com/package/@o3r/azure-tools)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/azure-tools?color=green)](https://www.npmjs.com/package/@o3r/azure-tools)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/azure-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r/azure-tools)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/azure-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/azure-tools)
 
 This module provides a tool to comment a Pull Request on Azure.
 

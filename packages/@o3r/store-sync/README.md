@@ -9,8 +9,8 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/store-sync)](https://www.npmjs.com/package/@o3r/store-sync)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/store-sync?color=green)](https://www.npmjs.com/package/@o3r/store-sync)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/store-sync?style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/store-sync?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
 
 This module is exposing an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
 

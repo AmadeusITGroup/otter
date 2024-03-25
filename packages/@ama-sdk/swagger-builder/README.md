@@ -1,7 +1,7 @@
 # Swagger Builder
 
-[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/swagger-builder)](https://www.npmjs.com/package/@ama-sdk/swagger-builder)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/swagger-builder?color=green)](https://www.npmjs.com/package/@ama-sdk/swagger-builder)
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/swagger-builder?style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/swagger-builder)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/swagger-builder?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/swagger-builder)
 
 Merge and build Swagger 2.0 specifications.
 

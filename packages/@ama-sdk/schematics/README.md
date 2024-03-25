@@ -1,7 +1,7 @@
 # SDK Generator
 
-[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/schematics)](https://www.npmjs.com/package/@ama-sdk/schematics)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/schematics?color=green)](https://www.npmjs.com/package/@ama-sdk/schematics)
+[![Stable Version](https://img.shields.io/npm/v/@ama-sdk/schematics?style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/schematics)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-sdk/schematics?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-sdk/schematics)
 
 This package provides `schematics` generators to create an SDK based on an OpenAPI specifications.
 There are two SDK generators in the Otter Framework: Typescript and Java. The Java generator is currently in maintenance

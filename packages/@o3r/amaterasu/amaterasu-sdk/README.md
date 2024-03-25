@@ -2,8 +2,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/amaterasu-sdk)](https://www.npmjs.com/package/@o3r/amaterasu-sdk)
-[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/amaterasu-sdk?color=green)](https://www.npmjs.com/package/@o3r/amaterasu-sdk)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/amaterasu-sdk?style=for-the-badge)](https://www.npmjs.com/package/@o3r/amaterasu-sdk)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/amaterasu-sdk?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/amaterasu-sdk)
 
 This is a module for [Ama-terasu CLI](https://www.npmjs.com/package/@ama-terasu/cli) to execute actions related to SDK generation.
 
