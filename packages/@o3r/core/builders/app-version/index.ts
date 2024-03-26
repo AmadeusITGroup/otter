@@ -1,7 +1,7 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import { AppVersionBuilderSchema } from './schema';
 
 export * from './schema';
@@ -19,7 +19,7 @@ const PACKAGE_JSON_INCORRECT: BuilderOutput = {
 /** Maximum number of steps */
 const STEP_NUMBER = 2;
 
-export default createBuilder<AppVersionBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<AppVersionBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   context.reportProgress(1, STEP_NUMBER, 'Find current version');
   const packageJsonFile = path.resolve(context.workspaceRoot, 'package.json');
@@ -48,4 +48,4 @@ export default createBuilder<AppVersionBuilderSchema>(async (options, context): 
   context.addTeardown(async () => await build.stop());
 
   return build.result;
-});
+}));

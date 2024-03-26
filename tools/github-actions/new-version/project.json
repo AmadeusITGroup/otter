@@ -12,13 +12,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "tools/github-actions/new-version/.eslintrc.js",
         "lintFilePatterns": [
@@ -30,8 +23,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "tools/github-actions/new-version/jest.config.js",
-        "silent": true
+        "jestConfig": "tools/github-actions/new-version/jest.config.js"
       }
     }
   },

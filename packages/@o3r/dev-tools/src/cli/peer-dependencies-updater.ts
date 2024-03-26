@@ -11,7 +11,7 @@ let dependencies: string[] = [];
 
 program
   .arguments('[dependencies...]')
-  .description('Update the given packages version and their peer dependencies range in the provided package.json file (defaulted to local ./package.json)')
+  .description('[DEPRECATED] Update the given packages version and their peer dependencies range in the provided package.json file (defaulted to local ./package.json)')
   .option('-p, --package-json <packageJson>', 'Path to the package.json file to update. Default: ./package.json', './package.json')
   .option('--verbose', 'Display debug log message')
   .option('--silent', 'Do not exit with error in case of metadata fetch error')
@@ -29,6 +29,8 @@ const logger = winston.createLogger({
   format: winston.format.simple(),
   transports: new winston.transports.Console()
 });
+
+logger.warn('This script is deprecated, will be removed in Otter v12.');
 
 void (async () => {
   try {

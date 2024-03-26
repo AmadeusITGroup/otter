@@ -4,7 +4,6 @@
 export interface Logger {
   /**
    * Log an error.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -12,7 +11,6 @@ export interface Logger {
 
   /**
    * Log a warning.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -20,7 +18,6 @@ export interface Logger {
 
   /**
    * Log a message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -28,7 +25,6 @@ export interface Logger {
 
   /**
    * Log a message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -36,7 +32,6 @@ export interface Logger {
 
   /**
    * Log a debug message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */

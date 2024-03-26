@@ -4,7 +4,7 @@
 
 import { globby as glob } from 'globby';
 import minimist from 'minimist';
-import { promises as fs, existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
 
 const argv = minimist(process.argv.slice(2));
@@ -12,7 +12,7 @@ const argv = minimist(process.argv.slice(2));
 const cwd = argv.root ? path.resolve(process.cwd(), argv.root) : process.cwd();
 
 const outDir = path.resolve(cwd, argv.outDir || 'dist/');
-const /** @type {string[]} */ folders = (argv._?.length > 0 ? argv._ : ['schematics', 'builders']).map((folder) => path.resolve(outDir, folder));
+const /** @type {string[]} */ folders = (argv._?.length > 0 ? argv._ : ['schematics', 'builders', 'cli']).map((folder) => path.resolve(outDir, folder));
 
 void (async () => {
   const promises = folders.map(async (folder) => {
@@ -27,9 +27,9 @@ void (async () => {
         throw new Error(`The file ${packageJsonPath} already exists and has a different type`);
       }
       packageJson.type = 'commonjs';
-      await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2))
+      await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
     } else {
-      await fs.writeFile(packageJsonPath, JSON.stringify({type: 'commonjs'}, null, 2))
+      await fs.writeFile(packageJsonPath, JSON.stringify({type: 'commonjs'}, null, 2));
     }
   });
 

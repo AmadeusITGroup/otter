@@ -1,31 +1,62 @@
 import { chain, noop, Rule } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
+
+const devDependenciesToInstall = [
+  'fast-deep-equal'
+];
 
 /**
  * Add Otter store-sync to an Otter Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree, context) => {
     try {
       // use dynamic import to properly raise an exception if it is not an Otter project.
-      const { applyEsLintFix, install, ngAddPackages, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
-      // retrieve dependencies following the /^@o3r\/.*/ pattern within the peerDependencies of the current module
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
-      const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
+      const {
+        getPackageInstallConfig,
+        applyEsLintFix,
+        setupDependencies,
+        getO3rPeerDeps,
+        getProjectNewDependenciesTypes,
+        getWorkspaceConfig,
+        getExternalDependenciesVersionRange
+      } = await import('@o3r/schematics');
+
+      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
+
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
+        .forEach(([dep, range]) => {
+          dependencies[dep] = {
+            inManifest: [{
+              range,
+              types: [NodeDependencyType.Dev]
+            }]
+          };
+        });
+
       return chain([
         // optional custom action dedicated to this module
         options.skipLinter ? noop() : applyEsLintFix(),
-        // install packages needed in the current module
-        options.skipInstall ? noop : install,
         // add the missing Otter modules in the current project
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: `${depsInfo.packageName!} - setup`,
+        setupDependencies({
           projectName: options.projectName,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         })
       ]);
     } catch (e) {
@@ -37,3 +68,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter store-sync to an Otter Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

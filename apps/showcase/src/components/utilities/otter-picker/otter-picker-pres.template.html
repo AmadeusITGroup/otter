@@ -1,12 +1,17 @@
 <div ngbDropdown class="d-inline-block w-100">
   <button type="button" class="btn btn-outline-primary otter-dropdown w-100" [class.selected]="!!selectedOtter()" [id]="id" ngbDropdownToggle>
-    <div class="w-100" *ngIf="selectedOtter()"><img [src]="baseUrl+selectedOtter()" width="34" height="34" /></div>
-    <span *ngIf="!selectedOtter()">Pick an icon</span>
+    @if (selectedOtter()) {
+      <div class="w-100"><img [src]="baseUrl+selectedOtter()" width="34" height="34" /></div>
+    } @else {
+      <span>Pick an icon</span>
+    }
   </button>
   <div ngbDropdownMenu [attr.aria-labelledby]="id">
     <button ngbDropdownItem (click)="selectOtter('')">None</button>
-    <button ngbDropdownItem *ngFor="let otter of otters" (click)="selectOtter(otter)">
-      <img [src]="baseUrl+otter" width="45" height="45" />
-    </button>
+    @for (otter of otters; track $index) {
+      <button ngbDropdownItem (click)="selectOtter(otter)">
+        <img [src]="baseUrl+otter" width="45" height="45" />
+      </button>
+    }
   </div>
 </div>

@@ -4,8 +4,8 @@ The purpose of the tool is to validate that Operation IDs are specified and uniq
 
 ## Usage
 
-```bash
-$ swagger-operation-id-check --help
+```shell
+swagger-operation-id-check --help
 
 # Usage: swagger-operation-id-check [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 

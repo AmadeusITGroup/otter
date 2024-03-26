@@ -1,3 +1,5 @@
+import type { Logger } from '../../fwk/logger';
+
 /**
  * Interface of a runnable plugin
  */
@@ -23,11 +25,24 @@ export interface PluginSyncRunner<T, V> {
 }
 
 /**
+ * Interface of a plugin context
+ */
+export interface PluginContext {
+  /** Plugin context properties */
+  [key: string]: any;
+  /** Logger (optional, fallback to console logger if undefined) */
+  logger?: Logger;
+}
+
+/**
  * Interface of an SDK plugin
  */
 export interface Plugin<T, V> {
-  /** Load the plugin with the context */
-  load(context?: Record<string, any>): PluginRunner<T, V>;
+  /**
+   * Load the plugin with the context
+   * @param context Context of plugin
+   */
+  load(context?: PluginContext): PluginRunner<T, V>;
 }
 
 /**

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "ActionUpdatePlaceholderBlock",
+  "type": "object",
+  "description": "Content of action that updates a placeholder",
+  "properties": {
+    "actionType": {
+      "type": "string",
+      "description": "Action Type",
+      "const": "UPDATE_PLACEHOLDER"
+    },
+    "placeholderId": {
+      "type": "string",
+      "description": "Id of the placeholder to update"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "additionalItems": false,
+  "required": [
+    "actionType",
+    "placeholderId",
+    "value"
+  ]
+}

@@ -1,7 +1,7 @@
 import type { Rule } from '@angular-devkit/schematics';
 import { EOL } from 'node:os';
 import {OTTER_KEYWORD_CMS, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES} from './modules.constants';
-import { getPackageManagerExecutor, getWorkspaceConfig } from '../utility';
+import { getPackageManagerExecutor, getWorkspaceConfig } from '../utility/index';
 import { formatModuleDescription, getAvailableModulesWithLatestPackage } from './modules.helpers';
 
 /** Options for the Display Module rule */
@@ -36,7 +36,6 @@ export function displayModuleListRule(options?: Partial<DisplayModuleListOptions
   return async (tree, context) => {
     const tagMap: Record<string, string> = { [OTTER_KEYWORD_CMS]: 'CMS enabler' };
 
-    // const { getAvailableModulesWithLatestPackage, formatModuleDescription, getWorkspaceConfig, getPackageManagerExecutor } = await import('@o3r/schematics');
     const workspaceConfig = getWorkspaceConfig(tree);
     try {
       const modules = await getAvailableModulesWithLatestPackage(keyword, {
@@ -61,21 +60,4 @@ export function displayModuleListRule(options?: Partial<DisplayModuleListOptions
     }
     return () => tree;
   };
-}
-
-/**
- * @deprecated will be removed in v10, please use {@link displayModuleListRule} instead
- * Display the list of available Otter modules
- * @param keyword
- * @param scopeWhitelist
- * @param onlyCmsModules
- * @param onlyNotInstalledModules
- */
-export function displayModuleList(keyword: string, scopeWhitelist: string[] | readonly string[], onlyCmsModules = false, onlyNotInstalledModules = false) {
-  return displayModuleListRule({
-    keyword,
-    onlyCmsModules,
-    onlyNotInstalledModules,
-    scopeWhitelist
-  });
 }

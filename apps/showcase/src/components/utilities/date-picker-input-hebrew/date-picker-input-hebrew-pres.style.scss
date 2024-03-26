@@ -1,0 +1,15 @@
+o3r-date-picker-input-pres-new-design {
+	// Your component custom SCSS
+  .hebrew-day {
+    text-align: right;
+    padding: 0.25rem 0.65rem 0.25rem 0.25rem;
+    border-radius: 0.25rem;
+    display: inline-block;
+    height: 2.75rem;
+    width: 2.75rem;
+  }
+  .gregorian-num {
+    font-size: 0.5rem;
+    direction: ltr;
+  }
+}

@@ -1,4 +1,4 @@
-import {computeConfigurationName} from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import type {Configuration, NestedConfiguration} from '@o3r/core';
 
 /** Configuration of a destination */
@@ -16,9 +16,7 @@ export interface DestinationConfiguration extends NestedConfiguration {
 
 /**
  * Component configuration example
- * <o3rCategories>
- *  <localCategory>Local category 8</localCategory>
- * </o3rCategories>
+ * @o3rCategories localCategory Local category
  */
 export interface ConfigurationPresConfig extends Configuration {
   /**
@@ -37,7 +35,7 @@ export interface ConfigurationPresConfig extends Configuration {
   destinations: DestinationConfiguration[];
   /**
    * Propose round trip
-   * @o3rCategory globalCategory
+   * @o3rCategory localCategory
    */
   shouldProposeRoundTrip: boolean;
 }
@@ -52,4 +50,4 @@ export const CONFIGURATION_PRES_DEFAULT_CONFIG: ConfigurationPresConfig = {
   shouldProposeRoundTrip: false
 };
 
-export const CONFIGURATION_PRES_CONFIG_ID = computeConfigurationName('ConfigurationPresConfig', 'showcase');
+export const CONFIGURATION_PRES_CONFIG_ID = computeItemIdentifier('ConfigurationPresConfig', 'showcase');

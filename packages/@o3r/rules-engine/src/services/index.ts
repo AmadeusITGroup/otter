@@ -1,4 +1,2 @@
-export * from './rules-engine.module';
-export * from './rules-engine.service';
+export * from './runner/index';
 export * from './rules-engine.token';
-

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConfigurationPresComponent } from './configuration-pres.component';
@@ -8,7 +9,7 @@ describe('ConfigurationPresComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ConfigurationPresComponent]
+      imports: [AsyncPipe, ConfigurationPresComponent]
     });
     fixture = TestBed.createComponent(ConfigurationPresComponent);
     component = fixture.componentInstance;

@@ -1,31 +1,26 @@
-import {KeepWhiteSpacePipe} from './keep-white-space.pipe';
+import {KeepWhiteSpacePipe, O3rKeepWhiteSpacePipe} from './keep-white-space.pipe';
 
 describe('Keep white space pipe', () => {
-  let pipe: KeepWhiteSpacePipe;
+  let pipe: O3rKeepWhiteSpacePipe;
+  let deprecatedPipe: KeepWhiteSpacePipe;
 
   beforeEach(() => {
-    pipe = new KeepWhiteSpacePipe();
+    pipe = new O3rKeepWhiteSpacePipe();
+    deprecatedPipe = new KeepWhiteSpacePipe();
   });
 
   it('does nothing when no white spaces', () => {
-
-    const transformedString = pipe.transform('Guatemala');
-
-    expect(transformedString).toEqual('Guatemala');
+    expect(pipe.transform('Guatemala')).toEqual('Guatemala');
+    expect(deprecatedPipe.transform('Guatemala')).toEqual('Guatemala');
   });
 
   it('should work with space inside the word', () => {
-
-    const transformedString = pipe.transform('French Guiana');
-
-    expect(transformedString).toEqual('French&nbsp;Guiana');
+    expect(pipe.transform('French Guiana')).toEqual('French&nbsp;Guiana');
+    expect(deprecatedPipe.transform('French Guiana')).toEqual('French&nbsp;Guiana');
   });
 
   it('should do nothing when empty string', () => {
-
-    const transformedString = pipe.transform('');
-
-    expect(transformedString).toEqual('');
+    expect(pipe.transform('')).toEqual('');
+    expect(deprecatedPipe.transform('')).toEqual('');
   });
-
 });

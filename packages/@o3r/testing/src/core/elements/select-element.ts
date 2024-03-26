@@ -30,7 +30,6 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
 
   /**
    * Select an element in a dropdown by index.
-   *
    * @param _index
    * @param _timeout
    */
@@ -40,7 +39,6 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
 
   /**
    * Select an element in a dropdown by value.
-   *
    * @param _value
    * @param _timeout
    */

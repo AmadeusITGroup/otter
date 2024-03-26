@@ -72,12 +72,13 @@ Example of usage :
 | All[]       | lengthGreaterThanOrEquals | number of ≥            | Check if the number of values of the variable is greater or equal to a specific value |
 | All[]       | lengthGreaterThan         | number of >            | Check if the number of values of the variable is greater than a specific value |
 
-> **Note**: For the operators comparing a text variable to a pattern (such as `matchesPattern`, `oneMatches`, and `allMatch`), 
+> [!NOTE]
+> For the operators comparing a text variable to a pattern (such as `matchesPattern`, `oneMatches`, and `allMatch`),
 > we support the ES RegExp `/^myRegExp.*$/i` (containing the pattern and optional flags) or just the RegExp content `^myregexp.*$`.
-> 
+>
 > The special characters used in the pattern should contain a double backslash (`\\`).
 > For example, to check if a string contains a `\t`, the pattern would need to include `\\t`.
-> 
+>
 > > Also, to avoid the wrong detection of an ES RegExp instead of RegExp content, a content beginning with a slash `/` character
 > > (such as a path `/path/to/file`) should be preceded by a double backslash `\\` (for example `\\/path/to/file`)
 

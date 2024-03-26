@@ -4,11 +4,11 @@ import { LocalizationService } from '../tools';
 
 @Injectable()
 export class OtterLocalizationDevtools {
-  constructor(private localizationService: LocalizationService) {}
+
+  constructor(private readonly localizationService: LocalizationService) {}
 
   /**
    * Show localization keys
-   *
    * @param value value enforced by the DevTools extension
    */
   public showLocalizationKeys(value?: boolean): void {

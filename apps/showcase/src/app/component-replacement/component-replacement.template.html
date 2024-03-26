@@ -1,0 +1,43 @@
+<h1>Component Replacement</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="component-replacement-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="component-replacement-description">Description</h2>
+    <div>
+      <p>This module provides a way to replace the presentation layer of a component inside an application.</p>
+    </div>
+
+    <h2 id="component-replacement-example">Example</h2>
+    <div>
+      <p>
+        Here is an example of a hebrew datepicker which replaces the default datepicker component used in other modules.
+      </p>
+      <o3r-component-replacement-pres></o3r-component-replacement-pres>
+      <p class="mt-4">
+        Do not hesitate to run the application locally. If not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/component-replacement" target="_blank" rel="noopener">Source code</a>
+    </div>
+
+    <h2 id="comp-replacement-install">How to install</h2>
+    <p> To use the <i>component replacement mechanism</i> you'll need to install the <i>&#64;o3r/components</i> package.</p>
+    <div>
+      <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/components"></o3r-copy-text-pres>
+    </div>
+
+    <h2 id="comp-replacement-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/components/COMPONENT_REPLACEMENT.md" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

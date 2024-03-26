@@ -1,5 +1,4 @@
 import { Order } from '../../models/base/order/index';
-import { reviveOrder } from '../../models/base/order/order.reviver';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export interface DeleteOrderRequestData {
@@ -52,7 +51,7 @@ export class StoreApi implements Api {
 
   /**
    * Initialize your interface
-   * @param apiClient
+   *
    * @params apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -63,7 +62,6 @@ export class StoreApi implements Api {
    * Delete purchase order by ID
    * For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async deleteOrder(data: DeleteOrderRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<DeleteOrderRequestData>(data, [] as never[]);
@@ -89,7 +87,6 @@ export class StoreApi implements Api {
    * Returns pet inventories by status
    * Returns a map of status codes to quantities
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async getInventory(data: GetInventoryRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<{ [key: string]: number }> {
     const getParams = this.client.extractQueryParams<GetInventoryRequestData>(data, [] as never[]);
@@ -107,7 +104,7 @@ export class StoreApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<{ [key: string]: number }>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, { 200: undefined } , 'getInventory');
+    const ret = this.client.processCall<{ [key: string]: number }>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getInventory');
     return ret;
   }
 
@@ -115,7 +112,6 @@ export class StoreApi implements Api {
    * Find purchase order by ID
    * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async getOrderById(data: GetOrderByIdRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Order> {
     const getParams = this.client.extractQueryParams<GetOrderByIdRequestData>(data, [] as never[]);
@@ -133,7 +129,7 @@ export class StoreApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, { 200: reviveOrder } , 'getOrderById');
+    const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getOrderById');
     return ret;
   }
 
@@ -141,7 +137,6 @@ export class StoreApi implements Api {
    * Place an order for a pet
    * Place a new order in the store
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async placeOrder(data: PlaceOrderRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json'>): Promise<Order> {
     const getParams = this.client.extractQueryParams<PlaceOrderRequestData>(data, [] as never[]);
@@ -164,7 +159,7 @@ export class StoreApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, { 200: reviveOrder } , 'placeOrder');
+    const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'placeOrder');
     return ret;
   }
 

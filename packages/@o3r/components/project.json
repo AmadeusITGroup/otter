@@ -7,23 +7,35 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
+    },
+    "prepare": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/src/package.json"
+      ],
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json"
+      ],
+      "options": {
+        "script": "prepare:compile"
+      }
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
-        "project": "packages/@o3r/components/ng-package.json",
+        "project": "packages/@o3r/components/src/ng-package.json",
         "tsConfig": "packages/@o3r/components/tsconfig.build.json"
-      }
+      },
+      "dependsOn": [
+        "prepare",
+        "^build"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -38,13 +50,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/components/.eslintrc.js",
         "lintFilePatterns": [
@@ -56,15 +61,13 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/components/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/components/jest.config.js"
       }
     },
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/components/testing/jest.config.it.js",
-        "silent": false
+        "jestConfig": "packages/@o3r/components/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {

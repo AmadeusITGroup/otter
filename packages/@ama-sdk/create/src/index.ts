@@ -2,7 +2,8 @@
 /* eslint-disable no-console */
 
 import { execSync, spawnSync } from 'node:child_process';
-import { dirname, join, resolve } from 'node:path';
+import * as url from 'node:url';
+import { dirname, join, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
@@ -11,9 +12,16 @@ const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.
 const args = process.argv.slice(2);
 const argv = minimist(args);
 
+let defaultPackageManager = 'npm';
+if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
+  defaultPackageManager = packageManagerEnv;
+}
+
+const packageManager: string = argv['package-manager'] || defaultPackageManager;
+
 if (argv._.length < 2) {
   console.error('The SDK type and project name are mandatory');
-  console.info('usage: create typescript <@scope/package>');
+  console.info(`usage: ${packageManager} create @ama-sdk typescript <@scope/package>`);
   process.exit(-1);
 }
 
@@ -33,17 +41,6 @@ if (!pck) {
 
 const targetDirectory = join('.', name, pck);
 const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
-const schematicsToRun = [
-  `${schematicsPackage}:typescript-shell`,
-  ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
-];
-
-let defaultPackageManager = 'npm';
-if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
-  defaultPackageManager = packageManagerEnv;
-}
-
-const packageManager = argv['package-manager'] || defaultPackageManager;
 
 const getYarnVersion = () => {
   try {
@@ -69,42 +66,43 @@ const schematicArgs = [
   '--name', name,
   '--package', pck,
   '--package-manager', packageManager,
-  '--directory', targetDirectory,
-  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] ? 'no-' : ''}o3r-metrics`] : [])
 ];
 
-const getSchematicStepInfo = (schematic: string) => ({
-  args: [binPath, schematic, ...schematicArgs]
-});
+const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
 
 const run = () => {
+  const isSpecPathUrl = url.URL.canParse(argv['spec-path']);
 
-  const steps: { args: string[]; cwd?: string }[] = [
-    getSchematicStepInfo(schematicsToRun[0]),
+  const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
+  const steps: { args: string[]; cwd?: string; runner?: string }[] = [
+    { args: [binPath, `${schematicsPackage}:typescript-shell`, ...schematicArgs, '--directory', targetDirectory] },
     ...(
       packageManager === 'yarn'
-        ? [{ args: ['yarn', 'set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...schematicsToRun.slice(1).map(getSchematicStepInfo)
+    ...(argv['spec-path'] ? [{
+      args: [
+        binPath,
+        `${schematicsPackage}:typescript-core`,
+        ...schematicArgs,
+        '--spec-path', isSpecPathUrl ? argv['spec-path'] : relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path']))
+      ],
+      cwd: resolveTargetDirectory
+    }] : [])
   ];
 
   const errors = steps
-    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
-    .map(({error}) => error)
-    .filter((err) => !!err);
+    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
+    .filter(({error, status}) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach((err) => console.error(err));
-    if (packageManagerEnv !== 'npm') {
-      console.error(`Other package managers than 'npm' are experimental for @ama-sdk create for the time being.
-Please use the following command:
-  'npm create @ama-sdk typescript <package-name> -- [...options]'
-
-https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/create#usage
-
-`);
-    }
+    errors.forEach(({error}) => {
+      if (error) {
+        console.error(error);
+      }
+    });
     process.exit(1);
   }
 };

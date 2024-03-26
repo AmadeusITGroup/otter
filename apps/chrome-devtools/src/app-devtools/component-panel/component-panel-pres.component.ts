@@ -32,12 +32,12 @@ export class ComponentPanelPresComponent implements OnDestroy {
   /** Determines if the selected component has a container */
   public hasContainer$: Observable<boolean>;
 
-  private subscription: Subscription = new Subscription();
+  private readonly subscription: Subscription = new Subscription();
 
   constructor(
-    private connectionService: ChromeExtensionConnectionService,
+    private readonly connectionService: ChromeExtensionConnectionService,
     rulesetHistoryService: RulesetHistoryService,
-    private cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef
   ) {
     const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({bufferSize: 1, refCount: true}));
     this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));

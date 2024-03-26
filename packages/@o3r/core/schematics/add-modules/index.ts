@@ -1,14 +1,14 @@
 import { chain, externalSchematic, noop, Rule } from '@angular-devkit/schematics';
 import type { NgAddModulesSchematicsSchema } from './schema';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
-import { getAvailableModulesWithLatestPackage, getWorkspaceConfig, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getAvailableModulesWithLatestPackage, getWorkspaceConfig, OTTER_MODULE_KEYWORD, OTTER_MODULE_SUPPORTED_SCOPES } from '@o3r/schematics';
 import { getExternalPreset, presets } from '../shared/presets';
 
 /**
  * Select the available modules to add to the project
  * @param options
  */
-export function ngAddModules(options: NgAddModulesSchematicsSchema): Rule {
+function ngAddModulesFn(options: NgAddModulesSchematicsSchema): Rule {
   return async (tree, context) => {
     if (!context.interactive && !options.preset && !options.externalPresets) {
       context.logger.error('This command is available only for interactive shell, only the "preset" option can be used without interaction');
@@ -62,3 +62,9 @@ export function ngAddModules(options: NgAddModulesSchematicsSchema): Rule {
 
   };
 }
+
+/**
+ * Select the available modules to add to the project
+ * @param options
+ */
+export const ngAddModules = createSchematicWithMetricsIfInstalled(ngAddModulesFn);

@@ -18,6 +18,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   getO3rComponentInfoOrThrowIfNotFound,
   isO3rClassComponent,
   NoOtterComponent,
@@ -42,7 +43,7 @@ const checkContext = (componentPath: string, tree: Tree) => {
  *
  * @param options
  */
-export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
+export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     const componentPath = options.path;
     try {
@@ -105,7 +106,7 @@ export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
             schematic('convert-component', {
               path: options.path
             }),
-            ngAddContext(options)
+            ngAddContextFn(options)
           ]);
         }
       }
@@ -113,3 +114,5 @@ export function ngAddContext(options: NgAddConfigSchematicsSchema): Rule {
     }
   };
 }
+
+export const ngAddContext = createSchematicWithMetricsIfInstalled(ngAddContextFn);

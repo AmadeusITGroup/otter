@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "CmsMetadataSchema",
+  "type": "object",
+  "title": "Schema of CMS application configuration",
+  "description": "Schema used to indicate the configuration to the CMS when the application is loaded by it",
+  "additionalProperties": false,
+  "properties": {
+    "assetsFolder": {
+      "type": "string",
+      "description": "The relative path to the assets folder to import",
+      "default": "dist/assets"
+    },
+    "localisationsFolder": {
+      "type": "string",
+      "description": "The relative path to the localizations (.json files) folder to import"
+    },
+    "placeholderCssFiles": {
+      "type": "array",
+      "description": "An array of the CSS files which are used by placeholders at runtime. These files will be used in the placeholder editor",
+      "items": {
+        "type": "string"
+      }
+    },
+    "defaultLanguage": {
+      "type": "string",
+      "description": "The language code present in the localisation.metadata.json file",
+      "default": "en"
+    },
+    "functionalContentsFolder": {
+      "type": "string",
+      "description": "The relative path to the functional contents metadata folder to import"
+    }
+  }
+}

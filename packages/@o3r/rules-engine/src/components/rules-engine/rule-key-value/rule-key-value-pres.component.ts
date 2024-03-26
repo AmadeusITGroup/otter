@@ -55,7 +55,7 @@ export class RuleKeyValuePresComponent implements OnChanges {
   public isClipBoardFeatureAvailableForOldValue = false;
   public isOldValuePrimitiveType = false;
 
-  private triggerNotification = new Subject<void>();
+  private readonly triggerNotification = new Subject<void>();
   public showNotification$ = this.triggerNotification.asObservable().pipe(
     switchMap(() => of(false).pipe(delay(NOTIFICATION_DURATION), startWith(true)))
   );

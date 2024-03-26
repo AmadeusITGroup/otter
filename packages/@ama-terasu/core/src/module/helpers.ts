@@ -14,7 +14,6 @@ export interface SpawnOptions extends SpawnOptionsWithoutStdio {
 
 /**
  * Spawn a child process command and return a promise end finished
- *
  * @param command command to execute
  * @param opt options to spawn function
  */

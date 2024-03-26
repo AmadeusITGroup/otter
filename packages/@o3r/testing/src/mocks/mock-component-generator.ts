@@ -5,7 +5,6 @@ import * as ts from 'typescript';
 
 /**
  * Determine if the node in an input field
- *
  * @param node Typescript AST Node
  * @param source Typescript source file
  */
@@ -15,7 +14,6 @@ function isInputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator
 
 /**
  * Determine if the node in an output field
- *
  * @param node Typescript AST Node
  * @param source Typescript source file
  */
@@ -25,7 +23,6 @@ function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorato
 
 /**
  * Get the name of the input / output
- *
  * @param currentNode Typescript AST Node
  * @param decorator Current Input/Output decorator node
  * @param source Typescript source file
@@ -47,7 +44,6 @@ function getIOName(currentNode: ts.Node, decorator: ts.Decorator, source: ts.Sou
 
 /**
  * Get the list of Input and Output of a component
- *
  * @param parentNode Typescript AST Node
  * @param source Typescript source file
  */
@@ -81,7 +77,6 @@ function parseIO(parentNode: ts.Node, source: ts.SourceFile): { outputs: string[
 
 /**
  * Get the selector of an angular class
- *
  * @param parentNode Typescript AST Node
  * @param source Typescript source file
  * @param isInDecorator true if the recursive execution is in a decorator
@@ -109,7 +104,6 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
 
 /**
  * Generate a mock class base on a component file
- *
  * @param componentPath Path to the component file to mock
  * @param config Object containing the following configurations:
  * template: should be provided if the template contain `<ng-content></ng-content>`
@@ -117,15 +111,17 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
  * @param config.template
  * @param config.isControlValueAccessor
  * @example
+ * ```typescript
  * // hero.component.ts
- * @Component({selector: 'hero'})
+ * \@Component({selector: 'hero'})
  * class HeroComponent {
- * @Input() name: string;
- * @Output() doSomething: EventEmitter<void>
+ *   \@Input() name: string;
+ *   \@Output() doSomething: EventEmitter<void>
  * }
  *
  * // mock generation
  * class MockComponent extends generateMockComponent('hero.component.ts') {}
+ * ```
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
 export function generateMockComponent<T extends unknown = Record<string, unknown>>(componentPath: string, config?: { template?: string; isControlValueAccessor?: boolean }): Type<T> {

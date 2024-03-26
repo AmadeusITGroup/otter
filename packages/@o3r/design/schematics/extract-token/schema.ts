@@ -9,4 +9,7 @@ export interface ExtractTokenSchematicsSchema extends SchematicOptionObject {
 
   /** List of file pattern of component theme files */
   componentFilePatterns: string[];
+
+  /** Level from which to flatten the token nodes */
+  flattenLevel?: number;
 }

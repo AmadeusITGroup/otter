@@ -1,6 +1,5 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { O3rComponent } from '@o3r/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -8,7 +7,7 @@ import { HighlightModule } from 'ngx-highlightjs';
 @Component({
   selector: 'o3r-copy-text-pres',
   standalone: true,
-  imports: [CommonModule, ClipboardModule, HighlightModule],
+  imports: [ClipboardModule, HighlightModule],
   templateUrl: './copy-text-pres.template.html',
   styleUrls: ['./copy-text-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -29,7 +28,7 @@ export class CopyTextPresComponent {
 
   public defaultLanguages = ['bash', 'css', 'html', 'json', 'typescript'] as const;
 
-  constructor(private clipboard: Clipboard) {}
+  constructor(private readonly clipboard: Clipboard) {}
 
   /**
    * Copy the text into the clipboard

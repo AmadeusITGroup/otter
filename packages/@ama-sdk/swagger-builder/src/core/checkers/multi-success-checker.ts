@@ -8,7 +8,6 @@ export class MultiSuccessChecker implements Checker {
 
   /**
    * Retrieve the list success responses
-   *
    * @param swaggerSpec Swagger specification
    */
   private async getSuccessResponses(swaggerSpec: SwaggerSpec) {
@@ -31,7 +30,6 @@ export class MultiSuccessChecker implements Checker {
 
   /**
    * Check the success responses in a swagger spec to make sure the responses are targeting the same definition
-   *
    * @param swaggerSpec Swagger specification
    */
   public async check(swaggerSpec: SwaggerSpec): Promise<Report> {

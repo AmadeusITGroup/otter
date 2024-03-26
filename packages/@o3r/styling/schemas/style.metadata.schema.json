@@ -3,6 +3,7 @@
   "$id": "StyleMetadataSchema",
   "description": "Schema of Application style",
   "type": "object",
+  "additionalItems": false,
   "properties": {
     "variables": {
       "additionalProperties": {
@@ -12,15 +13,76 @@
   },
   "required": ["variables"],
   "definitions": {
+    "StyleReferenceSchema": {
+      "type": "object",
+      "required": [
+        "name",
+        "defaultValue"
+      ],
+      "additionalItems": true,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the variable referred in the parse value"
+        },
+        "defaultValue": {
+          "type": "string",
+          "description": "Default CSS value used"
+        }
+      }
+    },
+    "StyleMetadataComponentSchema": {
+      "type": "object",
+      "required": [
+        "library",
+        "name"
+      ],
+      "additionalItems": false,
+      "description": "Component reference if the variable is linked to one",
+      "properties": {
+        "library": {
+          "type": "string",
+          "description": "Name of the library containing the component"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the component"
+        }
+      }
+    },
     "StyleMetadataValueSchema": {
       "type": "object",
       "required": [
         "defaultValue"
       ],
+      "additionalItems": true,
       "properties": {
+        "description": {
+          "type": "string",
+          "description": "Description of the variable"
+        },
+        "label": {
+          "type": "string",
+          "description": "Label of the variable, it will be used to display the variable name in the CMS if specified"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of the variable",
+          "enum": [
+            "string",
+            "color"
+          ]
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the variable"
+        },
         "defaultValue": {
           "type": "string",
-          "description": "Default value of the variable"
+          "description": "Default value of CSS Value used"
+        },
+        "component": {
+          "$ref": "#/definitions/StyleMetadataComponentSchema"
         },
         "tags": {
           "type": "array",
@@ -33,7 +95,7 @@
           "type": "array",
           "description": "List of CSS variables used in the value expression",
           "items": {
-            "$ref": "#/definitions/StyleMetadataValueSchema"
+            "$ref": "#/definitions/StyleReferenceSchema"
           }
         }
       }

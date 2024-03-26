@@ -24,7 +24,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /**
    * Install the specified java open api generator
-   *
    * @param version of the OpenApi Generator jar to use
    * @param spawnOptions to configure your command line environment
    */
@@ -45,7 +44,6 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
 
   /**
    * Run the OpenApi generator jar with the configuration specified to generate a SDK based on the specified specification
-   *
    * @param generatorOptions contains the version of the generator to use, the output dir, the specification file and config to use etc.
    * @param spawnOptions to configure your command line environment
    */
@@ -54,11 +52,14 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       'openapi-generator-cli',
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
-      '-g', generatorOptions.generatorName,
-      '-i', generatorOptions.specPath,
-      ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
-      '-o', generatorOptions.outputPath,
-      ...generatorOptions.globalProperty ? ['--global-property', generatorOptions.globalProperty] : []
+      ...generatorOptions.generatorKey ? ['--generator-key', generatorOptions.generatorKey] :
+        [
+          '-g', generatorOptions.generatorName,
+          '-i', generatorOptions.specPath,
+          ...generatorOptions.specConfigPath ? ['-c', generatorOptions.specConfigPath] : [],
+          '-o', generatorOptions.outputPath,
+          ...generatorOptions.globalProperty ? ['--global-property', generatorOptions.globalProperty] : []
+        ]
     ];
     return new Promise<void>((resolve, reject) => {
       spawn(this.packageManagerRunner, args, spawnOptions)

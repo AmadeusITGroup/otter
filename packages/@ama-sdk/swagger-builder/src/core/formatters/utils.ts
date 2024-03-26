@@ -1,6 +1,5 @@
 /**
  * Generate the minimum content of a package.json
- *
  * @param artifactName Name of the artifact
  * @param spec Swagger spec
  */

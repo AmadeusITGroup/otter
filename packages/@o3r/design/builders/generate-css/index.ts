@@ -92,7 +92,6 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       await renderDesignTokens(tokens, renderDesignTokenOptions);
       return { success: true };
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       return { success: false, error: `${err as any}` };
     }
   };
@@ -135,7 +134,6 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         }));
       return { success: true };
     } catch (err) {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       return { success: false, error: `${err as any}` };
     }
   }

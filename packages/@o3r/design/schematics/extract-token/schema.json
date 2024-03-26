@@ -34,6 +34,10 @@
       "items": {
         "type": "string"
       }
+    },
+    "flattenLevel": {
+      "description": "Level from which to flatten the token nodes (let it empty to not flatten the token nodes)",
+      "type": "number"
     }
   },
   "additionalProperties": true,

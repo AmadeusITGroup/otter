@@ -1,1 +1,1 @@
-export * from './rules-engine.service.fixture.jasmine';
+export * from './rules-engine.runner.service.fixture.jasmine';

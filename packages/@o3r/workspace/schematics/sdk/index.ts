@@ -1,8 +1,7 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
-import type { NgGenerateTypescriptSDKCoreSchematicsSchema, NgGenerateTypescriptSDKShellSchematicsSchema } from '@ama-sdk/schematics';
 import { ngRegisterProjectTasks } from './rules/rules.ng';
 import { nxRegisterProjectTasks } from './rules/rules.nx';
 import { updateTsConfig } from './rules/update-ts-paths.rule';
@@ -13,7 +12,7 @@ import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schema
  * Add an Otter compatible SDK to a monorepo
  * @param options Schematic options
  */
-export function generateSdk(options: NgGenerateSdkSchema): Rule {
+function generateSdkFn(options: NgGenerateSdkSchema): Rule {
   const splitName = options.name?.split('/');
   const scope = splitName.length > 1 ? splitName[0].replace(/^@/, '') : '';
   const projectName = strings.dasherize(splitName?.length === 2 ? splitName[1] : options.name);
@@ -42,7 +41,7 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     const packageManager = getPackageManager({ workspaceConfig });
 
     return chain([
-      externalSchematic<NgGenerateTypescriptSDKShellSchematicsSchema>('@ama-sdk/schematics', 'typescript-shell', {
+      externalSchematic('@ama-sdk/schematics', 'typescript-shell', {
         ...options,
         package: projectName,
         name: scope,
@@ -64,7 +63,7 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
       addModuleSpecificFiles(),
       options.specPath ? (_host: Tree, c: SchematicContext) => {
         const installTaskId = c.addTask(new NodePackageInstallTask());
-        c.addTask(new RunSchematicTask<Partial<NgGenerateTypescriptSDKCoreSchematicsSchema>>('@ama-sdk/schematics', 'typescript-core', {
+        c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
           ...options,
           specPath: options.specPath,
           directory: targetPath,
@@ -74,3 +73,9 @@ export function generateSdk(options: NgGenerateSdkSchema): Rule {
     ])(tree, context);
   };
 }
+
+/**
+ * Add an Otter compatible SDK to a monorepo
+ * @param options Schematic options
+ */
+export const generateSdk = createSchematicWithMetricsIfInstalled(generateSdkFn);

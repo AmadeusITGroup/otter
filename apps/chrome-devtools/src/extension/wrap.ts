@@ -20,7 +20,6 @@ if ((globalThis as any).localMessageListener) {
 
 /**
  * Listener for messages from the page
- *
  * @param event
  */
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions

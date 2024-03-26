@@ -26,7 +26,6 @@ export function updatePackageDependenciesFactory(
     packageJson.scripts['prepare:build:builders'] = `${runner} cpy 'collection.json' dist && ${runner} cpy 'schematics/**/*.json' dist/schematics`;
     packageJson.scripts['build:builders'] = 'tsc -b tsconfig.builders.json --pretty';
     packageJson.peerDependencies ||= {};
-    packageJson.peerDependencies['@o3r/dev-tools'] = otterVersion;
     packageJson.peerDependencies['@o3r/core'] = otterVersion;
     packageJson.peerDependencies['@o3r/schematics'] = otterVersion;
     packageJson.devDependencies ||= {};
@@ -47,7 +46,6 @@ export function updatePackageDependenciesFactory(
       '@angular/platform-browser': packageJson.peerDependencies['@angular/common'],
       '@angular/platform-browser-dynamic': packageJson.peerDependencies['@angular/common'],
       '@o3r/core': otterVersion,
-      '@o3r/dev-tools': otterVersion,
       '@o3r/eslint-plugin': otterVersion,
       '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
       '@types/jest': o3rCorePackageJson.generatorDependencies!['@types/jest'],

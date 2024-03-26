@@ -63,7 +63,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Get the list of executions for the given ruleset
-   *
    * @param rulesetId
    */
   public async getRulesetExecutions(rulesetId: string) {
@@ -72,7 +71,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Check if the ruleset is activ in the moment when the function is called
-   *
    * @param rulesetId
    * @returns True if the ruleset is active; False if the ruleset is inactive or it does not exist
    */
@@ -82,7 +80,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Get the list of rules executed for the specified ruleset
-   *
    * @param rulesetId
    */
   public async getRulesEvaluationsForRuleset(rulesetId: string) {
@@ -91,7 +88,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Get the list of input facts (name, current value) for the specified ruleset, at the moment when the function is called
-   *
    * @param rulesetId
    */
   public async getInputFactsForRuleset(rulesetId: string) {
@@ -100,7 +96,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Get the list of triggers for the specified ruleset
-   *
    * @param rulesetId
    */
   public async getTriggersForRuleset(rulesetId: string) {
@@ -109,7 +104,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Get the list of outputed actions emitted by the given ruleset, at the moment when the function is called
-   *
    * @param rulesetId
    */
   public async getOutputActionsForRuleset(rulesetId: string) {
@@ -123,7 +117,6 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
 
   /**
    * Retrieve the ruleset information (rules, linkedComponent, validity range etc.) for a ruleset id
-   *
    * @param rulesetId
    */
   public async getRulesetInformation(rulesetId: string) {

@@ -71,7 +71,7 @@ export class NewVersion {
   /** Name of the pre-release part of versions computed from the default branch */
   public defaultBranchPrereleaseName?: string;
 
-  constructor(private options: NewVersionOptions<BaseLogger>) {
+  constructor(private readonly options: NewVersionOptions<BaseLogger>) {
     this.isDefaultBranch = options.defaultBranch === options.baseBranch;
     this.isBaseBranchSupported = this.isDefaultBranch || options.releaseBranchRegExp.test(options.baseBranch);
     this.defaultBranchPrereleaseName = options.defaultBranchPrereleaseName || options.defaultBranch;
@@ -124,7 +124,6 @@ export class NewVersion {
   /**
    * Compute the next version following the version mask.
    * If your default branch is behind your release branches, the version minor will be bumped
-   *
    * @param tags
    * @param versionMask
    */
@@ -143,7 +142,7 @@ export class NewVersion {
       // If release branch, we filter all versions that do not satisfy the branch name to exclude 3.6.0-alpha.2 when building branch release/3.6 for example
       parsedSortedTags = parsedSortedTags.filter((parsedTag) => semver.satisfies(parsedTag, `~${versionMask}`));
     } else {
-      const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'alpha', 'beta', 'rc'];
+      const releaseTags = [...this.defaultBranchPrereleaseName ? [this.defaultBranchPrereleaseName] : [], 'prerelease', 'rc'];
       parsedSortedTags = parsedSortedTags.filter((parsedTag) =>
         parsedTag.prerelease.length === 0 || releaseTags.includes(`${parsedTag.prerelease[0]}`)
       );

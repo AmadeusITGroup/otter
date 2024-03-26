@@ -23,7 +23,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
 
 /**
  * Determine if the given value is a promise
- *
  * @param value The value to test
  */
 const isPromise = <T>(value: T | Promise<T>): value is Promise<T> => value && typeof (value as any).then === 'function';
@@ -39,7 +38,6 @@ export class ApiBeaconClient implements ApiClient {
 
   /**
    * Initialize your API Client instance
-   *
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiBeaconClientConstructor) {
@@ -80,7 +78,7 @@ export class ApiBeaconClient implements ApiClient {
     let opts = options;
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
-        const changedOpt = plugin.load().transform(opts);
+        const changedOpt = plugin.load({logger: this.options.logger}).transform(opts);
         if (isPromise(changedOpt)) {
           throw new Error(`Request plugin ${plugin.constructor.name} has async transform method. Only sync methods are supported with the Beacon client.`);
         } else {
