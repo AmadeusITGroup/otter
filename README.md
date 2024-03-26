@@ -5,7 +5,8 @@
 
 ## Description
 
-[![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+[![downloads](https://img.shields.io/npm/dm/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
 
 The **Otter** project is a highly modular framework whose goal is to provide a common platform to accelerate and facilitate the development on Angular web applications.
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
