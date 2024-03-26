@@ -1,40 +1,33 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-create-app
+ * @jest-environment-o3r-type blank
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
-  type PackageManagerConfig,
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
   packageManagerRunOnProject,
-  prepareTestEnv,
-  setPackagerManagerConfig,
-  setupLocalRegistry
+  setPackagerManagerConfig
 } from '@o3r/test-helpers';
 import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
 
-const appFolder = 'test-create-app';
+const defaultExecOptions = getDefaultExecSyncOptions();
 const workspaceProjectName = 'my-project';
-const o3rVersion = '999.0.0';
-let workspacePath: string;
-let packageManagerConfig: PackageManagerConfig;
-const execWorkspaceOptions = getDefaultExecSyncOptions();
 
 describe('Create new otter project command', () => {
-  setupLocalRegistry();
-  beforeEach(async () => {
-    ({ workspacePath, packageManagerConfig, workspacePath } = (await prepareTestEnv(appFolder, {type: 'blank' })));
-    execWorkspaceOptions.cwd = workspacePath;
-  });
-
-  afterAll(async () => {
-    try { await fs.rm(workspacePath, { recursive: true }); } catch { /* ignore error */ }
-  });
-
   test('should generate a project with an application', async () => {
-    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inAppPath = path.join(workspacePath, workspaceProjectName);
-    const execInAppOptions = {...execWorkspaceOptions, cwd: inAppPath };
+    const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = {...defaultExecOptions, cwd: inAppPath };
+    const createOptions = ['--package-manager', getPackageManager(), '--skip-confirmation', ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
 
     // TODO: remove it when fixing #1356
     await fs.mkdir(inAppPath, { recursive: true });
@@ -52,11 +45,13 @@ describe('Create new otter project command', () => {
   });
 
   test('should generate a project with an application with --exact-o3r-version', async () => {
+    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const inAppPath = path.join(workspacePath, workspaceProjectName);
+    const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
+    const execInAppOptions = {...defaultExecOptions, cwd: inAppPath };
     const packageManager = getPackageManager();
     const createOptions = ['--package-manager', packageManager, '--skip-confirmation', '--exact-o3r-version',
       ...(packageManagerConfig.yarnVersion ? ['--yarn-version', packageManagerConfig.yarnVersion] : [])];
-    const inAppPath = path.join(workspacePath, workspaceProjectName);
-    const execInAppOptions = {...execWorkspaceOptions, cwd: inAppPath };
 
     // TODO: remove it when fixing #1356
     await fs.mkdir(inAppPath, { recursive: true });
