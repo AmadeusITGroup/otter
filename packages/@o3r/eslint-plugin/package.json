@@ -24,7 +24,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "dependencies": {
-    "@typescript-eslint/utils": "~7.3.0",
+    "@typescript-eslint/utils": "~7.4.0",
     "globby": "^11.1.0",
     "semver": "^7.5.2",
     "tslib": "^2.6.2",
