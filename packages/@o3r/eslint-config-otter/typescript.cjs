@@ -1,3 +1,8 @@
+const hasJestDependency = (() => {
+  try { return !!require.resolve('jest'); }
+  catch { return false; }
+})();
+
 module.exports = {
   overrides: [
     {
@@ -11,7 +16,7 @@ module.exports = {
         './rules/typescript/prefer-arrow.cjs',
         './rules/typescript/stylistic.cjs',
         './rules/typescript/unicorn.cjs',
-        './rules/typescript/jest.cjs',
+        ...hasJestDependency ? ['./rules/typescript/jest.cjs'] : [],
         './rules/typescript/stylistic.cjs'
       ],
       parserOptions: {
