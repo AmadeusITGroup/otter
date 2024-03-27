@@ -50,6 +50,11 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
    * @default ''
    */
   generatorKey: string;
+  /**
+   * Specifies the rules to be enabled in OpenAPI normalizer
+   * @default ''
+   */
+  openapiNormalizer: string;
 };
 
 /**
@@ -63,5 +68,6 @@ export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
   outputPath: '.',
   specConfigPath: '',
   globalProperty: '',
-  generatorKey: ''
+  generatorKey: '',
+  openapiNormalizer: ''
 };

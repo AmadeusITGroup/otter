@@ -42,4 +42,7 @@ export interface NgGenerateTypescriptSDKCoreSchematicsSchema extends SchematicOp
 
   /** Path to a custom generator */
   generatorCustomPath: string | undefined;
+
+  /** Specifies the rules to be enabled in OpenAPI normalizer */
+  openapiNormalizer: string | undefined;
 }

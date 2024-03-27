@@ -43,6 +43,10 @@
     "generatorCustomPath": {
       "type": "string",
       "description": "Path to a custom generator"
+    },
+    "openapiNormalizer": {
+      "type": "string",
+      "description": "Specifies the rules to be enabled in OpenAPI normalizer"
     }
   },
   "additionalProperties": true

@@ -52,6 +52,7 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       'openapi-generator-cli',
       'generate',
       generatorOptions.generatorCustomPath ? `--custom-generator=${generatorOptions.generatorCustomPath}` : '',
+      ...generatorOptions.openapiNormalizer ? ['--openapi-normalizer', generatorOptions.openapiNormalizer] : [],
       ...generatorOptions.generatorKey ? ['--generator-key', generatorOptions.generatorKey] :
         [
           '-g', generatorOptions.generatorName,
