@@ -14,6 +14,7 @@
     "build:tools": "yarn nx run-many --target=build --projects=eslint-plugin,workspace --parallel $(yarn get:cpus-number)",
     "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger --parallel $(yarn get:cpus-number)",
+    "db": "json-server --watch apps/showcase/db/contacts.json",
     "prepare:publish": "yarn prepare-publish \"$(yarn workspaces:list)\" --append dist",
     "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
@@ -133,6 +134,8 @@
   "dependencies": {
     "@angular/core": "~17.3.0",
     "@angular/platform-browser": "~17.3.0",
+    "@tanstack/angular-query-devtools-experimental": "^5.28.8",
+    "@tanstack/angular-query-experimental": "^5.28.8",
     "pixelmatch": "^5.2.1",
     "pngjs": "^7.0.0",
     "rxjs": "^7.8.1",

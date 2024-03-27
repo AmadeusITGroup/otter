@@ -33,6 +33,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 
+// Tanstack
+import {
+  provideAngularQuery,
+  QueryClient
+} from '@tanstack/angular-query-experimental';
+import { HttpClientModule } from '@angular/common/http';
+
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
   strictActionSerializability: false,
@@ -87,6 +94,7 @@ export function registerCustomComponents(): Map<string, any> {
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule.withConfig({disableAnimations: prefersReducedMotion()}),
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
@@ -133,7 +141,8 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    provideAngularQuery(new QueryClient())
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,18 @@
+o3r-sdk-pres {
+  .table-container {
+    min-height: 41rem;
+  }
+
+  .table-column-photo, .table-column-actions {
+    width: 2em;
+  }
+
+  .scroll-container {
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  td, th {
+    vertical-align: middle;
+  }
+}
