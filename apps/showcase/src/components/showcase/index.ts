@@ -5,3 +5,4 @@ export * from './dynamic-content/index';
 export * from './localization/index';
 export * from './rules-engine/index';
 export * from './sdk/index';
+export * from './tanstack/index';

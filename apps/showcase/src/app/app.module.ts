@@ -33,6 +33,12 @@ import { ApplicationDevtoolsModule } from '@o3r/application';
 import { C11nModule, ComponentsDevtoolsModule, OTTER_COMPONENTS_DEVTOOLS_OPTIONS, registerCustomComponent } from '@o3r/components';
 import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 
+// Tanstack
+import {
+  provideAngularQuery,
+  QueryClient
+} from '@tanstack/angular-query-experimental';
+
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
   strictActionSerializability: false,
@@ -131,7 +137,8 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    provideAngularQuery(new QueryClient())
   ],
   bootstrap: [AppComponent]
 })

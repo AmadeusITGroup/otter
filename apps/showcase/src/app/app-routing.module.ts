@@ -12,6 +12,7 @@ const appRoutes: Routes = [
   {path: 'home', loadComponent: () => import('./home/index').then((m) => m.HomeComponent)},
   {path: 'run-app-locally', loadComponent: () => import('./run-app-locally/index').then((m) => m.RunAppLocallyComponent)},
   {path: 'sdk', loadComponent: () => import('./sdk/index').then((m) => m.SdkComponent)},
+  {path: 'tanstack', loadComponent: () => import('./tanstack/index').then((m) => m.TanstackComponent)},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 

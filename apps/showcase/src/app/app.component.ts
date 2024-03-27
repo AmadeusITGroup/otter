@@ -38,6 +38,12 @@ export class AppComponent implements OnDestroy {
       links: [
         { url: '/sdk', label: 'Generator' }
       ]
+    },
+    {
+      label: 'Server side storage',
+      links: [
+        { url: '/tanstack', label: 'Tanstack' }
+      ]
     }
   ];
 

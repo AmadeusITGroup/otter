@@ -139,6 +139,8 @@
   "dependencies": {
     "@angular/core": "~17.3.0",
     "@angular/platform-browser": "~17.3.0",
+    "@tanstack/angular-query-devtools-experimental": "^5.28.8",
+    "@tanstack/angular-query-experimental": "^5.28.8",
     "pixelmatch": "^5.2.1",
     "pngjs": "^7.0.0",
     "rxjs": "^7.8.1",
