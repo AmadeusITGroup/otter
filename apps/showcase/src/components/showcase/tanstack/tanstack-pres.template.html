@@ -1,0 +1,180 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <form>
+      <div class="row gap-3">
+        <label for="pet-name" class="col-xs-3 col-sm-auto col-form-label">Name</label>
+        <div class="col-xs-3 col-sm-auto">
+          <input
+            id="pet-name"
+            type="text"
+            class="form-control"
+            name="petName"
+            [ngModel]="service.petName()" (ngModelChange)="service.petName.set($event)"
+          />
+        </div>
+        <div class="col-xs-3 col-sm-auto">
+          <o3r-otter-picker-pres
+            [id]="'pet-image'"
+            name="petImage"
+            [ngModel]="service.petImage()" (ngModelChange)="service.petImage.set($event)"
+          ></o3r-otter-picker-pres>
+        </div>
+        <div class="col-xs-3 col-sm-auto mt-2 mt-sm-0">
+          <button class="btn btn-secondary w-100 w-sm-auto" (click)="service.create()">Create a pet</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="card">
+  <div class="card-body">
+    <form>
+      <div class="mb-3 row gap-3">
+        <label for="table-complete-search" class="col-xs-3 col-sm-auto col-form-label">Full text search:</label>
+        <div class="col-xs-3 col-sm-auto">
+          <input
+            id="table-complete-search"
+            type="text"
+            class="form-control"
+            name="searchTerm"
+            [ngModel]="service.searchTerm()" (ngModelChange)="service.searchTerm.set($event)"
+          />
+        </div>
+        <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center visual-testing-ignore">
+          @if (service.mutationAdd.isPending()) {
+            <span>Adding Pet...</span>
+          } @else if (service.mutationAdd.isError()) {
+            <div>An error occurred: {{ service.mutationAdd.error()?.message }}</div>
+          }
+          @if (service.mutationDelete.isPending()) {
+            <span>Deleting Pet...</span>
+          } @else if (service.mutationDelete.isError()) {
+            <div>An error occurred: {{ service.mutationDelete.error()?.message }}</div>
+          }
+          @if (service.pets.isPending()) {
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          }
+          @switch (service.pets.status()) {
+            @case ('error') {
+              <div class="text-danger">
+                Failed to load the list
+                <button class="btn btn-md btn-danger" (click)="service.reload()">Retry</button>
+              </div>
+            }
+            @default {
+              @if (service.pets.isFetching()) {
+                Refreshing...
+              }
+            }
+          }
+        </div>
+      </div>
+    </form>
+    <div class="table-container scroll-container">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col" class="table-column-photo">Icon</th>
+          <th scope="col">Name</th>
+          <th scope="col">Tags</th>
+          <th scope="col" class="table-column-actions">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @for (pet of service.displayedPets(); track pet.id) {
+          <tr>
+            <td>
+              @if (pet.photoUrls?.[0]; as icon) {
+                <img width="34" height="34" [src]="service.baseUrl+icon" alt="{{icon}}" />
+              }
+            </td>
+            <th scope="row">
+              <ngb-highlight [result]="pet.name" [term]="service.searchTerm()"></ngb-highlight>
+            </th>
+            <th><ngb-highlight [result]="service.getTags(pet)" [term]="service.searchTerm()"></ngb-highlight></th>
+            <td>
+              <button class="btn btn-outline-danger df-btn-icononly btn-sm icon-trash-alt" title="Delete pet: {{pet.name}}" (click)="service.delete(pet)"></button>
+            </td>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+    <div class="scroll-container">
+      <div class="d-flex justify-content-between p-2">
+        <ngb-pagination
+          [collectionSize]="service.totalPetsAmount()"
+          [page]="service.currentPage()" (pageChange)="service.currentPage.set($event)"
+          [pageSize]="service.pageSize()"
+          aria-label="Default pagination"
+          [boundaryLinks]="!service.isSmallScreen()"
+          [class.with-boundary-links]="!service.isSmallScreen()"
+          class="df-custom-pages"
+          size="sm"
+        >
+          <ng-template ngbPaginationPages let-page let-pages="pages">
+            @if (pages.length > 0) {
+              <li class="ngb-custom-pages-item">
+                <div class="d-flex flex-nowrap px-2">
+                  <label id="table-pagination-paginationInputLabel" for="table-pagination-paginationInput" class="col-form-label me-4 ms-1">Page</label>
+                  <input
+                    #i
+                    type="text"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    class="form-control df-custom-pages-input px-2 text-center"
+                    id="table-pagination-paginationInput"
+                    [value]="page"
+                    (keyup.enter)="service.currentPage.set(+i.value); $event.preventDefault()"
+                    (blur)="service.currentPage.set(+i.value)"
+                    (input)="service.formatPaginationInput($any($event).target)"
+                    aria-labelledby="table-pagination-paginationInputLabel table-pagination-paginationDescription"
+                    size="2"
+                  />
+                  <span id="table-pagination-paginationDescription" class="col-form-label text-nowrap px-4"> of {{pages.length}}</span>
+                </div>
+              </li>
+            }
+          </ng-template>
+        </ngb-pagination>
+
+        <select class="form-select w-auto" name="pageSize" [ngModel]="service.pageSize()"
+                (ngModelChange)="service.pageSize.set($event)" aria-label="Select the number of items per page">
+          <option [ngValue]="10">10 items per page</option>
+          <option [ngValue]="50">50 items per page</option>
+          <option [ngValue]="100">100 items per page</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div>
+  @if (this.service.backend.infiniteQuery.isPending()) {
+    <p>Loading...</p>
+  } @else if (this.service.backend.infiniteQuery.isError()) {
+    <span>Error: {{ this.service.backend.infiniteQuery?.error().message }}</span>
+  } @else {
+    @for (page of this.service.backend.infiniteQuery?.data().pages; track $index) {
+      @for (contact of page.data; track contact.id) {
+        <p>{{ contact.firstName }} {{ contact.id }}</p>
+      }
+    }
+    <div>
+      <button class="btn btn-primary" (click)="this.service.backend.infiniteQuery.fetchNextPage()" [disabled]="this.service.backend.nextButtonDisabled()">
+        {{ this.service.backend.nextButtonText() }}
+      </button>
+    </div>
+  }
+  <div>
+    {{
+      this.service.backend.infiniteQuery.isFetching() && !this.service.backend.infiniteQuery.isFetchingNextPage()
+        ? 'Background Updating...'
+        : null
+    }}
+  </div>
+</div>
+
+<angular-query-devtools initialIsOpen />
