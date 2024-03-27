@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, rmSync, statSync, watch, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync, statSync, watch, writeFileSync } from 'node:fs';
 import * as path from 'node:path';
 
 export interface LockerOptions {
@@ -39,6 +39,10 @@ export class Locker {
   public lock(): boolean {
     const pid = String(process.pid);
     try {
+      const locDirPath = path.dirname(this.options.lockFilePath);
+      if (!existsSync(locDirPath)) {
+        mkdirSync(locDirPath, {recursive: true});
+      }
       writeFileSync(this.options.lockFilePath, pid, {flag: this.isLockExpired() ? 'w' : 'wx'});
       // Need to check if the file was created by this process
       return readFileSync(this.options.lockFilePath, {encoding: 'utf8'}) === pid;

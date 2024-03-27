@@ -3,12 +3,14 @@
  * @jest-environment @o3r/test-helpers/jest-environment
  * @jest-environment-o3r-app-folder test-create-app
  * @jest-environment-o3r-type blank
+ * @jest-environment-o3r-package-scope o3r-create
  */
 const o3rEnvironment = globalThis.o3rEnvironment;
 
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
+  isYarn1Enforced,
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
@@ -23,7 +25,7 @@ const workspaceProjectName = 'my-project';
 
 describe('Create new otter project command', () => {
   test('should generate a project with an application', async () => {
-    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { workspacePath, packageManagerConfig } = o3rEnvironment.testEnvironment;
     const inAppPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
     const execInAppOptions = {...defaultExecOptions, cwd: inAppPath };
@@ -33,7 +35,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inAppPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
     expect(existsSync(path.join(inAppPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inAppPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
@@ -57,7 +59,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inAppPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, !isYarn1Enforced() ? 'npm' : undefined)).not.toThrow();
     expect(existsSync(path.join(inAppPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inAppPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();

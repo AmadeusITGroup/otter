@@ -54,7 +54,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        packageManager: [yarn, npm]
+        packageManager: [yarn, npm, yarn1]
         testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
     env:
@@ -104,9 +104,19 @@ jobs:
             npx --yes wait-on http://127.0.0.1:4873 -t 180000
           fi
         shell: bash
+      - name: Rename .npmrc for yarn 1
+        if: matrix.packageManager == 'yarn1'
+        id: rename-npmrc
+        run: mv -f .npmrc .npmrc-backup
+        shell: bash
       - name: Test
         id: it-tests
         run: yarn test-int
+      - name: Revert .npmrc rename for yarn 1
+        if: matrix.packageManager == 'yarn1'
+        id: revert-rename-npmrc
+        run: mv -f .npmrc-backup .npmrc
+        shell: bash
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |

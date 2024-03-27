@@ -201,14 +201,14 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
     cwd
   }));
 };
-
+const isYarn1 = packageManager === 'yarn' && argv['yarn-version']?.split('.')[0] === '1';
 const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
   const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const options = schematicsCliOptions
     .flat();
-
-  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
+  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, [isYarn1 ? 'run' : 'exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`,
+    ...((projectPackageManager === 'npm' || isYarn1) ? ['--'] : []), ...options], {
     stdio: 'inherit',
     cwd,
     env: exactO3rVersion && projectPackageManager === 'npm' ? {
