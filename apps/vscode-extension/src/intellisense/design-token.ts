@@ -10,9 +10,45 @@ type DesignTokenCache = {
 
 const readFile = async (filePat: string) => (await vscode.workspace.fs.readFile(vscode.Uri.parse(filePat))).toString();
 
+const getFilesPatternsFromProjectConfiguration = async (currentFile: string): Promise<string[] | undefined> => {
+  const angularFile = vscode.workspace.findFiles('angular.json');
+  const nxFile = vscode.workspace.findFiles('nx.json');
+  const projectFiles = vscode.workspace.findFiles('**/project.json')
+    .then((files) => files.filter((file) => !path.relative(path.dirname(file.fsPath), currentFile).includes('..')));
+  const configFiles = (await Promise.all([angularFile, nxFile, projectFiles])).flat();
+  if (configFiles.length === 0) {
+    return;
+  }
+
+  const walkThroughProjectFiles = (node: any, mem: Set<string> = new Set()) => {
+    if (typeof node === 'object' && node !== null && !Array.isArray(node)) {
+      if (node.executor === '@o3r/design:generate-css' || node.builder === '@o3r/design:generate-css') {
+        node.options?.designTokenFilePatterns?.forEach((pattern: string) => mem.add(pattern));
+        if (node.configurations) {
+          Object.values(node.configurations).forEach((config: any) => {
+            config.designTokenFilePatterns?.forEach((pattern: string) => mem.add(pattern));
+          });
+        }
+      } else {
+        Object.values(node).forEach((value) => walkThroughProjectFiles(value, mem));
+      }
+    }
+    return mem;
+  };
+
+  const patterns = (await Promise.all(configFiles
+    .map(async (file) => {
+      const content = JSON.parse((await vscode.workspace.fs.readFile(file)).toString());
+      return [...walkThroughProjectFiles(content)];
+    })
+  )).flat();
+
+  return patterns.length > 0 ? patterns : undefined;
+};
+
 const getDesignTokens = async (currentFile: string, cache: Map<string, DesignTokenCache>) => {
   const lastExtractionTimestamp = Date.now();
-  const filesPatterns = vscode.workspace.getConfiguration('otter.design').get<string[]>('filesPatterns') || ['**/*.token.json'];
+  const filesPatterns = vscode.workspace.getConfiguration('otter.design').get<string[]>('filesPatterns', await getFilesPatternsFromProjectConfiguration(currentFile) || ['**/*.token.json']);
   const uris = (await Promise.all(filesPatterns
     .map((pattern) => vscode.workspace.findFiles(pattern))))
     .reduce((acc, curr) => acc.concat(curr), []);
