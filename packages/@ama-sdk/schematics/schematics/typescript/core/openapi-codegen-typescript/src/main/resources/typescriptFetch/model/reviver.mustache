@@ -64,7 +64,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
       data.{{x-map-name}} = reviveDictionarizedArray<{{x-field-type}}>(data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}, dictionaries.{{x-dictionary-name}}, options);
                 {{/x-field-is-primitive}}
       } else {
-        (options?.logger || console).debug('Dictionaries {{x-dictionary-name}} missing from API output.');
+        (options?.logger || console).debug?.('Dictionaries {{x-dictionary-name}} missing from API output.');
       }
     }
               {{/x-map-name}}
@@ -82,7 +82,7 @@ export function revive{{classname}}<T extends {{classname}} = {{classname}}>(dat
         data.{{x-field-name}} = dictionaries.{{x-dictionary-name}}[data{{#propertyAccess}}{{baseName}}{{/propertyAccess}}];
                 {{/x-field-is-primitive}}
       } else {
-        (options?.logger || console).debug('Dictionaries {{x-dictionary-name}} missing from API output.');
+        (options?.logger || console).debug?.('Dictionaries {{x-dictionary-name}} missing from API output.');
       }
     }
               {{/x-field-name}}
