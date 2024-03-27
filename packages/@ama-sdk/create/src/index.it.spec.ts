@@ -16,7 +16,7 @@ import {
   packageManagerRun
 } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
-import { cpSync, mkdirSync, renameSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, renameSync } from 'node:fs';
 import * as path from 'node:path';
 
 const sdkPackageName = '@my-test/sdk';
@@ -51,9 +51,10 @@ describe('Create new sdk command', () => {
 
   beforeEach(() => {
     cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_swagger_updated.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
+    cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_DATE_UTILS_swagger.yaml'), path.join(sdkFolderPath, 'swagger-spec-with-date.yml'));
   });
 
-  test('should generate a full SDK when the specification is provided', () => {
+  test('should generate a light SDK when the specification is provided', () => {
     expect(() =>
       packageManagerCreate({
         script: '@ama-sdk',
@@ -61,6 +62,18 @@ describe('Create new sdk command', () => {
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
+  });
+
+  test('should generate a full SDK when the specification is provided', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
   });
 
   test('should generate an SDK with no package scope', () => {
