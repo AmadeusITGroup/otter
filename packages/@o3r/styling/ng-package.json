@@ -10,6 +10,7 @@
     "scss/**/*",
     "!scss/**/*.spec.ts",
     "assets/**",
-    "_index.scss"
+    "_index.scss",
+    "_otter-theme.scss"
   ]
 }
