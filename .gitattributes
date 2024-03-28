@@ -6,3 +6,7 @@
 *.gif binary
 *.jar binary
 *.ico binary
+
+# Ignore Packaged Github Actions from the repository language detection
+tools/github-actions/*/packaged-action/** linguist-vendored=false
+.yarn/** linguist-vendored=false
