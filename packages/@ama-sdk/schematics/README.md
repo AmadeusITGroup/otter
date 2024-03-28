@@ -136,6 +136,13 @@ The available parameters are:
 - `--output-path`: Output path for the generated SDK
 - `--generator-custom-path`: Path to a custom generator
 
+Also, another parameter is available called OpenAPI Normalizer which transforms the input OpenAPI specification (which may not perfectly conform) to make it workable 
+with OpenAPI Generator. There are several rules that are supported which can be found [here](https://openapi-generator.tech/docs/customization/#openapi-normalizer). 
+
+This parameter can be passed with `--openapi-normalizer` followed by the rules to be enabled in OpenAPI normalizer in the form of `RULE_1=true,RULE_2=original`.
+
+Example: `--openapi-normalizer REFACTOR_ALLOF_WITH_PROPERTIES_ONLY=true`
+
 #### openapitools.json
 
 There is also a possibility to configure the SDK code generation in `openapitools.json`. The structure for this file looks something like this:
@@ -202,7 +209,7 @@ yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk 
 > overridden with the parameters `--output-path`, `--spec-path`, `--spec-config-path`, and `--global-property`.
 
 > [!NOTE]
-> The parameter `--generator-custom-path` is not impacted and will always be taken into account if provided.
+> The parameters `--generator-custom-path` and `--openapi-normalizer` are not impacted and will always be taken into account if provided.
 
 > [!NOTE]
 > The values provided by the parameter `--global-property` will actually be merged with the values of `globalProperty` from
