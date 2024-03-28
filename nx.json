@@ -198,6 +198,12 @@
       "outputs": ["{projectRoot}/dist", "{projectRoot}/build/.tsbuildinfo"],
       "cache": true
     },
+    "compile-github-action": {
+      "dependsOn": ["^build"],
+      "inputs": ["source", "^source"],
+      "outputs": ["{projectRoot}/tmp"],
+      "cache": true
+    },
     "build-fixtures": {
       "inputs": ["jasmine-fixtures", "jest-fixtures"],
       "outputs": [
