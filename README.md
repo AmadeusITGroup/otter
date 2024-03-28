@@ -13,9 +13,10 @@ It is split into several units to cover different aspects of these applications 
 Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
 
 > [!TIP]
-> The full documentation is available [here](./docs/README.md) and the Architecture overview schema is available [here](./docs/core/ARCHITECTURE.md).
+> The full list of modules and their documentation is available in the [/docs folder](./docs/README.md).
+> An overview of the technical module interactions and the architecture of the dependencies is available in the [architecture section](./docs/core/ARCHITECTURE.md).
 >
-> A showcase to help you integrate some simple use cases is available [here](https://amadeusitgroup.github.io/otter/#/home).
+> A demonstration of a list of features provided by Otter is accessible on the [showcase application](https://amadeusitgroup.github.io/otter/#/home).
 
 ## Built With
 
@@ -79,6 +80,7 @@ It also explains the basic mechanics of using `git`, `node`, and `npm`.
     * [Manage task cache](#manage-task-cache)
     * [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
     * [Link local packages](#link-local-packages)
+    * [SSL Certificate issue (behind proxy)](#ssl-certificate-issue-behind-proxy)
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md)
 if you'd like to contribute to the framework.
@@ -220,3 +222,16 @@ Example:
   }
 }
 ```
+
+#### SSL Certificate issue (behind proxy)
+
+Due to proxy redirection you may face an SSL certificate issue on Yarn when installing the Otter project locally:
+
+```
+Request Error: self-signed certificate in certificate chain
+```
+
+To solve this, you can provide your own certificate in two different ways:
+
+* Specify your certificate path in the Environment Variable [NODE_EXTRA_CA_CERTS](https://nodejs.org/docs/latest-v4.x/api/cli.html#cli_node_extra_ca_certs_file).
+* Specify your certificate path in the Yarn configuration [httpsCertFilePath](https://yarnpkg.com/configuration/yarnrc#httpsCertFilePath).
