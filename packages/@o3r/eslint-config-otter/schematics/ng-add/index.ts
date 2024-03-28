@@ -23,7 +23,8 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       'eslint-plugin-prefer-arrow',
       'eslint-plugin-unicorn',
       'jest',
-      'jsonc-eslint-parser'
+      'jsonc-eslint-parser',
+      'yaml-eslint-parser'
     ];
 
     try {
