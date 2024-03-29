@@ -2,8 +2,7 @@
 /* eslint-disable no-console */
 
 import { execSync, spawnSync } from 'node:child_process';
-import * as url from 'node:url';
-import { dirname, join, relative, resolve } from 'node:path';
+import { dirname, join, parse, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
@@ -74,7 +73,7 @@ const schematicArgs = [
 const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
 
 const run = () => {
-  const isSpecPathUrl = url.URL.canParse(argv['spec-path']);
+  const isSpecRelativePath = !!argv['spec-path'] && !parse(argv['spec-path']).root;
 
   const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
@@ -89,7 +88,7 @@ const run = () => {
         binPath,
         `${schematicsPackage}:typescript-core`,
         ...schematicArgs,
-        '--spec-path', isSpecPathUrl ? argv['spec-path'] : relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path']))
+        '--spec-path', isSpecRelativePath ? relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path'])) : argv['spec-path']
       ],
       cwd: resolveTargetDirectory
     }] : [])
