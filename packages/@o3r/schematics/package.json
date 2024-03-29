@@ -49,6 +49,9 @@
     },
     "eslint": {
       "optional": true
+    },
+    "type-fest": {
+      "optional": true
     }
   },
   "dependencies": {

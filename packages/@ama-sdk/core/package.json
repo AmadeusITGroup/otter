@@ -105,6 +105,9 @@
     "@schematics/angular": {
       "optional": true
     },
+    "chokidar": {
+      "optional": true
+    },
     "isomorphic-fetch": {
       "optional": true
     },
