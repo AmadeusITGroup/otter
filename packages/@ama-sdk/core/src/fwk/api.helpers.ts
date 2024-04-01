@@ -37,8 +37,8 @@ export function extractQueryParams<T extends { [key: string]: any }>(data: T, na
  * @param object JSON object to filter
  * @returns an object without undefined values
  */
-export function filterUndefinedValues(object: { [key: string]: string | undefined }): { [key: string]: string } {
-  return Object.keys(object)
+export function filterUndefinedValues(object?: { [key: string]: string | undefined }): { [key: string]: string } {
+  return !object ? {} : Object.keys(object)
     .filter((objectKey) => typeof object[objectKey] !== 'undefined')
     .reduce<{ [key: string]: string }>((acc, objectKey) => {
       acc[objectKey] = object[objectKey] as string;

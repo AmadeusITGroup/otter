@@ -11,8 +11,7 @@ export class {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture implemen
   /** @inheritDoc */
   public readonly apiName = '{{classname}}';
 
-  {{#operation}}
-  /**
+  {{#operation}}  /**
    * Fixture associated to function {{nickname}}
    */
   public {{nickname}}: jasmine.Spy = jasmine.createSpy('{{nickname}}');
