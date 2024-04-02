@@ -50,6 +50,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'globby': amaSdkSchematicsPackageJson.devDependencies!.globby,
       'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript,
       '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli'],
+      '@stylistic/eslint-plugin-ts': amaSdkSchematicsPackageJson.devDependencies!['@stylistic/eslint-plugin-ts'],
       'rxjs': amaSdkSchematicsPackageJson.dependencies!.rxjs
     };
     const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
