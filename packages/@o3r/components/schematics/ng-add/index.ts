@@ -75,7 +75,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     ]);
 
     context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
-    context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/COMPONENT_STRUCTURE.md#Runtime-debugging');
+    context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/INTRODUCTION.md#Runtime-debugging');
 
     return () => rule(tree, context);
   };

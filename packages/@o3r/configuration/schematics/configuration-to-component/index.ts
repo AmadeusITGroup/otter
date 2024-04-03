@@ -276,9 +276,9 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                   addCommentsOnClassProperties(
                     newMembers,
                     {
-                      config: 'Input configuration to override the default configuration of the component',
+                      config: '@inheritDoc',
                       dynamicConfig: 'Dynamic configuration based on the input override configuration and the configuration service if used by the application',
-                      config$: 'Configuration stream based on the input and the stored configuration'
+                      config$: '@inheritDoc'
                     }
                   );
 
@@ -387,8 +387,8 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
                   addCommentsOnClassProperties(
                     newMembers,
                     {
-                      config: 'Input configuration to override the default configuration of the component',
-                      configSignal: 'Configuration signal based on the input and the stored configuration'
+                      config: '@inheritDoc',
+                      configSignal: '@inheritDoc'
                     }
                   );
 
