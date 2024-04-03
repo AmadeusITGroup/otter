@@ -715,7 +715,7 @@ it-IT **fallbacks to** en-GB, as it is the default fallback.
 
 ## Generators
 
-Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics                     | Description                                                    | How to use                           |
 | ------------------------------ | -------------------------------------------------------------- | ------------------------------------ |

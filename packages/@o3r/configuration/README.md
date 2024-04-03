@@ -97,7 +97,7 @@ A component will have to handle different types of configurations.
 
 ## Generators
 
-Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics                 | Description                                                    | How to use                        |
 | -------------------------- | -------------------------------------------------------------- | --------------------------------- |

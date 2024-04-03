@@ -24,7 +24,7 @@ Angular provides two approaches for writing the forms, [template-driven forms](h
 This documentation will help you with some best practices to be used at the build of Angular reactive forms components in Otter context.
 
 <a name="container-presenter"></a>
-## [Container/presenter](../components/COMPONENT_STRUCTURE.md) and reactive forms
+## [Container/presenter](../components/CONTAINER_PRESENTER.md) and reactive forms
 Container/presenter architecture was put in place to ensure the best re-usability/sharing
 <a name="form-creation"></a>
 ### Form creation in container or in presenter?
@@ -63,7 +63,6 @@ This case includes the simple case plus the display of a messages panel containi
    * easily get the errors propagated by the presenter
 
 We prefer to use the __formControl__ rather than __ngModel__ because we can easily listen to the valueChanges or status changes of the presenter form.
-Another constraint is that it's easier to identify the container context for the CMS, with one implementation (See [Component Structure](../components/COMPONENT_STRUCTURE.md) for details about the component context).
 
 <a name="component-creation"></a>
 ### Component creation
@@ -134,7 +133,7 @@ ngOnInit() {
   }
 ```
 
-   * Register the form control in the template context to be recognized if we change the presenter. See [COMPONENT_STRUCTURE](../components/COMPONENT_STRUCTURE.md) for details about the template context.
+   * Register the form control in the template context to be recognized if we change the presenter. See [the component replacement documentation](../components/COMPONENT_REPLACEMENT.md) for details about the template context.
 
 ```typescript
 // in container class

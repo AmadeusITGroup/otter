@@ -132,7 +132,7 @@ This configuration key's value is used at runtime to lookup in the component rep
 
 ## How components are made to accept replacement
 
-In this section we will detail how to make a container's presenter replaceable by this mechanism with a simple, almost empty component.
+In this section we will detail how to make a subcomponent replaceable by this mechanism with a simple, almost empty component.
 
 ### Component's module
 
@@ -177,6 +177,31 @@ export const DUMMY_CONT_DEFAULT_CONFIG: DummyContConfig = {
 
 export const DUMMY_CONT_CONFIG_ID = computeConfigurationName('DummyContConfig', '@scope/o3r-components');
 ````
+
+For more information on configuration, you can check this [documentation](../configuration/OVERVIEW.md).
+
+### Subcomponent's context (`.context.ts`)
+
+The context of the subcomponent is used to define the contract to interact with your component, defining the set of dynamic inputs and outputs that a component has.
+It is structured into three interfaces:
+
+* `*ContextInput` interface (e.g. `DummyPresContextInput`): contains all the inputs of a component. Fields must have a documentation.
+* `*ContextOutput` interface (e.g. `DummyPresContextOutput`): contains all the outputs of a component. Fields must have a documentation.
+* `DummyPresContext` interface: brings together `ContextInput` and `ContextOutput`, extending `Context<DummyPresContextInput, DummyPresContextOutput>` from `@o3r/core`.
+
+```typescript
+import {Context} from '@o3r/core';
+
+export interface DummyPresContextInput {
+  dummyInput: string;
+}
+
+export interface DummyPresContextOutput {
+  onDummyOutput: number;
+}
+
+export interface DummyPresContext extends Context<DummyPresContextInput, DummyPresContextOutput> {}
+```
 
 ### Component's class
 
@@ -243,8 +268,8 @@ export class DummyContComponent implements DynamicConfigurable<DummyContConfig>,
     };
   }
 
-  public dummyOutput() {
-    console.log('output');
+  public dummyOutput(event: number) {
+    console.log('output', event);
   }
 }
 ````
@@ -270,21 +295,23 @@ Instead, we will simply use an ``ng-template`` tag to which we apply the Otter `
 
 ## Known limitations
 
-The main limitation is that it is not possible to apply any modification to the ``host`` component created by a factory.
+The main limitation is that it is not possible to apply any modifications to the ``host`` component created by a factory.
 
-What it means is that any of those:
+This means that the following is not possible through an ``ng-template`` and ``c11n`` combination:
 
 ````html
 <!-- Host binding -->
 <o3r-dummy-cont [class]="dynamicClass"></o3r-dummy-cont>
-
-<!-- Applying directives to the component -->
-<o3r-dummy-cont [formControl]="dummyFormControl"></o3r-dummy-cont>
 ````
-
-Are not possible through an ``ng-template`` and ``c11n`` combination.
 
 Though there is a solution for the first example in making the value an input, and bind it inside the component using
 the [HostBinding](https://angular.io/api/core/HostBinding) decorator, there is no actual solution for applying directive.
 A [feature request](https://github.com/angular/angular/issues/8785) has been opened for a long time and finally made it
 to the "Future" section and Angular's roadmap.
+
+## Naming convetion
+
+| Attribute                   | Pattern                                   |
+| --------------------------- | ----------------------------------------- |
+| **Context file name**       | *.context.ts                              |
+| **Context interface names** | *ContextInput / *ContextOutput / *Context |

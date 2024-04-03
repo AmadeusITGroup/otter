@@ -216,9 +216,69 @@ As a result "**hello bold**" will be printed inside the span element.
 
 ```
 
+### How to generate localization files for a component
+
+You can directly generate a localized component with the following command:
+```shell
+ng g component ComponentName --use-localization
+```
+Or you can localize it later with:
+```shell
+ng g @o3r/localization:add-localization --path="/path/for/class.component.ts"
+```
+
+> [!NOTE]
+> Later you can add a localization key with the following command:
+> ```shell
+> ng g @o3r/localization:add-localization-key --path="/path/for/class.component.ts" --key=myNewLocalizationKey
+> ```
+
+#### Generated files
+
+##### Translation (`*.translation.ts`)
+
+It is used to define the localization variables used by a component template. The `my-component.translation.ts` file typically defines an interface which extends `Translation` from `@o3r/core` with all possible variable names used by your presenter template. It also exports a constant which satisfies the above contract. The values for each property are localization keys (real keys from localization bundle).
+
+```typescript
+import {Translation} from  '@o3r/core';
+
+export  interface MyComponentPresTranslation extends Translation {
+  prop1: string;
+  prop2: string;
+}
+
+export  const translations: MyComponentPresTranslation = {
+  prop1: 'o3r-my-component-pres.somekey1',
+  prop2: 'o3r-my-component-pres.somekey2'
+};
+```
+
+##### Localization (`*.localization.json`)
+
+It defines an object of key/value pairs. Each value is a JSON object having `description` and `defaultValue` properties. Eventually you can reference a global key via `$ref` using a relative path to `global-localization.json` which sits in `src` or in different package in dependencies. The purpose of this file is to provide a default localization for a component so that library user can start building pages using components without worrying about localization. The `*.localization.json` file specifies default values only in English.
+
+```typescript
+{
+  'o3r-my-component-pres.somekey1': {
+    'description': 'This is somekey1 description for translators',
+    'defaultValue': 'This is my default value 1'
+  },
+  'o3r-my-component-pres.somekey2': {
+    'description': 'This is somekey2 description for translators',
+    'defaultValue': 'This is my default value 2'
+  },
+  'o3r-my-component-pres.someglobalkey1': {
+    '$ref': '../global.localization.json#/someglobalkey1'
+  },
+  'o3r-my-component-pres.someglobalkey2': {
+    '$ref': '@scope/common/global.localization.json#/someglobalkey2'
+  }
+}
+```
+
 ### How to localize a date, decimal and currency
 
-Use Angular built-in [DatePipe](https://angular.io/api/common/DatePipe), [DecimalPipe](https://angular.io/api/common/DecimalPipe) and [CurrencyPipe](https://angular.io/api/common/CurrencyPipe) and pass it current locale as the last parameter. The locale is read from **this.localizationService.getCurrentLanguage()**. To be able to use translateService, your component container should take benefit of dependency injection to get LocalizationService as parameter of constructor as well.
+Use Angular built-in [DatePipe](https://angular.io/api/common/DatePipe), [DecimalPipe](https://angular.io/api/common/DecimalPipe) and [CurrencyPipe](https://angular.io/api/common/CurrencyPipe) and pass it current locale as the last parameter. The locale is read from `this.localizationService.getCurrentLanguage()`. To be able to use translateService, your component container should take benefit of dependency injection to get LocalizationService as parameter of constructor as well.
 
 For example if you want to localize simpleHeader component you will start by injecting TranslateService to the constructor of simple-header-pres.component.ts
 Your component also needs to implement Translatable interface which forces you to declare translations property. This property requires 3 decorators (`@Input() and @Localization(url)`. This will let you override localization keys from template and give some default localization to your component if you don't have your own to start with.

@@ -61,7 +61,7 @@ Then uncomment the following lines in the `src/styles.scss` file to apply the Ot
 
 ## Generators
 
-Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 ### Item generators
 
