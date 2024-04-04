@@ -41,9 +41,17 @@
               "type": "string"
             },
             "vars": {
+              "deprecated": true,
+              "description": "Deprecated: will be removed in V12. List of variables that can be used in the localization string",
               "type": "array",
               "items": {
                 "type": "string"
+              }
+            },
+            "parameters": {
+              "type": "object",
+              "additionalProperties": {
+                "type":  "string"
               }
             }
           }

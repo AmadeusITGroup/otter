@@ -124,22 +124,19 @@ Your key should be described in a placeholder variable where the type will be ``
 the translation key itself. You can refer to the variable in your template thanks to the variable
 key (``keyToTranslation`` in the example above).
 
-**Note**: you should **not** create [LANGUAGE] files for placeholders that use the dynamic localization feature. The
-static localization is not compatible with the dynamic localization.
+**Note**: you should **not** create `[LANGUAGE]` files for placeholders that use the dynamic localization feature. The static localization is not compatible with the dynamic localization.
 
 #### ICU and parameter support
 
-Today, the Otter Framework supports the ICU syntax as well as parameters. You only need to bind your parameter with a
-fact sharing the same name.
+Today, the Otter Framework supports the [ICU](https://icu.unicode.org/) syntax as well as parameters for localization variables.
 
 As an example, let's create a counter that will emit every second.
 You will first need to design your placeholder referencing the translation key and the facts it is bound to.
 
-Let's consider what this placeholder would look like if it were completely integrated in your angular component
+Let's consider what this placeholder would look like if it were completely integrated in your Angular component.
 
 ```html
-"
-<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | o3rTranslate}}</div>"
+<div style=\"border-radius:10%; background:red;\">{{'o3r-increment-key' | o3rTranslate}}</div>
 ```
 
 Then, let's create a new localization key for each of your supported languages:
@@ -160,8 +157,30 @@ Then, let's create a new localization key for each of your supported languages:
 }
 ```
 
-Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter. This means you need to create
-an ``increment`` fact to fill the value.
+Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter.
+
+This is how ``ruleset.json`` should look like.
+
+```json
+{
+  "vars": {
+    "incrementKey": {
+      "type": "localisation",
+      "value": "o3r-increment-key",
+      "parameters": {
+        "increment": "incrementVar"
+      }
+    },
+    "incrementVar": {
+      "type": "fact",
+      "value": "incrementFact"
+    }
+  },
+  "template": "<div style=\"border-radius:10%; background:red;\"><%= incrementKey %></div>"
+}
+```
+
+Now you will need to create an ``incrementFact`` fact to fill the value.
 You can follow the [fact creation documentation](../rules-engine/how-to-use/create-custom-fact.md).
 
 ```typescript
@@ -176,9 +195,7 @@ import { PageFacts } from './page.facts';
 export class PageFactsService extends FactsService<PageFacts> {
 
   public facts = {
-    pageUrl: this.router.events.pipe(retrieveUrl()),
-    // This is for demo app testing only, don't do this in a real application
-    increment: interval(2000)
+    incrementFact: interval(2000)
   };
 
   constructor(rulesEngine: RulesEngineRunnerService, private router: Router) {
@@ -188,8 +205,60 @@ export class PageFactsService extends FactsService<PageFacts> {
 }
 ```
 
-Once the translation keys and the referenced fact exist, you can link them to your placeholder.
-See how the original translation pipe has been replaced and how the localization key is bound to the ``increment`` fact:
+#### JSONPath support
+
+Thanks to the parameters map you can use fact variables with JSONPath in localization strings.
+
+``en-GB.json``
+
+```json
+{
+  "o3r-greet-key": "Welcome back, { firstName } { lastName }!"
+}
+```
+
+``ruleset.json``
+
+```json
+{
+  "vars": {
+    "greetKey": {
+      "type": "localisation",
+      "value": "o3r-greet-key",
+      "parameters": {
+        "firstName": "firstNameVar",
+        "lastName": "lastNameVar"
+      }
+    },
+    "firstNameVar": {
+      "type": "fact",
+      "value": "user",
+      "path": "$.firstName"
+    },
+    "lastNameVar": {
+      "type": "fact",
+      "value": "user",
+      "path": "$.lastName"
+    }
+  },
+  "template": "<div><%= greetKey %></div>"
+}
+```
+
+#### Variable support for localization variables (DEPRECATED)
+
+
+Before, localization variables could reference facts via variables instead of parameters. This feature is currently deprecated and will be removed from Otter v12 as it is replaced by the parameters explained above.
+
+``en-GB.json``
+
+```json
+{
+  "o3r-increment-key": "{increment, plural, =1 {1 second has} other {{{increment}} seconds have}} elapsed since you opened the page"
+}
+```
+
+``ruleset.json``
 
 ```json
 {
@@ -198,10 +267,10 @@ See how the original translation pipe has been replaced and how the localization
       "type": "localisation",
       "value": "o3r-increment-key",
       "vars": [
-        "increment"
+        "incrementVar"
       ]
     },
-    "increment": {
+    "incrementVar": {
       "type": "fact",
       "value": "increment"
     }
@@ -210,8 +279,12 @@ See how the original translation pipe has been replaced and how the localization
 }
 ```
 
-**Limitations:**
-Today you cannot only make a reference to a fact with the same name. You also cannot use json path to resolve your fact.
+The 1-to-1 mapping between the fact name and the reference in the translation brings many inconveniences as explained below.
+
+> [!CAUTION]
+> **Limitations**
+> Today you can only make a reference to a fact with the same name. You also cannot use JSON path to resolve your fact.
+
 This means the following is not possible:
 
 ``ruleset.json``
@@ -223,10 +296,10 @@ This means the following is not possible:
       "type": "localisation",
       "value": "o3r-increment-key",
       "vars": [
-        "increment"
+        "incrementVar"
       ]
     },
-    "unsuported-increment": {
+    "incrementVar": {
       "type": "fact",
       "value": "incrementFact",
       "path": "$.this.is.a.json.path"
@@ -236,7 +309,8 @@ This means the following is not possible:
 }
 ```
 
-**General notice**:
+> [!TIPS]
+> **General notice**
 
 Keep in mind that this feature deeply binds functional facts exposed in your application to your translations.
 You will need to carefully plan the way you bind your localization key to your facts to avoid messy references.
