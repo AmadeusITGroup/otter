@@ -6,30 +6,24 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
+      "executor": "nx:run-script",
+      "options": {
+        "script": "postbuild"
+      },
+      "outputs": [
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/README.md",
+        "{projectRoot}/dist/assets",
+        "{projectRoot}/dist/.vscodeignore"
+      ],
       "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "apps/vscode-extension/src/extension.ts",
-        "tsConfig": "apps/vscode-extension/tsconfig.build.json",
-        "outputPath": "apps/vscode-extension/dist",
-        "assets": [
-          "apps/vscode-extension/assets/**",
-          "apps/vscode-extension/README.md",
-          {
-            "glob": "LICENSE",
-            "input": ".",
-            "output": "."
-          }
-        ]
+        "script": "build:esbuild"
       },
-      "configurations": {
-        "watch": {
-          "watch": true
-        }
-      }
+      "outputs": ["{projectRoot}/dist/src/extension.js"]
     },
     "lint": {
       "options": {
@@ -55,7 +49,7 @@
     "publish-extension": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx @vscode/vsce publish",
+        "command": "npm install && npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
       },
       "dependsOn": ["prepare-publish"]

@@ -13,6 +13,7 @@
     "scripts/*.mjs"
   ],
   "bin": {
+    "clear-package-json-dev-dependencies": "./scripts/clear-package-json-dev-dependencies.mjs",
     "cp-assets": "./scripts/cp-assets.mjs",
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
