@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, type OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, type OnDestroy, type Signal, ViewEncapsulation } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import type {
@@ -10,9 +11,11 @@ import type {
   LocalizationsContentMessage,
   SwitchLanguageContentMessage
 } from '@o3r/localization';
-import { combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, shareReplay, startWith, throttleTime } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { filter, map, shareReplay, throttleTime } from 'rxjs/operators';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
+
+const THROTTLE_TIME = 100;
 
 @Component({
   selector: 'o3r-localization-panel-pres',
@@ -28,10 +31,12 @@ import { ChromeExtensionConnectionService } from '../../services/connection.serv
   ]
 })
 export class LocalizationPanelPresComponent implements OnDestroy {
-  public isTranslationDeactivationEnabled$: Observable<boolean>;
-  public localizations$: Observable<LocalizationMetadata>;
-  public filteredLocalizations$: Observable<LocalizationMetadata>;
-  public languages$: Observable<string[]>;
+  public readonly isTranslationDeactivationEnabled: Signal<boolean>;
+  public readonly localizations: Signal<LocalizationMetadata>;
+  public readonly hasLocalizations: Signal<boolean>;
+  public readonly filteredLocalizations: Signal<LocalizationMetadata>;
+  public readonly languages: Signal<string[]>;
+  public readonly hasSeveralLanguages: Signal<boolean>;
   public form = new FormGroup({
     search: new FormControl(''),
     lang: new FormControl(''),
@@ -55,36 +60,44 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         ]
       }
     );
-    this.languages$ = this.connectionService.message$.pipe(
-      filter((message): message is LanguagesContentMessage => message.dataType === 'languages'),
-      map((message) => message.languages),
-      shareReplay({bufferSize: 1, refCount: true})
-    );
-    this.localizations$ = this.connectionService.message$.pipe(
-      filter((message): message is LocalizationsContentMessage => message.dataType === 'localizations'),
-      map((message) => message.localizations.filter((localization) => !localization.dictionary)),
-      shareReplay({bufferSize: 1, refCount: true})
-    );
-    this.filteredLocalizations$ = combineLatest([
-      this.localizations$,
-      this.form.controls.search.valueChanges.pipe(
-        map((search) => search?.toLowerCase()),
-        throttleTime(500),
-        startWith('')
-      )
-    ]).pipe(
-      map(([localizations, search]) => search
-        ? localizations.filter(({ key, description, tags, ref }) =>
-          [key, description, ...(tags || []), ref].some((value) => value?.toLowerCase().includes(search))
-        )
-        : localizations
+    this.languages = toSignal(
+      this.connectionService.message$.pipe(
+        filter((message): message is LanguagesContentMessage => message.dataType === 'languages'),
+        map((message) => message.languages)
       ),
-      startWith([])
+      { initialValue: [] }
     );
-    this.isTranslationDeactivationEnabled$ = this.connectionService.message$.pipe(
-      filter((message): message is IsTranslationDeactivationEnabledContentMessage => message.dataType === 'isTranslationDeactivationEnabled'),
-      map((message) => message.enabled),
-      shareReplay({bufferSize: 1, refCount: true})
+    this.hasSeveralLanguages = computed(() => this.languages().length >= 2);
+    this.localizations = toSignal(
+      this.connectionService.message$.pipe(
+        filter((message): message is LocalizationsContentMessage => message.dataType === 'localizations'),
+        map((message) => message.localizations.filter((localization) => !localization.dictionary))
+      ),
+      { initialValue: [] }
+    );
+    this.hasLocalizations = computed(() => !!this.localizations().length);
+
+    const search = toSignal(
+      this.form.controls.search.valueChanges.pipe(
+        map((text) => text?.toLowerCase() || ''),
+        throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+      ),
+      { initialValue: '' }
+    );
+
+    this.filteredLocalizations = computed(() => {
+      const searchText = search();
+      return searchText
+        ? this.localizations().filter(({ key, description, tags, ref }) => [key, description, ...(tags || []), ref].some((value) => value?.toLowerCase().includes(searchText)))
+        : this.localizations();
+    });
+
+    this.isTranslationDeactivationEnabled = toSignal(
+      this.connectionService.message$.pipe(
+        filter((message): message is IsTranslationDeactivationEnabledContentMessage => message.dataType === 'isTranslationDeactivationEnabled'),
+        map((message) => message.enabled)
+      ),
+      { initialValue: false }
     );
     const currLang$ = this.connectionService.message$.pipe(
       filter((message): message is SwitchLanguageContentMessage => message.dataType === 'switchLanguage'),
@@ -130,7 +143,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
             translationControl.addControl(key, newControl);
             this.subscription.add(
               newControl.valueChanges.pipe(
-                throttleTime(500)
+                throttleTime(THROTTLE_TIME, undefined, { trailing: true })
               ).subscribe((newValue) => this.onLocalizationChange(key, newValue ?? ''))
             );
           } else {
@@ -139,26 +152,22 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         });
       })
     );
-    this.subscription.add(
-      this.isTranslationDeactivationEnabled$.subscribe((enabled) => {
-        const control = this.form.controls.showKeys;
-        if (enabled) {
-          control.enable();
-        } else {
-          control.disable();
-        }
-      })
-    );
-    this.subscription.add(
-      this.languages$.subscribe((languages) => {
-        const control = this.form.controls.lang;
-        if (languages.length >= 2) {
-          control.enable();
-        } else {
-          control.disable();
-        }
-      })
-    );
+    effect(() => {
+      const control = this.form.controls.showKeys;
+      if (this.isTranslationDeactivationEnabled()) {
+        control.enable();
+      } else {
+        control.disable();
+      }
+    });
+    effect(() => {
+      const control = this.form.controls.lang;
+      if (this.hasSeveralLanguages()) {
+        control.enable();
+      } else {
+        control.disable();
+      }
+    });
   }
 
   /**

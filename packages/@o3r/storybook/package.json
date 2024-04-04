@@ -42,7 +42,7 @@
     }
   },
   "dependencies": {
-    "color": "^4.0.0",
+    "color": "^4.2.3",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "tslib": "^2.6.2"
@@ -110,7 +110,7 @@
     "@storybook/api": "^7.6.16",
     "@storybook/components": "^7.6.16",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
-    "@types/color": "^3.0.1",
+    "@types/color": "^3.0.6",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/react": "^18.0.0",

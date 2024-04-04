@@ -26,6 +26,13 @@
           "o3rScope": ".navbar-toggler"
         }
       }
+    },
+    "$extensions": {
+      "o3rMetadata": {
+        "tags": [
+          "theme"
+        ]
+      }
     }
   }
 }

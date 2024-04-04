@@ -7,6 +7,7 @@ import { LocalizationDevtoolsConsoleService, LocalizationDevtoolsMessageService 
 import { ApplicationDevtoolsConsoleService, ApplicationDevtoolsMessageService } from '@o3r/application';
 import { RulesEngineDevtoolsConsoleService, RulesEngineDevtoolsMessageService } from '@o3r/rules-engine';
 import { ComponentsDevtoolsMessageService } from '@o3r/components';
+import { StylingDevtoolsMessageService } from '@o3r/styling';
 
 document.body.dataset.dynamiccontentpath = localStorage.getItem('dynamicPath') || '';
 platformBrowserDynamic().bootstrapModule(AppModule)
@@ -21,6 +22,7 @@ platformBrowserDynamic().bootstrapModule(AppModule)
       inject(LocalizationDevtoolsConsoleService);
       inject(LocalizationDevtoolsMessageService);
       inject(ComponentsDevtoolsMessageService);
+      inject(StylingDevtoolsMessageService);
     });
   })
   // eslint-disable-next-line no-console

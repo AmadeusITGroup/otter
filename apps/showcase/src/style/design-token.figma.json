@@ -1,4 +1,5 @@
 {
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/%40o3r/design/schemas/design-token.schema.json",
   "color": {
     "primary": {
       "50": {
@@ -58,7 +59,16 @@
         "$value": "#ffffff"
       },
       "$type": "color",
-      "$value": "{color.primary.500}"
+      "$value": "{color.primary.500}",
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "palette-primary",
+          "tags": [
+            "palette"
+          ]
+        }
+      },
+      "$description": "Primary palette"
     },
     "accent": {
       "50": {
@@ -118,7 +128,16 @@
         "$value": "#ffffff"
       },
       "$type": "color",
-      "$value": "{color.accent.500}"
+      "$value": "{color.accent.500}",
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "palette-accent",
+          "tags": [
+            "palette"
+          ]
+        }
+      },
+      "$description": "Accent palette"
     },
     "highlight": {
       "50": {
@@ -178,7 +197,16 @@
         "$value": "#ffffff"
       },
       "$type": "color",
-      "$value": "{color.highlight.500}"
+      "$value": "{color.highlight.500}",
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "palette-highlight",
+          "tags": [
+            "palette"
+          ]
+        }
+      },
+      "$description": "Highlight palette"
     },
     "warn": {
       "50": {
@@ -238,7 +266,16 @@
         "$value": "#ffffff"
       },
       "$type": "color",
-      "$value": "{color.warn.500}"
+      "$value": "{color.warn.500}",
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "palette-warn",
+          "tags": [
+            "palette"
+          ]
+        }
+      },
+      "$description": "Warn palette"
     },
     "out of palette": {
       "green": {
@@ -278,6 +315,17 @@
       "gray-dark": {
         "$type": "color",
         "$value": "#616161"
+      },
+      "custom": {
+        "$type": "color",
+        "$value": "{color.primary}"
+      }
+    },
+    "$extensions": {
+      "o3rMetadata": {
+        "tags": [
+          "theme"
+        ]
       }
     }
   },
@@ -309,6 +357,13 @@
     "40": {
       "$type": "dimension",
       "$value": "40px"
+    },
+    "$extensions": {
+      "o3rMetadata": {
+        "tags": [
+          "theme"
+        ]
+      }
     }
   },
   "radius": {
@@ -327,6 +382,13 @@
     "25": {
       "$type": "dimension",
       "$value": "25px"
+    },
+    "$extensions": {
+      "o3rMetadata": {
+        "tags": [
+          "theme"
+        ]
+      }
     }
   }
 }
