@@ -12,4 +12,7 @@ export interface NgAddConfigSchematicsSchema extends SchematicOptionObject {
 
   /** Should change a component into an exposed component */
   exposeComponent: boolean;
+
+  /** Should add a config signal instead of observable in the component */
+  useSignal: boolean;
 }

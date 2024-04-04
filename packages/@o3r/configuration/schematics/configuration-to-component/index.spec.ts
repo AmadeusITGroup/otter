@@ -79,6 +79,21 @@ export class NgComponent {}
     expect(componentFileContent).toContain('public config$: Observable<TestConfig>');
   });
 
+  it('should create the config file and update the component with signal based configuration', async () => {
+    const runner = new SchematicTestRunner('schematics', collectionPath);
+    const tree = await runner.runSchematic('configuration-to-component', {
+      projectName: 'test-project',
+      path: o3rComponentPath,
+      useSignal: true
+    }, initialTree);
+
+    expect(tree.exists(o3rComponentPath.replace(/component\.ts$/, 'config.ts'))).toBeTruthy();
+    const componentFileContent = tree.readText(o3rComponentPath);
+    expect(componentFileContent).toContain('DynamicConfigurableWithSignal<TestConfig>');
+    expect(componentFileContent).toContain('public config = input<Partial<TestConfig>>()');
+    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, TEST_CONFIG_ID, TEST_DEFAULT_CONFIG, this.configurationService)');
+  });
+
   it('should not expose the component', async () => {
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runSchematic('configuration-to-component', {
@@ -121,7 +136,8 @@ export class NgComponent {}
         path: ngComponentPath,
         skipLinter: false,
         projectName: 'test-project',
-        exposeComponent: true
+        exposeComponent: true,
+        useSignal: false
       }), initialTree, { interactive: false }))).rejects.toThrow();
     });
 

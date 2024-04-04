@@ -28,7 +28,7 @@
     "build": "yarn nx build configuration",
     "build:fixtures:jest": "tsc -b tsconfig.fixture.jest.json --pretty",
     "build:fixtures:jasmine": "tsc -b tsconfig.fixture.jasmine.json --pretty",
-    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist && yarn cpy 'schemas/*.json' 'dist/schemas'",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy '{collection,migration}.json' dist && yarn cpy 'schemas/*.json' 'dist/schemas'",
     "prepare:publish": "prepare-publish ./dist"
   },
   "peerDependencies": {
