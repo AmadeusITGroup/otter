@@ -1,4 +1,4 @@
-import { ParserServices, TSESLint } from '@typescript-eslint/experimental-utils';
+import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
 
 /** Position in source code */
 interface SourceSpan {
@@ -10,13 +10,13 @@ interface SourceSpan {
 }
 
 /** Basic interface for the Parser Services object provided by @angular-eslint/template-parser */
-interface TemplateParserServices extends ParserServices {
+type TemplateParserServices = ParserServices & {
   /** Set body visitor rule runner */
   convertElementSourceSpanToLoc: (listenerObj: any) => any;
 
   /** Determine the linter notification position based on the node */
   convertNodeSourceSpanToLoc: (sourceSpan: SourceSpan) => any;
-}
+};
 
 /**
  * Determine if @angular-eslint/template-parser is used

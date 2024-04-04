@@ -4,6 +4,9 @@ concurrency:
   group: ci-${{ github.ref }}-main
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+permissions:
+  contents: read
+
 on:
   push:
     branches:
@@ -23,7 +26,7 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       NX_SKIP_NX_CACHE: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./tools/github-actions/setup
       - uses: ./.github/actions/setup-java
         with:
@@ -34,13 +37,14 @@ jobs:
 
   version:
     permissions:
+      # Needed to publish release on GitHub
       contents: write
     runs-on: ubuntu-latest
     outputs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
       isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./tools/github-actions/setup
       - name: New Version
         if: github.event_name != 'merge_group'
@@ -84,8 +88,8 @@ jobs:
     uses: ./.github/workflows/publish.yml
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' }}
     permissions:
-      packages: write
       contents: read
+      # Needed to publish with provenance
       id-token: write
     secrets: inherit
     needs: [version, build, checks, it-tests]

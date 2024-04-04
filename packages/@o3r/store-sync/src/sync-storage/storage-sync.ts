@@ -330,7 +330,7 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
 
     // Merge the store state with the rehydrated state using
     // either a user-defined reducer or the default.
-    nextState = mergeReducer!(nextState, rehydratedState, action);
+    nextState = mergeReducer(nextState, rehydratedState, action);
 
     nextState = reducer(nextState, action);
 

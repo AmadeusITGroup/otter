@@ -1,0 +1,82 @@
+<form class="mb-2" [formGroup]="form">
+  <div class="mb-2 d-flex align-items-center gap-4">
+    @if (languages$ | async; as languages) {
+      <div class="input-group" [style.maxWidth]="'300px'">
+        <label class="input-group-text" for="language">Language</label>
+        <select class="form-select" id="language" formControlName="lang" [attr.aria-describedby]="languages.length < 2 ? 'language-hint' : null">
+          @for (lang of languages; track lang) {
+            <option [value]="lang">{{ lang }}</option>
+          }
+        </select>
+        @if (languages.length < 2) {
+          <div id="language-hint" class="form-text text-warning w-100">
+            You have only one language.
+          </div>
+        }
+      </div>
+    }
+    <div class="form-check d-flex flex-column gap-2">
+      <div>
+        <input class="form-check-input" type="checkbox" formControlName="showKeys" id="displayLocalizationKey" [attr.aria-describedby]="(isTranslationDeactivationEnabled$ | async) ? null : 'show-keys-hint'">
+        <label class="form-check-label" for="displayLocalizationKey">
+          Display localization keys
+        </label>
+      </div>
+      @if ((isTranslationDeactivationEnabled$ | async) === false) {
+        <div id="show-keys-hint" class="text-warning" [style.fontSize]="'.5em'" [style.marginLeft]="'-2.5em'">
+          Translation deactivation is not enabled. Please set the LocalizationConfiguration property "enableTranslationDeactivation" accordingly.
+        </div>
+      }
+    </div>
+    @if ((localizations$ | async)?.length) {
+      <button (click)="resetChange()" type="button" class="btn btn-outline-danger">
+        Reset change for {{ form.controls.lang.value }}
+      </button>
+    }
+  </div>
+  @if ((localizations$ | async)?.length) {
+    <div class="mb-2 input-group">
+      <label class="input-group-text" for="search-localization">
+        <i class="mx-1 icon-search" aria-label="Search"></i>
+      </label>
+      <input class="form-control" formControlName="search" type="text" id="search-localization" placeholder="Search for localization" />
+    </div>
+  }
+</form>
+@if ((localizations$ | async)?.length) {
+  @if (filteredLocalizations$ | async; as filteredLocalizations) {
+    @if (filteredLocalizations.length) {
+      <form [formGroup]="form.controls.translations">
+        <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+          @for (localization of filteredLocalizations; track localization.key) {
+            <div ngbAccordionItem>
+              <h3 ngbAccordionHeader>
+                <button ngbAccordionButton>{{localization.key}}</button>
+              </h3>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ng-template>
+                    <div class="form-group">
+                      <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
+                      <div [id]="localization.key" class="form-text">{{localization.description}}</div>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </form>
+    } @else {
+      <h3>No localization found for your search.</h3>
+    }
+  }
+} @else {
+  <h3>No metadata provided for localization.</h3>
+  <p>
+    To provide metadata you can read the following
+    <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md#how-to-enable-more-features-by-providing-metadata-files" target="_blank" rel="noopener">
+      documentation
+    </a>
+  </p>
+}

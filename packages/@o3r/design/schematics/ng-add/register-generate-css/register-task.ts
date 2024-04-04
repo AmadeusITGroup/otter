@@ -1,5 +1,4 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
-import { getWorkspaceConfig, registerBuilder } from '@o3r/schematics';
 import type { GenerateCssSchematicsSchema } from '../../../builders/generate-css/schema';
 import { posix } from 'node:path';
 
@@ -9,7 +8,8 @@ import { posix } from 'node:path';
  * @param taskName name of the task to generate
  */
 export const registerGenerateCssBuilder = (projectName?: string, taskName = 'generate-css'): Rule => {
-  const registerBuilderRule: Rule = (tree, {logger}) => {
+  const registerBuilderRule: Rule = async (tree, {logger}) => {
+    const { getWorkspaceConfig, registerBuilder } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const themeFile = posix.resolve(srcBasePath, 'style', 'theme.scss');
@@ -29,13 +29,13 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     };
     if (!workspaceProject) {
       logger.warn(`No angular.json found, the task ${taskName} will not be created`);
-      return tree;
+      return;
     }
     registerBuilder(workspaceProject, taskName, taskParameters);
-    return tree;
   };
 
-  const generateTemplateRule: Rule = (tree, context) => {
+  const generateTemplateRule: Rule = async (tree) => {
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const themeFolder = posix.resolve(srcBasePath, 'style');
@@ -43,21 +43,21 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
       template({}),
       move(themeFolder),
       renameTemplateFiles()
-    ]), MergeStrategy.Overwrite)(tree, context);
+    ]), MergeStrategy.Overwrite);
 
     return rule;
   };
 
-  const importTheme: Rule = (tree, context) => {
+  const importTheme: Rule = async (tree, context) => {
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.resolve(workspaceProject.root, 'src') : '');
     const styleFile = posix.resolve(srcBasePath, 'styles.scss');
     if (!tree.exists(styleFile)) {
       context.logger.warn(`The theme was not updated as ${styleFile} was not found`);
-      return tree;
+      return;
     }
-
-    return tree.overwrite(styleFile, '@import "./style/theme.scss";\n' + tree.readText(styleFile));
+    tree.overwrite(styleFile, '@import "./style/theme.scss";\n' + tree.readText(styleFile));
   };
 
   return chain([

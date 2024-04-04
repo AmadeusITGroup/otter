@@ -15,7 +15,7 @@ export default createRule<[], Messages>({
     hasSuggestions: true,
     docs: {
       description: 'Ensures that your template does not use innerHTML',
-      recommended: 'warn'
+      recommended: 'recommended'
     },
     schema: [],
     messages: {

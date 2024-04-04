@@ -2,6 +2,9 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/amaterasu-otter?style=for-the-badge)](https://www.npmjs.com/package/@o3r/amaterasu-otter)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/amaterasu-otter?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/amaterasu-otter)
+
 This is a module for [Ama-terasu CLI](https://www.npmjs.com/package/@ama-terasu/cli) to execute actions related to the Otter Framework.
 
 ## Available commands

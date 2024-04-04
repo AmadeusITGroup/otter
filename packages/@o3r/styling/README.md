@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/styling?style=for-the-badge)](https://www.npmjs.com/package/@o3r/styling)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/styling?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/styling)
+
 A styling framework to apply a theme on an Otter application at build time and runtime to support CMS customization.
 
 ## How to install

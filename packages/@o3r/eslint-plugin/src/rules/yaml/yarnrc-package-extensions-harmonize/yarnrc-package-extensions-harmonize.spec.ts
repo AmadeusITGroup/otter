@@ -1,5 +1,5 @@
 import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import * as path from 'node:path';
 
 const virtualFileSystem = useVirtualFileSystem();

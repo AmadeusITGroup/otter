@@ -6,6 +6,12 @@
   "prefix": "o3r",
   "targets": {
     "build": {
+      "executor": "nx:noop",
+      "dependsOn": [
+        "compile-github-action"
+      ]
+    },
+    "compile-github-action": {
       "executor": "nx:run-script",
       "options": {
         "script": "build"

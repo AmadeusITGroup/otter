@@ -9,7 +9,7 @@ export default createRule({
     type: 'problem',
     docs: {
       description: 'Ensures that imports of modules are pointing to the module file or an index.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [],
     messages: {

@@ -1,0 +1,83 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/base",
+    "github>AmadeusITGroup/otter//tools/renovate/otter-project",
+    "github>AmadeusITGroup/otter//tools/renovate/sdk",
+    "github>AmadeusITGroup/otter//tools/renovate/design-factory",
+    ":labels(dependencies)"
+  ],
+  "ignorePaths": [
+    "**/node_modules/**",
+    "**/templates/**"
+  ],
+  "enabledManagers": [
+    "npm",
+    "github-actions",
+    "gradle"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "baseBranches": [
+    "main",
+    "/^release\\/.*-next$/"
+  ],
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "typescript",
+        "eslint",
+        "@yarnpkg/sdks"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install",
+          "yarn sdks"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          ".yarn/sdks/**"
+        ]
+      }
+    },
+    {
+      // Update of bootstrap disabled as it is not supported by design-factory (Can be removed when upgrading design-factory to v17)
+      "matchCurrentVersion": "<=5.2.0",
+      "matchPackageNames": [
+        "bootstrap"
+      ],
+      "enabled": false
+    },
+    {
+      //Major update of chalk disabled as it drops support on CommonJS
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchCurrentVersion": "<5",
+      "matchPackageNames": [
+        "chalk"
+      ],
+      "enabled": false
+    },
+    {
+      //Major update of globby disabled as it drops support on CommonJS
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchCurrentVersion": "<14",
+      "matchPackageNames": [
+        "globby"
+      ],
+      "enabled": false
+    },
+    {
+      // This rule disable the upgrade of the gaurav-nelson/github-action-markdown-link-check
+      // TODO: re-activate the upgrade when the following issue is fixed: gaurav-nelson/github-action-markdown-link-check#200
+      "matchPackagePatterns": [
+        ".*markdown-link-check"
+      ],
+      "enabled": false
+    }
+  ]
+}

@@ -33,6 +33,8 @@ export interface RequestMetadata<C extends string = string, A extends string = s
   headerContentType?: C;
   /** Force a MIME type to be used as Accept header */
   headerAccept?: A;
+  /** Signal to abort the request */
+  signal?: AbortSignal;
 }
 
 export interface RequestOptions extends RequestInit {

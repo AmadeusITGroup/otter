@@ -1,17 +1,24 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, ViewEncapsulation } from '@angular/core';
-import type { OtterLikeComponentInfo } from '@o3r/components';
+import type { IsComponentSelectionAvailableMessage, OtterLikeComponentInfo } from '@o3r/components';
 import { ConfigurationModel } from '@o3r/configuration';
 import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay, startWith } from 'rxjs/operators';
+import { OtterComponentComponent } from '../../components/otter-component/otter-component.component';
 import { RulesetHistoryService } from '../../services/ruleset-history.service';
 import { ChromeExtensionConnectionService, isSelectedComponentInfoMessage } from '../../services/connection.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'o3r-component-panel-pres',
   templateUrl: './component-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    OtterComponentComponent,
+    AsyncPipe
+  ]
 })
 export class ComponentPanelPresComponent implements OnDestroy {
   /** Stream of configuration value */
@@ -32,6 +39,9 @@ export class ComponentPanelPresComponent implements OnDestroy {
   /** Determines if the selected component has a container */
   public hasContainer$: Observable<boolean>;
 
+  /** Determines if the component selection is available */
+  public isComponentSelectionAvailable$: Observable<boolean>;
+
   private readonly subscription: Subscription = new Subscription();
 
   constructor(
@@ -39,6 +49,11 @@ export class ComponentPanelPresComponent implements OnDestroy {
     rulesetHistoryService: RulesetHistoryService,
     private readonly cd: ChangeDetectorRef
   ) {
+    this.isComponentSelectionAvailable$ = connectionService.message$.pipe(
+      filter((message): message is IsComponentSelectionAvailableMessage => message.dataType === 'isComponentSelectionAvailable'),
+      map((data) => data.available),
+      startWith(false)
+    );
     const selectedComponentInfoMessage$ = connectionService.message$.pipe(filter(isSelectedComponentInfoMessage), shareReplay({bufferSize: 1, refCount: true}));
     this.hasContainer$ = selectedComponentInfoMessage$.pipe(map((info) => !!info.container));
     this.subscription.add(
@@ -67,6 +82,10 @@ export class ComponentPanelPresComponent implements OnDestroy {
       rulesetHistoryService.rulesetExecutions$.pipe(startWith([]))
     ]).pipe(
       map(([info, executions]) => executions.filter((execution) => execution.rulesetInformation?.linkedComponent?.name === info.componentName))
+    );
+    this.connectionService.sendMessage(
+      'requestMessages',
+      { only: ['isComponentSelectionAvailable'] }
     );
   }
 

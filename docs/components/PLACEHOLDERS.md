@@ -14,8 +14,7 @@ The component only has 1 input and supports a *content value*.
 
 ## How it works
 
-Based on the **id** provided to the placeholder component, it will register itself to the event coming from *
-*placeholderTemplate** and will display the template corresponding to its ID in the store.
+Based on the **id** provided to the placeholder component, it will register itself to the event coming from **placeholderTemplate** and will display the template corresponding to its ID in the store.
 
 > [!IMPORTANT]
 > It is **strongly encouraged** to use the placeholder mechanism in concert with
@@ -23,8 +22,7 @@ Based on the **id** provided to the placeholder component, it will register itse
 
 ## How to define a placeholder template
 
-The placeholder template is defined in a JSON file following this JSON
-Schema [placeholder-template.schema.json](../../packages/@o3r/components/schemas/placeholder-template.schema.json).
+The placeholder template is defined in a JSON file following the [JSON Schema](https://json-schema.org/) defined in [placeholder-template.schema.json](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/schemas/placeholder-template.schema.json).
 
 Example:
 
@@ -33,7 +31,7 @@ Example:
   "template": "<p>My fact : <%= myFact %></p>",
   "vars": {
     "myFact ": {
-      "value": "myFact ",
+      "value": "myFact",
       "type": "fact"
     }
   }

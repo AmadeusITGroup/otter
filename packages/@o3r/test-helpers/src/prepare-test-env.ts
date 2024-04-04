@@ -47,6 +47,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
   const cacheFolderPath = path.resolve(globalFolderPath, 'cache');
+  const o3rVersion = '999.0.0';
 
   JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
   const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
@@ -128,6 +129,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
         projectName,
         appDirectory,
         cwd: itTestsFolderPath,
+        o3rVersion,
         logger,
         ...packageManagerConfig,
         replaceExisting: !process.env.CI
@@ -155,6 +157,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     isInWorkspace,
     untouchedProject,
     untouchedProjectPath,
-    packageManagerConfig
+    packageManagerConfig,
+    o3rVersion
   };
 }

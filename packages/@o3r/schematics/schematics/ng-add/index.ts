@@ -1,8 +1,7 @@
 import type { Rule } from '@angular-devkit/schematics';
-import { type DependencyToAdd, getExternalDependenciesVersionRange, setupDependencies } from '@o3r/schematics';
+import type { DependencyToAdd } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 
 /**
@@ -11,9 +10,9 @@ import type { NgAddSchematicsSchema } from './schema';
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
-  return () => async (): Promise<Rule> => {
+  return async () => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-
+    const { getExternalDependenciesVersionRange, setupDependencies } = await import('@o3r/schematics');
     const dependencies = Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath)).reduce((acc, [dep, range]) => {
       acc[dep] = {
         inManifest: [{
@@ -42,5 +41,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
 /**
  * Add Otter schematics to an Angular Project
+ * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+};
+
