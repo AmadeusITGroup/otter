@@ -6689,6 +6689,7 @@ __metadata:
   peerDependencies:
     typescript: ~5.4.2
   bin:
+    clear-package-json-dev-dependencies: ./scripts/clear-package-json-dev-dependencies.mjs
     cp-assets: ./scripts/cp-assets.mjs
     cp-build: ./scripts/cp-build.mjs
     cp-package-json: ./scripts/cp-package-json.mjs
@@ -24593,6 +24594,8 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@vscode/vsce": "npm:^2.16.0"
+    cpy-cli: "npm:^5.0.0"
+    esbuild: "npm:~0.20.0"
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~27.9.0"
