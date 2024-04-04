@@ -24,7 +24,8 @@ module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
     rootDir: '.',
     moduleNameMapper,
     modulePathIgnorePatterns: [
-      '<rootDir>/dist'
+      '<rootDir>/dist',
+      '<rootDir>/src/package.json'
     ],
     testPathIgnorePatterns: [
       '<rootDir>/.*/templates/.*',
