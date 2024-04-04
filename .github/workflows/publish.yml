@@ -120,6 +120,7 @@ jobs:
   publish-extensions:
     runs-on: ubuntu-latest
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
+    needs: [publish]
     permissions:
       packages: write
       contents: read
