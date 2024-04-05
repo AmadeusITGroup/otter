@@ -20,7 +20,7 @@ body:
         apis-manager,
         application,
         build-helpers,
-        chrome-devtools
+        chrome-devtools,
         components,
         configuration,
         core,
