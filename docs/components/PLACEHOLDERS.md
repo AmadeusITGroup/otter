@@ -159,7 +159,7 @@ Then, let's create a new localization key for each of your supported languages:
 
 Note that the ``o3r-increment-key`` translations take ``increment`` as a parameter.
 
-This is how ``ruleset.json`` should look like.
+This is how ``template.json`` should look like.
 
 ```json
 {
@@ -217,7 +217,7 @@ Thanks to the parameters map you can use fact variables with JSONPath in localiz
 }
 ```
 
-``ruleset.json``
+``template.json``
 
 ```json
 {
@@ -258,7 +258,7 @@ Before, localization variables could reference facts via variables instead of pa
 }
 ```
 
-``ruleset.json``
+``template.json``
 
 ```json
 {
