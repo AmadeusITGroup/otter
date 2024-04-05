@@ -191,7 +191,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/workspace": "workspace:^",
-    "@playwright/test": "~1.42.0",
+    "@playwright/test": "~1.43.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
