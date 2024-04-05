@@ -2,8 +2,6 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/otter-project",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk",
     "github>AmadeusITGroup/otter//tools/renovate/design-factory",
     ":labels(dependencies)"
   ],
