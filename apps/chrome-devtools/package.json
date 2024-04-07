@@ -47,7 +47,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
-    "@types/chrome": "^0.0.263",
+    "@types/chrome": "^0.0.266",
     "@types/jest": "~29.5.2",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
