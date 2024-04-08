@@ -77,6 +77,9 @@
     "@o3r/extractors": {
       "optional": true
     },
+    "@o3r/logger": {
+      "optional": true
+    },
     "@o3r/schematics": {
       "optional": true
     },
