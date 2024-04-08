@@ -28,7 +28,15 @@ describe('new otter application with testing', () => {
   afterAll(async () => {
     try { await rm(workspacePath, { recursive: true }); } catch { /* ignore error */ }
   });
-  test('should add testing to existing application', async () => {
+  test('should add testing to existing application', () => {
+    packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
+  });
+
+  test('should add testing to existing application and fixture to component', async () => {
     const relativeProjectPath = path.relative(workspacePath, projectPath);
     packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
 
@@ -48,5 +56,6 @@ describe('new otter application with testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 });
