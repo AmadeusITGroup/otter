@@ -45,6 +45,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/localization": "workspace:^",
+    "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/chrome": "^0.0.263",

@@ -6739,6 +6739,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
+    "@o3r/logger": "workspace:^"
     "@o3r/rules-engine": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
@@ -8653,6 +8654,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/localization": "workspace:^"
+    "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
@@ -8699,6 +8701,7 @@ __metadata:
     "@o3r/configuration": "workspace:^"
     "@o3r/core": "workspace:^"
     "@o3r/localization": "workspace:^"
+    "@o3r/logger": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@schematics/angular": ~17.3.0
@@ -8861,6 +8864,8 @@ __metadata:
     "@o3r/dynamic-content":
       optional: true
     "@o3r/extractors":
+      optional: true
+    "@o3r/logger":
       optional: true
     "@o3r/schematics":
       optional: true
