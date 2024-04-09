@@ -1,7 +1,9 @@
 import type * as PostCSS from 'postcss';
-import { PostcssResult, Problem, RuleContext, utils } from 'stylelint';
-import { getNamespacedRuleName } from '../../utils/get-namespaced-rule-name';
+import type { PostcssResult, Problem, RuleContext } from 'stylelint';
+import stylelint from 'stylelint';
+import { getNamespacedRuleName } from '../../utils/get-namespaced-rule-name.mjs';
 
+const { utils } = stylelint;
 const o3rImportRegexp = new RegExp(/^@use ['"]@o3r\/styling['"] as (.*);/m);
 /**
  * Scoped rule name

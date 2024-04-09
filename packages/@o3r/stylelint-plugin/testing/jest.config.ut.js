@@ -7,6 +7,7 @@ module.exports = {
   ...getJestProjectConfig(rootDir, false),
   displayName: require('../package.json').name,
   rootDir,
+  resolver: '<rootDir>/testing/mjs-resolver.js',
   testEnvironmentOptions: {
     // workaround to use stylelint CommonJs interface
     customExportConditions: ['require']
