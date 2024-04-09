@@ -8,8 +8,7 @@
     "group:recommended",
     "group:test",
     "group:linters",
-    "helpers:pinGitHubActionDigestsToSemver",
-    "schedule:nonOfficeHours"
+    "helpers:pinGitHubActionDigestsToSemver"
   ],
   "hostRules": [
     {
@@ -21,7 +20,6 @@
     "master",
     "/^release\\/.*-next$/"
   ],
-  "timezone": "Europe/Paris",
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "enabledManagers": [

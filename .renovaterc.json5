@@ -5,6 +5,7 @@
     "github>AmadeusITGroup/otter//tools/renovate/design-factory",
     ":labels(dependencies)"
   ],
+  "timezone": "Europe/Paris",
   "ignorePaths": [
     "**/node_modules/**",
     "**/templates/**"
