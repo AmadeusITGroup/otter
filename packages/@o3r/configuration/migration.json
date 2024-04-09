@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v10_3": {
+      "version": "10.3.0-alpha.0",
+      "description": "Updates of @o3r/configuration to v10.3.*",
+      "factory": "./schematics/ng-update/v10-3/index#updateV10_3"
+    }
+  }
+}

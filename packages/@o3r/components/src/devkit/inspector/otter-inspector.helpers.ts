@@ -125,7 +125,8 @@ export const getOtterLikeComponentInfo = (componentClassInstance: any, host: Ele
   const translations = getTranslations(host);
   const analytics = getAnalyticEvents(host);
   return {
-    componentName: componentClassInstance.constructor.name,
+    // Cannot use anymore `constructor.name` else all components are named `_a`
+    componentName: componentClassInstance.constructor.ɵcmp?.debugInfo?.className || componentClassInstance.constructor.name,
     configId,
     translations,
     analytics

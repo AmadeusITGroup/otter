@@ -93,7 +93,8 @@ module.exports = {
           'Host',
           'ContentChildren',
           'O3rComponent',
-          'ConfigObserver'
+          'ConfigObserver',
+          'O3rConfig'
         ]
       }
     ],
