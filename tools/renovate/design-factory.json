@@ -5,7 +5,9 @@
       "matchPackagePatterns": [
         "bootstrap",
         "^ag-grid-",
-        "^@design-factory"
+        "^@design-factory",
+        "^@agnos-ui",
+        "^@amadeus-it-group"
       ],
       "groupName": "Design Factory dependencies",
       "groupSlug": "design-factory-dependencies"
