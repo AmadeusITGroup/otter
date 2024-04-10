@@ -237,7 +237,11 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     const runGeneratorRule = () => {
       return () => (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(
         (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined)) ?
-          {generatorKey: options.generatorKey, ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})} : generatorOptions,
+          {
+            generatorKey: options.generatorKey,
+            ...(generatorOptions.generatorVersion ? {generatorVersion: generatorOptions.generatorVersion} : {}),
+            ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})
+          } : generatorOptions,
         {rootDirectory: options.directory || undefined}
       );
     };
