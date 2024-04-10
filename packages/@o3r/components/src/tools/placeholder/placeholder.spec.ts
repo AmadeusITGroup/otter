@@ -40,6 +40,7 @@ describe('Placeholder component', () => {
   let mockStore: {
     dispatch: jest.Mock;
     select: jest.Mock;
+    selectSignal: jest.Mock;
   };
   const postMessageMock = jest.spyOn(window, 'postMessage');
 
@@ -48,7 +49,8 @@ describe('Placeholder component', () => {
     storeContent = new ReplaySubject<TemplatesFromStore>(1);
     mockStore = {
       dispatch: jest.fn(),
-      select: jest.fn().mockReturnValue(storeContent)
+      select: jest.fn().mockReturnValue(storeContent),
+      selectSignal: jest.fn().mockReturnValue(() => 'normal')
     };
     await TestBed.configureTestingModule({
       imports: [

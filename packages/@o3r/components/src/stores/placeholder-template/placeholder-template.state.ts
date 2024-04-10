@@ -10,10 +10,14 @@ export interface PlaceholderTemplateModel {
   urlsWithPriority: { rawUrl:string; priority: number }[];
 }
 
+/** Possible placeholder mode */
+export type PlaceholderMode = 'normal' | 'debug' | 'pending';
+
 /**
  * PlaceholderTemplate store state
  */
 export interface PlaceholderTemplateState extends EntityState<PlaceholderTemplateModel> {
+  mode: PlaceholderMode;
 }
 
 /**

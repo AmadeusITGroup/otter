@@ -10,17 +10,20 @@
             Welcome!
             <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
           </h2>
+          <o3r-placeholder id="placeholder-showcase">
+            Loading placeholder...
+          </o3r-placeholder>
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">Where do you want to go?</h3>
         <form class="row g-2" [formGroup]="form">
-          <div class="col-12 col-xl-6" [class.col-xl-12]="shouldProposeRoundTrip()">
+          <div class="col-12 col-xl-6">
             <div class="input-group">
               <label class="input-group-text w-50" for="destination">Destination</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value> -- select a destination -- </option>
-                @for (destination of destinations(); track destination.cityCode) {
-                  <option [disabled]="!destination.available" [value]="destination.cityName">{{destination.cityName}}</option>
-                }
+                <option value="London">London</option>
+                <option value="Paris">Paris</option>
+                <option value="New-York" disabled>New-York</option>
               </select>
             </div>
           </div>
@@ -30,14 +33,6 @@
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
-          @if (shouldProposeRoundTrip()) {
-            <div class="col-12 col-xl-6">
-              <div class="input-group">
-                <label for="date-inbound" class="input-group-text w-50">Return</label>
-                <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
-              </div>
-            </div>
-          }
         </form>
       </div>
     </div>

@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "library": "@o3r/showcase",
+    "name": "PlaceholderComponent",
+    "placeholders": [
+      {
+        "id": "placeholder-showcase",
+        "description": "Showcase placeholder in app"
+      }
+    ]
+  }
+]

@@ -7801,6 +7801,7 @@ __metadata:
     "@commitlint/cli": "npm:^18.0.0"
     "@commitlint/config-conventional": "npm:^18.0.0"
     "@compodoc/compodoc": "npm:^1.1.19"
+    "@design-factory/design-factory": "npm:~17.1.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^16.0.0"
     "@ngrx/effects": "npm:~17.2.0"
     "@ngrx/entity": "npm:~17.2.0"

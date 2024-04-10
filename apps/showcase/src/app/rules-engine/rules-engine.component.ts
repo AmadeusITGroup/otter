@@ -1,21 +1,25 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
-import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, ConfigurationDevtoolsMessageService, ConfigurationDevtoolsModule } from '@o3r/configuration';
+import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { O3rComponent } from '@o3r/core';
 import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
-import { LocalizationOverrideStoreModule } from '@o3r/localization';
 import { ConfigurationRulesEngineActionHandler, ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
+import { DynamicContentModule } from '@o3r/dynamic-content';
 import { AssetRulesEngineActionHandler, AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
+import { LocalizationOverrideStoreModule } from '@o3r/localization';
+import {
+  LocalizationRulesEngineActionHandler,
+  LocalizationRulesEngineActionModule
+} from '@o3r/localization/rules-engine';
 import {
   dateInNextMinutes,
   Operator,
   Rule,
-  RulesEngineDevtoolsMessageService,
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
@@ -29,10 +33,6 @@ import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';
 import { CurrentTimeFactsService } from '../../services/current-time-facts.service';
-import {
-  LocalizationRulesEngineActionHandler,
-  LocalizationRulesEngineActionModule
-} from '@o3r/localization/rules-engine';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
@@ -40,6 +40,7 @@ import {
   standalone: true,
   imports: [
     RulesEnginePresComponent,
+    DynamicContentModule,
     ConfigurationBaseServiceModule,
     ConfigurationDevtoolsModule,
     ApplicationDevtoolsModule,
@@ -67,7 +68,7 @@ import {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RulesEngineComponent implements OnInit, AfterViewInit {
+export class RulesEngineComponent implements AfterViewInit {
   public newYorkAvailableRule = '';
   public helloNewYorkRule = '';
   public summerOtterRule = '';
@@ -85,20 +86,22 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     private readonly tripFactsService: TripFactsService,
     public currentTimeFactsService: CurrentTimeFactsService,
     private readonly store: Store<RulesetsStore>,
-    configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
-    rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
     rulesEngineService: RulesEngineRunnerService,
     configHandle: ConfigurationRulesEngineActionHandler,
     assetsHandler: AssetRulesEngineActionHandler,
     localizationHandler: LocalizationRulesEngineActionHandler
   ) {
+    // We recommend to do the 9 next lines in the AppComponent
+    // Here we do it for the sake of the example
     rulesEngineService.actionHandlers.add(configHandle);
     rulesEngineService.actionHandlers.add(assetsHandler);
     rulesEngineService.actionHandlers.add(localizationHandler);
-    configurationDevtoolsMessageService.activate();
-    rulesEngineDevtoolsMessageService.activate();
     rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
     rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
+    this.tripFactsService.register();
+    this.currentTimeFactsService.register();
+    this.currentTimeFactsService.tick();
+    void this.loadRuleSet();
   }
 
   private formatRule(rule: Rule) {
@@ -108,7 +111,7 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     };
   }
 
-  public async ngOnInit() {
+  private async loadRuleSet() {
     const path = await firstValueFrom(
       this.dynamicContentService.getContentPathStream(
         `${!environment.production ? 'assets/' : ''}rules/rulesets.json`
@@ -119,10 +122,6 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     const result = await resultCall.json();
 
     this.store.dispatch(setRulesetsEntities({ entities: result.rulesets }));
-    this.tripFactsService.register();
-    // uncomment to test currentTimeFactsService override
-    this.currentTimeFactsService.register();
-    this.currentTimeFactsService.tick();
     const [
       newYorkAvailableRule,
       helloNewYorkRule,
