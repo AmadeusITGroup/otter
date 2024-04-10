@@ -66,6 +66,7 @@
     "bootstrap": "5.3.3",
     "highlight.js": "^11.8.0",
     "intl-messageformat": "~10.5.1",
+    "jsonpath-plus": "^8.0.0",
     "ngx-highlightjs": "^10.0.0",
     "pixelmatch": "^5.2.1",
     "pngjs": "^7.0.0",

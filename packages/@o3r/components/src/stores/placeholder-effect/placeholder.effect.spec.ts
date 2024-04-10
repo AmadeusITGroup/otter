@@ -3,18 +3,16 @@ import {provideMockActions} from '@ngrx/effects/testing';
 import type {TypedAction} from '@ngrx/store/src/models';
 import {UpdateAsyncStoreItemEntityActionPayloadWithId} from '@o3r/core';
 import {firstValueFrom, of, ReplaySubject, Subject, Subscription} from 'rxjs';
-import type {
-  PlaceholderRequestModel,
-  PlaceholderRequestReply
-} from '@o3r/components';
 import {
+  type PlaceholderRequestModel,
+  type PlaceholderRequestReply,
   setPlaceholderRequestEntityFromUrl
-} from '../stores';
+} from '../index';
 import {DynamicContentService} from '@o3r/dynamic-content';
 import {LocalizationService} from '@o3r/localization';
 import {shareReplay} from 'rxjs/operators';
 import { RulesEngineRunnerService } from '@o3r/rules-engine';
-import {PlaceholderTemplateResponseEffect} from './placeholder.rules-engine.effect';
+import {PlaceholderTemplateResponseEffect} from './placeholder.effect';
 import {Store} from '@ngrx/store';
 
 describe('Rules Engine Effects', () => {

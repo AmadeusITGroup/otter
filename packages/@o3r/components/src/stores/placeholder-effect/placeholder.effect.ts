@@ -1,4 +1,4 @@
-import {Injectable, Optional} from '@angular/core';
+import {Injectable, Injector, type ProviderToken} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {
   cancelPlaceholderRequest,
@@ -8,15 +8,16 @@ import {
   selectPlaceholderRequestEntityUsage,
   setPlaceholderRequestEntityFromUrl,
   updatePlaceholderRequestEntity
-} from '@o3r/components';
+} from '../placeholder-request';
 import {fromApiEffectSwitchMapById} from '@o3r/core';
-import {DynamicContentService} from '@o3r/dynamic-content';
-import {LocalizationService} from '@o3r/localization';
-import {RulesEngineRunnerService} from '@o3r/rules-engine';
-import {combineLatest, EMPTY, Observable, of} from 'rxjs';
-import {distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
+import {combineLatest, EMPTY, from, Observable, of} from 'rxjs';
+import {catchError, distinctUntilChanged, map, switchMap, take} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
-import { JSONPath } from 'jsonpath-plus';
+import { LoggerService } from '@o3r/logger';
+import type { Facts, RulesEngineRunnerService } from '@o3r/rules-engine';
+import type { DynamicContentService } from '@o3r/dynamic-content';
+import type { JSONPath } from 'jsonpath-plus';
+import type { LocalizationService } from '@o3r/localization';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -34,18 +35,42 @@ export class PlaceholderTemplateResponseEffect {
       fromApiEffectSwitchMapById(
         (templateResponse, action) => {
           const facts = templateResponse.vars ? Object.entries(templateResponse.vars).filter(([, variable]) => variable.type === 'fact') : [];
-          const factsStreamsList = this.rulesEngineService ? facts.map(([varName, fact]) =>
-            this.rulesEngineService!.engine.retrieveOrCreateFactStream(fact.value).pipe(
-              map((factValue) => ({
-                varName,
-                factName: fact.value,
-                // eslint-disable-next-line new-cap
-                factValue: (fact.path && factValue) ? JSONPath({ wrap: false, json: factValue, path: fact.path }) : factValue
-              })),
-              distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
-            )) : [];
+          const factsStreamsList$ = from(import(/* @vite-ignore */ `${'@o3r/rules-engine'}`)).pipe(
+            // eslint-disable-next-line @typescript-eslint/naming-convention
+            switchMap(({ RulesEngineRunnerService }: { RulesEngineRunnerService: ProviderToken<RulesEngineRunnerService> }) => {
+              const engine = this.injector.get(RulesEngineRunnerService, null, {optional: true})?.engine;
+              return engine && facts.length ? combineLatest(
+                facts.map(([varName, fact]) =>
+                  engine.retrieveOrCreateFactStream(fact.value).pipe(
+                    switchMap(async (factValue) => {
+                      if (fact.path) {
+                        try {
+                          // eslint-disable-next-line @typescript-eslint/naming-convention
+                          const { JSONPath: jsonPath }: { JSONPath: typeof JSONPath } = await import(/* @vite-ignore */`${'jsonpath-plus'}`);
+                          return {
+                            varName,
+                            factName: fact.value,
+                            // eslint-disable-next-line new-cap
+                            factValue: factValue ? jsonPath<Facts>({ wrap: false, json: factValue, path: fact.path }) : factValue
+                          };
+                        } catch {
+                          this.logger.error(`The variable ${varName} is based on a fact with Json Path parameter requiring a dependency to 'jsonpath-plus. It should be provided by the application`);
+                        }
+                      }
 
-          const factsStreamsList$ = factsStreamsList.length ? combineLatest(factsStreamsList) : of([]);
+                      return {
+                        varName,
+                        factName: fact.value,
+                        factValue
+                      };
+                    }),
+                    distinctUntilChanged((previous, current) => previous.factValue === current.factValue)
+                  )
+                )
+              ) : of([]);
+            }),
+            catchError(() => of([]))
+          );
           return combineLatest([factsStreamsList$, this.store.select(selectPlaceholderRequestEntityUsage(action.id)).pipe(distinctUntilChanged())]).pipe(
             switchMap(([factsUsedInTemplate, placeholderRequestUsage]) => {
               if (!placeholderRequestUsage) {
@@ -77,9 +102,8 @@ export class PlaceholderTemplateResponseEffect {
   constructor(
     private readonly actions$: Actions,
     private readonly store: Store<PlaceholderRequestStore>,
-    @Optional() private readonly rulesEngineService: RulesEngineRunnerService | null,
-    @Optional() private readonly dynamicContentService: DynamicContentService | null,
-    @Optional() private readonly translationService: LocalizationService | null) {
+    private readonly injector: Injector,
+    private readonly logger: LoggerService) {
   }
 
   /**
@@ -106,10 +130,16 @@ export class PlaceholderTemplateResponseEffect {
           switch (vars[varName].type) {
             case 'relativeUrl': {
               replacements$.push(
-                this.dynamicContentService?.getMediaPathStream(vars[varName].value).pipe(
-                  take(1),
-                  map((value: string) => ({ejsVar, value}))
-                ) || of({ ejsVar, value: vars[varName].value })
+                from(import(/* @vite-ignore */`${'@o3r/dynamic-content'}`)).pipe(
+                  // eslint-disable-next-line @typescript-eslint/naming-convention
+                  switchMap(({ DynamicContentService }: { DynamicContentService: ProviderToken<DynamicContentService> }) =>
+                    this.injector.get(DynamicContentService, null, { optional: true })?.getMediaPathStream(vars[varName].value).pipe(
+                      take(1),
+                      map((value: string) => ({ ejsVar, value }))
+                    ) || of({ ejsVar, value: vars[varName].value })
+                  ),
+                  catchError(() => of({ ejsVar, value: vars[varName].value }))
+                )
               );
               break;
             }
@@ -132,11 +162,15 @@ export class PlaceholderTemplateResponseEffect {
                 return acc;
               }, linkedVars);
               replacements$.push(
-                this.translationService ?
-                  this.translationService.translate(vars[varName].value, linkedParams).pipe(
-                    map((value) => (value ? { ejsVar, value } : null))
-                  ) :
-                  of(null)
+                from(import(/* @vite-ignore */`${'@o3r/localization'}`)).pipe(
+                  // eslint-disable-next-line @typescript-eslint/naming-convention
+                  switchMap(({ LocalizationService }: { LocalizationService: ProviderToken<LocalizationService> }) =>
+                    this.injector.get(LocalizationService, null, { optional: true })?.translate(vars[varName].value, linkedParams).pipe(
+                      map((value) => (value ? { ejsVar, value } : null))
+                    ) || of(null)
+                  ),
+                  catchError(() => of(null))
+                )
               );
               break;
             }

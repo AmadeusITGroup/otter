@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, type OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { PlaceholderModule } from '@o3r/components';
+import { PlaceholderComponent } from '@o3r/components';
 import { O3rComponent } from '@o3r/core';
 import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    PlaceholderModule,
+    PlaceholderComponent,
     ReactiveFormsModule,
     RulesEngineRunnerModule,
     DatePickerInputPresComponent

@@ -8612,6 +8612,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
+    jsonpath-plus: "npm:^8.0.0"
     lighthouse: "npm:9.6.8"
     ngx-highlightjs: "npm:^10.0.0"
     pixelmatch: "npm:^5.2.1"
