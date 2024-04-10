@@ -13,18 +13,17 @@
   ],
   "scripts": {
     "build": "yarn nx build chrome-devtools",
-    "postbuild:patch": "yarn patch:manifest && yarn patch:extension && yarn patch:package",
+    "postbuild:patch": "yarn patch:package && yarn patch:manifest && yarn patch:extension",
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main",
     "copy:assets": "cpy 'src/manifest.json' 'src/devtools.html' dist --flat && cpy './src/assets/**' dist",
     "patch:manifest": "node scripts/sanitize-manifest.cjs",
     "build:extension": "tsc -b tsconfig.extension.json",
-    "patch:extension": "node scripts/sanitize-extension.cjs",
+    "patch:extension": "node scripts/sanitize-extension.cjs && node scripts/set-manifest-version.cjs",
     "start": "concurrently 'yarn:watch:*'",
     "watch:panel": "yarn build:panel --watch",
     "watch:components": "yarn build:components --watch",
     "watch:manifest": "yarn patch:manifest --watch",
     "watch:extension": "tsc-watch -b tsconfig.extension.json --noClear --onSuccess 'yarn patch:extension'",
-    "prepare:publish": "prepare-publish ./dist && node scripts/set-manifest-version.cjs",
     "publish-to-market": "node ./scripts/publish-to-market.mjs"
   },
   "files": [
