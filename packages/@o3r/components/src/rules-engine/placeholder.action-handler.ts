@@ -1,7 +1,6 @@
-import { inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { Injectable, Injector, OnDestroy, Optional } from '@angular/core';
+import { select, Store } from '@ngrx/store';
 import type { RulesEngineActionHandler } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { combineLatest, distinctUntilChanged, firstValueFrom, map, of, Subject, Subscription, withLatestFrom } from 'rxjs';
 import {
   deletePlaceholderTemplateEntity,
   PlaceholderRequestReply,
@@ -12,10 +11,11 @@ import {
   setPlaceholderTemplateEntity,
   updatePlaceholderRequestEntity
 } from '@o3r/components';
-import { select, Store } from '@ngrx/store';
-import { LocalizationService } from '@o3r/localization';
-import { ActionUpdatePlaceholderBlock, RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE } from './placeholder.interfaces';
 import { DynamicContentService } from '@o3r/dynamic-content';
+import { LocalizationService } from '@o3r/localization';
+import { LoggerService } from '@o3r/logger';
+import { combineLatest, distinctUntilChanged, firstValueFrom, map, of, startWith, Subject, Subscription, withLatestFrom } from 'rxjs';
+import { ActionUpdatePlaceholderBlock, RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE } from './placeholder.interfaces';
 
 /**
  * Service to handle async PlaceholderTemplate actions
@@ -30,15 +30,25 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
   /** @inheritdoc */
   public readonly supportingActions = [RULES_ENGINE_PLACEHOLDER_UPDATE_ACTION_TYPE] as const;
 
-  constructor(store: Store<PlaceholderTemplateStore>, private readonly logger: LoggerService, @Optional() translateService?: LocalizationService) {
+  constructor(
+    store: Store<PlaceholderTemplateStore>,
+    private readonly logger: LoggerService,
+    private readonly injector: Injector,
+    @Optional() translateService?: LocalizationService
+  ) {
 
     const lang$ = translateService ? translateService.getTranslateService().onLangChange.pipe(
       map(({ lang }) => lang),
+      startWith(translateService.getCurrentLanguage()),
       distinctUntilChanged()
     ) : of(null);
 
-    const filteredActions$ = combineLatest([lang$, this.placeholdersActions$.pipe(
-      distinctUntilChanged((prev, next) => JSON.stringify(prev) === JSON.stringify(next)))]).pipe(
+    const filteredActions$ = combineLatest([
+      lang$,
+      this.placeholdersActions$.pipe(
+        distinctUntilChanged((prev, next) => JSON.stringify(prev) === JSON.stringify(next))
+      )
+    ]).pipe(
       withLatestFrom(
         combineLatest([store.pipe(select(selectPlaceholderTemplateEntities)), store.pipe(select(selectPlaceholderRequestEntities))])
       ),
@@ -151,7 +161,7 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
    * @param url
    */
   protected async retrieveTemplate(url: string): Promise<PlaceholderRequestReply> {
-    const resolvedUrl$ = inject(DynamicContentService, { optional: true })?.getContentPathStream(url) || of(url);
+    const resolvedUrl$ = this.injector.get(DynamicContentService, null, { optional: true })?.getContentPathStream(url) || of(url);
     const fullUrl = await firstValueFrom(resolvedUrl$);
     return fetch(fullUrl).then((response) => response.json());
   }
