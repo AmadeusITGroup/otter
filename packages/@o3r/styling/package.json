@@ -50,7 +50,7 @@
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~17.3.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.74.0"
+    "sass": "~1.75.0"
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {
@@ -148,7 +148,7 @@
     "nx": "~18.2.0",
     "pid-from-port": "^1.1.3",
     "rxjs": "^7.8.1",
-    "sass": "~1.74.0",
+    "sass": "~1.75.0",
     "semver": "^7.5.2",
     "stylelint": "^16.0.2",
     "stylelint-scss": "^6.0.0",
