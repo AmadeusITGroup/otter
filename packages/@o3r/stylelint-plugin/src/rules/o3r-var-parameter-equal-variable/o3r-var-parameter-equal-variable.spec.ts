@@ -1,5 +1,5 @@
 import { lint } from 'stylelint';
-import plugins from '../../index';
+import plugins from '../../index.mts';
 
 const config = {
   plugins,

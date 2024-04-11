@@ -8399,6 +8399,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
+    "@schematics/angular": "npm:~17.2.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8416,6 +8417,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.0.2"
     postcss: "npm:~8.4.31"
+    postcss-scss: "npm:~4.0.9"
     rimraf: "npm:^5.0.1"
     stylelint: "npm:^16.0.2"
     ts-jest: "npm:~29.1.1"
@@ -8423,8 +8425,13 @@ __metadata:
     tslib: "npm:^2.5.3"
     typescript: "npm:~5.3.3"
   peerDependencies:
+    "@schematics/angular": ~17.2.0
     postcss: ^8.4.5
+    postcss-scss: ^4.0.9
     stylelint: ^16.0.2
+  peerDependenciesMeta:
+    "@schematics/angular":
+      optional: true
   languageName: unknown
   linkType: soft
 

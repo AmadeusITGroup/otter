@@ -1,0 +1,63 @@
+import {
+  addImportToAppModule,
+  getDefaultExecSyncOptions,
+  getGitDiff,
+  packageManagerExec, packageManagerExecOnProject,
+  packageManagerInstall,
+  packageManagerRunOnProject,
+  prepareTestEnv,
+  setupLocalRegistry
+} from '@o3r/test-helpers';
+import { rm, writeFile } from 'node:fs/promises';
+import * as path from 'node:path';
+
+const appFolder = 'test-app-stylelint-plugin';
+const o3rVersion = '999.0.0';
+const execAppOptions = getDefaultExecSyncOptions();
+let projectPath: string;
+let workspacePath: string;
+let projectName: string;
+let isInWorkspace: boolean;
+let untouchedProjectPath: undefined | string;
+describe('new otter application with stylelint-plugin', () => {
+  setupLocalRegistry();
+  beforeAll(async () => {
+    ({ projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath } = await prepareTestEnv(appFolder));
+    execAppOptions.cwd = workspacePath;
+  });
+  afterAll(async () => {
+    try { await rm(workspacePath, { recursive: true }); } catch { /* ignore error */ }
+  });
+  test('should add stylelint-plugin to existing application', async () => {
+    packageManagerExec({script: 'ng', args: ['add', `@o3r/stylelint-plugin@${o3rVersion}`, '--enable-metadata-extract', '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
+
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:component', '--defaults', 'true', 'test-component', '--use-otter-theming', 'false', '--project-name', projectName]}, execAppOptions);
+
+    await addImportToAppModule(projectPath, 'TestComponentModule', 'src/components/test-component');
+    await writeFile(path.join(projectPath, '.stylelintrc.json'), JSON.stringify({
+      plugins: [
+        '@o3r/stylelint-plugin'
+      ],
+      customSyntax: 'postcss-scss',
+      rules: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        '@o3r/o3r-var-parameter-equal-variable': true
+      }
+    }, null, 2));
+
+    const diff = getGitDiff(execAppOptions.cwd as string);
+    expect(diff.modified).toContain('package.json');
+
+    if (untouchedProjectPath) {
+      const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
+      expect(diff.all.filter((file) => new RegExp(relativeUntouchedProjectPath.replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBe(0);
+    }
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerExecOnProject(projectName, isInWorkspace, {
+      script: 'stylelint',
+      args: [path.join(projectPath, 'src', 'components', 'test-component', 'test-component.style.scss')]
+    }, execAppOptions)).not.toThrow();
+  });
+});

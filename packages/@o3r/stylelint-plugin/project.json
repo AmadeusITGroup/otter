@@ -26,13 +26,16 @@
       }
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/**/*.mjs",
+        "{projectRoot}/dist/**/*.d.mts",
+        "{projectRoot}/dist/**/*.d.mts.map"
+      ],
       "options": {
-        "main": "packages/@o3r/stylelint-plugin/src/public_api.ts",
-        "tsConfig": "packages/@o3r/stylelint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/stylelint-plugin/dist",
-        "clean": false
-      }
+        "script": "build:source"
+      },
+      "dependsOn": ["^build"]
     },
     "lint": {
       "options": {
@@ -47,6 +50,12 @@
       "executor": "@nx/jest:jest",
       "options": {
         "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/stylelint-plugin/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {
