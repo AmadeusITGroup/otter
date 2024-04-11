@@ -81,7 +81,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
     return chain([
       externalSchematic<Partial<ApplicationOptions>>('@schematics/angular', 'application', {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? {...acc, [key]: value} : acc), {}),
-        name: extendedOptions.name,
+        name: cleanName,
         projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
@@ -90,7 +90,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         dependencies,
         skipInstall: options.skipInstall,
         ngAddToRun: Object.keys(dependencies),
-        projectName: options.name
+        projectName: cleanName
       })
     ])(tree, context);
   };
