@@ -1,4 +1,4 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import noMultipleTypeConfigurationPropertyRule from './no-multiple-type-configuration-property';
 
 const ruleTester = new TSESLint.RuleTester({

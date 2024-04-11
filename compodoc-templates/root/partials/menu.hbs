@@ -125,7 +125,7 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                       </div>
                       <ul class="links collapse {{#isNotToggle 'packagePages'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="package-pages"' : 'id="xs-package-pages"' }>
                         ${packages.map((p) => `<li class="link">
-                            <a href="./${p.path}/index.html" data-type="index-link">${p.name}</a>
+                            <a href="${p.path}/index.html" data-type="index-link">${p.name}</a>
                           </li>`).join('')}
                       </ul>
                     </li>`

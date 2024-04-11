@@ -1,4 +1,4 @@
-import { TSESTree } from '@typescript-eslint/experimental-utils';
+import { TSESTree } from '@typescript-eslint/utils';
 import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
 
 const separatorRegExp = /\s*[|&]\s*/;
@@ -14,7 +14,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     type: 'problem',
     docs: {
       description: 'Ensures that the configuration property does not accept multiple types.',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -38,7 +38,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
   defaultOptions: [{
     supportedInterfaceNames: defaultSupportedInterfaceNames
   }],
-  create: (context, [options]: [Required<NoMultipleTypeConfigurationPropertyOption>]) => {
+  create: (context, [options]: Readonly<[Required<NoMultipleTypeConfigurationPropertyOption>, ...any]>) => {
     const supportedInterfaceNames = options.supportedInterfaceNames;
     const sourceCode = context.getSourceCode();
 
