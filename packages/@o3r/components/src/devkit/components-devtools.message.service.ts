@@ -50,13 +50,25 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
     }
   }
 
+  private sendIsComponentSelectionAvailable() {
+    this.sendMessage('isComponentSelectionAvailable', { available: !!(window as any).ng });
+  }
+
   /**
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
    * @param only restricted list of messages to re-send
    */
   private handleReEmitRequest(only?: ComponentsMessageDataTypes[]) {
-    if (!only || only.includes('selectedComponentInfo')) {
+    if (!only) {
       void this.sendCurrentSelectedComponent();
+      this.sendIsComponentSelectionAvailable();
+      return;
+    }
+    if (only.includes('selectedComponentInfo')) {
+      void this.sendCurrentSelectedComponent();
+    }
+    if (only.includes('isComponentSelectionAvailable')) {
+      this.sendIsComponentSelectionAvailable();
     }
   }
 

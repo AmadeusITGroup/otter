@@ -1,5 +1,8 @@
 # Ama-Terasu
 
+[![Stable Version](https://img.shields.io/npm/v/@ama-terasu/cli?style=for-the-badge)](https://www.npmjs.com/package/@ama-terasu/cli)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-terasu/cli?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-terasu/cli)
+
 Ama Terasu is a Command Line Interface to administrate Amadeus Digital Experience suite.
 
 ## How to use

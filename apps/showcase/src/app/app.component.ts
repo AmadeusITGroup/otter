@@ -5,9 +5,6 @@ import { O3rComponent } from '@o3r/core';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
 
-import { ApplicationDevtoolsMessageService } from '@o3r/application';
-import { ComponentsDevtoolsMessageService } from '@o3r/components';
-
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'app-root',
@@ -52,13 +49,8 @@ export class AppComponent implements OnDestroy {
 
   constructor(
     router: Router,
-    private readonly offcanvasService: NgbOffcanvas,
-    applicationDevtoolsMessageService: ApplicationDevtoolsMessageService,
-    componentsDevtoolsMessageService: ComponentsDevtoolsMessageService) {
-
-    applicationDevtoolsMessageService.activate();
-    componentsDevtoolsMessageService.activate();
-
+    private readonly offcanvasService: NgbOffcanvas
+  ) {
     const onNavigationEnd$ = router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()

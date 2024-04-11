@@ -1,12 +1,27 @@
-name: Bug Report on Otter Chrome Devtools
-description: File a bug report on Otter Chrome Devtools
+name: Bug Report to an Application from the Otter project
+description: File a bug report on an Application from the Otter project
 title: "[Bug]: "
-labels: ["bug", "chrome-devtools"]
+labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report! Please make sure we have all the information we need to investigate efficiently.
+  - type: dropdown
+    id: app-name
+    attributes:
+      label: Application name
+      description: Which application(s) are you facing issue with?
+      multiple: true
+      options: [
+          Showcase,
+          Chrome Devtools,
+          VsCode Extension,
+          IntelliJ extension,
+          Cascading bot
+      ]
+    validations:
+      required: true
   - type: input
     id: version
     attributes:

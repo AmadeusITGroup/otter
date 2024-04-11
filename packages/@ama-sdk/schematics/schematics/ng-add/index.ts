@@ -1,6 +1,5 @@
 import { isJsonObject } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import * as path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
@@ -177,4 +176,7 @@ function ngAddFn(): Rule {
 /**
  * Add Otter ama-sdk-schematics to a Project
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = (): Rule => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(undefined);
+};

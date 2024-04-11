@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/store-sync?style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/store-sync?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
+
 This module is exposing an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
 
 To facilitate the synchronization, the `StorageSync` class is based on a fork of [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage) that is also exposed and includes the following changes on top of the original version:
@@ -22,16 +25,19 @@ To facilitate the synchronization, the `StorageSync` class is based on a fork of
 - Split code in several files
 - Migrate tests to Jest
 - Removal of deprecated `deepmerge` dependency.
-- Support of a `smartSync` setup to improve performances 
+- Support of a `smartSync` setup to improve performances
 
 ### Configuration
+
 #### Smart sync
-The original ngrx-store-localstorage synchronize all of your states everytime a state is updated which can lead to a lot 
+
+The original ngrx-store-localstorage synchronize all of your states everytime a state is updated which can lead to a lot
 of accesses to the local and session storage and cause performance issue.
 
 To avoid this pitfall, by default the @o3r/store-sync only synchronizes a state if its value changed and no longer matches
-the storage. 
+the storage.
 This behaviour can be disabled as follows:
+
 ```typescript
 const storage = new StorageSync({keys: [...myStorekeys]}, {disableSmartSync: true});
 ```

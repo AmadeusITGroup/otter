@@ -1,3 +1,11 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-create-sdk
+ * @jest-environment-o3r-type blank
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
@@ -5,28 +13,23 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRun
 } from '@o3r/test-helpers';
 import * as fs from 'node:fs';
-import { cpSync, mkdirSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, renameSync } from 'node:fs';
 import * as path from 'node:path';
 
-const projectName = 'test-sdk';
 const sdkPackageName = '@my-test/sdk';
-const o3rVersion = '999.0.0';
 let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
 const packageManager = getPackageManager();
 
 describe('Create new sdk command', () => {
-  setupLocalRegistry();
-  beforeEach(async () => {
+  beforeEach(() => {
     const isYarnTest = packageManager.startsWith('yarn');
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
-    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion })).workspacePath;
+    sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
@@ -48,9 +51,10 @@ describe('Create new sdk command', () => {
 
   beforeEach(() => {
     cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_swagger_updated.yaml'), path.join(sdkFolderPath, 'swagger-spec.yml'));
+    cpSync(path.join(__dirname, '..', 'testing', 'mocks', 'MOCK_DATE_UTILS_swagger.yaml'), path.join(sdkFolderPath, 'swagger-spec-with-date.yml'));
   });
 
-  test('should generate a full SDK when the specification is provided', () => {
+  test('should generate a light SDK when the specification is provided', () => {
     expect(() =>
       packageManagerCreate({
         script: '@ama-sdk',
@@ -58,6 +62,31 @@ describe('Create new sdk command', () => {
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeFalsy();
+  });
+
+  test('should generate a full SDK when the specification is provided', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
+  });
+
+  test('should generate an SDK with no package scope', () => {
+    const packageName = sdkPackageName.replace('@', '').split('/')[1];
+    const newSdkPackagePath = path.join(sdkFolderPath, packageName);
+    renameSync(sdkPackagePath, newSdkPackagePath);
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', packageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: newSdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
@@ -85,7 +114,7 @@ describe('Create new sdk command', () => {
   test('should use pinned versions when --exact-o3r-version is used', () => {
     expect(() =>
       packageManagerCreate({
-        script: `@ama-sdk@${o3rVersion}`,
+        script: `@ama-sdk@${o3rEnvironment.testEnvironment.o3rVersion}`,
         args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
@@ -96,7 +125,7 @@ describe('Create new sdk command', () => {
     [
       ...Object.entries(packageJson.dependencies), ...Object.entries(packageJson.devDependencies), ...Object.entries(resolutions)
     ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rVersion);
+      expect(version).toBe(o3rEnvironment.testEnvironment.o3rVersion);
     });
   });
 });

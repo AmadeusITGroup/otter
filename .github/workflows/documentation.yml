@@ -1,5 +1,8 @@
 name: Build and deploy documentation
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:
@@ -32,7 +35,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./tools/github-actions/setup
       - name: Generate doc
         run: yarn doc:generate
@@ -43,7 +46,7 @@ jobs:
         run: yarn update-package ${{ inputs.docFolder }}/package.json --name ${{ inputs.packageName }} --version ${{ inputs.version }}
       - run: zip -q -r ${{ inputs.artifactName }}.zip "${{ inputs.docFolder }}" -x "*/node_modules/*" ".cache/*"
         shell: bash
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: ${{ inputs.artifactName }}
           path: ${{ inputs.artifactName }}.zip
@@ -57,8 +60,8 @@ jobs:
       name: azure-static-webapp
       url: ${{ steps.deploy.outputs.static_web_app_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      - uses: actions/download-artifact@c850b930e6ba138125429b7e5c93fc707a7f8427 # v4.1.4
         with:
           name: ${{ inputs.artifactName }}
           path: '.'
@@ -68,7 +71,7 @@ jobs:
         shell: bash
       - name: deploy
         id: deploy
-        uses: Azure/static-web-apps-deploy@v1
+        uses: Azure/static-web-apps-deploy@1a947af9992250f3bc2e68ad0754c0b0c11566c9 # v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}

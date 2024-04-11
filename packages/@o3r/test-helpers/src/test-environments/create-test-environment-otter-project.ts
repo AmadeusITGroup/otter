@@ -50,7 +50,6 @@ export async function createTestEnvironmentOtterProjectWithApp(inputOptions: Par
     cwd: process.cwd(),
     globalFolderPath: process.cwd(),
     registry: 'http://127.0.0.1:4873',
-    useLocker: true,
     lockTimeout: 10 * 60 * 1000,
     replaceExisting: true,
     ...inputOptions

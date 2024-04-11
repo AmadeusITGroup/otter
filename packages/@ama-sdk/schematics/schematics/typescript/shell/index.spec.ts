@@ -101,4 +101,15 @@ describe('Typescript Shell Generator', () => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     expect(openApiTools['generator-cli'].generators).toEqual(expect.objectContaining({'test-scope-test-sdk': expect.anything()}));
   });
+
+  it('should work with no package scope', async () => {
+    const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
+    const tree = await runner.runSchematic('typescript-shell', {
+      package: 'test-sdk',
+      skipInstall: true,
+      packageManager: 'npm'
+    }, Tree.empty());
+    const {name} = JSON.parse(tree.readContent('/package.json'));
+    expect(name).toEqual('test-sdk');
+  });
 });
