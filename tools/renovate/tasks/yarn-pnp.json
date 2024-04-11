@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger updates for Yarn PNP SDKs",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "typescript",
+        "eslint"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn dlx @yarnpkg/sdks"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          ".yarn/sdks/**"
+        ]
+      }
+    }
+  ]
+}
