@@ -7,6 +7,10 @@
     The application does not seem to be compatible with the Otter Chrome DevTools.
   </div>
 
+  <div *ngSwitchCase="'forbidden'" class="alert alert-danger m-2" role="alert">
+    The Otter Chrome Extension does not have permission to access this page.
+  </div>
+
   <ng-container *ngSwitchCase="'connected'">
     <ng-content></ng-content>
   </ng-container>

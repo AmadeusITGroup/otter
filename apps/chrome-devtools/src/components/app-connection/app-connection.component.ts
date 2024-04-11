@@ -4,7 +4,7 @@ import { catchError, map, startWith, take, timeout } from 'rxjs/operators';
 import { ChromeExtensionConnectionService, isRuleEngineEventsMessage } from '../../services/connection.service';
 import { RulesetHistoryService } from '../../services/ruleset-history.service';
 
-type AppState = 'loading' | 'timeout' | 'connected';
+type AppState = 'loading' | 'timeout' | 'connected' | 'forbidden';
 
 @Component({
   selector: 'app-connection',
@@ -31,6 +31,8 @@ export class AppConnectionComponent implements OnDestroy {
 
     this.appState$ = connectionService.message$.pipe(
       map(() => 'connected' as AppState),
+      take(1),
+      map(() => 'forbidden' as AppState),
       take(1),
       startWith('loading' as AppState),
       timeout(3000),
