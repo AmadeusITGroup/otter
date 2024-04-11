@@ -31,7 +31,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }),
     setupDependencies({
       projectName: options.projectName,
-      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName)
+      dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion)
     }),
     options.extractDesignToken ? extractToken({ componentFilePatterns: ['**/*.scss'], includeTags: true }) : noop
   ]);

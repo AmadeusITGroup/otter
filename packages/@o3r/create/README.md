@@ -34,3 +34,4 @@ The generator accepts all the configurations from Angular `ng new` command, find
 On top of them, the following options can be provided to the initializer:
 
 - `--yarn-version` : specify the version of yarn to use (default: `latest`)
+- `--exact-o3r-version` : use a pinned version for [otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).

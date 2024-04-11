@@ -13,7 +13,6 @@
     "declaration": false,
     "declarationMap": false,
     "strict": false,
-    "skipLibCheck": true,
     "module": "ES2020",
     "target": "ES2020"
   },
