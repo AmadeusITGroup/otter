@@ -3,10 +3,13 @@
   "compilerOptions": {
     "composite": true,
     "outDir": "test",
-    "rootDir": "."
+    "rootDir": ".",
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "include": [
-    "./src/**/*.spec.ts"
+    "./src/**/*.spec.ts",
+    "./schematics/**/*.it.spec.ts"
   ],
   "exclude": [],
   "references": [
