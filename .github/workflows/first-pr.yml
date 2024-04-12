@@ -1,0 +1,40 @@
+name: First PR
+
+on:
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: write
+
+jobs:
+  first-pr:
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_URL: https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/flavors/fireworks.png
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const [owner, repo] = '${{ github.repository }}'.split('/');
+            github.rest.issues.listForRepo({
+              state: 'all',
+              repo: repo,
+              owner: owner,
+              creator: '${{ github.actor }}'
+            }).then((reply) => {
+              const countPR = reply.data.filter((data) => data.pull_request).length;
+              if (countPR === 1) {
+                github.rest.issues.createComment({
+                  issue_number: context.issue.number,
+                  repo: repo,
+                  owner: owner,
+                  body: '![](${{ env.IMAGE_URL }})\nThank you so much @${{ github.actor }} for opening your first PR here!'
+                });
+              } else {
+                console.log(`${{ github.actor }} has already opened ${countPR - 1} PRs before this one.`);
+              }
+            });
