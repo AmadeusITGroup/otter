@@ -14,14 +14,14 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "test": "yarn nx test styling",
+    "test": "yarn nx test design",
     "copy:templates": "yarn cpy 'schematics/**/templates/**/*' dist/schematics",
     "copy:schemas": "yarn cpy 'schemas/**/*' dist/schemas",
     "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && generate-cjs-manifest",
-    "build": "yarn nx build styling",
+    "build": "yarn nx build design",
     "postbuild": "yarn copy:schemas && patch-package-json-main"
   },
   "exports": {
@@ -57,7 +57,7 @@
     "@o3r/styling": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "sass": "~1.74.0"
+    "sass": "~1.75.0"
   },
   "peerDependenciesMeta": {
     "@o3r/core": {
@@ -129,7 +129,7 @@
     "jsonschema": "~1.4.1",
     "nx": "~18.2.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.74.0",
+    "sass": "~1.75.0",
     "ts-jest": "~29.1.2",
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",

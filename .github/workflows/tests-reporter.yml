@@ -13,7 +13,7 @@ jobs:
   publish-ut-reports:
     runs-on: ubuntu-latest
     steps:
-      - uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8.0
+      - uses: dorny/test-reporter@c40d89d5e987cd80f3a32b3c233556e22bdca958 # v1.9.0
         with:
           artifact: /ut-reports(.*)/
           name: UT Tests report$1
@@ -23,7 +23,7 @@ jobs:
   publish-it-reports:
     runs-on: ubuntu-latest
     steps:
-      - uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8.0
+      - uses: dorny/test-reporter@c40d89d5e987cd80f3a32b3c233556e22bdca958 # v1.9.0
         with:
           artifact: /it-reports(.*)/
           name: IT Tests report$1

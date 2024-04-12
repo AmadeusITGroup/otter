@@ -1,6 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all otter dependencies and trigger ng update scripts",
   "packageRules": [
+    {
+      "groupName": "Otter dependencies",
+      "groupSlug": "otter-dependencies",
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ]
+    },
     {
       "matchManagers": [
         "yarn"

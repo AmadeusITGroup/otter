@@ -13,12 +13,12 @@
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">Where do you want to go?</h3>
         <form class="row g-2" [formGroup]="form">
-          <div class="col-12 col-xl-6" [class.col-xl-12]="(config$ | async)?.shouldProposeRoundTrip">
+          <div class="col-12 col-xl-6" [class.col-xl-12]="shouldProposeRoundTrip()">
             <div class="input-group">
               <label class="input-group-text w-50" for="destination">Destination</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value> -- select a destination -- </option>
-                @for (destination of (config$ | async)?.destinations; track destination.cityCode) {
+                @for (destination of destinations(); track destination.cityCode) {
                   <option [disabled]="!destination.available" [value]="destination.cityName">{{destination.cityName}}</option>
                 }
               </select>
@@ -30,7 +30,7 @@
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
-          @if ((config$ | async)?.shouldProposeRoundTrip) {
+          @if (shouldProposeRoundTrip()) {
             <div class="col-12 col-xl-6">
               <div class="input-group">
                 <label for="date-inbound" class="input-group-text w-50">Return</label>

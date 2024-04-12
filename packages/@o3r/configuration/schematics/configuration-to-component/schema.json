@@ -24,6 +24,11 @@
       "type": "boolean",
       "description": "Should change a component into an exposed component, to have it extracted in CMS metadata",
       "default": true
+    },
+    "useSignal": {
+      "type": "boolean",
+      "description": "Should add a config signal instead of observable in the component.",
+      "default": false
     }
   },
   "additionalProperties": true,

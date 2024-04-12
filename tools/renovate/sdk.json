@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all otter dependencies and trigger SDK regeneration",
   "labels": [
     "dependencies"
   ],
@@ -7,6 +8,16 @@
   "automerge": true,
   "platformAutomerge": true,
   "packageRules": [
+    {
+      "groupName": "Otter dependencies",
+      "groupSlug": "otter-dependencies",
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ]
+    },
     {
       "matchBaseBranches": [
         "master",
@@ -25,18 +36,6 @@
         "@ama-sdk"
       ],
       "rangeStrategy": "patch"
-    },
-    {
-      "groupName": "Otter SDK dependencies",
-      "groupSlug": "otter-sdk-dependencies",
-      "matchBaseBranches": [
-        "master",
-        "main",
-        "/^release/.*/"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ]
     },
     {
       "matchBaseBranches": [

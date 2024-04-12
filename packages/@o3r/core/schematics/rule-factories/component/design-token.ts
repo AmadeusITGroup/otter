@@ -14,5 +14,8 @@ export const getAddDesignTokenRules = (
   ['@o3r/core:component', '@o3r/core:component-presenter'],
   '@o3r/design',
   'design-token-to-component',
-  { stylePath }
+  {
+    ...options,
+    stylePath
+  }
 );

@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration for a specific package name",
   "packageRules": [
     {
       "matchPackageNames": [

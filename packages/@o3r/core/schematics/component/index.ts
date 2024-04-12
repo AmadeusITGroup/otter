@@ -19,18 +19,11 @@ import { NgGenerateComponentSchematicsSchema } from './schema';
  */
 function generateComponentContainer(options: NgGenerateComponentSchematicsSchema): Rule {
   return schematic('component-container', {
+    ...options,
     projectName: options.projectName || undefined,
     componentName: options.componentName || undefined,
     prefix: options.prefix || undefined,
-    componentStructure: options.componentStructure,
-    description: options.description || '',
-    useComponentFixtures: options.useComponentFixtures,
-    useOtterConfig: options.useOtterConfig,
-    useRulesEngine: options.useRulesEngine,
-    path: options.path,
-    useContext: options.useContext,
-    skipLinter: options.skipLinter,
-    standalone: options.standalone
+    description: options.description || ''
   });
 }
 
@@ -41,21 +34,10 @@ function generateComponentContainer(options: NgGenerateComponentSchematicsSchema
  */
 function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema): Rule {
   return schematic('component-presenter', {
+    ...options,
     projectName: options.projectName || undefined,
-    componentName: options.componentName,
     prefix: options.prefix || undefined,
-    componentStructure: options.componentStructure,
-    description: options.description || '',
-    useComponentFixtures: options.useComponentFixtures,
-    useOtterTheming: options.useOtterTheming,
-    useOtterConfig: options.useOtterConfig,
-    path: options.path,
-    useLocalization: options.useLocalization,
-    useContext: options.useContext,
-    activateDummy: options.activateDummy,
-    useOtterAnalytics: options.useOtterAnalytics,
-    skipLinter: options.skipLinter,
-    standalone: options.standalone
+    description: options.description || ''
   });
 }
 
