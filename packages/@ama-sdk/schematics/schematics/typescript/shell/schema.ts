@@ -18,4 +18,7 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicO
 
   /** Skip NPM install */
   skipInstall: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

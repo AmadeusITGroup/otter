@@ -53,6 +53,11 @@
       "description": "Force package installation (in case of unmet peer dependencies)",
       "type": "boolean",
       "default": true
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,

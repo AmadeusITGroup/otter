@@ -1,5 +1,3 @@
 .vscode/**
 .vscode-test/**
-src/**
-.eslintrc.js
-tsconfig*
+node_modules/

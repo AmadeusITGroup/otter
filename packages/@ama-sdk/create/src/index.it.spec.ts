@@ -15,6 +15,7 @@ import * as path from 'node:path';
 
 const projectName = 'test-sdk';
 const sdkPackageName = '@my-test/sdk';
+const o3rVersion = '999.0.0';
 let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
@@ -79,5 +80,23 @@ describe('Create new sdk command', () => {
         args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path','./missing-file.yml']
       }, execAppOptions)
     ).toThrow();
+  });
+
+  test('should use pinned versions when --exact-o3r-version is used', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: `@ama-sdk@${o3rVersion}`,
+        args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf-8'));
+    const resolutions = packageManager === 'yarn' ? packageJson.resolutions : packageJson.overrides;
+    // all otter dependencies in package.json must be pinned:
+    [
+      ...Object.entries(packageJson.dependencies), ...Object.entries(packageJson.devDependencies), ...Object.entries(resolutions)
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
+      expect(version).toBe(o3rVersion);
+    });
   });
 });

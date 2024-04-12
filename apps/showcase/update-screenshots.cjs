@@ -4,9 +4,12 @@
  * Generate the screenshots for the E2E tests of the showcase app using a docker image running on ubuntu
  * The goal is to make sure everybody generate the screenshots using the same platform to prevent mismatches
  */
-const os = require('node:os');
-const childProcess = require('node:child_process');
 const playwrightVersion = require('@playwright/test/package.json').version;
+const childProcess = require('node:child_process');
+const os = require('node:os');
+const path = require('node:path');
+
+const relativeRoot = path.relative(process.cwd(), path.resolve(__dirname, '..', '..')) || '.';
 
 // We should be able to use `host.docker.internal` but it seems to fail depending on the network configuration
 const ipAddresses = [
@@ -42,14 +45,14 @@ const containerScript = [
   'yarn install --mode=skip-build',
 
   // Run the tests
-  'yarn test-e2e -u',
+  'yarn workspace @o3r/showcase run test:playwright:sanity -g \\"Visual comparison\\" -u',
 
   // Copy the newly generated screenshots outside the container
   'cp -r apps/showcase/e2e-playwright/sanity/screenshots ../tests/apps/showcase/e2e-playwright/sanity'
 ].join(' && ');
 
 // Command to create the docker container and run the script
-const script = `docker run -it --rm --ipc=host -v "../../":/tests mcr.microsoft.com/playwright:v${playwrightVersion}-jammy /bin/bash -c "${containerScript}"`;
+const script = `docker run -it --rm --ipc=host -v "${relativeRoot}/":/tests mcr.microsoft.com/playwright:v${playwrightVersion}-jammy /bin/bash -c "${containerScript}"`;
 
 // Execute the script
 childProcess.execSync(script, {stdio: 'inherit'});
