@@ -44,6 +44,7 @@ export function updatePlaywright(options: NgAddPackageOptions, dependencies: Rec
 # Playwright
 dist-e2e-playwright
 playwright-reports
+test-results
 `;
         tree.overwrite(gitignorePath, gitignore);
       }
