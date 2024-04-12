@@ -33,11 +33,12 @@ export class PlaceholderTemplateResponseEffect {
       ofType(setPlaceholderRequestEntityFromUrl),
       fromApiEffectSwitchMapById(
         (templateResponse, action) => {
-          const facts = templateResponse.vars ? Object.values(templateResponse.vars).filter((variable: PlaceholderVariable) => variable.type === 'fact') : [];
-          const factsStreamsList = this.rulesEngineService ? facts.map((fact) =>
+          const facts = templateResponse.vars ? Object.entries(templateResponse.vars).filter(([, variable]) => variable.type === 'fact') : [];
+          const factsStreamsList = this.rulesEngineService ? facts.map(([varName, fact]) =>
             this.rulesEngineService!.engine.retrieveOrCreateFactStream(fact.value).pipe(
               map((factValue) => ({
-                name: fact.value,
+                varName,
+                factName: fact.value,
                 // eslint-disable-next-line new-cap
                 factValue: (fact.path && factValue) ? JSONPath({ wrap: false, json: factValue, path: fact.path }) : factValue
               })),
@@ -87,11 +88,15 @@ export class PlaceholderTemplateResponseEffect {
    * @param vars
    * @param facts
    */
-  private getRenderedHTML$(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { name: string; factValue: any }[]) {
+  private getRenderedHTML$(template?: string, vars?: Record<string, PlaceholderVariable>, facts?: { varName: string; factName: string; factValue: any }[]) {
     let unknownTypeFound = false;
-    const factset = (facts || []).reduce((set: { [key: string]: any }, fact) => {
-      set[fact.name] = fact.factValue;
-      return set;
+    const factMap = (facts || []).reduce((mapping: { [key: string]: any }, fact) => {
+      mapping[fact.factName] = fact.factValue;
+      return mapping;
+    }, {});
+    const factMapFromVars = (facts || []).reduce((mapping: { [key: string]: any }, fact) => {
+      mapping[fact.varName] = fact.factValue;
+      return mapping;
     }, {});
     const replacements$: Observable<{ ejsVar: RegExp; value: string } | null>[] = [];
     if (vars && template) {
@@ -113,15 +118,19 @@ export class PlaceholderTemplateResponseEffect {
               break;
             }
             case 'fact': {
-              template = template.replace(ejsVar, factset[vars[varName].value] ?? '');
+              template = template.replace(ejsVar, factMap[vars[varName].value] ?? '');
               break;
             }
             case 'localisation': {
-              const linkedParams = (vars[varName].vars || []).reduce((acc: { [key: string]: any }, parameter) => {
+              const linkedVars = (vars[varName].vars || []).reduce((acc: { [key: string]: any }, parameter) => {
                 const paramName = vars[parameter].value;
-                acc[paramName] = factset[paramName];
+                acc[paramName] = factMap[paramName];
                 return acc;
               }, {});
+              const linkedParams = (Object.entries(vars[varName].parameters || {})).reduce((acc: { [key: string]: any }, [paramKey, paramValue]) => {
+                acc[paramKey] = factMapFromVars[paramValue];
+                return acc;
+              }, linkedVars);
               replacements$.push(
                 this.translationService ?
                   this.translationService.translate(vars[varName].value, linkedParams).pipe(
@@ -142,9 +151,10 @@ export class PlaceholderTemplateResponseEffect {
     return replacements$.length > 0 && !!template ?
       combineLatest(replacements$).pipe(
         map((replacements) => ({
-          renderedTemplate: replacements.reduce((acc, replacement) =>
-            replacement ? acc.replace(replacement.ejsVar, replacement.value) : acc,
-            template!
+          renderedTemplate: replacements.reduce(
+            (acc, replacement) =>
+              replacement ? acc.replace(replacement.ejsVar, replacement.value) : acc,
+            template
           ),
           unknownTypeFound
         }))

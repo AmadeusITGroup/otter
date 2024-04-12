@@ -9,5 +9,12 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/telemetry?style=for-the-badge)](https://www.npmjs.com/package/@o3r/telemetry)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/telemetry?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/telemetry)
+
 A set of helpers to retrieve tool usage metrics.
+
+## Privacy notice
+
+https://github.com/AmadeusITGroup/otter/blob/main/docs/telemetry/PRIVACY_NOTICE.md
 

@@ -1,5 +1,4 @@
 import type { Rule } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, getPackageInstallConfig, setupDependencies } from '@o3r/schematics';
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 
@@ -10,6 +9,13 @@ const dependenciesToInstall = [
   'stylelint'
 ];
 
+const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
+  logger.error(`[ERROR]: Adding @o3r/stylelint-plugin has failed.
+If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the mobile package. Please run 'ng add @o3r/core' .
+Otherwise, use the error message as guidance.`);
+  throw reason;
+};
+
 /**
  * Add Otter stylelint-plugin to an Angular Project
  * @param options
@@ -19,9 +25,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree) => {
     const {
       getExternalDependenciesVersionRange,
+      getPackageInstallConfig,
       getProjectNewDependenciesTypes,
       getO3rPeerDeps,
-      getWorkspaceConfig
+      getWorkspaceConfig,
+      setupDependencies
     } = await import('@o3r/schematics');
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
@@ -53,5 +61,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
 /**
  * Add Otter stylelint-plugin to an Angular Project
+ * @param options
  */
-export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+};

@@ -4,6 +4,9 @@
   "references": [
     {
       "path": "./tsconfig.build.composite.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

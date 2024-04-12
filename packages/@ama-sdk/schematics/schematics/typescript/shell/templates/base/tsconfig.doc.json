@@ -13,6 +13,7 @@
     "**/*.perf.ts"
   ],
   "include": [
+    "./src/api/**/*.ts",
     "./src/models/**/*.ts",
     "./src/helpers/**/*.ts"
   ]

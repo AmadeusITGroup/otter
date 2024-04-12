@@ -7,7 +7,6 @@ import { dirname, join, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
-const defaultScope = 'sdk';
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
 const args = process.argv.slice(2);
 const argv = minimist(args);
@@ -26,20 +25,21 @@ if (argv._.length < 2) {
 }
 
 const sdkType = argv._[0];
-let [name, pck] = argv._[1].replace(/^@/, '').split('/');
 
 if (sdkType !== 'typescript') {
   console.error('Only the generation of "typescript" SDK is available');
   process.exit(-2);
 }
 
-if (!pck) {
-  console.warn(`The given package name, is not a scoped package. a default "@${defaultScope}" scope will be used`);
-  pck = name;
-  name = defaultScope;
+const fullPackage = argv._[1];
+const packageMatch = /^(?:@([^@/]+)\/)?([^@/]+)$/.exec(fullPackage);
+if (!packageMatch) {
+  console.error('Invalid package name');
+  process.exit(-3);
 }
+const [, name, pck] = packageMatch;
 
-const targetDirectory = join('.', name, pck);
+const targetDirectory = name ? join('.', name, pck) : join('.', pck);
 const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
 
 const getYarnVersion = () => {
@@ -63,7 +63,7 @@ const getYarnVersion = () => {
 
 const schematicArgs = [
   argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
-  '--name', name,
+  ...(name ? ['--name', name] : []),
   '--package', pck,
   '--package-manager', packageManager,
   ...(argv['exact-o3r-version'] ? ['--exact-o3r-version'] : []),

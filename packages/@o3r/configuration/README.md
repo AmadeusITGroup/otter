@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/configuration?style=for-the-badge)](https://www.npmjs.com/package/@o3r/configuration)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/configuration?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/configuration)
+
 This module contains configuration-related features (CMS compatibility, configuration override, store and debugging).
 It comes with an integrated ng builder to help you generate configurations supporting the Otter CMS integration.
 

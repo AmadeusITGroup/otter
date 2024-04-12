@@ -5,6 +5,10 @@
 
 ## Description
 
+[![Status](https://img.shields.io/badge/status-deprecated-red?style=for-the-badge)](https://www.npmjs.com/package/@o3r/dev-tools)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/dev-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r/dev-tools)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/dev-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/dev-tools)
+
 Various CLI scripts to help your CI/CD and your dependency management
 
 > [!CAUTION]
