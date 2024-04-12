@@ -285,6 +285,11 @@
       "comet": {
         "$type": "color",
         "$value": "#1b2073"
+      },
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "color out of palette"
+        }
       }
     },
     "neutral": {
@@ -319,6 +324,11 @@
       "custom": {
         "$type": "color",
         "$value": "{color.primary}"
+      },
+      "$extensions": {
+        "o3rMetadata": {
+          "category": "color out of palette"
+        }
       }
     },
     "$extensions": {
@@ -362,7 +372,8 @@
       "o3rMetadata": {
         "tags": [
           "theme"
-        ]
+        ],
+        "category": "spacer"
       }
     }
   },
@@ -387,7 +398,8 @@
       "o3rMetadata": {
         "tags": [
           "theme"
-        ]
+        ],
+        "category": "radius"
       }
     }
   }

@@ -52,3 +52,6 @@ export type AvailableStylingMessageContents =
 
 /** Tag to identify theme variable */
 export const THEME_TAG_NAME = 'theme';
+
+/** Tag to identify palette variable */
+export const PALETTE_TAG_NAME = 'palette';
