@@ -20,7 +20,7 @@
     "test:playwright": "concurrently -m 1 -P 'yarn run test:playwright:* {*}' --",
     "test:playwright:scenario": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.ts",
     "test:playwright:sanity": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.sanity.ts",
-    "update-screenshots": "node update-screenshots",
+    "update-screenshots": "node scripts/update-screenshots/index.cjs",
     "postbuild:patch": "yarn patch:package",
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
