@@ -151,7 +151,6 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
     Object.keys(openApiToolsJsonGenerator).filter((option) => !OPEN_API_TOOLS_OPTIONS.includes(option))
       .forEach((ignoredOption) => context.logger.warn(`Option ${ignoredOption} from ${openApiToolsPath} will not be taken into account`));
   }
-
   return {
     ...generatorOptions,
     ...(outputPath ? {outputPath} : {}),

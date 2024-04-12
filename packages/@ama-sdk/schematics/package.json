@@ -113,7 +113,7 @@
     "type-fest": "^4.10.2",
     "typescript": "~5.4.2"
   },
-  "openApiSupportedVersion": "~6.6.0",
+  "openApiSupportedVersion": "~7.4.0",
   "engines": {
     "node": ">=18.0.0"
   }

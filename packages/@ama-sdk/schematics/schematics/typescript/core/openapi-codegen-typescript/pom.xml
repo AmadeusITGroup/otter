@@ -91,7 +91,6 @@
       <groupId>io.swagger.core.v3</groupId>
       <artifactId>swagger-core</artifactId>
       <version>2.1.5</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.openapitools</groupId>
@@ -128,7 +127,7 @@
   </dependencies>
   <properties>
     <maven-plugin-version>1.0.0</maven-plugin-version>
-    <openapi-generator-version>6.6.0</openapi-generator-version>
+    <openapi-generator-version>7.4.0</openapi-generator-version>
     <junit-version>4.8.1</junit-version>
     <version>1.0.0</version>
     <project.version>0.0.0</project.version>

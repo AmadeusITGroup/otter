@@ -1,7 +1,5 @@
 {{#models}}
 {{#model}}
-{{^vendorExtensions.x-intermediate-class}}
 export * from './{{#kebabCase}}{{classname}}{{/kebabCase}}';
-{{/vendorExtensions.x-intermediate-class}}
 {{/model}}
 {{/models}}
