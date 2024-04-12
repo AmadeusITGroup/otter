@@ -1,0 +1,32 @@
+name: First PR
+
+on:
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        id: my-script
+        with:
+          script: |
+            const reply = github.rest.issues.listForRepo({
+              state: 'all',
+              creator: context.payload.pull_request.user.login
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+            const countPR = reply.data.filter((data) => data.pull_request).length;
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.issue.number,
+              body: 'Thanks so much for opening your first PR here!' + countPR
+            })
+
