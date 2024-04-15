@@ -1,0 +1,41 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all otter dependencies",
+  "packageRules": [
+    {
+      "groupName": "Otter dependencies",
+      "groupSlug": "otter-dependencies",
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ]
+    },
+    {
+      "matchBaseBranches": [
+        "main",
+        "master"
+      ],
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "matchPackagePrefixes": [
+        "@otter",
+        "@o3r",
+        "@ama-sdk",
+        "@ama-terasu"
+      ],
+      "rangeStrategy": "patch"
+    }
+  ]
+}

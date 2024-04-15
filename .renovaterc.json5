@@ -2,7 +2,7 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/design-factory",
+    "github>AmadeusITGroup/otter//tools/renovate/group/design-factory",
     ":labels(dependencies)"
   ],
   "timezone": "Europe/Paris",
