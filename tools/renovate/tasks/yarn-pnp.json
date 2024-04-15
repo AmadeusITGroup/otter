@@ -9,6 +9,7 @@
       ],
       "postUpgradeTasks": {
         "commands": [
+          "yarn install",
           "yarn dlx @yarnpkg/sdks"
         ],
         "executionMode": "branch",
