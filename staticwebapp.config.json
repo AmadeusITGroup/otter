@@ -1,8 +1,4 @@
 {
-  "navigationFallback": {
-    "rewrite": "index.html",
-    "exclude": ["/assets/*.{png,jpg,gif,css,js}"]
-  },
   "globalHeaders": {
     "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
   },

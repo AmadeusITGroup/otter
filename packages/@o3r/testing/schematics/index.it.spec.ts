@@ -1,25 +1,22 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-app-testing
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   addImportToAppModule,
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRunOnProject
 } from '@o3r/test-helpers';
-import { rm } from 'node:fs/promises';
 import * as path from 'node:path';
 
-const appFolder = 'test-app-testing';
-const o3rVersion = '999.0.0';
-const execAppOptions = getDefaultExecSyncOptions();
-let projectPath: string;
-let workspacePath: string;
-let projectName: string;
-let isInWorkspace: boolean;
-let untouchedProjectPath: undefined | string;
 describe('new otter application with testing', () => {
+
   setupLocalRegistry();
   beforeAll(async () => {
     ({ projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath } = await prepareTestEnv(appFolder));
@@ -37,6 +34,7 @@ describe('new otter application with testing', () => {
   });
 
   test('should add testing to existing application and fixture to component', async () => {
+
     const relativeProjectPath = path.relative(workspacePath, projectPath);
     packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
 
@@ -46,7 +44,7 @@ describe('new otter application with testing', () => {
     packageManagerExec({script: 'ng', args: ['g', '@o3r/testing:add-fixture', '--path', componentPath]}, execAppOptions);
     await addImportToAppModule(projectPath, 'TestComponentContModule', 'src/components/test-component');
 
-    const diff = getGitDiff(execAppOptions.cwd as string);
+    const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added).toContain(path.join(relativeProjectPath, 'src/components/test-component/container/test-component-cont.fixture.ts').replace(/[\\/]+/g, '/'));
 
     if (untouchedProjectPath) {

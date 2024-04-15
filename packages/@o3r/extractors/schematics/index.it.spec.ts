@@ -1,32 +1,23 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-app-extractors
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
   getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRunOnProject,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRunOnProject
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
-import { rm } from 'node:fs/promises';
 
-const appFolder = 'test-app-extractors';
-const o3rVersion = '999.0.0';
-const execAppOptions = getDefaultExecSyncOptions();
-let workspacePath: string;
-let projectName: string;
-let isInWorkspace: boolean;
-let untouchedProjectPath: undefined | string;
 describe('new otter application with extractors', () => {
-  setupLocalRegistry();
-  beforeAll(async () => {
-    ({ workspacePath, projectName, isInWorkspace, untouchedProjectPath } = await prepareTestEnv(appFolder));
-    execAppOptions.cwd = workspacePath;
-  });
-  afterAll(async () => {
-    try { await rm(workspacePath, { recursive: true }); } catch { /* ignore error */ }
-  });
   test('should add extractors to existing application', () => {
+    const { workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
 
     const diff = getGitDiff(workspacePath);

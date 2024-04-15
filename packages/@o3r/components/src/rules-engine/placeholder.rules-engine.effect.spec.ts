@@ -22,7 +22,9 @@ describe('Rules Engine Effects', () => {
   let actions: Subject<any>;
   let factsStream: { [key: string]: Subject<any> };
   const translations: { [key: string]: string } = {
-    localisationkey: 'This is a test with a { parameter }'
+    localisationKey: 'This is a test with a { parameter }',
+    locForUser: '{ parameter } phone { userPhone } and email { userEmail }'
+
   };
   const storeValue = new Subject<any>();
   const mockStore = {
@@ -41,7 +43,8 @@ describe('Rules Engine Effects', () => {
     factsStream = {
       myFact: new ReplaySubject(1),
       factInTemplate: new ReplaySubject(1),
-      parameter: new ReplaySubject(1)
+      parameter: new ReplaySubject(1),
+      user: new ReplaySubject(1)
     };
     await TestBed.configureTestingModule({
       providers: [
@@ -93,7 +96,7 @@ describe('Rules Engine Effects', () => {
         },
         test: {
           type: 'localisation',
-          value: 'localisationkey',
+          value: 'localisationKey',
           vars: ['parameterForLoc']
         },
         parameterForLoc: {
@@ -122,6 +125,53 @@ describe('Rules Engine Effects', () => {
       & TypedAction<'[PlaceholderRequest] update entity'>;
     expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<img src=\'fakeUrl\'> <div>This is a test with a success</div><span>Outstanding fact</span>');
+    expect(result.entity.unknownTypeFound).toBeFalsy();
+  });
+
+  it('should resolve vars and parameters', async () => {
+    const setPlaceholderEffect$ = effect.setPlaceholderRequestEntityFromUrl$.pipe(shareReplay(1));
+    const response: PlaceholderRequestReply = {
+      vars: {
+        test: {
+          type: 'localisation',
+          value: 'locForUser',
+          vars: ['varForLoc'],
+          parameters: {
+            userEmail: 'email',
+            userPhone: 'phone'
+          }
+        },
+        varForLoc: {
+          type: 'fact',
+          value: 'parameter'
+        },
+        email: {
+          type: 'fact',
+          value: 'user',
+          path: '$.email'
+        },
+        phone: {
+          type: 'fact',
+          value: 'user',
+          path: '$.phone'
+        }
+      },
+      template: '<div><%= test %></div>'
+    };
+    actions.next(setPlaceholderRequestEntityFromUrl({
+      call: Promise.resolve(response),
+      id: 'myPlaceholderUrl',
+      resolvedUrl: 'myPlaceholderResolvedUrl'
+    }));
+    factsStream.myFact.next('ignored');
+    factsStream.parameter.next('User');
+    factsStream.user.next({ 'phone': '1234', 'email': 'test@mail.com' });
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
+      & TypedAction<'[PlaceholderRequest] update entity'>;
+    expect(result.type).toBe('[PlaceholderRequest] update entity');
+    expect(result.entity.renderedTemplate).toBe('<div>User phone 1234 and email test@mail.com</div>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
   });
 

@@ -1,31 +1,29 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
+    "config:recommended",
     ":dependencyDashboard",
     "group:allNonMajor",
     "group:monorepos",
     "group:recommended",
     "group:test",
     "group:linters",
+    "helpers:pinGitHubActionDigestsToSemver",
     "schedule:nonOfficeHours"
-  ],
-  "ignorePaths": [
-    "**/node_modules/**",
-    "**/templates/**"
   ],
   "hostRules": [
     {
       "timeout": 240000
     }
   ],
+  "baseBranches": [
+    "main",
+    "master",
+    "/^release\\/.*-next$/"
+  ],
   "timezone": "Europe/Paris",
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
-  "baseBranches": [
-    "main",
-    "/^release\\/.*-next$/"
-  ],
   "enabledManagers": [
     "npm",
     "github-actions"
@@ -50,30 +48,6 @@
   },
   "packageRules": [
     {
-      "matchPackageNames": [
-        "@angular/core",
-        "@o3r/*"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn install",
-          "yarn ng update {{{depName}}} --from={{{currentVersion}}} --to={{{newVersion}}} --migrate-only --allow-dirty --force",
-          "yarn dlx browserslist@latest --update-db"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "**"
-        ]
-      }
-    },
-    {
-      "matchPackagePrefixes": [
-        "@o3r"
-      ],
-      "groupName": "Otter dependencies",
-      "groupSlug": "otter-dependencies"
-    },
-    {
       "matchPackagePatterns": [
         "*"
       ],
@@ -81,19 +55,34 @@
       "rangeStrategy": "replace"
     },
     {
-      "matchPackagePrefixes": [
-        "@o3r"
+      "matchManagers":[
+        "yarn"
       ],
-      "rangeStrategy": "bump"
-    },
-    {
       "matchDepTypes": [
         "packageManager"
       ],
       "postUpgradeTasks": {
         "commands": [
-          "yarn install",
-          "yarn harmonize:version"
+          "yarn install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      }
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install"
         ],
         "executionMode": "branch",
         "fileFilters": [
@@ -135,13 +124,13 @@
       ],
       "rangeStrategy": "in-range-only"
     },
-
     {
       "matchUpdateTypes": [
         "major"
       ],
       "matchBaseBranches": [
         "main",
+        "master",
         "/^release/"
       ],
       "enabled": false
@@ -166,15 +155,6 @@
       "rangeStrategy": "replace"
     },
     {
-      "matchPackagePatterns": [
-        "bootstrap",
-        "^ag-grid-",
-        "^@design-factory"
-      ],
-      "groupName": "Application dependencies",
-      "groupSlug": "application-dependencies"
-    },
-    {
       "matchUpdateTypes": [
         "major"
       ],
@@ -186,51 +166,22 @@
       "enabled": true
     },
     {
+      "matchManagers": [
+        "yarn"
+      ],
       "matchPackageNames": [
         "typescript",
-        "eslint",
-        "@yarnpkg/sdks"
+        "eslint"
       ],
       "postUpgradeTasks": {
         "commands": [
-          "yarn install",
-          "yarn sdks"
+          "yarn dlx @yarnpkg/sdks"
         ],
         "executionMode": "branch",
         "fileFilters": [
           ".yarn/sdks/**"
         ]
       }
-    },
-    {
-      "groupName": "Update of bootstrap disabled as it is not supported by design-factory (Can be removed when upgrading design-factory to v17)",
-      "matchCurrentVersion": "<=5.2.0",
-      "matchPackageNames": [
-        "bootstrap"
-      ],
-      "enabled": false
-    },
-    {
-      "groupName": "Major update of chalk disabled as it drops support on CommonJS",
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "matchCurrentVersion": "<5",
-      "matchPackageNames": [
-        "chalk"
-      ],
-      "enabled": false
-    },
-    {
-      "groupName": "Major update of globby disabled as it drops support on CommonJS",
-      "matchUpdateTypes": [
-        "major"
-      ],
-      "matchCurrentVersion": "<14",
-      "matchPackageNames": [
-        "globby"
-      ],
-      "enabled": false
     }
   ]
 }

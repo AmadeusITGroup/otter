@@ -1,60 +1,61 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { KeyValuePipe, NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ConfigurationModel } from '@o3r/configuration';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
+
+type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;
 
 @Component({
   selector: 'app-config-form',
   templateUrl: './config-form.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    KeyValuePipe,
+    NgClass
+  ]
 })
-export class ConfigFormComponent implements OnChanges {
+export class ConfigFormComponent {
+  /**
+   * Form group
+   */
+  public form = new UntypedFormGroup({});
+
   /**
    * Configuration value
    */
-  @Input()
-  public config!: ConfigurationModel;
+  public config = input.required<ConfigurationModel>();
 
   /**
    * Type of controls for each configuration property
    */
-  public controlsType: { [key: string]: 'boolean' | 'string' | 'number' } = {};
-
-  /**
-   * Form group
-   */
-  public form: FormGroup;
-
-  constructor(
-    private readonly connectionService: ChromeExtensionConnectionService,
-    fb: FormBuilder
-  ) {
-    this.form = fb.group({});
-  }
-
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes.config) {
-      Object.keys(this.form.controls).forEach((controlName) => this.form.removeControl(controlName));
-      this.controlsType = {};
-      Object.keys(this.config).forEach((key) => {
-        const type = typeof this.config[key];
+  public controlsType = computed<Record<string, 'boolean' | 'string' | 'number'>>(() => {
+    return Object.entries(this.config()).reduce((acc: ControlsType, [key, value]) => {
+      if (key !== 'id') {
+        const type = typeof value;
         // TODO: add support for others config properties types
         if (type === 'boolean' || type === 'string' || type === 'number') {
-          this.controlsType[key] = type;
+          acc[key] = type;
           if (!this.form.contains(key)) {
             this.form.addControl(key, new FormControl());
           }
-          this.form.controls[key].setValue(this.config[key]);
+          this.form.controls[key].setValue(value);
         } else {
           console.warn(`[Otter Chrome Extension] Unsupported type: ${type}`);
         }
-      });
-    }
-  }
+      }
+      return acc;
+    }, {});
+  });
+
+  private readonly connectionService = inject(ChromeExtensionConnectionService);
 
   public onSubmit() {
     this.connectionService.sendMessage('updateConfig', {
-      id: this.form.value.id,
+      id: this.config().id,
       configValue: this.form.value
     });
   }

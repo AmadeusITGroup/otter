@@ -1,5 +1,5 @@
 import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { TSESLint } from '@typescript-eslint/experimental-utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import * as path from 'node:path';
 
 const virtualFileSystem = useVirtualFileSystem();
@@ -57,7 +57,12 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ dependencies: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredDependencies: ['myDep'] }] },
     { code: JSON.stringify({ dependencies: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredDependencies: ['my*'] }] },
     { code: JSON.stringify({ dependencies: { myOtherDep: '1.0.0' } }), filename: packageToLint, options: [{ ignoredPackages: ['testPackage'] }] },
-    { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] }
+    { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
+    { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] }
   ],
   invalid: [
     {
@@ -127,6 +132,60 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
             depName: 'myOtherDep',
             packageJsonFile: path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'),
             version: '~2.0.0'
+          }
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      output: JSON.stringify({ resolutions: { 'test/sub/myDep': '^2.0.0' } }),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }),
+      options: [{ alignResolutions: true }],
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'test/sub/myDep',
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
+            version: '^2.0.0'
+          }
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      output: JSON.stringify({ overrides: { test: { myDep: '^2.0.0' } } }),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }),
+      options: [{ alignResolutions: true }],
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'myDep',
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
+            version: '^2.0.0'
+          }
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      output: JSON.stringify({ overrides: { myDep: '^2.0.0' } }),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      code: JSON.stringify({ overrides: { myDep: '1.0.0' } }),
+      options: [{ alignResolutions: true }],
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'myDep',
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
+            version: '^2.0.0'
           }
         }
       ]

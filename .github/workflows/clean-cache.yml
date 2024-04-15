@@ -10,17 +10,21 @@ on:
     branches:
       - '**'
 
+permissions:
+  contents: read
+
 jobs:
   clean-cache:
     runs-on: ubuntu-latest
     permissions:
+      # Needed to delete cache from action
       actions: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - name: Clean Branch Cache
         if: inputs.branch || github.event.ref_type == 'branch'
-        uses: actions/github-script@v7
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         env:
           branchName: ${{ inputs.branch || github.event.ref }}
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}

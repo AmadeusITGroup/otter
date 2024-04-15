@@ -105,9 +105,11 @@ export class TimeoutFetch implements FetchPlugin {
           const timerCallback = (pauseStatus: TimeoutStatus) => {
             if (timer && pauseStatus === 'timeoutStopped') {
               clearTimeout(timer);
+              (context.logger || console).log('[SDK Plugins] Timeout cancelled.');
               timer = undefined;
             } else if (!timer && pauseStatus === 'timeoutStarted') {
               timer = setTimeout(timeoutCallback, this.timeout);
+              (context.logger || console).log('[SDK Plugins] Timeout restarted.');
             }
           };
           this.timerSubscription.push(timerCallback);

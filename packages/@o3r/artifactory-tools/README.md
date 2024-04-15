@@ -5,12 +5,15 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/artifactory-tools?style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/artifactory-tools?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/artifactory-tools)
+
 This module provides various tools for the supported repository manager [JFrog](https://jfrog.com/artifactory/), including deleting old artifacts and deleting a specified amount of PR build artifacts.
 
 ## Artifact cleaner (JFrog)
 
-Cleans old artifacts from JFrog artifactory repositories. Based on the provided (or default) milliseconds value, this script will delete artifacts created before the specified date 
-and artifacts that have not been downloaded since the specified date. The search for the artifacts to delete is limited to the specified repositories. 
+Cleans old artifacts from JFrog artifactory repositories. Based on the provided (or default) milliseconds value, this script will delete artifacts created before the specified date
+and artifacts that have not been downloaded since the specified date. The search for the artifacts to delete is limited to the specified repositories.
 
 Further information can be found in the JFrog documentation [here](https://jfrog.com/help/r/jfrog-rest-apis/artifacts-not-downloaded-since).
 
@@ -31,7 +34,7 @@ The required options include:
 |----------------------------------------------------------|:-----:|----------------------|---------------------------------|------------------------------------------------------------------------------------------------|
 | `--artifactory-url <artifactoryUrl>` <br> **(Required)** |       | `string`             |                                 | JFrog artifactory URL                                                                          |
 | `--basicAuth <basicAuth>` <br> **(Required)**            | `-b`  | `string`             |                                 | Base64 encoding of username:password (password already encrypted from artifactory UI)          |
-| `--repositories <repositories>` <br> **(Required)**      | `-r`  | `string`             |                                 | Artifact repositories to clean up (comma separated) <br> ex: `'repo1,repo2'`                   | 
+| `--repositories <repositories>` <br> **(Required)**      | `-r`  | `string`             |                                 | Artifact repositories to clean up (comma separated) <br> ex: `'repo1,repo2'`                   |
 | `--dry-run <dryRun>`                                     |       | `boolean`            | `false`                         | List all files that would be deleted without actually deleting them                            |
 | `--duration-kept <durationKept>`                         | `-d`  | `number` or `string` | `604800000` <br> (i.e., 7 days) | All artifacts older than this value (in ms) or not downloaded since this value will be deleted |
 | `--type-filter <typeFilter>`                             | `-t`  | `string`             | `'tgz,json'`                    | List of artifact types that should be deleted (comma separated) <br> ex: `'jar,tgz'`           |

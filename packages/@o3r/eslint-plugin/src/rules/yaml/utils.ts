@@ -1,9 +1,9 @@
-import { ParserServices, TSESLint } from '@typescript-eslint/experimental-utils';
+import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
 
 /** Basic interface for the Parser Services object provided by yaml-eslint-parser */
-interface YamlParserServices extends ParserServices {
+type YamlParserServices = ParserServices & {
   isYAML: boolean;
-}
+};
 
 /**
  * Determine if yaml-eslint-parser is used
