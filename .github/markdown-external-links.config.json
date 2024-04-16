@@ -5,6 +5,9 @@
     },
     {
       "pattern": "https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter-pr/npm/registry/"
+    },
+    {
+      "pattern": "https://img.shields.io/bundlephobia/*"
     }
   ],
   "replacementPatterns": [
