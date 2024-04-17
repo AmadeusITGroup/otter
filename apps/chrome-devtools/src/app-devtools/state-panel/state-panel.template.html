@@ -1,0 +1,55 @@
+<form [formGroup]="form">
+  <div class="d-flex gap-4">
+    <div>
+      <label for="download">
+        <span class="btn btn-outline-primary text-nowrap" tabindex="0" role="button" aria-controls="download" dfTriggerClick>
+          <i class="me-2 icon-download"></i>
+          Import state
+        </span>
+        <input type="file" accept="application/JSON" id="download" class="d-none" (change)="onFileChange($event)" />
+      </label>
+    </div>
+    <div class="d-flex gap-4 align-items-start flex-fill" [ngbTooltip]="hasLocalChanges() ? null : 'There are no unsaved changes'">
+      <input type="color" formControlName="newStateColor" class="form-control form-control-color"/>
+      <div class="d-flex flex-column flex-fill">
+        <input type="text" formControlName="newStateName" class="form-control" placeholder="New state name"/>
+        <div class="invalid-feedback">
+          {{ newStateNameErrorMessage() }}
+        </div>
+      </div>
+      <button class="btn btn-primary text-nowrap" (click)="saveNewState()"
+        [disabled]="form.controls.newStateName.invalid || form.controls.newStateName.disabled"
+        [ngbTooltip]="newStateNameErrorMessage()">
+        <i class="me-2 icon-plus"></i>
+        Create new state
+      </button>
+    </div>
+  </div>
+  <div #importStateText class="import-state-text mt-2"></div>
+  <ul class="list-group list-group-flush mt-4" formGroupName="states">
+    @for (state of states() | keyvalue; track state.key) {
+      <li class="list-group-item d-flex align-items-center gap-4" [formGroupName]="state.key">
+        <div class="d-flex align-items-center gap-4 flex-fill"
+          [ngbTooltip]="activeState()?.name !== state.key ? 'Only the selected state can be changed' : null"
+        >
+          <input type="color" formControlName="color" class="form-control form-control-color" />
+          <input type="text" formControlName="name" class="form-control" />
+        </div>
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-save"
+          (click)="updateState(state.key)"
+          [ngbTooltip]="activeState()?.name !== state.key ? 'Only the selected state can be saved' : 'Save changes'"
+          [disabled]="activeState()?.name !== state.key"
+        ></button>
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-share-square"
+          (click)="exportState(state.key)"
+          ngbTooltip="Share"
+        ></button>
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-trash-alt"
+          (click)="deleteState(state.key)"
+          [ngbTooltip]="activeState()?.name === state.key ? 'Selected state cannot be deleted' : 'Delete'"
+          [disabled]="activeState()?.name === state.key"
+        ></button>
+      </li>
+    }
+  </ul>
+</form>

@@ -14,8 +14,8 @@
           </div>
         }
       </div>
-      <div class="form-check form-switch d-flex flex-column gap-2">
-        <div>
+      <div class="d-flex flex-column gap-2">
+        <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" formControlName="showKeys" id="displayLocalizationKey" [attr.aria-describedby]="isTranslationDeactivationEnabled() ? null : 'show-keys-hint'">
           <label class="form-check-label text-nowrap" for="displayLocalizationKey">
             Display localization keys
@@ -42,37 +42,51 @@
       <input class="form-control" formControlName="search" type="text" id="search-localization" placeholder="Search for localization" />
     </div>
   }
-</form>
-@if (hasLocalizations()) {
-  <form [formGroup]="form.controls.translations">
-    <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
-      @for (localization of filteredLocalizations(); track localization.key) {
-        <div ngbAccordionItem>
-          <h3 ngbAccordionHeader>
-            <button ngbAccordionButton>{{localization.key}}</button>
-          </h3>
-          <div ngbAccordionCollapse>
-            <div ngbAccordionBody>
-              <ng-template>
-                <div class="form-group">
-                  <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
-                  <div [id]="localization.key" class="form-text">{{localization.description}}</div>
-                </div>
-              </ng-template>
+  @if (hasLocalizations()) {
+    <ng-container formGroupName="translations">
+      <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+        @for (localization of filteredLocalizations(); track localization.key) {
+          <div ngbAccordionItem>
+            <h3 ngbAccordionHeader>
+              <button ngbAccordionButton>{{localization.key}}</button>
+            </h3>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="form-group">
+                    <div class="d-flex gap-4 align-items-center position-relative">
+                      <ng-container [formGroupName]="form.value.lang">
+                        <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
+                      </ng-container>
+                      @if (localizationActiveStateOverridesForCurrentLang()[localization.key] || localizationLocalStateOverridesForCurrentLang()[localization.key]) {
+                        <i class="form-text text-warning icon-undo position-absolute end-0 me-3"
+                          [ngbTooltip]="
+                            activeStateName() && localizationActiveStateOverridesForCurrentLang()[localization.key] !== localizationLocalStateOverridesForCurrentLang()[localization.key]
+                              ? 'Reset value to the one from ' + activeStateName() + ': ' + (localizationActiveStateOverridesForCurrentLang()[localization.key] || localization.value)
+                              : 'Reset value to the default one from metadata: ' + localization.value
+                          "
+                          (click)="onLocalizationReset(localization)">
+                        </i>
+                      }
+                    </div>
+                    <div [id]="localization.key" class="form-text">{{localization.description}}</div>
+                  </div>
+                </ng-template>
+              </div>
             </div>
           </div>
-        </div>
-      } @empty {
-        <h3>No localization found for your search.</h3>
-      }
-    </div>
-  </form>
-} @else {
-  <h3>No metadata provided for localization.</h3>
-  <p>
-    To provide metadata you can read the following
-    <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md#how-to-enable-more-features-by-providing-metadata-files" target="_blank" rel="noopener">
-      documentation
-    </a>
-  </p>
-}
+        } @empty {
+          <h3>No localization found for your search.</h3>
+        }
+      </div>
+    </ng-container>
+  } @else {
+    <h3>No metadata provided for localization.</h3>
+    <p>
+      To provide metadata you can read the following
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md#how-to-enable-more-features-by-providing-metadata-files" target="_blank" rel="noopener">
+        documentation
+      </a>
+    </p>
+  }
+</form>

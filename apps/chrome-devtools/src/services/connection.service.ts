@@ -2,8 +2,8 @@ import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
 import type { Dictionary } from '@ngrx/entity';
 import type { ConfigurationModel } from '@o3r/configuration';
 import { otterMessageType } from '@o3r/core';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { debounceTime, filter, map } from 'rxjs/operators';
+import { type Observable, ReplaySubject, Subscription } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, shareReplay } from 'rxjs/operators';
 import type { AvailableMessageContents } from './message.interface';
 
 import type { ApplicationInformationContentMessage } from '@o3r/application';
@@ -43,6 +43,21 @@ export const isConfigurationsMessage = (data?: AvailableMessageContents): data i
  * @returns true if the message is a SelectedComponentInfoMessage
  */
 export const isSelectedComponentInfoMessage = (data?: AvailableMessageContents): data is SelectedComponentInfoMessage => data?.dataType === 'selectedComponentInfo';
+
+/**
+ * Operator to filter and map an `AvailableMessageContents`
+ * @param filterFn
+ * @param mapFn
+ */
+export const filterAndMapMessage = <T extends AvailableMessageContents, R>(
+  filterFn: (message: AvailableMessageContents) => message is T,
+  mapFn: (message: T) => R
+) => (message$: Observable<AvailableMessageContents>) => message$.pipe(
+    filter(filterFn),
+    map(mapFn),
+    distinctUntilChanged(),
+    shareReplay({ refCount: true, bufferSize: 1 })
+  );
 
 /**
  * Service to communicate with the current tab

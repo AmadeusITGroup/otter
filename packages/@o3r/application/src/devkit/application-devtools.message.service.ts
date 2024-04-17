@@ -1,16 +1,26 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { inject, Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
 import { isVisualTestingEnabled, prepareVisualTesting,toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
 import { fromEvent, Subscription } from 'rxjs';
-import { ApplicationDevtoolsServiceOptions, ApplicationMessageDataTypes, AvailableApplicationMessageContents, isApplicationMessage } from './application-devkit.interface';
+import {
+  type ApplicationDevtoolsServiceOptions,
+  type ApplicationMessageDataTypes,
+  type AvailableApplicationMessageContents,
+  isApplicationMessage,
+  type StateSelectionContentMessage
+} from './application-devkit.interface';
 import { OtterApplicationDevtools } from './application-devtools.service';
 import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+
+const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
+  private readonly document = inject(DOCUMENT);
   private readonly options: ApplicationDevtoolsServiceOptions;
 
   private readonly subscriptions = new Subscription();
@@ -74,9 +84,47 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
         this.toggleVisualTestingRender(message.toggle);
         break;
       }
+      case 'stateSelection': {
+        this.onStateSelection(message);
+        break;
+      }
+      case 'unselectState': {
+        this.unselectState();
+        break;
+      }
       default: {
         this.logger.warn('Message ignored by the application service', message);
       }
+    }
+  }
+
+  private unselectState() {
+    const ribbonElement = this.document.body.querySelector<HTMLDivElement>(`#${OTTER_STATE_RIBBON_ID}`);
+    if (ribbonElement) {
+      ribbonElement.remove();
+    }
+  }
+
+  private onStateSelection(message: StateSelectionContentMessage) {
+    let ribbonElement = this.document.body.querySelector<HTMLDivElement>(`#${OTTER_STATE_RIBBON_ID}`);
+    if (!ribbonElement) {
+      ribbonElement = this.document.createElement('div');
+      ribbonElement.id = OTTER_STATE_RIBBON_ID;
+      this.document.body.appendChild(ribbonElement);
+    }
+    if (message.stateName) {
+      ribbonElement.innerHTML = message.stateName;
+      ribbonElement.style.background = message.stateColor;
+      ribbonElement.style.color = message.stateColorContrast;
+      ribbonElement.style.position = 'fixed';
+      ribbonElement.style.bottom = '0';
+      ribbonElement.style.right = '0';
+      ribbonElement.style.transform = 'translate(calc(100% * (1 - cos(45deg)))) rotate(-45deg)';
+      ribbonElement.style.transformOrigin = 'bottom left';
+      ribbonElement.style.clipPath = 'inset(0 -100%)';
+      ribbonElement.style.boxShadow = `0px 0px 0px 999px ${message.stateColor}`;
+    } else {
+      ribbonElement.style.display = 'none';
     }
   }
 
@@ -94,6 +142,7 @@ export class ApplicationDevtoolsMessageService implements OnDestroy, DevtoolsSer
       fromEvent(window, 'message').pipe(filterMessageContent(isApplicationMessage)).subscribe((e) => this.handleEvents(e))
     );
     prepareVisualTesting(this.options.e2eIgnoreClass);
+    this.sendApplicationInformation();
   }
 
   /** @inheritDoc */
