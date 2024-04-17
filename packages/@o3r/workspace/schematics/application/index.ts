@@ -83,6 +83,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         ...Object.entries(extendedOptions).reduce((acc, [key, value]) => (angularOptions.includes(key) ? {...acc, [key]: value} : acc), {}),
         name: cleanName,
         projectRoot,
+        standalone: false,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
       updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
