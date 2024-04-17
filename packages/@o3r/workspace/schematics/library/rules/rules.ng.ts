@@ -23,18 +23,16 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
    */
   const updateNgTemplate: Rule = (tree, context) => {
     const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-    const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath)!.toString());
+    const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath).toString());
     const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
 
     const templateNg = apply(url('./templates/ng'), [
       template({
         ...options,
-        runner: process.env.npm_execpath && /[\\/][^\\/]yarn[^\\/]js$/.test(process.env.npm_execpath) ? 'yarn run' : 'npm run',
         tsconfigSpecPath: findConfigFileRelativePath(tree,
           ['tsconfig.test.json', 'tsconfig.spec.json', 'tsconfig.jest.json', 'tsconfig.jasmine.json', 'tsconfig.base.json', 'tsconfig.json'], options.targetPath),
         tsconfigBasePath: findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], options.targetPath),
-        tsconfigBuildPath: findConfigFileRelativePath(tree, ['tsconfig.build.json', 'tsconfig.base.json', 'tsconfig.json'], options.targetPath),
-        eslintRcPath: findConfigFileRelativePath(tree, ['.eslintrc.json', '.eslintrc.js'], options.targetPath)
+        tsconfigBuildPath: findConfigFileRelativePath(tree, ['tsconfig.build.json', 'tsconfig.base.json', 'tsconfig.json'], options.targetPath)
       }),
       renameTemplateFiles(),
       move(options.targetPath)

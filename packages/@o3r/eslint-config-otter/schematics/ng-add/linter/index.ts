@@ -1,6 +1,6 @@
-import { apply, chain, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { posix } from 'node:path';
 
-const tsEslintParserDep = '@typescript-eslint/parser';
 /**
  * Add or update the Linter configuration
  * @param options @see RuleFactory.options
@@ -16,34 +16,77 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
    */
   const updateTslintExtend: Rule = async (tree: Tree, context: SchematicContext) => {
     const eslintFilePath = '/.eslintrc.json';
-    const eslintExists = tree.exists(eslintFilePath);
 
-    if (eslintExists) {
+    if (tree.exists(eslintFilePath)) {
       const eslintFile = tree.readJson(eslintFilePath) as { extends?: string | string[] };
       eslintFile.extends = eslintFile.extends ? (eslintFile.extends instanceof Array ? eslintFile.extends : [eslintFile.extends]) : [];
 
-      if (eslintFile.extends.indexOf(tsEslintParserDep) === -1) {
-        eslintFile.extends.push(tsEslintParserDep);
+      const eslintConfigOtter = '@o3r/eslint-config-otter';
+      if (eslintFile.extends.indexOf(eslintConfigOtter) === -1) {
+        eslintFile.extends.push(eslintConfigOtter);
       }
 
       tree.overwrite(eslintFilePath, JSON.stringify(eslintFile, null, 2));
     } else {
       const { getAllFilesInTree, getTemplateFolder } = await import('@o3r/schematics');
-      const eslintConfigFiles = getAllFilesInTree(tree, '/', ['**/.eslintrc.json'], false).filter((file) => /\.eslintrc/i.test(file));
+      const eslintConfigFiles = getAllFilesInTree(tree, '/', ['**/.eslintrc.js'], false).filter((file) => /\.eslintrc/i.test(file));
       if (!eslintConfigFiles.length) {
-        return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname)), [
+        return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, 'templates/workspace')), [
           template({
             dot: '.'
           }),
           renameTemplateFiles()
         ]), MergeStrategy.Overwrite);
       } else {
-        context.logger.warn('An unsupported format EsLint configuration already exists, an automatic update cannot be applied.');
-        context.logger.warn(`You can manually extends "@o3r/eslint-config-otter" in your configuration ${eslintConfigFiles.map((f) => `"${f}"`).join(', ')}`);
+        context.logger.warn('An unsupported format ESLint configuration already exists, an automatic update cannot be applied.');
+        context.logger.warn(`You can manually extend "@o3r/eslint-config-otter" in your configuration ${eslintConfigFiles.map((f) => `"${f}"`).join(', ')}`);
+        return;
       }
     }
   };
 
+  /**
+   * Create linter files for the project
+   * @param tree
+   * @param context
+   */
+  const createProjectFiles: Rule = async (tree: Tree, context: SchematicContext) => {
+    if (!options.projectName) {
+      return;
+    }
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
+    const workspace = getWorkspaceConfig(tree);
+    if (!workspace) {
+      return;
+    }
+    const workspaceProject = workspace.projects[options.projectName];
+
+    if (!workspaceProject) {
+      context.logger.warn('No project detected, linter task can not be added.');
+      return;
+    }
+
+    const projectRoot = workspaceProject.root;
+    const projectType = workspaceProject.projectType;
+    const eslintFilePath = posix.join(projectRoot, '/.eslintrc.js');
+
+    if (tree.exists(eslintFilePath)) {
+      context.logger.info(`${eslintFilePath} already exists.`);
+      return;
+    } else {
+      const { getTemplateFolder } = await import('@o3r/schematics');
+      const rootRelativePath = posix.relative(projectRoot, tree.root.path.replace(/^\//, './'));
+      return mergeWith(apply(url(getTemplateFolder(rootPath, __dirname, 'templates/project')), [
+        template({
+          dot: '.',
+          projectTsConfig: projectType === 'application' ? 'tsconfig.app' : 'tsconfig.lib',
+          rootRelativePath
+        }),
+        move(projectRoot),
+        renameTemplateFiles()
+      ]), MergeStrategy.Overwrite);
+    }
+  };
   /**
    * Update angular.json file to use ESLint builder.
    * @param tree
@@ -52,10 +95,13 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
   const editAngularJson: Rule = async (tree: Tree, context: SchematicContext) => {
     const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);
-    const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
+    if (!workspace) {
+      return;
+    }
+    const workspaceProject = options.projectName ? workspace.projects[options.projectName] : undefined;
 
-    if (!workspace || !workspaceProject) {
-      context.logger.warn('No project detected, linter task can not be added');
+    if (!workspaceProject) {
+      context.logger.warn('No project detected, linter task can not be added.');
       return;
     }
 
@@ -63,9 +109,9 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     workspaceProject.architect.lint ||= {
       builder: '@angular-eslint/builder:lint',
       options: {
-        eslintConfig: './.eslintrc.js',
+        eslintConfig: `${workspaceProject.root}/.eslintrc.js`,
         lintFilePatterns: [
-          'src/**/*.ts'
+          `${workspaceProject.sourceRoot || posix.join(workspaceProject.root, 'src') }/**/*.ts`
         ]
       }
     };
@@ -76,6 +122,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
 
   return chain([
     updateTslintExtend,
+    createProjectFiles,
     editAngularJson
   ]);
 }
