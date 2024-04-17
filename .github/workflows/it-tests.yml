@@ -65,6 +65,10 @@ jobs:
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
+      - shell: bash
+        run: |
+          git config --global  user.name "GitHub Actions"
+          git config --global  user.email "AmadeusITGroup-otter@users.noreply.github.com"
       - uses: ./.github/actions/setup-java
         with:
           install-jdk: 'true'
