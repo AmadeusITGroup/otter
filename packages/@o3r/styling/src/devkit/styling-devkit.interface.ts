@@ -25,6 +25,10 @@ export interface UpdateStylingVariablesContentMessage extends OtterMessageConten
    */
   variables: Record<string, string>;
 }
+
+/** Reset styling variables override */
+export interface ResetStylingVariablesContentMessage extends OtterMessageContent<'resetStylingVariables'> {}
+
 /** Styling variable */
 export type StylingVariable = CssVariable & { runtimeValue?: string };
 
@@ -39,6 +43,7 @@ export interface GetStylingVariableContentMessage extends OtterMessageContent<'g
  */
 type StylingMessageContents =
   | UpdateStylingVariablesContentMessage
+  | ResetStylingVariablesContentMessage
   | GetStylingVariableContentMessage;
 
 /** List of possible DataTypes for Styling messages */
