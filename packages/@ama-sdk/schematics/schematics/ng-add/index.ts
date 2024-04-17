@@ -1,9 +1,10 @@
+import type { OpenApiToolsConfiguration } from '@ama-sdk/core';
 import { isJsonObject } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { readFileSync } from 'node:fs';
 import { lastValueFrom } from 'rxjs';
-import type { PackageJson } from 'type-fest';
+import type { JsonObject, PackageJson } from 'type-fest';
 import { DevInstall } from '../helpers/node-install';
 
 const packageJsonPath = '/package.json';
@@ -79,7 +80,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
   const openApiDefaultStorageDir = '.openapi-generator';
   if (tree.exists(openApiConfigPath)) {
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    const openapitoolsConfig = tree.readJson(openApiConfigPath) as { 'generator-cli'?: { storageDir?: string; version?: string } } || {};
+    const openapitoolsConfig = tree.readJson(openApiConfigPath) as JsonObject & OpenApiToolsConfiguration;
     openapitoolsConfig['generator-cli'] = {storageDir: openApiDefaultStorageDir, ...openapitoolsConfig['generator-cli'], version: openApiGeneratorVersion};
     tree.overwrite(openApiConfigPath, JSON.stringify(openapitoolsConfig));
   } else {

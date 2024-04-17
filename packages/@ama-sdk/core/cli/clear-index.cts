@@ -4,10 +4,20 @@
  * Remove deleted models' exports
  */
 
+import * as minimist from 'minimist';
 import { promises as fs, statSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+const argv = minimist(process.argv.slice(2));
+const { help } = argv;
 const baseDir = resolve(process.cwd(), 'src', 'models', 'base');
+
+if (help) {
+  console.log(`Remove the index files that are no longer necessary after the deletion of the associated model.
+  Usage: amasdk-clear-index
+  `);
+  process.exit(0);
+}
 
 void (async () => {
   const models = await fs.readdir(baseDir);

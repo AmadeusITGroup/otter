@@ -13,6 +13,18 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicO
   /** Directory where to generate the SDK */
   directory?: string | undefined;
 
+  /** The npm package name where the spec file can be fetched */
+  specPackageName?: string;
+
+  /** The npm registry where the spec file can be fetched */
+  specPackageRegistry?: string;
+
+  /** The path inside the package where to find the spec file */
+  specPackagePath: string;
+
+  /** The version to target for the npm package where the spec file can be fetched */
+  specPackageVersion?: string;
+
   /** Package manager to be used in the generated SDK */
   packageManager?: 'npm' | 'yarn' | undefined;
 

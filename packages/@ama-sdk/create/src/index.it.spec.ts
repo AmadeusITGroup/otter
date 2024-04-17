@@ -74,6 +74,27 @@ describe('Create new sdk command', () => {
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
+    expect(() => packageManagerRun({script: 'spec:upgrade'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+  });
+
+  test('should generate a full SDK when the specification is provided as npm dependency', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: [
+          'typescript',
+          sdkPackageName,
+          '--package-manager', packageManager,
+          '--spec-package-name', '@ama-sdk/showcase-sdk',
+          '--spec-package-path', 'openapi.yml',
+          '--spec-package-version', o3rEnvironment.testEnvironment.o3rVersion,
+          '--spec-package-registry', o3rEnvironment.testEnvironment.packageManagerConfig.registry
+        ]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(existsSync(path.join(sdkPackagePath, 'src', 'models', 'base', 'pet', 'pet.reviver.ts'))).toBeTruthy();
+    expect(() => packageManagerRun({script: 'spec:upgrade'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate an SDK with no package scope', () => {

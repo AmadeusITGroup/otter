@@ -8,7 +8,7 @@
       "ama-sdk-showcase-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./swagger-spec.yaml",
+        "inputSpec": "./openapi.yml",
         "globalProperty": {
           "stringifyDate": true
         }
