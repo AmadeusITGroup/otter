@@ -1,0 +1,11 @@
+.debug {
+  padding: 15px;
+  text-align: center;
+  border: 2px dashed var(--o3r-placeholder-debug-color, #a65c27);
+  border-radius: 10px;
+  width: 100%;
+  background: var(--o3r-placeholder-background, #fff2ea);
+  border-style: dashed;
+  color: var(--o3r-placeholder-debug-color, #a65c27);
+  font-size: larger;
+}

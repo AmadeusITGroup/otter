@@ -1,0 +1,18 @@
+<ng-template #projection>
+  <ng-content></ng-content>
+</ng-template>
+@switch (mode()) {
+  @case ('debug') {
+    <span class="placehoder-id">{{ id$ | async }}</span>
+  }
+  @case ('pending') {
+    <ng-container *ngTemplateOutlet="projection" />
+  }
+  @case ('normal') {
+    @if (isPending) {
+      <ng-container *ngTemplateOutlet="projection" />
+    } @else {
+      <div [innerHTML]="template"></div>
+    }
+  }
+}

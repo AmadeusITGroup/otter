@@ -3,7 +3,7 @@
   "rulesets": [
     {
       "id": "6194b61a-1bf3-4c02-8b7c-20f782d68324",
-      "name": "showcase",
+      "name": "rules-engine",
       "disabled": false,
       "rules": [
         {
@@ -153,6 +153,24 @@
               }
             ],
             "failureElements": []
+          }
+        }
+      ]
+    },
+    {
+      "id": "5945e501-b9ff-414f-8025-56885d0d7a4b-5945e501-b9ff-414f-8025-56885d0d7a4b",
+      "name": "placeholder",
+      "rules": [
+        {
+          "id": "5945e501-b9ff-414f-8025-56885d0d7a4b",
+          "name": "Placeholder showcase",
+          "outputRuntimeFacts": [],
+          "inputRuntimeFacts": [],
+          "rootElement": {
+            "elementType": "ACTION",
+            "actionType": "UPDATE_PLACEHOLDER",
+            "value": "assets/placeholders/placeholder-showcase.json",
+            "placeholderId": "placeholder-showcase"
           }
         }
       ]

@@ -1,0 +1,9 @@
+{
+  "template": "<p class=\"d-flex flex-column align-items-center\"><label><code>outboundDate</code> fact:</label><span><%= outboundDate %></span></p>",
+  "vars": {
+    "outboundDate": {
+      "value": "outboundDate",
+      "type": "fact"
+    }
+  }
+}
