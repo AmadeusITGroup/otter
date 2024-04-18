@@ -147,7 +147,8 @@ const createNgProject = () => {
     .filter(([key]) => isNgNewOptions(key))
     .flat();
   exitProcessIfErrorInSpawnSync(1, spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
-    stdio: 'inherit'
+    stdio: 'inherit',
+    shell: true
   }));
 };
 
@@ -192,12 +193,14 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   if (projectPackageManager === 'yarn') {
     exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
       stdio: 'inherit',
+      shell: true,
       cwd
     }));
   }
 
   exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['install'], {
     stdio: 'inherit',
+    shell: true,
     cwd
   }));
 };
@@ -211,6 +214,7 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
     stdio: 'inherit',
     cwd,
+    shell: true,
     env: exactO3rVersion && projectPackageManager === 'npm' ? {
       ...process.env,
       // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase

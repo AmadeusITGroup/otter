@@ -96,7 +96,7 @@ const run = () => {
   ];
 
   const errors = steps
-    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
+    .map((step) => spawnSync(step.runner || process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
     .filter(({error, status}) => (error || status !== 0));
 
   if (errors.length > 0) {
