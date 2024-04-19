@@ -1,13 +1,21 @@
 import type { Ruleset } from '@o3r/rules-engine';
 
-export const jsonTwoRulesetsOneOnDemand: {rulesets: Ruleset[]} = {
+export const jsonTwoRulesetsBothOnDemand: {rulesets: Ruleset[]} = {
   'rulesets': [
     {
       'id': 'e5th46e84-5e4th-54eth65seth46se8Linked',
-      'name': 'linked component ruleset',
-      'linkedComponent': {
-        'library': '@otter/demo-app-components',
-        'name': 'o3r-calendar-per-bound-cont'
+      'name': '2 linked component ruleset',
+      'linkedComponents': {
+        'or': [
+          {
+            'library': '@otter/demo-app-components',
+            'name': 'o3r-calendar-per-bound-cont'
+          },
+          {
+            'library': '@otter/demo-app-components',
+            'name': 'o3r-calendar-per-bound-cont-2'
+          }
+        ]
       },
       'rules': [
         {
@@ -37,6 +45,10 @@ export const jsonTwoRulesetsOneOnDemand: {rulesets: Ruleset[]} = {
     {
       'id': 'e5th46e84-5e4th-54eth65seth46Default',
       'name': 'the first ruleset',
+      'linkedComponent': {
+        'library': '@otter/demo-app-components',
+        'name': 'o3r-calendar-per-bound-cont'
+      },
       'rules': [
         {
           'id': '6e8t54h6s4e-6erth46sre8th4-d46t8s13t5j0',

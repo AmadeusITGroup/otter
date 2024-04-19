@@ -1,7 +1,7 @@
 # A/B Testing
 ## Introduction
 In this page, we will help you integrate an A/B testing solution to the rest of your application.
-Let's first define a core concept of A/B testing: an ``experiment`` is a behavior specific to a group of users 
+Let's first define a core concept of A/B testing: an ``experiment`` is a behavior specific to a group of users
 -- for instance the display of a banner or a configuration to drive a UI component.
 
 In its [@o3r/third-party](https://www.npmjs.com/package/@o3r/third-party package, the Otter framework exposes a technical
@@ -9,10 +9,10 @@ bridge to allow third party scripts to drive experiments on your application.
 
 ## Mechanism
 The ``AbTestBridge`` is a generic class that can support multiple experiment types to fit your
-needs (string, object etc.). The ``AbTestBridge`` exposes two methods to manage the list of experiments to apply on the 
+needs (string, object etc.). The ``AbTestBridge`` exposes two methods to manage the list of experiments to apply on the
 application: ``window.start`` and ``window.stop``.
 
-The ``start(experiment: T | T[])`` method requests the application to run one or several experiments, the ``stop(experiment: T | T[])`` method will 
+The ``start(experiment: T | T[])`` method requests the application to run one or several experiments, the ``stop(experiment: T | T[])`` method will
 remove one or several experiments from the list of experiments while ``stop()`` will stop all the ongoing experiments.
 
 The list of the requested experiments is exposed via ``experiments$`` a public ``Observable`` matching your type.
@@ -90,7 +90,7 @@ export class ExperimentFactsService extends FactsService<ExperimentFacts> {
 
   /**
    * Emit a new list of experiments to re-evaluate the rulesets
-   * 
+   *
    * @param experiments: new list of experiments to apply. It will override the previous one
    */
   public setExperiments(experiments: {id: string; variationId: string}[]) {
@@ -100,7 +100,7 @@ export class ExperimentFactsService extends FactsService<ExperimentFacts> {
   }
 }
 ```
-**Warning** Your service must be imported only once in the application. A good way to do it is to provide it in root as 
+**Warning** Your service must be imported only once in the application. A good way to do it is to provide it in root as
 a singleton.
 
 #### The A/B Testing service
@@ -166,7 +166,7 @@ export class AbTestService {
   /**
    * Update experiment fact in rule engine
    *
-   * @param experiments 
+   * @param experiments
    */
   protected applyExperimentRules(experiments: ABTestingExperiment[]) {
     this.experimentFacts.setExperiments(experiments);
@@ -183,7 +183,7 @@ export class AbTestService {
 
   /**
    * Use logger service to log different informations
-   * 
+   *
    * @param args
    */
   private log(...args: any[]) {
@@ -201,11 +201,15 @@ You can now create A/B testing-driven rulesets .
     {
       "id": "1",
       "name": "AB testing rule",
-      "linkedComponent": {
-        "library": "@my/lib",
-        "name": "ABTestingComponent"
+      "linkedComponents": {
+        "or": [
+          {
+            "library": "@my/lib",
+            "name": "ABTestingComponent"
+          }
+        ]
       },
-       "rules": [
+      "rules": [
         {
           "name": "A/B Test - Update configuration ",
           "inputRuntimeFacts": [],
@@ -257,4 +261,5 @@ You can now create A/B testing-driven rulesets .
 }
 
 ```
+> Note: In v10 and previously, we used `linkedComponent` property to activate a ruleset on demand. This becomes deprecated and will be removed in v12. Use `linkedComponents` instead;
 

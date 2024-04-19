@@ -28,6 +28,7 @@ import { jsonTwoRulesetTwoRules } from '../../../testing/mocks/tworulesets-tworu
 import { xmasHamper } from '../../../testing/mocks/xmas-hamper.mock';
 import { RulesetsStore, RulesetsStoreModule, setRulesetsEntities } from '../../stores/index';
 import { RulesEngineRunnerService } from './rules-engine.runner.service';
+import { jsonTwoRulesetsBothOnDemand } from '../../../testing/mocks/tworulesets-both-ondemand';
 
 describe('Rules engine service', () => {
 
@@ -249,6 +250,51 @@ describe('Rules engine service', () => {
     const nextNextActions = await firstValueFrom(service.events$);
     // should execute the actions from active rulesets after deactivating the ruleset on demand
     expect(nextNextActions.length).toBe(4);
+  });
+
+  it('should handle linked component(s) rulesets', async () => {
+    service.engine.upsertFacts<any>([{
+      id: 'isMobileDevice',
+      value$: of(true)
+    }]);
+    const nextFn = jest.fn();
+    store.dispatch(setRulesetsEntities({entities: jsonTwoRulesetsBothOnDemand.rulesets}));
+    const sub = service.events$.subscribe({
+      next: value => nextFn(value)
+    });
+    // should output no actions as all rulesets are on demand
+    expect(nextFn).not.toHaveBeenCalled();
+    sub.unsubscribe();
+
+    // activate ruleset 1 via his own linked component
+    service.enableRuleSetFor(computeItemIdentifier('o3r-calendar-per-bound-cont-2', '@otter/demo-app-components'));
+    let nextActions = await firstValueFrom(service.events$);
+    // should execute the action from the first ruleset
+    expect(nextActions.length).toBe(1);
+
+    // activate ruleset 2 via his linked component ( the same component is linked to ruleset 1 )
+    service.enableRuleSetFor(computeItemIdentifier('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    nextActions = await firstValueFrom(service.events$);
+    // should execute the actions from both rulesets
+    expect(nextActions.length).toBe(5);
+
+    // unlink ruleset 1 private component, should not change the output as the common component is still linked
+    service.disableRuleSetFor(computeItemIdentifier('o3r-calendar-per-bound-cont-2', '@otter/demo-app-components'));
+    nextActions = await firstValueFrom(service.events$);
+    // should still execute the actions from both rulesets as ruleset 1 is still having a linked component
+    expect(nextActions.length).toBe(5);
+
+    // re-link the component for ruleset 1, should not change the output as both rulesets will stay active
+    service.enableRuleSetFor(computeItemIdentifier('o3r-calendar-per-bound-cont-2', '@otter/demo-app-components'));
+    nextActions = await firstValueFrom(service.events$);
+    // should execute the action from both rulesets
+    expect(nextActions.length).toBe(5);
+
+    // unlink the common component, should disable ruleset 2, but not ruleset 1 which still has a linked component
+    service.disableRuleSetFor(computeItemIdentifier('o3r-calendar-per-bound-cont', '@otter/demo-app-components'));
+    nextActions = await firstValueFrom(service.events$);
+    // should execute the action from ruleset 1
+    expect(nextActions.length).toBe(1);
   });
 
   it('should keep enabled for multiple instances of components', async () => {

@@ -39,7 +39,7 @@ export const selectActiveRuleSets = createSelector(
   selectAllRulesets,
   (ruleSets) => ruleSets.filter((ruleSet: Ruleset) => {
 
-    if (ruleSet.linkedComponent) {
+    if (ruleSet.linkedComponents?.or?.length || ruleSet.linkedComponent) {
       return false;
     }
 
@@ -66,20 +66,70 @@ export const selectActiveRuleSets = createSelector(
     return to && to.getTime() >= time;
   }).map((ruleSet: Ruleset) => ruleSet.id));
 
+/*
+ * Assign rulesetId to a component
+ * @deprecated; It will be rmeoved in v12 with the selector using it
+ */
+function linkRulesetToComponent(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
+  const configName = computeItemIdentifier(compName, library);
+  acc[configName] ||= [];
+  acc[configName].push(ruleSetId);
+}
+
+/* Assign component to RulesetIds Map */
+function linkComponentToRuleset(compName: string, library: string, ruleSetId: string, acc: Record<string, string[]> = {}) {
+  const configName = computeItemIdentifier(compName, library);
+  acc[ruleSetId] ||= [];
+  acc[ruleSetId].push(configName);
+}
+
+
 /**
  * Select the map of ruleSet to activate based on the component computed name
+ * @deprecated use {@link selectComponentsLinkedToRuleset} instead. It will be removed in v12
  */
 export const selectRuleSetLinkComponents = createSelector(
   selectAllRulesets,
   (ruleSets) =>
     ruleSets
       .reduce((acc: Record<string, string[]>, ruleSet: Ruleset) => {
-        if (!ruleSet.linkedComponent) {
+        if ((!ruleSet.linkedComponents?.or || ruleSet.linkedComponents.or.length === 0) && !ruleSet.linkedComponent) {
           return acc;
         }
-        const configName = computeItemIdentifier(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library);
-        acc[configName] ||= [];
-        acc[configName].push(ruleSet.id);
+        if (ruleSet.linkedComponents?.or?.length) {
+          ruleSet.linkedComponents.or.forEach(linkComp => {
+            linkRulesetToComponent(linkComp.name, linkComp.library, ruleSet.id, acc);
+          });
+          return acc;
+        }
+        if (ruleSet.linkedComponent) {
+          linkRulesetToComponent(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library, ruleSet.id, acc);
+        }
         return acc;
       }, {})
 );
+
+/**
+ * Select the map of ruleSets to activate based on linked components
+ */
+export const selectComponentsLinkedToRuleset = createSelector(
+  selectAllRulesets,
+  (ruleSets) =>
+    ruleSets
+      .reduce((acc: {or: {[key: string]: string[]}}, ruleSet: Ruleset) => {
+        if ((!ruleSet.linkedComponents?.or || ruleSet.linkedComponents.or.length === 0) && !ruleSet.linkedComponent) {
+          return acc;
+        }
+        if (ruleSet.linkedComponents?.or?.length) {
+          ruleSet.linkedComponents.or.forEach(linkComp => {
+            linkComponentToRuleset(linkComp.name, linkComp.library, ruleSet.id, acc.or);
+          });
+          return acc;
+        }
+        if (ruleSet.linkedComponent) {
+          linkComponentToRuleset(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library, ruleSet.id, acc.or);
+        }
+        return acc;
+      }, {or: {}})
+);
+

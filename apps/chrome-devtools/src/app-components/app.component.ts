@@ -101,7 +101,12 @@ export class AppComponent {
       this.selectedComponentInfo$.pipe(filter((info): info is OtterLikeComponentInfo => !!info)),
       rulesetHistoryService.rulesetExecutions$.pipe(startWith([]))
     ]).pipe(
-      map(([info, executions]) => executions.filter((execution) => execution.rulesetInformation?.linkedComponent?.name === info.componentName))
+      map(([info, executions]) =>
+        executions.filter((execution) =>
+          (execution.rulesetInformation?.linkedComponent?.name === info.componentName) ||
+          (execution.rulesetInformation?.linkedComponents?.or.some(linkedComp => linkedComp.name === info.componentName))
+        )
+      )
     );
   }
 
