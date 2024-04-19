@@ -1,8 +1,8 @@
-const { relative } = require('node:path');
+const { join, relative } = require('node:path');
 const { pathsToModuleNameMapper } = require('ts-jest');
-// In the following statement, replace `<%= rootRelativePath %>/tsconfig.base` with the path to your `tsconfig` file
+// In the following statement, replace `./tsconfig.json` with the path to your `tsconfig` file
 // which contains the path mapping (ie the `compilerOptions.paths` option):
-const { compilerOptions } = require('<%= rootRelativePath %>/tsconfig.base');
+const { compilerOptions } = require('./tsconfig.json');
 
 globalThis.ngJest = {
   skipNgcc: true
@@ -14,11 +14,13 @@ globalThis.ngJest = {
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
 module.exports.getJestProjectConfig = (rootDir, isAngularSetup) => {
-  const relativePath = relative(rootDir, '.');
-  const moduleNameMapper = Object.entries(pathsToModuleNameMapper(compilerOptions.paths)).reduce((acc, [moduleName, path]) => {
+  const relativePath = relative(rootDir, __dirname);
+  const moduleNameMapper = Object.entries(pathsToModuleNameMapper(compilerOptions.paths || {})).reduce((acc, [moduleName, path]) => {
     acc[moduleName] = `<rootDir>/${relativePath}/${path}`;
     return acc;
   }, {});
+  moduleNameMapper['^@o3r/testing/core$'] = [require.resolve('@o3r/testing/core/angular')];
+  moduleNameMapper['^@o3r/testing/core/(.*)'] = [join(require.resolve('@o3r/testing/core/angular'), '$1')];
   return {
     preset: 'ts-jest',
     setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.ts'],

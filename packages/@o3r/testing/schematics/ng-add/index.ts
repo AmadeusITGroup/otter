@@ -26,7 +26,10 @@ const devDependenciesToInstall = [
   'pixelmatch',
   'pngjs',
   'jest',
-  'jest-preset-angular'
+  'jest-environment-jsdom',
+  'jest-preset-angular',
+  'ts-jest',
+  '@types/jest'
 ];
 
 /**
@@ -90,7 +93,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
 
       const rules = [
-        updateFixtureConfig(options, installJest),
+        updateFixtureConfig(options),
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
         installPlaywright ? updatePlaywright(options, dependencies) : noop,
@@ -135,8 +138,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
           const jestConfigFilesForWorkspace = () => mergeWith(apply(url('./templates/workspace'), [
             template({
-              ...options,
-              rootRelativePath
+              ...options
             }),
             move(tree.root.path),
             renameTemplateFiles()
