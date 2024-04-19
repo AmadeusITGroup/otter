@@ -9,9 +9,10 @@ import { {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}} } from './{{#kebabC
 export class {{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}Fixture implements Partial<Readonly<{{#uppercaseFirst}}{{classname}}{{/uppercaseFirst}}>> {
 
   /** @inheritDoc */
-  public readonly apiName = "{{classname}}";
+  public readonly apiName = '{{classname}}';
 
-  {{#operation}}/**
+  {{#operation}}
+  /**
    * Fixture associated to function {{nickname}}
    */
   public {{nickname}}: jasmine.Spy = jasmine.createSpy('{{nickname}}');

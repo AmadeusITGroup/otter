@@ -1,11 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Group all design factory dependencies",
   "packageRules": [
     {
       "matchPackagePatterns": [
         "bootstrap",
         "^ag-grid-",
-        "^@design-factory"
+        "^@design-factory",
+        "^@agnos-ui",
+        "^@amadeus-it-group"
       ],
       "groupName": "Design Factory dependencies",
       "groupSlug": "design-factory-dependencies"

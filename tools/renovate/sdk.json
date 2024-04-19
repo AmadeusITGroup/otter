@@ -1,88 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "labels": [
-    "dependencies"
-  ],
-  "updateInternalDeps": true,
-  "automerge": true,
-  "platformAutomerge": true,
-  "packageRules": [
-    {
-      "matchBaseBranches": [
-        "master",
-        "main"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ],
-      "rangeStrategy": "bump"
-    },
-    {
-      "matchBaseBranches": [
-        "/^release/.*/"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ],
-      "rangeStrategy": "patch"
-    },
-    {
-      "groupName": "Otter SDK dependencies",
-      "groupSlug": "otter-sdk-dependencies",
-      "matchBaseBranches": [
-        "master",
-        "main",
-        "/^release/.*/"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ]
-    },
-    {
-      "matchBaseBranches": [
-        "master",
-        "main",
-        "/^release/.*/"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ],
-      "matchPackageNames": [
-        "npm"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "npm install",
-          "npm run swagger:generate"
-        ],
-        "fileFilters": [
-          "!**/.{npmrc,yarnrc*}"
-        ],
-        "executionMode": "branch"
-      }
-    },
-    {
-      "matchBaseBranches": [
-        "master",
-        "main",
-        "/^release/.*/"
-      ],
-      "matchPackagePrefixes": [
-        "@ama-sdk"
-      ],
-      "matchPackageNames": [
-        "yarn"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn install",
-          "yarn run swagger:generate"
-        ],
-        "fileFilters": [
-          "!**/.{npmrc,yarnrc*}"
-        ],
-        "executionMode": "branch"
-      }
-    }
+  "description": "Group all otter dependencies and trigger SDK regeneration with yarn",
+  "extends": [
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(yarn)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/yarn-pnp"
   ]
 }

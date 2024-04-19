@@ -1,6 +1,6 @@
 # Import json in CMS
 
-## Disclaimer : This feature is not supported by the cms yet
+## Disclaimer : This feature is not supported by the CMS yet
 
 Since not all projects will be able to use the CMS, it's possible to write directly the rules inside the json (cf examples).
 If the application decides to migrate to the CMS, it will be able to import the json they are using : however, they are a few constraints :

@@ -1,8 +1,10 @@
 import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
+import { Store } from '@ngrx/store';
 import { firstValueFrom, fromEvent, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { type PlaceholderTemplateState, togglePlaceholderModeTemplate } from '../stores';
 import { AvailableComponentsMessageContents, ComponentsDevtoolsServiceOptions, ComponentsMessageDataTypes, isComponentsMessage } from './components-devkit.interface';
 import { OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS, OTTER_COMPONENTS_DEVTOOLS_OPTIONS } from './components-devtools.token';
 import { OtterInspectorService, OtterLikeComponentInfo } from './inspector';
@@ -19,8 +21,10 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
   private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
 
   constructor(
-      private readonly logger: LoggerService,
-      @Optional() @Inject(OTTER_COMPONENTS_DEVTOOLS_OPTIONS) options?: ComponentsDevtoolsServiceOptions) {
+    private readonly logger: LoggerService,
+    private readonly store: Store<PlaceholderTemplateState>,
+    @Optional() @Inject(OTTER_COMPONENTS_DEVTOOLS_OPTIONS) options?: ComponentsDevtoolsServiceOptions
+  ) {
     this.options = {
       ...OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
       ...options
@@ -91,6 +95,10 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
       }
       case 'toggleInspector': {
         this.inspectorService.toggleInspector(message.isRunning);
+        break;
+      }
+      case 'placeholderMode': {
+        this.store.dispatch(togglePlaceholderModeTemplate({ mode: message.mode }));
         break;
       }
       default: {

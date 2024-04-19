@@ -15,6 +15,7 @@ export const getAddFixtureRules = (
   '@o3r/testing',
   'fixture-to-component',
   {
+    ...options,
     skipLinter: options.skipLinter,
     page: isPage
   }

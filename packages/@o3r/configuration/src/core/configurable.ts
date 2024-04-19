@@ -1,1 +1,1 @@
-export type { DynamicConfigurable, Configurable } from '@o3r/core';
+export type { DynamicConfigurable, Configurable, DynamicConfigurableWithSignal } from '@o3r/core';

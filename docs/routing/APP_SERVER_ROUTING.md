@@ -1,6 +1,6 @@
 # App Server routing
 
-In order to get angular routing redirection to work correctly, you have to correctly provide the ``APP_BASE_HREF`` token from ``@angular/common``. To ease this process, we have created a new routing module to handle this provider together with some useful shell commands.
+In order to get Angular routing redirection to work correctly, you have to correctly provide the ``APP_BASE_HREF`` token from ``@angular/common``. To ease this process, we have created a new routing module to handle this provider together with some useful shell commands.
 
 In your app, you just need to import the ``AppServerRoutingModule`` from ``@o3r/routing``. Example:
 
