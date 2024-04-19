@@ -44,4 +44,4 @@ const args = [
 console.log(`Executing: ${script} ${args.join(' ')}`);
 
 // Execute the script
-childProcess.execFileSync(script, args, { stdio: 'inherit' });
+childProcess.execFileSync(script, args, { stdio: 'inherit', shell: process.platform === 'win32' });

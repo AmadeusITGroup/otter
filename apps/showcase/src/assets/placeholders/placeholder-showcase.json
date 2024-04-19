@@ -1,5 +1,5 @@
 {
-  "template": "<p class=\"d-flex flex-column align-items-center\"><label><code>outboundDate</code> fact:</label><span><%= outboundDate %></span></p>",
+  "template": "<div class=\"d-flex flex-column align-items-center mb-5\"><label><code>outboundDate</code> fact:</label><div class=\"visual-testing-ignore w-100 text-center\"><%= outboundDate %></div></div>",
   "vars": {
     "outboundDate": {
       "value": "outboundDate",

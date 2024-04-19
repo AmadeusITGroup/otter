@@ -22,9 +22,6 @@ cd tests-clone
 echo 'Delete previous screenshots'
 rm -rdf apps/showcase/e2e-playwright/sanity/screenshots
 
-# Ensure yarn is installed
-corepack enable
-
 # Configure the global cache to target a folder outside the container to have it available for the following runs
 yarn config set enableGlobalCache true
 yarn config set globalFolder ../tests/.cache/e2e
