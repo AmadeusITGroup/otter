@@ -263,8 +263,8 @@ $highlight: mat.$mat-pink, A200, A100, A400;
 
 
 // Override the amadeus theme:
-$candy-app-primary: mat.palette(mat.$mat-indigo);
-$candy-app-accent:  mat.palette(mat.$mat-pink, A200, A100, A400);
+$candy-app-primary: otter-theme.define-palette(mat.$mat-indigo);
+$candy-app-accent:  otter-theme.define-palette(mat.$mat-pink, A200, A100, A400);
 
 // Generate Meta Theme
 $candy-meta-theme: otter-theme.generate-otter-theme($primary: $candy-app-primary, $highlight: $candy-app-accent);
