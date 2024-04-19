@@ -16,7 +16,19 @@ import {
 import * as path from 'node:path';
 
 describe('new otter application with testing', () => {
-  test('should add testing to existing application', async () => {
+
+  test('should add testing to existing application', () => {
+    const { workspacePath, projectName, isInWorkspace, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
+    packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
+  });
+
+  test('should add testing to existing application and fixture to component', async () => {
+
     const { projectPath, workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     const relativeProjectPath = path.relative(workspacePath, projectPath);
@@ -38,5 +50,6 @@ describe('new otter application with testing', () => {
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
     expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 });
