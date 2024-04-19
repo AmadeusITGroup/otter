@@ -7777,6 +7777,8 @@ __metadata:
     "@actions/core": "npm:^1.10.0"
     "@actions/exec": "npm:^1.1.1"
     "@actions/github": "npm:^6.0.0"
+    "@agnos-ui/angular": "npm:~0.2.0"
+    "@amadeus-it-group/tansu": "npm:~1.0.0"
     "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
