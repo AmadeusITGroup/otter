@@ -1,314 +1,177 @@
-[Form validators](#form-validators)
-
-- [Form validators](#form-validators)
-  - [Sync validators](#sync-validators)
-    - [Container/presenter context](#containerpresenter-context)
-      - [Basic validators](#basic-validators)
-        - [Validators definition](#validators-definition)
-        - [Apply validators](#apply-validators)
-        - [Validators translations](#validators-translations)
-      - [Custom Validators](#custom-validators)
-        - [Validators definition](#validators-definition-1)
-        - [Apply validators](#apply-validators-1)
-        - [Validators translations](#validators-translations-1)
-        - [Custom validation contracts available in @o3r/forms](#custom-validation-contracts-available-in-o3rforms)
-  - [Async Validators](#async-validators)
-
-<a name="form-validators"></a>
-
 # Form validators
 
-The validations on the form are improving overall data quality by validating user input for accuracy and completeness.
-We are using the base concepts from Angular for the [form validation](https://angular.io/guide/form-validation), having default validators ( required, maxLength ...) but also custom validators (see Custom Validators in [form validation angular](https://angular.io/guide/form-validation)).
-
-<a name="sync-validators"></a>
+Form validations improve overall data quality by validating user input for accuracy and completeness.
+We are using the core concepts from Angular for the [form validation](https://angular.io/guide/form-validation), with default validators (required, maxLength, etc.)
+but also custom validators (see Custom Validators in [Angular form validation](https://angular.io/guide/form-validation)).
 
 ## Sync validators
 
-<a name="container-presenter"></a>
+### Context of parent component and input component
 
-### Container/presenter context
+In the parent/input component context, we have to decide where to create and how to apply the validators.
+In this situation, we decided to split the validation into two parts:
 
-In container/presenter context we have to decide where to create and how to apply the validators.
-Having this situation we decided to split the validation in 2 parts:
+- __Custom validators__: The ones related to the business logic or applied to multiple form controls. As they are related to the business logic, they have to be declared at parent component level.
+- __Primitive validators__: Simple and configurable validators which will be declared at input component level.
 
-- __custom validators__ - the ones related to the business logic or applied to multiple form controls. As they are related to the business logic they have to be declared at container level.
-- __primitive validators__ - simple configurable validators which will be declared at presenter level
+The input component will implement the [Validator](https://angular.io/api/forms/NG_VALIDATORS) interface, meaning that we will have to implement the `validate` function which will help us in defining the error object structure.
+(See the create error object section in [Form Errors](./FORM_ERRORS.md)).
+Each time the `validate` function is called, the returned object is propagated to the parent component. If the returned object is `null`, the form status is `VALID`. Otherwise, the form status is `INVALID`.
 
-The presenter will implement [Validator](https://angular.io/api/forms/NG_VALIDATORS) interface, meaning that we will have to implement __the validate__ method which help us in defining the error object structure.
-(See [Form errors](./FORM_ERRORS.md) create error object section)
-Each time the validate method is called the returned object is propagated to the parent (container in our case). If the object returned is _null_ the form status _VALID_. If the return is an object the form status is _INVALID_.
-
-<a name="basic-validators"></a>
-
-#### Basic validators
+### Basic validators
 
 We are keeping the concept of validators from Angular forms. Please see [FormValidation](https://angular.io/guide/form-validation) and [Validators](https://angular.io/api/forms/Validators) in Angular for more details.
 
-In Otter context we call the __basic or primitive__, the validators which are using primitive values (string, number, booleans) as inputs for the validation function.
+We call validators __basic or primitive__ if they are using primitive values (string, number, boolean) as inputs for the validation function.
 
-These validators are defined and applied at presenter level. They can be set at form creation or later, depending on the use cases.
-Validators values are given as a configuration on the presenter. This gave us the possibility to use the presenter with different set of validators.
+These validators are defined and applied at input component level. They can be set at form creation or later, depending on the use cases.
+Validator values are given as a configuration in the input component. This gives us the possibility of using the input component with different sets of validators.
 
-<a name="validators-definition"></a>
+#### Define basic validators
 
-##### Validators definition
+Below is an example of validator values that are defined in the configuration of the input component:
 
 ```typescript
-export interface FormsPocPresConfig extends Configuration {
-  ...
-  /** If true requires the control have a non-empty value */
-  firstNameRequired: boolean;
-
+export interface FormsExamplePresConfig extends Configuration {
   /** Requires the length of the control's value to be less than or equal to the provided number. */
   firstNameMaxLength?: number;
-  ...
-
-export const FORMS_POC_PRES_DEFAULT_CONFIG: FormsPocPresConfig = {
-  ...,
-  firstNameRequired: true,
-  firstNameMaxLength: 5,
-  ...
-};
+}
 ```
 
-<a name="apply-validators"></a>
+#### Apply basic validators
 
-##### Apply validators
+The validation can be applied in the HTML template, it can be given at form creation, or it can be set later in the input component. This depends on the use cases.
 
-The validation can be applied on the html template, it can be given at form creation or set later in the presenter. This depends on the use cases.
-
-- __on presenter html__
-In the use case where we need to display inline errors, we have to apply directives corresponding to the validators on the html template (when it is possible), because Angular material needs the directives for the display of inline errors
+* __Input component HTML__:
+In the use case where we need to display inline errors, we have to apply directives corresponding to the validators in the HTML template (when it is possible),
+because Angular material needs the directives for the display of inline errors.
 
 ```html
-  <!-- Configurable 'required' validator applied directly on the template.  -->
-  <input matInput formControlName="firstName" [required]="config.firstNameRequired" [id]="id + 'firstName'">
+<!-- Configurable 'required' validator applied directly on the template. -->
+<input matInput formControlName="firstName" [required]="config.nameRequired" [id]="'name'">
 ```
 
-- __on presenter class__
+* __Input component class__: The validators are applied to the form in the __input component__ class. For example:
 
 ```typescript
-  this.config$.pipe(takeUntilDestroyed()).subscribe((config) => {
-    const firstNameValidators = [];
-    if (config.firstNameMaxLength) {
-      // Apply validator based on config
-      firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
-    }
-    // firstNameValidators.push(otherValidators)
-    if (firstNameValidators.length) {
-      this.travelerForm.controls.firstName.clearValidators();
-      this.travelerForm.controls.firstName.setValidators(firstNameValidators)
-    }
-  });
-```
-
-<a name="translation-validators"></a>
-
-##### Validators translations
-
-For each defined validator we need a corresponding translation key for the error message. These keys have to be defined in the corresponding __localization.json__ file of the __presenter__. In this way the presenter is aware about its own validations/error messages.
-See [FORM_ERRORS](./FORM_ERRORS.md)  _Errors translation_ section  for more details.
-
-<a name="custom-validators"></a>
-
-#### Custom Validators
-
-Since the built-in validators won't always match the exact use case of your application, sometimes you'll want to create a custom validator. See [Custom Validators](https://angular.io/guide/form-validation#custom-validators) in angular.
-Our custom validators are usually related to the business logic or, they are applied to multiple fields/form controls.
-As they are related to the business logic we will create them in the __container__ and pass them to the presenter via an input. The presenter is the one which applies them on the form.
-
-<a name="custom-validators-definition"></a>
-
-##### Validators definition
-
-The validation function can be defined anywhere, but it has to be added to the validators object in the container.
-
-- Validation function
-
-```typescript
-/** Validator which checks that the firstname or lastname are not equal with the parameter 'valueToTest' */
-export function formsPocValidatorGlobal(valueToTest: string, translationKey: string, longTranslationKey?: string, translationParams?: any): CustomValidationFn {
-  return (control: AbstractControl): CustomErrors | null => {
-    const value: Traveler = control.value;
-    if (!value || !value.firstName) {
-      return null;
-    }
-    if (value.firstName !== valueToTest && value.lastName !== valueToTest) {
-      return null;
-    } else {
-      return {customErrors: [{translationKey, longTranslationKey, translationParams}]}; // ---> See more about the returned error model in ./FORM_ERRORS.md
-    }
-  };
-}
-```
-
-The object returned by the custom validator will be of type __ErrorMessageObject__ compatible with the form error store. (See [Form Errors](./FORM_ERRORS.md))
-The key _customErrors_ it is used to identify the custom errors in the errors returned by a form control;
-
-- Container
-
-```typescript
-// ...
-/** Form validators */
-validators: CustomFormValidation<Traveler>;
-// ...
-ngOnInit() {
-  this.validators = {  // ---> This object is passed as an input to the presenter
-    // Validator applied to the root (global) form
-    global: formsPocValidatorGlobal(this.config.forbiddenName, translations.globalForbiddenName, `${translations.globalForbiddenName}.long`, {name: 'Test'}),
-    // Validator applied on the dateOfBirth field
-    fields: {dateOfBirth: dateCustomValidator(translations.dateInThePast)  }
-  };
-  // ...
-  getFormsPocPresContext(overrideContext: Partial<FormsPocPresContextInput>): TemplateContext<FormsPocPresConfig, FormsPocPresContextInput, FormsPocPresContextOutput> {
-  return {
-    //  ...
-    inputs: {
-      validators: this.validators // ---> the validators sent to be applied on the presenter;
-    },
-    //  ...
-  };
-}
-```
-
-[__CustomFormValidation__](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/forms/src/core/custom-validation.ts) is containing two entries, one for global (root) form validation and one for the other fields.
-_Fields_ entry is receiving the form contract as generic type.
-
-```typescript
-/** Custom validation for the form */
-export interface CustomFormValidation<T> {
-  /** Validation for each field */
-  fields?: CustomFieldsValidation<T>;
-  /** Global validation for the form */
-  global?: CustomValidationFn;
-}
-```
-
-<a name="custom-apply-validators"></a>
-
-##### Apply validators
-
-The validators are applied to the form on the __presenter__ class.
-
-```typescript
-  /** Custom validators applied on the form */
-  @Input() customValidators?: CustomFormValidation<Traveler>; // ---> receives the Traveler contract
-  private customValidators$ = new BehaviorSubject<Traveler | undefined>(undefined);
-  private readonly destroyRef = inject(DestroyRef);
-
-  ngOnInit() {
-    ...
-    combineLatest([this.config$, customValidators$]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([config, customValidators]) => {
-      const firstNameValidators = [];
-      if (config.firstNameMaxLength) { // Primitive validator
-        // Apply validator based on config
-        firstNameValidators.push(Validators.maxLength(this.config.firstNameMaxLength));
-      }
-      // Apply custom validation
-      if (customValidators && customValidators.fields && customValidators.fields.firstName) {
-        firstNameValidators.push(customValidators.fields.firstName);
-      }
-      // firstNameValidators.push(otherValidators)
-      if (firstNameValidators.length) {
-        this.travelerForm.controls.firstName.clearValidators();
-        this.travelerForm.controls.firstName.setValidators(firstNameValidators)
-      }
-    });
+public ngOnInit() {
+  const nameValidators = [];
+  if (this.config?.nameMaxLength) {
+    // Apply validator based on config
+    nameValidators.push(Validators.maxLength(this.config.nameMaxLength));
   }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.customValidators) {
-      this.customValidators$.next(this.customValidators);
-    }
-  }
+  this.form.controls.name.setValidators(nameValidators);
+}
 ```
 
-<a name="custom-translation-validators"></a>
+#### Basic validators translations
 
-##### Validators translations
+For each defined validator, we need a corresponding translation key for the error message.
+These keys have to be defined in the corresponding `localization.json` file of the __input component__.
+This way the input component is aware about its own validations/error messages.
 
-For each custom validator we need a corresponding translation key for the error message.
-As they are defined in the container, the keys have to be defined in the corresponding __localization.json__ file of the __container__.
-In this way the container knows about its own validations/error messages. See [FORM_ERRORS](./FORM_ERRORS.md) _Errors translation_ section for more details.
+See the _Errors translation_ section in [Form Errors](./FORM_ERRORS.md) for more details.
 
-<a name="custom-validators-context"></a>
+### Custom Validators
 
-##### Custom validation contracts available in @o3r/forms
+Since the built-in validators won't always match the exact use case of your application, sometimes you'll want to create a custom validator.
+(See [Custom Validators](https://angular.io/guide/form-validation#custom-validators) in Angular).
 
-We have put in place a set of interfaces which will help us to define the custom validators and to keep the same structure in the framework.
+Our custom validators are usually related to the business logic, or they are applied to multiple fields/form controls.
+Since they are related to the business logic, we will create them in the __parent component__ and pass them to the input component via an input. The input component is the one that applies them to the form.
+
+#### Define custom validators
+
+The validation function can be defined anywhere, but it has to be added to the validators object in the parent component.
+
+* __Validation function__:
+
+The object returned by the custom validator will be of type `ErrorMessageObject` compatible with the form error store. (See [Form Errors](./FORM_ERRORS.md)).
+The key `customErrors` of this object is used to identify the custom errors in the errors returned by a form control.
+
+You can find an [example](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms/forms-pres.validators.ts) of two custom validators in the forms example of the showcase application.
+
+* __Parent component__: 
+
+The validators object in the parent component is of type [__CustomFormValidation__](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/forms/src/core/custom-validation.ts).
+This interface contains two entries: one for global (root) form validation and one for the other fields.
+The `fields` entry is receiving the form contract as generic type.
+
+The implementation of the two custom validators in the validators object of the parent component can be found in the [forms component of the showcase application](https://github.com/AmadeusITGroup/otter/tree/main/apps/showcase/src/components/showcase/forms/forms-pres.component.ts).
+
+#### Apply custom validators
+
+The validators are applied to the form in the __input component__ class. For example:
 
 ```typescript
-/**
- * The return of a custom validation
- */
-export interface CustomErrors {
-  /** The custom errors coming from a validation fn */
-  customErrors: ErrorMessageObject[];
-}
+/** Custom validators applied on the form */
+@Input() customValidators?: CustomFormValidation<PersonalInfo>; // ---> receives the PersonalInfo contract
 
-/** Custom validation function */
-export type CustomValidationFn = (control: AbstractControl) => CustomErrors | null;
-
-/** Custom validation functions for each field of T model */
-export type CustomFieldsValidation<T> = { [K in keyof T]?: CustomValidationFn };
-
-/** Custom validation for the form */
-export interface CustomFormValidation<T> {
-  /** Validation for each field */
-  fields?: CustomFieldsValidation<T>;
-  /** Global validation for the form */
-  global?: CustomValidationFn;
+public ngOnInit() {
+  /** Get custom validators and apply them on the form */
+  const nameValidators = [];
+  if (this.customValidators && this.customValidators.fields && this.customValidators.fields.name) {
+    nameValidators.push(this.customValidators.fields.name);
+  }
+  this.form.controls.name.setValidators(nameValidators);
+  this.form.updateValueAndValidity();
 }
 ```
 
-<a name="async-validators"></a>
+#### Custom validators translations
+
+For each custom validator, we need a corresponding translation key for the error message.
+Since they are defined in the parent component, the keys have to be defined in the corresponding `localization.json` file of the __parent component__.
+This way the parent component knows about its own validations/error messages. 
+See the _Errors translation_ section in [Form Errors](./FORM_ERRORS.md) for more details.
+
+#### Custom validation contracts
+
+We have put in place a set of interfaces that will help us to define the custom validators and to keep the same structure in the framework.
+You can find them in the [@o3r/forms package](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/forms/src/core/custom-validation.ts).
 
 ## Async Validators
 
-When you need an asynchronous validator for your form, you have to make sure that the presenter will implement [AsyncValidator](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) interface.
-Here you will have also to implement __the validate__ method to define the error object structure. The error object has to be returned in a Promise or in an Observable which has to be completed.
-The only difference from sync validators is the returned object of the __validate__ method.
-Also, you have to provide the [NG_ASYNC_VALIDATORS](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) token for the presenter.
+When you need an asynchronous validator for your form, you have to make sure that the input component will implement the [AsyncValidator](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) interface.
+Here you will also have to implement the `validate` function to define the error object structure. The error object has to be returned in a Promise or in an Observable that must be completed.
+The only difference from sync validators is the object returned by the `validate` function.
+Also, you have to provide the [NG_ASYNC_VALIDATORS](https://angular.io/api/forms/NG_ASYNC_VALIDATORS) token for the input component.
 
-For more details about the implementation have a look at [Async Validation in angular](https://angular.io/guide/form-validation#async-validation).
+For more details about the implementation, have a look at [Async Validation in Angular](https://angular.io/guide/form-validation#async-validation).
 
-The example below contains the two mandatory things to do when you need an async validator: provide _NG_ASYNC_VALIDATORS_ token and implement _validate_ method.
+The example below contains the two mandatory tasks to do when you need an async validator: provide the `NG_ASYNC_VALIDATORS` token and implement the `validate` function.
 
 ```typescript
 @Component({
-  selector: 'o3r-forms-poc-pres',
-  styleUrls: ['./forms-poc-pres.style.scss'],
-  templateUrl: './forms-poc-pres.template.html',
+  selector: 'o3r-forms-example-pres',
+  styleUrls: ['./forms-example-pres.style.scss'],
+  templateUrl: './forms-example-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormsPocPresComponent),
+      useExisting: forwardRef(() => FormsExamplePresComponent),
       multi: true
     },
     {
       provide: NG_ASYNC_VALIDATORS,
-      useExisting: forwardRef(() => FormsPocPresComponent),
+      useExisting: forwardRef(() => FormsExamplePresComponent),
       multi: true
     }
   ]
 })
-export class FormsPocPresComponent implements OnInit, OnDestroy, Configurable<FormsPocPresConfig>, AsyncValidator, Translatable<FormsPocPresTranslation>, FormsPocPresContext, ControlValueAccessor {
-// ...
-  /**
-   * Return the errors for the validators applied global to the form plus the errors for each field
-   */
+export class FormsExamplePresComponent implements OnInit, AsyncValidator, ControlValueAccessor {
+  /** Return the errors for the validators applied global to the form plus the errors for each field */
   // ---> The implementation of this method is specific to each use case, the important thing is that it has to return a promise or an observable
   public validate(_control: AbstractControl): Observable<ValidationErrors | null> | Promise<ValidationErrors | null> {
-    return this.travelerForm.statusChanges.pipe(
+    return this.exampleFormControl.statusChanges.pipe(
       filter((status) => status !== 'PENDING'),
       map((status) => {
         if (status === 'INVALID') {
-          const allControls = Object.keys(this.travelerForm.controls);
+          const allControls = Object.keys(this.form.controls);
           return allControls.reduce(
             (currentError, controlName) => {
-              ...
+              // ...
             }, {});
         } else {
           return null;
@@ -319,5 +182,3 @@ export class FormsPocPresComponent implements OnInit, OnDestroy, Configurable<Fo
   }
 }
 ```
-
-There is a known [issue with the async validators on angular](https://github.com/angular/angular/issues/20424). The initial state of a form with an async validation is blocked to _'PENDING'_. Once the form value changes the status of the form is updated properly.

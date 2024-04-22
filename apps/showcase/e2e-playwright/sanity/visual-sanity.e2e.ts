@@ -69,6 +69,11 @@ test.describe('Sanity test', () => {
     // Using expect.soft to not stop the test
     await expect.soft(page).toHaveScreenshot([browserName, 'placeholder.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
 
+    await appFixture.navigateToForms();
+    await page.waitForURL('**/forms');
+    // Using expect.soft to not stop the test
+    await expect.soft(page).toHaveScreenshot([browserName, 'forms.png'], { fullPage: true, mask: [page.locator('.visual-testing-ignore')] });
+
     await appFixture.navigateToSDKIntro();
     await page.waitForURL('**/sdk-intro');
     // Using expect.soft to not stop the test

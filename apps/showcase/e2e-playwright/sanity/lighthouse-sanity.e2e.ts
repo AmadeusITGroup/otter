@@ -144,4 +144,12 @@ test.describe('Lighthouse tests', () => {
     await page.waitForURL('**/sdk-intro');
     await performAudit('sdk-intro', page, testInfo);
   });
+
+  test('forms', async ({ page }, testInfo) => {
+    await page.goto('/');
+    const appFixture = new AppFixtureComponent(new O3rElement({ element: page.locator('app-root'), page }));
+    await appFixture.navigateToForms();
+    await page.waitForURL('**/forms');
+    await performAudit('forms', page, testInfo);
+  });
 });
