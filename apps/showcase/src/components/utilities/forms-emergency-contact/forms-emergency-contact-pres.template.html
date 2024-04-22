@@ -1,0 +1,55 @@
+<div class="p-3">
+  <h3 class="row card-text mt-auto ms-1 h5">Emergency Contact Information</h3>
+  <form [formGroup]="form">
+    <div class="row mb-3">
+      <div class="input-group">
+        <label class="input-group-text w-50" for="name">Name</label>
+        <input class="form-control" formControlName="name" [id]="'name'">
+      </div>
+      <ng-container *ngIf="form.controls.name.touched && form.controls.name.dirty">
+        <div class="row mb-3">
+          <div *ngIf="form.controls.name.errors?.required" class="text-danger">
+            {{translations.nameRequired | o3rTranslate}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row mb-3">
+      <div class="input-group">
+        <label class="input-group-text w-50" for="phone">Phone Number</label>
+        <input class="form-control" formControlName="phone" [id]="'phone'">
+      </div>
+      <ng-container *ngIf="form.controls.phone.touched && form.controls.phone.dirty">
+        <div class="row mb-3">
+          <div *ngIf="form.controls.phone.errors?.required" class="text-danger">
+            {{translations.phoneRequired | o3rTranslate}}
+          </div>
+          <div *ngIf="form.controls.phone.errors?.pattern" class="text-danger">
+            {{translations.phonePattern | o3rTranslate}}
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    <div class="row mb-3">
+      <div class="input-group">
+        <label class="input-group-text w-50" for="email">Email address</label>
+        <input class="form-control" formControlName="email" [id]="'email'">
+      </div>
+    </div>
+    <ng-container *ngIf="form.controls.email.touched && form.controls.email.dirty">
+      <div class="row mb-3">
+        <div *ngIf="form.controls.email.errors?.email" class="text-danger">
+          {{translations.emailPatternLong | o3rTranslate}}
+        </div>
+      </div>
+    </ng-container>
+  </form>
+  <div class="row mb-3">
+    <div *ngIf="form.errors" class="text-danger">
+      Global validator: {{form.errors | json}}
+    </div>
+  </div>
+  <div class="m-auto pb-3">
+    <button type="button" class="btn btn-outline-primary" id="btn-submit" (click)="submitForm()">Submit Emergency Contact Information</button>
+  </div>
+</div>
