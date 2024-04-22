@@ -1,0 +1,55 @@
+<h1>Forms</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="forms-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="forms-description">Description</h2>
+    <div>
+      <p>This module provides utilities to enhance the build of Angular reactive forms for specific use cases, including:</p>
+      <ul>
+        <li>A container/presenter structure for components</li>
+        <li>Handling form submission at page (or parent component) level</li>
+        <li>Displaying the error message outside the form</li>
+      </ul>
+    </div>
+
+    <h2 id="forms-example">Example</h2>
+    <div>
+      <p>
+        In the following example, we have a parent component with two subcomponents, each containing a form.
+      </p>
+      <p>
+        The first form requires the user to define their personal information (name and date of birth).
+        The second form requires the definition of the user's emergency contact information (name, phone number, and email address).
+        Both forms contain validators, such as certain fields being required or specific values having to follow a certain pattern.
+      </p>
+      <p>
+        The submit of both forms is triggered at parent component level.
+      </p>
+      <o3r-forms-parent></o3r-forms-parent>
+      <p>
+        Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/localization" target="_blank" rel="noopener">Source code</a>
+    </div>
+    <h2 id="forms-install">How to install</h2>
+    <markdown clipboard ngPreserveWhitespaces>
+      ```bash
+      ng add &#64;o3r/forms
+      ```
+    </markdown>
+    <h2 id="forms-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/forms/README.md" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
