@@ -51,6 +51,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
         if (tsconfigCompilerOptions.types.indexOf('jest') === -1) {
           tsconfigCompilerOptions.types.push('jest');
         }
+        tsconfigCompilerOptions.types = tsconfigCompilerOptions.types.filter((tsType: string) => tsType !== 'jasmine');
       }
       tsconfigCompilerOptions.esModuleInterop = true;
       tsconfigCompilerOptions.outDir = 'test';
