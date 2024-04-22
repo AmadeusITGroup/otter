@@ -109,7 +109,7 @@ export function updateStore(
     const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
     );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>

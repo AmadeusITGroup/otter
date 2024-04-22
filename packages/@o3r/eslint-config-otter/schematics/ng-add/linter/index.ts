@@ -65,7 +65,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
       context.logger.warn('No project detected, linter task can not be added.');
       return;
     }
-
     const projectRoot = workspaceProject.root;
     const projectType = workspaceProject.projectType;
     const eslintFilePath = posix.join(projectRoot, '/.eslintrc.js');
@@ -120,9 +119,40 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
   };
 
+  /**
+   * Handle linter errors to comply with Otter rules
+   * @param tree
+   * @param context
+   */
+  const handleOtterEslintErrors: Rule = async (tree: Tree, context: SchematicContext) => {
+    if (!options.projectName) {
+      return;
+    }
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
+    const workspace = getWorkspaceConfig(tree);
+    if (!workspace) {
+      return;
+    }
+    const workspaceProject = workspace.projects[options.projectName];
+
+    if (!workspaceProject) {
+      context.logger.warn('No project detected, linter task can not be added.');
+      return;
+    }
+    const projectRoot = workspaceProject.root;
+    const mainTsPath = posix.join(projectRoot, 'src/main.ts');
+    if (tree.exists(mainTsPath)) {
+      const mainTsContent = tree.readText(mainTsPath);
+      tree.overwrite(mainTsPath, '/* eslint-disable no-console */\n' + mainTsContent);
+    } else {
+      context.logger.warn(`No file found under '${mainTsPath}'. Linter errors may occur and should be fixed by hand.`);
+    }
+
+  };
   return chain([
     updateTslintExtend,
     createProjectFiles,
-    editAngularJson
+    editAngularJson,
+    handleOtterEslintErrors
   ]);
 }
