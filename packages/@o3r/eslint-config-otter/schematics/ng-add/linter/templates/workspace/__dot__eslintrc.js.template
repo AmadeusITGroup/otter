@@ -5,9 +5,6 @@ module.exports = {
   'parser': require.resolve('@typescript-eslint/parser'),
   'parserOptions': {
     'tsconfigRootDir': __dirname,
-    'project': [
-      'tsconfig.eslint.json'
-    ],
     'ecmaVersion': 12
   },
   'env': {

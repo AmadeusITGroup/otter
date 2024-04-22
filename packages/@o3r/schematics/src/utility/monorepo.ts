@@ -8,7 +8,7 @@ import { getWorkspaceConfig } from './loaders';
 /**
  * Find the relative path to a configuration file at the monorepo root
  * @param tree
- * @param files List of files to look for, the first of the list will used
+ * @param files List of files to look for, the first of the list will be used
  * @param originPath Path from where to calculate the relative path
  * @returns
  */

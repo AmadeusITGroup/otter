@@ -85,7 +85,7 @@ function generateApplicationFn(options: NgGenerateApplicationSchema): Rule {
         projectRoot,
         style: Style.Scss}),
       addProjectSpecificFiles(targetPath, rootDependencies),
-      updateProjectTsConfig(targetPath, 'tsconfig.app.json'),
+      updateProjectTsConfig(targetPath, 'tsconfig.app.json', {updateInputFiles: true}),
       setupDependencies({
         dependencies,
         skipInstall: options.skipInstall,
