@@ -1,13 +1,14 @@
 import * as path from 'node:path';
 import * as rimraf from 'rimraf';
-import * as sway from 'sway';
 import { type } from 'node:os';
-import type {Operation, PathObject} from '@ama-sdk/core';
+import type { PathObject } from '@ama-sdk/core';
 
 import Generator from 'yeoman-generator';
 
 import { SdkGenerator } from '../sdk-generator';
-import { Properties } from './core';
+import { generateOperationFinderFromSingleFile, Properties } from './core';
+import { readFileSync } from 'node:fs';
+import { JsonObject } from 'type-fest';
 
 export default class extends SdkGenerator {
 
@@ -32,24 +33,19 @@ export default class extends SdkGenerator {
   /**
    * Generates the operation id finder from spec
    */
-  private async _generateOperationFinder(): Promise<PathObject[]> {
-    const swayOptions = {
-      definition: path.resolve(this.properties.swaggerSpecPath!)
-    };
-    const swayApi = await sway.create(swayOptions);
-    const extraction = swayApi.getPaths().map((obj) => ({
-      path: `${obj.path as string}`,
-      regexp: obj.regexp as RegExp,
-      operations: obj.getOperations().map((op: any) => {
-        const operation: Operation = {
-          method: `${op.method as string}`,
-          operationId: `${op.operationId as string}`
-        };
-        return operation;
-      }) as Operation[]
-    }));
-    return extraction;
-  }
+  private _generateOperationFinder = async (): Promise<PathObject[]> => {
+    const specPath = path.resolve(process.cwd(), this.getSwaggerSpecPath(this.properties.swaggerSpecPath!));
+    const specContent = readFileSync(specPath).toString();
+    // eslint-disable-next-line no-undef-init
+    let jsonSpecContent: JsonObject | undefined = undefined;
+    try {
+      jsonSpecContent = JSON.parse(specContent) as JsonObject;
+    } catch (e) {
+    }
+    const specification: any = jsonSpecContent || (await import('js-yaml')).load(specContent);
+    const extraction = generateOperationFinderFromSingleFile(specification);
+    return extraction || [];
+  };
 
   private _getRegexpTemplate(regexp: RegExp) {
     return `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
@@ -57,8 +53,7 @@ export default class extends SdkGenerator {
 
   private _getPathObjectTemplate(pathObj: PathObject) {
     return `{
-      ${
-  (Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
+      ${(Object.keys(pathObj) as (keyof PathObject)[]).map((propName) => {
     const value = (propName) === 'regexp' ? this._getRegexpTemplate(pathObj[propName]) : JSON.stringify(pathObj[propName]);
     return `${propName as string}: ${value}`;
   }).join(',')
@@ -99,15 +94,14 @@ export default class extends SdkGenerator {
   }
 
   public async writing() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'), {glob: true});
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'), {glob: true});
-    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'api', '**', '*.ts'), { glob: true });
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'models', 'base', '**', '!(index).ts'), { glob: true });
+    rimraf.sync(path.resolve(this.destinationPath(), 'src', 'spec', '!(operation-adapter|index).ts'), { glob: true });
     this.log('Removed previously generated sources');
 
     const pathObjects = await this._generateOperationFinder() || [];
 
-    this.properties.swayOperationAdapter = `[${
-      pathObjects.map((pathObj) => this._getPathObjectTemplate(pathObj)).join(',')
+    this.properties.swayOperationAdapter = `[${pathObjects.map((pathObj) => this._getPathObjectTemplate(pathObj)).join(',')
     }]`;
 
     this.fs.copyTpl(
@@ -153,7 +147,7 @@ export default class extends SdkGenerator {
   }
 
   public end() {
-    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'), {glob: true});
+    rimraf.sync(path.resolve(this.destinationPath(), 'swagger-codegen-typescript', '**'), { glob: true });
     try {
       const packageManagerCommand = process.env && process.env.npm_execpath && process.env.npm_execpath.indexOf('yarn') === -1 ? 'npx' : 'yarn';
       this.spawnCommandSync(packageManagerCommand, ['eslint', path.join('src', 'spec', 'operation-adapter.ts'), '--quiet', '--fix'], { cwd: this.destinationPath() });
