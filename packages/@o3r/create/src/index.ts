@@ -146,7 +146,7 @@ const createNgProject = () => {
   const options = schematicsCliOptions
     .filter(([key]) => isNgNewOptions(key))
     .flat();
-  exitProcessIfErrorInSpawnSync(1, spawnSync(process.execPath, [binPath, 'new', ...argv._, ...options], {
+  exitProcessIfErrorInSpawnSync(1, spawnSync(`"${process.execPath}"`, [binPath, 'new', ...argv._, ...options], {
     stdio: 'inherit',
     shell: true
   }));
