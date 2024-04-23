@@ -11,17 +11,17 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import type { Operation, PathObject } from '@ama-sdk/core';
+import type { PathObject } from '@ama-sdk/core';
 import { existsSync, readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { URL } from 'node:url';
 import * as semver from 'semver';
-import * as sway from 'sway';
 
 import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
@@ -209,14 +209,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     };
 
     const generateOperationFinder = async (): Promise<PathObject[]> => {
-      const definition: any = isJson ? tree.readJson(specDefaultPath) : (await import('js-yaml')).load(tree.readText(specDefaultPath));
-      const swayOptions = { definition };
-      const swayApi = await sway.create(swayOptions);
-      const extraction = swayApi.getPaths().map((obj) => ({
-        path: obj.path,
-        regexp: obj.regexp as RegExp,
-        operations: obj.getOperations().map((op: any) => ({method: op.method, operationId: op.operationId} as Operation))
-      }));
+      const specification: any = isJson ? tree.readJson(specDefaultPath) : (await import('js-yaml')).load(tree.readText(specDefaultPath));
+      const extraction = generateOperationFinderFromSingleFile(specification);
       return extraction || [];
     };
 
