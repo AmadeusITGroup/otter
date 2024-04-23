@@ -303,10 +303,10 @@ __metadata:
     npm-run-all: "npm:^4.1.5"
     nx: "npm:~16.10.0"
     onchange: "npm:^7.0.2"
+    openapi-types: "npm:^12.0.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
-    sway: "npm:^2.0.6"
     ts-jest: "npm:~29.1.1"
     tslib: "npm:^2.5.3"
     type-fest: "npm:^3.12.0"
@@ -23725,14 +23725,14 @@ __metadata:
   linkType: hard
 
 "json-schema-faker@npm:^0.5.0-rc16":
-  version: 0.5.5
-  resolution: "json-schema-faker@npm:0.5.5"
+  version: 0.5.6
+  resolution: "json-schema-faker@npm:0.5.6"
   dependencies:
     json-schema-ref-parser: "npm:^6.1.0"
     jsonpath-plus: "npm:^7.2.0"
   bin:
     jsf: bin/gen.cjs
-  checksum: 0c565569e4a71f52989fe2b0152dacf0f7f706139da4b84ca0cd4d50e1360898336d1aa936cd5187466f9920478c0c931071fcc5e31f6765ffd0d661f8ea1d6c
+  checksum: cd7b44eb712d4975d0e87c38f38c4500168502e546505e5bc8cd6d33950d991114fe83c810247d5b91bdbe686174d5e8850de39322b4aadaf854202a4bbbffdc
   languageName: node
   linkType: hard
 
@@ -27597,9 +27597,9 @@ __metadata:
   linkType: hard
 
 "path-to-regexp@npm:^6.2.1":
-  version: 6.2.1
-  resolution: "path-to-regexp@npm:6.2.1"
-  checksum: 1e266be712d1a08086ee77beab12a1804842ec635dfed44f9ee1ba960a0e01cec8063fb8c92561115cdc0ce73158cdc7766e353ffa039340b4a85b370084c4d4
+  version: 6.2.2
+  resolution: "path-to-regexp@npm:6.2.2"
+  checksum: f7d11c1a9e02576ce0294f4efdc523c11b73894947afdf7b23a0d0f7c6465d7a7772166e770ddf1495a8017cc0ee99e3e8a15ed7302b6b948b89a6dd4eea895e
   languageName: node
   linkType: hard
 
@@ -28899,11 +28899,11 @@ __metadata:
   linkType: hard
 
 "qs@npm:^6.10.0, qs@npm:^6.10.3, qs@npm:^6.11.0, qs@npm:^6.11.2, qs@npm:^6.9.1":
-  version: 6.11.2
-  resolution: "qs@npm:6.11.2"
+  version: 6.12.1
+  resolution: "qs@npm:6.12.1"
   dependencies:
-    side-channel: "npm:^1.0.4"
-  checksum: f2321d0796664d0f94e92447ccd3bdfd6b6f3a50b6b762aa79d7f5b1ea3a7a9f94063ba896b82bc2a877ed6a7426d4081e4f16568fdb04f0ee188cca9d8505b4
+    side-channel: "npm:^1.0.6"
+  checksum: 035bcad2a1ab0175bac7a74c904c15913bdac252834149ccff988c93a51de02642fe7be10e43058ba4dc4094bb28ce9b59d12b9e91d40997f445cfde3ecc1c29
   languageName: node
   linkType: hard
 
@@ -30655,6 +30655,18 @@ __metadata:
     get-intrinsic: "npm:^1.2.4"
     object-inspect: "npm:^1.13.1"
   checksum: 27708b70b5d81bf18dc8cc23f38f1b6c9511691a64abc4aaf17956e67d132c855cf8b46f931e2fc5a6262b29371eb60da7755c1b9f4f862eccea8562b469f8f6
+  languageName: node
+  linkType: hard
+
+"side-channel@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "side-channel@npm:1.0.6"
+  dependencies:
+    call-bind: "npm:^1.0.7"
+    es-errors: "npm:^1.3.0"
+    get-intrinsic: "npm:^1.2.4"
+    object-inspect: "npm:^1.13.1"
+  checksum: eb10944f38cebad8ad643dd02657592fa41273ce15b8bfa928d3291aff2d30c20ff777cfe908f76ccc4551ace2d1245822fdc576657cce40e9066c638ca8fa4d
   languageName: node
   linkType: hard
 

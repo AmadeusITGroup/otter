@@ -11,16 +11,17 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import type { Operation, PathObject } from '@ama-sdk/core';
 import {existsSync, readFileSync} from 'node:fs';
+import type { PathObject } from '@ama-sdk/core';
 import * as path from 'node:path';
 import * as semver from 'semver';
-import * as sway from 'sway';
 
 import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
+import { JsonObject } from 'type-fest';
 
 const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
 
@@ -44,25 +45,20 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
   const specPath = path.resolve(process.cwd(), options.specPath);
   const targetPath = options.directory || '';
   const globalProperty = options.globalProperty;
+  const specContent = readFileSync(specPath).toString();
+  let jsonSpecContent: JsonObject;
+  try {
+    jsonSpecContent = JSON.parse(specContent) as JsonObject;
+  } catch (e) {
+  }
 
   const generateOperationFinder = async (): Promise<PathObject[]> => {
-    const swayOptions = {
-      definition: path.resolve(options.specPath)
-    };
-    const swayApi = await sway.create(swayOptions);
-    const extraction = swayApi.getPaths().map((obj) => ({
-      path: `${obj.path as string}`,
-      regexp: obj.regexp as RegExp,
-      operations: obj.getOperations().map((op: any) => {
-        const operation: Operation = {
-          method: `${op.method as string}`,
-          operationId: `${op.operationId as string}`
-        };
-        return operation;
-      }) as Operation[]
-    }));
+    const specification: any = jsonSpecContent || (await import('js-yaml')).load(specContent);
+    const extraction = generateOperationFinderFromSingleFile(specification);
     return extraction || [];
   };
+
+
 
   /**
    * rule to clear previous SDK generation
@@ -106,7 +102,6 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKCoreSche
    */
   const updateSpec = (tree: Tree, _context: SchematicContext) => {
     const readmeFile = path.posix.join(targetPath, 'readme.md');
-    const specContent = readFileSync(specPath).toString();
     if (tree.exists(readmeFile)) {
       const swaggerVersion = /version: ([0-9]+\.[0-9]+\.[0-9]+)/.exec(specContent);
 
