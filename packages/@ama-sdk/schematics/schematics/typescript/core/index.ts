@@ -11,17 +11,17 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import type { Operation, PathObject } from '@ama-sdk/core';
 import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { readFileSync } from 'node:fs';
+import type { PathObject } from '@ama-sdk/core';
 import * as path from 'node:path';
 import * as semver from 'semver';
-import * as sway from 'sway';
 
 import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
@@ -162,6 +162,15 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
   return (tree, context) => {
     const targetPath = options.directory || '';
     const generatorOptions = getGeneratorOptions(tree, context, options);
+    const specContent = readFileSync(generatorOptions.specPath!).toString();
+
+    let isJson = false;
+    try {
+      JSON.parse(specContent);
+      isJson = true;
+    } catch (e) {
+      isJson = false;
+    }
 
     /**
      * rule to clear previous SDK generation
@@ -174,15 +183,9 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     };
 
     const generateOperationFinder = async (): Promise<PathObject[]> => {
-      const swayOptions = {
-        definition: path.resolve(generatorOptions.specPath!)
-      };
-      const swayApi = await sway.create(swayOptions);
-      const extraction = swayApi.getPaths().map((obj) => ({
-        path: obj.path,
-        regexp: obj.regexp as RegExp,
-        operations: obj.getOperations().map((op: any) => ({method: op.method, operationId: op.operationId} as Operation))
-      }));
+
+      const specification: any = isJson ? tree.readJson(generatorOptions.specPath!) : (await import('js-yaml')).load(tree.readText(generatorOptions.specPath!));
+      const extraction = generateOperationFinderFromSingleFile(specification);
       return extraction || [];
     };
 
@@ -209,7 +212,6 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
      */
     const updateSpec = () => {
       const readmeFile = path.posix.join(targetPath, 'readme.md');
-      const specContent = readFileSync(generatorOptions.specPath!).toString();
       if (tree.exists(readmeFile)) {
         const specVersion = /version: *([0-9]+\.[0-9]+\.[0-9]+(?:-[^ ]+)?)/.exec(specContent);
 
