@@ -52,7 +52,7 @@ export class {{classname}} implements Api {
   /**
    * Initialize your interface
    *
-   * @params apiClient Client used to process call to the API
+   * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
     this.client = apiClient;
@@ -66,6 +66,7 @@ export class {{classname}} implements Api {
    * @deprecated
   {{/isDeprecated}}
    * @param data Data to provide to the API call
+   * @param metadata Metadata to pass to the API call
    */
   public async {{nickname}}(data: {{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData, metadata?: RequestMetadata<{{#consumes}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/consumes}}{{^consumes}}string{{/consumes}}, {{#produces}}'{{mediaType}}'{{^-last}} | {{/-last}}{{/produces}}{{^produces}}string{{/produces}}>): Promise<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}> {
     {{#allParams}}
@@ -73,7 +74,7 @@ export class {{classname}} implements Api {
     data['{{baseName}}'] = data['{{baseName}}'] !== undefined ? data['{{baseName}}'] : {{#isString}}'{{/isString}}{{defaultValue}}{{#isString}}'{{/isString}};
       {{/defaultValue}}
     {{/allParams}}
-    const getParams = this.client.extractQueryParams<{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
+    const queryParams = this.client.extractQueryParams<{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData>(data, [{{#trimComma}}{{#queryParams}}'{{baseName}}', {{/queryParams}}{{/trimComma}}]{{^queryParams}} as never[]{{/queryParams}});
     const metadataHeaderAccept = metadata?.headerAccept || '{{#headerJsonMimeType}}{{#produces}}{{mediaType}}{{^-last}}, {{/-last}}{{/produces}}{{/headerJsonMimeType}}';
     const headers: { [key: string]: string | undefined } = {
   {{#trimComma}}    'Content-Type': metadata?.headerContentType || '{{#headerJsonMimeType}}{{#consumes}}{{mediaType}}{{^-last}}, {{/-last}}{{/consumes}}{{/headerJsonMimeType}}',
@@ -102,11 +103,22 @@ export class {{classname}} implements Api {
       body = data['{{baseName}}'] as any;
     }
     {{/bodyParam}}
-    const basePathUrl = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
+    const basePath = `${this.client.options.basePath}{{#urlParamReplacer}}{{path}}{{/urlParamReplacer}}`;
     const tokenizedUrl = `${this.client.options.basePath}{{#tokenizedUrlParamReplacer}}{{path}}{{/tokenizedUrlParamReplacer}}`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
-    const options = await this.client.prepareOptions(basePathUrl, '{{httpMethod}}', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const requestOptions = {
+      headers,
+      method: '{{httpMethod}}',
+      basePath,
+      queryParams,
+      body: body || undefined,
+      metadata,
+      tokenizedOptions,
+      api: this
+    };
+
+    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, '{{httpMethod}}', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{{#vendorExtensions}}{{#responses2xxReturnTypes}}{{.}}{{^-last}} | {{/-last}}{{/responses2xxReturnTypes}}{{^responses2xxReturnTypes}}never{{/responses2xxReturnTypes}}{{/vendorExtensions}}>(url, options, {{#tags.0.extensions.x-api-type}}ApiTypes.{{tags.0.extensions.x-api-type}}{{/tags.0.extensions.x-api-type}}{{^tags.0.extensions.x-api-type}}ApiTypes.DEFAULT{{/tags.0.extensions.x-api-type}}, {{classname}}.apiName,{{#keepRevivers}}{{#vendorExtensions}}{{#responses2xx}}{{#-first}} { {{/-first}}{{code}}: {{^primitiveType}}revive{{baseType}}{{/primitiveType}}{{#primitiveType}}undefined{{/primitiveType}}{{^-last}}, {{/-last}}{{#-last}} } {{/-last}}{{/responses2xx}}{{^responses2xx}} undefined{{/responses2xx}}{{/vendorExtensions}}{{/keepRevivers}}{{^keepRevivers}} undefined{{/keepRevivers}}, '{{nickname}}');

@@ -19,9 +19,6 @@ export interface ReplyPluginContext<T> extends PluginContext {
   /** Type of the API */
   apiType: ApiTypes | string;
 
-  /** Name of the API */
-  apiName?: string;
-
   /** Exception thrown during call/parse of the response */
   exception?: Error;
 
