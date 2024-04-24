@@ -51,7 +51,6 @@
     "minimatch": "~9.0.3",
     "rxjs": "^7.8.1",
     "semver": "^7.5.2",
-    "sway": "^2.0.6",
     "tslib": "^2.5.3"
   },
   "devDependencies": {
@@ -90,6 +89,7 @@
     "npm-run-all": "^4.1.5",
     "nx": "~16.10.0",
     "onchange": "^7.0.2",
+    "openapi-types": "^12.0.0",
     "pid-from-port": "^1.1.3",
     "semver": "^7.5.2",
     "ts-jest": "~29.1.1",
