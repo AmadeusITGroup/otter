@@ -84,13 +84,6 @@ jobs:
             !.cache/test-app/cache/@ama-terasu*
             !.cache/test-app/cache/@o3r*
           key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
-      - name: Make sure that internal packages are not cached for whatever reason - yarn
-        run: npx --yes rimraf -g ".cache/test-app/cache/@{o3r,ama-sdk,ama-terasu}-*"
-      - name: Make sure that internal packages are not cached for whatever reason - npm
-        run: |
-          npm cache --cache=.cache/test-app/npm-cache ls | grep 127.0.0.1:4873 | xargs -d'\n' -r -n 1 npm cache --cache=.cache/test-app/npm-cache clean || true
-          npx --yes -p replace-in-files-cli replace-in-files --regex=".*127.0.0.1:4873.*" --replacement="" ".cache/test-app/npm-cache/_cacache/index-v5/**/*"
-        shell: bash
       - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
         name: Download verdaccio storage prepared in the previous job
         with:
