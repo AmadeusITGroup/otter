@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FactDefinitions, FactsService, RulesEngineService } from '@o3r/rules-engine';
+import { FactDefinitions, FactsService, RulesEngineRunnerService } from '@o3r/rules-engine';
 import { BehaviorSubject, distinctUntilChanged } from 'rxjs';
 
 /** Facts for a trip */
@@ -14,8 +14,8 @@ export interface TripFacts extends FactDefinitions {
   providedIn: 'root'
 })
 export class TripFactsService extends FactsService<TripFacts> {
-  private destination$ = new BehaviorSubject<string | null>(null);
-  private outboundDate$ = new BehaviorSubject<string | null>(null);
+  private readonly destination$ = new BehaviorSubject<string | null>(null);
+  private readonly outboundDate$ = new BehaviorSubject<string | null>(null);
 
   /** @inheritdoc */
   public facts = {
@@ -23,7 +23,7 @@ export class TripFactsService extends FactsService<TripFacts> {
     outboundDate: this.outboundDate$.asObservable().pipe(distinctUntilChanged())
   };
 
-  constructor(rulesEngine: RulesEngineService) {
+  constructor(rulesEngine: RulesEngineRunnerService) {
     super(rulesEngine);
   }
 

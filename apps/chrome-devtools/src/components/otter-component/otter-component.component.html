@@ -37,18 +37,20 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <ngb-accordion *ngIf="translations | nbProp; else noLocalizations" [closeOthers]="true" [activeIds]="componentName" #acc="ngbAccordion">
-        <ngb-panel *ngFor="let componentTranslations of translations | keyvalue" [id]="componentTranslations.key">
-          <ng-template ngbPanelTitle>
-            {{componentTranslations.key}}<i *ngIf="componentTranslations.key === componentName" class="ms-1 bi bi-star"></i>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let translation of componentTranslations.value">{{translation}}</li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+      <div ngbAccordion *ngIf="translations | nbProp; else noLocalizations" [closeOthers]="true" #acc="ngbAccordion">
+        <div ngbAccordionItem *ngFor="let componentTranslations of translations | keyvalue" [id]="componentTranslations.key" [collapsed]="componentName === componentTranslations.key">
+          <h3 ngbAccordionHeader>
+            {{componentTranslations.key}}<i *ngIf="componentTranslations.key === componentName" class="ms-1 icon-star"></i>
+          </h3>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let translation of componentTranslations.value">{{translation}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <ng-template #noLocalizations>No localizations</ng-template>
     </ng-template>
   </li>
@@ -60,18 +62,20 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <ngb-accordion *ngIf="analytics | nbProp; else noAnalytics" [closeOthers]="true" [activeIds]="componentName" #acc="ngbAccordion">
-        <ngb-panel *ngFor="let componentAnalytics of analytics | keyvalue" [id]="componentAnalytics.key">
-          <ng-template ngbPanelTitle>
-            {{componentAnalytics.key}}<i *ngIf="componentAnalytics.key === componentName" class="ms-1 bi bi-star"></i>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let componentAnalytic of componentAnalytics.value">{{componentAnalytic}}</li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
+      <div ngbAccordion *ngIf="analytics | nbProp; else noAnalytics" [closeOthers]="true" #acc="ngbAccordion">
+        <div ngbAccordionItem *ngFor="let componentAnalytics of analytics | keyvalue" [id]="componentAnalytics.key"  [collapsed]="componentName === componentAnalytics.key">
+          <h3 ngbAccordionHeader>
+            {{componentAnalytics.key}}<i *ngIf="componentAnalytics.key === componentName" class="ms-1 icon-star"></i>
+          </h3>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" *ngFor="let componentAnalytic of componentAnalytics.value">{{componentAnalytic}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <ng-template #noAnalytics>No analytics</ng-template>
     </ng-template>
   </li>

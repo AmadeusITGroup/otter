@@ -24,7 +24,7 @@ describe('PlaceholderTemplate Store reducer', () => {
     expect(initialState.ids.length).toEqual(1);
     expect(initialState.entities['o3r-my-placeholder']).toBeDefined();
 
-    const firstState = placeholderTemplateReducer(placeholderTemplateInitialState, actions.deletePlaceholderTemplateEntity({id:'o3r-my-placeholder'}));
+    const firstState = placeholderTemplateReducer(placeholderTemplateInitialState, actions.deletePlaceholderTemplateEntity({id: 'o3r-my-placeholder'}));
     expect(firstState.ids.length).toEqual(0);
   });
 });

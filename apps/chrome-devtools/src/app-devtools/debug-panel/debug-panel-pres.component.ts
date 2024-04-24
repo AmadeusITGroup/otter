@@ -12,7 +12,7 @@ export class DebugPanelPresComponent {
   /** Application information stream */
   public applicationInformation$ = this.service.applicationInformation$;
 
-  constructor(private service: DebugPanelService, private connection: ChromeExtensionConnectionService) {}
+  constructor(private readonly service: DebugPanelService, private readonly connection: ChromeExtensionConnectionService) {}
 
   /** Refresh Application information */
   public refreshInfo() {
@@ -23,7 +23,6 @@ export class DebugPanelPresComponent {
 
   /**
    * Toggle localization key display
-   *
    * @param event
    */
   public toggleLocalizationKey(event: UIEvent) {
@@ -34,7 +33,6 @@ export class DebugPanelPresComponent {
 
   /**
    * Toggle visual testing mode
-   *
    * @param event
    */
   public toggleVisualTestingRender(event: UIEvent) {

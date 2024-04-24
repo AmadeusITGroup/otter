@@ -4,20 +4,20 @@
 @use '../utils/functions' as utils-functions;
 
 /// @access private
-@mixin _apply-theme($o3r-theme, $root-name, $details: (tags: ('theme'))) {
+@mixin _apply-theme($o3r-theme, $root-name, $details: (tags: ('theme')), $metadata-black-list-pattern: ()) {
   @if (meta.type-of($o3r-theme) != map) {
-    @include define-var($root-name, $o3r-theme, $details);
+    @include define-var($root-name, $o3r-theme, $details, $metadata-black-list-pattern);
   } @else {
     @if (theme-functions.is-variable($o3r-theme)) {
       @if (map.has-key($o3r-theme, details)) {
-        @include _apply-theme(map.get($o3r-theme, value), $root-name, map.get($o3r-theme, details));
+        @include _apply-theme(map.get($o3r-theme, value), $root-name, map.get($o3r-theme, details), $metadata-black-list-pattern);
       } @else {
-        @include _apply-theme(map.get($o3r-theme, value), $root-name);
+        @include _apply-theme(map.get($o3r-theme, value), $root-name, $details, $metadata-black-list-pattern);
       }
     } @else {
       @each $key, $value in $o3r-theme {
         $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
-        @include _apply-theme($value, $new-key);
+        @include _apply-theme($value, $new-key, $details, $metadata-black-list-pattern);
       }
     }
   }
@@ -26,9 +26,9 @@
 /// Apply an Otter theme to your application
 /// @access public
 /// @param {@see @link https://github.com/AmadeusITGroup/otter/blob/main/docs/styling/THEME.md#technical-structure-advance} $o3r-theme Otter theme
-@mixin apply-theme($o3r-theme: ()) {
+@mixin apply-theme($o3r-theme: (), $metadata-black-list-pattern: ('_mat-theming-internal')) {
   :root {
-    @include _apply-theme($o3r-theme, '');
+    @include _apply-theme($o3r-theme, '', $metadata-black-list-pattern: $metadata-black-list-pattern);
   }
 }
 
@@ -68,11 +68,11 @@
 ///     // Override the metadata of an existing "--my-scss-var" variable
 ///     @include o3r.define-var('--my-scss-var', null, (description: 'My scss variable'))
 ///   }
-@mixin define-var($name, $value, $details) {
+@mixin define-var($name, $value, $details, $metadata-black-list-pattern: ()) {
   $key: utils-functions.get-var-key($name);
   $varName: '--#{$key}';
 
-  $logged: utils-functions.log-variable($key, $value, $details);
+  $logged: utils-functions.log-variable($key, $value, $details, $metadata-black-list-pattern);
   @if ($value != null) {
     #{$varName}: #{$value};
   } @else {
@@ -97,6 +97,6 @@
 ///   :root {
 ///     @include o3r.var('my-scss-var', '#fff')
 ///   }
-@mixin var($name, $value, $details) {
-  @include define-var($name, $value, $details)
+@mixin var($name, $value, $details, $metadata-black-list-pattern: ()) {
+  @include define-var($name, $value, $details, $metadata-black-list-pattern)
 }

@@ -3,7 +3,6 @@ import type { PackageJson } from 'type-fest';
 
 /**
  * Remove the list of given packages from package.json
- *
  * @param packagesToRemove The list of packages to remove
  * @param packageJsonPath The path of the package json file from which the deps will be removed
  */

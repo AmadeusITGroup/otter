@@ -29,9 +29,9 @@ import {sendOtterMessage} from '@o3r/core';
 })
 export class PlaceholderComponent implements OnInit, OnDestroy {
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
-  private id$ = new BehaviorSubject<string | undefined>(undefined);
+  private readonly id$ = new BehaviorSubject<string | undefined>(undefined);
 
   private readonly afterViewInit$ = new Subject<void>();
 
@@ -49,7 +49,7 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
     this.id$.next(value);
   }
 
-  constructor(private store: Store<PlaceholderTemplateStore>, private cd: ChangeDetectorRef) {
+  constructor(private readonly store: Store<PlaceholderTemplateStore>, private readonly cd: ChangeDetectorRef) {
   }
 
   /** @inheritdoc */

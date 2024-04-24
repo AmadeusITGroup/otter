@@ -5,7 +5,6 @@ import { C11N_REGISTER_FUNC_TOKEN } from './c11n.token';
 
 /**
  * Customization service factory
- *
  * @param config -> registerCompFunc - a function which returns the map of custom components which will be injected in c11n service
  * @param config.registerCompFunc
  */

@@ -1,5 +1,5 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, template, url } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import type { NgGenerateOperatorSchematicsSchema } from './schema';
 import { classify, dasherize } from '@angular-devkit/core/src/utils/strings';
 import * as path from 'node:path';
@@ -8,7 +8,7 @@ import * as path from 'node:path';
  * Generate the operator
  * @param options
  */
-export function ngGenerateOperator(options: NgGenerateOperatorSchematicsSchema): Rule {
+function ngGenerateOperatorFn(options: NgGenerateOperatorSchematicsSchema): Rule {
 
   const generateFiles = () => {
     const name = dasherize(options.name);
@@ -33,3 +33,9 @@ export function ngGenerateOperator(options: NgGenerateOperatorSchematicsSchema):
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Generate the operator
+ * @param options
+ */
+export const ngGenerateOperator = createSchematicWithMetricsIfInstalled(ngGenerateOperatorFn);

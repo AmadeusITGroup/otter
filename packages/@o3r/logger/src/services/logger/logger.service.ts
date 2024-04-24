@@ -27,7 +27,6 @@ export class LoggerService implements Logger {
 
   /**
    * Identify a user.
-   *
    * @param uid Unique identifier for the current user
    * @param vars Addition information about the user
    */
@@ -37,7 +36,6 @@ export class LoggerService implements Logger {
 
   /**
    * Log custom event.
-   *
    * @param name Name of the event to log
    * @param properties Additional properties
    */
@@ -57,7 +55,6 @@ export class LoggerService implements Logger {
 
   /**
    * Register a new client to the logger service
-   *
    * @param client
    */
   public registerClient(client: LoggerClient) {
@@ -91,7 +88,6 @@ export class LoggerService implements Logger {
 
   /**
    * Report an error
-   *
    * @param message
    * @param optionalParams
    */
@@ -101,7 +97,6 @@ export class LoggerService implements Logger {
 
   /**
    * Report a warning
-   *
    * @param message
    * @param optionalParams
    */
@@ -111,7 +106,6 @@ export class LoggerService implements Logger {
 
   /**
    * Log a message
-   *
    * @param message
    * @param optionalParams
    */
@@ -121,7 +115,6 @@ export class LoggerService implements Logger {
 
   /**
    * Log a message
-   *
    * @param message
    * @param optionalParams
    */
@@ -131,7 +124,6 @@ export class LoggerService implements Logger {
 
   /**
    * Log a debug message
-   *
    * @param message
    * @param optionalParams
    */

@@ -1,6 +1,0 @@
-{
-  "$schema": "https://raw.githubusercontent.com/ng-packagr/ng-packagr/master/src/ng-package.schema.json",
-  "lib": {
-    "entryFile": "index.ts"
-  }
-}

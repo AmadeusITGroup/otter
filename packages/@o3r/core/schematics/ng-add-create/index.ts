@@ -2,7 +2,7 @@ import { chain, move, Rule, SchematicContext, Tree } from '@angular-devkit/schem
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import type {PackageJson} from 'type-fest';
-import { findConfigFileRelativePath, getPackageManagerRunner } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, findConfigFileRelativePath, getPackageManagerRunner } from '@o3r/schematics';
 import { apply, MergeStrategy, mergeWith, renameTemplateFiles, template, url } from '@angular-devkit/schematics';
 import { NgGenerateUpdateSchematicsSchema } from './schema';
 
@@ -11,7 +11,7 @@ import { NgGenerateUpdateSchematicsSchema } from './schema';
  *
  * @param options
  */
-export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule {
+function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
 
   const targetPath = options.path ? path.posix.join('/', options.path) : '/';
   const packageJsonPath = path.posix.join(targetPath, 'package.json');
@@ -70,12 +70,26 @@ export function updateTemplates(options: NgGenerateUpdateSchematicsSchema): Rule
 }
 
 /**
+ * Rule factory to include `ng add` skeleton
+ *
+ * @param options
+ */
+export const updateTemplates = createSchematicWithMetricsIfInstalled(updateTemplatesFn);
+
+/**
  * add a new ngUpdate function
  *
  * @param options
  */
-export function ngAddCreate(options: NgGenerateUpdateSchematicsSchema): Rule {
+function ngAddCreateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
   return chain([
     updateTemplates(options)
   ]);
 }
+
+/**
+ * add a new ngUpdate function
+ *
+ * @param options
+ */
+export const ngAddCreate = createSchematicWithMetricsIfInstalled(ngAddCreateFn);

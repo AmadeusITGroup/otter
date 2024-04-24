@@ -25,4 +25,5 @@ The API-listing file will contain only the field `apis` which is an array of obj
 | **productFolders**                 | List of folders containing products (relative to the `json` file position)                                                                                                                                                                                                                                                                                                                                                                                                 | *null*         |
 | **flattenConflictedDefinition**    | Merge based interface with new override in case of definition name conflict                                                                                                                                                                                                                                                                                                                                                                                                | `false`        |
 
-> **Information**: This is actually the merge of the `configuration` and the `split consolidation`.
+> [!NOTE]
+> This is actually the merge of the `configuration` and the `split consolidation`.

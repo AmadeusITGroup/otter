@@ -1,10 +1,9 @@
-import { EntityState } from '@ngrx/entity';
+import type { EntityState } from '@ngrx/entity';
 import { asyncStoreItemAdapter } from './async.adapter';
 import { AsyncStoreItem, EntityStatus } from './async.interfaces';
 
 /**
  * Serializer for asynchronous store.
- *
  * @param state State of an asynchronous store to serialize
  * @returns a plain json object to pass to json.stringify
  */
@@ -14,7 +13,6 @@ export function asyncSerializer<T extends AsyncStoreItem>(state: T) {
 
 /**
  * Serializer for asynchronous entity store.
- *
  * @param state State of an asynchronous entity store to serialize
  * @returns a plain json object to pass to json.stringify
  */
@@ -29,7 +27,6 @@ export function asyncEntitySerializer<T extends AsyncStoreItem & EntityState<Asy
 
 /**
  * Serializer for asynchronous entity store with status.
- *
  * @param state State of an asynchronous entity store with status to serialize
  * @returns a plain json object to pass to json.stringify
  */

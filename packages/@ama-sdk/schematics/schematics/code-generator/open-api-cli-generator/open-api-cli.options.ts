@@ -9,33 +9,47 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
   /**
    * The version of the Open Api Generator jar that will be downloaded and used to generate your sdk
    * If null, it will use the one already defined in your project:
-   *  - the one defined in your openapitools.json
-   *  - the latest version if openapitools.json is missing
-   *
+   * - the one defined in your openapitools.json
+   * - the latest version if openapitools.json is missing
    *  @default ''
    */
   generatorVersion: string;
   /**
    * The Open Api Generator to run
-   *
    * @default 'typescriptFetch' - our own typescript custom generator
    */
   generatorName: string;
   /**
    * Path to a custom generator
-   *
    * @default path to our own custom typescript generator
    */
   generatorCustomPath: string;
   /**
    * Comma separated string of options to give to the openapi-generator-cli
-   *
-   * @example debugModels to log the full json structure used to generate models
-   * @example debugOperations to log the full json structure used to generate operations
-   *
+   * @example To log the full json structure used to generate models
+   * ```typescript
+   * 'debugModels'
+   * ```
+   * @example To log the full json structure used to generate operations
+   * ```typescript
+   * 'debugOperations'
+   * ```
+   * @example To generate the dates as string types
+   * ```typescript
+   * 'stringifyDate'
+   * ```
+   * @example To be able to extend the SDK models and ensure that revivers are generated
+   * ```typescript
+   * 'allowModelExtension'
+   * ```
    * @default ''
    */
   globalProperty: string;
+  /**
+   * Run generator by key (from openapitools.json)
+   * @default ''
+   */
+  generatorKey: string;
 };
 
 /**
@@ -48,5 +62,6 @@ export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
   specPath: 'swagger-spec.yaml',
   outputPath: '.',
   specConfigPath: '',
-  globalProperty: ''
+  globalProperty: '',
+  generatorKey: ''
 };

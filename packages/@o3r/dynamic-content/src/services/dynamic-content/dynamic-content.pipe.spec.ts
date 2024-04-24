@@ -3,7 +3,7 @@ import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { InterfaceOf } from '@o3r/core';
 import { of } from 'rxjs';
-import { DynamicContentPipe } from './dynamic-content.pipe';
+import { DynamicContentPipe, O3rDynamicContentPipe } from './dynamic-content.pipe';
 import { DynamicContentService } from './dynamic-content.service';
 
 
@@ -15,7 +15,7 @@ const serviceMock: InterfaceOf<DynamicContentService> = {
 
 @Component({
   // eslint-disable-next-line @typescript-eslint/quotes
-  template: `{{'assets.png' | dynamicContent}}`
+  template: `{{'assets.png' | o3rDynamicContent}}{{'deprecatedPipe.png' | dynamicContent}}`
 })
 class HostTestComponent {}
 
@@ -28,7 +28,7 @@ describe('DynamicContentPipe', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DynamicContentPipe, HostTestComponent],
+      declarations: [O3rDynamicContentPipe, DynamicContentPipe, HostTestComponent],
       providers: [{provide: DynamicContentService, useValue: serviceMock}]
     }).compileComponents();
 
@@ -39,6 +39,7 @@ describe('DynamicContentPipe', () => {
     fixture.detectChanges();
 
     expect(serviceMock.getMediaPathStream).toHaveBeenCalledWith('assets.png');
+    expect(serviceMock.getMediaPathStream).toHaveBeenCalledWith('deprecatedPipe.png');
   });
 
 });

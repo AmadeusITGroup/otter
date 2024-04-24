@@ -2,7 +2,7 @@ import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
-import { ngAddContext } from './index';
+import { ngAddContextFn } from './index';
 import { firstValueFrom } from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
@@ -95,7 +95,7 @@ export class NgComponent {}
     it('should throw if no Otter component', async () => {
       const runner = new SchematicTestRunner('schematics', collectionPath);
 
-      await expect(firstValueFrom(runner.callRule(ngAddContext({
+      await expect(firstValueFrom(runner.callRule(ngAddContextFn({
         path: ngComponentPath,
         skipLinter: false
       }), initialTree, { interactive: false }))).rejects.toThrow();

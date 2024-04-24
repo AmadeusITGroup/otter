@@ -24,11 +24,6 @@ export interface ComponentInformation {
   type: ComponentStructure;
   /** Selector of the component */
   selector?: string;
-  /**
-   * Template URL of the component
-   * @deprecated will be removed in v10
-   */
-  templateUrl?: string;
   /** Determine if the component is activating a ruleset */
   linkableToRuleset: boolean;
   /** List of localization keys used in the component */
@@ -95,21 +90,6 @@ export class ComponentClassExtractor {
   }
 
   /**
-   * Get the component template URL from the given decorator node.
-   *
-   * @param decoratorNode The decorator node to get the component template URL from
-   * @deprecated will be removed in v10
-   */
-  private getComponentTemplateUrl(decoratorNode: ts.Decorator) {
-    if (this.isComponentDecorator(decoratorNode)) {
-      const matches = /templateUrl:\s*['"](.*)['"]/.exec(decoratorNode.getText(this.source));
-      if (matches) {
-        return matches[1];
-      }
-    }
-  }
-
-  /**
    * Sanitize component type by removing extra quotes
    * Example: "'Page'" becomes 'Page'
    *
@@ -150,7 +130,6 @@ export class ComponentClassExtractor {
     let isDynamic = false;
     let type: ComponentStructure = 'COMPONENT';
     let selector: string | undefined;
-    let templateUrl: string | undefined;
     let linkableToRuleset = false;
 
     classNode.forEachChild((node) => {
@@ -165,12 +144,6 @@ export class ComponentClassExtractor {
             contextName = interfaceValue;
           } else {
             switch (interfaceValue) {
-              case 'Block':
-              case 'Page':
-              case 'ExposedComponent':
-                type = this.getComponentStructure(interfaceValue);
-                this.logger.warn(`Interface ${interfaceValue} is deprecated, you should use the @O3rComponent decorator`);
-                break;
               case 'LinkableToRuleset':
                 linkableToRuleset = true;
                 break;
@@ -179,7 +152,6 @@ export class ComponentClassExtractor {
         });
       } else if (ts.isDecorator(node)) {
         selector = this.getComponentSelector(node);
-        templateUrl = this.getComponentTemplateUrl(node);
         type = this.getComponentType(node) || type;
       } else if (ts.isIdentifier(node)) {
         name = node.getText(this.source);
@@ -201,7 +173,7 @@ export class ComponentClassExtractor {
     }, []);
 
     return name && type ? {
-      name, configName, contextName, isDynamicConfig: isDynamic, type, selector, templateUrl, linkableToRuleset,
+      name, configName, contextName, isDynamicConfig: isDynamic, type, selector, linkableToRuleset,
       ...(localizationKeys.length ? { localizationKeys } : {})
     } : undefined;
   }

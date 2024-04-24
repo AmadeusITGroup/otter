@@ -55,7 +55,10 @@ export function extractToken(options: ExtractTokenSchematicsSchema): Rule {
         const isPrivate = file.endsWith('theme.scss');
         const tokenSpecification = variables
           .reduce((node, variable) => {
-            const namePath = variable.name.split('-');
+            const nameSplit = variable.name.split('-');
+            const namePath = options.flattenLevel === undefined
+              ? nameSplit
+              : [...nameSplit.slice(0, options.flattenLevel), nameSplit.slice(options.flattenLevel).join('.')].filter((item) => !!item);
             let targetNode: DesignTokenGroup | DesignToken = node;
             namePath.forEach((name) => {
               (targetNode as DesignTokenGroup)[name] ||= {};

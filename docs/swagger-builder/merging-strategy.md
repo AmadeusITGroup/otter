@@ -65,7 +65,7 @@ definitions:
 
 ### Override a definition
 
-As specified in the [conflict management section](#Conflict-management), a definition can be easily overridden with a new definition with the **same name**.
+As specified in the [conflict management section](#conflict-management), a definition can be easily overridden with a new definition with the **same name**.
 
 Example:
 
@@ -116,7 +116,7 @@ definitions:
 
 ### Override a path resource
 
-As specified in the [conflict management section](#Conflict-management), a path resource override will produce an error unless the `--ignore-conflict` flag has been specified. If specified, the resource can be overridden with the same **path** and **method**.
+As specified in the [conflict management section](#conflict-management), a path resource override will produce an error unless the `--ignore-conflict` flag has been specified. If specified, the resource can be overridden with the same **path** and **method**.
 
 Example:
 
@@ -138,9 +138,10 @@ paths:
 
 ### Extend an existing path resource
 
-As specified in the [conflict management section](#Conflict-management), a path can be easily updated with a new resource by specifying the same **path** but a different **method**.
+As specified in the [conflict management section](#conflict-management), a path can be easily updated with a new resource by specifying the same **path** but a different **method**.
 
-> **Note** : The `--ignore-conflict` flag is not necessary if no couple *path*, *method* is conflicting.
+> [!TIP]
+> The `--ignore-conflict` flag is not necessary if no couple *path*, *method* is conflicting.
 
 Example:
 

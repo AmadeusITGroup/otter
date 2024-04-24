@@ -15,7 +15,7 @@ Start a new Otter application.
 
 ## Creating a new Otter application
 
-```bash
+```shell
 # Create new application
 npm create @o3r my-project
 # Or
@@ -63,7 +63,7 @@ to create components and services consistent with your project.
 
 ## Adding Material design theming
 
-```bash
+```shell
 # Add material design
 npx ng add @angular/material
 # ? Choose a prebuilt theme name, or "custom" for a custom theme: Indigo/Pink

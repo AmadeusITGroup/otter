@@ -12,13 +12,13 @@ interface ComponentInfo extends OtterLikeComponentInfo {
  * Service to handle the custom inspector for the Otter Devtools Chrome extension.
  */
 export class OtterInspectorService {
-  private angularDevTools: Ng | undefined;
-  private elementMouseOverCallback = this.elementMouseOver.bind(this);
-  private elementClickCallback = this.elementClick.bind(this);
-  private cancelEventCallback = this.cancelEvent.bind(this);
+  private readonly angularDevTools: Ng | undefined;
+  private readonly elementMouseOverCallback = this.elementMouseOver.bind(this);
+  private readonly elementClickCallback = this.elementClick.bind(this);
+  private readonly cancelEventCallback = this.cancelEvent.bind(this);
   private selectedComponent: ComponentInfo | undefined;
   private inspectorDiv: HTMLDivElement | null = null;
-  private otterLikeComponentInfoToBeSent = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
+  private readonly otterLikeComponentInfoToBeSent = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
 
   /**
    * Stream of component info to be sent to the extension app.
@@ -175,7 +175,6 @@ export class OtterInspectorService {
 
   /**
    * Toggle the inspector.
-   *
    * @param isRunning true if the inspector is running
    */
   public toggleInspector(isRunning: boolean) {

@@ -1,7 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-
-import { applyEsLintFix, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, getDestinationPath, moduleHasSubEntryPoints, writeSubEntryPointPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
 import { ExtraFormattedProperties } from '../common/helpers';
 
@@ -9,10 +8,9 @@ import { NgGenerateEntitySyncStoreSchematicsSchema } from './schema';
 
 /**
  * Create an Otter friendly entity sync store
- *
  * @param options
  */
-export function ngGenerateEntitySyncStore(options: NgGenerateEntitySyncStoreSchematicsSchema): Rule {
+function ngGenerateEntitySyncStoreFn(options: NgGenerateEntitySyncStoreSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
     const destination = getDestinationPath('@o3r/core:store', options.path, tree, options.projectName);
@@ -76,3 +74,9 @@ export function ngGenerateEntitySyncStore(options: NgGenerateEntitySyncStoreSche
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Create an Otter friendly entity sync store
+ * @param options
+ */
+export const ngGenerateEntitySyncStore = createSchematicWithMetricsIfInstalled(ngGenerateEntitySyncStoreFn);

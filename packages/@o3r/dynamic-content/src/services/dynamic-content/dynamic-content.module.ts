@@ -1,5 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { DynamicContentPipe } from './dynamic-content.pipe';
+import { DynamicContentPipe, O3rDynamicContentPipe } from './dynamic-content.pipe';
 import { DynamicContentService } from './dynamic-content.service';
 import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
 
@@ -19,7 +19,7 @@ export function getCmsAssets() {
 }
 
 @NgModule({
-  declarations: [DynamicContentPipe],
+  declarations: [DynamicContentPipe, O3rDynamicContentPipe],
   providers: [
     {
       provide: DYNAMIC_CONTENT_BASE_PATH_TOKEN,
@@ -31,7 +31,7 @@ export function getCmsAssets() {
     },
     DynamicContentService
   ],
-  exports: [DynamicContentPipe]
+  exports: [DynamicContentPipe, O3rDynamicContentPipe]
 })
 /**
  * DynamicContent module
@@ -40,7 +40,6 @@ export class DynamicContentModule {
 
   /**
    * Customize the location where the application will search for the base path of dynamic content
-   *
    * @param dynamicPath Configuration for dynamic content path
    * @param dynamicPath.content The string will be used as base path of dynamic content
    * @param dynamicPath.cmsAssets The string will be used for the the base path of cms assets

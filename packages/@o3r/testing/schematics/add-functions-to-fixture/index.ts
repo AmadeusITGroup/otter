@@ -1,5 +1,5 @@
 import { chain, noop, Rule, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, O3rCliError } from '@o3r/schematics';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, O3rCliError } from '@o3r/schematics';
 import * as ts from 'typescript';
 import { getImplementation, getSignature } from './helpers';
 import { description } from './models';
@@ -7,10 +7,9 @@ import { NgAddFunctionsToFixtureSchematicsSchema } from './schema';
 
 /**
  * Generate fixture
- *
  * @param options options to generate a fixture
  */
-export function ngAddFunctionsToFixture(options: NgAddFunctionsToFixtureSchematicsSchema): Rule {
+function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSchema): Rule {
   return chain([
     (tree: Tree) => {
       const { path, methods, selector } = options;
@@ -66,3 +65,9 @@ export function ngAddFunctionsToFixture(options: NgAddFunctionsToFixtureSchemati
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Generate fixture
+ * @param options options to generate a fixture
+ */
+export const ngAddFunctionsToFixture = createSchematicWithMetricsIfInstalled(ngAddFunctionsToFixtureFn);

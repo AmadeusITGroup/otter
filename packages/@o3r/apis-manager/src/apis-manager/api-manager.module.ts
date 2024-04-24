@@ -13,7 +13,6 @@ export class ApiManagerModule {
   /**
    * Provide a custom apiManager
    * A factory can be provided via injection to the token API_TOKEN
-   *
    * @param apiManager
    */
   public static forRoot(apiManager: ApiManager): ModuleWithProviders<ApiManagerModule> {

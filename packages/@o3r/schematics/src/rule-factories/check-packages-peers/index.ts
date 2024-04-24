@@ -19,7 +19,6 @@ interface PackageVersion {
 /**
  * Check if the first level of peer deps of a given package are installed.
  * List all not installed packages or packages with version mismatch
- *
  * @param packageName
  */
 function getPackagesToInstallOrUpdate(packageName: string) {
@@ -59,7 +58,6 @@ function getPackagesToInstallOrUpdate(packageName: string) {
 
 /**
  * Log an instruction with the packages to install or update to match a package peer dependencies
- *
  * @param packageName
  * @param angularJsonString
  * @param logger
@@ -95,7 +93,6 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
 
 /**
  * List peer deps packages of the given package, display a warning if version mismatch, error if peer dep is missing
- *
  * @param packageName The package to check peer deps for
  */
 export function checkPackagesRule(packageName: string) {

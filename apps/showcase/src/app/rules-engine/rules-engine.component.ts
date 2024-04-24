@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
@@ -9,14 +9,16 @@ import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, Configuratio
 import { O3rComponent } from '@o3r/core';
 import { AssetPathOverrideStoreModule, DynamicContentService } from '@o3r/dynamic-content';
 import { LocalizationOverrideStoreModule } from '@o3r/localization';
+import { ConfigurationRulesEngineActionHandler, ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
+import { AssetRulesEngineActionHandler, AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
 import {
   dateInNextMinutes,
   Operator,
   Rule,
   RulesEngineDevtoolsMessageService,
   RulesEngineDevtoolsModule,
-  RulesEngineModule,
-  RulesEngineService,
+  RulesEngineRunnerModule,
+  RulesEngineRunnerService,
   RulesetsStore,
   setRulesetsEntities,
   UnaryOperator
@@ -27,20 +29,26 @@ import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';
 import { CurrentTimeFactsService } from '../../services/current-time-facts.service';
+import {
+  LocalizationRulesEngineActionHandler,
+  LocalizationRulesEngineActionModule
+} from '@o3r/localization/rules-engine';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
   selector: 'o3r-rules-engine',
   standalone: true,
   imports: [
-    CommonModule,
     RulesEnginePresComponent,
     ConfigurationBaseServiceModule,
     ConfigurationDevtoolsModule,
     ApplicationDevtoolsModule,
     ComponentsDevtoolsModule,
-    RulesEngineModule,
+    RulesEngineRunnerModule,
     RulesEngineDevtoolsModule,
+    ConfigurationRulesEngineActionModule,
+    AssetRulesEngineActionModule,
+    LocalizationRulesEngineActionModule,
     ConfigOverrideStoreModule,
     AssetPathOverrideStoreModule,
     LocalizationOverrideStoreModule,
@@ -51,7 +59,8 @@ import { CurrentTimeFactsService } from '../../services/current-time-facts.servi
     NgbNavItem,
     NgbNavLink,
     NgbNavContent,
-    NgbNavOutlet
+    NgbNavOutlet,
+    AsyncPipe
   ],
   templateUrl: './rules-engine.template.html',
   styleUrls: ['./rules-engine.style.scss'],
@@ -65,21 +74,27 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
   public lateOtterRule = '';
 
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
   public activeRuleTab = 'configuration';
 
   constructor(
-    private inPageNavPresService: InPageNavPresService,
-    private dynamicContentService: DynamicContentService,
-    private tripFactsService: TripFactsService,
+    private readonly inPageNavPresService: InPageNavPresService,
+    private readonly dynamicContentService: DynamicContentService,
+    private readonly tripFactsService: TripFactsService,
     public currentTimeFactsService: CurrentTimeFactsService,
-    private store: Store<RulesetsStore>,
+    private readonly store: Store<RulesetsStore>,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService,
     rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
-    rulesEngineService: RulesEngineService
+    rulesEngineService: RulesEngineRunnerService,
+    configHandle: ConfigurationRulesEngineActionHandler,
+    assetsHandler: AssetRulesEngineActionHandler,
+    localizationHandler: LocalizationRulesEngineActionHandler
   ) {
+    rulesEngineService.actionHandlers.add(configHandle);
+    rulesEngineService.actionHandlers.add(assetsHandler);
+    rulesEngineService.actionHandlers.add(localizationHandler);
     configurationDevtoolsMessageService.activate();
     rulesEngineDevtoolsMessageService.activate();
     rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
@@ -106,7 +121,8 @@ export class RulesEngineComponent implements OnInit, AfterViewInit {
     this.store.dispatch(setRulesetsEntities({ entities: result.rulesets }));
     this.tripFactsService.register();
     // uncomment to test currentTimeFactsService override
-    // this.currentTimeFactsService.register();
+    this.currentTimeFactsService.register();
+    this.currentTimeFactsService.tick();
     const [
       newYorkAvailableRule,
       helloNewYorkRule,

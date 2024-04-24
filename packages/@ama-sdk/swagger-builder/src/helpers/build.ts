@@ -11,7 +11,6 @@ import { applyPostProcess } from './post-process';
 
 /**
  * Build a Swagger specification by merging the specifications in input
- *
  * @param configuration Configuration of the build
  * @param inputs List of YAML Swagger Spec paths, Config Json paths or Api Configuration objects to build
  */

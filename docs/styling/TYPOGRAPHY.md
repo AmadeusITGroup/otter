@@ -64,7 +64,8 @@ my-component {
 }
 ```
 
-> **WARNING**: This override should be done *only* if the constraints make sense for the structure of the component, not because it is part of the global design strategy.
+> [!WARNING]
+> This override should be done *only* if the constraints make sense for the structure of the component, not because it is part of the global design strategy.
 
 #### 3. Not using **Material Design** *(not recommended)*
 
@@ -177,7 +178,8 @@ The Material Design mixins generate the material CSS classes which are coming wi
   }
 ```
 
-> **Information**: The full list is available on [Typography helpers](https://github.com/angular/components/blob/main/src/material/core/typography/_typography.scss).
+> [!NOTE]
+> The full list is available on [Typography helpers](https://github.com/angular/components/blob/main/src/material/core/typography/_typography.scss).
 
 ---
 

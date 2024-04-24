@@ -1,12 +1,10 @@
-const getJestConfig = require('../../../jest.config.ut').getJestConfig;
+const getJestGlobalConfig = require('../../../jest.config.ut').getJestGlobalConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  ...getJestConfig(__dirname, false),
-  displayName: require('./package.json').name,
-  setupFilesAfterEnv: null,
-  testPathIgnorePatterns: [
-    '<rootDir>/.*/templates/.*',
-    '\\.it\\.spec\\.ts$'
+  ...getJestGlobalConfig(),
+  projects: [
+    '<rootDir>/testing/jest.config.ut.js',
+    '<rootDir>/testing/jest.config.ut.builders.js'
   ]
 };

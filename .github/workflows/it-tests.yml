@@ -37,7 +37,7 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: verdaccio
           path: verdaccio.zip
@@ -52,10 +52,12 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
+        testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
+      PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
       - uses: actions/checkout@v4
       - uses: ./tools/github-actions/download-build-output
@@ -67,7 +69,7 @@ jobs:
         run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
         shell: bash
       - name: Cache test-app yarn
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .cache/test-app
@@ -82,7 +84,7 @@ jobs:
           npm cache --cache=.cache/test-app/npm-cache ls | grep 127.0.0.1:4873 | xargs -d'\n' -r -n 1 npm cache --cache=.cache/test-app/npm-cache clean || true
           npx --yes -p replace-in-files-cli replace-in-files --regex=".*127.0.0.1:4873.*" --replacement="" ".cache/test-app/npm-cache/_cacache/index-v5/**/*"
         shell: bash
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         name: Download verdaccio storage prepared in the previous job
         with:
           name: verdaccio
@@ -101,7 +103,7 @@ jobs:
         shell: bash
       - name: Test
         id: it-tests
-        run: yarn test-int --output-style=stream
+        run: yarn test-int
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |
@@ -115,12 +117,13 @@ jobs:
         shell: bash
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
+        # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
         uses: actions/upload-artifact@v3
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}

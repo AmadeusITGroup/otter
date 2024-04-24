@@ -4,7 +4,7 @@
   "title": "Add <%= featureName %> project",
   "description": "'ng add <%= featureName %>' project",
   "properties": {
-    "name": {
+    "projectName": {
       "type": "string",
       "description": "Project name",
       "$default": {
@@ -18,8 +18,7 @@
     },
     "skipInstall": {
       "type": "boolean",
-      "description": "Skip the install process",
-      "default": true
+      "description": "Skip the install process"
     }
   },
   "additionalProperties": true,

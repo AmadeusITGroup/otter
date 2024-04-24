@@ -1,19 +1,32 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+
+const dependenciesToInstall = [
+  'chokidar',
+  'globby'
+];
 
 /**
  * Add Otter localization to an Angular Project
  * @param options for the dependencies installations
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
-      const { applyEsLintFix, install, getProjectNewDependenciesType, getWorkspaceConfig, ngAddPackages, ngAddPeerDependencyPackages, getO3rPeerDeps} = await import('@o3r/schematics');
+      const {
+        applyEsLintFix,
+        getPackageInstallConfig,
+        getProjectNewDependenciesTypes,
+        getWorkspaceConfig,
+        setupDependencies,
+        getO3rPeerDeps,
+        getExternalDependenciesVersionRange
+      } = await import('@o3r/schematics');
       const {updateI18n, updateLocalization} = await import('../localization-base');
       const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
       const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
@@ -23,35 +36,39 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `~${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }]
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName));
+      Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath)).forEach(([dep, range]) => {
+        dependencies[dep] = {
+          inManifest: [{
+            range,
+            types: [NodeDependencyType.Dev]
+          }]
+        };
+      });
       const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
         updateLocalization(options, __dirname),
         updateI18n(options),
         options.skipLinter ? noop() : applyEsLintFix(),
-        // install ngx-translate and message format dependencies
-        options.skipInstall ? noop : install,
-        (t, c) => ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: `${depsInfo.packageName!} - setup`,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
-        })(t, c),
-        ngAddPeerDependencyPackages(
-          ['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/localization - install builder dependency'),
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
+        }),
         updateCmsAdapter(options),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component': {
-            useLocalization: undefined
-          },
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '@o3r/core:component-presenter': {
-            useLocalization: undefined
+          '@o3r/core:component*': {
+            useLocalization: true
           }
         }),
         registerDevtoolRule
@@ -65,3 +82,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter localization to an Angular Project
+ * @param options for the dependencies installations
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

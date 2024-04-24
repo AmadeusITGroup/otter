@@ -2,9 +2,10 @@ import {BuilderOutput, createBuilder} from '@angular-devkit/architect';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import {PatternReplacementBuilderSchema} from './schema';
 
-export default createBuilder<PatternReplacementBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<PatternReplacementBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   const STEP_NUMBER = options.files.length + 1;
   context.reportProgress(1, STEP_NUMBER, 'Checking that all files exist');
@@ -29,4 +30,4 @@ export default createBuilder<PatternReplacementBuilderSchema>(async (options, co
   return {
     success: true
   };
-});
+}));

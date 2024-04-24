@@ -7,73 +7,53 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
       "dependsOn": [
         "build-builders",
-        "build-esm2020",
+        "compile",
         "build-esm2015",
-        "build-cjs"
+        "build-cjs",
+        "build-cli"
       ]
     },
     "build-esm2015": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:esm2015"
-      },
-      "dependsOn": [
-        "build-esm2020"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/esm2015"
-      ]
+      }
     },
     "build-cjs": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:cjs"
-      },
-      "dependsOn": [
-        "build-esm2020"
-      ],
-      "outputs": [
-        "{projectRoot}/dist/cjs"
-      ]
+      }
     },
-    "build-esm2020": {
+    "compile": {
       "executor": "nx:run-script",
       "options": {
         "script": "build:esm2020"
       },
-      "outputs": [
-        "{projectRoot}/dist/src"
-      ]
+      "outputs": ["{projectRoot}/dist/src"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@ama-sdk/core/.eslintrc.js",
         "lintFilePatterns": [
           "packages/@ama-sdk/core/src/**/*.ts",
           "packages/@ama-sdk/core/package.json"
         ]
-      }
+      },
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@ama-sdk/core/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@ama-sdk/core/jest.config.js"
       }
     },
     "prepare-publish": {
@@ -98,6 +78,12 @@
       "executor": "nx:run-script",
       "options": {
         "script": "build:builders"
+      }
+    },
+    "build-cli": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cli"
       }
     }
   },

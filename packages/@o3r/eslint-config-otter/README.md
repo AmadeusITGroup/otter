@@ -17,4 +17,5 @@ Recommended eslint configuration for Otter project
 ng add @o3r/eslint-config-otter
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.

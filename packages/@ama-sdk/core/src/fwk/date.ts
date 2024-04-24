@@ -47,9 +47,6 @@ export class CommonDate extends Date {
     super(...(args as []));
   }
 
-  /** @deprecated will be removed in v10 */
-  public get dateInstance(): Date { return this; }
-
   /**
    * Overrides the JSON conversion to remove any timezone information.
    */
@@ -130,42 +127,5 @@ export namespace utils {
      * To ensure that users cannot use a standard Date instead of utils.DateTime
      */
     protected _DateTime(): void {}
-
-    /**
-     * Get an instance of utils.Date base on the current date
-     *
-     * @deprecated will be removed in v10
-     */
-    public getUtilsDate(): Date {
-      return new Date(this);
-    }
-  }
-
-  /**
-   * Receives an object containing key/value pairs
-   * Encodes this object to match application/x-www-urlencoded or multipart/form-data
-   *
-   * @deprecated Please use processFormData in api.helpers, will be removed in v10
-   */
-  export function processFormData(headers: Headers, data: any, type: string): any {
-
-    let encodedData: any;
-
-    if (type === 'multipart/form-data') {
-      const formData: FormData = new FormData();
-      for (const i in data) {
-        formData.append(i, data[i]);
-      }
-      encodedData = formData;
-    } else {
-      headers.set('Content-Type', 'application/x-www-form-urlencoded');
-      const formData: string[] = [];
-      for (const i in data) {
-        formData.push(`${i}=${encodeURIComponent(data[i])}`);
-      }
-      encodedData = formData.join('&');
-    }
-
-    return encodedData;
   }
 }
