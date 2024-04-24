@@ -17,6 +17,9 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
+  "files.associations": {
+    "*.json5": "jsonc"
+  },
   "npm.packageManager": "yarn",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",

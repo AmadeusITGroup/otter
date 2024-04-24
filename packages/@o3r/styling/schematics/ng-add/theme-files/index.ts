@@ -1,7 +1,6 @@
 import { strings } from '@angular-devkit/core';
 import { apply, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { getTemplateFolder, getWorkspaceConfig, writeAngularJson } from '@o3r/schematics';
 
 /**
  * Added styling support
@@ -10,7 +9,8 @@ import { getTemplateFolder, getWorkspaceConfig, writeAngularJson } from '@o3r/sc
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateThemeFiles(rootPath: string, options: { projectName?: string | null | undefined }): Rule {
-  return (tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
+    const { getTemplateFolder, getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       return noop;
@@ -26,7 +26,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
       mainStyleFolder = path.dirname(mainStylePath);
       currentStyleFile = tree.readText(mainStylePath);
       if (currentStyleFile.indexOf('./styling/theme') > -1) {
-        return tree;
+        return;
       }
       tree.delete(mainStylePath);
     }
@@ -40,7 +40,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
       tree.exists(path.posix.join(mainStyleFolder, 'styling', 'styling.scss')) ||
       tree.exists(path.posix.join(mainStyleFolder, 'styling', '_styling.scss'))
     ) { // do nothing if the styling is already in place
-      return tree;
+      return;
     }
 
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
@@ -54,7 +54,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
 
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
-    return rule(tree, context);
+    return rule;
 
   };
 
@@ -68,7 +68,8 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
  */
 export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
 
-  return (tree: Tree, context: SchematicContext) => {
+  return async (tree: Tree, context: SchematicContext) => {
+    const { writeAngularJson, getWorkspaceConfig } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);
     const projectName = options.projectName;
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
@@ -76,7 +77,7 @@ export function removeV7OtterAssetsInAngularJson(options: { projectName?: string
     // exit if not an application
     if (!projectName || !workspace || !workspaceProject) {
       context.logger.debug('This is not an application project. No need to search and remove old v7 otter styling assets reference.');
-      return tree;
+      return;
     }
 
     if (workspaceProject.architect?.build?.options?.assets) {
@@ -85,6 +86,6 @@ export function removeV7OtterAssetsInAngularJson(options: { projectName?: string
     }
 
     workspace.projects[projectName] = workspaceProject;
-    return writeAngularJson(tree, workspace);
+    writeAngularJson(tree, workspace);
   };
 }

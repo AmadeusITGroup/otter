@@ -6,21 +6,21 @@
 --bs-primary-800: var(--color-primary-800);
 .nav-pills { --bs-nav-pills-link-active-color: var(--color-primary); }
 .navbar-toggler { --bs-navbar-color: var(--bs-primary-bg-subtle); }
-.nav.nav-pills .nav-link { --bs-scrollspy-active-color: var(--color-primary-800); }
---color-primary-50: #e6edfc;
---color-primary-100: #c2d3f7;
---color-primary-200: #99b6f2;
---color-primary-300: #7098ed;
---color-primary-400: #5182e9;
---color-primary-500: #326ce5;
---color-primary-600: #2d64e2;
---color-primary-700: #2659de;
---color-primary-800: #1f4fda;
---color-primary-900: #133dd3;
+--color-primary-50: #ebf3ff;
+--color-primary-100: #c5d5f9;
+--color-primary-200: #9fc6ff;
+--color-primary-300: #61a2ff;
+--color-primary-400: #3a8bff;
+--color-primary-500: #0c66e1;
+--color-primary-600: #104ea4;
+--color-primary-700: #0a2f62;
+--color-primary-800: #000835;
+--color-primary-900: #000521;
 --color-primary-A700: #839aff;
 --color-primary-A400: #9caeff;
 --color-primary-A200: #cfd8ff;
 --color-primary-A100: #ffffff;
+/* Primary palette */
 --color-primary: var(--color-primary-500);
 --color-accent-50: #e8f7ff;
 --color-accent-100: #c5eaff;
@@ -36,6 +36,7 @@
 --color-accent-A400: #cbe5ff;
 --color-accent-A200: #feffff;
 --color-accent-A100: #ffffff;
+/* Accent palette */
 --color-accent: var(--color-accent-500);
 --color-highlight-50: #f4e5ff;
 --color-highlight-100: #e4beff;
@@ -51,6 +52,7 @@
 --color-highlight-A400: #dcc3ff;
 --color-highlight-A200: #faf6ff;
 --color-highlight-A100: #ffffff;
+/* Highlight palette */
 --color-highlight: var(--color-highlight-500);
 --color-warn-50: #fdede4;
 --color-warn-100: #fbd1bb;
@@ -66,6 +68,7 @@
 --color-warn-A400: #ffb7a8;
 --color-warn-A200: #ffe1db;
 --color-warn-A100: #ffffff;
+/* Warn palette */
 --color-warn: var(--color-warn-500);
 --color-out-of-palette-green: #067f28;
 --color-out-of-palette-comet: #1b2073;
@@ -76,6 +79,7 @@
 --color-neutral-gray-light: #eff5f9;
 --color-neutral-black: #000000;
 --color-neutral-gray-dark: #616161;
+--color-neutral-custom: var(--color-primary);
 --spacing-0: 0px;
 --spacing-1: 1px;
 --spacing-5: 5px;

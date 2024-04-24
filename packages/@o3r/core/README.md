@@ -5,6 +5,9 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/core?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/core)
+
 This module gathers the core of the [Otter Framework](https://github.com/AmadeusITGroup/otter).
 It is the foundation for all the packages (interfaces, core helpers) and contains schematics to generate your components/services etc.
 

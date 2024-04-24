@@ -19,6 +19,7 @@ export type SchematicWrapper = <S>(schematicFn: SchematicWrapperFn<S>, sendData?
 /**
  * Wrapper method of a schematic to retrieve some metrics around the schematic run
  * @param schematicFn
+ * @param sendData
  */
 export const createSchematicWithMetrics: SchematicWrapper =
   (schematicFn, sendData = defaultSendData) => (options) => async (tree, context) => {

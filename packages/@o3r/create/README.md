@@ -3,6 +3,13 @@
   <img src="https://raw.githubusercontent.com/AmadeusITGroup/otter/main/assets/logo/otter.png" alt="Super cute Otter!" width="40%"/>
 </p>
 
+## Description
+
+[![Stable Version](https://img.shields.io/npm/v/@o3r/create?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/create?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+
+This package is an [NPM initializer](https://docs.npmjs.com/cli/v8/commands/npm-init) to generate a web application based on the [Otter Framework](https://github.com/AmadeusITGroup/otter).
+
 ## Create an Otter application
 
 This package is simplifying the start of an [Otter Framework](https://github.com/AmadeusITGroup/otter) based application.

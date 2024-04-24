@@ -12,7 +12,6 @@ import {
   url
 } from '@angular-devkit/schematics';
 import type { PathObject } from '@ama-sdk/core';
-import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import * as semver from 'semver';
@@ -67,13 +66,13 @@ const getPathObjectTemplate = (pathObj: PathObject) => {
     }`;
 };
 
-const getGlobalProperties = (globalPropertyMap: Map<string, any>, globalProperties: string) => {
-  const globalPropertiesArray = globalProperties.split(',');
-  globalPropertiesArray.forEach((property) => {
+const getProperties = (propertyMap: Map<string, any>, properties: string) => {
+  const propertiesArray = properties.split(',');
+  propertiesArray.forEach((property) => {
     const [propName, propValue] = property.split('=');
-    globalPropertyMap.set(propName, propValue ?? true);
+    propertyMap.set(propName, propValue ?? true);
   });
-  return globalPropertyMap;
+  return propertyMap;
 };
 
 const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgGenerateTypescriptSDKCoreSchematicsSchema) => {
@@ -131,13 +130,20 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
     if (typeof openApiToolsJsonGenerator.globalProperty === 'object') {
       Object.entries(openApiToolsJsonGenerator.globalProperty).forEach(([key, value]) => globalPropertyMap.set(key, value));
     } else {
-      globalPropertyMap = getGlobalProperties(globalPropertyMap, openApiToolsJsonGenerator.globalProperty);
+      globalPropertyMap = getProperties(globalPropertyMap, openApiToolsJsonGenerator.globalProperty);
     }
   }
   if (options.globalProperty) {
-    globalPropertyMap = getGlobalProperties(globalPropertyMap, options.globalProperty);
+    globalPropertyMap = getProperties(globalPropertyMap, options.globalProperty);
   }
   const globalProperty = Array.from(globalPropertyMap).map(([key, value]) => `${key}=${value}`).join(',');
+
+  // get openApi normalizer properties from options
+  let openapiNormalizerMap: Map<string, any> = new Map();
+  if (options.openapiNormalizer) {
+    openapiNormalizerMap = getProperties(openapiNormalizerMap, options.openapiNormalizer);
+  }
+  const openapiNormalizer = Array.from(openapiNormalizerMap).map(([key, value]) => `${key}=${value}`).join(',');
 
   // log warning of options that won't be taken into account if generator key and other options are provided in the command
   if (options.generatorKey && openApiToolsJsonGenerator && JAVA_OPTIONS.some((optionName) => typeof options[optionName] !== undefined)) {
@@ -150,6 +156,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
     ...(outputPath ? {outputPath} : {}),
     ...(specConfigPath ? {specConfigPath} : {}),
     ...(globalProperty ? {globalProperty} : {}),
+    ...(openapiNormalizer ? {openapiNormalizer} : {}),
     ...(options.generatorCustomPath ? {generatorCustomPath: options.generatorCustomPath} : {})
   };
 };
@@ -215,7 +222,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
         if (specVersion) {
           const readmeContent = tree.read(readmeFile)!.toString('utf8');
-          tree.overwrite(readmeFile, readmeContent.replace(/Based on Swagger spec .*/i, `Based on Swagger spec ${specVersion[1]}`));
+          tree.overwrite(readmeFile, readmeContent.replace(/Based on (OpenAPI|Swagger) spec .*/i, `Based on $1 spec ${specVersion[1]}`));
         }
       }
 
@@ -229,7 +236,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     const runGeneratorRule = () => {
       return () => (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(
-        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined)) ? {generatorKey: options.generatorKey} : generatorOptions,
+        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined)) ?
+          {generatorKey: options.generatorKey, ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})} : generatorOptions,
         {rootDirectory: options.directory || undefined}
       );
     };
@@ -247,4 +255,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
  * Generate a typescript SDK source code base on swagger specification
  * @param options
  */
-export const ngGenerateTypescriptSDK = createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn);
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKCoreSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
+};
