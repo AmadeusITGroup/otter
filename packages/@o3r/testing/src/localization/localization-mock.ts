@@ -47,10 +47,11 @@ export interface MockTranslations {
 /**
  * Function to get the list of modules required to test component using Localization module
  * @param localizationConfiguration Localization configuration
- * @param translations              Translations to use
- * @param translationCompilerProvider
- * @param mockPipe                  Enable Translation pipe mocking
- * @returns                           List of modules to import in your TestBed
+ * @param translations Translations to use
+ * @param translationCompilerProvider Provider for translations compiler
+ * @param mockPipe Enable translation pipe mocking
+ * @param pipeWithPrefix Enable pipe with prefix
+ * @returns List of modules to import in the TestBed
  */
 export function mockTranslationModules(
   localizationConfiguration: Partial<LocalizationConfiguration> = defaultLocalizationConfiguration,

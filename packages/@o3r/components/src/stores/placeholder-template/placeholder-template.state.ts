@@ -7,7 +7,7 @@ export interface PlaceholderTemplateModel {
   /** Placeholder id that is unique*/
   id: string;
   /** Urls to the templates to be fetched, and priority for rendering order */
-  urlsWithPriority: { rawUrl:string; priority: number }[];
+  urlsWithPriority: { rawUrl: string; priority: number }[];
 }
 
 /** Possible placeholder mode */
