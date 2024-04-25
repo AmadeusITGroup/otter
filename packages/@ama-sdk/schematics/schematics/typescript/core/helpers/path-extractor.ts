@@ -12,6 +12,11 @@ export const generateOperationFinderFromSingleFile = (specification: OpenAPIV2.D
   if (!specification.paths) {
     return [];
   }
+  let basePath = '/';
+  if ('basePath' in specification && specification.basePath) {
+    basePath = specification.basePath.replace(/\/$/, '');
+
+  }
 
   return Object.entries(specification.paths)
     .filter(([, pathObject]) => !!pathObject)
@@ -22,7 +27,7 @@ export const generateOperationFinderFromSingleFile = (specification: OpenAPIV2.D
         : pathObjectOrRef;
       return {
         path,
-        regexp: new RegExp(`^${path.replace(/\{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`),
+        regexp: new RegExp(`^${(basePath + path).replace(/^\/{2,}/, '/').replace(/\{[^}]+}/g, '((?:[^/]+?))')}(?:/(?=$))?$`),
         operations: Object.entries(pathObject)
           .map(([method, reqObject]) => ({
             method,
