@@ -31,6 +31,7 @@ export function isNxContext(tree: Tree) {
 
 /**
  * Determine if a repository is standalone (not part of a monorepo)
+ * @deprecated no longer in use. Will be removed in V12
  * @param tree
  */
 export function isStandaloneRepository(tree: Tree) {
