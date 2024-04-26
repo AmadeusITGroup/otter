@@ -49,7 +49,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-assertions': 'error',
     '@typescript-eslint/dot-notation': 'error',
     '@typescript-eslint/explicit-member-accessibility': [
-      'error',
+      'warn',
       {
         'accessibility': 'explicit',
         'overrides': {

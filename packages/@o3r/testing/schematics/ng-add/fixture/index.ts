@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { TsConfigJson } from 'type-fest';
 
 import * as ts from 'typescript';
 
@@ -26,19 +27,19 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
     }
 
     const testTarget = workspaceProject.architect && workspaceProject.architect.test;
-    const tsconfig: string | undefined = testTarget && testTarget.options && testTarget.options.tsConfig;
+    const tsconfigPath: string | undefined = testTarget && testTarget.options && testTarget.options.tsConfig;
 
-    if (tsconfig && tree.exists(tsconfig)) {
-      const tsconfigFile = ts.parseConfigFileTextToJson(tsconfig, tree.readText(tsconfig)).config;
-      tsconfigFile.compilerOptions = tsconfigFile.compilerOptions || {};
+    if (tsconfigPath && tree.exists(tsconfigPath)) {
+      const tsconfigFile = tree.readJson(tsconfigPath) as TsConfigJson;
+      tsconfigFile.compilerOptions ||= {};
 
       const tsconfigCompilerOptions = tsconfigFile.compilerOptions;
-
-      tsconfigCompilerOptions.lib = [...(tsconfigCompilerOptions.lib || []),
+      type Lib = TsConfigJson.CompilerOptions.Lib;
+      tsconfigCompilerOptions.lib = ([...(tsconfigCompilerOptions.lib || []),
         'dom',
         'es2020',
         'scripthost'
-      ].reduce<string[]>((libs, lib: string) => {
+      ] as Lib[]).reduce<Lib[]>((libs, lib) => {
         if (libs.indexOf(lib) === -1) {
           libs.push(lib);
         }
@@ -55,8 +56,9 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       }
       tsconfigCompilerOptions.esModuleInterop = true;
       tsconfigCompilerOptions.outDir = 'test';
-
-      tree.overwrite(tsconfig, JSON.stringify(tsconfigFile, null, 2));
+      tsconfigFile.include ||= [];
+      tsconfigFile.include.concat(['**/fixture/', '**/*.fixture.ts', '**/fixtures.ts']);
+      tree.overwrite(tsconfigPath, JSON.stringify(tsconfigFile, null, 2));
     }
 
     return;
