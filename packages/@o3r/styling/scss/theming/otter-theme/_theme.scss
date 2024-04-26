@@ -136,14 +136,14 @@
 
 /// Generate the theme map containing a set of palettes and variables specific for this application
 /// @access public
-/// @param {map} $primary [$otter-primary] palette generated via mat.define-palette with the colors in the primary theme (forms)
-/// @param {map} $highlight [$otter-highlight] palette generated via mat.define-palette with the colors for the navigation and the continue / back buttons
-/// @param {map} $accent [$otter-accent] palette generated via mat.define-palette with the colors used to accentuate one element in the page
-/// @param {map} $warn [$otter-warn] palette generated via mat.define-palette with the colors used in warning or error feedbacks
+/// @param {map} $primary [$otter-primary] palette generated via mat-functions.define-palette with the colors in the primary theme (forms)
+/// @param {map} $highlight [$otter-highlight] palette generated via mat-functions.define-palette with the colors for the navigation and the continue / back buttons
+/// @param {map} $accent [$otter-accent] palette generated via mat-functions.define-palette with the colors used to accentuate one element in the page
+/// @param {map} $warn [$otter-warn] palette generated via mat-functions.define-palette with the colors used in warning or error feedbacks
 /// @param {bool} $is-dark-theme
 /// @param {map} $application [()] a set of properties to override for one specific implementation
 /// @return {map} containing the palette maps and the otter-theme variables map
-@function generate-otter-theme($primary: mat.define-palette(amadeus-palette.$ama-primary), $highlight: mat.define-palette(amadeus-palette.$ama-highlight), $accent: mat.define-palette(amadeus-palette.$ama-accent), $warn: mat.define-palette(amadeus-palette.$ama-warn), $is-dark-theme: false, $application: ()) {
+@function generate-otter-theme($primary: mat-functions.define-palette(amadeus-palette.$ama-primary), $highlight: mat-functions.define-palette(amadeus-palette.$ama-highlight), $accent: mat-functions.define-palette(amadeus-palette.$ama-accent), $warn: mat-functions.define-palette(amadeus-palette.$ama-warn), $is-dark-theme: false, $application: ()) {
   $theme: mat-functions.generate-theme(
     $primary: $primary,
     $highlight: $highlight,
@@ -158,13 +158,13 @@
 
 /// Generate the dark theme map containing a set of palettes and variables specific for this application
 /// @access public
-/// @param {map} $primary [$otter-primary] palette generated via mat.define-palette with the colors in the primary theme (forms)
-/// @param {map} $highlight [$otter-highlight] palette generated via mat.define-palette with the colors for the navigation and the continue / back buttons
-/// @param {map} $accent [$otter-accent] palette generated via mat.define-palette with the colors used to accentuate one element in the page
-/// @param {map} $warn [$otter-warn] palette generated via mat.define-palette with the colors used in warning or error feedbacks
+/// @param {map} $primary [$otter-primary] palette generated via mat-functions.define-palette with the colors in the primary theme (forms)
+/// @param {map} $highlight [$otter-highlight] palette generated via mat-functions.define-palette with the colors for the navigation and the continue / back buttons
+/// @param {map} $accent [$otter-accent] palette generated via mat-functions.define-palette with the colors used to accentuate one element in the page
+/// @param {map} $warn [$otter-warn] palette generated via mat-functions.define-palette with the colors used in warning or error feedbacks
 /// @param {map} $application [()] a set of properties to override for one specific implementation
 /// @return {map} containing the palette maps and the otter-theme variables map
-@function generate-otter-dark-theme($primary: mat.define-palette(amadeus-palette.$ama-primary), $highlight: mat.define-palette(amadeus-palette.$ama-highlight), $accent: mat.define-palette(amadeus-palette.$ama-accent), $warn: mat.define-palette(amadeus-palette.$ama-warn), $application: ()) {
+@function generate-otter-dark-theme($primary: mat-functions.define-palette(amadeus-palette.$ama-primary), $highlight: mat-functions.define-palette(amadeus-palette.$ama-highlight), $accent: mat-functions.define-palette(amadeus-palette.$ama-accent), $warn: mat-functions.define-palette(amadeus-palette.$ama-warn), $application: ()) {
   @return generate-otter-theme(
     $primary: $primary,
     $highlight: $highlight,

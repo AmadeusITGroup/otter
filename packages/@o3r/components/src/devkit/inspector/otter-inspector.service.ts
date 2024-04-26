@@ -113,8 +113,7 @@ export class OtterInspectorService {
       this.inspectorDiv.style.height = `${rect.height}px`;
       this.inspectorDiv.style.top = `${rect.top}px`;
       this.inspectorDiv.style.left = `${rect.left}px`;
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      this.inspectorDiv.firstChild!.textContent = `<${this.selectedComponent.component.constructor.name}>`;
+      this.inspectorDiv.firstChild!.textContent = `<${this.selectedComponent.componentName}>`;
     }
   }
 

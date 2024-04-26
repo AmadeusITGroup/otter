@@ -34,7 +34,7 @@ export interface CreateTestEnvironmentOtterProjectWithAppOptions extends CreateW
   logger?: Logger;
 }
 
-const o3rVersion = '999.0.0';
+const o3rVersion = '~999';
 
 /**
  * Generate a base angular app with minimal necessary dependencies

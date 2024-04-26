@@ -1,5 +1,5 @@
-import { execSync, ExecSyncOptions } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
@@ -46,8 +46,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const itTestsFolderPath = path.resolve(rootFolderPath, '..', 'it-tests');
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
-  const cacheFolderPath = path.resolve(globalFolderPath, 'cache');
-  const o3rVersion = '999.0.0';
+  const o3rVersion = '~999';
 
   JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
   const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
@@ -57,22 +56,6 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     // eslint-disable-next-line @typescript-eslint/naming-convention
     env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
   };
-
-  // Remove all cache entries relative to local workspaces (@o3r, @ama-sdk, @ama-terasu)
-  if (!!process.env.CI && existsSync(cacheFolderPath)) {
-    const workspacesList = execSync('yarn workspaces:list', { stdio: 'pipe' }).toString().split(path.delimiter)
-      .map((workspace) => workspace.replace('packages/', '').replace(/\//, '-'))
-      .filter((workspace) => !!workspace);
-    readdirSync(cacheFolderPath).forEach((fileName) => {
-      if (workspacesList.some((workspace) => fileName.startsWith(workspace))) {
-        const cacheFile = path.join(cacheFolderPath, fileName);
-        // Not ideal solution but the tests are running in parallel, so we cannot always clean the cache
-        if (Date.now() - statSync(cacheFile).birthtime.getTime() > (60 * 60 * 1000)) {
-          rmSync(cacheFile);
-        }
-      }
-    });
-  }
 
   const packageManagerConfig = {
     yarnVersion,
@@ -89,6 +72,13 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
+  const o3rExactVersion = execFileSync('npm', ['info', '@o3r/create', 'version'], {
+    ...execAppOptions,
+    cwd: itTestsFolderPath,
+    stdio: 'pipe',
+    encoding: 'utf8',
+    shell: true
+  }).replace(/\s/g, '');
 
   // Remove existing app
   if (existsSync(workspacePath)) {
@@ -158,6 +148,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     untouchedProject,
     untouchedProjectPath,
     packageManagerConfig,
-    o3rVersion
+    o3rVersion,
+    o3rExactVersion
   };
 }

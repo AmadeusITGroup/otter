@@ -1,61 +1,117 @@
 @if (numberOfVariables()) {
-  <form [formGroup]="form" class="mb-2">
-    <div class="mb-2 input-group">
-      <label class="input-group-text" for="search-styling">
-        <i class="mx-1 icon-search" aria-label="Search"></i>
-      </label>
-      <input class="form-control" formControlName="search" type="text" id="search-styling" placeholder="Search for styling variable" />
+  <form [formGroup]="form" class="mb-6">
+    <div class="mb-4 d-flex gap-4 justify-content-between">
+      <div class="input-group">
+        <label class="input-group-text" for="search-styling">
+          <i class="mx-1 icon-search" aria-label="Search"></i>
+        </label>
+        <input class="form-control" formControlName="search" type="text" id="search-styling" placeholder="Search for styling variable" />
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="themeOnly" formControlName="themeOnly">
+        <label class="form-check-label text-nowrap" for="themeOnly">
+          Show only theming variable
+        </label>
+      </div>
+    </div>
+    <div class="btn-group" role="group">
+      @for (group of ['category', 'type', 'component']; track group) {
+        <input type="radio" class="btn-check" [id]="group" [value]="group" autocomplete="off" formControlName="groupBy">
+        <label class="btn btn-outline-primary" [for]="group">Grouped by {{ group }}</label>
+      }
     </div>
   </form>
   <form [formGroup]="form.controls.variables">
-    <ul class="d-grid w-100 overflow-hidden p-0 border-top border-start border-light" [style.grid-template-columns]="'repeat(auto-fill, minmax(300px, 1fr))'">
-      @for (themeVar of filteredThemeVariables(); track themeVar.name) {
-        <li class="form-group d-flex gap-4 border-bottom border-end border-light p-7">
-          <div class="d-flex flex-column gap-2 w-100">
-            <label class="form-label text-nowrap fw-semibold" [for]="themeVar.name">{{ themeVar | variableLabel }}</label>
-            <div class="d-flex gap-4 align-items-center position-relative">
-              @if (themeVar.type === 'color') {
-                <input [style.width]="'40px'" class="form-control form-control-color" type="color" [value]="resolvedVariables()[themeVar.name] | color" (change)="onColorChange(themeVar.name, $event)" />
-              }
-              <ng-template #resultTemplate let-result="result" let-term="term">
-                <div class="d-flex flex-column gap-2">
-                  <ngb-highlight [result]="result" [term]="term"></ngb-highlight>
-                  @if (result | variableName; as varName) {
-                    @if (variablesMap()[varName]; as variable) {
-                      <div class="d-flex gap-3 fs-6 text-secondary align-items-center">
-                        @if (variable.type === 'color') {
-                          <div class="border border-secondary rounded-circle" [style.background]="resolvedVariables()[variable.name] | color" [style.width]="'15px'" [style.height]="'15px'"></div>
-                        }
-                        @if (variable.description; as description) {
-                          <ngb-highlight [result]="description" [term]="term"></ngb-highlight>
-                        } @else {
-                          <ngb-highlight [result]="variable.runtimeValue ?? variable.defaultValue" [term]="term"></ngb-highlight>
-                        }
-                      </div>
-                    }
-                  }
+    <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+      @for (group of groupedVariables(); track group.name) {
+        <div ngbAccordionItem>
+          <h3 ngbAccordionHeader>
+            <button ngbAccordionButton>
+              @if (group.isPalette && group.defaultVariable) {
+                <div (click)="$event.stopPropagation();">
+                  <input [style.width]="'40px'" class="form-control form-control-color" [id]="group.name" type="color" [value]="resolvedVariables()[group.defaultVariable.name] | hexColor" (change)="onPaletteChange(group, $event)" />
                 </div>
-              </ng-template>
-              <input [id]="themeVar.name" type="text" class="form-control w-100 pe-6" [formControlName]="themeVar.name" [ngbTypeahead]="variableSearch | memoize : themeVar" [resultTemplate]="resultTemplate" />
-              @if (form.value.variables?.[themeVar.name] !== themeVar.defaultValue) {
-                <i class="form-text text-warning icon-undo position-absolute end-0 me-3" ngbTooltip="Reset value to: {{themeVar.defaultValue}}" (click)="onColorReset(themeVar)"></i>
+                <label class="form-label text-nowrap fw-semibold my-0 ms-4" [for]="group.name">{{ group.name }}</label>
+                @if (form.value.variables?.[group.defaultVariable.name] !== group.defaultVariable.defaultValue) {
+                  <i class="form-text text-warning icon-undo position-absolute end-0 me-10" ngbTooltip="Reset all colors of {{group.name}}" (click)="onPaletteReset(group, $event)"></i>
+                }
+              } @else {
+                <label class="form-label text-nowrap fw-semibold my-0">{{ group.name }}</label>
               }
+            </button>
+          </h3>
+          <div ngbAccordionCollapse>
+            <div ngbAccordionBody>
+              <ng-template>
+                <ul class="d-grid w-100 overflow-hidden p-0 border-top border-start border-light" [style.grid-template-columns]="group.isPalette ? null : 'repeat(auto-fill, minmax(300px, 1fr))'">
+                  @for (variable of group.variables; track variable.name) {
+                    @if (group.isPalette) {
+                      @if (resolvedVariables()[variable.name] | hexColor; as resolvedColor) {
+                        <li class="d-flex px-4 gap-4" [style.background]="resolvedColor" [style.color]="resolvedColor | contrast">
+                          <label class="form-label text-nowrap fw-semibold my-auto" [for]="variable.name">
+                            {{ variable | variableLabel }}
+                          </label>
+                          <span class="my-auto">{{ resolvedColor }}</span>
+                          <span class="ms-auto my-auto">
+                            <span ngbTooltip="Accessibility score for small text" [style.fontSize]="'12px'" class="me-2">{{ resolvedColor | accessibilityConstrastScore : (resolvedColor | contrast) : 'small' }}</span>
+                            <span ngbTooltip="Accessibility score for large text" [style.fontSize]="'24px'">{{ resolvedColor | accessibilityConstrastScore : (resolvedColor | contrast) : 'large' }}</span>
+                          </span>
+                        </li>
+                      }
+                    } @else {
+                      <li class="form-group d-flex gap-4 border-bottom border-end border-light p-7">
+                        <div class="d-flex flex-column gap-2 w-100">
+                          <label class="form-label text-nowrap fw-semibold" [for]="variable.name">{{ variable | variableLabel }}</label>
+                          <div class="d-flex gap-4 align-items-center position-relative">
+                            @if (variable.type === 'color') {
+                              <input [style.width]="'40px'" class="form-control form-control-color" type="color" [value]="resolvedVariables()[variable.name] | hexColor" (change)="onColorChange(variable.name, $event)" />
+                            }
+                            <ng-template #resultTemplate let-result="result" let-term="term">
+                              <div class="d-flex flex-column gap-2">
+                                <ngb-highlight [result]="result" [term]="term"></ngb-highlight>
+                                @if (result | variableName; as varName) {
+                                  @if (variablesMap()[varName]; as searchVariable) {
+                                    <div class="d-flex gap-3 fs-6 text-secondary align-items-center">
+                                      @if (searchVariable.type === 'color') {
+                                        <div class="border border-secondary rounded-circle" [style.background]="resolvedVariables()[searchVariable.name] | hexColor" [style.width]="'15px'" [style.height]="'15px'"></div>
+                                      }
+                                      @if (searchVariable.description; as description) {
+                                        <ngb-highlight [result]="description" [term]="term"></ngb-highlight>
+                                      } @else {
+                                        <ngb-highlight [result]="searchVariable.runtimeValue ?? searchVariable.defaultValue" [term]="term"></ngb-highlight>
+                                      }
+                                    </div>
+                                  }
+                                }
+                              </div>
+                            </ng-template>
+                            <input [id]="variable.name" type="text" class="form-control w-100 pe-6" [formControlName]="variable.name" [ngbTypeahead]="variableSearch | memoize : variable" [resultTemplate]="resultTemplate" />
+                            @if (form.value.variables?.[variable.name] !== variable.defaultValue) {
+                              <i class="form-text text-warning icon-undo position-absolute end-0 me-3" ngbTooltip="Reset value to: {{variable.defaultValue}}" (click)="onColorReset(variable)"></i>
+                            }
+                          </div>
+                          @if (variable.description) {
+                            <p class="form-text mb-0 text-secondary">{{variable.description}}</p>
+                          }
+                        </div>
+                      </li>
+                    }
+                  } @empty {
+                    <li class="list-group-item">
+                      @if (form.value.search) {
+                        <h3>No theming variable found for your search.</h3>
+                      } @else {
+                        <h3>No theming variable provided.</h3>
+                      }
+                    </li>
+                  }
+                </ul>
+              </ng-template>
             </div>
-            @if (themeVar.description) {
-              <p class="form-text mb-0 text-secondary">{{themeVar.description}}</p>
-            }
           </div>
-        </li>
-      } @empty {
-        <li class="list-group-item">
-          @if (form.value.search) {
-            <h3>No theming variable found for your search.</h3>
-          } @else {
-            <h3>No theming variable provided.</h3>
-          }
-        </li>
+        </div>
       }
-    </ul>
+    </div>
   </form>
 } @else {
   <h3>No metadata provided for styling.</h3>

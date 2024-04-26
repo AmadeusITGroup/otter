@@ -1,9 +1,10 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
+import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
-import { registerDevtools } from './helpers/devtools-registration';
 import { generateCmsConfigFile } from './helpers/cms-registration';
+import { registerDevtools } from './helpers/devtools-registration';
+import type { NgAddSchematicsSchema } from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/application has failed.
@@ -20,9 +21,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     const {
-      addImportToModuleFile,
       getAppModuleFilePath,
-      getModuleIndex,
       getWorkspaceConfig,
       insertImportToModuleFile,
       setupDependencies,
@@ -38,9 +37,10 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     const addAngularAnimationPreferences: Rule = () => {
+      const additionalRules: Rule[] = [];
       const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
 
-      if (!moduleFilePath) {
+      if (!moduleFilePath || !options.projectName) {
         return tree;
       }
 
@@ -57,8 +57,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         return tree;
       }
 
+      const importInRootModule = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+        addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
+      );
+
       const recorder = tree.beginUpdate(moduleFilePath);
-      const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
       insertImportToModuleFile(
         'prefersReducedMotion',
@@ -67,20 +70,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         recorder,
         moduleFilePath
       );
-      addImportToModuleFile(
+
+      importInRootModule(
         'BrowserAnimationsModule',
         '@angular/platform-browser/animations',
-        sourceFile,
-        sourceFileContent,
-        context,
-        recorder,
-        moduleFilePath,
-        moduleIndex,
-        '.withConfig({disableAnimations: prefersReducedMotion()})',
-        true
+        '.withConfig({disableAnimations: prefersReducedMotion()})'
       );
       tree.commitUpdate(recorder);
-      return tree;
+      return chain(additionalRules)(tree, context);
     };
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
       acc[dep] = {

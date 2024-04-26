@@ -14,6 +14,7 @@ export const getAddLocalizationRules = (
   '@o3r/localization',
   'localization-to-component',
   {
+    ...options,
     skipLinter: options.skipLinter,
     activateDummy: options.activateDummy
   }

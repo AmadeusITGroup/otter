@@ -1,3 +1,4 @@
+import type { InputSignal, Signal } from '@angular/core';
 import type { Observable } from 'rxjs';
 
 /**
@@ -36,7 +37,6 @@ export interface CustomConfig<T extends Partial<Configuration> = Partial<Configu
 /**
  * Dynamically Configurable item
  */
-// eslint-disable-next-line no-use-before-define
 export interface DynamicConfigurable<T extends Configuration> {
   /**
    * Configuration override
@@ -47,6 +47,21 @@ export interface DynamicConfigurable<T extends Configuration> {
    * Configuration stream
    */
   config$: Observable<T>;
+}
+
+/**
+ * Dynamically Configurable item working with signal
+ */
+export interface DynamicConfigurableWithSignal<T extends Configuration> {
+  /**
+   * Configuration override
+   */
+  config: InputSignal<Partial<T> | undefined>;
+
+  /**
+   * Configuration signal
+   */
+  configSignal: Signal<T>;
 }
 
 /**

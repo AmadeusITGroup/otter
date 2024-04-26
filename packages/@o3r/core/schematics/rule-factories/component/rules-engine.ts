@@ -14,7 +14,7 @@ export const getAddRulesEngineRules = (
   '@o3r/rules-engine',
   'rules-engine-to-component',
   {
-    path: componentPath,
+    ...options,
     skipLinter: options.skipLinter,
     projectName: options.projectName
   }

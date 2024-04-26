@@ -45,7 +45,7 @@ describe('Create new otter project command', () => {
   });
 
   test('should generate a project with an application with --exact-o3r-version', async () => {
-    const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
+    const { workspacePath, packageManagerConfig, o3rExactVersion } = o3rEnvironment.testEnvironment;
     const inAppPath = path.join(workspacePath, workspaceProjectName);
     const execWorkspaceOptions = {...defaultExecOptions, cwd: workspacePath };
     const execInAppOptions = {...defaultExecOptions, cwd: inAppPath };
@@ -57,7 +57,7 @@ describe('Create new otter project command', () => {
     await fs.mkdir(inAppPath, { recursive: true });
     setPackagerManagerConfig(packageManagerConfig, execInAppOptions);
 
-    expect(() => packageManagerCreate({ script: `@o3r@${o3rVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
+    expect(() => packageManagerCreate({ script: `@o3r@${o3rExactVersion}`, args: [workspaceProjectName, ...createOptions] }, execWorkspaceOptions, 'npm')).not.toThrow();
     expect(existsSync(path.join(inAppPath, 'angular.json'))).toBe(true);
     expect(existsSync(path.join(inAppPath, 'package.json'))).toBe(true);
     expect(() => packageManagerInstall(execInAppOptions)).not.toThrow();
@@ -75,7 +75,7 @@ describe('Create new otter project command', () => {
       ...Object.entries(rootPackageJson.dependencies), ...Object.entries(rootPackageJson.devDependencies), ...Object.entries(resolutions),
       ...Object.entries(appPackageJson.dependencies), ...Object.entries(appPackageJson.devDependencies)
     ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rVersion);
+      expect(version).toBe(o3rExactVersion);
     });
   });
 });

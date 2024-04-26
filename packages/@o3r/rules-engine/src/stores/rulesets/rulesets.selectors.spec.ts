@@ -1,5 +1,6 @@
 import {RulesetsModel, RulesetsState} from './rulesets.state';
 import * as selectors from './rulesets.selectors';
+import {computeItemIdentifier} from '@o3r/core';
 
 describe('RuleSets Selector tests', () => {
 
@@ -83,7 +84,19 @@ describe('RuleSets Selector tests', () => {
     },
     linkedComponent: {
       library: '@mylibrary',
-      name: 'mycomponent'
+      name: 'thisComponentWillBeIgnored'
+    },
+    linkedComponents: {
+      or: [
+        {
+          library: '@mylibrary',
+          name: 'mycomponent'
+        },
+        {
+          library: '@mylibrary',
+          name: 'mycomponent2'
+        }
+      ]
     }
   };
 
@@ -201,6 +214,46 @@ describe('RuleSets Selector tests', () => {
     const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
 
     expect(selectors.selectActiveRuleSets.projector(allRuleSetsArray)).toEqual([]);
+  });
+
+  it('should select the linked components rulesets', () => {
+    const state: RulesetsState = {
+      ids: [r2.id, r4.id, r8.id],
+      entities: {
+        'r2': r2,
+        'r4': r4,
+        'r8': r8
+      },
+      requestIds: []
+    };
+    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const componentsWithRulesets = {
+      [computeItemIdentifier('mycomponent', '@mylibrary')]: [r2.id, r8.id],
+      [computeItemIdentifier('mycomponent2', '@mylibrary')]: [r8.id]
+    };
+    expect(selectors.selectRuleSetLinkComponents.projector(allRuleSetsArray)).toEqual(componentsWithRulesets);
+  });
+
+  it('should select the map of rulesets linked components', () => {
+    const state: RulesetsState = {
+      ids: [r2.id, r4.id, r8.id],
+      entities: {
+        'r2': r2,
+        'r4': r4,
+        'r8': r8
+      },
+      requestIds: []
+    };
+    const allRuleSetsArray = selectors.selectAllRulesets.projector(state);
+    const comp2 = computeItemIdentifier('mycomponent2', '@mylibrary');
+    const comp = computeItemIdentifier('mycomponent', '@mylibrary');
+    const componentsWithRulesets = {
+      or: {
+        [r2.id]: [comp],
+        [r8.id]: [comp, comp2]
+      }
+    };
+    expect(selectors.selectComponentsLinkedToRuleset.projector(allRuleSetsArray)).toEqual(componentsWithRulesets);
   });
 
 });
