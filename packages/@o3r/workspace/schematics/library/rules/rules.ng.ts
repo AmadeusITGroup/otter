@@ -46,6 +46,8 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
         const genPackageJsonPath = path.posix.join(options.targetPath, 'package.json');
         const packageJson = t.readJson(genPackageJsonPath) as PackageJson;
         packageJson.name = options.packageJsonName;
+        packageJson.scripts ||= {};
+        packageJson.scripts.ng = 'ng';
         t.overwrite(genPackageJsonPath, JSON.stringify(packageJson, null, 2));
         return t;
       }
@@ -60,37 +62,25 @@ export function ngGenerateModule(options: NgGenerateModuleSchema & { targetPath:
   const updateTsConfigFiles: Rule = (tree, context) => {
     const tsconfigBase = findConfigFileRelativePath(tree, ['tsconfig.base.json', 'tsconfig.json'], '/');
     const tsconfigBuild = findConfigFileRelativePath(tree, ['tsconfig.build.json'], '/');
-    if (tsconfigBase) {
-      const configFile = tree.readJson(tsconfigBase) as TsConfigJson;
-      if (configFile?.compilerOptions?.paths) {
-        configFile.compilerOptions.paths = Object.fromEntries(
-          Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
-        configFile.compilerOptions.paths[options.packageJsonName] = [
-          path.posix.join(relativeTargetPath, 'dist'),
-          path.posix.join(relativeTargetPath, 'src', 'public-api')
-        ];
-        tree.overwrite(tsconfigBase, JSON.stringify(configFile, null, 2));
+    [tsconfigBase, tsconfigBuild].forEach(tsconfigPath => {
+      if (tsconfigPath) {
+        const configFile = tree.readJson(tsconfigPath) as TsConfigJson;
+        if (configFile?.compilerOptions?.paths) {
+          configFile.compilerOptions.baseUrl = '.';
+          configFile.compilerOptions.paths = Object.fromEntries(
+            Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
+          configFile.compilerOptions.paths[options.packageJsonName] = [
+            path.posix.join(relativeTargetPath, 'dist'),
+            path.posix.join(relativeTargetPath, 'src', 'public-api')
+          ];
+          tree.overwrite(tsconfigPath, JSON.stringify(configFile, null, 2));
+        } else {
+          context.logger.warn(`${tsconfigPath} does not contain path mapping, the edition will be skipped`);
+        }
       } else {
-        context.logger.warn(`${tsconfigBase} does not contain path mapping, the edition will be skipped`);
+        context.logger.warn(`No TsConfig file found at ${tsconfigPath}`);
       }
-    } else {
-      context.logger.warn('No base TsConfig file found');
-    }
-
-    if (tsconfigBuild) {
-      const configFile = tree.readJson(tsconfigBuild) as TsConfigJson;
-      if (configFile?.compilerOptions?.paths) {
-        configFile.compilerOptions.paths = Object.fromEntries(
-          Object.entries(configFile.compilerOptions.paths).filter(([pathName, _]) => pathName !== options.name));
-        configFile.compilerOptions.paths[options.packageJsonName] = [
-          path.posix.join(relativeTargetPath, 'dist'),
-          path.posix.join(relativeTargetPath, 'src', 'public-api')
-        ];
-        tree.overwrite(tsconfigBuild, JSON.stringify(configFile, null, 2));
-      } else {
-        context.logger.warn(`${tsconfigBuild} does not contain path mapping, the edition will be skipped`);
-      }
-    }
+    });
   };
 
   const ngCliUpdate: Rule = (tree, context) => {

@@ -46,7 +46,7 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
         inManifest: [
           {
             range: `${options.exactO3rVersion ? '' : '~'}${ownPackageJsonContent.version!}`,
-            types: [NodeDependencyType.Default]
+            types: [NodeDependencyType.Dev]
           }
         ],
         ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
