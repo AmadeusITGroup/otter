@@ -4801,6 +4801,40 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jsonjoy.com/base64@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@jsonjoy.com/base64@npm:1.1.1"
+  peerDependencies:
+    tslib: 2
+  checksum: 10/1988f16927f110a0cd60c12dc94fd10a6e803c8918767b87c252ad5337a2671b745e23aa7b37519481735740b88c1b8ac44ef1330163d96567e379115cd9442c
+  languageName: node
+  linkType: hard
+
+"@jsonjoy.com/json-pack@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@jsonjoy.com/json-pack@npm:1.0.2"
+  dependencies:
+    "@jsonjoy.com/base64": "npm:^1.1.1"
+    "@jsonjoy.com/util": "npm:^1.0.0"
+    hyperdyperid: "npm:^1.2.0"
+    thingies: "npm:^1.20.0"
+  peerDependencies:
+    tslib: 2
+  checksum: 10/1d20fbb713f8672de47b26b442f69c6202f2cb9a48f9857403b03fefa1e5ce87191ed56c1edd60dd70ca5a3fc38139dc95dacce6111f98450137fc82e5ee1b5a
+  languageName: node
+  linkType: hard
+
+"@jsonjoy.com/util@npm:^1.0.0, @jsonjoy.com/util@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@jsonjoy.com/util@npm:1.1.0"
+  dependencies:
+    hyperdyperid: "npm:^1.2.0"
+  peerDependencies:
+    tslib: 2
+  checksum: 10/76c798a4a71d9c35f9df3b49c0fe3b4091f6802219a2f1cdaab2118e8663ab7862d791993c8ca8782d4b0c8a52d2660ae551461a83edddb2f6994e1248edfff5
+  languageName: node
+  linkType: hard
+
 "@juggle/resize-observer@npm:^3.3.1":
   version: 3.4.0
   resolution: "@juggle/resize-observer@npm:3.4.0"
@@ -6947,7 +6981,7 @@ __metadata:
     "@o3r/styling": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
-    "@types/chrome": "npm:^0.0.266"
+    "@types/chrome": "npm:^0.0.267"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -7045,7 +7079,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^8.0.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -7263,7 +7297,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
@@ -8146,7 +8180,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -8518,7 +8552,7 @@ __metadata:
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^8.0.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -9035,7 +9069,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.0.3"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9167,7 +9201,7 @@ __metadata:
     jest-environment-node: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.8.0"
+    memfs: "npm:~4.9.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9182,7 +9216,7 @@ __metadata:
     "@angular-devkit/schematics": ~17.3.0
     "@o3r/schematics": "workspace:^"
     jest-environment-node: ~29.7.0
-    memfs: ~4.8.0
+    memfs: ~4.9.0
     minimist: ^1.2.6
     pid-from-port: ^1.1.3
     semver: ^7.5.2
@@ -11726,13 +11760,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.266":
-  version: 0.0.266
-  resolution: "@types/chrome@npm:0.0.266"
+"@types/chrome@npm:^0.0.267":
+  version: 0.0.267
+  resolution: "@types/chrome@npm:0.0.267"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/3a6c0d3214da65947a9fcd4343ca86b0a4d3ebe1745038fd075a116b7d99d7ef331b84f7b595297faf31cfd4dd7c344ef366f403991635169d295807d3a75d78
+  checksum: 10/496c59553bf9e50c450b2ad2e8824131baf1bee59d851d33db4a37fe4f0d4c06fe7ec24e5234574b7d883d4e6a33666805b1345cfcac296e997a23258a10c0bf
   languageName: node
   linkType: hard
 
@@ -20416,6 +20450,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hyperdyperid@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "hyperdyperid@npm:1.2.0"
+  checksum: 10/64abb5568ff17aa08ac0175ae55e46e22831c5552be98acdd1692081db0209f36fff58b31432017b4e1772c178962676a2cc3c54e4d5d7f020d7710cec7ad7a6
+  languageName: node
+  linkType: hard
+
 "i18next@npm:^23.11.2":
   version: 23.11.2
   resolution: "i18next@npm:23.11.2"
@@ -23361,12 +23402,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:~4.8.0":
-  version: 4.8.2
-  resolution: "memfs@npm:4.8.2"
+"memfs@npm:~4.9.0":
+  version: 4.9.1
+  resolution: "memfs@npm:4.9.1"
   dependencies:
+    "@jsonjoy.com/json-pack": "npm:^1.0.2"
+    "@jsonjoy.com/util": "npm:^1.1.0"
+    sonic-forest: "npm:^1.0.0"
     tslib: "npm:^2.0.0"
-  checksum: 10/9cc1d1ce0ecb7cf91b1c0a29cb661ff0bde7471e8d902bbd465da6e0c49b4b3917309042a0ce7af82fa130b130e8b55688f7ac306c03e51639eb44eea6ffd75a
+  checksum: 10/42f7b035ecbc26e22c8f924fc906685d4dde7f2433a0f06b8a24260305edf89e4d619eafd5ce0af94b297285834574204e7e2a8f8129a5be7501a4538f6dcde4
   languageName: node
   linkType: hard
 
@@ -28185,6 +28229,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sonic-forest@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "sonic-forest@npm:1.0.0"
+  peerDependencies:
+    tslib: 2
+  checksum: 10/b34bd4326bb4b5fb9bc181dc6aa74fe2d95d445aa19bbb581bf753be66084404359619af43b5e36ecea6ec8c52931962221e79e27ebf1491faabb337289b3b30
+  languageName: node
+  linkType: hard
+
 "sort-keys-length@npm:^1.0.0":
   version: 1.0.1
   resolution: "sort-keys-length@npm:1.0.1"
@@ -29309,6 +29362,15 @@ __metadata:
   version: 5.16.0
   resolution: "textextensions@npm:5.16.0"
   checksum: 10/d41e9265e9d74d192d4fb26fc89a2f4dbe7a6d85cc5c14f99f1df68d07bce5346f8abe0ed680a91ef805b91e9972e5787c7365a03f3a5489e16ca350d28a3879
+  languageName: node
+  linkType: hard
+
+"thingies@npm:^1.20.0":
+  version: 1.21.0
+  resolution: "thingies@npm:1.21.0"
+  peerDependencies:
+    tslib: ^2
+  checksum: 10/5c3954b67391d1432c252cb7089f29480e2164f06987a63d83c9747aa6999bfc313d6edfce71ed967316a3378dfcaf38f35ea77aaa5d423edaf776b8ff854f83
   languageName: node
   linkType: hard
 
