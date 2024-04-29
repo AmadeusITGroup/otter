@@ -7351,6 +7351,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
+    "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     chokidar: "npm:^3.5.2"
@@ -7376,6 +7377,7 @@ __metadata:
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.10.2"
     typescript: "npm:~5.4.2"
     unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.14.2"
@@ -8124,8 +8126,12 @@ __metadata:
     "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
+    "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
+    "@yarnpkg/core": "npm:^4.0.3"
+    "@yarnpkg/fslib": "npm:>=3.0.0 <5.0.0"
+    "@yarnpkg/plugin-npm": "npm:>=3.0.0 <5.0.0"
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
@@ -8133,6 +8139,7 @@ __metadata:
     eslint-plugin-jsdoc: "npm:~48.2.1"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^51.0.1"
+    globby: "npm:^11.1.0"
     inquirer: "npm:~8.2.6"
     intl-messageformat: "npm:~10.5.1"
     jest: "npm:~29.7.0"
@@ -8155,16 +8162,35 @@ __metadata:
     typescript-json-schema: "npm:~0.64.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~17.3.0
+    "@yarnpkg/core": ">=3.0.0 <5.0.0"
+    "@yarnpkg/fslib": ">=3.0.0 <5.0.0"
+    "@yarnpkg/plugin-npm": ">=3.0.0 <5.0.0"
+    globby: ^11.1.0
+    semver: ^7.5.2
+    type-fest: ^4.10.2
     typescript: ~5.4.2
   peerDependenciesMeta:
     "@o3r/telemetry":
       optional: true
     "@schematics/angular":
+      optional: true
+    "@yarnpkg/core":
+      optional: true
+    "@yarnpkg/fslib":
+      optional: true
+    "@yarnpkg/plugin-npm":
+      optional: true
+    globby:
+      optional: true
+    semver:
+      optional: true
+    type-fest:
       optional: true
   languageName: unknown
   linkType: soft
@@ -13656,7 +13682,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:^4.1.0":
+"@yarnpkg/core@npm:^4.0.3, @yarnpkg/core@npm:^4.1.0":
   version: 4.1.0
   resolution: "@yarnpkg/core@npm:4.1.0"
   dependencies:
@@ -13711,7 +13737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.2, @yarnpkg/fslib@npm:^3.1.0":
+"@yarnpkg/fslib@npm:>=3.0.0 <5.0.0, @yarnpkg/fslib@npm:^3.0.2, @yarnpkg/fslib@npm:^3.1.0":
   version: 3.1.0
   resolution: "@yarnpkg/fslib@npm:3.1.0"
   dependencies:
@@ -13767,6 +13793,23 @@ __metadata:
     js-yaml: "npm:^3.10.0"
     tslib: "npm:^2.4.0"
   checksum: 10/87506f140d6c401bdd89ff22073c3dd3ec7b6858e7f576e63ec1aea1b0b8a8ec241eb46ca5582dc2071098a86d6a55c3b0628da5eeff91d33afb4fa7cac0cf65
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/plugin-npm@npm:>=3.0.0 <5.0.0":
+  version: 3.0.1
+  resolution: "@yarnpkg/plugin-npm@npm:3.0.1"
+  dependencies:
+    "@yarnpkg/fslib": "npm:^3.0.2"
+    enquirer: "npm:^2.3.6"
+    lodash: "npm:^4.17.15"
+    semver: "npm:^7.1.2"
+    ssri: "npm:^6.0.1"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@yarnpkg/core": ^4.0.3
+    "@yarnpkg/plugin-pack": ^4.0.0
+  checksum: 10/30c3948b90f621abbd9c60c616221683bf198643c991e222d67bf3e00f0748a16e04c978e5cf4b35a587919723836a66a9dc86fee2ee5fe18a480a00782b701c
   languageName: node
   linkType: hard
 
@@ -19627,6 +19670,13 @@ __metadata:
   version: 5.0.6
   resolution: "fetch-retry@npm:5.0.6"
   checksum: 10/9d64b37f9d179fecf486725ada210d169375803b731304a9500754e094a2a6aa81630d946adbb313d7f9d54457ad0d17c3ed5c115034961a719e8a65faa8b77c
+  languageName: node
+  linkType: hard
+
+"figgy-pudding@npm:^3.5.1":
+  version: 3.5.2
+  resolution: "figgy-pudding@npm:3.5.2"
+  checksum: 10/1d15176fc49ce407edbecc8df286b19cf8a918900eda924609181aecec5337645e3532a01ce4154412e028ddc43f6fa558cf3916b5c9d322b6521f128da40382
   languageName: node
   linkType: hard
 
@@ -29415,6 +29465,15 @@ __metadata:
   dependencies:
     minipass: "npm:^7.0.3"
   checksum: 10/f92c1b3cc9bfd0a925417412d07d999935917bc87049f43ebec41074661d64cf720315661844106a77da9f8204b6d55ae29f9514e673083cae39464343af2a8b
+  languageName: node
+  linkType: hard
+
+"ssri@npm:^6.0.1":
+  version: 6.0.2
+  resolution: "ssri@npm:6.0.2"
+  dependencies:
+    figgy-pudding: "npm:^3.5.1"
+  checksum: 10/7f8062604b50bd647ee11c6e03bc0d8f39d9dfe3bd871f711676c1ab862435feb1dae40b20ca44fa27ef1485b814bb769d4557ff6af7e5c28bb18db3aba64510
   languageName: node
   linkType: hard
 
