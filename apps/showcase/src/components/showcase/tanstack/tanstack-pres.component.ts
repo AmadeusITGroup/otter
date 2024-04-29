@@ -6,6 +6,8 @@ import { OtterPickerPresComponent } from '../../utilities';
 import { TanstackService } from './tanstack.service';
 import { AngularQueryDevtools } from '@tanstack/angular-query-devtools-experimental';
 import { AsyncPipe, JsonPipe } from '@angular/common';
+import { PetstoreStoreModule } from './store/petstore/index';
+import { ContactStoreModule } from './store/contact/index';
 
 
 @O3rComponent({ componentType: 'Component' })
@@ -20,7 +22,9 @@ import { AsyncPipe, JsonPipe } from '@angular/common';
     NgbPaginationPages,
     AngularQueryDevtools,
     JsonPipe,
-    AsyncPipe
+    AsyncPipe,
+    PetstoreStoreModule,
+    ContactStoreModule
   ],
   providers: [TanstackService],
   templateUrl: './tanstack-pres.template.html',

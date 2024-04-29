@@ -1,4 +1,4 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, inject, Injectable, type OnInit, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { DfMedia } from '@design-factory/design-factory';
 import { PetApi} from '@ama-sdk/showcase-sdk';
@@ -7,14 +7,12 @@ import { Store } from '@ngrx/store';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
-// Tanstack
-import {injectMutation, injectQuery, injectQueryClient, type QueryClient } from '@tanstack/angular-query-experimental';
 import { BackEndService } from './backend.service';
-import { setPetstoreEntityFromApi } from './store/petstore/petstore.actions';
-import { selectPetstoreStorePendingStatus } from './store/petstore/petstore.selectors';
+import { setPetstoreEntitiesFromApi/* , setPetstoreEntityFromApi*/, upsertPetstoreEntitiesFromApi } from './store/petstore/petstore.actions';
+import { selectAllPetstore, selectPetstoreStoreFailingStatus, selectPetstoreStorePendingStatus } from './store/petstore/petstore.selectors';
 
 @Injectable()
-export class TanstackService {
+export class TanstackService implements OnInit {
   private readonly petStoreApi = inject(PetApi);
   private readonly mediaService = inject(DfMedia);
   public readonly backend = inject(BackEndService);
@@ -45,71 +43,17 @@ export class TanstackService {
    */
   public currentPage = signal(1);
 
-
-  public queryClient = injectQueryClient();
-
   public isLoading = this.store.select(selectPetstoreStorePendingStatus);
 
+  public isFailing = this.store.select(selectPetstoreStoreFailingStatus);
 
-  /**
-   * Complete list of pets retrieved from the API
-   */
-  public pets = injectQuery(() => ({
-    queryKey: ['findPetsByStatus', {status: 'available'}],
-    // eslint-disable-next-line @typescript-eslint/no-shadow
-    queryFn: ({signal}) =>
-      this.petStoreApi.findPetsByStatus({status: 'available'}, {signal}).then((pets: Pet[]) =>
-        pets.filter((p: Pet) => p.category?.name === 'otter').sort((a: Pet, b: Pet) => a.id && b.id && a.id - b.id || 0)),
-    initialData: []
-  }));
-
-
-  public mutationUploadFile = injectMutation((client: QueryClient) => ({
-    mutationFn: (petFile: {petId: number; body: any}) => this.petStoreApi.uploadFile(petFile),
-    onSuccess: async () => {
-      // Invalidate and refetch by using the client directly
-      await client.invalidateQueries({ queryKey: ['findPetsByStatus'] });
-    }
-  }));
-
-
-  public mutationAdd = injectMutation((client: QueryClient) => ({
-    mutationFn: (pet: Pet) => this.petStoreApi.addPet({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      Pet: pet
-    }),
-    onSuccess: async (_data: any, pet: Pet, _context: any) => {
-      if (pet.photoUrls.length) {
-        const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
-        const blob = await (await fetch(filePath)).blob();
-        this.mutationUploadFile.mutate({petId: pet.id, body: new File([blob], filePath, {type: blob.type})});
-      } else {
-        await client.invalidateQueries({ queryKey: ['findPetsByStatus'] });
-      }
-    }
-  }));
-
-  public mutationDelete = injectMutation((client: QueryClient) => ({
-    mutationFn: async (petId: number) => {
-      try {
-        await this.petStoreApi.deletePet({petId});
-      } catch (ex) {
-        // The backend respond with incorrect header application/json while the response is just a string
-        // console.log('ex', ex);
-        // We need to parse the string and return true only when the error is not an error.
-      }
-      return true;
-    },
-    onSuccess: async () => {
-      await client.invalidateQueries({ queryKey: ['findPetsByStatus'] });
-    }
-  }));
+  public pets = signal<Pet[]>([]);
 
   /**
    * List of pets filtered according to search term
    */
   public filteredPets = computed(() => {
-    let pets = this.pets.data();
+    let pets = this.pets();
     if (this.searchTerm()) {
       const matchString = new RegExp(this.searchTerm().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
       const matchTag = (tag: Tag) => tag.name && matchString.test(tag.name);
@@ -142,15 +86,38 @@ export class TanstackService {
   /** Base URL where the images can be fetched */
   public baseUrl = location.href.split('/#', 1)[0];
 
-  private getNextId() {
-    return this.pets.data().reduce((maxId: number, pet: Pet) => pet.id && pet.id < Number.MAX_SAFE_INTEGER ? Math.max(maxId, pet.id) : maxId, 0) + 1;
+  constructor() {
+    this.store.select(selectAllPetstore).subscribe((pets) => this.pets.set(pets));
   }
+
+
+  private getNextId() {
+    return this.pets().reduce((maxId: number, pet: Pet) => pet.id && pet.id < Number.MAX_SAFE_INTEGER ? Math.max(maxId, pet.id) : maxId, 0) + 1;
+  }
+
+  // eslint-disable-next-line @angular-eslint/contextual-lifecycle, @typescript-eslint/explicit-member-accessibility
+  async ngOnInit(): Promise<void> {
+    await this.reload();
+  }
+
+  // How to abort the queries ?
+  public loadPets = async (/* abortSignal: AbortSignal*/) => {
+    const call = this.petStoreApi.findPetsByStatus({status: 'available'}/* , {signal: abortSignal}*/).then((pets: Pet[]) =>
+      pets.filter((p: Pet) => p.category?.name === 'otter').sort((a: Pet, b: Pet) => a.id && b.id && a.id - b.id || 0));
+    this.store.dispatch(setPetstoreEntitiesFromApi({call}));
+    try {
+      await call;
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log('error', e);
+    }
+  };
 
   /**
    * Trigger a full reload of the list of pets by calling the API
    */
   public async reload() {
-    await this.queryClient.invalidateQueries({ queryKey: ['findPetsByStatus'] });
+    await this.loadPets();
   }
 
 
@@ -166,15 +133,26 @@ export class TanstackService {
       status: 'available',
       photoUrls: this.petName() ? [this.petImage()] : []
     };
-    // this.mutationAdd.mutate(pet);
-    // this.store.dispatch()
     // eslint-disable-next-line @typescript-eslint/naming-convention
-    this.store.dispatch(setPetstoreEntityFromApi({call: this.petStoreApi.addPet({Pet: pet})}));
+    // this.store.dispatch(setPetstoreEntityFromApi({call: this.petStoreApi.addPet({Pet: pet})}));
+
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    this.store.dispatch(upsertPetstoreEntitiesFromApi({call: this.petStoreApi.addPet({Pet: pet}).then(p => new Array<Pet>(p))}));
   }
 
-  public delete(petToDelete: Pet) {
+  // TODO
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  public async delete(petToDelete: Pet) {
     if (petToDelete.id) {
-      this.mutationDelete.mutate(petToDelete.id);
+      const call = this.petStoreApi.deletePet({petId: petToDelete.id});
+      // this.store.dispatch()  // here we need to create a new action to delete the elements
+      // an optimistic update would be to remove the element directly in the store
+      try {
+        await call;
+      } catch (error) {
+        // process with the error of deleting
+      }
+      await this.reload(); // because one element has been deleted
     }
   }
 

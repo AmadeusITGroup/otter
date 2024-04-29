@@ -1,5 +1,11 @@
 <div class="card mb-3">
   <div class="card-body">
+    <span>isloading here:</span>
+    {{ service.isLoading | async}}
+    <span>was it here?</span>
+    <span>isFailing here:</span>
+    {{ service.isFailing | async}}
+    <span>was it here?</span>
     <form>
       <div class="row gap-3">
         <label for="pet-name" class="col-xs-3 col-sm-auto col-form-label">Name</label>
@@ -41,34 +47,22 @@
           />
         </div>
         <div class="col-xs-3 col-sm-auto d-flex justify-content-center align-items-center visual-testing-ignore">
-          @if (service.mutationAdd.isPending()) {
-            <span>Adding Pet...</span>
-          } @else if (service.mutationAdd.isError()) {
-            <div>An error occurred: {{ service.mutationAdd.error()?.message }}</div>
-          }
-          @if (service.mutationDelete.isPending()) {
-            <span>Deleting Pet...</span>
-          } @else if (service.mutationDelete.isError()) {
-            <div>An error occurred: {{ service.mutationDelete.error()?.message }}</div>
-          }
-          @if (service.pets.isPending()) {
+
+          @if (service.isLoading | async) {
             <div class="spinner-border" role="status">
               <span class="visually-hidden">Loading...</span>
             </div>
           }
-          @switch (service.pets.status()) {
-            @case ('error') {
-              <div class="text-danger">
-                Failed to load the list
-                <button class="btn btn-md btn-danger" (click)="service.reload()">Retry</button>
-              </div>
-            }
-            @default {
-              @if (service.pets.isFetching()) {
-                Refreshing...
-              }
-            }
+          @if (service.isFailing | async) {
+            <div class="text-danger">
+              Reload
+              <button class="btn btn-md btn-danger" (click)="service.reload()">Reload</button>
+            </div>
           }
+          <div class="text-danger">
+            Reload
+            <button class="btn btn-md btn-danger" (click)="service.reload()">Reload</button>
+          </div>
         </div>
       </div>
     </form>
@@ -151,7 +145,7 @@
   </div>
 </div>
 
-<div>
+<!-- <div>
   @if (this.service.backend.infiniteQuery.isPending()) {
     <p>Loading...</p>
   } @else if (this.service.backend.infiniteQuery.isError()) {
@@ -175,8 +169,11 @@
         : null
     }}
   </div>
-</div>
+</div> -->
 
-{{ service.isLoading | async}}
+All Pets:
+{{service.pets() | json}}
+All Contacts:
+{{service.backend.allContact | async | json}}
 
 <angular-query-devtools initialIsOpen />

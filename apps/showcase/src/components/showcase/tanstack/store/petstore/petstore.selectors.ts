@@ -21,3 +21,6 @@ export const selectPetstoreTotal = createSelector(selectPetstoreState, selectTot
 
 /** Select the store pending status */
 export const selectPetstoreStorePendingStatus = createSelector(selectPetstoreState, (state) => state.isPending || false);
+
+/** Select the store pending status */
+export const selectPetstoreStoreFailingStatus = createSelector(selectPetstoreState, (state) => state.isFailure || false);

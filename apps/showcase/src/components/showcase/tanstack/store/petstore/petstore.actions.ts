@@ -24,12 +24,12 @@ const ACTION_UPDATE_ENTITIES = '[Petstore] update entities';
 const ACTION_UPSERT_ENTITIES = '[Petstore] upsert entities';
 const ACTION_SET_ENTITIES = '[Petstore] set entities';
 const ACTION_FAIL_ENTITIES = '[Petstore] fail entities';
-const ACTION_CREATE_ENTITIES_FROM_API = '[Petstore] create entity';
 
 /** Async Actions */
 const ACTION_SET_ENTITIES_FROM_API = '[Petstore] set entities from api';
 const ACTION_UPDATE_ENTITIES_FROM_API = '[Petstore] update entities from api';
 const ACTION_UPSERT_ENTITIES_FROM_API = '[Petstore] upsert entities from api';
+const ACTION_CREATE_ENTITIES_FROM_API = '[Petstore] create entity';
 
 
 /** Action to clear the StateDetails of the store and replace it */
