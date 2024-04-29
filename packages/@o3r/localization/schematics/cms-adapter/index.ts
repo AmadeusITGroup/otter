@@ -38,6 +38,12 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
         libraries: []
       }
     };
+    workspaceProject.architect['check-localization-migration-metadata'] ||= {
+      builder: '@o3r/localization:check-localization-migration-metadata',
+      options: {
+        migrationDataPath: 'MIGRATION-*.json'
+      }
+    };
 
     workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));

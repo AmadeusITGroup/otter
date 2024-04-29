@@ -101,6 +101,7 @@ jobs:
             npx --yes verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
             npx --yes wait-on http://127.0.0.1:4873 -t 180000
           fi
+          yarn verdaccio:login
         shell: bash
       - name: Test
         id: it-tests

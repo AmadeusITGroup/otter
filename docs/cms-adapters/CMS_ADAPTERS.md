@@ -63,6 +63,44 @@ For an up-to-date documentation, run `ng help @o3r/components:extractor`
 
 __Note:__ This options will not search for the duplicate configurations in libraries.
 
+#### How to check breaking changes
+
+Version after version, it can be verified that any breaking changes has been introduced,
+or if some the metadata to document it is provided.
+For that, you just have to setup the following builder like this in your `angular.json`
+
+```json5
+{
+  // ...,
+  "projects": {
+    // ...,
+    "<project-name>": {
+      // ...,
+      "architect": {
+        "check-config-migration-metadata": {
+          "builder": "@o3r/components:check-config-migration-metadata",
+          "options": {
+            "migrationDataPath": "./MIGRATION-*.json",
+            "granularity": "major", // Default value is minor
+            "allowBreakingChanges": true, // Default value is false
+            "packageManager": "npm", // If not provided, it will be computed
+            "metadataPath": "./component.config.metadata.json" // Default value
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can validate your migration metadata files with the following JSON schema, by adding:
+
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/extractors/schemas/migration.metadata.schema.json"
+}
+```
+
 ### Localization extractor
 
 Generates a metadata file that contains all the localized strings that are used in the application.
@@ -117,6 +155,44 @@ For an up-to-date documentation, run `ng help @o3r/localization:extractor`
 },
 ```
 
+#### How to check breaking changes
+
+Version after version, it can be verified that any breaking changes has been introduced,
+or if some the metadata to document it is provided.
+For that, you just have to setup the following builder like this in your `angular.json`
+
+```json5
+{
+  // ...,
+  "projects": {
+    // ...,
+    "<project-name>": {
+      // ...,
+      "architect": {
+        "check-localization-migration-metadata": {
+          "builder": "@o3r/localization:check-localization-migration-metadata",
+          "options": {
+            "migrationDataPath": "./MIGRATION-*.json",
+            "granularity": "major", // Default value is minor
+            "allowBreakingChanges": true, // Default value is false
+            "packageManager": "npm", // If not provided, it will be computed
+            "metadataPath": "./component.config.metadata.json" // Default value
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can validate your migration metadata files with the following JSON schema, by adding:
+
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/extractors/schemas/migration.metadata.schema.json"
+}
+```
+
 ### Style extractor
 
 Generates a metadata file that contains all the CSS Variable that are used in the application.
@@ -161,9 +237,45 @@ For an up-to-date documentation, run `ng help @o3r/styling:extractor`
 
 __Note:__ The duplicate CSS Variable will be specified as warning and overridden by the latest key received.
 
-### Rules engine extractor
+#### How to check breaking changes
 
-### Metadata
+Version after version, it can be verified that any breaking changes has been introduced,
+or if some the metadata to document it is provided.
+For that, you just have to setup the following builder like this in your `angular.json`
+
+```json5
+{
+  // ...,
+  "projects": {
+    // ...,
+    "<project-name>": {
+      // ...,
+      "architect": {
+        "check-style-migration-metadata": {
+          "builder": "@o3r/styling:check-style-migration-metadata",
+          "options": {
+            "migrationDataPath": "./MIGRATION-*.json",
+            "granularity": "major", // Default value is minor
+            "allowBreakingChanges": true, // Default value is false
+            "packageManager": "npm", // If not provided, it will be computed
+            "metadataPath": "./component.config.metadata.json" // Default value
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+You can validate your migration metadata files with the following JSON schema, by adding:
+
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/extractors/schemas/migration.metadata.schema.json"
+}
+```
+
+### Rules engine extractor
 
 As for the other metadata retrieved, a bit of configuration is needed in order to extract metadata for facts and operators in rules engine scope.
 

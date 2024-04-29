@@ -1,11 +1,11 @@
-import { execFileSync, ExecSyncOptions } from 'node:child_process';
+import { O3rCliError } from '@o3r/schematics';
+import type { ExecSyncOptions } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
-import { createWithLock, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
 import { createTestEnvironmentOtterProjectWithAppAndLib } from './test-environments/create-test-environment-otter-project';
-import { O3rCliError } from '@o3r/schematics';
+import { createWithLock, getLatestPackageVersion, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
 
 /**
  * - 'blank' only create yarn/npm config
@@ -73,13 +73,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
-  const o3rExactVersion = execFileSync('npm', ['info', '@o3r/create', 'version'], {
-    ...execAppOptions,
-    cwd: itTestsFolderPath,
-    stdio: 'pipe',
-    encoding: 'utf8',
-    shell: true
-  }).replace(/\s/g, '');
+  const o3rExactVersion = getLatestPackageVersion('@o3r/create', { ...execAppOptions, cwd: itTestsFolderPath }).replace(/\s/g, '');
 
   // Remove existing app
   if (existsSync(workspacePath)) {
