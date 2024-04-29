@@ -53,10 +53,16 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~18.0.0",
+    "@yarnpkg/cli": "^4.0.0",
+    "@yarnpkg/core": "^4.1.1",
+    "@yarnpkg/fslib": "^3.1.0",
+    "@yarnpkg/plugin-npm": "^3.0.1",
+    "@yarnpkg/plugin-pack": "^4.0.0",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
     "jsonpath-plus": "^9.0.0",
     "rxjs": "^7.8.1",
+    "semver": "^7.5.2",
     "typescript": "~5.4.2"
   },
   "peerDependenciesMeta": {
@@ -90,6 +96,21 @@
     "@schematics/angular": {
       "optional": true
     },
+    "@yarnpkg/cli": {
+      "optional": true
+    },
+    "@yarnpkg/core": {
+      "optional": true
+    },
+    "@yarnpkg/fslib": {
+      "optional": true
+    },
+    "@yarnpkg/plugin-npm": {
+      "optional": true
+    },
+    "@yarnpkg/plugin-pack": {
+      "optional": true
+    },
     "chokidar": {
       "optional": true
     },
@@ -97,6 +118,9 @@
       "optional": true
     },
     "jsonpath-plus": {
+      "optional": true
+    },
+    "semver": {
       "optional": true
     },
     "typescript": {
@@ -145,9 +169,15 @@
     "@stylistic/eslint-plugin-ts": "^2.0.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
+    "@types/semver": "^7.3.13",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
+    "@yarnpkg/cli": "^4.3.1",
+    "@yarnpkg/core": "^4.1.1",
+    "@yarnpkg/fslib": "^3.1.0",
+    "@yarnpkg/plugin-npm": "^3.0.1",
+    "@yarnpkg/plugin-pack": "^4.0.0",
     "chokidar": "^3.5.2",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
@@ -170,6 +200,7 @@
     "semver": "^7.5.2",
     "ts-jest": "~29.1.2",
     "ts-node": "~10.9.2",
+    "type-fest": "^4.10.2",
     "typescript": "~5.4.2",
     "unionfs": "~4.5.1",
     "zone.js": "~0.14.2"
