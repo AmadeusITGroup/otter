@@ -134,29 +134,6 @@ export function updateLocalization(options: { projectName?: string | null | unde
       }
     };
 
-    if (!tree.exists(pathTsconfigCms)) {
-      const tsconfigCms = {
-        extends: `./${tree.exists(path.posix.join(projectRoot, 'tsconfig.build.json')) ? 'tsconfig.build' : 'tsconfig.json'}`,
-        include: [
-          'src/**/*.component.ts',
-          'src/**/*.config.ts',
-          'src/**/*.module.ts'
-        ]
-      };
-      tree.create(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
-    } else {
-      const localizationSourceRegExps = ['src/**/*.component.ts'];
-      const tsconfigCms = tree.readJson(pathTsconfigCms) as Record<string, any>;
-      if (!Array.isArray(tsconfigCms.include) || !localizationSourceRegExps.some((r) => tsconfigCms.include.includes(r))) {
-        tsconfigCms.include ||= [];
-        tsconfigCms.include.push(
-          ...localizationSourceRegExps
-            .filter((r) => !tsconfigCms.include.includes(r))
-        );
-        tree.overwrite(pathTsconfigCms, JSON.stringify(tsconfigCms, null, 2));
-      }
-    }
-
     if (workspaceProject.architect.build) {
       const alreadyExistingBuildOption =
         workspaceProject.architect.build.options?.assets?.map((a: { glob: string; input: string; output: string }) => a.output).find((output: string) => output === '/localizations');

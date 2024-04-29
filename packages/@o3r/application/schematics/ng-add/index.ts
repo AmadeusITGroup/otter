@@ -2,7 +2,6 @@ import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
 import { addRootImport } from '@schematics/angular/utility';
 import * as path from 'node:path';
-import { generateCmsConfigFile } from './helpers/cms-registration';
 import { registerDevtools } from './helpers/devtools-registration';
 import type { NgAddSchematicsSchema } from './schema';
 
@@ -98,8 +97,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       addAngularAnimationPreferences,
-      registerDevtoolRule,
-      generateCmsConfigFile(options)
+      registerDevtoolRule
     ])(tree, context);
   };
 }
