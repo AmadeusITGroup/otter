@@ -2,7 +2,6 @@ import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
-import { Store } from '@ngrx/store';
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigOverrideStoreModule, ConfigurationBaseServiceModule, ConfigurationDevtoolsModule } from '@o3r/configuration';
@@ -24,8 +23,7 @@ import {
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
-  RulesetsStore,
-  setRulesetsEntities,
+  Ruleset,
   UnaryOperator
 } from '@o3r/rules-engine';
 import { firstValueFrom } from 'rxjs';
@@ -71,7 +69,7 @@ import { duringSummer } from '../../operators/index';
 export class RulesEngineComponent implements AfterViewInit {
   private readonly inPageNavPresService = inject(InPageNavPresService);
   private readonly dynamicContentService = inject(DynamicContentService);
-  private readonly store = inject(Store<RulesetsStore>);
+  private readonly rulesEngineService = inject(RulesEngineRunnerService);
 
   public newYorkAvailableRule = '';
   public helloNewYorkRule = '';
@@ -87,12 +85,11 @@ export class RulesEngineComponent implements AfterViewInit {
   constructor() {
     // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
-    const rulesEngineService = inject(RulesEngineRunnerService);
-    rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
-    rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
-    rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
-    rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
-    rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
+    this.rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
+    this.rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
+    this.rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
+    this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
+    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
     inject(TripFactsService).register();
     const currentTimeFactsService = inject(CurrentTimeFactsService);
     currentTimeFactsService.register();
@@ -115,15 +112,15 @@ export class RulesEngineComponent implements AfterViewInit {
     );
 
     const resultCall = await fetch(path);
-    const result = await resultCall.json();
+    const result = await resultCall.json() as {rulesets: Ruleset[]};
 
-    this.store.dispatch(setRulesetsEntities({ entities: result.rulesets }));
+    this.rulesEngineService.upsertRulesets(result.rulesets);
     const [
       newYorkAvailableRule,
       helloNewYorkRule,
       summerOtterRule,
       lateOtterRule
-    ] = result.rulesets[0].rules as Rule[];
+    ] = result.rulesets[0].rules;
     this.newYorkAvailableRule = JSON.stringify(this.formatRule(newYorkAvailableRule), null, 2);
     this.helloNewYorkRule = JSON.stringify(this.formatRule(helloNewYorkRule), null, 2);
     this.summerOtterRule = JSON.stringify(this.formatRule(summerOtterRule), null, 2);
