@@ -1,0 +1,29 @@
+<h1>ELF Study</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="sdk-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="sdk-description">Description</h2>
+    <div>
+      <p>This page aims to display showcases of usages with <a href="https://ngneat.github.io/elf/" target="_blank">ELF</a>.</p>
+    </div>
+
+    <h2 id="sdk-example">Example</h2>
+    <div>
+      <p>
+        Let's try to use the API <a href="https://petstore3.swagger.io" target="_blank" rel="noopener">https://petstore3.swagger.io</a>
+        <br>
+        Fortunately, this API provides the specification as <a href="https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml" target="_blank" rel="noopener">Yaml file</a>
+        that we can use to generate an SDK.
+        <br>
+        Here, you can check the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/showcase-sdk" target="_blank" rel="noopener">generated SDK</a>
+      </p>
+      <o3r-elf-pres></o3r-elf-pres>
+    </div>
+  </div>
+</div>

@@ -37,7 +37,8 @@ export class AppComponent implements OnDestroy {
     {
       label: 'SDK',
       links: [
-        { url: '/sdk', label: 'Generator' }
+        { url: '/sdk', label: 'Generator' },
+        { url: '/elf', label: 'With Elf' }
       ]
     }
   ];

@@ -10,7 +10,7 @@
         "output": ".",
         "inputSpec": "./swagger-spec.yaml",
         "globalProperty": {
-          "stringifyDate": true
+          "allowModelExtension": true
         }
       }
     }
