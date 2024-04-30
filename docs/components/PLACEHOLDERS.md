@@ -3,22 +3,30 @@
 The Otter framework provides a placeholder component mechanism to help integrate dynamic HTML elements (with a basic
 rendering system) at a predefined position in the application.
 
-The placeholder component is exposed by the **@o3r/components** package and is working with the NgRX *
-*placeholderTemplate** store exposed by the same package.
+The placeholder component is exposed by the **@o3r/components** package and is working with the NgRX `placeholderTemplate`
+store exposed by the same package.
 
 The component only has 1 input and supports a *content value*.
 
-- The **id** input is required and will determine the unique identification for a specific placeholder component.
+- The `id` input is required and will determine the unique identification for a specific placeholder component.
 - The *content value* (or child nodes), if provided, will be used by the placeholder component as default display when
   no template has been found.
 
+## Supported features
+
+* HTML limited to behaviour supported by Angular sanitizer
+* URLs (relative ones will be processed to add the `dynamic-media-path`)
+* Facts references
+* Dynamic translation
+
 ## How it works
 
-Based on the **id** provided to the placeholder component, it will register itself to the event coming from **placeholderTemplate** and will display the template corresponding to its ID in the store.
+Based on the `id` provided to the placeholder component, it will register itself to the event coming from `placeholderTemplate`
+and will display the template corresponding to its ID in the store.
 
 > [!IMPORTANT]
-> It is **strongly encouraged** to use the placeholder mechanism in concert with
-> the [Rules Engine](../rules-engine/) following [this documentation](../rules-engine/how-to-use/placeholders.md).
+> 
+> It is **strongly encouraged** to use the placeholder mechanism in concert with the [Rules Engine](../rules-engine/README.md).
 
 ## How to define a placeholder template
 
@@ -38,7 +46,7 @@ Example:
 }
 ```
 
-Then the JSON File can be downloaded and dispatched to the store as follows:
+Then the JSON file can be downloaded and dispatched to the store as follows:
 
 ```typescript
 import { setPlaceholderTemplateEntityFromUrl } from '@o3r/components';
@@ -81,6 +89,49 @@ export class MyComponentModule {
 export class MyComponent {
 }
 ```
+The loading message is provided by projection. Feel free to provide a spinner if you need.
+
+### How to generate placeholder metadata
+
+Once your placeholder has been created, you will need to manually create the metadata file and add the path to the
+`extract-components` property in your `angular.json`.
+Metadata file example:
+
+```json
+[
+  {
+    "library": "@scope/app",
+    "name": "ExampleComponent",
+    "placeholders": [
+      {
+        "id": "pl2358lv-2c63-42e1-b450-6aafd91fbae8",
+        "description": "Example component placeholder from app"
+      }
+    ]
+  }
+]
+```
+
+Then, in the `angular.json` file:
+
+```json5
+{
+  //...
+  "extract-components": {
+    "builder": "@o3r/components:extractor",
+    "options": {
+      "tsConfig": "./tsconfig.cms.json",
+      "libraries": [
+        "@scope/components"
+      ],
+      "placeholdersMetadataFilePath": "placeholders.metadata.manual.json"
+    }
+  }
+  //...
+}
+```
+
+The placeholders will be merged inside the component metadata file that will be sent to the CMS.
 
 ### Static localization
 
@@ -181,7 +232,7 @@ This is how ``template.json`` should look like.
 ```
 
 Now you will need to create an ``incrementFact`` fact to fill the value.
-You can follow the [fact creation documentation](../rules-engine/how-to-use/create-custom-fact.md).
+You can follow the [fact creation documentation](../rules-engine/how-to-use/custom-fact.md).
 
 ```typescript
 import { Injectable } from '@angular/core';
@@ -346,3 +397,52 @@ depend on the event itself (Easter or next Summer Holidays for example).
 This means that ``increment`` might have a different value depending on the context of the page which might be tricky to
 maintain and to debug.
 Try to keep it as simple as possible.
+
+### Multiple templates in same placeholder
+
+You can use placeholder actions to target the same placeholderId with different template URLs.
+It groups the rendered templates in the same placeholder, and you can choose the order by using the `priority` attribute
+in the action.
+If not specified, the priority defaults to 0. Then the higher the number, the higher the priority. The final results are
+displayed in descending order of priority.
+The placeholder component waits for all the calls to be resolved (not pending) to display the content.
+The placeholder component ignores a template if the application failed to retrieve it.
+
+
+## Reference CSS classes from an external styling file
+
+You need to reference one or several CSS files from your application in the `cms.json` file:
+
+```json
+{
+  "assetsFolder": "dist/assets",
+  "libraries": [
+    {
+      "npmName": "@o3r/styling"
+    }
+  ],
+  "defaultLanguage": "en-GB",
+  "placeholderCssFiles": [
+    "dist/assets/placeholders/placeholders.css"
+  ]
+}
+```
+
+Those files will be loaded by the CMS to show the placeholder preview.
+Note that you could provide an empty file and update it with the dynamic content mechanism from AEM, to be able to
+reference the new classes afterward.
+There is just no user-friendly editor available yet.
+You can include this file in your application using the style loader service in your app component:
+
+```typescript
+this.styleLoader.asyncLoadStyleFromDynamicContent({id: 'placeholders-styling', href: 'assets/rules/placeholders.css'});
+```
+
+
+## Investigate issues
+
+If the placeholder is not rendered properly, you can perform several checks to find out the root cause, simply looking
+at the store state.
+
+Example:
+![store-state.png](../../.attachments/screenshots/rules-engine-debug/store_state.png)
