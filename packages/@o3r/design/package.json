@@ -57,7 +57,7 @@
     "@o3r/styling": "workspace:^",
     "chokidar": "^3.5.2",
     "globby": "^11.1.0",
-    "sass": "~1.75.0"
+    "sass": "~1.76.0"
   },
   "peerDependenciesMeta": {
     "@o3r/core": {
@@ -129,7 +129,7 @@
     "jsonschema": "~1.4.1",
     "nx": "~18.3.0",
     "rxjs": "^7.8.1",
-    "sass": "~1.75.0",
+    "sass": "~1.76.0",
     "ts-jest": "~29.1.2",
     "ts-node": "~10.9.2",
     "type-fest": "^4.10.2",
