@@ -22,3 +22,4 @@ export * from './update-imports';
 export * from './update-pipes';
 export * from './builder';
 export * from './wrapper';
+export * from './migration/migration';
