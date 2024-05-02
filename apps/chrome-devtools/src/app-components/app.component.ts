@@ -21,7 +21,6 @@ import { ChromeExtensionConnectionService } from '../services/connection.service
 /**
  * Retrieve component information
  * of the component selected in the Elements panel of Chrome DevTools
- *
  * @param getTranslations Function to retrieve translations
  * @param getAnalyticEvents Function to retrieve analytic events
  */
@@ -67,16 +66,16 @@ export class AppComponent {
   /** List of ruleset executions stream */
   public rulesetExecutions$: Observable<RulesetExecutionDebug[]>;
 
-  private selectedComponentInfo = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
+  private readonly selectedComponentInfo = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
 
-  private updateSelectedComponentInfoCallback = this.updateSelectedComponentInfo.bind(this);
+  private readonly updateSelectedComponentInfoCallback = this.updateSelectedComponentInfo.bind(this);
 
   public selectedComponentInfo$ = this.selectedComponentInfo.asObservable();
 
   constructor(
     connectionService: ChromeExtensionConnectionService,
     rulesetHistoryService: RulesetHistoryService,
-    private cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef
   ) {
     this.requestSelectedComponentInfo();
 

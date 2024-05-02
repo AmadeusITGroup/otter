@@ -1,16 +1,8 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import type { Rule } from '@angular-devkit/schematics';
+import { globInTree } from '@o3r/schematics';
 import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
 import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure } from '@o3r/design';
-
-/* for v9.6 migration only, it is integrated into @o3r/schematics package in v10 */
-import { getAllFilesInTree } from '@o3r/schematics';
-import type { Tree } from '@angular-devkit/schematics';
-import { minimatch } from 'minimatch';
-function globInTree(tree: Tree, patterns: string[]): string[] {
-  const files = getAllFilesInTree(tree);
-  return files.filter((basePath) => patterns.some((p) => minimatch(basePath, p, { dot: true })));
-}
 
 /**
  * Generate CSS from Design Token files

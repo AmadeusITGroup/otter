@@ -16,8 +16,8 @@ The module provides two things:
 A pipe to be used in your component templates:
 
 ```html
-<img src="{{'assets-otter/imgs/logo.png' | dynamicContent}}" /> or
-<img [src]="'assets-otter/imgs/logo.png' | dynamicContent" />
+<img src="{{'assets-otter/imgs/logo.png' | o3rDynamicContent}}" /> or
+<img [src]="'assets-otter/imgs/logo.png' | o3rDynamicContent" />
 ```
 
 and a service to be used in your component classes, for example:

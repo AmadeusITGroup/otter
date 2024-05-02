@@ -9,8 +9,8 @@ This will make it possible to implement extensions of Swagger specification or t
 
 Usage of the tools is explained via the `--help` option :
 
-```bash
-$ npx @ama-sdk/swagger-build --help
+```shell
+npx @ama-sdk/swagger-build --help
 # Usage: swagger-build [options] [(swagger-spec|api-configuration|npm-package|glob)...]
 # Merge swagger spec in inputs. The inputs can be `swagger file`, `api configuration file` or `npm package`
 # Options:
@@ -56,7 +56,8 @@ The **Swagger Builder** supports two kinds of configuration:
 The **Swagger Builder** supports a set of *configuration* to configure the merging strategy, the post-processing and the output format.
 
 The configurations can be specified in a JSON file following a provided [Json Schema](./packages/@ama-sdk/swagger-builder/src/schemas/builder-configuration.schema.json) or via CLI options.
-> **Warning**: The CLI Options will **be overridden by** the configuration provided in the JSON file.
+> [!WARNING]
+> The CLI Options will **be overridden by** the configuration provided in the JSON file.
 ### List of available configurations
 
 | Configuration           | CLI Option                             | Description                                                                                                                                                                                                                                                                    | Default value |
@@ -98,6 +99,6 @@ To perform validity check of a set of Swagger Specifications, additional tools a
 
 A code generator is provided to generate an API specification extension.
 
-```bash
-yarn yo @ama-sdk/sdk:api-extension
+```shell
+yarn dlx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension
 ```

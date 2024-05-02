@@ -1,0 +1,69 @@
+{
+  "name": "@o3r/artifactory-tools",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Various artifactory tools",
+  "keywords": [
+    "otter",
+    "otter-module"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "build": "yarn nx build artifactory-tools",
+    "postbuild": "patch-package-json-main",
+    "prepare:publish": "prepare-publish ./dist",
+    "prepare:build:builders": "yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'collection.json' dist",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
+  },
+  "bin": {
+    "o3r-artifact-cleaner": "./dist/src/cli/artifact-cleaner.js",
+    "o3r-pr-artifact-cleaner": "./dist/src/cli/pr-artifact-cleaner.js"
+  },
+  "dependencies": {
+    "commander": "^12.0.0",
+    "fs-extra": "^11.0.0",
+    "request": "^2.88.0",
+    "tslib": "^2.5.3",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "@angular-devkit/core": "~17.2.0",
+    "@angular-devkit/schematics": "~17.2.0",
+    "@angular-eslint/eslint-plugin": "~17.2.0",
+    "@babel/core": "~7.24.0",
+    "@babel/preset-typescript": "~7.23.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@nx/eslint-plugin": "~18.0.2",
+    "@nx/jest": "~18.0.2",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@types/fs-extra": "^11.0.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "@types/request": "^2.48.7",
+    "@types/request-promise-native": "^1.0.18",
+    "@typescript-eslint/eslint-plugin": "^7.0.1",
+    "@typescript-eslint/parser": "^7.0.1",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.42.0",
+    "eslint-import-resolver-node": "^0.3.4",
+    "eslint-plugin-jest": "~27.9.0",
+    "eslint-plugin-jsdoc": "~48.2.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^51.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "nx": "~18.0.2",
+    "ts-jest": "~29.1.1",
+    "ts-node": "~10.9.1",
+    "typescript": "~5.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "schematics": "./collection.json"
+}

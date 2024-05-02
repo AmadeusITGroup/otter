@@ -24,7 +24,6 @@ import { ConditionFn, PostMessageCall } from './core';
 
     /**
      * Logs a message in the console
-     *
      * @param message
      * @param {...any} args
      */
@@ -35,7 +34,6 @@ import { ConditionFn, PostMessageCall } from './core';
 
     /**
      * Intercepts the native postMessage call
-     *
      * @param ref Singleton instance of the interceptor
      * @param nativeMethod native postMessage method
      * @param args all the args passed to the postMessage
@@ -111,7 +109,6 @@ import { ConditionFn, PostMessageCall } from './core';
 
     /**
      * Starts listening and saving postMessages
-     *
      * @param conditionFnString The function string to be used as condition checker
      */
     public listen(conditionFnString?: string) {
@@ -138,7 +135,6 @@ import { ConditionFn, PostMessageCall } from './core';
 
     /**
      * Get the messages stack
-     *
      * @param timeoutInterval the interval, in ms, between each check
      * @param retries number of tentatives if fail
      * @param callback

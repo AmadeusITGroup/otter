@@ -44,7 +44,6 @@ export class ApiFetchClient implements ApiClient {
 
   /**
    * Initialize your API Client instance
-   *
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiFetchClientConstructor) {
@@ -80,7 +79,7 @@ export class ApiFetchClient implements ApiClient {
     let opts = options;
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
-        opts = await plugin.load().transform(opts);
+        opts = await plugin.load({logger: this.options.logger}).transform(opts);
       }
     }
 
@@ -106,7 +105,7 @@ export class ApiFetchClient implements ApiClient {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
-    let root: any | undefined;
+    let root: any;
     let body: string | undefined;
     let exception: Error | undefined;
 
@@ -121,7 +120,7 @@ export class ApiFetchClient implements ApiClient {
       }
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
       if (this.options.fetchPlugins) {
-        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this})));
+        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger})));
       }
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
@@ -165,7 +164,8 @@ export class ApiFetchClient implements ApiClient {
         exception,
         operationId,
         url,
-        origin
+        origin,
+        logger: this.options.logger
       })) : [];
 
     let parsedData = root;

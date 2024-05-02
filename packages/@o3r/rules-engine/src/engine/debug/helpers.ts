@@ -4,7 +4,6 @@ import { ActionBlock, Rule } from '../structure';
 
 /**
  * Function to retrive from 2 sequential executions only the triggers which activated the last ruleset execution
- *
  * @param currRes Current ruleset execution object
  * @param prevRes Previous ruleset execution object
  * @returns The triggers list which activates the last ruleset execution
@@ -51,7 +50,6 @@ export function retrieveRulesetTriggers(currRes: RuleEvaluationOutput[], prevRes
 
 /**
  * Flag as cached the rules evaluations which are from previous ruleset executions
- *
  * @param rulesEvaluations all rules evaluations list
  * @param triggers Ruleset triggers object
  * @returns Rules evaluation list with flagged rules evaluation from previous ruleset executions
@@ -69,7 +67,6 @@ export function flagCachedRules(rulesEvaluations: RuleEvaluation[], triggers: Re
 
 /**
  * Create the debug rule evaluation object
- *
  * @param rule
  * @param rulesetName
  * @param outputActions

@@ -13,8 +13,9 @@ import * as fs from 'node:fs';
 import { cpSync, mkdirSync } from 'node:fs';
 import * as path from 'node:path';
 
-const appName = 'test-sdk';
+const projectName = 'test-sdk';
 const sdkPackageName = '@my-test/sdk';
+const o3rVersion = '999.0.0';
 let sdkFolderPath: string;
 let sdkPackagePath: string;
 const execAppOptions = getDefaultExecSyncOptions();
@@ -25,7 +26,7 @@ describe('Create new sdk command', () => {
   beforeEach(async () => {
     const isYarnTest = packageManager.startsWith('yarn');
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
-    sdkFolderPath = await prepareTestEnv(appName, 'blank', yarnVersion);
+    sdkFolderPath = (await prepareTestEnv(projectName, {type: 'blank', yarnVersion })).workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));
     execAppOptions.cwd = sdkFolderPath;
 
@@ -51,18 +52,51 @@ describe('Create new sdk command', () => {
 
   test('should generate a full SDK when the specification is provided', () => {
     expect(() =>
-      packageManagerCreate(`@ama-sdk typescript ${sdkPackageName} --package-manager ${packageManager} --spec-path ./swagger-spec.yml`, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
   });
 
   test('should generate an empty SDK ready to be used', () => {
-    expect(() => packageManagerCreate(`@ama-sdk typescript ${sdkPackageName}`, execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerCreate({script: '@ama-sdk', args: ['typescript', sdkPackageName]}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
     expect(() =>
-      packageManagerExec(
-        `schematics @ama-sdk/schematics:typescript-core --spec-path ${path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')}`,
-        { ...execAppOptions, cwd: sdkPackagePath }
-      )).not.toThrow();
-    expect(() => packageManagerRun('build', { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+      packageManagerExec({
+        script: 'schematics',
+        args: ['@ama-sdk/schematics:typescript-core', '--spec-path', path.join(path.relative(sdkPackagePath, sdkFolderPath), 'swagger-spec.yml')]
+      }, { ...execAppOptions, cwd: sdkPackagePath })
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    expect(() => packageManagerRun({script: 'doc:generate'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+  });
+
+  test('should fail when there is an error', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: '@ama-sdk',
+        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path','./missing-file.yml']
+      }, execAppOptions)
+    ).toThrow();
+  });
+
+  test('should use pinned versions when --exact-o3r-version is used', () => {
+    expect(() =>
+      packageManagerCreate({
+        script: `@ama-sdk@${o3rVersion}`,
+        args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
+      }, execAppOptions)
+    ).not.toThrow();
+    expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
+    const packageJson = JSON.parse(fs.readFileSync(path.join(sdkPackagePath, 'package.json'), 'utf-8'));
+    const resolutions = packageManager === 'yarn' ? packageJson.resolutions : packageJson.overrides;
+    // all otter dependencies in package.json must be pinned:
+    [
+      ...Object.entries(packageJson.dependencies), ...Object.entries(packageJson.devDependencies), ...Object.entries(resolutions)
+    ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
+      expect(version).toBe(o3rVersion);
+    });
   });
 });

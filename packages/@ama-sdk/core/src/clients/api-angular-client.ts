@@ -63,7 +63,7 @@ export class ApiAngularClient implements ApiClient {
     let opts = options;
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
-        opts = await plugin.load().transform(opts);
+        opts = await plugin.load({logger: this.options.logger}).transform(opts);
       }
     }
 
@@ -93,7 +93,7 @@ export class ApiAngularClient implements ApiClient {
     revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: HttpResponse<any> | undefined;
-    let root: any | undefined;
+    let root: any;
     let exception: Error | undefined;
 
     const origin = options.headers.get('Origin');
@@ -142,7 +142,8 @@ export class ApiAngularClient implements ApiClient {
         exception,
         operationId,
         url,
-        origin
+        origin,
+        logger: this.options.logger
       })) : [];
 
     let parsedData = root;

@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ScrollBackTopPresComponent } from './scroll-back-top-pres.component';
@@ -8,7 +9,7 @@ describe('ScrollBackTopPresComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ScrollBackTopPresComponent]
+      imports: [ScrollBackTopPresComponent, AsyncPipe]
     });
     fixture = TestBed.createComponent(ScrollBackTopPresComponent);
     component = fixture.componentInstance;

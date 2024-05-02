@@ -13,13 +13,13 @@ import { OtterInspectorService, OtterLikeComponentInfo } from './inspector';
 export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServiceInterface {
   private readonly options: ComponentsDevtoolsServiceOptions;
 
-  private subscriptions = new Subscription();
-  private inspectorService: OtterInspectorService;
+  private readonly subscriptions = new Subscription();
+  private readonly inspectorService: OtterInspectorService;
 
-  private sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
+  private readonly sendMessage = sendOtterMessage<AvailableComponentsMessageContents>;
 
   constructor(
-      private logger: LoggerService,
+      private readonly logger: LoggerService,
       @Optional() @Inject(OTTER_COMPONENTS_DEVTOOLS_OPTIONS) options?: ComponentsDevtoolsServiceOptions) {
     this.options = {
       ...OTTER_COMPONENTS_DEVTOOLS_DEFAULT_OPTIONS,
@@ -52,7 +52,6 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /**
    * Function to trigger a re-send a requested messages to the Otter Chrome DevTools extension
-   *
    * @param only restricted list of messages to re-send
    */
   private handleReEmitRequest(only?: ComponentsMessageDataTypes[]) {
@@ -63,7 +62,6 @@ export class ComponentsDevtoolsMessageService implements OnDestroy, DevtoolsServ
 
   /**
    * Function to handle the incoming messages from Otter Chrome DevTools extension
-   *
    * @param event Event coming from the Otter Chrome DevTools extension
    * @param message
    */

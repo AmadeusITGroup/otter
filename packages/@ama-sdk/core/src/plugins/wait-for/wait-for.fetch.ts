@@ -14,15 +14,14 @@ export interface CanStartConditionResult<T = any> {
 
 /**
  * Condition function to determine if the call can start
- *
  * @returns True if the call can start, False if it should be canceled
  */
 export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) => CanStartConditionResult<T> | Promise<CanStartConditionResult<T>>;
 
 /**
  * Plugin to determine if and when a call should be processed
- *
  * @example
+ * ```typescript
  * // Use the plugin for an orchestrator 1 per 1
  * class OrchestratorOnePerOne {
  *   stack: ({id: string, resolve: (result: boolean) => void})[] = [];
@@ -57,6 +56,7 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
  * const orchestrator = new OrchestratorOnePerOne();
  * const waitForPlugin = new WaitForFetch<string>(() => orchestrator.push(), undefined, (context) => orchestrator.pop(context.data));
  * const api = new Api('https://wwww.digitalforairlines.com/api', undefined, undefined, [waitForPlugin]);
+ * ```
  */
 export class WaitForFetch<T = any> implements FetchPlugin {
 
@@ -71,7 +71,6 @@ export class WaitForFetch<T = any> implements FetchPlugin {
 
   /**
    * Wait For Fetch plugin
-   *
    * @param canStartCondition Condition that should be passed to start the call
    * @param timeout           Timeout of the condition function (return false when reached)
    * @param callback          Callback function called when the fetch call has been processed

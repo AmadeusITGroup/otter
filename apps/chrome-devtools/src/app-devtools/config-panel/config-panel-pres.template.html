@@ -1,7 +1,14 @@
-<ngb-accordion [closeOthers]="true" #acc="ngbAccordion">
-  <ngb-panel *ngFor="let config of configs$ | async | keyvalue" [title]="config.key">
-    <ng-template ngbPanelContent>
-      <app-config-form [config]="config.value"></app-config-form>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+<div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+  <div ngbAccordionItem *ngFor="let config of configs$ | async | keyvalue">
+    <h3 ngbAccordionHeader>
+      <button ngbAccordionButton>{{config.key}}</button>
+    </h3>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <app-config-form [config]="config.value"></app-config-form>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

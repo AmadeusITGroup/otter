@@ -3,6 +3,7 @@
   "include": [
     ".eslintrc.js",
     "jest.config.js",
-    "scripts/*.js"
+    "scripts/*.js",
+    "testing/*"
   ]
 }

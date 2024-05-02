@@ -18,7 +18,8 @@ It comes with an integrated ng builder to help you generate components compatibl
 ng add @o3r/components
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

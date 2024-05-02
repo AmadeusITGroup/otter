@@ -22,7 +22,7 @@ export interface LockerOptions {
  * Helper class used to lock a folder to handle parallel creation
  */
 export class Locker {
-  private options: LockerOptions;
+  private readonly options: LockerOptions;
 
   constructor(options: Partial<LockerOptions>) {
     this.options = {

@@ -1,0 +1,113 @@
+@import '@design-factory/design-factory/styles/scss/themes/brand2023/variables';
+
+@import '@design-factory/design-factory/styles/scss/variables';
+@import '@design-factory/design-factory/styles/scss/bootstrap/maps';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import '@design-factory/design-factory/styles/scss/bootstrap/mixins-override';
+@import '@design-factory/design-factory/styles/scss/components/fonts/fonts-family';
+@import '@design-factory/design-factory/styles/scss/components/fonts/multi-lang.mixins';
+@import '@design-factory/design-factory/styles/scss/common.mixins';
+
+// Root
+@import 'bootstrap/scss/root';
+@import '@design-factory/design-factory/styles/scss/common.root';
+@import '@design-factory/design-factory/styles/scss/components/fonts/fonts.root';
+@import '@design-factory/design-factory/styles/scss/components/inputs/inputs.root';
+
+/** BOOTSTRAP IMPORTS **/
+// Components
+@import 'bootstrap/scss/reboot';
+@import 'bootstrap/scss/type';
+@import 'bootstrap/scss/images';
+@import 'bootstrap/scss/containers';
+@import 'bootstrap/scss/grid';
+@import 'bootstrap/scss/tables';
+@import 'bootstrap/scss/forms';
+@import 'bootstrap/scss/buttons';
+//@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/dropdown';
+@import 'bootstrap/scss/button-group';
+@import 'bootstrap/scss/nav';
+@import 'bootstrap/scss/navbar';
+@import 'bootstrap/scss/card';
+@import 'bootstrap/scss/accordion';
+@import 'bootstrap/scss/breadcrumb';
+@import 'bootstrap/scss/pagination';
+//@import 'bootstrap/scss/badge';
+//@import 'bootstrap/scss/alert';
+@import 'bootstrap/scss/progress';
+@import 'bootstrap/scss/list-group';
+@import 'bootstrap/scss/close';
+@import 'bootstrap/scss/modal';
+//@import 'bootstrap/scss/tooltip';
+//@import 'bootstrap/scss/popover';
+//@import 'bootstrap/scss/carousel';
+@import 'bootstrap/scss/spinners';
+@import 'bootstrap/scss/utilities';
+@import 'bootstrap/scss/offcanvas';
+@import 'bootstrap/scss/placeholders';
+//@import 'bootstrap/scss/toasts';
+
+// Helpers
+@import 'bootstrap/scss/helpers';
+
+// Utilities
+@import '@design-factory/design-factory/styles/scss/bootstrap/utilities-override';
+@import 'bootstrap/scss/utilities/api';
+
+/** DESIGN FACTORY IMPORTS **/
+@import '@design-factory/design-factory/styles/scss/common';
+@import '@design-factory/design-factory/styles/scss/components/fonts/icon-font';
+@import '@design-factory/design-factory/styles/scss/components/fonts/fonts';
+@import '@design-factory/design-factory/styles/scss/components/accordion/accordion';
+@import '@design-factory/design-factory/styles/scss/components/separator/separator';
+@import '@design-factory/design-factory/styles/scss/components/button/button';
+//@import '@design-factory/design-factory/styles/scss/components/media/media';
+@import '@design-factory/design-factory/styles/scss/components/modal/modal';
+@import '@design-factory/design-factory/styles/scss/components/typeahead/typeahead';
+//@import '@design-factory/design-factory/styles/scss/components/alert/alert';
+@import '@design-factory/design-factory/styles/scss/components/datepicker/datepicker';
+@import '@design-factory/design-factory/styles/scss/components/form/form';
+@import '@design-factory/design-factory/styles/scss/components/pagination/pagination';
+//@import '@design-factory/design-factory/styles/scss/components/badge/badge';
+//@import '@design-factory/design-factory/styles/scss/components/icon/amadeus-icon';
+@import '@design-factory/design-factory/styles/scss/components/navbar/navbar';
+@import '@design-factory/design-factory/styles/scss/components/tabs/tabs';
+@import '@design-factory/design-factory/styles/scss/components/checkbox/checkbox';
+@import '@design-factory/design-factory/styles/scss/components/radio/radio';
+@import '@design-factory/design-factory/styles/scss/components/toggle/toggle';
+@import '@design-factory/design-factory/styles/scss/components/inputs/inputs';
+@import '@design-factory/design-factory/styles/scss/components/card/card';
+@import '@design-factory/design-factory/styles/scss/components/list-group/list-group';
+@import '@design-factory/design-factory/styles/scss/components/brand-color/brand-color';
+@import '@design-factory/design-factory/styles/scss/components/link/link';
+@import '@design-factory/design-factory/styles/scss/components/table/table';
+@import '@design-factory/design-factory/styles/scss/components/table/advancedtables';
+@import '@design-factory/design-factory/styles/scss/components/fieldset/fieldset';
+//@import '@design-factory/design-factory/styles/scss/components/popover/popover';
+@import '@design-factory/design-factory/styles/scss/components/slider/slider';
+@import '@design-factory/design-factory/styles/scss/components/select/select';
+@import '@design-factory/design-factory/styles/scss/components/dropdown/dropdown';
+@import '@design-factory/design-factory/styles/scss/components/collapse/collapse';
+@import '@design-factory/design-factory/styles/scss/components/progressbar/progressbar';
+@import '@design-factory/design-factory/styles/scss/components/spinner/spinner';
+//@import '@design-factory/design-factory/styles/scss/components/rating/rating';
+//@import '@design-factory/design-factory/styles/scss/components/speechbubble/speechbubble';
+@import '@design-factory/design-factory/styles/scss/components/list/list';
+@import '@design-factory/design-factory/styles/scss/components/skip-links/skip-links';
+//@import '@design-factory/design-factory/styles/scss/components/breadcrumbs/breadcrumbs';
+//@import '@design-factory/design-factory/styles/scss/components/stepper/stepper';
+//@import '@design-factory/design-factory/styles/scss/components/carousel/carousel';
+@import '@design-factory/design-factory/styles/scss/components/sidenav/sidenav';
+@import '@design-factory/design-factory/styles/scss/components/footer/footer';
+//@import '@design-factory/design-factory/styles/scss/components/toast/toast';
+@import '@design-factory/design-factory/styles/scss/components/scrollspy/scrollspy';
+
+@import '@design-factory/design-factory/styles/scss/bootstrap/rtl-styles-override';
+
+//@import '@design-factory/design-factory/styles/scss/@agnos-ui/style-bootstrap/scss/agnosui';
+// this css is needed when modal are open to have no scroll on the background.
+.df-modal-open {
+  overflow: hidden;
+}

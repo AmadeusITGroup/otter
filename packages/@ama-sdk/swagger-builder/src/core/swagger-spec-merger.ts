@@ -65,7 +65,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Edit the Swagger Spec during the build process to resolve external dependencies
-   *
    * @param swaggerSpec Swagger spec to edit
    * @param swaggerPath Path to the swagger targeted by the reference
    * @param innerPath Inner path of the reference inside the targeted swagger spec
@@ -141,7 +140,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Convert the local references to outer references for a additional swagger spec (not part of the merge)
-   *
    * @param currentNode Node to inspect in the Swagger spec object
    * @param swaggerPath Swagger file path
    * @param field Field of the node
@@ -170,7 +168,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Resolve the reference found during the build process
-   *
    * @param swaggerSpec Swagger spec to edit
    */
   private async applyExternalRefItems(swaggerSpec: Partial<Spec>): Promise<Partial<Spec>> {
@@ -192,7 +189,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Extract references targeting another file
-   *
    * @param currentNode Node to inspect in the Swagger spec object
    * @param field Field of the node
    */
@@ -229,7 +225,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Replace the reference targeting an external item by the one added into the current Swagger Spec object
-   *
    * @param currentNode Node to inspect in the Swagger spec object
    * @param replace Reference to replace
    * @param replace.swaggerPath
@@ -317,7 +312,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Build the paths part of the swagger object
-   *
    * @param ignoreConflict Option to ignore conflict during the merge
    */
   private async buildPaths(ignoreConflict = false) {
@@ -399,7 +393,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Set a new version to the swagger spec
-   *
    * @param swaggerSpec Swagger Spec to edit
    * @param version Version to set
    */
@@ -420,7 +413,6 @@ export class SwaggerSpecMerger {
 
   /**
    * Build the set of swagger specs to one Swagger Spec Object
-   *
    * @param options Build options
    */
   public async build(options?: BuildOptions): Promise<Spec> {

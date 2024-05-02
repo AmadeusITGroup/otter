@@ -9,7 +9,6 @@ const scriptToInject: typeof ScriptToInject = 'extension/wrap.js';
 
 /**
  * determine if the message is an OtterDebugMessage
- *
  * @param message
  */
 const isOtterDebugMessage = (message: any): message is OtterMessage => {
@@ -18,7 +17,6 @@ const isOtterDebugMessage = (message: any): message is OtterMessage => {
 
 /**
  * determine if the message is an ExtensionMessage
- *
  * @param message
  */
 const isExtensionMessage = (message: any): message is ExtensionMessage => {
@@ -27,7 +25,6 @@ const isExtensionMessage = (message: any): message is ExtensionMessage => {
 
 /**
  * determine if the message content is an InjectContentMessage
- *
  * @param content
  */
 const isInjectionContentMessage = (content: any): content is InjectContentMessage => {

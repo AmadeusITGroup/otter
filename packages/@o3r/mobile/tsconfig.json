@@ -3,10 +3,13 @@
   "extends": "../../../tsconfig.base",
   "references": [
     {
-      "path": "./tsconfig.build.json"
+      "path": "./tsconfig.build.composite.json"
     },
     {
-      "path": "./testing/tsconfig.spec.json"
+      "path": "./tsconfig.builders.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

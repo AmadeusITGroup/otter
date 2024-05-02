@@ -51,7 +51,6 @@ export class MaxDateValidator implements Validator, OnChanges {
 
   /**
    * Maximum Date validator
-   *
    * @param maxDate Maximum date to compare to
    */
   public static maxDate(maxDate: utils.Date | null): ValidatorFn {

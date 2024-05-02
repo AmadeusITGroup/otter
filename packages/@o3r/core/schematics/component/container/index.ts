@@ -4,6 +4,7 @@ import {
   addImportsIntoComponentDecoratorTransformerFactory,
   addImportsRule,
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   getComponentFileName,
   getComponentFolderName,
   getComponentModuleName,
@@ -13,7 +14,7 @@ import {
   getInputComponentName,
   getWorkspaceConfig
 } from '@o3r/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
+import { addImportToModule, insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
 import * as path from 'node:path';
 import * as ts from 'typescript';
@@ -58,7 +59,7 @@ const getTemplateProperties = (options: NgGenerateComponentContainerSchematicsSc
  * Add Otter container component to an Angular Project
  * @param options
  */
-export function ngGenerateComponentContainer(options: NgGenerateComponentContainerSchematicsSchema): Rule {
+function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSchematicsSchema): Rule {
 
   const fullStructureRequested = options.componentStructure === 'full';
 
@@ -207,7 +208,9 @@ export function ngGenerateComponentContainer(options: NgGenerateComponentContain
           ts.isImportDeclaration(statement)
         );
 
-        const changes = [new InsertChange(o3rSpecPath, lastImport?.getEnd() || 0, `
+        const changes = [
+          insertImport(specSourceFile, o3rSpecPath, 'Component', '@angular/core'),
+          new InsertChange(o3rSpecPath, lastImport?.getEnd() || 0, `
 @Component({
   template: '',
   selector: '${properties.presenterComponentSelector}',
@@ -281,3 +284,9 @@ class Mock${properties.presenterComponentName} {}
     !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }
+
+/**
+ * Add Otter container component to an Angular Project
+ * @param options
+ */
+export const ngGenerateComponentContainer = createSchematicWithMetricsIfInstalled(ngGenerateComponentContainerFn);

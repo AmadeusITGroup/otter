@@ -21,4 +21,7 @@ export interface NgGenerateModuleSchema extends SchematicOptionObject {
 
   /** Do not install dependency packages. */
   skipInstall: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

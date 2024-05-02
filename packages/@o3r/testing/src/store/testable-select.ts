@@ -17,13 +17,11 @@ let registeredSpies: SelectorSpy<any>[] = [];
 
 /**
  * Searches for the index of given selector
- *
  * @param selectFn Selector function to be searched
  */
 const getSpyIndex = <S extends object>(selectFn: SelectorFunction<S, any>) => registeredSpies.findIndex((spy) => spy.selector === selectFn);
 /**
  * Searches for the given selector spy. Returns undefined if none is registered
- *
  * @param selectFn Selector function to be searched
  */
 const getSpy = (selectFn: SelectorFunction<object, any>) => {
@@ -32,7 +30,6 @@ const getSpy = (selectFn: SelectorFunction<object, any>) => {
 };
 /**
  * Uses the spy as the return of a select
- *
  * @param spy The selector spy
  */
 function useSpy<R>(spy: SelectorSpy<R>): (source$: Observable<any>) => Observable<R> {
@@ -61,7 +58,6 @@ export function initializeSelectorSpies() {
 
 /**
  * Spy on a selector function
- *
  * @param selector Selector function to be spied on
  * @param fakeResult The fake result to be used when a select is triggered
  */
@@ -76,7 +72,6 @@ export function spyOnSelector<R, S extends object = object>(selector: SelectorFu
 
 /**
  * Removes the spy on a given selector function
- *
  * @param selector Selector function that is being spied on
  */
 export function clearSelectorSpy<R, S extends object = object>(selector: SelectorFunction<S, R>) {
@@ -89,7 +84,6 @@ export function clearSelectorSpy<R, S extends object = object>(selector: Selecto
 /**
  * Highjacked ngrx/store select. It checks if the selector function is being spied on
  * and returns it's fake result. Otherwise, it runs the original ngrx/store select
- *
  * @param selectFn Selector function to be used
  * @param props optional properties to be used by the selector
  */

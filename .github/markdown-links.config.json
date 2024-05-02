@@ -1,0 +1,13 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https?:\/\/.*"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "/%40",
+      "replacement": "/@"
+    }
+  ]
+}

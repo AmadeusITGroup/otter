@@ -10,6 +10,9 @@ interface ExtractedImport {
   /** Element imported */
   symbol: string;
 
+  /** Is import type */
+  isTypeOnlyImport: boolean;
+
   /** Module from where the symbol is imported */
   location: string;
 }
@@ -22,7 +25,6 @@ export interface ImportsMapping {
 
 /**
  * Update the imports of a given file according to replace mapping
- *
  * @param logger Logger to report messages
  * @param tree File System tree
  * @param sourceFile Source file to analyze
@@ -51,7 +53,7 @@ export function updateImportsInFile(
 
     const renamePackageMatch = importFrom.match(renamePackagesRegexp);
 
-    const otterPackage = renamePackageMatch ? renamePackageMatch[0] : importFrom.match(importsRegexp)?.[0];
+    const otterPackage = renamePackageMatch?.[0] || importFrom.match(importsRegexp)?.[0];
 
     // If the import matched an Otter package
     if (otterPackage) {
@@ -64,9 +66,11 @@ export function updateImportsInFile(
       importNodes.push(imp);
 
       // We retrieve all the symbols listed in the import statement
-      const namedImport = imp.importClause && imp.importClause.getChildAt(0);
+      const namedImport = imp.importClause?.namedBindings;
+      const isTypeOnlyImport = !!imp.importClause && ts.isTypeOnlyImportDeclaration(imp.importClause);
       const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport) ?
-        namedImport.elements.map((element) => ({symbol: element.getText(), location: importFrom})) :
+        namedImport.elements.map((element) =>
+          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom})) :
         [];
 
       // And associate them to the Otter package
@@ -85,7 +89,7 @@ export function updateImportsInFile(
     importsFromOldPackage.forEach((importSymbol) => {
 
       let newPackageNameImport;
-      if (Object.keys(renamedPackages).indexOf(oldPackageName) > 0) {
+      if (renamedPackages[oldPackageName]) {
         newPackageNameImport = importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]);
       } else {
         newPackageNameImport = mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
@@ -99,19 +103,35 @@ export function updateImportsInFile(
         acc[importFrom] = [];
       }
       const newNameForExportedValue = mapImports[oldPackageName]?.[importSymbol.symbol]?.newValue;
-      acc[importFrom].push(newNameForExportedValue || importSymbol.symbol);
+      acc[importFrom].push(`${importSymbol.isTypeOnlyImport ? 'type ' : ''}${newNameForExportedValue || importSymbol.symbol}`);
     });
     return acc;
   }, {} as Record<string, string[]>);
 
+  let fileContent = tree.readText(sourceFile.fileName);
+  const escapeRegExp = (str: string) => str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&');
+
   // Remove captured imports
-  const fileWithoutImports = tree.read(sourceFile.fileName)!.toString()
-    .replace(new RegExp(`(${importNodes.map((node) => node.getText()).join('|')})[\\n\\r]*`, 'g'), '');
+  fileContent = fileContent.replace(new RegExp(`(${importNodes.map((node) => escapeRegExp(node.getText())).join('|')})[\\n\\r]*`, 'g'), '');
+
+  // Replace imported values
+  const valuesToReplace = Object.fromEntries(Object.values(mapImports).flatMap((mapImport) =>
+    Object.entries(mapImport)
+      .filter(([_, value]) => value.newValue)
+      .map(([key, value]) => [key, value.newValue!])
+  ));
+  if (Object.keys(valuesToReplace).length) {
+    const matcher = new RegExp(Object.keys(valuesToReplace).map((oldValue) => `\\b${escapeRegExp(oldValue)}\\b`).join('|'), 'g');
+    const replacer = (match: string) => valuesToReplace[match];
+    fileContent = fileContent.replace(matcher, replacer);
+  }
+
   // Add the computed imports at the top of the file
-  const fileWithNewImports = Object.entries(resolvedImports)
+  fileContent = Object.entries(resolvedImports)
     .map(([importFrom, imports]) => `import {${imports.join(', ')}} from '${importFrom}';`)
-    .join('\n') + '\n' + fileWithoutImports;
-  tree.overwrite(sourceFile.fileName, fileWithNewImports);
+    .join('\n') + '\n' + fileContent;
+
+  tree.overwrite(sourceFile.fileName, fileContent);
 
   // Log details about imports for which we could not find an associated sub-entry
   if (unResolvedImports.length > 0) {

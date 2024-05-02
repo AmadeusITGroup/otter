@@ -30,19 +30,11 @@ const finWidgetParamNamesInComment = (comment: string) => {
   return new Set(Array.from(comment.matchAll(/@o3rWidgetParam (\w+)/g)).map((match) => match[1]));
 };
 
-const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string): Record<string, ConfigurationTags> => {
+const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string, fileText: string): Record<string, ConfigurationTags> => {
   const o3rWidgetsTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-widgets-tags']?.[1] || {};
+  const o3rCategoriesTagsRulesConfig = eslintConfig.rules?.['@o3r/o3r-categories-tags']?.[1] || {};
 
-  if (!Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length) {
-    return {};
-  }
-
-  const widgetName = findWidgetNameInComment(comment);
-  const widgetConfig = widgetName ? o3rWidgetsTagsRulesConfig.widgets[widgetName] : {};
-  const paramsPresent = finWidgetParamNamesInComment(comment);
-  const widgetParamsToPropose = Object.keys(widgetConfig).filter((paramName) => !paramsPresent.has(paramName));
-
-  return {
+  const configurationTags = {
     tags: {
       description: 'Tag to use CMS tags for configuration interface',
       detail: '[one, two, three]',
@@ -61,11 +53,33 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
     o3rRequired: {
       description: 'Tag to use to define if a value must be specify in the CMS'
     },
+    o3rCategories: {
+      description: 'Tag to use to define a configuration category',
+      detail: 'Configuration category',
+      snippet: '${1:Identifier} ${2:ReadableName}'
+    },
     o3rCategory: {
       description: 'Tag to use CMS category for configuration property',
       detail: 'categoryName',
-      snippet: '${1:categoryName}'
-    },
+      snippet: `\${1|${
+        o3rCategoriesTagsRulesConfig.globalConfigCategories
+          .concat(Array.from(fileText.matchAll(/@o3rCategories (\w+)/)).map((match) => match[1]))
+          .join(',')
+      }|}`
+    }
+  };
+
+  if (!Object.keys(o3rWidgetsTagsRulesConfig?.widgets || {}).length) {
+    return configurationTags;
+  }
+
+  const widgetName = findWidgetNameInComment(comment);
+  const widgetConfig = widgetName ? o3rWidgetsTagsRulesConfig.widgets[widgetName] : {};
+  const paramsPresent = finWidgetParamNamesInComment(comment);
+  const widgetParamsToPropose = Object.keys(widgetConfig).filter((paramName) => !paramsPresent.has(paramName));
+
+  return {
+    ...configurationTags,
     ...(!widgetName ? {
       o3rWidget: {
         description: 'Tag to use CMS widget for configuration property',
@@ -95,10 +109,10 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
         return [];
       }
 
-      const text = doc.getText();
+      const fileText = doc.getText();
       const jsDocCommentMatcher = /\/\*\*[^*](?:\r|\n|.)*?\*\//g;
       const posInDoc = doc.offsetAt(pos);
-      const match = Array.from(text.matchAll(jsDocCommentMatcher)).find((m) => {
+      const match = Array.from(fileText.matchAll(jsDocCommentMatcher)).find((m) => {
         const commentStartingPos = m.index || 0;
         const commentEndingPos = commentStartingPos + m[0].length;
 
@@ -119,7 +133,7 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
       }
 
       const config = await eslint.calculateConfigForFile(doc.fileName);
-      const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0]);
+      const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
       return getCompletionsItemsFromConfigurationTags(configurationTags);
     }

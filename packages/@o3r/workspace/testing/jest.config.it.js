@@ -1,32 +1,8 @@
-const { resolve } = require('node:path');
-const { getJestModuleNameMapper } = require('@o3r/dev-tools');
+const { dirname } = require('node:path');
+const getJestConfig = require('../../../../jest.config.it').getJestConfig;
 
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
 module.exports = {
-  displayName: require('../package.json').name,
-  preset: 'ts-jest',
-  rootDir: '..',
-  moduleNameMapper: getJestModuleNameMapper(resolve(__dirname, '..'), resolve(__dirname, '..', '..', '..', '..', 'tsconfig.base.json')),
-  testPathIgnorePatterns: [
-    '<rootDir>/.*/templates/.*'
-  ],
-  reporters: [
-    'default',
-    ['jest-junit', {outputDirectory: resolve(__dirname, '..', 'dist-test'), outputName: 'it-report.xml'}],
-    'github-actions'
-  ],
-  transform: {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    '^.+\\.tsx?$': [
-      'ts-jest',
-      {
-        tsconfig: '<rootDir>/tsconfig.spec.json',
-        stringifyContentPathRegex: '\\.html$'
-      }
-    ]
-  },
-  testMatch: [
-    '<rootDir>/**/*.it.spec.ts'
-  ],
-  testTimeout: 30 * 60 * 1000
+  ...getJestConfig(dirname(__dirname)),
+  displayName: require('../package.json').name
 };

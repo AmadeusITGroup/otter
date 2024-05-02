@@ -1,11 +1,14 @@
 import { Provider } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
+import { TranslateCompiler, TranslateFakeCompiler } from '@ngx-translate/core';
+import { ApplicationDevtoolsModule } from '@o3r/application';
+import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
 import { mockTranslationModules } from '@o3r/testing/localization';
-import { TranslateCompiler } from '@ngx-translate/core';
-import { TranslateFakeCompiler } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 
 const localizationConfiguration = { language: 'en' };
@@ -19,13 +22,19 @@ const mockTranslationsCompilerProvider: Provider = {
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent],
     imports: [
+      ApplicationDevtoolsModule,
+      ComponentsDevtoolsModule,
       StoreModule.forRoot(),
       ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
       ConfigurationDevtoolsModule,
-      LocalizationDevtoolsModule
-    ]
+      LocalizationDevtoolsModule,
+      EffectsModule.forRoot()
+    ],
+    providers: [
+      provideMockStore()
+    ],
+    declarations: [AppComponent]
   }));
 
   it('should create the app', () => {

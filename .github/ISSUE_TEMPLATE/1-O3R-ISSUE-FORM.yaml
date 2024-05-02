@@ -43,6 +43,7 @@ body:
         storybook,
         stylelint-plugin,
         styling,
+        telemetry,
         testing,
         third-party,
         workspace

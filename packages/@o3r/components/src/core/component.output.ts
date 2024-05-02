@@ -50,21 +50,6 @@ export interface ComponentClassOutput extends Output {
   name: string;
   /** Component path */
   path: string;
-  /**
-   * Component template path
-   * @deprecated will be removed in v10
-   */
-  templatePath: string;
-  /**
-   * Name of the module that declares this component
-   * @deprecated will be removed in v10
-   */
-  moduleName: string;
-  /**
-   * Path where the module can be found
-   * @deprecated will be removed in v10
-   */
-  modulePath: string;
   /** Component selector */
   selector: string;
   /** Component type */
@@ -79,17 +64,6 @@ export interface ComponentClassOutput extends Output {
   linkableToRuleset: boolean;
   /** List of localization keys used in the component */
   localizationKeys?: string[];
-}
-
-/**
- * Output generated for component module metadata
- * @deprecated will be removed in v10
- */
-export interface ComponentModuleOutput extends Output {
-  /** Module name */
-  name: string;
-  /** Module path */
-  path: string;
 }
 
 /** Property types */
@@ -147,7 +121,7 @@ export interface ComponentConfigOutput extends Output {
   tags?: string[];
   /** Configuration fields */
   properties: ConfigProperty[];
-  /** Category (taken from <o3rCategories> tag) */
+  /** Category (taken from @o3rCategories tag) */
   categories?: CategoryDescription[];
 }
 

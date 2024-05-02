@@ -1,6 +1,5 @@
 /**
  * Add a preconnect `<link>` element to the DOM
- *
  * @param baseUrl the origin href
  * @param supportCrossOrigin add crossorigin attribute to the link element
  */

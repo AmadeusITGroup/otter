@@ -24,9 +24,9 @@
       <div class="row">
         <o3r-copy-text-pres class="col-12 col-md-8 col-lg-9" language="html" [text]="codeDataDynamicContentPath"></o3r-copy-text-pres>
         <div class="d-flex gap-2 align-self-start mt-md-2 pb-3 col-12 col-md-4 col-lg-3">
-          <button type="button" class="btn btn-primary" disabled="{{bodyDynamicContentPath}}"
+          <button type="button" class="btn btn-primary" id="btn-override-config" [disabled]="!!bodyDynamicContentPath"
                   [class.disabled]="bodyDynamicContentPath" (click)="setLocalStorage()">Override</button>
-          <button type="button" class="btn btn-danger" disabled="{{!bodyDynamicContentPath}}"
+          <button type="button" class="btn btn-danger" id="btn-clear-override-config" [disabled]="!bodyDynamicContentPath"
                   [class.disabled]="!bodyDynamicContentPath" (click)="clearLocalStorage()">Clear</button>
         </div>
       </div>

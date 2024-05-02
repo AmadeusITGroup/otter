@@ -5,6 +5,13 @@ export interface DesignTokenMetadata {
   label?: string;
   /** Name of a group of variables */
   category?: string;
+  /** Component reference if the variable is linked to one */
+  component?: {
+    /** Name of the component */
+    name: string;
+    /** Name of the library containing the component */
+    library: string;
+  };
 }
 
 /** Design Token Group Extension fields supported by the default renderer */
@@ -100,7 +107,7 @@ type DesignTokenTypeStrokeStyleDetailsValue = {
 
 /** Value of the Design Token Stroke Style */
 export type DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleDetailsValue |
-  'solid' | 'dashed' | 'dotted' | 'double'| 'groove' | 'ridge' | 'outset' | 'inset';
+  'solid' | 'dashed' | 'dotted' | 'double' | 'groove' | 'ridge' | 'outset' | 'inset';
 
 /** Design Token Stroke Style */
 export interface DesignTokenTypeStrokeStyle<T extends DesignTokenTypeStrokeStyleValue = DesignTokenTypeStrokeStyleValue> extends DesignTokenBase<T> {

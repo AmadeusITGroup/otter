@@ -3,7 +3,6 @@ import { Operator, SupportedSimpleTypes } from '../operator.interface';
 
 /**
  * Check if any of the variable's value is equal to a specific value
- *
  * @title contains
  */
 export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
@@ -16,7 +15,6 @@ export const arrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleType
 
 /**
  * Check if the specified text value is included in the text variable
- *
  * @title contains
  */
 export const stringContains: Operator<string, string> = {
@@ -28,7 +26,6 @@ export const stringContains: Operator<string, string> = {
 
 /**
  * Check if every value of the variable is different from a specific value
- *
  * @title does not contain
  */
 export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
@@ -40,7 +37,6 @@ export const notArrayContains: Operator<SupportedSimpleTypes[], SupportedSimpleT
 
 /**
  * Check if the specified text value is not included in the text variable
- *
  * @title does not contain
  */
 export const notStringContains: Operator<string, string> = {
@@ -52,7 +48,6 @@ export const notStringContains: Operator<string, string> = {
 
 /**
  * Check if every value of the variable equals a specific value
- *
  * @title all equal to
  */
 export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
@@ -65,7 +60,6 @@ export const allEqual: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = 
 
 /**
  * Check if every numerical value of the variable is greater than a specific value
- *
  * @title all >
  */
 export const allGreater: Operator<SupportedSimpleTypes[], number | string> = {
@@ -77,7 +71,6 @@ export const allGreater: Operator<SupportedSimpleTypes[], number | string> = {
 
 /**
  * Check if every value of the variable is in a specific list
- *
  * @title all in
  */
 export const allIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
@@ -89,7 +82,6 @@ export const allIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
 
 /**
  * Check if every value of the variable is not in a specific list
- *
  * @title none in
  */
 export const allNotIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
@@ -101,7 +93,6 @@ export const allNotIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> 
 
 /**
  * Check if every numerical value of the variable is lower than a specific value
- *
  * @title all <
  */
 export const allLower: Operator<number[], number | string> = {
@@ -113,7 +104,6 @@ export const allLower: Operator<number[], number | string> = {
 
 /**
  * Check if every string value of the variable matches a specific pattern
- *
  * @title all match
  */
 export const allMatch: Operator<string[], string> = {
@@ -128,7 +118,6 @@ export const allMatch: Operator<string[], string> = {
 
 /**
  * Check if every value of the variable is included in a specified range
- *
  * @title all between
  */
 export const allRangeNumber: Operator<number[], [number | string, number | string]> = {
@@ -141,7 +130,6 @@ export const allRangeNumber: Operator<number[], [number | string, number | strin
 
 /**
  * Check if at least one of the values of the variable equals a specific value
- *
  * @title one equal to
  */
 export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> = {
@@ -154,7 +142,6 @@ export const oneEquals: Operator<SupportedSimpleTypes[], SupportedSimpleTypes> =
 
 /**
  * Check if one of the values of the variable is greater than a specific value
- *
  * @title one >
  */
 export const oneGreater: Operator<number[], number | string> = {
@@ -166,7 +153,6 @@ export const oneGreater: Operator<number[], number | string> = {
 
 /**
  * Check if at least one of the values of the variable is equal to one in a specified list
- *
  * @title one in
  */
 export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
@@ -179,7 +165,6 @@ export const oneIn: Operator<SupportedSimpleTypes[], SupportedSimpleTypes[]> = {
 
 /**
  * Check if one of the values of the variable is lower than a specific value
- *
  * @title one <
  */
 export const oneLower: Operator<number[], number | string> = {
@@ -191,7 +176,6 @@ export const oneLower: Operator<number[], number | string> = {
 
 /**
  * Check if one of the values of the variable matches a specific pattern
- *
  * @title one matches
  */
 export const oneMatches: Operator<string[], string> = {
@@ -206,7 +190,6 @@ export const oneMatches: Operator<string[], string> = {
 
 /**
  * Check if one of the values of the variable is included in a specified range
- *
  * @title one between
  */
 export const oneRangeNumber: Operator<number[], [number | string, number | string]> = {
@@ -219,7 +202,6 @@ export const oneRangeNumber: Operator<number[], [number | string, number | strin
 
 /**
  * Check if the number of values of the variable is equal to a specific value
- *
  * @title number of =
  */
 export const lengthEquals: Operator<any[], number | string> = {
@@ -231,7 +213,6 @@ export const lengthEquals: Operator<any[], number | string> = {
 
 /**
  * Check if the number of values of the variable is different from a specific value
- *
  * @title number of ≠
  */
 export const lengthNotEquals: Operator<any[], number | string> = {
@@ -243,7 +224,6 @@ export const lengthNotEquals: Operator<any[], number | string> = {
 
 /**
  * Check if the number of values of the variable is lower or equal to a specific value
- *
  * @title number of ≤
  */
 export const lengthLessThanOrEquals: Operator<any[], number | string> = {
@@ -255,7 +235,6 @@ export const lengthLessThanOrEquals: Operator<any[], number | string> = {
 
 /**
  * Check if the number of values of the variable is lower than a specific value
- *
  * @title number of <
  */
 export const lengthLessThan: Operator<any[], number | string> = {
@@ -267,7 +246,6 @@ export const lengthLessThan: Operator<any[], number | string> = {
 
 /**
  * Check if the number of values of the variable is greater or equal to a specific value
- *
  * @title number of ≥
  */
 export const lengthGreaterThanOrEquals: Operator<any[], number | string> = {
@@ -279,7 +257,6 @@ export const lengthGreaterThanOrEquals: Operator<any[], number | string> = {
 
 /**
  * Check if the number of values of the variable is greater than a specific value
- *
  * @title number of >
  */
 export const lengthGreaterThan: Operator<any[], number | string> = {

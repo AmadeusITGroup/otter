@@ -11,7 +11,6 @@ export interface CreateExtensionOptions {
   path: string;
   /**
    * Set default options instead of requiring input
-   *
    * @default false
    */
   yes?: boolean;
@@ -23,7 +22,6 @@ export interface CreateExtensionOptions {
 
 /**
  * Create an Otter Extension
- *
  * @param context Context of the command
  * @param options Options
  */
@@ -35,7 +33,7 @@ export const createExtension = async (context: Context, options: CreateExtension
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    '@ama-sdk/generator-sdk': version !== '0.0.0-placeholder' ? version : 'latest',
+    '@ama-sdk/schematics': version !== '0.0.0-placeholder' ? version : 'latest',
     yo: 'latest'
   };
 
@@ -44,7 +42,7 @@ export const createExtension = async (context: Context, options: CreateExtension
       await promiseSpawn('npm init -y', { cwd, stderrLogger: logger.debug, logger });
       await promiseSpawn(`npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`, { cwd, stderrLogger: logger.debug, logger });
       // eslint-disable-next-line max-len
-      await promiseSpawn(`npx yo --force=true @ama-sdk/sdk:api-extension --name "${options.name}" --coreType ${options.type.replace(/^core-/, '')} --coreVersion "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger });
+      await promiseSpawn(`npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:api-extension --name "${options.name}" --core-type ${options.type.replace(/^core-/, '')} --core-version "${options['spec-version']}"`, { cwd, stderrLogger: logger.debug, logger });
     })(),
     // TODO: simplify to the following line when migrated to schematics generation
     // eslint-disable-next-line max-len

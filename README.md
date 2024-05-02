@@ -9,9 +9,10 @@ The **Otter** project is a highly modular framework whose goal is to provide a c
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
 Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
 
-> **Note**: The full documentation is available [here](./docs/README.md). 
-> 
-> **Note**: A showcase to help you integrate some simple use case is available [here](https://amadeusitgroup.github.io/otter/#/home) 
+> [!TIP]
+> The full documentation is available [here](./docs/README.md) and the Architecture overview schema is available [here](./docs/core/ARCHITECTURE.md).
+>
+> A showcase to help you integrate some simple use cases is available [here](https://amadeusitgroup.github.io/otter/#/home).
 
 ## Built With
 
@@ -31,7 +32,8 @@ A new application can be set up with this simple command:
 npm create @o3r my-app
 ```
 
-> **Note**: Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
+> [!TIP]
+> Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
 
 ## Contributing
 
@@ -57,23 +59,23 @@ Any bug of feature request can be addressed via [issue](https://github.com/Amade
 These documents describe how to set up your development environment to build and test the framework.
 It also explains the basic mechanics of using `git`, `node`, and `npm`.
 
-* [Description](#description)
-* [Built With](#built-with)
-* [Get Started](#get-started)
-* [Contributing](#contributing)
-* [Versioning](#versioning)
-* [License](#license)
-* [Acknowledgments](#acknowledgments)
-* [Developer](#developer)
-  * [Building and Testing library](#building-and-testing-library)
-    * [Prerequisite Software](#prerequisite-software)
-    * [Getting the sources](#getting-the-sources)
-    * [Installing NPM modules](#installing-npm-modules)
-    * [Build command](#build-command)
-    * [Running tests locally](#running-tests-locally)
-    * [Manage task cache](#manage-task-cache)
-    * [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
-    * [Link local packages](#link-local-packages)
+- [Description](#description)
+- [Built With](#built-with)
+- [Get Started](#get-started)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
+- [Developer](#developer)
+  - [Building and Testing library](#building-and-testing-library)
+    - [Prerequisite Software](#prerequisite-software)
+    - [Getting the sources](#getting-the-sources)
+    - [Installing NPM modules](#installing-npm-modules)
+    - [Build command](#build-command)
+    - [Running tests locally](#running-tests-locally)
+    - [Manage task cache](#manage-task-cache)
+    - [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
+    - [Link local packages](#link-local-packages)
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md)
 if you'd like to contribute to the framework.
@@ -91,7 +93,7 @@ following products on your development machine:
 * [Node.js](http://nodejs.org), (version `>=18.0.0`)
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
-  
+
 * [Yarn](https://yarnpkg.com/lang/en/docs/install/), a Node's Package Manager
   * You can install yarn using NPM manager (coming with Node.js).
     The version of Yarn currently used is embedded in the repository and it can be installed using the provided Node.js [corepack](https://yarnpkg.com/getting-started/install).
@@ -132,7 +134,8 @@ Each module can be built independently thanks to [Nx](https://nx.dev/packages/nx
 yarn nx build core
 ```
 
-> **Note**: Results are put in the `dist` of each module (`packages/@<scope>/<module>/dist`).
+> [!NOTE]
+> Results are put in the `dist` of each module (`packages/@<scope>/<module>/dist`).
 
 #### Running tests locally
 

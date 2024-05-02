@@ -4,7 +4,6 @@ import {ControlFlatErrors, FlatError} from './flat-errors';
 
 /**
  * Checks if controls is a FormGroup
- *
  * @param control
  */
 export function isFormGroup(control: AbstractControl): control is FormGroup {
@@ -14,7 +13,6 @@ export function isFormGroup(control: AbstractControl): control is FormGroup {
 
 /**
  * Mark the controls in the given form as touched and dirty
- *
  * @param control
  */
 export function markAllControlsDirtyAndTouched(control: AbstractControl) {
@@ -32,7 +30,6 @@ export function markAllControlsDirtyAndTouched(control: AbstractControl) {
 
 /**
  * Mark the controls in the given form as untouched and pristine
- *
  * @param control
  */
 export function markAllControlsPristineAndUntouched(control: AbstractControl) {
@@ -50,13 +47,11 @@ export function markAllControlsPristineAndUntouched(control: AbstractControl) {
 
 /**
  * Gets a flat list of all the errors in the form and it's descendents
- *
  * @param form Form to be checked
  */
 export function getFlatControlErrors(form: AbstractControl) {
   /**
    * Transforms ValidationErrors object into an array of FlatErrors.
-   *
    * @note It filters out the 'customErrors'
    * @param errors Validation errors in a control
    */
@@ -75,7 +70,6 @@ export function getFlatControlErrors(form: AbstractControl) {
 
   /**
    * Get a ControlFlatError of the control (or form) containing the name of the control, the validations errors and custom errors
-   *
    * @param control the control to be analyzed
    * @param controlName the name of the control. Optional since forms do not have names
    */
@@ -89,7 +83,6 @@ export function getFlatControlErrors(form: AbstractControl) {
 
   /**
    * Recursion to get all the flat errors from the control and its descendents
-   *
    * @param control the control to be analyzed
    * @param controlName the name of the control. Optional since forms do not have names
    */

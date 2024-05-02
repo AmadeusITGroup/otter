@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { Provider } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
@@ -22,7 +23,8 @@ describe('LocalizationComponent', () => {
       imports: [
         RouterModule.forRoot([]),
         LocalizationComponent,
-        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider)
+        ...mockTranslationModules(localizationConfiguration, mockTranslations, mockTranslationsCompilerProvider),
+        AsyncPipe
       ]
     });
     fixture = TestBed.createComponent(LocalizationComponent);

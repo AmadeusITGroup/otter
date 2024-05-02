@@ -7,9 +7,7 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
@@ -23,10 +21,7 @@
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
-      "dependsOn": [
-        "^build",
-        "prepare"
-      ],
+      "dependsOn": ["^build", "prepare"],
       "options": {
         "project": "packages/@o3r/rules-engine/src/ng-package.json",
         "tsConfig": "packages/@o3r/rules-engine/tsconfig.build.json"
@@ -35,24 +30,17 @@
     "prepare": {
       "executor": "nx:run-script",
       "inputs": [
+        "global",
         "{projectRoot}/package.json"
       ],
-      "outputs": [
-        "{projectRoot}/src/package.json"
-      ],
-      "dependsOn": [
-        "^build"
-      ],
+      "outputs": ["{projectRoot}/src/package.json"],
+      "dependsOn": ["^build"],
       "options": {
         "script": "prepare:compile"
       }
     },
     "extract-rules-engine": {
       "executor": "@o3r/rules-engine:extractor",
-      "outputs": [
-        "{options.outputFactsDirectory}/rules.facts.metadata.json",
-        "{options.outputOperatorsDirectory}/rules.operators.metadata.json"
-      ],
       "options": {
         "tsConfig": "./packages/@o3r/rules-engine/tsconfig.build.json",
         "outputFactsDirectory": "./packages/@o3r/rules-engine/dist",
@@ -64,9 +52,7 @@
           "./packages/@o3r/rules-engine/src/facts/**/*.facts.ts"
         ]
       },
-      "dependsOn": [
-        "build-builders"
-      ]
+      "dependsOn": ["build-builders"]
     },
     "build-fixtures": {
       "executor": "nx:noop"
@@ -96,13 +82,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/rules-engine/.eslintrc.js",
         "lintFilePatterns": [
@@ -114,15 +93,13 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/rules-engine/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/rules-engine/jest.config.js"
       }
     },
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js",
-        "silent": false
+        "jestConfig": "packages/@o3r/rules-engine/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {

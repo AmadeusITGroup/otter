@@ -1,10 +1,9 @@
 import { DirEntry, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { dirname, join } from 'node:path';
-import { EslintFixTask, LinterOptions } from '../../tasks';
+import { EslintFixTask, LinterOptions } from '../../tasks/index';
 
 /**
  * Apply EsLint fix
- *
  * @param prootPath Root path
  * @param _prootPath
  * @param extension List of file extensions to lint
@@ -18,8 +17,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
   }
 
   const linterOptions: LinterOptions = {
-    continueOnError: options?.force ?? true,
-    force: true,
+    continueOnError: true,
     hideWarnings: true,
     ...options
   };
@@ -59,21 +57,23 @@ You can consider to run later the following command to add otter linter rules: n
     }
 
     const files = filesToBeLint.reduce((acc: Set<string>, filePath) => {
-      if (extension.some((ext) => filePath.endsWith(`.${ext}`)) && dir && filePath.startsWith(dir.path)) {
+      if (extension.some((ext) => filePath.endsWith(`.${ext}`)) && dir && filePath.startsWith(dir.path.substring(1))) {
         acc.add(filePath);
       }
 
       return acc;
     }, new Set<string>());
 
-    context.addTask(
-      new EslintFixTask(
-        Array.from(files),
-        undefined,
-        eslintFile,
-        linterOptions
-      )
-    );
+    if (files.size) {
+      context.addTask(
+        new EslintFixTask(
+          Array.from(files),
+          undefined,
+          eslintFile,
+          linterOptions
+        )
+      );
+    }
 
     return tree;
   };

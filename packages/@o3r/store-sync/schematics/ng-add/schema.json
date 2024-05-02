@@ -16,10 +16,10 @@
       "description": "Skip the linter process",
       "default": true
     },
-    "skipInstall": {
+    "exactO3rVersion": {
       "type": "boolean",
-      "description": "Skip the install process",
-      "default": true
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,

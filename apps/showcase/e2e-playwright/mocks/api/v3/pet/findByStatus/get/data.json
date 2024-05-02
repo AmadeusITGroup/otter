@@ -1,0 +1,23 @@
+{
+    "httpVersion": "1.1",
+    "headers": {
+        "Date": "Tue, 16 Jan 2024 15:32:23 GMT",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET, POST, DELETE, PUT",
+        "Access-Control-Allow-Headers": "Content-Type, api_key, Authorization",
+        "Access-Control-Expose-Headers": "Content-Disposition",
+        "Server": "Jetty(9.4.9.v20180320)"
+    },
+    "ignoredHeaders": {
+        "Connection": "keep-alive",
+        "Content-Length": "8873"
+    },
+    "status": {
+        "code": 200,
+        "message": "OK"
+    },
+    "bodyFileName": "body.json",
+    "time": 297.27219999999943,
+    "creationDateTime": "2024-01-16T15:32:23.401Z"
+}

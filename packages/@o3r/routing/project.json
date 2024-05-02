@@ -7,23 +7,14 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "build-builders",
-        "compile",
-        "build-fixtures"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
-      "dependsOn": [
-        "^build",
-        "prepare"
-      ],
+      "dependsOn": ["^build", "prepare"],
       "executor": "@angular-devkit/build-angular:ng-packagr",
       "options": {
         "project": "packages/@o3r/routing/src/ng-package.json",
@@ -32,45 +23,22 @@
     },
     "prepare": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/src/package.json"
-      ],
+      "outputs": ["{projectRoot}/src/package.json"],
       "inputs": [
+        "global",
         "{projectRoot}/package.json"
       ],
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "options": {
         "script": "prepare:compile"
       }
     },
-    "build-fixtures": {
-      "executor": "nx:noop"
-    },
-    "build-fixtures-jest": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:fixtures:jest"
-      }
-    },
-    "build-fixtures-jasmine": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "build:fixtures:jasmine"
-      }
-    },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/routing/.eslintrc.js",
         "lintFilePatterns": [
           "packages/@o3r/routing/src/**/*.ts",
+          "packages/@o3r/routing/schematics/**/*.ts",
           "packages/@o3r/routing/package.json"
         ]
       }
@@ -78,8 +46,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/routing/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/routing/jest.config.js"
       }
     },
     "prepare-publish": {

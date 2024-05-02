@@ -17,7 +17,6 @@ export const eventTrackInitialState: EventTrackState = {
 /**
  * Return all the involved API endpoints present in the component including its child & subchild
  * Iterate recursively till the component with no children
- *
  * @param component
  * @returns string[]
  */
@@ -34,7 +33,6 @@ function getComponentInvolvedEndPoints(component: HeroComponent): string[] {
  * Get all the involved API endpoints of the heroComponent with maximum TTI value
  * If the parent contains max TTI, then all its child & subchild end points are used
  * otherwise only component with max TTI end points are used
- *
  * @param component
  * @param maxTTI
  * @returns string[]
@@ -55,7 +53,6 @@ function getInvolvedAPIEndpoints(component: HeroComponent, maxTTI: number): stri
  * Recursively iterate the page hierarchy
  * and set the TTI for the specified component
  * and compute the TTI for the corresponding parent
- *
  * @param component the parent component/page
  * @param id the identifier of the component/page
  * @param value the TTI value
@@ -82,7 +79,6 @@ function computeTTI(component: HeroComponent, id: string, value: number, endpoin
 
 /**
  * Check if the TTI for the page is computed
- *
  * @param component the parent component/page
  * @returns boolean
  */

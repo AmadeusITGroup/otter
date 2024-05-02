@@ -29,9 +29,9 @@ interface SassCalculation extends Value {
  * CSS Variable extractor
  */
 export class CssVariableExtractor {
-  private cache: Record<string, URL> = {};
+  private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private builderOptions?: StyleExtractorBuilderSchema) {
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
 
   }
 
@@ -135,8 +135,19 @@ export class CssVariableExtractor {
 
           const cleanedUrl = url.replace('~', '');
           const moduleName = CssVariableExtractor.getPackageName(cleanedUrl);
-          const packagePath = path.dirname(require.resolve(`${moduleName}/package.json`));
-          const computedPathUrl = path.join(packagePath, cleanedUrl.replace(moduleName, ''));
+          const subEntry = cleanedUrl.replace(moduleName, '.');
+          const packageJsonPath = require.resolve(`${moduleName}/package.json`);
+          const packagePath = path.dirname(packageJsonPath);
+          const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+          let computedPathUrl;
+          if (subEntry !== '.' && packageJson.exports?.[subEntry]) {
+            computedPathUrl = path.join(packagePath, packageJson.exports[subEntry].sass ||
+              packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css ||
+              packageJson.exports[subEntry].default);
+          }
+          else {
+            computedPathUrl = path.join(packagePath, cleanedUrl.replace(moduleName, ''));
+          }
           const fileUrl = pathToFileURL(computedPathUrl);
           this.cache[url] = fileUrl;
           return fileUrl;

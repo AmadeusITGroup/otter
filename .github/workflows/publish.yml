@@ -120,6 +120,7 @@ jobs:
   publish-extensions:
     runs-on: ubuntu-latest
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
+    needs: [publish]
     permissions:
       packages: write
       contents: read
@@ -140,7 +141,7 @@ jobs:
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Expose Chrome extension artifact
         if: '!inputs.prerelease'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: chrome-extension
           path: apps/chrome-devtools/chrome-extension.zip

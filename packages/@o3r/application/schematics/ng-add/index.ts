@@ -1,27 +1,28 @@
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { chain } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageInstallConfig } from '@o3r/schematics';
 import * as path from 'node:path';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
-
+import { generateCmsConfigFile } from './helpers/cms-registration';
 
 /**
  * Add Otter application to an Angular Project
  * @param options The options to pass to ng-add execution
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const {
-        addImportToModuleFile, getAppModuleFilePath, getWorkspaceConfig, insertImportToModuleFile, ngAddPackages, getO3rPeerDeps, getProjectNewDependenciesType
+        addImportToModuleFile, getAppModuleFilePath, getModuleIndex, getWorkspaceConfig, insertImportToModuleFile, setupDependencies, getO3rPeerDeps, getProjectNewDependenciesTypes
       } = await import('@o3r/schematics');
-      const {getDecoratorMetadata, isImported} = await import('@schematics/angular/utility/ast-utils');
+      const { isImported } = await import('@schematics/angular/utility/ast-utils');
       const ts = await import('typescript');
-      const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'));
+      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+      const depsInfo = getO3rPeerDeps(packageJsonPath);
 
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root;
 
       const addAngularAnimationPreferences: Rule = () => {
         const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
@@ -44,8 +45,7 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }
 
         const recorder = tree.beginUpdate(moduleFilePath);
-        const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-        const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
+        const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
         insertImportToModuleFile(
           'prefersReducedMotion',
@@ -69,20 +69,27 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         tree.commitUpdate(recorder);
         return tree;
       };
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        };
+        return acc;
+      }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
 
       const registerDevtoolRule = await registerDevtools(options);
       return () => chain([
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
         addAngularAnimationPreferences,
-        registerDevtoolRule
+        registerDevtoolRule,
+        generateCmsConfigFile(options)
       ])(tree, context);
     } catch (e) {
       // o3r application needs o3r/core as peer dep. o3r/core will install o3r/schematics
@@ -93,3 +100,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter application to an Angular Project
+ * @param options The options to pass to ng-add execution
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

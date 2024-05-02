@@ -23,15 +23,15 @@ export const performanceMarksInitialState: PerfEventPayload = {
 )
 export class EventTrackService {
 
-  private uiEventTrack: ReplaySubject<UiEventPayload>;
+  private readonly uiEventTrack: ReplaySubject<UiEventPayload>;
 
-  private customEventTrack: ReplaySubject<CustomEventPayload>;
+  private readonly customEventTrack: ReplaySubject<CustomEventPayload>;
 
-  private perfEventTrack: ReplaySubject<PerfEventPayload>;
+  private readonly perfEventTrack: ReplaySubject<PerfEventPayload>;
 
-  private uiTrackingActivated: BehaviorSubject<boolean>;
+  private readonly uiTrackingActivated: BehaviorSubject<boolean>;
 
-  private perfTrackingActivated: BehaviorSubject<boolean>;
+  private readonly perfTrackingActivated: BehaviorSubject<boolean>;
 
   private firstPaint?: Promise<EventTiming>;
 
@@ -69,7 +69,7 @@ export class EventTrackService {
     }
   }
 
-  constructor(private router: Router, private zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
+  constructor(private readonly router: Router, private readonly zone: NgZone, @Optional() @Inject(EVENT_TRACK_SERVICE_CONFIGURATION) config?: EventTrackConfiguration) {
     const eventConfiguration = {...defaultEventTrackConfiguration, ...config};
     this.uiTrackingActivated = new BehaviorSubject<boolean>(eventConfiguration.activate.uiTracking);
     this.uiTrackingActive$ = this.uiTrackingActivated.asObservable();
@@ -144,7 +144,6 @@ export class EventTrackService {
 
   /**
    * Populate performance payload with FP object
-   *
    * @param FP
    */
   private addFPToPerfPayload(FP: EventTiming) {
@@ -178,7 +177,6 @@ export class EventTrackService {
   /**
    * Mark the first paint value
    * Store the first paint timing value to be emitted at Navigation End
-   *
    * @param emit If true, sets the FP to the current page. Otherwise, wait for next NavigationEnd event to happen
    */
   public async markFP(emit = false) {
@@ -191,7 +189,6 @@ export class EventTrackService {
 
   /**
    * Mark the first meaningful paint value.
-   *
    * @param markOnlyFirstLoad If false, marks the FMP for subsequent loads else only for the first load of the application
    */
   public async markFMP(markOnlyFirstLoad = true) {
@@ -226,7 +223,6 @@ export class EventTrackService {
 
   /**
    * Add a custom event and its measurements
-   *
    * @param label The event name
    */
   public async addCustomMark(label: string) {
@@ -238,7 +234,6 @@ export class EventTrackService {
 
   /**
    * Add a server call object in the list of server calls metrics
-   *
    * @param serverCall The object to add in the server calls metrics
    */
   public addServerCallMark(serverCall: ServerCallMetric) {
@@ -249,7 +244,6 @@ export class EventTrackService {
   /**
    * Add a DxAPI SDK server call object, created by the SDK Probe plugin, in the list of server calls metrics.
    * In order to have requestId for the DxAPI calls, your server has to expose 'ama-request-id' via Access-Control-Expose-Headers
-   *
    * @param serverMark The mark object
    */
   public async addSDKServerCallMark(serverMark: Mark) {
@@ -274,7 +268,6 @@ export class EventTrackService {
 
   /**
    * Add a custom event and mark the start time, and returns the element index
-   *
    * @param label Event name
    * @returns the element index if tracking is active. Otherwise, -1
    */
@@ -292,7 +285,6 @@ export class EventTrackService {
   /**
    * End the event mark given in parameter;
    * Returns false if the custom event is not found in the list of custom marks; true otherwise
-   *
    * @param eventIndex Index of the custom event to be marked as ended
    */
   public endCustomMark(eventIndex: number) {
@@ -320,8 +312,7 @@ export class EventTrackService {
    * and the end of the composite rendering (upper bound measurement - a time mark that occurs after the real composite)
    * For the first load of the application, the start time is considered as the start of navigation to ensure a cumulative measure.
    * It is using the 'NgZone' service to runOutsideAngular to prevent any change detection to occur, nor angular error handling, speeding up the measurement.
-   *
-   * @example markFMP() is called in ngAfterViewInit(), the end time will be computed once the render pipeline stage completed the changes triggered by the javascript
+   * Example {@link markFMP} is called in {@link ngAfterViewInit}, the end time will be computed once the render pipeline stage completed the changes triggered by the javascript
    */
   public getTiming(): Promise<EventTiming> {
     const startTime = this.isFirstLoad ? 0 : Math.round(window.performance.now());
@@ -337,7 +328,6 @@ export class EventTrackService {
 
   /**
    * Add an event to the stream of captured UI events
-   *
    * @param uiEvent emitted event object
    */
   public addUiEvent(uiEvent: UiEventPayload) {
@@ -346,7 +336,6 @@ export class EventTrackService {
 
   /**
    * Add an event to the stream of captured custom events
-   *
    * @param customEvent emitted event object
    */
   public addCustomEvent(customEvent: CustomEventPayload) {
@@ -355,7 +344,6 @@ export class EventTrackService {
 
   /**
    * Activate/deactivate the tracking mode for UI events
-   *
    * @param activate activation/deactivation boolean
    */
   public toggleUiTracking(activate: boolean) {
@@ -364,7 +352,6 @@ export class EventTrackService {
 
   /**
    * Activate/deactivate the tracking mode for performance measurements
-   *
    * @param activate activation/deactivation boolean
    */
   public togglePerfTracking(activate: boolean) {

@@ -42,7 +42,6 @@ export type SelectorSpy<R, S extends object = object> = SelectorSpyResult<R, S> 
 
 /**
  * Identifies if spy is a spyResult or spyCall
- *
  * @param spy
  */
 export function isSelectorSpyCall<R>(spy: SelectorSpy<R>): spy is SelectorSpyCall<R> {

@@ -1,0 +1,33 @@
+name: Check external links
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "20 4 * * 1"
+permissions:
+  contents: read
+  issues: write
+jobs:
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gaurav-nelson/github-action-markdown-link-check@v1
+        with:
+          use-quiet-mode: 'yes'
+          base-branch: 'main'
+          config-file: '.github/markdown-external-links.config.json'
+  open-issue:
+    runs-on: ubuntu-latest
+    needs: [markdown-link-check]
+    if: failure()
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create an issue
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ format('https://github.com/{0}/actions/runs/{1}/attempts/{2}', github.repository, github.run_id, github.run_attempt || 1) }}
+        with:
+          filename: .github/markdown-check-issue-template.md
+          update_existing: true
+

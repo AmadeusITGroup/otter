@@ -12,7 +12,6 @@ export interface CreateApplicationOptions {
   path: string;
   /**
    * Set default options instead of requiring input
-   *
    * @default false
    */
   yes?: boolean;
@@ -21,13 +20,11 @@ export interface CreateApplicationOptions {
   'otter-version': string;
   /**
    * use yarn instead of npm
-   *
    * @default false
    */
   yarn?: boolean;
   /**
    * install material with Otter
-   *
    * @default false
    */
   material?: boolean;
@@ -35,7 +32,6 @@ export interface CreateApplicationOptions {
 
 /**
  * Create an Otter Application
- *
  * @param context Context of the command
  * @param options Options
  */

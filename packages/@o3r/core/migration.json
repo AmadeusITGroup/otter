@@ -5,6 +5,11 @@
       "version": "8.2.0-rc.3",
       "description": "Updates of the Otter Library to v8.2.*",
       "factory": "./schematics/ng-update/index#updateV8_2"
+    },
+    "migration-v10_0": {
+      "version": "10.0.0-alpha.0",
+      "description": "Updates of @o3r/core to v10.0.*",
+      "factory": "./schematics/ng-update/index#updateV10_0"
     }
   }
 }
