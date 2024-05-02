@@ -46,3 +46,27 @@ A list of API Clients are provided by this package:
 | ApiFetchClient   | @ama-sdk/core                            | Default API Client based on the browser FetchApi                               |
 | ApiBeaconClient  | @ama-sdk/core                            | API Client based on the browser BeaconApi, it is processing synchronous call   |
 | ApiAngularClient | @ama-sdk/core/clients/api-angular-client | API Client using the HttpClient exposed by the `@angular/common` package       |
+
+### Logs
+
+In order to ease the logging in the ama-sdk plugins, it is possible to connect to third-party logging services.
+This can be achieved by adding a `Logger` [implementation](/packages/@ama-sdk/core/src/fwk/logger.ts) to the options of an API client.
+
+For example, in the Otter showcase application, we could add a `ConsoleLogger` (from `@o3r/core`) as a parameter to the ApiFetchClient:
+
+```typescript
+const logger = new ConsoleLogger();
+function petApiFactory() {
+  const apiConfig: ApiClient = new ApiFetchClient(
+    {
+      basePath: 'https://petstore3.swagger.io/api/v3',
+      requestPlugins: [new SessionIdRequest()],
+      fetchPlugins: [],
+      logger
+    }
+  );
+  return new PetApi(apiConfig);
+}
+```
+
+> *Note*: Adding a third-party logging service is optional. If undefined, the fallback is the console logger.

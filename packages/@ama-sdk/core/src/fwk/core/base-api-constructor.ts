@@ -1,3 +1,4 @@
+import type { Logger } from '../logger';
 import { ReplyPlugin, RequestPlugin } from '../../plugins';
 
 /** Interface of the constructor configuration object */
@@ -16,6 +17,8 @@ export interface BaseApiClientOptions {
   enableTokenization?: boolean;
   /** Disable the fallback on the first success code reviver if the response returned by the API does not match the list of expected success codes */
   disableFallback?: boolean;
+  /** Logger (optional, fallback to console logger if undefined) */
+  logger?: Logger;
 }
 
 /** Interface of the constructor configuration object */

@@ -1,9 +1,10 @@
-import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
+import {PluginRunner, RequestOptions, RequestPlugin, RequestPluginContext} from '../core';
+import type {Logger} from '../../fwk/logger';
 
 /**
  * Function that returns the value of the fingerprint if available.
  */
-export type BotProtectionFingerprintRetriever = () => string | undefined | Promise<string | undefined>;
+export type BotProtectionFingerprintRetriever = (logger?: Logger) => string | undefined | Promise<string | undefined>;
 
 /**
  * Implementation of a retriever based on a cookie.
@@ -74,13 +75,12 @@ If the application runs on a domain that is not protected by Imperva, this plugi
     });
   };
 
-  return async () => {
+  return async (logger?: Logger) => {
     if (!protection) {
       try {
         protection = await getProtection();
       } catch (e) {
-        // eslint-disable-next-line no-console
-        console.error(e);
+        (logger || console).error(e);
         return;
       }
     }
@@ -88,8 +88,7 @@ If the application runs on a domain that is not protected by Imperva, this plugi
     try {
       return await protection.token(tokenTimeout);
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
+      (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
       return;
     }
   };
@@ -278,15 +277,15 @@ export class BotProtectionFingerprintRequest implements RequestPlugin {
    *
    * If pollOnlyOnce is set to true, the poller won't be executed again after it has been fully executed once.
    */
-  private async waitForFingerprint() {
+  private async waitForFingerprint(logger?: Logger) {
     const pollerOptions = this.options.pollerOptions;
 
     if (pollerOptions === undefined || this.options.pollOnlyOnce !== false && this.hasPolled) {
-      return this.options.fingerprintRetriever();
+      return this.options.fingerprintRetriever(logger);
     }
 
     for (let i = pollerOptions.maximumTries - 1; i >= 0; i--) {
-      const fingerprint = await this.options.fingerprintRetriever();
+      const fingerprint = await this.options.fingerprintRetriever(logger);
       if (fingerprint) {
         this.hasPolled = true;
         return fingerprint;
@@ -298,10 +297,11 @@ export class BotProtectionFingerprintRequest implements RequestPlugin {
     this.hasPolled = true;
   }
 
-  public load(): PluginRunner<RequestOptions, RequestOptions> {
+  /** @inheritdoc */
+  public load(context?: RequestPluginContext): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (requestOptions: RequestOptions) => {
-        const fingerprint = await this.waitForFingerprint();
+        const fingerprint = await this.waitForFingerprint(context?.logger);
         if (fingerprint) {
           requestOptions.headers.set(this.options.destinationHeaderName, fingerprint);
         }
