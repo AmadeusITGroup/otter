@@ -25,7 +25,15 @@ import { generateOperationFinderFromSingleFile } from './helpers/path-extractor'
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
-const LOCAL_SPEC_FILENAME = 'openapi';
+
+// TODO: Change to `open-api` when #1735 is done
+/** Name of the specification file copied locally (without extension) */
+export const LOCAL_SPEC_FILENAME = 'swagger-spec';
+/** Extension of the Specification file in YAML format */
+export const SPEC_YAML_EXTENSION = 'yaml';
+// TODO: Change to `json` when #1735 is done
+/** Extension of the Specification file in JSON format */
+export const SPEC_JSON_EXTENSION = 'yaml';
 
 interface OpenApiToolsGenerator {
   /** Location of the OpenAPI spec, as URL or file */
@@ -171,8 +179,8 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     const targetPath = options.directory || '';
     const generatorOptions = getGeneratorOptions(tree, context, options);
     let isJson = false;
-    let specDefaultPath = path.posix.join(targetPath, `${LOCAL_SPEC_FILENAME}.json`);
-    specDefaultPath = existsSync(specDefaultPath) ? specDefaultPath : path.posix.join(targetPath, `${LOCAL_SPEC_FILENAME}.yaml`);
+    let specDefaultPath = path.posix.join(targetPath, `${LOCAL_SPEC_FILENAME}.${SPEC_JSON_EXTENSION}`);
+    specDefaultPath = existsSync(specDefaultPath) ? specDefaultPath : path.posix.join(targetPath, `${LOCAL_SPEC_FILENAME}.${SPEC_YAML_EXTENSION}`);
     generatorOptions.specPath ||= specDefaultPath;
 
     let specContent!: string;
@@ -188,7 +196,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     } catch (e) {
       isJson = false;
     }
-    const defaultFileName = `${LOCAL_SPEC_FILENAME}.${isJson ? 'json' : 'yaml'}`;
+    const defaultFileName = `${LOCAL_SPEC_FILENAME}.${isJson ? SPEC_JSON_EXTENSION : SPEC_YAML_EXTENSION}`;
     specDefaultPath = path.posix.join(targetPath, defaultFileName);
     generatorOptions.specPath = specDefaultPath;
 
