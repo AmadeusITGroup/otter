@@ -11,7 +11,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which has failed
    */
-  failRequestMany<V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: string[] | number[], requestId?: string): V;
+  failRequestMany<V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string): V;
 
   /**
    * Adds AsyncStoreItem property to the global store, or the entity if it already exists, when a request is triggered.
@@ -27,7 +27,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which is triggered
    */
-  addRequestMany<V extends EntityState<T>>(state: V, ids: string[] | number[], requestId: string): V;
+  addRequestMany<V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V;
 
   /**
    * Updates the state with the given entity. Update the global or the current entity's status if it exists.
@@ -79,8 +79,8 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
     return asyncStoreItemAdapter.addRequest(state, requestId);
   };
 
-  const addRequestMany: <V extends EntityState<T>>(state: V, ids: string[], requestId: string) => V =
-    <V extends EntityState<T>>(state: V, ids: string[], requestId: string): V =>
+  const addRequestMany: <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string) => V =
+    <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V =>
       adapter.updateMany(ids.filter((id) => !!state.entities[id]).map((id) => ({
         id,
         changes: asyncStoreItemAdapter.addRequest(asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[id]!), requestId)
@@ -113,8 +113,8 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
           }
           ), state);
 
-  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: string[] | number[], requestId?: string) => V =
-    <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: string[] | number[] = [], requestId?: string): V => {
+  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string) => V =
+    <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: (string | number)[] = [], requestId?: string): V => {
       if (ids.length && !ids.some((id) => state.entities[id] === undefined)) {
         return adapter.updateMany(ids.map((id) => ({
           id,
