@@ -101,7 +101,7 @@ export interface SetEntityActionPayload<T> {
 
 /** Payload to fail entities actions */
 export interface FailEntitiesActionPayload<T> extends FailActionPayload<T> {
-  ids?: string[] | number[];
+  ids?: (string | number)[];
 }
 
 /**
