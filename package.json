@@ -242,7 +242,7 @@
     "sass": "~1.76.0",
     "sass-loader": "^14.0.0",
     "semver": "^7.5.2",
-    "standard-version": "^9.0.0",
+    "commit-and-tag-version": "^9.5.0",
     "stylelint": "^16.0.2",
     "stylelint-scss": "^6.0.0",
     "ts-jest": "~29.1.2",
