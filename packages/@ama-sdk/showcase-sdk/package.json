@@ -46,7 +46,7 @@
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../schematics:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "dependencies": {
     "@swc/helpers": "^0.5.0",
