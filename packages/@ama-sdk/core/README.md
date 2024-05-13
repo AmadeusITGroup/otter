@@ -9,6 +9,7 @@ Please refer to the [ama-sdk-schematics](../schematics/README.md) package for ge
 
 ## Available plugins
 
+- [abort](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/abort)
 - [additional-params](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/additional-params)
 - [api-configuration-override](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-configuration-override)
 - [api-key](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-key)
