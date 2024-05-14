@@ -267,7 +267,6 @@ module.exports = {
       'global'
     ],
     'use-isnan': 'error',
-    'valid-typeof': 'off',
     'wrap-iife': [
       'error',
       'inside'
