@@ -155,7 +155,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
   const openapiNormalizer = Array.from(openapiNormalizerMap).map(([key, value]) => `${key}=${value}`).join(',');
 
   // log warning of options that won't be taken into account if generator key and other options are provided in the command
-  if (options.generatorKey && openApiToolsJsonGenerator && JAVA_OPTIONS.some((optionName) => typeof options[optionName] !== undefined)) {
+  if (options.generatorKey && openApiToolsJsonGenerator && JAVA_OPTIONS.some((optionName) => typeof options[optionName] !== 'undefined')) {
     Object.keys(openApiToolsJsonGenerator).filter((option) => !OPEN_API_TOOLS_OPTIONS.includes(option))
       .forEach((ignoredOption) => context.logger.warn(`Option ${ignoredOption} from ${openApiToolsPath} will not be taken into account`));
   }

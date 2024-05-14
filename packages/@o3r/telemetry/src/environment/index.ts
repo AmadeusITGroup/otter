@@ -142,7 +142,7 @@ export const getEnvironmentInfo = async (): Promise<EnvironmentMetricData> => {
     version: otterCorePackageJsonPath ? JSON.parse(await fs.promises.readFile(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
   };
 
-  const ci = typeof process.env.CI !== undefined && process.env.CI?.toLowerCase() !== 'false';
+  const ci = typeof process.env.CI !== 'undefined' && process.env.CI?.toLowerCase() !== 'false';
 
   let projectName: string | undefined;
   try {

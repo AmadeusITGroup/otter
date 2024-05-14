@@ -11,7 +11,7 @@ type JsoncParserServices = ParserServices & {
  * @param parserServices Parser services object
  */
 export function isJsoncParserServices(parserServices: any): parserServices is JsoncParserServices {
-  return !!parserServices && typeof parserServices.isJSON !== undefined;
+  return !!parserServices && typeof parserServices.isJSON !== 'undefined';
 }
 
 /**
