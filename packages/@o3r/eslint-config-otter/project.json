@@ -18,6 +18,12 @@
         "jestConfig": "packages/@o3r/eslint-config-otter/jest.config.js"
       }
     },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r//eslint-config-otter/testing/jest.config.it.js"
+      }
+    },
     "lint": {
       "options": {
         "eslintConfig": "packages/@o3r/eslint-config-otter/.eslintrc.js",
@@ -32,7 +38,10 @@
       "options": {
         "script": "build"
       },
-      "dependsOn": []
+      "dependsOn": [],
+      "inputs": [
+        "{projectRoot}/rules/**/*"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

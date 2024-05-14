@@ -2,7 +2,7 @@
 The ``@o3r/application`` module provides ``prefersReducedMotion()`` -- a helper that identifies the computer animation preferences.
 This setup is generally used in the scope of accessibility as some users find it difficult to interact with pages with many animations.
 
-To respect their choice, the application's angular animations should follow the computer preferences.
+To respect their choice, the application's Angular animations should follow the computer preferences.
 
 This can be done in the BrowserAnimationsModule's configuration as follows:
 ```typescript
@@ -25,7 +25,7 @@ export class AppModule {}
 
 **Note:** If you face timing issues in flaky e2e tests that might be linked to animation delays, you can force the reduced
 motion browser setup in your test configuration.
-Here is an example with a custom playwright configuration that will disable the angular animations:
+Here is an example with a custom playwright configuration that will disable the Angular animations:
 ```typescript
 const config: PlaywrightTestConfig = {
   timeout: 5000,

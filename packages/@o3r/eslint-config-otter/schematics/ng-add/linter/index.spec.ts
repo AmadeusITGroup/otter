@@ -22,7 +22,15 @@ describe('Generate linter files', () => {
 
     expect(tree.exists('.eslintignore')).toBe(true);
     expect(tree.exists('.eslintrc.js')).toBe(true);
-    expect(tree.exists('tsconfig.eslint.json')).toBe(true);
+  });
+
+  it('should not overwrite eslintignore but extend @o3r/eslint-config-otter', async () => {
+    initialTree.create('.eslintignore', 'I am inevitable');
+    initialTree.create('.eslintrc.json', '{}');
+    const tree = await lastValueFrom(callRule(updateLinterConfigs({}, path.join(__dirname, '..')), initialTree, context));
+
+    expect(tree.readText('.eslintignore')).toBe('I am inevitable');
+    expect(tree.readJson('.eslintrc.json')).toEqual({'extends': ['@o3r/eslint-config-otter']});
   });
 
   it('should not overwrite linter files', async () => {

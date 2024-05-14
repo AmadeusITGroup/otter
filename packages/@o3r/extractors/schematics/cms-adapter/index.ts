@@ -1,5 +1,5 @@
 import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import { getTemplateFolder, getWorkspaceConfig, ignorePatterns } from '@o3r/schematics';
 import * as path from 'node:path';
 
@@ -37,7 +37,8 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
         buildTsConfig: buildTsConfig.startsWith('.') ? buildTsConfig : `./${buildTsConfig}`,
         sourceRoot: workspaceProject?.sourceRoot || 'src'
       }),
-      move(projectRoot)
+      move(projectRoot),
+      renameTemplateFiles()
     ]);
 
     const rule = mergeWith(templateSource, MergeStrategy.AllowOverwriteConflict);

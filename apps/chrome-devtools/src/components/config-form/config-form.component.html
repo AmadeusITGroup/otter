@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   @for (item of controlsType() | keyvalue; track item.key) {
-    <div class="mb-2" [ngClass]="item.value === 'boolean' ? 'form-check' : 'form-group'">
+    <div class="mb-2" [ngClass]="item.value === 'boolean' ? 'form-check form-switch' : 'form-group'">
       @switch (item.value) {
         @case ('boolean') {
           <input class="form-check-input" [formControlName]="item.key" type="checkbox" [id]="item.key" />

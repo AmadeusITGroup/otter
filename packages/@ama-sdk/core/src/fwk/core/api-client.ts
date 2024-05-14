@@ -1,7 +1,31 @@
 import {RequestBody, RequestMetadata, RequestOptions, TokenizedOptions} from '../../plugins/index';
 import {ApiTypes} from '../api';
+import type { Api } from '../api.interface';
 import {ReviverType} from '../Reviver';
 import {BaseApiClientOptions} from './base-api-constructor';
+
+/** Parameters to the request the call options */
+export interface RequestOptionsParameters {
+  /** URL of the call to process (without the query parameters) */
+  basePath: string;
+  /** Query Parameters */
+  queryParams?: { [key: string]: string | undefined };
+  /** Force body to string */
+  body?: RequestBody;
+  /** Force headers to Headers type */
+  headers: { [key: string]: string | undefined };
+  /** Tokenized options to replace URL and query parameters */
+  tokenizedOptions?: TokenizedOptions;
+  /** Request metadata */
+  metadata?: RequestMetadata;
+  /** HTTP Method used for the request */
+  method: NonNullable<RequestInit['method']>;
+  /**
+   * API initializing the call
+   * @todo this field will be turned as mandatory in v11
+   */
+  api?: Api;
+}
 
 /**
  * API Client used by the SDK's APIs to call the server
@@ -18,9 +42,18 @@ export interface ApiClient {
    */
   extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
 
-  /** Prepare Options */
+  /**
+   * Prepare Options
+   * @deprecated use getRequestOptions instead, will be removed in v11
+   */
   prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
     tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata): Promise<RequestOptions>;
+
+  /**
+   * Retrieve the option to process the HTTP Call
+   * @todo turn this function mandatory when `prepareOptions` will be removed
+   */
+  getRequestOptions?(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
 
   /**
    * prepares the url to be called

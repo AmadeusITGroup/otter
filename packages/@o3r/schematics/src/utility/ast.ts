@@ -221,10 +221,12 @@ export const sortClassElement = (classElement1: ts.ClassElement, classElement2: 
  * Returns a TransformerFactory to add an interface to a class
  * @param interfaceToAdd
  * @param classIdentifier
+ * @param interfacesToRemove
  */
 export const addInterfaceToClassTransformerFactory = (
   interfaceToAdd: string,
-  classIdentifier: (node: ts.ClassDeclaration) => boolean = () => true
+  classIdentifier: (node: ts.ClassDeclaration) => boolean = () => true,
+  interfacesToRemove: Set<string> = new Set()
 ): ts.TransformerFactory<ts.Node> => {
   return (ctx) => (rootNode) => {
     const { factory } = ctx;
@@ -234,7 +236,16 @@ export const addInterfaceToClassTransformerFactory = (
         const interfaceToImplements = generateImplementsExpressionWithTypeArguments(interfaceToAdd);
 
         const newImplementsClauses = implementsClauses
-          ? factory.updateHeritageClause(implementsClauses, [...implementsClauses.types, ...interfaceToImplements])
+          ? factory.updateHeritageClause(implementsClauses, [
+            ...implementsClauses.types.filter((interfaceNode) =>
+              !interfacesToRemove.size
+              || (
+                ts.isIdentifier(interfaceNode.expression)
+                && !interfacesToRemove.has(interfaceNode.expression.escapedText.toString())
+              )
+            ),
+            ...interfaceToImplements
+          ])
           : factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [...interfaceToImplements]);
 
         const heritageClauses: ts.HeritageClause[] = [...(node.heritageClauses || [])]

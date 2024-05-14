@@ -114,7 +114,7 @@ describe('Create new sdk command', () => {
   test('should use pinned versions when --exact-o3r-version is used', () => {
     expect(() =>
       packageManagerCreate({
-        script: `@ama-sdk@${o3rEnvironment.testEnvironment.o3rVersion}`,
+        script: `@ama-sdk@${o3rEnvironment.testEnvironment.o3rExactVersion}`,
         args: ['typescript', sdkPackageName, '--exact-o3r-version', '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec.yml')]
       }, execAppOptions)
     ).not.toThrow();
@@ -125,7 +125,7 @@ describe('Create new sdk command', () => {
     [
       ...Object.entries(packageJson.dependencies), ...Object.entries(packageJson.devDependencies), ...Object.entries(resolutions)
     ].filter(([dep]) => dep.startsWith('@o3r/') || dep.startsWith('@ama-sdk/')).forEach(([,version]) => {
-      expect(version).toBe(o3rEnvironment.testEnvironment.o3rVersion);
+      expect(version).toBe(o3rEnvironment.testEnvironment.o3rExactVersion);
     });
   });
 });

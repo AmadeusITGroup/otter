@@ -1,6 +1,6 @@
 # Otter CMS adapters
 
-Extract and generate Otter related data to integrate with a cms
+Extract and generate Otter related data to integrate with a CMS
 
 ## Extractors
 
@@ -188,7 +188,7 @@ Here is an example:
 // angular.json
   ...
   "extract-rules-engine": {
-    "builder": "@o3r/rules-engine:extractor", // otter cms adapters builder
+    "builder": "@o3r/rules-engine:extractor", // otter CMS adapters builder
     "options": {
       "tsConfig": "./tsconfig.cms.json", // ts config file used by the builder
       "libraries": [ // libraries containing facts included in the app

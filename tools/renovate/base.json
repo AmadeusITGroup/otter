@@ -8,8 +8,7 @@
     "group:recommended",
     "group:test",
     "group:linters",
-    "helpers:pinGitHubActionDigestsToSemver",
-    "schedule:nonOfficeHours"
+    "helpers:pinGitHubActionDigestsToSemver"
   ],
   "hostRules": [
     {
@@ -21,7 +20,6 @@
     "master",
     "/^release\\/.*-next$/"
   ],
-  "timezone": "Europe/Paris",
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
   "enabledManagers": [
@@ -53,47 +51,6 @@
       ],
       "automerge": true,
       "rangeStrategy": "replace"
-    },
-    {
-      "matchManagers":[
-        "yarn"
-      ],
-      "matchDepTypes": [
-        "packageManager"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn install"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "packages/**/package.json",
-          "packages/**/package.json.template",
-          "package.json"
-        ]
-      }
-    },
-    {
-      "matchManagers": [
-        "npm"
-      ],
-      "matchDepTypes": [
-        "packageManager"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "npm install"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          "packages/**/package.json",
-          "packages/**/package.json.template",
-          "package.json"
-        ]
-      },
-      "rangeStrategy": "auto",
-      "groupName": "Package manager",
-      "groupSlug": "package-manager"
     },
     {
       "matchPackagePatterns": [
@@ -164,24 +121,6 @@
       "groupName": "Major dependencies",
       "groupSlug": "major-dependencies",
       "enabled": true
-    },
-    {
-      "matchManagers": [
-        "yarn"
-      ],
-      "matchPackageNames": [
-        "typescript",
-        "eslint"
-      ],
-      "postUpgradeTasks": {
-        "commands": [
-          "yarn dlx @yarnpkg/sdks"
-        ],
-        "executionMode": "branch",
-        "fileFilters": [
-          ".yarn/sdks/**"
-        ]
-      }
     }
   ]
 }

@@ -27,7 +27,7 @@ ng add @o3r/configuration
 ## Description
 
 The aim of this document is to help developers to implement configuration inside components, in order to be compliant
-with the **cms architecture**. This will give the possibility to **Business Analysts** to configure the
+with the **CMS architecture**. This will give the possibility to **Business Analysts** to configure the
 application/components.
 
 ### Component config types
@@ -78,7 +78,7 @@ A component will have to handle different types of configurations.
 #### Global config
 
 - The common configuration is the one used in multiple components (it can be a date format, price display, type of input
-  form fields from an angular material input element ...)
+  form fields from an Angular material input element ...)
 - A common configuration is defined in every library. The application common configuration (**global config**) will be
   the result of the **merge of all common** configurations.
 - The common configuration is **not overridden** at component type (there will be no properties with the same name in

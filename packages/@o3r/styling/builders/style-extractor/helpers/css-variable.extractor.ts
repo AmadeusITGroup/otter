@@ -94,7 +94,7 @@ export class CssVariableExtractor {
     return url.split('/').slice(0, 2).join('/');
   }
 
-  private static extractTags(tags: Value) {
+  private static extractTags(tags: Value): string[] | undefined {
     let contextTags: string[] | undefined;
     if (tags instanceof SassString) {
       contextTags = [tags.text];
@@ -105,6 +105,11 @@ export class CssVariableExtractor {
         if (item instanceof SassString) {
           contextTags.push(item.text);
         }
+      }
+    } else if (tags instanceof SassMap) {
+      const value = tags.contents.toArray().find(([key]) => key.toString() === 'value');
+      if (value) {
+        contextTags = CssVariableExtractor.extractTags(value[1]);
       }
     }
     return contextTags;

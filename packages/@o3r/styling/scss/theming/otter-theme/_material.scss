@@ -67,6 +67,28 @@
   @return map.merge(map.get($palette, 'contrast'), (contrast: map.remove($palette, 'contrast')));
 }
 
+/// Define an Otter palette with the tag 'palette'
+/// @access public
+/// @param {map} $palette material palette
+/// @param {map} $details metadata information for the Otter palette
+@function define-palette($palette, $details: ()) {
+  $tags: [];
+  @if (map.has-key($details, 'tags')) {
+    $tags: list.join($tags, map.get($details, 'tags'));
+  }
+  $palette-with-details: (
+    value: mat.define-palette($palette),
+    details: map.merge(
+      $details,
+      (
+        tags: list.append($tags, 'palette')
+      )
+    )
+  );
+
+  @return $palette-with-details;
+}
+
 /// Generate the theme map containing a set of palettes and variables specific for this application
 /// @access public
 /// @param {map} $primary [$otter-primary] palette generated via define-palette with the colors in the primary theme (forms)
@@ -82,7 +104,8 @@
   $theme-variables: generate-theme-variables($is-dark-theme, $application);
 
   $theme-color: (
-    color: (primary: $primary,
+    color: (
+      primary: $primary,
       accent: $accent,
       warn: $warn,
     )
@@ -96,10 +119,10 @@
     $mat-theme: mat.define-light-theme($theme-color);
   }
 
-  @return map.merge($mat-theme,
-    (highlight: $highlight,
-      application: $theme-variables )
-  );
+  @return map.merge($mat-theme, (
+    highlight: $highlight,
+    application: $theme-variables
+  ));
 }
 
 /// Convert a Meta theme to Material Design theme
@@ -151,9 +174,12 @@
 }
 
 /// Get a color variable reference from an Otter theme (fallback to default if the name is not found)
-/// @param $o3r-variable Name of the Otter theme variable
-/// @param $value Fallback value
+/// @param $o3r-palette Otter palette
+/// @param $value palette variant
 @function color($o3r-palette, $value) {
+  @if (map.has-key($o3r-palette, 'value')) {
+    $o3r-palette: map.get($o3r-palette, 'value');
+  }
   @if (not map.has-key($o3r-palette, $value)) {
     @warn 'The value `#{$value}` is not in the given palette, will be fallbacked to `default';
     $value: default;
@@ -163,9 +189,12 @@
 }
 
 /// Get a contrast color variable reference from an Otter theme (fallback to default if the name is not found)
-/// @param $o3r-variable Name of the Otter theme variable
-/// @param $value Fallback value
+/// @param $o3r-palette Otter palette
+/// @param $value palette variant
 @function contrast($o3r-palette, $value) {
+  @if (map.has-key($o3r-palette, 'value')) {
+    $o3r-palette: map.get($o3r-palette, 'value');
+  }
   @if (not map.has-key(utils-functions.get-mandatory($o3r-palette, 'contrast'), $value)) {
     @warn 'The contrast value `#{$value}` is not in the given palette, will be fallbacked to `default';
     $value: default;

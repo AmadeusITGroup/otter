@@ -2,19 +2,44 @@ import { ChangeDetectionStrategy, Component, computed, effect, type OnDestroy, t
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DfTooltipModule } from '@design-factory/design-factory';
-import { NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
-import { type GetStylingVariableContentMessage, type StylingVariable, THEME_TAG_NAME } from '@o3r/styling';
+import { NgbAccordionModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { computeItemIdentifier } from '@o3r/core';
+import { type GetStylingVariableContentMessage, PALETTE_TAG_NAME, type StylingVariable, THEME_TAG_NAME } from '@o3r/styling';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { filter, map, shareReplay, startWith, throttleTime } from 'rxjs/operators';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { ColorPipe } from './color.pipe';
-import { resolveVariable, searchFn } from './common';
+import { DEFAULT_PALETTE_VARIANT, getPaletteColors } from './color.helpers';
+import { AccessibilityConstrastScorePipe, ConstrastPipe, HexColorPipe } from './color.pipe';
+import { getVariant, resolveVariable, searchFn } from './common';
 import { IsRefPipe } from './is-ref.pipe';
 import { MemoizePipe } from './memoize.pipe';
 import { VariableLabelPipe } from './variable-label.pipe';
 import { VariableNamePipe } from './variable-name.pipe';
 
 const THROTTLE_TIME = 100;
+
+/** Available grouping method for styling variable */
+export type VariableGroupType = 'type' | 'category' | 'component';
+
+/** Group of styling variable */
+export interface VariableGroup {
+  /**
+   * Is the group containing only palette colors
+   */
+  isPalette: boolean;
+  /**
+   * Name of the group
+   */
+  name: string;
+  /**
+   * List of variables
+   */
+  variables: StylingVariable[];
+  /**
+   * Default variable when the group is a palette
+   */
+  defaultVariable?: StylingVariable;
+}
 
 @Component({
   selector: 'o3r-theming-panel-pres',
@@ -24,9 +49,12 @@ const THROTTLE_TIME = 100;
   standalone: true,
   imports: [
     IsRefPipe,
+    NgbAccordionModule,
     ReactiveFormsModule,
     FormsModule,
-    ColorPipe,
+    HexColorPipe,
+    ConstrastPipe,
+    AccessibilityConstrastScorePipe,
     NgbTypeaheadModule,
     VariableLabelPipe,
     DfTooltipModule,
@@ -38,11 +66,13 @@ export class ThemingPanelPresComponent implements OnDestroy {
   public readonly resolvedVariables: Signal<Record<string, string>>;
   public readonly variablesMap: Signal<Record<string, StylingVariable>>;
   public readonly numberOfVariables: Signal<number>;
-  public readonly themeVariables: Signal<StylingVariable[]>;
-  public readonly filteredThemeVariables: Signal<StylingVariable[]>;
+  public readonly variables: Signal<StylingVariable[]>;
+  public readonly groupedVariables: Signal<VariableGroup[]>;
   public readonly form = new FormGroup({
     variables: new FormGroup<Record<string, FormControl<string | null>>>({}),
-    search: new FormControl('')
+    search: new FormControl(''),
+    themeOnly: new FormControl(true),
+    groupBy: new FormControl<VariableGroupType>('category')
   });
 
   private readonly variables$: Observable<StylingVariable[]>;
@@ -59,31 +89,81 @@ export class ThemingPanelPresComponent implements OnDestroy {
       startWith([]),
       shareReplay({ refCount: true, bufferSize: 1 })
     );
-    const variables = toSignal(this.variables$, { initialValue: [] });
-    this.variablesMap = computed(() => variables().reduce((acc: Record<string, StylingVariable>, curr) => {
+    this.variables = toSignal(this.variables$, { initialValue: [] });
+    this.variablesMap = computed(() => this.variables().reduce((acc: Record<string, StylingVariable>, curr) => {
       acc[curr.name] = curr;
       return acc;
     }, {}));
-    this.resolvedVariables = computed(() => variables().reduce((acc: Record<string, string>, variable, _, array) => {
+    this.resolvedVariables = computed(() => this.variables().reduce((acc: Record<string, string>, variable, _, array) => {
       acc[variable.name] = resolveVariable(variable.name, this.runtimeValues(), array) || '';
       return acc;
     }, {}));
     this.numberOfVariables = computed(() => Object.keys(this.resolvedVariables()).length);
-    this.themeVariables = computed(() => variables().filter((variable) => variable.tags?.includes(THEME_TAG_NAME)));
 
     const search = toSignal(this.form.controls.search.valueChanges.pipe(
       map((value) => (value || '').toLowerCase()),
       throttleTime(THROTTLE_TIME, undefined, { trailing: true })
     ), { initialValue: '' });
 
-    this.filteredThemeVariables = computed(() => {
+    const onlyTheme = toSignal(this.form.controls.themeOnly.valueChanges, { initialValue: true });
+
+    const filteredVariables = computed(() => {
       const searchText = search();
-      return searchText ? this.themeVariables().filter((variable) => searchFn(variable, searchText)) : this.themeVariables();
+      const vars = onlyTheme()
+        ? this.variables()
+          .filter((variable) => variable.tags?.includes(THEME_TAG_NAME) || variable.tags?.includes(PALETTE_TAG_NAME))
+        : this.variables();
+      return searchText ? vars.filter((variable) => searchFn(variable, searchText)) : vars;
+    });
+
+    const groupBy = toSignal(this.form.controls.groupBy.valueChanges, { initialValue: 'category' });
+
+    this.groupedVariables = computed(() => {
+      const group = groupBy() || 'category';
+      const vars = filteredVariables();
+      return Object.entries(
+        vars.reduce((acc: Record<string, StylingVariable[]>, curr: StylingVariable) => {
+          const varGroup = (
+            group === 'component'
+              ? curr.component && computeItemIdentifier(curr.component.name, curr.component.library)
+              : curr[group]
+          ) || 'others';
+          acc[varGroup] ||= [];
+          acc[varGroup].push(curr);
+          return acc;
+        }, {})
+      ).reduce((acc: VariableGroup[], [name, variables]) => {
+        const isPalette = group === 'category' && variables.every((variable) => variable.tags?.includes(PALETTE_TAG_NAME));
+        const defaultVariable = isPalette ? variables.find((variable) => getVariant(variable.name) === DEFAULT_PALETTE_VARIANT) : undefined;
+        return acc.concat([{
+          name,
+          variables,
+          isPalette,
+          defaultVariable
+        }]);
+      }, []).sort((a, b) => {
+        // Others should go at the end
+        if (a.name === 'others') {
+          return 1;
+        }
+        if (b.name === 'others') {
+          return -1;
+        }
+        // Palette should come first
+        if (a.isPalette && !b.isPalette) {
+          return -1;
+        }
+        if (!a.isPalette && b.isPalette) {
+          return 1;
+        }
+        // Alphabetical order
+        return a.name > b.name ? 1 : -1;
+      });
     });
 
     effect(() => {
       const variablesControl = this.form.controls.variables;
-      this.themeVariables().forEach((variable) => {
+      this.variables().forEach((variable) => {
         const value = variable.runtimeValue ?? variable.defaultValue;
         const control = variablesControl.controls[variable.name];
         if (!control) {
@@ -114,10 +194,18 @@ export class ThemingPanelPresComponent implements OnDestroy {
     );
   }
 
+  private changeColor(variableName: string, value: string) {
+    this.form.controls.variables.controls[variableName].setValue(value);
+  }
+
   public ngOnDestroy() {
     this.subscription.unsubscribe();
   }
 
+  /**
+   * Typeahead search function
+   * @param currentVariable
+   */
   public variableSearch = (currentVariable: StylingVariable) => (text$: Observable<string>): Observable<string[]> => combineLatest([
     text$, this.variables$, this.runtimeValues$
   ]).pipe(
@@ -133,11 +221,49 @@ export class ThemingPanelPresComponent implements OnDestroy {
       : [])
   );
 
+  /**
+   * Handler for color picker change
+   * @param variableName
+   * @param event
+   */
   public onColorChange(variableName: string, event: UIEvent) {
-    this.form.controls.variables.controls[variableName].setValue((event.target as HTMLInputElement).value);
+    this.changeColor(variableName, (event.target as HTMLInputElement).value);
   }
 
+  /**
+   * Handler for color reset
+   * @param variable
+   */
   public onColorReset(variable: StylingVariable) {
-    this.form.controls.variables.controls[variable.name].setValue(variable.defaultValue);
+    this.changeColor(variable.name, variable.defaultValue);
+  }
+
+  /**
+   * Handler for palette color change
+   * @param paletteGroup
+   * @param event
+   */
+  public onPaletteChange(paletteGroup: VariableGroup, event: UIEvent) {
+    const baseColor = (event.target as HTMLInputElement).value;
+    const palette = getPaletteColors(baseColor);
+    paletteGroup.variables.forEach((variable) => {
+      const variant = getVariant(variable.name);
+      const color = variant ? palette[variant] : undefined;
+      if (color) {
+        this.changeColor(variable.name, color);
+      }
+    });
+  }
+
+  /**
+   * Handler for palette color reset
+   * @param palette
+   * @param event
+   */
+  public onPaletteReset(palette: VariableGroup, event: UIEvent) {
+    // Needed to not open or close the accordion
+    event.preventDefault();
+    event.stopPropagation();
+    palette.variables.forEach((variable) => this.changeColor(variable.name, variable.defaultValue));
   }
 }
