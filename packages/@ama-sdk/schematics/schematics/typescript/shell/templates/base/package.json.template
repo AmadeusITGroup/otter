@@ -46,7 +46,7 @@
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
     "doc:generate": "typedoc",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "lint-staged": {
     "**/*.(js|ts)": [
@@ -102,7 +102,7 @@
     "minimist": "^1.2.6",
     "rimraf": "^5.0.1",
     "rxjs": "<%= versions['rxjs'] %>",
-    "standard-version": "^9.0.0",
+    "commit-and-tag-version": "^9.5.0",
     "ts-jest": "<%= versions['ts-jest'] %>",
     "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
