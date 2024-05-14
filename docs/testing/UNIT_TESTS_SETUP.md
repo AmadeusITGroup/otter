@@ -1,27 +1,27 @@
 # Tests setup
 
-With the focus on simplicity, we chose to use [JEST](https://jestjs.io) as Testing Framework for our unit and integration tests, which aims to work with a minimum set of configurations, on most js projects.
+With the focus on simplicity, we chose to use [Jest](https://jestjs.io) as the Testing Framework for our unit and integration tests, which aims to work with a minimum set of configurations, on most js projects.
 
 You can follow the [official documentation](https://jestjs.io/docs/getting-started) to set up the testing for your project.
 
-To be easier to integrate the testing structure in your project, in the next section we showcase the testing configuration done for our otter-demo-app.
+To facilitate the integration of the testing structure in your project, we present in the next section the testing configuration implemented for our otter-demo-app.
 
 ## Showcase (otter-demo-app)
 
 ### Integrate jest packages
 
-First thing is to add jest dependencies in your _package.json_. Add the following _dev dependencies_ (the version of packages is subject to evolve).
+First thing is to add jest dependencies in your `package.json`. Add the following `devDependencies` (the version of packages is subject to evolve).
 
-```
-  "@types/jest": "^27.0.2",
-  "jest": "^27.0.6",
-  "jest-junit": "^12.2.0",
-  "jest-preset-angular": "^9.0.5",
+```json5
+"@types/jest": "^27.0.2",
+"jest": "^27.0.6",
+"jest-junit": "^12.2.0",
+"jest-preset-angular": "^9.0.5",
 ```
 
 ### Jest config file
 
-Add _jest.config.js_ file at the root of your project.
+Add the `jest.config.js` file at the root of your project.
 
 ```javascript
 /** @type {import('ts-jest/dist/types').JestConfigWithTsJest} */
@@ -50,14 +50,13 @@ module.exports = {
     ]
   }
 };
-
 ```
 
-As you can see there are references to a _setup-jest.ts_ and _tsconfig.spec.json_ files which we chose to put under a _testing_ folder at the root.
+As you can see, there are references to the files `setup-jest.ts` and `tsconfig.spec.json`, which we chose to put under a `testing` folder at the root.
 
-### Ts config and setup jest for angular
+### Typescript config and Jest setup for Angular
 
-_setup-jest.ts_ files contains the setup done for jest to be used in Angular context
+`setup-jest.ts` contains the setup for Jest to be used in an Angular context.
 
 ```typescript
 import 'isomorphic-fetch';
@@ -65,9 +64,10 @@ import 'jest-preset-angular/setup-jest';
 import '@angular/localize/init';
 ```
 
-_tsconfig.json_ contains a simple setup for typescript transpilation with one mention related to _compilerOptions paths_ where we redirect all imports of the helpers from _@o3r/testing/core_, to the Angular implementation of these helpers. It's similar with the configuration done in _jest.config.js_ for module mappers.
+`tsconfig.json` contains a simple setup for transpiling Typescript, including the `paths` property of `compilerOptions` where we redirect all imports of the helpers from `@o3r/testing/core` to the Angular implementation of these helpers.
+It is similar with the configuration made in `jest.config.js` for module mappers.
 
-```json
+```json5
 {
   "compilerOptions": {
     "target": "ES2020",
@@ -99,18 +99,17 @@ _tsconfig.json_ contains a simple setup for typescript transpilation with one me
     "../src/**/*.int-spec.ts"
   ]
 }
-
 ```
 
-As you may notice, we consider as test files all files ending in _.spec.ts_ and _.int-spec.ts_ .
+As you may notice, we consider all files ending in `.spec.ts` and `.int-spec.ts` to be test files.
 
-Once done with the configuration it is the time to run your tests.
+Once configuration is complete, it is the time to run the tests.
 
 ### Running the tests
 
-Add the following section to your package.json:
+Add the following section to your `package.json`:
 
-```
+```json5
 {
   "scripts": {
     "test": "jest"
@@ -118,4 +117,4 @@ Add the following section to your package.json:
 }
 ```
 
-To run the tests in the CI you can use _--ci_ option. More about jest option in the [official documentation](https://jestjs.io/docs/cli)
+To run the tests in the CI you can use `--ci` option. You can find more about Jest options in the [official documentation](https://jestjs.io/docs/cli).
