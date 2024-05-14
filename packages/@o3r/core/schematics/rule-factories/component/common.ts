@@ -1,6 +1,6 @@
 import { chain, externalSchematic, noop, Rule, schematic, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { askConfirmation, askQuestion } from '@angular/cli/src/utilities/prompt';
-import { O3rCliError, SchematicOptionObject, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { O3rCliError, SchematicOptionObject, setupSchematicsParamsForProject } from '@o3r/schematics';
 import type { PackageJson } from 'type-fest';
 
 /**
@@ -77,13 +77,14 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
         ? externalSchematic(packageName, schematicName, options)
         : schematic(schematicName, options),
       ...(alwaysApplyRule !== 'ask-again' ? [
-        setupSchematicsDefaultParams(
+        setupSchematicsParamsForProject(
           schematicsNameToUpdate.reduce((acc: Record<string, SchematicOptionObject>, schematicToUpdateName) => {
             acc[schematicToUpdateName] = {
               [optionName]: alwaysApplyRule === 'yes'
             };
             return acc;
-          }, {})
+          }, {}),
+          options.projectName
         )
       ] : [])
     ]) : noop;
