@@ -69,6 +69,9 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       packageManager: getPackageManagerName(options.packageManager),
       projectHosting: options.hosting,
       exactO3rVersion: options.exactO3rVersion,
+      specPackageName: options.specPackageName,
+      specPackagePath: options.specPackagePath,
+      specPackageVersion: options.specPackageVersion,
       sdkCoreRange: `${options.exactO3rVersion ? '' : '~'}${amaSdkSchematicsPackageJson.version}`,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
@@ -80,9 +83,10 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
     };
 
     const targetPath = options.directory || tree.root.path;
+    const specScope = options.specPackageName?.startsWith('@') ? options.specPackageName.substring(1).split('/')[0] : undefined;
 
     if (properties.packageManager === 'yarn') {
-      const yarnrcPath = posix.join(targetPath, '.yarnrc.yml');
+      const yarnrcPath = posix.join(tree.root.path, '.yarnrc.yml');
       const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
@@ -91,10 +95,28 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
           'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch']
         }
       };
+      if (options.specPackageRegistry && specScope) {
+        yarnrc.npmScopes ||= {};
+        yarnrc.npmScopes[specScope] = {
+          npmRegistryServer: options.specPackageRegistry
+        };
+      }
+
       if (tree.exists(yarnrcPath)) {
         tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
       } else {
         tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
+      }
+    } else if (properties.packageManager === 'npm') {
+      if (options.specPackageRegistry && specScope) {
+        const npmrcPath = posix.join(tree.root.path, '.npmrc');
+        let npmrc = tree.exists(npmrcPath) ? tree.readText(npmrcPath) : '';
+        npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
+        if (tree.exists(npmrcPath)) {
+          tree.overwrite(npmrcPath, npmrc);
+        } else {
+          tree.create(npmrcPath, npmrc);
+        }
       }
     }
 

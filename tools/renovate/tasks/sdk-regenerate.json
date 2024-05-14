@@ -9,7 +9,7 @@
       "postUpgradeTasks": {
         "commands": [
           "{{arg0}} install",
-          "{{arg0}} run swagger:generate"
+          "{{arg0}} run spec:upgrade"
         ],
         "fileFilters": [
           "!**/.{npmrc,yarnrc*}"

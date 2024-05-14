@@ -1,7 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
     "github>AmadeusITGroup/otter//tools/renovate/base",
     "github>AmadeusITGroup/otter//tools/renovate/sdk",
     "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(my-specification-package)"
