@@ -33,7 +33,7 @@ const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | 
 const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: DesignTokenVariableStructure) => {
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
-    return typeof node.$value.toString !== undefined ? (node.$value as any).toString() : JSON.stringify(node.$value);
+    return typeof node.$value.toString !== 'undefined' ? (node.$value as any).toString() : JSON.stringify(node.$value);
   }
   const checkNode = {
     ...node,
