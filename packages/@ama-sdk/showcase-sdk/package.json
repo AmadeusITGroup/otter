@@ -49,7 +49,7 @@
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../schematics:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "dependencies": {
     "@swc/helpers": "^0.5.0",
@@ -86,6 +86,7 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "chokidar": "^3.5.2",
+    "commit-and-tag-version": "^9.5.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "~27.9.0",
@@ -100,7 +101,6 @@
     "lint-staged": "^15.0.0",
     "minimist": "^1.2.6",
     "rimraf": "^5.0.1",
-    "commit-and-tag-version": "^9.5.0",
     "ts-jest": "~29.1.2",
     "tsc-watch": "^6.0.4",
     "typedoc": "~0.25.0",
