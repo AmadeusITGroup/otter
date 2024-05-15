@@ -255,6 +255,9 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "dependenciesMeta": {
+    "@swc/core": {
+      "built": true
+    },
     "esbuild": {
       "built": true
     }
