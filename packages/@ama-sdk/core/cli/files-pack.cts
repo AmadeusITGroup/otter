@@ -14,7 +14,17 @@ import type { PackageJson } from 'type-fest';
 const argv = minimist(process.argv.slice(2));
 const distFolder = argv.dist || 'dist';
 const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd();
-const {watch, noExports} = argv;
+const {help, watch, noExports} = argv;
+
+if (help) {
+  console.log(`Prepare the dist folder for publication. This will copy necessary files from src and update the exports in package.json.
+  Usage: amasdk-files-pack [--exports] [--watch]
+
+    --exports    Update the exports in package.json. (Default: true)
+    --watch      Watch for files changes and run the updates
+  `);
+  process.exit(0);
+}
 
 const files = [
   {glob: 'README.md', cwdForCopy: baseDir},
@@ -71,10 +81,12 @@ void (async () => {
     return watch ?
       import('chokidar')
         .then((chokidar) => chokidar.watch(glob, {cwd: baseDir}))
-        .then((watcher) => watcher.on('all', (event, file) => {
+        .then((watcher) => watcher.on('all', async (event, file) => {
           if (event !== 'unlink' && event !== 'unlinkDir') {
             copyToDist(file, cwdForCopy);
-            return updateExports();
+            if (!noExports) {
+              await updateExports();
+            }
           }
         })) :
       globby.sync(glob)

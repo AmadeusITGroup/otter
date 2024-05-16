@@ -37,11 +37,19 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 
 ## Options list
 
-- `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
 - `--package-manager`: Node package manager to be used (`npm` and `yarn` are available).
 - `--debug --no-dry-run`: Enable schematics debug mode (dry-run is not currently supported).
 - `--o3r-metrics`: Enable or disable the collection of anonymous data for Otter
 - `--exact-o3r-version` : use a pinned version for [otter packages](https://github.com/AmadeusITGroup/otter/blob/main/docs/README.md).
 
+- `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
+- `--spec-package-name`: The npm package name where the spec file can be fetched
+- `--spec-package-path`: The path inside the package where to find the spec file
+- `--spec-package-version`: The version to target for the npm package where the spec file can be fetched
+- `--spec-package-registry`: The npm registry where the spec file can be fetched
+
 > [!NOTE]
-> If the `--spec-path` is specified, the SDK will be generated based on this specification at the creation time.
+> If `--spec-path` or `--spec-package-name` is specified, the SDK will be generated based on this specification at the creation time.
+
+> [!NOTE]
+> > `--spec-package-registry` option assumes that the authentication is set up globally (See [npm setup](https://docs.npmjs.com/cli/v8/configuring-npm/npmrc#auth-related-configuration), [yarn setup](https://yarnpkg.com/configuration/yarnrc#npmRegistries))

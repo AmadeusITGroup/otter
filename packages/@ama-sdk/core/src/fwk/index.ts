@@ -7,4 +7,5 @@ export * from './errors';
 export * from './ignore-enum.type';
 export * from './logger';
 export * from './mocks/index';
+export * from './open-api-tools-configuration';
 export * from './Reviver';

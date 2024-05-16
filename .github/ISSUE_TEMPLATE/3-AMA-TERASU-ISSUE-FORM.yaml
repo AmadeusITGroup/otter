@@ -1,7 +1,7 @@
 name: Bug Report on @ama-terasu
 description: File a bug report on @ama-terasu scope
 title: "[Bug]: "
-labels: ["bug", "ama-terasu"]
+labels: ["bug", "ama-terasu", "triage"]
 body:
   - type: markdown
     attributes:

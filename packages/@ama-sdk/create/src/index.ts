@@ -60,7 +60,12 @@ const getYarnVersion = () => {
   }
 };
 
-const schematicArgs = [
+if (argv['spec-path'] && argv['spec-package-name']) {
+  console.error('--spec-path cannot be set with --spec-package-name');
+  process.exit(-4);
+}
+
+const commonSchematicArgs = [
   argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
   ...(name ? ['--name', name] : []),
   '--package', pck,
@@ -74,21 +79,42 @@ const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
 
 const run = () => {
   const isSpecRelativePath = !!argv['spec-path'] && !parse(argv['spec-path']).root;
+  const shellSchematicArgs = [
+    ...commonSchematicArgs,
+    ...(argv['spec-package-name'] ? ['--spec-package-name', argv['spec-package-name']] : []),
+    ...(argv['spec-package-registry'] ? ['--spec-package-registry', argv['spec-package-registry']] : []),
+    ...(argv['spec-package-path'] ? ['--spec-package-path', argv['spec-package-path']] : []),
+    ...(argv['spec-package-version'] ? ['--spec-package-version', argv['spec-package-version']] : [])
+  ];
+  const coreSchematicArgs = [
+    ...commonSchematicArgs,
+    '--spec-path', argv['spec-package-name'] ? './openapi.yml' : isSpecRelativePath ? relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path'])) : argv['spec-path']
+  ];
 
   const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
   const steps: { args: string[]; cwd?: string; runner?: string }[] = [
-    { args: [binPath, `${schematicsPackage}:typescript-shell`, ...schematicArgs, '--directory', targetDirectory] },
+    { args: [binPath, `${schematicsPackage}:typescript-shell`, ...shellSchematicArgs, '--directory', targetDirectory] },
     ...(
       packageManager === 'yarn'
         ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...(argv['spec-path'] ? [{
+    ...(argv['spec-package-name'] ? [{
+      runner,
+      args: [
+        'exec',
+        'amasdk-update-spec-from-npm',
+        argv['spec-package-name'],
+        ...packageManager === 'npm' ? ['--'] : [],
+        '--package-path', argv['spec-package-path']
+      ],
+      cwd: resolveTargetDirectory
+    }] : []),
+    ...((argv['spec-path'] || argv['spec-package-name']) ? [{
       args: [
         binPath,
         `${schematicsPackage}:typescript-core`,
-        ...schematicArgs,
-        '--spec-path', isSpecRelativePath ? relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path'])) : argv['spec-path']
+        ...coreSchematicArgs
       ],
       cwd: resolveTargetDirectory
     }] : [])

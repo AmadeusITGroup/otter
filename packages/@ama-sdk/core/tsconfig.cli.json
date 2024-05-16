@@ -8,6 +8,11 @@
     "rootDir": ".",
     "tsBuildInfoFile": "build/.tsbuildinfo.cli"
   },
+  "references": [
+    {
+      "path": "./tsconfig.build.json"
+    }
+  ],
   "include": [
     "cli/**/*.cts"
   ],
