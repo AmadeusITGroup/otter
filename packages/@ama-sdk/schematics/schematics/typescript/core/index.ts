@@ -236,10 +236,13 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
       const openApiToolsPath = path.posix.join(targetPath, 'openapitools.json');
       if (tree.exists(openApiToolsPath)) {
         const openApiTools = tree.readJson(openApiToolsPath) as JsonObject & OpenApiToolsConfiguration;
-        Object.keys(openApiTools['generator-cli']?.generators)
-          .filter((key) => !openApiTools['generator-cli'].generators[key].inputSpec)
-          .forEach((key) => openApiTools['generator-cli'].generators[key].inputSpec = `./${defaultFileName}`);
-        tree.overwrite(openApiToolsPath, JSON.stringify(openApiTools, null, 2));
+        const generators = openApiTools['generator-cli']?.generators;
+        if (generators) {
+          Object.keys(generators)
+            .filter((key) => !openApiTools['generator-cli'].generators[key].inputSpec)
+            .forEach((key) => openApiTools['generator-cli'].generators[key].inputSpec = `./${defaultFileName}`);
+          tree.overwrite(openApiToolsPath, JSON.stringify(openApiTools, null, 2));
+        }
       }
       return tree;
     };
