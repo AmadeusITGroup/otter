@@ -3,11 +3,15 @@
 Otter Framework is providing an [Otter Chrome Extension](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) for your applications.
 The extension comes with the following features:
 
-- **Application information**: Application version, environment, build date, etc.
-- **Location key display**
+- **Application information**: application version, environment, build date, etc.
+- **Localization keys display**
 - **Visual Testing toggle**
-- **Rule Engine current state**: Rule engine state, rule engine logs, etc.
+- **Rule Engine current state**: rule engine state, rule engine logs, etc.
 - **Configuration**: display and modification of the application components configuration.
+
+## How to install the extension
+
+You can find the **Otter Devtools** Chrome extension by clicking on [this link](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) or by searching for `Otter DevTools` in the [Chrome Web Store](https://chrome.google.com/webstore).
 
 ## How to enable auto package registration
 
@@ -24,15 +28,14 @@ The Otter module will automatically register its Devtool service if the followin
 ```
 
 > [!NOTE]
-> This options is set by the `--with-devtool` options of the `ng add @o3r/core` command.
+> This configuration is set by the `--with-devtool` option of the `ng add @o3r/core` command.
 
-## How to enable manually the extension support in your application
+## How to manually enable the extension support in your application
 
 Once you have download the extension, you will need to enable the features you need one by one. There is no root toggle.
-To do so, you will need to import the corresponding modules in you AppModule:
+To do so, you will need to import the corresponding modules in you `AppModule`:
 
 ```typescript
-
 import { ApplicationDevtoolsModule } from '@o3r/application';
 import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
@@ -50,12 +53,10 @@ import { StylingDevtoolsModule } from '@o3r/styling';
     StylingDevtoolsModule
   ]
 })
-export class AppModule {
-}
-
+export class AppModule {}
 ```
 
-Then the services activation can be done in the AppComponent as following:
+Then the activation of the services can be done in the `AppComponent` as follows:
 
 ```typescript
 import { ApplicationDevtoolsMessageService } from '@o3r/application';
@@ -91,25 +92,42 @@ export class AppComponent {
 ```
 
 > [!TIP]
-> The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS` (example: `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`). The services need to be injected in the application.
+> The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS`. For example:
+> 
+> `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`
+> 
+> The services need to be injected in the application.
+> 
 > `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
 
 ### How to enable more features by providing metadata files
 
 In your `angular.json` or `project.json`, you can specify `assets` in the options of `@angular-devkit/build-angular:application`.
-```json
-{
-  "glob": "**/*.metadata.json",
-  "input": "path/to/your/app",
-  "output": "/metadata"
-}
+```json5
+"executor": "@angular-devkit/build-angular:application",
+"options": {
+  // ...,
+  "assets": [
+    // ...,
+    {
+      "glob": "**/*.metadata.json",
+      "input": "apps/showcase",
+      "output": "/metadata"
+    }
+  ]
+},
+// ...
 ```
+
 > [!CAUTION]
-> We recommend to add this asset entry only for the development configuration.
+> We recommend adding this asset entry for the development configuration only.
 
 > [!NOTE]
-> For the showcase application, we are exposing the metadata in production mode, to be able to showcase the chrome extension features easily.
+> For the showcase application, we are exposing the metadata in production mode, in order to easily showcase the Chrome extension features.
 
-## How to install the extension
+## How to test local modifications of the extension
 
-You can find the **Otter Devtools** on the Chrome Store by clicking on [this link](https://chrome.google.com/webstore/detail/otter-devtools/aejabgendbpckkdnjaphhlifbhepmbne) or searching for `Otter Devtools` on the [Chrome Web Store](https://chrome.google.com/webstore).
+If you are locally implementing modifications in the Otter DevTools extension, you can test these changes with the following steps:
+* Build the chrome-devtools application: `yarn nx build chrome-devtools`
+* Change the version from `0.0.0-placeholder` to `0.0.0` in the files `dist/package.json` and `dist/manifest.json`
+* Go to the link `chrome://extensions/` (enable `Developer mode` in the top-right corner), click the `Load unpacked` button, and select the `dist` folder of the previously built chrome-devtools application
