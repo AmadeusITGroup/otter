@@ -242,6 +242,18 @@ yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk 
 > The values provided by the parameter `--global-property` will actually be merged with the values of `globalProperty` from
 > `openapitools.json` (rather than override them like the other properties).
 
+### Migration
+
+To help to apply changes on the Shell part of the SDK repository, a `migrate` schematic is exposed:
+
+```shell
+yarn schematics @ama-sdk/schematics:migrate --from 10.0.0 [--to 11.0.0]
+```
+
+> [!NOTE]
+> - The `--from` parameter is mandatory to provide the version of the original `@ama-sdk/schematics` package from which the rules should be run.
+> - The *optional* `--to` parameter allows to indicate a version until which the rules should be run. The current installed version will be used if not provided.
+
 ### Debug
 
 The OpenApi generator extracts an enhanced JSON data model from the specification YAML and uses this data model to feed the templates to generate the code.
