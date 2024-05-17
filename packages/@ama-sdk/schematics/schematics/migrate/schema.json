@@ -6,7 +6,7 @@
   "properties": {
     "from": {
       "type": "string",
-      "description": "Starting version from which executing the migration scripts",
+      "description": "Starting version from which the migration scripts are executed",
       "x-prompt": "What was the original version before migration?"
     },
     "to": {

@@ -14,7 +14,7 @@ interface MigrateRuleRunnerOptions {
   to?: string;
 }
 
-/** Mapping of rules to apply to it's specific range */
+/** Mapping of rules to apply to its specific range */
 export interface MigrationRulesMap {
   /** Rules to apply to a specific semver range */
   [range: string]: Rule | Rule[];

@@ -1,6 +1,6 @@
 /** Schematic Option */
 export interface MigrateSchematicsSchemaOptions {
-  /** Starting version from which executing the migration scripts */
+  /** Starting version from which the migration scripts are executed */
   from: string;
   /** Version of the package to migrate to (will use the current version if not specified) */
   to?: string;

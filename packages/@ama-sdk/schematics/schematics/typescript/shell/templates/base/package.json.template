@@ -29,6 +29,7 @@
     }
   },
   "scripts": {
+    "schematics": "schematics",
     "clean": "rimraf test/ test-dev/ dist/ dist-dev/ dist-test/ build/",
     "lint:ci": "eslint \"**/*[jt]s\" --quiet --format junit --output-file ./dist-lint/result.xml",
     "lint": "eslint \"**/*[jt]s\" --cache",
