@@ -22,7 +22,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'schemas/*.json' 'dist/schemas'",
+    "prepare:build:builders": "yarn cpy 'builders/**/*.json' dist/builders && yarn cpy 'schematics/**/templates/**' dist/schematics && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/*.json' dist/schematics && yarn cpy 'schemas/*.json' 'dist/schemas'",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest",
     "postbuild": "patch-package-json-exports",
     "prepare:compile": "cp-package-json",
