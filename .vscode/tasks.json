@@ -15,9 +15,8 @@
     },
     {
       "label": "watch-vscode-extension",
-      "type": "npm",
-      "path": "apps/vscode-extension",
-      "script": "watch:vscode-extension",
+      "type": "shell",
+      "command": "pnpx nx run vscode-extension:compile:watch",
       "problemMatcher": "$tsc-watch",
       "isBackground": true,
       "presentation": {
