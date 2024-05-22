@@ -62,8 +62,8 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
       description: 'Tag to use CMS category for configuration property',
       detail: 'categoryName',
       snippet: `\${1|${
-        o3rCategoriesTagsRulesConfig.globalConfigCategories
-          .concat(Array.from(fileText.matchAll(/@o3rCategories (\w+)/)).map((match) => match[1]))
+        (o3rCategoriesTagsRulesConfig.globalConfigCategories || [])
+          .concat(Array.from(fileText.matchAll(/@o3rCategories (\w+)/g)).map((match) => match[1]))
           .join(',')
       }|}`
     }
