@@ -2,6 +2,7 @@ import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
 import { LoggerService } from '@o3r/logger';
 import { BehaviorSubject, combineLatest, fromEvent, Subscription } from 'rxjs';
+import type { DebugEvent } from '../engine';
 import { AvailableRulesEngineMessageContents, RulesEngineDevtoolsServiceOptions, RulesEngineMessageDataTypes } from './rules-engine-devkit.interface';
 import { isRulesEngineMessage } from './rules-engine-devkit.interface';
 import { OtterRulesEngineDevtools } from './rules-engine-devtools.service';
@@ -67,13 +68,36 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
   }
 
   /**
+   * Serialize exceptions in a way that will display the error message after a JSON.stringify()
+   *
+   * @param debugEvent
+   */
+  private serializeReportEvent(debugEvent: DebugEvent) {
+    const serializeError = (error: any) => error instanceof Error ? error.toString() : error;
+    if (debugEvent.type !== 'RulesetExecutionError') {
+      return debugEvent;
+    }
+    return {
+      ...debugEvent,
+      rulesEvaluations: debugEvent.rulesEvaluations.map((ruleEvaluation) => ({
+        ...ruleEvaluation,
+        error: serializeError(ruleEvaluation.error)
+      })),
+      errors: debugEvent.errors.map(serializeError)
+    };
+  }
+
+  /**
    * Function to start the rules engine reporting to the Otter Chrome DevTools extension
    */
   private startRulesEngineReport() {
     if (this.rulesEngineDevtools.rulesEngineReport$) {
       this.subscriptions.add(
         combineLatest([this.forceEmitRulesEngineReport, this.rulesEngineDevtools.rulesEngineReport$]).subscribe(
-          ([,report]) => this.sendMessage('rulesEngineEvents', report)
+          ([,report]) => {
+            const sanitizedReport = {...report, events: report.events.map((reportEvents) => this.serializeReportEvent(reportEvents))};
+            this.sendMessage('rulesEngineEvents', sanitizedReport);
+          }
         )
       );
     }
