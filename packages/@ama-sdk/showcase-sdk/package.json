@@ -1,6 +1,5 @@
 {
   "name": "@ama-sdk/showcase-sdk",
-  "private": true,
   "version": "0.0.0-placeholder",
   "description": "showcase-sdk - SDK",
   "source": "src/index.ts",
@@ -13,6 +12,10 @@
   "esm2015": "esm2015/index.js",
   "types": "index.d.ts",
   "sideEffects": false,
+  "deprecated": "This package is intended for testing purposes only.",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./package.json": {
       "default": "./package.json"
