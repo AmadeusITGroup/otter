@@ -15,7 +15,8 @@ module.exports = {
     ],
     'sourceType': 'module'
   },
-  'extends': [
-    '../../.eslintrc.js'
-  ]
+  // Uncomment when migrating all packages from the monorepo to eslint v9.3
+  // 'extends': [
+  //   '../../.eslintrc.js'
+  // ]
 };

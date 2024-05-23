@@ -13,3 +13,6 @@ generated-doc/
 /tools/github-actions/*/packaged-action/
 /**/src/**/package.json
 !/.yarnrc.yml
+# TODO uncomment when migration to eslint v9.3 is completed
+/apps/vscode-extension/package.json
+/apps/vscode-extension/src/**/*.ts

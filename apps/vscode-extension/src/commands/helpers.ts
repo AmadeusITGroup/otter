@@ -20,7 +20,7 @@ export const wrapCommandWhenExplorerContext = (
   command: (context: vscode.ExtensionContext, folder?: string) => () => Promise<void>
 ) => {
   return (targetResource: vscode.Uri) => {
-    const folderPath = vscode.workspace.asRelativePath(lstatSync(targetResource.path).isDirectory() ? targetResource.path : dirname(targetResource.path));
+    const folderPath = vscode.workspace.asRelativePath(lstatSync(targetResource.fsPath).isDirectory() ? targetResource.fsPath : dirname(targetResource.fsPath));
     return command(context, folderPath)();
   };
 };
@@ -29,7 +29,7 @@ const sortWorkspaceUris = (uri1: vscode.Uri, uri2: vscode.Uri) => {
   const pathLengthDiff = uri1.path.split(posix.delimiter).length - uri2.path.split(posix.delimiter).length;
   if (pathLengthDiff === 0) {
     // If path are at the same level we sort first angular.json
-    return basename(uri1.path, '.json') > basename(uri2.path, '.json')
+    return basename(uri1.fsPath, '.json') > basename(uri2.fsPath, '.json')
       ? 1
       : -1;
   }

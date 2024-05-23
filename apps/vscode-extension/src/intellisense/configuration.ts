@@ -1,5 +1,6 @@
 import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString } from 'vscode';
-import { ESLint } from 'eslint';
+// @ts-ignore
+import { loadESLint } from 'eslint';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */
@@ -98,8 +99,6 @@ const getConfigurationTagsFromEslintConfig = (eslintConfig: any, comment: string
 };
 
 export const configurationCompletionItemProvider = () : CompletionItemProvider<CompletionItem> => {
-  const eslint = new ESLint();
-
   return {
     provideCompletionItems: async (doc, pos) => {
       const line = doc.lineAt(pos).text;
@@ -132,6 +131,7 @@ export const configurationCompletionItemProvider = () : CompletionItemProvider<C
         return [];
       }
 
+      const eslint = new (await loadESLint({ useFlatConfig: false }))()
       const config = await eslint.calculateConfigForFile(doc.fileName);
       const configurationTags = getConfigurationTagsFromEslintConfig(config, match[0], fileText);
 
