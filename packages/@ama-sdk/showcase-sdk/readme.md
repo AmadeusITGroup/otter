@@ -1,7 +1,7 @@
 # Showcase SDK
 
->Note:
-This package is intended for **testing purposes only**. It is not suitable for production use.
+> [!CAUTION]
+> This package is intended for **testing purposes only**. It is not suitable for production use.
 
 ### Based on openapi specs 3.0.2
 
