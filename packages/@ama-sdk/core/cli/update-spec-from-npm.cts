@@ -10,7 +10,7 @@ import { createRequire } from 'node:module';
 import { extname, join } from 'node:path';
 import { copyFile, readFile } from 'node:fs/promises';
 import type { PackageJson } from 'type-fest';
-import type { OpenApiToolsConfiguration } from '../src/fwk/open-api-tools-configuration';
+import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '@ama-sdk/core';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
@@ -21,6 +21,7 @@ const noop = () => undefined;
 const logger = quiet ? {error: noop, warn: noop, log: noop, info: noop, debug: noop} : console;
 
 if (help) {
+  // eslint-disable-next-line no-console
   console.log(`This script can be used to update your local spec file from a given locally installed npm package.
   Usage: amasdk-update-spec-from-npm <package-name> [--package-path] [--output] [--quiet]
 
@@ -62,7 +63,7 @@ void (async () => {
     specDestinationPath = `./openapi${specSourceExtension}`;
     if (existsSync(openApiConfigDefaultPath)) {
       const openApiConfig = JSON.parse(await readFile(openApiConfigDefaultPath, {encoding: 'utf8'})) as OpenApiToolsConfiguration;
-      const generators = Object.values(openApiConfig['generator-cli']?.generators ?? {});
+      const generators: OpenApiToolsGenerator[] = Object.values(openApiConfig['generator-cli']?.generators ?? {});
       if (generators.length === 1 && generators[0].inputSpec && extname(generators[0].inputSpec) === specSourceExtension) {
         specDestinationPath = generators[0].inputSpec;
       }
