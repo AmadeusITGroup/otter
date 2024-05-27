@@ -1,14 +1,22 @@
 # Analytics
-Here, you will see how to build step by step your own component UI events to be tracked by the [Analytics Track Event Service](./TRACK_EVENTS.md).
+
+> [!IMPORTANT]
+> This documentation is referring to an outdated way to emit analytics events, please referrer to [Track Events documentation](./TRACK_EVENTS.md) to latest version.
+> The mechanism described in this document will be removed in Otter v12.
+
+Here, you will see how to build step by step your own component UI events to be tracked by the [Analytics Track Event Service *(deprecated)*](./TRACK_EVENTS(deprecated).md).
 
 ## Context
+
 The practice of analytics is there for supporting decision-making by providing the relevant facts that will allow you to make better choices.
 
 ## How to use
+
 When you generate your component, you can decide to activate the otter analytics structure.
 
 ### A new file analytic.ts
-The otter component generator will create one file suffixed by `analytics.ts`. 
+
+The otter component generator will create one file suffixed by `analytics.ts`.
 Inside you will find an interface to define all the events that your component can trigger and a const to inject inside your component.
 
 ```typescript
@@ -52,6 +60,7 @@ export const analyticsEvents: MyComponentAnalytics = {
 ```
 
 ### Component file
+
 Your component needs to implement _Trackable_ interface.
 
 ```typescript
@@ -70,6 +79,8 @@ class MyComponent implements Trackable<MyComponentAnalytics>, ... {
 }
 ```
 
-## TrackEvents
+## References
 
-Check [TRACK_EVENTS.md](./TRACK_EVENTS.md)
+- Track Analytics Events following [Track Events documentation](./TRACK_EVENTS.md)
+- Track Performance Metrics via [Performance measurement documentation](./PERFORMANCE.md)
+- *(:warning: deprecated)* Track Analytics Events following [Track Events module documentation](./TRACK_EVENTS(deprecated).md)
