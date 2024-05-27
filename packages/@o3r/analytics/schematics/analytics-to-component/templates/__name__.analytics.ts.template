@@ -1,4 +1,4 @@
-import {<% if (activateDummy) { %>EventInfo, AnalyticsEvent, Attribute, ConstructorAnalyticsEvent, ConstructorAnalyticsEventParameters,<% } %> AnalyticsEvents} from '@o3r/analytics';
+import type {<% if (activateDummy) { %>EventInfo, AnalyticsEvent, Attribute, ConstructorAnalyticsEvent, ConstructorAnalyticsEventParameters,<% } %> AnalyticsEvents} from '@o3r/analytics';
 
 <% if (activateDummy) { %>/**
  * Dummy event to show how we can use analytics event
