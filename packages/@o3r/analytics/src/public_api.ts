@@ -1,4 +1,2 @@
-export * from './contracts/index';
-export * from './directives/index';
-export * from './services/index';
-export * from './stores/index';
+export * from './performance/index';
+export * from './tracker/index';

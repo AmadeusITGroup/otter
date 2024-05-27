@@ -57,7 +57,7 @@ The store can also be bound to the third-party logging service by using the `Log
 // in app.module.ts
 
 import {Action, MetaReducer, USER_PROVIDED_META_REDUCERS} from '@ngrx/store';
-import {LoggerServuce} from '@o3r/logger';
+import {LoggerService} from '@o3r/logger';
 
 // ...
 
