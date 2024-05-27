@@ -21,6 +21,7 @@ import {
 /**
  * Directive to capture the 'click' event on the reference element.
  * The captured event will be exposed via EventTrackService
+ * @deprecated use {@link AnalyticTrackClick} instead, will be removed in v12
  * @example
  * ```html
  * <my-component

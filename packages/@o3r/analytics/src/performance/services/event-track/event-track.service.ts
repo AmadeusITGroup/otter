@@ -70,16 +70,25 @@ export class EventTrackService {
 
   private firstPaint?: Promise<EventTiming>;
 
-  /** UI captured events as stream */
+  /**
+   * UI captured events as stream
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v12
+   */
   public uiEventTrack$: Observable<UiEventPayload>;
 
-  /** Custom captured events as stream */
+  /**
+   * Custom captured events as stream
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v12
+   */
   public customEventTrack$: Observable<CustomEventPayload>;
 
   /** Performance captured events as stream */
   public perfEventTrack$: Observable<PerfEventPayload>;
 
-  /** Stream of booleans for the ui tracking mode active/inactive */
+  /**
+   * Stream of booleans for the ui tracking mode active/inactive
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v12
+   */
   public uiTrackingActive$: Observable<boolean>;
 
   /** Stream of booleans for the performance tracking mode active/inactive */
@@ -365,6 +374,7 @@ export class EventTrackService {
   /**
    * Add an event to the stream of captured UI events
    * @param uiEvent emitted event object
+   * @deprecated use {@link AnalyticsEventReporter.reportEvent} instead, will be removed in v12
    */
   public addUiEvent(uiEvent: UiEventPayload) {
     this.uiEventTrack.next(uiEvent);
@@ -381,6 +391,7 @@ export class EventTrackService {
   /**
    * Activate/deactivate the tracking mode for UI events
    * @param activate activation/deactivation boolean
+   * @deprecated use {@link AnalyticsEventReporter.isTrackingActive} instead, will be removed in v12
    */
   public toggleUiTracking(activate: boolean) {
     this.uiTrackingActivated.next(activate);

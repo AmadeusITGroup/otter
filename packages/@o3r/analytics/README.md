@@ -35,4 +35,4 @@ Otter framework provides a set of code generators based on [Angular schematics](
 
 ## More information
 
-Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/analytics/ANALYTICS.md).
+Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/analytics/TRACK_EVENTS.md).

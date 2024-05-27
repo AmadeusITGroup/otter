@@ -2,11 +2,14 @@ import {
   InjectionToken,
 } from '@angular/core';
 
-/** Controls the activation of mesurements and ui events tracking */
+/** Controls the activation of measurements and ui events tracking */
 export interface TrackActive {
-  /** Boolean to activate/deactivate the ui event tracking */
+  /**
+   * Boolean to activate/deactivate the ui event tracking
+   * @deprecated use {@link AnalyticsEventReporter.isTrackingActive} instead, will be removed in v12. Need to be turned to `false` when using {@link AnalyticsEventReporter}.
+   */
   uiTracking: boolean;
-  /** Boolean to activate/deactivate performace measurements */
+  /** Boolean to activate/deactivate performance measurements */
   perfTracking: boolean;
 }
 
@@ -14,11 +17,14 @@ export interface TrackActive {
 export interface EventTrackConfiguration {
   /** Defines how many values will be kept in performance metrics stream */
   perfBufferSize: number;
-  /** Defines how many values will be kept in ui events stream */
+  /**
+   * Defines how many values will be kept in ui events stream
+   * @deprecated use {@link AnalyticsEventReporter} instead, will be removed in v12
+   */
   uiEventsBufferSize: number;
   /** If true, it will use the browser API to get the value of the FP for the first time; */
   useBrowserApiForFirstFP: boolean;
-  /** Controls the activation of mesurements and ui events tracking */
+  /** Controls the activation of measurements and ui events tracking */
   activate: TrackActive;
 }
 
