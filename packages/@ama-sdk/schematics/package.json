@@ -69,7 +69,7 @@
   "devDependencies": {
     "@ama-sdk/core": "workspace:^",
     "@angular-devkit/schematics-cli": "~17.3.0",
-    "@angular-eslint/eslint-plugin": "~17.3.0",
+    "@angular-eslint/eslint-plugin": "~17.5.0",
     "@angular/cli": "~17.3.0",
     "@nx/eslint-plugin": "~18.3.0",
     "@nx/jest": "~18.3.0",
