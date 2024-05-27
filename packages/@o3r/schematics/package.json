@@ -26,7 +26,7 @@
     "o3r-environment": "./dist/cli/environment.js"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1800.0",
+    "@angular-devkit/architect": "~0.1703.0",
     "@angular-devkit/core": "~17.3.0",
     "@angular-devkit/schematics": "~17.3.0",
     "@angular/cli": "~17.3.0",

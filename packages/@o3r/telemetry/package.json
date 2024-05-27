@@ -19,7 +19,7 @@
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
-    "@angular-devkit/architect": "~0.1800.0",
+    "@angular-devkit/architect": "~0.1703.0",
     "@angular-devkit/core": "~17.3.0",
     "@angular-devkit/schematics": "~17.3.0",
     "rxjs": "^7.8.1"
@@ -30,7 +30,7 @@
     }
   },
   "devDependencies": {
-    "@angular-devkit/architect": "~0.1800.0",
+    "@angular-devkit/architect": "~0.1703.0",
     "@angular-devkit/core": "~17.3.0",
     "@angular-devkit/schematics": "~17.3.0",
     "@angular-eslint/eslint-plugin": "~17.5.0",

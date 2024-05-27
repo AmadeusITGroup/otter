@@ -552,7 +552,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ama-terasu/schematics@workspace:packages/@ama-terasu/schematics"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
     "@angular-eslint/eslint-plugin": "npm:~17.5.0"
@@ -619,23 +619,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/architect@npm:0.1703.8":
+"@angular-devkit/architect@npm:0.1703.8, @angular-devkit/architect@npm:~0.1703.0":
   version: 0.1703.8
   resolution: "@angular-devkit/architect@npm:0.1703.8"
   dependencies:
     "@angular-devkit/core": "npm:17.3.8"
     rxjs: "npm:7.8.1"
   checksum: 10/0100a3e690723e1c2680af002352fb528c66c780fd9d89ddba1dfcde9a1fa9554c4c0271677b7b65301ecece6314c8b9f7bf330e80231fa3e7bb882414963538
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/architect@npm:~0.1800.0":
-  version: 0.1800.1
-  resolution: "@angular-devkit/architect@npm:0.1800.1"
-  dependencies:
-    "@angular-devkit/core": "npm:18.0.1"
-    rxjs: "npm:7.8.1"
-  checksum: 10/55e2da628dd5240c2d545c6ac05c20711115172535485fb8f51b77ac2a231e1b01759ad904ec4bc07dcefd4239b0177d57f20c3920d44caf27a76d48fab2ddd9
   languageName: node
   linkType: hard
 
@@ -799,25 +789,6 @@ __metadata:
     chokidar:
       optional: true
   checksum: 10/0119001e98950773db1a130d9011528135d9778dc6fe4a5058d9ad4501582f754f26b2ae516e0e8e96c69e9671c9fe31566c656ed87f1b493c2c29568503c098
-  languageName: node
-  linkType: hard
-
-"@angular-devkit/core@npm:18.0.1":
-  version: 18.0.1
-  resolution: "@angular-devkit/core@npm:18.0.1"
-  dependencies:
-    ajv: "npm:8.13.0"
-    ajv-formats: "npm:3.0.1"
-    jsonc-parser: "npm:3.2.1"
-    picomatch: "npm:4.0.2"
-    rxjs: "npm:7.8.1"
-    source-map: "npm:0.7.4"
-  peerDependencies:
-    chokidar: ^3.5.2
-  peerDependenciesMeta:
-    chokidar:
-      optional: true
-  checksum: 10/507aa25f32c35eef64562140e10e61acb2b70b1e4699459b4ef0df55aea70bd7e61cd5d7cb292fea01f01b9f7680949b90f46459c2282f320743b4f03e435302
   languageName: node
   linkType: hard
 
@@ -7330,7 +7301,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/components@workspace:packages/@o3r/components"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -7396,7 +7367,7 @@ __metadata:
     unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cdk": ~17.3.0
     "@angular/common": ~17.3.0
@@ -7550,7 +7521,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/core@workspace:packages/@o3r/core"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -7618,7 +7589,7 @@ __metadata:
     uuid: "npm:^9.0.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cli": ~17.3.0
@@ -7665,7 +7636,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/create@workspace:packages/@o3r/create"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
     "@angular-eslint/eslint-plugin": "npm:~17.5.0"
@@ -7714,7 +7685,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/design@workspace:packages/@o3r/design"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -7874,7 +7845,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/dynamic-content@workspace:packages/@o3r/dynamic-content"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -7926,7 +7897,7 @@ __metadata:
     typescript: "npm:~5.4.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular/compiler-cli": ~17.3.0
     "@angular/core": ~17.3.0
     "@angular/platform-browser-dynamic": ~17.3.0
@@ -8098,7 +8069,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/extractors@workspace:packages/@o3r/extractors"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8251,7 +8222,7 @@ __metadata:
     "@actions/github": "npm:^6.0.0"
     "@agnos-ui/angular": "npm:~0.2.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8314,7 +8285,6 @@ __metadata:
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
     browserslist: "npm:^4.21.4"
-    commit-and-tag-version: "npm:^9.5.0"
     concurrently: "npm:^8.0.0"
     cpy-cli: "npm:^5.0.0"
     editorconfig-checker: "npm:^5.0.1"
@@ -8354,6 +8324,7 @@ __metadata:
     sass: "npm:~1.76.0"
     sass-loader: "npm:^14.0.0"
     semver: "npm:^7.5.2"
+    standard-version: "npm:^9.0.0"
     stylelint: "npm:^16.0.2"
     stylelint-scss: "npm:^6.0.0"
     ts-jest: "npm:~29.1.2"
@@ -8435,7 +8406,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/localization@workspace:packages/@o3r/localization"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8502,7 +8473,7 @@ __metadata:
     unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cdk": ~17.3.0
@@ -8805,7 +8776,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/rules-engine@workspace:packages/@o3r/rules-engine"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8876,7 +8847,7 @@ __metadata:
     unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/common": ~17.3.0
@@ -8978,7 +8949,7 @@ __metadata:
     typescript: "npm:~5.4.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cli": ~17.3.0
@@ -9014,7 +8985,7 @@ __metadata:
     "@ama-sdk/showcase-sdk": "workspace:^"
     "@amadeus-it-group/kassette": "npm:^1.7.0"
     "@amadeus-it-group/tansu": "npm:~1.0.0"
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -9180,7 +9151,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/storybook@workspace:packages/@o3r/storybook"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -9328,7 +9299,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/styling@workspace:packages/@o3r/styling"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -9393,7 +9364,7 @@ __metadata:
     unionfs: "npm:~4.5.1"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cdk": ~17.3.0
@@ -9440,7 +9411,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/telemetry@workspace:packages/@o3r/telemetry"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
     "@angular-eslint/eslint-plugin": "npm:~17.5.0"
@@ -9470,7 +9441,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     rxjs: ^7.8.1
@@ -9735,7 +9706,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/workspace@workspace:packages/@o3r/workspace"
   dependencies:
-    "@angular-devkit/architect": "npm:~0.1800.0"
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -9799,7 +9770,7 @@ __metadata:
     winston: "npm:^3.8.2"
     zone.js: "npm:~0.14.2"
   peerDependencies:
-    "@angular-devkit/architect": ~0.1800.0
+    "@angular-devkit/architect": ~0.1703.0
     "@angular-devkit/core": ~17.3.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/cli": ~17.3.0
@@ -13780,20 +13751,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-formats@npm:3.0.1":
-  version: 3.0.1
-  resolution: "ajv-formats@npm:3.0.1"
-  dependencies:
-    ajv: "npm:^8.0.0"
-  peerDependencies:
-    ajv: ^8.0.0
-  peerDependenciesMeta:
-    ajv:
-      optional: true
-  checksum: 10/5679b9f9ced9d0213a202a37f3aa91efcffe59a6de1a6e3da5c873344d3c161820a1f11cc29899661fee36271fd2895dd3851b6461c902a752ad661d1c1e8722
-  languageName: node
-  linkType: hard
-
 "ajv-keywords@npm:^3.5.2":
   version: 3.5.2
   resolution: "ajv-keywords@npm:3.5.2"
@@ -13823,18 +13780,6 @@ __metadata:
     require-from-string: "npm:^2.0.2"
     uri-js: "npm:^4.2.2"
   checksum: 10/b406f3b79b5756ac53bfe2c20852471b08e122bc1ee4cde08ae4d6a800574d9cd78d60c81c69c63ff81e4da7cd0b638fafbb2303ae580d49cf1600b9059efb85
-  languageName: node
-  linkType: hard
-
-"ajv@npm:8.13.0":
-  version: 8.13.0
-  resolution: "ajv@npm:8.13.0"
-  dependencies:
-    fast-deep-equal: "npm:^3.1.3"
-    json-schema-traverse: "npm:^1.0.0"
-    require-from-string: "npm:^2.0.2"
-    uri-js: "npm:^4.4.1"
-  checksum: 10/4ada268c9a6e44be87fd295df0f0a91267a7bae8dbc8a67a2d5799c3cb459232839c99d18b035597bb6e3ffe88af6979f7daece854f590a81ebbbc2dfa80002c
   languageName: node
   linkType: hard
 
@@ -26019,13 +25964,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picomatch@npm:4.0.2":
-  version: 4.0.2
-  resolution: "picomatch@npm:4.0.2"
-  checksum: 10/ce617b8da36797d09c0baacb96ca8a44460452c89362d7cb8f70ca46b4158ba8bc3606912de7c818eb4a939f7f9015cef3c766ec8a0c6bfc725fdc078e39c717
-  languageName: node
-  linkType: hard
-
 "picomatch@npm:^2.0.4, picomatch@npm:^2.2.1, picomatch@npm:^2.2.3, picomatch@npm:^2.3.0, picomatch@npm:^2.3.1":
   version: 2.3.1
   resolution: "picomatch@npm:2.3.1"
@@ -29180,6 +29118,30 @@ __metadata:
   version: 2.1.0
   resolution: "standard-as-callback@npm:2.1.0"
   checksum: 10/88bec83ee220687c72d94fd86a98d5272c91d37ec64b66d830dbc0d79b62bfa6e47f53b71646011835fc9ce7fae62739545d13124262b53be4fbb3e2ebad551c
+  languageName: node
+  linkType: hard
+
+"standard-version@npm:^9.0.0":
+  version: 9.5.0
+  resolution: "standard-version@npm:9.5.0"
+  dependencies:
+    chalk: "npm:^2.4.2"
+    conventional-changelog: "npm:3.1.25"
+    conventional-changelog-config-spec: "npm:2.1.0"
+    conventional-changelog-conventionalcommits: "npm:4.6.3"
+    conventional-recommended-bump: "npm:6.1.0"
+    detect-indent: "npm:^6.0.0"
+    detect-newline: "npm:^3.1.0"
+    dotgitignore: "npm:^2.1.0"
+    figures: "npm:^3.1.0"
+    find-up: "npm:^5.0.0"
+    git-semver-tags: "npm:^4.0.0"
+    semver: "npm:^7.1.1"
+    stringify-package: "npm:^1.0.1"
+    yargs: "npm:^16.0.0"
+  bin:
+    standard-version: bin/cli.js
+  checksum: 10/a59fc3a3046007d376bf164b053011db8f6c1417b3512db697e36ea574ec47fca55086513f602ba237c62a2e61f4c60480eb84793fd0450a715bac9dd8634aa2
   languageName: node
   linkType: hard
 
