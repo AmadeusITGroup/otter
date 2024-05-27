@@ -1,4 +1,5 @@
 import type { OpenApiToolsConfiguration, OpenApiToolsGenerator, PathObject } from '@ama-sdk/core';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
 import {
   apply,
   chain,
@@ -26,15 +27,6 @@ import { generateOperationFinderFromSingleFile } from './helpers/path-extractor'
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
-
-// TODO: Change to `open-api` when #1735 is done
-/** Name of the specification file copied locally (without extension) */
-export const LOCAL_SPEC_FILENAME = 'swagger-spec';
-/** Extension of the Specification file in YAML format */
-export const SPEC_YAML_EXTENSION = 'yaml';
-// TODO: Change to `json` when #1735 is done
-/** Extension of the Specification file in JSON format */
-export const SPEC_JSON_EXTENSION = 'yaml';
 
 const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
 

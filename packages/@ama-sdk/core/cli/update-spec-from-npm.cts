@@ -7,18 +7,22 @@
 import * as minimist from 'minimist';
 import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
-import { extname, join } from 'node:path';
+import { extname, posix } from 'node:path';
 import { copyFile, readFile } from 'node:fs/promises';
 import type { PackageJson } from 'type-fest';
 import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '@ama-sdk/core';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
 const { help, output, 'package-path': packagePath, quiet } = argv;
 const openApiConfigDefaultPath = './openapitools.json';
-const supportedExtensions = ['json', 'yaml', 'yml'];
 const noop = () => undefined;
 const logger = quiet ? {error: noop, warn: noop, log: noop, info: noop, debug: noop} : console;
+const SPEC_YML_EXTENSION = 'yml';
+const DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE = 'openapi';
+
+const supportedExtensions = [SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION, SPEC_YML_EXTENSION];
 
 if (help) {
   // eslint-disable-next-line no-console
@@ -27,7 +31,7 @@ if (help) {
 
     package-name      The full identifier of the npm package (e.g. @my-scope/my-package)
     --package-path    The relative path inside the npm package where to find the spec file (default: './openapi.yml')
-    --output          The path where the spec file should be copied (default: './openapi.yml')
+    --output          The path where the spec file should be copied (default: './${LOCAL_SPEC_FILENAME}.${SPEC_YAML_EXTENSION}')
     --quiet           Don't log anything
   `);
   process.exit(0);
@@ -40,14 +44,14 @@ if (!packageName) {
 
 void (async () => {
   let specSourcePath;
-  const appRequire = createRequire(join(process.cwd(), 'package.json'));
+  const appRequire = createRequire(posix.join(process.cwd(), 'package.json'));
   const packageJsonPath = appRequire.resolve(`${packageName}/package.json`);
   if (!packagePath) {
     const packageJson = JSON.parse(await readFile(packageJsonPath, {encoding: 'utf8'})) as PackageJson;
-    const exportMatcher = new RegExp(`openapi\\.(?:${supportedExtensions.join('|')})$`);
+    const exportMatcher = new RegExp(`^\\./${DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE}\\.(?:${supportedExtensions.join('|')})$`);
     const matchingExport = packageJson.exports && Object.keys(packageJson.exports).find((exportPath) => exportMatcher.test(exportPath));
     if (matchingExport) {
-      specSourcePath = appRequire.resolve(`${packageName}/${matchingExport}`);
+      specSourcePath = appRequire.resolve(posix.join(packageName, matchingExport));
     }
   } else {
     specSourcePath = packageJsonPath.replace(/package.json$/, packagePath);
@@ -59,8 +63,11 @@ void (async () => {
 
   let specDestinationPath = output;
   if (!specDestinationPath) {
-    const specSourceExtension = extname(specSourcePath);
-    specDestinationPath = `./openapi${specSourceExtension}`;
+    let specSourceExtension = extname(specSourcePath);
+    if (specSourceExtension === `.${SPEC_YML_EXTENSION}`) {
+      specSourceExtension = `.${SPEC_YAML_EXTENSION}`;
+    }
+    specDestinationPath = `./${LOCAL_SPEC_FILENAME}${specSourceExtension}`;
     if (existsSync(openApiConfigDefaultPath)) {
       const openApiConfig = JSON.parse(await readFile(openApiConfigDefaultPath, {encoding: 'utf8'})) as OpenApiToolsConfiguration;
       const generators: OpenApiToolsGenerator[] = Object.values(openApiConfig['generator-cli']?.generators ?? {});
