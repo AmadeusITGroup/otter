@@ -82,5 +82,8 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
     if (this.onShowKeysChange) {
       this.onShowKeysChange.unsubscribe();
     }
+    if (this.onKeyChange) {
+      this.onKeyChange.unsubscribe();
+    }
   }
 }
