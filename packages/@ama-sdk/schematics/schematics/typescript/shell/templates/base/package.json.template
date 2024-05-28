@@ -42,12 +42,13 @@
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics @ama-sdk/schematics:typescript-core",
     "spec:regen": "<%=packageManager%> run generate <% if (packageManager === 'npm') {%>-- <%}%>--generator-key <%=projectName%>-<%=projectPackageName%> && amasdk-clear-index",
+    "spec:upgrade": "<% if (specPackageName) { %>amasdk-update-spec-from-npm <%=specPackageName%> --package-path=\"<%=specPackagePath%>\" && <% } %><%=packageManager%> run spec:regen",
     "files:pack": "amasdk-files-pack",
     "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
     "doc:generate": "typedoc",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "lint-staged": {
     "**/*.(js|ts)": [
@@ -103,11 +104,12 @@
     "minimist": "^1.2.6",
     "rimraf": "^5.0.1",
     "rxjs": "<%= versions['rxjs'] %>",
-    "standard-version": "^9.0.0",
+    "commit-and-tag-version": "<%= versions['commit-and-tag-version'] %>",
     "ts-jest": "<%= versions['ts-jest'] %>",
     "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
-    "typescript": "<%= versions['typescript'] %>"
+    "typescript": "<%= versions['typescript'] %>"<% if (specPackageName) { %>,
+    "<%=specPackageName%>": "<%=specPackageVersion%>"<% } %>
   },<% if (exactO3rVersion) { %>
   "<%= packageManager == 'yarn' ? 'resolutions' : 'overrides' %>": {
     "@o3r/schematics": "<%= sdkCoreRange %>"

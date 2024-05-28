@@ -1,6 +1,8 @@
+import type { OpenApiToolsConfiguration } from '@ama-sdk/core';
 import {Tree} from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
+import type { JsonObject, PackageJson } from 'type-fest';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
@@ -82,7 +84,7 @@ describe('Typescript Shell Generator', () => {
   });
 
   it('should generate correct package name', () => {
-    const {name} = JSON.parse(yarnTree.readContent('/package.json'));
+    const {name} = yarnTree.readJson('/package.json') as PackageJson;
     expect(name).toEqual('@test-scope/test-sdk');
   });
 
@@ -97,7 +99,7 @@ describe('Typescript Shell Generator', () => {
   });
 
   it('should generate correct openapitools.json', () => {
-    const openApiTools = JSON.parse(yarnTree.readContent('/openapitools.json'));
+    const openApiTools = yarnTree.readJson('/openapitools.json') as JsonObject & OpenApiToolsConfiguration;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     expect(openApiTools['generator-cli'].generators).toEqual(expect.objectContaining({'test-scope-test-sdk': expect.anything()}));
   });
@@ -109,7 +111,7 @@ describe('Typescript Shell Generator', () => {
       skipInstall: true,
       packageManager: 'npm'
     }, Tree.empty());
-    const {name} = JSON.parse(tree.readContent('/package.json'));
+    const {name} = tree.readJson('/package.json') as PackageJson;
     expect(name).toEqual('test-sdk');
   });
 });

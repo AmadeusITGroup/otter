@@ -9,6 +9,7 @@ Please refer to the [ama-sdk-schematics](../schematics/README.md) package for ge
 
 ## Available plugins
 
+- [abort](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/abort)
 - [additional-params](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/additional-params)
 - [api-configuration-override](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-configuration-override)
 - [api-key](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins/api-key)
@@ -69,3 +70,15 @@ function petApiFactory() {
 ```
 
 > *Note*: Adding a third-party logging service is optional. If undefined, the fallback is the console logger.
+
+### CLI
+
+This package also comes with CLI scripts that can facilitate the upgrade and publication of an SDK. 
+Use --help on each command for more information
+
+| Script                      | Description                                                                                    |
+|-----------------------------|------------------------------------------------------------------------------------------------|
+| amasdk-clear-index          | Remove the index files that are no longer necessary after the deletion of the associated model |
+| amasdk-files-pack           | Prepare the dist folder for publication                                                        |
+| amasdk-update-spec-from-npm | Update the OpenAPI spec from an NPM package                                                    |
+

@@ -1,6 +1,5 @@
 {
   "name": "@ama-sdk/showcase-sdk",
-  "private": true,
   "version": "0.0.0-placeholder",
   "description": "showcase-sdk - SDK",
   "source": "src/index.ts",
@@ -13,6 +12,10 @@
   "esm2015": "esm2015/index.js",
   "types": "index.d.ts",
   "sideEffects": false,
+  "deprecated": "This package is intended for testing purposes only.",
+  "publishConfig": {
+    "access": "public"
+  },
   "exports": {
     "./package.json": {
       "default": "./package.json"
@@ -27,6 +30,9 @@
       "typings": "./index.d.ts",
       "import": "./esm2020/index.js",
       "require": "./esm2020/index.js"
+    },
+    "./openapi.yml": {
+      "default": "./openapi.yml"
     }
   },
   "scripts": {
@@ -34,7 +40,7 @@
     "lint:ci": "eslint '**/*[jt]s' --quiet --format junit --output-file ./dist-lint/result.xml",
     "lint": "eslint '**/*[jt]s' --cache",
     "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"yarn run files:pack --watch\"",
-    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run files:pack",
+    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && cpy openapi.yml ./dist && yarn run files:pack",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
@@ -46,7 +52,7 @@
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics ../schematics:mock",
     "doc:generate": "node scripts/override-readme.js && typedoc && node scripts/restore-readme.js",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "dependencies": {
     "@swc/helpers": "^0.5.0",
@@ -83,6 +89,8 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "chokidar": "^3.5.2",
+    "commit-and-tag-version": "^9.5.0",
+    "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "~27.9.0",
     "eslint-plugin-jsdoc": "~48.2.1",
@@ -96,7 +104,6 @@
     "lint-staged": "^15.0.0",
     "minimist": "^1.2.6",
     "rimraf": "^5.0.1",
-    "standard-version": "^9.0.0",
     "ts-jest": "~29.1.2",
     "tsc-watch": "^6.0.4",
     "typedoc": "~0.25.0",

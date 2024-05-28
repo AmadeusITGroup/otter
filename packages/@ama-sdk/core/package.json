@@ -168,6 +168,7 @@
   "schematics": "./collection.json",
   "bin": {
     "amasdk-clear-index": "./dist/cli/clear-index.cjs",
-    "amasdk-files-pack": "./dist/cli/files-pack.cjs"
+    "amasdk-files-pack": "./dist/cli/files-pack.cjs",
+    "amasdk-update-spec-from-npm": "./dist/cli/update-spec-from-npm.cjs"
   }
 }

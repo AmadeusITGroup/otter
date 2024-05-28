@@ -20,8 +20,6 @@
     "build:extension": "tsc -b tsconfig.extension.json",
     "patch:extension": "node scripts/sanitize-extension.cjs && node scripts/set-manifest-version.cjs",
     "start": "concurrently 'yarn:watch:*'",
-    "watch:panel": "yarn build:panel --watch",
-    "watch:components": "yarn build:components --watch",
     "watch:manifest": "yarn patch:manifest --watch",
     "watch:extension": "tsc-watch -b tsconfig.extension.json --noClear --onSuccess 'yarn patch:extension'",
     "publish-to-market": "node ./scripts/publish-to-market.mjs"

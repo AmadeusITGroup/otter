@@ -15,6 +15,7 @@ Please create a new [issue](https://github.com/AmadeusITGroup/otter/issues/new/c
 Before you submit an issue, please make sure the issue is not already in our [issues backlog](https://github.com/AmadeusITGroup/otter/issues).
 
 The issue creation template requires:
+
 - a description of the failing use case
 - the version of library where the issue occurs
 - NodeJS version
@@ -25,7 +26,6 @@ If you already have a fix for the problem don't hesitate to [open a pull request
 ## Creating a pull request
 
 When creating a pull request, please link the corresponding issue in the pull request description. This will help us track the progress of your contribution and ensure that it is reviewed in a timely manner.
-
 
 ### Commit message constraints
 
@@ -46,7 +46,6 @@ When contributing, please keep in mind the following rules:
 - If the new feature you are adding is replacing an existing one, please deprecate the old code in minor versions. Add the @deprecated tag in the JSDoc while mentioning the major version when it will be removed. Note that only **even** major Otter versions allow breaking changes. This means we only allow breaking changes in `n+2` major versions.
 - Please ensure that you are submitting quality code, specifically make sure that the changes comply with our [code styling convention](#style-guide).
 
-
 ### Style guide
 
 - Always write description comments for methods and properties
@@ -55,13 +54,14 @@ When contributing, please keep in mind the following rules:
 - Add relevant Unit Tests
 - Any change should be followed by changes in the generator whenever it's applicable
 - Properties should have the most restricted type possible
+
 > :no_entry_sign: <code>private type: string;</code></br> :white_check_mark: <code>private type: "A" &verbar; "B";</code>
 
 To ease the process, we are providing a set of:
 
-* [Editors configuration](.editorconfig)
-* [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
-* [Component generator](./packages/@o3r/core/README.md#generators) (and more)
+- [Editors configuration](.editorconfig)
+- [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
+- [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
 ## Code review process
 
@@ -77,6 +77,5 @@ As a reviewer, please follow these guidelines:
 - The purpose of comments is to suggest improvements, ask a question or request for a change.
 - Comments should be constructive and suggest ways to improve things.
 - `Request changes` option should't be used if the comments consist only of questions.
-
 
 Thanks in advance for your contribution, and we look forward to hearing from you :)

@@ -5,7 +5,7 @@ import type { PackageJson } from 'type-fest';
 import { getExternalPreset, presets } from '../shared/presets';
 import { NgAddSchematicsSchema } from './schema';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
-import { createSchematicWithMetricsIfInstalled, displayModuleListRule, registerPackageCollectionSchematics, setupSchematicsDefaultParams } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, displayModuleListRule, registerPackageCollectionSchematics, setupSchematicsParamsForProject } from '@o3r/schematics';
 import { prepareProject } from './project-setup/index';
 import {
   type DependencyToAdd,
@@ -58,7 +58,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
     return chain([
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      setupSchematicsDefaultParams({ '*:ng-add': { registerDevtool: options.withDevtool } }),
+      setupSchematicsParamsForProject({ '*:ng-add': { registerDevtool: options.withDevtool } }, options.projectName),
       options.projectName ? prepareProject(options, dependenciesSetupConfig) : noop(),
       registerPackageCollectionSchematics(corePackageJsonContent),
       async (t, c) => {

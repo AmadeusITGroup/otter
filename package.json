@@ -15,7 +15,7 @@
     "build:lint": "yarn nx run-many --target=build --projects=eslint-plugin --parallel $(yarn get:cpus-number)",
     "build:swagger-gen": "yarn nx run-many --target=build-swagger --parallel $(yarn get:cpus-number)",
     "prepare:publish": "yarn prepare-publish \"$(yarn workspaces:list)\" --append dist",
-    "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail",
+    "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --exclude=tag:private --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension --parallel $(yarn get:cpus-number)",
     "lint": "yarn nx run-many --target=lint --parallel $(yarn get:cpus-number)",
@@ -41,7 +41,8 @@
     "verdaccio:start-persistent": "docker run -d -it --rm --name verdaccio -p 4873:4873 -v \"$(yarn get:current-dir)/.verdaccio/conf\":/verdaccio/conf -v \"$(yarn get:current-dir)/.verdaccio/storage\":/verdaccio/storage:z verdaccio/verdaccio",
     "verdaccio:clean": "rimraf -g \".verdaccio/storage/@{o3r,ama-sdk,ama-terasu}\"",
     "verdaccio:login": "yarn cpy --cwd=./.verdaccio/conf .npmrc . --rename=.npmrc-logged && npx --yes npm-cli-login -u verdaccio -p verdaccio -e test@test.com -r http://127.0.0.1:4873 --config-path \".verdaccio/conf/.npmrc-logged\"",
-    "verdaccio:publish": "yarn verdaccio:clean && yarn set:version 999.0.$(node -e 'process.stdout.write(String(Date.now()))') --include \"!**/!(dist)/package.json\" --include !package.json && yarn verdaccio:login && yarn run publish --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://127.0.0.1:4873 --@ama-sdk:registry=http://127.0.0.1:4873 --@ama-terasu:registry=http://127.0.0.1:4873",
+    "verdaccio:prepare-publish": "yarn verdaccio:clean && yarn set:version 999.0.$(node -e 'process.stdout.write(String(Date.now()))') --include \"!**/!(dist)/package.json\" --include !package.json && yarn verdaccio:login && replace-in-files --regex=\"private(.*)true\" --replacement=private\\$1false '**/dist/package.json' && yarn run prepare:publish",
+    "verdaccio:publish": "yarn run verdaccio:prepare-publish && yarn nx run-many --target=publish --parallel $(yarn get:cpus-number) --nx-bail --userconfig \".verdaccio/conf/.npmrc-logged\" --tag=latest --@o3r:registry=http://127.0.0.1:4873 --@ama-sdk:registry=http://127.0.0.1:4873 --@ama-terasu:registry=http://127.0.0.1:4873",
     "verdaccio:stop": "docker container stop $(docker ps -a -q --filter=\"name=verdaccio\")",
     "verdaccio:all": "yarn verdaccio:stop && yarn verdaccio:start && yarn verdaccio:publish",
     "watch:vscode-extension": "yarn nx run vscode-extension:compile:watch",
@@ -187,7 +188,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/workspace": "workspace:^",
-    "@playwright/test": "~1.43.0",
+    "@playwright/test": "~1.44.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
@@ -207,6 +208,7 @@
     "bootstrap": "5.3.3",
     "bootstrap-icons": "^1.11.3",
     "browserslist": "^4.21.4",
+    "commit-and-tag-version": "^9.5.0",
     "concurrently": "^8.0.0",
     "cpy-cli": "^5.0.0",
     "editorconfig-checker": "^5.0.1",
@@ -238,11 +240,11 @@
     "postcss-scss": "~4.0.9",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "replace-in-files-cli": "^2.2.0",
     "rimraf": "^5.0.1",
     "sass": "~1.76.0",
     "sass-loader": "^14.0.0",
     "semver": "^7.5.2",
-    "standard-version": "^9.0.0",
     "stylelint": "^16.0.2",
     "stylelint-scss": "^6.0.0",
     "ts-jest": "~29.1.2",
@@ -255,6 +257,9 @@
     "yaml-eslint-parser": "^1.2.2"
   },
   "dependenciesMeta": {
+    "@swc/core": {
+      "built": true
+    },
     "esbuild": {
       "built": true
     }
@@ -272,5 +277,5 @@
     "tools/@*/*",
     "apps/*"
   ],
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.2.2"
 }
