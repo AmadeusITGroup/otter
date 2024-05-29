@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 
-import { Rule, Tree } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
 import { updateV10_0 as tsUpdateV10_0 } from './typescript';
-
-/**
- * Determine if the script is run in a Typescript SDK
- * @param tree
- */
-const isTypescriptSdk = (tree: Tree) => {
-  return tree.exists('/tsconfig.json');
-};
+import { isTypescriptSdk } from '../helpers/is-typescript-project';
 
 /**
  * update of Otter library V10.0
