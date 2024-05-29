@@ -193,7 +193,7 @@
     "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@swc-node/register": "^1.6.7",
-    "@swc/core": "^1.3.85",
+    "@swc/core": "1.5.7",
     "@types/estree": "^1.0.5",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
