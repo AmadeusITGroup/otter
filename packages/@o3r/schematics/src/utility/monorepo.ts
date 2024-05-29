@@ -44,7 +44,7 @@ export function isStandaloneRepository(tree: Tree) {
  * @param tree
  */
 export function isMultipackagesContext(tree: Tree) {
-  return !!(tree.readJson('/package.json') as PackageJson).wokspaces;
+  return !!(tree.readJson('/package.json') as PackageJson).workspaces;
 }
 
 /** Default name of the folder where libraries will be generated inside monorepo */
