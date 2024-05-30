@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import { Store } from '@ngrx/store';
@@ -69,6 +69,10 @@ import { CurrentTimeFactsService } from '../../services/current-time-facts.servi
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RulesEngineComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+  private readonly dynamicContentService = inject(DynamicContentService);
+  private readonly store = inject(Store<RulesetsStore>);
+
   public newYorkAvailableRule = '';
   public helloNewYorkRule = '';
   public summerOtterRule = '';
@@ -80,27 +84,19 @@ export class RulesEngineComponent implements AfterViewInit {
 
   public activeRuleTab = 'configuration';
 
-  constructor(
-    private readonly inPageNavPresService: InPageNavPresService,
-    private readonly dynamicContentService: DynamicContentService,
-    private readonly tripFactsService: TripFactsService,
-    public currentTimeFactsService: CurrentTimeFactsService,
-    private readonly store: Store<RulesetsStore>,
-    rulesEngineService: RulesEngineRunnerService,
-    configHandle: ConfigurationRulesEngineActionHandler,
-    assetsHandler: AssetRulesEngineActionHandler,
-    localizationHandler: LocalizationRulesEngineActionHandler
-  ) {
-    // We recommend to do the 9 next lines in the AppComponent
+  constructor() {
+    // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
-    rulesEngineService.actionHandlers.add(configHandle);
-    rulesEngineService.actionHandlers.add(assetsHandler);
-    rulesEngineService.actionHandlers.add(localizationHandler);
+    const rulesEngineService = inject(RulesEngineRunnerService);
+    rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
+    rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
+    rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
     rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
     rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
-    this.tripFactsService.register();
-    this.currentTimeFactsService.register();
-    this.currentTimeFactsService.tick();
+    inject(TripFactsService).register();
+    const currentTimeFactsService = inject(CurrentTimeFactsService);
+    currentTimeFactsService.register();
+    currentTimeFactsService.tick();
     void this.loadRuleSet();
   }
 
