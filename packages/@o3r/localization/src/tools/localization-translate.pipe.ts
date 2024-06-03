@@ -82,6 +82,9 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
     if (this.onShowKeysChange) {
       this.onShowKeysChange.unsubscribe();
     }
+    if (this.onKeyChange) {
+      this.onKeyChange.unsubscribe();
+    }
   }
 }
 
