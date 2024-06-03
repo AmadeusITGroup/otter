@@ -22,7 +22,7 @@ ng add @o3r/design
 
 ## Generators
 
-Otter Design module provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter Design module provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics   | Description                                             | How to use           |
 | ------------ | ------------------------------------------------------- | -------------------- |
@@ -31,7 +31,7 @@ Otter Design module provides a set of code generators based on [angular schemati
 
 ## Builders
 
-Otter Design module provides a set of builders based on [angular builders](https://angular.io/guide/cli-builder).
+Otter Design module provides a set of builders based on [Angular builders](https://angular.io/guide/cli-builder).
 
 ### generate-css
 

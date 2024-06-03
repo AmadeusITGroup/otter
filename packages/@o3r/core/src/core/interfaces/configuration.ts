@@ -39,12 +39,12 @@ export interface CustomConfig<T extends Partial<Configuration> = Partial<Configu
  */
 export interface DynamicConfigurable<T extends Configuration> {
   /**
-   * Configuration override
+   * Configuration override by Angular input mechanism
    */
   config: Partial<T> | undefined;
 
   /**
-   * Configuration stream
+   * Configuration stream based on the input and the stored configuration
    */
   config$: Observable<T>;
 }
@@ -54,12 +54,12 @@ export interface DynamicConfigurable<T extends Configuration> {
  */
 export interface DynamicConfigurableWithSignal<T extends Configuration> {
   /**
-   * Configuration override
+   * Configuration override by Angular input mechanism
    */
   config: InputSignal<Partial<T> | undefined>;
 
   /**
-   * Configuration signal
+   * Configuration signal based on the input and the stored configuration
    */
   configSignal: Signal<T>;
 }
