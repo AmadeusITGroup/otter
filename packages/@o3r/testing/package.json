@@ -154,7 +154,7 @@
     }
   },
   "dependencies": {
-    "esbuild": "~0.20.0",
+    "esbuild": "~0.21.0",
     "module-from-string": "^3.2.0",
     "tslib": "^2.6.2"
   },

@@ -4939,17 +4939,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@jridgewell/trace-mapping@npm:^0.3.12, @jridgewell/trace-mapping@npm:^0.3.17, @jridgewell/trace-mapping@npm:^0.3.18, @jridgewell/trace-mapping@npm:^0.3.20":
-  version: 0.3.22
-  resolution: "@jridgewell/trace-mapping@npm:0.3.22"
-  dependencies:
-    "@jridgewell/resolve-uri": "npm:^3.1.0"
-    "@jridgewell/sourcemap-codec": "npm:^1.4.14"
-  checksum: 10/48d3e3db00dbecb211613649a1849876ba5544a3f41cf5e6b99ea1130272d6cf18591b5b67389bce20f1c871b4ede5900c3b6446a7aab6d0a3b2fe806a834db7
-  languageName: node
-  linkType: hard
-
-"@jridgewell/trace-mapping@npm:^0.3.24, @jridgewell/trace-mapping@npm:^0.3.25":
+"@jridgewell/trace-mapping@npm:^0.3.12, @jridgewell/trace-mapping@npm:^0.3.17, @jridgewell/trace-mapping@npm:^0.3.18, @jridgewell/trace-mapping@npm:^0.3.20, @jridgewell/trace-mapping@npm:^0.3.24, @jridgewell/trace-mapping@npm:^0.3.25":
   version: 0.3.25
   resolution: "@jridgewell/trace-mapping@npm:0.3.25"
   dependencies:
@@ -5830,10 +5820,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@microsoft/tsdoc@npm:~0.14.1":
-  version: 0.14.2
-  resolution: "@microsoft/tsdoc@npm:0.14.2"
-  checksum: 10/00c3d4fc184e8e09e17aef57e4a990402bd9752607a5d50bd62a9e85bc4b8791c985a51e238affa6b9a2d23110f24d373becbfc84e1e6e9a84cf977822e3b00a
+"@microsoft/tsdoc@npm:~0.15.0":
+  version: 0.15.0
+  resolution: "@microsoft/tsdoc@npm:0.15.0"
+  checksum: 10/fd025e5e3966248cd5477b9ddad4e9aa0dd69291f372a207f18a686b3097dcf5ecf38325caf0f4ad2697f1f39fd45b536e4ada6756008b8bcc5eccbc3201313d
   languageName: node
   linkType: hard
 
@@ -7144,7 +7134,7 @@ __metadata:
     "@o3r/styling": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
-    "@types/chrome": "npm:^0.0.267"
+    "@types/chrome": "npm:^0.0.268"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -7622,7 +7612,7 @@ __metadata:
     minimist: "npm:^1.2.6"
     nx: "npm:~18.3.0"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.76.0"
+    sass: "npm:~1.77.0"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -7635,7 +7625,7 @@ __metadata:
     "@o3r/styling": "workspace:^"
     chokidar: ^3.5.2
     globby: ^11.1.0
-    sass: ~1.76.0
+    sass: ~1.77.0
   peerDependenciesMeta:
     "@o3r/core":
       optional: true
@@ -7970,7 +7960,7 @@ __metadata:
     "@babel/core": "npm:~7.24.0"
     "@babel/preset-typescript": "npm:~7.24.0"
     "@compodoc/compodoc": "npm:^1.1.19"
-    "@microsoft/tsdoc": "npm:~0.14.1"
+    "@microsoft/tsdoc": "npm:~0.15.0"
     "@nx/eslint": "npm:~18.3.0"
     "@nx/eslint-plugin": "npm:~18.3.0"
     "@nx/jest": "npm:~18.3.0"
@@ -8208,7 +8198,7 @@ __metadata:
     replace-in-files-cli: "npm:^2.2.0"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.76.0"
+    sass: "npm:~1.77.0"
     sass-loader: "npm:^14.0.0"
     semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
@@ -9239,7 +9229,7 @@ __metadata:
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    sass: "npm:~1.76.0"
+    sass: "npm:~1.77.0"
     semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
     stylelint-scss: "npm:^6.0.0"
@@ -9264,7 +9254,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~17.3.0
     rxjs: ^7.8.1
-    sass: ~1.76.0
+    sass: ~1.77.0
   peerDependenciesMeta:
     "@angular-devkit/architect":
       optional: true
@@ -9442,7 +9432,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.2.0"
     concurrently: "npm:^8.0.0"
     cpy-cli: "npm:^5.0.0"
-    esbuild: "npm:~0.20.0"
+    esbuild: "npm:~0.21.0"
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~27.9.0"
@@ -12044,13 +12034,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.267":
-  version: 0.0.267
-  resolution: "@types/chrome@npm:0.0.267"
+"@types/chrome@npm:^0.0.268":
+  version: 0.0.268
+  resolution: "@types/chrome@npm:0.0.268"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/496c59553bf9e50c450b2ad2e8824131baf1bee59d851d33db4a37fe4f0d4c06fe7ec24e5234574b7d883d4e6a33666805b1345cfcac296e997a23258a10c0bf
+  checksum: 10/f03cf2f816f7c8f19319299af9399dd3eed8b46b3e4791bd7c1c70d982ae63634580a4c03509841cd65b91e99e6bc47f05358811d2c8b707968746d3d482b983
   languageName: node
   linkType: hard
 
@@ -14253,7 +14243,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@vercel/ncc": "npm:~0.38.0"
-    audit-types: "npm:~0.5.6"
+    audit-types: "npm:~0.6.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~27.9.0"
     eslint-plugin-jsdoc: "npm:~48.2.1"
@@ -14264,10 +14254,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"audit-types@npm:~0.5.6":
-  version: 0.5.6
-  resolution: "audit-types@npm:0.5.6"
-  checksum: 10/24feaf90805c2470a069e544e1e826ec0ece07cde50cc3981c4938a7a9ebb03d95bbc80298c4f7d23b9233b762aca8f9b6b97c40a256213c6b3b2e2e476345db
+"audit-types@npm:~0.6.0":
+  version: 0.6.2
+  resolution: "audit-types@npm:0.6.2"
+  checksum: 10/0ad90cec66f9eeabd0792ce6dc0a9be386dfe499cb26b07079a1d8acc0ddf9740d627c9a54e5b3a9fba289a60a51fc962c235ea71e843ff5d82b6d2f0e753a91
   languageName: node
   linkType: hard
 
@@ -18177,7 +18167,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:>=0.15.13":
+"esbuild@npm:>=0.15.13, esbuild@npm:~0.21.0":
   version: 0.21.4
   resolution: "esbuild@npm:0.21.4"
   dependencies:
@@ -18491,7 +18481,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild@npm:^0.20.0, esbuild@npm:~0.20.0":
+"esbuild@npm:^0.20.0":
   version: 0.20.2
   resolution: "esbuild@npm:0.20.2"
   dependencies:
@@ -25363,7 +25353,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@vscode/vsce": "npm:^2.16.0"
     cpy-cli: "npm:^5.0.0"
-    esbuild: "npm:~0.20.0"
+    esbuild: "npm:~0.21.0"
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~27.9.0"
@@ -28226,7 +28216,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.42.1, sass@npm:^1.69.5":
+"sass@npm:^1.42.1, sass@npm:^1.69.5, sass@npm:~1.77.0":
   version: 1.77.4
   resolution: "sass@npm:1.77.4"
   dependencies:
@@ -28236,19 +28226,6 @@ __metadata:
   bin:
     sass: sass.js
   checksum: 10/04e31ce4961a7b90238c274a268945cd67177d992273073e6fa5df09fe7a03ff378f1608fe646ec512c8691038ac9487e06ef5abb2185f56eb36204952538eea
-  languageName: node
-  linkType: hard
-
-"sass@npm:~1.76.0":
-  version: 1.76.0
-  resolution: "sass@npm:1.76.0"
-  dependencies:
-    chokidar: "npm:>=3.0.0 <4.0.0"
-    immutable: "npm:^4.0.0"
-    source-map-js: "npm:>=0.6.2 <2.0.0"
-  bin:
-    sass: sass.js
-  checksum: 10/f30e057617813b1253001b44f231c0a7667b624b06188f480fbb2c1ad073a5c302de3539078cb8af112e0d1fca7fbfd292d5e0dd816e9bfa493d3bce89ca8522
   languageName: node
   linkType: hard
 

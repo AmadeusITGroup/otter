@@ -375,7 +375,7 @@
     "@typescript-eslint/parser": "^7.2.0",
     "@vscode/vsce": "^2.16.0",
     "cpy-cli": "^5.0.0",
-    "esbuild": "~0.20.0",
+    "esbuild": "~0.21.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-jest": "~27.9.0",
     "eslint-plugin-jsdoc": "~48.2.1",

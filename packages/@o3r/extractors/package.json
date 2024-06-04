@@ -33,7 +33,7 @@
     }
   },
   "dependencies": {
-    "@microsoft/tsdoc": "~0.14.1",
+    "@microsoft/tsdoc": "~0.15.0",
     "inquirer": "~8.2.6",
     "jsonschema": "~1.4.1",
     "tslib": "^2.6.2",
