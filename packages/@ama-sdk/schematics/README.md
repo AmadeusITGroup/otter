@@ -101,6 +101,7 @@ The generated package comes with the following script in the package.json:
 
 > [!TIP]
 > The `--spec-path` parameter supports YAML and JSON file formats based on the file system path or remote URL.
+> The `--spec-package-name` parameter can be used as an alternative to `--spec-path` if you want to generate an SDK with specs from an npm package.  It comes with the optional parameters `--spec-package-registry` and `--spec-package-path` to be able to retrieve the npm package and the specs file from it. By default, the generator expects the `package.json` file inside the npm module containing the specs, to have an export with the key `./openapi.[yaml|yml|json]` and the value will be the relative path to the spec file inside the package.
 
 If you use `Yarn2+` with PnP, you can modify the following `scripts` in `package.json` to generate the SDK based on specifications in a dependency package:
 

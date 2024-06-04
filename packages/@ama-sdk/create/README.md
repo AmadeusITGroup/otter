@@ -44,7 +44,7 @@ npm create @ama-sdk typescript <project-name> -- --package-manager=yarn [...opti
 
 - `--spec-path`: Path to the swagger/open-api specification used to generate the SDK
 - `--spec-package-name`: The npm package name where the spec file can be fetched
-- `--spec-package-path`: The path inside the package where to find the spec file
+- `--spec-package-path`: The export path inside the package.json where to find the spec file. Defaults to _./openapi.[yml|yaml|json]_
 - `--spec-package-version`: The version to target for the npm package where the spec file can be fetched
 - `--spec-package-registry`: The npm registry where the spec file can be fetched
 
