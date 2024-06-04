@@ -1,9 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>AmadeusITGroup/otter//tools/renovate/base",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk",
-    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(my-specification-package)"
+    "github>AmadeusITGroup/otter//tools/renovate/base",<% if (packageManager === 'yarn') { %>
+    "github>AmadeusITGroup/otter//tools/renovate/sdk"<% if (specPackageName) { %>,
+    "github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(<%= specPackageName %>)"<% } %><% } else { %>
+    "github>AmadeusITGroup/otter//tools/renovate/group/otter",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/base",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)"<% if (specPackageName) { %>,
+    "github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(<%= specPackageName %>)",
+    "github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, <%= specPackageName %>)"<% } %><% } %>
   ],
   "prConcurrentLimit": 0,
   "prHourlyLimit": 0,
