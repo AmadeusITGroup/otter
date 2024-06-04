@@ -2,7 +2,7 @@ import type { OpenApiToolsConfiguration } from '@ama-sdk/core';
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from './index';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
 import type { JsonObject } from 'type-fest';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');

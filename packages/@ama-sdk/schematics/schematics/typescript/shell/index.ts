@@ -87,8 +87,15 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
     const specScope = options.specPackageName?.startsWith('@') ? options.specPackageName.substring(1).split('/')[0] : undefined;
 
     if (properties.packageManager === 'yarn') {
-      const yarnrcPath = posix.join(tree.root.path, '.yarnrc.yml');
-      const yarnrc = (load(tree.exists(yarnrcPath) ? tree.readText(yarnrcPath) : '') || {}) as any;
+      const workspaceRootYarnRcPath = posix.join(tree.root.path, '.yarnrc.yml');
+      const standaloneYarnRcPath = posix.join(targetPath, '.yarnrc.yml');
+
+      let yarnrc;
+      if (tree.exists(workspaceRootYarnRcPath)) {
+        yarnrc = load(tree.readText(workspaceRootYarnRcPath));
+      } else {
+        yarnrc = (load(tree.exists(standaloneYarnRcPath) ? tree.readText(standaloneYarnRcPath) : '') || {}) as any;
+      }
       yarnrc.nodeLinker ||= 'pnp';
       yarnrc.packageExtensions ||= {};
       yarnrc.packageExtensions['@ama-sdk/schematics@*'] = {
@@ -103,20 +110,30 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
         };
       }
 
-      if (tree.exists(yarnrcPath)) {
-        tree.overwrite(yarnrcPath, dump(yarnrc, {indent: 2}));
+      if (tree.exists(workspaceRootYarnRcPath)) {
+        tree.overwrite(workspaceRootYarnRcPath, dump(yarnrc, {indent: 2}));
+      } else if (tree.exists(standaloneYarnRcPath)){
+        tree.overwrite(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
       } else {
-        tree.create(yarnrcPath, dump(yarnrc, {indent: 2}));
+        tree.create(standaloneYarnRcPath, dump(yarnrc, {indent: 2}));
       }
     } else if (properties.packageManager === 'npm') {
       if (options.specPackageRegistry && specScope) {
-        const npmrcPath = posix.join(tree.root.path, '.npmrc');
-        let npmrc = tree.exists(npmrcPath) ? tree.readText(npmrcPath) : '';
-        npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
-        if (tree.exists(npmrcPath)) {
-          tree.overwrite(npmrcPath, npmrc);
+        const workspaceRootNpmrcPath = posix.join(tree.root.path, '.npmrc');
+        const standaloneNpmrcPath = posix.join(targetPath, '.npmrc');
+        let npmrc;
+        if (tree.exists(workspaceRootNpmrcPath)) {
+          npmrc = tree.readText(workspaceRootNpmrcPath);
         } else {
-          tree.create(npmrcPath, npmrc);
+          npmrc = tree.exists(standaloneNpmrcPath) ? tree.readText(standaloneNpmrcPath) : '';
+        }
+        npmrc += `\n@${specScope}:registry=${options.specPackageRegistry}\n`;
+        if (tree.exists(workspaceRootNpmrcPath)) {
+          tree.overwrite(workspaceRootNpmrcPath, npmrc);
+        } else if (tree.exists(standaloneNpmrcPath)){
+          tree.overwrite(standaloneNpmrcPath, npmrc);
+        } else {
+          tree.create(standaloneNpmrcPath, npmrc);
         }
       }
     }

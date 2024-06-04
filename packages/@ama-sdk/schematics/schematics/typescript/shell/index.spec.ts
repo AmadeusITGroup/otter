@@ -114,4 +114,63 @@ describe('Typescript Shell Generator', () => {
     const {name} = tree.readJson('/package.json') as PackageJson;
     expect(name).toEqual('test-sdk');
   });
+
+  it('should generate renovate config with otter presets for npm', () => {
+    const renovateConfig = npmTree.readJson('/.renovaterc.json') as PackageJson;
+    const renovatePresets = renovateConfig.extends;
+    expect(renovatePresets).toEqual([
+      'github>AmadeusITGroup/otter//tools/renovate/base',
+      'github>AmadeusITGroup/otter//tools/renovate/group/otter',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/base',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)'
+    ]);
+  });
+
+  it('should generate renovate config with otter presets for npm with packageName', async () => {
+    const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
+    const tree = await runner.runSchematic('typescript-shell', {
+      name: 'test-scope',
+      package: 'test-sdk',
+      skipInstall: true,
+      packageManager: 'npm',
+      specPackageName: '@my-spec-scope/my-spec'
+    }, Tree.empty());
+    const renovateConfig = tree.readJson('/.renovaterc.json') as PackageJson;
+    const renovatePresets = renovateConfig.extends;
+    expect(renovatePresets).toEqual([
+      'github>AmadeusITGroup/otter//tools/renovate/base',
+      'github>AmadeusITGroup/otter//tools/renovate/group/otter',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/base',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-regenerate(npm)',
+      'github>AmadeusITGroup/otter//tools/renovate/group/sdk-spec(@my-spec-scope/my-spec)',
+      'github>AmadeusITGroup/otter//tools/renovate/tasks/sdk-spec-regenerate(npm, @my-spec-scope/my-spec)'
+    ]);
+  });
+
+  it('should generate renovate config with otter presets for yarn', () => {
+    const renovateConfig = yarnTree.readJson('/.renovaterc.json') as PackageJson;
+    const renovatePresets = renovateConfig.extends;
+    expect(renovatePresets).toEqual([
+      'github>AmadeusITGroup/otter//tools/renovate/base',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk'
+    ]);
+  });
+
+  it('should generate renovate config with otter presets for yarn with packageName', async () => {
+    const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
+    const tree = await runner.runSchematic('typescript-shell', {
+      name: 'test-scope',
+      package: 'test-sdk',
+      skipInstall: true,
+      packageManager: 'yarn',
+      specPackageName: '@my-spec-scope/my-spec'
+    }, Tree.empty());
+    const renovateConfig = tree.readJson('/.renovaterc.json') as PackageJson;
+    const renovatePresets = renovateConfig.extends;
+    expect(renovatePresets).toEqual([
+      'github>AmadeusITGroup/otter//tools/renovate/base',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk',
+      'github>AmadeusITGroup/otter//tools/renovate/sdk-spec-upgrade(@my-spec-scope/my-spec)'
+    ]);
+  });
 });

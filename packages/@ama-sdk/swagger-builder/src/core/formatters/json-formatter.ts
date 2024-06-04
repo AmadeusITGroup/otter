@@ -32,7 +32,13 @@ export class JsonFormatter implements Formatter {
 
     const content = JSON.stringify({
       ...generatePackageJson(artifactName, spec),
-      main: path.relative(this.cwd, this.filePath)
+      main: path.relative(this.cwd, this.filePath),
+      exports: {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        './openapi.json': {
+          default: path.relative(this.cwd, this.filePath)
+        }
+      }
     }, null, 2);
 
     const res = await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
