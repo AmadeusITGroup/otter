@@ -63,7 +63,7 @@ jobs:
       # Needed to publish with provenance
       id-token: write
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
@@ -92,7 +92,7 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -113,7 +113,7 @@ jobs:
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
         if: env.PUBLISH_PROFILE != null && (github.base_ref == 'main' || github.ref_name == 'main')
-        uses: Azure/functions-action@238dc3c45bb1b04e5d16ff9e75cddd1d86753bd6 # v1.5.1
+        uses: Azure/functions-action@fd80521afbba9a2a76a99ba1acc07aff8d733d11 # v1.5.2
         with:
           app-name: 'github-cascading'
           slot-name: 'production'
@@ -125,7 +125,7 @@ jobs:
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     needs: [publish]
     steps:
-      - uses: actions/checkout@0ad4b8fadaa221de15dcec353f45205ec38ea70b # v4.1.4
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
