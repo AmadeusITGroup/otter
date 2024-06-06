@@ -10,7 +10,8 @@ import {
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
-  setPackagerManagerConfig
+  setPackagerManagerConfig,
+  setupGit
 } from '../utilities';
 
 export interface CreateTestEnvironmentOtterProjectWithAppOptions extends CreateWithLockOptions, PackageManagerConfig {
@@ -91,6 +92,8 @@ export async function createTestEnvironmentOtterProjectWithApp(inputOptions: Par
     if (options.globalFolderPath) {
       packageManagerExec({script: 'ng', args: ['config', 'cli.cache.path', path.join(options.globalFolderPath, '.angular', 'cache')]}, execAppOptions);
     }
+
+    setupGit(appFolderPath);
 
     return Promise.resolve();
   }, { lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options });

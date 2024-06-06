@@ -1,5 +1,5 @@
 import { execFileSync, ExecSyncOptions } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
@@ -89,7 +89,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const prepareFinalApp = (baseApp: string) => {
     logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
     const baseProjectPath = path.join(itTestsFolderPath, baseApp);
-    cpSync(baseProjectPath, workspacePath, { recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source) });
+    execFileSync('git', ['clone', baseProjectPath, workspacePath, '--no-tags']);
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstall(execAppOptions);
     }

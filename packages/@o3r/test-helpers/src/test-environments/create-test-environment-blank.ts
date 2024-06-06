@@ -1,7 +1,14 @@
 import { ExecSyncOptions } from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
-import { createWithLock, type CreateWithLockOptions, type Logger, PackageManagerConfig, setPackagerManagerConfig } from '../utilities';
+import {
+  createWithLock,
+  type CreateWithLockOptions,
+  type Logger,
+  PackageManagerConfig,
+  setPackagerManagerConfig,
+  setupGit
+} from '../utilities';
 
 export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions, PackageManagerConfig {
   /**
@@ -59,6 +66,8 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     if (existsSync(path.join(appFolderPath, 'yarn.lock'))) {
       await fs.rm(path.join(appFolderPath, 'yarn.lock'));
     }
+
+    setupGit(appFolderPath);
 
   }, { lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options });
 }
