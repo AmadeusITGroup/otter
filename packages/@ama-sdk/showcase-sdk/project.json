@@ -36,6 +36,12 @@
       "options": {
         "command": "npm publish packages/@ama-sdk/showcase-sdk/dist"
       }
+    },
+    "publish-specs": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/showcase-sdk/dist-specs"
+      }
     }
   },
   "tags": ["showcase"]

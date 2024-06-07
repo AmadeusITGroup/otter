@@ -1,0 +1,24 @@
+name: 'Get version from logs'
+description: 'Get the computed version from the logs uploaded by version plugin'
+outputs:
+  nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
+  isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
+
+runs:
+  using: "composite"
+  steps:
+    - name: get logs from workflow run
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      with:
+        script: |
+          let download = await github.rest.actions.downloadWorkflowRunAttemptLogs({
+              ...context.repo,
+              run_id: context.payload.workflow_run.id,
+              attempt_number: 1
+          });
+          let fs = require('fs');
+          fs.writeFileSync(`${process.env.GITHUB_WORKSPACE}/logs.zip`, Buffer.from(download.data));
+    - run: unzip logs.zip
+    - name: extract version from logs
+      id: newVersion
+      run: echo nextVersionTag=$(find -name '*_version.txt' | xargs grep -hiPo '(?<=nextVersionTag variable has been set with ).*$') >> "$GITHUB_OUTPUT"

@@ -1,0 +1,10 @@
+@showcase:registry=https://pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/registry/
+
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/registry/:username=${AZURE_USERNAME}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/registry/:_password=${AZURE_AUTH_TOKEN}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/registry/:email=${AZURE_EMAIL}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/:username=${AZURE_USERNAME}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/:_password=${AZURE_AUTH_TOKEN}
+//pkgs.dev.azure.com/AmadeusDigitalAirline/Otter/_packaging/otter/npm/:email=${AZURE_EMAIL}
+
+always-auth=true
