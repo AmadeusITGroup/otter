@@ -22,14 +22,7 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
   color: $breadcrumb-pres-item-other-color;
 }`;
 
-  beforeEach(() => {
-    initialTree = Tree.empty();
-    initialTree.create('src/component/my-comp.theme.css', 'should be ignored');
-    initialTree.create('src/component/my-comp.theme.scss', initialSassFile);
-  });
-
-  it('should correctly extract the Design Token', async () => {
-    const logger = { warn: jest.fn(), debug: jest.fn() };
+  beforeAll(() => {
     jest.mock('@o3r/styling/builders/style-extractor/helpers', () => ({
       // eslint-disable-next-line @typescript-eslint/naming-convention
       CssVariableExtractor: class {
@@ -39,6 +32,12 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
             name: 'breadcrumb-pres-item-icon-size',
             label: 'breadcrumb pres item icon size',
             type: 'string'
+          },
+          {
+            defaultValue: '#000',
+            name: 'breadcrumb-pres-item-icon-color-bg',
+            label: 'breadcrumb pres item icon color background',
+            type: 'color'
           },
           {
             defaultValue: '#fff',
@@ -53,9 +52,19 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
             type: 'string'
           }
         ]);
-        constructor() {}
+        constructor() { }
       }
     }));
+  });
+
+  beforeEach(() => {
+    initialTree = Tree.empty();
+    initialTree.create('src/component/my-comp.theme.css', 'should be ignored');
+    initialTree.create('src/component/my-comp.theme.scss', initialSassFile);
+  });
+
+  it('should correctly extract the Design Token', async () => {
+    const logger = { warn: jest.fn(), debug: jest.fn() };
     const tree = await firstValueFrom(callRule(extractToken({
       includeTags: false,
       componentFilePatterns: ['src/component/**.*scss']
@@ -66,22 +75,49 @@ $breadcrumb-pres-item-other-color: o3r.variable('breadcrumb-pres-item-other-colo
     expect(tree.readText('src/component/my-comp.theme.scss')).toBe(initialSassFile);
   });
 
+  it('should extract the Design Token with right flatten level', async () => {
+    const logger = { warn: jest.fn(), debug: jest.fn() };
+
+    let tree = await firstValueFrom(callRule(extractToken({
+      includeTags: false,
+      componentFilePatterns: ['src/component/**.*scss'],
+      flattenLevel: 1
+    }), initialTree, { logger } as any));
+
+    const resultLevel1 = tree.readJson('src/component/my-comp.theme.json') as any;
+    tree.delete('src/component/my-comp.theme.json');
+
+    tree = await firstValueFrom(callRule(extractToken({
+      includeTags: false,
+      componentFilePatterns: ['src/component/**.*scss'],
+      flattenLevel: 2
+    }), initialTree, { logger } as any));
+
+    const resultLevel2 = tree.readJson('src/component/my-comp.theme.json') as any;
+    tree.delete('src/component/my-comp.theme.json');
+
+    tree = await firstValueFrom(callRule(extractToken({
+      includeTags: false,
+      componentFilePatterns: ['src/component/**.*scss'],
+      flattenLevel: 10
+    }), initialTree, { logger } as any));
+
+    const resultLevel10 = tree.readJson('src/component/my-comp.theme.json') as any;
+
+    expect(resultLevel1.breadcrumb['pres.item.icon.color']).toBeDefined();
+    expect(resultLevel1.breadcrumb['pres.item.icon.color.bg']).toBeDefined();
+    expect(resultLevel1.breadcrumb.pres).not.toBeDefined();
+    expect(resultLevel2.breadcrumb['pres.item.icon.color']).not.toBeDefined();
+    expect(resultLevel2.breadcrumb['pres.item.icon.color.bg']).not.toBeDefined();
+    expect(resultLevel2.breadcrumb.pres).toBeDefined();
+    expect(resultLevel10.breadcrumb.pres.item.icon.color).toBeDefined();
+    expect(resultLevel10.breadcrumb.pres.item.icon.color.$value).toEqual(resultLevel1.breadcrumb['pres.item.icon.color'].$value);
+    expect(resultLevel10.breadcrumb.pres.item.icon.color.bg).toBeDefined();
+    expect(resultLevel10.breadcrumb.pres.item.icon.color.bg.$value).toEqual(resultLevel1.breadcrumb['pres.item.icon.color.bg'].$value);
+  });
+
   it('should Update the original file', async () => {
     const logger = { warn: jest.fn(), debug: jest.fn() };
-    jest.mock('@o3r/styling/builders/style-extractor/helpers', () => ({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      CssVariableExtractor: class {
-        public extractFileContent = jest.fn<CssVariable[], any>().mockReturnValue([
-          {
-            defaultValue: '4rem',
-            name: 'breadcrumb-pres-item-icon-size',
-            label: 'breadcrumb pres item icon size',
-            type: 'string'
-          }
-        ]);
-        constructor() { }
-      }
-    }));
     const tree = await firstValueFrom(callRule(extractToken({
       includeTags: true,
       componentFilePatterns: ['src/component/**.*scss']

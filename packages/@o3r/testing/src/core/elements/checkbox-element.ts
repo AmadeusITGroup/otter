@@ -10,7 +10,6 @@ import { ElementProfile, O3rElement } from '../element';
 export interface CheckboxElementProfile extends ElementProfile {
   /**
    * Check the checkbox element
-   *
    * @param  value If specified, determine the value of the checkbox button
    * @param  associatedLabel If specified, specify the label associated to the checkbox
    */

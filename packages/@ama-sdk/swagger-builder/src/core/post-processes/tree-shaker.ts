@@ -9,7 +9,6 @@ export class TreeShaker implements PostProcess {
 
   /**
    * Remove all tags not accessible from paths
-   *
    * @param spec
    * @private
    */
@@ -20,7 +19,6 @@ export class TreeShaker implements PostProcess {
 
   /**
    * Remove all parameters not accessible from paths
-   *
    * @param spec
    * @private
    */
@@ -33,7 +31,6 @@ export class TreeShaker implements PostProcess {
 
   /**
    * Start from paths and only keep deeply accessible definitions
-   *
    * @param spec
    * @private
    */
@@ -47,7 +44,6 @@ export class TreeShaker implements PostProcess {
 
   /**
    * Start from definitions and recursively remove all unreferenced, cannot remove cyclic dependencies
-   *
    * @param spec
    * @private
    */

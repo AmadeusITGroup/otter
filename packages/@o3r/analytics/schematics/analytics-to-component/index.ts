@@ -20,6 +20,7 @@ import {
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
+  createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
   isNgClassDecorator,
@@ -66,10 +67,9 @@ const checkAnalytics = (componentPath: string, tree: Tree, baseFileName: string)
 
 /**
  * Add analytics to an existing component
- *
  * @param options
  */
-export function ngAddAnalytics(options: NgAddAnalyticsSchematicsSchema): Rule {
+export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const baseFileName = basename(options.path, '.component.ts');
@@ -236,7 +236,7 @@ export function ngAddAnalytics(options: NgAddAnalyticsSchematicsSchema): Rule {
             externalSchematic('@o3r/core', 'convert-component', {
               path: options.path
             }),
-            ngAddAnalytics(options)
+            ngAddAnalyticsFn(options)
           ]);
         }
       }
@@ -244,3 +244,9 @@ export function ngAddAnalytics(options: NgAddAnalyticsSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add analytics to an existing component
+ * @param options
+ */
+export const ngAddAnalytics = createSchematicWithMetricsIfInstalled(ngAddAnalyticsFn);

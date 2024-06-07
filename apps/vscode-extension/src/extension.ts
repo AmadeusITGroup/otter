@@ -24,6 +24,7 @@ import { wrapCommandWhenExplorerContext } from './commands/helpers';
 import { generateModuleAddCommand } from './commands/module/add-module.command';
 import { configurationCompletionItemProvider, configurationCompletionTriggerChar } from './intellisense/configuration';
 import { stylingCompletionItemProvider, stylingCompletionTriggerChar } from './intellisense/styling';
+import { designTokenCompletionItemAndHoverProviders } from './intellisense/design-token';
 
 
 /**
@@ -32,9 +33,13 @@ import { stylingCompletionItemProvider, stylingCompletionTriggerChar } from './i
  * @param context
  */
 export function activate(context: ExtensionContext) {
+  const designTokenProviders = designTokenCompletionItemAndHoverProviders();
+
   context.subscriptions.push(
     languages.registerCompletionItemProvider(['javascript','typescript'], configurationCompletionItemProvider(), configurationCompletionTriggerChar),
     languages.registerCompletionItemProvider(['scss'], stylingCompletionItemProvider(), stylingCompletionTriggerChar),
+    languages.registerCompletionItemProvider(['scss', 'css'], designTokenProviders),
+    languages.registerHoverProvider(['scss', 'css'], designTokenProviders),
     commands.registerCommand('otter.generate.component', generateComponentGenerateCommand(context)),
     commands.registerCommand('otter.generate.service', generateServiceGenerateCommand(context)),
     commands.registerCommand('otter.generate.store', generateStoreGenerateCommand(context)),

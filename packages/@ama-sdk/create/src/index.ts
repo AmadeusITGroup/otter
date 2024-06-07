@@ -2,48 +2,45 @@
 /* eslint-disable no-console */
 
 import { execSync, spawnSync } from 'node:child_process';
-import { dirname, join, resolve } from 'node:path';
+import * as url from 'node:url';
+import { dirname, join, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
-const defaultScope = 'sdk';
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');
 const args = process.argv.slice(2);
 const argv = minimist(args);
-
-if (argv._.length < 2) {
-  console.error('The SDK type and project name are mandatory');
-  console.info('usage: create typescript <@scope/package>');
-  process.exit(-1);
-}
-
-const sdkType = argv._[0];
-let [name, pck] = argv._[1].replace(/^@/, '').split('/');
-
-if (sdkType !== 'typescript') {
-  console.error('Only the generation of "typescript" SDK is available');
-  process.exit(-2);
-}
-
-if (!pck) {
-  console.warn(`The given package name, is not a scoped package. a default "@${defaultScope}" scope will be used`);
-  pck = name;
-  name = defaultScope;
-}
-
-const targetDirectory = join('.', name, pck);
-const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
-const schematicsToRun = [
-  `${schematicsPackage}:typescript-shell`,
-  ...(argv['spec-path'] ? [`${schematicsPackage}:typescript-core`] : [])
-];
 
 let defaultPackageManager = 'npm';
 if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
 
-const packageManager = argv['package-manager'] || defaultPackageManager;
+const packageManager: string = argv['package-manager'] || defaultPackageManager;
+
+if (argv._.length < 2) {
+  console.error('The SDK type and project name are mandatory');
+  console.info(`usage: ${packageManager} create @ama-sdk typescript <@scope/package>`);
+  process.exit(-1);
+}
+
+const sdkType = argv._[0];
+
+if (sdkType !== 'typescript') {
+  console.error('Only the generation of "typescript" SDK is available');
+  process.exit(-2);
+}
+
+const fullPackage = argv._[1];
+const packageMatch = /^(?:@([^@/]+)\/)?([^@/]+)$/.exec(fullPackage);
+if (!packageMatch) {
+  console.error('Invalid package name');
+  process.exit(-3);
+}
+const [, name, pck] = packageMatch;
+
+const targetDirectory = name ? join('.', name, pck) : join('.', pck);
+const schematicsPackage = dirname(require.resolve('@ama-sdk/schematics/package.json'));
 
 const getYarnVersion = () => {
   try {
@@ -66,45 +63,48 @@ const getYarnVersion = () => {
 
 const schematicArgs = [
   argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
-  '--name', name,
+  ...(name ? ['--name', name] : []),
   '--package', pck,
   '--package-manager', packageManager,
-  '--directory', targetDirectory,
-  ...(argv['spec-path'] ? ['--spec-path', argv['spec-path']] : [])
+  ...(argv['exact-o3r-version'] ? ['--exact-o3r-version'] : []),
+  ...(typeof argv['dry-run'] !== 'undefined' ? [`--${!argv['dry-run'] || argv['dry-run'] === 'false' ? 'no-' : ''}dry-run`] : []),
+  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] || argv['o3r-metrics'] === 'false' ? 'no-' : ''}o3r-metrics`] : [])
 ];
 
-const getSchematicStepInfo = (schematic: string) => ({
-  args: [binPath, schematic, ...schematicArgs]
-});
+const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
 
 const run = () => {
+  const isSpecPathUrl = url.URL.canParse(argv['spec-path']);
 
-  const steps: { args: string[]; cwd?: string }[] = [
-    getSchematicStepInfo(schematicsToRun[0]),
+  const runner = process.platform === 'win32' ? `${packageManager}.cmd` : packageManager;
+  const steps: { args: string[]; cwd?: string; runner?: string }[] = [
+    { args: [binPath, `${schematicsPackage}:typescript-shell`, ...schematicArgs, '--directory', targetDirectory] },
     ...(
       packageManager === 'yarn'
-        ? [{ args: ['yarn', 'set', 'version', getYarnVersion()], cwd: resolve(process.cwd(), targetDirectory)}]
+        ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...schematicsToRun.slice(1).map(getSchematicStepInfo)
+    ...(argv['spec-path'] ? [{
+      args: [
+        binPath,
+        `${schematicsPackage}:typescript-core`,
+        ...schematicArgs,
+        '--spec-path', isSpecPathUrl ? argv['spec-path'] : relative(resolveTargetDirectory, resolve(process.cwd(), argv['spec-path']))
+      ],
+      cwd: resolveTargetDirectory
+    }] : [])
   ];
 
   const errors = steps
-    .map((step) => spawnSync(process.execPath, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd() }))
-    .map(({error}) => error)
-    .filter((err) => !!err);
+    .map((step) => spawnSync(step.runner || `"${process.execPath}"`, step.args, { stdio: 'inherit', cwd: step.cwd || process.cwd(), shell: true }))
+    .filter(({error, status}) => (error || status !== 0));
 
   if (errors.length > 0) {
-    errors.forEach((err) => console.error(err));
-    if (packageManagerEnv !== 'npm') {
-      console.error(`Other package managers than 'npm' are experimental for @ama-sdk create for the time being.
-Please use the following command:
-  'npm create @ama-sdk typescript <package-name> -- [...options]'
-
-https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/create#usage
-
-`);
-    }
+    errors.forEach(({error}) => {
+      if (error) {
+        console.error(error);
+      }
+    });
     process.exit(1);
   }
 };

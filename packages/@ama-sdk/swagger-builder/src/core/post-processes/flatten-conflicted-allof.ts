@@ -4,22 +4,22 @@ import { PostProcess } from './post-process.interface';
 /**
  * Flatten conflicted AllOf post process
  * The purpose is to apply the composition to the definitions depending of a _ started definition
- *
- * @example
- * // override MyCustomDefinition from @dxapi-spec/core-private to add the "example" field
+ * @example Override MyCustomDefinition from `@example-spec/api` to add the "example" field
+ * ```yaml
  * definitions:
  *  MyCustomDefinition:
  *    allOf:
- *      - $ref: '@dxapi-spec/core-private#/definitions/MyCustomDefinition'
+ *      - $ref: '@example-spec/api#/definitions/MyCustomDefinition'
  *      - type: object
  *        required: ["example"]
  *        properties:
  *          example:
  *            type: string
- *
- * // without the FlattenConflictedAllOf postProcess:
+ *```
+ * @example without the `FlattenConflictedAllOf` postProcess
+ * ```yaml
  * definitions:
- *  _DxapiCorePrivateMyCustomDefinition:
+ *  _ExamppleSpecApiMyCustomDefinition:
  *    x-generated-from-conflict: true
  *    required: ["originalField"]
  *    properties:
@@ -28,14 +28,15 @@ import { PostProcess } from './post-process.interface';
  *
  *  MyCustomDefinition:
  *    allOf:
- *      - $ref: '#/definitions/_DxapiCorePrivateMyCustomDefinition'
+ *      - $ref: '#/definitions/_ExamppleSpecApiMyCustomDefinition'
  *      - type: object
  *        required: ["example"]
  *        properties:
  *          example:
  *            type: string
- *
- * // with the FlattenConflictedAllOf postProcess:
+ *```
+ * @example With the `FlattenConflictedAllOf` postProcess
+ * ```yaml
  * definitions:
  *  MyCustomDefinition:
  *    required: ["originalField", "example"]
@@ -44,6 +45,7 @@ import { PostProcess } from './post-process.interface';
  *        type: string
  *      example:
  *        type: string
+ * ```
  */
 export class FlattenConflictedAllOf implements PostProcess {
 

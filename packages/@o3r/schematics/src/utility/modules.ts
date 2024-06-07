@@ -15,7 +15,8 @@ import { getWorkspaceConfig } from './loaders';
 
 
 /**
- * Get the path to the app.module.ts
+ * Get the path to the `app.module.ts`
+ * In case of standalone application, get the path to the `app.config.ts` instead
  * @param tree File tree
  * @param context Context of the rule
  * @param projectName The name of the project where to search for an app module file
@@ -28,12 +29,12 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
     return undefined;
   }
 
-  const mainFilePath: string = workspaceProject.architect!.build.options.main;
+  const mainFilePath: string = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
   const mainFile = tree.read(mainFilePath)!.toString();
 
-  const bootstrapModuleRegexpResult = mainFile.match(/bootstrapModule\(([^)]*)\)/m);
+  const bootstrapModuleRegexpResult = mainFile.match(/(?:bootstrapModule|bootstrapApplication)\((?:[^,)]*,)*\s*([^,) ]*)\s*\)/m);
   if (!bootstrapModuleRegexpResult || !bootstrapModuleRegexpResult[1]) {
-    throw new SchematicsException('Could not find bootstrap module');
+    throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
 
   const bootstrapModule = bootstrapModuleRegexpResult[1];
@@ -41,19 +42,19 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
   const bootstrapModuleFileRegExpResult = mainFile.match(findSource);
   if (!bootstrapModuleFileRegExpResult || !bootstrapModuleFileRegExpResult[1]) {
-    throw new SchematicsException('Could not find bootstrap module');
+    throw new SchematicsException('Could not find bootstrap module or appConfig');
   }
 
   /** Path to the main module file */
-  const moduleFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), bootstrapModuleFileRegExpResult[1] + '.ts');
+  const moduleFilePath = path.join(path.dirname(mainFilePath), bootstrapModuleFileRegExpResult[1] + '.ts');
 
-  const exportAppModuleClassRegExp = new RegExp(`class\\s+${bootstrapModule}`, 'gm');
+  const exportAppModuleClassRegExp = new RegExp(`(?:class|const)\\s+${bootstrapModule}`, 'gm');
 
   if (tree.exists(moduleFilePath) && tree.read(moduleFilePath)!.toString().match(exportAppModuleClassRegExp)) {
     return moduleFilePath;
   }
 
-  const possibleAppModule = path.join(path.dirname(workspaceProject.architect!.build.options.main), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app.module.ts');
+  const possibleAppModule = path.join(path.dirname(mainFilePath), path.dirname(bootstrapModuleFileRegExpResult[1]), 'app.module.ts');
   if (tree.exists(possibleAppModule) && tree.read(possibleAppModule)!.toString().match(exportAppModuleClassRegExp)) {
     return possibleAppModule;
   }
@@ -70,8 +71,8 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
   if (bootstrapModuleSymbol) {
     const pathPlusModuleString = checker.getFullyQualifiedName(bootstrapModuleSymbol);
     const filePath = pathPlusModuleString?.replace(new RegExp(`.${bootstrapModule}`), '').replace(/['"]/g, '');
-    const relativeFilePath = filePath ? path.relative(path.dirname(workspaceProject.architect!.build.options.main), `${filePath}.ts`) : undefined;
-    const filePathInTree = relativeFilePath ? path.join(path.dirname(workspaceProject.architect!.build.options.main), relativeFilePath) : undefined;
+    const relativeFilePath = filePath ? path.relative(path.dirname(mainFilePath), `${filePath}.ts`) : undefined;
+    const filePathInTree = relativeFilePath ? path.join(path.dirname(mainFilePath), relativeFilePath) : undefined;
     if (filePathInTree && tree.exists(filePathInTree) && tree.read(filePathInTree)!.toString().match(exportAppModuleClassRegExp)) {
       return filePathInTree;
     }
@@ -82,7 +83,6 @@ export function getAppModuleFilePath(tree: Tree, context: SchematicContext, proj
 
 /**
  * Get the path to the main.ts
- *
  * @param tree File tree
  * @param context Context of the rule
  * @param projectName
@@ -95,7 +95,7 @@ export function getMainFilePath(tree: Tree, context: SchematicContext, projectNa
     return undefined;
   }
 
-  const mainFilePath: string = workspaceProject.architect!.build.options.main;
+  const mainFilePath: string = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
   return mainFilePath;
 }
 

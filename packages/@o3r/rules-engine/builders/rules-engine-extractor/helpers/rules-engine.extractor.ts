@@ -4,12 +4,25 @@ import { ConfigDocParser } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import { promises as fs } from 'node:fs';
 import globby from 'globby';
+import type { JSONSchema7Type } from 'json-schema';
 import * as path from 'node:path';
 import { lastValueFrom, zip } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as ts from 'typescript';
 import * as tjs from 'typescript-json-schema';
-import { Action, allDefaultSupportedTypes, allSupportedTypes, FactSupportedTypes, MetadataFact, MetadataOperator, MetadataOperatorSupportedTypes } from './rules-engine.extractor.interfaces';
+import {
+  Action,
+  allDefaultSupportedTypes,
+  allSupportedTypes,
+  ArrayMetadataFact,
+  EnumMetadataFact,
+  FactSupportedTypes,
+  MetadataFact,
+  MetadataOperator,
+  MetadataOperatorSupportedTypes,
+  ObjectMetadataFact,
+  OtherMetadataFact
+} from './rules-engine.extractor.interfaces';
 
 /**
  * Extracts rules engine facts and operator from code
@@ -26,12 +39,12 @@ export class RulesEngineExtractor {
   public static readonly RESERVED_FACT_NAMES: Readonly<string[]> = ['portalFacts'];
 
   /** TSConfig to parse the code  */
-  private tsconfig: any;
+  private readonly tsconfig: any;
 
   /** Instance of the comment parser */
-  private commentParser = new ConfigDocParser();
+  private readonly commentParser = new ConfigDocParser();
 
-  constructor(tsconfigPath: string, private basePath: string, private logger: LoggerApi) {
+  constructor(tsconfigPath: string, private readonly basePath: string, private readonly logger: LoggerApi) {
     const {config} = ts.readConfigFile(tsconfigPath, ts.sys.readFile);
     this.tsconfig = config;
   }
@@ -41,9 +54,8 @@ export class RulesEngineExtractor {
    *
    * @param type Name of the type to extract
    * @param sourceFile path to the code source file
-   * @param outputPath path to the schema file to generate
    */
-  private async extractTypeRef(type: string, sourceFile: string, outputPath: string) {
+  private async extractTypeRef(type: string, sourceFile: string) {
     const internalLibFiles = this.tsconfig.extraOptions?.otterSubModuleRefs?.length > 0 ?
       await lastValueFrom(zip(...(this.tsconfig.extraOptions?.otterSubModuleRefs as string[]).map((value: string) => globby(value))).pipe(
         map((globFiles: string[][]) =>
@@ -67,7 +79,7 @@ export class RulesEngineExtractor {
     if (schema?.definitions?.['utils.DateTime']) {
       schema.definitions['utils.DateTime'] = {type: 'string', format: 'date-time'};
     }
-    return fs.writeFile(outputPath, JSON.stringify(schema, null, 2));
+    return schema;
   }
 
   /**
@@ -210,20 +222,53 @@ export class RulesEngineExtractor {
               const typeName = mainType.getText(source);
               const type = ts.isTypeReferenceNode(mainType) && typeName !== 'Date' ? 'object' : typeName.replace('Date', 'date') as FactSupportedTypes;
 
-              const fact: MetadataFact = {
-                name,
-                description,
-                type
-              };
+              let fact: MetadataFact;
 
               if (type === 'object') {
-                const schemaFile = `${strings.dasherize(typeName)}.schema.json`;
+                fact = {
+                  type: 'object',
+                  name,
+                  description
+                } as ObjectMetadataFact;
                 try {
-                  await this.extractTypeRef(typeName, sourceFile, path.resolve(schemaFolderFullPath, schemaFile));
-                  fact.schemaFile = path.join(schemaFolderRelativePath, schemaFile).replace(/[\\]/g, '/');
+                  const schema = await this.extractTypeRef(typeName, sourceFile);
+                  if (schema === null) {
+                    this.logger.warn(`Schema of ${typeName} is null.`);
+                  } else if (schema.type === 'object') {
+                    const schemaFile = `${strings.dasherize(typeName)}.schema.json`;
+                    await fs.writeFile(path.resolve(schemaFolderFullPath, schemaFile), JSON.stringify(schema, null, 2));
+                    fact = {
+                      ...fact,
+                      schemaFile: path.join(schemaFolderRelativePath, schemaFile).replace(/[\\]/g, '/')
+                    } as ObjectMetadataFact;
+                  } else if (schema.type === 'array') {
+                    fact = {
+                      ...fact,
+                      type: 'array',
+                      items: schema.items as MetadataFact
+                    } as ArrayMetadataFact;
+                  } else if (schema.enum) {
+                    fact = {
+                      ...fact,
+                      type: 'string',
+                      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+                      enum: schema.enum?.filter((value): value is JSONSchema7Type => !!value).map((v) => v!.toString())
+                    } as EnumMetadataFact;
+                  } else {
+                    fact = {
+                      ...fact,
+                      type: schema.type as FactSupportedTypes
+                    } as OtherMetadataFact;
+                  }
                 } catch {
                   this.logger.warn(`Error when parsing ${type} in ${sourceFile}`);
                 }
+              } else {
+                fact = {
+                  type: type as unknown,
+                  name,
+                  description
+                } as OtherMetadataFact;
               }
               return fact;
             })

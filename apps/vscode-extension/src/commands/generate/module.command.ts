@@ -6,7 +6,6 @@ import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } 
 
 /**
  * Generate new Otter Module command
- *
  * @param _context
  * @param folder
  * @returns

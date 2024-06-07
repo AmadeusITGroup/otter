@@ -19,6 +19,14 @@
       "description": "Extract the Design Token specification from SCSS",
       "factory": "./schematics/extract-token/index#extractToken",
       "schema": "./schematics/extract-token/schema.json"
+    },
+    "design-token-to-component": {
+      "description": "Add design token to an Otter component",
+      "factory": "./schematics/design-token-to-component/index#ngAddDesignToken",
+      "schema": "./schematics/design-token-to-component/schema.json",
+      "aliases": [
+        "add-design-token"
+      ]
     }
   }
 }

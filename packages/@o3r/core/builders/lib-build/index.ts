@@ -4,12 +4,13 @@ import { promises as fs } from 'node:fs';
 import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
 import * as ts from 'typescript';
+import { createBuilderWithMetricsIfInstalled } from '../utils';
 import { LibraryBuilderSchema } from './schema';
 
 /** List of option dedicated to this build which should not be propagated to target build */
 const libBuildOptions = ['target', 'skipJasmineFixtureWorkaround'];
 
-export default createBuilder<LibraryBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   const specifiedRoot = context.target?.project && (await context.getProjectMetadata(context.target.project)).root?.toString();
   const ROOT_PATH = specifiedRoot ? path.resolve(context.workspaceRoot, specifiedRoot) : context.currentDirectory;
   const SRC_PATH = path.resolve(ROOT_PATH, 'src');
@@ -66,4 +67,4 @@ export default createBuilder<LibraryBuilderSchema>(async (options, context): Pro
       resolve(buildResult);
     })) :
     tearDown().then(() => buildResult);
-});
+}));

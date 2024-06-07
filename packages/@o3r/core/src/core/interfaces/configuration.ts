@@ -14,30 +14,11 @@ export interface NestedConfiguration {
 }
 
 /**
- * @Deprecated will be removed in v10. Please use Configuration instead
- * Generic configuration
- */
-export interface LegacyConfiguration {
-  [key: string]: ConfigurationValueType | Partial<LegacyConfiguration> | (ConfigurationValueType | Partial<LegacyConfiguration>)[] | undefined;
-}
-
-/**
  * Interface of configuration that is supported by the cms
  */
-export interface StrictConfiguration {
+export interface Configuration {
   [key: string]: ConfigurationValueType | (string | NestedConfiguration)[];
 }
-
-/**
- * Configuration mode
- */
-export type ConfigurationMode = 'legacy' | 'strict';
-
-/**
- * Interface of configuration that is supported by the cms
- * NOTE: specify "legacy" as parameter type to disable strict mode and allow values not supported by the CMS. This option is strongly not recommended and deprecated.
- */
-export type Configuration<T extends ConfigurationMode = 'strict'> = T extends 'strict' ? StrictConfiguration : LegacyConfiguration;
 
 /** Configuration model exported by the CMS */
 export interface CustomConfig<T extends Partial<Configuration> = Partial<Configuration>> {
@@ -54,10 +35,9 @@ export interface CustomConfig<T extends Partial<Configuration> = Partial<Configu
 
 /**
  * Dynamically Configurable item
- * NOTE: specify "legacy" as second parameter type to disable strict mode and allow values not supported by the CMS. This option is strongly not recommended and deprecated.
  */
 // eslint-disable-next-line no-use-before-define
-export interface DynamicConfigurable<T extends Configuration<U>, U extends ConfigurationMode = 'strict'> {
+export interface DynamicConfigurable<T extends Configuration> {
   /**
    * Configuration override
    */

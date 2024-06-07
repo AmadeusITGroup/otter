@@ -5,13 +5,18 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+[![downloads](https://img.shields.io/npm/dm/@o3r/core?style=for-the-badge)](https://www.npmjs.com/package/@o3r/create)
+
 The **Otter** project is a highly modular framework whose goal is to provide a common platform to accelerate and facilitate the development on Angular web applications.
 It is split into several units to cover different aspects of these applications (localization, testing, customization, etc.).
 Also, to customize an application, metadata can be extracted from the application source code and injected into a CMS to manage dynamic configuration.
 
-> **Note**: The full documentation is available [here](./docs/README.md). 
-> 
-> **Note**: A showcase to help you integrate some simple use case is available [here](https://amadeusitgroup.github.io/otter/#/home) 
+> [!TIP]
+> The full list of modules and their documentation is available in the [/docs folder](./docs/README.md).
+> An overview of the technical module interactions and the architecture of the dependencies is available in the [architecture section](./docs/core/ARCHITECTURE.md).
+>
+> A demonstration of a list of features provided by Otter is accessible on the [showcase application](https://amadeusitgroup.github.io/otter/#/home).
 
 ## Built With
 
@@ -31,7 +36,8 @@ A new application can be set up with this simple command:
 npm create @o3r my-app
 ```
 
-> **Note**: Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
+> [!TIP]
+> Please refer to [Otter Get Started](./docs/core/START_NEW_APPLICATION.md) and [Angular Get Started](https://angular.io/guide/setup-local#install-the-angular-cli) for complete documentation.
 
 ## Contributing
 
@@ -74,6 +80,7 @@ It also explains the basic mechanics of using `git`, `node`, and `npm`.
     * [Manage task cache](#manage-task-cache)
     * [Debugging with Visual Studio Code](#debugging-with-visual-studio-code)
     * [Link local packages](#link-local-packages)
+    * [SSL Certificate issue (behind proxy)](#ssl-certificate-issue-behind-proxy)
 
 Refer to the [contribution guidelines](./CONTRIBUTING.md)
 if you'd like to contribute to the framework.
@@ -91,7 +98,7 @@ following products on your development machine:
 * [Node.js](http://nodejs.org), (version `>=18.0.0`)
   * This is used to run tests and generate distributable files. We strongly encourage to use an up-to-date LTS version of Node.js to ensure the support of all the Otter packages.
     Each package comes with a minimum Node.js version range defined in the `engine` property of its package.json file.
-  
+
 * [Yarn](https://yarnpkg.com/lang/en/docs/install/), a Node's Package Manager
   * You can install yarn using NPM manager (coming with Node.js).
     The version of Yarn currently used is embedded in the repository and it can be installed using the provided Node.js [corepack](https://yarnpkg.com/getting-started/install).
@@ -132,7 +139,8 @@ Each module can be built independently thanks to [Nx](https://nx.dev/packages/nx
 yarn nx build core
 ```
 
-> **Note**: Results are put in the `dist` of each module (`packages/@<scope>/<module>/dist`).
+> [!NOTE]
+> Results are put in the `dist` of each module (`packages/@<scope>/<module>/dist`).
 
 #### Running tests locally
 
@@ -214,3 +222,16 @@ Example:
   }
 }
 ```
+
+#### SSL Certificate issue (behind proxy)
+
+Due to proxy redirection you may face an SSL certificate issue on Yarn when installing the Otter project locally:
+
+```
+Request Error: self-signed certificate in certificate chain
+```
+
+To solve this, you can provide your own certificate in two different ways:
+
+* Specify your certificate path in the Environment Variable [NODE_EXTRA_CA_CERTS](https://nodejs.org/docs/latest-v4.x/api/cli.html#cli_node_extra_ca_certs_file).
+* Specify your certificate path in the Yarn configuration [httpsCertFilePath](https://yarnpkg.com/configuration/yarnrc#httpsCertFilePath).

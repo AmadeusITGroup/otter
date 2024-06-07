@@ -4,7 +4,6 @@ import { RulesetExecutor } from '../ruleset-executor';
 
 /**
  * Filter the actions outputted by the rules engine, based on active rulesets
- *
  * @param restrictiveRuleSets list of rules sets to get the event stream for
  */
 export function filterRulesetsEventStream(restrictiveRuleSets?: string[]) {

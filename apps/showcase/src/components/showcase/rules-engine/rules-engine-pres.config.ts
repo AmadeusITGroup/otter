@@ -1,4 +1,4 @@
-import {computeConfigurationName} from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import type {Configuration, NestedConfiguration} from '@o3r/core';
 
 /** Configuration of a destination */
@@ -39,4 +39,4 @@ export const RULES_ENGINE_PRES_DEFAULT_CONFIG: RulesEnginePresConfig = {
   shouldProposeRoundTrip: false
 };
 
-export const RULES_ENGINE_PRES_CONFIG_ID = computeConfigurationName('RulesEnginePresConfig', 'showcase');
+export const RULES_ENGINE_PRES_CONFIG_ID = computeItemIdentifier('RulesEnginePresConfig', 'showcase');

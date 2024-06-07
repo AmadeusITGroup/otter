@@ -23,7 +23,6 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
 
 /**
  * Check if a message can be cast as an {@link ImpervaCaptchaMessage}
- *
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {
@@ -45,10 +44,9 @@ export type TimeoutPauseEventHandlerFactory<T> = (config?: Partial<T>) => Timeou
 /**
  * Captures Imperva captcha events and calls the event callback
  * It can only be used for browser's integrating imperva captcha
- *
  * @param config: list of host names that can trigger a captcha event
- *
- * @return removeEventListener
+ * @param config
+ * @returns removeEventListener
  */
 export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<{ whiteListedHostNames: string[] }> = (config) =>
   (timeoutPauseCallback: (timeoutStatus: TimeoutStatus) => void) => {
@@ -80,11 +78,10 @@ export class TimeoutFetch implements FetchPlugin {
 
   /**
    * Timeout Fetch plugin.
-   *
    * @param timeout Timeout in millisecond
    * @param timeoutPauseEvent Event that will trigger the pause and reset of the timeout
    */
-  constructor(timeout = 60000, private timeoutPauseEvent?: TimeoutPauseEventHandler) {
+  constructor(timeout = 60000, private readonly timeoutPauseEvent?: TimeoutPauseEventHandler) {
     this.timeout = timeout;
     if (this.timeoutPauseEvent) {
       this.timeoutPauseEvent((pausedStatus: TimeoutStatus) => {
@@ -108,9 +105,11 @@ export class TimeoutFetch implements FetchPlugin {
           const timerCallback = (pauseStatus: TimeoutStatus) => {
             if (timer && pauseStatus === 'timeoutStopped') {
               clearTimeout(timer);
+              (context.logger || console).log('[SDK Plugins] Timeout cancelled.');
               timer = undefined;
             } else if (!timer && pauseStatus === 'timeoutStarted') {
               timer = setTimeout(timeoutCallback, this.timeout);
+              (context.logger || console).log('[SDK Plugins] Timeout restarted.');
             }
           };
           this.timerSubscription.push(timerCallback);

@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/apis-manager?style=for-the-badge)](https://www.npmjs.com/package/@o3r/apis-manager)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/apis-manager?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/apis-manager)
+
 This module provides services to help you communicate with your APIs. Its responsibility is to provide an API configuration to a service factory so that it could instantiate an API with the right configurations.
 
 It contains a default configuration and a map of specific configurations for API / set of API.
@@ -21,7 +24,8 @@ one.
 ng add @o3r/apis-manager
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Usage
 
@@ -108,7 +112,8 @@ class MyClass {
 }
 ```
 
-> **Warning** : Do not forget to import the **ApiManagerModule** in you component module
+> [!WARNING]
+> Do not forget to import the **ApiManagerModule** in you component module
 
 ### Enforce custom API usage
 
@@ -149,7 +154,8 @@ class MyClass {
 }
 ```
 
-> **Note** : Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
+> [!NOTE]
+> Even though the components that you reuse from a library are importing @shared/sdk, the ApiFactoryService will provide at runtime the one that you provided in your app module
 
 ### Override configuration after instantiation
 

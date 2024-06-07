@@ -16,7 +16,7 @@ describe('Reviver Reply Plugin', () => {
 
     await runner.transform(data);
 
-    expect(reviver).toHaveBeenCalledWith(data, undefined);
+    expect(reviver).toHaveBeenCalledWith(data, undefined, expect.any(Object));
   });
 
   it('should revive a specific data and dictionary', async () => {
@@ -32,7 +32,7 @@ describe('Reviver Reply Plugin', () => {
 
     await runner.transform(data);
 
-    expect(reviver).toHaveBeenCalledWith(data, dictionaries);
+    expect(reviver).toHaveBeenCalledWith(data, dictionaries, expect.any(Object));
   });
 
   it('should revive empty object in case of undefined data', async () => {

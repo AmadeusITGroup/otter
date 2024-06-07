@@ -14,8 +14,7 @@
     },
     "outputPath": {
       "type": "string",
-      "description": "Output path to localization bundles",
-      "default": "."
+      "description": "Output path to localization bundles"
     },
     "locales": {
       "type": "array",

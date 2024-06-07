@@ -1,5 +1,5 @@
-import { TSESLint } from '@typescript-eslint/experimental-utils';
-import { createRule, defaultSupportedInterfaceNames, isExtendingConfiguration } from '../../utils';
+import { TSESLint } from '@typescript-eslint/utils';
+import { createCommentString, createRule, defaultSupportedInterfaceNames, getNodeComment, isExtendingConfiguration } from '../../utils';
 
 const o3rWidgetParameterPattern = '^[a-zA-Z0-9-_:.]+$';
 
@@ -10,7 +10,7 @@ const o3rWidgetParamTypes: O3rWidgetParamType[] = ['string', 'number', 'boolean'
 
 export interface O3rWidgetTagsRuleOption {
   supportedInterfaceNames?: string[];
-  widgets: {
+  widgets?: {
     [widgetName: string]: {
       [paramName: string]: {
         type: O3rWidgetParamType;
@@ -35,14 +35,12 @@ type O3rWidgetRuleErrorId =
   | 'suggestAddO3rWidgetTag'
   | 'suggestReplaceO3rWidgetType';
 
-const createCommentString = (comment: string) => `/*${comment}*/`;
-
 const defaultOptions: [Required<O3rWidgetTagsRuleOption>] = [{
   supportedInterfaceNames: defaultSupportedInterfaceNames,
   widgets: {}
 }];
 
-export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidgetRuleErrorId>({
+export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidgetRuleErrorId>({
   name: 'o3r-widget-tags',
   meta: {
     hasSuggestions: true,
@@ -50,7 +48,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
     type: 'problem',
     docs: {
       description: 'Ensures that @o3rWidget and @o3rWidgetParam are used with correct value',
-      recommended: 'error'
+      recommended: 'strict'
     },
     schema: [
       {
@@ -65,6 +63,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
             default: defaultSupportedInterfaceNames
           },
           widgets: {
+            type: 'object',
             additionalProperties: {
               type: 'object',
               additionalProperties: false,
@@ -105,13 +104,13 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
     }
   },
   defaultOptions,
-  create: (context, [options]: [Required<O3rWidgetTagsRuleOption>]) => {
-    const supportedO3rWidgets = new Set(Object.keys(options.widgets));
+  create: (context, [options]: Readonly<[O3rWidgetTagsRuleOption, ...any]>) => {
+    const supportedO3rWidgets = new Set(Object.keys(options.widgets!));
     return {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       TSPropertySignature: (node) => {
         const sourceCode = context.getSourceCode();
-        const [comment] = sourceCode.getCommentsBefore(node);
+        const comment = getNodeComment(node, sourceCode);
 
         if (!comment || !comment.value.length) {
           return;
@@ -203,7 +202,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
           };
         });
         const widgetParameterNames = widgetParameters.map(({ name }) => name);
-        const supportedO3rWidgetParam = new Set(Object.keys(options.widgets[widgetType]));
+        const supportedO3rWidgetParam = new Set(Object.keys(options.widgets![widgetType]));
         const checkedParam = new Set();
 
         for (const widgetParameterName of widgetParameterNames) {
@@ -256,7 +255,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
           checkedParam.add(widgetParameterName);
         }
 
-        const firstRequiredParam = Object.entries(options.widgets[widgetType]).find(([param, { required }]) => required && !checkedParam.has(param));
+        const firstRequiredParam = Object.entries(options.widgets![widgetType]).find(([param, { required }]) => required && !checkedParam.has(param));
         if (firstRequiredParam) {
           const [firstRequiredParamName] = firstRequiredParam;
           const fix: TSESLint.ReportFixFunction = (fixer) => {
@@ -286,7 +285,7 @@ export default createRule<[Required<O3rWidgetTagsRuleOption>, ...any], O3rWidget
 
         for (const widgetParameter of widgetParameters) {
           const { name, textValue } = widgetParameter;
-          const supportedTypeForParam = options.widgets[widgetType][name];
+          const supportedTypeForParam = options.widgets![widgetType][name];
 
           try {
             const value = JSON.parse(textValue);

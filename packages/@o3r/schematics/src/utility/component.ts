@@ -1,4 +1,4 @@
-import { Tree } from '@angular-devkit/schematics';
+import type { Tree } from '@angular-devkit/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import * as ts from 'typescript';
 import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
@@ -6,7 +6,6 @@ import { O3rCliError } from './error';
 
 /**
  * Returns true if `node` is the decorator of an Angular component
- *
  * @param node
  */
 export const isNgClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
@@ -15,7 +14,6 @@ export const isNgClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
 
 /**
  * Returns true if `node` is the decorator of an Otter component
- *
  * @param node
  */
 export const isO3rClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
@@ -24,14 +22,12 @@ export const isO3rClassDecorator = (node: ts.Node): node is DecoratorWithArg =>
 
 /**
  * Returns true if `classDeclaration` is an Otter component
- *
  * @param classDeclaration
  */
 export const isNgClassComponent = (classDeclaration: ts.ClassDeclaration) => (ts.getDecorators(classDeclaration) || []).some(isNgClassDecorator);
 
 /**
  * Returns true if `classDeclaration` is an Otter component
- *
  * @param classDeclaration
  */
 export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
@@ -52,7 +48,6 @@ export class NoOtterComponent extends Error {
 
 /**
  * Returns Otter component information
- *
  * @param tree
  * @param componentPath
  */
@@ -120,7 +115,6 @@ export const getO3rComponentInfoOrThrowIfNotFound = (tree: Tree, componentPath: 
 
 /**
  * Transformer factory to add imports into the angular component decorator
- *
  * @param imports
  */
 export const addImportsIntoComponentDecoratorTransformerFactory = (

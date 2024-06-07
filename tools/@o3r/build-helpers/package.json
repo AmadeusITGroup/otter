@@ -13,6 +13,7 @@
     "scripts/*.mjs"
   ],
   "bin": {
+    "clear-package-json-dev-dependencies": "./scripts/clear-package-json-dev-dependencies.mjs",
     "cp-assets": "./scripts/cp-assets.mjs",
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
@@ -27,27 +28,28 @@
     "update-package": "./scripts/update-package.mjs"
   },
   "dependencies": {
-    "globby": "^13.1.2",
+    "globby": "^14.0.0",
     "minimist": "^1.2.6"
   },
   "peerDependencies": {
-    "typescript": "~5.1.6"
+    "typescript": "~5.4.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~16.3.0",
-    "@nx/eslint-plugin": "~16.10.0",
+    "@angular-eslint/eslint-plugin": "~17.3.0",
+    "@nx/eslint-plugin": "~18.2.0",
     "@o3r/eslint-plugin": "workspace:^",
-    "@types/node": "^18.0.0",
-    "@typescript-eslint/eslint-plugin": "^5.60.1",
-    "@typescript-eslint/parser": "^5.60.1",
-    "eslint": "^8.42.0",
-    "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-jest": "~27.6.0",
-    "eslint-plugin-jsdoc": "~46.10.0",
+    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-plugin-jest": "~27.9.0",
+    "eslint-plugin-jsdoc": "~48.2.1",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^47.0.0",
-    "nx": "~16.10.0",
-    "typescript": "~5.1.6"
+    "eslint-plugin-unicorn": "^51.0.1",
+    "nx": "~18.2.0",
+    "typescript": "~5.4.2"
   },
   "otter": {
     "versionHarmonize": {

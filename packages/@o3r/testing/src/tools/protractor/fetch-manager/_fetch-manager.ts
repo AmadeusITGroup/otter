@@ -17,7 +17,7 @@
     // eslint-disable-next-line no-use-before-define
     private static _instance: FetchManager;
     private nbCurrentFetch = 0;
-    private windowFetch: any;
+    private readonly windowFetch: any;
 
     private constructor() {}
 
@@ -93,7 +93,6 @@
      * It permits to easily run synchronous tests with protractor.
      * This is very usefull in the case of Otter calls to backend because protractor synchronization manager do not care
      * about fetchs calls. As a consequence, the `waitForAngular` method will not work.
-     *
      * @param callback : Callback called when all the fetchs are finished and the page is stable.
      * @param timeoutInterval : Interval in milliseconds between two checks of the number of pending fetchs
      */

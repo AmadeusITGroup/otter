@@ -10,8 +10,8 @@ There are two modes:
 - DeepLink, which just appends a provided token to the headers.
     It is used if deepLinkOptions is provided, overriding the JWT Encoder.
 
-> **Note**: the tokenization should be enabled in the ApiClient to use the JWT Encoder mode but it's
-not necessary for the DeepLink mode.
+> [!IMPORTANT]
+> The tokenization should be enabled in the `ApiClient` to use the JWT Encoder mode but it's not necessary for the DeepLink mode.
 
 ### Type of plugins
 

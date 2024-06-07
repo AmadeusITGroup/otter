@@ -14,8 +14,11 @@ Example of a ESLint configuration:
   "plugins": [
     "@o3r"
   ],
+  "files": [
+    "**/package.json"
+  ],
   "extends": [
-    "@o3r:recommended-json"
+    "@o3r:json-recommended"
   ]
 }
 ```

@@ -23,7 +23,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
 
 /**
  * Determine if the given value is a promise
- *
  * @param value The value to test
  */
 const isPromise = <T>(value: T | Promise<T>): value is Promise<T> => value && typeof (value as any).then === 'function';
@@ -39,7 +38,6 @@ export class ApiBeaconClient implements ApiClient {
 
   /**
    * Initialize your API Client instance
-   *
    * @param options Configuration of the API Client
    */
   constructor(options: BaseApiBeaconClientConstructor) {

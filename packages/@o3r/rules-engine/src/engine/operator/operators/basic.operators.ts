@@ -3,7 +3,6 @@ import { Operator, SupportedSimpleTypes, UnaryOperator } from '../operator.inter
 
 /**
  * Check if a variable is equal to a specific value
- *
  * @title is equal to
  */
 export const equals: Operator = {
@@ -14,7 +13,6 @@ export const equals: Operator = {
 
 /**
  * Check if a variable is different from a specific value
- *
  * @title is not equal to
  */
 export const notEquals: Operator = {
@@ -25,7 +23,6 @@ export const notEquals: Operator = {
 
 /**
  * Check if the variable's value is included in a specified list
- *
  * @title is in
  */
 export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
@@ -37,7 +34,6 @@ export const inArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
 
 /**
  * Check if the variable's value is not included in the value list
- *
  * @title is not in
  */
 export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> = {
@@ -49,7 +45,6 @@ export const notInArray: Operator<SupportedSimpleTypes, SupportedSimpleTypes[]> 
 
 /**
  * Check if the text variable is part of the specified value
- *
  * @title within
  */
 export const inString: Operator<string, string> = {
@@ -61,7 +56,6 @@ export const inString: Operator<string, string> = {
 
 /**
  * Check if the text variable is not part of the specified value
- *
  * @title not within
  */
 export const notInString: Operator<string, string> = {
@@ -73,7 +67,6 @@ export const notInString: Operator<string, string> = {
 
 /**
  * Check if the variable and its value are defined
- *
  * @title is defined
  */
 export const isDefined: UnaryOperator<any> = {
@@ -83,7 +76,6 @@ export const isDefined: UnaryOperator<any> = {
 
 /**
  * Check if the variable and its value are undefined
- *
  * @title is not defined
  */
 export const isUndefined: UnaryOperator<any> = {
@@ -93,7 +85,6 @@ export const isUndefined: UnaryOperator<any> = {
 
 /**
  * Check if the text variable matches the specified RegExp pattern
- *
  * @title matches the pattern
  */
 export const matchesPattern: Operator<string, string> = {

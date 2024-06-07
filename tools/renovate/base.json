@@ -1,0 +1,187 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    "group:allNonMajor",
+    "group:monorepos",
+    "group:recommended",
+    "group:test",
+    "group:linters",
+    "helpers:pinGitHubActionDigestsToSemver",
+    "schedule:nonOfficeHours"
+  ],
+  "hostRules": [
+    {
+      "timeout": 240000
+    }
+  ],
+  "baseBranches": [
+    "main",
+    "master",
+    "/^release\\/.*-next$/"
+  ],
+  "timezone": "Europe/Paris",
+  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
+  "enabledManagers": [
+    "npm",
+    "github-actions"
+  ],
+  "npm": {
+    "stabilityDays": 0
+  },
+  "updateInternalDeps": true,
+  "postUpdateOptions": [
+    "yarnDedupeHighest"
+  ],
+  "labels": [
+    "dependencies"
+  ],
+  "automerge": true,
+  "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": [
+      "before 4am on monday"
+    ]
+  },
+  "packageRules": [
+    {
+      "matchPackagePatterns": [
+        "*"
+      ],
+      "automerge": true,
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchManagers":[
+        "yarn"
+      ],
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      }
+    },
+    {
+      "matchManagers": [
+        "npm"
+      ],
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
+      "rangeStrategy": "auto",
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    },
+    {
+      "matchPackagePatterns": [
+        "^@angular",
+        "^ng-packagr",
+        "^@schematics",
+        "angular",
+        "^@ngrx",
+        "^zone.js",
+        "^@nrwl",
+        "^@nx",
+        "^nx"
+      ],
+      "groupName": "Angular dependencies",
+      "groupSlug": "angular-dependencies"
+    },
+    {
+      "matchPackagePatterns": [
+        "typescript",
+        "tslib"
+      ],
+      "groupName": "Typescript dependencies",
+      "groupSlug": "typescript-dependencies"
+    },
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "rangeStrategy": "in-range-only"
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "main",
+        "master",
+        "/^release/"
+      ],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchBaseBranches": [
+        "/^release/"
+      ],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": [
+        "typescript"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "rangeStrategy": "replace"
+    },
+    {
+      "matchUpdateTypes": [
+        "major"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "groupName": "Major dependencies",
+      "groupSlug": "major-dependencies",
+      "enabled": true
+    },
+    {
+      "matchManagers": [
+        "yarn"
+      ],
+      "matchPackageNames": [
+        "typescript",
+        "eslint"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn dlx @yarnpkg/sdks"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          ".yarn/sdks/**"
+        ]
+      }
+    }
+  ]
+}

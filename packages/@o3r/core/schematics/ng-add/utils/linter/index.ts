@@ -13,11 +13,11 @@ export const shouldOtterLinterBeInstalled = async (context: SchematicContext): P
   try {
     require.resolve(`${linterPackageName}/package.json`);
     if (context.interactive) {
-      useOtterLinter = await askConfirmation(`You already have eslint installed. Would you like to add otter config rules for eslint ?
+      useOtterLinter = await askConfirmation(`You already have eslint installed. Would you like to add otter config rules for eslint?
 Otherwise, you can add them later via this command: ng add @o3r/eslint-config-otter`, true);
     }
   } catch {
-    context.logger.info(`eslint package not installed. Skipping otter linter phase !
+    context.logger.info(`eslint package not installed. Skipping otter linter phase!
 You can add otter linter config rules later to the project via this command: ng add @o3r/eslint-config-otter`);
   }
 

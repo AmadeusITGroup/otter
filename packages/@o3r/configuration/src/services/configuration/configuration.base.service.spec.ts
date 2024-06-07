@@ -22,7 +22,7 @@ const additionalConfig = {
   additionalField: 10
 };
 
-const globalConfig = {'demo-cabinCodeEco': 'ECO1', 'refx-priceDisplay': 'short'};
+const globalConfig = {'demo-cabinCodeEco': 'ECO1', 'priceDisplay': 'short'};
 
 const staticConfig: CustomConfig[] = [{
   name: 'SearchTypePresenter',

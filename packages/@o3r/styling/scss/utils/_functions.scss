@@ -72,9 +72,18 @@ $test-mode-enabled: false !default;
 
 /// Report variable creation for metadata
 /// @access private
-@function log-variable($name, $value: null, $details: null) {
+@function log-variable($name, $value: null, $details: null, $metadata-black-list-pattern: ()) {
   $metadata-debug: false !default;
-  @if (meta.function-exists('metadata-report')) {
+  $is-blacked-listed-property: false;
+
+  @if list.length($metadata-black-list-pattern) > 0 {
+    @for $i from 1 to list.length($metadata-black-list-pattern) + 1 {
+      $pattern: list.nth($metadata-black-list-pattern, $i);
+      $is-blacked-listed-property: $is-blacked-listed-property or string.index($name, $pattern) != null;
+    }
+  }
+
+  @if (meta.function-exists('metadata-report') and not $is-blacked-listed-property) {
     $metadata-debug: metadata-report($name, $value, $details);
   }
   @return $metadata-debug;

@@ -7,32 +7,37 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile"
-      ]
+      "dependsOn": ["compile", "build-builders"]
     },
-    "compile": {
-      "executor": "@nx/js:tsc",
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/stylelint-plugin/src/public_api.ts",
-        "tsConfig": "packages/@o3r/stylelint-plugin/tsconfig.build.json",
-        "outputPath": "packages/@o3r/stylelint-plugin/dist"
+        "script": "prepare:build:builders"
       }
     },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "outputs": [
+        "{projectRoot}/dist/**/*.mjs",
+        "{projectRoot}/dist/**/*.d.mts",
+        "{projectRoot}/dist/**/*.d.mts.map"
+      ],
+      "options": {
+        "script": "build:source"
       },
+      "dependsOn": ["^build"]
+    },
+    "lint": {
       "options": {
         "eslintConfig": "packages/@o3r/stylelint-plugin/.eslintrc.js",
         "lintFilePatterns": [
@@ -44,12 +49,14 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js",
-        "silent": true
-      },
-      "dependsOn": [
-        "build"
-      ]
+        "jestConfig": "packages/@o3r/stylelint-plugin/jest.config.js"
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/stylelint-plugin/testing/jest.config.it.js"
+      }
     },
     "prepare-publish": {
       "executor": "nx:run-script",

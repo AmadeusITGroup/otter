@@ -2,7 +2,7 @@ import type { SchematicOptionObject } from '@o3r/schematics';
 
 export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicOptionObject {
   /** Project name (NPM package scope, package.json name will be @{projectName}/{packageName}) */
-  name: string;
+  name?: string;
 
   /** Package name (package.json name will be @{projectName}/{packageName}) */
   package: string;
@@ -18,4 +18,7 @@ export interface NgGenerateTypescriptSDKShellSchematicsSchema extends SchematicO
 
   /** Skip NPM install */
   skipInstall: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

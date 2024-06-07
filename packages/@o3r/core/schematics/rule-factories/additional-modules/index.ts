@@ -1,18 +1,21 @@
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   getAppModuleFilePath,
-  getProjectNewDependenciesType,
+  getProjectNewDependenciesTypes,
   getWorkspaceConfig,
-  ngAddPeerDependencyPackages,
-  addImportToModuleFile as o3rAddImportToModuleFile
+  type SetupDependenciesOptions
 } from '@o3r/schematics';
 import * as ts from 'typescript';
-import { getDecoratorMetadata, insertImport, isImported } from '@schematics/angular/utility/ast-utils';
+import { addRootImport } from '@schematics/angular/utility';
+import { insertImport, isImported } from '@schematics/angular/utility/ast-utils';
 import { InsertChange } from '@schematics/angular/utility/change';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
+import type { PackageJson } from 'type-fest';
+import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
 
 /**
@@ -20,26 +23,31 @@ const ngrxStoreDevtoolsDep = '@ngrx/store-devtools';
  * @param options @see RuleFactory.options
  * @param options.projectName
  * @param options.workingDirectory the directory where to execute the rule factory
- * @param _rootPath @see RuleFactory.rootPath
+ * @param dependenciesSetupConfig
  */
-export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, _rootPath: string): Rule {
+export function updateAdditionalModules(options: { projectName?: string | undefined; workingDirectory?: string | undefined }, dependenciesSetupConfig: SetupDependenciesOptions): Rule {
   /**
    * Update package.json to add additional modules dependencies
    * @param tree
-   * @param context
    */
-  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
+  const updatePackageJson: Rule = (tree) => {
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    const type: NodeDependencyType = getProjectNewDependenciesType(workspaceProject);
-    const generatorDependencies = [ngrxStoreDevtoolsDep];
+    const types = getProjectNewDependenciesTypes(workspaceProject);
+    dependenciesSetupConfig.dependencies.chokidar = {
+      inManifest: [{
+        range: packageJson.peerDependencies!.chokidar,
+        types: [NodeDependencyType.Dev]
+      }]
+    };
 
-    try {
-      return ngAddPeerDependencyPackages(generatorDependencies, packageJsonPath, type, {...options, skipNgAddSchematicRun: true});
-    } catch (e) {
-      context.logger.warn(`Could not find generatorDependencies ${generatorDependencies.join(', ')} in file ${packageJsonPath}`);
-    }
+    dependenciesSetupConfig.dependencies[ngrxStoreDevtoolsDep] = {
+      inManifest: [{
+        range: packageJson.generatorDependencies[ngrxStoreDevtoolsDep],
+        types
+      }]
+    };
+
     return tree;
-
   };
 
   /**
@@ -48,6 +56,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
    * @param context
    */
   const registerModules: Rule = (tree: Tree, context: SchematicContext) => {
+    const additionalRules: Rule[] = [];
     const moduleFilePath = getAppModuleFilePath(tree, context, options.projectName);
     if (!moduleFilePath) {
       return tree;
@@ -65,21 +74,16 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       return tree;
     }
 
-    const recorder = tree.beginUpdate(moduleFilePath);
-    const ngModulesMetadata = getDecoratorMetadata(sourceFile, 'NgModule', '@angular/core');
-    const moduleIndex = ngModulesMetadata[0] ? ngModulesMetadata[0].pos - ('NgModule'.length + 1) : sourceFileContent.indexOf('@NgModule');
-
-    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) =>
-      o3rAddImportToModuleFile(name, file, sourceFile, sourceFileContent, context, recorder, moduleFilePath, moduleIndex, moduleFunction);
+    const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
+      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+    );
 
     addImportToModuleFile(
       'additionalModules',
       '../environments/environment'
     );
 
-    tree.commitUpdate(recorder);
-
-    return tree;
+    return chain(additionalRules)(tree, context);
   };
 
   /**
@@ -111,12 +115,13 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       context.logger.warn('No application detected in the project, the development modules will not be added.');
       return tree;
     }
+    const mainFilePath = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
 
     // supposing we are in ng 15, the env dev file name is environment.development.ts
-    let envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.development.ts');
+    let envDevFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.development.ts');
     if (!tree.exists(envDevFilePath)) {
       // we are in ng 14, environment dev file name is: environment.ts
-      envDevFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+      envDevFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.ts');
     }
     if (!tree.exists(envDevFilePath)) { // if we don't use the env setup, we skip the step
       context.logger.warn(` Cannot find environment in ${envDevFilePath}`);
@@ -179,13 +184,14 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
       context.logger.warn('No application detected in the project, the development modules will not be added.');
       return tree;
     }
+    const mainFilePath = workspaceProject.architect!.build.options.main ?? workspaceProject.architect!.build.options.browser;
 
     // supposing we are in ng 14, environment prod file name is: environment.prod.ts
-    let envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.prod.ts');
+    let envProdFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.prod.ts');
 
     if (!tree.exists(envProdFilePath)) {
       // we are in ng 15, environment prod file name is: environment.ts
-      envProdFilePath = path.join(path.dirname(workspaceProject.architect!.build.options.main), 'environments', 'environment.ts');
+      envProdFilePath = path.join(path.dirname(mainFilePath), 'environments', 'environment.ts');
     }
 
     if (!tree.exists(envProdFilePath)) { // if we don't use the env setup, we skip the step

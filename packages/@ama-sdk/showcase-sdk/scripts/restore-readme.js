@@ -1,14 +1,13 @@
-const cpx = require('cpx');
+const fs = require('node:fs');
 const path = require('node:path');
 const util = require('util');
 const rimraf = require('rimraf');
 
-const copyFile = util.promisify(cpx.copy);
 const rimrafDir = util.promisify(rimraf);
 
 const root = path.resolve(__dirname, '..');
 
 (async () => {
-  await copyFile(path.join(root, '.readme-backup', 'readme.md'), root);
+  await fs.promises.copyFile(path.join(root, '.readme-backup', 'readme.md'), path.join(root, 'readme.md'));
   await rimrafDir(path.join(root, '.readme-backup'));
 })();

@@ -11,19 +11,21 @@ body:
     id: package-name
     attributes:
       label: Package name
-      description: Which package are you facing issue with?
+      description: Which package(s) are you facing issue with?
       multiple: true
       options: [
+        '- global -',
         amaterasu,
         analytics,
         apis-manager,
         application,
         build-helpers,
-        chrome-devtools
+        chrome-devtools,
         components,
         configuration,
         core,
         create,
+        design,
         dev-tools,
         dynamic-content,
         eslint-config-otter,
@@ -43,6 +45,7 @@ body:
         storybook,
         stylelint-plugin,
         styling,
+        telemetry,
         testing,
         third-party,
         workspace

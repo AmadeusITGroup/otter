@@ -6,7 +6,7 @@ import { Mock } from './mock';
  */
 export class RandomMockAdapter extends BaseMockAdapter {
 
-  private cache: Record<string, Mock> = {};
+  private readonly cache: Record<string, Mock> = {};
 
   private getSingleMock(mocks: Mock<any>[]) {
     const mockIndex = Math.floor(Math.random() * mocks.length);

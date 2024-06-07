@@ -18,6 +18,15 @@
         "jestConfig": "packages/@o3r/eslint-config-otter/jest.config.js"
       }
     },
+    "lint": {
+      "options": {
+        "eslintConfig": "packages/@o3r/eslint-config-otter/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@o3r/eslint-config-otter/*.cjs",
+          "packages/@o3r/eslint-config-otter/package.json"
+        ]
+      }
+    },
     "compile": {
       "executor": "nx:run-script",
       "options": {

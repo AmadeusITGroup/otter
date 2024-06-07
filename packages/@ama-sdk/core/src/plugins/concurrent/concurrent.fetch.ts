@@ -15,11 +15,10 @@ export class ConcurrentFetch implements FetchPlugin {
   private poolSize = 0;
 
   /** List of calls waiting to start */
-  private waitingResolvers: ((value: boolean) => void)[] = [];
+  private readonly waitingResolvers: ((value: boolean) => void)[] = [];
 
   /**
    * Concurrent Fetch plugin
-   *
    * @param maxConcurrentPoolSize Maximum number of concurrent call
    */
   constructor(maxConcurrentPoolSize = 10) {
@@ -59,6 +58,7 @@ export class ConcurrentFetch implements FetchPlugin {
         } catch (e) {
           throw e;
         } finally {
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
           this.pool = this.pool.filter((call) => call !== fetchCall);
           this.poolSize--;
           this.unstackResolve();

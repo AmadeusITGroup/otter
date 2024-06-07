@@ -4,6 +4,7 @@ import type { AvailableConfigurationMessageContents } from '@o3r/configuration';
 import type { CommonContentMessages } from '@o3r/core';
 import type { AvailableLocalizationMessageContents } from '@o3r/localization';
 import type { AvailableRulesEngineMessageContents } from '@o3r/rules-engine';
+import type { AvailableStylingMessageContents } from '@o3r/styling';
 
 export type AvailableMessageContents =
   | AvailableComponentsMessageContents
@@ -11,5 +12,6 @@ export type AvailableMessageContents =
   | AvailableLocalizationMessageContents
   | AvailableRulesEngineMessageContents
   | AvailableApplicationMessageContents
+  | AvailableStylingMessageContents
   | CommonContentMessages;
 

@@ -7,31 +7,30 @@
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
           <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative">
-            <ng-container *ngIf="form.value.destination; else simpleWelcome">
-              {{ translations.welcomeWithCityName | translate: { cityName: (translations.cityName + '.' + form.value.destination) | translate }  }}
-            </ng-container>
-            <ng-template #simpleWelcome>
-              {{ translations.welcome | translate }}
-            </ng-template>
+            @if (form.value.destination) {
+              {{ translations.welcomeWithCityName | o3rTranslate: { cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate }  }}
+            } @else {
+              {{ translations.welcome | o3rTranslate }}
+            }
             <div aria-hidden="true" class="bg-body-tertiary position-absolute start-0 top-50 border border-light-subtle border-3 border-end-0 border-bottom-0"></div>
           </h2>
         </div>
-        <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | translate }}</h3>
+        <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | o3rTranslate }}</h3>
         <form class="row g-2" [formGroup]="form">
           <div class="col-12 col-xl-6">
             <div class="input-group">
-              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | translate }}</label>
+              <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
               <select class="form-select" id="destination" formControlName="destination">
-                <option disabled selected value>{{ translations.destinationPlaceholder | translate }}</option>
-                <option value="LON">{{ (translations.cityName + '.LON') | translate }}</option>
-                <option value="PAR">{{ (translations.cityName + '.PAR') | translate }}</option>
-                <option value="NYC">{{ (translations.cityName + '.NYC') | translate }}</option>
+                <option disabled selected value>{{ translations.destinationPlaceholder | o3rTranslate }}</option>
+                <option value="LON">{{ (translations.cityName + '.LON') | o3rTranslate }}</option>
+                <option value="PAR">{{ (translations.cityName + '.PAR') | o3rTranslate }}</option>
+                <option value="NYC">{{ (translations.cityName + '.NYC') | o3rTranslate }}</option>
               </select>
             </div>
           </div>
           <div class="col-12 col-xl-6">
             <div class="input-group">
-              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | translate }}</label>
+              <label for="date-outbound" class="input-group-text w-50">{{ translations.departureLabel | o3rTranslate }}</label>
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>

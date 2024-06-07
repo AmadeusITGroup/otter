@@ -21,19 +21,19 @@ yarn add @o3r/rules-engine
 
 #### Rules Engine Module
 
-- The first module to integrate is the _RulesEngineModule_.
+- The first module to integrate is the _RulesEngineRunnerModule_.
 This will be done in the application module.
 
 ```typescript
 // app.module.ts
 ...
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerService } from '@o3r/rules-engine';
 ...
 
 @NgModule({
   imports: [
     ...
-    RulesEngineModule
+    RulesEngineRunnerService
   ]
   ...
 }
@@ -47,27 +47,80 @@ To avoid the dependency of the rules engine on all the modules it can possibly a
 
 The Actions available on the Rules Engine depend on the Otter modules imported by the app
 
-- __UPDATE_ASSET__: requires the import of `AssetPathOverrideStoreModule` from [@o3r/dynamic-content](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/dynamic-content/)
-- __UPDATE_LOCALISATION__: requires the import of `LocalizationOverrideStoreModule` from [@o3r/localization](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/)
-- __UPDATE_CONFIG__: requires the import of `ConfigOverrideStoreModule` from [@o3r/configuration](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/configuration/)
-- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderTemplateStoreModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/components/)
+- __UPDATE_ASSET__: requires the import of `AssetRulesEngineActionModule` from [@o3r/dynamic-content](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/dynamic-content/)
+- __UPDATE_LOCALISATION__: requires the import of `LocalizationRulesEngineActionModule` from [@o3r/localization](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/localization/)
+- __UPDATE_CONFIG__: requires the import of `ConfigurationRulesEngineActionModule` from [@o3r/configuration](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/configuration/)
+- __UPDATE_PLACEHOLDER__: requires the import of `PlaceholderRulesEngineActionModule` and `PlaceholderRequestStoreModule` from [@o3r/components](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/components/)
+
+When the modules have been load by the application they also need to be registered to the Rules Engine as done in the following example :
+
+```typescript
+// in app.module.ts
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
+import { PlaceholderRulesEngineActionModule } from '@o3r/components/rules-engine';
+import { LocalizationRulesEngineActionModule } from '@o3r/localization/rules-engine';
+import { AssetRulesEngineActionModule } from '@o3r/dynamic-content/rules-engine';
+import { ConfigurationRulesEngineActionModule } from '@o3r/configuration/rules-engine';
+
+@NgModule({
+  import: [
+    RulesEngineRunnerModule.forRoot(),
+    PlaceholderRulesEngineActionModule,
+    LocalizationRulesEngineActionModule,
+    AssetRulesEngineActionModule,
+    ConfigurationRulesEngineActionModule
+  ],
+
+  bootstrap: [AppComponent]
+})
+class AppModules { }
+```
+
+```typescript
+// in app.component.ts
+
+import { RulesEngineRunnerService } from '@o3r/rules-engine';
+import { PlaceholderRulesEngineActionHandler } from '@o3r/components/rules-engine';
+import { LocalizationRulesEngineActionHandler } from '@o3r/localization/rules-engine';
+import { AssetRulesEngineActionHandler } from '@o3r/dynamic-content/rules-engine';
+import { ConfigurationRulesEngineActionHandler } from '@o3r/configuration/rules-engine';
+
+@Component()
+export class AppComponent {
+
+  constructor(
+    rulesEngine: RulesEngineRunnerService,
+    PlaceholderRulesEngineActionHandler: PlaceholderRulesEngineActionHandler,
+    LocalizationRulesEngineActionHandler: LocalizationRulesEngineActionHandler,
+    AssetRulesEngineActionHandler: AssetRulesEngineActionHandler,
+    ConfigurationRulesEngineActionHandler: ConfigurationRulesEngineActionHandler,
+  ) {
+    ruleEngine.actionHandlers.add(PlaceholderRulesEngineActionHandler);
+    ruleEngine.actionHandlers.add(LocalizationRulesEngineActionHandler);
+    ruleEngine.actionHandlers.add(AssetRulesEngineActionHandler);
+    ruleEngine.actionHandlers.add(ConfigurationRulesEngineActionHandler);
+  }
+}
+```
+
+> __Note__: in case the Rules Engine results to an unregistered action, a warning will be raised to the reporter.
 
 #### Facts modules integration
 
 Facts are streams registered with the engine and their names can be referenced within rule conditions. At each fact change, the concerned rules will reevaluate. More about facts can be found in the dedicated page for [facts](../facts.md).
 
-There are some default facts in the rules-engine otter package (example purpose only!) which have been integrated in the demo app. As for the _RulesEngineModule_, the facts modules are registered in _app.module_.
+There are some default facts in the rules-engine otter package (example purpose only!) which have been integrated in the demo app. As for the _RulesEngineRunnerModule_, the facts modules are registered in _app.module_.
 
 ```typescript
 // app.module.ts
 ...
-import { DeviceDetectionFactsModule, RulesEngineModule } from '@o3r/rules-engine';
+import { DeviceDetectionFactsModule, RulesEngineRunnerModule } from '@o3r/rules-engine';
 ...
 
 @NgModule({
   imports: [
     ...
-    RulesEngineModule.forRoot(),
+    RulesEngineRunnerModule.forRoot(),
     DeviceDetectionFactsModule,
   ]
   ...
@@ -84,14 +137,14 @@ In the _app.module_ we have integrated the following facts modules, as we've don
 ```typescript
 // app.module.ts
 ...
-import { RulesEngineModule } from '@o3r/rules-engine';
+import { RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { DeviceDetectionFactsModule, PageFactsModule, SearchCriteriaFactsModule } from '../facts/index';
 ...
 
 @NgModule({
   imports: [
     ...
-    RulesEngineModule.forRoot(),
+    RulesEngineRunnerModule.forRoot(),
     SearchCriteriaFactsModule,
     PageFactsModule
   ]
@@ -100,17 +153,17 @@ import { DeviceDetectionFactsModule, PageFactsModule, SearchCriteriaFactsModule 
 export class AppModule {}
 ```
 
-To sum up, in __app.module__ we should include the _RulesEngineModule_ and the facts modules needed at the bootstrap of the application. There might be facts needed for rules which are on demand, which could be included later in the flow. More details about _on demand_ rulesets in the dedicated [page](./dedicated-component-ruleset.md).
+To sum up, in __app.module__ we should include the _RulesEngineRunnerModule_ and the facts modules needed at the bootstrap of the application. There might be facts needed for rules which are on demand, which could be included later in the flow. More details about _on demand_ rulesets in the dedicated [page](./dedicated-component-ruleset.md).
 
 ### Facts registration and rulesets assimilation
 
 In this part the facts have to be registered in the rules engine itself, and the set of rules has to be given to the same engine.
-This is done in the __app.component.ts__ file, at the initialization of the component, via _RulesEngineService_.
+This is done in the __app.component.ts__ file, at the initialization of the component, via _RulesEngineRunnerService_.
 
 ```typescript
 // app.component.ts
 ...
-import { RulesEngineService, RulesetsStore, setRulesetsEntities } from '@o3r/rules-engine';
+import { RulesEngineRunnerService, RulesetsStore, setRulesetsEntities } from '@o3r/rules-engine';
 import { DeviceDetectionFactsService, PageFactsService, SearchCriteriaFactsService } from '../facts/index';
 ...
 
@@ -121,7 +174,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private deviceDetectionFacts: DeviceDetectionFactsService,
     private searchCriteriaFacts: SearchCriteriaFactsService,
     private pageFacts: PageFactsService,
-    private ruleEngine: RulesEngineService,
+    private ruleEngine: RulesEngineRunnerService,
     private store: Store<RulesetsStore>
   ) {}
 

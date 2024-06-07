@@ -1,18 +1,49 @@
 /** Supported types for a fact */
-export type FactSupportedTypes = 'string' | 'number' | 'date' | 'object' | 'boolean';
+export type FactSupportedTypes = 'string' | 'number' | 'date' | 'object' | 'boolean' | 'array';
 
-/** Fact as description in the metadata file */
-export interface MetadataFact {
+/** Base metadata fact */
+interface BaseMetadataFact {
   /** Name of the Fact */
   name: string;
   /** Fact description */
   description?: string;
   /** Type of the fact */
   type: FactSupportedTypes;
+}
+
+/** Metadata fact of type enum */
+export interface EnumMetadataFact extends BaseMetadataFact {
+  /** @inheritdoc */
+  type: 'string';
+  /** Set of values of enum of type string */
+  enum: string[];
+}
+
+/** Metadata fact of type object */
+export interface ObjectMetadataFact extends BaseMetadataFact {
+  /** @inheritdoc */
+  type: 'object';
   /** Path to schema file describing the complex file */
   schemaFile?: string;
 }
 
+/** Metadata fact of type array */
+export interface ArrayMetadataFact extends BaseMetadataFact {
+  /** @inheritdoc */
+  type: 'array';
+  /** Items in array */
+  // eslint-disable-next-line no-use-before-define
+  items: MetadataFact;
+}
+
+/** Metadata fact of type string, number, date, or boolean */
+export interface OtherMetadataFact extends BaseMetadataFact {
+  /** @inheritdoc */
+  type: 'string' | 'number' | 'date' | 'boolean';
+}
+
+/** Fact as description in the metadata file */
+export type MetadataFact = OtherMetadataFact | ObjectMetadataFact | EnumMetadataFact | ArrayMetadataFact;
 /** Supported types for a operand */
 export type MetadataOperatorSupportedTypes = 'string' | 'number' | 'date' | 'object' | 'boolean';
 

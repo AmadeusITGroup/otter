@@ -6,7 +6,6 @@ declare global {
 
 /**
  * Converts an ArrayBuffer to a string.
- *
  * @param buf ArrayBuffer to convert
  */
 export function ab2str(buf: ArrayBuffer) {
@@ -15,7 +14,6 @@ export function ab2str(buf: ArrayBuffer) {
 
 /**
  * Converts a string to an ArrayBuffer.
- *
  * @param str String to convert
  */
 export function str2ab(str: string) {
@@ -49,7 +47,6 @@ export function generateIV() {
 
 /**
  * Wraps provided key using RSA-OAEP
- *
  * @param publicKey Public key used to wrap the key
  * @param contentEncryptionKey Key to wrap
  */
@@ -64,7 +61,6 @@ export async function wrapContentEncryptionKey(publicKey: CryptoKey, contentEncr
 
 /**
  * Generates ciphertext and 96 bits authentication tag using AES-GCM
- *
  * @param iv 96 bits Initialization Vector
  * @param key Symmetric Key used to encrypt the text
  * @param payload Text to encrypt

@@ -2,7 +2,6 @@ import {AsyncRequest, FromApiActionPayload} from './async.interfaces';
 
 /**
  * Determine if the action is an AsyncRequest action
- *
  * @param action Redux Action
  */
 export function isCallAction<T = any>(action?: any): action is FromApiActionPayload<T> {
@@ -15,7 +14,6 @@ export function isCallAction<T = any>(action?: any): action is FromApiActionPayl
 
 /**
  * Determine if the action is an AsyncRequest action with a Request ID
- *
  * @param action Redux Action
  */
 export function isIdentifiedCallAction<T = any>(action?: any): action is FromApiActionPayload<T> & AsyncRequest {
@@ -24,7 +22,6 @@ export function isIdentifiedCallAction<T = any>(action?: any): action is FromApi
 
 /**
  * Determine if the given item implements the AsyncRequest interface
- *
  * @param item
  */
 export function isAsyncRequest<T>(item: any): item is T & AsyncRequest {

@@ -10,7 +10,6 @@ declare global {
 
 /**
  * Set Localization Metadata
- *
  * @param metadata Localization Metadata
  */
 export function setLocalizationMetadata(metadata: LocalizationMetadata) {

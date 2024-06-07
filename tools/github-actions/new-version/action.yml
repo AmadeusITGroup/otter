@@ -2,10 +2,10 @@ name: 'New version'
 description: 'Compute the next-version of your branch, based on repository tags'
 inputs:
   defaultBranchPrereleaseName:
-    description: 'Default branch pre-release tag (eg. alpha)'
+    description: 'Default branch pre-release tag (eg. prerelease)'
     required: false
   defaultBranch:
-    description: 'If your branching model relies on a default branch that is not a release branch (such as master or develop), you can specify its name here so the task will compute versions for builds happening on that branch.'
+    description: 'If your branching model relies on a default branch that is not a release branch (such as main or develop), you can specify its name here so the task will compute versions for builds happening on that branch.'
     required: false
   defaultBranchVersionMask:
     description: 'You can specify a version mask if you want to bypass the default mechanism of the task when it comes to default branch version computation.'
@@ -15,7 +15,7 @@ inputs:
   releaseBranchRegExp:
     description: 'Versioned release branch regular expression'
     required: false
-    default: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:alpha|beta|next|rc))?$'
+    default: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
 outputs:
   nextVersionTag:
     description: 'Next version Tag'

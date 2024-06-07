@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/testing?style=for-the-badge)](https://www.npmjs.com/package/@o3r/testing)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/testing?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/testing)
+
 The module provides testing (e2e, unit test) utilities to help you build your own E2E pipeline integrating visual testing.
 
 ## How to install
@@ -17,7 +20,8 @@ The module provides testing (e2e, unit test) utilities to help you build your ow
 ng add @o3r/testing
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

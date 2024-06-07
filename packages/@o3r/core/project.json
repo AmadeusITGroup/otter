@@ -7,16 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["build-builders", "compile"]
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:ng-packagr",
@@ -38,39 +33,33 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/core/.eslintrc.js",
         "lintFilePatterns": [
           "packages/@o3r/core/src/**/*.ts",
           "packages/@o3r/core/package.json"
         ]
-      }
+      },
+      "dependsOn": [
+        "build"
+      ]
     },
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/core/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/core/jest.config.js"
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/core/testing/jest.config.it.js"
       }
     },
     "prepare-publish": {
       "executor": "nx:run-script",
       "options": {
         "script": "prepare:publish"
-      }
-    },
-    "test-int": {
-      "executor": "@nx/jest:jest",
-      "options": {
-        "jestConfig": "packages/@o3r/core/testing/jest.config.it.js",
-        "silent": false
       }
     },
     "publish": {

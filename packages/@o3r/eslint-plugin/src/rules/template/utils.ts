@@ -1,4 +1,4 @@
-import { ParserServices, TSESLint } from '@typescript-eslint/experimental-utils';
+import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
 
 /** Position in source code */
 interface SourceSpan {
@@ -10,17 +10,16 @@ interface SourceSpan {
 }
 
 /** Basic interface for the Parser Services object provided by @angular-eslint/template-parser */
-interface TemplateParserServices extends ParserServices {
+type TemplateParserServices = ParserServices & {
   /** Set body visitor rule runner */
   convertElementSourceSpanToLoc: (listenerObj: any) => any;
 
   /** Determine the linter notification position based on the node */
   convertNodeSourceSpanToLoc: (sourceSpan: SourceSpan) => any;
-}
+};
 
 /**
  * Determine if @angular-eslint/template-parser is used
- *
  * @param parserServices Parser services object
  */
 export function isTemplateParserServices(parserServices: any): parserServices is TemplateParserServices {
@@ -32,7 +31,6 @@ export function isTemplateParserServices(parserServices: any): parserServices is
 
 /**
  * Retrieve the template parser services object or throw if the invalid parser is used
- *
  * @param context Rule context
  */
 export function getTemplateParserServices(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>) {
@@ -52,7 +50,6 @@ export function getTemplateParserServices(context: Readonly<TSESLint.RuleContext
 /**
  * Utility for rule authors to ensure that their rule is correctly being used with @angular-eslint/template-parser
  * If @angular-eslint/template-parser is not the configured parser when the function is invoked it will throw
- *
  * @param context
  */
 export function ensureTemplateParser(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>): void {

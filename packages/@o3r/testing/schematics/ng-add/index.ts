@@ -1,38 +1,42 @@
 import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import {
   addVsCodeRecommendations,
+  createSchematicWithMetricsIfInstalled,
+  getExternalDependenciesVersionRange,
   getO3rPeerDeps,
-  getProjectNewDependenciesType,
+  getPackageInstallConfig,
+  getProjectNewDependenciesTypes,
   getTestFramework,
   getWorkspaceConfig,
-  ngAddPackages,
-  ngAddPeerDependencyPackages,
   O3rCliError,
   registerPackageCollectionSchematics,
-  removePackages, setupSchematicsDefaultParams } from '@o3r/schematics';
+  removePackages, setupDependencies,
+  setupSchematicsDefaultParams
+} from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
-import { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
+import type { NgAddSchematicsSchema } from '../../schematics/ng-add/schema';
 import { updateFixtureConfig } from './fixture';
 import { updatePlaywright } from './playwright';
 
-function canResolvePlaywright(): boolean {
-  try {
-    require.resolve('playwright/package.json');
-    return true;
-  } catch {
-    return false;
-  }
-}
+const devDependenciesToInstall = [
+  'pixelmatch',
+  'pngjs',
+  'jest',
+  'jest-environment-jsdom',
+  'jest-preset-angular',
+  'ts-jest',
+  '@types/jest'
+];
 
 /**
  * Add Otter testing to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree: Tree, context: SchematicContext) => {
     try {
       const testPackageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -40,8 +44,26 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
       const depsInfo = getO3rPeerDeps(testPackageJsonPath);
       const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
       const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
       const projectType = workspaceProject?.projectType || 'application';
+      const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+        acc[dep] = {
+          inManifest: [{
+            range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+            types: getProjectNewDependenciesTypes(workspaceProject)
+          }],
+          ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+        };
+        return acc;
+      }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
+      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, testPackageJsonPath))
+        .forEach(([dep, range]) => {
+          dependencies[dep] = {
+            inManifest: [{
+              range,
+              types: [NodeDependencyType.Dev]
+            }]
+          };
+        });
 
       let installJest;
       const testFramework = options.testingFramework || getTestFramework(getWorkspaceConfig(tree), context);
@@ -66,28 +88,20 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
         }
       }
 
-      let installPlaywright;
-
-      if (options.enablePlaywright && projectType === 'application') {
-        installPlaywright = true;
-      } else {
-        installPlaywright = !canResolvePlaywright() ? await askConfirmation('Do you want to setup Playwright test framework for E2E?', true) : false;
-      }
+      const installPlaywright = options.enablePlaywright !== undefined && projectType === 'application' ?
+        options.enablePlaywright :
+        await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
 
       const rules = [
-        updateFixtureConfig(options, installJest),
+        updateFixtureConfig(options),
         removePackages(['@otter/testing']),
         addVsCodeRecommendations(['Orta.vscode-jest']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
+        installPlaywright ? updatePlaywright(options, dependencies) : noop,
+        setupDependencies({
           projectName: options.projectName,
-          dependencyType: dependencyType,
-          workingDirectory
+          dependencies,
+          ngAddToRun: depsInfo.o3rPeerDeps
         }),
-        installPlaywright ? updatePlaywright(options) : noop,
-        ngAddPeerDependencyPackages(['pixelmatch', 'pngjs'], testPackageJsonPath, dependencyType, {...options, workingDirectory, skipNgAddSchematicRun: true}),
         registerPackageCollectionSchematics(packageJson),
         setupSchematicsDefaultParams({
           // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -111,10 +125,11 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
           packageJsonFile.scripts ||= {};
           packageJsonFile.scripts.test = 'jest';
           tree.overwrite(`${workingDirectory}/package.json`, JSON.stringify(packageJsonFile, null, 2));
+          const rootRelativePath = path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './'));
           const jestConfigFilesForProject = () => mergeWith(apply(url('./templates/project'), [
             template({
               ...options,
-              rootRelativePath: path.posix.relative(workingDirectory, tree.root.path.replace(/^\//, './')),
+              rootRelativePath,
               isAngularSetup: tree.exists('/angular.json')
             }),
             move(workingDirectory),
@@ -129,7 +144,6 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
             renameTemplateFiles()
           ]), MergeStrategy.Default);
           rules.push(
-            ngAddPeerDependencyPackages(['jest', 'jest-preset-angular'], testPackageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}),
             jestConfigFilesForProject,
             jestConfigFilesForWorkspace
           );
@@ -149,3 +163,9 @@ export function ngAdd(options: NgAddSchematicsSchema): Rule {
     }
   };
 }
+
+/**
+ * Add Otter testing to an Angular Project
+ * @param options
+ */
+export const ngAdd = createSchematicWithMetricsIfInstalled(ngAddFn);

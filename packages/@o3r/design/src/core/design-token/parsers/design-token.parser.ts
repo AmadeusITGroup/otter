@@ -33,7 +33,7 @@ const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | 
 const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: DesignTokenVariableStructure) => {
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
-    return typeof node.$value.toString !== undefined ? (node.$value as any).toString() : JSON.stringify(node.$value);
+    return typeof node.$value.toString !== 'undefined' ? (node.$value as any).toString() : JSON.stringify(node.$value);
   }
   const checkNode = {
     ...node,
@@ -80,7 +80,6 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
         `${checkNode.$value.fontWeight} ${checkNode.$value.fontFamily} ${checkNode.$value.fontSize} ${checkNode.$value.letterSpacing} ${checkNode.$value.lineHeight}`;
     }
     default: {
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       throw new Error(`Not supported type ${(checkNode as any).$type || 'unknown'} (value: ${(checkNode as any).$value || 'unknown'})`);
     }
   }
