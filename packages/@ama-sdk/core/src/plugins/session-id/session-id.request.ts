@@ -45,6 +45,7 @@ export class SessionIdRequest implements RequestPlugin {
     // Declaration done first since generateSessionId uses the logger
     this.sessionIdHeader = sessionIdHeader;
     this.requestIdActivated = activateRequestId;
+    this.sessionId = this.generateSessionId();
   }
 
   private logSessionId(sessionId: string, date: string, logger?: Logger) {
