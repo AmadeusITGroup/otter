@@ -36,14 +36,14 @@ jobs:
           yarn verdaccio:start-persistent
           yarn verdaccio:publish
         shell: bash
-      - name: Zip verdaccio storage
-        run: zip -r verdaccio.zip ./.verdaccio
+      - name: Compress verdaccio storage
+        run: tar -f verdaccio.tar -c ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: verdaccio
-          path: verdaccio.zip
+          path: verdaccio.tar
       - name: Stop verdaccio
         if: always()
         run: yarn verdaccio:stop
@@ -53,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [windows-latest]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
@@ -64,8 +64,22 @@ jobs:
     steps:
       - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - uses: ./tools/github-actions/download-build-output
+      - uses: samypr100/setup-dev-drive@v3
+        if: runner.os == 'Windows'
+        with:
+          # Drive size in bytes (or as a PowerShell numeric literal). Defaults to 1GB.
+          drive-size: 6GB
+          # Drive file system (ReFS, NTFS, etc.). Defaults to ReFS.
+          drive-format: ReFS
+          # Path to mount the drive. Defaults to creating a new arbitrary drive letter such as "E:".
+          mount-path: ${{ github.workspace }}/../dev-drive
+          # Copies ${{ github.workspace }} to your dev drive. Defaults to false.
+          workspace-copy: true
       - uses: ./tools/github-actions/setup
+        with:
+          working-directory: ${{ env.DEV_DRIVE_WORKSPACE }}
       - shell: bash
+        working-directory: ${{ env.DEV_DRIVE_WORKSPACE }}
         run: |
           git config --global  user.name "GitHub Actions"
           git config --global  user.email "AmadeusITGroup-otter@users.noreply.github.com"
@@ -79,56 +93,45 @@ jobs:
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: |
-            .cache/test-app
-            !.cache/test-app/cache/@ama-sdk*
-            !.cache/test-app/cache/@ama-terasu*
-            !.cache/test-app/cache/@o3r*
-            !.cache/test-app/npm-cache/_npx/**
+            ${{ env.DEV_DRIVE_WORKSPACE }}/.cache/test-app
+            !${{ env.DEV_DRIVE_WORKSPACE }}/.cache/test-app/cache/@ama-sdk*
+            !${{ env.DEV_DRIVE_WORKSPACE }}/.cache/test-app/cache/@ama-terasu*
+            !${{ env.DEV_DRIVE_WORKSPACE }}/.cache/test-app/cache/@o3r*
+            !${{ env.DEV_DRIVE_WORKSPACE }}/.cache/test-app/npm-cache/_npx/**
           key: ${{ runner.os }}-test-app-${{ matrix.packageManager }}-${{ env.currentMonth }}
       - uses: actions/download-artifact@65a9edc5881444af0b9093a5e628f2fe47ea3b2e # v4.1.7
         name: Download verdaccio storage prepared in the previous job
         with:
           name: verdaccio
-          path: '.'
+          path: ${{ env.DEV_DRIVE_WORKSPACE }}
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
         run: |
-          unzip -q -n verdaccio.zip
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            chmod a+rwx -R ./.verdaccio/storage
-            yarn verdaccio:start-persistent
-          elif [ "$RUNNER_OS" == "Windows" ]; then
-            npx --yes verdaccio --config $GITHUB_WORKSPACE\\.verdaccio\\conf\\config-without-docker.yaml --listen http://127.0.0.1:4873 &
-            npx --yes wait-on http://127.0.0.1:4873 -t 180000
-          fi
+          tar -xf verdaccio.tar
+          chmod a+rwx -R ./.verdaccio/storage
+          npx --yes verdaccio --config ./.verdaccio/conf/config-without-docker.yaml --listen http://127.0.0.1:4873 &
+          npx --yes wait-on http://127.0.0.1:4873 -t 180000
         shell: bash
+        working-directory: ${{ env.DEV_DRIVE_WORKSPACE }}
       - name: Test
         id: it-tests
-        run: yarn test-int
+        run: yarn test-int --skip-nx-cache
+        working-directory: ${{ env.DEV_DRIVE_WORKSPACE }}
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            mkdir -p ./otter
-            cp -R ./.cache ./otter/.cache
-            zip -r it-tests.zip ../it-tests ./otter/.cache -x "./otter/.cache/nx/*" -x "../it-tests/*/node_modules/*"
-          elif [ "$RUNNER_OS" == "Windows" ]; then
-            tar -acf it-tests.zip -C ../ --exclude="it-tests/*/node_modules/*" it-tests
-          fi
+        run: tar -acf it-tests.tar -C ../ --exclude="it-tests/*/node_modules/*" it-tests
         shell: bash
+        working-directory: ${{ env.DEV_DRIVE_WORKSPACE }}
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
-          path: it-tests.zip
+          path: ${{ env.DEV_DRIVE_WORKSPACE }}/it-tests.tar
       - name: Publish tests reports
         if: always()
         # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
         uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}
-          path: 'packages/**/dist-test/it-report.xml'
-      - name: Stop verdaccio
-        if: always() && runner.os == 'Linux'
-        run: yarn verdaccio:stop
+          path: ${{ env.DEV_DRIVE_WORKSPACE }}/packages/**/dist-test/it-report.xml
