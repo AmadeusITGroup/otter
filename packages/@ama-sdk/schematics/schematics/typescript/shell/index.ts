@@ -63,6 +63,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'minimist': amaSdkSchematicsPackageJson.generatorDependencies.minimist,
       'rimraf': amaSdkSchematicsPackageJson.generatorDependencies.rimraf,
       'tsc-watch': amaSdkSchematicsPackageJson.generatorDependencies['tsc-watch'],
+      'yaml-eslint-parser': amaSdkSchematicsPackageJson.generatorDependencies['yaml-eslint-parser'],
       'typedoc': amaSdkSchematicsPackageJson.generatorDependencies.typedoc
     };
     const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
