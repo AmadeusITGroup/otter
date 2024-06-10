@@ -44,6 +44,7 @@ export class SessionIdRequest implements RequestPlugin {
     // Declaration done first since generateSessionId uses the logger
     this.sessionIdHeader = sessionIdHeader;
     this.requestIdActivated = activateRequestId;
+    this.sessionId = this.generateSessionId();
   }
 
   private logSessionId(sessionId: string, date: string, logger?: Logger) {
@@ -82,7 +83,7 @@ export class SessionIdRequest implements RequestPlugin {
           // update the shared memory and log the ID to the user
           SessionIdRequest.sharedMemory[this.sessionIdHeader] = parsedSessionIdObject.id;
           this.logSessionId(parsedSessionIdObject.id, parsedSessionIdObject.generatedTime, logger);
-          return parsedSessionIdObject.id;
+          return parsedSessionIdObject.id as string;
         } catch { /* if the content of the session storage was corrupted somehow we'll just generate a new one */ }
       }
     }

@@ -82,7 +82,7 @@
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
     "@stylistic/eslint-plugin-ts": "<%= versions['@stylistic/eslint-plugin-ts'] %>",
     "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.3.85",
+    "@swc/core": "^1.5.24",
     "@types/jest": "<%= versions['@types/jest'] %>",
     "@types/node": "<%= versions['@types/node'] %>",
     "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",
