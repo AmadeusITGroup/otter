@@ -108,6 +108,7 @@
     "ts-jest": "<%= versions['ts-jest'] %>",
     "typedoc": "<%= versions['typedoc'] %>",
     "tsc-watch": "<%= versions['tsc-watch'] %>",
+    "yaml-eslint-parser": "<%= versions['yaml-eslint-parser'] %>",
     "typescript": "<%= versions['typescript'] %>"<% if (specPackageName) { %>,
     "<%=specPackageName%>": "<%=specPackageVersion%>"<% } %>
   },<% if (exactO3rVersion) { %>
