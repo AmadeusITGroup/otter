@@ -7651,6 +7651,7 @@ __metadata:
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
+    "@types/shell-quote": "npm:^1.7.5"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     cpy-cli: "npm:^5.0.0"
@@ -7667,6 +7668,7 @@ __metadata:
     nx: "npm:~18.3.0"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
+    shell-quote: "npm:^1.8.1"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
@@ -12650,6 +12652,13 @@ __metadata:
     "@types/node": "npm:*"
     "@types/send": "npm:*"
   checksum: 10/c5a7171d5647f9fbd096ed1a26105759f3153ccf683824d99fee4c7eb9cde2953509621c56a070dd9fb1159e799e86d300cbe4e42245ebc5b0c1767e8ca94a67
+  languageName: node
+  linkType: hard
+
+"@types/shell-quote@npm:^1.7.5":
+  version: 1.7.5
+  resolution: "@types/shell-quote@npm:1.7.5"
+  checksum: 10/32b4d697c7d23dbadf40713692c47f1595f083a3b3deea76cb18e30a05d197aa9205d2b87f6d92edb60cda120b51e35d32bda96ed9b0a7e32921eed2deb4559e
   languageName: node
   linkType: hard
 
