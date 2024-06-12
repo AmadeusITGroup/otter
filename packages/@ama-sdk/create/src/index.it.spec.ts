@@ -27,7 +27,7 @@ const packageManager = getPackageManager();
 
 describe('Create new sdk command', () => {
   beforeEach(() => {
-    const isYarnTest = packageManager.startsWith('yarn');
+    const isYarnTest = o3rEnvironment.testEnvironment.isYarnTest;
     const yarnVersion = isYarnTest ? getYarnVersionFromRoot(process.cwd()) || 'latest' : undefined;
     sdkFolderPath = o3rEnvironment.testEnvironment.workspacePath;
     sdkPackagePath = path.join(sdkFolderPath, sdkPackageName.replace(/^@/, ''));

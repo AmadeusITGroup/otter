@@ -4,12 +4,12 @@ import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 import { createTestEnvironmentBlank } from './test-environments/create-test-environment-blank';
 import { createWithLock, getPackageManager, type Logger, packageManagerInstall, setPackagerManagerConfig, setupGit } from './utilities/index';
-import { createTestEnvironmentOtterProjectWithApp } from './test-environments/create-test-environment-otter-project';
+import { createTestEnvironmentOtterProjectWithAppAndLib } from './test-environments/create-test-environment-otter-project';
 import { O3rCliError } from '@o3r/schematics';
 
 /**
  * - 'blank' only create yarn/npm config
- * - 'o3r-project-with-app' create a new otter project with a new application
+ * - 'o3r-project-with-app' create a new otter project with libraries and applications
  */
 export type PrepareTestEnvType = 'blank' | 'o3r-project-with-app';
 
@@ -94,13 +94,20 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       packageManagerInstall(execAppOptions);
     }
   };
+  const packageManager = getPackageManager();
+  const isYarnTest = packageManager.startsWith('yarn');
 
-  let projectPath = workspacePath;
-  let projectName = '';
+  let applicationPath = '';
+  let libraryPath = '';
+  let appName = '';
+  let untouchedApp: undefined | string;
+  let untouchedAppPath: undefined | string;
+  let libName = '';
+  let untouchedLib: undefined | string;
+  let untouchedLibPath: undefined | string;
   let isInWorkspace = false;
-  let untouchedProject: undefined | string;
-  let untouchedProjectPath: undefined | string;
-  const appDirectory = `${type}-${getPackageManager()}`;
+
+  const appDirectory = `${type}-${packageManager}`;
   switch (type) {
     case 'blank': {
       await createTestEnvironmentBlank({
@@ -109,15 +116,17 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
         logger,
         ...packageManagerConfig
       });
-      projectPath = workspacePath;
       break;
     }
 
     case 'o3r-project-with-app': {
-      projectName = 'test-app';
-      untouchedProject = 'dont-modify-me';
-      await createTestEnvironmentOtterProjectWithApp({
-        projectName,
+      appName = 'test-app';
+      libName = 'test-lib';
+      untouchedApp = 'untouched-app';
+      untouchedLib = 'untouched-lib';
+      await createTestEnvironmentOtterProjectWithAppAndLib({
+        appName,
+        libName,
         appDirectory,
         cwd: itTestsFolderPath,
         o3rVersion,
@@ -125,8 +134,10 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
         ...packageManagerConfig,
         replaceExisting: !process.env.CI
       });
-      projectPath = path.resolve(workspacePath, 'apps', projectName);
-      untouchedProjectPath = path.resolve(workspacePath, 'apps', untouchedProject);
+      applicationPath = path.resolve(workspacePath, 'apps', appName);
+      untouchedAppPath = path.resolve(workspacePath, 'apps', untouchedApp);
+      libraryPath = path.resolve(workspacePath, 'libs', libName);
+      untouchedLibPath = path.resolve(workspacePath, 'libs', untouchedLib);
       isInWorkspace = true;
       break;
     }
@@ -140,14 +151,17 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   // Setup git and initial commit to easily make checks on the diff inside the tests
   setupGit(workspacePath);
+  const untouchedProjectsPaths = [untouchedAppPath, untouchedLibPath];
 
   return {
     workspacePath,
-    projectPath,
-    projectName,
+    applicationPath,
+    appName,
+    libraryPath,
+    libName,
     isInWorkspace,
-    untouchedProject,
-    untouchedProjectPath,
+    isYarnTest,
+    untouchedProjectsPaths,
     packageManagerConfig,
     o3rVersion,
     o3rExactVersion,
