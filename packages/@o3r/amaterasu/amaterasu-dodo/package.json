@@ -21,8 +21,10 @@
   ],
   "preferUnplugged": true,
   "dependencies": {
+    "loglevel": "^1.8.0",
     "tar": "^6.1.12",
-    "tslib": "^2.6.2"
+    "tslib": "^2.6.2",
+    "yargs": "^17.6.2"
   },
   "peerDependenciesMeta": {
     "@angular/cli": {

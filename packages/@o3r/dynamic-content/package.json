@@ -36,6 +36,7 @@
     "@ngrx/store": "~17.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "cheerio": "^1.0.0-rc.10",
     "express-interceptor": "^1.2.0",
     "jasmine": "^5.0.0",
@@ -43,6 +44,9 @@
   },
   "peerDependenciesMeta": {
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
       "optional": true
     },
     "cheerio": {
@@ -84,6 +88,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",

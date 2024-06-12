@@ -47,7 +47,9 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
-    "tslib": "^2.6.2"
+    "loglevel": "^1.8.0",
+    "tslib": "^2.6.2",
+    "yargs": "^17.6.2"
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^"

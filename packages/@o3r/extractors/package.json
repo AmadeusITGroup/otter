@@ -25,10 +25,14 @@
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "typescript": "~5.4.2"
   },
   "peerDependenciesMeta": {
     "@o3r/telemetry": {
+      "optional": true
+    },
+    "@schematics/angular": {
       "optional": true
     }
   },
@@ -66,6 +70,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/inquirer": "~8.2.10",
     "@types/jest": "~29.5.2",
