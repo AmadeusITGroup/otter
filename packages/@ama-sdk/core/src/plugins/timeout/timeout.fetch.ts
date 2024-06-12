@@ -27,7 +27,7 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {
-  return Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
+  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
     Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status') &&
     Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type') && message.impervaChallenge.type === 'captcha';
 }
