@@ -39,6 +39,7 @@ The **ApiManager** requires the default API Client, which will be used across al
 
 In the example that follows, we define the default base configuration that API classes will use, as well as a custom configuration for the 'ExampleApi'.
 The plugins and fetch client come from the ``@ama-sdk/core`` module, but custom ones can be created if needed as long as they follow the ``ApiClient`` interface from ``@ama-sdk/core``. More details on ``@ama-sdk/core`` [here](https://www.npmjs.com/package/@ama-sdk/core).
+
 ```typescript
 import { ApiFetchClient, ApiKeyRequest, JsonTokenReply, JsonTokenRequest, ReviverReply, ExceptionReply } from '@ama-sdk/core';
 import { ApiManager, ApiManagerModule } from '@o3r/apis-manager';
@@ -113,15 +114,13 @@ The API instances can be retrieved via the injection of the ``ApiFactoryService`
 import { ExampleApi } from '@shared/sdk';
 import { ApiFactoryService } from '@o3r/apis-manager';
 
-@Inject()
+@Injectable()
 class MyClass {
 
-  constructor(private apiFactoryService: ApiFactoryService) {
-  }
+  private exampleApi = inject(ApiFactoryService).getApi(ExampleApi); // <- retrieve example API instantiated with set configuration
 
   doSomething() {
-    const exampleApi = apiFactoryService.getApi(ExampleApi); // <- retrieve example API instantiated with set configuration
-    const call = exampleApi.doSomething({ ... });
+    const call = this.exampleApi.doSomething({ ... });
   }
 
 }
@@ -155,12 +154,10 @@ import { ApiFactoryService } from '@o3r/apis-manager';
 @Injectable()
 class MyClass {
 
-  constructor(private apiFactoryService: ApiFactoryService) {
-  }
+  private exampleApi = inject(ApiFactoryService).getApi(ExampleApi); // <- retrieve example API instantiated in @custom/sdk
 
   doSomething() {
-    const exampleApi = apiFactoryService.getApi(ExampleApi); // <- retrieve example API instantiated in @custom/sdk
-    const call = exampleApi.doSomething({ ... });
+    const call = this.exampleApi.doSomething({ ... });
   }
 
 }
@@ -175,18 +172,18 @@ The configuration can be overridden after the instantiation of the API.
 
 ```typescript
 import { ExampleApi } from '@shared/sdk';
-import { ApiFactoryService, INTERNAL_API_TOKEN } from '@o3r/apis-manager';
+import { ApiFactoryService } from '@o3r/apis-manager';
 import { ApiFetchClient } from '@ama-sdk/core';
 
 @Injectable()
 class MyClass {
 
-  constructor(@Inject(INTERNAL_API_TOKEN) private apiManager: ApiManager, private apiFactoryService: ApiFactoryService) {
+  constructor(private apiManager: ApiManager, private apiFactoryService: ApiFactoryService) {
   }
 
   doSomething() {
     this.apiManager.setConfiguration(new ApiFetchClient(), ExampleApi); // <- override configuration of Example API
-    const exampleApi = apiFactoryService.getApi(ExampleApi, true); // <- retrieve example API with the new configuration (and refresh the cache)
+    const exampleApi = this.apiFactoryService.getApi(ExampleApi, true); // <- retrieve example API with the new configuration (and refresh the cache)
   }
 
 }
