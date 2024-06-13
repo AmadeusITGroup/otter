@@ -128,6 +128,13 @@ describe('impervaCaptchaEventHandlerFactory', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
+  it('should not throw on null messages', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp(null);
+    expect(callback).not.toHaveBeenCalled();
+  });
+
   it('should trigger a timeoutStopped if the captcha challenge has been started', () => {
     const callback = jest.fn();
     impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
