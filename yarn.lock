@@ -1322,8 +1322,8 @@ __metadata:
   linkType: hard
 
 "@azure/identity@npm:^4.1.0":
-  version: 4.2.0
-  resolution: "@azure/identity@npm:4.2.0"
+  version: 4.2.1
+  resolution: "@azure/identity@npm:4.2.1"
   dependencies:
     "@azure/abort-controller": "npm:^1.0.0"
     "@azure/core-auth": "npm:^1.5.0"
@@ -1333,13 +1333,13 @@ __metadata:
     "@azure/core-util": "npm:^1.3.0"
     "@azure/logger": "npm:^1.0.0"
     "@azure/msal-browser": "npm:^3.11.1"
-    "@azure/msal-node": "npm:^2.6.6"
+    "@azure/msal-node": "npm:^2.9.2"
     events: "npm:^3.0.0"
     jws: "npm:^4.0.0"
     open: "npm:^8.0.0"
     stoppable: "npm:^1.1.0"
     tslib: "npm:^2.2.0"
-  checksum: 10/93add9deb72f895f739411f0fe34672d14f6fb8393ae2040d283ebf83d29bc8bb095d5fb60f6092dcb6d59dc582570ab7ca47ceed73b62893a04299b29312466
+  checksum: 10/56adf3313ae52410d15dc760fe41a56e07f08c7629a7f61d2788a49345e313037a70bc1c82b5beb950f1bbf50e79f9726c58aa7fe335b8785a4c542a88a9c5fa
   languageName: node
   linkType: hard
 
@@ -1375,7 +1375,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure/msal-node@npm:^2.6.6":
+"@azure/msal-node@npm:^2.9.2":
   version: 2.9.2
   resolution: "@azure/msal-node@npm:2.9.2"
   dependencies:
