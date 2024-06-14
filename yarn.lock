@@ -12010,7 +12010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/types@npm:^0.1.8":
+"@swc/types@npm:*, @swc/types@npm:^0.1.8":
   version: 0.1.8
   resolution: "@swc/types@npm:0.1.8"
   dependencies:
