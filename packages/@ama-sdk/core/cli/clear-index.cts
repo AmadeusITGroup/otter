@@ -13,6 +13,7 @@ const { help } = argv;
 const baseDir = resolve(process.cwd(), 'src', 'models', 'base');
 
 if (help) {
+  // eslint-disable-next-line no-console
   console.log(`Remove the index files that are no longer necessary after the deletion of the associated model.
   Usage: amasdk-clear-index
   `);

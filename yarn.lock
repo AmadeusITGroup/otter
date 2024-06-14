@@ -153,8 +153,10 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
+    pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -168,10 +170,8 @@ __metadata:
     "@angular/common": ~17.3.0
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": ~17.3.0
-    chokidar: ^3.5.2
     globby: ^11.1.0
     isomorphic-fetch: ^3.0.0
-    minimist: ^1.2.6
     rxjs: ^7.8.1
     typescript: ~5.4.2
   peerDependenciesMeta:
@@ -184,8 +184,6 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@schematics/angular":
-      optional: true
-    chokidar:
       optional: true
     isomorphic-fetch:
       optional: true
@@ -448,6 +446,9 @@ __metadata:
   resolution: "@ama-terasu/cli@workspace:packages/@ama-terasu/cli"
   dependencies:
     "@ama-terasu/core": "workspace:^"
+    "@angular-devkit/architect": "npm:~0.1703.0"
+    "@angular-devkit/core": "npm:~17.3.0"
+    "@angular-devkit/schematics": "npm:~17.3.0"
     "@angular-eslint/eslint-plugin": "npm:~17.5.0"
     "@nx/eslint-plugin": "npm:~18.3.0"
     "@nx/jest": "npm:~18.3.0"
@@ -458,6 +459,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/minimist": "npm:^1.2.2"
@@ -484,6 +486,7 @@ __metadata:
     ora: "npm:~8.0.0"
     progress: "npm:^2.0.3"
     prompts: "npm:^2.4.2"
+    rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.2"
     ts-loader: "npm:^9.2.6"
     tslib: "npm:^2.6.2"
@@ -561,6 +564,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -576,6 +580,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
@@ -6738,10 +6743,12 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    loglevel: "npm:^1.8.0"
     nx: "npm:~18.3.0"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
+    yargs: "npm:^17.6.2"
   peerDependencies:
     "@ama-terasu/core": "workspace:^"
   languageName: unknown
@@ -6772,11 +6779,13 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    loglevel: "npm:^1.8.0"
     nx: "npm:~18.3.0"
     tar: "npm:^6.1.12"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
+    yargs: "npm:^17.6.2"
   peerDependencies:
     "@ama-terasu/core": "workspace:^"
   peerDependenciesMeta:
@@ -6811,10 +6820,12 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    loglevel: "npm:^1.8.0"
     nx: "npm:~18.3.0"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
+    yargs: "npm:^17.6.2"
   peerDependencies:
     "@ama-terasu/core": "workspace:^"
     "@angular/cli": ~17.3.0
@@ -6850,10 +6861,12 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     js-yaml: "npm:^4.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    loglevel: "npm:^1.8.0"
     nx: "npm:~18.3.0"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
+    yargs: "npm:^17.6.2"
   peerDependencies:
     "@ama-terasu/core": "workspace:^"
   languageName: unknown
@@ -6908,6 +6921,7 @@ __metadata:
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
@@ -7065,7 +7079,9 @@ __metadata:
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -7268,8 +7284,8 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
-    ag-grid-angular: "npm:~31.3.0"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-community: "npm:~31.1.1"
     archiver: "npm:^6.0.1"
     bootstrap: "npm:5.3.3"
     chokidar: "npm:^3.5.2"
@@ -7363,6 +7379,7 @@ __metadata:
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -7559,7 +7576,6 @@ __metadata:
     "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
     "@types/pid-from-port": "npm:^1.1.0"
-    "@types/semver": "npm:^7.3.13"
     "@types/uuid": "npm:^9.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
@@ -7582,7 +7598,6 @@ __metadata:
     nx: "npm:~18.3.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
-    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -7611,7 +7626,6 @@ __metadata:
     chokidar: ^3.5.2
     globby: ^11.1.0
     rxjs: ^7.8.1
-    semver: ^7.5.2
     typescript: ~5.4.2
   peerDependenciesMeta:
     "@angular/cli":
@@ -7626,11 +7640,11 @@ __metadata:
       optional: true
     "@o3r/telemetry":
       optional: true
+    "@schematics/angular":
+      optional: true
     chokidar:
       optional: true
     globby:
-      optional: true
-    semver:
       optional: true
   languageName: unknown
   linkType: soft
@@ -7674,8 +7688,10 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     shell-quote: "npm:^1.8.1"
     ts-jest: "npm:~29.1.2"
     tslib: "npm:^2.6.2"
@@ -7740,8 +7756,10 @@ __metadata:
     minimatch: "npm:~9.0.3"
     minimist: "npm:^1.2.6"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
     sass: "npm:~1.77.0"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -7875,6 +7893,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -7909,12 +7928,15 @@ __metadata:
     "@ngrx/store": ~17.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~17.3.0
     cheerio: ^1.0.0-rc.10
     express-interceptor: ^1.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
     cheerio:
       optional: true
@@ -7958,7 +7980,9 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -8043,6 +8067,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
@@ -8101,6 +8126,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/inquirer": "npm:~8.2.10"
     "@types/jest": "npm:~29.5.2"
@@ -8140,9 +8166,12 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@schematics/angular": ~17.3.0
     typescript: ~5.4.2
   peerDependenciesMeta:
     "@o3r/telemetry":
+      optional: true
+    "@schematics/angular":
       optional: true
   languageName: unknown
   linkType: soft
@@ -8178,6 +8207,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8211,9 +8241,12 @@ __metadata:
     "@ngrx/store": ~17.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~17.3.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
   languageName: unknown
   linkType: soft
@@ -8284,8 +8317,8 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
     "@yarnpkg/sdks": "npm:^3.0.0"
-    ag-grid-angular: "npm:~31.3.0"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-community: "npm:~31.1.1"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
@@ -8526,6 +8559,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/logger@workspace:packages/@o3r/logger"
   dependencies:
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8551,6 +8585,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8586,6 +8621,7 @@ __metadata:
     "@ngrx/store": ~17.2.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~17.3.0
     logrocket: ~8.1.0
     logrocket-ngrx: ~0.2.1
     rxjs: ^7.8.1
@@ -8594,6 +8630,8 @@ __metadata:
     "@fullstory/browser":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
     logrocket:
       optional: true
@@ -8608,6 +8646,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/mobile@workspace:packages/@o3r/mobile"
   dependencies:
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8701,6 +8740,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@o3r/routing@workspace:packages/@o3r/routing"
   dependencies:
+    "@angular-devkit/architect": "npm:~0.1703.0"
     "@angular-devkit/build-angular": "npm:~17.3.0"
     "@angular-devkit/core": "npm:~17.3.0"
     "@angular-devkit/schematics": "npm:~17.3.0"
@@ -8730,6 +8770,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
@@ -8767,10 +8808,13 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/routing": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~17.3.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
     jasmine:
       optional: true
@@ -8969,6 +9013,8 @@ __metadata:
       optional: true
     "@angular-devkit/core":
       optional: true
+    "@angular/cli":
+      optional: true
     "@o3r/telemetry":
       optional: true
     eslint:
@@ -9044,8 +9090,8 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.2.0"
     "@typescript-eslint/parser": "npm:^7.2.0"
     "@typescript-eslint/types": "npm:^7.2.0"
-    ag-grid-angular: "npm:~31.3.0"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-community: "npm:~31.1.1"
     bootstrap: "npm:5.3.3"
     concurrently: "npm:^8.0.0"
     eslint: "npm:^8.57.0"
@@ -9211,10 +9257,12 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     react: "npm:^18.0.0"
     react-dom: "npm:^18.0.0"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -9281,9 +9329,11 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     postcss: "npm:~8.4.31"
     postcss-scss: "npm:~4.0.9"
     rimraf: "npm:^5.0.1"
+    semver: "npm:^7.5.2"
     stylelint: "npm:^16.0.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
@@ -9593,6 +9643,7 @@ __metadata:
     "@amadeus-it-group/kassette": ^1.7.0
     "@angular-devkit/schematics": ~17.3.0
     "@angular/animations": ~17.3.0
+    "@angular/cli": ~17.3.0
     "@angular/common": ~17.3.0
     "@angular/core": ~17.3.0
     "@angular/forms": ~17.3.0
@@ -9614,6 +9665,8 @@ __metadata:
     "@amadeus-it-group/kassette":
       optional: true
     "@angular-devkit/schematics":
+      optional: true
+    "@angular/cli":
       optional: true
     "@ngx-translate/core":
       optional: true
@@ -9665,6 +9718,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
+    "@schematics/angular": "npm:~17.3.0"
     "@stylistic/eslint-plugin-ts": "npm:^1.5.4"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -9684,8 +9738,10 @@ __metadata:
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~18.3.0"
+    pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
     rxjs: "npm:^7.8.1"
+    semver: "npm:^7.5.2"
     ts-jest: "npm:~29.1.2"
     ts-node: "npm:~10.9.2"
     tslib: "npm:^2.6.2"
@@ -9696,6 +9752,7 @@ __metadata:
     "@angular-devkit/schematics": ~17.3.0
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": ~17.3.0
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
@@ -9703,6 +9760,8 @@ __metadata:
     "@o3r/core":
       optional: true
     "@o3r/schematics":
+      optional: true
+    "@schematics/angular":
       optional: true
   languageName: unknown
   linkType: soft
@@ -13789,23 +13848,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-angular@npm:~31.3.0":
-  version: 31.3.2
-  resolution: "ag-grid-angular@npm:31.3.2"
+"ag-grid-angular@npm:~31.1.1":
+  version: 31.1.1
+  resolution: "ag-grid-angular@npm:31.1.1"
   dependencies:
+    ag-grid-community: "npm:31.1.1"
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">= 14.0.0"
     "@angular/core": ">= 14.0.0"
-    ag-grid-community: 31.3.2
-  checksum: 10/11c2e61fc9c2b6ac3b5a4bc8d1b4f4b102548c78ecde1ac9b340c2bf6a70fe805be5335afa9d5c0c6dec03826b9d59a2d76ad6ae7fbe047a80c977f9a18d95e8
+  checksum: 10/26688a1a81f98e114c43e715d6cf4b88f26044823cc861525795d3b8640550a647d207f7e370a622775fd29905a68026454bdeab3ba2f28862b43ff7ef88df8f
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:~31.3.0":
-  version: 31.3.2
-  resolution: "ag-grid-community@npm:31.3.2"
-  checksum: 10/4d47d8ca08c80988e30643933c8e333b62322909db79a02f9aeb75ced7689827228c616be82085d6111823139796f30ee1086b2f1af555dcb7843cbd68578126
+"ag-grid-community@npm:31.1.1, ag-grid-community@npm:~31.1.1":
+  version: 31.1.1
+  resolution: "ag-grid-community@npm:31.1.1"
+  checksum: 10/345e3ca0d46eacbd95b52f0c36cbe33b3f2932afdb76118f7afe3d969f72e17e589730f356ae4943a493a747a70138c8f8bd8f36bf1d7ca069f36d2a040e8f4f
   languageName: node
   linkType: hard
 

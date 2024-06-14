@@ -27,10 +27,14 @@
     "@ngrx/store": "~17.2.0",
     "@o3r/core": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "rxjs": "^7.8.1"
   },
   "peerDependenciesMeta": {
     "@o3r/schematics": {
+      "optional": true
+    },
+    "@schematics/angular": {
       "optional": true
     }
   },
@@ -65,6 +69,7 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@schematics/angular": "~17.3.0",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

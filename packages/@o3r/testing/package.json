@@ -97,6 +97,7 @@
     "@amadeus-it-group/kassette": "^1.7.0",
     "@angular-devkit/schematics": "~17.3.0",
     "@angular/animations": "~17.3.0",
+    "@angular/cli": "~17.3.0",
     "@angular/common": "~17.3.0",
     "@angular/core": "~17.3.0",
     "@angular/forms": "~17.3.0",
@@ -120,6 +121,9 @@
       "optional": true
     },
     "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "@angular/cli": {
       "optional": true
     },
     "@ngx-translate/core": {

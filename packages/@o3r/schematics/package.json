@@ -44,6 +44,9 @@
     "@angular-devkit/core": {
       "optional": true
     },
+    "@angular/cli": {
+      "optional": true
+    },
     "@o3r/telemetry": {
       "optional": true
     },

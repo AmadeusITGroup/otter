@@ -14,17 +14,18 @@ import {
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 describe('ng add testing', () => {
 
   test('should add testing to an application', () => {
-    const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const { workspacePath, appName, isInWorkspace, o3rVersion, libraryPath, untouchedProjectsPaths, applicationPath } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     packageManagerExec({script: 'ng', args: ['add', `@o3r/testing@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.length).toBe(0);
-    expect(diff.modified).toContain('apps/test-app/package.json');
+    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf-8'})).toContain('@o3r/testing');
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
