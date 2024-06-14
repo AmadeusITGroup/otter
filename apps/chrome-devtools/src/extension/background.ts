@@ -160,23 +160,30 @@ chrome.runtime.onConnect.addListener((port) => {
 // Listen for messages from the application
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   const tabId = sender.tab?.id;
-  if (tabId && connections.has(tabId) && isOtterDebugMessage(request)) {
-    // Redirect the message to the correct devtool instance (if any)
-    connections.get(tabId)!.forEach((port) => port.postMessage(request));
+  if (tabId && isOtterDebugMessage(request)) {
+    if (connections.has(tabId)) {
+      // Redirect the message to the correct devtool instance (if any)
+      connections.get(tabId)!.forEach((port) => port.postMessage(request));
+      return sendResponse(true);
+    }
     if (
       isApplicationInformationMessage(request.content)
       && !activeStateAppliedOn.has(tabId)
       && (await isWhitelistedHost(sender.url))
     ) {
       void applyActivateState(request.content.appName, tabId);
+      return sendResponse(true);
     }
   }
-  sendResponse(!!tabId && connections.has(tabId));
+  sendResponse(false);
 });
 
-chrome.webNavigation.onCommitted.addListener(async ({ tabId, url }) => {
+chrome.webNavigation.onCommitted.addListener(async (args) => {
+  const { url, tabId } = args;
   if (await isWhitelistedHost(url)) {
-    activeStateAppliedOn.delete(tabId);
+    if (activeStateAppliedOn.has(tabId)) {
+      activeStateAppliedOn.delete(tabId);
+    }
     await chrome.scripting.executeScript({
       target: { tabId },
       files: [scriptToInject]

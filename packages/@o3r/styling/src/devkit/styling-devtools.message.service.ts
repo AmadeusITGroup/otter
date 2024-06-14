@@ -18,11 +18,20 @@ const isStylingMessage = (message: any): message is AvailableStylingMessageConte
 
 const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
   .reverse()
-  .reduce((acc: CSSStyleRule[], styleSheet) => acc.concat(
-    Array.from(styleSheet.cssRules || styleSheet.rules)
-      .reverse()
-      .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
-  ), []);
+  .reduce((acc: CSSStyleRule[], styleSheet) => {
+    let rules;
+    try {
+      rules = styleSheet.cssRules || styleSheet.rules;
+    } catch {
+      console.debug(`Could not access CSS rule for ${JSON.stringify(styleSheet.href)}`);
+    }
+
+    return acc.concat(
+      Array.from(rules || [])
+        .reverse()
+        .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
+    );
+  }, []);
 
 const getCSSVariableValueInCSSStyleDeclaration = (variableName: string, style: CSSStyleDeclaration) =>
   style.getPropertyValue(variableName).trim();

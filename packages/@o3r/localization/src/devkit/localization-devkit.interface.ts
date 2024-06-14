@@ -51,6 +51,7 @@ export interface UpdateLocalizationContentMessage extends OtterMessageContent<'u
 export interface ReloadLocalizationKeysContentMessage extends OtterMessageContent<'reloadLocalizationKeys'> {
   /** Lang */
   lang?: string;
+  overrides?: {[key: string]: string};
 }
 
 export interface IsTranslationDeactivationEnabledContentMessage extends OtterMessageContent<'isTranslationDeactivationEnabled'> {

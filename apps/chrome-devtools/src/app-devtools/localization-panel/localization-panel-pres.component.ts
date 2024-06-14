@@ -1,17 +1,28 @@
-import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, effect, inject, type OnDestroy, type Signal, untracked, viewChild, ViewEncapsulation } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DfTooltipModule } from '@design-factory/design-factory';
-import { NgbAccordionDirective, NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
+import {AsyncPipe} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  type OnDestroy,
+  type Signal,
+  untracked,
+  viewChild,
+  ViewEncapsulation
+} from '@angular/core';
+import {toSignal} from '@angular/core/rxjs-interop';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {DfTooltipModule} from '@design-factory/design-factory';
+import {NgbAccordionDirective, NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
 import type {
   JSONLocalization,
   LocalizationMetadata
 } from '@o3r/localization';
-import { Subscription } from 'rxjs';
-import { map, throttleTime } from 'rxjs/operators';
-import { ChromeExtensionConnectionService } from '../../services/connection.service';
-import { LocalizationService, StateService } from '../../services';
+import {Subscription} from 'rxjs';
+import {map, throttleTime} from 'rxjs/operators';
+import {ChromeExtensionConnectionService} from '../../services/connection.service';
+import {LocalizationService, StateService} from '../../services';
 
 const THROTTLE_TIME = 100;
 
@@ -44,6 +55,7 @@ export class LocalizationPanelPresComponent implements OnDestroy {
   public readonly filteredLocalizations: Signal<LocalizationMetadata>;
   public readonly languages = this.localizationService.languages;
   public readonly hasSeveralLanguages: Signal<boolean>;
+  public readonly isTruncated: Signal<boolean>;
   public readonly localizationActiveStateOverridesForCurrentLang = computed(() => {
     const lang = this.currentLanguage();
     if (!lang) {
@@ -89,17 +101,23 @@ export class LocalizationPanelPresComponent implements OnDestroy {
     const search = toSignal(
       this.form.controls.search.valueChanges.pipe(
         map((text) => text?.toLowerCase() || ''),
-        throttleTime(THROTTLE_TIME, undefined, { trailing: true })
+        throttleTime(THROTTLE_TIME, undefined, {trailing: true})
       ),
-      { initialValue: '' }
+      {initialValue: ''}
     );
+    const searchMatch = computed(() => {
+      const searchText = search();
+      return searchText ?
+        this.localizations().filter(({ key, description, tags, ref }) =>
+          [key, description, ...(tags || []), ref].some((value) => value?.toLowerCase().includes(searchText))
+        ) : this.localizations();
+    });
 
     this.filteredLocalizations = computed(() => {
-      const searchText = search();
-      return searchText
-        ? this.localizations().filter(({ key, description, tags, ref }) => [key, description, ...(tags || []), ref].some((value) => value?.toLowerCase().includes(searchText)))
-        : this.localizations();
+      return searchMatch().slice(0, 20);
     });
+
+    this.isTruncated = computed(() => this.filteredLocalizations().length < searchMatch().length);
 
     effect(() => {
       const lang = this.currentLanguage();
@@ -120,34 +138,13 @@ export class LocalizationPanelPresComponent implements OnDestroy {
       })
     );
     effect(() => {
-      const translations = this.localizationService.translationsForCurrentLanguage();
+      const translations = this.filteredLocalizations();
       const lang = untracked(this.currentLanguage);
       if (!lang) {
         return;
       }
-      let langControl = this.form.controls.translations.controls[lang];
-      if (!langControl) {
-        langControl = new FormGroup<Record<string, TranslationControl>>({});
-        this.form.controls.translations.addControl(lang, langControl);
-      }
-      Object.entries(translations).forEach(([key, value]) => {
-        const control = langControl.controls[key];
-        const initialValue =
-          untracked(this.stateService.localState).localizations?.[this.form.value.lang || '']?.[key]
-          || value
-          || untracked(this.localizationService.localizationsMetadata).find((loc) => loc.key === key)?.value
-          || '';
-        if (!control) {
-          const newControl = new FormControl<string>(initialValue);
-          langControl.addControl(key, newControl);
-          this.subscription.add(
-            newControl.valueChanges.pipe(
-              throttleTime(THROTTLE_TIME, undefined, { trailing: true })
-            ).subscribe((newValue) => this.onLocalizationChange(key, newValue ?? ''))
-          );
-        } else {
-          control.setValue(initialValue);
-        }
+      translations.forEach(({key}) => {
+        this.upsertKeyForm(key, lang);
       });
     });
     effect(() => {
@@ -166,14 +163,33 @@ export class LocalizationPanelPresComponent implements OnDestroy {
         control.disable();
       }
     });
-    const locOverride = computed(() => this.stateService.localState().localizations || {});
-    effect(() => {
-      Object.entries(locOverride()).forEach(([lang, overridePerLang]) =>
-        Object.entries(overridePerLang).forEach(([key, value]) =>
-          this.form.controls.translations.controls[lang]?.controls[key]?.setValue(value)
-        )
+  }
+
+  private upsertKeyForm(key: string, lang: string) {
+    let langControl = this.form.controls.translations.controls[lang];
+    if (!langControl) {
+      langControl = new FormGroup<Record<string, TranslationControl>>({});
+      this.form.controls.translations.addControl(lang, langControl);
+    }
+    const control = langControl.controls[key];
+    const controlValue =
+      this.stateService.localState().localizations?.[this.form.value.lang || '']?.[key]
+      || untracked(this.localizationService.localizationsMetadata).find((loc) => loc.key === key)?.value
+      || '';
+    if (!control) {
+      const newControl = new FormControl<string>(controlValue);
+      langControl.addControl(key, newControl);
+      this.subscription.add(
+        newControl.valueChanges.pipe(
+          throttleTime(THROTTLE_TIME, undefined, {trailing: true})
+        ).subscribe((newValue) => {
+          this.onLocalizationChange(key, newValue ?? '');
+        })
       );
-    });
+    } else if (control.value !== controlValue) {
+      control.setValue(controlValue);
+    }
+
   }
 
   /**

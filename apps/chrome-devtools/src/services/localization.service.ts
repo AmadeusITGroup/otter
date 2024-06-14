@@ -56,8 +56,11 @@ export class LocalizationService {
 
   constructor() {
     effect(() => {
-      this.connectionService.sendMessage('switchLanguage', { language: this.currentLanguage() });
-      this.connectionService.sendMessage('requestMessages', { only: ['getTranslationValuesContentMessage'] });
+      const currentLanguage = this.currentLanguage();
+      if (currentLanguage) {
+        this.connectionService.sendMessage('switchLanguage', { language: this.currentLanguage() });
+        this.connectionService.sendMessage('requestMessages', { only: ['getTranslationValuesContentMessage'] });
+      }
     });
     const externalSwitchLanguage = toSignal(
       this.connectionService.message$.pipe(

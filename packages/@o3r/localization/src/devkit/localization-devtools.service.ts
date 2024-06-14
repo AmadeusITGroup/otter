@@ -82,7 +82,7 @@ export class OtterLocalizationDevtools {
    * @see https://github.com/ngx-translate/core/blob/master/packages/core/lib/translate.service.ts#L490
    * @param language language to reload
    */
-  public async reloadLocalizationKeys(language?: string) {
+  public async reloadLocalizationKeys(language?: string, overrides?: {[key: string]: string}) {
     const lang = language || this.getCurrentLanguage();
     if ((this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache) {
       (this.translateCompiler as TranslateMessageFormatLazyCompiler).clearCache();
@@ -96,6 +96,9 @@ export class OtterLocalizationDevtools {
       language || this.getCurrentLanguage(),
       initialLocs
     );
+    Object.entries(overrides || {}).forEach(([key, value]) => {
+      this.localizationService.getTranslateService().set(key, value, lang);
+    });
     this.appRef.tick();
   }
 }

@@ -92,7 +92,8 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       cssVarList
         .forEach((item) => {
           acc.variables[item.name] = item;
-          delete (acc.variables[item.name] as any).name;
+          // Why do we delete this item name?
+          // delete (acc.variables[item.name] as any).name;
         });
       return acc;
     }, previousMetadata);

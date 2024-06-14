@@ -75,25 +75,20 @@ export class StateService {
 
     effect(() => {
       const state = this.activeState();
+      const languages = untracked(this.languages);
       this.updateLocalState(state || {}, true);
       // TODO reset configuration (is it possible? based on default value from metadata if present?)
-      // Reset all languages before applying override of the new state
-      untracked(this.languages).forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', { lang }));
       // Reset all styling variables before applying override of the new state
       this.connectionService.sendMessage('resetStylingVariables', {});
       if (!state) {
+        languages.forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', { lang }));
         this.connectionService.sendMessage('unselectState', {});
         return;
       }
+      languages.forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys',
+        { lang, ...state.localizations && state.localizations[lang] ? {overrides: state.localizations[lang]} : {} }));
       Object.entries(state.configurations || {}).forEach(([id, configValue]) => {
         this.connectionService.sendMessage('updateConfig', { id, configValue });
-      });
-      Object.entries(state.localizations || {}).forEach(([lang, overrides]) => {
-        Object.entries(overrides).forEach(([key, value]) => {
-          this.connectionService.sendMessage('updateLocalization', {
-            key, value, lang
-          });
-        });
       });
       if (state.stylingVariables && Object.keys(state.stylingVariables).length) {
         this.connectionService.sendMessage('updateStylingVariables', {
