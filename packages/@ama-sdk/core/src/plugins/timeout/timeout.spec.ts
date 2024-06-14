@@ -1,5 +1,9 @@
 import {EmptyResponseError, ResponseTimeoutError} from '../../fwk/errors';
-import {TimeoutFetch, TimeoutStatus} from './timeout.fetch';
+import {
+  impervaCaptchaEventHandlerFactory,
+  TimeoutFetch,
+  TimeoutStatus
+} from './timeout.fetch';
 
 describe('Timeout Fetch Plugin', () => {
 
@@ -44,10 +48,12 @@ describe('Timeout Fetch Plugin', () => {
 
   it('should not reject if the timeout has been paused and reject if restarted', async () => {
     const timeoutPauseEvent = {
-      emitEvent: (_status: TimeoutStatus) => {},
+      emitEvent: (_status: TimeoutStatus) => {
+      },
       handler: (timeoutPauseCallback: (status: TimeoutStatus) => void) => {
         timeoutPauseEvent.emitEvent = timeoutPauseCallback;
-        return () => {};
+        return () => {
+        };
       }
     };
     const plugin = new TimeoutFetch(100, timeoutPauseEvent.handler);
@@ -65,10 +71,12 @@ describe('Timeout Fetch Plugin', () => {
 
   it('should take into account pause events triggered before the call', async () => {
     const timeoutPauseEvent = {
-      emitEvent: (_status: TimeoutStatus) => {},
+      emitEvent: (_status: TimeoutStatus) => {
+      },
       handler: (timeoutPauseCallback: (status: TimeoutStatus) => void) => {
         timeoutPauseEvent.emitEvent = timeoutPauseCallback;
-        return () => {};
+        return () => {
+        };
       }
     };
     const plugin = new TimeoutFetch(250, timeoutPauseEvent.handler);
@@ -80,5 +88,78 @@ describe('Timeout Fetch Plugin', () => {
     await jest.runAllTimersAsync();
 
     expect(await promise).toEqual({test: true} as any);
+  });
+});
+
+describe('impervaCaptchaEventHandlerFactory', () => {
+  let postMessageTemp: (msg: any, origin?: string) => any;
+  beforeAll(() => {
+    global.location ||= {hostname: 'test'} as any;
+    global.addEventListener ||= jest.fn().mockImplementation((event, handler) => {
+      if (event === 'message') {
+        postMessageTemp = (msg, origin?) => {
+          const eventObject = {
+            origin: origin || 'https://test',
+            data: msg
+          } as any;
+          if (typeof handler === 'object') {
+            handler.handleEvent(eventObject);
+          } else {
+            handler(eventObject);
+          }
+        };
+      }
+    }) as any;
+  }
+  );
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should not throw on unexpected messages', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp('pouet');
+    expect(callback).not.toHaveBeenCalled();
+    postMessageTemp(JSON.stringify({impervaChallenge: {type: 'incorrectType'}}));
+    expect(callback).not.toHaveBeenCalled();
+    postMessageTemp(JSON.stringify({impervaChallenge: {incorrectFormat: true}}));
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('should not throw on null messages', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp(null);
+    expect(callback).not.toHaveBeenCalled();
+  });
+
+  it('should trigger a timeoutStopped if the captcha challenge has been started', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp(JSON.stringify({impervaChallenge: {status: 'started', type: 'captcha'}}));
+    expect(callback).toHaveBeenCalledWith('timeoutStopped');
+  });
+
+  it('should trigger a timeoutStarted if the captcha challenge has been finished', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp({impervaChallenge: {status: 'ended', type: 'captcha'}});
+    expect(callback).toHaveBeenCalledWith('timeoutStarted');
+  });
+
+  it('should trigger a timeoutStarted if the captcha challenge has been finished on a whitelisted domain', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: ['valid.domain']})(callback, this);
+    postMessageTemp(JSON.stringify({impervaChallenge: {status: 'ended', type: 'captcha'}}), 'http://valid.domain');
+    expect(callback).toHaveBeenCalledWith('timeoutStarted');
+  });
+
+  it('should ignore postMessage from non whitelisted domain', () => {
+    const callback = jest.fn();
+    impervaCaptchaEventHandlerFactory({whiteListedHostNames: []})(callback, this);
+    postMessageTemp(JSON.stringify({impervaChallenge: {status: 'ended', type: 'captcha'}}), 'http://invalid.domain');
+    expect(callback).not.toHaveBeenCalled();
   });
 });
