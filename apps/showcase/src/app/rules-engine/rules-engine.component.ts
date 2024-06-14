@@ -17,6 +17,7 @@ import {
   LocalizationRulesEngineActionModule
 } from '@o3r/localization/rules-engine';
 import {
+  CurrentTimeFactsService,
   dateInNextMinutes,
   Operator,
   Rule,
@@ -32,7 +33,6 @@ import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPa
 import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';
-import { CurrentTimeFactsService } from '../../services/current-time-facts.service';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({
