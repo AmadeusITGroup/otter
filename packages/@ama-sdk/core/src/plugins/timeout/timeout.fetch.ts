@@ -26,7 +26,7 @@ export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
  * @param message
  */
 function isImpervaCaptchaMessage(message: any): message is ImpervaCaptchaMessageData {
-  return Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
+  return !!message && Object.prototype.hasOwnProperty.call(message, 'impervaChallenge') &&
     Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'status') &&
     Object.prototype.hasOwnProperty.call(message.impervaChallenge, 'type') && message.impervaChallenge.type === 'captcha';
 }
@@ -55,8 +55,15 @@ export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<
       if (originHostname !== location.hostname && (config?.whiteListedHostNames || []).indexOf(originHostname) === -1) {
         return;
       }
-      const message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-      if (message && isImpervaCaptchaMessage(message)) {
+      let message = event.data;
+      if (typeof event.data === 'string') {
+        try {
+          message = JSON.parse(event.data);
+        } catch {
+          // This might not be an imperva message
+        }
+      }
+      if (typeof message === 'object' && isImpervaCaptchaMessage(message)) {
         timeoutPauseCallback(message.impervaChallenge.status === 'started' ? 'timeoutStopped' : 'timeoutStarted');
       }
     });
