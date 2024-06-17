@@ -76,7 +76,7 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     }
 
     // prepare package manager config
-    setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd });
+    setPackagerManagerConfig(options, { ...execAppOptions, cwd: options.cwd }, 'npm');
     try { mkdirSync(appFolderPath, { recursive: true }); } catch { }
     setPackagerManagerConfig(options, execAppOptions);
 
