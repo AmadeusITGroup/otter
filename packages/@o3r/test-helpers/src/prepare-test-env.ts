@@ -69,7 +69,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
       mkdirSync(itTestsFolderPath);
-      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath});
+      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath}, 'npm');
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
@@ -89,7 +89,13 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const prepareFinalApp = (baseApp: string) => {
     logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
     const baseProjectPath = path.join(itTestsFolderPath, baseApp);
-    cpSync(baseProjectPath, workspacePath, { recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source) });
+    cpSync(baseProjectPath, workspacePath, {
+      recursive: true,
+      dereference: true,
+      filter: (source) =>
+        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source) &&
+        !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
+    });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstall(execAppOptions);
     }
