@@ -54,7 +54,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        packageManager: [yarn, npm]
+        packageManager: [yarn, npm, yarn1]
         testEnvironment: [o3r-project-with-app]
     runs-on: ${{ matrix.os }}
     env:

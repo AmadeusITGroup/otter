@@ -9,6 +9,7 @@ const o3rEnvironment = globalThis.o3rEnvironment;
 import {
   getDefaultExecSyncOptions,
   getPackageManager,
+  isYarn1Enforced,
   packageManagerCreate,
   packageManagerExec,
   packageManagerInstall,
@@ -20,8 +21,8 @@ import * as path from 'node:path';
 
 const defaultExecOptions = getDefaultExecSyncOptions();
 const workspaceProjectName = 'my-project';
-
-describe('Create new otter project command', () => {
+const describeSkipYarn1 = isYarn1Enforced ? describe.skip : describe;
+describeSkipYarn1('Create new otter project command', () => {
   test('should generate a project with an application', async () => {
     const { workspacePath, packageManagerConfig, o3rVersion } = o3rEnvironment.testEnvironment;
     const inProjectPath = path.join(workspacePath, workspaceProjectName);
