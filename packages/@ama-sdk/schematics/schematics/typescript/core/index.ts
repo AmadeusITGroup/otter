@@ -1,5 +1,6 @@
-import type { OpenApiToolsConfiguration, OpenApiToolsGenerator, PathObject } from '@ama-sdk/core';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
+import type { PathObject } from '@ama-sdk/core';
+import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '../../helpers/open-api-tools-configuration';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '../../helpers/generators';
 import {
   apply,
   chain,

@@ -6,8 +6,15 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
-      "dependsOn": ["build-builders"]
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "build-builders",
+        "build-cli"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -31,6 +38,15 @@
       "options": {
         "script": "build:builders"
       }
+    },
+    "build-cli": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cli"
+      },
+      "dependsOn": [
+        "build-builders"
+      ]
     },
     "lint": {
       "options": {
