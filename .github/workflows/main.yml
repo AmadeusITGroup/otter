@@ -26,7 +26,7 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       NX_SKIP_NX_CACHE: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - uses: ./tools/github-actions/setup
       - uses: ./.github/actions/setup-java
         with:
@@ -44,7 +44,7 @@ jobs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
       isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - uses: ./tools/github-actions/setup
       - name: New Version
         if: github.event_name != 'merge_group'
