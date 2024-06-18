@@ -63,7 +63,7 @@ jobs:
       # Needed to publish with provenance
       id-token: write
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
@@ -92,7 +92,7 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -125,7 +125,7 @@ jobs:
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     needs: [publish]
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
