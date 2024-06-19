@@ -28,7 +28,7 @@ Otherwise, use the error message as guidance.`);
  * @param options for the dependency installations
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
+  return async (tree, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const {
       getDefaultOptionsForSchematic,
@@ -62,7 +62,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
+    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
       .forEach(([dep, range]) => {
         dependencies[dep] = {
           inManifest: [{
@@ -71,7 +71,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           }]
         };
       });
-    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath))
+    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger))
       .forEach(([dep, range]) => {
         dependencies[dep] = {
           inManifest: [{
