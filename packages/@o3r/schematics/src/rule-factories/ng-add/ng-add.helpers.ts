@@ -141,6 +141,7 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
 
 /**
  * Look for the peer dependencies and run ng add on the package requested version
+ * TODO: Remove this method in v11. No longer used
  * @param packages list of the name of the packages needed
  * @param packageJsonPath path to package json that needs the peer to be resolved
  * @param type how to install the dependency (dev, peer for a library or default for an application)
