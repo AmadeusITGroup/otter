@@ -55,7 +55,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         };
         return acc;
       }, getPackageInstallConfig(testPackageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
-      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, testPackageJsonPath))
+      Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, testPackageJsonPath, context.logger))
         .forEach(([dep, range]) => {
           dependencies[dep] = {
             inManifest: [{

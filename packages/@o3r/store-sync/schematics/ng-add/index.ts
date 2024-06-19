@@ -20,7 +20,7 @@ Otherwise, use the error message as guidance.`);
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
+  return async (tree, context) => {
     // use dynamic import to properly raise an exception if it is not an Otter project.
     const {
       getPackageInstallConfig,
@@ -46,7 +46,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
-    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath))
+    Object.entries(getExternalDependenciesVersionRange(devDependenciesToInstall, packageJsonPath, context.logger))
       .forEach(([dep, range]) => {
         dependencies[dep] = {
           inManifest: [{
