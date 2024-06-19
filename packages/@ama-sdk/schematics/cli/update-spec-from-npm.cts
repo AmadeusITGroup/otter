@@ -10,8 +10,8 @@ import { createRequire } from 'node:module';
 import { extname, posix } from 'node:path';
 import { copyFile, readFile } from 'node:fs/promises';
 import type { PackageJson } from 'type-fest';
-import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '@ama-sdk/core';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
+import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '@ama-sdk/schematics';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
