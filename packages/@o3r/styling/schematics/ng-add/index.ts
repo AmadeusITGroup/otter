@@ -39,7 +39,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       setupDependencies,
       removePackages,
       registerPackageCollectionSchematics,
-      setupSchematicsDefaultParams,
+      setupSchematicsParamsForProject,
       updateSassImports,
       getExternalDependenciesVersionRange
     } = await import('@o3r/schematics');
@@ -91,7 +91,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         ngAddToRun: depsInfo.o3rPeerDeps
       }),
       registerPackageCollectionSchematics(JSON.parse(fs.readFileSync(packageJsonPath).toString())),
-      setupSchematicsDefaultParams({
+      setupSchematicsParamsForProject({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component': {
           useOtterTheming: undefined
@@ -100,7 +100,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         '@o3r/core:component-presenter': {
           useOtterTheming: undefined
         }
-      }),
+      }, options.projectName),
       ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : [])
     ]);
   };

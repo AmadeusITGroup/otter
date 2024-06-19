@@ -1,7 +1,7 @@
 import { chain } from '@angular-devkit/schematics';
 import { defaultPresetRuleFactory } from './helpers';
 import type { PresetOptions } from './preset.interface';
-import { setupSchematicsDefaultParams, WorkspaceSchematics } from '@o3r/schematics';
+import { setupSchematicsParamsForProject, WorkspaceSchematics } from '@o3r/schematics';
 
 /**
  * Preset Installing all the Otter modules
@@ -33,7 +33,7 @@ export function allPreset(options: PresetOptions) {
     modules,
     rule: chain([
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      setupSchematicsDefaultParams({ '*:ng-add': { enableMetadataExtract: true } } as WorkspaceSchematics),
+      setupSchematicsParamsForProject({ '*:ng-add': { enableMetadataExtract: true } } as WorkspaceSchematics, options.projectName),
       rule
     ])
   };

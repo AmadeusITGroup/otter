@@ -35,19 +35,20 @@
     "lint": "eslint \"**/*[jt]s\" --cache",
     "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \"<%=packageManager%> run files:pack --watch\"",
     "build": "<%=packageManager%> run build:cjs && <%=packageManager%> run build:esm2015 && <%=packageManager%> run build:esm2020 && <%=packageManager%> run files:pack",
-    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q",
-    "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q",
+    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
+    "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q --strip-leading-paths",
     "build:esm2020": "tsc -b tsconfigs/esm2020",
-    "set:version": "o3r-set-version --placeholder 0.0.0-placeholder",
+    "set:version": "npm version",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
     "generate": "schematics @ama-sdk/schematics:typescript-core",
     "spec:regen": "<%=packageManager%> run generate <% if (packageManager === 'npm') {%>-- <%}%>--generator-key <%=projectName%>-<%=projectPackageName%> && amasdk-clear-index",
+    "spec:upgrade": "<% if (specPackageName) { %>amasdk-update-spec-from-npm <%=specPackageName%> --package-path=\"<%=specPackagePath%>\" && <% } %><%=packageManager%> run spec:regen",
     "files:pack": "amasdk-files-pack",
     "test": "jest --passWithNoTests",
     "publish:package": "npm publish ./dist",
     "generate:mock": "schematics @ama-sdk/schematics:mock",
     "doc:generate": "typedoc",
-    "tools:changelog": "standard-version"
+    "tools:changelog": "commit-and-tag-version"
   },
   "lint-staged": {
     "**/*.(js|ts)": [
@@ -55,7 +56,7 @@
     ]
   },
   "dependencies": {
-    "@swc/helpers": "^0.5.0",
+    "@swc/helpers": "~0.5.0",
     "tslib": "<%= versions['tslib'] %>"
   },
   "peerDependenciesMeta": {
@@ -82,8 +83,8 @@
     "@o3r/schematics": "<%= sdkCoreRange %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
     "@stylistic/eslint-plugin-ts": "<%= versions['@stylistic/eslint-plugin-ts'] %>",
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.5.24",
+    "@swc/cli": "~0.3.0",
+    "@swc/core": "~1.5.24",
     "@types/jest": "<%= versions['@types/jest'] %>",
     "@types/node": "<%= versions['@types/node'] %>",
     "@typescript-eslint/eslint-plugin": "<%= versions['@typescript-eslint/eslint-plugin'] %>",
@@ -103,11 +104,13 @@
     "minimist": "^1.2.6",
     "rimraf": "^5.0.1",
     "rxjs": "<%= versions['rxjs'] %>",
-    "standard-version": "^9.0.0",
+    "commit-and-tag-version": "<%= versions['commit-and-tag-version'] %>",
     "ts-jest": "<%= versions['ts-jest'] %>",
     "typedoc": "~0.25.0",
     "tsc-watch": "^6.0.0",
-    "typescript": "<%= versions['typescript'] %>"
+    "yaml-eslint-parser": "^1.2.2",
+    "typescript": "<%= versions['typescript'] %>"<% if (specPackageName) { %>,
+    "<%=specPackageName%>": "<%=specPackageVersion%>"<% } %>
   },<% if (exactO3rVersion) { %>
   "<%= packageManager == 'yarn' ? 'resolutions' : 'overrides' %>": {
     "@o3r/schematics": "<%= sdkCoreRange %>"
