@@ -57,14 +57,14 @@
     "winston": "^3.8.2"
   },
   "devDependencies": {
-    "@angular-devkit/core": "~17.3.0",
-    "@angular-devkit/schematics": "~17.3.0",
-    "@angular-eslint/eslint-plugin": "~17.5.0",
+    "@angular-devkit/core": "~18.0.0",
+    "@angular-devkit/schematics": "~18.0.0",
+    "@angular-eslint/eslint-plugin": "~18.0.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.24.0",
     "@compodoc/compodoc": "^1.1.19",
-    "@nx/eslint-plugin": "~18.3.0",
-    "@nx/jest": "~18.3.0",
+    "@nx/eslint-plugin": "~19.3.0",
+    "@nx/jest": "~19.3.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "^1.5.4",
@@ -76,6 +76,7 @@
     "@types/semver": "^7.3.13",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
+    "@typescript-eslint/utils": "~7.13.1",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
@@ -87,7 +88,7 @@
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "node-fetch": "^3.0.0",
-    "nx": "~18.3.0",
+    "nx": "~19.3.0",
     "rimraf": "^5.0.1",
     "ts-jest": "~29.1.2",
     "ts-node": "~10.9.2",
@@ -95,7 +96,7 @@
     "typescript": "~5.4.2"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
   "schematics": "./collection.json",
   "ng-update": {
