@@ -1,9 +1,12 @@
-import {PerformanceMetricPlugin} from './perf-metric.fetch';
+import { PerformanceMetricPlugin } from './perf-metric.fetch';
 
 let perfPlugin: PerformanceMetricPlugin;
 describe('PerformanceMetricPlugin', () => {
+  let onMarkOpen!: jest.Mock;
+
   beforeEach(() => {
-    perfPlugin = new PerformanceMetricPlugin({});
+    onMarkOpen = jest.fn();
+    perfPlugin = new PerformanceMetricPlugin({onMarkOpen});
   });
 
   it('should generate new mark ids', () => {
@@ -46,5 +49,10 @@ describe('PerformanceMetricPlugin', () => {
     });
     perfPlugin.closeMarkWithError(markId, {} as Error);
     return ret;
+  });
+
+  it('should include call the open mark callback', () => {
+    const markId = perfPlugin.openMark('my-url', {});
+    expect(onMarkOpen).toHaveBeenCalledWith(expect.objectContaining({ markId }));
   });
 });
