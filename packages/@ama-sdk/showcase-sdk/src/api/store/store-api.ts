@@ -52,7 +52,7 @@ export class StoreApi implements Api {
   /**
    * Initialize your interface
    *
-   * @params apiClient Client used to process call to the API
+   * @param apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
     this.client = apiClient;
@@ -62,9 +62,10 @@ export class StoreApi implements Api {
    * Delete purchase order by ID
    * For valid response try integer IDs with value &lt; 1000. Anything above 1000 or nonintegers will generate API errors
    * @param data Data to provide to the API call
+   * @param metadata Metadata to pass to the API call
    */
   public async deleteOrder(data: DeleteOrderRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const getParams = this.client.extractQueryParams<DeleteOrderRequestData>(data, [] as never[]);
+    const queryParams = this.client.extractQueryParams<DeleteOrderRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -72,11 +73,22 @@ export class StoreApi implements Api {
     };
 
     const body: RequestBody = '';
-    const basePathUrl = `${this.client.options.basePath}/store/order/${data.orderId}`;
+    const basePath = `${this.client.options.basePath}/store/order/${data.orderId}`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens.orderId || data.orderId}`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
-    const options = await this.client.prepareOptions(basePathUrl, 'DELETE', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const requestOptions = {
+      headers,
+      method: 'DELETE',
+      basePath,
+      queryParams,
+      body: body || undefined,
+      metadata,
+      tokenizedOptions,
+      api: this
+    };
+
+    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'DELETE', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'deleteOrder');
@@ -87,9 +99,10 @@ export class StoreApi implements Api {
    * Returns pet inventories by status
    * Returns a map of status codes to quantities
    * @param data Data to provide to the API call
+   * @param metadata Metadata to pass to the API call
    */
   public async getInventory(data: GetInventoryRequestData, metadata?: RequestMetadata<string, 'application/json'>): Promise<{ [key: string]: number }> {
-    const getParams = this.client.extractQueryParams<GetInventoryRequestData>(data, [] as never[]);
+    const queryParams = this.client.extractQueryParams<GetInventoryRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -97,11 +110,22 @@ export class StoreApi implements Api {
     };
 
     const body: RequestBody = '';
-    const basePathUrl = `${this.client.options.basePath}/store/inventory`;
+    const basePath = `${this.client.options.basePath}/store/inventory`;
     const tokenizedUrl = `${this.client.options.basePath}/store/inventory`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
-    const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const requestOptions = {
+      headers,
+      method: 'GET',
+      basePath,
+      queryParams,
+      body: body || undefined,
+      metadata,
+      tokenizedOptions,
+      api: this
+    };
+
+    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{ [key: string]: number }>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getInventory');
@@ -112,9 +136,10 @@ export class StoreApi implements Api {
    * Find purchase order by ID
    * For valid response try integer IDs with value &lt;&#x3D; 5 or &gt; 10. Other values will generate exceptions.
    * @param data Data to provide to the API call
+   * @param metadata Metadata to pass to the API call
    */
   public async getOrderById(data: GetOrderByIdRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Order> {
-    const getParams = this.client.extractQueryParams<GetOrderByIdRequestData>(data, [] as never[]);
+    const queryParams = this.client.extractQueryParams<GetOrderByIdRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -122,11 +147,22 @@ export class StoreApi implements Api {
     };
 
     const body: RequestBody = '';
-    const basePathUrl = `${this.client.options.basePath}/store/order/${data.orderId}`;
+    const basePath = `${this.client.options.basePath}/store/order/${data.orderId}`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order/${this.piiParamTokens.orderId || data.orderId}`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
-    const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const requestOptions = {
+      headers,
+      method: 'GET',
+      basePath,
+      queryParams,
+      body: body || undefined,
+      metadata,
+      tokenizedOptions,
+      api: this
+    };
+
+    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getOrderById');
@@ -137,9 +173,10 @@ export class StoreApi implements Api {
    * Place an order for a pet
    * Place a new order in the store
    * @param data Data to provide to the API call
+   * @param metadata Metadata to pass to the API call
    */
   public async placeOrder(data: PlaceOrderRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json'>): Promise<Order> {
-    const getParams = this.client.extractQueryParams<PlaceOrderRequestData>(data, [] as never[]);
+    const queryParams = this.client.extractQueryParams<PlaceOrderRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -152,11 +189,22 @@ export class StoreApi implements Api {
     } else {
       body = data.Order as any;
     }
-    const basePathUrl = `${this.client.options.basePath}/store/order`;
+    const basePath = `${this.client.options.basePath}/store/order`;
     const tokenizedUrl = `${this.client.options.basePath}/store/order`;
-    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, getParams, this.piiParamTokens, data);
+    const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
-    const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
+    const requestOptions = {
+      headers,
+      method: 'POST',
+      basePath,
+      queryParams,
+      body: body || undefined,
+      metadata,
+      tokenizedOptions,
+      api: this
+    };
+
+    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'placeOrder');
