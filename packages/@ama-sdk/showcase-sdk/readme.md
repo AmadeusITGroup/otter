@@ -129,13 +129,14 @@ For example, you want to be able to display that the flight is in X hours.
 You will need to compute this information with the two timezones -- the airport's and the user's.
 
 ### Solution proposed to remove the timezone: utils.DateTime
+The Otter framework has introduced the `utils.Date` and `utils.DateTime` objects to replace the `Date` implementation and convert the date returned by the API as if it were in the
+timezone of the user.
 
-We have introduced the utils.Date object to replace the Date implementation and ignore the timezone.
-As we need to get rid of the timezones more often than not, this will be our default behavior.
-By default, the Date models are replaced with utils.Date.
+Dates can be generated as `utils.Date` or `string` depending on the value of the `stringifyDate` option. This ensures that the timezone will not impact the date.
+In the case of `date-time` object, the default type used is `string` or native `Date` depending on the `stringifyDate` option value.
 
-When we need to keep the timezone information, we create a new field directly in the SDK.
-As this field does not exist in the specification, it will not be part of the base model but of the core model instead.
+If you want to generate a date-time using `utils.DateTime`, you can do it at property level thanks to the `x-local-timezone` vendor.
+As this field does not exist in the specification, it will not be part of the base model but of the core model instead (the first one being completely generated from the API specifications).
 
 Simple example:
 
@@ -147,11 +148,11 @@ Simple example:
     properties:
       departureDateTime:
         type: string
+        x-local-timezone: true
+        description: If this vendor extension is present send dates without their timezone
         format: date-time
 ```
-
 Base model generated
-
 ```typescript
 // flight.ts generated in base models
 export interface Flight {
@@ -211,23 +212,3 @@ export * from './flight/index';
 
 You can now use departureDateTimeConsideringTimezone to access the timezone information.
 See [utils.Date](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/core/src/fwk/date.ts) for more information.
-
-### How to keep the timezone (prevent Date replacement with utils.Date)
-
-In order to add the timezone to your timestamp property you can add the x-date-timezone extension in your yaml, for example:
-
-```yaml
-properties:
-  timestamp:
-    title: timestamp
-    description: >-
-      Timestamp when event is triggered. UTC time (server time), with a
-      format similar to yyyy-MM-ddThh:mm:ss.sTZD. Refer to the pattern
-    type: string
-    format: date-time
-    x-date-timezone:
-      description: If this vendor extension is present send dates with the timezone
-    pattern: >-
-      ^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}.[0-9]{1,3}([Z]|([+][0-9]{2}:?[0-9]{2}$))
-    example: '2013-12-31T19:20:30.45+01:00'
-```

@@ -127,16 +127,16 @@ Please note that revivers are generated for SDKs that use:
 
 If your specification file includes dates, there are multiple options for the generation of your SDK involving the global property option `stringifyDate`:
 
-- By default, the option `stringifyDate` is false so dates will be generated as either `utils.Date`, `utils.DateTime`, or `Date`.
+- By default, the option `stringifyDate` is set to `true`. Set it to `false` if you want date-time objects to be generated 
+  as `Date` and date objects to be generated as `utils.Date`.
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
-- To leave the handling of the timezone to the application and generate the dates as `string` types, the option `stringifyDate` can be set to true. <br>
-  This can be done by adding `--global-property stringifyDate` to the generator command.
-- If an existing SDK contains stringified dates that need to be reverted to their expected formats, you can regenerate the SDK by removing the `stringifyDate` option from the global properties (since it is false by default).
+  This can be done by adding `--global-property stringifyDate=false` to the generator command or by adding the global property
+to the `openapitools.json`.
 
-Example to stringify dates:
+Example to use `Date`:
 
 ```shell
-yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property stringifyDate
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property stringifyDate=false
 ```
 
 ##### Extensible models
@@ -214,7 +214,7 @@ described global properties `stringifyDate` and  `allowModelExtension`:
         "output": ".",
         "inputSpec": "./openapi-spec.yaml", // or "./openapi-spec.json" according to the specification format
         "globalProperty": {
-          "stringifyDate": true,
+          "stringifyDate": false,
           "allowModelExtension": true
         }
       }
