@@ -69,7 +69,12 @@ describe('Create new sdk command', () => {
     expect(() =>
       packageManagerCreate({
         script: '@ama-sdk',
-        args: ['typescript', sdkPackageName, '--package-manager', packageManager, '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml')]
+        args: [
+          'typescript',
+          sdkPackageName,
+          '--package-manager', packageManager,
+          '--spec-path', path.join(sdkFolderPath, 'swagger-spec-with-date.yml'),
+          '--global-property', 'stringifyDate=false']
       }, execAppOptions)
     ).not.toThrow();
     expect(() => packageManagerRun({script: 'build'}, { ...execAppOptions, cwd: sdkPackagePath })).not.toThrow();
@@ -88,7 +93,8 @@ describe('Create new sdk command', () => {
           '--spec-package-name', '@ama-sdk/showcase-sdk',
           '--spec-package-path', 'openapi.yml',
           '--spec-package-version', o3rEnvironment.testEnvironment.o3rVersion,
-          '--spec-package-registry', o3rEnvironment.testEnvironment.packageManagerConfig.registry
+          '--spec-package-registry', o3rEnvironment.testEnvironment.packageManagerConfig.registry,
+          '--global-property', 'stringifyDate=false'
         ]
       }, execAppOptions)
     ).not.toThrow();

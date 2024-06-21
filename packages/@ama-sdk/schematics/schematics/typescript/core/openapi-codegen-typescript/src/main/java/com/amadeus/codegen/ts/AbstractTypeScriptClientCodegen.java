@@ -112,7 +112,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     String allowModelExtensionString = GlobalSettings.getProperty("allowModelExtension");
     allowModelExtension = allowModelExtensionString != null ? !"false".equalsIgnoreCase(allowModelExtensionString) : false;
     String stringifyDateString = GlobalSettings.getProperty("stringifyDate");
-    stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : false;
+    stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : true;
     typeMapping.put("DateTime", stringifyDate ? "string" : "utils.DateTime");
     typeMapping.put("Date", stringifyDate ? "string" : "utils.Date");
     //TODO binary should be mapped to byte array
@@ -444,12 +444,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       }
     }
 
-    if (property != null && !stringifyDate) {
-      if (Boolean.TRUE.equals(property.isDate) || Boolean.TRUE.equals(property.isDateTime)) {
-        property.isPrimitiveType = false;
-      }
-    }
-
     if (property.isEnum) {
       List<String> allowableValues = (List) property.allowableValues.get("values");
       List<String> sanitizedAllowableValues = allowableValues;
@@ -512,11 +506,20 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         + "list container.");
     }
 
-    // If the x-date-timezone is present in the specification, replace utils.Date with Date
-    if (("utils.Date".equals(property.dataType) || "utils.DateTime".equals(property.dataType)) && property.vendorExtensions.containsKey("x-date-timezone")) {
-      property.dataType = "Date";
-      property.datatypeWithEnum = "Date";
-      property.baseType = "Date";
+    if (property.vendorExtensions.containsKey("x-date-timezone")) {
+      throw new IllegalArgumentException("'x-date-timezone' is deprecated and conflicts with the 'x-local-timezone' vendor." +
+        " Please check out the documentation and migrate to the 'x-local-timezone' model.");
+    }
+    // If the x-local-timezone is present in the specification, use utils.Date
+    if (property.vendorExtensions.containsKey("x-local-timezone")) {
+      String dataType = "date-time".equals(property.getFormat()) ? "utils.DateTime" : "utils.Date";
+      property.isPrimitiveType = false;
+      property.dataType = dataType;
+      property.datatypeWithEnum = dataType;
+      property.baseType = dataType;
+    }
+    if (property != null && property.dataType != null && property.dataType.matches("^(Date|utils.Date|utils.DateTime)$")) {
+        property.isPrimitiveType = false;
     }
     property.vendorExtensions.put("x-exposed-classname", model.classname);
   }
