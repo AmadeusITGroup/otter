@@ -6,13 +6,13 @@ on:
     types:
       - completed
 
+permissions: read-all
+
 jobs:
   publish-ut-reports:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      actions: read
-      # Required to publish Unit Test Report to the pipelne execution result
+      # Required to publish Unit Test Report to the pipeline execution result
       checks: write
     steps:
       - uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
@@ -25,9 +25,7 @@ jobs:
   publish-it-reports:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      actions: read
-      # Required to publish Integration Test Report to the pipelne execution result
+      # Required to publish Integration Test Report to the pipeline execution result
       checks: write
     steps:
       - uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1

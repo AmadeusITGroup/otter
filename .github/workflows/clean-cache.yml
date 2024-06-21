@@ -10,8 +10,7 @@ on:
     branches:
       - '**'
 
-permissions:
-  contents: read
+permissions: read-all
 
 jobs:
   clean-cache:
@@ -19,7 +18,6 @@ jobs:
     permissions:
       # Needed to delete cache from action
       actions: write
-      contents: read
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
       - name: Clean Branch Cache
