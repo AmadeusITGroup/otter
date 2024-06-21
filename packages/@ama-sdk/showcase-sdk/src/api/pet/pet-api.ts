@@ -143,7 +143,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'addPet');
@@ -181,7 +181,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'DELETE', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'deletePet');
@@ -219,7 +219,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByStatus');
@@ -256,7 +256,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByTags');
@@ -293,7 +293,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'getPetById');
@@ -335,7 +335,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'PUT', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePet');
@@ -372,7 +372,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePetWithForm');
@@ -414,7 +414,7 @@ export class PetApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'uploadFile');

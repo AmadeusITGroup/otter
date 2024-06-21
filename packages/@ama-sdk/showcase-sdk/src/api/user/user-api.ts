@@ -124,7 +124,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUser');
@@ -166,7 +166,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUsersWithListInput');
@@ -203,7 +203,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'DELETE', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'deleteUser');
@@ -240,7 +240,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'getUserByName');
@@ -277,7 +277,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'loginUser');
@@ -314,7 +314,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'logoutUser');
@@ -356,7 +356,7 @@ export class UserApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'PUT', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'updateUser');
