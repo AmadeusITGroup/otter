@@ -5,13 +5,15 @@
  *
  */
 
+import {utils} from '@ama-sdk/core';
 
 
 export interface Order {
   id?: number;
   petId?: number;
   quantity?: number;
-  shipDate?: string;
+  /** @see utils.DateTime */
+  shipDate?: utils.DateTime;
   /** Order Status */
   status?: StatusEnum;
   complete?: boolean;

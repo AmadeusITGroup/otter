@@ -1,4 +1,5 @@
 import { User } from '../../models/base/user/index';
+import { reviveUser } from '../../models/base/user/user.reviver';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export interface CreateUserRequestData {
@@ -169,7 +170,7 @@ export class UserApi implements Api {
     const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'createUsersWithListInput');
+    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: reviveUser } , 'createUsersWithListInput');
     return ret;
   }
 
@@ -243,7 +244,7 @@ export class UserApi implements Api {
     const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'getUserByName');
+    const ret = this.client.processCall<User>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: reviveUser } , 'getUserByName');
     return ret;
   }
 
@@ -280,7 +281,7 @@ export class UserApi implements Api {
     const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, undefined, 'loginUser');
+    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, UserApi.apiName, { 200: undefined } , 'loginUser');
     return ret;
   }
 

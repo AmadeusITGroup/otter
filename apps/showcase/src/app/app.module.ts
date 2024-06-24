@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbOffcanvasModule } from '@ng-bootstrap/ng-bootstrap';
 import { EffectsModule } from '@ngrx/effects';
 import { RuntimeChecks, StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+// import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { ApplicationDevtoolsModule, OTTER_APPLICATION_DEVTOOLS_OPTIONS, prefersReducedMotion } from '@o3r/application';
 import { ConfigurationDevtoolsModule, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from '@o3r/configuration';
@@ -90,7 +90,7 @@ export function registerCustomComponents(): Map<string, any> {
     BrowserAnimationsModule.withConfig({disableAnimations: prefersReducedMotion()}),
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}, { runtimeChecks }),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    // StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     TranslateModule.forRoot({
       loader: translateLoaderProvider,
       compiler: {

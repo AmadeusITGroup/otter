@@ -1,18 +1,20 @@
-import { PetApi, Tag } from '@ama-sdk/showcase-sdk';
+import { Tag } from '@ama-sdk/showcase-sdk';
 import type { Pet } from '@ama-sdk/showcase-sdk';
-import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { DfMedia } from '@design-factory/design-factory';
 import { NgbHighlight, NgbPagination, NgbPaginationPages } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { OtterPickerPresComponent } from '../../utilities';
+import { PetFacade } from '../../../stores';
+import { take } from 'rxjs';
 
 const FILTER_PAG_REGEX = /[^0-9]/g;
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
-  selector: 'o3r-sdk-pres',
+  selector: 'o3r-elf-pres',
   standalone: true,
   imports: [
     NgbHighlight,
@@ -21,59 +23,59 @@ const FILTER_PAG_REGEX = /[^0-9]/g;
     OtterPickerPresComponent,
     NgbPaginationPages
   ],
-  templateUrl: './sdk-pres.template.html',
-  styleUrls: ['./sdk-pres.style.scss'],
+  templateUrl: './elf-pres.template.html',
+  styleUrls: ['./elf-pres.style.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SdkPresComponent {
-  private readonly petStoreApi = inject(PetApi);
+export class ElfPresComponent implements OnInit {
   private readonly mediaService = inject(DfMedia);
+  private readonly petFacade = inject(PetFacade);
 
   /**
    * Name input used to create new pets
    */
-  public petName = signal('');
+  public readonly petName = signal('');
 
   /**
    * File input used to create new pets
    */
-  public petImage = signal('');
+  public readonly petImage = signal('');
 
   /**
    * Search term used to filter the list of pets
    */
-  public searchTerm = signal('');
+  public readonly searchTerm = signal('');
 
   /**
    * Number of items to display on a table page
    */
-  public pageSize = signal(10);
+  public readonly pageSize = signal(10);
 
   /**
    * Currently opened page on the table
    */
-  public currentPage = signal(1);
+  public readonly currentPage = signal(1);
 
   /**
    * Complete list of pets retrieved from the API
    */
-  public pets = signal<Pet[]>([]);
+  public readonly pets = toSignal(this.petFacade.pets, {initialValue: []});
 
   /**
    * Loading state of the API
    */
-  public isLoading = signal(true);
+  public readonly isLoading = toSignal(this.petFacade.loading, {initialValue: false});
 
   /**
    * Error state of the API
    */
-  public hasErrors = signal(false);
+  public readonly hasErrors = toSignal(this.petFacade.error, {initialValue: false});
 
   /**
    * List of pets filtered according to search term
    */
-  public filteredPets = computed(() => {
+  public readonly filteredPets = computed(() => {
     let pets = this.pets();
     if (this.searchTerm()) {
       const matchString = new RegExp(this.searchTerm().replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&'), 'i');
@@ -90,26 +92,22 @@ export class SdkPresComponent {
   /**
    * Total amount of pet in the filtered list
    */
-  public totalPetsAmount = computed(() => this.filteredPets().length);
+  public readonly totalPetsAmount = computed(() => this.filteredPets().length);
 
   /**
    * List of pets displayed in the currently selected table page
    */
-  public displayedPets = computed(() =>
+  public readonly displayedPets = computed(() =>
     this.filteredPets().slice((this.currentPage() - 1) * this.pageSize(), (this.currentPage()) * this.pageSize())
   );
 
   /**
    * True if screen size is 'xs' or 'sm'
    */
-  public isSmallScreen = toSignal<boolean>(this.mediaService.getObservable(['xs', 'sm']));
+  public readonly isSmallScreen = toSignal<boolean>(this.mediaService.getObservable(['xs', 'sm']));
 
   /** Base URL where the images can be fetched */
   public baseUrl = location.href.split('/#', 1)[0];
-
-  constructor() {
-    void this.reload();
-  }
 
   private getNextId() {
     return this.pets().reduce<number>((maxId, pet) => pet.id && pet.id < Number.MAX_SAFE_INTEGER ? Math.max(maxId, pet.id) : maxId, 0) + 1;
@@ -119,21 +117,21 @@ export class SdkPresComponent {
    * Trigger a full reload of the list of pets by calling the API
    */
   public reload() {
-    this.isLoading.set(true);
-    this.hasErrors.set(false);
-    return this.petStoreApi.findPetsByStatus({status: 'available'}).then((pets) => {
-      this.pets.set(pets.filter((p) => p.category?.name === 'otter').sort((a, b) => a.id && b.id && a.id - b.id || 0));
-      this.isLoading.set(false);
-    }).catch(() => {
-      this.isLoading.set(false);
-      this.hasErrors.set(true);
+    this.petFacade.fetchPets();
+  }
+
+  public ngOnInit() {
+    this.petFacade.lastFetch.pipe(take(1)).subscribe((lastFetch) => {
+      if (Date.now() - lastFetch > 300_000) {
+        this.reload();
+      }
     });
   }
 
   /**
    * Call the API to create a new pet
    */
-  public async create() {
+  public create() {
     const pet: Pet = {
       id: this.getNextId(),
       name: this.petName(),
@@ -142,31 +140,12 @@ export class SdkPresComponent {
       status: 'available',
       photoUrls: this.petName() ? [this.petImage()] : []
     };
-    this.isLoading.set(true);
-    await this.petStoreApi.addPet({
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      Pet: pet
-    });
-    if (pet.photoUrls.length) {
-      const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
-      const blob = await (await fetch(filePath)).blob();
-      await this.petStoreApi.uploadFile({
-        petId: pet.id,
-        body: new File([blob], filePath, {type: blob.type})
-      });
-    }
-    await this.reload();
+    this.petFacade.createPet(pet);
   }
 
-  public async delete(petToDelete: Pet) {
+  public delete(petToDelete: Pet) {
     if (petToDelete.id) {
-      this.isLoading.set(true);
-      try {
-        await this.petStoreApi.deletePet({petId: petToDelete.id});
-      } catch (ex) {
-        // The backend respond with incorrect header application/json while the response is just a string
-      }
-      await this.reload();
+      this.petFacade.deletePet(petToDelete.id);
     }
   }
 
