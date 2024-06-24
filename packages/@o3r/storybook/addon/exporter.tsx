@@ -20,7 +20,7 @@ export default class ExporterToolbar extends React.Component<ExporterToolbarProp
       <WithTooltip
         placement="top"
         trigger="click"
-        closeOnClick
+        closeOnOutsideClick
         tooltip={() => {
           return (
             <TooltipLinkList links={[
@@ -43,7 +43,7 @@ export default class ExporterToolbar extends React.Component<ExporterToolbarProp
           );
         }}
       >
-        <IconButton key="exporter" nonce="whatever" placeholder="" title="Export Otter properties" rel={undefined} autoFocus content={undefined} rev={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <IconButton key="exporter" nonce="whatever" title="Export Otter properties" rel={undefined} autoFocus content={undefined} rev={undefined} onPointerOverCapture={undefined}>
           <Icons icon="download" />
         </IconButton>
       </WithTooltip>

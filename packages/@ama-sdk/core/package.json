@@ -73,7 +73,7 @@
   "dependencies": {
     "@swc/helpers": "~0.5.0",
     "tslib": "^2.6.2",
-    "uuid": "^9.0.0"
+    "uuid": "^10.0.0"
   },
   "peerDependencies": {
     "@angular-devkit/schematics": "~18.0.0",
@@ -123,7 +123,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.0.0",
-    "@stylistic/eslint-plugin-ts": "^1.5.4",
+    "@stylistic/eslint-plugin-ts": "^2.0.0",
     "@swc/cli": "~0.3.0",
     "@swc/core": "~1.6.0",
     "@types/jest": "~29.5.2",
@@ -131,15 +131,15 @@
     "@types/uuid": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
-    "@typescript-eslint/utils": "~7.13.1",
+    "@typescript-eslint/utils": "~7.14.1",
     "copyfiles": "^2.4.1",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-jest": "~27.9.0",
+    "eslint-plugin-jest": "~28.6.0",
     "eslint-plugin-jsdoc": "~48.2.1",
     "eslint-plugin-prefer-arrow": "~1.2.3",
-    "eslint-plugin-unicorn": "^51.0.1",
+    "eslint-plugin-unicorn": "^54.0.0",
     "isomorphic-fetch": "~3.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
