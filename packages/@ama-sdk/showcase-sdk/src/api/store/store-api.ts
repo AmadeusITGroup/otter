@@ -88,7 +88,7 @@ export class StoreApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'DELETE', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<never>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'deleteOrder');
@@ -125,7 +125,7 @@ export class StoreApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<{ [key: string]: number }>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getInventory');
@@ -162,7 +162,7 @@ export class StoreApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'GET', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'getOrderById');
@@ -204,7 +204,7 @@ export class StoreApi implements Api {
       api: this
     };
 
-    const options = this.client.getRequestOptions ? await this.client.getRequestOptions(requestOptions) : await this.client.prepareOptions(basePath, 'POST', queryParams, headers, body || undefined, tokenizedOptions, metadata);
+    const options = await this.client.getRequestOptions(requestOptions);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<Order>(url, options, ApiTypes.DEFAULT, StoreApi.apiName, undefined, 'placeOrder');
