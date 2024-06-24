@@ -9,6 +9,7 @@ import { OTTER_STYLING_DEVTOOLS_DEFAULT_OPTIONS, OTTER_STYLING_DEVTOOLS_OPTIONS 
 const isStylingMessage = (message: any): message is AvailableStylingMessageContents => {
   return message && (
     message.dataType === 'updateStylingVariables'
+    || message.dataType === 'resetStylingVariables'
     || message.dataType === 'getStylingVariable'
     || message.dataType === 'requestMessages'
     || message.dataType === 'connect'
@@ -17,11 +18,20 @@ const isStylingMessage = (message: any): message is AvailableStylingMessageConte
 
 const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
   .reverse()
-  .reduce((acc: CSSStyleRule[], styleSheet) => acc.concat(
-    Array.from(styleSheet.cssRules || styleSheet.rules)
-      .reverse()
-      .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
-  ), []);
+  .reduce((acc: CSSStyleRule[], styleSheet) => {
+    let rules;
+    try {
+      rules = styleSheet.cssRules || styleSheet.rules;
+    } catch {
+      console.debug(`Could not access CSS rule for ${JSON.stringify(styleSheet.href)}`);
+    }
+
+    return acc.concat(
+      Array.from(rules || [])
+        .reverse()
+        .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
+    );
+  }, []);
 
 const getCSSVariableValueInCSSStyleDeclaration = (variableName: string, style: CSSStyleDeclaration) =>
   style.getPropertyValue(variableName).trim();
@@ -101,6 +111,10 @@ export class StylingDevtoolsMessageService implements OnDestroy {
       }
       case 'updateStylingVariables': {
         this.stylingDevTools.updateVariables(message.variables);
+        break;
+      }
+      case 'resetStylingVariables': {
+        this.stylingDevTools.resetStylingVariables();
         break;
       }
       default: {

@@ -32,8 +32,15 @@
                   <input [style.width]="'40px'" class="form-control form-control-color" [id]="group.name" type="color" [value]="resolvedVariables()[group.defaultVariable.name] | hexColor" (change)="onPaletteChange(group, $event)" />
                 </div>
                 <label class="form-label text-nowrap fw-semibold my-0 ms-4" [for]="group.name">{{ group.name }}</label>
-                @if (form.value.variables?.[group.defaultVariable.name] !== group.defaultVariable.defaultValue) {
-                  <i class="form-text text-warning icon-undo position-absolute end-0 me-10" ngbTooltip="Reset all colors of {{group.name}}" (click)="onPaletteReset(group, $event)"></i>
+                @if (themingActiveStateOverrides()[group.defaultVariable.name] || themingLocalStateOverrides()[group.defaultVariable.name]) {
+                  <i class="form-text text-warning icon-undo position-absolute end-0 me-10"
+                    [ngbTooltip]="
+                      activeStateName() && themingActiveStateOverrides()[group.defaultVariable.name] !== themingLocalStateOverrides()[group.defaultVariable.name]
+                      ? 'Reset all colors of ' + group.name + ' to the ones of ' + activeStateName()
+                      : 'Reset all colors of ' + group.name + ' to the default ones from metadata'
+                    "
+                    (click)="onPaletteReset(group, $event)">
+                  </i>
                 }
               } @else {
                 <label class="form-label text-nowrap fw-semibold my-0">{{ group.name }}</label>
@@ -77,8 +84,11 @@
                                       }
                                       @if (searchVariable.description; as description) {
                                         <ngb-highlight [result]="description" [term]="term"></ngb-highlight>
+                                      }
+                                      @if (searchVariable.runtimeValue) {
+                                        <ngb-highlight [result]="searchVariable.runtimeValue" [term]="term"></ngb-highlight>
                                       } @else {
-                                        <ngb-highlight [result]="searchVariable.runtimeValue ?? searchVariable.defaultValue" [term]="term"></ngb-highlight>
+                                        <ngb-highlight [result]="searchVariable.defaultValue" [term]="term"></ngb-highlight>
                                       }
                                     </div>
                                   }
@@ -86,8 +96,15 @@
                               </div>
                             </ng-template>
                             <input [id]="variable.name" type="text" class="form-control w-100 pe-6" [formControlName]="variable.name" [ngbTypeahead]="variableSearch | memoize : variable" [resultTemplate]="resultTemplate" />
-                            @if (form.value.variables?.[variable.name] !== variable.defaultValue) {
-                              <i class="form-text text-warning icon-undo position-absolute end-0 me-3" ngbTooltip="Reset value to: {{variable.defaultValue}}" (click)="onColorReset(variable)"></i>
+                            @if (themingActiveStateOverrides()[variable.name] || themingLocalStateOverrides()[variable.name]) {
+                              <i class="form-text text-warning icon-undo position-absolute end-0 me-3"
+                                [ngbTooltip]="
+                                  activeStateName() && themingActiveStateOverrides()[variable.name] !== themingLocalStateOverrides()[variable.name]
+                                    ? 'Reset value to the one from ' + activeStateName() + ': ' + (themingActiveStateOverrides()[variable.name] || variable.defaultValue)
+                                    : 'Reset value to the default one from metadata: ' + variable.defaultValue
+                                "
+                                (click)="onColorReset(variable)">
+                              </i>
                             }
                           </div>
                           @if (variable.description) {

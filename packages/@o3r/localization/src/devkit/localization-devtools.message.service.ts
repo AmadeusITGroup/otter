@@ -107,7 +107,7 @@ export class LocalizationDevtoolsMessageService implements OnDestroy {
         break;
       }
       case 'reloadLocalizationKeys': {
-        void this.localizationDevTools.reloadLocalizationKeys(message.lang);
+        void this.localizationDevTools.reloadLocalizationKeys(message.lang, message.overrides);
         break;
       }
       default: {

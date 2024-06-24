@@ -91,7 +91,7 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   /**
    * @inheritdoc
    */
-  public reloadLocalizationKeys(language?: string) {
-    return this.localizationDevtools.reloadLocalizationKeys(language);
+  public reloadLocalizationKeys(language?: string, overrides?: {[key: string]: string}) {
+    return this.localizationDevtools.reloadLocalizationKeys(language, overrides);
   }
 }

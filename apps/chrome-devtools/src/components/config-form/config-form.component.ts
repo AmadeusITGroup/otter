@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { ConfigurationModel } from '@o3r/configuration';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
+import { StateService } from '../../services';
 
 type ControlsType = Record<string, 'boolean' | 'string' | 'number'>;
 
@@ -52,8 +53,14 @@ export class ConfigFormComponent {
   });
 
   private readonly connectionService = inject(ChromeExtensionConnectionService);
+  private readonly stateService = inject(StateService);
 
   public onSubmit() {
+    void this.stateService.updateLocalState({
+      configurations: {
+        [this.config().id]: this.form.value
+      }
+    });
     this.connectionService.sendMessage('updateConfig', {
       id: this.config().id,
       configValue: this.form.value
