@@ -17,6 +17,20 @@ export interface PlaceholderLoadingStatus {
 }
 
 /**
+ * Information required to download and update a Placeholder
+ */
+export interface PlaceholderUrlUpdate {
+  /** ID of the placeholder for which to edit the URL */
+  placeholderId: string;
+
+  /** URL of the template */
+  value: string;
+
+  /** Priority of the template in case of multi template for a given Placeholder */
+  priority?: number;
+}
+
+/**
  * Message to describe a placeholder's loading status: the templates to be loaded and the pending status.
  */
 export interface PlaceholderLoadingStatusMessage extends PlaceholderLoadingStatus,

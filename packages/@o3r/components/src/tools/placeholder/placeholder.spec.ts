@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import {ComponentFixture, getTestBed, TestBed} from '@angular/core/testing';
 import {By} from '@angular/platform-browser';
 import {BrowserDynamicTestingModule, platformBrowserDynamicTesting} from '@angular/platform-browser-dynamic/testing';
-import {Store} from '@ngrx/store';
+import {Store, StoreModule} from '@ngrx/store';
 import {ReplaySubject, Subject} from 'rxjs';
 import {PlaceholderComponent} from './placeholder.component';
 
@@ -54,13 +54,14 @@ describe('Placeholder component', () => {
     };
     await TestBed.configureTestingModule({
       imports: [
-        CommonModule
+        StoreModule.forRoot(),
+        CommonModule,
+        PlaceholderComponent
       ],
       providers: [
         {provide: Store, useValue: mockStore}
       ],
       declarations: [
-        PlaceholderComponent,
         TestComponent
       ]
     }).compileComponents();

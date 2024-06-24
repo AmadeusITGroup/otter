@@ -8,12 +8,14 @@ import {
   type Signal,
   ViewEncapsulation
 } from '@angular/core';
-import {Store} from '@ngrx/store';
-import {sendOtterMessage} from '@o3r/core';
-import {BehaviorSubject, ReplaySubject, sample, Subject, Subscription} from 'rxjs';
-import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
-import {type PlaceholderMode, PlaceholderTemplateStore, selectPlaceholderTemplateMode, selectSortedTemplates} from '../../stores/placeholder-template';
-import {PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage} from './placeholder.interface';
+import { Store, StoreModule } from '@ngrx/store';
+import { BehaviorSubject, ReplaySubject, sample, Subject, Subscription } from 'rxjs';
+import { distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage } from './placeholder.interface';
+import { sendOtterMessage } from '@o3r/core';
+import { CommonModule } from '@angular/common';
+import { type PlaceholderMode, PlaceholderTemplateStore, PlaceholderTemplateStoreModule, selectPlaceholderTemplateMode, selectSortedTemplates } from '../../stores/placeholder-template/index';
+import { PlaceholderRequestStoreModule } from '../../stores/placeholder-request/index';
 
 /**
  * Placeholder component that is bind to the PlaceholderTemplateStore to display a template based on its ID
@@ -23,6 +25,13 @@ import {PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage} from './place
  */
 @Component({
   selector: 'o3r-placeholder',
+  standalone: true,
+  imports: [
+    CommonModule,
+    StoreModule,
+    PlaceholderTemplateStoreModule,
+    PlaceholderRequestStoreModule
+  ],
   templateUrl: './placeholder.template.html',
   styleUrl: './placeholder.style.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
