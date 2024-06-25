@@ -127,10 +127,11 @@ Please note that revivers are generated for SDKs that use:
 
 If your specification file includes dates, there are multiple options for the generation of your SDK involving the global property option `stringifyDate`:
 
-- By default, the option `stringifyDate` is set to `true`. Set it to `false` if you want dates will be generated as `Date`.
+- By default, the option `stringifyDate` is set to `true`. Set it to `false` if you want date-time objects to be generated 
+  as `Date` and date objects to be generated as `utils.Date`.
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
   This can be done by adding `--global-property stringifyDate=false` to the generator command or by adding the global property
-to the `openapitools.json`
+to the `openapitools.json`.
 
 Example to use `Date`:
 
