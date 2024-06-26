@@ -91,7 +91,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/testing": "workspace:^",
-    "@playwright/test": "~1.44.0",
+    "@playwright/test": "~1.45.0",
     "@schematics/angular": "~18.0.0",
     "@stylistic/eslint-plugin-ts": "^2.0.0",
     "@types/bootstrap": "^5.2.10",
