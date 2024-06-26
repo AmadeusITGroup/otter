@@ -63,7 +63,10 @@
     ]
   },
   "homepage": "https://amadeusitgroup.github.io/otter/",
-  "repository": "https://github.com/AmadeusITGroup/otter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AmadeusITGroup/otter.git"
+  },
   "bugs": "https://github.com/AmadeusITGroup/otter/issues",
   "license": "BSD-3-Clause",
   "contributors": [
@@ -94,6 +97,7 @@
     },
     {
       "name": "Stephane Dalle",
+      "url": "https://github.com/sdalle-1A",
       "email": "sdalle-1A@users.noreply.github.com"
     },
     {
