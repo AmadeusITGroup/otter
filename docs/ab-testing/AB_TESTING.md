@@ -62,7 +62,7 @@ export interface ExperimentFacts extends FactDefinitions {
 }
 ```
 
-Now you need to expose it to the [rules engine](../rules-engine/how-it-works.md) via a service:
+Now you need to expose it to the [rules engine](../rules-engine/README.md) via a service:
 ```typescript
 import {
   Injectable,
@@ -213,7 +213,6 @@ You can now create A/B testing-driven rulesets .
         {
           "name": "A/B Test - Update configuration ",
           "inputRuntimeFacts": [],
-          "inputFacts": [ "experiments" ],
           "outputRuntimeFacts": [],
           "rootElement": {
             "elementType": "RULE_BLOCK",
