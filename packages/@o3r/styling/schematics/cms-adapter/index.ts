@@ -40,6 +40,12 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
         outputFile: path.join(workspaceProject?.root || '', './style.metadata.json')
       }
     };
+    workspaceProject.architect['check-style-migration-metadata'] ||= {
+      builder: '@o3r/styling:check-style-migration-metadata',
+      options: {
+        migrationDataPath: 'MIGRATION-*.json'
+      }
+    };
 
     workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));

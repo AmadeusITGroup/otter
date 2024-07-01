@@ -1,0 +1,117 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "MigrationMetadataSchema",
+  "description": "Schema of migration metadata",
+  "type": "object",
+  "required": [
+    "version",
+    "changes"
+  ],
+  "properties": {
+    "version": {
+      "type": "string"
+    },
+    "changes": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/ConfigChange" },
+          { "$ref": "#/definitions/LocalizationChange" },
+          { "$ref": "#/definitions/StyleChange" }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ConfigMigrationItem": {
+      "type": "object",
+      "required": ["libraryName"],
+      "properties": {
+        "libraryName": {
+          "type": "string"
+        },
+        "configName": {
+          "type": "string"
+        },
+        "propertyName": {
+          "type": "string"
+        }
+      }
+    },
+    "LocalizationMigrationItem": {
+      "type": "object",
+      "required": ["key"],
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      }
+    },
+    "StyleMigrationItem": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "ConfigChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "const": "CONFIG"
+        },
+        "before": {
+          "$ref": "#/definitions/ConfigMigrationItem"
+        },
+        "after": {
+          "$ref": "#/definitions/ConfigMigrationItem"
+        }
+      }
+    },
+    "LocalizationChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "const": "LOCALIZATION"
+        },
+        "before": {
+          "$ref": "#/definitions/LocalizationMigrationItem"
+        },
+        "after": {
+          "$ref": "#/definitions/LocalizationMigrationItem"
+        }
+      }
+    },
+    "StyleChange": {
+      "type": "object",
+      "required": [
+        "contentType",
+        "before"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "const": "STYLE"
+        },
+        "before": {
+          "$ref": "#/definitions/StyleMigrationItem"
+        },
+        "after": {
+          "$ref": "#/definitions/StyleMigrationItem"
+        }
+      }
+    }
+  }
+}
