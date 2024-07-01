@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@angular-devkit/schematics": "~18.0.0",
-    "@angular-eslint/eslint-plugin": "~18.0.0",
+    "@angular-eslint/eslint-plugin": "~18.1.0",
     "@jest/environment": "~29.7.0",
     "@jest/types": "~29.6.3",
     "@nx/eslint-plugin": "~19.3.0",
