@@ -42,8 +42,8 @@
     }
   },
   "peerDependencies": {
-    "@angular-eslint/template-parser": "~18.0.0",
-    "@angular-eslint/test-utils": "~18.0.0",
+    "@angular-eslint/template-parser": "~18.1.0",
+    "@angular-eslint/test-utils": "~18.1.0",
     "@angular/compiler": "~18.0.0",
     "@stylistic/eslint-plugin-ts": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
@@ -56,9 +56,9 @@
   "devDependencies": {
     "@angular-devkit/core": "~18.0.0",
     "@angular-devkit/schematics": "~18.0.0",
-    "@angular-eslint/eslint-plugin": "~18.0.0",
-    "@angular-eslint/template-parser": "~18.0.0",
-    "@angular-eslint/test-utils": "~18.0.0",
+    "@angular-eslint/eslint-plugin": "~18.1.0",
+    "@angular-eslint/template-parser": "~18.1.0",
+    "@angular-eslint/test-utils": "~18.1.0",
     "@angular/compiler": "~18.0.0",
     "@babel/core": "~7.24.0",
     "@babel/preset-typescript": "~7.24.0",
