@@ -8,7 +8,7 @@ The practice of analytics is there for supporting decision-making by providing t
 When you generate your component, you can decide to activate the otter analytics structure.
 
 ### A new file analytic.ts
-The otter component generator will create one file suffixed by `analytics.ts`. 
+The otter component generator will create one file suffixed by `analytics.ts`.
 Inside you will find an interface to define all the events that your component can trigger and a const to inject inside your component.
 
 ```typescript
