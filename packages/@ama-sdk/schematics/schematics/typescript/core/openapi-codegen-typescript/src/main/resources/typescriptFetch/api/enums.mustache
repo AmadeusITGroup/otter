@@ -3,7 +3,7 @@
 {{#noEmptyExport}}
 {{#apis}}
 {{#operations}}
-export type { {{#trimComma}}{{#operation}}{{#allParams}}{{#isEnum}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum, {{/isEnum}}{{/allParams}}{{/operation}}{{/trimComma}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
+export type { {{#trimComma}}{{#operation}}{{#allParams}}{{#isEnum}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{#uppercaseFirst}}{{paramName}}{{/uppercaseFirst}}Enum, {{/isEnum}}{{/allParams}}{{/operation}}{{/trimComma}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
 {{/operations}}
 {{/apis}}
 {{/noEmptyExport}}
