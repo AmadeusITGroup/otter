@@ -132,7 +132,7 @@ export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverT
   if (typeof revivers === 'function' || typeof revivers === 'undefined') {
     return revivers;
   }
-  if (response.status && revivers[response.status]) {
+  if (response.status && Object.keys(revivers).indexOf(`${response.status}`) > -1) {
     return revivers[response.status];
   }
   if (options?.disableFallback) {
