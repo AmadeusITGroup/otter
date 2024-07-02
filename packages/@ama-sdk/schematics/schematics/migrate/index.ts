@@ -2,16 +2,19 @@ import type { Rule } from '@angular-devkit/schematics';
 import { MigrateSchematicsSchemaOptions } from './schema';
 import { getMigrationRuleRunner, getWorkspaceConfig, type MigrationRulesMap } from '@o3r/schematics';
 import { resolve } from 'node:path';
+import { updateRegenScript } from '../ng-update/typescript/v11.0/update-regen-script';
 import { gt, minVersion } from 'semver';
 import { isTypescriptSdk } from '../helpers/is-typescript-project';
 import {updateOpenApiVersionInProject} from '../ng-update/typescript/v10.3/update-openapiversion';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 const tsMigrationMap: MigrationRulesMap = {
-  '~10.3.2': updateOpenApiVersionInProject()
+  '~10.3.2': updateOpenApiVersionInProject(),
+  '11.0.*': [
+    updateRegenScript
+  ]
 };
 /* eslint-enable @typescript-eslint/naming-convention */
-
 /**
  * Facilitate the migration of a version to another by the run of migration rules
  * @param options
