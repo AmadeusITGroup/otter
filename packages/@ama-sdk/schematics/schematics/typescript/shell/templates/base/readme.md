@@ -144,7 +144,7 @@ Simple example:
     properties:
       departureDateTime:
         type: string
-        x-local-timezone:
+        x-local-timezone: true
         description: If this vendor extension is present send dates without their timezone
         format: date-time
 ```
