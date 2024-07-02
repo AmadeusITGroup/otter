@@ -46,6 +46,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
   private final boolean stringifyDate;
   private final boolean allowModelExtension;
+  private final boolean useLegacyDateExtension;
 
   public AbstractTypeScriptClientCodegen() {
     super();
@@ -110,11 +111,13 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     typeMapping.put("integer", "number");
     typeMapping.put("Map", "any");
     String allowModelExtensionString = GlobalSettings.getProperty("allowModelExtension");
+    String useLegacyDateExtensionString = GlobalSettings.getProperty("useLegacyDateExtension");
+    useLegacyDateExtension = useLegacyDateExtensionString != null ? !"false".equalsIgnoreCase(useLegacyDateExtensionString) : false;
     allowModelExtension = allowModelExtensionString != null ? !"false".equalsIgnoreCase(allowModelExtensionString) : false;
     String stringifyDateString = GlobalSettings.getProperty("stringifyDate");
-    stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : false;
-    typeMapping.put("DateTime", stringifyDate ? "string" : "utils.DateTime");
-    typeMapping.put("Date", stringifyDate ? "string" : "utils.Date");
+    stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : true;
+    typeMapping.put("DateTime", useLegacyDateExtension ? getDateLocalTimezoneType(true) : getDateStandardType(true, stringifyDate));
+    typeMapping.put("Date", useLegacyDateExtension ? getDateLocalTimezoneType(false) : getDateStandardType(false, stringifyDate));
     //TODO binary should be mapped to byte array
     // mapped to String as a workaround
     typeMapping.put("binary", "string");
@@ -444,12 +447,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       }
     }
 
-    if (property != null && !stringifyDate) {
-      if (Boolean.TRUE.equals(property.isDate) || Boolean.TRUE.equals(property.isDateTime)) {
-        property.isPrimitiveType = false;
-      }
-    }
-
     if (property.isEnum) {
       List<String> allowableValues = (List) property.allowableValues.get("values");
       List<String> sanitizedAllowableValues = allowableValues;
@@ -512,13 +509,57 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         + "list container.");
     }
 
-    // If the x-date-timezone is present in the specification, replace utils.Date with Date
-    if (("utils.Date".equals(property.dataType) || "utils.DateTime".equals(property.dataType)) && property.vendorExtensions.containsKey("x-date-timezone")) {
-      property.dataType = "Date";
-      property.datatypeWithEnum = "Date";
-      property.baseType = "Date";
+    boolean isLocalDateTime = property.vendorExtensions.containsKey("x-local-timezone");
+    // If the x-local-timezone is present in the specification for a date time object, use utils.DateTime
+    if (isLocalDateTime && property.isDateTime) {
+        if (useLegacyDateExtension) {
+          LOGGER.error("Unsupported 'x-local-timezone' vendor found for property " + property.name + " while using the " +
+            "'useLegacyDateExtension'. The vendor will be ignored in this scenario, please deactivate the " +
+            "'useLegacyDateExtension if you want to use this vendor.");
+        }
+        if (property.vendorExtensions.containsKey("x-date-timezone")) {
+          throw new IllegalArgumentException("The 'x-local-timezone' and the 'x-date-timezone' vendor are not compatible.");
+        }
+        String dataType = getDateLocalTimezoneType(true);
+        property.dataType = dataType;
+        property.datatypeWithEnum = dataType;
+        property.baseType = dataType;
+    } else if (isLocalDateTime) {
+      LOGGER.error(property.name + " has the 'x-local-timezone' vendor which is only compatible for date-time format. This will " +
+        "be ignored and normal logic will apply.");
+    } else if (property.vendorExtensions.containsKey("x-date-timezone")) {
+      // If the x-date-timezone extension is present, it means that the utils.Date should be replace with a string or a Date
+      if (!useLegacyDateExtension) {
+        throw new IllegalArgumentException("'x-date-timezone' is deprecated and conflicts with the 'x-local-timezone' vendor." +
+          " Please check out the documentation and migrate to the 'x-local-timezone' model: https://github.com/AmadeusITGroup/otter/blob/main/migration-guides/11.0.md."
+        );
+      }
+      String dataType = this.getDateStandardType(property.isDateTime, stringifyDate);
+      property.dataType = dataType;
+      property.datatypeWithEnum = dataType;
+      property.baseType = dataType;
+    } else if (property.isDateTime && !typeMapping.get("DateTime").equals(property.dataType)) {
+      String dataType = typeMapping.get("DateTime");
+      property.dataType = dataType;
+      property.datatypeWithEnum = dataType;
+      property.baseType = dataType;
+    }
+
+    if (property != null && property.dataType != null && property.dataType.matches("^(Date|utils.Date|utils.DateTime)$")) {
+      property.isPrimitiveType = false;
     }
     property.vendorExtensions.put("x-exposed-classname", model.classname);
+  }
+
+  private String getDateStandardType(boolean isDateTime, boolean isDateStringified) {
+    if (isDateTime) {
+      return isDateStringified ? "string" : "Date";
+    }
+    return isDateStringified ? "string" : "utils.Date";
+  }
+
+  private String getDateLocalTimezoneType(boolean isDateTime) {
+    return isDateTime ? "utils.DateTime" : "utils.Date";
   }
 
   /**
@@ -558,6 +599,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
   /**
    * Post process the import of a ModelsMap, make sure to include the field and the subtypes with their revivers
+   *
    * @param objs
    * @return
    */

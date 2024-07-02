@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: 1.0.1
+  version: 1.0.0
   title: Swagger Petstore
   license:
     name: MIT
@@ -45,10 +45,24 @@ paths:
       tags:
         - pets
       responses:
-        "201":
+        200:
+          description: The created pet
+          schema:
+            $ref: '#/definitions/Pet'
+        204:
           description: Null response
         default:
           description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      summary: Invalid verb
+      operationId: createPetsIncorrectly
+      tags:
+        - pets
+      responses:
+        404:
+          description:  error
           schema:
             $ref: '#/definitions/Error'
   /pets/{petId}:
@@ -68,6 +82,28 @@ paths:
           description: Expected response to a valid request
           schema:
             $ref: '#/definitions/Pets'
+        "201":
+          description: Expected response to a valid request
+          schema:
+            $ref: '#/definitions/Pets'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    delete:
+      summary: delete a specific pet
+      operationId: deletePetById
+      tags:
+        - pets
+      parameters:
+        - name: petId
+          in: path
+          required: true
+          description: The id of the pet to retrieve
+          type: string
+      responses:
+        204:
+          description: Null response
         default:
           description: unexpected error
           schema:
@@ -78,16 +114,7 @@ definitions:
     required:
       - id
       - name
-      - tag
     properties:
-      nextMeetingAtTheVet:
-        type: string
-        format: date-time
-        x-local-timezone: true
-      friends:
-        type: object
-        allOf:
-          - $ref: '#/definitions/Pets'
       id:
         type: integer
         format: int64
