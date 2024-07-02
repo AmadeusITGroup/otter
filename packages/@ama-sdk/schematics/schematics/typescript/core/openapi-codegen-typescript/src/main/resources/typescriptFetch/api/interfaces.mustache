@@ -3,10 +3,7 @@
 {{#apiInfo}}
 {{#apis}}
 {{#operations}}
-export type { {{#operation}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{^-last}}, {{/-last}}{{/operation}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
-{{/operations}}
-{{#operations}}
-export type { {{#operation}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}{{^-last}}, {{/-last}}{{/operation}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
+export type { {{#operation}}{{classname}}{{#uppercaseFirst}}{{nickname}}{{/uppercaseFirst}}RequestData{{^-last}}, {{/-last}}{{/operation}} } from './{{#apiFolderName}}{{classname}}{{/apiFolderName}}/index';
 {{/operations}}
 {{/apis}}
 {{/apiInfo}}
