@@ -14,5 +14,16 @@ module.exports = {
   },
   'extends': [
     '../../../.eslintrc.js'
+  ],
+  'overrides': [
+    {
+      'files': ['package.json'],
+      'rules': {
+        '@o3r/json-dependency-versions-harmonize': ['error', {
+          'ignoredPackages': ['@o3r/build-helpers', 'yarn'],
+          'alignPeerDependencies': false
+        }]
+      }
+    }
   ]
 };
