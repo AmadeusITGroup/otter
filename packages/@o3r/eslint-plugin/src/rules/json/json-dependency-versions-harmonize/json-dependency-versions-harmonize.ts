@@ -80,7 +80,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
           },
           alignEngines: {
             type: 'boolean',
-            description: 'Align the engines constrains with the latest determined range.'
+            description: 'Align the engines constraints with the latest determined range.'
           }
         },
         additionalProperties: false
