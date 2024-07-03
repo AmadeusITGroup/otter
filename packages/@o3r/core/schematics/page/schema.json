@@ -24,7 +24,6 @@
     "scope": {
       "type": "string",
       "description": "Page scope (e.g. booking, servicing, ssci, etc.)",
-      "x-prompt": "Page scope (e.g. booking, servicing, ssci, etc.)?",
       "default": ""
     },
     "appRoutingModulePath": {

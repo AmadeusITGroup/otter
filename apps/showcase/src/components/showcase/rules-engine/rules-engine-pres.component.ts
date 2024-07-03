@@ -1,5 +1,5 @@
 import { AsyncPipe, formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnChanges, Optional, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, type OnChanges, type OnDestroy, Optional, type SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ConfigObserver, ConfigurationBaseService, ConfigurationObserver, DynamicConfigurable } from '@o3r/configuration';
 import { O3rComponent } from '@o3r/core';
@@ -31,7 +31,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
     AsyncPipe
   ]
 })
-export class RulesEnginePresComponent implements OnChanges, DynamicConfigurable<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
+export class RulesEnginePresComponent implements OnDestroy, OnChanges, DynamicConfigurable<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
   /** Localization of the component*/
   @Input()
   @Localization('./rules-engine-pres.localization.json')

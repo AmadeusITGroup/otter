@@ -5,10 +5,10 @@ import {filter, map, shareReplay, switchMap} from 'rxjs/operators';
 import type {ActionBlock, Fact, Operator, Ruleset, UnaryOperator} from '../../engine/index';
 import {EngineDebugger, operatorList, RulesEngine} from '../../engine/index';
 import type {RulesetsStore} from '../../stores';
-import {selectActiveRuleSets, selectAllRulesets, selectRuleSetLinkComponents} from '../../stores';
+import {selectActiveRuleSets, selectAllRulesets, selectComponentsLinkedToRuleset} from '../../stores';
 import {RULES_ENGINE_OPTIONS, RulesEngineServiceOptions} from '../rules-engine.token';
 import {LoggerService} from '@o3r/logger';
-import type { RulesEngineActionHandler } from '@o3r/core';
+import type {RulesEngineActionHandler} from '@o3r/core';
 
 @Injectable()
 export class RulesEngineRunnerService implements OnDestroy {
@@ -46,13 +46,12 @@ export class RulesEngineRunnerService implements OnDestroy {
       this.store.pipe(select(selectActiveRuleSets)),
       this.linkedComponents$.pipe(
         switchMap((linkedComponentsNamesMap) => this.store.pipe(
-          select(selectRuleSetLinkComponents),
-          map((linkComponentMap) => Object.keys(linkedComponentsNamesMap)
-            .filter((linkedComponentsName) => linkedComponentsNamesMap[linkedComponentsName] > 0)
-            .reduce((acc, compName) => {
-              acc.push(...(linkComponentMap[compName] || []));
-              return acc;
-            }, [] as string[]))
+          select(selectComponentsLinkedToRuleset),
+          map((rulesetsWithLinkedComponentsMap) =>
+            Object.keys(rulesetsWithLinkedComponentsMap.or).filter((rulesetId) =>
+              rulesetsWithLinkedComponentsMap.or[rulesetId].some((componentId) => linkedComponentsNamesMap[componentId] > 0)
+            )
+          )
         ))
       )
     ]).pipe(

@@ -14,7 +14,7 @@ export const getAddContextRules = (
   '@o3r/core',
   'context-to-component',
   {
-    path: componentPath,
+    ...options,
     skipLinter: options.skipLinter
   }
 );

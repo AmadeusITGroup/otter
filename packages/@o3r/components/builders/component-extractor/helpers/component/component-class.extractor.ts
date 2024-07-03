@@ -36,14 +36,14 @@ export interface ComponentInformation {
 export class ComponentClassExtractor {
 
   /** List of interfaces that a configurable component can implement */
-  public readonly CONFIGURABLE_INTERFACES: string[] = ['DynamicConfigurable', 'Configurable'];
+  public readonly CONFIGURABLE_INTERFACES: string[] = ['DynamicConfigurable', 'DynamicConfigurableWithSignal', 'Configurable'];
 
   /**
    * @param source Typescript SourceFile node of the file
    * @param logger Logger
    * @param filePath Path to the file to extract the data from
    */
-  constructor(public source: ts.SourceFile, private logger: logging.LoggerApi, public filePath: string) {
+  constructor(public source: ts.SourceFile, private readonly logger: logging.LoggerApi, public filePath: string) {
   }
 
   /**

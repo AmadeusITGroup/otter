@@ -136,6 +136,15 @@ export interface Ruleset {
   rules: Rule[];
   /** Optional date range where the ruleset will be executed*/
   validityRange?: {from?: string; to?: string};
-  /** Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription */
+  /**
+   * Components linked to the ruleset. If present the ruleset will not be active by default.
+   * 'or' condition: If at least one component has subscribed, the ruleset will become active.
+   * If provided, the {@link linkedComponent} property will not be taken into consideration
+   */
+  linkedComponents?: {or: {library: string; name: string}[]};
+  /**
+   * Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription
+   * @deprecated It will be removed in v12, use {@link linkedComponents} instead
+   */
   linkedComponent?: {library: string; name: string};
 }

@@ -41,3 +41,9 @@ export const resolveVariable = (
   }
   return variableValue;
 };
+
+/**
+ * Get variant name from a variable name
+ * @param variableName
+ */
+export const getVariant = (variableName: string) => variableName.split('-').pop();

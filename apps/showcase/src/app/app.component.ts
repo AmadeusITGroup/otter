@@ -23,14 +23,15 @@ export class AppComponent implements OnDestroy {
       ]
     },
     {
-      label: 'CMS',
+      label: 'Personalization',
       links: [
         { url: '/configuration', label: 'Configuration' },
         { url: '/localization', label: 'Localization' },
+        { url: '/design-token', label: 'Design Tokens' },
         { url: '/dynamic-content', label: 'Dynamic content' },
+        { url: '/component-replacement', label: 'Component replacement' },
         { url: '/rules-engine', label: 'Rules engine' },
-        { url: '/component-replacement', label: 'Component Replacement' },
-        { url: '/design-token', label: 'Design Tokens' }
+        { url: '/placeholder', label: 'Placeholder' }
       ]
     },
     {

@@ -3,7 +3,7 @@ import type { Ruleset } from '@o3r/rules-engine';
 export const jsonTwoRulesetsOneOnDemand: {rulesets: Ruleset[]} = {
   'rulesets': [
     {
-      'id': 'e5th46e84-5e4th-54eth65seth46se8th2',
+      'id': 'e5th46e84-5e4th-54eth65seth46se8Linked',
       'name': 'linked component ruleset',
       'linkedComponent': {
         'library': '@otter/demo-app-components',
@@ -35,7 +35,7 @@ export const jsonTwoRulesetsOneOnDemand: {rulesets: Ruleset[]} = {
       ]
     },
     {
-      'id': 'e5th46e84-5e4th-54eth65seth46se8th4',
+      'id': 'e5th46e84-5e4th-54eth65seth46Default',
       'name': 'the first ruleset',
       'rules': [
         {

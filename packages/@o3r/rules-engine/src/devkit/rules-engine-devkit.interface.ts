@@ -8,7 +8,7 @@ export interface RulesEngineDevtoolsServiceOptions extends DevtoolsCommonOptions
 
 /** Rules Engine debug event Message Content */
 export interface RulesEngineDebugEventsContentMessage extends OtterMessageContent<'rulesEngineEvents'> {
-  /** Map of registered ruleets */
+  /** Map of registered rulesets */
   rulesetMap: Record<string, Ruleset>;
   /** List of event from the Rules Engine Debugger */
   events: DebugEvent[];

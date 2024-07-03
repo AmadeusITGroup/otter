@@ -1,4 +1,5 @@
 import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, OtterMessageContent, RequestMessagesContentMessage } from '@o3r/core';
+import type { PlaceholderMode } from '../stores';
 import { OtterLikeComponentInfo } from './inspector';
 
 /**
@@ -22,6 +23,14 @@ export interface ToggleInspectorMessage extends OtterMessageContent<'toggleInspe
 }
 
 /**
+ * Message to toggle the placeholder mode
+ */
+export interface PlaceholderModeMessage extends OtterMessageContent<'placeholderMode'> {
+  /** Placeholder mode */
+  mode: PlaceholderMode;
+}
+
+/**
  * Message to know the component selection availability
  */
 export interface IsComponentSelectionAvailableMessage extends OtterMessageContent<'isComponentSelectionAvailable'> {
@@ -31,7 +40,8 @@ export interface IsComponentSelectionAvailableMessage extends OtterMessageConten
 type ComponentsMessageContents =
   | IsComponentSelectionAvailableMessage
   | SelectedComponentInfoMessage
-  | ToggleInspectorMessage;
+  | ToggleInspectorMessage
+  | PlaceholderModeMessage;
 
 /** List of possible DataTypes for Components messages */
 export type ComponentsMessageDataTypes = MessageDataTypes<ComponentsMessageContents>;
@@ -52,5 +62,7 @@ export const isComponentsMessage = (message: any): message is AvailableComponent
     message.dataType === 'connect' ||
     message.dataType === 'selectedComponentInfo' ||
     message.dataType === 'isComponentSelectionAvailable' ||
-    message.dataType === 'toggleInspector');
+    message.dataType === 'placeholderMode' ||
+    message.dataType === 'toggleInspector'
+  );
 };

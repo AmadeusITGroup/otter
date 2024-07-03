@@ -30,8 +30,13 @@ export interface PluginSyncRunner<T, V> {
 export interface PluginContext {
   /** Plugin context properties */
   [key: string]: any;
-  /** Logger (optional, fallback to console logger if undefined) */
+  /**
+   * Logger
+   * (optional, fallback to console logger if undefined)
+   */
   logger?: Logger;
+  /** Name of the API */
+  apiName?: string;
 }
 
 /**

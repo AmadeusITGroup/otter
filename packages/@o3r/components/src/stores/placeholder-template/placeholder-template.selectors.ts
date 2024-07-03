@@ -79,3 +79,6 @@ export const selectPlaceholderRenderedTemplates = (placeholderId: string) => cre
       isPending: placeholderData.isPending
     };
   });
+
+
+export const selectPlaceholderTemplateMode = createSelector(selectPlaceholderTemplateState, (state) => state.mode);

@@ -27,6 +27,8 @@ export interface AppFixture extends ComponentFixtureProfile {
   navigateToDesignToken(): Promise<void>;
   /** Go to SDK-generator page */
   navigateToSDKGenerator(): Promise<void>;
+  /** Go to placeholder page */
+  navigateToPlaceholder(): Promise<void>;
 }
 
 export class AppFixtureComponent extends O3rComponentFixture implements AppFixture {
@@ -56,12 +58,12 @@ export class AppFixtureComponent extends O3rComponentFixture implements AppFixtu
   }
 
   /** @inheritDoc */
-  public async navigateToDynamicContent() {
+  public async navigateToDesignToken() {
     await (await this.getSideNav()).clickOnLink(4);
   }
 
   /** @inheritDoc */
-  public async navigateToRulesEngine() {
+  public async navigateToDynamicContent() {
     await (await this.getSideNav()).clickOnLink(5);
   }
 
@@ -71,13 +73,18 @@ export class AppFixtureComponent extends O3rComponentFixture implements AppFixtu
   }
 
   /** @inheritDoc */
-  public async navigateToDesignToken() {
+  public async navigateToRulesEngine() {
     await (await this.getSideNav()).clickOnLink(7);
   }
 
   /** @inheritDoc */
-  public async navigateToSDKGenerator() {
+  public async navigateToPlaceholder() {
     await (await this.getSideNav()).clickOnLink(8);
+  }
+
+  /** @inheritDoc */
+  public async navigateToSDKGenerator() {
+    await (await this.getSideNav()).clickOnLink(9);
   }
 
 }

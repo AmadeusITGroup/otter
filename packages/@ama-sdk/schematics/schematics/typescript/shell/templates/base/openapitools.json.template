@@ -8,7 +8,7 @@
       "<%=projectName%>-<%=projectPackageName%>": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./swagger-spec.yaml"
+        "inputSpec": ""
       }
     }
   }

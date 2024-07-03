@@ -27,11 +27,11 @@ export type CodegenTaskOptions = {
  * As is, the CodeGenerator does not implement any actual code generation and needs to be extended to be functional
  * @see {@link OpenApiCliGenerator}
  */
-export class CodeGenerator<T extends CodegenTaskOptions> {
+export abstract class CodeGenerator<T extends CodegenTaskOptions> {
   /**
    * Refers to the name the {@link Task} will be identified in a {@link Rule} ${@link SchematicContext}
    */
-  protected generatorName = '';
+  protected abstract generatorName: string;
 
   /**
    * Configure the code generation task
@@ -73,9 +73,7 @@ export class CodeGenerator<T extends CodegenTaskOptions> {
   /**
    * Returns the generator specific default options
    */
-  protected getDefaultOptions(): T {
-    throw new Error('No implementation, please target an implementation');
-  }
+  protected abstract getDefaultOptions(): T;
 
   /**
    * Returns the schematic that will run the code generator
