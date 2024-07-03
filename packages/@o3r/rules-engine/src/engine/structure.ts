@@ -1,3 +1,5 @@
+import type { RulesEngineAction } from '@o3r/core';
+
 export type NativeTypes = string | boolean | number;
 /** Generic operand */
 export interface Operand<T extends string, U extends NativeTypes = NativeTypes> {
@@ -74,7 +76,10 @@ export interface Rule {
   rootElement: AllBlock;
 }
 
-/** List of possible types of actions resulted as output of a rule execution */
+/**
+ * List of possible types of actions resulted as output of a rule execution
+ * @deprecated the actions are now depending of executing modules
+ */
 export type ActionTypes = 'SET_FACT' | 'UPDATE_CONFIG' | 'UPDATE_ASSET' | 'UPDATE_LOCALISATION' | 'UPDATE_PLACEHOLDER';
 
 /** Types associated to the condition blocks that are supported */
@@ -87,9 +92,9 @@ export interface RuleElement {
 }
 
 /** Interface common to all actions */
-export interface ActionBlock extends RuleElement {
+export interface ActionBlock extends RuleElement, RulesEngineAction {
   elementType: 'ACTION';
-  actionType: ActionTypes;
+  actionType: string;
   value: any;
 }
 

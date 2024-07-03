@@ -107,7 +107,7 @@ export class RulesetExecutor {
    * @param factsValue
    * @param runtimeFactValues
    */
-  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): unknown | unknown[] {
+  protected getOperandValue(operand: GenericOperand | undefined, factsValue: Record<string, Facts | undefined>, runtimeFactValues: Record<string, Facts>): unknown {
     if (typeof operand === 'undefined') {
       return undefined;
     } else if (isOperandFact(operand)) {
@@ -319,13 +319,5 @@ export class RulesetExecutor {
       linkedComponent: this.ruleset.linkedComponent,
       rulesResultsSubject$: result$
     } as EngineRuleset;
-  }
-
-  /**
-   * Plug ruleset to fact streams and trigger a first evaluation
-   * @deprecated This function is not made to be accessible from Outside of the class, will be removed in v10
-   */
-  public prepareRuleset() {
-    return this.plugRuleset();
   }
 }

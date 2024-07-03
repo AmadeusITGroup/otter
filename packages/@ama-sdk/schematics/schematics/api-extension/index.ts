@@ -12,10 +12,9 @@ import { NgGenerateApiExtensionSchematicsSchema } from './schema';
 
 /**
  * Generate a Extension of a API core definition
- *
  * @param options
  */
-export function ngGenerateApiExtension(options: NgGenerateApiExtensionSchematicsSchema): Rule {
+function ngGenerateApiExtensionFn(options: NgGenerateApiExtensionSchematicsSchema): Rule {
 
   return (tree: Tree) => mergeWith(apply(url('./templates'), [
     template({
@@ -27,3 +26,12 @@ export function ngGenerateApiExtension(options: NgGenerateApiExtensionSchematics
   ]), MergeStrategy.Overwrite);
 
 }
+
+/**
+ * Generate a Extension of a API core definition
+ * @param options
+ */
+export const ngGenerateApiExtension = (options: NgGenerateApiExtensionSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateApiExtensionFn)(options);
+};

@@ -83,7 +83,7 @@ export function updateOtterEnvironmentAdapter(
       OTTER_ITEM_TYPES.forEach((item) => {
         const path = TYPES_DEFAULT_FOLDER[item].lib ? `modules/${scope}/${TYPES_DEFAULT_FOLDER[item].lib!}` : null;
         if (path) {
-          workspace.schematics![item] = {
+          workspace.schematics![`${item}*`] = {
             path,
             ...(workspace.schematics![item] || {})
           };

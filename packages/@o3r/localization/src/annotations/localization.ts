@@ -2,7 +2,6 @@ import { deepFill, immutablePrimitive, otterComponentInfoPropertyName } from '@o
 
 /**
  * Decorator to pass localization url
- *
  * @param _url
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention

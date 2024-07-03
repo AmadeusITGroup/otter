@@ -1,24 +1,25 @@
-<div *ngIf="applicationInformation$ | async as info">
-  <h4 class="d-inline-block">Information</h4>
-  <button type="button" class="btn btn-link mb-2 text-decoration-none" (click)="refreshInfo()">&#10227;</button>
-  <ul>
-    <li>App version: <b>{{info.appVersion}}</b></li>
-    <li>Mode: <b>{{info.isProduction ? 'Production' : 'Development'}}</b></li>
-    <li *ngIf="info.sessionId">Ama-Client-Ref: <b>{{info.sessionId}}</b></li>
-    <li *ngIf="info.sessionGeneratedTime">Started at: <b>{{info.sessionGeneratedTime}}</b></li>
-    <li *ngIf="info.alfLink"><a target="_blank" [href]="info.alfLink">ALF search</a></li>
-  </ul>
-</div>
-
+@if (applicationInformation$ | async; as info) {
+  <div>
+    <h4 class="d-inline-block">Information</h4>
+    <button type="button" class="btn btn-link mb-2 text-decoration-none" (click)="refreshInfo()">&#10227;</button>
+    <ul>
+      <li>App version: <b>{{info.appVersion}}</b></li>
+      <li>Mode: <b>{{info.isProduction ? 'Production' : 'Development'}}</b></li>
+      @if (info.sessionId) {
+        <li>Ama-Client-Ref: <b>{{info.sessionId}}</b></li>
+      }
+      @if (info.sessionGeneratedTime) {
+        <li>Started at: <b>{{info.sessionGeneratedTime}}</b></li>
+      }
+      @if (info.alfLink) {
+        <li><a target="_blank" [href]="info.alfLink">ALF search</a></li>
+      }
+    </ul>
+  </div>
+}
 <div>
   <h4>Actions</h4>
   <div>
-    <div class="form-check">
-      <input class="form-check-input" type="checkbox" (change)="toggleLocalizationKey($event)" id="displayLocalizationKey">
-      <label class="form-check-label" for="displayLocalizationKey">
-        Display localization keys
-      </label>
-    </div>
     <div class="form-check">
       <input class="form-check-input" type="checkbox" (change)="toggleVisualTestingRender($event)" id="toggleVisualTesting">
       <label class="form-check-label" for="toggleVisualTesting">

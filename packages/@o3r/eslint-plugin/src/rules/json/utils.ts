@@ -1,17 +1,17 @@
-import { ParserServices, TSESLint } from '@typescript-eslint/experimental-utils';
+import { type ParserServices, TSESLint } from '@typescript-eslint/utils';
 import type { AST } from 'jsonc-eslint-parser';
 
 /** Basic interface for the Parser Services object provided by jsonc-eslint-parser */
-interface JsoncParserServices extends ParserServices {
+type JsoncParserServices = ParserServices & {
   isJSON: boolean;
-}
+};
 
 /**
  * Determine if jsonc-eslint-parser is used
  * @param parserServices Parser services object
  */
 export function isJsoncParserServices(parserServices: any): parserServices is JsoncParserServices {
-  return !!parserServices;
+  return !!parserServices && typeof parserServices.isJSON !== 'undefined';
 }
 
 /**

@@ -14,23 +14,30 @@ declare global {
 
 const PACKAGE_MANAGERS_CMD = {
   npm: {
-    add: 'npm install',
-    create: 'npm create',
-    exec: 'npm exec',
-    install: 'npm install',
-    run: 'npm run',
-    workspaceExec: 'npm exec -w',
-    workspaceRun: 'npm run -w'
+    add: ['npm', 'install'],
+    create: ['npm', 'create'],
+    exec: ['npm', 'exec'],
+    install: ['npm', 'install'],
+    run: ['npm', 'run'],
+    workspaceExec: ['npm', 'exec', '--workspace'],
+    workspaceRun: ['npm', 'run', '--workspace']
   },
   yarn: {
-    add: 'yarn add',
-    create: 'yarn create',
-    exec: 'yarn exec',
-    install: 'yarn install',
-    run: 'yarn run',
-    workspaceExec: 'yarn workspace',
-    workspaceRun: 'yarn workspace'
+    add: ['yarn', 'add'],
+    create: ['yarn', 'create'],
+    exec: ['yarn'],
+    install: ['yarn', 'install'],
+    run: ['yarn', 'run'],
+    workspaceExec: ['yarn', 'workspace'],
+    workspaceRun: ['yarn', 'workspace']
   }
+};
+
+type CommandArguments = {
+  /** Script to run or execute */
+  script: string;
+  /** Arguments to pass to the script */
+  args?: string[];
 };
 
 /**
@@ -45,27 +52,35 @@ export function getPackageManager() {
 /**
  * Need to add additional dashes when running command like exec on npm
  * Convert `npm exec test --param` to `npm exec test -- --param`
- * @param command
+ * @param args
+ * @param packageManager
  */
-export function addDashesForNpmCommand(command: string) {
-  return command.replace(/(?<!--)--(.*)$/, '-- --$1');
+export function addDashesForNpmCommand(args?: string[], packageManager = getPackageManager()) {
+  if (!args) {
+    return [];
+  }
+  if (packageManager !== 'npm') {
+    return args;
+  }
+  const firstArgIndex = args.findIndex((arg) => arg.startsWith('-'));
+  if (firstArgIndex < 0) {
+    return args;
+  }
+  return [...args.slice(0, firstArgIndex), '--',...args.slice(firstArgIndex)];
 }
 
-function execCmd(cmd: string, args: string, options: ExecSyncOptions) {
+function execCmd(args: string[], execOptions: ExecSyncOptions) {
   try {
     const startTime = performance.now();
-    const output = execFileSync(
-      cmd.split(' ')[0],
-      [...cmd.split(' ').slice(1), ...args.split(' ')].filter((arg) => !!arg),
-      {...options, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8'}
-    );
+    const [runner, ...options] = args.filter((arg) => !!arg);
+    const output = execFileSync(runner, options, { ...execOptions, shell: process.platform === 'win32', stdio: 'pipe', encoding: 'utf8'});
     // eslint-disable-next-line no-console
-    console.log(`${cmd} ${args} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
+    console.log(`${args.join(' ')} [${Math.ceil(performance.now() - startTime)}ms]\n${output}`);
     return output;
   } catch (err: any) {
     // Yarn doesn't log errors on stderr, so we need to get them from stdout to have them in the reports
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    throw new Error(`Command failed: ${cmd} ${args}\nSTDERR:\n${err.stderr?.toString() || ''}\nOUTPUT:\n${err.output?.toString() || ''}`);
+    throw new Error(`Command failed: ${args.join(' ') }\nSTDERR:\n${err.stderr?.toString() || ''}\nOUTPUT:\n${err.output?.toString() || ''}`);
   }
 }
 
@@ -75,44 +90,51 @@ function execCmd(cmd: string, args: string, options: ExecSyncOptions) {
  * @param options
  */
 export function packageManagerAdd(packages: string, options: ExecSyncOptions) {
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].add, packages, options);
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].add, packages], options);
 }
 
 /**
  * Create a new project (npm create / yarn create)
- * @param script
+ * @param command
  * @param options
+ * @param packageManagerOverride
  */
-export function packageManagerCreate(script: string, options: ExecSyncOptions) {
-  if (getPackageManager() === 'npm') {
-    script = `--yes ${addDashesForNpmCommand(script)}`;
-  }
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].create, script, options);
+export function packageManagerCreate(command: CommandArguments, options: ExecSyncOptions, packageManagerOverride?: keyof typeof PACKAGE_MANAGERS_CMD) {
+  const { script, args } = command;
+  const packageManager = packageManagerOverride || getPackageManager();
+  return execCmd([...PACKAGE_MANAGERS_CMD[packageManager].create, script, ...addDashesForNpmCommand(args, packageManager)], options);
 }
 
 /**
  * Execute a binary command (npx / yarn exec)
- * @param script
+ * @param command
  * @param options
  */
-export function packageManagerExec(script: string, options: ExecSyncOptions) {
-  if (getPackageManager() === 'npm') {
-    script = addDashesForNpmCommand(script);
-  }
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].exec, script, options);
+export function packageManagerExec(command: CommandArguments, options: ExecSyncOptions) {
+  const { script, args } = command;
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].exec, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
  * Execute a binary command (npx / yarn exec) for a specific workspace
- * @param workspace
- * @param script
+ * @param workspaceProjectName
+ * @param command
  * @param options
  */
-export function packageManagerWorkspaceExec(workspace: string, script: string, options: ExecSyncOptions) {
-  if (getPackageManager() === 'npm') {
-    script = addDashesForNpmCommand(script);
-  }
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceExec, `${workspace} ${script}`, options);
+export function packageManagerWorkspaceExec(workspaceProjectName: string, command: CommandArguments, options: ExecSyncOptions) {
+  const { script, args } = command;
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceExec, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
+}
+
+/**
+ * Execute a binary command (npx / yarn exec) for a specific workspace
+ * @param projectName
+ * @param isInWorkspace
+ * @param command
+ * @param options
+ */
+export function packageManagerExecOnProject(projectName: string, isInWorkspace: boolean, command: CommandArguments, options: ExecSyncOptions) {
+  return isInWorkspace ? packageManagerWorkspaceExec(projectName, command, options) : packageManagerExec(command, options);
 }
 
 /**
@@ -120,29 +142,39 @@ export function packageManagerWorkspaceExec(workspace: string, script: string, o
  * @param options
  */
 export function packageManagerInstall(options: ExecSyncOptions) {
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].install, '', options);
+  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].install, options);
 }
 
 /**
  * Execute a script from the package.json (npm run / yarn run)
- * @param script
+ * @param command
  * @param options
  */
-export function packageManagerRun(script: string, options: ExecSyncOptions) {
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].run, script, options);
+export function packageManagerRun(command: CommandArguments, options: ExecSyncOptions) {
+  const { script, args } = command;
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].run, script, ...addDashesForNpmCommand(args)], options);
 }
 
 /**
  * Execute a script from the package.json (npm run / yarn run) for a specific workspace
- * @param workspace
- * @param script
+ * @param workspaceProjectName
+ * @param command
  * @param options
  */
-export function packageManagerWorkspaceRun(workspace: string, script: string, options: ExecSyncOptions) {
-  if (getPackageManager() === 'npm') {
-    script = addDashesForNpmCommand(script);
-  }
-  return execCmd(PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceRun, `${workspace} ${script}`, options);
+export function packageManagerWorkspaceRun(workspaceProjectName: string, command: CommandArguments, options: ExecSyncOptions) {
+  const { script, args } = command;
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].workspaceRun, workspaceProjectName, script, ...addDashesForNpmCommand(args)], options);
+}
+
+/**
+ * Execute a script from the package.json (npx / yarn run) for a specific workspace
+ * @param projectName
+ * @param isInWorkspace
+ * @param command
+ * @param options
+ */
+export function packageManagerRunOnProject(projectName: string, isInWorkspace: boolean, command: CommandArguments, options: ExecSyncOptions) {
+  return isInWorkspace ? packageManagerWorkspaceRun(projectName, command, options) : packageManagerRun(command, options);
 }
 
 export interface PackageManagerConfig {
@@ -187,6 +219,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
       // Set config to target local registry
       execFileSync('yarn', ['config', 'set', 'checksumBehavior', 'update'], execOptions);
       execFileSync('yarn', ['config', 'set', 'enableImmutableInstalls', 'false'], execOptions);
+      execFileSync('yarn', ['config', 'set', 'enableScripts', 'false'], execOptions);
       if (options.globalFolderPath) {
         execFileSync('yarn', ['config', 'set', 'enableGlobalCache', 'true'], execOptions);
         execFileSync('yarn', ['config', 'set', 'globalFolder', options.globalFolderPath], execOptions);
@@ -202,8 +235,8 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   execFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'legacy-peer-deps=true', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'prefer-offline=true', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
     execFileSync('npm', ['config', 'set', `cache=${options.globalFolderPath}/npm-cache`, '-L=project'], execOptions);

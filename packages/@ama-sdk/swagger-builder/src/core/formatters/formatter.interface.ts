@@ -7,7 +7,6 @@ export interface Formatter {
 
   /**
    * Generate artifact file
-   *
    * @param artifactName Name of the swagger artifact
    * @param spec Swagger Spec to publish
    */

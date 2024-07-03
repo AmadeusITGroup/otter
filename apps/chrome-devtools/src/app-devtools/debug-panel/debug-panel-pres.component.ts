@@ -1,18 +1,23 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { ChromeExtensionConnectionService } from '../../services/connection.service';
 import { DebugPanelService } from './debug-panel.service';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'o3r-debug-panel-pres',
   templateUrl: './debug-panel-pres.template.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    AsyncPipe
+  ]
 })
 export class DebugPanelPresComponent {
   /** Application information stream */
   public applicationInformation$ = this.service.applicationInformation$;
 
-  constructor(private service: DebugPanelService, private connection: ChromeExtensionConnectionService) {}
+  constructor(private readonly service: DebugPanelService, private readonly connection: ChromeExtensionConnectionService) {}
 
   /** Refresh Application information */
   public refreshInfo() {
@@ -22,19 +27,7 @@ export class DebugPanelPresComponent {
   }
 
   /**
-   * Toggle localization key display
-   *
-   * @param event
-   */
-  public toggleLocalizationKey(event: UIEvent) {
-    this.connection.sendMessage('displayLocalizationKeys', {
-      toggle: (event.target as HTMLInputElement).checked
-    });
-  }
-
-  /**
    * Toggle visual testing mode
-   *
    * @param event
    */
   public toggleVisualTestingRender(event: UIEvent) {

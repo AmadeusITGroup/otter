@@ -95,6 +95,9 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
           this.timingData[key] = [this.loaderDurations[key]];
         }
       }
+      if (stats.compilation.endTime === undefined || stats.compilation.startTime === undefined) {
+        return;
+      }
       const buildData: ReportData = {
         compileTime: stats.compilation.endTime - stats.compilation.startTime,
         buildType: compiler.modifiedFiles?.size ? 'watch' : 'full',
@@ -221,7 +224,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
       }
     }
   }
-  private makeInterceptorFor = (_instance: string) => (hookName: string) => ({
+  private readonly makeInterceptorFor = (_instance: string) => (hookName: string) => ({
     register: (tapInfo: any) => {
       const { name, type, fn } = tapInfo;
       const newFn =

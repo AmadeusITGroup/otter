@@ -10,10 +10,10 @@
     "**/fixtures*.ts",
     "**/*.mock*.ts",
     "**/*.spec.ts",
-    "**/*.perf.ts",
-    "**/*.reviver.ts"
+    "**/*.perf.ts"
   ],
   "include": [
+    "./src/api/**/*.ts",
     "./src/models/**/*.ts",
     "./src/helpers/**/*.ts"
   ]

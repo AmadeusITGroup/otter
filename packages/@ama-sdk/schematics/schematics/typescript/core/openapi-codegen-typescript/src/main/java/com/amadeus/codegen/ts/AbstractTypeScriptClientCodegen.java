@@ -2,6 +2,7 @@ package com.amadeus.codegen.ts;
 
 import java.io.File;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -12,7 +13,7 @@ import io.swagger.v3.oas.models.media.Schema;
 import org.apache.commons.lang3.StringUtils;
 
 import org.openapitools.codegen.*;
-
+import org.openapitools.codegen.config.GlobalSettings;
 import org.openapitools.codegen.model.*;
 import org.openapitools.codegen.utils.ModelUtils;
 import org.openapitools.codegen.utils.CamelizeOption;
@@ -43,10 +44,12 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
 
   private final Logger LOGGER = LoggerFactory.getLogger(AbstractTypeScriptClientCodegen.class);
 
+  private final boolean stringifyDate;
+  private final boolean allowModelExtension;
+
   public AbstractTypeScriptClientCodegen() {
     super();
-    LOGGER.warn("Starting custom generation"
-    );
+    LOGGER.warn("Starting custom generation");
     overwriteFilepathPatterns = new ArrayList<String>();
     skipOverwriteFilepathPatterns = new ArrayList<String>();
     // Holds the list of nonObjectModels (models that does not contain revivers)
@@ -105,8 +108,12 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     typeMapping.put("object", "any");
     typeMapping.put("integer", "number");
     typeMapping.put("Map", "any");
-    typeMapping.put("DateTime", "utils.DateTime");
-    typeMapping.put("Date", "utils.Date");
+    String allowModelExtensionString = GlobalSettings.getProperty("allowModelExtension");
+    allowModelExtension = allowModelExtensionString != null ? !"false".equalsIgnoreCase(allowModelExtensionString) : false;
+    String stringifyDateString = GlobalSettings.getProperty("stringifyDate");
+    stringifyDate = stringifyDateString != null ? !"false".equalsIgnoreCase(stringifyDateString) : false;
+    typeMapping.put("DateTime", stringifyDate ? "string" : "utils.DateTime");
+    typeMapping.put("Date", stringifyDate ? "string" : "utils.Date");
     //TODO binary should be mapped to byte array
     // mapped to String as a workaround
     typeMapping.put("binary", "string");
@@ -147,6 +154,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     additionalProperties.put("propertyDeclaration", new LambdaHelper.PropertyDeclaration());
     additionalProperties.put("propertyAccess", new LambdaHelper.PropertyAccess());
     additionalProperties.put("headerJsonMimeType", new LambdaHelper.HeaderJsonMimeType());
+    additionalProperties.put("keepRevivers", true);
   }
 
   private static class CamelizeLambda extends LambdaHelper.CustomLambda {
@@ -466,7 +474,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       }
     }
 
-    if (property != null) {
+    if (property != null && !stringifyDate) {
       if (Boolean.TRUE.equals(property.isDate) || Boolean.TRUE.equals(property.isDateTime)) {
         property.isPrimitiveType = false;
       }
@@ -534,8 +542,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
         + "list container.");
     }
 
-    // If the x-date-timezone is present in the specification, replace Date with utils.Date
-    if (property.vendorExtensions.containsKey("x-date-timezone")) {
+    // If the x-date-timezone is present in the specification, replace utils.Date with Date
+    if (("utils.Date".equals(property.dataType) || "utils.DateTime".equals(property.dataType)) && property.vendorExtensions.containsKey("x-date-timezone")) {
       property.dataType = "Date";
       property.datatypeWithEnum = "Date";
       property.baseType = "Date";
@@ -716,6 +724,29 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
       entry.setValue(this.postProcessImports(entry.getValue()));
     }
+    // if allowModelExtension is true, we don't need to analyze the conditions since we want to ensure the generation of the revivers
+    if (!allowModelExtension) {
+      Predicate<CodegenProperty> varRequiredReviverPredicate = var -> !(var.isPrimitiveType || var.complexType != null || var.isEnum || var.isEnumRef);
+      Predicate<ModelMap> isNotEnumPredicate = modelMap -> !modelMap.getModel().isEnum;
+      Predicate<ModelMap> requiredDictionaryPredicate = modelMap -> Boolean.TRUE.equals(modelMap.getModel().vendorExtensions.get("requireDictionary"));
+      Predicate<ModelMap> anyVarRequiredReviverPredicate = modelMap -> modelMap.getModel().allVars.stream().anyMatch(varRequiredReviverPredicate);
+      boolean reviversRequired = objs.values().stream().anyMatch(
+        modelsMap -> modelsMap.getModels().stream().anyMatch(
+          isNotEnumPredicate.and(requiredDictionaryPredicate.or(anyVarRequiredReviverPredicate))
+        )
+      );
+      // Setting keepRevivers value in each model since the additionalProperties are set up before the post process
+      objs.values().stream().forEach(modelsMap -> modelsMap.put("keepRevivers", reviversRequired));
+      // Update global value of keepRevivers for the generation of api files as it happens after the generation of the models
+      additionalProperties.put("keepRevivers", reviversRequired);
+
+      if (!reviversRequired) {
+        modelTemplateFiles.remove("model/reviver.mustache");
+        Predicate<SupportingFile> isReviversTemplatePredicate = supportingFile -> "model/revivers.mustache".equals(supportingFile.getTemplateFile());
+        supportingFiles.removeIf(isReviversTemplatePredicate);
+      }
+    }
+
     return objs;
   }
 

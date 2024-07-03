@@ -1,13 +1,13 @@
 import { strings } from '@angular-devkit/core';
 import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
 import { NgGenerateRenovateBotSchematicsSchema } from './schema';
 
 /**
  * Create a Renovate Bot basic configuration
- *
  * @param options
  */
-export function ngGenerateRenovateBotComponent(options: NgGenerateRenovateBotSchematicsSchema): Rule {
+function ngGenerateRenovateBotComponentFn(options: NgGenerateRenovateBotSchematicsSchema): Rule {
 
   const generateFiles = (tree: Tree, context: SchematicContext) => {
     const templateSource = apply(url('./templates'), [
@@ -26,3 +26,9 @@ export function ngGenerateRenovateBotComponent(options: NgGenerateRenovateBotSch
 
   return generateFiles;
 }
+
+/**
+ * Create a Renovate Bot basic configuration
+ * @param options
+ */
+export const ngGenerateRenovateBotComponent = createSchematicWithMetricsIfInstalled(ngGenerateRenovateBotComponentFn);

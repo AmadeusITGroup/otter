@@ -10,7 +10,6 @@ export class JsonTokenReply<V = {[key: string]: any} | undefined> implements Rep
 
   /**
    * Initialize your plugin
-   *
    * @param storageTokenKey   Key used to store the token
    * @param sharedMemory      Only useful for NodeJS - Will keep data such as JWT tokens in memory instead of sessionStorage
    */

@@ -7,16 +7,11 @@
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "compile",
-        "build-builders"
-      ]
+      "dependsOn": ["compile", "build-builders"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -36,20 +31,11 @@
         "main": "packages/@o3r/dev-tools/src/public_api.ts",
         "tsConfig": "packages/@o3r/dev-tools/tsconfig.build.json",
         "outputPath": "packages/@o3r/dev-tools/dist",
-        "assets": [
-          "packages/@o3r/dev-tools/configs/*.json"
-        ],
+        "assets": ["packages/@o3r/dev-tools/configs/*.json"],
         "clean": false
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/dev-tools/.eslintrc.js",
         "lintFilePatterns": [
@@ -61,8 +47,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/dev-tools/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/dev-tools/jest.config.js"
       }
     },
     "prepare-publish": {
@@ -84,7 +69,5 @@
       }
     }
   },
-  "tags": [
-    "tools"
-  ]
+  "tags": ["tools"]
 }

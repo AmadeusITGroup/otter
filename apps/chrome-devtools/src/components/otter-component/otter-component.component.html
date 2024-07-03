@@ -7,11 +7,12 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <ng-container *ngIf="config; else noConfig">
+      @if (config) {
         <h3>{{config.id}}</h3>
         <app-config-form class="config-form mb-2 d-block" [config]="config"></app-config-form>
-      </ng-container>
-      <ng-template #noConfig>No configuration</ng-template>
+      } @else {
+        <h3>No configuration</h3>
+      }
     </ng-template>
   </li>
   <li [ngbNavItem]="2" [disabled]="!(rulesetExecutions | nbProp)">
@@ -22,11 +23,17 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <div *ngIf="librariesLinkedToRulesetExecutions.length > 1" class="alert alert-warning" role="alert">
-        Warning. {{componentName}} exists in {{librariesLinkedToRulesetExecutions | list}}. Unable to choose one.
-      </div>
-      <o3r-ruleset-history-pres *ngIf="rulesetExecutions?.length; else noRulesetExecutions" [rulesetExecutions]="rulesetExecutions"></o3r-ruleset-history-pres>
-      <ng-template #noRulesetExecutions>No ruleset executions</ng-template>
+      @if (librariesLinkedToRulesetExecutions.length > 1) {
+        <div class="alert alert-warning" role="alert">
+          Warning. {{componentName}} exists in {{librariesLinkedToRulesetExecutions | list}}. Unable to choose one.
+        </div>
+      }
+      @if (rulesetExecutions?.length) {
+        <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions"></o3r-ruleset-history-pres>
+      } @else {
+        <h3>No ruleset executions</h3>
+      }
+      <ng-template #noRulesetExecutions></ng-template>
     </ng-template>
   </li>
   <li [ngbNavItem]="3" [disabled]="!(translations| nbProp)">
@@ -37,19 +44,31 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <ngb-accordion *ngIf="translations | nbProp; else noLocalizations" [closeOthers]="true" [activeIds]="componentName" #acc="ngbAccordion">
-        <ngb-panel *ngFor="let componentTranslations of translations | keyvalue" [id]="componentTranslations.key">
-          <ng-template ngbPanelTitle>
-            {{componentTranslations.key}}<i *ngIf="componentTranslations.key === componentName" class="ms-1 bi bi-star"></i>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let translation of componentTranslations.value">{{translation}}</li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-      <ng-template #noLocalizations>No localizations</ng-template>
+      @if (translations | nbProp) {
+        <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+          @for (componentTranslations of translations | keyvalue; track componentTranslations.key) {
+            <div ngbAccordionItem [id]="componentTranslations.key" [collapsed]="componentName === componentTranslations.key">
+              <h3 ngbAccordionHeader>
+                {{componentTranslations.key}}
+                @if (componentTranslations.key === componentName) {
+                  <i class="ms-1 icon-star"></i>
+                }
+              </h3>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ul class="list-group list-group-flush">
+                    @for (translation of componentTranslations.value; track translation) {
+                      <li class="list-group-item">{{translation}}</li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <h3>No localizations</h3>
+      }
     </ng-template>
   </li>
   <li [ngbNavItem]="4" [disabled]="!(analytics | nbProp)">
@@ -60,21 +79,32 @@
       </span>
     </a>
     <ng-template ngbNavContent>
-      <ngb-accordion *ngIf="analytics | nbProp; else noAnalytics" [closeOthers]="true" [activeIds]="componentName" #acc="ngbAccordion">
-        <ngb-panel *ngFor="let componentAnalytics of analytics | keyvalue" [id]="componentAnalytics.key">
-          <ng-template ngbPanelTitle>
-            {{componentAnalytics.key}}<i *ngIf="componentAnalytics.key === componentName" class="ms-1 bi bi-star"></i>
-          </ng-template>
-          <ng-template ngbPanelContent>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item" *ngFor="let componentAnalytic of componentAnalytics.value">{{componentAnalytic}}</li>
-            </ul>
-          </ng-template>
-        </ngb-panel>
-      </ngb-accordion>
-      <ng-template #noAnalytics>No analytics</ng-template>
+      @if (analytics | nbProp) {
+        <div ngbAccordion [closeOthers]="true" #acc="ngbAccordion">
+          @for (componentAnalytics of analytics | keyvalue; track componentAnalytics.key) {
+            <div ngbAccordionItem [id]="componentAnalytics.key"  [collapsed]="componentName === componentAnalytics.key">
+              <h3 ngbAccordionHeader>
+                {{componentAnalytics.key}}
+                @if (componentAnalytics.key === componentName) {
+                  <i class="ms-1 icon-star"></i>
+                }
+              </h3>
+              <div ngbAccordionCollapse>
+                <div ngbAccordionBody>
+                  <ul class="list-group list-group-flush">
+                    @for (componentAnalytic of componentAnalytics.value; track componentAnalytic) {
+                      <li class="list-group-item">{{componentAnalytic}}</li>
+                    }
+                  </ul>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else {
+        <h3>No analytics</h3>
+      }
     </ng-template>
   </li>
 </ul>
-
 <div [ngbNavOutlet]="nav" class="mt-2 px-2"></div>

@@ -22,12 +22,13 @@ export class LocalizationService {
   /**
    * Internal subject that we use to track changes between keys only and translation mode
    */
-  private _showKeys$ = new BehaviorSubject(false);
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  private readonly _showKeys$ = new BehaviorSubject(false);
 
   /**
    * Map of localization keys to replace a key to another
    */
-  private keyMapping$?: Observable<Record<string, any | undefined>>;
+  private readonly keyMapping$?: Observable<Record<string, any>>;
 
   /**
    * _showKeys$ exposed as an Observable
@@ -35,10 +36,11 @@ export class LocalizationService {
   public showKeys$ = this._showKeys$.asObservable();
 
   constructor(
-    private translateService: TranslateService,
-    private logger: LoggerService,
-    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private configuration: LocalizationConfiguration,
-    @Optional() private store?: Store<LocalizationOverrideStore>) {
+    private readonly translateService: TranslateService,
+    private readonly logger: LoggerService,
+    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly configuration: LocalizationConfiguration,
+    @Optional() private readonly store?: Store<LocalizationOverrideStore>
+  ) {
     this.configure();
     if (this.store) {
       this.keyMapping$ = this.store.pipe(
@@ -51,7 +53,6 @@ export class LocalizationService {
    * This will handle the fallback language hierarchy to find out fallback language.
    * supportedLocales language has highest priority, next priority goes to fallbackLocalesMap and default would be
    * fallbackLanguage.
-   *
    * @param language Selected language.
    * @returns selected language if supported, fallback language otherwise.
    */
@@ -78,7 +79,6 @@ export class LocalizationService {
    * supportedLocales: ['en-GB', 'en-US', 'fr-FR'], fallbackLocalesMap: {'en-CA': 'en-US', 'de': 'fr-FR'}
    * translate to en-CA -> fallback to en-US, translate to de-DE -> fallback to fr-FR
    * translate to en-NZ -> fallback to en-GB
-   *
    * @param language Selected language.
    * @returns Fallback language if available, undefined otherwise.
    */
@@ -95,7 +95,6 @@ export class LocalizationService {
    * supported language.
    * supportedLocales: ['en-GB', 'en-US', 'fr-FR']
    * translate to en-CA -> fallback to en-GB
-   *
    * @param language Selected language.
    * @returns Closest supported language if available, undefined otherwise.
    */
@@ -109,7 +108,6 @@ export class LocalizationService {
 
   /**
    * Returns a stream of translated values of a key which updates whenever the language changes.
-   *
    * @param translationKey Key to translate
    * @param interpolateParams Object to use in translation binding
    * @returns A stream of the translated key
@@ -142,6 +140,13 @@ export class LocalizationService {
   }
 
   /**
+   * Is the translation deactivation enabled
+   */
+  public isTranslationDeactivationEnabled() {
+    return this.configuration.enableTranslationDeactivation;
+  }
+
+  /**
    * Wrapper to call the ngx-translate service TranslateService method getLangs().
    */
   public getLanguages() {
@@ -150,7 +155,6 @@ export class LocalizationService {
 
   /**
    * Wrapper to call the ngx-translate service TranslateService method use(language).
-   *
    * @param language
    */
   public useLanguage(language: string): Observable<any> {
@@ -175,7 +179,6 @@ export class LocalizationService {
 
   /**
    * Toggle the ShowKeys mode between active and inactive.
-   *
    * @param value if specified, set the ShowKeys mode to value. If not specified, toggle the ShowKeys mode.
    */
   public toggleShowKeys(value?: boolean) {
@@ -195,7 +198,6 @@ export class LocalizationService {
 
   /**
    * Get an observable of translation key after global mapping
-   *
    * @param requestedKey Original translation key
    */
   public getKey(requestedKey: string) {
@@ -211,7 +213,6 @@ export class LocalizationService {
 
   /**
    * Returns a stream of translated values of a key which updates whenever the language changes.
-   *
    * @param key Key to translate
    * @param interpolateParams Object to use in translation binding
    * @returns A stream of the translated key

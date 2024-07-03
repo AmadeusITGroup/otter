@@ -16,6 +16,7 @@ import {
 } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   getComponentFileName,
   getComponentFolderName,
   getComponentName,
@@ -30,6 +31,7 @@ import { getAddContextRules } from '../../rule-factories/component/context';
 import { getAddFixtureRules } from '../../rule-factories/component/fixture';
 import { getAddLocalizationRules } from '../../rule-factories/component/localization';
 import { getAddThemingRules } from '../../rule-factories/component/theming';
+import { getAddDesignTokenRules } from '../../rule-factories/component/design-token';
 import { NgGenerateComponentSchematicsSchema } from '../schema';
 import { ComponentStructureDef } from '../structures.types';
 
@@ -62,7 +64,7 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
  * Add Otter component to an Angular Project
  * @param options
  */
-export function ngGenerateComponentPresenter(options: NgGenerateComponentSchematicsSchema): Rule {
+function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSchema): Rule {
 
   const fullStructureRequested = options.componentStructure === 'full';
 
@@ -82,6 +84,7 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
     const o3rSpecPath = path.posix.join(componentDestination, `${properties.name}.spec.ts`);
     const ngStylePath = path.posix.join(componentDestination, `${properties.name}.component.scss`);
     const o3rStylePath = path.posix.join(componentDestination, `${properties.name}.style.scss`);
+    const o3rDesignTokenPath = path.posix.join(componentDestination, `${properties.name}.theme.json`);
     const ngTemplatePath = path.posix.join(componentDestination, `${properties.name}.component.html`);
     const o3rTemplatePath = path.posix.join(componentDestination, `${properties.name}.template.html`);
     const componentSelector = `${properties.componentSelector}${properties.suffix ? ('-' + properties.suffix) : ''}`;
@@ -178,6 +181,11 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
         o3rStylePath,
         options
       ),
+      getAddDesignTokenRules(
+        o3rStylePath,
+        o3rDesignTokenPath,
+        options
+      ),
       getAddLocalizationRules(
         componentPath,
         options
@@ -204,3 +212,9 @@ export function ngGenerateComponentPresenter(options: NgGenerateComponentSchemat
     !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
   ]);
 }
+
+/**
+ * Add Otter component to an Angular Project
+ * @param options
+ */
+export const ngGenerateComponentPresenter = createSchematicWithMetricsIfInstalled(ngGenerateComponentPresenterFn);

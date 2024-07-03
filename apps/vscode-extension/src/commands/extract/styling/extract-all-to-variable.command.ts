@@ -4,7 +4,6 @@ import { generateVariableName, insertVariable, isPropertyValue } from './helpers
 
 /**
  * Replace all the interested lines with an Otter variable
- *
  * @param _context
  */
 export function extractAllToVariable(_context: ExtensionContext) {

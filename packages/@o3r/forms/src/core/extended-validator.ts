@@ -8,7 +8,6 @@ export abstract class ExtendedValidator implements Validator {
 
   /**
    * Apply the list of validators on a specific Control
-   *
    * @param control
    */
   public validate(control: AbstractControl): ValidationErrors | null {

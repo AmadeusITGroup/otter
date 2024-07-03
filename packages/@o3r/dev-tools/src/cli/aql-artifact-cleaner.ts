@@ -6,7 +6,7 @@ import * as request from 'request-promise-native';
 import * as winston from 'winston';
 
 program
-  .description('Clean artifacts older and not downloaded for a certain amount of time from artifactory repositories')
+  .description('[DEPRECATED] Clean artifacts older and not downloaded for a certain amount of time from artifactory repositories')
   .requiredOption('-u, --artifactory-url <artifactoryUrl>', 'Artifactory URL')
   .option<number>('-d, --duration-kept <numberOfDays>', 'Only artifacts which are older and have not been downloaded during this duration (in days) will be deleted.', (v) => +v, 7)
   .option<number>('-o, --offset <number>', 'Minimal number of artifacts you want to keep (newest will be kept)', (v) => +v, 10)
@@ -48,6 +48,8 @@ const logger = winston.createLogger({
     new winston.transports.Console(winstonOptions.console)
   ]
 });
+
+logger.warn('This script is deprecated, will be removed in Otter v12.');
 
 if (!opts.basicAuth && !opts.apiKey) {
   logger.error('Authentication is mandatory, please specify a base 64 encoded user:password with b parameter or an ApiKey with -a parameter');

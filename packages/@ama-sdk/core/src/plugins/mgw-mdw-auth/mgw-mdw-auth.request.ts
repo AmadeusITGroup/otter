@@ -169,12 +169,12 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
   /**
    * Method used to encode a string in base64Url
    */
-  private base64UrlEncoder;
+  private readonly base64UrlEncoder;
 
   /**
    * Method used to encode a string in base64
    */
-  private base64Encoder;
+  private readonly base64Encoder;
 
   /**
    * Initialize your plugin

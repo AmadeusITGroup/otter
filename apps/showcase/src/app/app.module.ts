@@ -11,22 +11,27 @@ import { EffectsModule } from '@ngrx/effects';
 import { RuntimeChecks, StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
-import { prefersReducedMotion } from '@o3r/application';
-import { ConfigurationDevtoolsModule } from '@o3r/configuration';
+import { ApplicationDevtoolsModule, OTTER_APPLICATION_DEVTOOLS_OPTIONS, prefersReducedMotion } from '@o3r/application';
+import { ConfigurationDevtoolsModule, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from '@o3r/configuration';
+import { C11nModule, ComponentsDevtoolsModule, OTTER_COMPONENTS_DEVTOOLS_OPTIONS, registerCustomComponent } from '@o3r/components';
 import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
   LocalizationModule,
   MESSAGE_FORMAT_CONFIG,
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS,
   translateLoaderProvider,
   TranslateMessageFormatLazyCompiler
 } from '@o3r/localization';
-import { RulesEngineModule } from '@o3r/rules-engine';
 import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/logger';
+import { OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule } from '@o3r/rules-engine';
+import { OTTER_STYLING_DEVTOOLS_OPTIONS, StylingDevtoolsModule } from '@o3r/styling';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
+import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 
 const runtimeChecks: Partial<RuntimeChecks> = {
   strictActionImmutability: false,
@@ -69,6 +74,13 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
   };
 }
 
+/**
+ * Factory function to register custom components
+ */
+export function registerCustomComponents(): Map<string, any> {
+  return registerCustomComponent(new Map(), 'exampleDatePickerFlavorHebrew', DatePickerHebrewInputPresComponent);
+}
+
 @NgModule({
   declarations: [
     AppComponent
@@ -87,11 +99,15 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     }),
     LocalizationModule.forRoot(localizationConfigurationFactory),
-    RulesEngineModule.forRoot({ debug: true }),
+    RulesEngineRunnerModule.forRoot({ debug: true }),
     AppRoutingModule,
     SidenavPresComponent,
     NgbOffcanvasModule,
     ScrollBackTopPresComponent,
+    ApplicationDevtoolsModule,
+    ComponentsDevtoolsModule,
+    C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
+    StylingDevtoolsModule,
     LocalizationDevtoolsModule,
     ConfigurationDevtoolsModule
   ],
@@ -111,7 +127,13 @@ export function localizationConfigurationFactory(): Partial<LocalizationConfigur
       }
     },
     {provide: LOGGER_CLIENT_TOKEN, useValue: new ConsoleLogger()},
-    {provide: PetApi, useFactory: petApiFactory, deps: [LoggerService]}
+    {provide: PetApi, useFactory: petApiFactory, deps: [LoggerService]},
+    {provide: OTTER_CONFIGURATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
   ],
   bootstrap: [AppComponent]
 })

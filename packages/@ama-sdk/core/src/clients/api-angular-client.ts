@@ -93,7 +93,7 @@ export class ApiAngularClient implements ApiClient {
     revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: HttpResponse<any> | undefined;
-    let root: any | undefined;
+    let root: any;
     let exception: Error | undefined;
 
     const origin = options.headers.get('Origin');
@@ -102,13 +102,11 @@ export class ApiAngularClient implements ApiClient {
     try {
       const headers = Object.fromEntries(options.headers.entries());
 
-      const controller = typeof AbortController !== 'undefined' ? new AbortController() : undefined;
-      if (controller) {
-        options.signal = controller.signal;
-      }
       const asyncResponse = new Promise<HttpResponse<any>>((resolve, reject) => {
         let data: HttpResponse<any>;
-        this.options.httpClient.request(options.method, url, {
+        const metadataSignal = options.metadata?.signal;
+        metadataSignal?.throwIfAborted();
+        const subscription = this.options.httpClient.request(options.method, url, {
           ...options,
           observe: 'response',
           headers
@@ -116,6 +114,11 @@ export class ApiAngularClient implements ApiClient {
           next: (res) => data = res,
           error: (err) => reject(err),
           complete: () => resolve(data)
+        });
+        metadataSignal?.throwIfAborted();
+        metadataSignal?.addEventListener('abort', () => {
+          subscription.unsubscribe();
+          reject(metadataSignal.reason);
         });
       });
       response = await asyncResponse;
@@ -133,7 +136,7 @@ export class ApiAngularClient implements ApiClient {
           ...response,
           headers: new Headers(
             response.headers.keys()
-              .map((key) => ([key, response!.headers.get(key)!] as [string, string]))
+              .map((key) => ([key, response.headers.get(key)!] as [string, string]))
           )
         },
         reviver,

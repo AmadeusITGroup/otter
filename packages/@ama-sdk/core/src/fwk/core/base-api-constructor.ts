@@ -9,7 +9,6 @@ export interface BaseApiClientOptions {
   requestPlugins: RequestPlugin[];
   /**
    * List of plugins to apply to the reply of the API call
-   *
    * @default [new ReviverReply(), new ExceptionReply()]
    */
   replyPlugins: ReplyPlugin<any>[];
@@ -27,7 +26,6 @@ export interface BaseApiConstructor extends Partial<BaseApiClientOptions> {
 
 /**
  * Determine if object passed to the constructor is valid
- *
  * @param args
  */
 export function isConstructorObject(args: any[]): args is [BaseApiConstructor] {

@@ -21,13 +21,11 @@ export interface UpdateDatesInMocksOptions {
   converter: {
     /**
      * Converter from Temporal to string
-     *
      * @param input
      */
     fromDate: (input: Temporal.ZonedDateTime | Temporal.PlainDate) => string;
     /**
      * Converter from string to Temporal
-     *
      * @param input
      */
     toDate: (input: string) => Temporal.ZonedDateTime | Temporal.PlainDate;
@@ -36,7 +34,6 @@ export interface UpdateDatesInMocksOptions {
 
 /**
  * Update mock checksum and response body to keep using the same mocks every day with updated dates
- *
  * @param mock the mock instance provided by the hook method of Kassette
  * @param inputOptions default options will extract ISO strings and use 'day-offset' mode
  */
@@ -61,12 +58,15 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
   // Update request
   const replaceDatesInInput = (input: string): string => {
     switch (options.mode) {
-      case 'any':
+      case 'any': {
         return input.replace(options.extractor, '<any>');
-      case 'day-offset':
+      }
+      case 'day-offset': {
         return input.replace(options.extractor, (match) => `<t+${Temporal.PlainDate.from(todayTime).until(options.converter.toDate(match)).toString()}>`);
-      case 'same-day-of-week':
+      }
+      case 'same-day-of-week': {
         return input.replace(options.extractor, (match) => `<day ${options.converter.toDate(match).dayOfWeek} next week>`);
+      }
     }
     return input;
   };
@@ -89,10 +89,12 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
         const replaceDatesInOutput = (output: string): string => {
           switch (options.mode) {
             case 'any':
-            case 'day-offset':
+            case 'day-offset': {
               return output.replace(options.extractor, (match) => options.converter.fromDate(options.converter.toDate(match).add(timeOffset)));
-            case 'same-day-of-week':
+            }
+            case 'same-day-of-week': {
               return output.replace(options.extractor, (match) => options.converter.fromDate(options.converter.toDate(match).add(`P${Math.ceil(timeOffset.days / 7)}W`)));
+            }
           }
           return output;
         };

@@ -1,0 +1,59 @@
+[
+  {
+    "id": 3,
+    "category": {
+      "id": 0,
+      "name": "otter"
+    },
+    "name": "Ronaldotter",
+    "photoUrls": [
+      "/assets/mini-otters/ronaldotter.svg",
+      "/tmp/inflector167132692491769030.tmp"
+    ],
+    "tags": [
+      {
+        "id": 0,
+        "name": "otter"
+      }
+    ],
+    "status": "available"
+  },
+  {
+    "id": 4,
+    "category": {
+      "id": 0,
+      "name": "otter"
+    },
+    "name": "Mariotter",
+    "photoUrls": [
+      "/assets/mini-otters/mariotter.svg",
+      "/tmp/inflector6536251653027151041.tmp"
+    ],
+    "tags": [
+      {
+        "id": 0,
+        "name": "otter"
+      }
+    ],
+    "status": "available"
+  },
+  {
+    "id": 5,
+    "category": {
+      "id": 0,
+      "name": "otter"
+    },
+    "name": "Djokotter",
+    "photoUrls": [
+      "/assets/mini-otters/djokotter.svg",
+      "/tmp/inflector7970844709132154854.tmp"
+    ],
+    "tags": [
+      {
+        "id": 0,
+        "name": "otter"
+      }
+    ],
+    "status": "available"
+  }
+]

@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/schematics?style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/schematics?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/schematics)
+
 This module provides basic utilities and generic rules (install, lint) reused in other package schematics.
 
 ## How to install
@@ -17,7 +20,8 @@ This module provides basic utilities and generic rules (install, lint) reused in
 ng add @o3r/schematics
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Description
 

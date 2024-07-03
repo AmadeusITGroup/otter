@@ -16,7 +16,6 @@ export class SiTokenRequest extends AdditionalParamsRequest implements RequestPl
    * Amadeus SI Token plugin
    * The SI Tokens are mandatory to target Back-end protected by Amadeus LSS.
    * You can find more details on SI Tokens on http://si-wiki/SI/tikiwiki/tiki-index.php?page=HTTP+GUIs%3A+Amadeus+as+server
-   *
    * @param siToken  SI Token
    * @param siToken2 SI Token 2
    */

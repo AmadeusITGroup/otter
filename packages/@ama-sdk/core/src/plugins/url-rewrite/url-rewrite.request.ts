@@ -5,11 +5,10 @@ import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
  */
 export class UrlRewriteRequest implements RequestPlugin {
 
-  private urlRewriter: (url: string) => string | Promise<string>;
+  private readonly urlRewriter: (url: string) => string | Promise<string>;
 
   /**
    * Initialize your plugin
-   *
    * @param urlRewriter Callback to modify the URL
    */
   constructor(urlRewriter: (url: string) => string | Promise<string>) {

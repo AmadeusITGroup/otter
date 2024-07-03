@@ -29,7 +29,7 @@ const logger = winston.createLogger({
 let replaceVersion: string;
 program
   .arguments('<version>')
-  .description('Replace the packages version in a monorepos')
+  .description('[DEPRECATED] Replace the packages version in a monorepos')
   .option('-p, --placeholder <placeholder>', 'Pattern of the version placeholder', '0.0.0(-placeholder)?')
   .option('--include <file>', 'Add files pattern to apply the version replacement', collect, defaultIncludedFiles)
   .option('-v, --verbose', 'Display debug logs')

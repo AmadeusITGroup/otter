@@ -1,17 +1,37 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { type RulesetExecutionDebug, RulesetHistoryPresModule } from '@o3r/rules-engine';
 import { Observable, Subscription } from 'rxjs';
-import type { RulesetExecutionDebug } from '@o3r/rules-engine';
+import { AppConnectionComponent } from '../components/app-connection/app-connection.component';
+import { ComponentPanelPresComponent } from './component-panel/component-panel-pres.component';
 import { ChromeExtensionConnectionService, isApplicationInformationMessage } from '../services/connection.service';
-import { DebugPanelService } from './debug-panel/debug-panel.service';
 import { RulesetHistoryService } from '../services/ruleset-history.service';
+import { ConfigPanelPresComponent } from './config-panel/config-panel-pres.component';
+import { DebugPanelPresComponent } from './debug-panel/debug-panel-pres.component';
+import { DebugPanelService } from './debug-panel/debug-panel.service';
+import { LocalizationPanelPresComponent } from './localization-panel/localization-panel-pres.component';
+import { ThemingPanelPresComponent } from './theming-panel/theming-panel-pres.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    NgbNavModule,
+    DebugPanelPresComponent,
+    RulesetHistoryPresModule,
+    ConfigPanelPresComponent,
+    ComponentPanelPresComponent,
+    AppConnectionComponent,
+    LocalizationPanelPresComponent,
+    ThemingPanelPresComponent,
+    AsyncPipe
+  ]
 })
 export class AppComponent implements OnDestroy {
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   public rulesetExecutions$: Observable<RulesetExecutionDebug[]>;
 

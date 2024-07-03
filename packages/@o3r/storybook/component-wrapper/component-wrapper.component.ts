@@ -21,7 +21,7 @@ import { ComponentWrapperService } from './component-wrapper.service';
 // eslint-disable-next-line @angular-eslint/component-class-suffix
 export class ComponentWrapper implements OnDestroy {
 
-  private subscription = new Subscription();
+  private readonly subscription = new Subscription();
 
   constructor(store: Store<ConfigurationStore>, wrapper: ComponentWrapperService) {
     this.subscription.add(

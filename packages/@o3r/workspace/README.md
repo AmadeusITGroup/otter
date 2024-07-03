@@ -5,6 +5,9 @@
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/workspace?style=for-the-badge)](https://www.npmjs.com/package/@o3r/workspace)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/workspace?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/workspace)
+
 This package is an [Otter Framework](https://github.com/AmadeusITGroup/otter) Module providing tools at workspace level.
 
 This packages provides several [Schematics](#schematics) and [CLIs](#scripts) used to accelerate the development and support maintenance of workspace's packages.
@@ -29,7 +32,7 @@ This packages exposes the following Command Line Interfaces:
 Replaces the value of the `version` field of the `JSON` files matched by the pattern provided to the `--include` options.
 
 ```shell
-Usage: set-version [options] <version>
+Usage: o3r-set-version [options] <version>
 
 Replace the packages version in a monorepos
 

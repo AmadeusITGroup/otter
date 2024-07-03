@@ -1,0 +1,54 @@
+<h1>Design Tokens</h1>
+<div class="row">
+  <div class="right-nav order-1 order-lg-2 col-12 col-lg-2 sticky-lg-top pt-5 pt-lg-0">
+    <o3r-in-page-nav-pres
+      id="design-token-nav"
+      [links]="links$ | async"
+    >
+    </o3r-in-page-nav-pres>
+  </div>
+  <div class="order-2 order-lg-1 col-12 col-lg-10">
+    <h2 id="design-token-description">Description</h2>
+    <div>
+      <p>
+        This module provides tools to generate css theme using <a href="https://design-tokens.github.io/community-group/format/" target="_blank" rel="noopener">design-tokens</a>.
+        <br/>
+        It can be used to manage the creation of your theme in a tool like <a href="https://www.figma.com/" target="_blank" rel="noopener">Figma</a> and directly integrate it inside your app.
+      </p>
+    </div>
+    <h2 id="design-token-examples">Examples</h2>
+    <div>
+      <p>
+        In the following example, we created 3 themes in Figma (Default, Dark and Horizon).
+      </p>
+        Then, we exported the JSON files inside the app :
+      <ul>
+        <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/style/design-token.figma.json" target="_blank" rel="noopener">design-token.figma.json</a></li>
+        <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/style/dark-theme/dark-theme.figma.json" target="_blank" rel="noopener">dark-theme.figma.json</a></li>
+        <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/style/horizon-theme/horizon-theme.figma.json" target="_blank" rel="noopener">horizon-theme.figma.json</a></li>
+      </ul>
+      <p>
+        Finally, we included the <b>&#64;o3r/design:generate-css</b> builder in the <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/project.json" target="_blank" rel="noopener">build process</a> to generate the css based on these files.
+      </p>
+      <o3r-design-token-pres></o3r-design-token-pres>
+      <p>
+        Do not hesitate to run the application locally, if not installed yet, follow the <a routerLink="/run-app-locally">instructions</a>.
+      </p>
+      <a href="https://github.com/AmadeusITGroup/otter/blob/main/apps/showcase/src/components/showcase/design" target="_blank" rel="noopener">Source code</a>
+    </div>
+    <h2 id="design-token-install">How to install</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng add @o3r/design"></o3r-copy-text-pres>
+    <h2 id="configuration-add-config-later">How to add design-tokens to a component</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g design-token-to-component --path='path/to/the/component/class/file'"></o3r-copy-text-pres>
+    <h2 id="design-token-install">How to extract design-tokens from Sass files</h2>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="ng g extract-token --component-file-patterns='path/to/the/components/**/*.scss'"></o3r-copy-text-pres>
+    <h2 id="design-token-references">References</h2>
+    <div>
+      <ul>
+        <li>
+          <a href="https://docs.otter.digitalforairlines.com/additional-documentation/design/technical-documentation.html" target="_blank" rel="noopener">Documentation</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

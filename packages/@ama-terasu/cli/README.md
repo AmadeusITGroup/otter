@@ -1,5 +1,8 @@
 # Ama-Terasu
 
+[![Stable Version](https://img.shields.io/npm/v/@ama-terasu/cli?style=for-the-badge)](https://www.npmjs.com/package/@ama-terasu/cli)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@ama-terasu/cli?color=green&style=for-the-badge)](https://www.npmjs.com/package/@ama-terasu/cli)
+
 Ama Terasu is a Command Line Interface to administrate Amadeus Digital Experience suite.
 
 ## How to use
@@ -13,7 +16,8 @@ npx @ama-terasu/cli --help
 yarn dlx @ama-terasu/cli --help
 ```
 
-> **Note**: For yarn, the CLI modules are currently available only with `nodeLinker: node_modules` strategy.
+> [!IMPORTANT]
+> For yarn, the CLI modules are only compatible with the `nodeLinker: node_modules` strategy.
 
 ### Managing installed modules
 
@@ -34,10 +38,12 @@ npx @ama-terasu/cli module update <my module>
 npx @ama-terasu/cli module update <my module> --to 1.2.3
 ```
 
-> **Note**: when accessing to a module that is not installed, the CLI will automatically download the latest available version
+> [!NOTE]
+> When accessing to a module that is not installed, the CLI will automatically download the latest available version
 
 ## How to register a module
 
 The only thing you need to do to get your module available is to publish your module on [npmjs.com](https://www.npmjs.com/) with **amaterasu-module** into your package [keywords](https://docs.npmjs.com/cli/v9/configuring-npm/package-json#keywords).
 
-> **Note**: Your module should [export](https://nodejs.org/api/modules.html#moduleexports) an object following the `AmaCliModule` interface from the `@ama-terasu/core` package.
+> [!IMPORTANT]
+> Your module should [export](https://nodejs.org/api/modules.html#moduleexports) an object following the `AmaCliModule` interface from the `@ama-terasu/core` package.

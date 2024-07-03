@@ -3,6 +3,16 @@
   "spaces": 2,
   "generator-cli": {
     "version": "6.6.0",
-    "storageDir": ".openapi-generator"
+    "storageDir": ".openapi-generator",
+    "generators": {
+      "ama-sdk-showcase-sdk": {
+        "generatorName": "typescriptFetch",
+        "output": ".",
+        "inputSpec": "./swagger-spec.yaml",
+        "globalProperty": {
+          "stringifyDate": true
+        }
+      }
+    }
   }
 }

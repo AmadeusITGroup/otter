@@ -2,7 +2,6 @@ import { createInterface } from 'node:readline';
 
 /**
  * Display a question in the terminal and wait for the user answer
- *
  * @param question Question to ask to the user
  * @returns user's answer
  */

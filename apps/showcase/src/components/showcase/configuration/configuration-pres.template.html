@@ -18,7 +18,9 @@
               <label class="input-group-text w-50" for="destination">Destination</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value> -- select a destination -- </option>
-                <option *ngFor="let destination of (config$ | async)?.destinations; trackBy: trackByCityName" [disabled]="!destination.available" [value]="destination.cityName">{{destination.cityName}}</option>
+                @for (destination of (config$ | async)?.destinations; track destination.cityCode) {
+                  <option [disabled]="!destination.available" [value]="destination.cityName">{{destination.cityName}}</option>
+                }
               </select>
             </div>
           </div>
@@ -28,12 +30,14 @@
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
-          <div *ngIf="(config$ | async)?.shouldProposeRoundTrip" class="col-12 col-xl-6">
-            <div class="input-group">
-              <label for="date-inbound" class="input-group-text w-50">Return</label>
-              <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
+          @if ((config$ | async)?.shouldProposeRoundTrip) {
+            <div class="col-12 col-xl-6">
+              <div class="input-group">
+                <label for="date-inbound" class="input-group-text w-50">Return</label>
+                <o3r-date-picker-input-pres [id]="'date-inbound'" class="w-50" formControlName="inboundDate"></o3r-date-picker-input-pres>
+              </div>
             </div>
-          </div>
+          }
         </form>
       </div>
     </div>

@@ -5,7 +5,9 @@
     "**/dist/": true,
     "**/build/": true,
     "**/node_modules": true,
-    "**/.cache": true
+    "**/.cache": true,
+    "**/src/package.json": true,
+    "tools/github-actions/*/packaged-action/**": true
   },
   "files.exclude": {
     "**/.git": true,
@@ -15,25 +17,29 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true
   },
+  "files.associations": {
+    "*.json5": "jsonc"
+  },
   "npm.packageManager": "yarn",
   "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "typescript.preferences.importModuleSpecifier": "relative",
   "typescript.preferences.quoteStyle": "single",
-  "angular.disableAutomaticNgcc": true,
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
   "jest.jestCommandLine": "yarn jest",
-  "jest.autoRun": {
-    "watch": false,
-    "onSave": "test-file"
-  },
+  "jest.debugMode": true,
+  "jest.runMode": "on-save",
+  "testing.openTesting": "neverOpen",
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
     "tsconfig.json": "tsconfig.*.json",
     "tsconfig.base.json": "tsconfig.*.json",
-    "package.json": "ng-package.json, project.json, yarn.lock",
-    "nx.json": "workspace.json, .nxignore",
-    ".yarnrc.yml": ".npmrc, .npmrc.*",
-    ".eslintrc.*": ".eslintignore, .eslintrc-*"
+    "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
+    "nx.json": ".nxignore",
+    ".eslintrc.*": ".eslintignore, .eslintrc-*",
+    "jest.config.js": "jest.config.*",
+    "Dockerfile*": ".dockerignore"
   },
   "stylelint.validate": [
     "css",
@@ -46,7 +52,8 @@
   "eslint.validate": [
     "javascript",
     "typescript",
-    "json"
+    "json",
+    "yaml"
   ],
   "eslint.probe": [
     "javascript",
@@ -54,9 +61,9 @@
     "typescriptreact",
     "html",
     "markdown",
-    "json"
+    "json",
+    "yaml"
   ],
-  "typescript.enablePromptUseWorkspaceTsdk": true,
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],
@@ -66,11 +73,17 @@
     "**/.pnp.*": true,
     "**/.yarn/**": true,
     "**/node_modules/**": true,
-    "tools/github-actions/*/packaged-action/**": true
+    "tools/github-actions/*/packaged-action/**": true,
+    "packages/@ama-sdk/*sdk/src/api/**/*.ts": true,
+    "packages/@ama-sdk/*sdk/src/models/base/**/*.ts": true,
+    "packages/@ama-sdk/*sdk/src/spec/api-mock.ts": true,
+    "packages/@ama-sdk/*sdk/src/spec/operation-adapter.ts": true
+  },
+  "files.readonlyExclude": {
+    "packages/@ama-sdk/*sdk/src/api/*/index.ts": true,
+    "packages/@ama-sdk/*sdk/src/models/base/*/index.ts": true
   },
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
-  "otter.extract.styling.prefix": "o3r",
-  "otter.generate.store.testFramework": "jest",
-  "otter.packageManager": "yarn"
+  "otter.extract.styling.prefix": "o3r"
 }

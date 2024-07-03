@@ -7,11 +7,11 @@
     "lib": ["es5", "es6", "scripthost"],
     "types": ["node"],
     "outDir": "dist",
-    "module": "CommonJS",
-    "moduleResolution": "node"
+    "module": "node16",
+    "moduleResolution": "node16"
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.mts"
   ],
   "exclude": [
     "**/*.spec.ts"

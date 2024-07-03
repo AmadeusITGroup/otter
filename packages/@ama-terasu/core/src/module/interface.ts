@@ -15,7 +15,6 @@ export interface ProgressBarUpdate {
 export interface ProgressBar {
   /**
    * Increment progress
-   *
    * @param update Update the display of the progress bar
    */
   tick: (update?: ProgressBarUpdate) => void;
@@ -28,46 +27,40 @@ export interface ProgressBar {
 export interface Task {
   /**
    * Update the task label
-   *
    * @param label Label to display
    */
   start: () => void;
 
   /**
    * Update the task label
-   *
    * @param label Label to display
    */
   updateLabel: (label: string) => void;
 
   /**
    * Set the task as success
-   *
    * @param label Label to display
    */
   succeed: (label?: string) => void;
 
   /**
    * Set the task as failure
-   *
    * @param label Label to display
    */
   fail: (label?: string) => void;
 
   /**
    * Bind task to promise
-   *
    * @param promise Promise to bind to
    * @param label Label to display
    */
-  fromPromise: <T extends PromiseLike<unknown>>(promise: T, successLabel?: string, failureLabel?: string) => T;
+  fromPromise: <T>(promise: PromiseLike<T>, successLabel?: string, failureLabel?: string) => PromiseLike<T>;
 }
 
 /** Context of a module to dialog with CLI host */
 export interface Context {
   /**
    * Progress bar helper
-   *
    * @param total Total value of the progress bar
    * @param initialLabel  Label to be displayed initially on the progressBar
    */
@@ -75,7 +68,6 @@ export interface Context {
 
   /**
    * Retrieve an install of the spinner to be used in the Amaterasu module
-   *
    * @param initialLabel Label to be displayed initially on the spinner
    */
   getSpinner: (initialLabel?: string) => Task;
@@ -89,7 +81,6 @@ export interface RootContext extends Context {
 
   /**
    * Show Help message
-   *
    * @param amaYargs instance of current Yarg
    * @param arg Argument of the command
    */
@@ -97,7 +88,6 @@ export interface RootContext extends Context {
 
   /**
    * Generate a formatted usage message
-   *
    * @param moduleName Nome of the module
    * @param command CLI Command
    * @param longDescription Long description of the command to add additional information
@@ -108,7 +98,6 @@ export interface RootContext extends Context {
 
   /**
    * Retrieve context tools based on executed rule
-   *
    * @param commonOptions Value of the common options
    * @param totalProgress total number of steps for teh command
    */
@@ -117,22 +106,7 @@ export interface RootContext extends Context {
 
 export interface AmaCliModule {
   /**
-   * Name of the CLI module
-   *
-   * @deprecated will be read from package.json instead
-   */
-  name: string;
-
-  /**
-   * Description of the module
-   *
-   * @deprecated will be read from package.json instead
-   */
-  description: string;
-
-  /**
    * Initialization the module and export yargs instance
-   *
    * @param yargsAma Global CLI configuration
    * @param context Factory to retrieve context to the executed command
    */

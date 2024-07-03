@@ -56,11 +56,11 @@ export interface LibraryMetadataMap {
 export class LocalizationExtractor {
 
   /** TsConfig of the file to base on */
-  private tsconfigPath: string;
+  private readonly tsconfigPath: string;
 
-  private logger: logging.LoggerApi;
+  private readonly logger: logging.LoggerApi;
 
-  constructor(tsconfigPath: string, logger: logging.LoggerApi, private options?: Partial<LocalizationExtractorBuilderSchema>) {
+  constructor(tsconfigPath: string, logger: logging.LoggerApi, private readonly options?: Partial<LocalizationExtractorBuilderSchema>) {
     this.tsconfigPath = tsconfigPath;
     this.logger = logger;
   }
@@ -73,7 +73,6 @@ export class LocalizationExtractor {
 
   /**
    * Return the class node if the class is an angular element
-   *
    * @param source Ts file source
    */
   private getAngularClassNode(source: ts.SourceFile): ts.ClassDeclaration[] | undefined {
@@ -106,7 +105,6 @@ export class LocalizationExtractor {
 
   /**
    * Get the list of referenced translation files
-   *
    * @param localizationFileContent JSON content of a location file
    * @param localizationFilePath Path of the localization file
    */
@@ -142,7 +140,6 @@ export class LocalizationExtractor {
 
   /**
    * Read a localization file
-   *
    * @param locFile Path to the localization file
    */
   private readLocalizationFile(locFile: string) {
@@ -151,7 +148,6 @@ export class LocalizationExtractor {
 
   /**
    * Read a metadata file
-   *
    * @param metadataFile Path to the metadata file
    */
   private readMetadataFile(metadataFile: string) {
@@ -160,7 +156,6 @@ export class LocalizationExtractor {
 
   /**
    * Generate a metadata item from a localization item
-   *
    * @param loc Localization item
    * @param key Key of the localization
    */
@@ -199,7 +194,6 @@ export class LocalizationExtractor {
 
   /**
    * Compares two JSONLocalization object by their keys and returns the result of the string comparison
-   *
    * @param a JSONLocalization
    * @param b JSONLocalization
    */
@@ -220,8 +214,10 @@ export class LocalizationExtractor {
     const tsconfigResult = ts.readConfigFile(this.tsconfigPath, ts.sys.readFile);
 
     if (tsconfigResult.error) {
-      this.logger.error(tsconfigResult.error.messageText.toString());
-      throw new O3rCliError(tsconfigResult.error.messageText.toString());
+      // eslint-disable-next-line @typescript-eslint/no-base-to-string
+      const stringError = tsconfigResult.error.messageText.toString();
+      this.logger.error(stringError);
+      throw new O3rCliError(stringError);
     }
 
     const include: string[] = [...(tsconfigResult.config.files || []), ...(tsconfigResult.config.include || [])];
@@ -232,7 +228,6 @@ export class LocalizationExtractor {
 
   /**
    * Generate the localization mapping for a list of files
-   *
    * @param localizationFiles Localization files to load
    * @param alreadyLoadedFiles List of localization files already loadded
    * @param isDependency Determine if the list of files are dependencies of others
@@ -266,7 +261,6 @@ export class LocalizationExtractor {
 
   /**
    * Extract the localization mapping from a tsconfig file
-   *
    * @param extraLocalizationFiles Additional translations to add
    */
   public async extractLocalizationFromTsConfig(extraLocalizationFiles: string[] = []): Promise<LocalizationFileMap> {
@@ -301,7 +295,6 @@ export class LocalizationExtractor {
 
   /**
    * Retrieve metadata from libraries
-   *
    * @param libraries Libraries on which the project depend
    */
   public async getMetadataFromLibraries(libraries: string[]) {
@@ -314,7 +307,6 @@ export class LocalizationExtractor {
 
   /**
    * Retrieve metadata from metadata files
-   *
    * @param metadataFiles Metadata files
    */
   public async getMetadataFromFiles(metadataFiles: string[]) {
@@ -328,7 +320,6 @@ export class LocalizationExtractor {
 
   /**
    * Generate metadata from localization and library metadata mappings
-   *
    * @param localizationMap Map of localization files
    * @param options Option of generation
    * @param options.ignoreDuplicateKeys

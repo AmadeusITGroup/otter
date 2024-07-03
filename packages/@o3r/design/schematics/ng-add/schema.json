@@ -10,6 +10,15 @@
       "$default": {
         "$source": "projectName"
       }
+    },
+    "extractDesignToken": {
+      "type": "boolean",
+      "description": "Extract the design token from Sass file in the project"
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "additionalProperties": true,

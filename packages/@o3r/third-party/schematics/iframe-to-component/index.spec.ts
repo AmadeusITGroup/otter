@@ -3,7 +3,7 @@ import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 import { firstValueFrom } from 'rxjs';
-import { ngAddIframe } from './index';
+import { ngAddIframeFn } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const o3rComponentPath = '/src/components/test/test.component.ts';
@@ -102,7 +102,7 @@ describe('Add Iframe', () => {
       it('should throw if no Otter component', async () => {
         const runner = new SchematicTestRunner('schematics', collectionPath);
 
-        await expect(firstValueFrom(runner.callRule(ngAddIframe({
+        await expect(firstValueFrom(runner.callRule(ngAddIframeFn({
           path: ngComponentPath,
           skipLinter: false
         }), initialTree, { interactive: false }))).rejects.toThrow();

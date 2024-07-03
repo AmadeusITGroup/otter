@@ -1,0 +1,68 @@
+@if (numberOfVariables()) {
+  <form [formGroup]="form" class="mb-2">
+    <div class="mb-2 input-group">
+      <label class="input-group-text" for="search-styling">
+        <i class="mx-1 icon-search" aria-label="Search"></i>
+      </label>
+      <input class="form-control" formControlName="search" type="text" id="search-styling" placeholder="Search for styling variable" />
+    </div>
+  </form>
+  <form [formGroup]="form.controls.variables">
+    <ul class="d-grid w-100 overflow-hidden p-0 border-top border-start border-light" [style.grid-template-columns]="'repeat(auto-fill, minmax(300px, 1fr))'">
+      @for (themeVar of filteredThemeVariables(); track themeVar.name) {
+        <li class="form-group d-flex gap-4 border-bottom border-end border-light p-7">
+          <div class="d-flex flex-column gap-2 w-100">
+            <label class="form-label text-nowrap fw-semibold" [for]="themeVar.name">{{ themeVar | variableLabel }}</label>
+            <div class="d-flex gap-4 align-items-center position-relative">
+              @if (themeVar.type === 'color') {
+                <input [style.width]="'40px'" class="form-control form-control-color" type="color" [value]="resolvedVariables()[themeVar.name] | color" (change)="onColorChange(themeVar.name, $event)" />
+              }
+              <ng-template #resultTemplate let-result="result" let-term="term">
+                <div class="d-flex flex-column gap-2">
+                  <ngb-highlight [result]="result" [term]="term"></ngb-highlight>
+                  @if (result | variableName; as varName) {
+                    @if (variablesMap()[varName]; as variable) {
+                      <div class="d-flex gap-3 fs-6 text-secondary align-items-center">
+                        @if (variable.type === 'color') {
+                          <div class="border border-secondary rounded-circle" [style.background]="resolvedVariables()[variable.name] | color" [style.width]="'15px'" [style.height]="'15px'"></div>
+                        }
+                        @if (variable.description; as description) {
+                          <ngb-highlight [result]="description" [term]="term"></ngb-highlight>
+                        } @else {
+                          <ngb-highlight [result]="variable.runtimeValue ?? variable.defaultValue" [term]="term"></ngb-highlight>
+                        }
+                      </div>
+                    }
+                  }
+                </div>
+              </ng-template>
+              <input [id]="themeVar.name" type="text" class="form-control w-100 pe-6" [formControlName]="themeVar.name" [ngbTypeahead]="variableSearch | memoize : themeVar" [resultTemplate]="resultTemplate" />
+              @if (form.value.variables?.[themeVar.name] !== themeVar.defaultValue) {
+                <i class="form-text text-warning icon-undo position-absolute end-0 me-3" ngbTooltip="Reset value to: {{themeVar.defaultValue}}" (click)="onColorReset(themeVar)"></i>
+              }
+            </div>
+            @if (themeVar.description) {
+              <p class="form-text mb-0 text-secondary">{{themeVar.description}}</p>
+            }
+          </div>
+        </li>
+      } @empty {
+        <li class="list-group-item">
+          @if (form.value.search) {
+            <h3>No theming variable found for your search.</h3>
+          } @else {
+            <h3>No theming variable provided.</h3>
+          }
+        </li>
+      }
+    </ul>
+  </form>
+} @else {
+  <h3>No metadata provided for styling.</h3>
+  <p>
+    To provide metadata you can read the following
+    <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/dev-tools/chrome-devtools.md#how-to-enable-more-features-by-providing-metadata-files" target="_blank" rel="noopener">
+      documentation
+    </a>
+  </p>
+}

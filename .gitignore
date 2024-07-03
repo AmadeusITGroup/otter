@@ -62,6 +62,7 @@ pids
 *.pid
 *.seed
 *.pid.lock
+*.bkp
 
 # Dependency directories
 node_modules
@@ -85,5 +86,5 @@ coverage
 # OS
 *.DS_Store
 
-# NX
+# Nx
 .nx/cache

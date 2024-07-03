@@ -2,6 +2,7 @@
   "name": "chrome-devtools",
   "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
   "projectType": "library",
+  "root": "apps/chrome-devtools",
   "sourceRoot": "apps/chrome-devtools/src",
   "prefix": "o3r",
   "targets": {
@@ -25,22 +26,14 @@
       ]
     },
     "build-components": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{projectRoot}/dist/components"
-      ],
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "outputs": ["{projectRoot}/dist/components"],
       "options": {
         "baseHref": "components",
         "outputPath": "apps/chrome-devtools/dist/components",
         "index": "apps/chrome-devtools/src/app-components.html",
         "main": "apps/chrome-devtools/src/app-components.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.components.json",
-        "fileReplacements": [
-          {
-            "replace": "apps/chrome-devtools/src/environments/environment.ts",
-            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
-          }
-        ],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -79,27 +72,17 @@
           "buildOptimizer": false
         }
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-panel": {
-      "executor": "@angular-devkit/build-angular:browser",
-      "outputs": [
-        "{projectRoot}/dist/panel"
-      ],
+      "executor": "@angular-devkit/build-angular:browser-esbuild",
+      "outputs": ["{projectRoot}/dist/panel"],
       "options": {
         "baseHref": "panel",
         "outputPath": "apps/chrome-devtools/dist/panel",
         "index": "apps/chrome-devtools/src/app-devtools.html",
         "main": "apps/chrome-devtools/src/app-devtools.main.ts",
         "tsConfig": "apps/chrome-devtools/tsconfig.build.devtools.json",
-        "fileReplacements": [
-          {
-            "replace": "apps/chrome-devtools/src/environments/environment.ts",
-            "with": "apps/chrome-devtools/src/environments/environment.prod.ts"
-          }
-        ],
         "optimization": {
           "scripts": true,
           "styles": {
@@ -138,30 +121,17 @@
           "buildOptimizer": false
         }
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "build-extension": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/extension"
-      ],
+      "outputs": ["{projectRoot}/dist/extension"],
       "options": {
         "script": "build:extension"
       },
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/chrome-devtools/.eslintrc.js",
         "lintFilePatterns": [
@@ -173,8 +143,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/chrome-devtools/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/chrome-devtools/jest.config.js"
       }
     },
     "copy-assets": {

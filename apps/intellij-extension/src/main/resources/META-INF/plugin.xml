@@ -1,0 +1,53 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+  <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+  <id>com.amadeus.otter-extension</id>
+
+  <!-- Public plugin name should be written in Title Case.
+       Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+  <name>Otter Extension</name>
+
+  <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+  <vendor url="https://www.amadeus.com">Amadeus</vendor>
+
+  <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+       Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+       Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+  <description><![CDATA[
+<p>This package contains the IntelliJ plugin for Otter framework.</p>
+<p>You can execute actions via the right click -> refactor or via any other refactor menu of the IDE.</p>
+<p>You can extract the CSS variables by using the refactor command 'Extract SCSS property to o3r.variable' while being on the CSS property.</p>
+
+<p>To access the settings of the plugin:</p>
+<ul>
+<li>Open the settings of your IDEA</li>
+<li>Go to the Editor section</li>
+<li>Otter Extractor Settings</li>
+</ul>
+
+<p>You can set the prefix of your app and the forbidden words - which will be escaped from the extraction</p>
+]]></description>
+
+  <!-- Product and plugin compatibility requirements.
+       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+  <depends>com.intellij.modules.platform</depends>
+
+  <!-- Extension points defined by the plugin.
+       Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationConfigurable
+      displayName="Otter Extractor Settings"
+      parentId="editor"
+      id="com.amadeus.otterextension.Extractor"
+      instance="com.amadeus.otterextension.ExtractorSettingsPage">
+    </applicationConfigurable>
+  </extensions>
+  <actions>
+    <group id="com.amadeus.otterextension" text="Otter" popup="true"  icon="com.amadeus.otterextension.OtterIcons.OtterLogo">
+      <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      <action id="com.amadeus.otterextension.ExtractToVariableAction"
+              class="com.amadeus.otterextension.ExtractToVariableAction" text="Extract SCSS property to o3r.variable" description="Extract the selected SCSS property using o3r variables">
+      </action>
+    </group>
+  </actions>
+</idea-plugin>

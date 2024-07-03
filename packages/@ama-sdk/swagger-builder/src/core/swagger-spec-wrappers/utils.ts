@@ -3,7 +3,6 @@ import type { Spec } from 'swagger-schema-official';
 
 /**
  * Determine if a reference is targeting outside from the current swagger spec
- *
  * @param refPath Reference path
  */
 export function isOuterRefPath(refPath: string) {
@@ -12,7 +11,6 @@ export function isOuterRefPath(refPath: string) {
 
 /**
  * Determine if a reference is targeting an URL
- *
  * @param refPath Reference path
  */
 export function isUrlRefPath(refPath: string) {
@@ -21,7 +19,6 @@ export function isUrlRefPath(refPath: string) {
 
 /**
  * Get the Full Path for a YAML file
- *
  * @param sourcePath Path to the YAML file to target
  * @param relativeSourcePath Relative Path to the targeted YAML file
  */
@@ -39,7 +36,6 @@ export function getYamlFullPath(sourcePath: string, relativeSourcePath: string) 
 
 /**
  * Convert a StopLight Definition into a valid swagger
- *
  * @param spec Specification file loaded
  */
 export function sanitizeDefinition(spec: any): Spec | undefined {

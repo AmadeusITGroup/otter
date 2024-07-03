@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { AfterViewInit, ChangeDetectionStrategy, Component, computed, QueryList, signal, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ApplicationDevtoolsModule } from '@o3r/application';
@@ -23,7 +23,6 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
   selector: 'o3r-configuration',
   standalone: true,
   imports: [
-    CommonModule,
     RouterModule,
     ConfigurationPresComponent,
     ApplicationDevtoolsModule,
@@ -31,7 +30,8 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
     ConfigurationDevtoolsModule,
     ConfigurationBaseServiceModule,
     CopyTextPresComponent,
-    IN_PAGE_NAV_PRES_DIRECTIVES
+    IN_PAGE_NAV_PRES_DIRECTIVES,
+    AsyncPipe
   ],
   templateUrl: './configuration.template.html',
   styleUrls: ['./configuration.style.scss'],
@@ -40,7 +40,7 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
 })
 export class ConfigurationComponent implements AfterViewInit {
   @ViewChildren(InPageNavLinkDirective)
-  private inPageNavLinkDirectives!: QueryList<InPageNavLink>;
+  private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
   public config = signal<ConfigurationPresConfig | undefined>(undefined);
@@ -55,7 +55,7 @@ export class ConfigurationComponent implements AfterViewInit {
   });
 
   constructor(
-    private inPageNavPresService: InPageNavPresService,
+    private readonly inPageNavPresService: InPageNavPresService,
     configurationDevtoolsMessageService: ConfigurationDevtoolsMessageService
   ) {
     configurationDevtoolsMessageService.activate();

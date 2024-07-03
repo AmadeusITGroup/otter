@@ -4,34 +4,35 @@ import { Subscription } from 'rxjs';
 import { LocalizationConfiguration } from '../core';
 import { LocalizationService } from './localization.service';
 import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+
 /**
  * TranslatePipe class adding debug functionality
  */
-@Pipe({name: 'translate', pure: false})
-export class LocalizationTranslatePipe extends TranslatePipe implements PipeTransform {
+@Pipe({name: 'o3rTranslate', pure: false})
+export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */
-  private onShowKeysChange?: Subscription;
+  protected readonly onShowKeysChange?: Subscription;
 
   /**
    * Internal subscription to the LocalizationService key mapping
    */
-  private onKeyChange?: Subscription;
+  protected onKeyChange?: Subscription;
 
   /**
    * Should we display keys instead of translations
    */
-  private showKeys = false;
+  protected showKeys = false;
 
   /** last key queried */
-  private lastQueryKey?: string;
+  protected lastQueryKey?: string;
 
   /** last key resolved */
-  private lastResolvedKey?: string;
+  protected lastResolvedKey?: string;
 
-  constructor(private localizationService: LocalizationService, translateService: TranslateService, private changeDetector: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfig: LocalizationConfiguration) {
+  constructor(protected readonly localizationService: LocalizationService, translateService: TranslateService, protected readonly changeDetector: ChangeDetectorRef,
+              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) protected readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, changeDetector);
 
     if (localizationConfig.enableTranslationDeactivation) {
@@ -44,7 +45,6 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
 
   /**
    * Calls original transform method and eventually outputs the key if debugMode (in LocalizationConfiguration) is enabled
-   *
    * @inheritdoc
    */
   public transform(query: string, ...args: any[]): any {
@@ -87,3 +87,10 @@ export class LocalizationTranslatePipe extends TranslatePipe implements PipeTran
     }
   }
 }
+
+/**
+ * TranslatePipe class adding debug functionality
+ * @deprecated please use O3rLocalizationTranslatePipe, will be removed in v12.
+ */
+@Pipe({name: 'translate', pure: false})
+export class LocalizationTranslatePipe extends O3rLocalizationTranslatePipe implements PipeTransform {}
