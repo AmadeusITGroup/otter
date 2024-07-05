@@ -28,8 +28,8 @@ export function updateTsConfig(targetPath: string, projectName: string, scope: s
       return tree;
     }
 
-    configWithPath.content.baseUrl ||= '.';
     configWithPath.content.compilerOptions ||= {};
+    configWithPath.content.compilerOptions.baseUrl ||= '.';
     configWithPath.content.compilerOptions.paths ||= {};
     configWithPath.content.compilerOptions.paths[`${scope ? `@${scope}/` : ''}${projectName}`] = [
       `${relativeTargetPath}/dist`,
