@@ -198,9 +198,11 @@ export interface PackageManagerConfig {
  * Set configuration for package manager
  * @param options
  * @param execAppOptions
+ * @param packageManagerOverride
  */
-export function setPackagerManagerConfig(options: PackageManagerConfig, execAppOptions: ExecSyncOptions) {
+export function setPackagerManagerConfig(options: PackageManagerConfig, execAppOptions: ExecSyncOptions, packageManagerOverride?: keyof typeof PACKAGE_MANAGERS_CMD) {
   const execOptions = {...execAppOptions, shell: process.platform === 'win32'};
+  const packageManager = packageManagerOverride || getPackageManager();
 
   // Need to add this even for yarn because `ng add` only reads registry from .npmrc
   execFileSync('npm', ['config', 'set', `@ama-sdk:registry=${options.registry}`, '-L=project'], execOptions);
@@ -209,7 +211,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   const packageJsonPath = join(execOptions.cwd as string, 'package.json');
   const shouldCleanPackageJson = !existsSync(packageJsonPath);
-  switch (getPackageManager()) {
+  switch (packageManager) {
     case 'yarn': {
       // Set yarn version
       if (options.yarnVersion) {

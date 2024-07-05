@@ -47,6 +47,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const workspacePath = path.resolve(itTestsFolderPath, folderName);
   const globalFolderPath = path.resolve(rootFolderPath, '.cache', 'test-app');
   const o3rVersion = '~999';
+  const registry = 'http://127.0.0.1:4873';
 
   JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
   const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
@@ -60,7 +61,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const packageManagerConfig = {
     yarnVersion,
     globalFolderPath,
-    registry: 'http://127.0.0.1:4873'
+    registry
   };
 
   // Create it-tests folder
@@ -68,7 +69,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     logger.debug?.(`Creating it-tests folder`);
     await createWithLock(() => {
       mkdirSync(itTestsFolderPath);
-      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath});
+      setPackagerManagerConfig(packageManagerConfig, {...execAppOptions, cwd: itTestsFolderPath}, 'npm');
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
@@ -88,7 +89,13 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const prepareFinalApp = (baseApp: string) => {
     logger.debug?.(`Copying ${baseApp} to ${workspacePath}`);
     const baseProjectPath = path.join(itTestsFolderPath, baseApp);
-    cpSync(baseProjectPath, workspacePath, { recursive: true, dereference: true, filter: (source) => !/node_modules/.test(source) });
+    cpSync(baseProjectPath, workspacePath, {
+      recursive: true,
+      dereference: true,
+      filter: (source) =>
+        !/(?:^|[\\/])node_modules(?:[\\/]|$)/.test(source) &&
+        !/(?:^|[\\/])\.git(?:[\\/]|$)/.test(source)
+    });
     if (existsSync(path.join(workspacePath, 'package.json'))) {
       packageManagerInstall(execAppOptions);
     }
@@ -149,6 +156,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
     untouchedProjectPath,
     packageManagerConfig,
     o3rVersion,
-    o3rExactVersion
+    o3rExactVersion,
+    registry
   };
 }

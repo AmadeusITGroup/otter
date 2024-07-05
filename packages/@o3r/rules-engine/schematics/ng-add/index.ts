@@ -32,7 +32,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getWorkspaceConfig,
       getExternalDependenciesVersionRange,
       removePackages,
-      setupSchematicsDefaultParams,
+      setupSchematicsParamsForProject,
       registerPackageCollectionSchematics
     } = await import('@o3r/schematics');
     options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/rules-engine', 'ng-add', options), ...options};
@@ -64,7 +64,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       });
     const rule = chain([
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsDefaultParams({
+      setupSchematicsParamsForProject({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component': {
           useRulesEngine: undefined
@@ -73,7 +73,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         '@o3r/core:component-container': {
           useRulesEngine: undefined
         }
-      }),
+      }, options.projectName),
       removePackages(['@otter/rules-engine', '@otter/rules-engine-core']),
       setupDependencies({
         projectName: options.projectName,
