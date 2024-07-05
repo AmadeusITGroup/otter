@@ -30,7 +30,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       return result;
     }
     catch (e: any) {
-      const err = e instanceof Error ? e : new Error(error);
+      const err = e instanceof Error ? e : new Error(e.toString());
       error = err.stack || err.toString();
       throw err;
     }
