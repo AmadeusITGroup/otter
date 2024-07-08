@@ -82,7 +82,7 @@
     "@openapitools/openapi-generator-cli": "~2.13.0",
     "@schematics/angular": "~18.0.0",
     "@stylistic/eslint-plugin-ts": "^2.0.0",
-    "@swc/cli": "~0.3.0",
+    "@swc/cli": "~0.4.0",
     "@swc/core": "~1.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
