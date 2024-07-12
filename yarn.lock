@@ -7256,7 +7256,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.1.1"
+    ag-grid-community: "npm:~32.0.1"
     archiver: "npm:^7.0.0"
     bootstrap: "npm:5.3.3"
     chokidar: "npm:^3.5.2"
@@ -8302,7 +8302,7 @@ __metadata:
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@yarnpkg/sdks": "npm:^3.0.0"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.1.1"
+    ag-grid-community: "npm:~32.0.1"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
@@ -9083,7 +9083,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.1.1"
+    ag-grid-community: "npm:~32.0.1"
     bootstrap: "npm:5.3.3"
     concurrently: "npm:^8.0.0"
     eslint: "npm:^8.57.0"
@@ -13512,6 +13512,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ag-charts-types@npm:10.0.1":
+  version: 10.0.1
+  resolution: "ag-charts-types@npm:10.0.1"
+  checksum: 10/13825e4e3b51a15ed47cb91caad751bd0d1a997591db6f0617d318b806ee15207f3606d95da5f4d7fe9b63a055e782450e660758efcc981847a02809bbdcef3e
+  languageName: node
+  linkType: hard
+
 "ag-grid-angular@npm:~31.1.1":
   version: 31.1.1
   resolution: "ag-grid-angular@npm:31.1.1"
@@ -13525,10 +13532,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:31.1.1, ag-grid-community@npm:~31.1.1":
+"ag-grid-community@npm:31.1.1":
   version: 31.1.1
   resolution: "ag-grid-community@npm:31.1.1"
   checksum: 10/345e3ca0d46eacbd95b52f0c36cbe33b3f2932afdb76118f7afe3d969f72e17e589730f356ae4943a493a747a70138c8f8bd8f36bf1d7ca069f36d2a040e8f4f
+  languageName: node
+  linkType: hard
+
+"ag-grid-community@npm:~32.0.1":
+  version: 32.0.1
+  resolution: "ag-grid-community@npm:32.0.1"
+  dependencies:
+    ag-charts-types: "npm:10.0.1"
+  checksum: 10/d2d77195108a072dc65329fdebd414e0c5623e4f35f466bc54f834d698298cc25d6f0b1bf94077e48bf3330eab9bb7750c024b065a5653f0fa65b464ef4b0007
   languageName: node
   linkType: hard
 
