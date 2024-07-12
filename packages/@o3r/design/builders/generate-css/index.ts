@@ -21,7 +21,7 @@ import { EOL } from 'node:os';
  */
 export default createBuilder<GenerateCssSchematicsSchema>(async (options, context): Promise<BuilderOutput> => {
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
-  const determineCssFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
+  const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
     (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
         return token.context?.basePath && !options.rootPath ?
@@ -38,7 +38,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     logger
   });
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
-    determineFileToUpdate: determineCssFileToUpdate,
+    determineFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
       tokenVariableNameRenderer,
       privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined,
@@ -46,6 +46,15 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         tokenVariableNameRenderer,
         unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
       }),
+      logger
+    }),
+    logger
+  };
+
+  const renderDesignTokenOptionsSass: DesignTokenRendererOptions = {
+    determineFileToUpdate,
+    tokenDefinitionRenderer: getSassTokenDefinitionRenderer({
+      tokenVariableNameRenderer: (v) => (options?.prefix || '') + tokenVariableNameSassRenderer(v),
       logger
     }),
     logger
@@ -98,7 +107,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
 
   const executeMultiRenderer = async (): Promise<BuilderOutput> => {
     return (await Promise.allSettled<Promise<BuilderOutput>[]>([
-      execute(renderDesignTokenOptionsCss),
+      execute(options.variableType === 'sass' ? renderDesignTokenOptionsSass : renderDesignTokenOptionsCss),
       ...(options.metadataOutput ? [execute(renderDesignTokenOptionsMetadata)] : [])
     ])).reduce((acc, res) => {
       if (res.status === 'fulfilled') {
