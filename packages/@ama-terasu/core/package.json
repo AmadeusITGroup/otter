@@ -39,7 +39,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "loglevel": "^1.8.0",
     "nx": "~19.3.0",
-    "ts-jest": "~29.1.2",
+    "ts-jest": "~29.2.0",
     "typescript": "~5.4.2",
     "yargs": "^17.6.2"
   },
