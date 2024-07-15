@@ -17,11 +17,20 @@ const isStylingMessage = (message: any): message is AvailableStylingMessageConte
 
 const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
   .reverse()
-  .reduce((acc: CSSStyleRule[], styleSheet) => acc.concat(
-    Array.from(styleSheet.cssRules || styleSheet.rules)
-      .reverse()
-      .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
-  ), []);
+  .reduce((acc: CSSStyleRule[], styleSheet) => {
+    let rules;
+    try {
+      rules = styleSheet.cssRules || styleSheet.rules;
+    } catch {
+      console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to CORS issues.`);
+    }
+
+    return acc.concat(
+      Array.from(rules || [])
+        .reverse()
+        .filter((rule): rule is CSSStyleRule => rule instanceof CSSStyleRule && /\b:root\b/.test(rule.selectorText))
+    );
+  }, []);
 
 const getCSSVariableValueInCSSStyleDeclaration = (variableName: string, style: CSSStyleDeclaration) =>
   style.getPropertyValue(variableName).trim();
@@ -65,9 +74,10 @@ export class StylingDevtoolsMessageService implements OnDestroy {
 
   private async sendMetadata() {
     const metadata = await this.stylingDevTools.getStylingMetadata(this.options.stylingMetadataPath);
+    const cssRules = getCSSRulesAppliedOnRoot();
     const variables = Object.values(metadata.variables).map((variable) => ({
       ...variable,
-      runtimeValue: getCSSVariableValue(`--${variable.name}`, getCSSRulesAppliedOnRoot())
+      runtimeValue: getCSSVariableValue(`--${variable.name}`, cssRules)
     }));
     this.sendMessage('getStylingVariable', { variables });
   }
