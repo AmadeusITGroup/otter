@@ -21,8 +21,8 @@ const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
     let rules;
     try {
       rules = styleSheet.cssRules || styleSheet.rules;
-    } catch {
-      console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to CORS issues.`);
+    } catch (err) {
+      console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to CORS issues.`, err);
     }
 
     return acc.concat(
