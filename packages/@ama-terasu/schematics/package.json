@@ -51,7 +51,7 @@
     "jsonc-eslint-parser": "~2.4.0",
     "nx": "~19.3.0",
     "rxjs": "^7.8.1",
-    "ts-jest": "~29.1.2",
+    "ts-jest": "~29.2.0",
     "typescript": "~5.4.2"
   }
 }
