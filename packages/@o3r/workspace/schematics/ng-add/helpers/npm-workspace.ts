@@ -20,7 +20,7 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
     }
 
     const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
-
+    rootPackageJsonObject.version = '0.0.0-placeholder';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     rootPackageJsonObject.workspaces = [...new Set(Object.values(directories).map(d => `${d}/*`).concat(rootPackageJsonObject.workspaces as string[] || []))];
 
