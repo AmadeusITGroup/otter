@@ -13,6 +13,7 @@ import { ChromeExtensionConnectionService, filterAndMapMessage } from './connect
 @Injectable({ providedIn: 'root' })
 export class LocalizationService {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
+  private readonly lang = signal<string | undefined>(undefined);
   public readonly localizationsMetadata = toSignal(
     this.connectionService.message$.pipe(
       filterAndMapMessage(
@@ -40,7 +41,6 @@ export class LocalizationService {
     ),
     { initialValue: false }
   );
-  private readonly lang = signal<string | undefined>(undefined);
   public readonly currentLanguage = this.lang.asReadonly();
 
   public readonly translationsForCurrentLanguage: Signal<Record<string, string>> = toSignal(
@@ -55,9 +55,29 @@ export class LocalizationService {
   );
 
   constructor() {
+    const activated = toSignal(this.connectionService.appState$);
     effect(() => {
-      this.connectionService.sendMessage('switchLanguage', { language: this.currentLanguage() });
-      this.connectionService.sendMessage('requestMessages', { only: ['getTranslationValuesContentMessage'] });
+      if (activated() === 'connected') {
+        this.connectionService.sendMessage(
+          'requestMessages',
+          {
+            only: [
+              'localizations',
+              'languages',
+              'switchLanguage',
+              'isTranslationDeactivationEnabled'
+            ]
+          }
+        );
+      }
+    });
+
+    effect(() => {
+      const currentLanguage = this.currentLanguage();
+      if (currentLanguage) {
+        this.connectionService.sendMessage('switchLanguage', { language: this.currentLanguage() });
+        this.connectionService.sendMessage('requestMessages', { only: ['getTranslationValuesContentMessage'] });
+      }
     });
     const externalSwitchLanguage = toSignal(
       this.connectionService.message$.pipe(

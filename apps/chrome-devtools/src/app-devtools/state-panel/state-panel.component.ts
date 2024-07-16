@@ -1,5 +1,16 @@
-import { DOCUMENT, JsonPipe, KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, effect, type ElementRef, inject, type Signal, untracked, viewChild, ViewEncapsulation } from '@angular/core';
+import { DOCUMENT, JsonPipe, KeyValuePipe, NgClass } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  type ElementRef,
+  inject,
+  signal,
+  type Signal,
+  untracked,
+  viewChild,
+  ViewEncapsulation, WritableSignal
+} from '@angular/core';
 import { type AbstractControl, FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, type ValidationErrors, type ValidatorFn, Validators } from '@angular/forms';
 import { DfTooltipModule, DfTriggerClickDirective } from '@design-factory/design-factory';
 import { StateService } from '../../services';
@@ -66,7 +77,8 @@ const createStateForm = (name: string, color?: string | null) => new FormGroup<S
     ReactiveFormsModule,
     FormsModule,
     DfTriggerClickDirective,
-    DfTooltipModule
+    DfTooltipModule,
+    NgClass
   ]
 })
 export class StatePanelComponent {
@@ -80,6 +92,7 @@ export class StatePanelComponent {
   public readonly localState = this.stateService.localState;
   public readonly hasLocalChanges = this.stateService.hasLocalChanges;
   public readonly newStateNameErrorMessage: Signal<string | null>;
+  public readonly downloadState: WritableSignal<{ text: string; success: boolean } | null> = signal<{ text: string; success: boolean } | null>(null);
   public readonly form = this.formBuilder.group<StatesPanelForm>({
     newStateName: new FormControl('', stateNameValidators),
     newStateColor: new FormControl(''),
@@ -154,6 +167,10 @@ export class StatePanelComponent {
     this.stateService.setActiveState(stateName);
   }
 
+  /**
+   * Update a state and save its content in the Chrome Extension store.
+   * @param stateName
+   */
   public updateState(stateName: string) {
     const control = this.form.controls.states.controls[stateName];
     const activeState = this.activeState();
@@ -162,6 +179,9 @@ export class StatePanelComponent {
     }
   }
 
+  /**
+   * Create a new state and save its content in the Chrome Extension store.
+   */
   public saveNewState() {
     if (this.form.value.newStateName) {
       this.saveState(this.form.value.newStateName, this.form.value.newStateName, this.form.value.newStateColor || 'black');
@@ -174,12 +194,23 @@ export class StatePanelComponent {
     }
   }
 
+  /**
+   * Remove a state from the Chrome Extension application and store.
+   * Note that the active store cannot be deleted.
+   *
+   * @param stateName
+   */
   public deleteState(stateName: string) {
     if (this.activeState()?.name !== stateName) {
       this.stateService.deleteState(stateName);
     }
   }
 
+  /**
+   * Download a state as a json file
+   *
+   * @param stateName
+   */
   public exportState(stateName: string) {
     const state = this.states()[stateName];
     if (!state) {
@@ -192,6 +223,11 @@ export class StatePanelComponent {
     a.click();
   }
 
+  /**
+   * Download a state file, add it to the state list and share it .
+   *
+   * @param event
+   */
   public async onFileChange(event: InputEvent) {
     try {
       const element = event.target as HTMLInputElement;
@@ -250,30 +286,12 @@ export class StatePanelComponent {
             stylingVariables: state.stylingVariables
           }
         );
-        const el = this.importStateText();
-        if (!el) {
-          return;
-        }
-        el.nativeElement.innerHTML = `${state.name} imported correctly`;
-        if (el.nativeElement.classList.contains('text-danger')) {
-          el.nativeElement.classList.remove('text-danger');
-        }
-        el.nativeElement.classList.add('text-success');
+        this.downloadState.set({ text: `${state.name} imported correctly`, success: true });
       } else {
         throw new Error('Invalid state');
       }
     } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-      const el = this.importStateText();
-      if (!el) {
-        return;
-      }
-      el.nativeElement.innerHTML = (e as Error).message;
-      if (el.nativeElement.classList.contains('text-success')) {
-        el.nativeElement.classList.remove('text-success');
-      }
-      el.nativeElement.classList.add('text-danger');
+      this.downloadState.set({ text: (e as Error).message, success: false });
     } finally {
       // Clear the input once processed
       (event.target as HTMLInputElement).value = '';

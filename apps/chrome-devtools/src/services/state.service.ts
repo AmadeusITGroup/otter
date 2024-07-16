@@ -1,10 +1,14 @@
-import { computed, effect, inject, Injectable, signal, type Signal, untracked } from '@angular/core';
+import { computed, effect, inject, Injectable, signal, type Signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ChromeExtensionConnectionService, filterAndMapMessage, isApplicationInformationMessage } from './connection.service';
+import {
+  ChromeExtensionConnectionService,
+  filterAndMapMessage,
+  isApplicationInformationMessage
+} from './connection.service';
 import { ACTIVE_STATE_NAME_KEY, type State, type StateOverride, STATES_KEY } from '../extension/interface';
 import { LocalizationService } from './localization.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class StateService {
   private readonly connectionService = inject(ChromeExtensionConnectionService);
   private readonly localizationService = inject(LocalizationService);
@@ -75,12 +79,12 @@ export class StateService {
 
     effect(() => {
       const state = this.activeState();
+      const languages = this.languages();
       this.updateLocalState(state || {}, true);
       // TODO reset configuration (is it possible? based on default value from metadata if present?)
-      // Reset all languages before applying override of the new state
-      untracked(this.languages).forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', { lang }));
       // Reset all styling variables before applying override of the new state
       this.connectionService.sendMessage('resetStylingVariables', {});
+      languages.forEach((lang) => this.connectionService.sendMessage('reloadLocalizationKeys', {lang}));
       if (!state) {
         this.connectionService.sendMessage('unselectState', {});
         return;

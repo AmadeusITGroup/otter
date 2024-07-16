@@ -44,7 +44,7 @@
         </ng-template>
       </li>
     </ul>
-    <form [formGroup]="form"  class="px-4 pt-{{hasLocalChanges() ? '2' : '3'}} ng-pristine ng-valid ng-touched border-bottom ms-auto">
+    <form [formGroup]="form"  class="px-4 {{hasLocalChanges() ? 'pt-2' : 'pt-3'}} ng-pristine ng-valid ng-touched border-bottom ms-auto">
       <div>
         <ng-select
           [ngbTooltip]="

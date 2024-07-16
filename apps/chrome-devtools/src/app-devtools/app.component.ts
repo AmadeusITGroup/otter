@@ -22,7 +22,7 @@ import { ThemingPanelPresComponent } from './theming-panel/theming-panel-pres.co
   selector: 'app-root',
   templateUrl: './app.component.html',
   styles: `
-    ::ng-deep ng-select.local-change .ng-select-container {
+    :host ::ng-deep ng-select.local-change .ng-select-container {
       border-color: var(--bs-recommend-warning-color);
       border-width: medium;
       box-sizing: content-box;

@@ -10,22 +10,27 @@
   ],
   "properties": {
     "color": {
+      "description": "Background color to identify the state in the selection widget.",
       "type": "string"
     },
     "colorContrast": {
+      "description": "Text color for the state in the selection widget in contrast with the background color.",
       "type": "string"
     },
     "name": {
+      "description": "User friendly name to identify the state in the Chrome Extension state panel.",
       "type": "string"
     },
     "configurations": {
       "type": "object",
+      "description": "List of the configuration-override to apply on the application.",
       "additionalProperties": {
       	"type": "object"
       }
     },
     "localizations": {
       "type": "object",
+      "description": "List of the localization-override to apply on the application.",
       "additionalProperties": {
         "type": "object",
         "additionalProperties": {
@@ -34,6 +39,7 @@
       }
     },
     "stylingVariables": {
+      "description": "List of the css-variable-override to apply on the application.",
       "type": "object",
       "additionalProperties": {
         "type": "string"

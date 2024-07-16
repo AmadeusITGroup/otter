@@ -25,7 +25,11 @@
       </button>
     </div>
   </div>
-  <div #importStateText class="import-state-text mt-2"></div>
+  @if (downloadState()) {
+    <div class="import-state-text mt-2" [ngClass]="{'text-danger': !downloadState()!.success, 'text-success': downloadState()!.success}">
+      {{downloadState()?.text}}
+    </div>
+  }
   <ul class="list-group list-group-flush mt-4" formGroupName="states">
     @for (state of states() | keyvalue; track state.key) {
       <li class="list-group-item d-flex align-items-center gap-4" [formGroupName]="state.key">
