@@ -17,7 +17,8 @@
 
     @each $key, $value in $meta-theme {
       $new-key: if($root-name != '', '#{$root-name}-#{$key}', $key);
-      $new-value: _meta-theme-to-otter($value, $new-key);
+      // We do not extract the metadata as (variable, value) pair
+      $new-value: if($key != details, _meta-theme-to-otter($value, $new-key), $value);
       $ret: map.merge($ret, ($key: $new-value));
     }
 
