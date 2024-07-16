@@ -78,6 +78,9 @@
         } @empty {
           <h3>No localization found for your search.</h3>
         }
+        @if (isTruncated()) {
+          <span>Too many matches for this filter, please be more specific in your search.</span>
+        }
       </div>
     </ng-container>
   } @else {
