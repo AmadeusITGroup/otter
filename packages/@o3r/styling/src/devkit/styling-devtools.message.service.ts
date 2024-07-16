@@ -22,7 +22,10 @@ const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
     try {
       rules = styleSheet.cssRules || styleSheet.rules;
     } catch (err) {
-      console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to CORS issues.`, err);
+      console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to network issues, please check:
+- network connectivity
+- CORS setup
+- granted access to the stylesheet`, err);
     }
 
     return acc.concat(
