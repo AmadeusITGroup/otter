@@ -9,7 +9,7 @@
       "postUpgradeTasks": {
         "commands": [
           "{{arg0}} install",
-          "{{#if (equals '{{arg0}}' 'npm')}}npm exec --{{else}}{{arg0}} exec{{/if}} schematics @ama-sdk/schematics:migrate --from={{{currentVersion}}} --to={{{newVersion}}}",
+          "{{arg0}} exec schematics @ama-sdk/schematics:migrate {{#if (equals '{{arg0}}' 'npm')}}-- {{/if}}--from={{{currentVersion}}} --to={{{newVersion}}}",
           "{{arg0}} run spec:upgrade"
         ],
         "fileFilters": [
