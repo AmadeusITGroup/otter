@@ -119,6 +119,6 @@
     "rimraf": "^5.0.1",
     "ts-jest": "~29.2.0",
     "typescript": "~5.4.2",
-    "webpack": "~5.92.0"
+    "webpack": "~5.93.0"
   }
 }
