@@ -1,11 +1,7 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Observable, of, Subscription } from 'rxjs';
-import { catchError, map, startWith, take, timeout } from 'rxjs/operators';
-import { ChromeExtensionConnectionService, isRuleEngineEventsMessage } from '../../services/connection.service';
-import { RulesetHistoryService } from '../../services/ruleset-history.service';
-
-type AppState = 'loading' | 'timeout' | 'connected';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { AppState, ChromeExtensionConnectionService } from '../../services/connection.service';
 
 @Component({
   selector: 'app-connection',
@@ -17,32 +13,14 @@ type AppState = 'loading' | 'timeout' | 'connected';
   ]
 })
 export class AppConnectionComponent implements OnDestroy {
-  /** Stream of application's state */
-  public appState$: Observable<AppState>;
-
   private readonly subscription = new Subscription();
+  private readonly connectionService = inject(ChromeExtensionConnectionService);
 
-  constructor(
-    connectionService: ChromeExtensionConnectionService,
-    rulesetHistoryService: RulesetHistoryService
-  ) {
-    this.subscription.add(
-      connectionService.message$.subscribe((message) => {
-        if (isRuleEngineEventsMessage(message)) {
-          rulesetHistoryService.update(message);
-        }
-      })
-    );
+  /** Stream of application's state */
+  public appState$: Observable<AppState> = this.connectionService.appState$;
 
-    this.appState$ = connectionService.message$.pipe(
-      map(() => 'connected' as AppState),
-      take(1),
-      startWith('loading' as AppState),
-      timeout(3000),
-      catchError(() => of('timeout' as AppState))
-    );
-
-    connectionService.activate();
+  constructor() {
+    this.connectionService.activate();
   }
 
   /** @inheritDoc */

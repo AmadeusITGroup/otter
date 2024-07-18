@@ -132,7 +132,7 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_LOCALIZATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
-    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
     {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
   ],
   bootstrap: [AppComponent]
