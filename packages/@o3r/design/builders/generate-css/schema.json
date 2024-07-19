@@ -4,6 +4,15 @@
   "title": "Add Otter Design",
   "description": "ngAdd Otter Design",
   "properties": {
+    "variableType": {
+      "type": "string",
+      "enum": [
+        "css",
+        "sass"
+      ],
+      "default": "css",
+      "description": "Type of the variables to generate for a Design Token."
+    },
     "designTokenFilePatterns": {
       "description": "Path patterns to the Design Token JSON files (it supports Node dependency paths).",
       "oneOf": [

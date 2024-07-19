@@ -41,4 +41,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
 
   /** Determine if the builder should fail if a missing Design Token reference is detected */
   failOnMissingReference?: boolean;
+
+  /** Type of the variables to generate for a Design Token */
+  variableType?: 'css' | 'sass';
 }

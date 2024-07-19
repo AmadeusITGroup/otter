@@ -105,7 +105,7 @@
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
     "eslint-plugin-jest": "~28.6.0",
-    "eslint-plugin-jsdoc": "~48.4.0",
+    "eslint-plugin-jsdoc": "~48.7.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^54.0.0",
     "globby": "^11.1.0",
@@ -117,8 +117,8 @@
     "lighthouse": "9.6.8",
     "playwright-lighthouse": "2.2.2",
     "rimraf": "^5.0.1",
-    "ts-jest": "~29.1.2",
+    "ts-jest": "~29.2.0",
     "typescript": "~5.4.2",
-    "webpack": "~5.92.0"
+    "webpack": "~5.93.0"
   }
 }

@@ -55,5 +55,23 @@
       }
     ],
     "status": "available"
+  },
+  {
+    "id": 6,
+    "category": {
+      "id": 0,
+      "name": "otter"
+    },
+    "name": "???",
+    "photoUrls": [
+      "https://amadeusitgroup.github.io/otter/#/random-url-that-should-never-be-used"
+    ],
+    "tags": [
+      {
+        "id": 0,
+        "name": "otter"
+      }
+    ],
+    "status": "available"
   }
 ]
