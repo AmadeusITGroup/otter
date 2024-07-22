@@ -327,7 +327,6 @@
         }
       }
     },
-
     "tokenTypeStrokeStyleValue": {
       "oneOf": [
         {
@@ -452,6 +451,33 @@
         }
       }
     },
+    "tokenTypeShadowValue": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "offsetX": {
+          "type": "string"
+        },
+        "offsetY": {
+          "type": "string"
+        },
+        "blur": {
+          "type": "string"
+        },
+        "spread": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "color",
+        "offsetX",
+        "offsetY",
+        "blur",
+        "spread"
+      ]
+    },
     "tokenTypeShadow": {
       "type": "object",
       "required": [
@@ -460,30 +486,16 @@
       ],
       "properties": {
         "$value": {
-          "type": "object",
-          "properties": {
-            "color": {
-              "type": "string"
+          "oneOf": [
+            {
+              "$ref": "#/definitions/tokenTypeShadowValue"
             },
-            "offsetX": {
-              "type": "string"
-            },
-            "offsetY": {
-              "type": "string"
-            },
-            "blur": {
-              "type": "string"
-            },
-            "spread": {
-              "type": "string"
+            {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/tokenTypeShadowValue"
+              }
             }
-          },
-          "required": [
-            "color",
-            "offsetX",
-            "offsetY",
-            "blur",
-            "spread"
           ]
         },
         "$type": {
@@ -491,6 +503,30 @@
           "type": "string"
         }
       }
+    },
+    "tokenTypeGradientStop": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "type": "string"
+        },
+        "position": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number",
+              "maximum": 100,
+              "minimum": 0
+            }
+          ]
+        }
+      },
+      "required": [
+        "color",
+        "position"
+      ]
     },
     "tokenTypeGradient": {
       "type": "object",
@@ -500,27 +536,27 @@
       ],
       "properties": {
         "$value": {
-          "type": "array",
-          "minItems": 1,
-          "items": {
-            "type": "object",
-            "properties": {
-              "color": { "type": "string" },
-              "position": {
-                "oneOf": [
-                  { "type": "string" },
-                  {
-                    "type": "number",
-                    "maximum": 1,
-                    "minimum": 0
-                  }
-                ]
-              }
+          "type": "object",
+          "properties": {
+            "type": {
+              "default": "linear",
+              "type": "string",
+              "enum": [
+                "linear",
+                "radial",
+                "conic"
+              ]
             },
-            "required": [
-              "color",
-              "position"
-            ]
+            "angle": {
+              "type": ["string", "number"],
+              "default": "0deg"
+            },
+            "stops": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/tokenTypeGradientStop"
+              }
+            }
           }
         },
         "$type": {

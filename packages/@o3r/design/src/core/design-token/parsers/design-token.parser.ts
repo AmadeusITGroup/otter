@@ -40,7 +40,6 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
     $type: node.$type || nodeType
   } as typeof node;
 
-  // TODO in the following code, `typeof checkNode.$value === 'string' ? checkNode.$value :` is defined to please Jest TS compilation. It should be removed when supported
   switch (checkNode.$type) {
     case 'color':
     case 'number':
@@ -62,13 +61,23 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
         `${checkNode.$value.width} ${renderCssTypeStrokeStyleValue(checkNode.$value.style)} ${checkNode.$value.color}`;
     }
     case 'gradient': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        // TODO: add support of different gradient type when design-tokens/community-group#101 is fixed.
-        `linear-gradient(0deg, ${checkNode.$value.map(({color, position}) => `${color} ${position}`).join(', ')})`;
+      if (typeof checkNode.$value === 'string') {
+        return checkNode.$value;
+      }
+      const angle = typeof checkNode.$value.angle === 'number' ? checkNode.$value.angle + 'deg' : checkNode.$value.angle;
+      return `${checkNode.$value.type || 'linear'}-gradient(${angle || '0deg'}, ${checkNode.$value.stops
+        ?.map(({ color, position }) => `${color} ${typeof position === 'number' ? position + '%' : position}`)
+        .join(', ')})`;
     }
     case 'shadow': {
-      return typeof checkNode.$value === 'string' ? checkNode.$value :
-        `${checkNode.$value.offsetX} ${checkNode.$value.offsetY} ${checkNode.$value.blur}  ${checkNode.$value.spread} ${checkNode.$value.color}`;
+      if (typeof checkNode.$value === 'string') {
+        return checkNode.$value;
+      }
+
+      const values = Array.isArray(checkNode.$value) ? checkNode.$value : [checkNode.$value];
+      return values
+        .map((value) => `${value.offsetX} ${value.offsetY} ${value.blur}  ${value.spread} ${value.color}`)
+        .join(', ');
     }
     case 'transition': {
       return typeof checkNode.$value === 'string' ? checkNode.$value :
@@ -79,6 +88,7 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
       return typeof checkNode.$value === 'string' ? checkNode.$value :
         `${checkNode.$value.fontWeight} ${checkNode.$value.fontFamily} ${checkNode.$value.fontSize} ${checkNode.$value.letterSpacing} ${checkNode.$value.lineHeight}`;
     }
+    // TODO: Add support for Grid type when available in the Design Token Standard
     default: {
       throw new Error(`Not supported type ${(checkNode as any).$type || 'unknown'} (value: ${(checkNode as any).$value || 'unknown'})`);
     }

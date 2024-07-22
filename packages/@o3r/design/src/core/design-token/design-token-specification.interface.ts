@@ -151,15 +151,26 @@ type DesignTokenTypeShadowValue = {
 };
 
 /** Design Token Shadow */
-export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue> {
+export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue | DesignTokenTypeShadowValue[]> {
   /** @inheritdoc */
   $type: 'shadow';
 }
 
-type DesignTokenTypeGradientValue = {
+type DesignTokenTypeGradientStop = {
+  /** Color to the stop of a gradient */
   color: string;
+  /** Position of the stop */
   position: string | number;
-}[];
+};
+
+type DesignTokenTypeGradientValue = {
+  /** Type of the gradient */
+  type?: 'linear' | 'radial' | 'conic';
+  /** Angle to the gradient */
+  angle?: string | number;
+  /** List of stops in the gradient */
+  stops?: DesignTokenTypeGradientStop[];
+};
 
 /** Design Token Gradient */
 export interface DesignTokenTypeGradient extends DesignTokenBase<DesignTokenTypeGradientValue> {
