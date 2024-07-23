@@ -1,0 +1,41 @@
+<o3r-sdk-training-step-pres>
+  <ng-container class="step-instructions">
+    <h1>Introduction</h1>
+    <h2>Why an SDK?</h2>
+    <p>
+      If an application contains an API, there are several developer tasks that are required including a lot of redundant code.
+      These tasks include:
+    </p>
+    <ul>
+      <li>Choosing the needed techniques to perform API calls</li>
+      <li>Determining which HTTP method to use for each request</li>
+      <li>Managing the Authorization (maybe adding request headers) and do it for each request</li>
+      <li>Preparing the URL with any path or query parameters expected by the API endpoint</li>
+    </ul>
+    <p>Let's see how we use the OpenAPI tools to handle our APIs and generate a typescript SDK codebase.</p>
+    <p>[Insert diagram here]</p>
+    <p>
+      The specifications of the SDK are written in an OpenAPI document, which defines or describes an API and its elements.
+      The API SDK is then generated using the OpenAPI Generator and the Otter SDK templates. These template files include the
+      API interfaces and operations, models with their corresponding revivers, and mocked APIs that can be used for testing in
+      spec files. All these files together form the Typescript SDK.
+    </p>
+    <p>
+      This generated code is agnostic of any frontend framework. Therefore, it can be used both in the backend in a NodeJS server
+      application or in a frontend application displayed by browsers, mobiles, smartwatches etc.
+    </p>
+
+    <h2>More information</h2>
+    <p>You can find more information on the resources used through these links:</p>
+    <ul>
+      <li><a href="https://spec.openapis.org/oas/latest.html">OpenAPI Specification</a></li>
+      <li><a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a></li>
+      <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md">Otter SDK models hierarchy</a>
+        <ul>
+          <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/COMPOSITION_INHERITANCE.md">Model composition and inheritance</a></li>
+        </ul>
+      </li>
+      <li><a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/README.md">Otter SDK generator</a></li>
+    </ul>
+  </ng-container>
+</o3r-sdk-training-step-pres>

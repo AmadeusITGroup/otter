@@ -1,0 +1,42 @@
+{
+  "name": "ama-sdk-training-sdk",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/training-sdk/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:noop",
+      "dependsOn": ["compile"]
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build"
+      },
+      "inputs": ["source", "^source-and-cli"]
+    },
+    "regen": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "spec:regen"
+      }
+    },
+    "lint": {
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/training-sdk/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/training-sdk/src/**/*.ts",
+          "packages/@ama-sdk/training-sdk/package.json"
+        ]
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/training-sdk/dist"
+      }
+    }
+  },
+  "tags": ["training"]
+}

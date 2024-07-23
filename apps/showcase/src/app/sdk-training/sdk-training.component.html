@@ -1,0 +1,29 @@
+<div class="mt-7 d-flex justify-content-between">
+  <div class="align-self-center">
+    <h1 class="m-0">SDK Training</h1>
+  </div>
+  <div class="align-self-center">
+    <button type="button" class="btn btn-outline-secondary icon-chevron-left" [disabled]="!previousStep" (click)="goToPreviousStep()"></button>
+    <button type="button" class="btn btn-outline-secondary icon-chevron-right" [disabled]="!nextStep" (click)="goToNextStep()"></button>
+  </div>
+</div>
+@switch (currentStep) {
+  @case (1) {
+    <o3r-sdk-training-welcome-pres></o3r-sdk-training-welcome-pres>
+  }
+  @case (2) {
+    <o3r-sdk-training-intro-pres></o3r-sdk-training-intro-pres>
+  }
+  @case (3) {
+    <o3r-sdk-training-generation-setup-pres></o3r-sdk-training-generation-setup-pres>
+  }
+  @case (4) {
+    <o3r-sdk-training-generation-config-pres></o3r-sdk-training-generation-config-pres>
+  }
+  @case (5) {
+    <o3r-sdk-training-generation-options-pres></o3r-sdk-training-generation-options-pres>
+  }
+  @case (6) {
+    <o3r-sdk-training-generation-structure-pres></o3r-sdk-training-generation-structure-pres>
+  }
+}
