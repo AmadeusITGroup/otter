@@ -43,7 +43,8 @@ module.exports = {
       'rules': {
         '@o3r/json-dependency-versions-harmonize': ['error', {
           ignoredPackages: ['@o3r/build-helpers'],
-          alignPeerDependencies: false
+          alignPeerDependencies: false,
+          alignEngines: true
         }],
         '@nx/dependency-checks': ['error', {
           'buildTargets': ['build', 'build-builders', 'compile', 'test'],

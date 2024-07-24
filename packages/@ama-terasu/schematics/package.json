@@ -15,7 +15,7 @@
   "schematics": "./dist/collection.json",
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0",
-    "vscode": "^1.22.0"
+    "vscode": "^1.67.0"
   },
   "dependencies": {
     "@angular-devkit/architect": "~0.1800.0",

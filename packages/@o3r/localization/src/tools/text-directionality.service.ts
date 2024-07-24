@@ -1,10 +1,10 @@
 import { DIR_DOCUMENT, Direction, Directionality } from '@angular/cdk/bidi';
 
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { startWith } from 'rxjs/operators';
 
 @Injectable()
-export class TextDirectionality extends Directionality {
+export class TextDirectionality extends Directionality implements OnDestroy {
   /**
    * The current 'ltr' or 'rtl' value.
    * @override

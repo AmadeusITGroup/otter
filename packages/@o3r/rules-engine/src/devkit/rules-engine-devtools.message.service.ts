@@ -69,7 +69,6 @@ export class RulesEngineDevtoolsMessageService implements OnDestroy, DevtoolsSer
 
   /**
    * Serialize exceptions in a way that will display the error message after a JSON.stringify()
-   *
    * @param debugEvent
    */
   private serializeReportEvent(debugEvent: DebugEvent) {
