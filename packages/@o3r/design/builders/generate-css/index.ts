@@ -101,7 +101,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       await renderDesignTokens(tokens, renderDesignTokenOptions);
       return { success: true };
     } catch (err) {
-      return { success: false, error: `${err as any}` };
+      return { success: false, error: String(err) };
     }
   };
 
@@ -143,7 +143,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         }));
       return { success: true };
     } catch (err) {
-      return { success: false, error: `${err as any}` };
+      return { success: false, error: String(err) };
     }
   }
 });

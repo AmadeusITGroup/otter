@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "ngAddSchematicsSchema",
-  "title": "Add Otter Design",
-  "description": "ngAdd Otter Design",
+  "$id": "generateCssSchematicsSchema",
+  "title": "Generate the style from Design Token",
+  "description": "Generate the style from Design Token",
   "properties": {
     "variableType": {
       "type": "string",
