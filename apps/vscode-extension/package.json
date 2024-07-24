@@ -344,7 +344,6 @@
   },
   "dependencies": {
     "@o3r/design": "workspace:^",
-    "@o3r/schematics": "workspace:^",
     "eslint": "^8.57.0"
   },
   "devDependencies": {
