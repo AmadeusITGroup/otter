@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
+import type { Action, ActionReducer, MetaReducer } from '@ngrx/store';
 import type { LoggerClient } from './logger.client';
 
 /**
