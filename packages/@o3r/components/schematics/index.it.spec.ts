@@ -25,7 +25,7 @@ describe('ng add components', () => {
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('apps/test-app/package.json');
-    expect(diff.modified.length).toBe(5);
+    expect(diff.modified.length).toBe(6);
     expect(diff.added).toContain('apps/test-app/cms.json');
     expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
     expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
@@ -49,7 +49,7 @@ describe('ng add components', () => {
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
-    expect(diff.modified.length).toBe(7);
+    expect(diff.modified.length).toBe(8);
     expect(diff.added).toContain('libs/test-lib/cms.json');
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
