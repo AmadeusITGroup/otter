@@ -44,6 +44,35 @@ describe('Design Token Parser', () => {
       expect(border).toBeDefined();
       expect(border.getType()).toBe('border');
     });
+
+    test('generate correctly the gradient', () => {
+      const result = parser.parseDesignToken(exampleVariable);
+      const gradient = result.get('example.test.gradient');
+
+      expect(gradient).toBeDefined();
+      expect(gradient.getType()).toBe('gradient');
+      expect(gradient.getCssRawValue()).toBe('linear-gradient(180deg, #fff 10px)');
+    });
+
+    describe('generate correctly the shadow', () => {
+      test('with single parameter', () => {
+        const result = parser.parseDesignToken(exampleVariable);
+        const shadow = result.get('example.test.shadow');
+
+        expect(shadow).toBeDefined();
+        expect(shadow.getType()).toBe('shadow');
+        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000');
+      });
+
+      test('with multiple parameter', () => {
+        const result = parser.parseDesignToken(exampleVariable);
+        const shadow = result.get('example.test.shadow-multi');
+
+        expect(shadow).toBeDefined();
+        expect(shadow.getType()).toBe('shadow');
+        expect(shadow.getCssRawValue()).toBe('1px 1px 1  1 #000, 2px 2px 2  2 #fff');
+      });
+    });
   });
 
   describe('parseDesignTokenFile', () => {

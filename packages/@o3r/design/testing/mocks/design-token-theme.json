@@ -60,6 +60,50 @@
           "style": "dashed",
           "width": "{example.test.width}"
         }
+      },
+      "gradient": {
+        "$type": "gradient",
+        "$value": {
+          "angle": "180deg",
+          "type": "linear",
+          "stops": [
+            {
+              "color": "#fff",
+              "position": "10px"
+            }
+          ]
+        }
+      },
+      "shadow": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": "1px",
+            "offsetY": "1px",
+            "color": "#000",
+            "spread": "1"
+          }
+        ]
+      },
+      "shadow-multi": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "blur": "1",
+            "offsetX": "1px",
+            "offsetY": "1px",
+            "color": "#000",
+            "spread": "1"
+          },
+          {
+            "blur": "2",
+            "offsetX": "2px",
+            "offsetY": "2px",
+            "color": "#fff",
+            "spread": "2"
+          }
+        ]
       }
     }
   }
