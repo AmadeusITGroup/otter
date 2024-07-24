@@ -17,10 +17,7 @@ export class TranslatePipeMock implements PipeTransform {
   }
 }
 
-@NgModule({
-  declarations: [TranslatePipeMock],
-  exports: [TranslatePipeMock]
-})
+@NgModule()
 export class LocalizationDependencyMocks {
   public static forTest(): ModuleWithProviders<LocalizationDependencyMocks> {
     return {

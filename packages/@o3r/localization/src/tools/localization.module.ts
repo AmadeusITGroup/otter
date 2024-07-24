@@ -39,9 +39,9 @@ export function localeIdNgBridge(localizationService: LocalizationService) {
 export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partial<LocalizationConfiguration>>('Partial Localization configuration');
 
 @NgModule({
-  declarations: [LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
+  declarations: [LocalizationTranslatePipe, LocalizationTranslateDirective],
   imports: [TranslateModule, BidiModule, DynamicContentModule, CommonModule],
-  exports: [TranslateModule, LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
+  exports: [TranslateModule, LocalizationTranslatePipe, LocalizationTranslateDirective],
   providers: [
     {provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]]},
     {provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService]},
