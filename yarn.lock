@@ -9372,6 +9372,8 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
+    "@vscode/codicons": "npm:^0.0.35"
+    "@webcontainer/api": "npm:^1.1.8"
     ag-grid-angular: "npm:~31.1.1"
     ag-grid-community: "npm:~31.1.1"
     bootstrap: "npm:5.3.3"
@@ -9391,7 +9393,10 @@ __metadata:
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:9.6.8"
+    monaco-editor: "npm:^0.45.0"
     ngx-highlightjs: "npm:^12.0.0"
+    ngx-monaco-editor-v2: "npm:^17.0.1"
+    ngx-monaco-tree: "npm:^15.1.1"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:2.2.2"
     pngjs: "npm:^7.0.0"
@@ -9402,6 +9407,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
     webpack: "npm:~5.93.0"
+    xterm: "npm:^5.3.0"
     zone.js: "npm:~0.14.2"
   languageName: unknown
   linkType: soft
@@ -13206,6 +13212,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vscode/codicons@npm:^0.0.35":
+  version: 0.0.35
+  resolution: "@vscode/codicons@npm:0.0.35"
+  checksum: 10/eed59049130e413467de7acac7b6627d07086978eab9480cce6ddb7d36eeeb2ace28176a855861c2e76b35739dc1540c49a5336194a15ea8c2cf765f6356a485
+  languageName: node
+  linkType: hard
+
 "@vscode/vsce-sign-alpine-arm64@npm:2.0.2":
   version: 2.0.2
   resolution: "@vscode/vsce-sign-alpine-arm64@npm:2.0.2"
@@ -13491,6 +13504,13 @@ __metadata:
     "@webassemblyjs/ast": "npm:1.12.1"
     "@xtuc/long": "npm:4.2.2"
   checksum: 10/1a6a4b6bc4234f2b5adbab0cb11a24911b03380eb1cab6fb27a2250174a279fdc6aa2f5a9cf62dd1f6d4eb39f778f488e8ff15b9deb0670dee5c5077d46cf572
+  languageName: node
+  linkType: hard
+
+"@webcontainer/api@npm:^1.1.8":
+  version: 1.2.0
+  resolution: "@webcontainer/api@npm:1.2.0"
+  checksum: 10/506800c9f50a56ac8730d30e77e7ea0cda5c78acf8e52bf6d2454da1b0cd433e624110ef8e24888dc1553fa7fe6e3e5c3a4372eb35b111a1b6447158ea9e89aa
   languageName: node
   linkType: hard
 
@@ -25135,6 +25155,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor@npm:^0.45.0":
+  version: 0.45.0
+  resolution: "monaco-editor@npm:0.45.0"
+  checksum: 10/e617aa6e763edc2a432cf1754b7b85a41cf32c34e6147890513d9398fc361ad10e78b08fe715c0c4cc9478ee98a65e55e263d0e77eac197285b37fc733013fa0
+  languageName: node
+  linkType: hard
+
 "morgan@npm:^1.10.0":
   version: 1.10.0
   resolution: "morgan@npm:1.10.0"
@@ -25396,6 +25423,32 @@ __metadata:
     "@angular/common": ">=17.0.0"
     "@angular/core": ">=17.0.0"
   checksum: 10/d7cc7b2191ae356a0b61d54aa935407cdedc34fb528e2346e60e6deeb9392403318210482da0f5bead8d275cc8080c608af2ac3952e4f6e4ea8aa1f237a76b37
+  languageName: node
+  linkType: hard
+
+"ngx-monaco-editor-v2@npm:^17.0.1":
+  version: 17.0.1
+  resolution: "ngx-monaco-editor-v2@npm:17.0.1"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  peerDependencies:
+    "@angular/common": ^17.0.3
+    "@angular/core": ^17.0.3
+    monaco-editor: ^0.44.0
+  checksum: 10/6571c384e585af7e0a5e72257308c0769a4164f6f2b564574d4e75e5a08db1ba50ae1786f99056571d9fb5be289a026d89892e622bdd5384858c5d86b633cb35
+  languageName: node
+  linkType: hard
+
+"ngx-monaco-tree@npm:^15.1.1":
+  version: 15.2.0
+  resolution: "ngx-monaco-tree@npm:15.2.0"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@angular/common": ^15.0.4
+    "@angular/core": ^15.0.4
+    "@vscode/codicons": ^0.0.32
+  checksum: 10/82bb4ac07f5c667983b52ac629c6cff1cc9649bb8980ec0460fcc118aa9cff2d6d313fa8941b36128d5fe4531792dd614ae9e64e548644d7643ff68e24f3e515
   languageName: node
   linkType: hard
 
@@ -33220,6 +33273,13 @@ __metadata:
   version: 4.0.2
   resolution: "xtend@npm:4.0.2"
   checksum: 10/ac5dfa738b21f6e7f0dd6e65e1b3155036d68104e67e5d5d1bde74892e327d7e5636a076f625599dc394330a731861e87343ff184b0047fef1360a7ec0a5a36a
+  languageName: node
+  linkType: hard
+
+"xterm@npm:^5.3.0":
+  version: 5.3.0
+  resolution: "xterm@npm:5.3.0"
+  checksum: 10/3690b6a6d744f1d2932279975bb8e6c786e70c675531045016ecfe0f9b7957e2fc6811b815335f3e0e84b40ffae654f6ee4afe55a5768534744497e62252dd50
   languageName: node
   linkType: hard
 

@@ -3,6 +3,7 @@ import {
   CopyTextPresComponent,
   SdkTrainingGenerationConfigPresComponent,
   SdkTrainingGenerationOptionsPresComponent,
+  SdkTrainingGenerationSetupExamplePresComponent,
   SdkTrainingGenerationSetupPresComponent,
   SdkTrainingGenerationStructurePresComponent,
   SdkTrainingIntroPresComponent,
@@ -16,6 +17,7 @@ import {
     CopyTextPresComponent,
     SdkTrainingGenerationConfigPresComponent,
     SdkTrainingGenerationOptionsPresComponent,
+    SdkTrainingGenerationSetupExamplePresComponent,
     SdkTrainingGenerationSetupPresComponent,
     SdkTrainingGenerationStructurePresComponent,
     SdkTrainingIntroPresComponent,
@@ -25,27 +27,31 @@ import {
   styleUrl: './sdk-training.component.scss'
 })
 export class SdkTrainingComponent {
-  public previousStep: boolean = false;
+  public previousStep: boolean = true;
   public nextStep: boolean = true;
-  public currentStep: number = 1;
+  public currentStep: number;
+  constructor () {
+    const stepRequested = window.location.href.match(new RegExp('#([0-9]+)'))?.[1];
+    this.currentStep = !stepRequested || Number.isNaN(stepRequested) ? 0 : Number.parseInt(stepRequested);
+  }
 
   public goToNextStep() {
+    if (this.currentStep > 6) {
+      return;
+    }
     this.currentStep++;
-    if (this.currentStep === 6) {
-      this.nextStep = false;
-    }
-    if (this.currentStep > 1) {
-      this.previousStep = true;
-    }
+    this.previousStep = this.currentStep !== 0;
+    this.nextStep = this.currentStep !== 6;
+    history.pushState(null, '', `#/sdk-training#${this.currentStep}`);
   }
 
   public goToPreviousStep() {
+    if (this.currentStep < 0) {
+      return;
+    }
     this.currentStep--;
-    if (this.currentStep === 1) {
-      this.previousStep = false;
-    }
-    if (this.currentStep < 6) {
-      this.nextStep = true;
-    }
+    this.previousStep = this.currentStep !== 0;
+    this.nextStep = this.currentStep !== 6;
+    history.pushState(null, '', `#/sdk-training#${this.currentStep}`);
   }
 }

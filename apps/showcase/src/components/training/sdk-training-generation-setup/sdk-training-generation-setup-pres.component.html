@@ -13,10 +13,12 @@
     <p>There are two possibilities to generate an SDK:</p>
 
     <h3>1. Create a new single SDK repository</h3>
-    <p>You can use one of the following command lines:</p>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="npm create @ama-sdk typescript <project-name> -- [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres>
-    <p>or</p>
-    <o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres>
+    <p>You can use the following command line:</p>
+    <o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> -- [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres>
+    <p>
+      Note, you can replace <b><code>yarn</code></b> by <b><code>npm</code></b> if wanted.
+    </p>
+    <!-- <o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres> -->
 
     <h3>2. Create a new Otter workspace package in an existing monorepo</h3>
     <p>This requires the schematics packages:</p>
@@ -27,6 +29,7 @@
     </o3r-copy-text-pres>
 
   </ng-container>
+
   <ng-container class="step-example">
     <h1>Example</h1>
     <h2>Generating an example SDK repository</h2>

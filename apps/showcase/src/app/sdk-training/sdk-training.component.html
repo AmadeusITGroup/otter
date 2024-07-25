@@ -8,14 +8,17 @@
   </div>
 </div>
 @switch (currentStep) {
-  @case (1) {
+  @case (0) {
     <o3r-sdk-training-welcome-pres></o3r-sdk-training-welcome-pres>
   }
-  @case (2) {
+  @case (1) {
     <o3r-sdk-training-intro-pres></o3r-sdk-training-intro-pres>
   }
-  @case (3) {
+  @case (2) {
     <o3r-sdk-training-generation-setup-pres></o3r-sdk-training-generation-setup-pres>
+  }
+  @case (3) {
+    <o3r-sdk-training-generation-setup-example-pres></o3r-sdk-training-generation-setup-example-pres>
   }
   @case (4) {
     <o3r-sdk-training-generation-config-pres></o3r-sdk-training-generation-config-pres>
