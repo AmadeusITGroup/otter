@@ -1,54 +1,13 @@
-<o3r-sdk-training-step-pres>
-	<ng-container class="step-instructions">
-		<h1>Generate an SDK from specifications</h1>
-		<h2>Generating an example SDK repository</h2>
-		<p>
-			Let's generate an example SDK (with the default configuration - we will see how to override this configuration later on).
-		</p>
-		<p>
-			Navigate to the folder where you would like to generate the SDK and then execute:
-		</p>
-		<o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript training-sdk"></o3r-copy-text-pres>
-		<p>
-			You will a receive a prompt asking you to specify the project name:
-		</p>
-		<o3r-copy-text-pres [wrap]="true" language="bash" text="? Project name (NPM package scope, package.json name will be @{projectName}/{packageName})?"></o3r-copy-text-pres>
-		<p>
-			After setting the project name (for example, <b><code>training-project</code></b>), you will see the shell of your SDK repository being generated.
-			This shell won't contain the specification file since we did not pass it as a parameter to the command, so it must be created manually.
-			Create a specification file (for example, <b><code>openapi.yaml</code></b>) with all your API specifications, and update the <b><code>inputSpec</code></b>
-			property of <b><code>openapitools.json</code></b> with the path towards your file.
-		</p>
-		<p>
-			If you have an existing specification file, you have the option to pass the parameter <b><code>--spec-path [path to your openapi file]</code></b> which will
-			add your specification file to the repository.
-		</p>
-		<h2>More information</h2>
-		<p>
-			You will find more information on how to write OpenAPI specification in the <a href="https://swagger.io/specification/">documentation provided by Swagger</a>.
-		</p>
-		<p>
-			Once your specification file is ready to be generated (and the <b><code>openapitools.json</code></b> file up-to-date), you can run:
-		</p>
-		<o3r-copy-text-pres [wrap]="true" language="bash" text="yarn spec:upgrade"></o3r-copy-text-pres>
-		<p>
-			You can now notice that the <b>api</b> and <b>models/base</b> folders have been updated with the paths and definitions from your specification file.
-		</p>
-	</ng-container>
-
-	<ng-container class="step-example">
-		<!-- <div class="editor"> -->
-			<!-- <textarea>{{createSdkPrompt}}</textarea> -->
-			<!-- <textarea>{{createSdkPromptResult}}</textarea> -->
-		<!-- </div> -->
-
-		<pre class="w-100 text-wrap bg-dark text-white"><code>
+<pre class="w-100 text-wrap bg-dark text-white">
+  <code>
 <span style="color: green">λ</span> yarn create &#64;ama-sdk typescript training-sdk<br/>
-<span style="color: green">?</span> Project name (NPM package scope, package.json name will be &#64;&#123;projectName&#125;/&#123;packageName&#125;)? <span style="color: blue">training-project</span>
-		</code></pre>
-		<pre class="w-100 text-wrap bg-dark text-white"><code>
+<span style="color: green">?</span> Project name (NPM package scope, package.json name will be &#64;&#123;projectName&#125;/&#123;packageName&#125;)? <span
+    style="color: blue">training-project</span>
+</code>
+</pre>
+<pre class="w-100 text-wrap bg-dark text-white"><code>
 			"7.4.0"
-<span style="color: green">CREATE</span> training-sdk/.yarnrc.yml (111 bytes)
+<span class="pouet" style="color: green">CREATE</span> training-sdk/.yarnrc.yml (111 bytes)
 <span style="color: green">CREATE</span> training-sdk/.commitlintrc.json (847 bytes)
 <span style="color: green">CREATE</span> training-sdk/.editorconfig (221 bytes)
 <span style="color: green">CREATE</span> training-sdk/.openapi-generator-ignore (91 bytes)
@@ -101,5 +60,3 @@
 <span style="color: green">CREATE</span> training-sdk/package.json (4283 bytes)
 √ Packages installed successfully.
 		</code></pre>
-	</ng-container>
-</o3r-sdk-training-step-pres>

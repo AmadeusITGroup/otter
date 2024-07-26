@@ -3,30 +3,21 @@
     <h1 class="m-0">SDK Training</h1>
   </div>
   <div class="align-self-center">
-    <button type="button" class="btn btn-outline-secondary icon-chevron-left" [disabled]="!previousStep" (click)="goToPreviousStep()"></button>
-    <button type="button" class="btn btn-outline-secondary icon-chevron-right" [disabled]="!nextStep" (click)="goToNextStep()"></button>
+    <button type="button" class="btn btn-outline-secondary icon-chevron-left" [disabled]="!previousStep"
+            (click)="goToPreviousStep()"></button>
+    <button type="button" class="btn btn-outline-secondary icon-chevron-right" [disabled]="!nextStep"
+            (click)="goToNextStep()"></button>
   </div>
 </div>
-@switch (currentStep) {
-  @case (0) {
-    <o3r-sdk-training-welcome-pres></o3r-sdk-training-welcome-pres>
-  }
-  @case (1) {
-    <o3r-sdk-training-intro-pres></o3r-sdk-training-intro-pres>
-  }
-  @case (2) {
-    <o3r-sdk-training-generation-setup-pres></o3r-sdk-training-generation-setup-pres>
-  }
-  @case (3) {
-    <o3r-sdk-training-generation-setup-example-pres></o3r-sdk-training-generation-setup-example-pres>
-  }
-  @case (4) {
-    <o3r-sdk-training-generation-config-pres></o3r-sdk-training-generation-config-pres>
-  }
-  @case (5) {
-    <o3r-sdk-training-generation-options-pres></o3r-sdk-training-generation-options-pres>
-  }
-  @case (6) {
-    <o3r-sdk-training-generation-structure-pres></o3r-sdk-training-generation-structure-pres>
-  }
-}
+<div [innerHtml]="steps[currentStep]!.htmlExample()"></div>
+
+<o3r-sdk-training-step-pres>
+  <ng-container class="step-instructions">
+    <div [innerHtml]="steps[currentStep]!.htmlContent()"></div>
+  </ng-container>
+
+  <ng-container class="step-example">
+    <div [innerHtml]="steps[currentStep]!.htmlExample()"></div>
+  </ng-container>
+</o3r-sdk-training-step-pres>
+
