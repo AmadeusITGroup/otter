@@ -52,10 +52,9 @@ describe('Add Iframe', () => {
       const componentFileContent = tree.readText(o3rComponentPath);
       expect(componentFileContent).toContain('AfterViewInit');
       expect(componentFileContent).toContain('OnDestroy');
-      expect(componentFileContent).toContain('private bridge: IframeBridge;');
-      expect(componentFileContent).toContain('@ViewChild(\'frame\')');
-      expect(componentFileContent).toContain('private frame: ElementRef<HTMLIFrameElement>;');
-      expect(componentFileContent).toContain('this.bridge = new IframeBridge(window, this.frame.nativeElement);');
+      expect(componentFileContent).toContain('private bridge?: IframeBridge;');
+      expect(componentFileContent).toContain('private frame = viewChild.required<ElementRef<HTMLIFrameElement>>(\'frame\');');
+      expect(componentFileContent).toContain('this.bridge = new IframeBridge(window, nativeElem);');
     });
 
     it('should throw if we add iframe to a component that already has it', async () => {
@@ -121,7 +120,7 @@ describe('Add Iframe', () => {
         const componentFileContent = tree.readText(ngComponentPath);
 
         expect(spy).toHaveBeenCalledWith('convert-component', expect.anything(), expect.anything());
-        expect(componentFileContent).toContain('@ViewChild(\'frame\')');
+        expect(componentFileContent).toContain('viewChild.required<ElementRef<HTMLIFrameElement>>(\'frame\')');
       });
     });
   });
