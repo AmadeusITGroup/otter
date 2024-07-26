@@ -339,3 +339,58 @@ Make sure to expose them in the bundled application by adding them in the `files
 ```
 
 Also make sure to place them in a folder name `migration-scripts` in your packaged app or to set the `migrationScriptFolder` in your `cms.json`.
+
+### Case of dependencies on libraries
+
+If the libraries that you use provide migration scripts, you need to aggregate them with your own to make the metadata-checks pass.
+
+You will need to specify in your migration script those libraries with their current version.
+
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/extractors/schemas/migration.metadata.schema.json",
+  "version":  "10.0.0",
+  // List of libraries with migration scripts that your project depend on
+  "libraries": {
+    "@mylib/lib": "1.0.0"
+  },
+  "changes": [
+    // The changes specific to your project
+  ]
+}
+```
+
+Then you can automate the aggregation of migration scripts by adding the `@o3r/extractors:aggregate-migration-scripts` builder in your `angular.json` file as follows:
+```json5
+{
+  // ...,
+  "projects": {
+    // ...,
+    "<project-name>": {
+      // ...,
+      "architect": {
+        "aggregate-migration-scripts": {
+          "builder": "@o3r/extractors:aggregate-migration-scripts",
+          "options": {
+            "migrationDataPath": "./migration-scripts/src/MIGRATION-*.json",
+            "outputDirectory": "./migration-scripts/dist"
+          }
+        },
+        "check-localization-migration-metadata": {
+          "builder": "@o3r/localization:check-localization-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/dist/MIGRATION-*.json"
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Calling the `aggregate-migration-scripts` builder will generate the full migration-scripts including the ones from the libraries.
+
+In the previous example, you should include the output of the aggregate in the packaged application instead of the original migration scripts (`./migration-scripts/dist` instead of `./mìgration-scripts/src`).
+
+> [!WARNING]
+> The migration scripts of the libraries need be placed in the `./migration-scripts/` folder at the root the library package.
