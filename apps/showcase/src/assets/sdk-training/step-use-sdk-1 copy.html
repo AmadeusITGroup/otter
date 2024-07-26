@@ -1,0 +1,33 @@
+<h1>Let's manage a set of apis</h1>
+
+<h2>Objectives</h2>
+<p>
+</p>
+<p>
+  Note that for this example, we will use an Angular application but there is nothing that forces you to use this framework, you can
+
+<h2>Exercise</h2>
+<p>
+Let's create a fetch client in your application and use it to access your API. You can get inspiration from the following code:
+<pre>
+  <code>
+    const apiConfig: ApiClient = new ApiFetchClient(
+      {
+        basePath: 'https://petstore3.swagger.io/api/v3',
+        requestPlugins: [],
+        fetchPlugins: [],
+        logger
+      }
+    );
+    const api = new PetApi(apiConfig);
+  </code>
+</pre>
+</p>
+<p>
+Now, you can call the api object to perform the HTTP request you look for.
+Have a look at the <code>sdk/api/pet.api.ts</code> folder and look for the <code>findPetsByStatus</code>.
+</p>
+<p>
+For this exercise, you will look for the available items and you will only show the name of the ten first pet in the allocated
+space (look for the div with the id: <code>result<code>).
+</p>

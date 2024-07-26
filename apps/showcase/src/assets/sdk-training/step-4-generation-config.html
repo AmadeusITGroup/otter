@@ -1,0 +1,77 @@
+<h1>Generate an SDK from specifications</h1>
+<h2>Generator configuration</h2>
+<p>
+  It is possible to configure the SDK code generation. To do so, you can either pass the parameters to the generator command line
+  or by setting the values in the <b><code>openapitools.json</code></b> file.
+</p>
+
+<h3>Generator command line</h3>
+<p>
+  Passing parameters to the generator command line will override the default configuration values.
+  The available parameters are:
+</p>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Parameter</th>
+    <th scope="col">Description</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><b><code>--spec-path</code></b></td>
+    <td>Path to the specification file used to generate the SDK</td>
+  </tr>
+  <tr>
+    <td><b><code>--spec-config-path</code></b></td>
+    <td>Path to the specification generation configuration</td>
+  </tr>
+  <tr>
+    <td><b><code>--output-path</code></b></td>
+    <td>Output path for the generated SDK</td>
+  </tr>
+  <tr>
+    <td><b><code>--global-property</code></b></td>
+    <td>Comma-separated string of options to give to the openapi-generator-cli</td>
+  </tr>
+  <tr>
+    <td><b><code>--generator-custom-path</code></b></td>
+    <td>Path to a custom generator</td>
+  </tr>
+  <tr>
+    <td><b><code>--openapi-normalizer</code></b></td>
+    <td>Rules for transforming the input specification to make it workable with OpenAPI Generator</td>
+  </tr>
+  </tbody>
+</table>
+
+<h3>OpenAPI Tools JSON file</h3>
+<p>
+  There is also a possibility to configure the SDK code generation in <b><code>openapitools.json</code></b>.
+  The structure for this file looks something like this:
+</p>
+<o3r-copy-text-pres language="json" text=
+'{
+// ...
+"generator-cli": {
+"version": "0.0.0",
+"storageDir": ".openapi-generator",
+"generators": { // optional
+  "example-sdk": { // any name you like
+    "generatorName": "typescriptFetch",
+    "output": ".",
+    "inputSpec": "./openapi.yml"
+  }
+}
+}
+}'
+></o3r-copy-text-pres>
+<p>
+  <b><code>example-sdk</code></b> corresponds to the key of the generator which can be referenced in the generator command as a parameter, for example:
+</p>
+<o3r-copy-text-pres language="bash" [wrap]="true" text="yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk"></o3r-copy-text-pres>
+<p>
+  The properties <b><code>generatorName</code></b>, <b><code>output</code></b>, and <b><code>inputSpec</code></b> are required and additional properties can be added (available properties
+  described in the <a href="https://github.com/OpenAPITools/openapi-generator-cli/blob/master/apps/generator-cli/src/config.schema.json">OpenAPI Generator schema</a>).
+  We will present the global properties that are provided by Otter in the following section.
+</p>

@@ -1,0 +1,48 @@
+<h1>Example</h1>
+<h2>Configuration of the Otter Showcase SDK</h2>
+<p>
+  Let's see how we configured the Otter Showcase SDK using the OpenAPI Tools JSON file and what its equivalent would be using the generator command line.
+</p>
+<h3>OpenAPI Tools JSON file</h3>
+<p>
+  You will find below a snippet of the configuration file <b><code>openapitools.json</code></b> from the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/@ama-sdk/showcase-sdk">Otter Showcase SDK</a>.
+</p>
+<o3r-copy-text-pres language="json" text=
+'"generator-cli": {
+"version": "7.4.0",
+"storageDir": ".openapi-generator",
+"generators": {
+"ama-sdk-showcase-sdk": {
+  "generatorName": "typescriptFetch",
+  "output": ".",
+  "inputSpec": "./openapi.yml",
+  "globalProperty": {
+    "stringifyDate": true
+  }
+}
+}
+}
+'
+></o3r-copy-text-pres>
+<p>
+  This JSON file is based on the <a href="https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json">schema</a> provided by <b>&#64;openapitools/openapi-generator-cli</b>.
+</p>
+<p>
+  It contains the required properties and the field <b><code>globalProperty</code></b>, which we will explain in the following section to understand how it impacts the generated SDK.
+</p>
+<p>
+  The SDK is then generated using the following command line, available in its <b><code>package.json</code></b> file:
+</p>
+<o3r-copy-text-pres language="bash" [wrap]="true" text="yarn schematics @ama-sdk/schematics:typescript-core --generator-key ama-sdk-showcase-sdk"></o3r-copy-text-pres>
+
+<h3>Generator command line</h3>
+<p>
+  Let's imagine that we do not have an <b><code>openapitools.json</code></b> file. The command line to run to generate the same SDK with equivalent configuration would be:
+</p>
+<o3r-copy-text-pres language="bash" [wrap]="true" text="yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./openapi.yml --global-property stringifyDate"></o3r-copy-text-pres>
+<p>
+  <ngb-alert dfInsertAlertIcon [type]="'info'" [dismissible]="false">
+    The parameters <b><code>generatorName</code></b> and <b><code>output</code></b> don't need to be passed to the command line since the default values don't need to be overriden in this use case.
+    You can find the default values for these options in the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/schematics/code-generator/open-api-cli-generator/open-api-cli.options.ts">&#64;ama-sdk/schematics package</a>.
+  </ngb-alert>
+</p>

@@ -1,0 +1,113 @@
+<h1>Generate an SDK from specifications</h1>
+<h2>Generator options</h2>
+
+<!--    <h3>Dates</h3>-->
+<!--    <p>-->
+<!--      If a specification file includes dates, there are several ways to manage those with timezones depending on the use case of an application. We invite you to check out the-->
+<!--      <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base/readme.md#manage-dates">documentation on how to manage dates</a>-->
+<!--      in order to better understand the proposed solutions to manage dates.-->
+<!--    </p>-->
+<!--    <p>-->
+<!--      Accordingly, there are multiple options for the generation of an SDK with dates involving the global property option <b><code>stringifyDate</code></b>.-->
+<!--      The value of this option can be set either in the generator command or in the configuration JSON file.-->
+<!--    </p>-->
+<!--    &lt;!&ndash; <p> &ndash;&gt;-->
+<!--      &lt;!&ndash; There are several ways to manage dates with timezones, depending on the use case of an application. We invite you to check out the &ndash;&gt;-->
+<!--      &lt;!&ndash; <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base/readme.md#manage-dates">documentation on how to manage dates</a> &ndash;&gt;-->
+<!--      &lt;!&ndash; in order to better understand the proposed solutions. &ndash;&gt;-->
+<!--    &lt;!&ndash; </p> &ndash;&gt;-->
+<!--    &lt;!&ndash; <p> &ndash;&gt;-->
+<!--      &lt;!&ndash; If your specification file includes dates, there are multiple options for the generation of your SDK involving the global property option <b><code>stringifyDate</code></b>. &ndash;&gt;-->
+<!--    &lt;!&ndash; </p> &ndash;&gt;-->
+<!--    &lt;!&ndash; <p> &ndash;&gt;-->
+<!--      &lt;!&ndash; By default, the option <b><code>stringifyDate</code></b> is set to <b><code>true</code></b>. Set it to <b><code>false</code></b> if you want date-time objects to be generated as Date and date objects to be generated as utils.Date. &ndash;&gt;-->
+<!--      &lt;!&ndash; For more information related to these types, check out this documentation. This can be done by adding &#45;&#45;global-property stringifyDate=false to the generator command or by adding the global property to the openapitools.json. &ndash;&gt;-->
+<!--    &lt;!&ndash; </p> &ndash;&gt;-->
+<!--    <p>-->
+<!--      Let's see how this global property impacts the generated interfaces.-->
+<!--    </p>-->
+
+<!--    <h3>Extensible models</h3>-->
+<!--    <p>-->
+<!--      A reviver is a function whose purpose is to convert a JSON parsed object to the model the reviver is referring to-->
+<!--      (more information <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md#revivers">here</a>.)-->
+<!--      Revivers are generated for SDKs that use:-->
+<!--    </p>-->
+<!--    <ul>-->
+<!--      <li>non-stringified dates</li>-->
+<!--      <li>dictionaries</li>-->
+<!--      <li>extensible models</li>-->
+<!--    </ul>-->
+<!--    <p>-->
+<!--      This means that there is no guarantee that revivers wil be generated. However, you may be in a case in which you want to be able to extend your SDK models and therefore ensure these functions are generated-->
+<!--      (more info on how to extend a model <a href="https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#how-to-extend-a-model">here</a>).-->
+<!--    </p>-->
+<!--    <p>-->
+<!--      To do this you can use the global property option <b><code>allowModelExtension</code></b>, which you can add either to the generator command or the configuration JSON file.-->
+<!--    </p>-->
+
+
+<div ngbAccordion class="df-accordion-reverse">
+  <div [collapsed]="false" ngbAccordionItem>
+    <h3 ngbAccordionHeader>
+      <button ngbAccordionButton>Dates</button>
+    </h3>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <p>
+            If a specification file includes dates, there are several ways to manage those with timezones depending on the use case of an application. We invite you to check out the
+            <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base/readme.md#manage-dates">documentation on how to manage dates</a>
+            in order to better understand the proposed solutions to manage dates.
+          </p>
+          <p>
+            Accordingly, there are multiple options for the generation of an SDK with dates involving the global property option <b><code>stringifyDate</code></b>.
+            The value of this option can be set either in the generator command or in the configuration JSON file.
+          </p>
+          <button type="button" class="btn btn-primary" id="btn-dates-example" (click)="updateViewDatesExample()">
+            @if (viewDatesExample) {
+              {{this.hideExampleText}}
+            } @else {
+              {{this.viewExampleText}}
+            }
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div [collapsed]="false" ngbAccordionItem>
+    <h3 ngbAccordionHeader>
+      <button ngbAccordionButton>Extensible models</button>
+    </h3>
+    <div ngbAccordionCollapse>
+      <div ngbAccordionBody>
+        <ng-template>
+          <p>
+            A reviver is a function whose purpose is to convert a JSON parsed object to the model the reviver is referring to
+            (more information <a href="https://github.com/AmadeusITGroup/otter/blob/main/docs/api-sdk/SDK_MODELS_HIERARCHY.md#revivers">here</a>.)
+            Revivers are generated for SDKs that use:
+          </p>
+          <ul>
+            <li>non-stringified dates</li>
+            <li>dictionaries</li>
+            <li>extensible models</li>
+          </ul>
+          <p>
+            This means that there is no guarantee that revivers wil be generated. However, you may be in a case in which you want to be able to extend your SDK models and therefore ensure these functions are generated
+            (more info on how to extend a model <a href="https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#how-to-extend-a-model">here</a>).
+          </p>
+          <p>
+            To do this you can use the global property option <b><code>allowModelExtension</code></b>, which you can add either to the generator command or the configuration JSON file.
+          </p>
+          <button type="button" class="btn btn-primary" id="btn-extensible-models-example" (click)="updateViewExtensibleModelsExample()">
+            @if (viewExtensibleModelsExample) {
+              {{this.hideExampleText}}
+            } @else {
+              {{this.viewExampleText}}
+            }
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

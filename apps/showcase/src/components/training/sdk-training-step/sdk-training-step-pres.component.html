@@ -1,10 +1,12 @@
 <div class="row mb-3 border-between ">
   <!-- <div class="col border-end overflow-y-auto col-6 swatch-300"> -->
   <div class="col border-end overflow-y-auto" [style.width]="leftWidthPercent">
-    <ng-content select=".step-instructions"></ng-content>
+    <ng-content select=".step-instructions" />
   </div>
   <!-- <div class="col h-100 swatch-100 overflow-auto"> -->
   <div class="col sticky-example" [style.width]="rightWidthPercent" [style.left]="leftWidthPercent">
-    <ng-content select=".step-example"></ng-content>
+    <ng-content select=".step-example" />
+    <hr>
+    <ng-content select=".step-component"/>
   </div>
 </div>

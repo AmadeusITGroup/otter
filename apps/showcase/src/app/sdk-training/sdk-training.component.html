@@ -4,20 +4,24 @@
   </div>
   <div class="align-self-center">
     <button type="button" class="btn btn-outline-secondary icon-chevron-left" [disabled]="!previousStep"
-            (click)="goToPreviousStep()"></button>
+            (click)="setCurrentStep(currentStep - 1)"></button>
     <button type="button" class="btn btn-outline-secondary icon-chevron-right" [disabled]="!nextStep"
-            (click)="goToNextStep()"></button>
+            (click)="setCurrentStep(currentStep + 1)"></button>
   </div>
 </div>
-<div [innerHtml]="steps[currentStep]!.htmlExample()"></div>
-
 <o3r-sdk-training-step-pres>
   <ng-container class="step-instructions">
-    <div [innerHtml]="steps[currentStep]!.htmlContent()"></div>
+    <div [innerHtml]="steps[currentStep].htmlContent()"></div>
   </ng-container>
 
   <ng-container class="step-example">
-    <div [innerHtml]="steps[currentStep]!.htmlExample()"></div>
+    <div [innerHtml]="steps[currentStep].htmlExample()"></div>
+    @if (steps[currentStep].componentExample) {
+      <hr>
+      <ng-container *ngComponentOutlet="steps[currentStep].componentExample"/>
+    }
   </ng-container>
-</o3r-sdk-training-step-pres>
 
+    <!-- <ng-container class="step-component"> -->
+    <!-- </ng-container> -->
+</o3r-sdk-training-step-pres>
