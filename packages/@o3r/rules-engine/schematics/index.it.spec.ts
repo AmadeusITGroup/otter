@@ -31,7 +31,8 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('apps/test-app/cms.json');
     expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
     expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
-    expect(diff.added.length).toBe(12);
+    expect(diff.added).toContain('apps/test-app/migration-scripts/README.md');
+    expect(diff.added.length).toBe(13);
     expect(diff.modified.length).toBe(6);
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
@@ -55,7 +56,8 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('libs/test-lib/cms.json');
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
-    expect(diff.added.length).toBe(12);
+    expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
+    expect(diff.added.length).toBe(13);
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');

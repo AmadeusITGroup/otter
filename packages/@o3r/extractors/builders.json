@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/architect/src/builders-schema.json",
+  "builders": {
+    "aggregate-migration-scripts": {
+      "implementation": "./builders/aggregate-migration-scripts/",
+      "schema": "./builders/aggregate-migration-scripts/schema.json",
+      "description": "Aggregate migration scripts"
+    }
+  }
+}

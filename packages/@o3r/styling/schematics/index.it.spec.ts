@@ -29,7 +29,7 @@ describe('ng add styling', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added.length).toBe(17);
+    expect(diff.added.length).toBe(18);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'));
 
     expect(diff.modified.length).toBe(6);
@@ -54,7 +54,7 @@ describe('ng add styling', () => {
     packageManagerExec({script: 'ng', args: ['g', '@o3r/styling:add-theming', '--path', filePath]}, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
-    expect(diff.added.length).toBe(13);
+    expect(diff.added.length).toBe(14);
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'));
 
     expect(diff.modified.length).toBe(4);

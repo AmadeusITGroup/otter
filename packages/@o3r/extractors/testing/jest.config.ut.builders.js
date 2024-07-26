@@ -8,6 +8,11 @@ module.exports = {
   displayName: `${require('../package.json').name}/builders`,
   rootDir,
   setupFilesAfterEnv: ['<rootDir>/testing/setup-jest.builders.ts'],
+  fakeTimers: {
+    enableGlobally: true,
+    // This is needed to prevent timeout on builders tests
+    advanceTimers: true
+  },
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
     '<rootDir>/src/.*',
