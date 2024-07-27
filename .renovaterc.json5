@@ -71,6 +71,22 @@
       "enabled": false
     },
     {
+      // Reduce the updates on Next to let them handle by the Main branch
+      "matchUpdateTypes": [
+        "bump",
+        "digest",
+        "lockFileMaintenance",
+        "minor",
+        "patch",
+        "pinDigest"
+      ],
+      "matchBaseBranches": [
+        "/.*-next$/"
+      ],
+      "enabled": false
+    },
+
+    {
       // This rule disable the upgrade of the gaurav-nelson/github-action-markdown-link-check
       // TODO: re-activate the upgrade when the following issue is fixed: gaurav-nelson/github-action-markdown-link-check#200
       "matchPackagePatterns": [

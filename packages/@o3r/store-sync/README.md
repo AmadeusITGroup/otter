@@ -12,32 +12,26 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 [![Stable Version](https://img.shields.io/npm/v/@o3r/store-sync?style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
 [![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/store-sync?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/store-sync)
 
-This module is exposing an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
+This module exposes an NgRx store synchronization solution (synchronous and asynchronous) via the class `StorageSync`.
 
-To facilitate the synchronization, the `StorageSync` class is based on a fork of [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage) that is also exposed and includes the following changes on top of the original version:
+To facilitate the synchronization, the `StorageSync` class is based on a fork of [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage), an exposed package used to sync an NgRx store and the local or session storage. 
+Compared to the original version of the fork, the **@o3r/store-sync** module includes changes that improve overall synchronization performance.
 
-- Export properly the `dateReviver` function
-- Add missing comments
-- Explicit dependency to `@ngrx/store` for the action names
-- Change interface names to prefix with "sync"
-- Add logger support
-- Fix lint according to ESLint rules
-- Split code in several files
-- Migrate tests to Jest
-- Removal of deprecated `deepmerge` dependency.
-- Support of a `smartSync` setup to improve performances
+The features to highlight are:
+* The addition of `smartSync`: by default, **@o3r/store-sync** synchronizes a state only if its value changed and no longer matches that of the storage. This feature improves performance, but it can be disabled if wanted.
+* The possibility of **asynchronous synchronization**: in our asynchronous storage interface, we have overridden the return type of the `getItem` function to handle promises (the return type is `Promise<string | null>`).
 
-### Configuration
+You can read about the changes in the module's [documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/store-sync/STORE_SYNC.md).
 
-#### Smart sync
+## How to install
 
-The original ngrx-store-localstorage synchronize all of your states everytime a state is updated which can lead to a lot
-of accesses to the local and session storage and cause performance issue.
-
-To avoid this pitfall, by default the @o3r/store-sync only synchronizes a state if its value changed and no longer matches
-the storage.
-This behaviour can be disabled as follows:
-
-```typescript
-const storage = new StorageSync({keys: [...myStorekeys]}, {disableSmartSync: true});
+```shell
+ng add @o3r/store-sync
 ```
+
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+
+## More details
+
+Find more information in the [documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/store-sync/STORE_SYNC.md).

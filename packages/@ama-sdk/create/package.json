@@ -31,8 +31,8 @@
     "typescript": "~5.4.2"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~17.3.0",
-    "@angular-eslint/eslint-plugin-template": "~17.3.0",
+    "@angular-eslint/eslint-plugin": "~17.5.0",
+    "@angular-eslint/eslint-plugin-template": "~17.5.0",
     "@nx/eslint": "~18.3.0",
     "@nx/eslint-plugin": "~18.3.0",
     "@nx/jest": "~18.3.0",

@@ -26,10 +26,6 @@
       "type": "string",
       "description": "Target directory to generate the module"
     },
-    "specPath": {
-      "type": "string",
-      "description": "Path to the swagger specification used to generate the SDK; If not provided, sdk shell will be generated"
-    },
     "skipLinter": {
       "type": "boolean",
       "description": "Skip the linter process",
@@ -39,7 +35,30 @@
       "description": "Do not install dependency packages.",
       "type": "boolean",
       "default": false
+    },
+    "specPath": {
+      "type": "string",
+      "description": "Path to the swagger specification used to generate the SDK; If not provided, sdk shell will be generated"
+    },
+    "specPackageName": {
+      "type": "string",
+      "description": "The npm package name where the spec file can be fetched"
+    },
+    "specPackagePath": {
+      "type": "string",
+      "description": "The path inside the package where to find the spec file"
+    },
+    "specPackageVersion": {
+      "type": "string",
+      "description": "The version to target for the npm package where the spec file can be fetched"
+    },
+    "specPackageRegistry": {
+      "type": "string",
+      "description": "The npm registry where the spec file can be fetched"
     }
+  },
+  "not": {
+    "required": ["specPath", "specPackageName"]
   },
   "required": ["name"],
   "additionalProperties": true

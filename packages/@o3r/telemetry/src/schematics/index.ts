@@ -30,8 +30,8 @@ export const createSchematicWithMetrics: SchematicWrapper =
       await lastValueFrom(callRule(rule, tree, context));
     }
     catch (e: any) {
-      const err = e instanceof Error ? e : new Error(error);
-      error = err.stack || e.toString();
+      const err = e instanceof Error ? e : new Error(e.toString());
+      error = err.stack || err.toString();
       throw err;
     }
     finally {
