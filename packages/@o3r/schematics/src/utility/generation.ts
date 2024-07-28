@@ -28,15 +28,15 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
 /** List of the default destination paths for each generated entity */
 export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType] : {app?: string; lib?: string} } = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:component': {app: 'src/components', lib: 'components/src'},
+  '@o3r/core:component': {app: 'src/components', lib: 'src/components'},
   // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/core:page': {app: 'src/app'},
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:service': {app: 'src/services', lib: 'services/src'},
+  '@o3r/core:service': {app: 'src/services', lib: 'src/services'},
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:store': {app: 'src/store', lib: 'store/src'},
+  '@o3r/core:store': {app: 'src/store', lib: 'src/store'},
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:schematics-update': {app: 'src/schematics', lib: 'schematics/src'},
+  '@o3r/core:schematics-update': {app: 'src/schematics', lib: 'src/schematics'},
   // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/testing:playwright-scenario': { app: 'e2e-playwright/scenarios' },
   // eslint-disable-next-line @typescript-eslint/naming-convention

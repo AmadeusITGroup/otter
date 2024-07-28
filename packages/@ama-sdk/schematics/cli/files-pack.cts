@@ -17,6 +17,7 @@ const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd
 const {help, watch, noExports} = argv;
 
 if (help) {
+  // eslint-disable-next-line no-console
   console.log(`Prepare the dist folder for publication. This will copy necessary files from src and update the exports in package.json.
   Usage: amasdk-files-pack [--exports] [--watch]
 

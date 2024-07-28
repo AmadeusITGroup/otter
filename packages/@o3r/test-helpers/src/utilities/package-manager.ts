@@ -2,6 +2,7 @@ import { execFileSync, ExecSyncOptions } from 'node:child_process';
 import { existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { performance } from 'node:perf_hooks';
+import { type SupportedPackageManagers } from '@o3r/schematics';
 
 declare global {
   namespace NodeJS {
@@ -12,13 +13,28 @@ declare global {
   }
 }
 
-const PACKAGE_MANAGERS_CMD = {
+type Command =
+  | 'add'
+  | 'create'
+  | 'exec'
+  | 'info'
+  | 'install'
+  | 'publish'
+  | 'run'
+  | 'version'
+  | 'workspaceExec'
+  | 'workspaceRun';
+
+const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[command in Command]: string[]}} = {
   npm: {
     add: ['npm', 'install'],
     create: ['npm', 'create'],
     exec: ['npm', 'exec'],
+    info: ['npm', 'info'],
     install: ['npm', 'install'],
+    publish: ['npm', 'publish'],
     run: ['npm', 'run'],
+    version: ['npm', 'version'],
     workspaceExec: ['npm', 'exec', '--workspace'],
     workspaceRun: ['npm', 'run', '--workspace']
   },
@@ -26,8 +42,11 @@ const PACKAGE_MANAGERS_CMD = {
     add: ['yarn', 'add'],
     create: ['yarn', 'create'],
     exec: ['yarn'],
+    info: ['yarn', 'info'],
     install: ['yarn', 'install'],
+    publish: ['npm', 'publish'], // We always use npm publish
     run: ['yarn', 'run'],
+    version: ['yarn', 'version'],
     workspaceExec: ['yarn', 'workspace'],
     workspaceRun: ['yarn', 'workspace']
   }
@@ -103,6 +122,35 @@ export function packageManagerCreate(command: CommandArguments, options: ExecSyn
   const { script, args } = command;
   const packageManager = packageManagerOverride || getPackageManager();
   return execCmd([...PACKAGE_MANAGERS_CMD[packageManager].create, script, ...addDashesForNpmCommand(args, packageManager)], options);
+}
+
+/**
+ * Get information about a package from npm
+ * @param packageRef
+ * @param args
+ * @param options
+ */
+export function packageManagerInfo(packageRef: string, args: string[], options: ExecSyncOptions) {
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].info, ...args, packageRef], options);
+}
+
+/**
+ * Apply a new version to a package
+ * @param version
+ * @param args
+ * @param options
+ */
+export function packageManagerVersion(version: string, args: string[], options: ExecSyncOptions) {
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].version, ...args, version], options);
+}
+
+/**
+ * Publish a package to the npm registry
+ * @param version
+ * @param options
+ */
+export function packageManagerPublish(args: string[], options: ExecSyncOptions) {
+  return execCmd([...PACKAGE_MANAGERS_CMD[getPackageManager()].publish, ...args], options);
 }
 
 /**
@@ -237,7 +285,7 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
 
   execFileSync('npm', ['config', 'set', 'audit=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'fund=false', '-L=project'], execOptions);
-  execFileSync('npm', ['config', 'set', 'prefer-offline=true', '-L=project'], execOptions);
+  execFileSync('npm', ['config', 'set', 'prefer-offline=false', '-L=project'], execOptions);
   execFileSync('npm', ['config', 'set', 'ignore-scripts=true', '-L=project'], execOptions);
 
   if (options.globalFolderPath) {
@@ -247,4 +295,18 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
   if (shouldCleanPackageJson && existsSync(packageJsonPath)) {
     rmSync(packageJsonPath);
   }
+}
+
+/**
+ * Get the latest version of a package
+ * @param packageName
+ * @param execAppOptions
+ */
+export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions>) {
+  return execFileSync('npm', ['info', packageName, 'version'], {
+    ...execAppOptions,
+    stdio: 'pipe',
+    encoding: 'utf8',
+    shell: true
+  }).replace(/\s/g, '');
 }

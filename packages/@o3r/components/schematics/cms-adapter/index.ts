@@ -39,6 +39,13 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
       }
     };
 
+    workspaceProject.architect['check-config-migration-metadata'] ||= {
+      builder: '@o3r/components:check-config-migration-metadata',
+      options: {
+        migrationDataPath: 'MIGRATION-*.json'
+      }
+    };
+
     workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
     return tree;

@@ -14,21 +14,58 @@ import {
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
 
-describe('new otter application with extractors', () => {
-  test('should add extractors to existing application', () => {
-    const { workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
+describe('ng add extractors', () => {
+  test('should add extractors to an application', () => {
+    const { workspacePath, appName, isInWorkspace, isYarnTest, o3rVersion, libraryPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
+    expect(() => packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptions)).not.toThrow();
+
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified).toContain('package.json');
+    expect(diff.modified.sort()).toEqual([
+      'package.json',
+      'apps/test-app/package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
+    expect(diff.added.sort()).toEqual([
+      'apps/test-app/cms.json',
+      'apps/test-app/placeholders.metadata.json',
+      'apps/test-app/tsconfig.cms.json'
+    ].sort());
 
-    if (untouchedProjectPath) {
-      const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
-      expect(diff.all.filter((file) => new RegExp(relativeUntouchedProjectPath.replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBe(0);
-    }
+    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
+      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
+  });
+
+  test('should add extractors to a library', () => {
+    const { workspacePath, libName, isInWorkspace, isYarnTest, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
+    expect(() => packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', libName]}, execAppOptions)).not.toThrow();
+
+
+    const diff = getGitDiff(workspacePath);
+    expect(diff.modified.sort()).toEqual([
+      'package.json',
+      'libs/test-lib/package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ].sort());
+    expect(diff.added.sort()).toEqual([
+      'libs/test-lib/cms.json',
+      'libs/test-lib/placeholders.metadata.json',
+      'libs/test-lib/tsconfig.cms.json'
+    ].sort());
+
+    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
+      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    });
+
+
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
   });
 });

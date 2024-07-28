@@ -163,8 +163,6 @@ __Note:__ The duplicate CSS Variable will be specified as warning and overridden
 
 ### Rules engine extractor
 
-### Metadata
-
 As for the other metadata retrieved, a bit of configuration is needed in order to extract metadata for facts and operators in rules engine scope.
 
 #### How to install
@@ -225,3 +223,119 @@ Example:
   ...
 }
 ```
+
+## How to check for breaking changes on metadata
+
+Version after version, it can be verified whether any breaking changes have been introduced, or if there is any metadata provided to document it.
+To achieve this, simply configure the following builder in your `angular.json` file as shown below.
+
+```json5
+{
+  // ...,
+  "projects": {
+    // ...,
+    "<project-name>": {
+      // ...,
+      "architect": {
+        "check-config-migration-metadata": {
+          "builder": "@o3r/components:check-config-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/MIGRATION-*.json", // Required
+            "granularity": "major", // Default value is minor
+            "allowBreakingChanges": true, // Default value is false
+            "packageManager": "npm", // If not provided, it will be determined based on the repository architecture
+            "metadataPath": "./component.config.metadata.json" // Default value
+          }
+        },
+        "check-style-migration-metadata": {
+          "builder": "@o3r/styling:check-style-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/MIGRATION-*.json" // Required
+          }
+        },
+        "check-localization-migration-metadata": {
+          "builder": "@o3r/localization:check-localization-migration-metadata",
+          "options": {
+            "migrationDataPath": "./migration-scripts/MIGRATION-*.json" // Required
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Example of migration file:
+```json5
+{
+  "$schema": "https://raw.githubusercontent.com/AmadeusITGroup/otter/main/packages/@o3r/extractors/schemas/migration.metadata.schema.json",
+  "version":  "10.0.0",
+  "changes": [
+    { // Move property to a new library and to a new config and rename property name
+      'contentType': 'CONFIG',
+      'before': {
+        'libraryName': '@old/lib',
+        'configName': 'OldConfig',
+        'propertyName': 'oldName'
+      },
+      'after': {
+        'libraryName': '@new/lib',
+        'configName': 'NewConfig',
+        'propertyName': 'newName'
+      }
+    },
+    { // Rename configuration name for all properties
+      'contentType': 'CONFIG',
+      'before': {
+        'libraryName': '@o3r/lib',
+        'configName': 'OldConfig'
+      },
+      'after': {
+        'libraryName': '@o3r/lib',
+        'configName': 'NewConfig'
+      }
+    },
+    { // Rename library name for all configurations
+      'contentType': 'CONFIG',
+      'before': {
+        'libraryName': '@o3r/lib2'
+      },
+      'after': {
+        'libraryName': '@o3r/lib3'
+      }
+    },
+    { // Rename localization key
+      'contentType': 'LOCALIZATION',
+      'before': {
+        'key': 'old-localization.key'
+      },
+      'after': {
+        'key': 'new-localization.key'
+      }
+    },
+    { // Rename CSS variable
+      'contentType': 'STYLE',
+      'before': {
+        'name': 'old-css-var-name'
+      },
+      'after': {
+        'name': 'new-css-var-name'
+      }
+    }
+  ]
+}
+```
+
+These migrations files are also useful in the CMS to automate the migration of the database associated to the metadata.
+
+Make sure to expose them in the bundled application by adding them in the `files` field of your `package.json` and copy the files in the build process if needed
+
+```json5
+{
+  "files": [
+    "./migration-scripts/"
+  ]
+}
+```
+
+Also make sure to place them in a folder name `migration-scripts` in your packaged app or to set the `migrationScriptFolder` in your `cms.json`.

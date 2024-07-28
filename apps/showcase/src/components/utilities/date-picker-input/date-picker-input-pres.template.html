@@ -1,5 +1,5 @@
 <div class="input-group" [dfCloseInputDatePicker]="dp">
-  <input [id]="id" #dpin class="form-control visual-testing-ignore" placeholder="YYYY-MM-DD"
+  <input [id]="id" #dpin class="form-control" placeholder="YYYY-MM-DD"
          [ngModel]="selectedDate" (ngModelChange)="selectDate($event)"
          ngbDatepicker #dp="ngbDatepicker" [displayMonths]="1" [navigation]="'arrows'" [outsideDays]="'collapsed'"
          [showWeekNumbers]="false" [dayTemplate]="dpdt" (dateSelect)="dpin.focus()" [disabled]="isDisabled()"
