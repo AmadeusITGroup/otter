@@ -1,3 +1,4 @@
+import type { Api } from '../../fwk';
 import type { Plugin, PluginContext, PluginRunner } from './plugin';
 
 export type RequestBody = string | FormData;
@@ -52,6 +53,10 @@ export interface RequestOptions extends RequestInit {
   metadata?: RequestMetadata;
   /** @inheritdoc */
   method: NonNullable<RequestInit['method']>;
+  /**
+   * API initializing the call
+   */
+  api?: Api;
 }
 
 /**
