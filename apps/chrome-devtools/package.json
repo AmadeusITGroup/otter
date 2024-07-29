@@ -45,7 +45,7 @@
     "@o3r/logger": "workspace:^",
     "@o3r/rules-engine": "workspace:^",
     "@stylistic/eslint-plugin-ts": "^2.0.0",
-    "@types/chrome": "^0.0.268",
+    "@types/chrome": "^0.0.269",
     "@types/jest": "~29.5.2",
     "@types/tinycolor2": "^1.4.6",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
