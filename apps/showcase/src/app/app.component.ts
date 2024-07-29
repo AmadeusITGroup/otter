@@ -4,12 +4,14 @@ import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
+import { ViewEncapsulation } from '@angular/core';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent implements OnDestroy {
   public title = 'showcase';

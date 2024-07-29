@@ -31,6 +31,8 @@ import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/
 import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { createCustomElement } from '@angular/elements';
+import { Injector } from '@angular/core';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -134,7 +136,14 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
     {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
-  ],
-  bootstrap: [AppComponent]
+  ]
+  // bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private readonly injector: Injector) {}
+
+  ngDoBootstrap() {
+    const el = createCustomElement(AppComponent, { injector: this.injector });
+    customElements.define('my-showcase-wc', el);
+  }
+}

@@ -1,0 +1,6 @@
+@use './design-factory-custom' as design-factory with (
+  $prefix: bs-,
+  $df-spinner-circumference: 2rem,
+  $font-path: '@design-factory/design-factory/assets/fonts',
+  $utilities-bg: ()
+);
