@@ -37,6 +37,8 @@ export class MockInterceptRequest implements RequestPlugin {
           ...data,
           method: data.method || 'GET'
         };
+        delete requestOption.api;
+
         const operationId = await this.options.adapter.retrieveOperationId(requestOption);
         const mock = this.options.adapter.getMock(operationId);
         const text = JSON.stringify(mock.mockData);

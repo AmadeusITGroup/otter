@@ -1,7 +1,7 @@
 import { ApiClient, Mock, MockAdapter, SequentialMockAdapter } from '../../fwk';
 import { RequestOptions, RequestPlugin } from '../core';
 import { MockInterceptFetch } from './mock-intercept.fetch';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER } from './mock-intercept.interface';
+import { CUSTOM_MOCK_OPERATION_ID_HEADER, CUSTOM_MOCK_REQUEST_HEADER } from './mock-intercept.interface';
 import { MockInterceptRequest } from './mock-intercept.request';
 
 const testMock: Mock<any> = {
@@ -28,6 +28,8 @@ const apiClient = {
 } as ApiClient;
 
 describe('Mock intercept', () => {
+  beforeEach(() => jest.clearAllMocks());
+
   describe('request plugin', () => {
     it('should do nothing if disabled is true', async () => {
       const plugin = new MockInterceptRequest({ disabled: true, adapter: testMockAdapter });
@@ -42,7 +44,22 @@ describe('Mock intercept', () => {
       expect(initializeSpy).toHaveBeenCalled();
     });
 
-    it.skip('should intercept the request', async () => {
+    it('should not stringify provided api', async () => {
+      const plugin = new MockInterceptRequest({ disabled: false, adapter: testMockAdapter });
+      const loaded = plugin.load();
+      const originalRequest: RequestOptions = {
+        method: 'get',
+        headers: new Headers({ test: 'true' }),
+        basePath: 'myurl',
+        api: 'should not exist' as any
+      };
+      await loaded.transform(originalRequest);
+
+      expect(originalRequest.headers.has(CUSTOM_MOCK_REQUEST_HEADER)).toBe(true);
+      expect(Object.keys(JSON.parse(originalRequest.headers.get(CUSTOM_MOCK_REQUEST_HEADER)))).not.toContainEqual('api');
+    });
+
+    it('should intercept the request', async () => {
       // Disabled because Blob URL is not supported on NodeJS
       const plugin = new MockInterceptRequest({ adapter: testMockAdapter });
       const originalRequest: RequestOptions = {
@@ -51,11 +68,11 @@ describe('Mock intercept', () => {
         method: 'PATCH'
       };
       const loaded = plugin.load();
-      const transformed = loaded.transform(originalRequest) as RequestOptions;
-      const res = await fetch(transformed.basePath, transformed);
+      const transformed = await loaded.transform(originalRequest);
+      const res = await (await fetch(transformed.basePath, transformed)).text();
 
       expect(getMockSpy).toHaveBeenCalled();
-      expect(res).toEqual(getMockSpy);
+      expect(res).toBe(JSON.stringify(testMock.mockData));
       expect(initializeSpy).toHaveBeenCalled();
     });
   });
