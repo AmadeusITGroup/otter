@@ -12,3 +12,7 @@ textarea {
   line-height: 1.2rem;
   font-family: Menlo, Cascadia Code, Consolas, Liberation Mono, monospace;
 }
+
+.bg-terminal {
+  background: var(--bs-tertiary-bg);
+}

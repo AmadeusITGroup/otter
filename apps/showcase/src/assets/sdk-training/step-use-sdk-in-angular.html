@@ -1,0 +1,45 @@
+<h1>Let's manage a set of apis</h1>
+<h2>Introduction:</h2>
+<p>
+  When dealing with an Angular project, you will need to ensure that your <code>ApiClient</code> will be shared accross
+  your application. Otter framework provides the <code>ApiManager</code> service to manage your api collections.
+</p>
+<h2>Prerequisite:</h2>
+<p>
+  - Install the <code>@o3r/apis-manager</code> in the project with <code>npm install @o3r/apis-manager</code>.
+</p>
+<h2>Objectives:</h2>
+<p>
+  Leverage the <code>ApiManager</code> service to access two different clients to retrieve the list of available
+  pets and submit an order for the first pet returned.
+  <!-- Add an example with different plugins but find a different use case with the store maybe ? -->
+</p>
+<h2>Exercise</h2>
+<p>
+  Integrate the <code>ApiManager</code> in your application module. You can inspire yourself with the following lines:
+  <pre>
+    <code>
+      const apiConfig: ApiClient = new ApiFetchClient(
+        {
+          basePath: 'https://petstore3.swagger.io/api/v3',
+          requestPlugins: [],
+          fetchPlugins: [],
+          logger
+        }
+      );
+      return new ApiManager(apiConfig, {
+        <!-- StoreApi: new ApiFetchClient({
+          basePath: 'https://petstore3.swagger.io/api/v3',
+          requestPlugins: [new RequestLogPlugin()],
+          fetchPlugins: [],
+          logger
+        }) -->
+      });
+
+      export const appConfig: ApplicationConfig = {
+        providers: [],
+        imports: [ApiManagerModule.forRoot()]
+      };
+    </code>
+  </pre>
+</p>

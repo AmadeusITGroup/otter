@@ -48,49 +48,70 @@ export class SdkTrainingComponent {
       htmlExample: signal('')
     },
     {
-      title: 'HowToUseSDK',
-      htmlContentUrl: 'sdk-training/step-use-sdk-1.html',
+      title: 'How to use the Otter SDK?',
+      htmlContentUrl: 'sdk-training/step-use-sdk-typescript.html',
       htmlContent: signal(''),
       htmlExampleUrl: '',
       htmlExample: signal('')
     },
     {
-      title: 'GenerationSetup',
-      htmlContentUrl: 'sdk-training/step-2-generation-setup.html',
+      title: 'Integrate your component in Angular',
+      htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
       htmlContent: signal(''),
-      htmlExampleUrl: 'sdk-training/step-2-generation-setup.example.html',
+      htmlExampleUrl: '',
+      htmlExample: signal('')
+    },
+    {
+      title: 'Generate your first SDK - Specifications',
+      htmlContentUrl: 'sdk-training/step-generate-sdk-specs.html',
+      htmlContent: signal(''),
+      htmlExampleUrl: 'sdk-training/step-generate-sdk-specs.example.html',
       htmlExample: signal(''),
       componentExample: SdkTrainingGenerationSetupPresComponent
     },
     {
-      title: 'GenerationSetupExample',
-      htmlContentUrl: 'sdk-training/step-3-generation-setup-exercise.html',
+      title: 'Generate your first SDK - Command',
+      htmlContentUrl: 'sdk-training/step-generate-sdk-command.html',
       htmlContent: signal(''),
-      htmlExampleUrl: 'sdk-training/step-3-generation-setup-exercise.example.html',
+      htmlExampleUrl: 'sdk-training/step-generate-sdk-command.example.html',
       htmlExample: signal(''),
       componentExample: SdkTrainingGenerationSetupExamplePresComponent
     },
     {
-      title: 'GenerationConfig',
-      htmlContentUrl: 'sdk-training/step-4-generation-config.html',
+      title: 'SDK with Dates',
+      htmlContentUrl: 'sdk-training/step-use-date.html',
       htmlContent: signal(''),
-      htmlExampleUrl: 'sdk-training/step-4-generation-config.example.html',
+      htmlExampleUrl: 'sdk-training/step-use-date.example.html',
       htmlExample: signal('')
     },
     {
-      title: 'GenerationOptions',
-      htmlContentUrl: 'sdk-training/step-5-generation-options.html',
+      title: 'SDK with Model Extension',
+      htmlContentUrl: 'sdk-training/step-use-model-extension.html',
       htmlContent: signal(''),
-      htmlExampleUrl: 'sdk-training/step-5-generation-options.example.html',
-      htmlExample: signal('')
-    },
-    {
-      title: 'GenerationStructure',
-      htmlContentUrl: 'sdk-training/step-6-generation-structure.html',
-      htmlContent: signal(''),
-      htmlExampleUrl: 'sdk-training/step-6-generation-structure.example.html',
+      htmlExampleUrl: '',
       htmlExample: signal('')
     }
+    // {
+    //   title: 'GenerationConfig',
+    //   htmlContentUrl: 'sdk-training/step-4-generation-config.html',
+    //   htmlContent: signal(''),
+    //   htmlExampleUrl: 'sdk-training/step-4-generation-config.example.html',
+    //   htmlExample: signal('')
+    // },
+    // {
+    //   title: 'GenerationOptions',
+    //   htmlContentUrl: 'sdk-training/step-5-generation-options.html',
+    //   htmlContent: signal(''),
+    //   htmlExampleUrl: 'sdk-training/step-5-generation-options.example.html',
+    //   htmlExample: signal('')
+    // },
+    // {
+    //   title: 'GenerationStructure',
+    //   htmlContentUrl: 'sdk-training/step-6-generation-structure.html',
+    //   htmlContent: signal(''),
+    //   htmlExampleUrl: 'sdk-training/step-6-generation-structure.example.html',
+    //   htmlExample: signal('')
+    // }
   ];
   public nextStep: boolean = true;
   public previousStep: boolean = false;

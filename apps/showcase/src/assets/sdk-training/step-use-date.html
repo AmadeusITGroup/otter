@@ -1,0 +1,38 @@
+<h1>SDK with Dates</h1>
+<!-- <h2>Dates</h2> -->
+<p>
+  If your specification file includes dates, there are multiple options for the generation of your SDK.
+</p>
+<p>
+  For this training, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.
+  A user would like to book a return trip from Paris to London. These cities are in different timezones, which needs to be taken into account
+  when the user books their flights. The outbound and return flights must be relative to the timezones of the airports.
+</p>
+<p>
+  To do so, the dates of the flights must be of type <b><code>utils.DateTime</code></b>.
+</p>
+
+<h2>Exercise</h2>
+<p>
+  Let's create a specification file for our flight booking site. This SDK should contain a definition with the properties to book a flight:
+</p>
+<ul>
+  <li>Origin location code</li>
+  <li>Destination location code</li>
+  <li>Departure date-time</li>
+</ul>
+<p>
+  As mentioned above, the type of the departure date-time should be <b><code>utils.DateTime</code></b> after generation, which can be defined by setting the
+  type of the property to <b><code>string</code></b> and adding the <b><code>x-local-timezone</code></b> vendor. Once your specification file is created, you
+  can generate your SDK.
+</p>
+<p>
+  As you may notice, your date-time object isgenerated as a <b><code>string</code></b> instead of <b><code>utils.DateTime</code></b>. This is normal since the
+  defaut configuration of the SDK generator has an option <b><code>stringifyDate</code></b> that is set to <b><code>true</code></b>. To ensure that the date-time
+  object is generated correctly, this option needs to be set to false either through the command line or in <b><code>openapitools.json</code></b>. For example:
+</p>
+<pre class="w-100 bg-body-tertiary px-5 pre-whitespace">
+  <code>
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./path/to/openapi.yaml --global-property stringifyDate=false
+  </code>
+</pre>
