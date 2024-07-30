@@ -68,7 +68,9 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
             from: '@angular/core',
             importNames: [
               'AfterViewInit',
-              'OnDestroy'
+              'ElementRef',
+              'OnDestroy',
+              'viewChild'
             ]
           },
           {
@@ -126,24 +128,25 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
 
                   /* eslint-disable indent */
                   const propertiesToAdd = generateClassElementsFromString(`
-                    @ViewChild('frame') private frame: ElementRef<HTMLIFrameElement>;
-                    private bridge: IframeBridge;
+                    private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
+                    private bridge?: IframeBridge;
                     ${!hasSubscriptions ? 'private subscriptions: Subscription[] = [];' : ''}
                   `);
                   /* eslint-disable indent */
 
                   const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
-                  if (this.frame.nativeElement.contentDocument) {
-                    this.frame.nativeElement.contentDocument.write(
+                  const nativeElem = this.frame().nativeElement;
+                  if (nativeElem.contentDocument) {
+                    nativeElem.contentDocument.write(
                       generateIFrameContent(
                         '', // third-party-script-url
                         '' // third-party-html-headers-to-add
                       )
                     );
-                    this.frame.nativeElement.contentDocument.close();
+                    nativeElem.contentDocument.close();
                   }
-                  if (this.frame.nativeElement.contentWindow) {
-                    this.bridge = new IframeBridge(window, this.frame.nativeElement);
+                  if (nativeElem.contentWindow) {
+                    this.bridge = new IframeBridge(window, nativeElem);
                     this.subscriptions.push(
                       this.bridge.messages$.subscribe((message) => {
                         switch (message.action) {
