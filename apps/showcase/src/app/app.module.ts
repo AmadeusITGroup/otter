@@ -144,6 +144,6 @@ export class AppModule {
 
   ngDoBootstrap() {
     const el = createCustomElement(AppComponent, { injector: this.injector });
-    customElements.define('my-showcase-wc', el);
+    customElements.define('o3r-showcase-wc', el);
   }
 }

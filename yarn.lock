@@ -8475,6 +8475,7 @@ __metadata:
     "@angular/compiler": "npm:~18.0.0"
     "@angular/compiler-cli": "npm:~18.0.0"
     "@angular/core": "npm:~18.0.0"
+    "@angular/elements": "npm:~18.0.0"
     "@angular/forms": "npm:~18.0.0"
     "@angular/localize": "npm:~18.0.0"
     "@angular/platform-browser": "npm:~18.0.0"

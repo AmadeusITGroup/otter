@@ -59,7 +59,7 @@
     "typescript": "~5.4.2"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
   "schematics": "./collection.json"
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, inject, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
@@ -14,6 +14,9 @@ import { ViewEncapsulation } from '@angular/core';
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class AppComponent implements OnDestroy {
+
+  @Input() theme!: string;
+
   public title = 'showcase';
 
   public linksGroups: SideNavLinksGroup[] = [

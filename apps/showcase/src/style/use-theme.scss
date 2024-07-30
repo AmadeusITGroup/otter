@@ -4,3 +4,7 @@
   $font-path: '@design-factory/design-factory/assets/fonts',
   $utilities-bg: ()
 );
+
+header {
+  font-family: design-factory.$headings-font-family;
+}

@@ -1,55 +1,57 @@
-<header class="navbar navbar-expand-lg flex-shrink-0">
-  <button class="navbar-toggler d-inline-block d-xl-none icon-bars" (click)="open(content)" title="Open side navigation">
-  </button>
-  <div class="header-title p-xl-3">
-    <div class="header-icon">
-      <img src="assets/otter-sticker.svg" width="48" height="48" alt="Otter logo" />
+<div [attr.data-bs-theme]="theme">
+  <header class="navbar navbar-expand-lg flex-shrink-0">
+    <button class="navbar-toggler d-inline-block d-xl-none icon-bars" (click)="open(content)" title="Open side navigation">
+    </button>
+    <div class="header-title p-xl-3">
+      <div class="header-icon">
+        <img src="assets/otter-sticker.svg" width="48" height="48" alt="Otter logo" />
+      </div>
+      <div class="d-block d-sm-none">Otter</div>
+      <div class="d-none d-sm-block">Otter Showcase</div>
     </div>
-    <div class="d-block d-sm-none">Otter</div>
-    <div class="d-none d-sm-block">Otter Showcase</div>
+  </header>
+  <div class="container">
+    <div class="row">
+      <div class="left-nav col-2 d-none d-xl-block">
+        <o3r-sidenav-pres
+          [linksGroups]="linksGroups"
+          [activeUrl]="activeUrl$ | async"
+        ></o3r-sidenav-pres>
+      </div>
+      <div class="page-content col-12 col-xl-10">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
   </div>
-</header>
-<div class="container">
-  <div class="row">
-    <div class="left-nav col-2 d-none d-xl-block">
+  <footer class="bg-body-tertiary">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-md-8">
+        </div>
+        <div class="col-12 col-md-4">
+          <h2 class="h5">Links</h2>
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://github.com/AmadeusITGroup/otter">Github</a>
+            </li>
+            <li>
+              <a href="https://docs.otter.digitalforairlines.com">Documentation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <ng-template #content let-offcanvas>
+    <div class="offcanvas-header">
+      <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
+    </div>
+    <div class="offcanvas-body">
       <o3r-sidenav-pres
         [linksGroups]="linksGroups"
         [activeUrl]="activeUrl$ | async"
       ></o3r-sidenav-pres>
     </div>
-    <div class="page-content col-12 col-xl-10">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+  </ng-template>
+  <o3r-scroll-back-top-pres class="d-xl-none"></o3r-scroll-back-top-pres>
 </div>
-<footer class="bg-body-tertiary">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-8">
-      </div>
-      <div class="col-12 col-md-4">
-        <h2 class="h5">Links</h2>
-        <ul class="list-unstyled">
-          <li>
-            <a href="https://github.com/AmadeusITGroup/otter">Github</a>
-          </li>
-          <li>
-            <a href="https://docs.otter.digitalforairlines.com">Documentation</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</footer>
-<ng-template #content let-offcanvas>
-  <div class="offcanvas-header">
-    <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss()"></button>
-  </div>
-  <div class="offcanvas-body">
-    <o3r-sidenav-pres
-      [linksGroups]="linksGroups"
-      [activeUrl]="activeUrl$ | async"
-    ></o3r-sidenav-pres>
-  </div>
-</ng-template>
-<o3r-scroll-back-top-pres class="d-xl-none"></o3r-scroll-back-top-pres>
