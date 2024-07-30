@@ -5,6 +5,10 @@
       "$type": "color",
       "$value": "#000"
     },
+    "var-string": {
+      "$type": "string",
+      "$value": "test value"
+    },
     "var1-private": {
       "$type": "color",
       "$value": "#000",

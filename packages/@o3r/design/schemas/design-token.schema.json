@@ -110,6 +110,7 @@
         {
           "oneOf": [
             {"$ref": "#/definitions/tokenTypeImplicit"},
+            {"$ref": "#/definitions/tokenTypeString"},
             {"$ref": "#/definitions/tokenTypeColor"},
             {"$ref": "#/definitions/tokenTypeDimension"},
             {"$ref": "#/definitions/tokenTypeFontFamily"},
@@ -140,6 +141,22 @@
       ]
     },
 
+    "tokenTypeString": {
+      "type": "object",
+      "required": [
+        "$type",
+        "$value"
+      ],
+      "properties": {
+        "$value": {
+          "type": "string"
+        },
+        "$type": {
+          "const": "string",
+          "type": "string"
+        }
+      }
+    },
     "tokenTypeColor": {
       "type": "object",
       "required": [

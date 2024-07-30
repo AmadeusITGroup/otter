@@ -60,6 +60,12 @@ export interface DesignTokenTypeColor extends DesignTokenBase<string> {
   $type: 'color';
 }
 
+/** Design Token String */
+export interface DesignTokenTypeString extends DesignTokenBase<string> {
+  /** @inheritdoc */
+  $type: 'string';
+}
+
 /** Design Token Dimension */
 export interface DesignTokenTypeDimension extends DesignTokenBase<string> {
   /** @inheritdoc */
@@ -206,6 +212,7 @@ export type DesignTokenCommonFields<E extends DesignTokenExtensions = DesignToke
 
 /** Available Design Token types */
 export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & (
+  DesignTokenTypeString |
   DesignTokenTypeColor |
   DesignTokenTypeDimension |
   DesignTokenTypeFontFamily |
