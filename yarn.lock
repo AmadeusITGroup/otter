@@ -294,7 +294,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     isomorphic-fetch: "npm:~3.0.0"
@@ -378,7 +378,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -435,7 +435,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -520,7 +520,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -571,7 +571,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -629,7 +629,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -690,7 +690,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -731,7 +731,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -6846,7 +6846,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -6884,7 +6884,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -6925,7 +6925,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -6967,7 +6967,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7026,7 +7026,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7109,7 +7109,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7186,7 +7186,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7253,7 +7253,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     fs-extra: "npm:^11.0.0"
@@ -7298,7 +7298,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7329,7 +7329,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^14.0.0"
@@ -7415,7 +7415,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -7492,7 +7492,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -7636,7 +7636,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7732,7 +7732,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -7826,7 +7826,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -7892,7 +7892,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -7973,7 +7973,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     form-data: "npm:^4.0.0"
@@ -8054,7 +8054,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -8123,7 +8123,7 @@ __metadata:
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jasmine: "npm:^4.1.3"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -8155,7 +8155,7 @@ __metadata:
     eslint-import-resolver-node: ^0.3.4
     eslint-plugin-jasmine: ^4.1.3
     eslint-plugin-jest: ^28.0.0
-    eslint-plugin-jsdoc: ~48.7.0
+    eslint-plugin-jsdoc: ~48.8.0
     eslint-plugin-prefer-arrow: ^1.2.2
     eslint-plugin-unicorn: ^54.0.0
     typescript: ~5.4.2
@@ -8212,7 +8212,7 @@ __metadata:
     cpy-cli: "npm:^5.0.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -8298,7 +8298,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -8405,7 +8405,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -8520,7 +8520,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -8610,7 +8610,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -8685,7 +8685,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -8812,7 +8812,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -8907,7 +8907,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     fast-deep-equal: "npm:^3.1.3"
@@ -9000,7 +9000,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -9090,7 +9090,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -9199,7 +9199,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -9319,7 +9319,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -9384,7 +9384,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     fast-deep-equal: "npm:^3.1.3"
@@ -9474,7 +9474,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -9547,7 +9547,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -9627,7 +9627,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -9734,7 +9734,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -9781,7 +9781,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -9868,7 +9868,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     isomorphic-fetch: "npm:~3.0.0"
@@ -9983,7 +9983,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -10067,7 +10067,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     globby: "npm:^11.1.0"
@@ -14824,7 +14824,7 @@ __metadata:
     audit-types: "npm:~0.6.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -15701,7 +15701,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -19213,9 +19213,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-jsdoc@npm:~48.7.0":
-  version: 48.7.0
-  resolution: "eslint-plugin-jsdoc@npm:48.7.0"
+"eslint-plugin-jsdoc@npm:~48.8.0":
+  version: 48.8.3
+  resolution: "eslint-plugin-jsdoc@npm:48.8.3"
   dependencies:
     "@es-joy/jsdoccomment": "npm:~0.46.0"
     are-docs-informative: "npm:^0.0.2"
@@ -19224,12 +19224,12 @@ __metadata:
     escape-string-regexp: "npm:^4.0.0"
     esquery: "npm:^1.6.0"
     parse-imports: "npm:^2.1.1"
-    semver: "npm:^7.6.2"
+    semver: "npm:^7.6.3"
     spdx-expression-parse: "npm:^4.0.0"
-    synckit: "npm:^0.9.0"
+    synckit: "npm:^0.9.1"
   peerDependencies:
     eslint: ^7.0.0 || ^8.0.0 || ^9.0.0
-  checksum: 10/7289c37e45429cf3661bd553bb6cdcb4a9877b8a1fc0e6f369fa049cf6690953333dcbc972f48f03991df53734afeb77c6025804392184df19e214fb4425c4dc
+  checksum: 10/17b344616a61fd0b2841c488c09189cf5689d30549eaab4c73b3abdf18ee28951616f9898149d0baa428264bc7a78d21ef4f508ad084e85b12e73c44808713ae
   languageName: node
   linkType: hard
 
@@ -20508,7 +20508,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
@@ -25260,7 +25260,7 @@ __metadata:
     "@vercel/ncc": "npm:~0.38.0"
     eslint: "npm:^8.57.0"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -26276,7 +26276,7 @@ __metadata:
     eslint: "npm:^8.57.0"
     eslint-import-resolver-node: "npm:^0.3.9"
     eslint-plugin-jest: "npm:~28.6.0"
-    eslint-plugin-jsdoc: "npm:~48.7.0"
+    eslint-plugin-jsdoc: "npm:~48.8.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
     jest: "npm:~29.7.0"
@@ -29343,7 +29343,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.6.2, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.1, semver@npm:^7.6.2":
+"semver@npm:7.6.2":
   version: 7.6.2
   resolution: "semver@npm:7.6.2"
   bin:
@@ -29358,6 +29358,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10/1ef3a85bd02a760c6ef76a45b8c1ce18226de40831e02a00bad78485390b98b6ccaa31046245fc63bba4a47a6a592b6c7eedc65cc47126e60489f9cc1ce3ed7e
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.1.2, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.2, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0, semver@npm:^7.6.1, semver@npm:^7.6.2, semver@npm:^7.6.3":
+  version: 7.6.3
+  resolution: "semver@npm:7.6.3"
+  bin:
+    semver: bin/semver.js
+  checksum: 10/36b1fbe1a2b6f873559cd57b238f1094a053dbfd997ceeb8757d79d1d2089c56d1321b9f1069ce263dc64cfa922fa1d2ad566b39426fe1ac6c723c1487589e10
   languageName: node
   linkType: hard
 
@@ -30589,13 +30598,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"synckit@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "synckit@npm:0.9.0"
+"synckit@npm:^0.9.1":
+  version: 0.9.1
+  resolution: "synckit@npm:0.9.1"
   dependencies:
     "@pkgr/core": "npm:^0.1.0"
     tslib: "npm:^2.6.2"
-  checksum: 10/e93f3f5ee43fa71d3bb2a345049642d9034f34fa9528706b5ef26e825335ca5446143c56c2b041810afe26aa6e343583ff08525f5530618a4707375270f87be1
+  checksum: 10/bff3903976baf8b699b5483228116d70223781a93b17c70e685c277ee960cdfd1a09cb5a741e6a9ec35e2428f14f4664baec41ccc99a598f267608b2a54f529b
   languageName: node
   linkType: hard
 
