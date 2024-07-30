@@ -32,7 +32,8 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
     expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
     expect(diff.added.length).toBe(12);
-    expect(diff.modified.length).toBe(7);
+    expect(diff.modified).toContain('apps/test-app/src/app/app.config.ts');
+    expect(diff.modified.length).toBe(8);
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
