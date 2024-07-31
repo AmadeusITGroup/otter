@@ -266,8 +266,23 @@
     "@swc/core": {
       "built": true
     },
+    "@vscode/codicons": {
+      "unplugged": true
+    },
     "esbuild": {
       "built": true
+    },
+    "monaco-editor": {
+      "unplugged": true
+    },
+    "ngx-monaco-editor-v2": {
+      "unplugged": true
+    },
+    "ngx-monaco-tree": {
+      "unplugged": true
+    },
+    "vite": {
+      "unplugged": true
     }
   },
   "engines": {

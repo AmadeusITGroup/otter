@@ -5,7 +5,7 @@ export class PetApiFixture implements Partial<Readonly<PetApi>> {
   /** @inheritDoc */
   public readonly apiName = 'PetApi';
 
-  /**
+    /**
    * Fixture associated to function addPet
    */
   public addPet: jasmine.Spy = jasmine.createSpy('addPet');

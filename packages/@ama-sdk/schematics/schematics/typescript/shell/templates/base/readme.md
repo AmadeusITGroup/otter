@@ -127,8 +127,13 @@ You will need to compute this information with the two timezones -- the airport'
 The Otter framework has introduced the `utils.Date` and `utils.DateTime` objects to replace the `Date` implementation and convert the date returned by the API as if it were in the
 timezone of the user.
 
-Dates can be generated as `utils.Date` or `string` depending on the value of the `stringifyDate` option. This ensures that the timezone will not impact the date. 
-In the case of `date-time` objects, the default type used is the native `string` and `Date` type depending on the `stringifyDate` option value.
+#### Date format
+Dates can be generated as utils.Date or string depending on the value of the stringifyDate option.
+This ensures that the timezone will not impact the date as the native Date object does not handle the 'dd/mm' format well.
+
+#### Date-time format
+In the case of date-time objects, the default type used is the native string or the native Date type depending on the stringifyDate option value.
+If you want to generate a date-time using utils.DateTime presented in the [previous section](#the-timezone-issue), you can do it at property level thanks to the x-local-timezone vendor.
 
 If you want to generate a date-time using `utils.DateTime`, you can do it at property level thanks to the `x-local-timezone` vendor.
 

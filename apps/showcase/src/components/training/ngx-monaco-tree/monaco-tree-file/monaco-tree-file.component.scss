@@ -1,0 +1,56 @@
+.monaco-tree-row {
+    font-size: 14px;
+    line-height: 24px;
+    display: flex;
+    gap: 6px;
+    cursor: pointer;
+    padding-left: 32px;
+
+    .monaco-tree-icon {
+        width: 16px;
+        height: 22px;
+    }
+
+    .monaco-tree-arrow {
+        margin-left: -18px;
+        width: 12px;
+        height: 22px;
+        line-height: 22px;
+        position: relative;
+        top: 2px;
+        transform: rotate(-90deg);
+        transition: all 0.5s;
+    }
+
+    .monaco-tree-arrow.open {
+        transform: rotate(0deg);
+        left: -2px;
+        top: 0px;
+    }
+}
+
+.monaco-tree-row.vs-dark:hover {
+    background: #2a2d2e;
+}
+
+.monaco-tree-row.vs-dark.active {
+    background: rgb(63, 63, 70);
+}
+
+.monaco-tree-row.vs-light:hover {
+    background: #e8e8e8;
+}
+
+.monaco-tree-row.vs-light.active {
+    background: #e4e6f1;
+}
+
+.monaco-tree-row.hide {
+    display: none;
+}
+
+.monaco-tree-row.root-2 {
+    .monaco-tree-icon {
+        margin-left: 10px;
+    }
+}

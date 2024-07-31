@@ -1,71 +1,43 @@
 import { User } from '../../models/base/user/index';
-import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
+import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata, } from '@ama-sdk/core';
 
-export interface CreateUserRequestData {
+/** Parameters object to UserApi's createUser function */
+export interface UserApiCreateUserRequestData {
   /** Created user object */
   'User'?: User;
 }
-export interface CreateUsersWithListInputRequestData {
+/** Parameters object to UserApi's createUsersWithListInput function */
+export interface UserApiCreateUsersWithListInputRequestData {
   /** List of Users */
   'User'?: User[];
 }
-export interface DeleteUserRequestData {
+/** Parameters object to UserApi's deleteUser function */
+export interface UserApiDeleteUserRequestData {
   /** The name that needs to be deleted */
   'username': string;
 }
-export interface GetUserByNameRequestData {
+/** Parameters object to UserApi's getUserByName function */
+export interface UserApiGetUserByNameRequestData {
   /** The name that needs to be fetched. Use user1 for testing.  */
   'username': string;
 }
-export interface LoginUserRequestData {
+/** Parameters object to UserApi's loginUser function */
+export interface UserApiLoginUserRequestData {
   /** The user name for login */
   'username'?: string;
   /** The password for login in clear text */
   'password'?: string;
 }
-export interface LogoutUserRequestData {
+/** Parameters object to UserApi's logoutUser function */
+export interface UserApiLogoutUserRequestData {
 }
-export interface UpdateUserRequestData {
+/** Parameters object to UserApi's updateUser function */
+export interface UserApiUpdateUserRequestData {
   /** name that needs to be updated */
   'username': string;
   /** Update an existent user in the store */
   'User'?: User;
 }
-/**
- * @Deprecated, please use CreateUserRequestData
- */
-export interface CreateUser extends CreateUserRequestData {}
-
-/**
- * @Deprecated, please use CreateUsersWithListInputRequestData
- */
-export interface CreateUsersWithListInput extends CreateUsersWithListInputRequestData {}
-
-/**
- * @Deprecated, please use DeleteUserRequestData
- */
-export interface DeleteUser extends DeleteUserRequestData {}
-
-/**
- * @Deprecated, please use GetUserByNameRequestData
- */
-export interface GetUserByName extends GetUserByNameRequestData {}
-
-/**
- * @Deprecated, please use LoginUserRequestData
- */
-export interface LoginUser extends LoginUserRequestData {}
-
-/**
- * @Deprecated, please use LogoutUserRequestData
- */
-export interface LogoutUser extends LogoutUserRequestData {}
-
-/**
- * @Deprecated, please use UpdateUserRequestData
- */
-export interface UpdateUser extends UpdateUserRequestData {}
-
 export class UserApi implements Api {
 
   /** API name */
@@ -95,8 +67,8 @@ export class UserApi implements Api {
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async createUser(data: CreateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json' | 'application/xml'>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<CreateUserRequestData>(data, [] as never[]);
+  public async createUser(data: UserApiCreateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/json' | 'application/xml'>): Promise<never> {
+    const queryParams = this.client.extractQueryParams<UserApiCreateUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -105,9 +77,9 @@ export class UserApi implements Api {
 
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = data.User ? JSON.stringify(data.User) : '{}';
+      body = data['User'] ? JSON.stringify(data['User']) : '{}';
     } else {
-      body = data.User as any;
+      body = data['User'] as any;
     }
     const basePath = `${this.client.options.basePath}/user`;
     const tokenizedUrl = `${this.client.options.basePath}/user`;
@@ -137,8 +109,8 @@ export class UserApi implements Api {
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async createUsersWithListInput(data: CreateUsersWithListInputRequestData, metadata?: RequestMetadata<'application/json', 'application/xml' | 'application/json'>): Promise<User> {
-    const queryParams = this.client.extractQueryParams<CreateUsersWithListInputRequestData>(data, [] as never[]);
+  public async createUsersWithListInput(data: UserApiCreateUsersWithListInputRequestData, metadata?: RequestMetadata<'application/json', 'application/xml' | 'application/json'>): Promise<User> {
+    const queryParams = this.client.extractQueryParams<UserApiCreateUsersWithListInputRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -147,9 +119,9 @@ export class UserApi implements Api {
 
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = data.User ? JSON.stringify(data.User) : '[]';
+      body = data['User'] ? JSON.stringify(data['User']) : '[]';
     } else {
-      body = data.User as any;
+      body = data['User'] as any;
     }
     const basePath = `${this.client.options.basePath}/user/createWithList`;
     const tokenizedUrl = `${this.client.options.basePath}/user/createWithList`;
@@ -179,17 +151,17 @@ export class UserApi implements Api {
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async deleteUser(data: DeleteUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<DeleteUserRequestData>(data, [] as never[]);
+  public async deleteUser(data: UserApiDeleteUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
+    const queryParams = this.client.extractQueryParams<UserApiDeleteUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
-    const body: RequestBody = '';
-    const basePath = `${this.client.options.basePath}/user/${data.username}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens.username || data.username}`;
+    let body: RequestBody = '';
+    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
+    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -212,21 +184,21 @@ export class UserApi implements Api {
 
   /**
    * Get user by user name
-   *
+   * 
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async getUserByName(data: GetUserByNameRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<User> {
-    const queryParams = this.client.extractQueryParams<GetUserByNameRequestData>(data, [] as never[]);
+  public async getUserByName(data: UserApiGetUserByNameRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<User> {
+    const queryParams = this.client.extractQueryParams<UserApiGetUserByNameRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
-    const body: RequestBody = '';
-    const basePath = `${this.client.options.basePath}/user/${data.username}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens.username || data.username}`;
+    let body: RequestBody = '';
+    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
+    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {
@@ -249,19 +221,19 @@ export class UserApi implements Api {
 
   /**
    * Logs user into the system
-   *
+   * 
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async loginUser(data: LoginUserRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
-    const queryParams = this.client.extractQueryParams<LoginUserRequestData>(data, ['username', 'password']);
+  public async loginUser(data: UserApiLoginUserRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
+    const queryParams = this.client.extractQueryParams<UserApiLoginUserRequestData>(data, ['username', 'password']);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
-    const body: RequestBody = '';
+    let body: RequestBody = '';
     const basePath = `${this.client.options.basePath}/user/login`;
     const tokenizedUrl = `${this.client.options.basePath}/user/login`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -286,19 +258,19 @@ export class UserApi implements Api {
 
   /**
    * Logs out current logged in user session
-   *
+   * 
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async logoutUser(data: LogoutUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<LogoutUserRequestData>(data, [] as never[]);
+  public async logoutUser(data: UserApiLogoutUserRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
+    const queryParams = this.client.extractQueryParams<UserApiLogoutUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
       ...(metadataHeaderAccept ? {'Accept': metadataHeaderAccept} : {})
     };
 
-    const body: RequestBody = '';
+    let body: RequestBody = '';
     const basePath = `${this.client.options.basePath}/user/logout`;
     const tokenizedUrl = `${this.client.options.basePath}/user/logout`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
@@ -327,8 +299,8 @@ export class UserApi implements Api {
    * @param data Data to provide to the API call
    * @param metadata Metadata to pass to the API call
    */
-  public async updateUser(data: UpdateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', string>): Promise<never> {
-    const queryParams = this.client.extractQueryParams<UpdateUserRequestData>(data, [] as never[]);
+  public async updateUser(data: UserApiUpdateUserRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', string>): Promise<never> {
+    const queryParams = this.client.extractQueryParams<UserApiUpdateUserRequestData>(data, [] as never[]);
     const metadataHeaderAccept = metadata?.headerAccept || 'application/json';
     const headers: { [key: string]: string | undefined } = {
       'Content-Type': metadata?.headerContentType || 'application/json',
@@ -337,12 +309,12 @@ export class UserApi implements Api {
 
     let body: RequestBody = '';
     if (headers['Content-Type'] && isJsonMimeType(headers['Content-Type'])) {
-      body = data.User ? JSON.stringify(data.User) : '{}';
+      body = data['User'] ? JSON.stringify(data['User']) : '{}';
     } else {
-      body = data.User as any;
+      body = data['User'] as any;
     }
-    const basePath = `${this.client.options.basePath}/user/${data.username}`;
-    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens.username || data.username}`;
+    const basePath = `${this.client.options.basePath}/user/${data['username']}`;
+    const tokenizedUrl = `${this.client.options.basePath}/user/${this.piiParamTokens['username'] || data['username']}`;
     const tokenizedOptions = this.client.tokenizeRequestOptions(tokenizedUrl, queryParams, this.piiParamTokens, data);
 
     const requestOptions = {

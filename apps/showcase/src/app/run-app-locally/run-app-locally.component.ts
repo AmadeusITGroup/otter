@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { O3rComponent } from '@o3r/core';
-import { CopyTextPresComponent } from '../../components/index';
+import { CopyTextPresComponent } from '../../components/utilities/index';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({

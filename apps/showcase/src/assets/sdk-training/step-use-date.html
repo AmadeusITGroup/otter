@@ -20,6 +20,7 @@
   <li>Origin location code</li>
   <li>Destination location code</li>
   <li>Departure date-time</li>
+  <li>Payment expiration date</li>
 </ul>
 <p>
   As mentioned above, the type of the departure date-time should be <b><code>utils.DateTime</code></b> after generation, which can be defined by setting the
@@ -27,7 +28,7 @@
   can generate your SDK.
 </p>
 <p>
-  As you may notice, your date-time object isgenerated as a <b><code>string</code></b> instead of <b><code>utils.DateTime</code></b>. This is normal since the
+  As you may notice, your date-time object is generated as a <b><code>string</code></b> instead of <b><code>utils.DateTime</code></b>. This is normal since the
   defaut configuration of the SDK generator has an option <b><code>stringifyDate</code></b> that is set to <b><code>true</code></b>. To ensure that the date-time
   object is generated correctly, this option needs to be set to false either through the command line or in <b><code>openapitools.json</code></b>. For example:
 </p>

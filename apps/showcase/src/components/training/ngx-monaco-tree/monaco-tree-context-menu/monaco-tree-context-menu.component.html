@@ -1,0 +1,9 @@
+<div *ngIf="left && top" [class]="'monaco-tree-context-menu ' + theme" [style]="'top:' + top + 'px; left: ' + left + 'px'">
+    <ul>
+        <li *ngFor="let element of elements"
+			[class]="element.type === 'element' ? 'monaco-tree-element' : 'monaco-tree-separator'"
+			(click)="element.type ==='element' ? element.action() : null">
+			<a *ngIf="element.type === 'element'">{{element.name}}</a>
+		</li>
+    </ul>
+</div>

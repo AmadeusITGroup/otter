@@ -53,7 +53,7 @@
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
         "browser": "apps/showcase/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["zone.js", "@angular/localize/init"],
         "tsConfig": "apps/showcase/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -70,6 +70,16 @@
             "glob": "**/*.metadata.json",
             "input": "apps/showcase",
             "output": "/metadata"
+          },
+          {
+            "glob": "**/*",
+            "input": ".yarn/unplugged/monaco-editor-npm-0.45.0-6146cd5541/node_modules/monaco-editor",
+            "output": "/assets/monaco/"
+          },
+          {
+            "glob": "**/*",
+            "input": ".yarn/unplugged/ngx-monaco-tree-virtual-d50141989d/node_modules/ngx-monaco-tree/assets",
+            "output": "/assets/"
           }
         ],
         "styles": [
@@ -106,8 +116,7 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production",
@@ -137,6 +146,12 @@
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "headers": {
+          "Cross-Origin-Opener-Policy": "same-origin",
+          "Cross-Origin-Embedder-Policy": "require-corp"
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "showcase:compile:production"

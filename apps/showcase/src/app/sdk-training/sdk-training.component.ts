@@ -55,6 +55,13 @@ export class SdkTrainingComponent {
       htmlExample: signal('')
     },
     {
+      title: 'Customize your fetch client with plugins',
+      htmlContentUrl: 'sdk-training/step-use-sdk-plugins.html',
+      htmlContent: signal(''),
+      htmlExampleUrl: '',
+      htmlExample: signal('')
+    },
+    {
       title: 'Integrate your component in Angular',
       htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
       htmlContent: signal(''),
@@ -91,27 +98,6 @@ export class SdkTrainingComponent {
       htmlExampleUrl: '',
       htmlExample: signal('')
     }
-    // {
-    //   title: 'GenerationConfig',
-    //   htmlContentUrl: 'sdk-training/step-4-generation-config.html',
-    //   htmlContent: signal(''),
-    //   htmlExampleUrl: 'sdk-training/step-4-generation-config.example.html',
-    //   htmlExample: signal('')
-    // },
-    // {
-    //   title: 'GenerationOptions',
-    //   htmlContentUrl: 'sdk-training/step-5-generation-options.html',
-    //   htmlContent: signal(''),
-    //   htmlExampleUrl: 'sdk-training/step-5-generation-options.example.html',
-    //   htmlExample: signal('')
-    // },
-    // {
-    //   title: 'GenerationStructure',
-    //   htmlContentUrl: 'sdk-training/step-6-generation-structure.html',
-    //   htmlContent: signal(''),
-    //   htmlExampleUrl: 'sdk-training/step-6-generation-structure.example.html',
-    //   htmlExample: signal('')
-    // }
   ];
   public nextStep: boolean = true;
   public previousStep: boolean = false;

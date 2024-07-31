@@ -14,6 +14,7 @@ import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { ApplicationDevtoolsModule, OTTER_APPLICATION_DEVTOOLS_OPTIONS, prefersReducedMotion } from '@o3r/application';
 import { ConfigurationDevtoolsModule, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from '@o3r/configuration';
 import { C11nModule, ComponentsDevtoolsModule, OTTER_COMPONENTS_DEVTOOLS_OPTIONS, registerCustomComponent } from '@o3r/components';
+// import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
@@ -27,8 +28,7 @@ import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/
 import { OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { OTTER_STYLING_DEVTOOLS_OPTIONS, StylingDevtoolsModule } from '@o3r/styling';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
-import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
+import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -109,7 +109,8 @@ export function registerCustomComponents(): Map<string, any> {
     C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
-    ConfigurationDevtoolsModule
+    ConfigurationDevtoolsModule,
+    // MonacoEditorModule.forRoot()
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

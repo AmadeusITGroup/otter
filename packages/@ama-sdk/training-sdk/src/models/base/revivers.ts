@@ -1,1 +1,1 @@
-export { reviveOrder } from './order';
+export { reviveFlight } from './flight';

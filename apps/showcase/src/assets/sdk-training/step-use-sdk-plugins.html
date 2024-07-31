@@ -1,0 +1,41 @@
+<h1>Customize your fetch client with plugins</h1>
+<h2>Introduction:</h2>
+<p>
+  Thanks to the <code>@ama-sdk/core</code> plugins, you can intercept the API requests and responses to transform their data or
+  perform actions such as the authentication, logging etc.
+
+  These plugins will be applied before sending all the API requests and after the reception of the responses.
+</p>
+<h2>Pre-requisite</h2>
+- Install <code>@ama-sdk/core</code>
+<h2>Objectives:</h2>
+<p>
+  In this tutorial, you will configure the <code>PetApi</code> to send an id that will be shared all over the session and log for all your reponse
+  with a timestamp.
+</p>
+<h2>Exercise</h2>
+<p>Create your own plugin that implements the <code>ReplyPlugin</code> interface to log the response from the server and a timestamp</p>
+<p>You can inspire yourselves with the following code:</p>
+<pre><code>
+class LogTimestampResponsePlugin implements ReplyPlugin {
+  public load<K>(context: ReplyPluginContext<K>): PluginRunner<K | undefined, V> {
+    return {
+      transform: (data?: V) => {
+        console.log(data, new Date());
+        // You could modify the response here to add new fields etc.
+        return ret;
+      }
+    };
+  }
+
+}
+</code></pre>
+<p>
+  Add the <code>SessionIdRequest</code> to the list of the API <code>requestPlugins</code> of your ApiFetchClient and
+  your custom logging plugin to the <code>replyPlugins</code> list.
+</p>
+<p>
+  Note that the Otter framework provides many other plugins to help you manage your authentication, your exceptions, revive your model etc.
+  You can have a look into the <a href="https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/src/plugins">project plugins</a>
+  for more information.
+</p>

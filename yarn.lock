@@ -8628,8 +8628,18 @@ __metadata:
   dependenciesMeta:
     "@swc/core":
       built: true
+    "@vscode/codicons":
+      unplugged: true
     esbuild:
       built: true
+    monaco-editor:
+      unplugged: true
+    ngx-monaco-editor-v2:
+      unplugged: true
+    ngx-monaco-tree:
+      unplugged: true
+    vite:
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -9393,10 +9403,10 @@ __metadata:
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:9.6.8"
-    monaco-editor: "npm:^0.45.0"
+    monaco-editor: "npm:~0.50.0"
     ngx-highlightjs: "npm:^12.0.0"
-    ngx-monaco-editor-v2: "npm:^17.0.1"
-    ngx-monaco-tree: "npm:^15.1.1"
+    ngx-monaco-editor-v2: "npm:^18.0.0"
+    ngx-monaco-tree: "npm:^17.1.1"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:2.2.2"
     pngjs: "npm:^7.0.0"
@@ -9407,7 +9417,6 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.4.2"
     webpack: "npm:~5.93.0"
-    xterm: "npm:^5.3.0"
     zone.js: "npm:~0.14.2"
   languageName: unknown
   linkType: soft
@@ -25155,10 +25164,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:^0.45.0":
-  version: 0.45.0
-  resolution: "monaco-editor@npm:0.45.0"
-  checksum: 10/e617aa6e763edc2a432cf1754b7b85a41cf32c34e6147890513d9398fc361ad10e78b08fe715c0c4cc9478ee98a65e55e263d0e77eac197285b37fc733013fa0
+"monaco-editor@npm:~0.50.0":
+  version: 0.50.0
+  resolution: "monaco-editor@npm:0.50.0"
+  checksum: 10/594f2a3812147c1ef41c4dba444c649c32af95c3eb09529049bb7a2cb38e1747facbae0a459a07140e77cf9d73df41f034399804f9123f9cfff45394321a3983
   languageName: node
   linkType: hard
 
@@ -25426,29 +25435,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-editor-v2@npm:^17.0.1":
-  version: 17.0.1
-  resolution: "ngx-monaco-editor-v2@npm:17.0.1"
+"ngx-monaco-editor-v2@npm:^18.0.0":
+  version: 18.1.0
+  resolution: "ngx-monaco-editor-v2@npm:18.1.0"
   dependencies:
     tslib: "npm:^2.1.0"
   peerDependencies:
-    "@angular/common": ^17.0.3
-    "@angular/core": ^17.0.3
-    monaco-editor: ^0.44.0
-  checksum: 10/6571c384e585af7e0a5e72257308c0769a4164f6f2b564574d4e75e5a08db1ba50ae1786f99056571d9fb5be289a026d89892e622bdd5384858c5d86b633cb35
+    "@angular/common": ^18.1.0
+    "@angular/core": ^18.1.0
+    monaco-editor: ^0.50.0
+  checksum: 10/b84ae926e3491934532ede9e94c7b98dd26575cd74ceb85a99c680815826bacad7543d73e47cd8c8a81368b826dcbc5d2f6b0ca36accd6b536b448edfcbf2131
   languageName: node
   linkType: hard
 
-"ngx-monaco-tree@npm:^15.1.1":
-  version: 15.2.0
-  resolution: "ngx-monaco-tree@npm:15.2.0"
+"ngx-monaco-tree@npm:^17.1.1":
+  version: 17.3.0
+  resolution: "ngx-monaco-tree@npm:17.3.0"
   dependencies:
     tslib: "npm:^2.3.0"
   peerDependencies:
-    "@angular/common": ^15.0.4
-    "@angular/core": ^15.0.4
+    "@angular/cdk": ^17.3.0
+    "@angular/common": ^17.3.0
+    "@angular/core": ^17.3.0
     "@vscode/codicons": ^0.0.32
-  checksum: 10/82bb4ac07f5c667983b52ac629c6cff1cc9649bb8980ec0460fcc118aa9cff2d6d313fa8941b36128d5fe4531792dd614ae9e64e548644d7643ff68e24f3e515
+  checksum: 10/e8d7edc395867eecfea7dc42f93a70ff8e5bc21a320e47d9dc7ce0c64413e65f405f6123414e23b71df587f6ac55cd1ded62ad3b5688dfc74c5f84f561cedae7
   languageName: node
   linkType: hard
 
@@ -33273,13 +33283,6 @@ __metadata:
   version: 4.0.2
   resolution: "xtend@npm:4.0.2"
   checksum: 10/ac5dfa738b21f6e7f0dd6e65e1b3155036d68104e67e5d5d1bde74892e327d7e5636a076f625599dc394330a731861e87343ff184b0047fef1360a7ec0a5a36a
-  languageName: node
-  linkType: hard
-
-"xterm@npm:^5.3.0":
-  version: 5.3.0
-  resolution: "xterm@npm:5.3.0"
-  checksum: 10/3690b6a6d744f1d2932279975bb8e6c786e70c675531045016ecfe0f9b7957e2fc6811b815335f3e0e84b40ffae654f6ee4afe55a5768534744497e62252dd50
   languageName: node
   linkType: hard
 

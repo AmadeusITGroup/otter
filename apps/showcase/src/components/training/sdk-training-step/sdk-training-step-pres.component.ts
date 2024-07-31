@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import {CodeEditorViewComponent} from "../code-editor-view";
 
 @Component({
   selector: 'o3r-sdk-training-step-pres',
   standalone: true,
-  imports: [],
+  imports: [CodeEditorViewComponent],
   templateUrl: './sdk-training-step-pres.component.html',
   styleUrl: './sdk-training-step-pres.component.scss'
 })

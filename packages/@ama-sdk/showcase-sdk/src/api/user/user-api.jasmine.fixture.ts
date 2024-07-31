@@ -5,7 +5,7 @@ export class UserApiFixture implements Partial<Readonly<UserApi>> {
   /** @inheritDoc */
   public readonly apiName = 'UserApi';
 
-  /**
+    /**
    * Fixture associated to function createUser
    */
   public createUser: jasmine.Spy = jasmine.createSpy('createUser');

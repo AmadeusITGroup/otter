@@ -40,7 +40,7 @@
     "build:esm2020": "tsc -b tsconfigs/esm2020",
     "set:version": "npm version",
     "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
-    "generate": "schematics @ama-sdk/schematics:typescript-core",
+    "generate": "schematics ..atics:typescript-core --no-dry-run",
     "spec:regen": "yarn run generate --generator-key ama-sdk-training-sdk && amasdk-clear-index",
     "spec:upgrade": "yarn run spec:regen",
     "files:pack": "amasdk-files-pack",
