@@ -14,7 +14,6 @@ import {
 } from '@o3r/test-helpers';
 import * as path from 'node:path';
 
-// TODO: enhance tests after fixing https://github.com/AmadeusITGroup/otter/issues/1771
 describe('new otter application with Design', () => {
   test('should add design to existing application', () => {
     const { workspacePath, appName, isInWorkspace, untouchedProjectsPaths, o3rVersion } = o3rEnvironment.testEnvironment;
@@ -27,6 +26,8 @@ describe('new otter application with Design', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
+    expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/design-token.custom.json'));
+    expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/theme.scss'));
 
     untouchedProjectsPaths.forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
