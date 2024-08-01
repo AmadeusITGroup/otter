@@ -204,7 +204,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
             newLine: ts.NewLineKind.LineFeed
           });
 
-          tree.overwrite(options.path, printer.printFile(result.transformed[0]));
+          tree.overwrite(options.path, printer.printFile(result.transformed[0] as ts.SourceFile));
           return tree;
         }
       ]);
