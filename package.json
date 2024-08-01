@@ -280,9 +280,6 @@
     },
     "ngx-monaco-tree": {
       "unplugged": true
-    },
-    "vite": {
-      "unplugged": true
     }
   },
   "engines": {

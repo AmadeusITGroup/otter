@@ -31,6 +31,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {NGX_MONACO_EDITOR_CONFIG} from "ngx-monaco-editor-v2";
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -134,7 +135,8 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    {provide: NGX_MONACO_EDITOR_CONFIG, useValue: {}}
   ],
   bootstrap: [AppComponent]
 })

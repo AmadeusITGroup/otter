@@ -73,17 +73,18 @@
           },
           {
             "glob": "**/*",
-            "input": ".yarn/unplugged/monaco-editor-npm-0.45.0-6146cd5541/node_modules/monaco-editor",
+            "input": "node_modules/monaco-editor",
             "output": "/assets/monaco/"
           },
           {
             "glob": "**/*",
-            "input": ".yarn/unplugged/ngx-monaco-tree-virtual-d50141989d/node_modules/ngx-monaco-tree/assets",
+            "input": "node_modules/ngx-monaco-tree/assets",
             "output": "/assets/"
           }
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
+          "node_modules/@vscode/codicons/dist/codicon.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",

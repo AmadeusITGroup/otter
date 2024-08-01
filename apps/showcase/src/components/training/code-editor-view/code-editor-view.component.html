@@ -1,36 +1,31 @@
 <div class="container">
-  <div class="exercices">
-    Here what you have to do
-  </div>
-  <div class="editor">
-      <form [formGroup]="form">
-        <div>
-          <monaco-tree (clickFile)="onClickFile($event)" height="300px" width="250px" [tree]="tree"></monaco-tree>
-          <div>
-<!--            <ngx-monaco-editor [options]="editorOptions$ | async" formControlName="code"></ngx-monaco-editor>-->
-          </div>
+    <form [formGroup]="form" class="editor">
+      <div class="d-flex w-100">
+        <monaco-tree style="overflow: scroll" (clickFile)="onClickFile($event)" height="300px" width="250px" [tree]="tree$ | async"></monaco-tree>
+        <div style="height: 300px">
+          <ngx-monaco-editor style="height: 100%" [options]="editorOptions$ | async" formControlName="code"></ngx-monaco-editor>
         </div>
-      </form>
-    </div>
-    <div></div>
-    <ul class="tabs">
-      <li class="tab">
-        <input type="radio" name="tabs" checked="checked" id="tab1" />
-        <label for="tab1">Preview</label>
-        <div id="tab-content1" class="content preview">
-          Loading - we will handle the iframe later!
-<!--          <iframe #iframe allow="cross-origin-isolated" src="http://localhost:4200/loading"></iframe>-->
-        </div>
-      </li>
-      <li class="tab">
-        <input type="radio" name="tabs" id="tab2" />
-        <label for="tab2">Console</label>
+      </div>
+    </form>
+<!--  <div></div>-->
+  <ul class="tabs">
+    <li class="tab">
+      <input type="radio" name="tabs" checked="checked" id="tab1"/>
+      <label for="tab1">Preview</label>
+      <div id="tab-content1" class="content preview">
+<!--        Loading - we will handle the iframe later!-->
+            <iframe #iframe allow="cross-origin-isolated">Loading</iframe>
+      </div>
+    </li>
+    <li class="tab">
+      <input type="radio" name="tabs" id="tab2"/>
+      <label for="tab2">Console</label>
       <div id="tab-content2" class="content" #console></div>
     </li>
-<!--    <li class="tab">-->
-<!--      <input type="radio" name="tabs" id="tab3" />-->
-<!--      <label for="tab3">Terminal</label>-->
-<!--      <div id="tab-content3" class="content" #terminal></div>-->
-<!--    </li>-->
+    <li class="tab">
+      <input type="radio" name="tabs" id="tab3"/>
+      <label for="tab3">Terminal</label>
+      <div id="tab-content3" class="content" #terminal></div>
+    </li>
   </ul>
 </div>

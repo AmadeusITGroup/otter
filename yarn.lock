@@ -8638,8 +8638,6 @@ __metadata:
       unplugged: true
     ngx-monaco-tree:
       unplugged: true
-    vite:
-      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -9383,7 +9381,8 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@vscode/codicons": "npm:^0.0.35"
-    "@webcontainer/api": "npm:^1.1.8"
+    "@webcontainer/api": "npm:1.3.0-internal.2"
+    "@xterm/xterm": "npm:*"
     ag-grid-angular: "npm:~31.1.1"
     ag-grid-community: "npm:~31.1.1"
     bootstrap: "npm:5.3.3"
@@ -13516,10 +13515,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@webcontainer/api@npm:^1.1.8":
-  version: 1.2.0
-  resolution: "@webcontainer/api@npm:1.2.0"
-  checksum: 10/506800c9f50a56ac8730d30e77e7ea0cda5c78acf8e52bf6d2454da1b0cd433e624110ef8e24888dc1553fa7fe6e3e5c3a4372eb35b111a1b6447158ea9e89aa
+"@webcontainer/api@npm:1.3.0-internal.2":
+  version: 1.3.0-internal.2
+  resolution: "@webcontainer/api@npm:1.3.0-internal.2"
+  checksum: 10/b24d11a9a20ae46f17f5a01a5c6f90986e6b81ffe9d3ef0c38a0c44b7e0a21ed2ce1b7223b10e8af3603022434a445dec53e9354051adf50079c8e20559c81d3
   languageName: node
   linkType: hard
 
@@ -13553,6 +13552,13 @@ __metadata:
     webpack-dev-server:
       optional: true
   checksum: 10/20424e5c1e664e4d7ab11facee7033bb729f6acd86493138069532934c1299c1426da72942822dedb00caca8fc60cc8aec1626e610ee0e8a9679e3614f555860
+  languageName: node
+  linkType: hard
+
+"@xterm/xterm@npm:*":
+  version: 5.5.0
+  resolution: "@xterm/xterm@npm:5.5.0"
+  checksum: 10/d4cdc402de81a83a3e0ef93f38072cb8f54abe4d65865f2e29b92cbc2593f86d052f6b993895c9e5dec97f47548f504e90bcea0aad6845917c09b03f2f3a4629
   languageName: node
   linkType: hard
 

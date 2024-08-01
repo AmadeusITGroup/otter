@@ -1,16 +1,17 @@
-.container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  height: 100%;
-  width: 100%;
-}
+//.container {
+  //display: grid;
+  //grid-template-columns: 1fr 1fr;
+  //gap: 1rem;
+  //height: 100%;
+  //width: 100%;
+//}
 
 .editor {
   display: flex;
-  flex-direction: column;
-
-  form>div {
+  flex-direction: row;
+  //height: 100%;
+  //width: 100%;
+  >div {
     display: flex;
     width: 100%;
 
@@ -29,6 +30,7 @@ textarea {
   background: black;
   color: white;
 }
+
 
 monaco-tree {
   overflow: scroll;
@@ -55,8 +57,8 @@ form, ngx-monaco-editor {
 }
 
 h1, h3{
-text-transform: uppercase;
-font-weight: normal;
+  text-transform: uppercase;
+  font-weight: normal;
 }
 
 .tabs{
@@ -106,7 +108,117 @@ font-weight: normal;
 
 .tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
   z-index: 1;/* or display: block; */
-
   opacity: 1;
   transition: opacity 400ms ease-out;
 }
+
+//.container {
+//  height: 100%;
+//  width: 100%;
+//}
+//
+//.editor {
+//  display: flex;
+//  flex-direction: column;
+//
+//  form>div {
+//    display: flex;
+//    width: 100%;
+//
+//    >div {
+//      flex: 1;
+//      margin-bottom: -6px;
+//    }
+//  }
+//}
+//
+//textarea {
+//  width: 100%;
+//  height: 100%;
+//  resize: none;
+//  border-radius: 0.5rem;
+//  background: black;
+//  color: white;
+//}
+//
+//monaco-tree {
+//  overflow: scroll;
+//  background: #1d1d1d;
+//}
+//
+//iframe {
+//  height: 100%;
+//  width: 100%;
+//  border: 0;
+//}
+//.preview {
+//  background: white;
+//}
+//
+//form, ngx-monaco-editor {
+//  height: 100%;
+//}
+////////
+/////
+//* {
+//  margin: 0;
+//  padding: 0;
+//}
+//
+//h1, h3{
+//text-transform: uppercase;
+//font-weight: normal;
+//}
+//
+//.tabs{
+//  display: block;
+//  position: relative;
+//}
+//
+//.tabs .tab{
+//  float: left;
+//  display: block;
+//}
+//
+//.tabs .tab>input {
+//  position: absolute;
+//  top: -9999px;
+//  left: -9999px;
+//}
+//
+//.tabs .tab>label {
+//  display: block;
+//  padding: 6px 21px;
+//  font-size: 12px;
+//  text-transform: uppercase;
+//  cursor: pointer;
+//  position: relative;
+//  color: #FFF;
+//  background: #303030;
+//}
+//
+//.tabs .content {
+//  z-index: 0;/* or display: none; */
+//  overflow-x: hidden;
+//  overflow-y: scroll;
+//  width: -webkit-fill-available;
+//  position: absolute;
+//  left: 0;
+//  opacity:0;
+//  transition: opacity 400ms ease-out;
+//  border: 1px solid black;
+//  height: 400px;
+//}
+//
+//.tabs>.tab>[id^="tab"]:checked + label {
+//  top: 0;
+//  background: #4A83FD;
+//  color: #F5F5F5;
+//}
+//
+//.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+//  z-index: 1;/* or display: block; */
+//
+//  opacity: 1;
+//  transition: opacity 400ms ease-out;
+//}
