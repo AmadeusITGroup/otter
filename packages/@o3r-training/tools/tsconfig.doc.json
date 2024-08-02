@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.doc",
+  "exclude": [
+    "**/*reducer.ts",
+    "**/*.fixture.ts"
+  ],
+  "include": [
+    "src/**/*.ts"
+  ]
+}

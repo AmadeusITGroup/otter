@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import {CodeEditorViewComponent} from "../code-editor-view";
+import { Component, Input } from '@angular/core';
+import { CodeEditorViewComponent } from '../code-editor-view';
 
 @Component({
   selector: 'o3r-sdk-training-step-pres',
@@ -9,7 +9,10 @@ import {CodeEditorViewComponent} from "../code-editor-view";
   styleUrl: './sdk-training-step-pres.component.scss'
 })
 export class SdkTrainingStepPresComponent {
+
+  @Input() filesPath?: string;
+
   private widthSelection = 50;
-  public leftWidthPercent = `${this,this.widthSelection}%`;
+  public leftWidthPercent = `${this.widthSelection}%`;
   public rightWidthPercent = `${100 - this.widthSelection}%`;
 }

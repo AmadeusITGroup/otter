@@ -6,11 +6,11 @@ module.exports = {
   roots: ['<rootDir>/src/'],
   reporters: [
     'default',
-    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@ama-sdk/training-sdk unit tests' }]
+    ['jest-junit', { outputDirectory: '<rootDir>/dist-test', suiteName: '@o3r-training/training-sdk unit tests' }]
   ],
   moduleNameMapper: {
-    '^@ama-sdk/training-sdk$': ['<rootDir>/src'],
-    '^@ama-sdk/training-sdk/(.*)$': ['<rootDir>/src/$1'],
+    '^@o3r-training/training-sdk': ['<rootDir>/src'],
+    '^@o3r-training/training-sdk/(.*)$': ['<rootDir>/src/$1'],
   },
   transform: {
     // eslint-disable-next-line @typescript-eslint/naming-convention

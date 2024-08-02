@@ -1,5 +1,5 @@
 import {AsyncPipe} from '@angular/common';
-import {AfterViewInit, Component, ElementRef, inject, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Terminal} from '@xterm/xterm';
 import {debounceTime, map, skip, startWith, Subscription} from 'rxjs';
@@ -29,6 +29,8 @@ const editorOptionsLanguage: Record<string, string> = {
   styleUrl: './code-editor-view.component.scss'
 })
 export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
+  @Input() filesPath?: string;
+
   private readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
   private readonly formBuilder = inject(FormBuilder);
@@ -40,7 +42,7 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   });
   public editorOptions$ = this.form.controls.file.valueChanges.pipe(
     startWith('/apps/tuto/src/app/app.component.ts'),
-    map((filePath) => ({
+    map((filePath: string) => ({
       theme: 'vs-dark',
       language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts
     }))
@@ -78,12 +80,13 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.subscriptions.unsubscribe();
+    this.webContainerService.destroyInstance();
   }
 
   public async ngAfterViewInit() {
     if (this.iframeEl && this.consoleEl) {
       const consoleTerm = this.initTerminal(this.consoleEl.nativeElement);
-      await this.webContainerService.launchProject(this.iframeEl.nativeElement, consoleTerm);
+      await this.webContainerService.launchProject(this.iframeEl.nativeElement, consoleTerm, this.filesPath);
       const content = await this.webContainerService.readFile(this.form.controls.file.value);
       this.form.controls.code.setValue(content);
     }

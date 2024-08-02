@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CopyTextPresComponent } from '../../utilities';
 import { SdkTrainingStepPresComponent } from '../sdk-training-step';
 
@@ -9,4 +9,8 @@ import { SdkTrainingStepPresComponent } from '../sdk-training-step';
   templateUrl: './sdk-training-generation-setup-pres.component.html',
   styleUrl: './sdk-training-generation-setup-pres.component.scss'
 })
-export class SdkTrainingGenerationSetupPresComponent {}
+export class SdkTrainingGenerationSetupPresComponent implements OnDestroy {
+  public ngOnDestroy() {
+    console.log('destroy');
+  }
+}

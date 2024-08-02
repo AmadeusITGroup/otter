@@ -14,7 +14,7 @@ export interface Flight {
   /** @see utils.DateTime */
   departureDateTime?: utils.DateTime;
   /** @see Date */
-  paymentExpirationDate?: Date;
+  paymentExprirationDate?: Date;
 }
 
 

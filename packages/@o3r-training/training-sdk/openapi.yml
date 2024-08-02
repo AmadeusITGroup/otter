@@ -20,6 +20,7 @@ paths:
 components:
   schemas:
     Flight:
+      type: object
       properties:
         originLocationCode:
           type: string
@@ -29,7 +30,6 @@ components:
           type: string
           format: date-time
           x-local-timezone: true
-        paymentExpirationDate:
+        paymentExprirationDate:
           type: string
           format: date-time
-      type: object

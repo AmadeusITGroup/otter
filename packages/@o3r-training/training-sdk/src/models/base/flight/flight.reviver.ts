@@ -14,6 +14,6 @@ export function reviveFlight<T extends Flight>(data: any, dictionaries?: any, op
 export function reviveFlight<T extends Flight = Flight>(data: any, dictionaries?: any, options?: ReviverOptions): T  | undefined {
   if (!data) { return ; }
   data.departureDateTime = data.departureDateTime ? new utils.DateTime(data.departureDateTime) : undefined;
-  data.paymentExpirationDate = data.paymentExpirationDate ? new Date(data.paymentExpirationDate) : undefined;
+  data.paymentExprirationDate = data.paymentExprirationDate ? new Date(data.paymentExprirationDate) : undefined;
   return data as T;
 }

@@ -5,10 +5,11 @@ import {NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
 import {CopyTextPresComponent, SdkTrainingGenerationSetupExamplePresComponent, SdkTrainingGenerationSetupPresComponent, SdkTrainingStepPresComponent} from '../../components';
 
 interface SdkTrainingStep {
-  title: string,
-  htmlContentUrl: string,
-  htmlExampleUrl: string,
-  componentExample?: Type<any>
+  title: string;
+  htmlContentUrl: string;
+  htmlExampleUrl: string;
+  componentExample?: Type<any>;
+  filesPath?: string;
 }
 
 @Component({
@@ -74,7 +75,8 @@ export class SdkTrainingComponent {
       htmlContent: signal(''),
       htmlExampleUrl: 'sdk-training/step-generate-sdk-specs.example.html',
       htmlExample: signal(''),
-      componentExample: SdkTrainingGenerationSetupPresComponent
+      componentExample: SdkTrainingGenerationSetupPresComponent,
+      filesPath: 'sdk-training/step-generate-sdk-specs/step-generate-sdk-specs-files.json'
     },
     {
       title: 'Generate your first SDK - Command',
@@ -103,6 +105,9 @@ export class SdkTrainingComponent {
   public previousStep: boolean = false;
 
   constructor() {
+    import('@o3r-training/training-sdk/').then(
+      console.log
+    );
     const stepParam = window.location.href.match(new RegExp('#([0-9]+)'))?.[1];
     const stepRequested = !stepParam || Number.isNaN(stepParam) ? 0 : Number.parseInt(stepParam);
     this.setCurrentStep(stepRequested);

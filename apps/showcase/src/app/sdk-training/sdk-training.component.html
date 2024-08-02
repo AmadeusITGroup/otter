@@ -9,7 +9,7 @@
             (click)="setCurrentStep(currentStep + 1)"></button>
   </div>
 </div>
-<o3r-sdk-training-step-pres>
+<o3r-sdk-training-step-pres [filesPath]="steps[currentStep].filesPath">
   <ng-container class="step-instructions">
     <div [innerHtml]="steps[currentStep].htmlContent()"></div>
   </ng-container>

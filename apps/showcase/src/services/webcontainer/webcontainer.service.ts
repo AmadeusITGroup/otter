@@ -2,10 +2,9 @@ import {Injectable} from '@angular/core';
 import {DirectoryNode, DirEnt, FileNode, FileSystemTree, WebContainer, WebContainerProcess} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
 import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
-import {files} from './index';
 import {MonacoTreeElement} from '../../components';
 
-class WebcContainerNotInitialized extends Error {
+class WebContainerNotInitialized extends Error {
   constructor() {
     super('WebContainer not initialized');
   }
@@ -73,7 +72,7 @@ export class WebcontainerService {
   private async readDirRec(entry: DirEnt<string>, path: string): Promise<FileSystemTree | undefined> {
     const entryPath = path + '/' + entry.name;
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     if (entry.isDirectory()) {
       if (EXCLUDED_FILES_OR_DIRECTORY.includes(entry.name)) {
@@ -98,7 +97,7 @@ export class WebcontainerService {
 
   private async installDeps(terminal: Terminal) {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     const installProcess = await this.instance.spawn('npm', ['install']);
     void installProcess.output.pipeTo(createTerminalStream(terminal));
@@ -107,7 +106,7 @@ export class WebcontainerService {
 
   private async runApp(iframe: HTMLIFrameElement, terminal: Terminal) {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     const shellProcess = await this.instance.spawn('npm', ['run', 'ng', 'run', 'tuto:serve']);
     void shellProcess.output.pipeTo(createTerminalStream(terminal));
@@ -127,11 +126,21 @@ export class WebcontainerService {
     void this.runApp(iframe, terminal);
   }
 
-  // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: any) {
-  public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal) {
+  // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: FileSystemTree) {
+  public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, filesPath?: string) {
     // TODO We probably need to destroy the instance if we already have one
+    if (this.instance) {
+      // TODO kill instance
+      this.destroyInstance();
+    }
     this.instance = await WebContainer.boot();
+    // eslint-disable-next-line no-console
     this.instance.on('error', console.error);
+    let files: FileSystemTree = {};
+    if (filesPath) {
+      const filesCall = await fetch(`assets/${filesPath}`);
+      files = await filesCall.json();
+    }
     await this.instance.mount(files);
     this.instance.fs.watch('/', {encoding: 'utf-8'}, async () => {
       const tree = await this.getMonacoTree();
@@ -142,15 +151,15 @@ export class WebcontainerService {
 
   public async writeFile(file: string, content: string) {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
 
     return this.instance.fs.writeFile(file, content);
   }
 
-  public async readFile(file: string) {
+  public async readFile(file: string): Promise<string> {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
 
     return this.instance.fs.readFile(file, 'utf-8');
@@ -158,7 +167,7 @@ export class WebcontainerService {
 
   public async isFile(filePath: string) {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     const parent = `${!filePath.startsWith('/') ? '/' : ''}${filePath}`
       .split('/')
@@ -171,7 +180,7 @@ export class WebcontainerService {
 
   public async startShell(terminal: Terminal) {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     const shellProcess = await this.instance.spawn('jsh');
     const cb = (async (data: string) => {
@@ -186,13 +195,14 @@ export class WebcontainerService {
     return shellProcess;
   }
 
+  // Delete this function ?
   public async consoleFiles() {
     console.log(this.getFilesTree());
   }
 
   public async getFilesTree() {
     if (!this.instance) {
-      throw new WebcContainerNotInitialized();
+      throw new WebContainerNotInitialized();
     }
     const tree: FileSystemTree = {};
     const dirEntries = await this.instance.fs.readdir('/', {encoding: 'utf-8', withFileTypes: true});
@@ -203,5 +213,11 @@ export class WebcontainerService {
       }
     }
     return tree;
+  }
+
+  public destroyInstance() {
+    if (this.instance) {
+      this.instance.teardown();
+    }
   }
 }
