@@ -1,49 +1,63 @@
-@use './style/design-factory-custom' as design-factory with (
-  $prefix: bs-,
-  $df-spinner-circumference: 2rem,
-  $font-path: '@design-factory/design-factory/assets/fonts',
-  $utilities-bg: ()
-);
-@import "highlight.js/styles/github.css";
-@import "./style/theme.scss";
+// @use './style/design-factory-custom' as design-factory with ($prefix: bs-,
+//   $df-spinner-circumference: 2rem,
+//   $font-path: '@design-factory/design-factory/assets/fonts',
+//   $utilities-bg: ());
 
-code {
-  font-family: 'Consolas', monospace;
-}
 
-header {
-  font-family: design-factory.$headings-font-family;
-}
+  // @import "./style/use-theme.scss";
+  // @import "highlight.js/styles/github.css";
 
-h1 {
-  margin-top: 2rem;
-}
+  // TODO how to move the theme in the component ?
+  @import "./style/theme.scss";
 
-h1, h2 {
-  scroll-margin-top: 5rem;
-}
+  // code {
+  //   font-family: 'Consolas', monospace;
+  // }
 
-.right-nav {
-  top: 6rem;
-  max-height: calc(100vh - 6rem);
-  overflow-y: auto;
-  flex-grow: 1;
-  margin-top: -1rem;
-  z-index: inherit;
-}
+  // h1 {
+  //   margin-top: 2rem;
+  // }
 
-.hljs-built_in, .hljs-symbol {
-  color: #cb3544;
-}
-.hljs-doctag, .hljs-keyword, .hljs-meta .hljs-keyword, .hljs-template-tag, .hljs-template-variable, .hljs-type, .hljs-variable.language_ {
-  color: #cb3544;
-}
-.hljs-name, .hljs-quote, .hljs-selector-tag, .hljs-selector-pseudo {
-  color: #1f7e36;
-}
+  // h1,
+  // h2 {
+  //   scroll-margin-top: 5rem;
+  // }
 
-// Start overrides of design factory
-.navbar {
-  box-shadow: none;
-}
-// End overrides
+  // .right-nav {
+  //   top: 6rem;
+  //   max-height: calc(100vh - 6rem);
+  //   overflow-y: auto;
+  //   flex-grow: 1;
+  //   margin-top: -1rem;
+  //   z-index: inherit;
+  // }
+
+  // .hljs-built_in,
+  // .hljs-symbol {
+  //   color: #cb3544;
+  // }
+
+  // .hljs-doctag,
+  // .hljs-keyword,
+  // .hljs-meta .hljs-keyword,
+  // .hljs-template-tag,
+  // .hljs-template-variable,
+  // .hljs-type,
+  // .hljs-variable.language_ {
+  //   color: #cb3544;
+  // }
+
+  // .hljs-name,
+  // .hljs-quote,
+  // .hljs-selector-tag,
+  // .hljs-selector-pseudo {
+  //   color: #1f7e36;
+  // }
+
+  // // Start overrides of design factory
+  // .navbar {
+  //   box-shadow: none;
+  // }
+
+  // End overrides
+
