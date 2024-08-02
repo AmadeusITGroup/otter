@@ -33,7 +33,7 @@ export const placeholderRequestReducerFeatures: ReducerTypes<PlaceholderRequestS
     }
     return placeholderRequestAdapter.updateOne({
       id: action.id,
-      changes: asyncStoreItemAdapter.resolveRequest(state.entities[id]!, action.requestId)
+      changes: asyncStoreItemAdapter.resolveRequest(state.entities[id], action.requestId)
     }, asyncStoreItemAdapter.resolveRequest(state, action.requestId));
   }),
   on(actions.updatePlaceholderRequestEntity, (state, action) => {
