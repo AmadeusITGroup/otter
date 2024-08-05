@@ -534,7 +534,7 @@
             },
             {
               "type": "number",
-              "maximum": 100,
+              "maximum": 1,
               "minimum": 0
             }
           ]
