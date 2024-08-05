@@ -17,16 +17,20 @@ describe('Design Token Parser', () => {
     test('generate a simple type variable', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const var1 = result.get('example.var1');
+      const varString = result.get('example.var-string');
       const var2 = result.get('example.test.var2');
 
       expect(result.size).toBeGreaterThan(0);
       expect(var2).toBeDefined();
       expect(var1).toBeDefined();
+      expect(varString).toBeDefined();
       expect(var2.getKey()).toBe('example-test-var2');
       expect(var1.getKey()).toBe('example-var1');
       expect(var2.description).toBe('my var2');
       expect(var2.getType()).toBe('color');
       expect(var1.getType()).toBe('color');
+      expect(varString.getType()).toBe('string');
+      expect(varString.getCssRawValue()).toBe('"test value"');
     });
 
     test('generate an alias variable', () => {

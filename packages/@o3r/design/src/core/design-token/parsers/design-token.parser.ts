@@ -29,7 +29,8 @@ const getExtensions = (parentNode: DesignTokenNode[]) => {
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
-
+const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
+const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: DesignTokenVariableStructure) => {
   const nodeType = getType(variableSet, false);
   if (!nodeType && node.$value) {
@@ -41,6 +42,9 @@ const getCssRawValue = (variableSet: DesignTokenVariableSet, {node, getType}: De
   } as typeof node;
 
   switch (checkNode.$type) {
+    case 'string': {
+      return `"${sanitizeStringValue(checkNode.$value.toString())}"`;
+    }
     case 'color':
     case 'number':
     case 'duration':
@@ -146,7 +150,7 @@ const walkThroughDesignTokenNodes = (
           undefined;
       },
       getKey: function (keyRenderer) {
-        return keyRenderer ? keyRenderer(this) : this.tokenReferenceName.replace(/[ .]+/g, '-');
+        return keyRenderer ? keyRenderer(this) : sanitizeKeyName(this.tokenReferenceName);
       }
     };
 

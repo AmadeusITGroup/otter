@@ -54,6 +54,22 @@ module.exports = {
         }]
       }
     },
+    {
+      'files': [
+        './package.json'
+      ],
+      'plugins': [
+        '@o3r'
+      ],
+      'rules': {
+        '@o3r/json-dependency-versions-harmonize': ['error', {
+          ignoredPackages: ['@o3r/build-helpers'],
+          ignoredDependencies: ['npm'],
+          alignPeerDependencies: false,
+          alignEngines: true
+        }]
+      }
+    },
 
     {
       'parser': require.resolve('yaml-eslint-parser'),
