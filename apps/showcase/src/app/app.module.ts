@@ -14,7 +14,6 @@ import { TranslateCompiler, TranslateModule } from '@ngx-translate/core';
 import { ApplicationDevtoolsModule, OTTER_APPLICATION_DEVTOOLS_OPTIONS, prefersReducedMotion } from '@o3r/application';
 import { ConfigurationDevtoolsModule, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from '@o3r/configuration';
 import { C11nModule, ComponentsDevtoolsModule, OTTER_COMPONENTS_DEVTOOLS_OPTIONS, registerCustomComponent } from '@o3r/components';
-// import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {
   LocalizationConfiguration,
   LocalizationDevtoolsModule,
@@ -31,7 +30,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {NGX_MONACO_EDITOR_CONFIG} from "ngx-monaco-editor-v2";
+import { NGX_MONACO_EDITOR_CONFIG } from 'ngx-monaco-editor-v2';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -110,8 +109,7 @@ export function registerCustomComponents(): Map<string, any> {
     C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
-    ConfigurationDevtoolsModule,
-    // MonacoEditorModule.forRoot()
+    ConfigurationDevtoolsModule
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

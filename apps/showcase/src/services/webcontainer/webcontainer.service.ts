@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {DirectoryNode, DirEnt, FileNode, FileSystemTree, WebContainer, WebContainerProcess} from '@webcontainer/api';
+import {DirectoryNode, FileNode, FileSystemTree, WebContainer, WebContainerProcess} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
 import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
-import {MonacoTreeElement} from '../../components';
+import { MonacoTreeElement } from '../../components';
+import { FileSystem, getFilesTree } from '@o3r-training/tools';
 
 class WebContainerNotInitialized extends Error {
   constructor() {
@@ -10,7 +11,7 @@ class WebContainerNotInitialized extends Error {
   }
 }
 
-const EXCLUDED_FILES_OR_DIRECTORY = ['node_modules', '.angular', '.vscode'];
+// const EXCLUDED_FILES_OR_DIRECTORY = ['node_modules', '.angular', '.vscode'];
 
 const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | Promise<void>) => new WritableStream({
   write(data) {
@@ -20,17 +21,6 @@ const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | 
     terminal.write(data);
   }
 });
-
-// const createDivStream = (divElement: HTMLDivElement, cb?: (data: string) => (void | Promise<void>)) => new WritableStream({
-//   write(data) {
-//     if (cb) {
-//       void cb(data);
-//     }
-//     divElement.innerText = `
-// ${data}
-// ${divElement.innerText}
-// `;}
-// });
 
 const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
@@ -60,7 +50,7 @@ export class WebcontainerService {
   }
 
   private async getMonacoTree(): Promise<MonacoTreeElement[]> {
-    const tree = await this.getFilesTree();
+    const tree = await this.getFilesTreeFromContainer();
     return Object.entries(tree)
       .reduce(
         (acc: MonacoTreeElement[], [path, node]) =>
@@ -69,84 +59,52 @@ export class WebcontainerService {
       );
   }
 
-  private async readDirRec(entry: DirEnt<string>, path: string): Promise<FileSystemTree | undefined> {
-    const entryPath = path + '/' + entry.name;
-    if (!this.instance) {
-      throw new WebContainerNotInitialized();
-    }
-    if (entry.isDirectory()) {
-      if (EXCLUDED_FILES_OR_DIRECTORY.includes(entry.name)) {
-        return;
-      }
-      const dirEntries = await this.instance.fs.readdir(entryPath, {encoding: 'utf-8', withFileTypes: true});
-      const tree = {[entry.name]: {directory: {}}};
-      for (const subEntry of dirEntries) {
-        tree[entry.name].directory = {
-          ...tree[entry.name].directory,
-          ...(await this.readDirRec(subEntry, entryPath))
-        };
-      }
-      return tree;
-    }
-    return {
-      [entry.name]: {
-        file: {contents: await this.instance.fs.readFile(entryPath, 'utf-8')}
-      }
-    };
-  }
+  // private async installDeps(terminal: Terminal) {
+  //   if (!this.instance) {
+  //     throw new WebContainerNotInitialized();
+  //   }
+  //   const installProcess = await this.instance.spawn('npm', ['install']);
+  //   void installProcess.output.pipeTo(createTerminalStream(terminal));
+  //   return installProcess;
+  // }
+  //
+  // private async runApp(iframe: HTMLIFrameElement, terminal: Terminal) {
+  //   if (!this.instance) {
+  //     throw new WebContainerNotInitialized();
+  //   }
+  //   const shellProcess = await this.instance.spawn('npm', ['run', 'ng', 'run', 'tuto:serve']);
+  //   void shellProcess.output.pipeTo(createTerminalStream(terminal));
+  //   this.instance.on('server-ready', (_port: number, url: string) => {
+  //     iframe.src = url;
+  //   });
+  //
+  //   return shellProcess;
+  // }
 
-  private async installDeps(terminal: Terminal) {
-    if (!this.instance) {
-      throw new WebContainerNotInitialized();
-    }
-    const installProcess = await this.instance.spawn('npm', ['install']);
-    void installProcess.output.pipeTo(createTerminalStream(terminal));
-    return installProcess;
-  }
-
-  private async runApp(iframe: HTMLIFrameElement, terminal: Terminal) {
-    if (!this.instance) {
-      throw new WebContainerNotInitialized();
-    }
-    const shellProcess = await this.instance.spawn('npm', ['run', 'ng', 'run', 'tuto:serve']);
-    void shellProcess.output.pipeTo(createTerminalStream(terminal));
-    this.instance.on('server-ready', (_port: number, url: string) => {
-      iframe.src = url;
-    });
-
-    return shellProcess;
-  }
-
-  private async installThenRun(iframe: HTMLIFrameElement, terminal: Terminal) {
-    const installProcess = await this.installDeps(terminal);
-    const exitCode = await installProcess.exit;
-    if (exitCode !== 0) {
-      throw new Error('Installation failed!');
-    }
-    void this.runApp(iframe, terminal);
-  }
+  // private async installThenRun(iframe: HTMLIFrameElement, terminal: Terminal) {
+  //   const installProcess = await this.installDeps(terminal);
+  //   const exitCode = await installProcess.exit;
+  //   if (exitCode !== 0) {
+  //     throw new Error('Installation failed!');
+  //   }
+  //   void this.runApp(iframe, terminal);
+  // }
 
   // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: FileSystemTree) {
-  public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, filesPath?: string) {
-    // TODO We probably need to destroy the instance if we already have one
+  public async launchProject(_iframe: HTMLIFrameElement, _terminal: Terminal, files: FileSystemTree) {
     if (this.instance) {
-      // TODO kill instance
       this.destroyInstance();
     }
     this.instance = await WebContainer.boot();
     // eslint-disable-next-line no-console
     this.instance.on('error', console.error);
-    let files: FileSystemTree = {};
-    if (filesPath) {
-      const filesCall = await fetch(`assets/${filesPath}`);
-      files = await filesCall.json();
-    }
     await this.instance.mount(files);
     this.instance.fs.watch('/', {encoding: 'utf-8'}, async () => {
       const tree = await this.getMonacoTree();
       this.monacoTree.next(tree);
     });
-    void this.installThenRun(iframe, terminal);
+    // TODO fix and only run in some mode
+    // void this.installThenRun(iframe, terminal);
   }
 
   public async writeFile(file: string, content: string) {
@@ -197,22 +155,14 @@ export class WebcontainerService {
 
   // Delete this function ?
   public async consoleFiles() {
-    console.log(this.getFilesTree());
+    console.log(await this.getFilesTreeFromContainer());
   }
 
-  public async getFilesTree() {
+  public async getFilesTreeFromContainer() {
     if (!this.instance) {
       throw new WebContainerNotInitialized();
     }
-    const tree: FileSystemTree = {};
-    const dirEntries = await this.instance.fs.readdir('/', {encoding: 'utf-8', withFileTypes: true});
-    for (const entry of dirEntries) {
-      const subTree = await this.readDirRec(entry, '/');
-      if (subTree) {
-        tree[entry.name] = subTree[entry.name];
-      }
-    }
-    return tree;
+    return await getFilesTree('/', {readFileFn: this.instance.fs.readFile, readDirFn: this.instance.fs.readdir} as FileSystem);
   }
 
   public destroyInstance() {

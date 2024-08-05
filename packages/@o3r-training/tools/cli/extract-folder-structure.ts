@@ -7,6 +7,7 @@ program
   .description('Extract folder structure')
   .requiredOption('-p, --path <folderPath>', 'Relative path to the folder to extract')
   .option('-r, --root <root>', 'Root of the extraction')
+  .option('-n, --name <name>', 'Name in target')
   .parse(process.argv);
 
 const options: any = program.opts();
@@ -16,6 +17,6 @@ const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
 const folderPath = join(cwd, options.path);
 (async () => {
   const folderStructure = await getFilesTree(folderPath, {readDirFn: readdir, readFileFn: readFile} as FileSystem);
-  const targetPath = join(cwd, 'folder-structure.json');
+  const targetPath = join(cwd, options.name || 'folder-structure.json');
   await writeFile(targetPath, JSON.stringify(folderStructure));
 })()

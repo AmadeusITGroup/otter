@@ -80,6 +80,11 @@
             "glob": "**/*",
             "input": ".yarn/unplugged/ngx-monaco-tree-virtual-854f93c304/node_modules/ngx-monaco-tree/assets",
             "output": "/assets/"
+          },
+          {
+            "glob": "folder-structure.json",
+            "input": "packages/@o3r-training/training-sdk/dist",
+            "output": "/assets/training-sdk"
           }
         ],
         "styles": [

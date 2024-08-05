@@ -1,6 +1,7 @@
 import {AsyncPipe} from '@angular/common';
 import {AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FileSystemTree } from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
 import {debounceTime, map, skip, startWith, Subscription} from 'rxjs';
 import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
@@ -13,6 +14,13 @@ const editorOptionsLanguage: Record<string, string> = {
   ts: 'typescript',
   js: 'javascript'
 };
+
+export type FileConfiguration = {
+  startingFile: string;
+  filesContent: FileSystemTree | null;
+};
+
+export type EditorMode = 'readonly' | 'interactive';
 
 @Component({
   selector: 'code-editor-view',
@@ -29,7 +37,16 @@ const editorOptionsLanguage: Record<string, string> = {
   styleUrl: './code-editor-view.component.scss'
 })
 export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
-  @Input() filesPath?: string;
+  // Si on doit partager des fichiers shared, je me demande si on doit pas faire des choses plus complexes
+  // @Input() filesPath?: string;
+  @Input()
+  public filesContent?: FileSystemTree;
+
+  @Input()
+  public startingFile: string = '';
+
+  @Input()
+  public editorMode: EditorMode = 'readonly';
 
   private readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
@@ -38,13 +55,14 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
 
   public form: FormGroup = this.formBuilder.group({
     code: '',
-    file: '/apps/tuto/src/app/app.component.ts'
+    file: this.startingFile
   });
   public editorOptions$ = this.form.controls.file.valueChanges.pipe(
-    startWith('/apps/tuto/src/app/app.component.ts'),
+    startWith(this.startingFile),
     map((filePath: string) => ({
       theme: 'vs-dark',
-      language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts
+      language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts,
+      readOnly: (this.editorMode === 'readonly')
     }))
   );
   @ViewChild('iframe')
@@ -84,9 +102,9 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   }
 
   public async ngAfterViewInit() {
-    if (this.iframeEl && this.consoleEl) {
+    if (this.filesContent && this.iframeEl && this.consoleEl) {
       const consoleTerm = this.initTerminal(this.consoleEl.nativeElement);
-      await this.webContainerService.launchProject(this.iframeEl.nativeElement, consoleTerm, this.filesPath);
+      await this.webContainerService.launchProject(this.iframeEl.nativeElement, consoleTerm, this.filesContent);
       const content = await this.webContainerService.readFile(this.form.controls.file.value);
       this.form.controls.code.setValue(content);
     }

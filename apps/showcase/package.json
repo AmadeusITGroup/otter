@@ -49,6 +49,7 @@
     "@ngrx/store-devtools": "~18.0.0",
     "@ngx-translate/core": "~15.0.0",
     "@nx/jest": "~19.3.0",
+    "@o3r-training/tools": "workspace:^",
     "@o3r-training/training-sdk": "workspace:^",
     "@o3r/application": "workspace:^",
     "@o3r/components": "workspace:^",

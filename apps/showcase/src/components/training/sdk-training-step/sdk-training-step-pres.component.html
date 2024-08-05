@@ -8,8 +8,8 @@
     <ng-content select=".step-example" />
     <hr>
     <ng-content select=".step-component"/>
-    @if (filesPath) {
-      <code-editor-view [filesPath]="filesPath"></code-editor-view>
+    @if (filesContent) {
+      <code-editor-view [filesContent]="filesContent" [startingFile]="startingFile"></code-editor-view>
     }
   </div>
 </div>

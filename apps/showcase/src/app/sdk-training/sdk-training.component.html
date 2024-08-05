@@ -9,7 +9,10 @@
             (click)="setCurrentStep(currentStep + 1)"></button>
   </div>
 </div>
-<o3r-sdk-training-step-pres [filesPath]="steps[currentStep].filesPath">
+<o3r-sdk-training-step-pres
+  [filesContent]="steps[currentStep].filesConfiguration?.filesContent()"
+  [startingFile]="steps[currentStep].filesConfiguration?.startingFile">
+<!-- TODO maybe we can remove the content projection and just call the o3r-sdk-step with parameters -->
   <ng-container class="step-instructions">
     <div [innerHtml]="steps[currentStep].htmlContent()"></div>
   </ng-container>
