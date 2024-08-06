@@ -92,12 +92,10 @@ export class SdkTrainingComponent {
         title: 'Generate your first SDK - Specifications',
         htmlContentUrl: 'sdk-training/step-generate-sdk-specs.html',
         htmlContent: signal(''),
-        // htmlExampleUrl: 'sdk-training/step-generate-sdk-specs.example.html',
         htmlExampleUrl: '',
         htmlExample: signal(''),
-        componentExample: SdkTrainingGenerationSetupPresComponent,
         filesConfiguration: {
-          startingFile: 'openapi.yaml',
+          startingFile: 'api/dummy/dummy-api.ts',
           link: 'training-sdk/folder-structure.json',
           filesContent: signal(null),
           mode: 'readonly'
@@ -155,7 +153,7 @@ export class SdkTrainingComponent {
     const fileConfiguration = this.steps[this.currentStep].filesConfiguration;
     if (fileConfiguration && fileConfiguration.link && !fileConfiguration.filesContent()) {
       void this.loadResource(fileConfiguration.link).then((content) =>
-        fileConfiguration.filesContent.set(JSON.parse(content) as FileSystemTree)
+        fileConfiguration.filesContent.set(JSON.parse(content))
       );
     }
 

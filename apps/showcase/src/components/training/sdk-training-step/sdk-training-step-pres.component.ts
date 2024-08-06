@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { CodeEditorViewComponent } from '../code-editor-view';
 import { FileSystemTree } from '@webcontainer/api';
+import { CodeEditorViewComponent, EditorMode } from '../code-editor-view';
 
 @Component({
   selector: 'o3r-sdk-training-step-pres',
@@ -11,8 +11,9 @@ import { FileSystemTree } from '@webcontainer/api';
 })
 export class SdkTrainingStepPresComponent {
 
-  @Input() filesContent?: FileSystemTree;
-  @Input() startingFile?: string;
+  @Input() public filesContent?: FileSystemTree;
+  @Input() public startingFile?: string;
+  @Input() public editorMode?: EditorMode;
 
   private readonly widthSelection = 50;
   public leftWidthPercent = `${this.widthSelection}%`;

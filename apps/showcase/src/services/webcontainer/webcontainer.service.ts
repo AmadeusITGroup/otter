@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
+import {FileSystem, getFilesTree} from '@o3r-training/tools';
 import {DirectoryNode, FileNode, FileSystemTree, WebContainer, WebContainerProcess} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
 import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
-import { MonacoTreeElement } from '../../components';
-import { FileSystem, getFilesTree } from '@o3r-training/tools';
+import {MonacoTreeElement} from '../../components';
 
 class WebContainerNotInitialized extends Error {
   constructor() {
@@ -11,7 +11,7 @@ class WebContainerNotInitialized extends Error {
   }
 }
 
-// const EXCLUDED_FILES_OR_DIRECTORY = ['node_modules', '.angular', '.vscode'];
+const EXCLUDED_FILES_OR_DIRECTORY = ['node_modules', '.angular', '.vscode'];
 
 const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | Promise<void>) => new WritableStream({
   write(data) {
@@ -91,7 +91,7 @@ export class WebcontainerService {
   // }
 
   // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: FileSystemTree) {
-  public async launchProject(_iframe: HTMLIFrameElement, _terminal: Terminal, files: FileSystemTree) {
+  public async launchProject(files: FileSystemTree, _iframe?: HTMLIFrameElement, _terminal?: Terminal) {
     if (this.instance) {
       this.destroyInstance();
     }
@@ -99,12 +99,15 @@ export class WebcontainerService {
     // eslint-disable-next-line no-console
     this.instance.on('error', console.error);
     await this.instance.mount(files);
+    this.monacoTree.next(await this.getMonacoTree());
     this.instance.fs.watch('/', {encoding: 'utf-8'}, async () => {
       const tree = await this.getMonacoTree();
       this.monacoTree.next(tree);
     });
     // TODO fix and only run in some mode
-    // void this.installThenRun(iframe, terminal);
+    if (_iframe && _terminal) {
+      // void this.installThenRun(iframe, terminal);
+    }
   }
 
   public async writeFile(file: string, content: string) {
@@ -162,12 +165,14 @@ export class WebcontainerService {
     if (!this.instance) {
       throw new WebContainerNotInitialized();
     }
-    return await getFilesTree('/', {readFileFn: this.instance.fs.readFile, readDirFn: this.instance.fs.readdir} as FileSystem);
+    return await getFilesTree('/', this.instance.fs as unknown as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
   }
 
   public destroyInstance() {
     if (this.instance) {
       this.instance.teardown();
+      this.instance = null;
+      this.monacoTree.next([]);
     }
   }
 }

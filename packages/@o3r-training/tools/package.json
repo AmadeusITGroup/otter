@@ -6,8 +6,10 @@
     "access": "public"
   },
   "description": "Schematics module of the Otter framework",
-  "main": "./src/public_api.ts",
-  "typings": "./src/public_api.ts",
+  "module": "dist/src/public_api.js",
+  "esm2015": "dist/esm2015/public_api.js",
+  "esm2020": "dist/src/public_api.js",
+  "typings": "dist/src/public_api.d.ts",
   "keywords": [
     "utilities",
     "otter-training"
@@ -15,14 +17,33 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
+    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
+    "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q --strip-leading-paths",
+    "build:esm2020": "tsc -b tsconfig.build.json --pretty",
     "build": "yarn nx build training-tools",
     "postbuild": "yarn cpy 'package.json' dist && patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
-    "build:source": "tsc -b tsconfig.build.json --pretty",
+    "build:source": "yarn build:esm2020 && yarn build:cjs && yarn build:esm2015",
     "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
   },
   "bin": {
     "o3r-extract-folder-structure": "./dist/cli/extract-folder-structure.js"
+  },
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "module": "./dist/src/public_api.js",
+      "esm2020": "./dist/src/public_api.js",
+      "esm2015": "./dist/esm2015/public_api.js",
+      "es2020": "./dist/cjs/public_api.js",
+      "default": "./dist/cjs/public_api.js",
+      "typings": "./dist/src/public_api.d.ts",
+      "import": "./dist/src/public_api.js",
+      "node": "./dist/cjs/public_api.js",
+      "require": "./dist/cjs/public_api.js"
+    }
   },
   "peerDependencies": {
     "@o3r/telemetry": "workspace:^",
@@ -82,6 +103,9 @@
     "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~18.0.0",
     "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@swc/cli": "~0.4.0",
+    "@swc/core": "~1.7.0",
+    "@swc/helpers": "~0.5.0",
     "@types/inquirer": "~8.2.10",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

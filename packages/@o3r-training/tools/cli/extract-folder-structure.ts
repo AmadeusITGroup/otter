@@ -1,5 +1,5 @@
 import { readdir, readFile, writeFile } from 'node:fs/promises';
-import { getFilesTree, type FileSystem } from '../src/utility/web-container';
+import { getFilesTree, type FileSystem } from '@o3r-training/tools';
 import { join, resolve } from 'node:path';
 import { program } from 'commander';
 
@@ -16,7 +16,7 @@ const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
 
 const folderPath = join(cwd, options.path);
 (async () => {
-  const folderStructure = await getFilesTree(folderPath, {readDirFn: readdir, readFileFn: readFile} as FileSystem);
+  const folderStructure = await getFilesTree(folderPath, {readdir, readFile} as unknown as FileSystem);
   const targetPath = join(cwd, options.name || 'folder-structure.json');
   await writeFile(targetPath, JSON.stringify(folderStructure));
 })()

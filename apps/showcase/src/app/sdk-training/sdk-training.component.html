@@ -11,7 +11,8 @@
 </div>
 <o3r-sdk-training-step-pres
   [filesContent]="steps[currentStep].filesConfiguration?.filesContent()"
-  [startingFile]="steps[currentStep].filesConfiguration?.startingFile">
+  [startingFile]="steps[currentStep].filesConfiguration?.startingFile"
+  [editorMode]="steps[currentStep].filesConfiguration?.mode">
 <!-- TODO maybe we can remove the content projection and just call the o3r-sdk-step with parameters -->
   <ng-container class="step-instructions">
     <div [innerHtml]="steps[currentStep].htmlContent()"></div>
@@ -24,7 +25,4 @@
       <ng-container *ngComponentOutlet="steps[currentStep].componentExample"/>
     }
   </ng-container>
-
-    <!-- <ng-container class="step-component"> -->
-    <!-- </ng-container> -->
 </o3r-sdk-training-step-pres>

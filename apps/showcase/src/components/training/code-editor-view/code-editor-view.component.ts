@@ -1,10 +1,19 @@
-import {AsyncPipe} from '@angular/common';
-import {AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, ViewChild, ViewEncapsulation} from '@angular/core';
+import {AsyncPipe, JsonPipe} from '@angular/common';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  Input,
+  OnDestroy, SimpleChanges,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { FileSystemTree } from '@webcontainer/api';
+import {FileSystemTree} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
-import {debounceTime, map, skip, startWith, Subscription} from 'rxjs';
 import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
+import {debounceTime, distinctUntilChanged, map, skip, startWith, Subscription} from 'rxjs';
 import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
 import {NgxMonacoTreeModule} from '../ngx-monaco-tree/index';
 
@@ -30,7 +39,8 @@ export type EditorMode = 'readonly' | 'interactive';
     FormsModule,
     MonacoEditorModule,
     ReactiveFormsModule,
-    NgxMonacoTreeModule
+    NgxMonacoTreeModule,
+    JsonPipe
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './code-editor-view.component.html',
@@ -39,14 +49,11 @@ export type EditorMode = 'readonly' | 'interactive';
 export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   // Si on doit partager des fichiers shared, je me demande si on doit pas faire des choses plus complexes
   // @Input() filesPath?: string;
-  @Input()
-  public filesContent?: FileSystemTree;
+  @Input() public filesContent?: FileSystemTree;
 
-  @Input()
-  public startingFile: string = '';
+  @Input() public startingFile: string = '';
 
-  @Input()
-  public editorMode: EditorMode = 'readonly';
+  @Input() public editorMode: EditorMode = 'readonly';
 
   private readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
@@ -72,21 +79,33 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   @ViewChild('console')
   public consoleEl!: ElementRef<HTMLDivElement>;
 
+  private consoleTerminal?: Terminal;
+
   constructor() {
     this.subscriptions.add(
       this.form.controls.code.valueChanges.pipe(
+        distinctUntilChanged(),
         skip(1),
         debounceTime(1000)
-      ).subscribe((text) =>
-        this.webContainerService.writeFile(this.form.controls.file.value, text))
-    );
-    this.subscriptions.add(
-      this.form.controls.file.valueChanges.subscribe(async (path: string) => {
-        const content = await this.webContainerService.readFile(path);
-        if (content) {
-          this.form.controls.code.setValue(content);
+      ).subscribe((text) => {
+        const path = this.form.controls.file.value;
+        if (path) {
+          void this.webContainerService.writeFile(this.form.controls.file.value, text)
         }
       })
+    );
+    this.subscriptions.add(
+      this.form.controls.file.valueChanges
+        .subscribe(async (path: string) => {
+          if (path) {
+            const content = await this.webContainerService.readFile(path);
+            if (content) {
+              this.form.controls.code.setValue(content);
+            }
+          } else {
+            this.form.controls.code.setValue('');
+          }
+        })
     );
   }
 
@@ -101,12 +120,9 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
     this.webContainerService.destroyInstance();
   }
 
-  public async ngAfterViewInit() {
-    if (this.filesContent && this.iframeEl && this.consoleEl) {
-      const consoleTerm = this.initTerminal(this.consoleEl.nativeElement);
-      await this.webContainerService.launchProject(this.iframeEl.nativeElement, consoleTerm, this.filesContent);
-      const content = await this.webContainerService.readFile(this.form.controls.file.value);
-      this.form.controls.code.setValue(content);
+  public ngAfterViewInit() {
+    if (this.consoleEl) {
+      this.consoleTerminal = this.initTerminal(this.consoleEl.nativeElement);
     }
     if (this.terminalEl) {
       const terminal = this.initTerminal(this.terminalEl.nativeElement);
@@ -114,9 +130,31 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
     }
   }
 
+  public async ngOnChanges(changes: SimpleChanges) {
+    if ('filesContent' in changes) {
+      if (changes.filesContent.currentValue) {
+        await this.webContainerService.launchProject(changes.filesContent.currentValue, this.iframeEl?.nativeElement, this.consoleTerminal);
+        if (this.startingFile) {
+          this.form.controls.file.setValue(this.startingFile);
+          const content = await this.webContainerService.readFile(this.startingFile);
+          this.form.controls.code.setValue(content);
+        } else {
+          this.form.controls.code.setValue('');
+        }
+      } else {
+        void this.webContainerService.destroyInstance();
+        this.form.controls.code.setValue('');
+      }
+    }
+  }
+
   public async onClickFile(filePath: any) {
     if (await this.webContainerService.isFile(filePath)) {
       this.form.controls.file.setValue(filePath);
     }
+  }
+
+  public consoleLogSDK() {
+    void this.webContainerService.consoleFiles();
   }
 }
