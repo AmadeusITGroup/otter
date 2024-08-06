@@ -1,11 +1,12 @@
 import { promises as fs } from 'node:fs';
-import type { DesignTokenVariableSet, DesignTokenVariableStructure, ParentReference } from './design-token-parser.interface';
+import type { DesignTokenVariableSet, DesignTokenVariableStructure, NodeReference, ParentReference } from './design-token-parser.interface';
 import type {
   DesignToken,
   DesignTokenContext,
   DesignTokenExtensions,
   DesignTokenGroup,
   DesignTokenGroupExtensions,
+  DesignTokenGroupTemplate,
   DesignTokenNode,
   DesignTokenSpecification
 } from '../design-token-specification.interface';
@@ -20,10 +21,12 @@ import { dirname } from 'node:path';
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => (`${parents.join('.')}.${tokenName}`);
-const getExtensions = (parentNode: DesignTokenNode[]) => {
-  return parentNode.reduce((acc, node) => {
-    const o3rMetadata = { ...acc.o3rMetadata, ...node.$extensions?.o3rMetadata };
-    return ({ ...acc, ...node.$extensions, o3rMetadata });
+const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
+  return nodes.reduce((acc, {tokenNode}, i) => {
+    const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
+    const defaultMetadata = nodeNames.length ? nodeNames.reduce((accTpl, name) => accTpl?.[name] as DesignTokenGroupTemplate, context?.template) : undefined;
+    const o3rMetadata = { ...defaultMetadata?.$extensions?.o3rMetadata, ...acc.o3rMetadata, ...tokenNode.$extensions?.o3rMetadata };
+    return ({ ...acc, ...defaultMetadata?.$extensions, ...tokenNode.$extensions, o3rMetadata });
   }, {} as DesignTokenGroupExtensions & DesignTokenExtensions);
 };
 const getReferences = (cssRawValue: string) => Array.from(cssRawValue.matchAll(tokenReferenceRegExp)).map(([,tokenRef]) => tokenRef);
@@ -123,7 +126,7 @@ const walkThroughDesignTokenNodes = (
 
     const tokenVariable: DesignTokenVariableStructure = {
       context,
-      extensions: getExtensions([...ancestors.map(({ tokenNode }) => tokenNode), node]),
+      extensions: getExtensions([...ancestors, { name: nodeName, tokenNode: node }], context),
       node,
       tokenReferenceName,
       ancestors,
@@ -191,7 +194,8 @@ interface ParseDesignTokenFileOptions {
 export const parseDesignTokenFile = async (specificationFilePath: string, options?: ParseDesignTokenFileOptions) => {
   const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, { encoding: 'utf-8' }));
   const context: DesignTokenContext = {
-    basePath: dirname(specificationFilePath)
+    basePath: dirname(specificationFilePath),
+    ...options?.specificationContext
   };
   return parseDesignToken({ document: JSON.parse(await readFile(specificationFilePath)), context });
 };

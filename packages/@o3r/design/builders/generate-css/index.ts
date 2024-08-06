@@ -10,10 +10,11 @@ import {
   renderDesignTokens,
   tokenVariableNameSassRenderer
 } from '../../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
+import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
 import { EOL } from 'node:os';
+import { readFile } from 'node:fs/promises';
 
 /**
  * Generate CSS from Design Token files
@@ -68,6 +69,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
+    const template = options.templateFile ? JSON.parse(await readFile(resolve(context.workspaceRoot, options.templateFile), { encoding: 'utf-8' })) as DesignTokenGroupTemplate : undefined;
     const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true }));
 
     const inDependencies = designTokenFilePatterns
@@ -84,7 +86,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file)}))))
+      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } })}))))
         .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
@@ -133,7 +135,10 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   } else {
     try {
       await import('chokidar')
-        .then((chokidar) => chokidar.watch(designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p))))
+        .then((chokidar) => chokidar.watch([
+          ...designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p)),
+          ...(options.templateFile ? [resolve(context.workspaceRoot, options.templateFile)] : [])
+        ]))
         .then((watcher) => watcher.on('all', async () => {
           const res = await executeMultiRenderer();
 

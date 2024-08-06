@@ -54,13 +54,17 @@
       "default": false,
       "description": "Determine if the process should stop in case of Token duplication"
     },
+    "templateFile": {
+      "type": "string",
+      "description": "Path to a template file to apply as default configuration to a Design Token extension"
+    },
     "prefix": {
       "type": "string",
-      "description": "Prefix to happen to generated variables"
+      "description": "Prefix to append to generated variables"
     },
     "prefixPrivate": {
       "type": "string",
-      "description": "Prefix to happen to generated Sass variables if generated"
+      "description": "Prefix to append to generated private variables"
     },
     "renderPrivateVariableTo": {
       "type": "string",

@@ -47,7 +47,9 @@ The following configurations are available:
 | **metadataOutput**          | *null*         | Path to generate the metadata for the CMS. <br /> The metadata will be generated only if the file path is specified.                 |
 | **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                                  |
 | **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
+| **templateFile**            | *null*         | Path to a template file to apply as default configuration to a Design Token extension.                                               |
 | **prefix**                  | *null*         | Prefix to append to generated variables.                                                                                             |
+| **prefixPrivate**           | *null*         | Prefix to append to generated private variables.                                                                                     |
 | **watch**                   | false          | Enable Watch mode.                                                                                                                   |
 
 ### generate-jsonschema
