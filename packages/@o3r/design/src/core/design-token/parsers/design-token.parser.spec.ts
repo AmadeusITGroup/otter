@@ -1,7 +1,7 @@
 import * as parser from './design-token.parser';
 import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../design-token-specification.interface';
+import type { DesignTokenGroupTemplate, DesignTokenSpecification } from '../design-token-specification.interface';
 
 describe('Design Token Parser', () => {
 
@@ -14,7 +14,7 @@ describe('Design Token Parser', () => {
 
   describe('parseDesignToken', () => {
 
-    test('generate a simple type variable', () => {
+    test('should generate a simple type variable', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const var1 = result.get('example.var1');
       const varString = result.get('example.var-string');
@@ -33,7 +33,7 @@ describe('Design Token Parser', () => {
       expect(varString.getCssRawValue()).toBe('"test value"');
     });
 
-    test('generate an alias variable', () => {
+    test('should generate an alias variable', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const color = result.get('example.color');
 
@@ -41,7 +41,46 @@ describe('Design Token Parser', () => {
       expect(color.getType()).toBe('color');
     });
 
-    test('generate a complex variable', () => {
+    describe('with template set', () => {
+
+      let exampleVariableWithContext!: DesignTokenSpecification;
+
+      beforeEach(() => {
+        const template: DesignTokenGroupTemplate = {
+          example: {
+            $extensions: {
+              o3rImportant: true
+            }
+          }
+        };
+        exampleVariableWithContext = {
+          ...exampleVariable,
+          context: {
+            template
+          }
+        };
+      });
+
+
+      test('should generate a variable with template', () => {
+        const result = parser.parseDesignToken(exampleVariableWithContext);
+        const item = result.get('example.var1-private');
+
+        expect(item).toBeDefined();
+        expect(item.extensions.o3rImportant).toBe(true);
+        expect(item.extensions.o3rPrivate).toBe(true);
+      });
+
+      test('should generate a variable with template override', () => {
+        const result = parser.parseDesignToken(exampleVariableWithContext);
+        const item = result.get('example.var-not-important');
+
+        expect(item).toBeDefined();
+        expect(item.extensions.o3rImportant).toBe(false);
+      });
+    });
+
+    test('should generate a complex variable', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const border = result.get('example.test.border');
 
@@ -49,7 +88,7 @@ describe('Design Token Parser', () => {
       expect(border.getType()).toBe('border');
     });
 
-    test('generate correctly the gradient', () => {
+    test('should generate correctly the gradient', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const gradient = result.get('example.test.gradient');
 
@@ -58,7 +97,7 @@ describe('Design Token Parser', () => {
       expect(gradient.getCssRawValue()).toBe('linear-gradient(180deg, #fff 10px)');
     });
 
-    describe('generate correctly the shadow', () => {
+    describe('should generate correctly the shadow', () => {
       test('with single parameter', () => {
         const result = parser.parseDesignToken(exampleVariable);
         const shadow = result.get('example.test.shadow');
@@ -89,6 +128,14 @@ describe('Design Token Parser', () => {
       expect(parseDesignToken).toHaveBeenCalledTimes(1);
       expect(readFile).toHaveBeenCalledTimes(1);
       expect(parseDesignToken).toHaveBeenCalledWith({context: { basePath: '.' }, document: { test: { $value: '#000', $type: 'color' } } });
+    });
+
+    test('should propagate context object', async () => {
+      const readFile = jest.fn().mockResolvedValue('{"test": { "$value": "#000", "$type": "color" }}');
+      const parseDesignToken = jest.spyOn(parser, 'parseDesignToken').mockImplementation(() => (new Map()));
+      await parser.parseDesignTokenFile('fakeFile.json', { readFile, specificationContext: {template: {$description: 'test'}}});
+
+      expect(parseDesignToken).toHaveBeenCalledWith({ context: { basePath: '.', template: { $description: 'test' } }, document: { test: { $value: '#000', $type: 'color' } } });
     });
 
     test('should throw if invalid JSON Token', async () => {

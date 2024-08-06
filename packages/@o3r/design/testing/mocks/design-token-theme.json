@@ -23,6 +23,13 @@
       "$type": "color",
       "$value": "#000"
     },
+    "var-not-important": {
+      "$extensions": {
+        "o3rImportant": false
+      },
+      "$type": "color",
+      "$value": "#000"
+    },
     "wrong-ref": {
       "$value": "{does.not.exist}"
     },
