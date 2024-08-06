@@ -12,14 +12,16 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const { getWorkspaceConfig, registerBuilder } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);
     const workspaceProject = projectName ? workspace?.projects[projectName] : undefined;
-    const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.join(workspaceProject.root, 'src') : './src');
+    const workspaceRootPath = workspaceProject?.root || '.';
+    const srcBasePath = workspaceProject?.sourceRoot || posix.join(workspaceRootPath, 'src');
     const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
     const taskOptions: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
       renderPrivateVariableTo: 'sass',
+      templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [
-        `${posix.join(srcBasePath, 'style', '*.json')}`,
-        `${posix.join(srcBasePath, '**', '*.theme.json')}`
+        posix.join(srcBasePath, 'style', '*.json'),
+        posix.join(srcBasePath, '**', '*.theme.json')
       ]
     };
     const taskParameters = {
@@ -36,7 +38,7 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
   };
 
-  const generateTemplateRule: Rule = async (tree) => {
+  const generateDesignTokenFilesRule: Rule = async (tree) => {
     const { getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
     const srcBasePath = workspaceProject?.sourceRoot || (workspaceProject?.root ? posix.join(workspaceProject.root, 'src') : './src');
@@ -45,6 +47,17 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
       template({}),
       renameTemplateFiles(),
       move(themeFolder)
+    ]), MergeStrategy.Overwrite);
+  };
+
+  const generateTemplateFilesRule: Rule = async (tree) => {
+    const { getWorkspaceConfig } = await import('@o3r/schematics');
+    const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
+    const workspaceRootPath = workspaceProject?.root || '.';
+    return mergeWith(apply(url('./register-generate-css/templates-workspace'), [
+      template({}),
+      renameTemplateFiles(),
+      move(workspaceRootPath)
     ]), MergeStrategy.Overwrite);
   };
 
@@ -62,7 +75,8 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
 
   return chain([
     registerBuilderRule,
-    generateTemplateRule,
+    generateDesignTokenFilesRule,
+    generateTemplateFilesRule,
     importTheme
   ]);
 };
