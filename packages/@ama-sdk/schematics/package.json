@@ -91,7 +91,7 @@
     "@o3r/test-helpers": "workspace:^",
     "@openapitools/openapi-generator-cli": "~2.13.0",
     "@schematics/angular": "~18.0.0",
-    "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
     "@types/js-yaml": "^4.0.5",
     "@types/minimatch": "^5.1.2",

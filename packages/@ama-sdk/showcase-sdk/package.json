@@ -81,7 +81,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@openapitools/openapi-generator-cli": "~2.13.0",
     "@schematics/angular": "~18.0.0",
-    "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@swc/cli": "~0.3.0",
     "@swc/core": "~1.6.0",
     "@types/jest": "~29.5.2",
