@@ -69,7 +69,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.0.0",
-    "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/uuid": "^9.0.0",

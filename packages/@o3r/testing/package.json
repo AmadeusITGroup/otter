@@ -191,7 +191,7 @@
     "@o3r/test-helpers": "workspace:^",
     "@playwright/test": "~1.45.0",
     "@schematics/angular": "~18.0.0",
-    "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/pixelmatch": "^5.2.3",

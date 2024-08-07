@@ -38,7 +38,7 @@
     "@nx/jest": "~19.3.0",
     "@nx/js": "~19.3.0",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "^2.0.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
