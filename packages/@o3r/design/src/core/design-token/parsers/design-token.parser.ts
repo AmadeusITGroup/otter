@@ -171,7 +171,11 @@ const walkThroughDesignTokenNodes = (
  * @param specification Design Token content as specified on https://design-tokens.github.io/community-group/format/
  */
 export const parseDesignToken = (specification: DesignTokenSpecification): DesignTokenVariableSet => {
-  return walkThroughDesignTokenNodes(specification.document, specification.context, [], new Map());
+  const initialMap: DesignTokenVariableSet = new Map();
+  if (Object.keys(specification.document).every((key) => key.startsWith('$'))) {
+    return initialMap;
+  }
+  return walkThroughDesignTokenNodes(specification.document, specification.context, [], initialMap);
 };
 
 interface ParseDesignTokenFileOptions {

@@ -17,7 +17,6 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
     const taskOptions: GenerateCssSchematicsSchema = {
       defaultStyleFile: themeFile,
-      renderPrivateVariableTo: 'sass',
       templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [
         posix.join(srcBasePath, 'style', '*.json'),
@@ -25,8 +24,9 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
       ]
     };
     const taskParameters = {
+      builder: '@o3r/design:generate-css',
       options: taskOptions,
-      configuration: {
+      configurations: {
         watch: { watch: true }
       }
     };
