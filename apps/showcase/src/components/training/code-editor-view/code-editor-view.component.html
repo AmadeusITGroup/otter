@@ -1,11 +1,10 @@
 <div class="container">
   @if ((tree$ | async)?.length > 0) {
-    <button (click)="consoleLogSDK()">Log Files in console</button>
     <form [formGroup]="form" class="editor">
       <div class="d-flex w-100">
         <monaco-tree style="overflow: scroll" (clickFile)="onClickFile($event)" height="300px" width="250px" [tree]="tree$ | async"></monaco-tree>
-        <div style="height: 300px">
-          <ngx-monaco-editor style="height: 100%" [options]="editorOptions$ | async" formControlName="code"></ngx-monaco-editor>
+        <div>
+          <ngx-monaco-editor [options]="editorOptions$ | async" formControlName="code"></ngx-monaco-editor>
         </div>
       </div>
     </form>
@@ -31,6 +30,6 @@
       </ul>
     }
   } @else if (!!filesContent) {
-    ...Loading...
+    <div class="spinner-border" role="status"></div>
   }
 </div>

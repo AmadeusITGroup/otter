@@ -5,9 +5,9 @@ import {
   ElementRef,
   inject,
   Input,
-  OnDestroy, SimpleChanges,
-  ViewChild,
-  ViewEncapsulation
+  OnChanges, OnDestroy,
+  SimpleChanges,
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileSystemTree} from '@webcontainer/api';
@@ -46,14 +46,16 @@ export type EditorMode = 'readonly' | 'interactive';
   templateUrl: './code-editor-view.component.html',
   styleUrl: './code-editor-view.component.scss'
 })
-export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
+export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChanges {
   // Si on doit partager des fichiers shared, je me demande si on doit pas faire des choses plus complexes
   // @Input() filesPath?: string;
   @Input() public filesContent?: FileSystemTree;
 
-  @Input() public startingFile: string = '';
+  @Input() public startingFile = '';
 
   @Input() public editorMode: EditorMode = 'readonly';
+
+  @Input() public commands: string[] = [];
 
   private readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
@@ -69,7 +71,8 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
     map((filePath: string) => ({
       theme: 'vs-dark',
       language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts,
-      readOnly: (this.editorMode === 'readonly')
+      readOnly: (this.editorMode === 'readonly'),
+      automaticLayout: true
     }))
   );
   @ViewChild('iframe')
@@ -79,7 +82,7 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   @ViewChild('console')
   public consoleEl!: ElementRef<HTMLDivElement>;
 
-  private consoleTerminal?: Terminal;
+  public consoleTerminal?: Terminal;
 
   constructor() {
     this.subscriptions.add(
@@ -90,7 +93,7 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
       ).subscribe((text) => {
         const path = this.form.controls.file.value;
         if (path) {
-          void this.webContainerService.writeFile(this.form.controls.file.value, text)
+          void this.webContainerService.writeFile(this.form.controls.file.value, text);
         }
       })
     );
@@ -121,6 +124,7 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   }
 
   public ngAfterViewInit() {
+    // TODO check if we get bugs between hide and show
     if (this.consoleEl) {
       this.consoleTerminal = this.initTerminal(this.consoleEl.nativeElement);
     }
@@ -131,9 +135,11 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
   }
 
   public async ngOnChanges(changes: SimpleChanges) {
-    if ('filesContent' in changes) {
-      if (changes.filesContent.currentValue) {
-        await this.webContainerService.launchProject(changes.filesContent.currentValue, this.iframeEl?.nativeElement, this.consoleTerminal);
+    if ('filesContent' in changes || 'commands' in changes) {
+      if (this.filesContent) {
+        // Remove link between launch project and terminals
+        await this.webContainerService.loadProject(this.filesContent);
+        // TODO create a method to handle the update of forms
         if (this.startingFile) {
           this.form.controls.file.setValue(this.startingFile);
           const content = await this.webContainerService.readFile(this.startingFile);
@@ -146,15 +152,18 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy {
         this.form.controls.code.setValue('');
       }
     }
+    if ('commands' in changes) {
+      if (this.commands.length > 0 && !this.iframeEl?.nativeElement || !this.consoleEl.nativeElement) {
+        console.error('Missing iframe and terminal to run webcontainer initialization commands');
+        return;
+      }
+      void this.webContainerService.runCommands(this.commands, this.iframeEl.nativeElement, this.consoleEl.nativeElement);
+    }
   }
 
   public async onClickFile(filePath: any) {
     if (await this.webContainerService.isFile(filePath)) {
       this.form.controls.file.setValue(filePath);
     }
-  }
-
-  public consoleLogSDK() {
-    void this.webContainerService.consoleFiles();
   }
 }

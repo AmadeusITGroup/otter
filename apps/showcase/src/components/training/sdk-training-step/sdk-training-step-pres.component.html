@@ -9,7 +9,12 @@
     <hr>
     <ng-content select=".step-component"/>
     @if (filesContent) {
-      <code-editor-view [filesContent]="filesContent" [startingFile]="startingFile" [editorMode]="editorMode"></code-editor-view>
+      <code-editor-view
+        [filesContent]="filesContent"
+        [startingFile]="startingFile"
+        [editorMode]="editorMode"
+        [commands]="commands"
+      ></code-editor-view>
     }
   </div>
 </div>

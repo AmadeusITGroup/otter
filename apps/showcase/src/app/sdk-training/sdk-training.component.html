@@ -12,6 +12,7 @@
 <o3r-sdk-training-step-pres
   [filesContent]="steps[currentStep].filesConfiguration?.filesContent()"
   [startingFile]="steps[currentStep].filesConfiguration?.startingFile"
+  [commands]="steps[currentStep].filesConfiguration?.commands"
   [editorMode]="steps[currentStep].filesConfiguration?.mode">
 <!-- TODO maybe we can remove the content projection and just call the o3r-sdk-step with parameters -->
   <ng-container class="step-instructions">

@@ -38,13 +38,24 @@ const readDirRec = async (entry: DirEnt<string>, path: string, fileSystem: FileS
 };
 
 // TODO Add exclusion list
-export const getFilesTree = async (path: string, fileSystem: FileSystem, exclusionList: string[] = []) => {
+export const getFilesTree = async (files: {isDir: boolean, path: string}[], fileSystem: FileSystem, exclusionList: string[] = []) => {
   const tree: FileSystemTree = {};
-  const dirEntries = await fileSystem.readdir(path, { encoding: 'utf-8', withFileTypes: true });
-  for (const entry of dirEntries) {
-    const subTree = await readDirRec(entry, path, fileSystem, exclusionList);
-    if (subTree) {
-      tree[entry.name] = subTree[entry.name];
+  for (const {isDir, path} of files) {
+    if (isDir) {
+      const dirEntries = await fileSystem.readdir(path, { encoding: 'utf-8', withFileTypes: true });
+      for (const entry of dirEntries) {
+        const subTree = await readDirRec(entry, path, fileSystem, exclusionList);
+        if (subTree) {
+          tree[entry.name] = subTree[entry.name];
+        }
+      }
+    } else {
+      const name = path.match(/([^\\/]+)$/g)?.[0];
+      if (name) {
+        tree[name] = {
+          file: { contents: await fileSystem.readFile(path, 'utf-8') }
+        };
+      }
     }
   }
   return tree;

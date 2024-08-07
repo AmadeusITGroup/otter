@@ -14,6 +14,7 @@ export class SdkTrainingStepPresComponent {
   @Input() public filesContent?: FileSystemTree;
   @Input() public startingFile?: string;
   @Input() public editorMode?: EditorMode;
+  @Input() public commands?: string[];
 
   private readonly widthSelection = 50;
   public leftWidthPercent = `${this.widthSelection}%`;

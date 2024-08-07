@@ -22,6 +22,16 @@ const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | 
   }
 });
 
+const createHtmlStream = (div: HTMLDivElement, cb?: (data: string) => void | Promise<void>) => new WritableStream({
+  write(data) {
+    if (cb) {
+      void cb(data);
+    }
+    div.innerText = `${data}
+${div.innerText}`;
+  }
+});
+
 const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
   terminal.onData((data) => input.write(data));
@@ -34,6 +44,7 @@ const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) =
 export class WebcontainerService {
   private instance: WebContainer | null = null;
   private readonly monacoTree = new BehaviorSubject<MonacoTreeElement[]>([]);
+  private currentProcess: WebContainerProcess | null = null;
 
   public monacoTree$ = this.monacoTree.pipe(
     distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b))
@@ -59,27 +70,18 @@ export class WebcontainerService {
       );
   }
 
-  // private async installDeps(terminal: Terminal) {
-  //   if (!this.instance) {
-  //     throw new WebContainerNotInitialized();
-  //   }
-  //   const installProcess = await this.instance.spawn('npm', ['install']);
-  //   void installProcess.output.pipeTo(createTerminalStream(terminal));
-  //   return installProcess;
-  // }
-  //
-  // private async runApp(iframe: HTMLIFrameElement, terminal: Terminal) {
-  //   if (!this.instance) {
-  //     throw new WebContainerNotInitialized();
-  //   }
-  //   const shellProcess = await this.instance.spawn('npm', ['run', 'ng', 'run', 'tuto:serve']);
-  //   void shellProcess.output.pipeTo(createTerminalStream(terminal));
-  //   this.instance.on('server-ready', (_port: number, url: string) => {
-  //     iframe.src = url;
-  //   });
-  //
-  //   return shellProcess;
-  // }
+  private async runCommand(command: string, terminal: Terminal | HTMLDivElement) {
+    if (!this.instance) {
+      throw new WebContainerNotInitialized();
+    }
+    const process = await this.instance.spawn('npm', command.split(' '));
+    if (Object.hasOwn(terminal, 'parser')) {
+      void process.output.pipeTo(createTerminalStream(terminal as Terminal));
+    } else {
+      void process.output.pipeTo(createHtmlStream(terminal as HTMLDivElement));
+    }
+    return process;
+  }
 
   // private async installThenRun(iframe: HTMLIFrameElement, terminal: Terminal) {
   //   const installProcess = await this.installDeps(terminal);
@@ -91,7 +93,7 @@ export class WebcontainerService {
   // }
 
   // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: FileSystemTree) {
-  public async launchProject(files: FileSystemTree, _iframe?: HTMLIFrameElement, _terminal?: Terminal) {
+  public async loadProject(files: FileSystemTree) {
     if (this.instance) {
       this.destroyInstance();
     }
@@ -104,10 +106,23 @@ export class WebcontainerService {
       const tree = await this.getMonacoTree();
       this.monacoTree.next(tree);
     });
-    // TODO fix and only run in some mode
-    if (_iframe && _terminal) {
-      // void this.installThenRun(iframe, terminal);
+  }
+
+  public async runCommands(commands: string[] = [], iframe: HTMLIFrameElement, terminal: Terminal | HTMLDivElement) {
+    if (!this.instance) {
+      throw new WebContainerNotInitialized();
     }
+    if (this.currentProcess) {
+      this.currentProcess.kill();
+      iframe.src = '';
+      this.currentProcess = null;
+    }
+    for (const command of commands) {
+      this.currentProcess = await this.runCommand(command, terminal);
+    }
+    this.instance.on('server-ready', (_port: number, url: string) => {
+      iframe.src = url;
+    });
   }
 
   public async writeFile(file: string, content: string) {
@@ -156,16 +171,11 @@ export class WebcontainerService {
     return shellProcess;
   }
 
-  // Delete this function ?
-  public async consoleFiles() {
-    console.log(await this.getFilesTreeFromContainer());
-  }
-
   public async getFilesTreeFromContainer() {
     if (!this.instance) {
       throw new WebContainerNotInitialized();
     }
-    return await getFilesTree('/', this.instance.fs as unknown as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
+    return await getFilesTree([{path: '/', isDir: true}], this.instance.fs as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
   }
 
   public destroyInstance() {

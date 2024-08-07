@@ -82,7 +82,7 @@
             "output": "/assets/"
           },
           {
-            "glob": "folder-structure.json",
+            "glob": "*-structure.json",
             "input": "packages/@o3r-training/training-sdk/dist",
             "output": "/assets/training-sdk"
           }

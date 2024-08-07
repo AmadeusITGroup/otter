@@ -57,6 +57,7 @@
 
 node_modules/
 *.log
+*-structure.json
 
 build/
 dist/

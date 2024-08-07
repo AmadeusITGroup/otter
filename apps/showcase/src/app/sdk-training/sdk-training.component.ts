@@ -44,6 +44,7 @@ export class SdkTrainingComponent {
     filesConfiguration?: {
       startingFile: string;
       link?: string;
+      commands?: string[],
       filesContent: WritableSignal<FileSystemTree | null>;
       mode?: EditorMode;
     };
@@ -83,8 +84,10 @@ export class SdkTrainingComponent {
         htmlExampleUrl: '',
         htmlExample: signal(''),
         filesConfiguration: {
-          startingFile: '',
+          startingFile: 'apps/tuto/src/index.html',
           link: 'sdk-training/step-generate-sdk-specs/step-generate-sdk-specs-files.json',
+          mode: 'interactive',
+          commands: ['install', 'ng run tuto:serve'],
           filesContent: signal(null)
         }
       },
@@ -95,10 +98,9 @@ export class SdkTrainingComponent {
         htmlExampleUrl: '',
         htmlExample: signal(''),
         filesConfiguration: {
-          startingFile: 'api/dummy/dummy-api.ts',
-          link: 'training-sdk/folder-structure.json',
-          filesContent: signal(null),
-          mode: 'readonly'
+          startingFile: 'open-api.yaml',
+          link: 'training-sdk/openapi-structure.json',
+          filesContent: signal(null)
         }
       },
       {
@@ -107,7 +109,12 @@ export class SdkTrainingComponent {
         htmlContent: signal(''),
         htmlExampleUrl: 'sdk-training/step-generate-sdk-command.example.html',
         htmlExample: signal(''),
-        componentExample: SdkTrainingGenerationSetupExamplePresComponent
+        filesConfiguration: {
+          startingFile: 'api/dummy/dummy-api.ts',
+          link: 'training-sdk/folder-structure.json',
+          filesContent: signal(null),
+          mode: 'readonly'
+        }
       },
       {
         title: 'SDK with Dates',
