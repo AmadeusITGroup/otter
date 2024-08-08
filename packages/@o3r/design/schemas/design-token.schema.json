@@ -78,7 +78,6 @@
       }
     },
     "extensions": {
-      "type": "object",
       "allOf": [
         {
           "$ref": "#/definitions/otterExtension"
@@ -190,16 +189,12 @@
       }
     },
     "tokenTypeFontFamily": {
-      "type": "object",
-      "required": [
-        "$type",
-        "primary"
-      ],
       "allOf": [
         {
           "oneOf": [
             {
               "type": "object",
+              "required": ["$value"],
               "properties": {
                 "$value": {
                   "type": "string"
@@ -238,6 +233,9 @@
         },
         {
           "type": "object",
+          "required": [
+            "$type"
+          ],
           "properties": {
             "$type": {
               "const": "fontFamily",
@@ -257,9 +255,7 @@
           "type": "string",
           "pattern": "^.*\\{.*\\}.*$"
         },
-        "$type": {
-          "not": {}
-        }
+        "$type": false
       }
     },
     "tokenTypeDuration": {
@@ -303,14 +299,7 @@
       }
     },
     "tokenTypeFontWeightValue": {
-      "oneOf": [
-        {
-          "type": "number"
-        },
-        {
-          "type": "string"
-        }
-      ]
+      "type": ["string", "number"]
     },
     "tokenTypeFontWeight": {
       "type": "object",
@@ -599,10 +588,7 @@
               "$ref": "#/definitions/tokenTypeFontWeightValue"
             },
             "lineHeight": {
-              "oneOf": [
-                { "type": "string" },
-                { "type": "number" }
-              ]
+              "type": ["string", "number"]
             }
           },
           "required": [
