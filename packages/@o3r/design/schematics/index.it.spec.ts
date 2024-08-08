@@ -26,7 +26,7 @@ describe('new otter application with Design', () => {
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('angular.json');
-    expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/design-token.custom.json'));
+    expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/design-token.custom.theme.json'));
     expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/theme.scss'));
     expect(diff.added).toContain(path.posix.join('apps', appName, 'design-token.template.json'));
 

@@ -20,7 +20,7 @@ describe('ng-add', () => {
       projectName: 'test-project'
     }, initialTree);
 
-    expect(tree.exists('src/style/design-token.custom.json')).toBe(true);
+    expect(tree.exists('src/style/design-token.custom.theme.json')).toBe(true);
     expect(tree.exists('design-token.template.json')).toBe(true);
     expect(tree.exists('src/style/theme.scss')).toBe(true);
   });

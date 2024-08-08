@@ -14,6 +14,24 @@ describe('Design Token Parser', () => {
 
   describe('parseDesignToken', () => {
 
+    test('should support single root key', () => {
+      const result = parser.parseDesignToken({
+        document: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          'my.variable': {
+            $value: '{external}'
+          }
+        }
+      });
+      const var1 = result.get('my.variable');
+      const var2 = result.get('.my.variable');
+
+      expect(result.size).toBe(1);
+      expect(var2).not.toBeDefined();
+      expect(var1).toBeDefined();
+      expect(var1.getKey()).toBe('my-variable');
+    });
+
     test('should generate a simple type variable', () => {
       const result = parser.parseDesignToken(exampleVariable);
       const var1 = result.get('example.var1');
