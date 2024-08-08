@@ -6,7 +6,7 @@
   "main": "tmp/main.js",
   "scripts": {
     "nx": "nx",
-    "build": "tsc -b tsconfig.build.json",
+    "build": "tsc -b tsconfig.json",
     "package": "ncc build --source-map --license LICENSE.txt --out packaged-action",
     "test": "jest"
   },
@@ -19,6 +19,7 @@
     "@actions/core": "^1.10.0",
     "@actions/exec": "^1.1.1",
     "@actions/github": "^6.0.0",
+    "@o3r/new-version": "workspace:~",
     "semver": "^7.5.2"
   },
   "devDependencies": {

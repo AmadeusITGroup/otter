@@ -1,7 +1,7 @@
 import {exec} from 'node:child_process';
 import {promisify} from 'node:util';
 import * as semver from 'semver';
-import {formatGitTagsOutput} from './helpers';
+import {formatGitTagsOutput} from './helpers/index';
 
 const promisifiedExec = promisify(exec);
 
