@@ -24,6 +24,7 @@ import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/o
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-referenced-files';
 import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
@@ -153,10 +154,19 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     let specContent!: string;
     if (URL.canParse(generatorOptions.specPath) && (new URL(generatorOptions.specPath)).protocol.startsWith('http')) {
       specContent = await (await fetch(generatorOptions.specPath)).text();
+      specContent = updateLocalRelativeRefs(specContent, path.dirname(generatorOptions.specPath));
     } else {
       const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory ?
         generatorOptions.specPath : path.join(options.directory, generatorOptions.specPath);
       specContent = readFileSync(specPath, {encoding: 'utf-8'}).toString();
+
+      if (path.relative(process.cwd(), specPath).startsWith('..')) {
+        // TODO would be better to create files on tree instead of FS
+        const newRelativePath = await copyReferencedFiles(specPath, './spec-local-references');
+        if (newRelativePath) {
+          specContent = updateLocalRelativeRefs(specContent, newRelativePath);
+        }
+      }
     }
 
     try {
