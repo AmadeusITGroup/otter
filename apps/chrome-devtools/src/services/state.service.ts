@@ -1,5 +1,6 @@
-import { computed, effect, inject, Injectable, signal, type Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { computed, effect, inject, Injectable, type Signal, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { combineLatest } from 'rxjs';
 import {
   ChromeExtensionConnectionService,
   filterAndMapMessage,
@@ -15,7 +16,7 @@ export class StateService {
   private readonly statesStorageKey: Signal<string | undefined>;
   private readonly activeStateNameStorageKey: Signal<string | undefined>;
   private readonly activeStateName = signal<string>('local');
-  private readonly languages = this.localizationService.languages;
+  public readonly languages$ = this.localizationService.languages$;
 
   public readonly states = signal<Record<string, State>>({});
   public readonly localState = signal<State>({ name: 'local', color: 'black', colorContrast: 'white' });
@@ -77,9 +78,12 @@ export class StateService {
       return stateName ? this.states()[stateName] : undefined;
     });
 
-    effect(() => {
-      const state = this.activeState();
-      const languages = this.languages();
+    combineLatest([
+      toObservable(this.activeState),
+      this.languages$
+    ]).pipe(
+      takeUntilDestroyed()
+    ).subscribe(([state, languages]) => {
       this.updateLocalState(state || {}, true);
       // TODO reset configuration (is it possible? based on default value from metadata if present?)
       // Reset all styling variables before applying override of the new state
@@ -109,7 +113,7 @@ export class StateService {
         stateColor: state.color,
         stateColorContrast: state.colorContrast
       });
-    }, { allowSignalWrites: true });
+    });
 
     this.hasLocalChanges = computed(() => {
       const {
