@@ -154,6 +154,7 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
   const untouchedProjectsPaths = [untouchedAppPath, untouchedLibPath];
 
   return {
+    folderName,
     workspacePath,
     applicationPath,
     appName,
