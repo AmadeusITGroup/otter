@@ -20,7 +20,7 @@ import { dirname } from 'node:path';
 
 const tokenReferenceRegExp = /\{([^}]+)\}/g;
 
-const getTokenReferenceName = (tokenName: string, parents: string[]) => (`${parents.join('.')}.${tokenName}`);
+const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length ? '.' : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
   return nodes.reduce((acc, {tokenNode}, i) => {
     const nodeNames = nodes.slice(0, i + 1).map(({ name }) => name);
