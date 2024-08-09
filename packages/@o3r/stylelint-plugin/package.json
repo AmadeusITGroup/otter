@@ -40,7 +40,7 @@
   "devDependencies": {
     "@angular-devkit/core": "~18.1.0",
     "@angular-devkit/schematics": "~18.1.0",
-    "@angular-eslint/eslint-plugin": "~18.1.0",
+    "@angular-eslint/eslint-plugin": "~18.2.0",
     "@angular/compiler": "~18.1.0",
     "@babel/core": "~7.25.0",
     "@babel/preset-typescript": "~7.24.0",

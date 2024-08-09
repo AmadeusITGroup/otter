@@ -114,7 +114,7 @@
   "devDependencies": {
     "@angular-devkit/core": "~18.1.0",
     "@angular-devkit/schematics": "~18.1.0",
-    "@angular-eslint/eslint-plugin": "~18.1.0",
+    "@angular-eslint/eslint-plugin": "~18.2.0",
     "@angular/common": "~18.1.0",
     "@angular/core": "~18.1.0",
     "@nx/eslint-plugin": "~19.5.0",
