@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import { resolve } from 'node:path';
 import type { DesignTokenSpecification } from '../design-token-specification.interface';
 import type { DesignTokenVariableSet } from '../parsers';
-import { computeFileToUpdatePath, renderDesignTokens } from './design-token-style.renderer';
+import { compareVariableByName, computeFileToUpdatePath, renderDesignTokens } from './design-token-style.renderer';
 
 describe('Design Token Renderer', () => {
   let exampleVariable!: DesignTokenSpecification;
@@ -76,6 +76,50 @@ describe('Design Token Renderer', () => {
       expect(designTokens.size).toBeGreaterThan(0);
       expect(determineFileToUpdate).toHaveBeenCalledTimes(designTokens.size);
       expect(writeFile).toHaveBeenCalledTimes(2);
+    });
+
+    describe('the comparator', () => {
+      const firstVariable = '--example-color';
+      const lastVariable = '--example-wrong-ref';
+
+      test('should sort variable by name per default', async () => {
+        const result: any = {};
+        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const readFile = jest.fn().mockReturnValue('');
+        const existsFile = jest.fn().mockReturnValue(true);
+        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+
+        await renderDesignTokens(designTokens, {
+          writeFile,
+          readFile,
+          existsFile,
+          determineFileToUpdate
+        });
+
+        const contentToTest = result['styles.scss'];
+
+        expect(contentToTest.indexOf(firstVariable)).toBeLessThan(contentToTest.indexOf(lastVariable));
+      });
+
+      test('should sort variable based on option', async () => {
+        const result: any = {};
+        const writeFile = jest.fn().mockImplementation((filename, content) => { result[filename] = content; });
+        const readFile = jest.fn().mockReturnValue('');
+        const existsFile = jest.fn().mockReturnValue(true);
+        const determineFileToUpdate = jest.fn().mockImplementation(computeFileToUpdatePath('.'));
+
+        await renderDesignTokens(designTokens, {
+          writeFile,
+          readFile,
+          existsFile,
+          determineFileToUpdate,
+          variableSortComparator: (a, b) => -compareVariableByName(a, b)
+        });
+
+        const contentToTest = result['styles.scss'];
+
+        expect(contentToTest.indexOf(firstVariable)).toBeGreaterThan(contentToTest.indexOf(lastVariable));
+      });
     });
   });
 });
