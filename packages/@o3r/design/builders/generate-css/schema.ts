@@ -11,6 +11,11 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   metadataOutput?: string;
 
   /**
+   * Ignore the private variable in the metadata generation
+   */
+  metadataIgnorePrivate?: boolean;
+
+  /**
    * Output file where generate the CSS
    *
    * If specified, all the generated CSS variable will be generated in the given file.

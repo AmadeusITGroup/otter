@@ -40,6 +40,11 @@
       "type": "string",
       "description": "If specified, all the generated CSS variable will be generated in the given file. Otherwise, the output file will be determined based on the Variable parameters."
     },
+    "metadataIgnorePrivate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ignore the private variable in the metadata generation."
+    },
     "rootPath": {
       "type": "string",
       "description": "Root path used to determine the CSS file to edit if specified by the o3rTargetFile token extension. It will default to the Design Token file folder."
