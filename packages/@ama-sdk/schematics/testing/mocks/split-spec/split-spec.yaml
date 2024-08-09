@@ -1,0 +1,45 @@
+openapi: 3.0.2
+info:
+  description: test
+  title: test
+  version: 0.0.0
+paths:
+  /test:
+    get:
+      responses:
+        '200':
+          description: test
+          content:
+            application/json:
+              schema:
+                $ref: './spec-chunk1.yaml'
+  /test2:
+    get:
+      responses:
+        '200':
+          description: test
+          content:
+            application/json:
+              schema:
+                $ref: '../spec-chunk2.yaml'
+  /test3:
+    get:
+      responses:
+        '200':
+          description: test
+          content:
+            application/json:
+              schema:
+                $ref: '../spec-chunk3/spec-chunk3.yaml'
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        name:
+          type: string
+          example: "test"
