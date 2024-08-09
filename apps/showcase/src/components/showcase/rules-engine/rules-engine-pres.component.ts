@@ -6,7 +6,7 @@ import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/con
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
-import { RulesEngineRunnerModule } from '@o3r/rules-engine';
+import {RulesEngineRunnerModule, RulesEngineRunnerService} from '@o3r/rules-engine';
 import { Subscription } from 'rxjs';
 import { TripFactsService } from '../../../facts/trip/trip.facts';
 import { DatePickerInputPresComponent } from '../../utilities';
@@ -35,7 +35,7 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
 export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableWithSignal<RulesEnginePresConfig>, Translatable<RulesEnginePresTranslation> {
   private readonly tripService = inject(TripFactsService);
   private readonly localizationService = inject(LocalizationService);
-
+  private readonly rulesService = inject(RulesEngineRunnerService);
   /** Localization of the component*/
   @Input()
   @Localization('./rules-engine-pres.localization.json')
@@ -108,8 +108,13 @@ export class RulesEnginePresComponent implements OnDestroy, DynamicConfigurableW
   private formatDate(dateTime: number) {
     return formatDate(dateTime, 'yyyy-MM-dd', 'en-GB');
   }
+  public ngOnInit() {
+    this.rulesService.enableRuleSetFor(RULES_ENGINE_PRES_CONFIG_ID);
+
+  }
 
   public ngOnDestroy() {
+    this.rulesService.disableRuleSetFor(RULES_ENGINE_PRES_CONFIG_ID);
     this.subscription.unsubscribe();
   }
 

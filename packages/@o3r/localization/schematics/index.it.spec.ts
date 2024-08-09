@@ -28,7 +28,7 @@ describe('ng add otter localization', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(8);
+    expect(diff.modified.length).toBe(9);
     expect(diff.added.length).toBe(15);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.localization.json').replace(/[\\/]+/g, '/'));
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.translation.ts').replace(/[\\/]+/g, '/'));
@@ -41,9 +41,8 @@ describe('ng add otter localization', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
   });
 
-  // TODO add after fixing https://github.com/AmadeusITGroup/otter/issues/1758
-  test.skip('should add localization to a library', () => {
-    const { workspacePath, isInWorkspace, untouchedProjectsPaths, o3rVersion, libraryPath, libName, applicationPath } = o3rEnvironment.testEnvironment;
+  test('should add localization to a library', () => {
+    const { workspacePath, isInWorkspace, untouchedProjectsPaths, o3rVersion, libraryPath, libName, applicationPath, isYarnTest } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     const relativeLibraryPath = path.relative(workspacePath, libraryPath);
     expect(() => packageManagerExec({script: 'ng', args: ['add', `@o3r/localization@${o3rVersion}`, '--skip-confirmation', '--project-name', libName]}, execAppOptions)).not.toThrow();
@@ -53,10 +52,22 @@ describe('ng add otter localization', () => {
     packageManagerExec({script: 'ng', args: ['g', '@o3r/localization:add-localization', '--activate-dummy', '--path', componentPath]}, execAppOptions);
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.modified.length).toBe(8);
-    expect(diff.added.length).toBe(15);
+    const modifiedFiles = [
+      path.join(relativeLibraryPath, '.gitignore').replace(/[\\/]+/g, '/'),
+      path.join(relativeLibraryPath, 'package.json').replace(/[\\/]+/g, '/'),
+      '.gitignore',
+      'angular.json',
+      'package.json',
+      isYarnTest ? 'yarn.lock' : 'package-lock.json'
+    ];
+    modifiedFiles.forEach((modifiedFile) => {
+      expect(diff.modified).toContain(modifiedFile);
+    });
+    expect(diff.modified.length).toBe(modifiedFiles.length);
+
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.localization.json').replace(/[\\/]+/g, '/'));
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.translation.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added.length).toBe(13);
 
     [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

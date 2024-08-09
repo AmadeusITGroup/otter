@@ -10,11 +10,12 @@ import type { DependencyToAdd } from '@o3r/schematics';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { addWorkspacesToProject, filterPackageJsonScripts } from './helpers/npm-workspace';
+import { addMonorepoManager, addWorkspacesToProject, filterPackageJsonScripts } from './helpers/npm-workspace';
 import { generateRenovateConfig } from './helpers/renovate';
 import type { NgAddSchematicsSchema } from './schema';
 import { shouldOtterLinterBeInstalled } from './helpers/linter';
 import { updateGitIgnore } from './helpers/gitignore-update';
+import type { PackageJson } from 'type-fest';
 
 /**
  * Enable all the otter features requested by the user
@@ -34,7 +35,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
   const ownSchematicsFolder = path.resolve(__dirname, '..');
   const ownPackageJsonPath = path.resolve(ownSchematicsFolder, '..', 'package.json');
   const depsInfo = getO3rPeerDeps(ownPackageJsonPath);
-  const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf-8' }));
+  const ownPackageJsonContent = JSON.parse(fs.readFileSync(ownPackageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
 
   return async (tree, context) => {
     if (!ownPackageJsonContent) {
@@ -74,7 +75,8 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
         ngAddToRun: internalPackagesToInstallWithNgAdd
       }),
       !options.skipLinter && installOtterLinter ? applyEsLintFix() : noop(),
-      addWorkspacesToProject()
+      addWorkspacesToProject(),
+      addMonorepoManager(ownPackageJsonContent, options.monorepoManager)
     ])(tree, context);
   };
 };

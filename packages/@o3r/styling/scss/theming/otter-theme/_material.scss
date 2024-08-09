@@ -71,13 +71,15 @@
 /// @access public
 /// @param {map} $palette material palette
 /// @param {map} $details metadata information for the Otter palette
-@function define-palette($palette, $details: ()) {
+/// @param {string} $matVersion version of material design used (default: "2")
+@function define-palette($palette, $details: (), $matVersion: '2') {
   $tags: [];
   @if (map.has-key($details, 'tags')) {
     $tags: list.join($tags, map.get($details, 'tags'));
   }
+  $value: if($matVersion == '2', mat.m2-define-palette($palette), mat.define-palette($palette));
   $palette-with-details: (
-    value: mat.m2-define-palette($palette),
+    value: $value,
     details: map.merge(
       $details,
       (
@@ -97,8 +99,9 @@
 /// @param {map} $warn [$otter-warn] palette generated via define-palette with the colors used in warning or error feedbacks
 /// @param {bool} $is-dark-theme
 /// @param {map} $application [()] a set of properties to override for one specific implementation
+/// @param {string} $matVersion version of material design used (default: "2")
 /// @return {map} containing the palette maps and the otter-theme variables map
-@function generate-theme($primary, $highlight, $accent, $warn, $is-dark-theme, $application: ()) {
+@function generate-theme($primary, $highlight, $accent, $warn, $is-dark-theme, $application: (), $matVersion: '2') {
 
   $mat-theme: ();
   $theme-variables: generate-theme-variables($is-dark-theme, $application);
@@ -112,11 +115,11 @@
   );
 
   @if ($is-dark-theme) {
-    $mat-theme: mat.m2-define-dark-theme($theme-color);
+    $mat-theme: if($matVersion == '2', mat.m2-define-dark-theme($theme-color), mat.define-dark-theme($theme-color));
   }
 
   @else {
-    $mat-theme: mat.m2-define-light-theme($theme-color);
+    $mat-theme: if($matVersion == '2', mat.m2-define-light-theme($theme-color), mat.define-light-theme($theme-color));
   }
 
   @return map.merge($mat-theme, (
