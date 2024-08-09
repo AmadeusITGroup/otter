@@ -13,7 +13,9 @@
   "enabledManagers": [
     "npm",
     "github-actions",
-    "gradle"
+    "gradle",
+    "maven",
+    "regex"
   ],
   "labels": [
     "dependencies"
@@ -95,6 +97,43 @@
         ".*markdown-link-check"
       ],
       "enabled": false
+    },
+
+    // OpenAPI updates
+    {
+      "matchManagers": ["maven"],
+      "groupName": "Open API updates",
+      "groupSlug": "openapi",
+      "includePaths": [
+        "packages/@ama-sdk/schematics"
+      ]
+    },
+    {
+      "matchDepNames": [
+        "org.openapitools:openapi-generator"
+      ],
+      "groupName": "Open API updates",
+      "groupSlug": "openapi"
+    },
+    {
+      // We don't want to update this dep as we are still targeting a fork
+      "matchPackageNames": [
+        "io.swagger:swagger-codegen-cli"
+      ],
+      "enabled": false
+    }
+  ],
+  customManagers: [
+    {
+      "customType": "regex",
+      "datasourceTemplate": "maven",
+      "depNameTemplate": "org.openapitools:openapi-generator",
+      "fileMatch": [
+        "packages/@ama-sdk/schematics/package\\.json"
+      ],
+      "matchStrings": [
+        "\"openApiSupportedVersion\": \"~(?<currentValue>[^\"]+)\""
+      ]
     }
   ]
 }
