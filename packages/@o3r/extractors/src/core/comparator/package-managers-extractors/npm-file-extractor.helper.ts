@@ -1,19 +1,23 @@
-import { spawnSync, SpawnSyncOptionsWithBufferEncoding, SpawnSyncReturns } from 'node:child_process';
+import { spawnSync, SpawnSyncOptionsWithStringEncoding, SpawnSyncReturns } from 'node:child_process';
 import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { randomBytes } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { join, posix, sep } from 'node:path';
 
-function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithBufferEncoding): SpawnSyncReturns<Buffer> {
+function runAndThrowOnError(command: string, spawnOptions: SpawnSyncOptionsWithStringEncoding): SpawnSyncReturns<string> {
   const cmdOutput = spawnSync(command, spawnOptions);
   if (cmdOutput.error || cmdOutput.status !== 0) {
-    throw cmdOutput.stderr.toString();
+    throw cmdOutput.stderr;
   }
   return cmdOutput;
 }
 
 function pathToPosix(path: string): string {
   return path.split(sep).join(posix.sep);
+}
+
+function sanitizeInput(input: string) {
+  return input.replace(/[^\w/\\:@^~=<> .-]/g, '');
 }
 
 /**
@@ -28,13 +32,19 @@ export function getFilesFromRegistry(packageDescriptor: string, paths: string[])
   mkdirSync(tempDirPath);
 
   try {
-    const npmPackCmd = runAndThrowOnError(`npm pack "${packageDescriptor}" --pack-destination ${pathToPosix(tempDirPath)}`, { shell: true });
-    const tgzFile = npmPackCmd.stdout.toString().trim();
+    const npmPackCmd = runAndThrowOnError(
+      `npm pack "${sanitizeInput(packageDescriptor)}" --pack-destination "${pathToPosix(tempDirPath)}"`,
+      { shell: true, encoding: 'utf8' }
+    );
+    const tgzFile = npmPackCmd.stdout.trim();
 
     extractedFiles = paths.reduce((filesContent, path) => {
       // tar expects a posix path
       const pathInTgz = posix.join('./package', path);
-      runAndThrowOnError(`tar -zxvf ${pathToPosix(tgzFile)} -C ${pathToPosix(tempDirPath)} ${pathInTgz}`, { shell: true, cwd: tempDirPath });
+      runAndThrowOnError(
+        `tar -zxvf "${pathToPosix(tgzFile)}" -C "${pathToPosix(tempDirPath)}" "${pathInTgz}"`,
+        { shell: true, cwd: tempDirPath, encoding: 'utf8' }
+      );
       filesContent[path] = readFileSync(join(tempDirPath, pathInTgz)).toString();
       return filesContent;
     }, extractedFiles);

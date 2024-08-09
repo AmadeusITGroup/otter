@@ -107,7 +107,7 @@ const initTest = async (
 
   // Add scope to project for registry management
   let packageJson = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' }).toString());
-  const packageName = `@o3r/${packageJson.name}-${packageNameSuffix}`;
+  const packageName = `@o3r/${o3rEnvironment.testEnvironment.folderName}-${packageNameSuffix}`;
   packageJson = {
     ...packageJson,
     name: packageName,
