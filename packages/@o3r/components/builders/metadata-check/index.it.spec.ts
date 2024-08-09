@@ -12,12 +12,11 @@ import {
   getLatestPackageVersion,
   packageManagerAdd,
   packageManagerExec,
-  packageManagerPublish,
-  packageManagerVersion
+  packageManagerVersion,
+  publishToVerdaccio
 } from '@o3r/test-helpers';
-import { execFileSync } from 'node:child_process';
-import { promises, readFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { existsSync, promises, readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
 import { inc } from 'semver';
 import type { ComponentConfigOutput, ConfigProperty } from '@o3r/components';
 import type { MigrationConfigData } from './helpers/config-metadata-comparison.helper';
@@ -25,7 +24,7 @@ import { getExternalDependenciesVersionRange } from '@o3r/schematics';
 
 const baseVersion = '1.2.0';
 const version = '1.3.0';
-const migrationDataFileName = `MIGRATION-${version}.json`;
+const migrationDataFileName = `migration-scripts/MIGRATION-${version}.json`;
 const metadataFileName = 'component.config.metadata.json';
 
 const defaultMigrationData: MigrationFile<MigrationConfigData> = {
@@ -184,8 +183,11 @@ const newConfigurationMetadata: ComponentConfigOutput[] = [
   createConfig('@new/lib9', 'MyConfig9', ['prop9'])
 ];
 
-function writeFileAsJSON(path: string, content: object) {
-  return promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
+async function writeFileAsJSON(path: string, content: object) {
+  if (!existsSync(dirname(path))) {
+    await promises.mkdir(dirname(path), {recursive: true});
+  }
+  await promises.writeFile(path, JSON.stringify(content), { encoding: 'utf8' });
 }
 
 const initTest = async (
@@ -197,8 +199,8 @@ const initTest = async (
   const { workspacePath, appName, applicationPath, o3rVersion, isYarnTest } = o3rEnvironment.testEnvironment;
   const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath };
   const execAppOptionsWorkspace = { ...getDefaultExecSyncOptions(), cwd: workspacePath };
-  packageManagerAdd(`@o3r/components@${o3rVersion}`, execAppOptionsWorkspace);
-  packageManagerAdd(`@o3r/extractors@${o3rVersion}`, execAppOptionsWorkspace);
+  packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
+  packageManagerExec({script: 'ng', args: ['add', `@o3r/components@${o3rVersion}`, '--skip-confirmation', '--project-name', appName]}, execAppOptionsWorkspace);
   const versions = getExternalDependenciesVersionRange([
     'semver',
     ...(isYarnTest ? [
@@ -212,6 +214,7 @@ const initTest = async (
     warn: jest.fn()
   } as any);
   Object.entries(versions).forEach(([pkgName, pkgVersion]) => packageManagerAdd(`${pkgName}@${pkgVersion}`, execAppOptionsWorkspace));
+  const npmIgnorePath = join(applicationPath, '.npmignore');
   const packageJsonPath = join(applicationPath, 'package.json');
   const angularJsonPath = join(workspacePath, 'angular.json');
   const metadataPath = join(applicationPath, metadataFileName);
@@ -223,7 +226,7 @@ const initTest = async (
     builder: '@o3r/components:check-config-migration-metadata',
     options: {
       allowBreakingChanges,
-      migrationDataPath: `**/MIGRATION-*.json`
+      migrationDataPath: `apps/test-app/migration-scripts/MIGRATION-*.json`
     }
   };
   angularJson.projects[appName].architect['check-metadata'] = builderConfig;
@@ -238,6 +241,7 @@ const initTest = async (
     private: false
   };
   await writeFileAsJSON(packageJsonPath, packageJson);
+  await promises.writeFile(npmIgnorePath, '');
 
   // Set old metadata and publish to registry
   await writeFileAsJSON(metadataPath, previousConfigurationMetadata);
@@ -254,7 +258,7 @@ const initTest = async (
   const args = getPackageManager() === 'yarn' ? [] : ['--no-git-tag-version', '-f'];
   packageManagerVersion(bumpedVersion, args, execAppOptions);
 
-  packageManagerPublish([], execAppOptions);
+  await publishToVerdaccio(execAppOptions);
 
   // Override with new metadata for comparison
   await writeFileAsJSON(metadataPath, newMetadata);
@@ -264,27 +268,6 @@ const initTest = async (
 };
 
 describe('check metadata migration', () => {
-  beforeEach(async () => {
-    const { applicationPath } = o3rEnvironment.testEnvironment;
-    const execAppOptions = { ...getDefaultExecSyncOptions(), cwd: applicationPath, shell: true };
-    await promises.copyFile(
-      join(__dirname, '..', '..', '..', '..', '..', '.verdaccio', 'conf', '.npmrc'),
-      join(applicationPath, '.npmrc')
-    );
-    execFileSync('npx', [
-      '--yes',
-      'npm-cli-login',
-      '-u',
-      'verdaccio',
-      '-p',
-      'verdaccio',
-      '-e',
-      'test@test.com',
-      '-r',
-      'http://127.0.0.1:4873'
-    ], execAppOptions);
-  });
-
   test('should not throw', async () => {
     await initTest(
       true,

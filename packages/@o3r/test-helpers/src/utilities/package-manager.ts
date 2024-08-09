@@ -302,8 +302,13 @@ export function setPackagerManagerConfig(options: PackageManagerConfig, execAppO
  * @param packageName
  * @param execAppOptions
  */
-export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions>) {
-  return execFileSync('npm', ['info', packageName, 'version'], {
+export function getLatestPackageVersion(packageName: string, execAppOptions?: Partial<ExecSyncOptions> & {registry?: string}) {
+  return execFileSync('npm', [
+    'info',
+    packageName,
+    'version',
+    ...execAppOptions?.registry ? ['--registry', execAppOptions.registry] : []
+  ], {
     ...execAppOptions,
     stdio: 'pipe',
     encoding: 'utf8',

@@ -29,7 +29,8 @@ describe('ng add components', () => {
     expect(diff.added).toContain('apps/test-app/cms.json');
     expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
     expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
-    expect(diff.added.length).toBe(3);
+    expect(diff.added).toContain('apps/test-app/migration-scripts/README.md');
+    expect(diff.added.length).toBe(4);
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -53,7 +54,8 @@ describe('ng add components', () => {
     expect(diff.added).toContain('libs/test-lib/cms.json');
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
-    expect(diff.added.length).toBe(3);
+    expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
+    expect(diff.added.length).toBe(4);
 
     [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

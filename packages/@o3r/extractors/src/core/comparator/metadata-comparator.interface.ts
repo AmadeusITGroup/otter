@@ -53,6 +53,9 @@ export interface MigrationFile<MigrationMetadataItem> {
   /** Version of the documented migration */
   version: string;
 
+  /** Map of dependencies for which the migration scripts should be checked with their associated version */
+  libraries?: Record<string, string>;
+
   /** List of all the changes contained in this version */
   changes: MigrationData<MigrationMetadataItem>[];
 }

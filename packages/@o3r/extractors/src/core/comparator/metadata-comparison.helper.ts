@@ -2,9 +2,11 @@ import type { BuilderContext, BuilderOutput } from '@angular-devkit/architect';
 import type { JsonObject } from '@angular-devkit/core';
 import { getPackageManagerInfo, O3rCliError, type PackageManagerOptions, type SupportedPackageManagers, type WorkspaceSchema } from '@o3r/schematics';
 import { sync as globbySync } from 'globby';
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, promises, readFileSync } from 'node:fs';
 import { EOL } from 'node:os';
 import { join, posix } from 'node:path';
+import { coerce, Range, satisfies } from 'semver';
+import type { PackageJson } from 'type-fest';
 import type { MetadataComparator, MigrationData, MigrationFile, MigrationMetadataCheckBuilderOptions } from './metadata-comparator.interface';
 import { getFilesFromRegistry, getLatestMigrationMetadataFile, getLocalMetadataFile, getVersionRangeFromLatestVersion } from './metadata-files.helper';
 
@@ -116,6 +118,17 @@ Detection of package manager runner will fallback on the one used to execute the
   const previousVersion = await getVersionRangeFromLatestVersion(latestMigrationVersion, options.granularity);
 
   const migrationData = getLocalMetadataFile<MigrationFile<MigrationMetadataItem>>(migrationFilePath);
+
+  // Check for libraries versions mismatches
+  if (migrationData.libraries?.length) {
+    await Promise.all(Object.entries(migrationData.libraries).map(async ([libName, libVersion]) => {
+      const libPackageJson = JSON.parse(await promises.readFile(require.resolve(`${libName}/package.json`), {encoding: 'utf8'})) as PackageJson;
+      const libRange = new Range(`~${coerce(libVersion)?.raw}`);
+      if (!satisfies(libPackageJson.version!, libRange)) {
+        context.logger.warn(`The version of the library "${libName}": ${libVersion} specified in your latest migration files doesn't match the installed version: ${libPackageJson.version}`);
+      }
+    }));
+  }
 
   const packageLocator = `${packageJson.name as string}@${previousVersion}`;
   context.logger.info(`Fetching ${packageLocator} from the registry.`);

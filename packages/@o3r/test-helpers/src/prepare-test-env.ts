@@ -73,7 +73,11 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
       return Promise.resolve();
     }, {lockFilePath: `${itTestsFolderPath}.lock`, cwd: path.join(rootFolderPath, '..'), appDirectory: 'it-tests'});
   }
-  const o3rExactVersion = getLatestPackageVersion('@o3r/create', { ...execAppOptions, cwd: itTestsFolderPath }).replace(/\s/g, '');
+  const o3rExactVersion = getLatestPackageVersion('@o3r/create', {
+    ...execAppOptions,
+    cwd: itTestsFolderPath,
+    registry
+  });
 
   // Remove existing app
   if (existsSync(workspacePath)) {

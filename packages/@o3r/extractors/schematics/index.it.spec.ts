@@ -23,6 +23,7 @@ describe('ng add extractors', () => {
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
+      'angular.json',
       'package.json',
       'apps/test-app/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
@@ -30,7 +31,8 @@ describe('ng add extractors', () => {
     expect(diff.added.sort()).toEqual([
       'apps/test-app/cms.json',
       'apps/test-app/placeholders.metadata.json',
-      'apps/test-app/tsconfig.cms.json'
+      'apps/test-app/tsconfig.cms.json',
+      'apps/test-app/migration-scripts/README.md'
     ].sort());
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
@@ -50,6 +52,7 @@ describe('ng add extractors', () => {
 
     const diff = getGitDiff(workspacePath);
     expect(diff.modified.sort()).toEqual([
+      'angular.json',
       'package.json',
       'libs/test-lib/package.json',
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
@@ -57,7 +60,8 @@ describe('ng add extractors', () => {
     expect(diff.added.sort()).toEqual([
       'libs/test-lib/cms.json',
       'libs/test-lib/placeholders.metadata.json',
-      'libs/test-lib/tsconfig.cms.json'
+      'libs/test-lib/tsconfig.cms.json',
+      'libs/test-lib/migration-scripts/README.md'
     ].sort());
 
     [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
