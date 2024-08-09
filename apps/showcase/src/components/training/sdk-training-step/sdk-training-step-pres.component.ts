@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input} from '@angular/core';
 import { FileSystemTree } from '@webcontainer/api';
 import { CodeEditorViewComponent, EditorMode } from '../code-editor-view';
 
@@ -15,8 +15,5 @@ export class SdkTrainingStepPresComponent {
   @Input() public startingFile?: string;
   @Input() public editorMode?: EditorMode;
   @Input() public commands?: string[];
-
-  private readonly widthSelection = 50;
-  public leftWidthPercent = `${this.widthSelection}%`;
-  public rightWidthPercent = `${100 - this.widthSelection}%`;
+  @Input() public showInstructions: boolean = true;
 }

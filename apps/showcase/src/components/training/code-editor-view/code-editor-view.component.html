@@ -1,10 +1,13 @@
-<div class="container">
+<button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="logTree()">
+  Log tree
+</button>
   @if ((tree$ | async)?.length > 0) {
     <form [formGroup]="form" class="editor">
-      <div class="d-flex w-100">
-        <monaco-tree style="overflow: scroll" (clickFile)="onClickFile($event)" height="300px" width="250px" [tree]="tree$ | async"></monaco-tree>
-        <div>
-          <ngx-monaco-editor [options]="editorOptions$ | async" formControlName="code"></ngx-monaco-editor>
+    <div class="d-flex w-100 align-items-stretch">
+      <monaco-tree (clickFile)="onClickFile($event)" [tree]="tree$ | async"></monaco-tree>
+      <div class="h-100 monaco-editor-wrapper">
+        <ngx-monaco-editor style="height: 100%;" class="monaco-editor-test" [options]="editorOptions$ | async"
+                           formControlName="code"></ngx-monaco-editor>
         </div>
       </div>
     </form>
@@ -20,16 +23,18 @@
         <li class="tab">
           <input type="radio" name="tabs" id="tab2"/>
           <label for="tab2">Console</label>
-          <div id="tab-content2" class="content" #console></div>
+<!--          <div id="tab-content2" class="content" #console></div>-->
+          <code-editor-terminal id="tab-content2" class="content" #console></code-editor-terminal>
         </li>
         <li class="tab">
           <input type="radio" name="tabs" id="tab3"/>
           <label for="tab3">Terminal</label>
-          <div id="tab-content3" class="content" #terminal></div>
+<!--          <div id="tab-content3" class="content" #terminal></div>-->
+          <code-editor-terminal id="tab-content3" class="content" [standalone]="true"></code-editor-terminal>
+
         </li>
       </ul>
     }
   } @else if (!!filesContent) {
     <div class="spinner-border" role="status"></div>
   }
-</div>

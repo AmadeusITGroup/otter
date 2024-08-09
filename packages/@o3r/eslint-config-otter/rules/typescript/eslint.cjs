@@ -76,6 +76,7 @@ module.exports = {
         'capIsNewExceptions': [
           'AsyncInput',
           'Component',
+          'ContentChild',
           'Directive',
           'HostBinding',
           'HostListener',

@@ -5,7 +5,7 @@ import { ContextMenuAction } from './monaco-tree-file';
 @Component({
   selector: 'monaco-tree',
   template: `
-    <div [style]="'width:' + width + ';height:' + height" [class]="'monaco-tree ' + theme">
+    <div [class]="'monaco-tree ' + theme">
       <monaco-tree-file (contextMenuClick)="handleClickContextMenu($event)"
                         (clickFile)="handleClickFile($event)"
                         [theme]="theme"
@@ -22,9 +22,6 @@ import { ContextMenuAction } from './monaco-tree-file';
 export class NgxMonacoTreeComponent {
   @Input() theme: 'vs-dark' | 'vs-light' = 'vs-dark';
 	@Input() tree: MonacoTreeElement[] | null = [];
-
-	@Input() width = '300px';
-	@Input() height = '500px';
 
 	@Output() clickFile = new EventEmitter<string>();
 	@Output() clickContextMenu = new EventEmitter<ContextMenuAction>();

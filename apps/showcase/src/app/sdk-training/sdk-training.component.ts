@@ -1,22 +1,37 @@
-import { AsyncPipe, JsonPipe, NgComponentOutlet } from '@angular/common';
-import { Component, signal, Type, ViewEncapsulation, WritableSignal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
-import { FileSystemTree } from '@webcontainer/api';
+import {AsyncPipe, JsonPipe, NgComponentOutlet} from '@angular/common';
+import {Component, signal, ViewEncapsulation, WritableSignal} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {NgbAccordionModule} from '@ng-bootstrap/ng-bootstrap';
+import {DirectoryNode, FileNode, FileSystemTree} from '@webcontainer/api';
+// import {JSONPath} from 'jsonpath-plus';
 import {
   CopyTextPresComponent,
-  EditorMode,
   SdkTrainingGenerationSetupExamplePresComponent,
   SdkTrainingGenerationSetupPresComponent,
   SdkTrainingStepPresComponent
 } from '../../components';
 
-interface SdkTrainingStep {
+interface SdkTrainingStepConfig {
   title: string;
   htmlContentUrl: string;
-  htmlExampleUrl: string;
-  componentExample?: Type<any>;
+  htmlExampleUrl?: string;
+  filesConfiguration?: {
+    startingFile: string;
+    commands: string[];
+    urls: { [key: string]: string };
+    mode: 'readonly' | 'interactive';
+    runApp: boolean;
+  };
 }
+
+type SdkTrainingStep = {
+  description: SdkTrainingStepConfig;
+  dynamicContent: {
+    htmlContent: WritableSignal<string>;
+    htmlExample: WritableSignal<string>;
+    fileContent: WritableSignal<FileSystemTree | null>;
+  };
+};
 
 @Component({
   selector: 'o3r-sdk-training',
@@ -38,106 +53,137 @@ interface SdkTrainingStep {
 })
 export class SdkTrainingComponent {
   public currentStep = 0;
-  public steps: (SdkTrainingStep & {
-    htmlContent: WritableSignal<string>;
-    htmlExample: WritableSignal<string>;
-    filesConfiguration?: {
-      startingFile: string;
-      link?: string;
-      commands?: string[],
-      filesContent: WritableSignal<FileSystemTree | null>;
-      mode?: EditorMode;
-    };
-  })[] = [
-      {
-        title: 'Welcome',
-        htmlContentUrl: 'sdk-training/step-0-welcome.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal('')
-      },
-      {
-        title: 'Introduction',
-        htmlContentUrl: 'sdk-training/step-1-introduction.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: 'sdk-training/step-1-introduction.example.html',
-        htmlExample: signal('')
-      },
-      {
-        title: 'How to use the Otter SDK?',
-        htmlContentUrl: 'sdk-training/step-use-sdk-typescript.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal('')
-      },
-      {
-        title: 'Customize your fetch client with plugins',
-        htmlContentUrl: 'sdk-training/step-use-sdk-plugins.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal('')
-      },
-      {
-        title: 'Integrate your component in Angular',
-        htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal(''),
-        filesConfiguration: {
-          startingFile: 'apps/tuto/src/index.html',
-          link: 'sdk-training/step-generate-sdk-specs/step-generate-sdk-specs-files.json',
-          mode: 'interactive',
-          commands: ['install', 'ng run tuto:serve'],
-          filesContent: signal(null)
-        }
-      },
-      {
-        title: 'Generate your first SDK - Specifications',
-        htmlContentUrl: 'sdk-training/step-generate-sdk-specs.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal(''),
-        filesConfiguration: {
-          startingFile: 'open-api.yaml',
-          link: 'training-sdk/openapi-structure.json',
-          filesContent: signal(null)
-        }
-      },
-      {
-        title: 'Generate your first SDK - Command',
-        htmlContentUrl: 'sdk-training/step-generate-sdk-command.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: 'sdk-training/step-generate-sdk-command.example.html',
-        htmlExample: signal(''),
-        filesConfiguration: {
-          startingFile: 'api/dummy/dummy-api.ts',
-          link: 'training-sdk/folder-structure.json',
-          filesContent: signal(null),
-          mode: 'readonly'
-        }
-      },
-      {
-        title: 'SDK with Dates',
-        htmlContentUrl: 'sdk-training/step-use-date.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: 'sdk-training/step-use-date.example.html',
-        htmlExample: signal('')
-      },
-      {
-        title: 'SDK with Model Extension',
-        htmlContentUrl: 'sdk-training/step-use-model-extension.html',
-        htmlContent: signal(''),
-        htmlExampleUrl: '',
-        htmlExample: signal('')
+  public showInstructions = true;
+  public steps: SdkTrainingStep[] = [];
+  public stepsDescription: SdkTrainingStepConfig[] = [
+    {
+      title: 'Welcome',
+      htmlContentUrl: 'sdk-training/step-0-welcome.html'
+    },
+    {
+      title: 'Introduction',
+      htmlContentUrl: 'sdk-training/step-1-introduction.html',
+      htmlExampleUrl: 'sdk-training/step-1-introduction.example.html'
+    },
+    {
+      title: 'How to use the Otter SDK?',
+      htmlContentUrl: 'sdk-training/step-use-sdk-typescript.html'
+    },
+    {
+      title: 'Customize your fetch client with plugins',
+      htmlContentUrl: 'sdk-training/step-use-sdk-plugins.html'
+    },
+    {
+      title: 'Integrate your component in Angular',
+      htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
+      filesConfiguration: {
+        startingFile: '',
+        urls: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '.': 'sdk-training/step-generate-sdk-specs/empty.json'
+        },
+        mode: 'interactive',
+        commands: [],
+        runApp: false
       }
-    ];
+    },
+    {
+      title: 'Generate your first SDK - Specifications',
+      htmlContentUrl: 'sdk-training/step-generate-sdk-specs.html',
+      filesConfiguration: {
+        startingFile: 'open-api.yaml',
+        urls: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '.': 'training-sdk/openapi-structure.json'
+        },
+        mode: 'readonly',
+        commands: [],
+        runApp: false
+      }
+    },
+    {
+      title: 'Generate your first SDK - Command',
+      htmlContentUrl: 'sdk-training/step-generate-sdk-command.html',
+      htmlExampleUrl: 'sdk-training/step-generate-sdk-command.example.html',
+      filesConfiguration: {
+        startingFile: 'src/api/dummy/dummy-api.ts',
+        urls: {
+          'src': 'training-sdk/folder-structure.json',
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '.': 'training-sdk/openapi-structure.json'
+        },
+        mode: 'readonly',
+        commands: [],
+        runApp: false
+      }
+    },
+    {
+      title: 'SDK with Dates',
+      htmlContentUrl: 'sdk-training/step-use-date.html',
+      htmlExampleUrl: 'sdk-training/step-use-date.example.html'
+    },
+    {
+      title: 'SDK with Model Extension',
+      htmlContentUrl: 'sdk-training/step-use-model-extension.html'
+    }
+  ];
   public nextStep = true;
   public previousStep = false;
 
   constructor() {
+    this.steps = this.stepsDescription.map((desc) => ({
+      description: desc,
+      dynamicContent: {
+        htmlContent: signal(''),
+        htmlExample: signal(''),
+        fileContent: signal(null)
+      }
+    }));
+    this.steps.forEach((step) => this.loadStepContent(step));
     const stepParam = window.location.href.match(new RegExp('#([0-9]+)'))?.[1];
     const stepRequested = !stepParam || Number.isNaN(stepParam) ? 0 : Number.parseInt(stepParam);
     this.setCurrentStep(stepRequested);
+  }
+
+  private loadStepContent(step: SdkTrainingStep) {
+    if (!step.dynamicContent.htmlContent()) {
+      void this.loadResource(step.description.htmlContentUrl).then((content) =>
+        step.dynamicContent.htmlContent.set(content)
+      );
+    }
+    if (step.description.htmlExampleUrl && !step.dynamicContent.htmlExample()) {
+      void this.loadResource(step.description.htmlExampleUrl).then((content) =>
+        step.dynamicContent.htmlExample.set(content));
+    }
+    const fileConfiguration = step.description.filesConfiguration;
+    if (fileConfiguration && fileConfiguration.urls && !step.dynamicContent.fileContent()) {
+      const resourcesPromise = Promise.all(Object.entries(fileConfiguration.urls).map(
+        async ([path, url]) => ({
+          path,
+          content: await this.loadResource(url)
+        })
+      ));
+      void resourcesPromise.then((resources) => {
+        const filesContent = resources.reduce((acc: FileSystemTree, resource) => {
+          // eslint-disable-next-line new-cap
+          const path = resource.path;
+          const content = resource.content;
+          if (path === './' || path === '.') {
+            return {...acc, ...JSON.parse(content)} as FileSystemTree;
+          }
+          const sanitizedPath = path.replace(new RegExp('^[.]/?'), '');
+          const parsedPath = sanitizedPath.split('/');
+          if (parsedPath[parsedPath.length - 1].indexOf('.') > -1) {
+            acc[sanitizedPath] = {file: {contents: content}} as FileNode;
+          } else {
+            acc[sanitizedPath] = {directory: JSON.parse(content)} as DirectoryNode;
+          }
+          return acc;
+        }, {} as FileSystemTree);
+        step.dynamicContent.fileContent.set(filesContent);
+      });
+    }
+
   }
 
   public setCurrentStep(index: number) {
@@ -151,19 +197,10 @@ export class SdkTrainingComponent {
     if (!this.steps[this.currentStep]) {
       return;
     }
-    if (!this.steps[this.currentStep].htmlContent()) {
-      void this.loadResource(this.steps[this.currentStep].htmlContentUrl).then((content) => this.steps[this.currentStep].htmlContent.set(content));
-    }
-    if (!this.steps[this.currentStep].htmlExample()) {
-      void this.loadResource(this.steps[this.currentStep].htmlExampleUrl).then((content) => this.steps[this.currentStep].htmlExample.set(content));
-    }
-    const fileConfiguration = this.steps[this.currentStep].filesConfiguration;
-    if (fileConfiguration && fileConfiguration.link && !fileConfiguration.filesContent()) {
-      void this.loadResource(fileConfiguration.link).then((content) =>
-        fileConfiguration.filesContent.set(JSON.parse(content))
-      );
-    }
+  }
 
+  public updateDisplayInstructions() {
+    this.showInstructions = !this.showInstructions;
   }
 
   public async loadResource(url: string) {

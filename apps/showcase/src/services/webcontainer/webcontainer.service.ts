@@ -22,15 +22,15 @@ const createTerminalStream = (terminal: Terminal, cb?: (data: string) => void | 
   }
 });
 
-const createHtmlStream = (div: HTMLDivElement, cb?: (data: string) => void | Promise<void>) => new WritableStream({
-  write(data) {
-    if (cb) {
-      void cb(data);
-    }
-    div.innerText = `${data}
-${div.innerText}`;
-  }
-});
+// const createHtmlStream = (div: HTMLDivElement, cb?: (data: string) => void | Promise<void>) => new WritableStream({
+//   write(data) {
+//     if (cb) {
+//       void cb(data);
+//     }
+//     div.innerText = `${data}
+// ${div.innerText}`;
+//   }
+// });
 
 const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
@@ -70,29 +70,23 @@ export class WebcontainerService {
       );
   }
 
-  private async runCommand(command: string, terminal: Terminal | HTMLDivElement) {
+  private async runCommand(command: string, terminal: Terminal) {
     if (!this.instance) {
       throw new WebContainerNotInitialized();
     }
-    const process = await this.instance.spawn('npm', command.split(' '));
-    if (Object.hasOwn(terminal, 'parser')) {
-      void process.output.pipeTo(createTerminalStream(terminal as Terminal));
-    } else {
-      void process.output.pipeTo(createHtmlStream(terminal as HTMLDivElement));
-    }
+    const commandElements = command.split(' ');
+    const process = await this.instance.spawn(commandElements[0], commandElements.slice(1));
+    void process.output.pipeTo(createTerminalStream(terminal as Terminal));
     return process;
   }
 
-  // private async installThenRun(iframe: HTMLIFrameElement, terminal: Terminal) {
-  //   const installProcess = await this.installDeps(terminal);
-  //   const exitCode = await installProcess.exit;
-  //   if (exitCode !== 0) {
-  //     throw new Error('Installation failed!');
-  //   }
-  //   void this.runApp(iframe, terminal);
-  // }
+  public async getFilesTreeFromContainer() {
+    if (!this.instance) {
+      throw new WebContainerNotInitialized();
+    }
+    return await getFilesTree([{path: '/', isDir: true}], this.instance.fs as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
+  }
 
-  // public async launchProject(iframe: HTMLIFrameElement, terminal: Terminal, files: FileSystemTree) {
   public async loadProject(files: FileSystemTree) {
     if (this.instance) {
       this.destroyInstance();
@@ -103,26 +97,27 @@ export class WebcontainerService {
     await this.instance.mount(files);
     this.monacoTree.next(await this.getMonacoTree());
     this.instance.fs.watch('/', {encoding: 'utf-8'}, async () => {
+      console.log('update tree');
       const tree = await this.getMonacoTree();
       this.monacoTree.next(tree);
     });
   }
 
-  public async runCommands(commands: string[] = [], iframe: HTMLIFrameElement, terminal: Terminal | HTMLDivElement) {
+  public async runCommands(commands: string[] = [], iframe: HTMLIFrameElement, terminal: Terminal) {
     if (!this.instance) {
       throw new WebContainerNotInitialized();
     }
-    if (this.currentProcess) {
-      this.currentProcess.kill();
-      iframe.src = '';
-      this.currentProcess = null;
-    }
-    for (const command of commands) {
-      this.currentProcess = await this.runCommand(command, terminal);
-    }
+    iframe.src = '';
     this.instance.on('server-ready', (_port: number, url: string) => {
       iframe.src = url;
     });
+    for (const command of commands) {
+      this.currentProcess = await this.runCommand(command, terminal);
+      const exitCode = await this.currentProcess.exit;
+      if (exitCode !== 0) {
+        throw new Error(`Command ${command} failed! with ${exitCode}`);
+      }
+    }
   }
 
   public async writeFile(file: string, content: string) {
@@ -171,11 +166,19 @@ export class WebcontainerService {
     return shellProcess;
   }
 
-  public async getFilesTreeFromContainer() {
-    if (!this.instance) {
-      throw new WebContainerNotInitialized();
+  public async logTree() {
+    console.log(await this.getMonacoTree());
+  }
+
+  public killCurrentProcess() {
+    if (this.currentProcess) {
+      this.currentProcess.kill();
+      this.currentProcess = null;
     }
-    return await getFilesTree([{path: '/', isDir: true}], this.instance.fs as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
+  }
+
+  public isReady() {
+    return !!this.instance;
   }
 
   public destroyInstance() {

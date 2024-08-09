@@ -90,6 +90,7 @@
         "styles": [
           "apps/showcase/src/styles.scss",
           ".yarn/unplugged/@vscode-codicons-npm-0.0.35-e8895cbc72/node_modules/@vscode/codicons/dist/codicon.css",
+          ".yarn/unplugged/@xterm-xterm-npm-5.5.0-106735eff7/node_modules/@xterm/xterm/css/xterm.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",

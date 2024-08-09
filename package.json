@@ -275,6 +275,9 @@
     "@vscode/codicons": {
       "unplugged": true
     },
+    "@xterm/xterm": {
+      "unplugged": true
+    },
     "esbuild": {
       "built": true
     },

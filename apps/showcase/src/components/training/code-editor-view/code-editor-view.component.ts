@@ -1,32 +1,28 @@
 import {AsyncPipe, JsonPipe} from '@angular/common';
 import {
-  AfterViewInit,
-  Component,
+  Component, ContentChild,
   ElementRef,
   inject,
   Input,
-  OnChanges, OnDestroy,
+  OnChanges,
+  OnDestroy,
   SimpleChanges,
-  ViewChild, ViewEncapsulation
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileSystemTree} from '@webcontainer/api';
-import {Terminal} from '@xterm/xterm';
 import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {debounceTime, distinctUntilChanged, map, skip, startWith, Subscription} from 'rxjs';
 import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
 import {NgxMonacoTreeModule} from '../ngx-monaco-tree/index';
+import {CodeEditorTerminalComponent} from '../code-editor-terminal';
 
 const editorOptionsLanguage: Record<string, string> = {
   html: 'xml',
   json: 'json',
   ts: 'typescript',
   js: 'javascript'
-};
-
-export type FileConfiguration = {
-  startingFile: string;
-  filesContent: FileSystemTree | null;
 };
 
 export type EditorMode = 'readonly' | 'interactive';
@@ -36,6 +32,7 @@ export type EditorMode = 'readonly' | 'interactive';
   standalone: true,
   imports: [
     AsyncPipe,
+    CodeEditorTerminalComponent,
     FormsModule,
     MonacoEditorModule,
     ReactiveFormsModule,
@@ -46,9 +43,7 @@ export type EditorMode = 'readonly' | 'interactive';
   templateUrl: './code-editor-view.component.html',
   styleUrl: './code-editor-view.component.scss'
 })
-export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChanges {
-  // Si on doit partager des fichiers shared, je me demande si on doit pas faire des choses plus complexes
-  // @Input() filesPath?: string;
+export class CodeEditorViewComponent implements OnDestroy, OnChanges {
   @Input() public filesContent?: FileSystemTree;
 
   @Input() public startingFile = '';
@@ -56,6 +51,8 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChan
   @Input() public editorMode: EditorMode = 'readonly';
 
   @Input() public commands: string[] = [];
+
+  @Input() public showInstructions = true;
 
   private readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
@@ -72,17 +69,14 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChan
       theme: 'vs-dark',
       language: editorOptionsLanguage[filePath.split('.').pop() || 'ts'] || editorOptionsLanguage.ts,
       readOnly: (this.editorMode === 'readonly'),
-      automaticLayout: true
+      automaticLayout: true,
+      scrollBeyondLastLine: false
     }))
   );
   @ViewChild('iframe')
   public iframeEl!: ElementRef<HTMLIFrameElement>;
-  @ViewChild('terminal')
-  public terminalEl: ElementRef<HTMLDivElement> | undefined;
-  @ViewChild('console')
-  public consoleEl!: ElementRef<HTMLDivElement>;
-
-  public consoleTerminal?: Terminal;
+  @ContentChild('console')
+  public consoleEl!: CodeEditorTerminalComponent;
 
   constructor() {
     this.subscriptions.add(
@@ -100,7 +94,7 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChan
     this.subscriptions.add(
       this.form.controls.file.valueChanges
         .subscribe(async (path: string) => {
-          if (path) {
+          if (path && this.webContainerService.isReady()) {
             const content = await this.webContainerService.readFile(path);
             if (content) {
               this.form.controls.code.setValue(content);
@@ -112,29 +106,16 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChan
     );
   }
 
-  private initTerminal(element: HTMLDivElement) {
-    const terminal = new Terminal({convertEol: true});
-    terminal.open(element);
-    return terminal;
-  }
-
-  public ngOnDestroy() {
-    this.subscriptions.unsubscribe();
-    this.webContainerService.destroyInstance();
-  }
-
-  public ngAfterViewInit() {
-    // TODO check if we get bugs between hide and show
-    if (this.consoleEl) {
-      this.consoleTerminal = this.initTerminal(this.consoleEl.nativeElement);
-    }
-    if (this.terminalEl) {
-      const terminal = this.initTerminal(this.terminalEl.nativeElement);
-      void this.webContainerService.startShell(terminal);
+  public async onClickFile(filePath: any) {
+    if (await this.webContainerService.isFile(filePath)) {
+      this.form.controls.file.setValue(filePath);
     }
   }
 
   public async ngOnChanges(changes: SimpleChanges) {
+    if ('startingFile' in changes && changes.startingFile.currentValue) {
+      this.form.controls.file.setValue(changes.startingFile.currentValue);
+    }
     if ('filesContent' in changes || 'commands' in changes) {
       if (this.filesContent) {
         // Remove link between launch project and terminals
@@ -153,17 +134,26 @@ export class CodeEditorViewComponent implements AfterViewInit, OnDestroy, OnChan
       }
     }
     if ('commands' in changes) {
-      if (this.commands.length > 0 && !this.iframeEl?.nativeElement || !this.consoleEl.nativeElement) {
+      if (!this.commands || this.commands.length === 0) {
+        this.consoleEl?.kill();
+        return;
+      }
+      if (this.commands?.length > 0 && !this.iframeEl?.nativeElement || !this.consoleEl?.terminal) {
         console.error('Missing iframe and terminal to run webcontainer initialization commands');
         return;
       }
-      void this.webContainerService.runCommands(this.commands, this.iframeEl.nativeElement, this.consoleEl.nativeElement);
+      // Move console in a new shell
+      this.consoleEl.kill();
+      void this.webContainerService.runCommands(this.commands, this.iframeEl.nativeElement, this.consoleEl.terminal);
     }
   }
 
-  public async onClickFile(filePath: any) {
-    if (await this.webContainerService.isFile(filePath)) {
-      this.form.controls.file.setValue(filePath);
-    }
+  public ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+    this.webContainerService.destroyInstance();
+  }
+
+  public logTree() {
+    void this.webContainerService.logTree();
   }
 }

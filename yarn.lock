@@ -8722,6 +8722,8 @@ __metadata:
       built: true
     "@vscode/codicons":
       unplugged: true
+    "@xterm/xterm":
+      unplugged: true
     esbuild:
       built: true
     monaco-editor:
@@ -9495,6 +9497,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.1.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    jsonpath-plus: "npm:^9.0.0"
     lighthouse: "npm:9.6.8"
     monaco-editor: "npm:~0.50.0"
     ngx-highlightjs: "npm:^12.0.0"
