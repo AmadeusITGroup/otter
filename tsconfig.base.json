@@ -161,6 +161,9 @@
       "@o3r/mobile": [
         "packages/@o3r/mobile/src"
       ],
+      "@o3r/new-version": [
+        "packages/@o3r/new-version/src/public_api"
+      ],
       "@o3r/routing": [
         "packages/@o3r/routing/src/public_api"
       ],
