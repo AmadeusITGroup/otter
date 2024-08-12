@@ -102,6 +102,7 @@
     "@angular/core": "~18.1.0",
     "@angular/forms": "~18.1.0",
     "@angular/platform-browser": "~18.1.0",
+    "@material/slider": "^14.0.0",
     "@ngrx/store": "~18.0.0",
     "@ngx-translate/core": "~15.0.0",
     "@o3r/core": "workspace:^",
@@ -124,6 +125,9 @@
       "optional": true
     },
     "@angular/cli": {
+      "optional": true
+    },
+    "@material/slider": {
       "optional": true
     },
     "@ngx-translate/core": {
@@ -179,6 +183,7 @@
     "@babel/core": "~7.25.0",
     "@babel/preset-typescript": "~7.24.0",
     "@compodoc/compodoc": "^1.1.19",
+    "@material/slider": "^14.0.0",
     "@ngrx/store": "~18.0.0",
     "@ngx-translate/core": "~15.0.0",
     "@nx/eslint-plugin": "~19.5.0",
