@@ -21,6 +21,14 @@ export type TokenDefinitionRenderer = (tokenStructure: DesignTokenVariableStruct
  * Options of the Design Token Renderer value
  */
 export interface DesignTokenRendererOptions {
+  /**
+   * Comparator to sort variable before rendering
+   * @default {@see compareVariableByName}
+   * @param a first Design Token
+   * @param b second Design Token
+   */
+  variableSortComparator?: (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure) => number;
+
   /** Custom Style Content updated function */
   styleContentUpdater?: DesignContentFileUpdater;
 

@@ -107,8 +107,8 @@
     "cpy-cli": "^5.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
-    "eslint-plugin-jest": "~28.6.0",
-    "eslint-plugin-jsdoc": "~48.10.0",
+    "eslint-plugin-jest": "~28.7.0",
+    "eslint-plugin-jsdoc": "~48.11.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^54.0.0",
     "isomorphic-fetch": "~3.0.0",
@@ -140,7 +140,7 @@
     "tsc-watch": "^6.0.4",
     "yaml-eslint-parser": "^1.2.2"
   },
-  "openApiSupportedVersion": "~7.4.0",
+  "openApiSupportedVersion": "~7.7.0",
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   }

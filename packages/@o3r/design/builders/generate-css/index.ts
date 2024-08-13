@@ -64,7 +64,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),
-    tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer }),
+    tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer, ignorePrivateVariable: options.metadataIgnorePrivate }),
     logger
   };
 
