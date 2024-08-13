@@ -44,7 +44,7 @@
     "extract": "yarn run extract-src && yarn run extract-openapi",
     "extract-src": "o3r-extract-folder-structure --files \"src\" && cpy ./folder-structure.json dist",
     "extract-openapi": "o3r-extract-folder-structure --files \"./open-api.yaml\" -o openapi-structure.json && cpy ./openapi-structure.json dist",
-    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run files:pack && yarn run extract-src",
+    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run files:pack && yarn run extract",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q --strip-leading-paths",
     "build:esm2020": "tsc -b tsconfigs/esm2020",

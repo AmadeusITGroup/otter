@@ -37,8 +37,7 @@ const readDirRec = async (entry: DirEnt<string>, path: string, fileSystem: FileS
   };
 };
 
-// TODO Add exclusion list
-export const getFilesTree = async (files: {isDir: boolean, path: string}[], fileSystem: FileSystem, exclusionList: string[] = []) => {
+export const getFilesTree = async (files: {isDir: boolean; path: string}[], fileSystem: FileSystem, exclusionList: string[] = []) => {
   const tree: FileSystemTree = {};
   for (const {isDir, path} of files) {
     if (isDir) {

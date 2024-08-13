@@ -27,7 +27,7 @@
     "build:cli": "tsc -b tsconfig.cli.json --pretty && yarn generate-cjs-manifest"
   },
   "bin": {
-    "o3r-extract-folder-structure": "./dist/cli/extract-folder-structure.js"
+    "o3r-extract-folder-structure": "./dist/cli/extract-folder-structure/extract-folder-structure.js"
   },
   "exports": {
     "./package.json": {

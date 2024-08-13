@@ -11,30 +11,36 @@
         </div>
       </div>
     </form>
-    @if (editorMode === 'interactive') {
-      <ul class="tabs">
-        <li class="tab">
-          <input type="radio" name="tabs" checked="checked" id="tab1"/>
-          <label for="tab1">Preview</label>
-          <div id="tab-content1" class="content preview">
-            <iframe #iframe allow="cross-origin-isolated">Loading</iframe>
-          </div>
-        </li>
-        <li class="tab">
-          <input type="radio" name="tabs" id="tab2"/>
-          <label for="tab2">Console</label>
-<!--          <div id="tab-content2" class="content" #console></div>-->
-          <code-editor-terminal id="tab-content2" class="content" #console></code-editor-terminal>
-        </li>
-        <li class="tab">
-          <input type="radio" name="tabs" id="tab3"/>
-          <label for="tab3">Terminal</label>
-<!--          <div id="tab-content3" class="content" #terminal></div>-->
-          <code-editor-terminal id="tab-content3" class="content" [standalone]="true"></code-editor-terminal>
-
-        </li>
-      </ul>
-    }
+<!--    @if (editorMode === 'interactive') {-->
+<!--    }-->
   } @else if (!!filesContent) {
     <div class="spinner-border" role="status"></div>
   }
+<ul class="tabs" ngClass="{'visually-hidden': editorMode === 'interactive'">
+  <li class="tab">
+    <input type="radio" name="tabs" checked="checked" id="tab1"/>
+    <label for="tab1">Preview</label>
+    <div id="tab-content1" class="content preview">
+      <iframe #iframe allow="cross-origin-isolated">Loading</iframe>
+    </div>
+  </li>
+  <li class="tab">
+    <input type="radio" name="tabs" id="tab2"/>
+    <label for="tab2">Console</label>
+    <code-editor-terminal id="tab-content2" class="content console"
+                          (disposed)="webContainerService.disposeConsole()"
+                          (terminalUpdated)="webContainerService.registerConsole($event)">
+    </code-editor-terminal>
+  </li>
+  <li class="tab">
+    <input type="radio" name="tabs" id="tab3"/>
+    <label for="tab3">Terminal</label>
+    <code-editor-terminal id="tab-content3" class="content"
+                          (disposed)="webContainerService.disposeShell()"
+                          (terminalUpdated)="webContainerService.registerShell($event)">
+
+    </code-editor-terminal>
+
+  </li>
+</ul>
+

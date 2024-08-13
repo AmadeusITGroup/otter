@@ -1,13 +1,11 @@
 import {
   Component,
   ElementRef,
-  inject, Input,
-  OnDestroy,
+  EventEmitter,
+  OnDestroy, Output,
   ViewChild
 } from '@angular/core';
-import {WebContainerProcess} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
-import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
 
 
 @Component({
@@ -17,50 +15,26 @@ import {WebcontainerService} from '../../../services/webcontainer/webcontainer.s
   template: '<div #terminal></div>'
 })
 export class CodeEditorTerminalComponent implements OnDestroy {
-  public terminal?: Terminal;
-  private readonly webContainerService = inject(WebcontainerService);
+  private readonly terminal: Terminal = new Terminal({convertEol: true});
+
   @ViewChild('terminal')
   public terminalEl!: ElementRef<HTMLDivElement>;
-
-  @Input()
-  public standalone: boolean = false;
-
-  private terminalProcess?: WebContainerProcess;
+  @Output()
+  public readonly terminalUpdated = new EventEmitter<Terminal>();
+  @Output()
+  public readonly disposed = new EventEmitter<void>();
 
   private initTerminal() {
-    console.log('Init terminal');
-    this.terminal = new Terminal({convertEol: true});
     this.terminal.open(this.terminalEl.nativeElement);
-    if (this.standalone) {
-      this.startShell();
-    }
-  }
-
-  public setProcess(newProcess: WebContainerProcess) {
-    if (this.terminalProcess) {
-      this.terminalProcess.kill();
-    }
-    this.terminalProcess = newProcess;
-  }
-
-  public startShell() {
-    void this.webContainerService.startShell(this.terminal!).then(
-      (shellProcess) => this.setProcess(shellProcess)
-    );
-  }
-
-  public ngOnDestroy() {
-    this.terminal?.dispose();
-    this.terminalProcess?.kill();
+    this.terminalUpdated.emit(this.terminal);
   }
 
   public ngAfterViewInit() {
-    if (this.terminalEl?.nativeElement) {
-      this.initTerminal();
-    }
+    this.initTerminal();
   }
 
-  kill() {
-    this.terminalProcess?.kill();
+  public ngOnDestroy() {
+    this.terminal.dispose();
+    this.disposed.emit();
   }
 }

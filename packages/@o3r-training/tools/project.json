@@ -61,12 +61,6 @@
       "options": {
         "command": "npm publish packages/@o3r-training/tools/dist"
       }
-    },
-    "documentation": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "compodoc"
-      }
     }
   },
   "tags": []

@@ -1,14 +1,14 @@
 import {AsyncPipe, JsonPipe} from '@angular/common';
 import {
-  Component, ContentChild,
+  AfterViewInit,
+  Component,
   ElementRef,
   inject,
   Input,
   OnChanges,
   OnDestroy,
   SimpleChanges,
-  ViewChild,
-  ViewEncapsulation
+  ViewChild, ViewEncapsulation
 } from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {FileSystemTree} from '@webcontainer/api';
@@ -43,7 +43,7 @@ export type EditorMode = 'readonly' | 'interactive';
   templateUrl: './code-editor-view.component.html',
   styleUrl: './code-editor-view.component.scss'
 })
-export class CodeEditorViewComponent implements OnDestroy, OnChanges {
+export class CodeEditorViewComponent implements OnDestroy, OnChanges, AfterViewInit {
   @Input() public filesContent?: FileSystemTree;
 
   @Input() public startingFile = '';
@@ -54,7 +54,7 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
 
   @Input() public showInstructions = true;
 
-  private readonly webContainerService = inject(WebcontainerService);
+  public readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;
   private readonly formBuilder = inject(FormBuilder);
   private readonly subscriptions = new Subscription();
@@ -73,10 +73,9 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       scrollBeyondLastLine: false
     }))
   );
+  // TODO see if I can subscribe iframe and console after run of command (and not depend on them)
   @ViewChild('iframe')
   public iframeEl!: ElementRef<HTMLIFrameElement>;
-  @ContentChild('console')
-  public consoleEl!: CodeEditorTerminalComponent;
 
   constructor() {
     this.subscriptions.add(
@@ -112,6 +111,10 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
     }
   }
 
+  public ngAfterViewInit() {
+    this.webContainerService.registerIframe(this.iframeEl.nativeElement);
+  }
+
   public async ngOnChanges(changes: SimpleChanges) {
     if ('startingFile' in changes && changes.startingFile.currentValue) {
       this.form.controls.file.setValue(changes.startingFile.currentValue);
@@ -129,28 +132,17 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
           this.form.controls.code.setValue('');
         }
       } else {
-        void this.webContainerService.destroyInstance();
         this.form.controls.code.setValue('');
       }
     }
     if ('commands' in changes) {
-      if (!this.commands || this.commands.length === 0) {
-        this.consoleEl?.kill();
-        return;
-      }
-      if (this.commands?.length > 0 && !this.iframeEl?.nativeElement || !this.consoleEl?.terminal) {
-        console.error('Missing iframe and terminal to run webcontainer initialization commands');
-        return;
-      }
-      // Move console in a new shell
-      this.consoleEl.kill();
-      void this.webContainerService.runCommands(this.commands, this.iframeEl.nativeElement, this.consoleEl.terminal);
+      void this.webContainerService.queueCommands(this.commands);
     }
   }
 
   public ngOnDestroy() {
+    this.webContainerService.clearContainer();
     this.subscriptions.unsubscribe();
-    this.webContainerService.destroyInstance();
   }
 
   public logTree() {

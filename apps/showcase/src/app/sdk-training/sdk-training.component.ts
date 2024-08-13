@@ -77,13 +77,17 @@ export class SdkTrainingComponent {
       title: 'Integrate your component in Angular',
       htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
       filesConfiguration: {
-        startingFile: '',
+        startingFile: 'apps/tuto-app/src/app/app.component.ts',
         urls: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '.': 'sdk-training/step-generate-sdk-specs/empty.json'
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          // './libs/sdk/src': 'training-sdk/folder-structure.json'
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          // './libs/sdk': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
-        commands: [],
+        commands: ['npm install', 'npm run ng run tuto-app:serve'],
         runApp: false
       }
     },
@@ -120,7 +124,20 @@ export class SdkTrainingComponent {
     {
       title: 'SDK with Dates',
       htmlContentUrl: 'sdk-training/step-use-date.html',
-      htmlExampleUrl: 'sdk-training/step-use-date.example.html'
+      htmlExampleUrl: 'sdk-training/step-use-date.example.html',
+      filesConfiguration: {
+        startingFile: 'package.json',
+        // startingFile: 'src/models/base/flight/flight.ts',
+        urls: {
+          // 'src': 'training-sdk/folder-structure.json',
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '.': 'sdk-training/step-use-date/step-use-date-files.json'
+          // '.': 'training-sdk/openapi-structure.json'
+        },
+        mode: 'interactive',
+        commands: [],
+        runApp: false
+      }
     },
     {
       title: 'SDK with Model Extension',
@@ -173,11 +190,18 @@ export class SdkTrainingComponent {
           }
           const sanitizedPath = path.replace(new RegExp('^[.]/?'), '');
           const parsedPath = sanitizedPath.split('/');
-          if (parsedPath[parsedPath.length - 1].indexOf('.') > -1) {
-            acc[sanitizedPath] = {file: {contents: content}} as FileNode;
-          } else {
-            acc[sanitizedPath] = {directory: JSON.parse(content)} as DirectoryNode;
-          }
+          parsedPath.reduce((pointer, path, index) => {
+            if (path.indexOf('.') > -1) {
+              pointer[path] = {file: {contents: content}} as FileNode;
+              return pointer;
+            } else if (index === parsedPath.length - 1) {
+              pointer[path] = {directory: JSON.parse(content)} as DirectoryNode;
+              return (pointer[path] as DirectoryNode).directory;
+            } else {
+              pointer[path] = pointer[path] && Object.hasOwn(pointer[path], 'directory') ? pointer[path] : {directory: {}};
+              return (pointer[path] as DirectoryNode).directory;
+            }
+          }, acc);
           return acc;
         }, {} as FileSystemTree);
         step.dynamicContent.fileContent.set(filesContent);

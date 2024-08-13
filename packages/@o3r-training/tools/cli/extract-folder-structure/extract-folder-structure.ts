@@ -12,8 +12,22 @@ program
 
 const options: any = program.opts();
 const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
-// TODO add a test not to exit the repository;
-
+const stringifyBigObject = (jsonObject: any): string => {
+  if (typeof jsonObject === 'string') {
+    return JSON.stringify(jsonObject);
+  }
+  if (Array.isArray(jsonObject)) {
+    return '[' + (jsonObject as any[])
+      .map((value) =>  stringifyBigObject(value))
+      .join(', ') +
+      ']';
+  }
+  return '{' +
+    Object.entries(jsonObject)
+      .map(([key, value]) => `"${key}": ${stringifyBigObject(value)}`)
+      .join(', ') +
+    '}';
+}
 (async () => {
   const filesDescriptor = [];
   for (const file of options.files.split(',')) {
@@ -24,6 +38,8 @@ const cwd = options.root ? resolve(process.cwd(), options.root) : process.cwd();
     readdir: readdir,
     readFile: readFile
   } as FileSystem);
+  // TODO add a test not to exit the project;
   const targetPath = join(cwd, options.output || 'folder-structure.json');
-  await writeFile(targetPath, JSON.stringify(folderStructure));
+  const content = stringifyBigObject(folderStructure);
+  await writeFile(targetPath, content);
 })()
