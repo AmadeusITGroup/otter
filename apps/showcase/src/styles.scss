@@ -47,3 +47,9 @@ h1, h2 {
   box-shadow: none;
 }
 // End overrides
+
+:not(:hover) {
+  &::-webkit-scrollbar {
+    visibility: hidden;
+  }
+}

@@ -1,20 +1,23 @@
-<button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="logTree()">
-  Log tree
-</button>
+@if (debug) {
+  <button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="logTree()">
+    Log tree
+  </button>
+}
 @if ((tree$ | async)?.length > 0) {
-  <form [formGroup]="form" class="editor">
-    <div class="d-flex w-100 align-items-stretch">
-      <monaco-tree (clickFile)="onClickFile($event)" [tree]="tree$ | async"></monaco-tree>
-      <div class="h-100 monaco-editor-wrapper">
-        <ngx-monaco-editor style="height: 100%;" class="monaco-editor-test" [options]="editorOptions$ | async"
-                           formControlName="code"></ngx-monaco-editor>
+  <form [formGroup]="form" class="editor d-flex flex-fill overflow-hidden">
+    <div class="d-flex h-100 w-100 align-items-stretch">
+      <monaco-tree class="overflow-auto w-25" (clickFile)="onClickFile($event)" [tree]="tree$ | async"></monaco-tree>
+      <div class="flex-fill h-100 overflow-hidden monaco-editor-wrapper">
+        <ngx-monaco-editor class="h-100 position-relative"
+          [options]="editorOptions$ | async"
+          formControlName="code">
+        </ngx-monaco-editor>
       </div>
     </div>
   </form>
   @if (editorMode === 'interactive') {
-    <code-editor-control [showConsole]="project?.commands.length > 0"></code-editor-control>
+    <code-editor-control class="d-flex flex-column overflow-hidden" [showConsole]="project?.commands.length > 0"></code-editor-control>
   }
 } @else if (!!project) {
   <div class="spinner-border" role="status"></div>
 }
-

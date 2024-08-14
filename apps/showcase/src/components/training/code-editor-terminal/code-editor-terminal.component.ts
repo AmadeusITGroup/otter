@@ -1,21 +1,26 @@
 import {
+  type AfterViewChecked,
+  type AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
-  OnDestroy, Output,
+  type OnDestroy,
+  Output,
   ViewChild
 } from '@angular/core';
 import {Terminal} from '@xterm/xterm';
+import {FitAddon} from '@xterm/addon-fit';
 
 
 @Component({
   selector: 'code-editor-terminal',
   standalone: true,
   imports: [],
-  template: '<div #terminal></div>'
+  template: '<div #terminal class="h-100"></div>'
 })
-export class CodeEditorTerminalComponent implements OnDestroy {
-  private readonly terminal: Terminal = new Terminal({convertEol: true});
+export class CodeEditorTerminalComponent implements OnDestroy, AfterViewChecked, AfterViewInit {
+  private readonly terminal = new Terminal({convertEol: true});
+  private readonly fitAddon = new FitAddon();
 
   @ViewChild('terminal')
   public terminalEl!: ElementRef<HTMLDivElement>;
@@ -24,6 +29,10 @@ export class CodeEditorTerminalComponent implements OnDestroy {
   @Output()
   public readonly disposed = new EventEmitter<void>();
 
+  constructor() {
+    this.terminal.loadAddon(this.fitAddon);
+  }
+
   private initTerminal() {
     this.terminal.open(this.terminalEl.nativeElement);
     this.terminalUpdated.emit(this.terminal);
@@ -31,6 +40,10 @@ export class CodeEditorTerminalComponent implements OnDestroy {
 
   public ngAfterViewInit() {
     this.initTerminal();
+  }
+
+  public ngAfterViewChecked() {
+    this.fitAddon.fit();
   }
 
   public ngOnDestroy() {

@@ -3,9 +3,11 @@
     <h1 class="m-0">SDK Training</h1>
   </div>
   <div class="align-self-center">
-    <button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="updateDisplayInstructions()">
-      {{showInstructions ? 'Hide Instructions' : 'Show Instructions'}}
-    </button>
+    @if (steps[currentStep].dynamicContent.project()) {
+      <button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="updateDisplayInstructions()">
+        {{showInstructions ? 'Hide instructions' : 'Show instructions'}}
+      </button>
+    }
     <button type="button" class="btn btn-outline-secondary icon-chevron-left" [disabled]="!previousStep"
             (click)="setCurrentStep(currentStep - 1)"></button>
     <button type="button" class="btn btn-outline-secondary icon-chevron-right" [disabled]="!nextStep"
@@ -13,19 +15,9 @@
   </div>
 </div>
 <o3r-sdk-training-step-pres
+  class="flex-fill overflow-hidden"
   [project]="steps[currentStep].dynamicContent.project()"
   [editorMode]="steps[currentStep].description.filesConfiguration?.mode"
   [showInstructions]="showInstructions">
-<!-- TODO maybe we can remove the content projection and just call the o3r-sdk-step with parameters -->
-  <ng-container class="step-instructions">
-    <div [innerHtml]="steps[currentStep].dynamicContent.htmlContent()"></div>
-  </ng-container>
-
-  <ng-container class="step-example">
-    <div [innerHtml]="steps[currentStep].dynamicContent.htmlExample()"></div>
-<!--    @if (steps[currentStep].dynamicContent.componentExample) {-->
-<!--      <hr>-->
-<!--      <ng-container *ngComponentOutlet="steps[currentStep].componentExample"/>-->
-<!--    }-->
-  </ng-container>
+  <div [innerHtml]="steps[currentStep].dynamicContent.htmlContent()"></div>
 </o3r-sdk-training-step-pres>

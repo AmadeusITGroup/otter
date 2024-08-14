@@ -210,6 +210,7 @@
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
     "@webcontainer/api": "1.3.0-internal.2",
+    "@xterm/addon-fit": "^0.10.0",
     "@xterm/xterm": "*",
     "@yarnpkg/sdks": "^3.0.0",
     "ag-grid-angular": "~31.1.1",
@@ -273,6 +274,9 @@
       "built": true
     },
     "@vscode/codicons": {
+      "unplugged": true
+    },
+    "@xterm/addon-fit": {
       "unplugged": true
     },
     "@xterm/xterm": {

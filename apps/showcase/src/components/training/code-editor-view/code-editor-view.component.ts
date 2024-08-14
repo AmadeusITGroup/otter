@@ -41,6 +41,8 @@ export type EditorMode = 'readonly' | 'interactive';
   styleUrl: './code-editor-view.component.scss'
 })
 export class CodeEditorViewComponent implements OnDestroy, OnChanges {
+  public debug = false;
+
   @Input() public editorMode: EditorMode = 'readonly';
 
   @Input() public project?: {

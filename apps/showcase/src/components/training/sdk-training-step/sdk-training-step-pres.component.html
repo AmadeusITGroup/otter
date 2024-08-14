@@ -1,19 +1,17 @@
-<div class="row mb-3 border-between ">
+<div class="d-flex h-100 gap-5">
   @if (showInstructions) {
-  <div class="col border-end overflow-y-auto" >
-    <ng-content select=".step-instructions" />
-  </div>
+    <div class="instructions h-100 overflow-auto col">
+      <ng-content />
+    </div>
   }
-  <div class="col sticky-example" >
-    <ng-content select=".step-example" />
-    <hr>
-    <ng-content select=".step-component"/>
-    @if (project) {
+  @if (project) {
+    <div class="d-flex h-100 overflow-hidden col">
       <code-editor-view
+        class="d-flex flex-column justify-content-stretch w-100 flex-fill"
         [project]="project"
         [editorMode]="editorMode"
         [showInstructions]="showInstructions"
       ></code-editor-view>
-    }
-  </div>
+    </div>
+  }
 </div>

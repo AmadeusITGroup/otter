@@ -1,50 +1,11 @@
 header {
-  position: sticky;
-  top: 0;
   height: 4rem;
-  width: 100%;
   background: var(--bs-primary-800);
   box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15), inset 0 -1px 0 rgba(255,255,255,0.15);
-  z-index: 1021;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
   color: var(--bs-primary-500-color);
-  font-weight: bold;
   font-size: 2rem;
-
-  .mobile-menu-btn {
-    color: var(--bs-primary-500-color);
-  }
-
-  .header-title {
-    display: flex;
-  }
-
-  .header-icon {
-    display: flex;
-    margin-right: .5rem;
-  }
-}
-
-.left-nav {
-  position: sticky;
-  top: 4rem;
-  padding-top: 2rem;
-  max-height: calc(100vh - 4rem);
-  overflow-y: auto;
-  flex-grow: 1;
-}
-
-.page-content {
-  min-height: calc(100vh - 4rem);
 }
 
 footer {
-  display: flex;
-  align-items: center;
   height: 12rem;
-  width: 100%;
-  color: var(--bs-body-color);
-  margin-top: 2rem;
 }
