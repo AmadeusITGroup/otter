@@ -5065,6 +5065,121 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@material/animation@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/animation@npm:14.0.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: 10/62a3ef242fe50de7464876a665d54d24a34858a8e82ca33f4771120b81b329aab141e4e33c44c90095f3a1aebc6be807ad5e2199ff5ed6f3b7ea043624d0d10d
+  languageName: node
+  linkType: hard
+
+"@material/base@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/base@npm:14.0.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: 10/df2a063cde0af5305a5f9dad5508fac7cb93e46f9d638105e0b9df7b3367d0eb27879432d1ae6692d278c7aa11eab9845e10c365f079bd1b19689b120cb0597f
+  languageName: node
+  linkType: hard
+
+"@material/dom@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/dom@npm:14.0.0"
+  dependencies:
+    "@material/feature-targeting": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/1cb0d9b223510187fcabbcdd9c5b2a1221599dd3be25079e6cd102e85bda4af04b7327e22f5a0cfa1a2536918269115add60ff85734ab53fccb4fc3e23515db7
+  languageName: node
+  linkType: hard
+
+"@material/elevation@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/elevation@npm:14.0.0"
+  dependencies:
+    "@material/animation": "npm:^14.0.0"
+    "@material/base": "npm:^14.0.0"
+    "@material/feature-targeting": "npm:^14.0.0"
+    "@material/rtl": "npm:^14.0.0"
+    "@material/theme": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/90b5da72672108c3a1b1a1ee9e28547c1f42a8d2f95c42004554c77cee082ad00e450a256c18ba32381d1b1289b73d18954bec6828669bf9799636e8341abc8e
+  languageName: node
+  linkType: hard
+
+"@material/feature-targeting@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/feature-targeting@npm:14.0.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: 10/a755aad3e5ac38e13426adeb9e1817ca4524ba2a16d264f4b20b649c6a7110b579328ced22680f69e5d038fea45a402d8e13675c560d511ad61cc70136b634af
+  languageName: node
+  linkType: hard
+
+"@material/ripple@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/ripple@npm:14.0.0"
+  dependencies:
+    "@material/animation": "npm:^14.0.0"
+    "@material/base": "npm:^14.0.0"
+    "@material/dom": "npm:^14.0.0"
+    "@material/feature-targeting": "npm:^14.0.0"
+    "@material/rtl": "npm:^14.0.0"
+    "@material/theme": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/61ca6dc347e560485809b9c5e1928b34866adb7ab39badc9de9859aa619f7cc67ab2ae0fcfd72d76af3eadfd2ea9194fdc49b313dd30d4afb16126b3bb3348c2
+  languageName: node
+  linkType: hard
+
+"@material/rtl@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/rtl@npm:14.0.0"
+  dependencies:
+    "@material/theme": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/ad30bd42cc5379f7c9d993c94628095342e686db1959fe0f769e8e44b1f1a2612956a7738c6894ac164af2fef8fbf09c6563e4a9f834b94f8d60c033e22705ec
+  languageName: node
+  linkType: hard
+
+"@material/slider@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/slider@npm:14.0.0"
+  dependencies:
+    "@material/animation": "npm:^14.0.0"
+    "@material/base": "npm:^14.0.0"
+    "@material/dom": "npm:^14.0.0"
+    "@material/elevation": "npm:^14.0.0"
+    "@material/feature-targeting": "npm:^14.0.0"
+    "@material/ripple": "npm:^14.0.0"
+    "@material/rtl": "npm:^14.0.0"
+    "@material/theme": "npm:^14.0.0"
+    "@material/typography": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/475e60a5a95fb90530ab53563772763509d8ab9735d4582c49937c376dcbb687817509d1884e0ee7af909174ef6044f1261c7688d4cd90a4f64cb4a76ad54daa
+  languageName: node
+  linkType: hard
+
+"@material/theme@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/theme@npm:14.0.0"
+  dependencies:
+    "@material/feature-targeting": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/56506d1e01d4eebefba88ee102bb47847b2cc2fa6e481068bce92ba15adf99cda07a89bc24e81458fadf80c89803a8a217ed7b53c3f9559e8bc5a20ae12af9f7
+  languageName: node
+  linkType: hard
+
+"@material/typography@npm:^14.0.0":
+  version: 14.0.0
+  resolution: "@material/typography@npm:14.0.0"
+  dependencies:
+    "@material/feature-targeting": "npm:^14.0.0"
+    "@material/theme": "npm:^14.0.0"
+    tslib: "npm:^2.1.0"
+  checksum: 10/37071c19d3021764b6a8805dbd24aa59fd25eab21555cf7d3f603b5306a798149069df229622d727400caebec08edf4853b33c6c479b1b426745732af88ee8ca
+  languageName: node
+  linkType: hard
+
 "@microsoft/tsdoc@npm:~0.15.0":
   version: 0.15.0
   resolution: "@microsoft/tsdoc@npm:0.15.0"
@@ -9098,6 +9213,7 @@ __metadata:
     "@babel/core": "npm:~7.25.0"
     "@babel/preset-typescript": "npm:~7.24.0"
     "@compodoc/compodoc": "npm:^1.1.19"
+    "@material/slider": "npm:^14.0.0"
     "@ngrx/store": "npm:~18.0.0"
     "@ngx-translate/core": "npm:~15.0.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
@@ -9157,6 +9273,7 @@ __metadata:
     "@angular/core": ~18.1.0
     "@angular/forms": ~18.1.0
     "@angular/platform-browser": ~18.1.0
+    "@material/slider": ^14.0.0
     "@ngrx/store": ~18.0.0
     "@ngx-translate/core": ~15.0.0
     "@o3r/core": "workspace:^"
@@ -9176,6 +9293,8 @@ __metadata:
     "@angular-devkit/schematics":
       optional: true
     "@angular/cli":
+      optional: true
+    "@material/slider":
       optional: true
     "@ngx-translate/core":
       optional: true
