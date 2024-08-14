@@ -13,9 +13,7 @@
   </div>
 </div>
 <o3r-sdk-training-step-pres
-  [filesContent]="steps[currentStep].dynamicContent.fileContent()"
-  [startingFile]="steps[currentStep].description.filesConfiguration?.startingFile"
-  [commands]="steps[currentStep].description.filesConfiguration?.commands"
+  [project]="steps[currentStep].dynamicContent.project()"
   [editorMode]="steps[currentStep].description.filesConfiguration?.mode"
   [showInstructions]="showInstructions">
 <!-- TODO maybe we can remove the content projection and just call the o3r-sdk-step with parameters -->

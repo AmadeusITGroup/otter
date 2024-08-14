@@ -1,46 +1,20 @@
 <button type="button" class="btn btn-outline-primary mb-2 mb-md-0 me-5" (click)="logTree()">
   Log tree
 </button>
-  @if ((tree$ | async)?.length > 0) {
-    <form [formGroup]="form" class="editor">
+@if ((tree$ | async)?.length > 0) {
+  <form [formGroup]="form" class="editor">
     <div class="d-flex w-100 align-items-stretch">
       <monaco-tree (clickFile)="onClickFile($event)" [tree]="tree$ | async"></monaco-tree>
       <div class="h-100 monaco-editor-wrapper">
         <ngx-monaco-editor style="height: 100%;" class="monaco-editor-test" [options]="editorOptions$ | async"
                            formControlName="code"></ngx-monaco-editor>
-        </div>
       </div>
-    </form>
-<!--    @if (editorMode === 'interactive') {-->
-<!--    }-->
-  } @else if (!!filesContent) {
-    <div class="spinner-border" role="status"></div>
-  }
-<ul class="tabs" ngClass="{'visually-hidden': editorMode === 'interactive'">
-  <li class="tab">
-    <input type="radio" name="tabs" checked="checked" id="tab1"/>
-    <label for="tab1">Preview</label>
-    <div id="tab-content1" class="content preview">
-      <iframe #iframe allow="cross-origin-isolated">Loading</iframe>
     </div>
-  </li>
-  <li class="tab">
-    <input type="radio" name="tabs" id="tab2"/>
-    <label for="tab2">Console</label>
-    <code-editor-terminal id="tab-content2" class="content console"
-                          (disposed)="webContainerService.disposeConsole()"
-                          (terminalUpdated)="webContainerService.registerConsole($event)">
-    </code-editor-terminal>
-  </li>
-  <li class="tab">
-    <input type="radio" name="tabs" id="tab3"/>
-    <label for="tab3">Terminal</label>
-    <code-editor-terminal id="tab-content3" class="content"
-                          (disposed)="webContainerService.disposeShell()"
-                          (terminalUpdated)="webContainerService.registerShell($event)">
-
-    </code-editor-terminal>
-
-  </li>
-</ul>
+  </form>
+  @if (editorMode === 'interactive') {
+    <code-editor-control [showConsole]="project?.commands.length > 0"></code-editor-control>
+  }
+} @else if (!!project) {
+  <div class="spinner-border" role="status"></div>
+}
 

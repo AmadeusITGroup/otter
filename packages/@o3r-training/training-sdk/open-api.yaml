@@ -21,6 +21,11 @@ components:
   schemas:
     Flight:
       type: object
+      required:
+        - originLocationCode
+        - destinationLocationCode
+        - departureDateTime
+        - paymentExpirationDate
       properties:
         originLocationCode:
           type: string
@@ -30,6 +35,6 @@ components:
           type: string
           format: date-time
           x-local-timezone: true
-        paymentExprirationDate:
+        paymentExpirationDate:
           type: string
           format: date-time

@@ -29,6 +29,7 @@ type SdkTrainingStep = {
   dynamicContent: {
     htmlContent: WritableSignal<string>;
     htmlExample: WritableSignal<string>;
+    project: WritableSignal<{startingFile: string; files: FileSystemTree; commands: string[]} | null>;
     fileContent: WritableSignal<FileSystemTree | null>;
   };
 };
@@ -135,7 +136,7 @@ export class SdkTrainingComponent {
           // '.': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
-        commands: [],
+        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
         runApp: false
       }
     },
@@ -153,6 +154,7 @@ export class SdkTrainingComponent {
       dynamicContent: {
         htmlContent: signal(''),
         htmlExample: signal(''),
+        project: signal(null),
         fileContent: signal(null)
       }
     }));
@@ -205,6 +207,11 @@ export class SdkTrainingComponent {
           return acc;
         }, {} as FileSystemTree);
         step.dynamicContent.fileContent.set(filesContent);
+        step.dynamicContent.project.set({
+          startingFile: step.description.filesConfiguration!.startingFile || '',
+          commands: step.description.filesConfiguration!.commands || [],
+          files: filesContent
+        });
       });
     }
 

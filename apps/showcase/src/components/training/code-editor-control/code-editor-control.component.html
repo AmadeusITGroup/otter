@@ -1,0 +1,26 @@
+<ul class="tabs">
+  <li class="tab">
+    <input type="radio" name="tabs" checked="checked" id="tab1"/>
+    <label for="tab1">Preview</label>
+    <div id="tab-content1" class="content preview">
+      <iframe #iframe allow="cross-origin-isolated">Loading</iframe>
+    </div>
+  </li>
+  <li class="tab" [class.visually-hidden]="!showConsole">
+    <input type="radio" name="tabs" id="tab2"/>
+    <label for="tab2">Console</label>
+    <code-editor-terminal id="tab-content2" class="content console"
+                          (disposed)="webContainerService.runner.disposeConsole()"
+                          (terminalUpdated)="webContainerService.runner.registerConsole($event)">
+    </code-editor-terminal>
+  </li>
+  <li class="tab">
+    <input type="radio" name="tabs" id="tab3"/>
+    <label for="tab3">Terminal</label>
+    <code-editor-terminal id="tab-content3" class="content"
+                          (disposed)="webContainerService.runner.disposeShell()"
+                          (terminalUpdated)="webContainerService.runner.registerShell($event)">
+    </code-editor-terminal>
+  </li>
+</ul>
+

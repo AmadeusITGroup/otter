@@ -3,16 +3,31 @@
 <p>
   If your specification file includes dates, there are multiple options for the generation of your SDK.
 </p>
+<!--<p>-->
+<!--  For this training, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.-->
+<!--  A user would like to book a return trip from Paris to London. These cities are in different timezones, which needs to be taken into account-->
+<!--  when the user books their flights. The outbound and return flights must be relative to the timezones of the airports.-->
+<!--</p>-->
+<!--<p>-->
+<!--  For this training, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.-->
+<!--  A user who is currently in France is planning a future trip to the United States. They have booked all of their flights but one: the return-->
+<!--  flight from New York City to Paris. These cities are in different timezones, which needs to be taken into account when the user books their-->
+<!--  flights. The flights must be relative to the timezones of the airports.-->
+<!--</p>-->
 <p>
   For this training, let's consider a specific use case. Imagine your SDK is used on a flight booking site, including international travel.
-  A user would like to book a return trip from Paris to London. These cities are in different timezones, which needs to be taken into account
-  when the user books their flights. The outbound and return flights must be relative to the timezones of the airports.
+  A user who is currently in France is planning a round trip from Paris to New York City. These cities are in different timezones, which needs
+  to be taken into account when the user books their flights. The outbound and return flights must be relative to the timezones of the airports.
 </p>
 <p>
   To do so, the dates of the flights must be of type <b><code>utils.DateTime</code></b>.
 </p>
+<p>
+  Also, for this flight booking site, each flight has an expiration date-time for the payment, which is relative to the user's timezone.
+</p>
 
-<h2>Exercise</h2>
+<h2>Exercises</h2>
+<h3>1. Create the SDK</h3>
 <p>
   Let's create a specification file for our flight booking site. This SDK should contain a definition with the properties to book a flight:
 </p>
@@ -37,3 +52,25 @@
 yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./path/to/openapi.yaml --global-property stringifyDate=false
   </code>
 </pre>
+<p>
+  Check out the solution to make sure you have generated the correct SDK locally.
+</p>
+
+<h3>2. Compare timezones</h3>
+<p>
+  As you can see in the solution, there is an example of a flight reservation basket using the previously generated SDK.
+  Let's say that the user has selected their outbound and return flights and added them to their basket.
+</p>
+<p>
+  The outbound trip is tomorrow at 10:00 and the return trip is one week from today at 12:00. These flights are relative
+  to the timezones of the departure airports.
+  You can also see a payment expiration date-time (15 minutes from now) which is relative to the user's timezone.
+</p>
+<p>
+  You can try to modify the timezone of your environment to see how these date-times are impacted.
+  <b>Make sure to reload the page when changing the timezone of your environment.</b>
+</p>
+<p>
+  As you may notice, the departure time is not impacted while the payment expiration date-time is adapted to the timezone of
+  your environment.
+</p>

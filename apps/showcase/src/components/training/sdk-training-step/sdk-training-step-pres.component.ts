@@ -10,10 +10,7 @@ import { CodeEditorViewComponent, EditorMode } from '../code-editor-view';
   styleUrl: './sdk-training-step-pres.component.scss'
 })
 export class SdkTrainingStepPresComponent {
-
-  @Input() public filesContent?: FileSystemTree;
-  @Input() public startingFile?: string;
+  @Input() public project?: {commands: string[]; startingFile: string; files: FileSystemTree};
   @Input() public editorMode?: EditorMode;
-  @Input() public commands?: string[];
   @Input() public showInstructions: boolean = true;
 }

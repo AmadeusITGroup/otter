@@ -8,10 +8,9 @@
     <ng-content select=".step-example" />
     <hr>
     <ng-content select=".step-component"/>
-    @if (filesContent) {
+    @if (project) {
       <code-editor-view
-        [filesContent]="filesContent"
-        [project]="{filesContent, startingFile, commands}"
+        [project]="project"
         [editorMode]="editorMode"
         [showInstructions]="showInstructions"
       ></code-editor-view>
