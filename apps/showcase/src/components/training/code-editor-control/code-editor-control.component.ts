@@ -7,6 +7,7 @@ import {
   OnDestroy,
   ViewChild, ViewEncapsulation
 } from '@angular/core';
+import { NgbNav, NgbNavContent, NgbNavItem, NgbNavLink, NgbNavOutlet } from '@ng-bootstrap/ng-bootstrap';
 import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
 import {CodeEditorTerminalComponent} from '../code-editor-terminal';
 
@@ -14,7 +15,12 @@ import {CodeEditorTerminalComponent} from '../code-editor-terminal';
   selector: 'code-editor-control',
   standalone: true,
   imports: [
-    CodeEditorTerminalComponent
+    CodeEditorTerminalComponent,
+    NgbNav,
+    NgbNavItem,
+    NgbNavLink,
+    NgbNavContent,
+    NgbNavOutlet
   ],
   encapsulation: ViewEncapsulation.None,
   templateUrl: './code-editor-control.component.html',
@@ -22,6 +28,8 @@ import {CodeEditorTerminalComponent} from '../code-editor-terminal';
 })
 export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
   @Input() public showConsole = true;
+
+  public activeTab = 'preview';
 
   public readonly webContainerService = inject(WebcontainerService);
 
@@ -34,5 +42,9 @@ export class CodeEditorControlComponent implements OnDestroy, AfterViewInit {
 
   public ngOnDestroy() {
     this.webContainerService.runner.setIframe(null);
+  }
+
+  public activateTab(tab: string) {
+    this.activeTab = tab;
   }
 }
