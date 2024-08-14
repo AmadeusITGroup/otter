@@ -2,7 +2,7 @@ import {computed, effect, Injectable, Signal, signal, WritableSignal} from '@ang
 import {FileSystem, getFilesTree} from '@o3r-training/tools';
 import {DirectoryNode, FileNode, FileSystemTree, WebContainer, WebContainerProcess} from '@webcontainer/api';
 import {Terminal} from '@xterm/xterm';
-import {BehaviorSubject, distinctUntilChanged} from 'rxjs';
+import {BehaviorSubject, distinctUntilChanged, map} from 'rxjs';
 import {MonacoTreeElement} from '../../components';
 
 class WebContainerNotInitialized extends Error {
@@ -148,34 +148,29 @@ export class WebcontainerService {
     }], instance.fs as FileSystem, EXCLUDED_FILES_OR_DIRECTORY);
   }
 
-  private destroyInstance() {
-    const instance = this.instance();
-    if (instance) {
-      instance.teardown();
-      this.instance.set(null);
-      this.monacoTree.next([]);
-    }
+  // TODO move to property
+  public isReady$() {
+    return this.monacoTree$.pipe(
+      map((tree) => tree.length > 0)
+    );
   }
 
-  public isReady() {
-    return !!this.instance();
-  }
-
-  public async loadProject(files: FileSystemTree) {
+  public async loadProject(files: FileSystemTree, commands: string[]) {
+    this.monacoTree.next([]);
     if (this.instance()) {
-      this.destroyInstance();
+      this.clearContainer();
     }
+    this.commandsQueued.set(commands);
     const instance = await WebContainer.boot();
     // eslint-disable-next-line no-console
     this.instance.set(instance);
     instance.on('error', console.error);
-    await instance.mount(files);
-    this.monacoTree.next(await this.getMonacoTree());
     instance.fs.watch('/', {encoding: 'utf-8'}, async () => {
-      console.log('update tree');
       const tree = await this.getMonacoTree();
       this.monacoTree.next(tree);
     });
+    await this.instance()!.mount(files);
+    this.monacoTree.next(await this.getMonacoTree());
   }
 
   public writeFile(file: string, content: string) {
@@ -207,12 +202,27 @@ export class WebcontainerService {
     return !!fileEntry?.isFile();
   }
 
-  public queueCommands(commands: string[] = []) {
+  public clearContainer() {
     const shellProcess = this.shell.process();
+    const consoleProcess = this.console.process();
+    const iframe = this.iframe();
     if (shellProcess) {
       shellProcess.kill();
+      this.shell.process.set(null);
     }
-    this.commandsQueued.set(commands);
+    if (consoleProcess) {
+      consoleProcess.kill();
+      this.console.process.set(null);
+    }
+    if (iframe) {
+      iframe.src = '';
+    }
+    const instance = this.instance();
+    if (instance) {
+      instance.teardown();
+      this.instance.set(null);
+      this.monacoTree.next([]);
+    }
   }
 
   public registerShell(terminal: Terminal) {
@@ -255,11 +265,5 @@ export class WebcontainerService {
     }
     this.console.process.set(null);
     this.console.terminal.set(null);
-  }
-
-  public clearContainer() {
-    this.disposeShell();
-    this.disposeConsole();
-    this.destroyInstance();
   }
 }

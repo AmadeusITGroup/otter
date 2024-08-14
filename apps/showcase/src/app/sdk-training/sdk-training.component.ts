@@ -80,14 +80,14 @@ export class SdkTrainingComponent {
         startingFile: 'apps/tuto-app/src/app/app.component.ts',
         urls: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          '.': 'sdk-training/step-generate-sdk-specs/empty.json'
+          '.': 'sdk-training/step-generate-sdk-specs/empty.json',
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          // './libs/sdk/src': 'training-sdk/folder-structure.json'
+          './libs/sdk/src': 'training-sdk/folder-structure.json'
           // eslint-disable-next-line @typescript-eslint/naming-convention
           // './libs/sdk': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
-        commands: ['npm install', 'npm run ng run tuto-app:serve'],
+        commands: ['npm install', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
         runApp: false
       }
     },

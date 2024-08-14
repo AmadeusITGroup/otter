@@ -11,9 +11,8 @@
     @if (filesContent) {
       <code-editor-view
         [filesContent]="filesContent"
-        [startingFile]="startingFile"
+        [project]="{filesContent, startingFile, commands}"
         [editorMode]="editorMode"
-        [commands]="commands"
         [showInstructions]="showInstructions"
       ></code-editor-view>
     }
