@@ -43,17 +43,14 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
         if (applyRule) {
           alwaysApplyRule = await askQuestion(`Generate future components with ${optionName} by default?`, [
             {
-              type: 'choice',
               name: 'Yes, always',
               value: 'yes'
             },
             {
-              type: 'choice',
               name: 'Ask me again next time',
               value: 'ask-again'
             },
             {
-              type: 'choice',
               name: `No, don't apply ${optionName} by default`,
               value: 'no'
             }

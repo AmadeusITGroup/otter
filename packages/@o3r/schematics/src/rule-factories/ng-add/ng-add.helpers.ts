@@ -128,7 +128,7 @@ export function ngAddPackages(packages: string[], options?: Omit<NgAddPackageOpt
         .filter(({ packageName, ngAddCollection }) => {
           if (!ngAddCollection) {
             context.logger.info(
-              `No ng-add schematic found for: '${packageName}'. Skipping ng add for: ${packageName}${versions[packageName] ? ' with version: ' + (versions[packageName] as string) : ''}`);
+              `No ng-add schematic found for: '${packageName}'. Skipping ng add for: ${packageName}${versions[packageName] ? ' with version: ' + versions[packageName] : ''}`);
           }
           return !!ngAddCollection;
         })

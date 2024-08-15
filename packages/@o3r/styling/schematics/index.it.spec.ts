@@ -32,7 +32,7 @@ describe('ng add styling', () => {
     expect(diff.added.length).toBe(17);
     expect(diff.added).toContain(path.join(relativeApplicationPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'));
 
-    expect(diff.modified.length).toBe(6);
+    expect(diff.modified.length).toBe(7);
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -57,7 +57,7 @@ describe('ng add styling', () => {
     expect(diff.added.length).toBe(13);
     expect(diff.added).toContain(path.join(relativeLibraryPath, 'src/components/test-component/test-component.style.theme.scss').replace(/[\\/]+/g, '/'));
 
-    expect(diff.modified.length).toBe(4);
+    expect(diff.modified.length).toBe(5);
 
     [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

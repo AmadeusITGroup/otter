@@ -9,10 +9,12 @@ import {
   getDefaultExecSyncOptions, getGitDiff,
   packageManagerExec,
   packageManagerInstall,
+  packageManagerRun,
   packageManagerRunOnProject
 } from '@o3r/test-helpers';
-import { existsSync } from 'node:fs';
+import { existsSync, promises as fs } from 'node:fs';
 import * as path from 'node:path';
+import type { PackageJson } from 'type-fest';
 
 describe('new otter workspace', () => {
   test('should add sdk to an existing workspace', () => {
@@ -77,5 +79,22 @@ describe('new otter workspace', () => {
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
     generatedLibFiles.forEach(file => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
+  });
+
+  test('should generate a monorepo setup', async () => {
+    const { workspacePath } = o3rEnvironment.testEnvironment;
+    const defaultOptions = getDefaultExecSyncOptions();
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const execAppOptions = {...defaultOptions, cwd: workspacePath, env: {...defaultOptions.env, NX_CLOUD_ACCESS_TOKEN: ''}};
+    expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
+    const rootPackageJson = JSON.parse(await fs.readFile(path.join(workspacePath, 'package.json'), 'utf-8')) as PackageJson;
+    expect(rootPackageJson.scripts).toHaveProperty('build', 'lerna run build');
+    expect(rootPackageJson.scripts).toHaveProperty('test', 'lerna run test');
+    expect(rootPackageJson.scripts).toHaveProperty('lint', 'lerna run lint');
+    expect(() => packageManagerRun({script: 'build'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'test'}, execAppOptions)).not.toThrow();
+    expect(() => packageManagerRun({script: 'lint'}, execAppOptions)).not.toThrow();
+    expect(rootPackageJson.workspaces).toContain('libs/*');
+    expect(rootPackageJson.workspaces).toContain('apps/*');
   });
 });

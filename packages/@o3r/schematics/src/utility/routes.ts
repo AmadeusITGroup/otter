@@ -98,7 +98,7 @@ export function getRoutesNodeArray(tree: Tree, context: SchematicContext, appRou
     const childrenNode = emptyRoute.properties
       .filter((property) => property.kind === ts.SyntaxKind.PropertyAssignment)
       .filter((property) => (property.name as ts.Identifier).text === 'children')
-      .map((property) => (property as ts.PropertyAssignment).initializer as ts.ArrayLiteralExpression);
+      .map((property) => property.initializer as ts.ArrayLiteralExpression);
 
     if (childrenNode[0]) {
       return childrenNode[0].elements as ts.NodeArray<ts.ObjectLiteralExpression>;
