@@ -62,7 +62,7 @@ describe('ng add testing', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 
-  // TODO: fix https://github.com/AmadeusITGroup/otter/issues/1765 first
+  // TODO: fix #1765 first
   test.skip('should add testing to a library', () => {
     const { workspacePath, libName, isInWorkspace, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
@@ -81,7 +81,7 @@ describe('ng add testing', () => {
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 
-  // TODO: fix https://github.com/AmadeusITGroup/otter/issues/1765 first
+  // TODO: fix #1765 first
   test.skip('should add testing to a library and fixture to component', () => {
 
     const { applicationPath, workspacePath, libName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;

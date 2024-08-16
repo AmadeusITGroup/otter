@@ -9,7 +9,6 @@ import {
   inRangeDate
 } from './date-based.operators';
 
-// TODO migrate to test found in other files
 describe('Operators', () => {
   const millisecondsInADay = 24 * 3600 * 1000;
   const now = new Date();
