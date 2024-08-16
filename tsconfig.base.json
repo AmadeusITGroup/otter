@@ -27,7 +27,6 @@
     "removeComments": false,
     "sourceMap": true,
     "declarationMap": true,
-    "skipLibCheck": true,
     "strict": true,
     "pretty": true,
     "preserveWatchOutput": true,

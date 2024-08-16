@@ -69,6 +69,7 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@types/semver": "^7.3.13",
