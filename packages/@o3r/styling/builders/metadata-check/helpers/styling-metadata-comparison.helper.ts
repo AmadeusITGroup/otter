@@ -12,7 +12,7 @@ export interface MigrationStylingData {
  * Returns an array of styling metadata from a metadata file.
  * @param content Content of a migration metadata file
  */
-const getCssVariablesArray = (content: CssMetadata): CssVariable[] => Object.values(content.variables);
+const getCssVariablesArray = (content: CssMetadata): CssVariable[] => Object.keys(content.variables).map((name) => ({...content.variables[name], name }));
 
 const getCssVariableName = (cssVariable: CssVariable) => cssVariable.name;
 
