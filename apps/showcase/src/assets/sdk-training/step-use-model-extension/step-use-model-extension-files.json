@@ -523,9 +523,47 @@
                   }
                 }
               },
+              "core": {
+                "directory": {
+                  "enums.ts": {
+                    "file": {
+                      "contents": "export {};\n"
+                    }
+                  },
+                  "flight-with-id": {
+                    "directory": {
+                      "flight-with-id.reviver.ts": {
+                        "file": {
+                          "contents": "/**\n * Reviver: Flight\n *\n * THIS FILE HAS BEEN AUTOMATICALLY GENERATED. DO NOT EDIT.\n */\nimport { Flight } from './flight';\nimport { utils,   type ReviverOptions, } from '@ama-sdk/core';\n\nexport function reviveFlight<T extends Flight = Flight>(data: undefined, dictionaries?: any, options?: ReviverOptions): undefined;\nexport function reviveFlight(data: Flight, dictionaries?: any, options?: ReviverOptions): Flight ;\nexport function reviveFlight(data: any, dictionaries?: any, options?: ReviverOptions): Flight  | undefined;\nexport function reviveFlight<T extends Flight>(data: T, dictionaries?: any, options?: ReviverOptions): T ;\nexport function reviveFlight<T extends Flight>(data: any, dictionaries?: any, options?: ReviverOptions): T  | undefined;\nexport function reviveFlight<T extends Flight = Flight>(data: any, dictionaries?: any, options?: ReviverOptions): T  | undefined {\n  if (!data) { return ; }\n  data.departureDateTime = data.departureDateTime ? new utils.DateTime(data.departureDateTime) : undefined;\n  data.paymentExpirationDate = data.paymentExpirationDate ? new Date(data.paymentExpirationDate) : undefined;\n  return data as T;\n}\n"
+                        }
+                      },
+                      "flight-with-id.ts": {
+                        "file": {
+                          "contents": "import type { Flight } from '../../base/flight/flight';\n\nexport type FlightWithId<T extends Flight> = T & {\n  id: string;\n}\n\n\n"
+                        }
+                      },
+                      "index.ts": {
+                        "file": {
+                          "contents": "export type { FlightWithId } from './flight-with-id';\nexport { reviveFlightWithId } from './flight-with-id.reviver';\n"
+                        }
+                      }
+                    }
+                  },
+                  "index.ts": {
+                    "file": {
+                      "contents": "export * from './flight-with-id';\n"
+                    }
+                  },
+                  "patterns.ts": {
+                    "file": {
+                      "contents": "export {};\n"
+                    }
+                  }
+                }
+              },
               "index.ts": {
                 "file": {
-                  "contents": "export * from './base';\n"
+                  "contents": "export * from './base';\nexport * from './core';\n"
                 }
               }
             }

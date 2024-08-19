@@ -13,8 +13,8 @@ import {FileSystemTree} from '@webcontainer/api';
 import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {combineLatest, debounceTime, distinctUntilChanged, map, skip, startWith, Subscription} from 'rxjs';
 import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
-import {NgxMonacoTreeModule} from '../ngx-monaco-tree/index';
 import {CodeEditorControlComponent} from '../code-editor-control';
+import {NgxMonacoTreeModule} from '../ngx-monaco-tree';
 
 const editorOptionsLanguage: Record<string, string> = {
   html: 'xml',
@@ -87,11 +87,12 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
     this.subscriptions.add(
       combineLatest([this.form.controls.file.valueChanges, this.webContainerService.isReady$])
         .subscribe(async ([path, isReady]: [string, boolean]) => {
+          let content = '';
           if (path && isReady) {
-            const content = await this.webContainerService.readFile(path);
-            if (content) {
-              this.form.controls.code.setValue(content);
-            }
+            content = await this.webContainerService.readFile(path);
+          }
+          if (content) {
+            this.form.controls.code.setValue(content);
           } else {
             this.form.controls.code.setValue('');
           }
@@ -113,9 +114,11 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
       }
 
       if (this.project?.startingFile) {
-        this.form.controls.file.setValue(this.project.startingFile);
-        const content = await this.webContainerService.readFile(this.project.startingFile);
-        this.form.controls.code.setValue(content);
+        if (await this.webContainerService.isFile(this.project.startingFile)) {
+          this.form.controls.file.setValue(this.project.startingFile);
+          const content = await this.webContainerService.readFile(this.project.startingFile);
+          this.form.controls.code.setValue(content);
+        }
       } else {
         this.form.controls.code.setValue('');
         this.form.controls.name.setValue('');

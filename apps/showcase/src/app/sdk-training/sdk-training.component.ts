@@ -142,7 +142,17 @@ export class SdkTrainingComponent {
     },
     {
       title: 'SDK with Model Extension',
-      htmlContentUrl: 'sdk-training/step-use-model-extension.html'
+      htmlContentUrl: 'sdk-training/step-use-model-extension.html',
+      filesConfiguration: {
+        startingFile: 'package.json',
+        urls: {
+          // eslint-disable-next-line @typescript-eslint/naming-convention
+          '.': 'sdk-training/step-use-model-extension/step-use-model-extension-files.json'
+        },
+        mode: 'interactive',
+        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
+        runApp: false
+      }
     }
   ];
   public nextStep = true;
