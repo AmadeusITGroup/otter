@@ -151,7 +151,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
    * @param libraries Libraries to watch
    */
   const watchFiles = (libraries: string[]): chokidar.FSWatcher => {
-    // TODO find a better way to watch files
     const simpleGlobConfigurationFiles = path.resolve(context.currentDirectory, options.filePattern).replace(/[\\/]/g, '/');
     // Get metadata file for each library
     const metadataFiles: CmsMetadataData[] = libraries.map((library) => getLibraryCmsMetadata(library, context.currentDirectory));
