@@ -1,3 +1,5 @@
+import type { ItemIdentifier } from '@o3r/core';
+
 /** Metadata information added in the design token extension for Metadata extraction */
 export interface DesignTokenMetadata {
   tags?: string[];
@@ -6,12 +8,7 @@ export interface DesignTokenMetadata {
   /** Name of a group of variables */
   category?: string;
   /** Component reference if the variable is linked to one */
-  component?: {
-    /** Name of the component */
-    name: string;
-    /** Name of the library containing the component */
-    library: string;
-  };
+  component?: ItemIdentifier;
 }
 
 /** Design Token Group Extension fields supported by the default renderer */
