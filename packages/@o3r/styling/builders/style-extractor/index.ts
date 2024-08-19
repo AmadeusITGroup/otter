@@ -25,6 +25,9 @@ const defaultLibraryName = (currentDir: string = process.cwd()) => {
 };
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+  context.logger.warn('The extraction of style metadata is deprecated, we encourage to generate it from Design Token via the "generate-css" builder');
+  context.logger.warn('Use the following command to install the builder: "ng add @o3r/design"');
+  context.logger.warn('Get more information on https://www.npmjs.com/package/@o3r/design');
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
