@@ -6895,6 +6895,7 @@ __metadata:
     "@o3r/rules-engine": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@popperjs/core": "npm:^2.11.5"
+    "@schematics/angular": "npm:~18.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
     "@types/chrome": "npm:^0.0.270"
     "@types/color": "npm:^3.0.6"
@@ -6903,6 +6904,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
+    "@typescript-eslint/utils": "npm:^7.14.1"
     ag-grid-angular: "npm:~31.1.1"
     ag-grid-community: "npm:~31.1.1"
     archiver: "npm:^7.0.0"
@@ -7701,6 +7703,7 @@ __metadata:
     "@o3r/build-helpers": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -7997,6 +8000,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
     "@swc-node/register": "npm:^1.9.2"
     "@swc/core": "npm:~1.7.0"
+    "@types/eslint": "npm:~9.6.0"
     "@types/estree": "npm:^1.0.5"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -8098,6 +8102,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
     "@types/ejs": "npm:^3.1.2"
+    "@types/express-serve-static-core": "npm:^4.19.5"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
@@ -11997,23 +12002,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:^9.6.0":
+"@types/eslint@npm:*, @types/eslint@npm:^9.6.0, @types/eslint@npm:~9.6.0":
   version: 9.6.0
   resolution: "@types/eslint@npm:9.6.0"
   dependencies:
     "@types/estree": "npm:*"
     "@types/json-schema": "npm:*"
   checksum: 10/39fc797c671ec9c9184802b4974748cf45ee1b11d7aaaaede44426abcafd07ec7c18eb090e8f5b3387b51637ce3fdf54499472d8dd58a928f0d005cbacb573b4
-  languageName: node
-  linkType: hard
-
-"@types/eslint@npm:^8.42.0":
-  version: 8.56.11
-  resolution: "@types/eslint@npm:8.56.11"
-  dependencies:
-    "@types/estree": "npm:*"
-    "@types/json-schema": "npm:*"
-  checksum: 10/cfc4409973ed8d3ed183bc477bcfed39ea3fd264dc1da4a11b9c002d1e5fb96de8abed67f60a0e32a668cc2817b2b1c27a1885ec5de5fdc5471bcc99d5d1f75b
   languageName: node
   linkType: hard
 
@@ -12031,7 +12026,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.33":
+"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.33, @types/express-serve-static-core@npm:^4.19.5":
   version: 4.19.5
   resolution: "@types/express-serve-static-core@npm:4.19.5"
   dependencies:
@@ -26166,8 +26161,9 @@ __metadata:
     "@o3r/design": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~18.1.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
-    "@types/eslint": "npm:^8.42.0"
+    "@types/eslint": "npm:~9.6.0"
     "@types/glob": "npm:^8.0.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
