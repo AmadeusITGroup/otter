@@ -22,7 +22,7 @@ const tsMigrationMap: MigrationRulesMap = {
  */
 function migrateFn(options: MigrateSchematicsSchemaOptions): Rule {
 
-  const currentVersion = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})).version;
+  const currentVersion = JSON.parse(readFileSync(resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})).version;
   const to: string = options.to || currentVersion;
   const minimumVersion = minVersion(to);
 

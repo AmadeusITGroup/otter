@@ -114,7 +114,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
   }
 
   for (const packageJsonPath of packageJsonPaths) {
-    const packageJson: PackageJson = JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf-8' }));
+    const packageJson: PackageJson = JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf8' }));
     logger.info(`Update packageManager from ${bold(packageJson.packageManager)} to ${bold(packageManager)} in ${bold(packageJson.name)} ${grey(`(${path.relative(process.cwd(), packageJsonPath)})`)}`);
     packageJson.packageManager = packageManager;
     await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');

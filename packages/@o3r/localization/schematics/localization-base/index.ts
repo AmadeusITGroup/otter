@@ -28,7 +28,7 @@ import * as ts from 'typescript';
 import type { PackageJson } from 'type-fest';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' })) as PackageJson;
+const ownPackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
 
 /**
  * Add Otter localization support

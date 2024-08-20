@@ -13,7 +13,7 @@ import type {PresetOptions} from './preset.interface';
 export function defaultPresetRuleFactory(moduleToInstall: string[], options: PresetOptions = {}): Rule {
 
   return (tree, _context) => {
-    const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson;
+    const corePackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!moduleToInstall.length) {
       return tree;

@@ -19,7 +19,7 @@ function ngGenerateUpdateFn(options: NgGenerateUpdateSchematicsSchema): Rule {
     const updateFunction = `updateV${sanitizedVersion}`;
 
     const barrelPath = path.join(destination, 'schematics', 'ng-update', 'index.ts');
-    let migrationFilePath = JSON.parse(readFileSync(path.resolve(destination, '..', 'package.json'), { encoding: 'utf-8' }))['ng-update'];
+    let migrationFilePath = JSON.parse(readFileSync(path.resolve(destination, '..', 'package.json'), { encoding: 'utf8' }))['ng-update'];
     migrationFilePath = migrationFilePath && migrationFilePath.migrations;
     migrationFilePath = migrationFilePath && path.join(destination, '..', migrationFilePath);
 

@@ -13,7 +13,7 @@ import { prepareProject } from './project-setup';
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return (tree: Tree, context: SchematicContext) => {
-    const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf-8'})) as PackageJson;
+    const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), {encoding: 'utf8'})) as PackageJson;
 
     return () => chain([
       // Register the module in angular.json

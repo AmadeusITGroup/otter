@@ -30,7 +30,7 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
   const cwd = resolve(process.cwd(), options.path);
   const inPackageCwd = resolve(cwd, 'SDK');
   const npmClient = options.yarn ? 'yarn' : 'npm';
-  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), {encoding: 'utf-8'})) as {version: string | undefined};
+  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'})) as {version: string | undefined};
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {

@@ -147,7 +147,7 @@ export class LocalizationExtractor {
    * @param locFile Path to the localization file
    */
   private async readLocalizationFile(locFile: string): Promise<LocalizationJsonFile> {
-    const content: LocalizationJsonFileContent = JSON.parse(await fs.promises.readFile(locFile, { encoding: 'utf-8' }));
+    const content: LocalizationJsonFileContent = JSON.parse(await fs.promises.readFile(locFile, { encoding: 'utf8' }));
     if (content.$schema) {
       delete content.$schema;
     }
@@ -159,7 +159,7 @@ export class LocalizationExtractor {
    * @param metadataFile Path to the metadata file
    */
   private async readMetadataFile(metadataFile: string): Promise<LocalizationMetadata> {
-    return JSON.parse(await fs.promises.readFile(metadataFile, { encoding: 'utf-8' }));
+    return JSON.parse(await fs.promises.readFile(metadataFile, { encoding: 'utf8' }));
   }
 
   /**

@@ -29,7 +29,7 @@ export const createExtension = async (context: Context, options: CreateExtension
   const { logger } = context;
   const cwd = path.resolve(process.cwd(), options.path);
 
-  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf-8'}));
+  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'}));
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {

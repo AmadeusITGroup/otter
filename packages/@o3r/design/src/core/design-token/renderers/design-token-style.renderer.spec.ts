@@ -10,7 +10,7 @@ describe('Design Token Renderer', () => {
   let designTokens!: DesignTokenVariableSet;
 
   beforeAll(async () => {
-    const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf-8' });
+    const file = await fs.readFile(resolve(__dirname, '../../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' });
     exampleVariable = { document: JSON.parse(file) };
     // Add different target file
     (exampleVariable.document.example as any)['test.var2'].$extensions = { o3rTargetFile: 'file.scss'};

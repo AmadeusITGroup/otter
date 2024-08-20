@@ -22,7 +22,7 @@ describe('Update Styling imports', () => {
     const tree = await lastValueFrom(runner.callRule(updateSassImports('o3r'), initialTree));
 
     expect(tree.read('/packages/@o3r/styling/schematics/ng-add/updates-of-old-otter-scope/imports/mocks/old.scss')!.toString('utf8'))
-      .toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'new.scss.result'), {encoding: 'utf-8'}));
+      .toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'new.scss.result'), {encoding: 'utf8'}));
   });
 
 });

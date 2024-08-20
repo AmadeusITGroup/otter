@@ -21,7 +21,7 @@ export * from './schema';
  */
 const defaultLibraryName = (currentDir: string = process.cwd()) => {
   const packageJsonPath = path.resolve(currentDir, 'package.json');
-  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8'})).name as string;
+  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8'})).name as string;
 };
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {

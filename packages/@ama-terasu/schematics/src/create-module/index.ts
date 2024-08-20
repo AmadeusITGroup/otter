@@ -9,7 +9,7 @@ import { CreateModuleSchematicsSchema } from './schema';
  * @param options
  */
 export function generateAmaterasuModule(options: CreateModuleSchematicsSchema): Rule {
-  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' }));
+  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' }));
 
   return (tree: Tree, context: SchematicContext) => {
     const templateSource = apply(url('./templates'), [

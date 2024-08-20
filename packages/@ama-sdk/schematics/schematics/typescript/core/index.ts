@@ -158,7 +158,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     } else {
       const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory ?
         generatorOptions.specPath : path.join(options.directory, generatorOptions.specPath);
-      specContent = readFileSync(specPath, {encoding: 'utf-8'}).toString();
+      specContent = readFileSync(specPath, {encoding: 'utf8'}).toString();
 
       if (path.relative(process.cwd(), specPath).startsWith('..')) {
         // TODO would be better to create files on tree instead of FS

@@ -6,7 +6,7 @@ import { readFileSync } from 'node:fs';
 const DEVTOOL_MODULE_NAME = 'ApplicationDevtoolsModule';
 const CONSOLE_DEVTOOL_SERVICE_NAME = 'ApplicationDevtoolsConsoleService';
 const MESSAGE_DEVTOOL_SERVICE_NAME = 'ApplicationDevtoolsMessageService';
-const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), {encoding: 'utf-8'})).name;
+const PACKAGE_NAME: string = JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', '..', 'package.json'), {encoding: 'utf8'})).name;
 
 /**
  * Register Devtools to the application
