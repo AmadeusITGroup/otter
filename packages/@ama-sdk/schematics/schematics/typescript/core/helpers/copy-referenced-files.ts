@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { copyFile, mkdir, readFile, rm } from 'node:fs/promises';
-import { dirname, join, normalize, posix, relative, resolve } from 'node:path';
+import { dirname, join, normalize, posix, relative, resolve, sep } from 'node:path';
 
 const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
 
@@ -53,7 +53,7 @@ export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath
   return specContent.replace(refMatcher, (match, ref: string) => {
     const refPath = ref.replace(/['"]/g, '');
     return refPath.startsWith('.') ?
-      match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath, refPath))))
+      match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
       : match;
   });
 }
@@ -64,12 +64,9 @@ export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath
  * @param outputDirectory
  */
 export async function copyReferencedFiles(specFilePath: string, outputDirectory: string) {
-  const dedupe = (paths: string[]) =>
-    paths.filter((refPath, index) => {
-      const actualPath = join(dirname(specFilePath), refPath);
-      return paths.findIndex((otherRefPath) => join(dirname(specFilePath), otherRefPath) === actualPath) === index;
-    });
-  const refPaths = dedupe(await extractRefPathRecursive(specFilePath, specFilePath, new Set()));
+  const dedupe = (paths: string[]) => ([...new Set(paths)]);
+  const allRefPaths = await extractRefPathRecursive(specFilePath, specFilePath, new Set());
+  const refPaths = dedupe(allRefPaths);
   if (refPaths.length) {
     if (existsSync(outputDirectory)) {
       await rm(outputDirectory, { recursive: true });
