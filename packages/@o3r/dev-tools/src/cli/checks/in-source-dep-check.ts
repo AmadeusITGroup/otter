@@ -5,7 +5,7 @@ import { program } from 'commander';
 import * as glob from 'globby';
 import { readFileSync } from 'node:fs';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
+// @ts-ignore -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
 import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
 import { dirname, join, resolve } from 'node:path';
 import * as winston from 'winston';

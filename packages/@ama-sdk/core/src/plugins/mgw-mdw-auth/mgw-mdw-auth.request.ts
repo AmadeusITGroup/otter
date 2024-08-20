@@ -10,7 +10,7 @@ import type { createHmac as createHmacType, webcrypto } from 'node:crypto';
  */
 export async function sha256(value: string) {
   const utf8 = new TextEncoder().encode(value);
-  // TODO: Use new Ecmascript crypto feature to avoid "require" call
+  // TODO: Use new Ecmascript crypto feature to avoid "require" call (issue #2110)
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   const hashBuffer = await (globalThis.crypto || (require('node:crypto').webcrypto as typeof webcrypto)).subtle.digest('SHA-256', utf8);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
@@ -29,7 +29,7 @@ export async function sha256(value: string) {
  */
 export function hmacSHA256(value: string, secretKey: string) {
   try {
-    // TODO: Use new Ecmascript crypto feature to avoid "require" call
+    // TODO: Use new Ecmascript crypto feature to avoid "require" call (issue #2110)
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { createHmac }: { createHmac: typeof createHmacType } = require('node:crypto');
     return createHmac('sha256', secretKey)
