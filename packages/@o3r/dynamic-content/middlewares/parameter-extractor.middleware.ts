@@ -1,6 +1,8 @@
-const cheerio = require('cheerio');
-const expressInterceptor = require('express-interceptor');
-const querystring = require('node:querystring');
+import * as cheerio from 'cheerio';
+import * as querystring from 'node:querystring';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import * as expressInterceptor from 'express-interceptor';
 
 let previousPostParams = {};
 

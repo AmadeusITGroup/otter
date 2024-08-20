@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Context, promiseSpawn } from '@ama-terasu/core';
-import { promises as fs } from 'node:fs';
+import { promises as fs, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /** Option to create an application */
@@ -30,11 +30,11 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
   const cwd = resolve(process.cwd(), options.path);
   const inPackageCwd = resolve(cwd, 'SDK');
   const npmClient = options.yarn ? 'yarn' : 'npm';
-  const { version } = require(resolve(__dirname, '..', 'package.json'));
+  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), {encoding: 'utf-8'})) as {version: string | undefined};
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
-    '@ama-sdk/schematics': version !== '0.0.0-placeholder' ? version : 'latest',
+    '@ama-sdk/schematics': version && version !== '0.0.0-placeholder' ? version : 'latest',
     yo: 'latest'
   };
 

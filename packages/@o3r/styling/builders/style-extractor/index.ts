@@ -118,7 +118,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       try {
         validateJson(
           cssMetadata,
-          require(path.resolve(__dirname, '..', '..', 'schemas', 'style.metadata.schema.json')),
+          JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'style.metadata.schema.json'), { encoding: 'utf8' })),
           'The output of style metadata is not valid regarding the json schema, please check the details below : \n'
         );
 

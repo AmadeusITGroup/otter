@@ -8,7 +8,7 @@ import { checkJson, getTargetInformation, isGlobPattern } from '../utils';
 import { SwaggerSpecObject } from './swagger-spec-object';
 import { SwaggerSpec } from './swagger-spec.interface';
 
-const apiConfigurationSchema = require(path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json'));
+const apiConfigurationSchema = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'api-configuration.schema.json'), { encoding: 'utf-8' }));
 
 export class SwaggerSpecSplit implements SwaggerSpec {
 

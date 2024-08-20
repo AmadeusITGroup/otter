@@ -3,6 +3,7 @@ import { exec } from 'node:child_process';
 import { existsSync, promises as fs } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { promisify } from 'node:util';
+import { readFileSync } from 'node:fs';
 import type { PackageJson } from 'type-fest';
 import { getAvailableModules, NpmRegistryPackage } from '@o3r/schematics';
 import { dependencies, devDependencies, peerDependencies } from '../../package.json';
@@ -83,7 +84,7 @@ export const findClosestPackageJson = (currentPath: string): string | undefined 
 export const getDepPackage = (packageName: string): PackageJson | undefined => {
   try {
     const packageJsonPath = findClosestPackageJson(require.resolve(packageName));
-    return packageJsonPath && require(packageJsonPath);
+    return packageJsonPath && JSON.parse(readFileSync(packageJsonPath, {encoding: 'utf-8'}));
   } catch {
     return undefined;
   }

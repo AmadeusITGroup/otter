@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Context, promiseSpawn } from '@ama-terasu/core';
-import { promises as fs } from 'node:fs';
+import { promises as fs, readFileSync } from 'node:fs';
 import * as path from 'node:path';
 
 /** Option to create an application */
@@ -29,7 +29,7 @@ export const createExtension = async (context: Context, options: CreateExtension
   const { logger } = context;
   const cwd = path.resolve(process.cwd(), options.path);
 
-  const { version } = require(path.resolve(__dirname, '..', 'package.json'));
+  const { version } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf-8'}));
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
