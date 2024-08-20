@@ -162,6 +162,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
       if (path.relative(process.cwd(), specPath).startsWith('..')) {
         // TODO would be better to create files on tree instead of FS
+        // https://github.com/AmadeusITGroup/otter/issues/2078
         const newRelativePath = await copyReferencedFiles(specPath, './spec-local-references');
         if (newRelativePath) {
           specContent = updateLocalRelativeRefs(specContent, newRelativePath);
