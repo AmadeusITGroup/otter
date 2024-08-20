@@ -13,8 +13,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
     hasSuggestions: true,
     type: 'problem',
     docs: {
-      description: 'Ensures that the configuration property does not accept multiple types.',
-      recommended: 'strict'
+      description: 'Ensures that the configuration property does not accept multiple types.'
     },
     schema: [
       {

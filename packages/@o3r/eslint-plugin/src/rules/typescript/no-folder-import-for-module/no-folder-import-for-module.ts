@@ -8,8 +8,7 @@ export default createRule({
     hasSuggestions: true,
     type: 'problem',
     docs: {
-      description: 'Ensures that imports of modules are pointing to the module file or an index.',
-      recommended: 'strict'
+      description: 'Ensures that imports of modules are pointing to the module file or an index.'
     },
     schema: [],
     messages: {
