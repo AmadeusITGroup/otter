@@ -14,7 +14,6 @@ import {
 interface SdkTrainingStepConfig {
   title: string;
   htmlContentUrl: string;
-  htmlExampleUrl?: string;
   filesConfiguration?: {
     startingFile: string;
     commands: string[];
@@ -28,7 +27,6 @@ type SdkTrainingStep = {
   description: SdkTrainingStepConfig;
   dynamicContent: {
     htmlContent: WritableSignal<string>;
-    htmlExample: WritableSignal<string>;
     project: WritableSignal<{startingFile: string; files: FileSystemTree; commands: string[]} | null>;
     fileContent: WritableSignal<FileSystemTree | null>;
   };
@@ -63,8 +61,7 @@ export class SdkTrainingComponent {
     },
     {
       title: 'Introduction',
-      htmlContentUrl: 'sdk-training/step-1-introduction.html',
-      htmlExampleUrl: 'sdk-training/step-1-introduction.example.html'
+      htmlContentUrl: 'sdk-training/step-1-introduction.html'
     },
     {
       title: 'How to use the Otter SDK?',
@@ -78,17 +75,17 @@ export class SdkTrainingComponent {
       title: 'Integrate your component in Angular',
       htmlContentUrl: 'sdk-training/step-use-sdk-in-angular.html',
       filesConfiguration: {
-        startingFile: 'apps/tuto-app/src/app/app.component.ts',
+        startingFile: 'apps/tutorial-app/src/app/app.component.ts',
         urls: {
           // eslint-disable-next-line @typescript-eslint/naming-convention
-          '.': 'sdk-training/step-generate-sdk-specs/empty.json',
+          '.': 'sdk-training/monorepo-template/monorepo-template.json',
           // eslint-disable-next-line @typescript-eslint/naming-convention
           './libs/sdk/src': 'training-sdk/folder-structure.json'
           // eslint-disable-next-line @typescript-eslint/naming-convention
           // './libs/sdk': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
-        commands: ['npm install', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
+        commands: ['npm install', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
         runApp: false
       }
     },
@@ -109,7 +106,6 @@ export class SdkTrainingComponent {
     {
       title: 'Generate your first SDK - Command',
       htmlContentUrl: 'sdk-training/step-generate-sdk-command.html',
-      htmlExampleUrl: 'sdk-training/step-generate-sdk-command.example.html',
       filesConfiguration: {
         startingFile: 'src/api/dummy/dummy-api.ts',
         urls: {
@@ -123,20 +119,34 @@ export class SdkTrainingComponent {
       }
     },
     {
-      title: 'SDK with Dates',
-      htmlContentUrl: 'sdk-training/step-use-date.html',
-      htmlExampleUrl: 'sdk-training/step-use-date.example.html',
+      title: 'SDK with Dates - Generation',
+      htmlContentUrl: 'sdk-training/step-date-generation/step-date-generation.html',
+      filesConfiguration: {
+        startingFile: 'open-api.yaml',
+        // startingFile: 'src/models/base/flight/flight.ts',
+        urls: {
+          '.': 'sdk-training/step-date-generation/step-date-generation-files.json',
+          'SOLUTION': 'training-sdk/openapi-structure.json',
+          'SOLUTION/src': 'training-sdk/folder-structure.json'
+        },
+        mode: 'readonly',
+        commands: [],
+        runApp: false
+      }
+    },
+    {
+      title: 'SDK with Dates - How to use',
+      htmlContentUrl: 'sdk-training/step-use-date/step-use-date.html',
       filesConfiguration: {
         startingFile: 'package.json',
         // startingFile: 'src/models/base/flight/flight.ts',
         urls: {
-          // 'src': 'training-sdk/folder-structure.json',
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '.': 'sdk-training/step-use-date/step-use-date-files.json'
-          // '.': 'training-sdk/openapi-structure.json'
+          '.': 'sdk-training/monorepo-template/monorepo-template.json',
+          './apps/tutorial-app/src/app': 'sdk-training/step-use-date/step-use-date-files.json',
+          './libs/sdk/src': 'training-sdk/folder-structure.json'
         },
         mode: 'interactive',
-        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
+        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
         runApp: false
       }
     },
@@ -146,11 +156,10 @@ export class SdkTrainingComponent {
       filesConfiguration: {
         startingFile: 'package.json',
         urls: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
-          '.': 'sdk-training/step-use-model-extension/step-use-model-extension-files.json'
+          '.': 'sdk-training/monorepo-template/monorepo-template.json'
         },
         mode: 'interactive',
-        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tuto-app:serve'],
+        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
         runApp: false
       }
     }
@@ -163,7 +172,6 @@ export class SdkTrainingComponent {
       description: desc,
       dynamicContent: {
         htmlContent: signal(''),
-        htmlExample: signal(''),
         project: signal(null),
         fileContent: signal(null)
       }
@@ -179,10 +187,6 @@ export class SdkTrainingComponent {
       void this.loadResource(step.description.htmlContentUrl).then((content) =>
         step.dynamicContent.htmlContent.set(content)
       );
-    }
-    if (step.description.htmlExampleUrl && !step.dynamicContent.htmlExample()) {
-      void this.loadResource(step.description.htmlExampleUrl).then((content) =>
-        step.dynamicContent.htmlExample.set(content));
     }
     const fileConfiguration = step.description.filesConfiguration;
     if (fileConfiguration && fileConfiguration.urls && !step.dynamicContent.fileContent()) {

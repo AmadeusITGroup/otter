@@ -41,17 +41,17 @@ export type EditorMode = 'readonly' | 'interactive';
   styleUrl: './code-editor-view.component.scss'
 })
 export class CodeEditorViewComponent implements OnDestroy, OnChanges {
-  public debug = false;
 
   @Input() public editorMode: EditorMode = 'readonly';
-
+  @Input() public showInstructions = true;
   @Input() public project?: {
     commands: string[];
     files: FileSystemTree;
     startingFile: string;
   };
 
-  @Input() public showInstructions = true;
+  /** Variable to display "Log tree" button during debug mode */
+  public debugMode = false;
 
   public readonly webContainerService = inject(WebcontainerService);
   public tree$ = this.webContainerService.monacoTree$;

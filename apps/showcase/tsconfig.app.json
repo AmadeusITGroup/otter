@@ -37,6 +37,7 @@
     "allowSyntheticDefaultImports": true,
     "lib": [
       "ES2022",
+      "es6",
       "dom",
       "dom.iterable"
     ]

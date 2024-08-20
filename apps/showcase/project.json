@@ -157,7 +157,8 @@
         "headers": {
           "Cross-Origin-Opener-Policy": "same-origin",
           "Cross-Origin-Embedder-Policy": "require-corp"
-        }
+        },
+        "port": 4201
       },
       "configurations": {
         "production": {

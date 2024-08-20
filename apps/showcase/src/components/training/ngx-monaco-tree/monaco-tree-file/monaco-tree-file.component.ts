@@ -32,7 +32,7 @@ export class MonacoTreeFileComponent {
   @Output() clickFile = new EventEmitter<string>();
   @Output() contextMenuClick = new EventEmitter<ContextMenuAction>();
 
-  public open = false;
+  @Input() open = false;
   public position: [number, number] | undefined = undefined;
   public contextMenu: (ContextMenuElementSeparator | ContextMenuElementText)[] = [
     {

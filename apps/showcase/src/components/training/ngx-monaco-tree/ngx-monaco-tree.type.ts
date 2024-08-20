@@ -1,4 +1,5 @@
 export type MonacoTreeElement = {
 	name: string;
-	content?: MonacoTreeElement[]
+	content?: MonacoTreeElement[];
+  open?: boolean;
 }
