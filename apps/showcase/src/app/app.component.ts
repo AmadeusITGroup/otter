@@ -4,6 +4,7 @@ import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
+import { ModuleService } from './module.service';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -41,7 +42,7 @@ export class AppComponent implements OnDestroy {
       ]
     }
   ];
-
+  private readonly isEmbedded;
   public activeUrl$: Observable<string>;
 
   private offcanvasRef: NgbOffcanvasRef | undefined;
@@ -51,7 +52,7 @@ export class AppComponent implements OnDestroy {
   private readonly router = inject(Router);
   private readonly offcanvasService = inject(NgbOffcanvas);
 
-  constructor() {
+  constructor(private readonly messageService: ModuleService) {
     const onNavigationEnd$ = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()
@@ -69,7 +70,17 @@ export class AppComponent implements OnDestroy {
         location.reload();
       }
     }));
+
+    this.isEmbedded = /embedded=true/.test(document.location.href);
+    if (this.isEmbedded) {
+      this.subscriptions.add(onNavigationEnd$.subscribe((event) => {
+        if (!/embedded=true/.test(event.urlAfterRedirects)) {
+          this.messageService.send(event.urlAfterRedirects);
+        }
+      }));
+    }
   }
+
 
   public open(content: TemplateRef<any>) {
     this.offcanvasRef = this.offcanvasService.open(content, { ariaLabelledBy: 'offcanvas-basic-title' });

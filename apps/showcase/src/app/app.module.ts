@@ -31,6 +31,7 @@ import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/
 import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HOST_ORIGIN } from './module.service';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -133,7 +134,8 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    { provide: HOST_ORIGIN, useValue: 'http://localhost:8082' }
   ],
   bootstrap: [AppComponent]
 })
