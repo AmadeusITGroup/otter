@@ -94,8 +94,8 @@ export class ConfigurationBaseService {
    * @param defaultValue Default value of the configuration
    */
   public getComponentConfig<T extends Configuration>(id: string, defaultValue: T) {
-    return (source: Observable<Partial<T> | undefined>): Observable <T> => {
-      const componentConfigurationFromStore$ = this.getConfig(id) as Observable<T>;
+    return (source: Observable<Partial<T> | undefined>): Observable<T> => {
+      const componentConfigurationFromStore$ = this.getConfig<T>(id);
 
       return source.pipe(
         switchMap((overrideConfig) => componentConfigurationFromStore$.pipe(
@@ -112,7 +112,7 @@ export class ConfigurationBaseService {
    * Get an observable of the configuration from store for a given component and merge it with the global config + the config overrides from the rules engine
    * @param id Id of the component
    */
-  public getConfig(id: string): Observable<any> {
+  public getConfig<T extends Configuration>(id: string): Observable<T> {
     const globalConfig$ = this.store.pipe(select(selectGlobalConfiguration));
     const componentConfig$ = id !== globalConfigurationId ? this.store.pipe(select(selectConfigurationForComponent({ id }))) : of({});
     const overrideConfig$ = this.store.pipe(select(selectComponentOverrideConfig(id)));
