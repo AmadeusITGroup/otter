@@ -117,7 +117,15 @@ export class ApiFetchClient implements ApiClient {
 
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
       if (this.options.fetchPlugins) {
-        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger})));
+        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({
+          url,
+          options,
+          fetchPlugins: loadedPlugins,
+          controller,
+          apiClient: this,
+          logger: this.options.logger,
+          apiName
+        })));
       }
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));
