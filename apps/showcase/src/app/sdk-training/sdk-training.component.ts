@@ -85,7 +85,7 @@ export class SdkTrainingComponent {
           // './libs/sdk': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
-        commands: ['npm install', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
+        commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
         runApp: false
       }
     },
@@ -143,7 +143,8 @@ export class SdkTrainingComponent {
         urls: {
           '.': 'sdk-training/monorepo-template/monorepo-template.json',
           './apps/tutorial-app/src/app': 'sdk-training/step-use-date/step-use-date-files.json',
-          './libs/sdk/src': 'training-sdk/folder-structure.json'
+          './libs/sdk/src': 'training-sdk/folder-structure.json',
+          './libs/sdk/open-api.yaml': 'training-sdk/openapi-structure.json'
         },
         mode: 'interactive',
         commands: ['npm install --legacy-peer-deps', 'npm run ng run sdk:build', 'npm run ng run tutorial-app:serve'],
@@ -208,7 +209,8 @@ export class SdkTrainingComponent {
           const parsedPath = sanitizedPath.split('/');
           parsedPath.reduce((pointer, path, index) => {
             if (path.indexOf('.') > -1) {
-              pointer[path] = {file: {contents: content}} as FileNode;
+              const parsedContent = JSON.parse(content);
+              pointer[path] = {file: {contents: parsedContent[path].file.contents}} as FileNode;
               return pointer;
             } else if (index === parsedPath.length - 1) {
               pointer[path] = {directory: JSON.parse(content)} as DirectoryNode;

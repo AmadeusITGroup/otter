@@ -1,7 +1,7 @@
 {
   "app.component.html": {
     "file": {
-      "contents": "<button type=\"button\" class=\"btn btn-primary\" (click)=\"reloadValues()\">Reload Values</button>\n<table class=\"table\">\n  <thead>\n    <tr>\n      <th scope=\"col\">Flight</th>\n      <th scope=\"col\">Origin Location Code</th>\n      <th scope=\"col\">Destination Location Code</th>\n      <th scope=\"col\">Departure Time</th>\n      <th scope=\"col\">Payment Expiration</th>\n    </tr>\n  </thead>\n  <tbody>\n  @for (flight of roundTrip; track flight; let index = $index) {\n    <tr>\n      <th scope=\"row\">{{index+1}}</th>\n      <td>{{flight.originLocationCode}}</td>\n      <td>{{flight.destinationLocationCode}}</td>\n      <td>{{formatDate(flight.departureDateTime)}}</td>\n      <td>{{formatDate(flight.paymentExpirationDate)}}</td>\n    </tr>\n  }\n  </tbody>\n</table>\n"
+      "contents": "<button type=\"button\" class=\"btn btn-primary\" (click)=\"reloadValues()\">Reload Values</button>\n<table class=\"table\">\n  <thead>\n    <tr>\n      <th scope=\"col\"></th>\n      <th scope=\"col\">Date</th>\n      <th scope=\"col\">utils.DateTime</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <th scope=\"row\">Value</th>\n      <td>*Date value to replace*</td>\n      <td>*Date-time value to replace*</td>\n    </tr>\n  </tbody>\n</table>"
     }
   },
   "app.component.scss": {

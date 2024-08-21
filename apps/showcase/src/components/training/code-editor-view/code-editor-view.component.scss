@@ -1,7 +1,3 @@
-.editor {
-  min-height: 250px;
-}
-
 monaco-tree {
   max-width: 250px;
 }
@@ -18,5 +14,5 @@ ngx-monaco-editor {
 }
 
 code-editor-control {
-  min-height: 400px;
+  min-height: 50%;
 }

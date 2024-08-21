@@ -48,8 +48,3 @@ h1, h2 {
 }
 // End overrides
 
-:not(:hover) {
-  &::-webkit-scrollbar {
-    visibility: hidden;
-  }
-}
