@@ -182,7 +182,7 @@ class MyClass {
   }
 
   doSomething() {
-    this.apiManager.setConfiguration(new ApiFetchClient(), ExampleApi); // <- override configuration of Example API
+    this.apiManager.setConfiguration(new ApiFetchClient(), ExampleApi.apiName); // <- override configuration of Example API
     const exampleApi = this.apiFactoryService.getApi(ExampleApi, true); // <- retrieve example API with the new configuration (and refresh the cache)
   }
 

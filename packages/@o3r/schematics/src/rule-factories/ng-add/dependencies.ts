@@ -142,18 +142,18 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
           (types || [NodeDependencyType.Default]).forEach((depType) => {
             if (packageJsonContent[depType]?.[packageToInstall]) {
               if (range && semver.validRange(range)) {
-                const currentMinimalVersion = semver.minVersion(packageJsonContent[depType]?.[packageToInstall] as string);
+                const currentMinimalVersion = semver.minVersion(packageJsonContent[depType]?.[packageToInstall]);
                 const myRangeMinimalVersion = semver.minVersion(range);
                 if (currentMinimalVersion && myRangeMinimalVersion && semver.gt(myRangeMinimalVersion, currentMinimalVersion)) {
                   context.logger.debug(`The dependency ${packageToInstall} (${depType}@${range}) will be added in ${packageJsonPath}`);
-                  packageJsonContent[depType]![packageToInstall] = range;
+                  packageJsonContent[depType][packageToInstall] = range;
                 } else {
                   if (updateLists) {
                     ngAddToRun.delete(packageToInstall);
                     requiringInstallList.delete(packageToInstall);
                   }
                   context.logger.debug(`The dependency ${packageToInstall} (${depType}) is already in ${packageJsonPath}, it will not be added.`);
-                  context.logger.debug(`Because its range is inferior or included to the current one (${range} < ${packageJsonContent[depType]![packageToInstall]!}) in targeted ${packageJsonPath}`);
+                  context.logger.debug(`Because its range is inferior or included to the current one (${range} < ${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
                 }
               } else {
                 if (updateLists) {
@@ -161,14 +161,14 @@ export const setupDependencies = (options: SetupDependenciesOptions): Rule => {
                   requiringInstallList.delete(packageToInstall);
                 }
                 context.logger.warn(`The dependency ${packageToInstall} (${depType}) will not added ` +
-                  `because there is already this dependency with a defined range (${packageJsonContent[depType]![packageToInstall]!}) in targeted ${packageJsonPath}`);
+                  `because there is already this dependency with a defined range (${packageJsonContent[depType][packageToInstall]}) in targeted ${packageJsonPath}`);
               }
             } else {
               packageJsonContent[depType] ||= {};
-              packageJsonContent[depType]![packageToInstall] = range;
+              packageJsonContent[depType][packageToInstall] = range;
               context.logger.debug(`The dependency ${packageToInstall} (${depType}@${range}) will be added in ${packageJsonPath}`);
             }
-            packageJsonContent[depType] = Object.keys(packageJsonContent[depType]!)
+            packageJsonContent[depType] = Object.keys(packageJsonContent[depType])
               .sort()
               .reduce((acc, key) => {
                 acc[key] = packageJsonContent[depType]![key];

@@ -4,8 +4,8 @@ export interface NgGenerateRulesEngineToComponentSchematicsSchema extends Schema
   /** Project name */
   projectName?: string | undefined;
 
-  /** Component Folder */
-  path?: string | undefined;
+  /** Path to the component */
+  path: string;
 
   /** Skip the linter process */
   skipLinter: boolean;
