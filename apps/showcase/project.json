@@ -53,7 +53,10 @@
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
         "browser": "apps/showcase/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "tsConfig": "apps/showcase/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -93,7 +96,7 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "2mb"
+              "maximumError": "2.5mb"
             },
             {
               "type": "anyComponentStyle",

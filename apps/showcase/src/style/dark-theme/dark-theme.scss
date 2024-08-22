@@ -2,20 +2,6 @@
 
 :root {
 /* --- BEGIN THEME Auto-generated --- */
---bs-body-bg: #000000;
---bs-body-color: #ffffff;
-.card { --bs-card-bg: #000000; }
-.card { --bs-card-color: #ffffff; }
-.nav-pills { --bs-nav-pills-link-active-color: var(--color-primary); }
-.navbar-toggler { --bs-navbar-color: var(--bs-primary-bg-subtle); }
-/* Application Primary color */
---bs-primary: var(--color-primary);
---bs-primary-800: var(--color-primary-800);
---bs-tertiary-bg: #333333;
---bs-tertiary-bg-blue: 51;
---bs-tertiary-bg-green: 51;
---bs-tertiary-bg-red: 51;
---bs-tertiary-bg-rgb: var(--bs-tertiary-bg-red), var(--bs-tertiary-bg-green), var(--bs-tertiary-bg-blue);
 --color-accent: var(--color-accent-500);
 --color-accent-100: #c5eaff;
 --color-accent-200: #9eddff;
@@ -85,6 +71,20 @@
 --color-warn-A200: #ffe1db;
 --color-warn-A400: #ffb7a8;
 --color-warn-A700: #ffa28f;
+--df-body-bg: #000000;
+--df-body-color: #ffffff;
+.card { --df-card-bg: #000000; }
+.card { --df-card-color: #ffffff; }
+.nav-pills { --df-nav-pills-link-active-color: var(--color-primary); }
+.navbar-toggler { --df-navbar-color: var(--df-primary-bg-subtle); }
+/* Application Primary color */
+--df-primary: var(--color-primary);
+--df-primary-800: var(--color-primary-800);
+--df-tertiary-bg: #333333;
+--df-tertiary-bg-blue: 51;
+--df-tertiary-bg-green: 51;
+--df-tertiary-bg-red: 51;
+--df-tertiary-bg-rgb: var(--bs-tertiary-bg-red), var(--bs-tertiary-bg-green), var(--bs-tertiary-bg-blue);
 --radius-10: 10px;
 --radius-2: 2px;
 --radius-25: 25px;
@@ -99,13 +99,15 @@
 /* --- END THEME Auto-generated --- */
 
   .nav.nav-pills .nav-link {
-    --bs-scrollspy-color: #ffffff;
-    --bs-nav-pills-link-active-bg: transparent;
+    --df-scrollspy-color: #ffffff;
+    --df-nav-pills-link-active-bg: transparent;
   }
+
   .input-group-text {
-    background-color: var(--bs-tertiary-bg);
+    background-color: var(--df-tertiary-bg);
   }
+
   .form-select {
-    --bs-form-select-bg-img: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' viewBox='0 0 1792 1792' style='fill%3a%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z'/%3E%3C/svg%3E");
+    --df-form-select-bg-img: url("data:image/svg+xml;charset=utf8,%3Csvg version='1.1' viewBox='0 0 1792 1792' style='fill%3a%23fff' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m1408 704q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45z'/%3E%3C/svg%3E");
   }
 }

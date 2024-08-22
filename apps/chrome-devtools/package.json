@@ -77,7 +77,8 @@
     "typescript": "~5.5.4"
   },
   "dependencies": {
-    "@agnos-ui/angular": "~0.2.0",
+    "@agnos-ui/angular-bootstrap": "~0.4.1",
+    "@agnos-ui/core-bootstrap": "~0.4.1",
     "@amadeus-it-group/tansu": "~1.0.0",
     "@angular/animations": "~18.2.0",
     "@angular/common": "~18.2.0",
@@ -87,9 +88,9 @@
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@angular/router": "~18.2.0",
-    "@design-factory/design-factory": "~17.1.0",
+    "@design-factory/design-factory": "~18.0.3",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
-    "@ng-select/ng-select": "^12.0.7",
+    "@ng-select/ng-select": "~13.7.0",
     "@ngrx/entity": "~18.0.0",
     "@ngrx/store": "~18.0.0",
     "@o3r/application": "workspace:^",
