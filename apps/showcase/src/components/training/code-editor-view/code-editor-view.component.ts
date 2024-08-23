@@ -14,7 +14,7 @@ import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 import {combineLatest, debounceTime, distinctUntilChanged, map, skip, startWith, Subscription} from 'rxjs';
 import {WebcontainerService} from '../../../services/webcontainer/webcontainer.service';
 import {CodeEditorControlComponent} from '../code-editor-control';
-import {NgxMonacoTreeModule} from '../ngx-monaco-tree';
+import {NgxMonacoTreeComponent} from 'ngx-monaco-tree';
 
 const editorOptionsLanguage: Record<string, string> = {
   html: 'xml',
@@ -33,7 +33,7 @@ export type EditorMode = 'readonly' | 'interactive';
     FormsModule,
     MonacoEditorModule,
     ReactiveFormsModule,
-    NgxMonacoTreeModule,
+    NgxMonacoTreeComponent,
     CodeEditorControlComponent
   ],
   encapsulation: ViewEncapsulation.None,

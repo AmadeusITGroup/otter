@@ -1,5 +1,14 @@
 monaco-tree {
   max-width: 250px;
+
+  .monaco-tree {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+monaco-tree-icons > div {
+  justify-content: flex-start !important;
 }
 
 ngx-monaco-editor {

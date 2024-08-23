@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {FileSystem, getFilesTree} from '@o3r-training/tools';
 import {DirectoryNode, FileNode, FileSystemTree, WebContainer} from '@webcontainer/api';
 import {BehaviorSubject, distinctUntilChanged, map} from 'rxjs';
-import {MonacoTreeElement} from '../../components';
+import {MonacoTreeElement} from 'ngx-monaco-tree';
 import {WebContainerRunner} from './webcontainer-runner';
 
 class WebContainerNotInitialized extends Error {
@@ -105,6 +105,7 @@ export class WebcontainerService {
     if (!instance) {
       throw new WebContainerNotInitialized();
     }
+    // eslint-disable-next-line no-console
     console.log(await this.getFilesTreeFromContainer(instance));
   }
 }

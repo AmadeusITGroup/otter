@@ -1,8 +1,0 @@
-<div (contextmenu)="handleRightClickFile($event)" (click)="toggle()" [class]="'monaco-tree-row' + (hide ? ' hide ' : ' ') + theme">
-    <span [style]="style"></span>
-    <i *ngIf="folder" [class]="'monaco-tree-arrow codicon codicon-chevron-down' + (open ? ' open' : '')"></i>
-    <img [src]="'assets/icons/'+ icon +'.svg'" class="monaco-tree-icon"/>
-    <div class="monaco-tree-name">{{name}}</div>
-</div>
-<monaco-tree-context-menu [theme]="theme" [elements]="contextMenu" [top]="position ? position[1] : undefined" [left]="position ? position[0] : undefined"></monaco-tree-context-menu>
-<monaco-tree-file (contextMenuClick)="handleRightClick($event)" (clickFile)="handleClickFile($event)" *ngFor="let row of content" [name]="row.name" [content]="row.content" [depth]="depth+1" [hide]="!open || hide" [theme]="theme"></monaco-tree-file>
