@@ -1,0 +1,14 @@
+{
+  "version": "2.0.0",
+  "changes": [
+    {
+      "contentType": "STYLE",
+      "before": {
+        "name": "old-lib-var"
+      },
+      "after": {
+        "name": "new-lib-var2.0"
+      }
+    }
+  ]
+}

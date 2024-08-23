@@ -28,12 +28,19 @@ describe('ng add rules-engine', () => {
     await addImportToAppModule(applicationPath, 'TestComponentModule', 'src/components/test-component');
 
     const diff = getGitDiff(workspacePath);
-    expect(diff.added).toContain('apps/test-app/cms.json');
-    expect(diff.added).toContain('apps/test-app/placeholders.metadata.json');
-    expect(diff.added).toContain('apps/test-app/tsconfig.cms.json');
-    expect(diff.added.length).toBe(12);
-    expect(diff.modified).toContain('apps/test-app/src/app/app.config.ts');
-    expect(diff.modified.length).toBe(8);
+    const expectedAddedFiles = [
+      'apps/test-app/cms.json',
+      'apps/test-app/placeholders.metadata.json',
+      'apps/test-app/tsconfig.cms.json',
+      'apps/test-app/migration-scripts/README.md'
+    ];
+    expectedAddedFiles.forEach((file) => expect(diff.added).toContain(file));
+    expect(diff.added.length).toBe(expectedAddedFiles.length + 9); // TODO define what are the remaining added files
+    const expectedModifiedFiles = [
+      'apps/test-app/src/app/app.config.ts'
+    ];
+    expectedModifiedFiles.forEach((file) => expect(diff.modified).toContain(file));
+    expect(diff.modified.length).toBe(expectedModifiedFiles.length + 7); // TODO define what are these modified files
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -56,7 +63,8 @@ describe('ng add rules-engine', () => {
     expect(diff.added).toContain('libs/test-lib/cms.json');
     expect(diff.added).toContain('libs/test-lib/placeholders.metadata.json');
     expect(diff.added).toContain('libs/test-lib/tsconfig.cms.json');
-    expect(diff.added.length).toBe(12);
+    expect(diff.added).toContain('libs/test-lib/migration-scripts/README.md');
+    expect(diff.added.length).toBe(13);
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');

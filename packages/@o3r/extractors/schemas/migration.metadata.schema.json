@@ -12,6 +12,13 @@
       "type": "string",
       "description": "Version of the documented migration"
     },
+    "libraries": {
+      "type": "object",
+      "description": "Map of dependencies for which the migration scripts should be checked with their associated version",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
     "changes": {
       "type": "array",
       "description": "List of all the changes contained in this version",
