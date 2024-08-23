@@ -217,8 +217,7 @@
       "cache": true,
       "executor": "@o3r/design:generate-css",
       "outputs": [
-        "{options.defaultStyleFile}",
-        "{options.metadataOutput}"
+        "{options.defaultStyleFile}"
       ],
       "inputs": [
         "global",
@@ -247,8 +246,7 @@
       "cache": true,
       "executor": "@o3r/design:generate-css",
       "outputs": [
-        "{options.defaultStyleFile}",
-        "{options.metadataOutput}"
+        "{options.defaultStyleFile}"
       ],
       "inputs": [
         "global",
