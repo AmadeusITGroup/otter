@@ -267,7 +267,15 @@ export class RulesetExecutor {
               if (this.rulesEngine.debugMode) {
                 output.evaluation = handleRuleEvaluationDebug({ ...rule, inputFacts }, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
               } else if (output.error) {
-                this.rulesEngine.logger?.error(output.error);
+                let errorMsg;
+                if (output.error instanceof Error) {
+                  errorMsg = output.error.toString();
+                } else if (typeof output.error === 'string') {
+                  errorMsg = output.error;
+                } else {
+                  errorMsg = JSON.stringify(output.error);
+                }
+                this.rulesEngine.logger?.error(errorMsg);
                 this.rulesEngine.logger?.warn(`Skipping rule ${rule.name}, and the associated ruleset`);
               }
               return output;
