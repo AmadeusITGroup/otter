@@ -1,10 +1,11 @@
-import { Component, inject, Input, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, Inject, inject, Input, OnDestroy, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
 import { SideNavLinksGroup } from '../components/index';
 import { ViewEncapsulation } from '@angular/core';
+import { APP_BASE_HREF } from '@angular/common';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({
@@ -56,7 +57,7 @@ export class AppComponent implements OnDestroy {
   private readonly router = inject(Router);
   private readonly offcanvasService = inject(NgbOffcanvas);
 
-  constructor() {
+  constructor(@Inject(APP_BASE_HREF) appBaseHerf: string) {
     const onNavigationEnd$ = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()
@@ -74,6 +75,11 @@ export class AppComponent implements OnDestroy {
         location.reload();
       }
     }));
+    // TODO this will be done properly by service com protocol with queryparams and all
+    // initial navigation
+    const pathName = window.location.pathname.replace(appBaseHerf || '', '');
+    void this.router.navigate(pathName.split('/').filter(path => !!path));
+
   }
 
   public open(content: TemplateRef<any>) {

@@ -1,6 +1,6 @@
 import {ApiClient, ApiFetchClient} from '@ama-sdk/core';
 import {PetApi} from '@ama-sdk/showcase-sdk';
-import { registerLocaleData } from '@angular/common';
+import { APP_BASE_HREF, registerLocaleData } from '@angular/common';
 import localeEN from '@angular/common/locales/en';
 import localeFR from '@angular/common/locales/fr';
 import { isDevMode, NgModule } from '@angular/core';
@@ -135,7 +135,9 @@ export function registerCustomComponents(): Map<string, any> {
     {provide: OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_COMPONENTS_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
     {provide: OTTER_APPLICATION_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true, appName: 'showcase'}},
-    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}}
+    {provide: OTTER_STYLING_DEVTOOLS_OPTIONS, useValue: {isActivatedOnBootstrap: true}},
+    // TODO could it be taken dynamically from the host app ?
+    {provide: APP_BASE_HREF, useValue: '/external-wc-app'}
   ]
   // bootstrap: [AppComponent]
 })
