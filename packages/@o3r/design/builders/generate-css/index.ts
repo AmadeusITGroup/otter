@@ -6,13 +6,14 @@ import {
   getMetadataStyleContentUpdater,
   getMetadataTokenDefinitionRenderer,
   getSassTokenDefinitionRenderer,
+  mergeDesignTokenTemplates,
   parseDesignTokenFile,
   renderDesignTokens,
   tokenVariableNameSassRenderer
 } from '../../src/public_api';
 import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
-import * as globby from 'globby';
+import { sync } from 'globby';
 import { EOL } from 'node:os';
 import { readFile } from 'node:fs/promises';
 
@@ -21,6 +22,9 @@ import { readFile } from 'node:fs/promises';
  * @param options
  */
 export default createBuilder<GenerateCssSchematicsSchema>(async (options, context): Promise<BuilderOutput> => {
+  const templateFilePaths = options.templateFile
+    && (typeof options.templateFile === 'string' ? [options.templateFile] : options.templateFile).map((templateFile) => resolve(context.workspaceRoot, templateFile))
+    || undefined;
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
   const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
     (token: DesignTokenVariableStructure) => {
@@ -69,8 +73,15 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
-    const template = options.templateFile ? JSON.parse(await readFile(resolve(context.workspaceRoot, options.templateFile), { encoding: 'utf-8' })) as DesignTokenGroupTemplate : undefined;
-    const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true }));
+    let template: DesignTokenGroupTemplate | undefined;
+    if (templateFilePaths) {
+      const templateFiles = await Promise.all(
+        templateFilePaths
+          .map(async (templateFile) => JSON.parse(await readFile(templateFile, { encoding: 'utf-8' })) as DesignTokenGroupTemplate)
+      );
+      template = templateFiles.reduce((acc, cur) => mergeDesignTokenTemplates(acc, cur), {});
+    }
+    const files = sync(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true });
 
     const inDependencies = designTokenFilePatterns
       .filter((pathName) => !pathName.startsWith('.') && !pathName.startsWith('*') && !pathName.startsWith('/'))
@@ -137,7 +148,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       await import('chokidar')
         .then((chokidar) => chokidar.watch([
           ...designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p)),
-          ...(options.templateFile ? [resolve(context.workspaceRoot, options.templateFile)] : [])
+          ...(templateFilePaths || [])
         ]))
         .then((watcher) => watcher.on('all', async () => {
           const res = await executeMultiRenderer();

@@ -51,5 +51,5 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   variableType?: 'css' | 'sass';
 
   /** Path to a template file to apply as default configuration to a Design Token extension */
-  templateFile?: string;
+  templateFile?: string | string[];
 }
