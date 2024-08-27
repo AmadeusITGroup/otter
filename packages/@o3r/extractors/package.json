@@ -104,7 +104,7 @@
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.1.0",
-    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@stylistic/eslint-plugin-ts": "~2.6.0",
     "@types/inquirer": "~8.2.10",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

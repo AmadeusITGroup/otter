@@ -41,7 +41,7 @@
     "@nx/js": "~19.5.0",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@stylistic/eslint-plugin-ts": "~2.6.0",
     "@types/ejs": "^3.1.2",
     "@types/express-serve-static-core": "^4.19.5",
     "@types/jest": "~29.5.2",

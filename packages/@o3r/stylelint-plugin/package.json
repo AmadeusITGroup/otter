@@ -52,7 +52,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
     "@schematics/angular": "~18.1.0",
-    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@stylistic/eslint-plugin-ts": "~2.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
