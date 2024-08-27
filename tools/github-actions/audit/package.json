@@ -20,7 +20,7 @@
     "audit-types": "~0.6.0"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "~18.1.0",
+    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@o3r/eslint-config-otter": "workspace:~",
     "@o3r/eslint-plugin": "workspace:~",

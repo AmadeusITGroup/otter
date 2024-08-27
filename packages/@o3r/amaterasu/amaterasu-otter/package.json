@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular-eslint/eslint-plugin": "~18.1.0",
+    "@angular-eslint/eslint-plugin": "~18.3.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",
@@ -59,7 +59,7 @@
   },
   "peerDependencies": {
     "@ama-terasu/core": "workspace:^",
-    "@angular/cli": "~18.1.0"
+    "@angular/cli": "~18.2.0"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0",
