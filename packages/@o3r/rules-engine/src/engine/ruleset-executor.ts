@@ -268,10 +268,8 @@ export class RulesetExecutor {
                 output.evaluation = handleRuleEvaluationDebug({ ...rule, inputFacts }, this.ruleset.name, output.actions, output.error, runtimeFactValues, factValues, oldFactValues);
               } else if (output.error) {
                 let errorMsg;
-                if (output.error instanceof Error) {
+                if (output.error instanceof Error || typeof output.error === 'string') {
                   errorMsg = output.error.toString();
-                } else if (typeof output.error === 'string') {
-                  errorMsg = output.error;
                 } else {
                   errorMsg = JSON.stringify(output.error);
                 }
