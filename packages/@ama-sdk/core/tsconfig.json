@@ -7,9 +7,6 @@
     },
     {
       "path": "./tsconfig.build.json"
-    },
-    {
-      "path": "./tsconfig.cli.json"
     }
   ]
 }

@@ -1,42 +1,75 @@
 <app-connection>
-  <ul ngbNav #nav="ngbNav" class="nav-tabs px-2 pt-2 navbar-light bg-light">
-    <li [ngbNavItem]="1">
-      <a ngbNavLink>General</a>
-      <ng-template ngbNavContent>
-        <o3r-debug-panel-pres></o3r-debug-panel-pres>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <a ngbNavLink>Rules Engine</a>
-      <ng-template ngbNavContent>
-        <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="3">
-      <a ngbNavLink>Configuration</a>
-      <ng-template ngbNavContent>
-        <o3r-config-panel-pres></o3r-config-panel-pres>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="4">
-      <a ngbNavLink>Component</a>
-      <ng-template ngbNavContent>
-        <o3r-component-panel-pres></o3r-component-panel-pres>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="5">
-      <a ngbNavLink>Localization</a>
-      <ng-template ngbNavContent>
-        <o3r-localization-panel-pres></o3r-localization-panel-pres>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="6">
-      <a ngbNavLink>Theming</a>
-      <ng-template ngbNavContent>
-        <o3r-theming-panel-pres></o3r-theming-panel-pres>
-      </ng-template>
-    </li>
-  </ul>
-
+  <div class="d-flex align-items-stretch">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs px-2 pt-2 navbar-light bg-light flex-fill">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>General</a>
+        <ng-template ngbNavContent>
+          <o3r-debug-panel-pres></o3r-debug-panel-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Rules Engine</a>
+        <ng-template ngbNavContent>
+          <o3r-ruleset-history-pres [rulesetExecutions]="rulesetExecutions$ | async"></o3r-ruleset-history-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <a ngbNavLink>Configuration</a>
+        <ng-template ngbNavContent>
+          <o3r-config-panel-pres></o3r-config-panel-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="4">
+        <a ngbNavLink>Component</a>
+        <ng-template ngbNavContent>
+          <o3r-component-panel-pres></o3r-component-panel-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="5">
+        <a ngbNavLink>Localization</a>
+        <ng-template ngbNavContent>
+          <o3r-localization-panel-pres></o3r-localization-panel-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="6">
+        <a ngbNavLink>Theming</a>
+        <ng-template ngbNavContent>
+          <o3r-theming-panel-pres></o3r-theming-panel-pres>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="7">
+        <a ngbNavLink>States</a>
+        <ng-template ngbNavContent>
+          <o3r-state-panel></o3r-state-panel>
+        </ng-template>
+      </li>
+    </ul>
+    <form [formGroup]="form"  class="px-4 {{hasLocalChanges() ? 'pt-2' : 'pt-3'}} ng-pristine ng-valid ng-touched border-bottom ms-auto">
+      <div>
+        <ng-select
+          [ngbTooltip]="
+            hasLocalChanges()
+            ? 'There are some local changes unsaved'
+            : null
+          "
+          [style.width]="'250px'" [class.local-change]="hasLocalChanges()"
+          formControlName="activeStateName" placeholder="No selected state"
+          [items]="states()" [searchable]="false" [markFirst]="false" [compareWith]="stateCompareWithFn" bindLabel="name" bindValue="name">
+          <ng-template ng-label-tmp let-item="item">
+            <div class="d-flex align-items-baseline gap-2">
+              <span class="rounded-circle" [style.height]="'10px'" [style.width]="'10px'" [style.background]="item.color"></span>
+              <span>{{item.name}}</span>
+            </div>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <div class="d-flex align-items-baseline gap-2">
+              <span class="rounded-circle" [style.height]="'10px'" [style.width]="'10px'" [style.background]="item.color"></span>
+              <span>{{item.name}}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </form>
+  </div>
   <div [ngbNavOutlet]="nav" class="mt-2 px-2"></div>
 </app-connection>
