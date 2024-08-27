@@ -648,7 +648,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.93.0"
+    webpack: "npm:~5.94.0"
     webpack-cli: "npm:~5.1.0"
     yargs: "npm:^17.6.2"
   peerDependencies:
@@ -6547,7 +6547,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.93.0"
+    webpack: "npm:~5.94.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -6562,7 +6562,7 @@ __metadata:
     "@schematics/angular": ~18.1.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    webpack: ~5.93.0
+    webpack: ~5.94.0
   peerDependenciesMeta:
     "@o3r/schematics":
       optional: true
@@ -8069,7 +8069,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
     uuid: "npm:^10.0.0"
-    webpack: "npm:~5.93.0"
+    webpack: "npm:~5.94.0"
     winston: "npm:^3.8.2"
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.14.2"
@@ -8891,7 +8891,7 @@ __metadata:
     ts-jest: "npm:~29.2.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.93.0"
+    webpack: "npm:~5.94.0"
     zone.js: "npm:~0.14.2"
   languageName: unknown
   linkType: soft
@@ -32574,7 +32574,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0":
+"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0, webpack@npm:~5.94.0":
   version: 5.94.0
   resolution: "webpack@npm:5.94.0"
   dependencies:
@@ -32644,43 +32644,6 @@ __metadata:
   bin:
     webpack: bin/webpack.js
   checksum: 10/76fcfbebcc0719c4734c65a01dcef7a0f18f3f2647484e8a7e8606adbd128ac42756bb3a8b7e2d486fe97f6286ebdc7b937ccdf3cf1d21b4684134bb89bbed89
-  languageName: node
-  linkType: hard
-
-"webpack@npm:~5.93.0":
-  version: 5.93.0
-  resolution: "webpack@npm:5.93.0"
-  dependencies:
-    "@types/eslint-scope": "npm:^3.7.3"
-    "@types/estree": "npm:^1.0.5"
-    "@webassemblyjs/ast": "npm:^1.12.1"
-    "@webassemblyjs/wasm-edit": "npm:^1.12.1"
-    "@webassemblyjs/wasm-parser": "npm:^1.12.1"
-    acorn: "npm:^8.7.1"
-    acorn-import-attributes: "npm:^1.9.5"
-    browserslist: "npm:^4.21.10"
-    chrome-trace-event: "npm:^1.0.2"
-    enhanced-resolve: "npm:^5.17.0"
-    es-module-lexer: "npm:^1.2.1"
-    eslint-scope: "npm:5.1.1"
-    events: "npm:^3.2.0"
-    glob-to-regexp: "npm:^0.4.1"
-    graceful-fs: "npm:^4.2.11"
-    json-parse-even-better-errors: "npm:^2.3.1"
-    loader-runner: "npm:^4.2.0"
-    mime-types: "npm:^2.1.27"
-    neo-async: "npm:^2.6.2"
-    schema-utils: "npm:^3.2.0"
-    tapable: "npm:^2.1.1"
-    terser-webpack-plugin: "npm:^5.3.10"
-    watchpack: "npm:^2.4.1"
-    webpack-sources: "npm:^3.2.3"
-  peerDependenciesMeta:
-    webpack-cli:
-      optional: true
-  bin:
-    webpack: bin/webpack.js
-  checksum: 10/a48bef7a511d826db7f9ebee2c84317214923ac40cb2aabe6a649546c54a76a55fc3b91ff03c05fed22a13a176891c47bbff7fcc644c53bcbe5091555863641b
   languageName: node
   linkType: hard
 
