@@ -67,6 +67,25 @@ The following configurations are available:
 | **schemaDescription**       | *null*        | Description of the generated JSON Schema.                                                                                             |
 | **watch**                   | false         | Enable Watch mode.                                                                                                                    |
 
+## Command Line Interfaces
+
+### o3r-build-design-token
+
+The purpose of this CLI is to concatenate different Design Token files and check the potential duplication.
+Can be run with the following command:
+
+```shell
+npx -p @o3r/design o3r-build-design-token <...design-tokens> -o ./my-new-token-file.json
+```
+
+It comes with the following options:
+
+| Options          | Alias | Description                                                           |
+| ---------------- | ----- | --------------------------------------------------------------------- |
+| **`--output`**   | `-o`  | Path to the file where the resulting Design Token will be generated   |
+| **`--template`** | `-t`  | Template file to apply to the Design Token files                      |
+| **`--level`**    | `-l`  | Number of key to join together when generating the Design Token nodes |
+
 ## Technical documentation
 
 Documentation providing explanations on the use and customization of the `Design Token` parser and renderers is available in the [technical documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md).

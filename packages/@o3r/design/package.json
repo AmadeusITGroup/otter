@@ -43,6 +43,7 @@
     }
   },
   "bin": {
+    "o3r-build-design-token": "./dist/cli/build-design-token.cli.cjs",
     "o3r-css-from-design-token": "./dist/cli/generate-css-from-design-token.cli.cjs"
   },
   "dependencies": {
