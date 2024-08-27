@@ -259,7 +259,7 @@
     "tsc-watch": "^6.0.4",
     "typescript": "~5.5.4",
     "uuid": "^10.0.0",
-    "webpack": "~5.93.0",
+    "webpack": "~5.94.0",
     "winston": "^3.8.2",
     "yaml-eslint-parser": "^1.2.2"
   },
