@@ -210,7 +210,7 @@
     "@typescript-eslint/utils": "^7.14.1",
     "@yarnpkg/sdks": "^3.0.0",
     "ag-grid-angular": "~31.1.1",
-    "ag-grid-community": "~31.3.0",
+    "ag-grid-community": "~32.0.1",
     "babel-loader": "^9.0.0",
     "bootstrap": "5.3.3",
     "bootstrap-icons": "^1.11.3",

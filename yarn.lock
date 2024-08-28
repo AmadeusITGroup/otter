@@ -6911,7 +6911,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-community: "npm:~32.0.1"
     archiver: "npm:^7.0.0"
     bootstrap: "npm:5.3.3"
     chokidar: "npm:^3.5.2"
@@ -8016,7 +8016,7 @@ __metadata:
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@yarnpkg/sdks": "npm:^3.0.0"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-community: "npm:~32.0.1"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
@@ -8863,7 +8863,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~31.3.0"
+    ag-grid-community: "npm:~32.0.1"
     bootstrap: "npm:5.3.3"
     concurrently: "npm:^8.0.0"
     eslint: "npm:^8.57.0"
@@ -13985,6 +13985,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ag-charts-types@npm:10.0.2":
+  version: 10.0.2
+  resolution: "ag-charts-types@npm:10.0.2"
+  checksum: 10/4eb426e20f109d314288019eb1072742b57116e793f978998f327ee28941efbd980098acc11f9cea349adf939754bce7557abece37b4a4e1c298e23d8d96cf72
+  languageName: node
+  linkType: hard
+
 "ag-grid-angular@npm:~31.1.1":
   version: 31.1.1
   resolution: "ag-grid-angular@npm:31.1.1"
@@ -14005,10 +14012,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-community@npm:~31.3.0":
-  version: 31.3.4
-  resolution: "ag-grid-community@npm:31.3.4"
-  checksum: 10/c4f374eae3bfea38fda0110e2c744f53fd08879bd73062d7c89dbfcefa63f386902611f5fdd976e547b7911bf7a7c08fd04c281c415a5ea072b187de0ac79cb5
+"ag-grid-community@npm:~32.0.1":
+  version: 32.0.2
+  resolution: "ag-grid-community@npm:32.0.2"
+  dependencies:
+    ag-charts-types: "npm:10.0.2"
+  checksum: 10/cb7ef9e0ef593d052057333079ef05352dfaa355b2192e029c1fbc2f19c362edd5a57d4d950d3f79aafde110fb79ea83dd47394a9ec5f4a0be7c83f7209f5e6f
   languageName: node
   linkType: hard
 

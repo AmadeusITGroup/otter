@@ -62,7 +62,7 @@
     "@o3r/testing": "workspace:^",
     "@popperjs/core": "^2.11.5",
     "ag-grid-angular": "~31.1.1",
-    "ag-grid-community": "~31.3.0",
+    "ag-grid-community": "~32.0.1",
     "bootstrap": "5.3.3",
     "highlight.js": "^11.8.0",
     "intl-messageformat": "~10.5.1",
