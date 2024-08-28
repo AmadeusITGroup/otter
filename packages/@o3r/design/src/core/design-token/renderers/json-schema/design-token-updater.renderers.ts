@@ -9,7 +9,7 @@ export interface JsonSchemaStyleContentUpdaterOptions {
 }
 
 /**
- * Retrieve a Content Updater function for Metadata generator
+ * Retrieve a Content Updater function for Json Schema generator
  * @param options
  */
 export const getJsonSchemaStyleContentUpdater = (options?: JsonSchemaStyleContentUpdaterOptions): DesignContentFileUpdater => {
