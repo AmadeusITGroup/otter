@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Inject, Pipe, PipeTransform } from '@angular/core';
+import { ChangeDetectorRef, Inject, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LocalizationConfiguration } from '../core';
@@ -9,7 +9,7 @@ import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
  * TranslatePipe class adding debug functionality
  */
 @Pipe({name: 'o3rTranslate', pure: false})
-export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform {
+export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeTransform, OnDestroy {
   /**
    * Internal subscription to the LocalizationService showKeys mode changes
    */

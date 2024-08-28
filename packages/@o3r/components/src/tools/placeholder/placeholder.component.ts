@@ -1,4 +1,5 @@
 import {
+  AfterViewChecked,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -32,7 +33,7 @@ import {PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage} from './place
     '[class.debug]': `mode() === 'debug'`
   }
 })
-export class PlaceholderComponent implements OnInit, OnDestroy {
+export class PlaceholderComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   private readonly subscription = new Subscription();
 

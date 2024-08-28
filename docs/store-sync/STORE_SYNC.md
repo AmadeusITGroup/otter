@@ -25,33 +25,25 @@ There are also code-specific changes:
 ## Usage
 
 The **@o3r/store-sync** module is useful if you plan to use the `metaReducers` configuration in the `StoreModule` (more information [here](https://ngrx.io/guide/store/metareducers)).
-To use the module, import its `StorageSync` class in the `AppModule` and create a variable as an instance of that class. 
+To use the module, import its `StorageSync` class in the `AppModule` and create a variable as an instance of that class.
 There are optional [configuration options](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/store-sync/src/core/interfaces.ts)
 that can be passed to the [constructor](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/store-sync/src/core/storage-sync.ts)
 of the class.
 
 Then, wrap `localStorageSync` in an exported function and include it in your meta-reducers array in `StoreModule.forRoot`. You can read more about
-`localStorageSync` in the [ngrx-store-localstorage documentation](https://github.com/btroncone/ngrx-store-localstorage/blob/master/README.md). 
+`localStorageSync` in the [ngrx-store-localstorage documentation](https://github.com/btroncone/ngrx-store-localstorage/blob/master/README.md).
 You can also use the previously declared `StorageSync` variable to configure the meta-reducer returned by the `localStorageSync` in the wrapper function.
 
 For example:
 
 ```typescript
-import { StorageSync } from '@o3r/store-sync';
-import { Keys, localStorageSync } from 'ngrx-store-localstorage';
+import { StorageKeys, StorageSync } from '@o3r/store-sync';
 
-const storageSync = new StorageSync();
+const keys: StorageKeys = [{exampleStoreName: exampleStoreNameStorageSync}];
 
-/**
- * @param reducer
- */
-export function localStorageSyncWrapper<T, V extends Action = Action>(reducer: ActionReducer<T, V>): ActionReducer<T, V> {
-  // Store configuration
-  const localStoragedStates: Keys = [{exampleStoreName: exampleStoreNameStorageSync}];
-  return localStorageSync({mergeReducer: storageSync.mergeReducer, keys: localStoragedStates})(reducer);
-}
+const storageSync = new StorageSync({ keys });
 
-const metaReducers = [...(environment.ENABLE_WEBSTORAGE ? [localStorageSyncWrapper] : [])];
+const metaReducers = [...(environment.ENABLE_WEBSTORAGE ? [storageSync.localStorageSync()] : [])];
 
 @NgModule({
   // ...

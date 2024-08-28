@@ -19,6 +19,8 @@ interface Options {
   alignPeerDependencies?: boolean;
   /** Align the resolutions/overrides dependency rules with the latest determined range */
   alignResolutions?: boolean;
+  /** Align the Engines versions */
+  alignEngines?: boolean;
 }
 
 const defaultOptions: [Required<Options>] = [{
@@ -26,8 +28,12 @@ const defaultOptions: [Required<Options>] = [{
   dependencyTypes: ['optionalDependencies', 'dependencies', 'devDependencies', 'peerDependencies', 'generatorDependencies'],
   alignPeerDependencies: false,
   alignResolutions: true,
+  alignEngines: false,
   ignoredPackages: []
 }];
+
+const resolutionsFields = ['resolutions', 'overrides'];
+const enginesField = 'engines';
 
 export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
   name: 'json-dependency-versions-harmonize',
@@ -71,6 +77,10 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
           alignResolutions: {
             type: 'boolean',
             description: 'Align the resolutions dependencies with the latest determined range.'
+          },
+          alignEngines: {
+            type: 'boolean',
+            description: 'Align the engines constraints with the latest determined range.'
           }
         },
         additionalProperties: false
@@ -84,13 +94,13 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
   },
   defaultOptions,
   create: (context, [options]: Readonly<[Options, ...any]>) => {
-    const resolutionsFields = ['resolutions', 'overrides'];
     const parserServices = getJsoncParserServices(context);
-    const dirname = path.dirname(context.getFilename());
+    const dirname = path.dirname(context.filename);
     const workspace = findWorkspacePackageJsons(dirname);
-    const bestRanges = workspace && getBestRanges(options.dependencyTypes!, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
+    const dependencyTypesWithInterest = [...options.dependencyTypes!, ...(options.alignEngines ? [enginesField] : [])];
+    const bestRanges = workspace && getBestRanges(dependencyTypesWithInterest, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
     const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
-    const dependencyTypes = [...options.dependencyTypes!, ...(options.alignResolutions ? resolutionsFields : [])];
+    const dependencyTypes = [...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])];
 
     if (parserServices.isJSON) {
       return {

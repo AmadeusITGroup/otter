@@ -5,6 +5,11 @@
       "implementation": "./builders/generate-css/",
       "schema": "./builders/generate-css/schema.json",
       "description": "Generate CSS from Design Token files"
+    },
+    "generate-jsonschema": {
+      "implementation": "./builders/generate-jsonschema/",
+      "schema": "./builders/generate-jsonschema/schema.json",
+      "description": "Generate JSON Schema from Design Token files"
     }
   }
 }

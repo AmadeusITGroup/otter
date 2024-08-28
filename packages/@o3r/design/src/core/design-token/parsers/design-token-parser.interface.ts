@@ -1,11 +1,19 @@
 import type { DesignToken, DesignTokenContext, DesignTokenExtensions, DesignTokenGroup, DesignTokenGroupExtensions } from '../design-token-specification.interface';
 
-/** Reference to a parent node*/
+/** Reference to a parent node */
 export interface ParentReference {
   /** Design Token name */
   name: string;
   /** Design Token Group node */
   tokenNode: DesignTokenGroup;
+}
+
+/** Reference to a node */
+export interface NodeReference {
+  /** Design Token name */
+  name: string;
+  /** Design Token Group node */
+  tokenNode: DesignTokenGroup | DesignToken;
 }
 
 /**

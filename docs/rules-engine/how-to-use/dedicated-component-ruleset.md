@@ -1,77 +1,108 @@
-# Rules engine
+# Rules engine - Dedicated ruleset for component
 
-## Dedicated ruleset for component
+The goal of the feature is to create a ruleset that will be executed if and only if it's used. This will improve the performances 
+of your application as the rules engine will not be triggered if the facts are updated but your rule has no effect
+at the moment -- for instance if it is supposed to change the configuration of a missing component.
 
-### Description
+To do so, let's introduce the concept of `linkedComponents`. These are the components that will enable or disable the
+ruleset they are linked to. This is done in their `ngOnInit` and `ngOnDestroy` methods.
 
-The goal of the feature is to allow to create a ruleset that will be executed if and only if it's used.
-To do that we will subscribe in the onInit of the component, to the dedicated ruleset.
+## How to make a Component compatible
 
-## How to add it to your application
+You can make a component `linkedComponents` compatible thanks the following Otter CLI command:
+`ng g rules-engine-to-component --path=[path-to-my-component-file]`
 
-First, you need to have a ruleset defined in your json (created via the CMS interface) that will be identified by a unique id, and you need to specify that the ruleSet is linked to at least one component, meaning that it's not executed per default. The json will look as follows :
+This command will compute the component's identifier and add the methods to enable or disable the ruleset 
+matching the component name.
+
+```diff
+import {ChangeDetectionStrategy, Component, ViewEncapsulation, inject, OnInit, OnDestroy} from '@angular/core';
++ import {LinkableToRuleset, RulesEngineRunnerService} from '@o3r/rules-engine';
++ import {computeItemIdentifier} from '@o3r/core';
+
+@O3rComponent({ componentType: 'Component' })
+@Component({
+  selector: 'app-my-component',
+  templateUrl: './my-component.template.html',
+  styleUrl: './my-component.style.scss',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+- export class MyComponent {
++ export class MyComponent implements OnInit, OnDestroy {
+  
++   private readonly rulesEngineService = inject(RulesEngineRunnerService, { optional: true });
++   private readonly componentIdentifier = computeItemIdentifier('MyComponent', '@scope/components');
+
++   public ngOnInit() {
++     if (this.rulesEngineService) {
++       this.rulesEngineService.enableRuleSetFor(this.componentIdentifier);
++     }
++   }
++   public ngOnDestroy() {
++     if (this.rulesEngineService) {
++       this.rulesEngineService.disableRuleSetFor(this.componentIdentifier);
++     }
++   }
+}
+```
+
+> [!IMPORTANT]
+> If you are managing your ruleset with a dedicated UI, please note that your component should either be a Page, 
+> a Block or an ExposedComponent for it to appear in the component metadata file which will make it visible in your UI. 
+
+## How to link a ruleset to a component
+
+Now that your component can trigger or prevent the run of a ruleset, you can set the `linkedComponents` property to 
+prevent the execution of the Ruleset until your component is available in the page:
 
 ```json5
 {
-  "ruleSets": [
+  "rulesets": [
     {
       "id": "e5th46e84-5e4th-54eth65seth46se8th2",
       "name": "the second ruleset",
+      "validityRange": {
+        // The ruleset will be ignored outside of these dates.
+        "from": "09/01/2021",
+        "to": "11/01/2025"
+      },
       "linkedComponents": {
-        "or": [ // 'or' keyword means: if at least one component from the list is registered, the ruleset is active
+        // 'or' keyword means: if at least one component from the list is registered, the ruleset is active
+        // 'and' keyword is not supported, but you can request it via a new issue (https://github.com/AmadeusITGroup/otter/issues/new?assignees=&labels=enhancement&projects=&template=5-FEATURE-FORM.yaml&title=%5BFeature%5D%3A+),
+        // and we will add the support
+        "or": [ 
           {
             "library": "@scope/components",
-            "name": "TestComponent"
+            "name": "MyComponent"
           },
           {
             "library": "@scope/components",
-            "name": "TestComponent2"
+            "name": "MyComponent2"
           }
         ]
       },
       "rules": [
-        ...
+        // ...
       ]
     }
   ]
 }
 ```
-> Note: In v10 and previously, we used `linkedComponent` property to activate a ruleset on demand. This becomes deprecated and will be removed in v12. Use `linkedComponents` instead;
+> [!INFO]
+> In v10 and the previous version, the Otter framework exposed the `linkedComponent` property to activate a ruleset on demand. 
+> This is now deprecated and will be removed in v12. Use `linkedComponents` instead.
 
-Now that you have the id, you will need to subscribe to the ruleset in your component :
+## How it works
 
-```typescript
-import {LinkableToRuleset, RulesEngineRunnerService} from '@o3r/rules-engine';
-import {computeItemIdentifier, type ExposedComponent} from '@o3r/core';
+`RulesEngineRunnerService` handles the subscriptions for all the rulesets.
+At the initialization of the application, the service listens to a selector to get all the active rulesets that are not linked
+to any components and that met the validity date range criteria (described in the `validityRange` property of the ruleset).
+Then it will merge the result with the on-demand rulesets -- the rulesets with `linkedComponents` currently activated.
 
-export class MyComponent implements LinkableToRuleset, ExposedComponent {
+As soon as the component is instantiated on the page, i.e. when `ngOnInit` is called, it will add its ID to the 
+list of requested linked rulesets.
+`RulesEngineRunnerService` will then add the relevant rulesets in its on-demand list, which will trigger their evaluation.
 
-  private readonly componentIdentifier = computeItemIdentifier('@scope/components', 'TestComponent');
-
-  constructor(@Optional() private readonly service: RulesEngineRunnerService) {
-  }
-
-  public ngOnInit() {
-    this.service?.enableRuleSetFor(componentIdentifier);
-  }
-
-  public ngOnDestroy() {
-    this.service?.disableRuleSetFor(componentIdentifier);
-  }
-}
-```
-
-Important : Please note that you need your component either to be a Page, Block or an ExposedComponent for it to be extracted in the metadata file and sent to the CMS.
-
-## How does it work
-
-The RulesEngineRunnerService is the one that will handle the default subscriptions.
-At the initialization of the application, the ruleset store will provide a selector to get all Active ruleset.
-Then this selector will be used to subscribe to those rulesets in the service as an initial behavior.
-Our onDemand ruleset will not be part of this initial subscription, that's why as long as no one subscribes to it, it will not be evaluated.
-As soon as our component is instantiated on the page (ngOnInit called), it will explicitly subscribe to it, resulting in its evaluation (and refresh if any input facts changes).
-Once the subscription is removed (ngOnDestroy) called, and no other component is linked to it, the ruleset will go back to its previous 'disabled' mode.
-
-## Possible use cases
-
-That feature is really convenient when we want to display a component and evaluate a ruleset based optionally on the context.
+Once a component is removed from the list of requested rulesets, i.e. that is when `ngOnDestroy` is called, and if 
+none of the other components in the page are linked to the ruleset, it will revert to its previous 'disabled' mode.

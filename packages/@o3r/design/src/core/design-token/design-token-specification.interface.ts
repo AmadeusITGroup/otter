@@ -60,6 +60,12 @@ export interface DesignTokenTypeColor extends DesignTokenBase<string> {
   $type: 'color';
 }
 
+/** Design Token String */
+export interface DesignTokenTypeString extends DesignTokenBase<string> {
+  /** @inheritdoc */
+  $type: 'string';
+}
+
 /** Design Token Dimension */
 export interface DesignTokenTypeDimension extends DesignTokenBase<string> {
   /** @inheritdoc */
@@ -151,15 +157,26 @@ type DesignTokenTypeShadowValue = {
 };
 
 /** Design Token Shadow */
-export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue> {
+export interface DesignTokenTypeShadow extends DesignTokenBase<DesignTokenTypeShadowValue | DesignTokenTypeShadowValue[]> {
   /** @inheritdoc */
   $type: 'shadow';
 }
 
-type DesignTokenTypeGradientValue = {
+type DesignTokenTypeGradientStop = {
+  /** Color to the stop of a gradient */
   color: string;
+  /** Position of the stop */
   position: string | number;
-}[];
+};
+
+type DesignTokenTypeGradientValue = {
+  /** Type of the gradient */
+  type?: 'linear' | 'radial' | 'conic';
+  /** Angle to the gradient */
+  angle?: string | number;
+  /** List of stops in the gradient */
+  stops?: DesignTokenTypeGradientStop[];
+};
 
 /** Design Token Gradient */
 export interface DesignTokenTypeGradient extends DesignTokenBase<DesignTokenTypeGradientValue> {
@@ -195,6 +212,7 @@ export type DesignTokenCommonFields<E extends DesignTokenExtensions = DesignToke
 
 /** Available Design Token types */
 export type DesignToken<E extends DesignTokenExtensions = DesignTokenExtensions> = DesignTokenCommonFields<E> & (
+  DesignTokenTypeString |
   DesignTokenTypeColor |
   DesignTokenTypeDimension |
   DesignTokenTypeFontFamily |
@@ -221,10 +239,17 @@ export type DesignTokenNode<E extends DesignTokenExtensions = DesignTokenExtensi
 export type DesignTokenGroup<E extends DesignTokenExtensions = DesignTokenExtensions, G extends DesignTokenGroupExtensions = E> =
   DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenNode<E, G> | E | string | boolean | undefined };
 
+/** Design Token Group for common properties only */
+export type DesignTokenGroupTemplate<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> =
+  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<DesignTokenGroupExtensions> | G | string | boolean | undefined };
+
 /** Context of the Design Token specification document */
-export type DesignTokenContext = {
+export type DesignTokenContext<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> = {
   /** Base path used to compute the path of the file to render the Tokens into */
   basePath?: string;
+
+  /** Default template of the Design Token nodes to use as base for the extension configuration */
+  template?: DesignTokenGroupTemplate<G>;
 };
 
 /** Design Token specification */

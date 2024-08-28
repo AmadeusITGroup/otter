@@ -19,6 +19,9 @@ const packageJsonWorkspace = {
   ],
   dependencies: {
     myDep: '^2.0.0'
+  },
+  engines: {
+    node: '^21.0.0'
   }
 };
 
@@ -62,7 +65,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     // eslint-disable-next-line @typescript-eslint/naming-convention
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
-    { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] }
+    { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
+    { code: JSON.stringify({ engines: { node: '<20' } }), filename: packageToLint, options: [{ alignEngines: false }] },
+    { code: JSON.stringify({ engines: { node: '>21.1' } }), filename: packageToLint, options: [{ alignEngines: true }] }
   ],
   invalid: [
     {
@@ -186,6 +191,24 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
             depName: 'myDep',
             packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
             version: '^2.0.0'
+          }
+        }
+      ]
+    },
+    {
+      filename: packageToLint,
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      output: JSON.stringify({ engines: { node: '^21.0.0' } }),
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      code: JSON.stringify({ engines: { node: '<20' } }),
+      options: [{ alignEngines: true }],
+      errors: [
+        {
+          messageId: 'error',
+          data: {
+            depName: 'node',
+            packageJsonFile: path.join(fakeFolder, 'local', 'package.json'),
+            version: '^21.0.0'
           }
         }
       ]
