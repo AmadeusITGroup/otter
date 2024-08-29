@@ -15,7 +15,7 @@ import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenV
 import { resolve } from 'node:path';
 import { sync } from 'globby';
 import { EOL } from 'node:os';
-import { readFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 
 /**
  * Generate CSS from Design Token files
@@ -42,7 +42,14 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     tokenVariableNameRenderer: (v) => (options?.prefixPrivate || '') + tokenVariableNameSassRenderer(v),
     logger
   });
+  const writeFileWithLogger: typeof writeFile = async (file, ...args) => {
+    const res = await writeFile(file, ...args);
+    // eslint-disable-next-line @typescript-eslint/no-base-to-string
+    logger.info(`Updated ${file.toString()} with Design Token content.`);
+    return res;
+  };
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
+    writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
       tokenVariableNameRenderer,
@@ -57,6 +64,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const renderDesignTokenOptionsSass: DesignTokenRendererOptions = {
+    writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getSassTokenDefinitionRenderer({
       tokenVariableNameRenderer: (v) => (options?.prefix || '') + tokenVariableNameSassRenderer(v),
