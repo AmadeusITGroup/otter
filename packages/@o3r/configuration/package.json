@@ -100,6 +100,7 @@
     "@o3r/testing": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@types/cheerio": "~0.22.35",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

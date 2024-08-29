@@ -85,7 +85,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     if (templateFilePaths) {
       const templateFiles = await Promise.all(
         templateFilePaths
-          .map(async (templateFile) => JSON.parse(await readFile(templateFile, { encoding: 'utf-8' })) as DesignTokenGroupTemplate)
+          .map(async (templateFile) => JSON.parse(await readFile(templateFile, { encoding: 'utf8' })) as DesignTokenGroupTemplate)
       );
       template = templateFiles.reduce((acc, cur) => mergeDesignTokenTemplates(acc, cur), {});
     }

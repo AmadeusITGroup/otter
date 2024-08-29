@@ -39,7 +39,7 @@ export const compareVariableByName = (a: DesignTokenVariableStructure, b: Design
  * ```
  */
 export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, options?: DesignTokenRendererOptions) => {
-  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf-8'}));
+  const readFile = options?.readFile || ((filePath: string) => fs.readFile(filePath, {encoding: 'utf8'}));
   const writeFile = options?.writeFile || fs.writeFile;
   const existsFile = options?.existsFile || existsSync;
   const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();

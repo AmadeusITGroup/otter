@@ -173,7 +173,7 @@ export function formatModuleDescription(
     try {
       const otterCorePackage = findClosestPackageJson(require.resolve(otterCorePackageName));
       if (otterCorePackage) {
-        const { version } = JSON.parse(fs.readFileSync(otterCorePackage, { encoding: 'utf-8' })) as PackageJson;
+        const { version } = JSON.parse(fs.readFileSync(otterCorePackage, { encoding: 'utf8' })) as PackageJson;
         otterVersion = version;
       }
     } catch {

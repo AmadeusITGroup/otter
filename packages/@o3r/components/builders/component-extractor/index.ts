@@ -82,9 +82,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
         const componentMetadata = await componentExtractor.extract(parserOutput, options);
 
         // Validate configuration part of components metadata
+        const configurationMetadataSchemaPath = require.resolve('@o3r/configuration/schemas/configuration.metadata.schema.json');
         validateJson(
           componentMetadata.configurations,
-          require('@o3r/configuration/schemas/configuration.metadata.schema.json'),
+          JSON.parse(fs.readFileSync(configurationMetadataSchemaPath, {encoding: 'utf8'})),
           'The output of configuration metadata is not valid regarding the json schema, please check the details below : \n',
           options.strictMode
         );
@@ -92,7 +93,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<ComponentExtrac
         // Validate components part of components metadata
         validateJson(
           componentMetadata.components,
-          require('../../schemas/component.metadata.schema.json'),
+          JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../schemas/component.metadata.schema.json'), { encoding: 'utf8' })),
           'The output of components metadata is not valid regarding the json schema, please check the details below : \n',
           options.strictMode
         );

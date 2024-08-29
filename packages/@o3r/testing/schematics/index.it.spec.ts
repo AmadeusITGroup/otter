@@ -25,7 +25,7 @@ describe('ng add testing', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.length).toBe(0);
-    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf-8'})).toContain('@o3r/testing');
+    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf8'})).toContain('@o3r/testing');
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

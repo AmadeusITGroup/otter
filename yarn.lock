@@ -7071,6 +7071,7 @@ __metadata:
     "@o3r/testing": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -7490,6 +7491,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@types/cheerio": "npm:~0.22.35"
     "@types/jasmine": "npm:~5.1.0"
     "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
@@ -11839,6 +11841,15 @@ __metadata:
   version: 0.12.5
   resolution: "@types/caseless@npm:0.12.5"
   checksum: 10/f6a3628add76d27005495914c9c3873a93536957edaa5b69c63b46fe10b4649a6fecf16b676c1695f46aab851da47ec6047dcf3570fa8d9b6883492ff6d074e0
+  languageName: node
+  linkType: hard
+
+"@types/cheerio@npm:~0.22.35":
+  version: 0.22.35
+  resolution: "@types/cheerio@npm:0.22.35"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10/7d834512df4682733ce2ff1010682251d2d597d4c2f035b5ae43125a18b8a14c37d805d7c7ebcf57be360259c989465c5fd7b9dc21159b6719760d3d7fbd927f
   languageName: node
   linkType: hard
 

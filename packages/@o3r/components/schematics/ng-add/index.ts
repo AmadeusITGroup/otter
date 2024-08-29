@@ -34,7 +34,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     if (options.enableMetadataExtract) {
       depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
