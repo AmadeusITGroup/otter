@@ -1,44 +1,7 @@
 import { v4 } from 'uuid';
 import { base64EncodeUrl, createBase64Encoder, createBase64UrlEncoder } from '../../utils/json-token';
 import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
-import type { createHmac as createHmacType, webcrypto } from 'node:crypto';
-
-
-/**
- * Computes the SHA256 digest of the given string
- * @param value Value to hash
- */
-export async function sha256(value: string) {
-  const utf8 = new TextEncoder().encode(value);
-  // TODO: Use new Ecmascript crypto feature to avoid "require" call (issue #2110)
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const hashBuffer = await (globalThis.crypto || (require('node:crypto').webcrypto as typeof webcrypto)).subtle.digest('SHA-256', utf8);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  const hashHex = hashArray
-    .map((bytes) => bytes.toString(16).padStart(2, '0'))
-    .join('');
-  return hashHex;
-}
-
-/**
- * Generates hash-based message authentication code using cryptographic hash function HmacSHA256 and the provided
- * secret key
- * Should only be in a NodeJS MDW context
- * @param value Value to hash
- * @param secretKey Secret cryptographic key
- */
-export function hmacSHA256(value: string, secretKey: string) {
-  try {
-    // TODO: Use new Ecmascript crypto feature to avoid "require" call (issue #2110)
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { createHmac }: { createHmac: typeof createHmacType } = require('node:crypto');
-    return createHmac('sha256', secretKey)
-      .update(value, 'latin1')
-      .digest('base64');
-  } catch (err) {
-    throw new Error('Crypto module is not available.');
-  }
-}
+import { hmacSHA256, sha256 } from './mgw-mdw-auth.helpers';
 
 /**
  * Type that represents context data.
@@ -230,9 +193,9 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
    * @param payload JWT payload
    * @param secretKey secret key used to generate the signature
    */
-  private sign(payload: JsonTokenPayload, secretKey: string) {
+  private async sign(payload: JsonTokenPayload, secretKey: string) {
     const message = `${this.base64UrlEncoder(JSON.stringify(jwsHeader))}.${this.base64UrlEncoder(JSON.stringify(payload))}`;
-    const signature = hmacSHA256(message, secretKey);
+    const signature = await hmacSHA256(message, secretKey);
     const encodedSignature = base64EncodeUrl(signature);
     return `${message}.${encodedSignature}`;
   }
