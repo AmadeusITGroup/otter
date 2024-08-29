@@ -7959,6 +7959,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
+    "@o3r/training-tools": "workspace:^"
     "@o3r/workspace": "workspace:^"
     "@playwright/test": "npm:~1.47.0"
     "@popperjs/core": "npm:^2.11.5"
@@ -7975,6 +7976,9 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
+    "@webcontainer/api": "npm:~1.2.4"
+    "@xterm/addon-fit": "npm:^0.10.0"
+    "@xterm/xterm": "npm:^5.0.0"
     "@yarnpkg/sdks": "npm:^3.0.0"
     ag-grid-angular: "npm:~32.1.0"
     ag-grid-community: "npm:~32.1.0"
@@ -8005,8 +8009,11 @@ __metadata:
     lighthouse: "npm:~12.2.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
+    monaco-editor: "npm:~0.50.0"
     ng-packagr: "npm:~18.2.0"
     ngx-highlightjs: "npm:^12.0.0"
+    ngx-monaco-editor-v2: "npm:^18.0.0"
+    ngx-monaco-tree: "npm:^17.5.0"
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.5.0"
     pixelmatch: "npm:^5.2.1"
@@ -8037,8 +8044,20 @@ __metadata:
   dependenciesMeta:
     "@swc/core":
       built: true
+    "@vscode/codicons":
+      unplugged: true
+    "@xterm/addon-fit":
+      unplugged: true
+    "@xterm/xterm":
+      unplugged: true
     esbuild:
       built: true
+    monaco-editor:
+      unplugged: true
+    ngx-monaco-editor-v2:
+      unplugged: true
+    ngx-monaco-tree:
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -8812,6 +8831,7 @@ __metadata:
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
     "@o3r/testing": "workspace:^"
+    "@o3r/training-tools": "workspace:^"
     "@playwright/test": "npm:~1.47.0"
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
@@ -8823,6 +8843,10 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
+    "@vscode/codicons": "npm:^0.0.35"
+    "@webcontainer/api": "npm:~1.2.4"
+    "@xterm/addon-fit": "npm:^0.10.0"
+    "@xterm/xterm": "npm:^5.0.0"
     ag-grid-angular: "npm:~32.1.0"
     ag-grid-community: "npm:~32.1.0"
     bootstrap: "npm:5.3.3"
@@ -8842,7 +8866,10 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:~12.2.0"
+    monaco-editor: "npm:~0.50.0"
     ngx-highlightjs: "npm:^12.0.0"
+    ngx-monaco-editor-v2: "npm:^18.0.0"
+    ngx-monaco-tree: "npm:^17.5.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -9532,6 +9559,87 @@ __metadata:
       optional: true
     "@schematics/angular":
       optional: true
+  languageName: unknown
+  linkType: soft
+
+"@o3r/training-tools@workspace:^, @o3r/training-tools@workspace:packages/@o3r/training-tools":
+  version: 0.0.0-use.local
+  resolution: "@o3r/training-tools@workspace:packages/@o3r/training-tools"
+  dependencies:
+    "@angular-devkit/build-angular": "npm:~18.2.0"
+    "@angular-devkit/core": "npm:~18.2.0"
+    "@angular-devkit/schematics": "npm:~18.2.0"
+    "@angular-eslint/eslint-plugin": "npm:~18.3.0"
+    "@angular/animations": "npm:~18.2.0"
+    "@angular/cli": "npm:~18.2.0"
+    "@angular/common": "npm:~18.2.0"
+    "@angular/compiler": "npm:~18.2.0"
+    "@angular/compiler-cli": "npm:~18.2.0"
+    "@angular/core": "npm:~18.2.0"
+    "@angular/platform-browser": "npm:~18.2.0"
+    "@angular/platform-browser-dynamic": "npm:~18.2.0"
+    "@babel/core": "npm:~7.25.0"
+    "@babel/preset-typescript": "npm:~7.24.0"
+    "@nx/eslint": "npm:~19.5.0"
+    "@nx/eslint-plugin": "npm:~19.5.0"
+    "@nx/jest": "npm:~19.5.0"
+    "@nx/js": "npm:~19.5.0"
+    "@o3r/build-helpers": "workspace:^"
+    "@o3r/eslint-plugin": "workspace:^"
+    "@o3r/schematics": "workspace:^"
+    "@schematics/angular": "npm:~18.2.0"
+    "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@swc/cli": "npm:~0.4.0"
+    "@swc/core": "npm:~1.7.0"
+    "@swc/helpers": "npm:~0.5.0"
+    "@types/inquirer": "npm:~8.2.10"
+    "@types/jest": "npm:~29.5.2"
+    "@types/node": "npm:^20.0.0"
+    "@types/semver": "npm:^7.3.13"
+    "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
+    "@typescript-eslint/parser": "npm:^7.14.1"
+    "@typescript-eslint/utils": "npm:^7.14.1"
+    "@webcontainer/api": "npm:~1.2.4"
+    commander: "npm:^12.0.0"
+    cpy-cli: "npm:^5.0.0"
+    eslint: "npm:^8.57.0"
+    eslint-import-resolver-node: "npm:^0.3.9"
+    eslint-plugin-jest: "npm:~28.8.0"
+    eslint-plugin-jsdoc: "npm:~48.11.0"
+    eslint-plugin-prefer-arrow: "npm:~1.2.3"
+    eslint-plugin-unicorn: "npm:^54.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
+    jsonc-eslint-parser: "npm:~2.4.0"
+    jsonschema: "npm:~1.4.1"
+    nx: "npm:~19.5.0"
+    rxjs: "npm:^7.8.1"
+    ts-jest: "npm:~29.2.0"
+    ts-node: "npm:~10.9.2"
+    tslib: "npm:^2.6.2"
+    type-fest: "npm:^4.10.2"
+    typescript: "npm:~5.5.4"
+    zone.js: "npm:~0.14.2"
+  peerDependencies:
+    "@schematics/angular": ~18.2.0
+    "@webcontainer/api": ~1.2.4
+    eslint: ^8.57.0
+    rxjs: ^7.8.1
+    type-fest: ^4.10.2
+    typescript: ~5.5.4
+  peerDependenciesMeta:
+    "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/core":
+      optional: true
+    "@angular/cli":
+      optional: true
+    eslint:
+      optional: true
+    type-fest:
+      optional: true
+  bin:
+    o3r-extract-folder-structure: ./dist/cli/extract-folder-structure/extract-folder-structure.cjs
   languageName: unknown
   linkType: soft
 
@@ -12904,6 +13012,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vscode/codicons@npm:^0.0.35":
+  version: 0.0.35
+  resolution: "@vscode/codicons@npm:0.0.35"
+  checksum: 10/eed59049130e413467de7acac7b6627d07086978eab9480cce6ddb7d36eeeb2ace28176a855861c2e76b35739dc1540c49a5336194a15ea8c2cf765f6356a485
+  languageName: node
+  linkType: hard
+
 "@vscode/vsce-sign-alpine-arm64@npm:2.0.2":
   version: 2.0.2
   resolution: "@vscode/vsce-sign-alpine-arm64@npm:2.0.2"
@@ -13192,6 +13307,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@webcontainer/api@npm:~1.2.4":
+  version: 1.2.4
+  resolution: "@webcontainer/api@npm:1.2.4"
+  checksum: 10/721a0fd254dbd6c806b9e73b290c08156af1f4d9900ea261ee1603a1da96522a212d2de8fd776603cd87f153fe03035e848c0843b4268ba644d1108c3d74aeb5
+  languageName: node
+  linkType: hard
+
 "@webpack-cli/configtest@npm:^2.1.1":
   version: 2.1.1
   resolution: "@webpack-cli/configtest@npm:2.1.1"
@@ -13222,6 +13344,22 @@ __metadata:
     webpack-dev-server:
       optional: true
   checksum: 10/20424e5c1e664e4d7ab11facee7033bb729f6acd86493138069532934c1299c1426da72942822dedb00caca8fc60cc8aec1626e610ee0e8a9679e3614f555860
+  languageName: node
+  linkType: hard
+
+"@xterm/addon-fit@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@xterm/addon-fit@npm:0.10.0"
+  peerDependencies:
+    "@xterm/xterm": ^5.0.0
+  checksum: 10/8edfad561c0d0316c5883cbe2ce56109f105a2b2bf53b71d5f8c788e656a3205c1093a659dddcf4025a459e4b7ff8e07b6c6a19815c8711deeded560de5f1893
+  languageName: node
+  linkType: hard
+
+"@xterm/xterm@npm:^5.0.0":
+  version: 5.5.0
+  resolution: "@xterm/xterm@npm:5.5.0"
+  checksum: 10/d4cdc402de81a83a3e0ef93f38072cb8f54abe4d65865f2e29b92cbc2593f86d052f6b993895c9e5dec97f47548f504e90bcea0aad6845917c09b03f2f3a4629
   languageName: node
   linkType: hard
 
@@ -24957,6 +25095,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"monaco-editor@npm:~0.50.0":
+  version: 0.50.0
+  resolution: "monaco-editor@npm:0.50.0"
+  checksum: 10/594f2a3812147c1ef41c4dba444c649c32af95c3eb09529049bb7a2cb38e1747facbae0a459a07140e77cf9d73df41f034399804f9123f9cfff45394321a3983
+  languageName: node
+  linkType: hard
+
 "morgan@npm:^1.10.0":
   version: 1.10.0
   resolution: "morgan@npm:1.10.0"
@@ -25219,6 +25364,33 @@ __metadata:
     "@angular/common": ">=17.0.0"
     "@angular/core": ">=17.0.0"
   checksum: 10/d7cc7b2191ae356a0b61d54aa935407cdedc34fb528e2346e60e6deeb9392403318210482da0f5bead8d275cc8080c608af2ac3952e4f6e4ea8aa1f237a76b37
+  languageName: node
+  linkType: hard
+
+"ngx-monaco-editor-v2@npm:^18.0.0":
+  version: 18.1.0
+  resolution: "ngx-monaco-editor-v2@npm:18.1.0"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  peerDependencies:
+    "@angular/common": ^18.1.0
+    "@angular/core": ^18.1.0
+    monaco-editor: ^0.50.0
+  checksum: 10/b84ae926e3491934532ede9e94c7b98dd26575cd74ceb85a99c680815826bacad7543d73e47cd8c8a81368b826dcbc5d2f6b0ca36accd6b536b448edfcbf2131
+  languageName: node
+  linkType: hard
+
+"ngx-monaco-tree@npm:^17.5.0":
+  version: 17.5.0
+  resolution: "ngx-monaco-tree@npm:17.5.0"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  peerDependencies:
+    "@angular/cdk": ^17.3.0
+    "@angular/common": ^17.3.0
+    "@angular/core": ^17.3.0
+    "@vscode/codicons": ^0.0.32
+  checksum: 10/9c2e66babc3efddd549ea423b41713b11706eeb15478ae7ca30b5ff41c12d7c3718fe08aadb3f42cf54301b1f28ade8aa7d13a4d0a29ea7630cbe51a42184376
   languageName: node
   linkType: hard
 
