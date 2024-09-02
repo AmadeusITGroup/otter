@@ -128,7 +128,7 @@
   <properties>
     <maven-plugin-version>1.0.0</maven-plugin-version>
     <openapi-generator-version>7.8.0</openapi-generator-version>
-    <swagger-core.version>2.2.22</swagger-core.version>
+    <swagger-core.version>2.2.23</swagger-core.version>
     <junit-version>4.8.1</junit-version>
     <version>1.0.0</version>
     <project.version>0.0.0</project.version>
