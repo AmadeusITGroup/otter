@@ -34,6 +34,9 @@
     "baseUrl": ".",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "@ama-sdk/client-fetch": [
+        "packages/@ama-sdk/client-fetch/src/public_api"
+      ],
       "@ama-sdk/core": [
         "packages/@ama-sdk/core/src/public_api"
       ],

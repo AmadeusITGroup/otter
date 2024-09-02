@@ -27,6 +27,7 @@
   "dependencies": {
     "@agnos-ui/angular-bootstrap": "~0.4.1",
     "@agnos-ui/core-bootstrap": "~0.4.1",
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
     "@ama-sdk/showcase-sdk": "workspace:^",

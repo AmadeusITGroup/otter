@@ -2,12 +2,16 @@ import type { ApiClient } from '../../fwk/core/api-client';
 import type { Plugin, PluginAsyncRunner, PluginContext } from './plugin';
 import type { RequestOptions } from './request-plugin';
 
-/** Fetch Call Response type */
+/**
+ * Fetch Call Response type
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export type FetchCall = Promise<Response>;
 
 /**
  * Interface of an SDK reply plugin.
  * The plugin will be run on the reply of a call
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface FetchPluginContext extends PluginContext {
   /** URL targeted */
@@ -29,6 +33,7 @@ export interface FetchPluginContext extends PluginContext {
 
 /**
  * Interface of an async plugin starter
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface PluginAsyncStarter {
   /** Determine if the action can start */
@@ -38,6 +43,7 @@ export interface PluginAsyncStarter {
 /**
  * Interface of a Fetch plugin.
  * The plugin will be run around the Fetch call
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface FetchPlugin extends Plugin<Response, FetchCall> {
   /**
