@@ -65,7 +65,7 @@ Several examples of the rules engine usage are available on the following links:
 
 ## Generators
 
-Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics                | Description                                                   | How to use                       |
 |---------------------------|---------------------------------------------------------------|----------------------------------|
