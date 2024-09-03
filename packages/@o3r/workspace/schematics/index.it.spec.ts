@@ -20,7 +20,7 @@ describe('new otter workspace', () => {
   test('should add sdk to an existing workspace', () => {
     const { workspacePath, isInWorkspace, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
-    packageManagerExec({script: 'ng', args: ['g', 'sdk', '@my-sdk/sdk']}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['g', 'sdk', 'my-sdk']}, execAppOptions);
 
     const diff = getGitDiff(execAppOptions.cwd);
     untouchedProjectsPaths.forEach(untouchedProject => {
