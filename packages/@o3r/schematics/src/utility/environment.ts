@@ -23,7 +23,7 @@ export const getEnvironmentInfo = () => {
     otterCorePackageJsonPath = require.resolve('@o3r/core/package.json');
   } catch {}
   const otterInfo = {
-    version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf-8' })).version as string : undefined
+    version: otterCorePackageJsonPath ? JSON.parse(fs.readFileSync(otterCorePackageJsonPath, { encoding: 'utf8' })).version as string : undefined
   };
   return { os: osInfo, node: nodeInfo, packageManager: packageManagerInfo, otter: otterInfo };
 };

@@ -41,8 +41,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     hasSuggestions: true,
     type: 'problem',
     docs: {
-      description: 'Ensure that the package dependency versions are aligned with the other package of the workspace.',
-      recommended: 'strict'
+      description: 'Ensure that the package dependency versions are aligned with the other packages of the workspace.'
     },
     schema: [
       {

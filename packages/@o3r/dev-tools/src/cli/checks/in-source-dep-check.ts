@@ -4,6 +4,9 @@ import { bold } from 'chalk';
 import { program } from 'commander';
 import * as glob from 'globby';
 import { readFileSync } from 'node:fs';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore -- _builtinLibs is not part of repl types (due to the fact it is flagged to internal usage purpose)
+import { _builtinLibs as nodeWellKnownModules } from 'node:repl';
 import { dirname, join, resolve } from 'node:path';
 import * as winston from 'winston';
 
@@ -17,8 +20,6 @@ const logger = winston.createLogger({
 });
 
 const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies'];
-// eslint-disable-next-line no-underscore-dangle
-const nodeWellKnownModules = require('node:repl')._builtinLibs;
 program
   .description('[DEPRECATED] Checks that the dependencies imported in the code are declared in the package.json file')
   .option<string>('--root <directory>', 'Project root directory', (p) => resolve(process.cwd(), p), process.cwd())
@@ -32,7 +33,7 @@ const {root, ignore, ignoreWorkspace, failOnError} = program.opts();
 
 const packagePatterns: string[] = ignoreWorkspace ?
   join(root, 'package.json').replace(/\\/g, '/') :
-  (require(join(root, 'package.json')).workspaces?.map((p: string) => join(p, 'package.json').replace(/\\/g, '/')) || []);
+  (JSON.parse(readFileSync(join(root, 'package.json'), { encoding: 'utf8' })).workspaces?.map((p: string) => join(p, 'package.json').replace(/\\/g, '/')) || []);
 
 void (async () => {
   logger.warn('This script is deprecated, will be removed in Otter v12');

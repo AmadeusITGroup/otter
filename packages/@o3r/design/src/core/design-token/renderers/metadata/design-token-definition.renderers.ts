@@ -1,4 +1,5 @@
 import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
+import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
 import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
 import { getMetadataTokenValueRenderer } from './design-token-value.renderers';
 import type { CssVariable } from '@o3r/styling';
@@ -12,6 +13,9 @@ export interface MetadataTokenDefinitionRendererOptions {
    * Renderer the name of the CSS Variable (without initial --)
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
+
+  /** Determine if the private variable should be ignored */
+  ignorePrivateVariable?: boolean;
 }
 
 /**
@@ -45,6 +49,9 @@ export const getMetadataTokenDefinitionRenderer = (options?: MetadataTokenDefini
   const tokenValueRenderer = options?.tokenValueRenderer || getMetadataTokenValueRenderer({ tokenVariableNameRenderer });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
+    if (options?.ignorePrivateVariable && isO3rPrivateVariable(variable)) {
+      return undefined;
+    }
     const variableValue = tokenValueRenderer(variable, variableSet);
     return `"${(JSON.parse(variableValue) as CssVariable).name}": ${variableValue}`;
   };
