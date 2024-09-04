@@ -20,6 +20,7 @@ on:
 
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
+  YARN_ENABLE_HARDENED_MODE: 0
 
 permissions:
   contents: read
