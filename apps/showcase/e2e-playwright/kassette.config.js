@@ -5,7 +5,7 @@
  */
 exports.getConfiguration = () => {
   return {
-    port: 4200,
+    port: 4747,
     mocksFolder: `${__dirname}/mocks`,
     mode: 'remote',
     delay: 0,
