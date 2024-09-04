@@ -22,8 +22,8 @@ import { NodePackageInstallTask, RunSchematicTask } from '@angular-devkit/schema
  */
 function generateSdkFn(options: NgGenerateSdkSchema): Rule {
   const splitName = options.name?.split('/');
-  const scope = splitName.length > 1 ? splitName[0].replace(/^@/, '') : '';
-  const projectName = strings.dasherize(splitName?.length === 2 ? splitName[1] : options.name);
+  const scope = strings.dasherize(splitName.length > 1 ? splitName[0].replace(/^@/, '') : options.name);
+  const projectName = splitName?.length === 2 ? strings.dasherize(splitName[1]) : 'sdk';
   const cleanName = strings.dasherize(options.name).replace(/^@/, '').replaceAll(/\//g, '-');
 
   return (tree, context) => {
