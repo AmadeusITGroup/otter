@@ -7970,7 +7970,6 @@ __metadata:
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@yarnpkg/sdks": "npm:^3.0.0"
     ag-grid-angular: "npm:~31.1.1"
-    ag-grid-community: "npm:~32.0.1"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
     bootstrap-icons: "npm:^1.11.3"
