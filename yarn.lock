@@ -14610,6 +14610,11 @@ __metadata:
     eslint-plugin-unicorn: "npm:^54.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     typescript: "npm:~5.5.4"
+  peerDependencies:
+    audit-types: ~0.6.0
+  peerDependenciesMeta:
+    audit-types:
+      optional: true
   languageName: unknown
   linkType: soft
 
