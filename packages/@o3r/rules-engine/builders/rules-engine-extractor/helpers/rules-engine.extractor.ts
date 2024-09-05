@@ -202,7 +202,7 @@ export class RulesEngineExtractor {
             .map(async (prop) => {
               const name = prop.name.getText(source);
               const description = this.commentParser.parseConfigDocFromNode(source, prop)?.description;
-              // eslint-disable-next-line max-len
+              // eslint-disable-next-line @stylistic/js/max-len
               if (!prop.type || !this.isNativeType(prop.type) && !ts.isTypeReferenceNode(prop.type) && !ts.isUnionTypeNode(prop.type)) {
                 throw new O3rCliError(`The fact ${name} has an unsupported type "${prop.type?.getText(source) || 'unknown'}" in ${sourceFile}`);
               }

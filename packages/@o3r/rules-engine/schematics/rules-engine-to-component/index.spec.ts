@@ -76,7 +76,7 @@ describe('Enable rules-engine on component', () => {
     await expect(runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
       path: 'test-folder/test-component-with-rules-engine.component.ts'
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     }, initialTree)).rejects.toThrow(new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.'));
   });
 
@@ -100,7 +100,7 @@ describe('Enable rules-engine on component', () => {
     await expect(runner.runSchematic('rules-engine-to-component', {
       projectName: 'test-project',
       path: 'test-folder/test-component-with-rules-engine.component.ts'
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     }, initialTree)).rejects.toThrow(new O3rCliError('Unable to add rules-engine: component "test-folder/test-component-with-rules-engine.component.ts" already has at least one of these properties: rulesEngineService.'));
   });
 });

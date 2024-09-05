@@ -58,6 +58,7 @@ export class IframeBridge {
         return;
       } catch {}
     }
+    // eslint-disable-next-line @typescript-eslint/prefer-promise-reject-errors
     return Promise.reject('Handshake failed.');
   }
 

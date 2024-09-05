@@ -41,6 +41,7 @@ export class SmartLookClient implements LoggerClient {
    * @inheritdoc
    */
   public warn(message?: any, ...optionalParams: any[]): void {
+    // eslint-disable-next-line no-console
     console.warn(message, ...optionalParams);
   }
 

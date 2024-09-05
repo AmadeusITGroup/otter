@@ -1,12 +1,13 @@
 import {BaseLogger, NewVersion, NewVersionOptions} from './index';
 
+/* eslint-disable no-console */
 const mockLogger: BaseLogger = {
   debug: console.debug,
-  // eslint-disable-next-line no-console
   error: console.error,
   info: console.info,
   warning: console.warn
 };
+/* eslint-enable no-console */
 
 describe('New Version', () => {
   describe('Compute version', () => {

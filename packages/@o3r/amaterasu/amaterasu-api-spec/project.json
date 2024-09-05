@@ -23,7 +23,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-api-spec/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/amaterasu/amaterasu-api-spec/src/**/*.ts",
           "packages/@o3r/amaterasu/amaterasu-api-spec/package.json"

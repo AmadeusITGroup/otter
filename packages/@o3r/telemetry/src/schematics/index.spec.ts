@@ -45,7 +45,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
 
   it('should call the original schematic with the options and log data', async () => {
     const rule = jest.fn((tree: Tree) => tree);
-    // eslint-disable-next-line no-unused-vars
+
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {
@@ -65,7 +65,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
 
   it('should works if we chain schematic wrapper', async () => {
     const rule = jest.fn((tree: Tree) => tree);
-    // eslint-disable-next-line no-unused-vars
+
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const noopSchematicWrapper: SchematicWrapper = (schematicFn) => (opts) => schematicFn(opts);
     const schematic = noopSchematicWrapper(createSchematicWithMetrics(originalSchematic));
@@ -87,7 +87,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
   it('should throw the original error and log the error in the data', async () => {
     const error = new Error('error example');
     const rule = jest.fn(() => { throw error; });
-    // eslint-disable-next-line no-unused-vars
+
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {
@@ -103,7 +103,7 @@ describe('createSchematicWithMetricsIfInstalled', () => {
 
   it('should throw if the rule is a rejected Promise', async () => {
     const rule = jest.fn(() => Promise.reject('rejected'));
-    // eslint-disable-next-line no-unused-vars
+
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);
     const options = {

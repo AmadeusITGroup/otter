@@ -63,7 +63,7 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
     // eslint-disable-next-line @typescript-eslint/naming-convention
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ engines: { node: '<20' } }), filename: packageToLint, options: [{ alignEngines: false }] },
@@ -161,9 +161,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ overrides: { test: { myDep: '^2.0.0' } } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }),
       options: [{ alignResolutions: true }],
       errors: [
@@ -179,9 +179,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ overrides: { myDep: '^2.0.0' } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ overrides: { myDep: '1.0.0' } }),
       options: [{ alignResolutions: true }],
       errors: [
@@ -197,9 +197,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ engines: { node: '^21.0.0' } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ engines: { node: '<20' } }),
       options: [{ alignEngines: true }],
       errors: [

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { blue, bold, green, grey } from 'chalk';
 import { program } from 'commander';
 import * as globby from 'globby';
@@ -122,7 +122,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 };
 
 void (async () => {
-  // eslint-disable-next-line max-len
+  // eslint-disable-next-line @stylistic/js/max-len
   logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
   const monorepoPackage: PackageJson = JSON.parse(readFileSync(options.monorepo, { encoding: 'utf8' }));
   const { workspaces, packageManager } = monorepoPackage;

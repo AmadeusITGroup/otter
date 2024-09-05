@@ -39,15 +39,12 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-sdk/core/.eslintrc.js",
+        "eslintConfig": "packages/@ama-sdk/core/eslint.config.js",
         "lintFilePatterns": [
           "packages/@ama-sdk/core/src/**/*.ts",
           "packages/@ama-sdk/core/package.json"
         ]
-      },
-      "dependsOn": [
-        "build"
-      ]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

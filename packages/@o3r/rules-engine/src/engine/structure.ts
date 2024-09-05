@@ -40,13 +40,13 @@ export interface BinaryOperation {
 // eslint-disable-next-line no-use-before-define
 export type NestedCondition = UnaryOperation | BinaryOperation | TopLevelCondition;
 /** All Condition */
-// eslint-disable-next-line id-blacklist
+// eslint-disable-next-line id-denylist
 export type AllConditions = {all: NestedCondition[]; any?: never; not?: never};
 /** Any Condition */
-// eslint-disable-next-line id-blacklist
+// eslint-disable-next-line id-denylist
 export type AnyConditions = {any: NestedCondition[]; all?: never; not?: never};
 /** Not Condition */
-// eslint-disable-next-line id-blacklist
+// eslint-disable-next-line id-denylist
 export type NotCondition = {not: NestedCondition; all?: never; any?: never};
 /** Top level Condition in the rule definition */
 export type TopLevelCondition = AllConditions | AnyConditions | NotCondition | UnaryOperation | BinaryOperation;

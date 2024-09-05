@@ -35,7 +35,7 @@ export const updatePackageJsonScripts: Rule = (tree, context) => {
         acc[scriptName] = cmd
           .replace(
             // Remove swagger config path if it is the default value
-            // eslint-disable-next-line max-len
+            // eslint-disable-next-line @stylistic/js/max-len
             / --(swagger-config-path|swaggerConfigPath)[= ]?(\.\/)?node_modules\/@ama-sdk\/generator-sdk\/src\/generators\/java-client-core\/templates\/swagger-codegen-java-client\/config\/swagger-codegen-config.json/,
             ''
           )
@@ -79,7 +79,7 @@ const createOpenApiToolsConfig: Rule = (tree) => {
   const openApiGeneratorVersion = amaSdkSchematicsPackageJsonContent.openApiSupportedVersion.replace(/\^|~/, '');
   const openApiDefaultStorageDir = '.openapi-generator';
   if (tree.exists(openApiConfigPath)) {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     const openapitoolsConfig = tree.readJson(openApiConfigPath) as JsonObject & OpenApiToolsConfiguration;
     openapitoolsConfig['generator-cli'] = {storageDir: openApiDefaultStorageDir, ...openapitoolsConfig['generator-cli'], version: openApiGeneratorVersion};
     tree.overwrite(openApiConfigPath, JSON.stringify(openapitoolsConfig));

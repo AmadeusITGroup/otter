@@ -27,7 +27,7 @@ async function run(): Promise<void> {
     core.info(`-- build source branch: ${buildSourceBranch}`);
     core.info(`-- build reason: ${buildReason}`);
     core.info(`-- repository URL: ${authenticatedGitUrl}`);
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     core.info(`-- is pull request: ${isPullRequest}`);
     core.info(`-- build ID: ${buildId}`);
     core.info(`-- baseBranch: ${baseBranch}`);
@@ -60,7 +60,7 @@ async function run(): Promise<void> {
       core.setFailed(errorMessage);
     }
   } catch (err) {
-    // eslint-disable-next-line no-console
+
     const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during input parsing';
     core.error(errorMessage);
     core.setFailed(errorMessage);

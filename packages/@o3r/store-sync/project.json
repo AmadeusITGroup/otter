@@ -30,7 +30,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/store-sync/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/store-sync/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/store-sync/src/**/*.ts",
           "packages/@o3r/store-sync/package.json"

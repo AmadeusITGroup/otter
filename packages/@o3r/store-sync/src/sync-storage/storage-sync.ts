@@ -253,12 +253,14 @@ export const syncStateUpdate = (
           typeof stateSlice === 'string' ? stateSlice : JSON.stringify(stateSlice, replacer, space)
         );
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.warn('Unable to save state to localStorage:', e);
       }
     } else if (typeof stateSlice === 'undefined' && removeOnUndefined && storage !== undefined) {
       try {
         storage.removeItem(storageKeySerializer(key as string));
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.warn(`Exception on removing/cleaning undefined '${key as string}' state`, e);
       }
     }

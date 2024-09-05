@@ -10,12 +10,12 @@ export function setupGit(workingDirectory?: string) {
   execSync('git init -b master && git add -A && git commit --allow-empty -m "initial commit" && git tag -a after-init -m "after-init"', {
     cwd: workingDirectory,
     env: {
-      /* eslint-disable @typescript-eslint/naming-convention, camelcase */
+      /* eslint-disable @typescript-eslint/naming-convention */
       GIT_AUTHOR_NAME: authorName,
       GIT_COMMITTER_NAME: authorName,
       GIT_AUTHOR_EMAIL: authorEmail,
       GIT_COMMITTER_EMAIL: authorEmail
-      /* eslint-enable @typescript-eslint/naming-convention, camelcase */
+      /* eslint-enable @typescript-eslint/naming-convention */
     }
   });
 }

@@ -24,7 +24,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-sdk/swagger-builder/.eslintrc.js",
+        "eslintConfig": "packages/@ama-sdk/swagger-builder/eslint.config.js",
         "lintFilePatterns": [
           "packages/@ama-sdk/swagger-builder/src/**/*.ts",
           "packages/@ama-sdk/swagger-builder/package.json"

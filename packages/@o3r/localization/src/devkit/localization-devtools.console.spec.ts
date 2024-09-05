@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { LocalizationModule, LocalizationService } from '../tools/index';

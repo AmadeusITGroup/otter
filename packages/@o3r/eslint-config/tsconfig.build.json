@@ -1,0 +1,17 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "module": "CommonJS",
+    "esModuleInterop": true
+  },
+  "include": [
+    "rules/**/*.ts",
+    "template.ts",
+    "typescript.ts",
+    "index.ts",
+    "public_api.ts",
+  ]
+}

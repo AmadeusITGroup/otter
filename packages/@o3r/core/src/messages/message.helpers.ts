@@ -34,7 +34,6 @@ export const sendOtterMessage = <T extends OtterMessageContent>(dataType: T['dat
   return window.postMessage(preStringify ? JSON.stringify(message) : message, '*');
 };
 
-/* eslint-disable no-redeclare */
 export function filterMessageContent<T extends Event | MessageEvent>(): (source$: Observable<T>) => Observable<OtterMessageContent<string>>;
 export function filterMessageContent<T extends Event | MessageEvent, S extends OtterMessageContent>(predicate: (message: any) => message is S): (source$: Observable<T>) => Observable<S>;
 /**
@@ -42,9 +41,8 @@ export function filterMessageContent<T extends Event | MessageEvent, S extends O
  * @param predicate condition to filter the message
  * @returns content of the message
  */
-// eslint-disable-next-line max-len
+// eslint-disable-next-line @stylistic/js/max-len
 export function filterMessageContent<T extends Event | MessageEvent, S extends OtterMessageContent>(predicate?: (message: any) => message is S): (source$: Observable<T>) => Observable<OtterMessageContent<string> | S> {
-/* eslint-enable no-redeclare */
   return (source$: Observable<T>) => {
     const obs = source$.pipe(
       map((event) => {

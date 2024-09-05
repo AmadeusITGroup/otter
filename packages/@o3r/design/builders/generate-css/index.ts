@@ -81,6 +81,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
+    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     let template: DesignTokenGroupTemplate | undefined;
     if (templateFilePaths) {
       const templateFiles = await Promise.all(
@@ -141,7 +142,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         acc.success = false;
         if (res.reason) {
           acc.error ||= '';
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+
           acc.error += EOL + res.reason;
         }
       }

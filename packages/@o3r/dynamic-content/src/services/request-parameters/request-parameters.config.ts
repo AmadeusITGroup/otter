@@ -5,7 +5,7 @@
  * Replace: storage data will be completely replaced by the ones provided
  * ReplaceIfNotEmpty: If no parameters are provided, use the content from storage. Otherwise use the ones provided and update the storage with them.
  */
-// eslint-disable-next-line no-shadow
+
 export enum StorageStrategy {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Rehydrate = 0,

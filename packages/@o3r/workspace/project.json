@@ -42,7 +42,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/workspace/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/workspace/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/workspace/src/**/*.ts",
           "packages/@o3r/workspace/package.json"

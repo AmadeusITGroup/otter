@@ -163,6 +163,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     // eslint-disable-next-line @typescript-eslint/no-misused-promises
     const isElPresent = await (sourceElement! || browser).isElementPresent(cssSelector);
     if (!isElPresent) {
+      // eslint-disable-next-line no-console
       console.warn(`No component matching ${selector} found`);
       return;
     }
@@ -177,6 +178,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
     const sourceElement = this.rootElement && this.rootElement.sourceElement;
     const item = (sourceElement || element).all(By.css(selector)).get(index);
     if (!(await item.isPresent())) {
+      // eslint-disable-next-line no-console
       console.warn(`No component matching ${selector}:nth(${index}) found`);
       return;
     }

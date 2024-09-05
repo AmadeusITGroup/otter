@@ -42,7 +42,7 @@ export const createApplication = async (context: Context, options: CreateApplica
   const directory = options.name.replace(/ /g, '-');
   const npmClient = options.yarn ? 'yarn' : 'npm';
   const npmRunner = options.yarn ? 'yarn' : 'npx';
-  // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
   const defaults = `${!!options.yes}`;
 
   const ngVersion: string = peerDependencies?.['@angular/cli'] || 'latest';
@@ -52,7 +52,7 @@ export const createApplication = async (context: Context, options: CreateApplica
   }
 
   await context.getSpinner('Creating a new Angular application...').fromPromise(
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     promiseSpawn(`npx -p @angular/cli@${ngVersion} ng new "${options.name}" --style=scss --defaults=${defaults} --directory=${directory} --package-manager=${options.yarn ? 'yarn' : 'npm'} --routing`, { cwd, logger, stderrLogger: logger.debug }),
     `Application created (in ${path.resolve(cwd, directory)})`
   );

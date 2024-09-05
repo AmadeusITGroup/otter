@@ -42,11 +42,11 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     (async () => {
       await promiseSpawn('npm init -y', { cwd, stderrLogger: logger.debug, logger });
       await promiseSpawn(`npm install --userconfig ${npmrcFile} --include dev ${Object.entries<string>(deps).map(([n, v]) => `${n}@${v}`).join(' ')}`, { cwd, stderrLogger: logger.debug, logger });
-      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @stylistic/js/max-len
       await promiseSpawn(`npx -p @angular-devkit/schematics-cli schematics @ama-sdk/schematics:typescript-shell --package-name sdk --description "${options.name} SDK"`, { cwd, stderrLogger: logger.debug, logger });
     })(),
     // TODO: simplify to the following line when migrated to schematics generation
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     // promiseSpawn(`npx ${Object.entries(deps).map(([n, v]) => `-p ${n}@${v}`).join(' ')} --userconfig ${npmrcFile} yo${options.yes ? ' --force=true' : ''} @ama-sdk/sdk:shell --projectName "${options.name}" --projectPackageName sdk --projectDescription "${options.name} SDK" --projectHosting "Azure DevOps"`, { cwd, stderrLogger: logger.debug, logger }),
     `SDK Shell generated (in ${inPackageCwd})`
   );

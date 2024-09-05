@@ -28,6 +28,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
         return element;
       }
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn('Failed to retrieve label of O3rCheckboxElement', err);
       return;
     }
@@ -42,6 +43,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
     if (labelElement) {
       const currentValue = await this.isChecked();
       if (currentValue === value) {
+        // eslint-disable-next-line no-console
         console.warn(`Checkbox is already ${currentValue ? 'checked' : 'unchecked'}`);
         return Promise.resolve();
       }

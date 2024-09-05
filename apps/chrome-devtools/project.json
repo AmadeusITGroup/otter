@@ -133,7 +133,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "apps/chrome-devtools/.eslintrc.js",
+        "eslintConfig": "apps/chrome-devtools/eslint.config.js",
         "lintFilePatterns": [
           "apps/chrome-devtools/src/**/*.ts",
           "apps/chrome-devtools/package.json"

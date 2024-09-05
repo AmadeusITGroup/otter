@@ -141,7 +141,7 @@ function getDescriptorFromReference(packageReference: string) {
 }
 
 async function fetchPackage(project: Project, descriptor: Descriptor): Promise<FetchResult> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(
@@ -183,7 +183,7 @@ export async function getFilesFromRegistry(packageDescriptor: string, paths: str
   const extractedFiles = paths.reduce((acc: Record<string, string>, path) => {
     acc[path] = result.packageFs.readFileSync(
       npath.toPortablePath(join(result.prefixPath, path)),
-      'utf-8'
+      'utf8'
     );
     return acc;
   }, {});

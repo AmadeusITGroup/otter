@@ -26,7 +26,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/eslint-config-otter/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/eslint-config-otter/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/eslint-config-otter/*.cjs",
           "packages/@o3r/eslint-config-otter/package.json"

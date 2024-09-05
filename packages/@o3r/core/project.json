@@ -34,15 +34,12 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/core/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/core/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/core/src/**/*.ts",
           "packages/@o3r/core/package.json"
         ]
-      },
-      "dependsOn": [
-        "build"
-      ]
+      }
     },
     "test": {
       "executor": "@nx/jest:jest",

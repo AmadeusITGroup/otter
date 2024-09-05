@@ -174,6 +174,7 @@ export const getCliModules = async (options: { localOnly: boolean } = { localOnl
     try {
       remoteModules = await getAvailableModules(MODULES_KEYWORD, moduleScopeWhitelist);
     } catch {
+      // eslint-disable-next-line no-console
       console.warn('Failed to execute `npm search`, will contains only installed packages');
     }
   }

@@ -78,7 +78,7 @@ If the application runs on a domain that is not protected by Imperva, this plugi
  */
 export interface AkamaiObject {
   /** Method exposed by akamai to get telemetry */
-  // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   get_telemetry: () => string;
 }
 

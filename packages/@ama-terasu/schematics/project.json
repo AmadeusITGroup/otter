@@ -27,7 +27,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-terasu/schematics/.eslintrc.js",
+        "eslintConfig": "packages/@ama-terasu/schematics/eslint.config.js",
         "lintFilePatterns": [
           "packages/@ama-terasu/schematics/src/**/*.ts",
           "packages/@ama-terasu/schematics/package.json"

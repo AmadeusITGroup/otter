@@ -40,7 +40,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "apps/showcase/.eslintrc.js",
+        "eslintConfig": "apps/showcase/eslint.config.js",
         "lintFilePatterns": [
           "apps/showcase/src/**/*.ts",
           "apps/showcase/package.json"

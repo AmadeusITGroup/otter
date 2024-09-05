@@ -15,6 +15,7 @@ export class O3rRadioElement extends O3rElement implements RadioElementProfile {
   public async check(value = true) {
     const currentValue = await this.isChecked();
     if (currentValue === value) {
+      // eslint-disable-next-line no-console
       console.warn(`O3rRadioElement is already ${value ? 'checked' : 'unchecked'}`);
       return Promise.resolve();
     }

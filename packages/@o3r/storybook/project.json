@@ -62,7 +62,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/storybook/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/storybook/src/**/*.ts",
           "packages/@o3r/storybook/package.json"

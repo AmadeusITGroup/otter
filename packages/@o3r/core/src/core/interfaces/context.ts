@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-
 import type { EventEmitter } from '@angular/core';
 import type { FormControl } from '@angular/forms';
 import type { Translation } from './translation';
@@ -39,7 +37,7 @@ export type Functionify<T extends BaseContextOutput> = { [P in keyof T]: (value:
  * Interface for a context of a child component
  */
 export interface TemplateContext<
-  N extends {},
+  N extends object,
   S extends ContextInput = Record<string, unknown>,
   F extends BaseContextOutput = Record<string, unknown>,
   W extends Translation = Translation> {

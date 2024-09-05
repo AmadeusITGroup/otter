@@ -37,7 +37,7 @@ export function updatePackageDependenciesFactory(
       ...packageJson.devDependencies,
       '@angular-devkit/build-angular': o3rCorePackageJson.peerDependencies!['@angular-devkit/core'],
       '@angular-devkit/core': o3rCorePackageJson.peerDependencies!['@angular-devkit/core'],
-      '@angular-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@angular-eslint/eslint-plugin'],
+      'angular-eslint': o3rCorePackageJson.generatorDependencies!['angular-eslint'],
       '@angular/cli': packageJson.peerDependencies['@angular/common'],
       '@angular/common': packageJson.peerDependencies['@angular/common'],
       '@angular/compiler': packageJson.peerDependencies['@angular/common'],

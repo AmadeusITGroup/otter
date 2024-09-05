@@ -186,7 +186,7 @@ export class SplitYamlFormatter implements Formatter {
     await this.generateParameterFile(writableSpec);
     const products = await this.generateProductFiles(writableSpec);
     await this.generateJsonFile(products);
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info(`Spec generated to ${this.filePath}`);
   }
 
@@ -206,7 +206,7 @@ export class SplitYamlFormatter implements Formatter {
     }, null, 2);
 
     await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info(`Artifact generated for ${this.filePath}`);
   }
 }

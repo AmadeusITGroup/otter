@@ -101,7 +101,7 @@ function execCmd(args: string[], execOptions: ExecSyncOptions) {
     return output;
   } catch (err: any) {
     // Yarn doesn't log errors on stderr, so we need to get them from stdout to have them in the reports
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     throw new Error(`Command failed: ${args.join(' ') }\nSTDERR:\n${err.stderr?.toString() || ''}\nOUTPUT:\n${err.output?.toString() || ''}`);
   }
 }
@@ -150,6 +150,7 @@ export function packageManagerVersion(version: string, args: string[], options: 
 /**
  * Publish a package to the npm registry
  * @param version
+ * @param args
  * @param options
  */
 export function packageManagerPublish(args: string[], options: ExecSyncOptions) {

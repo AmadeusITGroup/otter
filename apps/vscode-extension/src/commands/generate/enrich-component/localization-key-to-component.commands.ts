@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+
 import { relative } from 'node:path';
 import * as vscode from 'vscode';
 import { findPathAndExecuteSchematic } from './common';

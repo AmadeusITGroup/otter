@@ -33,7 +33,7 @@ export const createCustomApplication = async (context: Context, options: CreateC
   const cwd = resolve(process.cwd(), options.path);
 
   await context.getSpinner('Generating a new custom application...').fromPromise(
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     promiseSpawn(`npx -p @o3r/customization@${options['otter-version']} -p @angular-devkit/schematics-cli schematics @o3r/customization:generate --airlineCode ${options.airline} --checkoutTag ${options.tag} --refxFlavour ${options.flavour}`, { cwd, stderrLogger: logger.debug, logger }),
     `Application generated (in ${cwd})`
   );

@@ -271,7 +271,7 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
       shell: true,
       env: exactO3rVersion && projectPackageManager === 'npm' ? {
         ...process.env,
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         NPM_CONFIG_SAVE_EXACT: 'true'
       } : undefined
     }
@@ -280,6 +280,7 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
 
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
+// eslint-disable-next-line no-console
 console.info(logo);
 createNgProject();
 prepareWorkspace(projectFolder, packageManager);

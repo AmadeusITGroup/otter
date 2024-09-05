@@ -99,7 +99,7 @@ describe('Typescript Shell Generator', () => {
   });
 
   it('should generate correct openapitools.json', () => {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-redundant-type-constituents
+
     const openApiTools = yarnTree.readJson('/openapitools.json') as JsonObject & OpenApiToolsConfiguration;
     // eslint-disable-next-line @typescript-eslint/naming-convention
     expect(openApiTools['generator-cli'].generators).toEqual(expect.objectContaining({'test-scope-test-sdk': expect.anything()}));

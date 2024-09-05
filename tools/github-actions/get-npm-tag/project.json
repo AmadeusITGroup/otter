@@ -19,7 +19,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "tools/github-actions/get-npm-tag/.eslintrc.js",
+        "eslintConfig": "tools/github-actions/get-npm-tag/eslint.config.js",
         "lintFilePatterns": [
           "tools/github-actions/get-npm-tag/src/**/*.ts",
           "tools/github-actions/get-npm-tag/package.json"

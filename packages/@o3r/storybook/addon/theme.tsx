@@ -200,7 +200,7 @@ export default class ThemePanel extends React.Component<ThemePanelProps> {
                     value={isColor(this.props.theme[name]) ? new Color(value).hex() : value}
                     key={name}
                     style={{ display: 'inline-block' }}
-                    // eslint-disable-next-line max-len
+                    // eslint-disable-next-line @stylistic/js/max-len
                     onChange={isColor(this.props.theme[name]) ? (e: ChangeEvent<HTMLInputElement>) => this.handleValueChange(name, e.target.value) : (e: ChangeEvent<HTMLInputElement>) => this.updateValue(name, e.target.value)} />
                 </td>
               </tr>

@@ -35,7 +35,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/routing/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/routing/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/routing/src/**/*.ts",
           "packages/@o3r/routing/schematics/**/*.ts",

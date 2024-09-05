@@ -214,7 +214,7 @@ export class Encoder {
 
     // 4. Let bytes be a byte sequence whose first byte is (code
     // point >> (6 × count)) + offset.
-    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands,no-bitwise
+    // eslint-disable-next-line no-bitwise
     const bytes = [(codePoint >> (6 * count)) + offset];
 
     // 5. Run these substeps while count is greater than 0:
@@ -244,7 +244,7 @@ export class Encoder {
 
     let result: number | number[];
     // 3. While true, run these substeps:
-    // eslint-disable-next-line no-constant-condition
+
     while (true) {
       // 1. Let token be the result of reading from input.
       const token = input.read();

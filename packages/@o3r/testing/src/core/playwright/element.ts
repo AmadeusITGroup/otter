@@ -60,6 +60,7 @@ export class O3rElement implements ElementProfile {
     try {
       return await this.sourceElement.element.inputValue();
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.warn('Failed to retrieve input value');
       const valueByAttribute = await this.sourceElement.element.getAttribute('value');
       return valueByAttribute !== null ? valueByAttribute : undefined;

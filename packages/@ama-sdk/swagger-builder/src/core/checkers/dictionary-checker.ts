@@ -383,7 +383,7 @@ export class DictionaryChecker implements Checker {
         ...dictionaryReferences
           .filter((dictionaryReference) => !this.isDictionaryInDefinition(dictionaryReference, replyDefinition, definitionsWithReferer))
           .map((dictionaryReference) => ({
-            // eslint-disable-next-line max-len
+            // eslint-disable-next-line @stylistic/js/max-len
             message: `The dictionary ${dictionaryReference.dictionaryName} (type: ${dictionaryReference.fieldType}${dictionaryReference.isRequired ? ', required' : ''}) referred by ${dictionaryReference.requestedBy}.${dictionaryReference.originField} is missing in ${replyDefinition}`,
             details: this.findReferencePaths(replyDefinition, dictionaryReference.requestedBy, definitionsWithReferer)
               .map((refPath) => `Path from ${replyDefinition} to ${dictionaryReference.requestedBy}: ${refPath.join(' -> ')}`),

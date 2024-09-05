@@ -24,7 +24,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-sdk/showcase-sdk/.eslintrc.js",
+        "eslintConfig": "packages/@ama-sdk/showcase-sdk/eslint.config.js",
         "lintFilePatterns": [
           "packages/@ama-sdk/showcase-sdk/src/**/*.ts",
           "packages/@ama-sdk/showcase-sdk/package.json"

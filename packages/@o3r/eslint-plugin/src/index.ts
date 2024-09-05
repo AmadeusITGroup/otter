@@ -22,26 +22,17 @@ module.exports = {
     'o3r-categories-tags': o3rCategoriesTags
   },
   configs: {
-    '@o3r/no-folder-import-for-module': 'error',
-    '@o3r/o3r-categories-tags': 'error',
-    '@o3r/json-dependency-versions-harmonize': 'error',
-    '@o3r/no-multiple-type-configuration-property': 'error',
-    '@o3r/template-async-number-limitation': 'warn',
-    '@o3r/matching-configuration-name': 'warn',
-
     recommended: {
       rules: {
         '@o3r/matching-configuration-name': 'error',
         '@o3r/no-multiple-type-configuration-property': 'error',
         '@o3r/no-folder-import-for-module': 'error',
-        '@o3r/o3r-categories-tags': 'error',
-        '@o3r/template-async-number-limitation': 'off'
+        '@o3r/o3r-categories-tags': 'error'
       }
     },
 
     'template-recommended': {
       rules: {
-        '@o3r/no-folder-import-for-module': 'error',
         '@o3r/template-async-number-limitation': 'warn'
       }
     },
@@ -51,7 +42,6 @@ module.exports = {
         '@o3r/json-dependency-versions-harmonize': 'error'
       }
     },
-
     'yarn-recommended': {
       rules: {
         '@o3r/yarnrc-package-extensions-harmonize': 'error'

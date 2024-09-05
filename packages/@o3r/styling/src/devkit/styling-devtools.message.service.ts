@@ -23,6 +23,7 @@ const getCSSRulesAppliedOnRoot = () => Array.from(document.styleSheets)
     try {
       rules = styleSheet.cssRules || styleSheet.rules;
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.debug(`Could not access to stylesheet ${styleSheet.href}. This might be due to network issues, please check:
 - network connectivity
 - CORS setup

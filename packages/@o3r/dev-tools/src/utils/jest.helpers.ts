@@ -50,6 +50,7 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
   testingTsconfigPath ||= resolve(workspacePath, 'tsconfig.base.json');
 
   if (!existsSync(testingTsconfigPath)) {
+    // eslint-disable-next-line no-console
     console.warn(`${testingTsconfigPath} not found`);
     return {};
   }

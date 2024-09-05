@@ -37,14 +37,14 @@ describe('BotProtectionFingerprint', () => {
       beforeEach(() => {
         consoleMock = jest.spyOn(console, 'error').mockImplementation();
         windowBackup = global.window;
-        // eslint-disable-next-line no-global-assign
+
         global.window = {} as any;
         retriever = impervaProtectionRetrieverFactory(50, 50);
         tokenValue = 'dummyToken';
       });
 
       afterEach(() => {
-        // eslint-disable-next-line no-global-assign
+
         global.window = windowBackup;
         consoleMock.mockReset();
       });

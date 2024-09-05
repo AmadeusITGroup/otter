@@ -9,7 +9,6 @@ const {selectIds, selectEntities, selectAll, selectTotal} = configurationAdapter
  * Select Configuration State
  * Note: the usage of createSelector is to avoid warning printing because of potentially undefined feature store
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
 export const selectConfigurationState = createSelector<{[CONFIGURATION_STORE_NAME]: ConfigurationState }, [state: ConfigurationState | undefined], ConfigurationState | undefined>(
   (state) => state[CONFIGURATION_STORE_NAME],
   (state) => state

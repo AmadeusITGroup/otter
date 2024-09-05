@@ -196,13 +196,13 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-      // eslint-disable-next-line max-len
+      // eslint-disable-next-line @stylistic/js/max-len
       const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
 
-    // eslint-disable-next-line max-len
+    // eslint-disable-next-line @stylistic/js/max-len
     url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 
     logger.info(`Call to ${url}`);

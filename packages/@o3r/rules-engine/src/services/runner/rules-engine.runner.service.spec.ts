@@ -33,7 +33,7 @@ import { jsonTwoRulesetsBothOnDemand } from '../../../testing/mocks/tworulesets-
 describe('Rules engine service', () => {
 
   let service: RulesEngineRunnerService;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+
   let store: Store<ShoppingCartStore & RulesetsStore>;
   let foieGrasPriceFact$: Observable<string | undefined>;
   let cartFact$: Observable<ShoppingCart | null>;
@@ -325,18 +325,18 @@ describe('Rules engine service', () => {
       value$: aNumberSubj
     }]);
     store.dispatch(setRulesetsEntities({entities: jsonOneRulesetTwoRules.ruleSets}));
-    // eslint-disable-next-line no-console
+
     expect(consoleSpy).toHaveBeenCalled();
     const actions = await firstValueFrom(service.events$);
     expect(actions.length).toBe(1);
     // Fake emit of same value from sNumber fact, should not do anything
     aNumberSubj.next(undefined);
-    // eslint-disable-next-line no-console
+
     expect(consoleSpy).toHaveBeenCalledTimes(1);
     // Fake emit of new value from sNumber fact, should trigger error, but not the events$
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     aNumberSubj.next(null as any);
-    // eslint-disable-next-line no-console
+
     expect(consoleSpy).toHaveBeenCalledTimes(2);
     // Fake emit of new value from sNumber fact, should not trigger error, and trigger events$
     aNumberSubj.next(4);

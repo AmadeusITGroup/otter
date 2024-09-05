@@ -58,7 +58,7 @@ export class ConcurrentFetch implements FetchPlugin {
         } catch (e) {
           throw e;
         } finally {
-          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+
           this.pool = this.pool.filter((call) => call !== fetchCall);
           this.poolSize--;
           this.unstackResolve();

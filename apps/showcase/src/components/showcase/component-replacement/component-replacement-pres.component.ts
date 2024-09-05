@@ -30,10 +30,10 @@ export class ComponentReplacementPresComponent implements DynamicConfigurableWit
 
   @O3rConfig()
   public readonly configSignal = configSignal(
-      this.config,
-      COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
-      COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG
-    );
+    this.config,
+    COMPONENT_REPLACEMENT_PRES_CONFIG_ID,
+    COMPONENT_REPLACEMENT_PRES_DEFAULT_CONFIG
+  );
 
   public datePickerComponent: Signal<Type<DatePickerInputPresContext> | undefined>;
 

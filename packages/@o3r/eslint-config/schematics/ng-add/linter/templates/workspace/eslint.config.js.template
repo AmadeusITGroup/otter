@@ -1,0 +1,74 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+'use scrict';
+
+const o3rConfig = require('@o3r/eslint-config');
+const o3rPlugin = require('@o3r/eslint-plugin');
+const typescriptParser = require('@typescript-eslint/parser');
+const jsonParser = require('jsonc-eslint-parser');
+
+const globalSharedConfig = [
+  ...o3rConfig.default,
+  {
+    name: '<%= projectName %>/ignores',
+    ignores: [
+      '/node_modules',
+      '**/dist',
+      '**/dist-*',
+      '**/test',
+      '**/tmp'
+    ]
+  }
+  {
+    name: '<%= projectName %>/globals',
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.webextensions,
+        ...globals.jasmine,
+        ...globals.jest,
+        globalThis: true
+      },
+      ecmaVersion: 12
+    },
+    settings: {
+      'import/resolver': 'node'
+    }
+  },
+  {
+    name: '@o3r/typescript/parser',
+    files: ['**/*.{c,m,}{t,j}s'],
+    languageOptions: {
+      parser: typescriptParser
+    }
+  },
+  {
+    name: '@o3r/json/parser',
+    files: ['**/*.json'],
+    languageOptions: {
+      parser: jsonParser
+    }
+  },
+  {
+    name: '<%= projectName %>/package-json',
+    files: ['**/package.json'],
+    plugins: {
+      '@o3r': o3rPlugin
+    },
+    rules: {
+      '@o3r/json-dependency-versions-harmonize': [
+        'error',
+        {
+          ignoredPackages: [],
+          alignPeerDependencies: false
+        }
+      ]
+    }
+  }
+];
+
+module.exports = [
+  ...globalSharedConfig
+];
+
+module.exports.globalSharedConfig = globalSharedConfig;

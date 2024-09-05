@@ -83,7 +83,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
       ...options
     };
     if (!(window as any)[this.options.bridgeName]) {
-      // eslint-disable-next-line @typescript-eslint/dot-notation, dot-notation
+
       (window as any)[this.options.bridgeName] = {start: this.start.bind(this), stop: this.stop.bind(this)};
     } else {
       this.log(`An instance of ${this.options.bridgeName} already exists. This AbTestBridge instance will be ignored`);

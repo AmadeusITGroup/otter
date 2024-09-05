@@ -42,7 +42,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/logger/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/logger/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/logger/src/**/*.ts",
           "packages/@o3r/logger/package.json"

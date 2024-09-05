@@ -1,5 +1,5 @@
 import {PathObject} from '@ama-sdk/core';
 
-/* eslint-disable max-len */
+/* eslint-disable max-len, @stylistic/js/max-len */
 export const OPERATION_ADAPTER: PathObject[] = <%= swayOperationAdapter %>;
-/* eslint-enable max-len */
+/* eslint-enable max-len, @stylistic/js/max-len */

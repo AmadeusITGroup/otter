@@ -27,7 +27,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "apps/vscode-extension/.eslintrc.js",
+        "eslintConfig": "apps/vscode-extension/eslint.config.js",
         "lintFilePatterns": [
           "apps/vscode-extension/src/**/*.ts",
           "apps/vscode-extension/package.json"

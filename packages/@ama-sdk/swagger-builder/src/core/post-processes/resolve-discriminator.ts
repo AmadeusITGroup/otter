@@ -24,7 +24,7 @@ export class ResolveDiscriminator implements PostProcess {
         // Delete the discriminator in this case
         processedDefs[definitionName] = {...definition};
         delete processedDefs[definitionName].discriminator;
-        // eslint-disable-next-line no-console, no-restricted-syntax
+        // eslint-disable-next-line no-console
         console.info('Discriminator ' + discriminator + ' removed from ' + definitionName);
       }
       if (definition.allOf) {
@@ -35,7 +35,7 @@ export class ResolveDiscriminator implements PostProcess {
           }
           const newLine = {...definition.allOf};
           delete newLine.discriminator;
-          // eslint-disable-next-line no-console, no-restricted-syntax
+          // eslint-disable-next-line no-console
           console.info('Discriminator ' + discriminator + ' removed the AllOf of ' + definitionName);
           return newLine;
         });
@@ -59,7 +59,7 @@ export class ResolveDiscriminator implements PostProcess {
 
   /** @inheritdoc */
   public execute(swaggerSpec: any) {
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info('Resolve discriminator...');
     return {
       ...swaggerSpec,

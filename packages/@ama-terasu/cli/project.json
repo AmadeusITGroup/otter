@@ -24,7 +24,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-terasu/cli/.eslintrc.js",
+        "eslintConfig": "packages/@ama-terasu/cli/eslint.config.js",
         "lintFilePatterns": [
           "packages/@ama-terasu/cli/src/**/*.ts",
           "packages/@ama-terasu/cli/package.json"

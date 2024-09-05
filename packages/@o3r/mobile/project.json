@@ -32,7 +32,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/mobile/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/mobile/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/mobile/src/**/*.ts",
           "packages/@o3r/mobile/package.json"

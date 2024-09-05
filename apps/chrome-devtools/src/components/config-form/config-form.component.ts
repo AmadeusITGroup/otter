@@ -45,6 +45,7 @@ export class ConfigFormComponent {
           }
           this.form.controls[key].setValue(value);
         } else {
+          // eslint-disable-next-line no-console
           console.warn(`[Otter Chrome Extension] Unsupported type: ${type}`);
         }
       }

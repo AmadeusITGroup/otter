@@ -39,7 +39,6 @@ const isInjectionContentMessage = (content: any): content is InjectContentMessag
 
 /**
  * determinate if the message contains application information to share in the global panel
- *
  * @param data
  */
 const isApplicationInformationMessage = (data?: OtterMessageContent): data is ApplicationInformationContentMessage => data?.dataType === 'applicationInformation';
@@ -48,7 +47,6 @@ const activeStateAppliedOn = new Set<number>();
 
 /**
  * List of host which can access to the Chrome Extension store
- *
  * @param url
  */
 const isWhitelistedHost = async (url?: string) => {
@@ -63,7 +61,6 @@ const isWhitelistedHost = async (url?: string) => {
 /**
  * Retrieve a state and send a message to the Otter application connected to the DevTool that they should apply this
  * state.
- *
  * @param appName
  * @param tabId
  */
@@ -120,6 +117,7 @@ chrome.runtime.onConnect.addListener((port) => {
   const devToolsListener = async (message: any) => {
     // reject all messages not coming from the devtools
     if (!isOtterDebugMessage(message) || !isExtensionMessage(message)) {
+      // eslint-disable-next-line no-console
       return console.warn('Unknown message', message);
     }
 

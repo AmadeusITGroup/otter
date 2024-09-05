@@ -6,5 +6,11 @@
   "esm2020": "../../esm2020/api/fixtures.jest.js",
   "node": "../../cjs/api/fixtures.jest.js",
   "default": "../../esm2020/api/fixtures.jest.js",
-  "typings": "./index.d.ts"
+  "typings": "./index.d.ts",
+  "dependencies": {
+    "@swc/helpers": "~0.5.0",
+    "tslib": "^2.6.2",
+    "@ama-sdk/core": "0.0.0-placeholder",
+    "isomorphic-fetch": "~3.0.0"
+  }
 }

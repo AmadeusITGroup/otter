@@ -23,7 +23,7 @@ program
   .option('-I, --threadIdentifier <threadIdentifier>', 'Thread identifier', undefined)
   .requiredOption('-T, --accessToken <accessToken>', 'Access token')
   .action((actionComment: string) => {
-    // eslint-disable-next-line no-import-assign
+
     comment = actionComment;
   })
   .parse(process.argv);

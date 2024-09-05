@@ -59,6 +59,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
 
   /** @inheritDoc */
   public getValue() {
+    // eslint-disable-next-line no-console
     console.warn('Usage of "getValue" is not recommended on Material Select elements. Use "getPlainText()" instead.');
     return super.getValue();
   }

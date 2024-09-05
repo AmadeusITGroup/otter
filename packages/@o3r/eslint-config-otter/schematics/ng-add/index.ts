@@ -2,6 +2,7 @@ import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
 import type { NgAddSchematicsSchema } from './schema';
 import * as path from 'node:path';
 import { updateLinterConfigs } from './linter';
+import { readFileSync } from 'node:fs';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/eslint-config-otter has failed.
@@ -16,6 +17,14 @@ You need to install '@o3r/schematics' package to be able to use the eslint-confi
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
+    const eslintPackageJsonPath = require.resolve(`eslint/package.json`);
+    const eslintInstalledVersion = JSON.parse(readFileSync(eslintPackageJsonPath, { encoding: 'utf8' })).version;
+    const { gte } = await import('semver');
+    if (gte(eslintInstalledVersion, '9')) {
+      context.logger.warn(`You are using ESLint v9+
+You need to install '@o3r/eslint-config' instead. Please run 'ng add @o3r/eslint-config'.`);
+      return;
+    }
     const devDependenciesToInstall = [
       'eslint',
       '@angular-eslint/builder',

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-plus-operands, @typescript-eslint/naming-convention */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 import { LocalizationConfiguration } from '../core';
 import { TranslationsLoader } from './translations-loader';

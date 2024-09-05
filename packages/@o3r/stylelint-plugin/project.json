@@ -39,7 +39,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/stylelint-plugin/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/stylelint-plugin/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/stylelint-plugin/src/**/*.ts",
           "packages/@o3r/stylelint-plugin/package.json"

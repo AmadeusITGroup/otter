@@ -12,6 +12,7 @@ export class O3rRadioElement extends O3rElement implements RadioElementProfile {
   /** @inheritDoc */
   public async check(value = true) {
     if ((await this.isChecked()) === value) {
+      // eslint-disable-next-line no-console
       console.warn(`O3rRadioELement is already ${value ? 'checked' : 'unchecked'}`);
       return;
     }

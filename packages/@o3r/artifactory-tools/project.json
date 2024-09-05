@@ -38,7 +38,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/artifactory-tools/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/artifactory-tools/eslint.config.js",
         "lintFilePatterns": ["packages/@o3r/artifactory-tools/src/**/*.ts"]
       }
     },

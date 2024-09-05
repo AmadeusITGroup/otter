@@ -29,12 +29,14 @@ if ((globalThis as any).localMessageListener) {
     message = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
   } catch (e) {
     // ignore invalid JSON
+    // eslint-disable-next-line no-console
     console.warn('Chrome devtool could not parse invalid message', e);
   }
   if (message?.type === 'otter' && message.to !== 'app' && message.content) {
     try {
       void chrome.runtime.sendMessage(message);
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.warn('Chrome devtool could not send message', e);
       window.removeEventListener('message', (globalThis as any).localMessageListener);
     }

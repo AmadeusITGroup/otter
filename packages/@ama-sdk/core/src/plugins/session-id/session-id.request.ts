@@ -48,7 +48,9 @@ export class SessionIdRequest implements RequestPlugin {
   }
 
   private logSessionId(sessionId: string, date: string, logger?: Logger) {
+    // eslint-disable-next-line no-console
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Your debug ID associated to the header "${this.sessionIdHeader}" is: ${sessionId}.`);
+    // eslint-disable-next-line no-console
     (logger?.info || logger?.log || console.info).bind(logger || console)(`Generated at: ${date}`);
   }
 

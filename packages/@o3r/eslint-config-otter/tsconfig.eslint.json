@@ -3,6 +3,6 @@
   "include": [
     "*.cjs",
     "rules/**/*.cjs",
-    ".eslintrc.js"
+    "eslint.config.js"
   ]
 }

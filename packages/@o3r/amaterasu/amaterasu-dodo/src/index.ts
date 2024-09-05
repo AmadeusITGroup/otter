@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+
 import { AmaCliModule } from '@ama-terasu/core';
 import { spawn } from 'node:child_process';
 import { platform } from 'node:process';

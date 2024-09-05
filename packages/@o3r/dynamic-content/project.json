@@ -62,7 +62,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/dynamic-content/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/dynamic-content/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/dynamic-content/src/**/*.ts",
           "packages/@o3r/dynamic-content/package.json"

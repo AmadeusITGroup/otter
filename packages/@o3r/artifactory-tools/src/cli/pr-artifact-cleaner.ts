@@ -74,7 +74,7 @@ const fetchOptions = {
       .sort({"$desc" : ["path","name"]})
       .limit(10000)`
 } as const satisfies RequestInit;
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
 logger.debug(`AQL search executed : ${fetchOptions.body}`);
 logger.info(`Url called : ${url}`);
 

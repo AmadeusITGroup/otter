@@ -104,7 +104,7 @@ const options: Options = {
   .sort({"$desc" : ["created"]}).offset(${offset})
   .limit(10000)`
 };
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
 logger.debug(`AQL search executed : ${options.body}`);
 logger.info(`Url called : ${url}`);
 

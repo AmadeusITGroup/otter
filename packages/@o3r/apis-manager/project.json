@@ -30,7 +30,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/apis-manager/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/apis-manager/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/apis-manager/src/**/*.ts",
           "packages/@o3r/apis-manager/package.json"

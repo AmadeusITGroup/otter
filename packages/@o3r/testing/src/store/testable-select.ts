@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 export * from '@ngrx/store';
 
 import { select as baseSelect } from '@ngrx/store';

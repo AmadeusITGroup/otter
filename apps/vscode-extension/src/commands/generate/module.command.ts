@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { dirname, relative, resolve} from 'node:path';
 import type { ExtensionContext } from 'vscode';
 import * as vscode from 'vscode';

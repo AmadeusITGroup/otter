@@ -80,7 +80,7 @@ export const stringifyOptions = (options: Record<string, any> = {}, excludedOpti
       opt === optionName
       || opt.startsWith(`--${toSnakeCase(optionName)}=`)
     ))
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     .map(([optionName, optionValue]) => `--${toSnakeCase(optionName)}="${optionValue}"`);
 };
 

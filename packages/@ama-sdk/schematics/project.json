@@ -68,7 +68,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
+        "eslintConfig": "packages/@ama-sdk/schematics/eslint.config.js",
         "lintFilePatterns": ["packages/@ama-sdk/schematics/schematics/**/*.ts"]
       }
     },

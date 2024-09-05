@@ -19,7 +19,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/third-party/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/third-party/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/third-party/src/**/*.ts",
           "packages/@o3r/third-party/package.json"

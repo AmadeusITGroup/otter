@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { relative } from 'node:path';
 import * as vscode from 'vscode';
 import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../../helpers';

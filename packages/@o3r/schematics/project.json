@@ -44,7 +44,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/schematics/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/schematics/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/schematics/src/**/*.ts",
           "packages/@o3r/schematics/package.json"

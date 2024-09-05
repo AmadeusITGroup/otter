@@ -1,7 +1,6 @@
 import { TestScheduler } from 'rxjs/testing';
 import { lazyArray } from './rendering.helpers';
 
-/* eslint-disable space-in-parens */
 describe('Rendering helpers', () => {
   let testScheduler: TestScheduler;
 

@@ -13,7 +13,7 @@ It's possible to switch a configuration to another by passing a `global` argumen
 Example of configuration:
 
 ```javascript
-// .eslintrc.js
+// eslint.config.js
 
 module.exports = {
   ...,

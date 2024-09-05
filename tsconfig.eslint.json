@@ -2,7 +2,8 @@
   "extends": "./tsconfig.base",
   "include": [
     ".github/**/*.mjs",
-    ".eslintrc.js",
+    "eslint.config.js",
+    "eslint.version-harmonize.config.js",
     "jest.config.js",
     "testing/*",
     "scripts/**/*.js",

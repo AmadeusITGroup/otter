@@ -26,10 +26,10 @@ export class ConfigurationPresComponent implements DynamicConfigurableWithSignal
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
   public configSignal = configSignal(
-      this.config,
-      CONFIGURATION_PRES_CONFIG_ID,
-      CONFIGURATION_PRES_DEFAULT_CONFIG
-    );
+    this.config,
+    CONFIGURATION_PRES_CONFIG_ID,
+    CONFIGURATION_PRES_DEFAULT_CONFIG
+  );
 
   public destinations = computed(() => this.configSignal().destinations);
   public shouldProposeRoundTrip = computed(() => this.configSignal().shouldProposeRoundTrip);

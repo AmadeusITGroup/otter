@@ -19,7 +19,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "tools/github-actions/cascading/.eslintrc.js",
+        "eslintConfig": "tools/github-actions/cascading/eslint.config.js",
         "lintFilePatterns": [
           "tools/github-actions/cascading/src/**/*.ts",
           "tools/github-actions/cascading/package.json"

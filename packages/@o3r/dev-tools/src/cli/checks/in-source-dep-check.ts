@@ -23,7 +23,7 @@ const dependencyTypes = ['dependencies', 'devDependencies', 'peerDependencies'];
 program
   .description('[DEPRECATED] Checks that the dependencies imported in the code are declared in the package.json file')
   .option<string>('--root <directory>', 'Project root directory', (p) => resolve(process.cwd(), p), process.cwd())
-  // eslint-disable-next-line max-len
+  // eslint-disable-next-line @stylistic/js/max-len
   .option<string[]>('--ignore <...patterns>', 'Path patters to ignore', (p, previous) => ([...previous, ...p.split(',')]), ['**/node_modules/**', '**/dist/**', '**/dist-*/**', '**/mocks/**', '**/templates/**', '**/*.template'])
   .option('--ignore-workspace', 'Ignore the workspace and only check from the root directory')
   .option('--fail-on-error', 'Return a non-null status in case of dependency issue found')

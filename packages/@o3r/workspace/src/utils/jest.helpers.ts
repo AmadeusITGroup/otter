@@ -12,6 +12,7 @@ import { posix, resolve } from 'node:path';
 export const getJestProjects = (rootDir = process.cwd(), jestConfigPattern = 'jest.config.{j,t}s') => {
   const rootPackageJson = resolve(rootDir, 'package.json');
   if (!existsSync(rootPackageJson)) {
+    // eslint-disable-next-line no-console
     console.warn(`No package.json found in ${rootDir}`);
     return [];
   }

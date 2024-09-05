@@ -178,7 +178,7 @@ export class BuildStatsPlugin implements WebpackPluginInstance {
   }
 
 
-  // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
   private makeNewProfiledTapFn(hook: string, { name, type, fn }: { name: string; type: string; fn: Function }) {
 
     switch (type) {

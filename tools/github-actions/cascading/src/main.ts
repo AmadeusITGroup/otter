@@ -64,7 +64,7 @@ async function run(): Promise<void> {
       }
     }
   } catch (err) {
-    // eslint-disable-next-line no-console
+
     const errorMessage = err instanceof Error ? err.message : typeof err === 'string' ? err : 'Caught an error during input parsing';
     core.error(errorMessage);
     core.setFailed(errorMessage);

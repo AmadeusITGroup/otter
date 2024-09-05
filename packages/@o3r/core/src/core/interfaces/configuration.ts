@@ -67,8 +67,7 @@ export interface DynamicConfigurableWithSignal<T extends Configuration> {
 /**
  * Configurable item
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
-export interface Configurable<T extends {}> {
+export interface Configurable<T extends object> {
   /**
    * Configuration
    */

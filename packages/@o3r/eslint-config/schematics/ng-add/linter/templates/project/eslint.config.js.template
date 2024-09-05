@@ -1,0 +1,17 @@
+const { globalSharedConfig } = require('<%= rootRelativePath %>/eslint.config.js');
+
+module.exports = [
+  ...globalSharedConfig,
+  {
+    name: '<%= projectName %>/projects',
+    languageOptions: {
+      'tsconfigRootDir': __dirname,
+      'project': [
+        '<%= projectTsConfig %>.json',
+        'tsconfig.spec.json',
+        'tsconfig.eslint.json'
+      ],
+      'sourceType': 'module'
+    }
+  }
+];

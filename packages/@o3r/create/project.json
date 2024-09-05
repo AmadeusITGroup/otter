@@ -23,7 +23,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/create/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/create/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/create/src/**/*.ts",
           "packages/@o3r/create/package.json"

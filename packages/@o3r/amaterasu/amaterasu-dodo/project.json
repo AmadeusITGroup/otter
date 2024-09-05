@@ -28,7 +28,7 @@
     },
     "lint": {
       "options": {
-        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-dodo/.eslintrc.js",
+        "eslintConfig": "packages/@o3r/amaterasu/amaterasu-dodo/eslint.config.js",
         "lintFilePatterns": [
           "packages/@o3r/amaterasu/amaterasu-dodo/src/**/*.ts",
           "packages/@o3r/amaterasu/amaterasu-dodo/package.json"

@@ -201,6 +201,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
       return elements;
     } catch (err) {
+      // eslint-disable-next-line no-console
       console.warn(`Failed to query all ${selector}`, err);
       return Promise.resolve([]);
     }
