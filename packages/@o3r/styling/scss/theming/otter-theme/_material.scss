@@ -165,7 +165,6 @@
 /// Note: the purpose of this function is to transform a Material Design compatible theme to add a CSS Variable layer on top of Material Design theme.
 /// @param $meta-theme Meta theme
 /// @param $enable-css-var enable CSS variable generation
-/// TODO: investigate issue on RefX app to enable $enable-css-var per default
 @function meta-theme-to-material($meta-theme: (), $enable-css-var: false) {
   @return _meta-theme-to-material($meta-theme, '', $enable-css-var);
 }

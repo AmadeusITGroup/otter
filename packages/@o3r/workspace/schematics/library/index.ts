@@ -25,7 +25,7 @@ import * as fs from 'node:fs';
 function generateModuleFn(options: NgGenerateModuleSchema): Rule {
 
   return (tree, context) => {
-    const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson;
+    const ownPackageJsonContent = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf8' })) as PackageJson;
     const packageJsonName = strings.dasherize(options.name);
     const cleanName = packageJsonName.replace(/^@/, '').replaceAll(/\//g, '-');
 

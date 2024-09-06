@@ -19,8 +19,7 @@ export default createRule<[Options, ...any], 'tooManyAsyncOnTag'>({
     type: 'problem',
     hasSuggestions: true,
     docs: {
-      description: 'Ensures that your template does not use too many Async pipes that can slow down your application.',
-      recommended: 'strict'
+      description: 'Ensures that your template does not use too many Async pipes that can slow down your application.'
     },
     schema: [
       {

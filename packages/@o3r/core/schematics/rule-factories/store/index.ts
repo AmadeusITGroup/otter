@@ -19,7 +19,7 @@ import * as fs from 'node:fs';
 
 const coreSchematicsFolder = path.resolve(__dirname, '..', '..');
 const corePackageJsonPath = path.resolve(coreSchematicsFolder, '..', 'package.json');
-const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' }));
+const corePackageJsonContent = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf8' }));
 const o3rCoreVersion = corePackageJsonContent.version;
 
 const ngrxEffectsDep = '@ngrx/effects';

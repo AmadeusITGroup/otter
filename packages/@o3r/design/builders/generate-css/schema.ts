@@ -11,6 +11,11 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   metadataOutput?: string;
 
   /**
+   * Ignore the private variable in the metadata generation
+   */
+  metadataIgnorePrivate?: boolean;
+
+  /**
    * Output file where generate the CSS
    *
    * If specified, all the generated CSS variable will be generated in the given file.
@@ -46,5 +51,5 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   variableType?: 'css' | 'sass';
 
   /** Path to a template file to apply as default configuration to a Design Token extension */
-  templateFile?: string;
+  templateFile?: string | string[];
 }

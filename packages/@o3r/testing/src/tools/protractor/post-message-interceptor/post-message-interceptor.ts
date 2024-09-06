@@ -36,7 +36,7 @@ export class PostMessageInterceptor {
     const fetchManager = fs.readFileSync(
       path.resolve(process.cwd(), 'node_modules', '@o3r', 'testing', 'tools', 'protractor', 'post-message-interceptor', '_post-message-interceptor.js'),
       {
-        encoding: 'utf-8'
+        encoding: 'utf8'
       }
     );
     await browser.executeScript(fetchManager);

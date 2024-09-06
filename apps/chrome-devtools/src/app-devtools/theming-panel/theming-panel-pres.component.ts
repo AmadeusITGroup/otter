@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, effect, inject, type OnDestroy, type Signal, untracked, ViewEncapsulation } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DfTooltipModule } from '@design-factory/design-factory';
 import { NgbAccordionModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
@@ -105,9 +105,11 @@ export class ThemingPanelPresComponent implements OnDestroy {
     }, {}));
     this.numberOfVariables = computed(() => Object.keys(this.resolvedVariables()).length);
 
-    effect(() => {
+    this.variables$.pipe(
+      takeUntilDestroyed()
+    ).subscribe((variables) => {
       const variablesControl = this.form.controls.variables;
-      this.variables().forEach((variable) => {
+      variables.forEach((variable) => {
         const initialValue = variable.runtimeValue ?? variable.defaultValue;
         const control = variablesControl.controls[variable.name];
         if (!control) {
@@ -120,12 +122,14 @@ export class ThemingPanelPresComponent implements OnDestroy {
               const update = {
                 [variable.name]: (newValue !== variable.defaultValue ? newValue : null) ?? null
               };
-              this.stateService.updateLocalState({
-                stylingVariables: update
-              });
-              connectionService.sendMessage('updateStylingVariables', {
-                variables: update
-              });
+              if (update[variable.name] !== null) {
+                this.stateService.updateLocalState({
+                  stylingVariables: update
+                });
+                connectionService.sendMessage('updateStylingVariables', {
+                  variables: update
+                });
+              }
             })
           );
         } else {
@@ -206,7 +210,12 @@ export class ThemingPanelPresComponent implements OnDestroy {
     effect(() => {
       if (!this.activeStateName()) {
         Object.keys(this.form.controls.variables.controls)
-          .forEach((variableName) => this.onColorReset(untracked(this.variablesMap)[variableName]));
+          .forEach((variableName) => {
+            const variable = untracked(this.variablesMap)[variableName];
+            if (this.form.controls.variables.controls[variableName].value !== variable.defaultValue) {
+              this.onColorReset(variable);
+            }
+          });
       }
     });
 
