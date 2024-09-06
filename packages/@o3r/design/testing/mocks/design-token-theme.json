@@ -16,6 +16,18 @@
         "o3rPrivate": true
       }
     },
+    "var-ref-to-var1-private": {
+      "$value": "{example.var1-private}"
+    },
+    "var-private-ref": {
+      "$value": "{example.var1}",
+      "$extensions": {
+        "o3rPrivate": true
+      }
+    },
+    "var-private-ref-to-public-var": {
+      "$value": "{example.var-private-ref}"
+    },
     "var-important": {
       "$extensions": {
         "o3rImportant": true
