@@ -6861,7 +6861,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
-    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-angular: "npm:~31.3.0"
     ag-grid-community: "npm:~32.0.1"
     archiver: "npm:^7.0.0"
     bootstrap: "npm:5.3.3"
@@ -7969,7 +7969,7 @@ __metadata:
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
     "@yarnpkg/sdks": "npm:^3.0.0"
-    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-angular: "npm:~31.3.0"
     ag-grid-community: "npm:~32.0.1"
     babel-loader: "npm:^9.0.0"
     bootstrap: "npm:5.3.3"
@@ -8816,7 +8816,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
-    ag-grid-angular: "npm:~31.1.1"
+    ag-grid-angular: "npm:~31.3.0"
     ag-grid-community: "npm:~32.0.1"
     bootstrap: "npm:5.3.3"
     concurrently: "npm:^8.0.0"
@@ -13985,23 +13985,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ag-grid-angular@npm:~31.1.1":
-  version: 31.1.1
-  resolution: "ag-grid-angular@npm:31.1.1"
+"ag-grid-angular@npm:~31.3.0":
+  version: 31.3.4
+  resolution: "ag-grid-angular@npm:31.3.4"
   dependencies:
-    ag-grid-community: "npm:31.1.1"
     tslib: "npm:^2.3.0"
   peerDependencies:
     "@angular/common": ">= 14.0.0"
     "@angular/core": ">= 14.0.0"
-  checksum: 10/26688a1a81f98e114c43e715d6cf4b88f26044823cc861525795d3b8640550a647d207f7e370a622775fd29905a68026454bdeab3ba2f28862b43ff7ef88df8f
-  languageName: node
-  linkType: hard
-
-"ag-grid-community@npm:31.1.1":
-  version: 31.1.1
-  resolution: "ag-grid-community@npm:31.1.1"
-  checksum: 10/345e3ca0d46eacbd95b52f0c36cbe33b3f2932afdb76118f7afe3d969f72e17e589730f356ae4943a493a747a70138c8f8bd8f36bf1d7ca069f36d2a040e8f4f
+    ag-grid-community: 31.3.4
+  checksum: 10/1f8851b87c1b1ece6fa957fe65f18076a6bd4f831b0ca4e4986cdce8e80169433ee5b49f1eb0c4e5445435578ffda9777ebcf2ca24f98952977291a5c1b77562
   languageName: node
   linkType: hard
 
