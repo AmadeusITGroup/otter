@@ -1,9 +1,9 @@
 import * as core from '@actions/core';
 import {getExecOutput} from '@actions/exec';
 import * as os from 'node:os';
-import {GitHubAdvisoryId, NPMAuditReportV1, Severity} from 'audit-types';
-import Audit = NPMAuditReportV1.Audit;
-import Advisory = NPMAuditReportV1.Advisory;
+import type { GitHubAdvisoryId, NPMAuditReportV1, Severity } from 'audit-types';
+type Audit = NPMAuditReportV1.Audit;
+type Advisory = NPMAuditReportV1.Advisory;
 
 /**
  * Severities supported by yarn npm audit from the lowest to the highest criticality
