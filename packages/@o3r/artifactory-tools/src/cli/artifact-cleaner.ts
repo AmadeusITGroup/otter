@@ -3,7 +3,6 @@
 
 
 import { program } from 'commander';
-import {Headers} from 'request';
 import * as winston from 'winston';
 
 program
@@ -49,12 +48,12 @@ const matchFilter = (fullUrl: string, types: string[]) => {
 };
 
 let url = opts.artifactoryUrl as string;
-const options: { headers: Headers } = {
+const options = {
   headers: {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     Authorization: 'Basic ' + (opts.basicAuth as string)
   }
-};
+} as const satisfies RequestInit;
 const limitTimestampToKeepOldArtifact = Date.now() - opts.durationKept;
 url += (url.endsWith('/') ? '' : '/') +
   `api/search/usage?notUsedSince=${limitTimestampToKeepOldArtifact}&createdBefore=${limitTimestampToKeepOldArtifact}&repos=${(opts.repositories as string[]).join(',')}`;

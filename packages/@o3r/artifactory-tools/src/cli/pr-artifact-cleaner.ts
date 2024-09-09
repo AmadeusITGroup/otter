@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import { Headers, Options } from 'request';
 import * as winston from 'winston';
 
 program
@@ -50,17 +49,18 @@ if (programOptions.basicAuth && programOptions.apiKey) {
   logger.error('Only one authentication method should be used at a time. Please provide only the apiKey (-a) or the basicAuth (-b) but not both.');
   process.exit(1);
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const authHeader: Headers = programOptions.basicAuth ? { Authorization: `Basic ${programOptions.basicAuth as string}`} : {'X-JFrog-Art-Api': programOptions.apiKey as string};
+const authHeader: RequestInit['headers'] = programOptions.basicAuth ?
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  { Authorization: `Basic ${programOptions.basicAuth as string}`} : {'X-JFrog-Art-Api': programOptions.apiKey as string};
 let url: string = programOptions.artifactoryUrl;
 url += (url.endsWith('/') ? '' : '/') + 'api/search/aql';
 const ageInDays: number = programOptions.durationKept;
 const prBuilds: number = programOptions.prBuilds;
 const repository: string = programOptions.repository;
 const path: string = programOptions.path;
-const options: Options = {
+const fetchOptions = {
+  method: 'POST',
   headers: authHeader,
-  uri: url,
   body: `items.find(
         {
           "$and":
@@ -73,9 +73,9 @@ const options: Options = {
       ).include("name","repo","path","created")
       .sort({"$desc" : ["path","name"]})
       .limit(10000)`
-};
+} as const satisfies RequestInit;
 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-logger.debug(`AQL search executed : ${options.body}`);
+logger.debug(`AQL search executed : ${fetchOptions.body}`);
 logger.info(`Url called : ${url}`);
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
@@ -84,7 +84,7 @@ logger.info(`Url called : ${url}`);
   let responseSearch: any;
   let responseSearchObj: { results: { repo: string; path: string; name: string }[] };
   try {
-    responseSearch = await fetch(url, {method: 'POST', headers: authHeader, body: options.body});
+    responseSearch = await fetch(url, fetchOptions);
     responseSearchObj = await responseSearch.json();
   } catch (e) {
     logger.warn('No result found %o', e);
