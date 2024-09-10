@@ -37,4 +37,16 @@ describe('getMetadataTokenValueRenderer', () => {
     expect(result).toBeDefined();
     expect(() => JSON.parse(result)).not.toThrow();
   });
+
+  test('should correctly remove private variables from generation', () => {
+    const renderer = getMetadataTokenValueRenderer({ignorePrivateVariable: true});
+    const variable = designTokens.get('example.var-private-ref-to-public-var');
+
+    const result = renderer(variable, designTokens);
+    const metadata = JSON.parse(result);
+    expect(result).toBeDefined();
+    expect(metadata).toBeDefined();
+    expect(metadata.references.length).toBe(1);
+    expect(metadata.references[0].name).toBe('example-var1');
+  });
 });
