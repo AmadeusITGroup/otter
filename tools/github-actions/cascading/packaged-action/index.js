@@ -29642,6 +29642,8 @@ const node_child_process_1 = __nccwpck_require__(7718);
 const promisifiedExec = (0, node_util_1.promisify)(node_child_process_1.exec);
 async function run() {
     try {
+        core.warning('This Github action is Deprecated, it will not be maintained after the version 12. Please register the Cascading Github App instead.');
+        core.warning('https://github.com/apps/otter-cascading');
         // Processing options from inputs
         const noFf = core.getInput('noFf');
         const ignoredPattern = core.getInput('ignoredPattern');
