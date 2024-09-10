@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "incremental": true,
+    "composite": true,
+    "module": "CommonJS",
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
