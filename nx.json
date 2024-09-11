@@ -62,17 +62,15 @@
     ],
     "lint": [
       "default",
-      "{projectRoot}/.eslintignore",
-      "{projectRoot}/.eslintrc.js",
+      "{projectRoot}/eslint*.config.mjs",
       "{projectRoot}/**/*.ts",
       "{projectRoot}/**/*.cts",
       "{projectRoot}/**/*.mts",
       "{projectRoot}/src/**/*.js",
       "{projectRoot}/src/**/*.mjs",
       "{projectRoot}/src/**/*.cjs",
-      "{workspaceRoot}/.eslintrc.js",
-      "{workspaceRoot}/.eslintignore",
-      "{workspaceRoot}/packages/@o3r/eslint-config-otter/*.cjs",
+      "{workspaceRoot}/eslint*.config.mjs",
+      "{workspaceRoot}/packages/@o3r/eslint-config/src/**/*.ts",
       "{workspaceRoot}/packages/@o3r/eslint-plugin/src/**/*.ts"
     ],
     "specs": [
@@ -117,13 +115,16 @@
   },
   "targetDefaults": {
     "lint": {
-      "configurations":{
+      "options": {
+        "cwd": "{projectRoot}",
+        "command": "yarn eslint '**/*.{m,c,}{j,t}s' '**/*.html' '**/*.json' --no-error-on-unmatched-pattern"
+      },
+      "configurations": {
         "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
+          "command": "`yarn eslint '**/*.{m,c,}{j,t}s' '**/*.html' '**/*.json'--quiet` --cache-location .cache/eslint --no-error-on-unmatched-pattern"
         }
       },
-      "executor": "@nx/eslint:lint",
+      "executor": "nx:run-commands",
       "inputs": ["lint"],
       "cache": true
     },

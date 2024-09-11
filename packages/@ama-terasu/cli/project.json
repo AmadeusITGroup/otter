@@ -23,13 +23,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-terasu/cli/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-terasu/cli/src/**/*.ts",
-          "packages/@ama-terasu/cli/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

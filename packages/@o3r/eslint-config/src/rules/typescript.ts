@@ -21,23 +21,39 @@ const getJestConfig = (type: 'recommended' | 'overrides'): TSESLint.FlatConfig.C
       : [{
         // Name added for debugging purpose with @eslint/config-inspector
         name: 'jest/flat-recommended',
+        files: [
+          '**/*.{c,m,}{t,j}s'
+        ],
         ...require('eslint-plugin-jest').configs['flat/recommended']
       }];
   }
   catch { return []; }
 };
 
-const config: TSESLint.FlatConfig.ConfigArray = [
+const configArray: TSESLint.FlatConfig.ConfigArray = [
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: '@eslint/js/recommended',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     ...eslint.configs.recommended
   },
-  // TODO remove the `as any` once migrate @typescript-eslint/utils to v8
-  ...typescript.configs.recommended as any,
-  ...typescript.configs.recommendedTypeChecked,
-  ...angular.configs.tsRecommended,
-  jsdoc.configs['flat/recommended'],
+  ...[
+    ...typescript.configs.recommended,
+    ...typescript.configs.recommendedTypeChecked,
+    ...angular.configs.tsRecommended
+  ].map((config) => ({
+    // Same files as the ones asked by `typescript-eslint/eslint-recommended`
+    files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
+    ...config
+  })),
+  {
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
+    ...jsdoc.configs['flat/recommended']
+  },
   ...(getJestConfig('recommended')),
   // All recommended first as the order has an importance
   ...eslintConfigOverrides,
@@ -51,6 +67,9 @@ const config: TSESLint.FlatConfig.ConfigArray = [
   ...otterConfig(o3r),
   {
     name: '@o3r/typescript/language-options',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     languageOptions: {
       ecmaVersion: 2020,
       sourceType: 'module',
@@ -64,4 +83,4 @@ const config: TSESLint.FlatConfig.ConfigArray = [
   }
 ];
 
-export default config;
+export default configArray;

@@ -1,15 +1,18 @@
 import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { TSESLint } from '@typescript-eslint/utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
+import jsonParser from 'jsonc-eslint-parser';
 import * as path from 'node:path';
 
 const virtualFileSystem = useVirtualFileSystem();
 import jsonDependencyVersionsHarmonize from './json-dependency-versions-harmonize';
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('jsonc-eslint-parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parser: jsonParser,
+    parserOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module'
+    }
   }
 });
 
@@ -63,7 +66,7 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     { code: JSON.stringify({ peerDependencies: { myOtherDep: '^2.0.0' } }), filename: packageToLint, options: [{ alignPeerDependencies: false }] },
     // eslint-disable-next-line @typescript-eslint/naming-convention
     { code: JSON.stringify({ resolutions: { 'test/sub/myDep': '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     { code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ overrides: { myDep: '1.0.0' } }), filename: packageToLint, options: [{ alignResolutions: false }] },
     { code: JSON.stringify({ engines: { node: '<20' } }), filename: packageToLint, options: [{ alignEngines: false }] },
@@ -161,9 +164,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ overrides: { test: { myDep: '^2.0.0' } } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ overrides: { test: { myDep: '1.0.0' } } }),
       options: [{ alignResolutions: true }],
       errors: [
@@ -179,9 +182,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ overrides: { myDep: '^2.0.0' } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ overrides: { myDep: '1.0.0' } }),
       options: [{ alignResolutions: true }],
       errors: [
@@ -197,9 +200,9 @@ ruleTester.run('json-dependency-versions-harmonize', jsonDependencyVersionsHarmo
     },
     {
       filename: packageToLint,
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       output: JSON.stringify({ engines: { node: '^21.0.0' } }),
-      // eslint-disable-next-line @typescript-eslint/naming-convention
+
       code: JSON.stringify({ engines: { node: '<20' } }),
       options: [{ alignEngines: true }],
       errors: [
