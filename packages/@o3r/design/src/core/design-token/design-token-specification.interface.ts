@@ -238,7 +238,7 @@ export type DesignTokenGroup<E extends DesignTokenExtensions = DesignTokenExtens
 
 /** Design Token Group for common properties only */
 export type DesignTokenGroupTemplate<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> =
-  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<DesignTokenGroupExtensions> | G | string | boolean | undefined };
+  DesignTokenGroupCommonFields<G> & { [x: string]: DesignTokenGroupTemplate<G> | G | string | boolean | undefined };
 
 /** Context of the Design Token specification document */
 export type DesignTokenContext<G extends DesignTokenGroupExtensions = DesignTokenGroupExtensions> = {
