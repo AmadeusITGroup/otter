@@ -25,13 +25,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/eslint-config-otter/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/eslint-config-otter/*.cjs",
-          "packages/@o3r/eslint-config-otter/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "compile": {
       "executor": "nx:run-script",
@@ -40,7 +34,8 @@
       },
       "dependsOn": [],
       "inputs": [
-        "{projectRoot}/rules/**/*"
+        "{projectRoot}/rules/**/*",
+        "!{projectRoot}/**/*.spec.ts"
       ]
     },
     "prepare-build-builders": {

@@ -6,6 +6,9 @@ import stylisticTs from '@stylistic/eslint-plugin-ts';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/stylistic-js',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     plugins: {
       '@stylistic/js': stylisticJs
     },

@@ -18,13 +18,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "tools/github-actions/get-npm-tag/.eslintrc.js",
-        "lintFilePatterns": [
-          "tools/github-actions/get-npm-tag/src/**/*.ts",
-          "tools/github-actions/get-npm-tag/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     }
   },
   "tags": []

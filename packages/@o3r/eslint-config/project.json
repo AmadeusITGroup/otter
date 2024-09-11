@@ -30,26 +30,15 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/eslint-config/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/eslint-config/**/*.ts",
-          "packages/@o3r/eslint-config/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "compile": {
       "executor": "@nx/js:tsc",
       "options": {
         "main": "packages/@o3r/eslint-config/src/public_api.ts",
         "tsConfig": "packages/@o3r/eslint-config/tsconfig.build.json",
-        "outputPath": "packages/@o3r/eslint-config/dist",
-        "clean": false
-      },
-      "inputs": [
-        "{projectRoot}/rules/**/*",
-        "{projectRoot}/*.ts"
-      ]
+        "outputPath": "packages/@o3r/eslint-config/dist"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

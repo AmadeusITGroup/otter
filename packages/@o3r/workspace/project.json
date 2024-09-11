@@ -41,13 +41,7 @@
       "outputs": ["{projectRoot}/dist"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/workspace/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/workspace/src/**/*.ts",
-          "packages/@o3r/workspace/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

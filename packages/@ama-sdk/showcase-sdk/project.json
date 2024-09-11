@@ -23,13 +23,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-sdk/showcase-sdk/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@ama-sdk/showcase-sdk/src/**/*.ts",
-          "packages/@ama-sdk/showcase-sdk/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "publish": {
       "executor": "nx:run-commands",

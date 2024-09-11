@@ -61,13 +61,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/dynamic-content/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/dynamic-content/src/**/*.ts",
-          "packages/@o3r/dynamic-content/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

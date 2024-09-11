@@ -5,6 +5,9 @@ import unicornPlugin from 'eslint-plugin-unicorn';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/unicorn',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     plugins: {
       unicorn: unicornPlugin
     },

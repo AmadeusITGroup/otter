@@ -4,7 +4,7 @@ import type { TSESLint } from '@typescript-eslint/utils';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/typescript-eslint',
-    // Same files as the ones asked by `typescript-eslint` recommendation
+    // Same files as the ones asked by `typescript-eslint/eslint-recommended`
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {
       '@typescript-eslint/adjacent-overload-signatures': 'error',
@@ -100,7 +100,8 @@ const config: TSESLint.FlatConfig.ConfigArray = [
         'error',
         {
           'argsIgnorePattern': '^_',
-          'caughtErrors': 'none'
+          'caughtErrors': 'none',
+          'ignoreRestSiblings': true
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
