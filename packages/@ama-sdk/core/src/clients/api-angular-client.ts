@@ -9,10 +9,14 @@ import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client'
 import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 import { EmptyResponseError } from '../fwk/errors';
 import { ReviverType } from '../fwk/Reviver';
+import type { AngularCall, AngularPlugin, PluginObservableRunner } from '../plugins/core/angular-plugin';
 
 /** @see BaseApiClientOptions */
 export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
+  /** Angular HTTP Client  */
   httpClient: HttpClient;
+  /** List of plugins to apply to the Angular Http call */
+  angularPlugins: AngularPlugin[];
 }
 
 /** @see BaseApiConstructor */
@@ -21,7 +25,7 @@ export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAn
 
 const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
-  // AngularPlugins: [],
+  angularPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false
@@ -104,11 +108,30 @@ export class ApiAngularClient implements ApiClient {
         let data: HttpResponse<any>;
         const metadataSignal = options.metadata?.signal;
         metadataSignal?.throwIfAborted();
-        const subscription = this.options.httpClient.request(options.method, url, {
+
+        const loadedPlugins: (PluginObservableRunner<HttpResponse<any>, AngularCall>)[] = [];
+        if (this.options.angularPlugins) {
+          loadedPlugins.push(...this.options.angularPlugins.map((plugin) => plugin.load({
+            angularPlugins: loadedPlugins,
+            apiClient: this,
+            url,
+            apiName,
+            requestOptions: options,
+            logger: this.options.logger
+          })));
+        }
+
+        let httpRequest = this.options.httpClient.request(options.method, url, {
           ...options,
           observe: 'response',
           headers
-        }).subscribe({
+        });
+
+        for (const plugin of loadedPlugins) {
+          httpRequest = plugin.transform(httpRequest);
+        }
+
+        const subscription = httpRequest.subscribe({
           next: (res) => data = res,
           error: (err) => reject(err),
           complete: () => resolve(data)
