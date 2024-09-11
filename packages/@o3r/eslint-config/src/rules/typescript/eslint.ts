@@ -4,6 +4,9 @@ import type { TSESLint } from '@typescript-eslint/utils';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/eslint-js',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     rules: {
       'camelcase': 'error',
       'complexity': 'off',

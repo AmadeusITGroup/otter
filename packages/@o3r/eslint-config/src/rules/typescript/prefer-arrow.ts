@@ -6,6 +6,9 @@ import preferArrowPlugin from 'eslint-plugin-prefer-arrow';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/prefer-arrow',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     plugins: {
       'prefer-arrow': preferArrowPlugin
     },

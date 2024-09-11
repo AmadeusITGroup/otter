@@ -1,8 +1,11 @@
+import templateParser from '@angular-eslint/template-parser';
 import { convertAnnotatedSourceToFailureCase, RuleTester } from '@angular-eslint/test-utils';
 import templateAsyncNumberLimitation, { name } from './template-async-number-limitation';
 
 const ruleTester = new RuleTester({
-  parser: '@angular-eslint/template-parser'
+  languageOptions: {
+    parser: templateParser
+  }
 });
 
 ruleTester.run(name, templateAsyncNumberLimitation as any /* workaround for 5.9.0 breaking change on interface */, {

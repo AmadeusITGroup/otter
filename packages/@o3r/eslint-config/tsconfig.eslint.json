@@ -3,6 +3,6 @@
   "include": [
     "testing/setup-jest.builders.ts",
     "testing/setup-jest.ts",
-    ".eslintrc.js"
+    "eslint*.config.mjs"
   ]
 }

@@ -1,8 +1,11 @@
+import templateParser from '@angular-eslint/template-parser';
 import { RuleTester } from '@angular-eslint/test-utils';
 import noInnerHTMLRule, { name } from './no-inner-html';
 
 const ruleTester = new RuleTester({
-  parser: '@angular-eslint/template-parser'
+  languageOptions: {
+    parser: templateParser
+  }
 });
 
 const validHTML = '<p innerText="test"></p>';
