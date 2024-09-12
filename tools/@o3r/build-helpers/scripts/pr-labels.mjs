@@ -13,6 +13,26 @@ const defaultConfig = {
   ignoreProjectForLabels: []
 };
 
+/** @type {Record<string, RegExp[]>} */
+const messageTagMaps = {
+  enhancement: [
+    /^feat(ures?)?\b/
+  ],
+  bug: [
+    /^(bug)?fix(es)?\b/
+  ],
+  'breaking change': [
+    /\bbreaking([\- ]changes?)?\b/
+  ],
+  documentation: [
+    /\bdoc(s|umentation)?\b/,
+    /\breadme\b/i
+  ],
+  deprecate: [
+    /^deprecate\b/
+  ]
+};
+
 /**
  * Get labels from the git log output command
  *
@@ -24,31 +44,17 @@ async function getLabelsFromMessage(targetBranch, config) {
     return [];
   }
 
-  const commitLabels = [];
+  /** @type {Set<string>} */const commitLabels = new Set();
   const commitMessages = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf-8', shell: true }).stdout.trim() || '';
   const lines = commitMessages?.split(EOL) || [];
 
-  lines.forEach((line) => {
-    if (line.match(/^feat(ures?)?\b/)) {
-      commitLabels.push('enhancement');
-    } else if (line.match(/^(bug)?fix(es)?\b/)) {
-      commitLabels.push('bug');
-    }
+  lines.forEach((line) =>
+    Object.entries(messageTagMaps)
+      .filter(([, regExps]) => regExps.some((r) => r.test(line)))
+      .forEach(([tag]) => commitLabels.add(tag))
+  );
 
-    if (line.match(/\bbreaking([- ]changes?)?\b/)) {
-      commitLabels.push('breaking change');
-    }
-
-    const docRegExps = [
-      /\bdoc(s|umentation)?\b/,
-      /\breadme\b/i
-    ];
-    if (docRegExps.some((docRegExp) => docRegExp.test(line))) {
-      commitLabels.push('documentation');
-    }
-  });
-
-  return commitLabels;
+  return [...commitLabels];
 }
 
 /**
