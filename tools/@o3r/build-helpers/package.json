@@ -17,6 +17,7 @@
     "cp-assets": "./scripts/cp-assets.mjs",
     "cp-build": "./scripts/cp-build.mjs",
     "cp-package-json": "./scripts/cp-package-json.mjs",
+    "create-monorepo-scope": "./scripts/create-monorepo-scope.mjs",
     "doc-links": "./scripts/doc-links.mjs",
     "generate-cjs-manifest": "./scripts/generate-cjs-manifest.mjs",
     "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
