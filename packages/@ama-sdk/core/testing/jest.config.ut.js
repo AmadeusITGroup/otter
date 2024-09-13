@@ -8,9 +8,7 @@ module.exports = {
   displayName: require('../package.json').name,
   rootDir,
   fakeTimers: {
-    enableGlobally: true,
-    // TODO re-enable fake dates when issue fixed https://github.com/sinonjs/fake-timers/issues/437
-    doNotFake: ['Date']
+    enableGlobally: true
   },
   testPathIgnorePatterns: [
     '<rootDir>/.*/templates/.*',
