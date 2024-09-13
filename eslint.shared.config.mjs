@@ -56,7 +56,7 @@ export default [
       globals: {
         ...globals.jasmine
       }
-    },
+    }
   },
   {
     name: '@o3r/spec',
@@ -86,6 +86,18 @@ export default [
           checkObsoleteDependencies: false,
           checkVersionMismatches: false,
           ignoredDependencies: ['ora', '@o3r/test-helpers']
+        }
+      ]
+    }
+  },
+  {
+    name: '@o3r/eslint-config',
+    files: ['**/eslint*.config.mjs'],
+    rules: {
+      'no-underscore-dangle': [
+        'error',
+        {
+          allow: ['__filename', '__dirname']
         }
       ]
     }
