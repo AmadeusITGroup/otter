@@ -7967,7 +7967,6 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:^"
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/telemetry": "workspace:^"
-    "@o3r/training-tools": "workspace:^"
     "@o3r/workspace": "workspace:^"
     "@playwright/test": "npm:~1.47.0"
     "@popperjs/core": "npm:^2.11.5"
@@ -7984,9 +7983,6 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.14.1"
     "@typescript-eslint/types": "npm:^7.14.1"
     "@typescript-eslint/utils": "npm:^7.14.1"
-    "@webcontainer/api": "npm:~1.2.4"
-    "@xterm/addon-fit": "npm:^0.10.0"
-    "@xterm/xterm": "npm:^5.0.0"
     "@yarnpkg/sdks": "npm:^3.0.0"
     ag-grid-angular: "npm:~32.1.0"
     ag-grid-community: "npm:~32.1.0"
@@ -8017,11 +8013,8 @@ __metadata:
     lighthouse: "npm:~12.2.0"
     lint-staged: "npm:^15.0.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.50.0"
     ng-packagr: "npm:~18.2.0"
     ngx-highlightjs: "npm:^12.0.0"
-    ngx-monaco-editor-v2: "npm:^18.0.0"
-    ngx-monaco-tree: "npm:^17.5.0"
     npm-run-all2: "npm:^6.0.0"
     nx: "npm:~19.5.0"
     pixelmatch: "npm:^5.2.1"
@@ -8052,20 +8045,8 @@ __metadata:
   dependenciesMeta:
     "@swc/core":
       built: true
-    "@vscode/codicons":
-      unplugged: true
-    "@xterm/addon-fit":
-      unplugged: true
-    "@xterm/xterm":
-      unplugged: true
     esbuild:
       built: true
-    monaco-editor:
-      unplugged: true
-    ngx-monaco-editor-v2:
-      unplugged: true
-    ngx-monaco-tree:
-      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -8880,7 +8861,7 @@ __metadata:
     monaco-editor: "npm:~0.50.0"
     ngx-highlightjs: "npm:^12.0.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
-    ngx-monaco-tree: "npm:^17.5.0"
+    ngx-monaco-tree: "npm:^18.1.0"
     pixelmatch: "npm:^5.2.1"
     playwright-lighthouse: "npm:~4.0.0"
     pngjs: "npm:^7.0.0"
@@ -25391,17 +25372,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ngx-monaco-tree@npm:^17.5.0":
-  version: 17.5.0
-  resolution: "ngx-monaco-tree@npm:17.5.0"
+"ngx-monaco-tree@npm:^18.1.0":
+  version: 18.1.0
+  resolution: "ngx-monaco-tree@npm:18.1.0"
   dependencies:
-    tslib: "npm:^2.3.0"
+    tslib: "npm:^2.7.0"
   peerDependencies:
-    "@angular/cdk": ^17.3.0
-    "@angular/common": ^17.3.0
-    "@angular/core": ^17.3.0
+    "@angular/cdk": ^17.3.10
+    "@angular/common": ^18.2.2
+    "@angular/core": ^18.2.2
     "@vscode/codicons": ^0.0.32
-  checksum: 10/9c2e66babc3efddd549ea423b41713b11706eeb15478ae7ca30b5ff41c12d7c3718fe08aadb3f42cf54301b1f28ade8aa7d13a4d0a29ea7630cbe51a42184376
+  checksum: 10/138ea6735cb897333ed13e3f5b46fa341978824ace6bbf12aafd113160018bdfdf65692f02374b7a00a82b5420ae83cbebf87c517d9bd28d7c0df185521162a0
   languageName: node
   linkType: hard
 
@@ -31562,7 +31543,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.6.3":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.2.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0, tslib@npm:^2.6.2, tslib@npm:^2.6.3, tslib@npm:^2.7.0":
   version: 2.7.0
   resolution: "tslib@npm:2.7.0"
   checksum: 10/9a5b47ddac65874fa011c20ff76db69f97cf90c78cff5934799ab8894a5342db2d17b4e7613a087046bc1d133d21547ddff87ac558abeec31ffa929c88b7fce6
