@@ -19,6 +19,7 @@
     "publish": "yarn run prepare:publish && yarn nx run-many --target=publish --exclude=tag:private --parallel $(yarn get:cpus-number) --nx-bail",
     "publish:extensions": "yarn nx run-many --target=publish-extension --parallel $(yarn get:cpus-number)",
     "publish:extensions:affected": "yarn nx affected --target=publish-extension --parallel $(yarn get:cpus-number)",
+    "package-github-actions:affected": "yarn nx affected --target=package-github-action --parallel $(yarn get:cpus-number)",
     "lint": "yarn nx run-many --target=lint --parallel $(yarn get:cpus-number)",
     "lint:affected": "yarn nx affected --target=lint --parallel $(yarn get:cpus-number)",
     "test": "yarn nx run-many --target=test --parallel $(yarn get:cpus-number) --cacheDirectory=$(yarn get:current-dir)/.cache/jest",
