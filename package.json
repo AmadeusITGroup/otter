@@ -193,7 +193,6 @@
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/telemetry": "workspace:^",
-    "@o3r/training-tools": "workspace:^",
     "@o3r/workspace": "workspace:^",
     "@playwright/test": "~1.47.0",
     "@popperjs/core": "^2.11.5",
@@ -210,9 +209,6 @@
     "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "@webcontainer/api": "~1.2.4",
-    "@xterm/addon-fit": "^0.10.0",
-    "@xterm/xterm": "^5.0.0",
     "@yarnpkg/sdks": "^3.0.0",
     "ag-grid-angular": "~32.1.0",
     "ag-grid-community": "~32.1.0",
@@ -243,11 +239,8 @@
     "lighthouse": "~12.2.0",
     "lint-staged": "^15.0.0",
     "minimist": "^1.2.6",
-    "monaco-editor": "~0.50.0",
     "ng-packagr": "~18.2.0",
     "ngx-highlightjs": "^12.0.0",
-    "ngx-monaco-editor-v2": "^18.0.0",
-    "ngx-monaco-tree": "^17.5.0",
     "npm-run-all2": "^6.0.0",
     "nx": "~19.5.0",
     "playwright-lighthouse": "~4.0.0",
@@ -275,26 +268,8 @@
     "@swc/core": {
       "built": true
     },
-    "@vscode/codicons": {
-      "unplugged": true
-    },
-    "@xterm/addon-fit": {
-      "unplugged": true
-    },
-    "@xterm/xterm": {
-      "unplugged": true
-    },
     "esbuild": {
       "built": true
-    },
-    "monaco-editor": {
-      "unplugged": true
-    },
-    "ngx-monaco-editor-v2": {
-      "unplugged": true
-    },
-    "ngx-monaco-tree": {
-      "unplugged": true
     }
   },
   "engines": {
