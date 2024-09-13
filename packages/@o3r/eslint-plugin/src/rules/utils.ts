@@ -9,10 +9,7 @@ const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'pa
 /** ESLint rule generator */
 // eslint-disable-next-line new-cap
 export const createRule = ESLintUtils.RuleCreator((name) => {
-  if (version === '0.0') {
-    return 'file:' + path.resolve(__dirname, '..', '..', '..', '..', '..', 'docs', 'linter', 'eslint-plugin', 'rules', `${name}.md`);
-  }
-  return `https://github.com/AmadeusITGroup/otter/tree/release/${version}/docs/linter/eslint-plugin/rules/${name}.md`;
+  return `https://github.com/AmadeusITGroup/otter/tree/release/${version === '0.0' ? 'main' : version}/docs/linter/eslint-plugin/rules/${name}.md`;
 });
 
 /** Default supported interface names */

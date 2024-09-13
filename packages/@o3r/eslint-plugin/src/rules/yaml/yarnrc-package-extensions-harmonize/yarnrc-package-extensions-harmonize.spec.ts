@@ -1,14 +1,17 @@
 import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { TSESLint } from '@typescript-eslint/utils';
+import { RuleTester } from '@typescript-eslint/rule-tester';
+import yamlParser from 'yaml-eslint-parser';
 import * as path from 'node:path';
 
 const virtualFileSystem = useVirtualFileSystem();
 import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('yaml-eslint-parser'),
-  parserOptions: {
-    defaultYAMLVersion: '1.2'
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parser: yamlParser,
+    parserOptions: {
+      defaultYAMLVersion: '1.2'
+    }
   }
 });
 

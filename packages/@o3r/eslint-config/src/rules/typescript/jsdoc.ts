@@ -4,6 +4,9 @@ import type { TSESLint } from '@typescript-eslint/utils';
 const config: TSESLint.FlatConfig.ConfigArray = [
   {
     name: '@o3r/overrides/jsdoc',
+    files: [
+      '**/*.{c,m,}{t,j}s'
+    ],
     rules: {
       'jsdoc/check-alignment': 'error',
       // TODO fix issue with ESLint v9+
