@@ -3,7 +3,7 @@
     <div>
       <label for="download">
         <span class="btn btn-outline-primary text-nowrap" tabindex="0" role="button" aria-controls="download" dfTriggerClick>
-          <i class="me-2 icon-download"></i>
+          <i class="me-2 fa-download"></i>
           Import state
         </span>
         <input type="file" accept="application/JSON" id="download" class="d-none" (change)="onFileChange($event)" />
@@ -20,7 +20,7 @@
       <button class="btn btn-primary text-nowrap" (click)="saveNewState()"
         [disabled]="form.controls.newStateName.invalid || form.controls.newStateName.disabled"
         [ngbTooltip]="newStateNameErrorMessage()">
-        <i class="me-2 icon-plus"></i>
+        <i class="me-2 fa-plus"></i>
         Create new state
       </button>
     </div>
@@ -39,16 +39,16 @@
           <input type="color" formControlName="color" class="form-control form-control-color" />
           <input type="text" formControlName="name" class="form-control" />
         </div>
-        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-save"
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-save"
           (click)="updateState(state.key)"
           [ngbTooltip]="activeState()?.name !== state.key ? 'Only the selected state can be saved' : 'Save changes'"
           [disabled]="activeState()?.name !== state.key"
         ></button>
-        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-share-square"
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-share-square"
           (click)="exportState(state.key)"
           ngbTooltip="Share"
         ></button>
-        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly icon-trash-alt"
+        <button type="button" class="ms-auto btn btn-outline-primary df-btn-icononly fa-trash-alt"
           (click)="deleteState(state.key)"
           [ngbTooltip]="activeState()?.name === state.key ? 'Selected state cannot be deleted' : 'Delete'"
           [disabled]="activeState()?.name === state.key"

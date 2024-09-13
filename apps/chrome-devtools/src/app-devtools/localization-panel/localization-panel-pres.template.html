@@ -37,7 +37,7 @@
   @if (hasLocalizations()) {
     <div class="mb-2 input-group">
       <label class="input-group-text" for="search-localization">
-        <i class="mx-1 icon-search" aria-label="Search"></i>
+        <i class="mx-1 fa-search" aria-label="Search"></i>
       </label>
       <input class="form-control" formControlName="search" type="text" id="search-localization" placeholder="Search for localization" />
     </div>
@@ -59,7 +59,7 @@
                         <input [attr.aria-describedby]="localization.key" class="form-control" type="text" [formControlName]="localization.key" />
                       </ng-container>
                       @if (localizationActiveStateOverridesForCurrentLang()[localization.key] || localizationLocalStateOverridesForCurrentLang()[localization.key]) {
-                        <i class="form-text text-warning icon-undo position-absolute end-0 me-3"
+                        <i class="form-text text-warning fa-undo position-absolute end-0 me-3"
                           [ngbTooltip]="
                             activeStateName() && localizationActiveStateOverridesForCurrentLang()[localization.key] !== localizationLocalStateOverridesForCurrentLang()[localization.key]
                               ? 'Reset value to the one from ' + activeStateName() + ': ' + (localizationActiveStateOverridesForCurrentLang()[localization.key] || localization.value)
