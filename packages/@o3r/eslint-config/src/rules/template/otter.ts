@@ -7,7 +7,7 @@ export default (
 ): TSESLint.FlatConfig.ConfigArray => [
   o3rBaseConfig(plugin),
   {
-    name: '@o3r/template',
+    name: '@o3r/template-recommended',
     files: ['**/*.html'],
     rules: {
       '@o3r/template-async-number-limitation': 'warn'

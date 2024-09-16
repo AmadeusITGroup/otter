@@ -44,7 +44,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       '@typescript-eslint/eslint-plugin': amaSdkSchematicsPackageJson.devDependencies!['@typescript-eslint/eslint-plugin'],
       '@typescript-eslint/parser': amaSdkSchematicsPackageJson.devDependencies!['@typescript-eslint/parser'],
       '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli'],
-      '@stylistic/eslint-plugin-ts': amaSdkSchematicsPackageJson.devDependencies!['@stylistic/eslint-plugin-ts'],
+      '@stylistic/eslint-plugin': amaSdkSchematicsPackageJson.devDependencies!['@stylistic/eslint-plugin'],
       'commit-and-tag-version': amaSdkSchematicsPackageJson.devDependencies!['commit-and-tag-version'],
       'cpy-cli': amaSdkSchematicsPackageJson.devDependencies!['cpy-cli'],
       'eslint-plugin-jest': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-jest'],

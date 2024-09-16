@@ -201,7 +201,7 @@
     "@playwright/test": "~1.47.0",
     "@popperjs/core": "^2.11.5",
     "@schematics/angular": "~18.2.0",
-    "@stylistic/eslint-plugin-ts": "~2.7.0",
+    "@stylistic/eslint-plugin": "~2.7.0",
     "@swc-node/register": "^1.9.2",
     "@swc/core": "~1.7.0",
     "@types/eslint": "~9.6.0",

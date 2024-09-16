@@ -84,7 +84,7 @@
     "@o3r/routing": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
-    "@stylistic/eslint-plugin-ts": "~2.7.0",
+    "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",
