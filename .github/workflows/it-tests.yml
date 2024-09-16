@@ -8,6 +8,10 @@ on:
         default: false
         required: false
         description: Skip the nx cache
+      ref:
+        type: string
+        default: ''
+        description: The branch, tag or SHA to checkout.
     secrets:
       NX_CLOUD_ACCESS_TOKEN:
         required: false
@@ -27,7 +31,11 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
+        with:
+          artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
@@ -43,7 +51,7 @@ jobs:
       - name: Publish verdaccio storage
         uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
-          name: verdaccio
+          name: ${{ inputs.ref && format('verdaccio-{0}', inputs.ref) || 'verdaccio' }}
           path: verdaccio.zip
       - name: Stop verdaccio
         if: always()
@@ -64,7 +72,11 @@ jobs:
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
       - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ inputs.ref }}
       - uses: ./tools/github-actions/download-build-output
+        with:
+          artifactName: ${{ inputs.ref && format('dist-{0}', inputs.ref) || 'dist' }}
       - uses: ./tools/github-actions/setup
       - shell: bash
         run: |
@@ -77,6 +89,7 @@ jobs:
         run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
         shell: bash
       - name: Cache test-app yarn
+        if: inputs.ref == ''
         uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: |
@@ -89,7 +102,7 @@ jobs:
       - uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16 # v4.1.8
         name: Download verdaccio storage prepared in the previous job
         with:
-          name: verdaccio
+          name: ${{ inputs.ref && format('verdaccio-{0}', inputs.ref) || 'verdaccio' }}
           path: '.'
       - name: Setup verdaccio once for all tests
         id: setup-verdaccio
@@ -122,13 +135,13 @@ jobs:
         if: failure() && steps.it-tests.conclusion == 'failure'
         uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
-          name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
+          name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
         uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
         with:
-          name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}
+          name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}-${{ inputs.ref }}
           path: 'packages/**/dist-test/it-report.xml'
       - name: Stop verdaccio
         if: always() && runner.os == 'Linux'

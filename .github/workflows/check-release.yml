@@ -1,0 +1,43 @@
+name: Check release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        type: string
+        required: true
+        description: The branch, tag or SHA to checkout.
+  workflow_call:
+    inputs:
+      ref:
+        type: string
+        default: ''
+        description: The branch, tag or SHA to checkout.
+    secrets:
+      NX_CLOUD_ACCESS_TOKEN:
+        required: false
+        description: Token to use Nx Cloud token
+
+jobs:
+  buildRelease:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          ref: ${{ inputs.ref }}
+      - uses: ./tools/github-actions/setup
+      - uses: ./.github/actions/setup-java
+        with:
+          install-jdk: 'true'
+      - run: yarn build:swagger-gen
+      - run: yarn build
+      - uses: ./tools/github-actions/upload-build-output
+        with:
+          artifactName: 'dist-${{ inputs.ref }}'
+
+  testRelease:
+    needs: [buildRelease]
+    uses: ./.github/workflows/it-tests.yml
+    with:
+      ref: ${{ inputs.ref }}
+      skipNxCache: true

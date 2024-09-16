@@ -1,0 +1,67 @@
+name: Check all releases (latest patch of each minor version for the last 3 majors)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * 6"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  findTags:
+    runs-on: ubuntu-latest
+    outputs:
+      tags: ${{ steps.getTags.outputs.TAGS }}
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - name: Get the latest patch of each minor version for the last 3 majors
+        run: |
+          # Extract all releases
+          RELEASE_TAG_PATTERN="^v[0-9]+\.[0-9]+\.[0-9]+$"
+          ALL_RELEASES=$(git tag -l | sort -V | grep -E $RELEASE_TAG_PATTERN)
+          SUPPORTED_MAJORS=$(echo $ALL_RELEASES | tr ' ' '\n' | awk -F. '{print $1}' | uniq | tail -n 3)
+          ALL_SUPPORTED_RELEASES=$(echo $ALL_RELEASES | tr ' ' '\n' | grep -E "^($(echo $SUPPORTED_MAJORS | tr ' ' '|'))\.")
+          echo "Supported releases: $ALL_SUPPORTED_RELEASES"
+
+          # Filter per major
+          LATEST_MINOR_OF_EACH_MAJOR=$(echo $ALL_SUPPORTED_RELEASES | tr ' ' '\n' | awk -F. '{print $1}' | uniq | xargs -I {} sh -c "echo '$ALL_SUPPORTED_RELEASES' | grep -E '^{}.*' | tail -n 1")
+          echo "Found latest minor of each major versions: $LATEST_MINOR_OF_EACH_MAJOR"
+
+          # Filter per minor
+          LATEST_PATCH_OF_EACH_MINOR=$(echo $ALL_SUPPORTED_RELEASES | tr ' ' '\n' | awk -F. '{print $1 "." $2}' | uniq | xargs -I {} sh -c "echo '$ALL_SUPPORTED_RELEASES' | grep -E '^{}.*' | tail -n 1")
+          echo "Found latest patch of each minor versions: $LATEST_PATCH_OF_EACH_MINOR"
+
+          # Export output in JSON format
+          TAGS=$(echo $LATEST_MINOR_OF_EACH_MAJOR | tr ' ' '\n' | awk '{print "\"" $0 "\""}' | tr '\n' ',')
+          echo "TAGS=[$TAGS]" >> "$GITHUB_OUTPUT"
+        id: getTags
+
+  checkRelease:
+    needs: findTags
+    strategy:
+      fail-fast: false
+      matrix:
+        tag: ${{ fromJSON(needs.findTags.outputs.tags) }}
+    uses: ./.github/workflows/check-release.yml
+    with:
+      ref: ${{ matrix.tag }}
+
+  report:
+    runs-on: ubuntu-latest
+    needs: checkRelease
+    if: failure()
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: Create an issue
+        uses: JasonEtco/create-an-issue@1b14a70e4d8dc185e5cc76d3bec9eab20257b2c5 # v2.9.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_URL: ${{ format('https://github.com/{0}/actions/runs/{1}/attempts/{2}', github.repository, github.run_id, github.run_attempt || 1) }}
+        with:
+          filename: .github/check-release-issue-template.md
+          update_existing: true
