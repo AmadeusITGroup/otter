@@ -29,10 +29,11 @@ export default [
     },
     rules: {
       '@nx/dependency-checks': ['error', {
-        'buildTargets': ['build', 'build-builders', 'compile', 'test'],
-        'checkObsoleteDependencies': false,
-        'checkVersionMismatches': false,
-        'ignoredDependencies': ['ora', '@o3r/test-helpers', '@o3r/schematics']
+        buildTargets: ['build', 'build-builders', 'compile', 'test'],
+        checkObsoleteDependencies: false,
+        checkVersionMismatches: false,
+        ignoredDependencies: ['ora', '@o3r/test-helpers', '@o3r/schematics'],
+        ignoredFiles: ['**/*.spec.ts']
       }]
     }
   }

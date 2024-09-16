@@ -127,8 +127,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'strict': [
         'error',
         'global'
-      ],
-      'use-isnan': 'error'
+      ]
     }
   }
 ];

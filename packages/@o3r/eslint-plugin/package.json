@@ -31,9 +31,6 @@
     "type-fest": "^4.10.2"
   },
   "peerDependenciesMeta": {
-    "@angular-eslint/template-parser": {
-      "optional": true
-    },
     "jsonc-eslint-parser": {
       "optional": true
     },
@@ -42,9 +39,8 @@
     }
   },
   "peerDependencies": {
-    "@angular-eslint/template-parser": "~18.3.0",
     "@angular/compiler": "~18.2.0",
-    "eslint": "^9.0.0",
+    "eslint": "^8.57.0 || ^9.0.0",
     "jsonc-eslint-parser": "~2.4.0",
     "yaml-eslint-parser": "^1.2.2"
   },
@@ -62,8 +58,9 @@
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-config": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@stylistic/eslint-plugin-ts": "~2.7.0",
+    "@stylistic/eslint-plugin": "~2.7.0",
     "@types/eslint": "~9.6.0",
     "@types/jest": "~29.5.2",
     "@types/node": "^20.0.0",

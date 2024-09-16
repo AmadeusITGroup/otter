@@ -7,7 +7,7 @@ export default (
 ): TSESLint.FlatConfig.ConfigArray => [
   o3rBaseConfig(plugin),
   {
-    name: '@o3r/typescript',
+    name: '@o3r/typescript-recommended',
     // Same files as the ones asked by `typescript-eslint` recommendation
     files: ['**/*.ts', '**/*.tsx', '**/*.mts', '**/*.cts'],
     rules: {

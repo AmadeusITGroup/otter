@@ -49,6 +49,20 @@ export default [
     }
   },
   {
+    name: '@o3r/parser/json',
+    files: ['**/*.json'],
+    languageOptions: {
+      parser: jsonParser
+    }
+  },
+  {
+    name: '@o3r/parser/yaml',
+    files: ['**/*.y{a,}ml'],
+    languageOptions: {
+      parser: yamlParser
+    }
+  },
+  {
     name: '@o3r/jasmine',
     files: ['**/*{.,-}jasmine.ts'],
     rules: {
@@ -68,13 +82,6 @@ export default [
     }
   },
   {
-    name: '@o3r/json/parser',
-    files: ['**/*.json'],
-    languageOptions: {
-      parser: jsonParser
-    }
-  },
-  {
     name: '@o3r/package-json',
     files: ['package.json'],
     plugins: {
@@ -88,7 +95,8 @@ export default [
           buildTargets: ['build', 'build-builders', 'compile', 'test'],
           checkObsoleteDependencies: false,
           checkVersionMismatches: false,
-          ignoredDependencies: ['ora', '@o3r/test-helpers']
+          ignoredDependencies: ['ora', '@o3r/test-helpers'],
+          ignoredFiles: ['**/*.spec.ts']
         }
       ],
       '@o3r/json-dependency-versions-harmonize': [
@@ -111,13 +119,6 @@ export default [
           allow: ['__filename', '__dirname']
         }
       ]
-    }
-  },
-  {
-    name: '@o3r/yaml/parser',
-    files: ['**/*.y{a,}ml'],
-    languageOptions: {
-      parser: yamlParser
     }
   }
 ];

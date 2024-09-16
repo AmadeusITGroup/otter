@@ -11,7 +11,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/array-type': [
         'error',
         {
-          'default': 'array'
+          default: 'array'
         }
       ],
       '@typescript-eslint/consistent-type-assertions': 'error',
@@ -19,9 +19,9 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/explicit-member-accessibility': [
         'warn',
         {
-          'accessibility': 'explicit',
-          'overrides': {
-            'constructors': 'off'
+          accessibility: 'explicit',
+          overrides: {
+            constructors: 'off'
           }
         }
       ],
@@ -29,7 +29,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/member-ordering': [
         'error',
         {
-          'default': [
+          default: [
             'static-field',
             'instance-field',
             'constructor',
@@ -43,33 +43,33 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/naming-convention': [
         'error',
         {
-          'selector': 'default',
-          'format': ['camelCase'],
-          'leadingUnderscore': 'allow',
-          'trailingUnderscore': 'allow'
+          selector: 'default',
+          format: ['camelCase'],
+          leadingUnderscore: 'allow',
+          trailingUnderscore: 'allow'
         },
         {
-          'selector': 'variable',
-          'format': ['camelCase', 'UPPER_CASE'],
-          'leadingUnderscore': 'allow',
-          'trailingUnderscore': 'allow'
+          selector: 'variable',
+          format: ['camelCase', 'UPPER_CASE'],
+          leadingUnderscore: 'allow',
+          trailingUnderscore: 'allow'
         },
         {
-          'selector': 'typeLike',
-          'format': ['PascalCase']
+          selector: 'typeLike',
+          format: ['PascalCase']
         },
         {
-          'selector': 'property',
-          'modifiers': ['readonly'],
-          'format': ['camelCase', 'UPPER_CASE']
+          selector: 'property',
+          modifiers: ['readonly'],
+          format: ['camelCase', 'UPPER_CASE']
         },
         {
-          'selector': 'enumMember',
-          'format': ['camelCase', 'UPPER_CASE']
+          selector: 'enumMember',
+          format: ['camelCase', 'UPPER_CASE']
         },
         {
-          'selector': 'import',
-          'format': ['camelCase', 'PascalCase']
+          selector: 'import',
+          format: ['camelCase', 'PascalCase']
         }
       ],
       '@typescript-eslint/no-dupe-class-members': 'error',
@@ -80,7 +80,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/no-misused-promises': [
         'error',
         {
-          'checksVoidReturn': false
+          checksVoidReturn: false
         }
       ],
       '@typescript-eslint/no-namespace': 'off',
@@ -88,20 +88,21 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-parameter-properties': 'off',
       '@typescript-eslint/no-redeclare': 'error',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
       '@typescript-eslint/no-require-imports': 'warn',
       '@typescript-eslint/no-shadow': [
         'error',
         {
-          'hoist': 'all'
+          hoist: 'all'
         }
       ],
       '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
-          'argsIgnorePattern': '^_',
-          'caughtErrors': 'none',
-          'ignoreRestSiblings': true
+          argsIgnorePattern: '^_',
+          caughtErrors: 'none',
+          ignoreRestSiblings: true
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
@@ -118,9 +119,9 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@typescript-eslint/triple-slash-reference': [
         'error',
         {
-          'path': 'always',
-          'types': 'prefer-import',
-          'lib': 'always'
+          path: 'always',
+          types: 'prefer-import',
+          lib: 'always'
         }
       ],
       '@typescript-eslint/unbound-method': 'warn',

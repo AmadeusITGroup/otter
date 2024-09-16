@@ -82,7 +82,7 @@
     "@o3r/eslint-plugin": "<%= sdkCoreRange %>",
     "@o3r/schematics": "<%= sdkCoreRange %>",
     "@openapitools/openapi-generator-cli": "<%= versions['@openapitools/openapi-generator-cli'] %>",
-    "@stylistic/eslint-plugin-ts": "<%= versions['@stylistic/eslint-plugin-ts'] %>",
+    "@stylistic/eslint-plugin": "<%= versions['@stylistic/eslint-plugin'] %>",
     "@swc/cli": "<%= versions['@swc/cli'] %>",
     "@swc/core": "<%= versions['@swc/core'] %>",
     "@types/jest": "<%= versions['@types/jest'] %>",
