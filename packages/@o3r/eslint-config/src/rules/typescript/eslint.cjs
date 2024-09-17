@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint } from '@typescript-eslint/utils';
-
-const config: TSESLint.FlatConfig.ConfigArray = [
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const config = [
   {
     name: '@o3r/overrides/eslint-js',
     files: [
@@ -34,10 +34,10 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'new-cap': [
         'error',
         {
-          'newIsCap': true,
-          'capIsNew': true,
-          'properties': true,
-          'capIsNewExceptions': [
+          newIsCap: true,
+          capIsNew: true,
+          properties: true,
+          capIsNewExceptions: [
             'AsyncInput',
             'Component',
             'Directive',
@@ -85,7 +85,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'no-obj-calls': 'error',
       'no-proto': 'error',
       'no-restricted-imports': ['error', {
-        'patterns': [
+        patterns: [
           'rxjs/internal/*'
         ]
       }],
@@ -99,7 +99,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'no-underscore-dangle': [
         'error',
         {
-          'allowAfterThis': true
+          allowAfterThis: true
         }
       ],
       'no-unreachable': 'error',
@@ -107,7 +107,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'no-use-before-define': [
         'error',
         {
-          'classes': false
+          classes: false
         }
       ],
       'object-shorthand': 'off',
@@ -119,9 +119,9 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'sort-imports': [
         'error',
         {
-          'allowSeparatedGroups': true,
-          'ignoreDeclarationSort': true,
-          'ignoreCase': true
+          allowSeparatedGroups: true,
+          ignoreDeclarationSort: true,
+          ignoreCase: true
         }
       ],
       'strict': [
@@ -132,4 +132,4 @@ const config: TSESLint.FlatConfig.ConfigArray = [
   }
 ];
 
-export default config;
+module.exports = config;

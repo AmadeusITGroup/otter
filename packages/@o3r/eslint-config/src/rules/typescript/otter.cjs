@@ -1,10 +1,11 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint } from '@typescript-eslint/utils';
-import o3rBaseConfig from '../base';
+const o3rBaseConfig = require('../base.cjs');
 
-export default (
-  plugin: TSESLint.FlatConfig.Plugin
-): TSESLint.FlatConfig.ConfigArray => [
+/**
+ * Get the @o3r typescript recommended rules
+ * @param {import('@typescript-eslint/utils').TSESLint.FlatConfig.Plugin} plugin
+ * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config}
+ */
+const o3rTypescriptRecommended = (plugin) => [
   o3rBaseConfig(plugin),
   {
     name: '@o3r/typescript-recommended',
@@ -18,3 +19,5 @@ export default (
     }
   }
 ];
+
+module.exports = o3rTypescriptRecommended;

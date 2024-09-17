@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint } from '@typescript-eslint/utils';
-
-const config: TSESLint.FlatConfig.ConfigArray = [
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const config = [
   {
     name: '@o3r/overrides/jsdoc',
     files: [
@@ -16,7 +16,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'jsdoc/check-tag-names': [
         'warn',
         {
-          'definedTags': ['note', 'title', 'o3rCategory', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
+          definedTags: ['note', 'title', 'o3rCategory', 'o3rWidget', 'o3rWidgetParam', 'o3rRequired']
         }
       ],
       'jsdoc/no-defaults': 'off',
@@ -25,7 +25,7 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       'jsdoc/require-jsdoc': [
         'error',
         {
-          'publicOnly': true
+          publicOnly: true
         }
       ],
       'jsdoc/require-param-type': 'off',
@@ -36,4 +36,4 @@ const config: TSESLint.FlatConfig.ConfigArray = [
   }
 ];
 
-export default config;
+module.exports = config;

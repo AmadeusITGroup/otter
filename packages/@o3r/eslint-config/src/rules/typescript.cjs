@@ -1,21 +1,25 @@
-import eslint from '@eslint/js';
-import * as o3r from '@o3r/eslint-plugin';
-import stylistic from '@stylistic/eslint-plugin';
-import type { TSESLint } from '@typescript-eslint/utils';
-import angular from 'angular-eslint';
-import jsdoc from 'eslint-plugin-jsdoc';
-import typescript from 'typescript-eslint';
-import unicorn from 'eslint-plugin-unicorn';
-import angularConfigOverrides from './typescript/eslint-angular.js';
-import typescriptConfigOverrides from './typescript/eslint-typescript.js';
-import eslintConfigOverrides from './typescript/eslint.js';
-import jsdocConfigOverrides from './typescript/jsdoc.js';
-import otterConfig from './typescript/otter.js';
-import preferArrowConfig from './typescript/prefer-arrow.js';
-import stylisticConfig from './typescript/stylistic.js';
-import unicornConfig from './typescript/unicorn.js';
+const eslint = require('@eslint/js');
+const o3r = require('@o3r/eslint-plugin');
+const stylistic = require('@stylistic/eslint-plugin');
+const angular = require('angular-eslint');
+const jsdoc = require('eslint-plugin-jsdoc');
+const typescript = require('typescript-eslint');
+const unicorn = require('eslint-plugin-unicorn');
+const angularConfigOverrides = require('./typescript/eslint-angular.cjs');
+const typescriptConfigOverrides = require('./typescript/eslint-typescript.cjs');
+const eslintConfigOverrides = require('./typescript/eslint.cjs');
+const jsdocConfigOverrides = require('./typescript/jsdoc.cjs');
+const otterConfig = require('./typescript/otter.cjs');
+const preferArrowConfig = require('./typescript/prefer-arrow.cjs');
+const stylisticConfig = require('./typescript/stylistic.cjs');
+const unicornConfig = require('./typescript/unicorn.cjs');
 
-const getJestConfig = (type: 'recommended' | 'overrides'): TSESLint.FlatConfig.ConfigArray => {
+/**
+ * Get the jest config if dependency is present
+ * @param {'recommended' | 'overrides'} type
+ * @returns {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const getJestConfig = (type) => {
   try {
     require.resolve('jest');
     return type === 'overrides'
@@ -28,11 +32,15 @@ const getJestConfig = (type: 'recommended' | 'overrides'): TSESLint.FlatConfig.C
         ],
         ...require('eslint-plugin-jest').configs['flat/recommended']
       }];
+  } catch {
+    return [];
   }
-  catch { return []; }
 };
 
-const configArray: TSESLint.FlatConfig.ConfigArray = [
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const configArray = [
   {
     // Name added for debugging purpose with @eslint/config-inspector
     name: '@eslint/js/recommended',
@@ -99,4 +107,4 @@ const configArray: TSESLint.FlatConfig.ConfigArray = [
   }
 ];
 
-export default configArray;
+module.exports = configArray;

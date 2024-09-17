@@ -8,8 +8,8 @@ import jsonParser from 'jsonc-eslint-parser';
 import yamlParser from 'yaml-eslint-parser';
 
 export default [
-  ...o3rConfig.default,
-  ...o3rTemplate.default,
+  ...o3rConfig,
+  ...o3rTemplate,
   {
     name: '@o3r/ignores',
     ignores: [

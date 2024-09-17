@@ -134,7 +134,7 @@
         "packages/@o3r/dynamic-content/src/*/public_api"
       ],
       "@o3r/eslint-config": [
-        "packages/@o3r/eslint-config/src/public_api"
+        "packages/@o3r/eslint-config"
       ],
       "@o3r/eslint-config-otter": [
         "packages/@o3r/eslint-config-otter"

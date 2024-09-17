@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint } from '@typescript-eslint/utils';
-
-const config: TSESLint.FlatConfig.ConfigArray = [
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const config = [
   {
     name: '@o3r/overrides/unicorn',
     files: [
@@ -49,4 +49,4 @@ const config: TSESLint.FlatConfig.ConfigArray = [
   }
 ];
 
-export default config;
+module.exports = config;
