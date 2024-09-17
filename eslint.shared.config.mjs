@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import globals from 'globals';
 import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
