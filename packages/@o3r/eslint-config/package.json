@@ -5,18 +5,19 @@
     "access": "public"
   },
   "description": "Recommended eslint v9+ configuration for Otter project",
+  "main": "./src/rules/typescript.cjs",
   "exports": {
     "./package.json": {
       "default": "./package.json"
     },
     ".": {
-      "default": "./dist/src/public_api.js"
+      "default": "./src/rules/typescript.cjs"
     },
     "./typescript": {
-      "default": "./dist/src/rules/typescript.js"
+      "default": "./src/rules/typescript.cjs"
     },
     "./template": {
-      "default": "./dist/src/rules/template.js"
+      "default": "./src/rules/template.cjs"
     }
   },
   "keywords": [
@@ -27,7 +28,8 @@
     "otter-module"
   ],
   "scripts": {
-    "postbuild": "patch-package-json-main && patch-package-json-exports",
+    "build": "yarn cpy package.json dist && yarn cpy src dist && yarn postbuild",
+    "postbuild": "patch-package-json-main",
     "prepare:publish": "prepare-publish ./dist",
     "prepare:build:builders": "yarn cpy 'schematics/**/*.json' 'schematics/**/templates/**' dist/schematics && yarn cpy 'collection.json' dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"

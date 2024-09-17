@@ -33,12 +33,15 @@
       "executor": "nx:run-commands"
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "packages/@o3r/eslint-config/src/public_api.ts",
-        "tsConfig": "packages/@o3r/eslint-config/tsconfig.build.json",
-        "outputPath": "packages/@o3r/eslint-config/dist"
-      }
+        "script": "build"
+      },
+      "dependsOn": [],
+      "inputs": [
+        "{projectRoot}/rules/**/*",
+        "!{projectRoot}/**/*.spec.ts"
+      ]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",

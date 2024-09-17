@@ -2,28 +2,43 @@ import { sync } from 'globby';
 import { dirname } from 'node:path';
 import shared from './eslint.shared.config.mjs';
 
-/** @type (prefix: string, pattern?: string) => string */
-const addPrefixPath = (prefix, pattern = '**/*') => pattern.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`);
+/**
+ * Add a prefix to a path glob
+ * @param {string} prefix
+ * @param {string | undefined} pathGlob
+ * @returns {string}
+ */
+const addPrefix = (prefix, pathGlob = '**/*') => pathGlob.replace(/^(!?)(\.?\/)?/, `$1${prefix}/`);
 
-/** @type (patterns: string | string[]) => import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray */
-const mergeESLintConfig = async (patterns) => {
-  const localConfigFiles = sync(patterns, { absolute: true });
-  /** @type import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray */
+/**
+ * Merge ESLint config
+ * @param {string | string[]} globs List of globs to findpath ESLint config
+ * @returns {Promise<import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray>}
+ */
+const mergeESLintConfigs = async (globs) => {
+  const localConfigFiles = sync(globs, { absolute: true });
+  /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
   let localConfigs = [];
   for (const localConfigFile of localConfigFiles) {
     const module = await import(localConfigFile);
     const moduleConfig = await (module.default ?? module);
+    /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
     const configArray = Array.isArray(moduleConfig) ? moduleConfig : [moduleConfig];
     const directory = dirname(localConfigFile);
-    const addDirectoryFn = (pattern) => addPrefixPath(directory, pattern);
+    /**
+     * Add the directory as prefix to the glob
+     * @param {string} pathGlob
+     * @returns {string}
+     */
+    const addDirectoryFn = (pathGlob) => addPrefix(directory, pathGlob);
     localConfigs = localConfigs.concat(
       configArray.map((config) => ({
         ...config,
         files: (config.files || ['**/*']).flat().map(addDirectoryFn),
         ...(
           config.ignores
-          ? { ignores: config.ignores.map(addDirectoryFn) }
-          : {}
+            ? { ignores: config.ignores.map(addDirectoryFn) }
+            : {}
         )
       }))
     );
@@ -35,4 +50,5 @@ const mergeESLintConfig = async (patterns) => {
   ];
 };
 
-export default mergeESLintConfig('**/eslint.local.config.mjs');
+// eslint-disable-next-line unicorn/prefer-top-level-await
+export default mergeESLintConfigs('**/eslint.local.config.mjs');

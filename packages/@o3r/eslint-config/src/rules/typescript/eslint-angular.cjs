@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-import type { TSESLint } from '@typescript-eslint/utils';
-
-const config: TSESLint.FlatConfig.ConfigArray = [
+/**
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
+ */
+const config = [
   {
     name: '@o3r/overrides/angular-eslint',
     // Same files as the ones asked by `typescript-eslint/eslint-recommended`
@@ -13,19 +13,19 @@ const config: TSESLint.FlatConfig.ConfigArray = [
       '@angular-eslint/directive-selector': [
         'error',
         {
-          'type': 'attribute',
-          'style': 'camelCase'
+          type: 'attribute',
+          style: 'camelCase'
         }
       ],
       '@angular-eslint/component-selector': [
         'error',
         {
-          'type': 'element',
-          'style': 'kebab-case'
+          type: 'element',
+          style: 'kebab-case'
         }
       ]
     }
   }
 ];
 
-export default config;
+module.exports = config;
