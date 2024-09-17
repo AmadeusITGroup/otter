@@ -7,23 +7,27 @@ const addPrefixPath = (prefix, pattern = '**/*') => pattern.replace(/^(!?)(\.?\/
 
 /** @type (patterns: string | string[]) => import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray */
 const mergeESLintConfig = async (patterns) => {
-  const localConfigFiles = sync(patterns);
+  const localConfigFiles = sync(patterns, { absolute: true });
   /** @type import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray */
-  const localConfigs = await localConfigFiles.reduce(async (acc, localConfigFile) => {
-    const module = await import(`./${localConfigFile}`);
+  let localConfigs = [];
+  for (const localConfigFile of localConfigFiles) {
+    const module = await import(localConfigFile);
     const moduleConfig = await (module.default ?? module);
     const configArray = Array.isArray(moduleConfig) ? moduleConfig : [moduleConfig];
     const directory = dirname(localConfigFile);
-    return (await acc).concat(
+    const addDirectoryFn = (pattern) => addPrefixPath(directory, pattern);
+    localConfigs = localConfigs.concat(
       configArray.map((config) => ({
         ...config,
-        ...(config.ignores ? {
-          ignores: config.ignores.map((pattern) => addPrefixPath(directory, pattern))
-        } : {}),
-        files: (config.files || ['**/*']).flat().map((pattern) => addPrefixPath(directory, pattern))
+        files: (config.files || ['**/*']).flat().map(addDirectoryFn),
+        ...(
+          config.ignores
+          ? { ignores: config.ignores.map(addDirectoryFn) }
+          : {}
+        )
       }))
     );
-  }, Promise.resolve([]));
+  }
 
   return [
     ...shared,
