@@ -117,5 +117,21 @@
         ]
       }
     }
+  },
+  "inherit": {
+    "$extensions": {
+      "o3rScope": "test-scope"
+    },
+    "var": {
+      "$value": "{example.var1}"
+    },
+    "deeper": {
+      "super-deeper": {
+        "var": {
+          "$type": "color",
+          "$value": "#aaa"
+        }
+      }
+    }
   }
 }

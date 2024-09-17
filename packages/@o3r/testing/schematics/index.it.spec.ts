@@ -25,7 +25,7 @@ describe('ng add testing', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
     expect(diff.added.length).toBe(0);
-    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf-8'})).toContain('@o3r/testing');
+    expect(fs.readFileSync(path.join(applicationPath, 'package.json'), {encoding: 'utf8'})).toContain('@o3r/testing');
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -62,7 +62,7 @@ describe('ng add testing', () => {
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 
-  // TODO: fix https://github.com/AmadeusITGroup/otter/issues/1765 first
+  // TODO: fix #1765 first
   test.skip('should add testing to a library', () => {
     const { workspacePath, libName, isInWorkspace, o3rVersion, applicationPath, untouchedProjectsPaths } = o3rEnvironment.testEnvironment;
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
@@ -81,7 +81,7 @@ describe('ng add testing', () => {
     expect(() => packageManagerRunOnProject(libName, isInWorkspace, {script: 'test'}, execAppOptions)).not.toThrow();
   });
 
-  // TODO: fix https://github.com/AmadeusITGroup/otter/issues/1765 first
+  // TODO: fix #1765 first
   test.skip('should add testing to a library and fixture to component', () => {
 
     const { applicationPath, workspacePath, libName, isInWorkspace, o3rVersion, untouchedProjectsPaths, libraryPath } = o3rEnvironment.testEnvironment;

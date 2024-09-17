@@ -88,7 +88,6 @@ export interface SetAsyncStoreItemEntitiesActionPayload<T extends object> extend
 export interface SetAsyncStoreItemEntityActionPayload<T extends object> extends SetEntityActionPayload<T>, Partial<AsyncRequest> {}
 
 /** Payload to fail entity actions from async */
-// TODO Check
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface FailAsyncStoreItemEntityActionPayload<T extends object> extends FailActionPayload<T>, Partial<AsyncRequest> {}
 

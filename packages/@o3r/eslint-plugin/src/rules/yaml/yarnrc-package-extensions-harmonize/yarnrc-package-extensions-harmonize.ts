@@ -32,8 +32,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     hasSuggestions: true,
     type: 'problem',
     docs: {
-      description: 'Ensure that the package extension versions are aligned with range defined in packages.',
-      recommended: 'strict'
+      description: 'Ensure that the package extension versions are aligned with the range defined in the packages.'
     },
     schema: [
       {

@@ -6,6 +6,7 @@ module.exports = {
   ],
   rules: {
     'unicorn/prefer-node-protocol': 'error',
-    'unicorn/switch-case-braces': 'warn'
+    'unicorn/switch-case-braces': 'warn',
+    'unicorn/text-encoding-identifier-case': 'warn'
   }
 };

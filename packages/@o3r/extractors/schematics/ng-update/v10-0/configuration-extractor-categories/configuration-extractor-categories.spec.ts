@@ -22,13 +22,13 @@ describe('Update categories in configuration extractor', () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateConfigurationExtractorCategories(), initialTree));
 
-    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.ts.template'), {encoding: 'utf-8'}));
+    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.ts.template'), {encoding: 'utf8'}));
   });
 
   it('should update config files', async () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateConfigurationExtractorCategories(), initialTree));
 
-    expect(tree.readText('/src/mock.config.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.result.ts.template'), { encoding: 'utf-8' }));
+    expect(tree.readText('/src/mock.config.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.result.ts.template'), { encoding: 'utf8' }));
   });
 });

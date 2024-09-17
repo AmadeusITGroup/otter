@@ -37,6 +37,7 @@
       "@o3r/logger": ["packages/@o3r/logger/dist", "packages/@o3r/logger/src/public_api"],
       "@o3r/logger/*": ["packages/@o3r/logger/dist/*", "packages/@o3r/logger/src/*"],
       "@o3r/mobile": ["packages/@o3r/mobile/dist", "packages/@o3r/mobile/src/public_api"],
+      "@o3r/new-version": ["packages/@o3r/new-version/dist", "packages/@o3r/new-version/src/public_api"],
       "@o3r/routing": ["packages/@o3r/routing/dist", "packages/@o3r/routing/src/public_api"],
       "@o3r/rules-engine": ["packages/@o3r/rules-engine/dist", "packages/@o3r/rules-engine/src/public_api"],
       "@o3r/schematics": ["packages/@o3r/schematics/dist", "packages/@o3r/schematics/src/public_api"],
