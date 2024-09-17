@@ -1,38 +1,7 @@
 import { FileSystem, getFilesTree } from '@o3r/training-tools';
-import { DirectoryNode, FileNode, WebContainer, WebContainerProcess } from '@webcontainer/api';
+import { WebContainer, WebContainerProcess } from '@webcontainer/api';
 import { Terminal } from '@xterm/xterm';
-import { MonacoTreeElement } from 'ngx-monaco-tree';
 import { BehaviorSubject } from 'rxjs';
-
-/**
- * Convert the given path and node to a MonacoTreeElement
- * @param path
- * @param node
- */
-export function convertTreeRec(path: string, node: DirectoryNode | FileNode): MonacoTreeElement {
-  return {
-    name: path,
-    content: (node as DirectoryNode).directory
-      ? Object.entries((node as DirectoryNode).directory)
-        .map(([p, n]) => convertTreeRec(p, n))
-      : undefined
-  };
-}
-
-/**
- * Checks if the folder exists at the root of the WebContainer instance
- * @param folderName
- * @param instance
- * @private
- */
-export async function doesFolderExist(folderName: string, instance: WebContainer) {
-  try {
-    await instance.fs.readdir(folderName);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 /**
  * Get the file tree from the path of the File System of the given WebContainer instance

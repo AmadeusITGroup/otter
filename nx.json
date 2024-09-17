@@ -361,6 +361,9 @@
         "{projectRoot}/LICENSE"
       ],
       "outputs": ["{projectRoot}/packaged-action"]
+    },
+    "copy-training-assets": {
+      "cache": true
     }
   },
   "generators": {

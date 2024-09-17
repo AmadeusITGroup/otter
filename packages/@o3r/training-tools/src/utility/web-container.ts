@@ -76,7 +76,7 @@ export const getFilesTree = async (files: {isDir: boolean; path: string}[], file
         }
       }
     } else {
-      const name = path.split('/').pop();
+      const name = path.replaceAll('\\','/').split('/').pop();
       if (name) {
         tree[name] = {
           file: { contents: await fileSystem.readFile(path, 'utf8') }

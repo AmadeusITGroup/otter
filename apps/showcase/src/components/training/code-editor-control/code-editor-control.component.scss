@@ -1,0 +1,16 @@
+code-editor-control {
+
+  &:has(.command-panel.d-none) {
+    min-height: 3rem;
+  }
+
+  .tab-content {
+    --df-tabs-content-tab-pane-padding: 0;
+    overflow: hidden;
+  }
+
+  .tab-pane {
+    border: 1px solid black;
+    height: 100%;
+  }
+}

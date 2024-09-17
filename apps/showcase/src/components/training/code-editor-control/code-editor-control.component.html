@@ -1,0 +1,34 @@
+<ul ngbNav #nav="ngbNav" class="nav nav-tabs">
+    <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+      <a ngbNavLink class="nav-link" [class.active]="activeTab === 'preview'" (click)="activeTab = 'preview'">Preview</a>
+      <ng-template ngbNavContent>
+        <iframe class="w-100 h-100" #iframe allow="cross-origin-isolated" [srcdoc]="'Loading...'"></iframe>
+      </ng-template>
+    </li>
+    <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+      <a ngbNavLink class="nav-link" [class.active]="activeTab === 'output'" (click)="activeTab = 'output'">Output</a>
+      <ng-template ngbNavContent>
+        <code-editor-terminal id="tab-content2" class="d-block h-100"
+                              (disposed)="webContainerService.runner.disposeCommandOutputTerminal()"
+                              (terminalUpdated)="webContainerService.runner.registerCommandOutputTerminal($event)">
+        </code-editor-terminal>
+      </ng-template>
+    </li>
+    <li ngbNavItem class="nav-item" role="presentation" [destroyOnHide]="false">
+      <a ngbNavLink class="nav-link" [class.active]="activeTab === 'terminal'" (click)="activeTab = 'terminal'">Terminal</a>
+      <ng-template ngbNavContent>
+        <code-editor-terminal id="tab-content3" class="d-block h-100"
+                              (disposed)="webContainerService.runner.disposeShell()"
+                              (terminalUpdated)="webContainerService.runner.registerShell($event)">
+        </code-editor-terminal>
+      </ng-template>
+    </li>
+  <button type="button" class="btn btn-outline-secondary df-btn-icononly align-self-center ms-auto"
+          [class.fa-chevron-down]="!show"
+          [class.fa-chevron-up]="show"
+          (click)="show = !show">
+    <span class="visually-hidden">{{show ? 'Hide' : 'Show'}}</span>
+  </button>
+</ul>
+<div class="h-100 command-panel" [class.d-none]="!show" [ngbNavOutlet]="nav"></div>
+

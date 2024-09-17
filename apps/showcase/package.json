@@ -21,6 +21,7 @@
     "test:playwright:scenario": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.ts",
     "test:playwright:sanity": "USE_MOCKS=true playwright test --config=e2e-playwright/playwright-config.sanity.ts",
     "update-screenshots": "node scripts/update-screenshots/index.cjs",
+    "copy-training-assets": "node scripts/copy-training-assets/index.cjs",
     "postbuild:patch": "yarn patch:package",
     "patch:package": "cpy 'package.json' 'dist' && patch-package-json-main"
   },
@@ -112,7 +113,6 @@
     "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "@webcontainer/api": "~1.2.4",
     "concurrently": "^8.0.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-node": "^0.3.9",
