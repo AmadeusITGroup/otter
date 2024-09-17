@@ -1,0 +1,29 @@
+monaco-tree {
+  max-width: 250px;
+  background: #1d1d1d;
+
+  .monaco-tree {
+    display: flex;
+    flex-direction: column;
+    overflow: unset !important;
+  }
+}
+
+monaco-tree-icons > div {
+  justify-content: flex-start !important;
+}
+
+ngx-monaco-editor {
+  .editor-container {
+    height: 100% !important;
+  }
+
+  > * {
+    max-width: 100%;
+    max-height: 100% !important;
+  }
+}
+
+code-editor-control {
+  min-height: 50%;
+}
