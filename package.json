@@ -213,7 +213,7 @@
     "@typescript-eslint/parser": "^7.14.1",
     "@typescript-eslint/types": "^7.14.1",
     "@typescript-eslint/utils": "^7.14.1",
-    "@yarnpkg/sdks": "^3.0.0",
+    "@yarnpkg/sdks": "^3.2.0",
     "ag-grid-angular": "~32.1.0",
     "ag-grid-community": "~32.1.0",
     "babel-loader": "^9.0.0",
@@ -289,5 +289,5 @@
     "tools/@*/*",
     "apps/*"
   ],
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.5.0"
 }
