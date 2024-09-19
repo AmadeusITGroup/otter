@@ -1,0 +1,15 @@
+{
+  "$schema": "https://github.com/angular/angular-cli/blob/main/packages/angular/cli/lib/config/workspace-schema.json",
+  "version": 1,
+  "projects": {
+    "projectName": {
+      "projectType": "application",
+      "root": ".",
+      "architect": {
+        "architectName": {
+          "builder": ""
+        }
+      }
+    }
+  }
+}

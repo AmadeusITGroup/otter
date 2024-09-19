@@ -27,10 +27,10 @@ import { ConsoleLogger, Logger, LOGGER_CLIENT_TOKEN, LoggerService } from '@o3r/
 import { OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS, RulesEngineRunnerModule } from '@o3r/rules-engine';
 import { OTTER_STYLING_DEVTOOLS_OPTIONS, StylingDevtoolsModule } from '@o3r/styling';
 import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
-import { ScrollBackTopPresComponent, SidenavPresComponent } from '../components/index';
-import { DatePickerHebrewInputPresComponent } from '../components/utilities/date-picker-input-hebrew';
+import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities/index';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -109,7 +109,8 @@ export function registerCustomComponents(): Map<string, any> {
     C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
-    ConfigurationDevtoolsModule
+    ConfigurationDevtoolsModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

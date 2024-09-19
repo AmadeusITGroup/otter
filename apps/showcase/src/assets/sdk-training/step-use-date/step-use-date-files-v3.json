@@ -1,0 +1,32 @@
+{
+  "app.component.html": {
+    "file": {
+      "contents": "<button type=\"button\" class=\"btn btn-primary\" (click)=\"reloadValues()\">Reload Values</button>\n<table class=\"table\">\n  <thead>\n    <tr>\n      <th scope=\"col\">Flight</th>\n      <th scope=\"col\">Origin Location Code</th>\n      <th scope=\"col\">Destination Location Code</th>\n      <th scope=\"col\">Departure Time</th>\n      <th scope=\"col\">Payment Expiration</th>\n    </tr>\n  </thead>\n  <tbody>\n  @for (flight of roundTrip; track flight; let index = $index) {\n    <tr>\n      <th scope=\"row\">{{index+1}}</th>\n      <td>{{flight.originLocationCode}}</td>\n      <td>{{flight.destinationLocationCode}}</td>\n      <td>{{formatDate(flight.departureDateTime)}}</td>\n      <td>{{formatDate(flight.paymentExpirationDate)}}</td>\n    </tr>\n  }\n  </tbody>\n</table>\n"
+    }
+  },
+  "app.component.scss": {
+    "file": {
+      "contents": ""
+    }
+  },
+  "app.component.spec.ts": {
+    "file": {
+      "contents": "import { TestBed } from '@angular/core/testing';\nimport { AppComponent } from './app.component';\n\ndescribe('AppComponent', () => {\n  beforeEach(async () => {\n    await TestBed.configureTestingModule({\n      imports: [AppComponent],\n    }).compileComponents();\n  });\n\n  it('should create the app', () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    const app = fixture.componentInstance;\n    expect(app).toBeTruthy();\n  });\n\n  it(`should have the 'tutorial-app' title`, () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    const app = fixture.componentInstance;\n    expect(app.title).toEqual('tutorial-app');\n  });\n\n  it('should render title', () => {\n    const fixture = TestBed.createComponent(AppComponent);\n    fixture.detectChanges();\n    const compiled = fixture.nativeElement as HTMLElement;\n    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, tutorial-app');\n  });\n});\n"
+    }
+  },
+  "app.component.ts": {
+    "file": {
+      "contents": "import { utils } from '@ama-sdk/core';\nimport { formatDate } from '@angular/common';\nimport { Component } from '@angular/core';\nimport type { Flight } from '../../../../libs/sdk/src';\n\n@Component({\n  selector: 'app-root',\n  standalone: true,\n  imports: [],\n  templateUrl: './app.component.html',\n  styleUrl: './app.component.scss'\n})\nexport class AppComponent {\n  title = 'tutorial-app';\n\n  public roundTrip?: Flight[];\n  public currentTime = new Date();\n\n  constructor() {\n    this.reloadValues();\n  }\n\n  public formatDate(dateTime?: Date | utils.DateTime) {\n    return dateTime ? formatDate((dateTime instanceof utils.DateTime ? dateTime.toString() : dateTime), 'yyyy-MM-dd HH:mm', 'en-GB') : dateTime;\n  }\n\n  public reloadValues() {\n    const outboundDepartureDateTime = new Date(new Date().toLocaleString('en-US', {timeZone: 'Europe/Paris'}));\n    outboundDepartureDateTime.setDate(outboundDepartureDateTime.getDate() + 1);\n    outboundDepartureDateTime.setHours(10, 0, 0, 0);\n    const returnDepartureDateTime = new Date(new Date().toLocaleString('en-US', {timeZone: 'America/New_York'}));\n    returnDepartureDateTime.setDate(returnDepartureDateTime.getDate() + 7);\n    returnDepartureDateTime.setHours(18, 0, 0, 0);\n\n    const paymentExpirationDate = new Date();\n    paymentExpirationDate.setMinutes(paymentExpirationDate.getMinutes() + 15);\n    this.roundTrip = [\n      {\n        originLocationCode: 'PAR',\n        destinationLocationCode: 'NYC',\n        departureDateTime: new utils.DateTime(outboundDepartureDateTime),\n        paymentExpirationDate\n      },\n      {\n        originLocationCode: 'NYC',\n        destinationLocationCode: 'PAR',\n        departureDateTime: new utils.DateTime(returnDepartureDateTime),\n        paymentExpirationDate\n      }\n    ];\n  }\n}\n"
+    }
+  },
+  "app.config.ts": {
+    "file": {
+      "contents": "import { ApplicationConfig, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';\nimport { provideRouter } from '@angular/router';\n\nimport { routes } from './app.routes';\nimport { StorageSync } from '@o3r/store-sync';\nimport { RuntimeChecks, StoreModule } from '@ngrx/store';\nimport { Serializer } from '@o3r/core';\nimport { environment, additionalModules } from '../environments/environment';\nimport { EffectsModule } from '@ngrx/effects';\nimport { prefersReducedMotion } from '@o3r/application';\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations';\n\nconst localStorageStates: Record<string, Serializer<any>>[] = [/* Store to register in local storage */];\nconst storageSync = new StorageSync({\n  keys: localStorageStates, rehydrate: true\n});\n\nconst rootReducers = {\n  \n};\n\nconst metaReducers = [storageSync.localStorageSync()];\nconst runtimeChecks: Partial<RuntimeChecks> = {\n  strictActionImmutability: false,\n  strictActionSerializability: false,\n  strictActionTypeUniqueness: !environment.production,\n  strictActionWithinNgZone: !environment.production,\n  strictStateImmutability: !environment.production,\n  strictStateSerializability: false\n};\n\n\nexport const appConfig: ApplicationConfig = {\n  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), importProvidersFrom(\nEffectsModule.forRoot([])), importProvidersFrom(\nStoreModule.forRoot(rootReducers, {metaReducers, runtimeChecks})), importProvidersFrom(\nadditionalModules), importProvidersFrom(\nBrowserAnimationsModule.withConfig({disableAnimations: prefersReducedMotion()}))]\n};\n"
+    }
+  },
+  "app.routes.ts": {
+    "file": {
+      "contents": "import { Routes } from '@angular/router';\n\nexport const routes: Routes = [];\n"
+    }
+  }
+}

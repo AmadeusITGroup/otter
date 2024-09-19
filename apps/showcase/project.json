@@ -374,7 +374,12 @@
     },
     "copy-training-assets": {
       "executor": "nx:run-script",
-      "inputs": ["{projectRoot}/scripts/training-assets/*.cjs"],
+      "inputs": [
+        "{projectRoot}/scripts/training-assets/*.cjs",
+        "{projectRoot}/package.json",
+        "{workspaceRoot}/package.json",
+        "{workspaceRoot}/yarn.lock"
+      ],
       "outputs": ["{projectRoot}/training-assets"],
       "options": {
         "script": "copy-training-assets"

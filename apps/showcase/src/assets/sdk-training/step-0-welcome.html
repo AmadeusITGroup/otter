@@ -1,0 +1,61 @@
+<h1>Welcome to the Otter SDK tutorial</h1>
+<p>This interactive tutorial will teach you how to generate and use an SDK using the Otter framework.</p>
+
+<h2>How to use this tutorial</h2>
+<p>This tutorial is composed of two parts:</p>
+<ol>
+  <li>How to use an SDK</li>
+  <li>How to generate an SDK</li>
+</ol>
+<p>
+  We will cover explanations on these topics along with examples and exercises for better understanding.
+</p>
+<p>[Instructions for exercises]</p>
+
+<h2>Prerequisites</h2>
+<h3>Environment</h3>
+<p>To get started, your environment requires:</p>
+<ul>
+  <li>
+    <a href="https://nodejs.org/en/learn/getting-started/how-to-install-nodejs">Node</a>
+    <ul>
+      <li>Version 18.0.0 or above - minimum required version according to the <a href="https://github.com/AmadeusITGroup/otter/blob/main/packages/%40ama-sdk/schematics/package.json">&#64;ama-sdk/schematics package</a></li>
+    </ul>
+  </li>
+  <li>
+    <a href="https://adoptium.net/">Java</a> <i>(for SDK generation)</i>
+    <ul>
+      <li>Version 11 or above - minimum required version according to <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Resources</h3>
+<p>
+  <i class="icon-info-circle df-icon-solid"></i>
+  We would like to specify that this is not an OpenAPI training. We invite you to familiarize yourself with OpenAPI and how to configure the generation SDK prior to starting this tutorial.
+  We will refer to some OpenAPI concepts throughout this training when explaining our configuration options built on top of OpenAPI.
+</p>
+<ul>
+  <li><a href="https://swagger.io/docs/specification/about/">What is OpenAPI?</a></li>
+  <li><a href="https://swagger.io/specification/">OpenAPI Specification</a></li>
+</ul>
+
+<h3>How to create your own SDK repository</h3>
+<p>There are two possibilities to generate an SDK:</p>
+
+<h4>1. Create a new single SDK repository</h4>
+<p>You can use the following command line:</p>
+<o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> -- [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres>
+<p>
+  Note, you can replace <b><code>yarn</code></b> by <b><code>npm</code></b> if wanted.
+</p>
+<!-- <o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript <project-name> [--spec-path=./path/to/spec.yaml]"></o3r-copy-text-pres> -->
+
+<h4>2. Create a new Otter workspace package in an existing monorepo</h4>
+<p>This requires the schematics packages:</p>
+<o3r-copy-text-pres language="bash" text="yarn ng add @ama-sdk/schematics&#10;yarn ng add @ama-sdk/core"></o3r-copy-text-pres>
+<p>You can then generate the "shell" of the SDK package with the following command:</p>
+<o3r-copy-text-pres language="bash"
+    text="# Monorepo with Otter&#10;yarn ng g sdk sdkName&#10;&#10;# Monorepo without Otter&#10;yarn schematics &#64;o3r/workspace:sdk sdkName">
+</o3r-copy-text-pres>

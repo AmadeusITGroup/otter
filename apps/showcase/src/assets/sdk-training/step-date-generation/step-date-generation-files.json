@@ -1,0 +1,7 @@
+{
+  "open-api.yaml": {
+    "file": {
+      "contents": "# TEMPLATE: This is a template spec file to be used to complete the exercise in your local environment\nopenapi: 3.0.2\ninfo:\n  description: This is a sample SDK for the Otter training\n  version: 1.0.0\n  title: Otter Training SDK\n  license:\n    name: Apache 2.0\n    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'\ntags:\n  - name: dummy\n    description: Dummy operations\npaths:\n  /dummy:\n    get:\n      tags:\n        - \"dummy\"\n      responses:\n        200:\n          description: \"Successful operation\"\ncomponents:\n  schemas:\n    Flight:\n    # Complete these specifications with the provided instructions\n"
+    }
+  }
+}

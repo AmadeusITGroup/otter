@@ -1,0 +1,68 @@
+<h1>Generate your first SDK</h1>
+<h2>Part 2: Generation command</h2>
+<p>
+  There are several command lines available to generate an SDK depending on the use cases. These cases are covered in the
+  <a href="https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics">documentation</a> of the package
+  <b><code>@ama-sdk/schematics</code></b>.
+</p>
+
+<h2>Objective</h2>
+<p>
+  Generate a new SDK repository using the previous specification file and the provided command line.
+</p>
+
+<h2>Exercise</h2>
+<p>
+  To generate a new SDK repository, you can run the following command line:
+</p>
+<pre class="w-100 bg-body-tertiary px-5">
+  <code>
+yarn create @ama-sdk typescript training-sdk
+  </code>
+</pre>
+<p>
+  You will receive a prompt asking you to specify the project name. For example, you can set the project name to <b><code>training-project</code></b>.
+</p>
+<pre class="w-100 bg-body-tertiary px-5 pre-whitespace">
+  <code>
+<span class="text-success">?</span> Project name (NPM package scope, package.json name will be &#64;&#123;projectName&#125;/&#123;packageName&#125;)? <span class="text-primary">training-project</span>
+  </code>
+</pre>
+<!-- <p>
+  When running this command, you should expect all of the generated files to be similar to those displayed on the right.
+</p> -->
+
+<!-- <h1>Generate an SDK from specifications</h1>
+<h2>Generating an example SDK repository</h2>
+<p>
+  Let's generate an example SDK (with the default configuration - we will see how to override this configuration later on).
+</p>
+<p>
+  Navigate to the folder where you would like to generate the SDK and then execute:
+</p>
+<o3r-copy-text-pres [wrap]="true" language="bash" text="yarn create @ama-sdk typescript training-sdk"></o3r-copy-text-pres>
+<p>
+  You will a receive a prompt asking you to specify the project name:
+</p>
+<o3r-copy-text-pres [wrap]="true" language="bash" text="? Project name (NPM package scope, package.json name will be @{projectName}/{packageName})?"></o3r-copy-text-pres>
+<p>
+  After setting the project name (for example, <b><code>training-project</code></b>), you will see the shell of your SDK repository being generated.
+  This shell won't contain the specification file since we did not pass it as a parameter to the command, so it must be created manually.
+  Create a specification file (for example, <b><code>openapi.yaml</code></b>) with all your API specifications, and update the <b><code>inputSpec</code></b>
+  property of <b><code>openapitools.json</code></b> with the path towards your file.
+</p>
+<p>
+  If you have an existing specification file, you have the option to pass the parameter <b><code>--spec-path [path to your openapi file]</code></b> which will
+  add your specification file to the repository.
+</p>
+<h2>More information</h2>
+<p>
+  You will find more information on how to write OpenAPI specification in the <a href="https://swagger.io/specification/">documentation provided by Swagger</a>.
+</p>
+<p>
+  Once your specification file is ready to be generated (and the <b><code>openapitools.json</code></b> file up-to-date), you can run:
+</p>
+<o3r-copy-text-pres [wrap]="true" language="bash" text="yarn spec:upgrade"></o3r-copy-text-pres>
+<p>
+  You can now notice that the <b>api</b> and <b>models/base</b> folders have been updated with the paths and definitions from your specification file.
+</p> -->

@@ -4,11 +4,11 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const temporaryAssetsDirectory = path.join(process.cwd(), 'training-assets');
+const temporaryAssetsDirectory = path.join(__dirname, 'training-assets');
 
 function getAbsolutePath(packageName) {
   const packageJsonPath = require.resolve(`${packageName}/package.json`);
-  return packageJsonPath.substring(0, packageJsonPath.lastIndexOf('\\'));
+  return path.dirname(packageJsonPath);
 }
 
 // @vscode/codicons

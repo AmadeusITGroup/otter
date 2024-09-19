@@ -30,7 +30,7 @@
   "jest.debugMode": true,
   "jest.runMode": "on-save",
   "testing.openTesting": "neverOpen",
-  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.enabled": false,
   "explorer.fileNesting.patterns": {
     "readme.md": "security.md, code_of_conduct.md, contributing.md",
     "*.js": "${capture}.js.map, ${capture}.d.ts, ${capture}.d.ts.map",
@@ -89,5 +89,7 @@
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
-  "typescript.tsserver.experimental.useVsCodeWatcher": false
+  "typescript.tsserver.experimental.useVsCodeWatcher": false,
+  "editor.tabSize": 2,
+  "explorer.fileNesting.expand": false
 }
