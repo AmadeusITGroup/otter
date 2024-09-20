@@ -65,12 +65,19 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       const shouldSendData = !!(
         (options as any).o3rMetrics
         ?? ((process.env.O3R_METRICS || '').length > 0 ? process.env.O3R_METRICS !== 'false' : undefined)
-        ?? packageJson.config?.o3rMetrics
+        ?? packageJson.config?.o3r?.telemetry
+        ?? packageJson.config?.o3rMetrics // deprecated will be removed in v13
       );
+      if (typeof packageJson.config?.o3rMetrics !== 'undefined') {
+        context.logger.warn([
+          '`config.o3rMetrics` is deprecated and will be removed in v13, please use `config.o3r.telemetry` instead.',
+          'You can run `ng update @o3r/telemetry` to have the automatic update.'
+        ].join('\n'));
+      }
       if (shouldSendData) {
         if (typeof ((options as any).o3rMetrics ?? process.env.O3R_METRICS) === 'undefined') {
           context.logger.info(
-            'Telemetry is globally activated for the project (`config.o3rMetrics` in package.json). '
+            'Telemetry is globally activated for the project (`config.o3r.telemetry` in package.json). '
             + 'If you personally don\'t want to send telemetry, you can deactivate it by setting `O3R_METRICS` to false in your environment variables, '
             + 'or by calling the builder with `--no-o3r-metrics`.'
           );

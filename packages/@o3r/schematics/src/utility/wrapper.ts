@@ -16,7 +16,8 @@ const setupO3rMetricsInPackageJson: (activated: boolean) => Rule = (activated) =
     const packageJson = tree.readJson(PACKAGE_JSON_PATH) as JsonObject;
 
     packageJson.config ||= {};
-    (packageJson.config as JsonObject).o3rMetrics = activated;
+    (packageJson.config as JsonObject).o3r ||= {};
+    ((packageJson.config as JsonObject).o3r as JsonObject).telemetry = activated;
 
     tree.overwrite(PACKAGE_JSON_PATH, JSON.stringify(packageJson, null, 2));
   }
@@ -59,7 +60,7 @@ export const createSchematicWithMetricsIfInstalled: SchematicWrapper = (schemati
     if (
       (process.env.NX_CLI_SET !== 'true' || process.env.NX_INTERACTIVE === 'true')
       && context.interactive
-      && typeof (packageJson.config as JsonObject)?.o3rMetrics === 'undefined'
+      && typeof ((packageJson.config as JsonObject)?.o3r as JsonObject)?.telemetry === 'undefined'
       && process.env.O3R_METRICS !== 'false'
       && (opts as any).o3rMetrics !== false
       && (!process.env.CI || process.env.CI === 'false')
