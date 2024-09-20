@@ -61,6 +61,9 @@
     "typescript": "~5.5.4"
   },
   "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   },
