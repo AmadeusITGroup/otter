@@ -19,6 +19,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn generate-cjs-manifest"
   },
   "peerDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@angular-devkit/schematics": "~18.2.0",
     "@angular/common": "~18.2.0",
@@ -29,6 +30,9 @@
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
+    "@ama-sdk/client-fetch": {
+      "optional": true
+    },
     "@angular-devkit/schematics": {
       "optional": true
     },
@@ -43,6 +47,7 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@angular-devkit/build-angular": "~18.2.0",
     "@angular-devkit/core": "~18.2.0",

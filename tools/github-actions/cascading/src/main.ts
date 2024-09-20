@@ -9,6 +9,9 @@ const promisifiedExec = promisify(exec);
 
 async function run(): Promise<void> {
   try {
+    core.warning('This Github action is Deprecated, it will not be maintained after the version 12. Please register the Cascading Github App instead.');
+    core.warning('https://github.com/apps/otter-cascading');
+
     // Processing options from inputs
     const noFf = core.getInput('noFf');
     const ignoredPattern = core.getInput('ignoredPattern');

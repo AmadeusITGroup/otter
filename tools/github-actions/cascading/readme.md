@@ -3,6 +3,7 @@
 > [!CAUTION]
 > **Deprecated Action**
 > Please install the [Otter Cascading App](https://github.com/apps/otter-cascading) instead.
+> The action will be removed in v12
 
 ## Overview
 

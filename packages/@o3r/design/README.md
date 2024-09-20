@@ -22,7 +22,7 @@ ng add @o3r/design
 
 ## Generators
 
-Otter Design module provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter Design module provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics   | Description                                             | How to use           |
 | ------------ | ------------------------------------------------------- | -------------------- |
@@ -31,7 +31,7 @@ Otter Design module provides a set of code generators based on [angular schemati
 
 ## Builders
 
-Otter Design module provides a set of builders based on [angular builders](https://angular.io/guide/cli-builder).
+Otter Design module provides a set of builders based on [Angular builders](https://angular.io/guide/cli-builder).
 
 ### generate-css
 
@@ -87,5 +87,24 @@ It comes with the following options:
 | **`--level`**    | `-l`  | Number of key to join together when generating the Design Token nodes |
 
 ## Technical documentation
+
+### Additional feature on top of standard Design Token
+
+To enhance the features of default Design Token standard and provide additional information to renderers, the [$extensions](https://tr.designtokens.org/format/#extensions) properties has been enhanced by Otter Tooling with the following options:
+
+| Extension property | Supporting Renderers                                     | Description                                                                                                                                                                                                                                                                      |
+| ------------------ | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **o3rTargetFile**  | `css`, `sass`                                            | Information regarding the path to file where the token requests to be generated                                                                                                                                                                                                  |
+| **o3rPrivate**     | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Determine if the token is flagged as private                                                                                                                                                                                                                                     |
+| **o3rImportant**   | `css`                                                    | Determine if the token should be flagged as important when generated                                                                                                                                                                                                             |
+| **o3rScope**       | `css`, `sass`                                            | Scope to apply to the generated variable                                                                                                                                                                                                                                         |
+| **o3rMetadata**    | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Additional information to provide to the metadata if generated                                                                                                                                                                                                                   |
+| **o3rUnit**        | `css`, `sass`, `metadata`, `design-token`                | Convert a numeric value from the specified unit to the new unit. It will add a unit to the token with type "number" for which the unit is not specified.<br />In case of complex type (such as shadow, transition, etc...), the unit will be applied to all numeric types in it. |
+| **o3rRatio**       | `css`, `sass`, `metadata`, `design-token`                | Ratio to apply to previous value. The ratio will be applied only on token with "number" type or on the first numbers determined in "string" like types.<br />In case of complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it. |
+
+> [!NOTE]
+> In case of implementation of custom renderer, additional properties dedicated to this renderer can be added following Design Token Extensions [guidelines](https://tr.designtokens.org/format/#extensions).
+
+### Going deeper
 
 Documentation providing explanations on the use and customization of the `Design Token` parser and renderers is available in the [technical documentation](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/TECHNICAL_DOCUMENTATION.md).

@@ -19,9 +19,22 @@ on:
   merge_group:
     types: [checks_requested]
 
+env:
+  YARN_ENABLE_HARDENED_MODE: 0
+
 jobs:
+  # Check the integrity of yarn lock
+  yarn_lock_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./tools/github-actions/setup
+        env:
+          YARN_ENABLE_HARDENED_MODE: 1
+
   build:
     runs-on: ubuntu-latest
+    needs: [yarn_lock_check]
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
       NX_SKIP_NX_CACHE: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
@@ -40,6 +53,7 @@ jobs:
       # Needed to publish release on GitHub
       contents: write
     runs-on: ubuntu-latest
+    needs: [yarn_lock_check]
     outputs:
       nextVersionTag: ${{ steps.newVersion.outputs.nextVersionTag }}
       isPreRelease: ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) || github.event_name == 'pull_request' || github.event_name == 'merge_group'}}
@@ -64,6 +78,7 @@ jobs:
     uses: ./.github/workflows/code-check.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    needs: [yarn_lock_check]
     with:
       affected: ${{ github.event_name == 'pull_request' }}
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
@@ -72,7 +87,7 @@ jobs:
     uses: ./.github/workflows/it-tests.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-    needs: [build]
+    needs: [yarn_lock_check, build]
     with:
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
 
@@ -80,7 +95,7 @@ jobs:
     uses: ./.github/workflows/e2e-tests.yml
     secrets:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
-    needs: [build]
+    needs: [yarn_lock_check, build]
     with:
       skipNxCache: ${{ github.event_name == 'push' && startsWith(github.ref, 'refs/heads/release') }}
 
@@ -92,7 +107,7 @@ jobs:
       # Needed to publish with provenance
       id-token: write
     secrets: inherit
-    needs: [version, build, checks, it-tests]
+    needs: [yarn_lock_check, version, build, checks, it-tests]
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
       prerelease: ${{ needs.version.outputs.isPreRelease == 'true' }}
@@ -101,14 +116,14 @@ jobs:
 
   documentation-main:
     secrets: inherit
-    needs: [version, build, checks]
+    needs: [yarn_lock_check, version, build, checks]
     if: ${{ github.event_name != 'pull_request' && github.event_name != 'merge_group' && github.ref_name == 'main' }}
     uses: ./.github/workflows/documentation.yml
     with:
       version: ${{ needs.version.outputs.nextVersionTag }}
   documentation-pr:
     secrets: inherit
-    needs: [version]
+    needs: [yarn_lock_check, version]
     if: ${{ (github.event_name == 'pull_request' && github.base_ref == 'main') || github.event_name == 'merge_group' }}
     uses: ./.github/workflows/documentation.yml
     with:
