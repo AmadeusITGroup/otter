@@ -1,23 +1,27 @@
-import type { RequestBody, RequestOptions, TokenizedOptions } from '../plugins';
-import type { ApiTypes } from '../fwk/api';
-import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient, RequestOptionsParameters } from '../fwk/core/api-client';
-import type { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
+import type {
+  ApiClient,
+  ApiTypes,
+  BaseApiClientOptions,
+  PartialExcept,
+  RequestOptions,
+  RequestOptionsParameters,
+  TokenizedOptions
+} from '@ama-sdk/core';
+import {
+  extractQueryParams,
+  filterUndefinedValues,
+  prepareUrl,
+  processFormData,
+  tokenizeRequestOptions
+} from '@ama-sdk/core';
 
-/**
- * @see BaseApiClientOptions
- * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
- */
+/** @see BaseApiClientOptions */
 export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
   /** @inheritdoc */
   replyPlugins: never[];
 }
 
-/**
- * @see BaseApiConstructor
- * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
- */
+/** @see BaseApiConstructor */
 export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>, 'basePath'> {
 }
 
@@ -29,7 +33,6 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
 
 /**
  * Determine if the given value is a promise
- * @deprecated Use the one exposed by {@link @ama-sdk/client-beacon}, will be removed in v13
  * @param value The value to test
  */
 // NOTE: the `extends unknown` is required for ESM build with TSC
@@ -103,7 +106,7 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public processFormData(data: any, type: string): RequestBody {
+  public processFormData(data: any, type: string) {
     return processFormData(data, type);
   }
 

@@ -1,19 +1,18 @@
 import { delay, from, mergeMap } from 'rxjs';
-import type { AngularCall, AngularPlugin, AngularPluginContext, PluginObservableRunner } from '../core/angular-plugin';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, MockInterceptFetchParameters } from './mock-intercept.interface';
-import { MockInterceptRequest } from './mock-intercept.request';
+import type { AngularCall, AngularPlugin, AngularPluginContext, PluginObservableRunner } from '../../angular-plugin';
+import { CUSTOM_MOCK_OPERATION_ID_HEADER, MockInterceptRequest } from '@ama-sdk/core';
 import { HttpResponse } from '@angular/common/http';
+import type { MockInterceptAngularParameters } from './mock-intercept.interface';
 
 /**
  * Plugin to mock and intercept the call of SDK
  *
  * This plugin should be used only with the MockInterceptRequest Plugin.
  * It will allow the user to delay the response or to handle the getResponse function provided with the mock (if present).
- * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
  */
 export class MockInterceptAngular implements AngularPlugin {
 
-  constructor(protected options: MockInterceptFetchParameters) {}
+  constructor(protected options: MockInterceptAngularParameters) {}
 
   public load(context: AngularPluginContext): PluginObservableRunner<HttpResponse<any>, AngularCall> {
 
