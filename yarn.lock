@@ -7335,6 +7335,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     "@o3r/test-helpers": "workspace:^"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
@@ -7375,6 +7376,7 @@ __metadata:
     "@o3r/core": "workspace:^"
     "@o3r/schematics": "workspace:^"
     "@o3r/styling": "workspace:^"
+    "@o3r/telemetry": "workspace:^"
     chokidar: ^3.5.2
     globby: ^11.1.0
     sass: ~1.77.0
@@ -7384,6 +7386,8 @@ __metadata:
     "@o3r/schematics":
       optional: true
     "@o3r/styling":
+      optional: true
+    "@o3r/telemetry":
       optional: true
     chokidar:
       optional: true
