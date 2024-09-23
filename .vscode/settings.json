@@ -39,6 +39,7 @@
     "package.json": "ng-package.json, project.json, yarn.lock, .yarnrc.yml, .npmrc, .npmrc.*, .pnp.*",
     "nx.json": ".nxignore",
     ".eslintrc.*": ".eslintignore, .eslintrc-*",
+    "eslint.config.mjs": "eslint.*.config.mjs",
     "jest.config.js": "jest.config.*",
     "Dockerfile*": ".dockerignore"
   },

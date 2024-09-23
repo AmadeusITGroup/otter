@@ -5,7 +5,8 @@
   "sourceRoot": "packages/@o3r/eslint-plugin/src",
   "prefix": "o3r",
   "implicitDependencies": [
-    "!test-helpers"
+    "!test-helpers",
+    "!eslint-config"
   ],
   "targets": {
     "build": {
@@ -44,13 +45,7 @@
       "dependsOn": []
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/eslint-plugin/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/eslint-plugin/src/**/*.ts",
-          "packages/@o3r/eslint-plugin/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

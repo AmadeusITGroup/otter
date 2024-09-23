@@ -61,13 +61,7 @@
       "dependsOn": ["^build", "compile"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/storybook/.eslintrc.js",
-        "lintFilePatterns": [
-          "packages/@o3r/storybook/src/**/*.ts",
-          "packages/@o3r/storybook/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

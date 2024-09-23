@@ -39,13 +39,7 @@
       ]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "apps/showcase/.eslintrc.js",
-        "lintFilePatterns": [
-          "apps/showcase/src/**/*.ts",
-          "apps/showcase/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:application",

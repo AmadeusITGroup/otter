@@ -3,6 +3,7 @@
   "include": [
     "*.cjs",
     "rules/**/*.cjs",
-    ".eslintrc.js"
+    "eslint*.config.mjs",
+    "testing/setup-jest*.ts"
   ]
 }

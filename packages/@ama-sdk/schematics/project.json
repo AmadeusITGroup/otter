@@ -67,10 +67,7 @@
       ]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@ama-sdk/schematics/.eslintrc.js",
-        "lintFilePatterns": ["packages/@ama-sdk/schematics/schematics/**/*.ts"]
-      }
+      "executor": "nx:run-commands"
     },
     "build-swagger": {
       "executor": "nx:run-script",

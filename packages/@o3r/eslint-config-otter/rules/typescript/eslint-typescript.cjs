@@ -63,7 +63,6 @@ module.exports = {
       {
         'default': [
           'static-field',
-          'static-field',
           'instance-field',
           'constructor',
           'decorated-method',

@@ -1,11 +1,14 @@
-import { TSESLint } from '@typescript-eslint/utils';
+import typescriptParser from '@typescript-eslint/parser';
+import { RuleTester } from '@typescript-eslint/rule-tester';
 import o3rCategoriesTagsRule, { O3rCategoriesTagsRuleOption } from './o3r-categories-tags';
 
-const ruleTester = new TSESLint.RuleTester({
-  parser: require.resolve('@typescript-eslint/parser'),
-  parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module'
+const ruleTester = new RuleTester({
+  languageOptions: {
+    parser: typescriptParser,
+    parserOptions: {
+      ecmaVersion: 2018,
+      sourceType: 'module'
+    }
   }
 });
 

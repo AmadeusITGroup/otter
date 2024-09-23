@@ -1,7 +1,7 @@
 {
   "extends": "../../../tsconfig.jest",
   "include": [
-    ".eslintrc.js",
+    "eslint*.config.mjs",
     "jest.config.js",
     "src/**/*.spec.ts",
     "src/helpers/**/*.ts"

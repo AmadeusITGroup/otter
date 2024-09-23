@@ -18,7 +18,7 @@ export function isYamlParserServices(parserServices: any): parserServices is Yam
  * @param context Rule context
  */
 export function getYamlParserServices(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>) {
-  const parserService = context.parserServices;
+  const parserService = context.sourceCode.parserServices;
   if (!isYamlParserServices(parserService)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it
@@ -37,7 +37,7 @@ export function getYamlParserServices(context: Readonly<TSESLint.RuleContext<str
  * @param context
  */
 export function ensureJsoncParser(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>): void {
-  if (!(context.parserServices)) {
+  if (!(context.sourceCode.parserServices)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it
      * to yaml-eslint-parser

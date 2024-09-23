@@ -132,13 +132,7 @@
       "dependsOn": ["^build"]
     },
     "lint": {
-      "options": {
-        "eslintConfig": "apps/chrome-devtools/.eslintrc.js",
-        "lintFilePatterns": [
-          "apps/chrome-devtools/src/**/*.ts",
-          "apps/chrome-devtools/package.json"
-        ]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

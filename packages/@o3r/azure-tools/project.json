@@ -36,10 +36,7 @@
       }
     },
     "lint": {
-      "options": {
-        "eslintConfig": "packages/@o3r/azure-tools/.eslintrc.js",
-        "lintFilePatterns": ["packages/@o3r/azure-tools/src/**/*.ts"]
-      }
+      "executor": "nx:run-commands"
     },
     "test": {
       "executor": "@nx/jest:jest",

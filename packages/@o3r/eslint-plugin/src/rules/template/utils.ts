@@ -34,7 +34,7 @@ export function isTemplateParserServices(parserServices: any): parserServices is
  * @param context Rule context
  */
 export function getTemplateParserServices(context: Readonly<TSESLint.RuleContext<string, readonly unknown[]>>) {
-  const parserService = context.parserServices;
+  const parserService = context.sourceCode.parserServices;
   if (!isTemplateParserServices(parserService)) {
     /*
      * The user needs to have configured "parser" in their eslint config and set it
