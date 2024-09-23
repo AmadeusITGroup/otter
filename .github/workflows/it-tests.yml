@@ -57,6 +57,7 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         packageManager: [yarn, npm]
         testEnvironment: [o3r-project-with-app]
+        shard: [1,2,3,4]
     runs-on: ${{ matrix.os }}
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
@@ -106,7 +107,7 @@ jobs:
         shell: bash
       - name: Test
         id: it-tests
-        run: yarn test-int
+        run: yarn test-int --shard=${{ matrix.shard }}/4
       - name: Zip generated app on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
         run: |
