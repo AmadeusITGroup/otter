@@ -20,7 +20,7 @@ import type { NgAddSchematicsSchema } from '../schema';
 import { updateBuildersNames } from '../updates-for-v8/cms-adapters/update-builders-names';
 import { updateOtterGeneratorsNames } from '../updates-for-v8/generators/update-generators-names';
 import { packagesToRemove } from '../updates-for-v8/replaced-packages';
-import { shouldOtterLinterBeInstalled } from '../utils/index';
+import { shouldOtterLinterBeInstalled, isUsingFlatConfig } from '../utils/index';
 
 /**
  * Enable all the otter features requested by the user
@@ -36,14 +36,14 @@ export const prepareProject = (options: NgAddSchematicsSchema, dependenciesSetup
     context.logger.error('Could not find @o3r/core package. Are you sure it is installed?');
   }
   const o3rCoreVersion = corePackageJsonContent.version;
-  const installOtterLinter = await shouldOtterLinterBeInstalled(context);
+  const installOtterLinter = await shouldOtterLinterBeInstalled(context, tree);
   const workspaceConfig = getWorkspaceConfig(tree);
   const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
   const projectType = workspaceProject?.projectType;
   const depsInfo = getO3rPeerDeps(corePackageJsonPath);
   const internalPackagesToInstallWithNgAdd = Array.from(new Set([
     ...(projectType === 'application' ? ['@o3r/application'] : []),
-    ...(installOtterLinter ? ['@o3r/eslint-config-otter'] : []),
+    ...(installOtterLinter ? [`@o3r/eslint-config${!isUsingFlatConfig(tree) ? '-otter' : ''}`] : []),
     ...depsInfo.o3rPeerDeps
   ]));
   const projectDirectory = workspaceProject?.root;

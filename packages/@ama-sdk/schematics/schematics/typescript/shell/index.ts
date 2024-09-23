@@ -52,6 +52,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchemati
       'eslint-plugin-prefer-arrow': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-prefer-arrow'],
       'eslint-plugin-unicorn': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-unicorn'],
       'eslint': amaSdkSchematicsPackageJson.devDependencies!.eslint,
+      'globals': amaSdkSchematicsPackageJson.devDependencies!.globals,
       'globby': amaSdkSchematicsPackageJson.dependencies!.globby,
       'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch'],
       'jest': amaSdkSchematicsPackageJson.devDependencies!.jest,
