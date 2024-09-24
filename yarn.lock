@@ -7406,7 +7406,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^9.0.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -7646,7 +7646,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     minimist: "npm:^1.2.6"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -8612,7 +8612,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9058,7 +9058,7 @@ __metadata:
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     jsonpath-plus: "npm:^9.0.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rimraf: "npm:^5.0.1"
@@ -9605,7 +9605,7 @@ __metadata:
     jest-junit: "npm:~16.0.0"
     jest-preset-angular: "npm:~14.2.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9757,7 +9757,7 @@ __metadata:
     jest-environment-node: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
-    memfs: "npm:~4.11.0"
+    memfs: "npm:~4.12.0"
     minimist: "npm:^1.2.6"
     pid-from-port: "npm:^1.1.3"
     rxjs: "npm:^7.8.1"
@@ -9772,7 +9772,7 @@ __metadata:
     "@angular-devkit/schematics": ~18.2.0
     "@o3r/schematics": "workspace:^"
     jest-environment-node: ~29.7.0
-    memfs: ~4.11.0
+    memfs: ~4.12.0
     minimist: ^1.2.6
     pid-from-port: ^1.1.3
     semver: ^7.5.2
@@ -25316,7 +25316,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memfs@npm:^4.6.0":
+"memfs@npm:^4.6.0, memfs@npm:~4.12.0":
   version: 4.12.0
   resolution: "memfs@npm:4.12.0"
   dependencies:
@@ -25325,18 +25325,6 @@ __metadata:
     tree-dump: "npm:^1.0.1"
     tslib: "npm:^2.0.0"
   checksum: 10/02718be80ebc03ca47eebba59b60865b0c2579e3fbebd71e4e45e171f9dbf6ea77e836257926908618e82881ef01e3326a89112b408e8fb379ca30aec4eb79e6
-  languageName: node
-  linkType: hard
-
-"memfs@npm:~4.11.0":
-  version: 4.11.2
-  resolution: "memfs@npm:4.11.2"
-  dependencies:
-    "@jsonjoy.com/json-pack": "npm:^1.0.3"
-    "@jsonjoy.com/util": "npm:^1.3.0"
-    tree-dump: "npm:^1.0.1"
-    tslib: "npm:^2.0.0"
-  checksum: 10/063189392dd8634985371dee2bd74470b9ada5573429b7d9c3654814655f9815b253bf3d4ec2dd4fedfaa1c2b1e692d78adba302e3be7586134f40e6edcc9f20
   languageName: node
   linkType: hard
 
