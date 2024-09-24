@@ -12,6 +12,7 @@ const config = [
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': [
         'error',
+        // Why not using the recommended value 'always-multiline'
         'never'
       ],
       '@stylistic/indent': [

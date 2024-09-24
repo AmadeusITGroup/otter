@@ -88,7 +88,11 @@ const config = [
       '@typescript-eslint/no-non-null-assertion': 'off',
       '@typescript-eslint/no-parameter-properties': 'off',
       '@typescript-eslint/no-redeclare': 'error',
+      // Why do I turn it to off?
+      // If we keep it false, it should be added to the doc.
       '@typescript-eslint/no-redundant-type-constituents': 'off',
+      // Kilian wanted to set it to error.
+      // Is it only for us or not?
       '@typescript-eslint/no-require-imports': 'warn',
       '@typescript-eslint/no-shadow': [
         'error',
@@ -97,6 +101,11 @@ const config = [
         }
       ],
       '@typescript-eslint/no-unsafe-enum-comparison': 'warn',
+      '@typescript-eslint/no-unsafe-assignment': 'warn',
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      '@typescript-eslint/no-unsafe-member-access': 'warn',
+      '@typescript-eslint/no-unsafe-call': 'warn',
+      '@typescript-eslint/no-unsafe-return': 'warn',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
@@ -106,14 +115,11 @@ const config = [
         }
       ],
       '@typescript-eslint/no-use-before-define': 'off',
-      '@typescript-eslint/no-unsafe-assignment': 'warn',
-      '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@typescript-eslint/no-unsafe-member-access': 'warn',
-      '@typescript-eslint/no-unsafe-call': 'warn',
-      '@typescript-eslint/no-unsafe-return': 'warn',
+      // We may set it to error. Don't forget the doc if so.
       '@typescript-eslint/only-throw-error': 'warn',
       '@typescript-eslint/prefer-for-of': 'error',
       '@typescript-eslint/prefer-function-type': 'error',
+      // We may set it to error. Don't forget the doc if so.
       '@typescript-eslint/prefer-promise-reject-errors': 'warn',
       '@typescript-eslint/prefer-regexp-exec': 'off',
       '@typescript-eslint/triple-slash-reference': [
