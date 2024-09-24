@@ -1,0 +1,77 @@
+import o3rConfig from '@o3r/eslint-config';
+import globals from 'globals';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// eslint-disable-next-line no-underscore-dangle
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+// eslint-disable-next-line no-underscore-dangle
+const __dirname = dirname(__filename);
+
+export default [
+  ...o3rConfig,
+  {
+    name: '<%= projectPackageName %>/report-unused-disable-directives',
+    linterOptions: {
+      reportUnusedDisableDirectives: 'error'
+    }
+  },
+  {
+    name: '<%= projectPackageName %>/projects',
+    languageOptions: {
+      sourceType: 'commonjs',
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: [
+          'testing/tsconfig.spec.json',
+          'tsconfigs/tsconfig.jest.json',
+          'tsconfigs/tsconfig.source.json'
+        ]
+      },
+      ecmaVersion: 12
+    }
+  },
+  {
+    name: '<%= projectPackageName %>/globals',
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+        ...globals.webextensions,
+        globalThis: true
+      },
+      ecmaVersion: 12
+    },
+    settings: {
+      'import/resolver': 'node'
+    }
+  },
+  {
+    name: '<%= projectPackageName %>/ignores',
+    ignores: [
+      '/src/api',
+      '/src/models/base',
+      '/src/spec/api-mocks.ts',
+      '/src/spec/operation-adapter.ts',
+      '/dist',
+      '/build',
+      '/scripts',
+      '/jest.config.js'
+    ]
+  },
+  {
+    name: '<%= projectPackageName %>/helpers',
+    files: ['*.helper.ts'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': 'error'
+    }
+  },
+  {
+    name: '<%= projectPackageName %>/javascript',
+    files: ['*.js'],
+    rules: {
+      '@typescript-eslint/restrict-template-expressions': 'off'
+    }
+  }
+];

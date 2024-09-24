@@ -7,7 +7,7 @@ const __dirname = dirname(__filename);
 
 export default [
   {
-    name: '@ama-sdk/schowcase-sdk/ignores',
+    name: '@ama-sdk/showcase-sdk/ignores',
     ignores: [
       'src/api',
       'src/models/base',

@@ -16,7 +16,7 @@ export function allPreset(options: PresetOptions) {
     '@o3r/configuration',
     '@o3r/design',
     '@o3r/dynamic-content',
-    '@o3r/eslint-config-otter',
+    '@o3r/eslint-config',
     '@o3r/eslint-plugin',
     '@o3r/forms',
     '@o3r/localization',
