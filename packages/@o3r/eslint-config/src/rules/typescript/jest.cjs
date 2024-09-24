@@ -1,3 +1,6 @@
+const jest = require('eslint-plugin-jest');
+const { convertWarningsToErrors } = require('../utils.cjs');
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -8,11 +11,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      'jest/expect-expect': 'error',
-      'jest/no-commented-out-tests': 'error',
-      'jest/no-conditional-expect': 'error',
-      'jest/no-disabled-tests': 'error',
-      'jest/no-done-callback': 'error'
+      ...convertWarningsToErrors(jest.configs['flat/recommended'])
     }
   }
 ];

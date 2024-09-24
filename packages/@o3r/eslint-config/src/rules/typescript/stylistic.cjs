@@ -1,3 +1,6 @@
+const stylistic = require('@stylistic/eslint-plugin');
+const { convertWarningsToErrors } = require('../utils.cjs');
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -8,14 +11,9 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
+      ...convertWarningsToErrors(stylistic.configs['recommended-flat']),
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/brace-style': ['error', '1tbs'],
-      '@stylistic/comma-dangle': [
-        'error',
-        {
-          imports: 'always-multiline'
-        }
-      ],
       '@stylistic/indent': [
         'error',
         2,

@@ -1,5 +1,9 @@
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import {
+  dirname,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -46,7 +50,6 @@ export default [
       '@typescript-eslint/naming-convention': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       'max-len': 'off',
-      'no-redeclare': 'off',
       'no-use-before-define': 'off',
       'no-useless-escape': 'off'
     }

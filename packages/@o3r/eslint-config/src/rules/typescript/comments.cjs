@@ -1,3 +1,6 @@
+const comments = require('@eslint-community/eslint-plugin-eslint-comments/configs');
+const { convertWarningsToErrors } = require('../utils.cjs');
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -8,6 +11,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
+      ...convertWarningsToErrors(comments.recommended),
       '@eslint-community/eslint-comments/require-description': [
         'error',
         {
