@@ -1,10 +1,10 @@
 {
-  "name": "@ama-sdk/client-fetch",
+  "name": "@ama-sdk/client-angular",
   "version": "0.0.0-placeholder",
   "publishConfig": {
     "access": "public"
   },
-  "description": "Fetch API Request client for @ama-sdk/core based SDK",
+  "description": "Angular API Request client for @ama-sdk/core based SDK",
   "module": "dist/src/public_api.js",
   "esm2015": "dist/esm2015/public_api.js",
   "esm2020": "dist/src/public_api.js",
@@ -29,7 +29,7 @@
   "scripts": {
     "nx": "nx",
     "ng": "yarn nx",
-    "build": "yarn nx build ama-sdk-client-fetch",
+    "build": "yarn nx build ama-sdk-client-angular",
     "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
     "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q --strip-leading-paths",
     "build:esm2020": "tsc -b tsconfig.build.json",
@@ -50,7 +50,7 @@
     "@angular/common": "~18.2.0",
     "@o3r/schematics": "workspace:^",
     "@schematics/angular": "~18.2.0",
-    "isomorphic-fetch": "^3.0.0",
+    "rxjs": "^7.8.1",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
@@ -67,9 +67,6 @@
       "optional": true
     },
     "@schematics/angular": {
-      "optional": true
-    },
-    "isomorphic-fetch": {
       "optional": true
     },
     "typescript": {
@@ -105,7 +102,6 @@
     "eslint-plugin-jsdoc": "~48.11.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^54.0.0",
-    "isomorphic-fetch": "~3.0.0",
     "jest": "~29.7.0",
     "jest-junit": "~16.0.0",
     "jsonc-eslint-parser": "~2.4.0",

@@ -1,34 +1,36 @@
 import type { HttpClient, HttpResponse } from '@angular/common/http';
-import type { RequestOptions, TokenizedOptions } from '../plugins/core/index';
-import { ExceptionReply } from '../plugins/exception';
-import { ReviverReply } from '../plugins/reviver';
-import { ApiTypes } from '../fwk/api';
-import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
-import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
-import { EmptyResponseError } from '../fwk/errors';
-import { ReviverType } from '../fwk/Reviver';
-import type { AngularCall, AngularPlugin, PluginObservableRunner } from '../plugins/core/angular-plugin';
+import type {
+  ApiClient,
+  ApiTypes,
+  BaseApiClientOptions,
+  PartialExcept,
+  RequestOptions,
+  RequestOptionsParameters,
+  ReviverType,
+  TokenizedOptions
+} from '@ama-sdk/core';
+import {
+  EmptyResponseError,
+  ExceptionReply,
+  extractQueryParams,
+  filterUndefinedValues,
+  getResponseReviver,
+  prepareUrl,
+  processFormData,
+  ReviverReply,
+  tokenizeRequestOptions
+} from '@ama-sdk/core';
+import type { AngularCall, AngularPlugin, PluginObservableRunner } from './angular-plugin';
 
-/**
- * @see BaseApiClientOptions
- * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
- */
+/** @see BaseApiClientOptions */
 export interface BaseApiAngularClientOptions extends BaseApiClientOptions {
   /** Angular HTTP Client  */
   httpClient: HttpClient;
-  /**
-   * List of plugins to apply to the Angular Http call
-   * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
-   */
+  /** List of plugins to apply to the Angular Http call */
   angularPlugins: AngularPlugin[];
 }
 
-/**
- * @see BaseApiConstructor
- * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
- */
+/** @see BaseApiConstructor */
 export interface BaseApiAngularClientConstructor extends PartialExcept<BaseApiAngularClientOptions, 'basePath' | 'httpClient'> {
 }
 
@@ -40,10 +42,7 @@ const DEFAULT_OPTIONS: Omit<BaseApiAngularClientOptions, 'basePath' | 'httpClien
   disableFallback: false
 };
 
-/**
- * Client to process the call to the API using Angular API
- * @deprecated Use the one exposed by {@link @ama-sdk/client-angular}, will be removed in v13
- */
+/** Client to process the call to the API using Angular API */
 export class ApiAngularClient implements ApiClient {
 
   /** @inheritdoc */
