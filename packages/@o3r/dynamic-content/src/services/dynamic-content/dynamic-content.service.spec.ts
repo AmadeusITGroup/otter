@@ -159,6 +159,12 @@ describe('DynamicContentService', () => {
           service.getMediaPathStream('/asset.png')
         )).resolves.toBe('my-custom-path/assets/asset.png');
       });
+
+      it('should get the path from the custom config when assetPath starts with media folder', () => {
+        return expect(firstValueFrom(
+          service.getMediaPathStream('assets/asset.png')
+        )).resolves.toBe('my-custom-path/assets/asset.png');
+      });
     });
 
     describe('with the custom configuration for content as object', () => {

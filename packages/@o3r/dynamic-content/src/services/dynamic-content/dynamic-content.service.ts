@@ -5,8 +5,6 @@ import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 import { AssetPathOverrideStore, selectAssetPathOverride } from '../../stores/index';
 import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
 
-const MEDIA_FOLDER_NAME = 'assets';
-
 /**
  * Service for getting dynamic content path
  */
@@ -20,7 +18,7 @@ export class DynamicContentService {
       @Inject(CMS_ASSETS_PATH_TOKEN) private readonly cmsOnlyAssetsPath: string,
       @Optional() private readonly store?: Store<AssetPathOverrideStore>) {
     this.basePath = dynamicContentPath.replace(/\/$/, '');
-    this.mediaFolder = MEDIA_FOLDER_NAME;
+    this.mediaFolder = 'assets';
   }
 
   private normalizePath(assetPath?: string) {
@@ -36,7 +34,11 @@ export class DynamicContentService {
     if (this.cmsOnlyAssetsPath && assetPath) {
       return assetPath.startsWith('/') ? assetPath : `${this.cmsOnlyAssetsPath.replace(/\/$/, '')}/${assetPath}`;
     }
-    return this.getContentPath(this.mediaFolder ? `${this.mediaFolder}/${this.normalizePath(assetPath)}` : assetPath);
+
+    const path = assetPath.startsWith(this.mediaFolder)
+      ? this.normalizePath(assetPath)
+      : `${this.mediaFolder}/${this.normalizePath(assetPath)}`;
+    return this.getContentPath(path);
   }
 
   /**
