@@ -180,7 +180,7 @@
     "@compodoc/compodoc": "^1.1.19",
     "@design-factory/design-factory": "~18.0.3",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
-    "@ng-select/ng-select": "~13.7.0",
+    "@ng-select/ng-select": "~13.8.0",
     "@ngrx/effects": "~18.0.0",
     "@ngrx/entity": "~18.0.0",
     "@ngrx/router-store": "~18.0.0",

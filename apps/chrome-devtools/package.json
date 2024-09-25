@@ -90,7 +90,7 @@
     "@angular/router": "~18.2.0",
     "@design-factory/design-factory": "~18.0.3",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
-    "@ng-select/ng-select": "~13.7.0",
+    "@ng-select/ng-select": "~13.8.0",
     "@ngrx/entity": "~18.0.0",
     "@ngrx/store": "~18.0.0",
     "@o3r/application": "workspace:^",
