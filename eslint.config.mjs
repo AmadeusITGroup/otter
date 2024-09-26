@@ -1,6 +1,11 @@
 import { sync } from 'globby';
-import { dirname } from 'node:path';
+import { dirname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import shared from './eslint.shared.config.mjs';
+
+const __filename = fileURLToPath(import.meta.url);
+// __dirname is not defined in ES module scope
+const __dirname = dirname(__filename);
 
 /**
  * Add a prefix to a path glob
@@ -24,7 +29,7 @@ const mergeESLintConfigs = async (globs) => {
     const moduleConfig = await (module.default ?? module);
     /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray} */
     const configArray = Array.isArray(moduleConfig) ? moduleConfig : [moduleConfig];
-    const directory = dirname(localConfigFile);
+    const directory = relative(__dirname, dirname(localConfigFile));
     /**
      * Add the directory as prefix to the glob
      * @param {string} pathGlob
