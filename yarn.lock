@@ -6205,16 +6205,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~13.7.0":
-  version: 13.7.2
-  resolution: "@ng-select/ng-select@npm:13.7.2"
+"@ng-select/ng-select@npm:~13.8.0":
+  version: 13.8.1
+  resolution: "@ng-select/ng-select@npm:13.8.1"
   dependencies:
     tslib: "npm:^2.3.1"
   peerDependencies:
     "@angular/common": ^18.0.0
     "@angular/core": ^18.0.0
     "@angular/forms": ^18.0.0
-  checksum: 10/b27175473dd8a698309cc7527c0010d7320ba1c8b7a12b290a69e0c69d38da104f70c5fca655c9eff0956e56bcd9b241bc1bb587112ca32c1ea78c6534deba36
+  checksum: 10/4401db5c04beb2cf0485bf4f4b901f2d29d17f7815132ee1851e6ac995c5919057358ce881560e005c8e25311d0d5387a00848b5e4e429c1f5c02a2b6fc552c3
   languageName: node
   linkType: hard
 
@@ -7426,7 +7426,7 @@ __metadata:
     "@angular/router": "npm:~18.2.0"
     "@design-factory/design-factory": "npm:~18.0.3"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.7.0"
+    "@ng-select/ng-select": "npm:~13.8.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/store": "npm:~18.0.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
@@ -8533,7 +8533,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@design-factory/design-factory": "npm:~18.0.3"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.7.0"
+    "@ng-select/ng-select": "npm:~13.8.0"
     "@ngrx/effects": "npm:~18.0.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/router-store": "npm:~18.0.0"
@@ -9383,7 +9383,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~18.0.3"
     "@formatjs/intl-numberformat": "npm:~8.10.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.7.0"
+    "@ng-select/ng-select": "npm:~13.8.0"
     "@ngrx/effects": "npm:~18.0.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/store": "npm:~18.0.0"
@@ -9442,7 +9442,7 @@ __metadata:
     jsonc-eslint-parser: "npm:~2.4.0"
     lighthouse: "npm:~12.2.0"
     minimist: "npm:^1.2.6"
-    monaco-editor: "npm:~0.51.0"
+    monaco-editor: "npm:~0.52.0"
     ngx-highlightjs: "npm:^12.0.0"
     ngx-monaco-editor-v2: "npm:^18.0.0"
     ngx-monaco-tree: "npm:^18.1.0"
@@ -25955,10 +25955,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"monaco-editor@npm:~0.51.0":
-  version: 0.51.0
-  resolution: "monaco-editor@npm:0.51.0"
-  checksum: 10/2d4f076e35edb32add51b9b7a0ff5a7a81bf946cdeda9983ab6b24c2e5b84f537d5a5c781925d7ee8c898e890212b379d3c96139a965ad1004e6dd3d890163fa
+"monaco-editor@npm:~0.52.0":
+  version: 0.52.0
+  resolution: "monaco-editor@npm:0.52.0"
+  checksum: 10/ec9a543b07e70bb3339c7e20f4f84aad045776057820daced36537efd8e50b8d9cd448988e68a4870bdc3db9c15ae3ae05201c8ed8e4ca8e87f74ee2fefb8cad
   languageName: node
   linkType: hard
 
