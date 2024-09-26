@@ -4796,6 +4796,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ewoudenberg/difflib@npm:0.1.0":
+  version: 0.1.0
+  resolution: "@ewoudenberg/difflib@npm:0.1.0"
+  dependencies:
+    heap: "npm:>= 0.2.0"
+  checksum: 10/4d1cd4c2d889451f539421312232b194a2a1e10ed0c4ec52611b060440cb4510516366a7a71afccc96a03249cc69c2fc9c88d028d3d21f2c51c83ac8a30c7c90
+  languageName: node
+  linkType: hard
+
 "@fal-works/esbuild-plugin-global-externals@npm:^2.1.2":
   version: 2.1.2
   resolution: "@fal-works/esbuild-plugin-global-externals@npm:2.1.2"
@@ -8382,6 +8391,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:~2.7.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/jest": "npm:~29.5.2"
+    "@types/json-diff": "npm:^1.0.3"
     "@types/node": "npm:^20.0.0"
     "@types/semver": "npm:^7.3.13"
     "@typescript-eslint/eslint-plugin": "npm:^8.0.0"
@@ -8398,6 +8408,7 @@ __metadata:
     globby: "npm:^11.1.0"
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
+    json-diff: "npm:^1.0.6"
     jsonc-eslint-parser: "npm:~2.4.0"
     nx: "npm:~19.5.0"
     pid-from-port: "npm:^1.1.3"
@@ -8411,9 +8422,12 @@ __metadata:
   peerDependencies:
     "@angular/compiler": ~18.2.0
     eslint: ^8.57.0 || ^9.0.0
+    json-diff: ^1.0.6
     jsonc-eslint-parser: ~2.4.0
     yaml-eslint-parser: ^1.2.2
   peerDependenciesMeta:
+    json-diff:
+      optional: true
     jsonc-eslint-parser:
       optional: true
     yaml-eslint-parser:
@@ -13104,6 +13118,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/json-diff@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "@types/json-diff@npm:1.0.3"
+  checksum: 10/8690cdc8c9a7d7d4a987b15652aa0c5ff9023967d0cad34b7942fa6622e76d3c14a00b43a0b2bfeb9192ff5e924604a4784cfde922e30d7d9e2dba3f2a022048
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:*, @types/json-schema@npm:^7.0.15, @types/json-schema@npm:^7.0.8, @types/json-schema@npm:^7.0.9":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -17225,7 +17246,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colors@npm:1.4.0":
+"colors@npm:1.4.0, colors@npm:^1.4.0":
   version: 1.4.0
   resolution: "colors@npm:1.4.0"
   checksum: 10/90b2d5465159813a3983ea72ca8cff75f784824ad70f2cc2b32c233e95bcfbcda101ebc6d6766bc50f57263792629bfb4f1f8a4dfbd1d240f229fc7f69b785fc
@@ -19117,6 +19138,15 @@ __metadata:
     find-up: "npm:^3.0.0"
     minimatch: "npm:^3.0.4"
   checksum: 10/84b00ad4d3b75c2eef8d8502d83fffe6000999213ef3a7089680957b1c33b521cf41f15081f693899a17d180e8b49a148063cc39ce7407a8d35acb82047e6daa
+  languageName: node
+  linkType: hard
+
+"dreamopt@npm:~0.8.0":
+  version: 0.8.0
+  resolution: "dreamopt@npm:0.8.0"
+  dependencies:
+    wordwrap: "npm:>=0.0.2"
+  checksum: 10/7b6e81beec65c0a2e9b065f539f7aa69a9a325c9976cf83f5f390b76a9807cfdd99e1eb25c8ef0a1cb776a1f3ce561beec87d22cc81944151551148832fbb872
   languageName: node
   linkType: hard
 
@@ -22179,6 +22209,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"heap@npm:>= 0.2.0":
+  version: 0.2.7
+  resolution: "heap@npm:0.2.7"
+  checksum: 10/6374f6510af79bf47f2cfcee265bf608e6ed2b2694875974d1cb5654ddc98af05347dcf3a42ee9a7de318b576022d6f4d00fe06fa65a4a65c4c60638375eabfe
+  languageName: node
+  linkType: hard
+
 "highlight.js@npm:^11.8.0, highlight.js@npm:^11.9.0":
   version: 11.10.0
   resolution: "highlight.js@npm:11.10.0"
@@ -24452,6 +24489,19 @@ __metadata:
   version: 3.0.1
   resolution: "json-buffer@npm:3.0.1"
   checksum: 10/82876154521b7b68ba71c4f969b91572d1beabadd87bd3a6b236f85fbc7dc4695089191ed60bb59f9340993c51b33d479f45b6ba9f3548beb519705281c32c3c
+  languageName: node
+  linkType: hard
+
+"json-diff@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "json-diff@npm:1.0.6"
+  dependencies:
+    "@ewoudenberg/difflib": "npm:0.1.0"
+    colors: "npm:^1.4.0"
+    dreamopt: "npm:~0.8.0"
+  bin:
+    json-diff: bin/json-diff.js
+  checksum: 10/8892600105aae38ae9ddc786b327296e61fb86badf4fc209d531699794047e7dbdc24968e0d8fe09e2f882d33522d8f1bbfeb4fef2668692e5893048612d9845
   languageName: node
   linkType: hard
 
@@ -34545,7 +34595,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wordwrap@npm:^1.0.0":
+"wordwrap@npm:>=0.0.2, wordwrap@npm:^1.0.0":
   version: 1.0.0
   resolution: "wordwrap@npm:1.0.0"
   checksum: 10/497d40beb2bdb08e6d38754faa17ce20b0bf1306327f80cb777927edb23f461ee1f6bc659b3c3c93f26b08e1cf4b46acc5bae8fda1f0be3b5ab9a1a0211034cd

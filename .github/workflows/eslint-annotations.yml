@@ -1,0 +1,83 @@
+name: ESLint annotations
+
+concurrency:
+  group: ci-${{ github.ref }}-eslint-annotations
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+on: pull_request
+
+env:
+  YARN_ENABLE_HARDENED_MODE: 0
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    env:
+      NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+        with:
+          fetch-depth: 0
+      - name: Setup
+        uses: ./tools/github-actions/setup
+      - name: Cache Eslint
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: .cache/eslint
+          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-eslint-${{ env.hash }}
+            ${{ runner.os }}-eslint
+            ${{ runner.os }}
+      - name: Lint
+        run: yarn lint --configuration ci --format json --output-file eslint-report-branch.json || exit 0
+      - name: Checkout base branch
+        run: git checkout origin/${{ github.base_ref }}
+      - name: Setup
+        uses: ./tools/github-actions/setup
+      - name: Cache Eslint
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        with:
+          path: .cache/eslint
+          key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-eslint-${{ env.hash }}
+            ${{ runner.os }}-eslint
+            ${{ runner.os }}
+      - name: Lint
+        run: yarn lint --configuration ci --format json --output-file eslint-report-base.json || exit 0
+      - name: Annotate introduced issues
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            const { mergeESLintReports, getIntroducedESLintIssues } = require('@o3r/eslint-plugin');
+            const report = getIntroducedESLintIssues(mergeESLintReports('**/eslint-report-base.json', '**/eslint-report-branch.json'));
+            const annotations = report.flatMap((item) => item.messages.map((lintMessage) => ({
+              path: item.filePath.replace(`${{ github.workspace }}/`, ''),
+              start_line: lintMessage.line || 1,
+              end_line: lintMessage.endLine || lintMessage.line || 1,
+              annotation_level: lintMessage.severity < 2 ? 'warning' : 'failure',
+              message: `[${ruleId}] ${lintMessage.message}`,
+            })));
+            const chunkOfN = (arr, n) => {
+              const size = Math.ceil(arr.length / n);
+              return Array.from({ length: n }, (v, i) =>
+                arr.slice(i * size, i * size + size)
+              );
+            };
+            const batchedAnnotations = chunkOfN(annotations, 50);
+            const { data: { id: checkRunId } } = await github.rest.checks.create({
+              owner, repo, name: 'ESLint annotations', status: 'in_progress', head_sha: context.payload.workflow_run.head_commit.id
+            }).catch((e) => console.error(e))
+            for (const batch of batchedAnnotations) {
+              await github.rest.checks.update({
+                owner, repo, check_run_id: checkRunId, status: 'in_progress', output: { annotations: batch }
+              }).catch((e) => console.error(e))
+            }
+            return github.rest.checks.update({
+              owner, repo, check_run_id: checkRunId, status: 'completed'
+            }).catch((e) => console.error(e))

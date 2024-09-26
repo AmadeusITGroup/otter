@@ -103,4 +103,4 @@ jobs:
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}
-        run: yarn ${{ env.lintCmd }} --configuration ci
+        run: yarn ${{ env.lintCmd }} --configuration ci --quiet
