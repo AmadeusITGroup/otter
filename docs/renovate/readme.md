@@ -22,11 +22,11 @@ To be able to benefit from the Renovate Presets exposed by the Otter Framework, 
 > The Otter Renovate presets are always prefixed with `github>AmadeusITGroup/otter//tools/renovate/` to target the specific configuration files hosted in the Otter repository.
 
 > [!WARNING]
-> Check the [Self hosted Renovate section](#self-hosted-renovate) to see how to fully benefit from the presets.
+> Check out the [Self-Hosted Renovate section](#self-hosted-renovate) to see how to fully benefit from the presets.
 
 ## Available presets
 
-You can see here [the documentation of the available presets](https://github.com/AmadeusITGroup/otter/tree/main/tools/renovate).
+You can have a look at [the documentation of the available presets](https://github.com/AmadeusITGroup/otter/tree/main/tools/renovate).
 
 ## Self-Hosted Renovate
 
