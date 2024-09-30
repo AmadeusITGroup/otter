@@ -1,0 +1,113 @@
+[
+  {
+    "title": "Welcome to the Otter SDK tutorial",
+    "htmlContentUrl": "./steps/welcome/instructions.html"
+  },
+  {
+    "title": "Introduction",
+    "htmlContentUrl": "./steps/introduction/instructions.html"
+  },
+  {
+    "title": "How to use the Otter SDK?",
+    "htmlContentUrl": "./steps/typescript-sdk/instructions.html"
+  },
+  {
+    "title": "Customize your fetch client with plugins",
+    "htmlContentUrl": "./steps/plugins/instructions.html"
+  },
+  {
+    "title": "Integrate your component in Angular",
+    "htmlContentUrl": "./steps/angular-integration/instructions.html",
+    "filesConfiguration": {
+      "name": "angular-integration",
+      "startingFile": "apps/tutorial-app/src/app/app.component.ts",
+      "urls": {
+        ".": "./shared/monorepo-template.json",
+        "./libs/sdk/src": "@o3r/training-sdk/folder-structure.json"
+      },
+      "mode": "interactive",
+      "commands": ["npm install --legacy-peer-deps --ignore-scripts --force", "npm run ng run sdk:build", "npm run ng run tutorial-app:serve"]
+    }
+  },
+  {
+    "title": "Generate your first SDK - Specifications",
+    "htmlContentUrl": "./steps/sdk-specs/instructions.html",
+    "filesConfiguration": {
+      "name": "sdk-specification",
+      "startingFile": "open-api.yaml",
+      "solutionUrls": {
+        ".": "@o3r/training-sdk/openapi-structure.json"
+      },
+      "mode": "readonly",
+      "commands": []
+    }
+  },
+  {
+    "title": "Generate your first SDK - Command",
+    "htmlContentUrl": "./steps/sdk-generation/instructions.html",
+    "filesConfiguration": {
+      "name": "generate-sdk",
+      "startingFile": "src/api/dummy/dummy-api.ts",
+      "solutionUrls": {
+        "src": "@o3r/training-sdk/folder-structure.json",
+        ".": "@o3r/training-sdk/openapi-structure.json"
+      },
+      "mode": "readonly",
+      "commands": []
+    }
+  },
+  {
+    "title": "SDK with Dates - Generation",
+    "htmlContentUrl": "./steps/date-sdk-generation/instructions.html",
+    "filesConfiguration": {
+      "name": "generate-date-sdk",
+      "startingFile": "open-api.yaml",
+      "urls": {
+        ".": "@o3r/training-sdk/openapi-structure.json"
+      },
+      "solutionUrls": {
+        ".": "@o3r/training-sdk/openapi-structure.json",
+        "./src": "@o3r/training-sdk/folder-structure.json"
+      },
+      "mode": "readonly",
+      "commands": []
+    }
+  },
+  {
+    "title": "SDK with Dates - How to use",
+    "htmlContentUrl": "./steps/date/instructions.html",
+    "filesConfiguration": {
+      "name": "utils-date",
+      "startingFile": "apps/app/src/app/app.component.ts",
+      "urls": {
+        ".": "./shared/empty.json",
+        "./apps/app/src/app": "./steps/date/exercise.json"
+      },
+      "solutionUrls": {
+        "./apps/app/src/app": "./steps/date/solution.json"
+      },
+      "mode": "interactive",
+      "commands": [
+        "npm install --legacy-peer-deps --ignore-scripts --force",
+        "npm run ng run app:serve"
+      ]
+    }
+  },
+  {
+    "title": "SDK with model extension",
+    "htmlContentUrl": "./steps/model-extension/instructions.html",
+    "filesConfiguration": {
+      "name": "model-extension",
+      "startingFile": "package.json",
+      "urls": {
+        ".": "./shared/monorepo-template.json"
+      },
+      "mode": "interactive",
+      "commands": [
+        "npm install --legacy-peer-deps --ignore-scripts --force",
+        "npm run ng run sdk:build",
+        "npm run ng run tutorial-app:serve"
+      ]
+    }
+  }
+]

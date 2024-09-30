@@ -104,7 +104,7 @@ export class WebContainerRunner {
       ),
       withLatestFrom(this.instancePromise),
       switchMap(([[_, terminal], instance]) => {
-        const spawn = instance.spawn('jsh');
+        const spawn = instance.spawn('jsh', [], {env: {O3R_METRICS: false}});
         return from(spawn).pipe(
           map((process) => ({
             process,

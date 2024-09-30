@@ -14,6 +14,7 @@
     "start:no-translation": "ng serve",
     "generate:translations:dev": "ng run showcase:generate-translations",
     "generate:translations": "ng run showcase:generate-translations:production",
+    "prepare-training": "node scripts/prepare-training-exercises/index.cjs",
     "cms-adapters:localizations": "ng run showcase:extract-translations",
     "cms-adapters:metadata": "yarn run cms-adapters:localizations",
     "update:otter": "ng update @o3r/core",

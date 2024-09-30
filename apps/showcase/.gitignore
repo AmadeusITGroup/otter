@@ -6,3 +6,5 @@ dist-e2e-playwright
 playwright-reports
 test-results
 training-assets
+src/assets/sdk-training/**/exercise.json
+src/assets/sdk-training/**/solution.json

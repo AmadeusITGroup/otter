@@ -10,6 +10,12 @@ export * from './schema';
 
 const SCHEMA_FOLDER = 'fact-schemas';
 
+const dedupeList = (list: any[], identifier: (element: any) => string) =>
+  Object.values(list.reduce((acc, element: {id: string}) => {
+    acc[identifier(element)] = element;
+    return acc;
+  }, {}));
+
 export default createBuilder(createBuilderWithMetricsIfInstalled<RulesEngineExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
   const outputFactsFile = resolve(context.currentDirectory, options.outputFactsDirectory, 'rules.facts.metadata.json');
@@ -97,16 +103,16 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<RulesEngineExtr
     await fs.mkdir(dirname(outputOperatorsFile), { recursive: true });
   } catch { }
   await fs.writeFile(outputFactsFile, JSON.stringify({
-    'facts': [
+    'facts': dedupeList([
       ...librariesFacts,
       ...newFactList
-    ]
+    ], (el: MetadataFact) => el.name)
   }, null, 2));
   await fs.writeFile(outputOperatorsFile, JSON.stringify({
-    'operators': [
+    'operators': dedupeList([
       ...librariesOperators,
       ...newOperatorList
-    ]
+    ], (el: MetadataOperator) => el.id)
   }, null, 2));
 
   return {

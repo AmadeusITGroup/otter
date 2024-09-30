@@ -145,7 +145,8 @@
         "generate-theme",
         "generate-dark-theme",
         "generate-horizon-theme",
-        "copy-training-assets"
+        "copy-training-assets",
+        "prepare-training"
       ]
     },
     "serve": {
@@ -379,6 +380,23 @@
         ]
       },
       "dependsOn": ["^build-builders"]
+    },
+    "prepare-training": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json",
+        "{projectRoot}/src/assets/**/exercise/**",
+        "{projectRoot}/src/assets/**/solution/**",
+        "{projectRoot}/scripts/prepare-training-exercises/*.cjs"
+      ],
+      "outputs": [
+        "{projectRoot}/src/assets/**/solution.json",
+        "{projectRoot}/src/assets/**/exercise.json"
+      ],
+      "options": {
+        "script": "prepare-training"
+      }
     },
     "copy-training-assets": {
       "executor": "nx:run-script",

@@ -30,6 +30,7 @@ import { HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
 import { DatePickerHebrewInputPresComponent, ScrollBackTopPresComponent, SidenavPresComponent } from '../components/utilities';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {MonacoEditorModule} from 'ngx-monaco-editor-v2';
 
 
 const runtimeChecks: Partial<RuntimeChecks> = {
@@ -108,7 +109,8 @@ export function registerCustomComponents(): Map<string, any> {
     C11nModule.forRoot({registerCompFunc: registerCustomComponents}),
     StylingDevtoolsModule,
     LocalizationDevtoolsModule,
-    ConfigurationDevtoolsModule
+    ConfigurationDevtoolsModule,
+    MonacoEditorModule.forRoot()
   ],
   providers: [
     {provide: MESSAGE_FORMAT_CONFIG, useValue: {}},

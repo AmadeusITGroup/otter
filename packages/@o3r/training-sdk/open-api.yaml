@@ -1,0 +1,40 @@
+openapi: 3.0.2
+info:
+  description: This is a sample SDK for the Otter training
+  version: 1.0.0
+  title: Otter Training SDK
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: dummy
+    description: Dummy operations
+paths:
+  /dummy:
+    get:
+      tags:
+        - "dummy"
+      responses:
+        200:
+          description: "Successful operation"
+components:
+  schemas:
+    Flight:
+      type: object
+      required:
+        - originLocationCode
+        - destinationLocationCode
+        - departureDateTime
+        - paymentExpirationDate
+      properties:
+        originLocationCode:
+          type: string
+        destinationLocationCode:
+          type: string
+        departureDateTime:
+          type: string
+          format: date-time
+          x-local-timezone: true
+        paymentExpirationDate:
+          type: string
+          format: date-time

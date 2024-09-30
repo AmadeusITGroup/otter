@@ -1,0 +1,26 @@
+{
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "jest.jestCommandLine": "yarn exec jest",
+  "jest.autoRun": {
+    "watch": false,
+    "onSave": "test-file"
+  },
+  "files.readonlyFromPermissions": true,
+  "files.readonlyInclude": {
+    "**/.cache/**": true,
+    
+    "**/.pnp.*": true,
+    "**/.yarn/**": true,
+    
+    "**/node_modules/**": true,
+    "src/api/**/*.ts": true,
+    "src/models/base/**/*.ts": true,
+    "src/spec/api-mock.ts": true,
+    "src/spec/operation-adapter.ts": true
+  },
+  "files.readonlyExclude": {
+    "src/api/*/index.ts": true,
+    "src/models/base/*/index.ts": true
+  }
+}

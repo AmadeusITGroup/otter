@@ -50,6 +50,9 @@ export const createTerminalStream = (terminal: Terminal, cb?: (data: string) => 
  */
 export const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
-  terminal.onData((data) => input.write(data));
+  terminal.onData((data) => {
+    console.log(data, input);
+    return input.write(data);
+  });
   return input;
 };

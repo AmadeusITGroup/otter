@@ -109,6 +109,6 @@ export class WebContainerService {
   public async logTree() {
     const instance = await this.runner.instancePromise;
     // eslint-disable-next-line no-console
-    console.log(await getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY));
+    return getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY);
   }
 }

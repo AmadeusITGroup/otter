@@ -364,6 +364,9 @@
     },
     "copy-training-assets": {
       "cache": true
+    },
+    "prepare-training": {
+      "cache": true
     }
   },
   "generators": {
