@@ -1,0 +1,66 @@
+name: Main CI
+
+env:
+  DEFAULT_BRANCH: main
+  DEFAULT_BRANCH_PRERELEASE_NAME: prerelease
+  RELEASE_BRANCH_REGEX: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/*'
+  pull_request:
+    branches:
+      - main
+      - 'release/*'
+
+jobs:
+  build:
+    runs-on: <%= runner %>
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup
+      - name: Build
+        run: <%= packageManager %> run build
+
+  unit-tests:
+    runs-on: <%= runner %>
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup
+      - name: Unit tests
+        run: <%= packageManager %> run test
+
+  lint:
+    runs-on: <%= runner %>
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: ./.github/actions/setup
+      - name: Lint
+        run: <%= packageManager %> run lint
+
+  release:
+    permissions:
+      contents: write
+    runs-on: <%= runner %>
+    outputs:
+      nextVersionTag: ${{ steps.new-version.outputs.nextVersionTag }}
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - name: New version
+        if: github.event_name != 'merge_group'
+        id: new-version
+        uses: AmadeusITGroup/otter/tools/github-actions/new-version@<%= actionVersionString %>
+        with:
+          defaultBranch: ${{ env.DEFAULT_BRANCH }}
+          defaultBranchPrereleaseName: ${{ env.DEFAULT_BRANCH_PRERELEASE_NAME }}
+          releaseBranchRegExp: ${{ env.RELEASE_BRANCH_REGEX }}
+      - name: Create release
+        if: github.event_name != 'pull_request'
+        uses: AmadeusITGroup/otter/tools/github-actions/release@<%= actionVersionString %>
+        with:
+          version: ${{ steps.newVersion.outputs.nextVersionTag }}
+          target: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,99 @@
+{
+  "name": "@o3r/pipeline",
+  "version": "0.0.0-placeholder",
+  "publishConfig": {
+    "access": "public"
+  },
+  "typings": "./dist/src/public_api.d.ts",
+  "main": "dist/src/public_api.js",
+  "description": "A package that provides toolchain related helpers.",
+  "keywords": [
+    "toolchain",
+    "pipeline",
+    "otter",
+    "otter-module"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "ng": "yarn nx",
+    "test": "yarn nx test pipeline",
+    "copy:templates": "yarn cpy 'schematics/**/templates{-*,}/**/*' dist/schematics",
+    "prepare:build:builders": "yarn cpy '{collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
+    "prepare:publish": "prepare-publish ./dist && yarn write-git-hash",
+    "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && yarn generate-cjs-manifest",
+    "build": "yarn nx build pipeline",
+    "postbuild": "patch-package-json-main"
+  },
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    ".": {
+      "default": "./dist/src/public_api.js",
+      "typings": "./dist/src/public_api.d.ts"
+    }
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "tslib": "^2.6.2"
+  },
+  "peerDependencies": {
+    "@o3r/schematics": "workspace:^",
+    "@o3r/telemetry": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@o3r/schematics": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@angular-devkit/architect": "~0.1802.0",
+    "@angular-devkit/core": "~18.2.0",
+    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-eslint/eslint-plugin": "~18.3.0",
+    "@compodoc/compodoc": "^1.1.19",
+    "@nx/eslint-plugin": "~19.5.0",
+    "@nx/jest": "~19.5.0",
+    "@nx/js": "~19.5.0",
+    "@o3r/build-helpers": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
+    "@o3r/test-helpers": "workspace:^",
+    "@schematics/angular": "~18.2.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@types/jest": "~29.5.2",
+    "@types/js-yaml": "^4.0.5",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@typescript-eslint/utils": "^7.14.1",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.57.0",
+    "eslint-import-resolver-node": "^0.3.9",
+    "eslint-plugin-jest": "~28.8.0",
+    "eslint-plugin-jsdoc": "~48.11.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "jsonc-eslint-parser": "~2.4.0",
+    "nx": "~19.5.0",
+    "pid-from-port": "^1.1.3",
+    "ts-jest": "~29.2.0",
+    "ts-node": "~10.9.2",
+    "type-fest": "^4.10.2",
+    "typescript": "~5.5.4"
+  },
+  "engines": {
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
+  },
+  "schematics": "./collection.json",
+  "ng-update": {
+    "migrations": "./migration.json"
+  }
+}
