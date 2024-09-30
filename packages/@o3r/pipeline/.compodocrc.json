@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/compodoc/compodoc/develop/src/config/schema.json",
-  "name": "Design",
-  "output": "../../../generated-doc/design",
+  "name": "Pipeline",
+  "output": "../../../generated-doc/pipeline",
   "tsconfig": "./tsconfig.doc.json",
   "assetsFolder": "../../../.attachments",
   "disableSourceCode": true,
