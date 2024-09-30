@@ -115,7 +115,7 @@
       "enabled": false
     }
   ],
-  customManagers: [
+  "customManagers": [
     {
       "customType": "regex",
       "datasourceTemplate": "maven",
@@ -127,5 +127,11 @@
         "\"openApiSupportedVersion\": \"~(?<currentValue>[^\"]+)\""
       ]
     }
-  ]
+  ],
+  "github-actions": {
+    "fileMatch": [
+      "(^|/)(__dot__github|workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$",
+      "(^|/)action\\.ya?ml$"
+    ]
+  }
 }
