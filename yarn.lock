@@ -9840,6 +9840,7 @@ __metadata:
     "@o3r/eslint-plugin": "workspace:^"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
     "@types/jest": "npm:~29.5.2"
+    "@types/minimist": "npm:^1.2.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
@@ -9854,6 +9855,7 @@ __metadata:
     jest: "npm:~29.7.0"
     jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    minimist: "npm:^1.2.6"
     nx: "npm:~19.5.0"
     rxjs: "npm:^7.8.1"
     ts-jest: "npm:~29.2.0"
@@ -9867,6 +9869,12 @@ __metadata:
     rxjs: ^7.8.1
   peerDependenciesMeta:
     "@angular-devkit/architect":
+      optional: true
+    "@angular-devkit/core":
+      optional: true
+    "@angular-devkit/schematics":
+      optional: true
+    rxjs:
       optional: true
   languageName: unknown
   linkType: soft
@@ -10297,10 +10305,13 @@ __metadata:
     "@angular/common": ~18.2.0
     "@angular/compiler-cli": ~18.2.0
     "@angular/core": ~18.2.0
+    "@o3r/telemetry": "workspace:^"
     "@schematics/angular": ~18.2.0
     typescript: ~5.5.4
   peerDependenciesMeta:
     "@angular/cli":
+      optional: true
+    "@o3r/telemetry":
       optional: true
   bin:
     o3r-set-version: ./dist/src/cli/set-version.cjs
