@@ -875,7 +875,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.94.0"
+    webpack: "npm:~5.95.0"
     webpack-cli: "npm:~5.1.0"
     yargs: "npm:^17.6.2"
   peerDependencies:
@@ -7087,7 +7087,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.94.0"
+    webpack: "npm:~5.95.0"
     zone.js: "npm:~0.14.2"
   peerDependencies:
     "@ama-sdk/core": "workspace:^"
@@ -7102,7 +7102,7 @@ __metadata:
     "@schematics/angular": ~18.2.0
     jasmine: ^5.0.0
     rxjs: ^7.8.1
-    webpack: ~5.94.0
+    webpack: ~5.95.0
   peerDependenciesMeta:
     "@o3r/schematics":
       optional: true
@@ -8621,7 +8621,7 @@ __metadata:
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
     uuid: "npm:^10.0.0"
-    webpack: "npm:~5.94.0"
+    webpack: "npm:~5.95.0"
     winston: "npm:^3.8.2"
     yaml-eslint-parser: "npm:^1.2.2"
     zone.js: "npm:~0.14.2"
@@ -9455,7 +9455,7 @@ __metadata:
     ts-jest: "npm:~29.2.0"
     tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
-    webpack: "npm:~5.94.0"
+    webpack: "npm:~5.95.0"
     zone.js: "npm:~0.14.2"
   languageName: unknown
   linkType: soft
@@ -33837,7 +33837,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0":
+"webpack@npm:5, webpack@npm:^5.80.0, webpack@npm:^5.88.0, webpack@npm:~5.95.0":
   version: 5.95.0
   resolution: "webpack@npm:5.95.0"
   dependencies:
@@ -33873,7 +33873,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.94.0, webpack@npm:~5.94.0":
+"webpack@npm:5.94.0":
   version: 5.94.0
   resolution: "webpack@npm:5.94.0"
   dependencies:
