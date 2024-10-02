@@ -60,7 +60,7 @@
       "description": "Determine if the process should stop in case of Token duplication"
     },
     "templateFile": {
-      "description": "Path to a template file(s) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
+      "description": "Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
       "oneOf": [
         {
           "type": "string"
