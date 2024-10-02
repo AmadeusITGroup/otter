@@ -49,6 +49,14 @@
     },
     "compile": {
       "executor": "@angular-devkit/build-angular:application",
+      "inputs": [
+        "source",
+        "^source",
+        "{projectRoot}/dev-resources",
+        "{projectRoot}/training-assets",
+        "{projectRoot}/*.metadata.json",
+        "packages/@o3r/training-sdk/dist/*-structure.json"
+      ],
       "options": {
         "outputPath": "apps/showcase/dist",
         "index": "apps/showcase/src/index.html",
@@ -70,13 +78,30 @@
             "output": "/localizations"
           },
           {
-            "glob": "**/*.metadata.json",
+            "glob": "*.metadata.json",
             "input": "apps/showcase",
             "output": "/metadata"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/training-assets/monaco-editor",
+            "output": "/assets/monaco/"
+          },
+          {
+            "glob": "**/*",
+            "input": "apps/showcase/training-assets/ngx-monaco-tree/assets",
+            "output": "/assets/"
+          },
+          {
+            "glob": "*-structure.json",
+            "input": "packages/@o3r/training-sdk/dist",
+            "output": "/assets/@o3r/training-sdk"
           }
         ],
         "styles": [
           "apps/showcase/src/styles.scss",
+          "apps/showcase/training-assets/@vscode/codicons/dist/codicon.css",
+          "apps/showcase/training-assets/@xterm/xterm/css/xterm.css",
           {
             "inject": false,
             "input": "apps/showcase/src/style/dark-theme/dark-theme.scss",
@@ -119,7 +144,8 @@
         "generate-translations",
         "generate-theme",
         "generate-dark-theme",
-        "generate-horizon-theme"
+        "generate-horizon-theme",
+        "copy-training-assets"
       ]
     },
     "serve": {
@@ -140,6 +166,12 @@
     },
     "serve-app": {
       "executor": "@angular-devkit/build-angular:dev-server",
+      "options": {
+        "headers": {
+          "Cross-Origin-Opener-Policy": "same-origin",
+          "Cross-Origin-Embedder-Policy": "require-corp"
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "showcase:compile:production"
@@ -347,6 +379,18 @@
         ]
       },
       "dependsOn": ["^build-builders"]
+    },
+    "copy-training-assets": {
+      "executor": "nx:run-script",
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json",
+        "{projectRoot}/scripts/copy-training-assets/*.cjs"
+      ],
+      "outputs": ["{projectRoot}/training-assets"],
+      "options": {
+        "script": "copy-training-assets"
+      }
     }
   },
   "tags": ["showcase"]

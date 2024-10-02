@@ -3,7 +3,8 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, V
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
-import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/index';
+import { DynamicContentPresComponent } from '../../components/showcase/dynamic-content';
+import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities';
 
 @O3rComponent({ componentType: 'Page' })
 @Component({

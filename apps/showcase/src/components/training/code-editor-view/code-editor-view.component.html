@@ -1,0 +1,22 @@
+@if (cwdTree$ | async; as tree) {
+  @if (tree.length) {
+    <form [formGroup]="form" class="editor d-flex flex-fill overflow-hidden">
+      <div class="d-flex h-100 w-100 align-items-stretch">
+        <monaco-tree class="overflow-auto w-25" (clickFile)="onClickFile($event)" [tree]="tree" [currentFile]="project?.startingFile" width="fit-content" height="100%"></monaco-tree>
+        <div class="flex-fill h-100 overflow-hidden monaco-editor-wrapper">
+          <ngx-monaco-editor class="h-100 position-relative"
+            [options]="editorOptions$ | async"
+            formControlName="code">
+          </ngx-monaco-editor>
+        </div>
+      </div>
+    </form>
+    @if (editorMode === 'interactive') {
+      <code-editor-control class="d-flex flex-column" [showOutput]="project?.commands.length > 0 && tree.length > 0"></code-editor-control>
+    }
+  }
+}
+@if (!(cwdTree$ | async)?.length) {
+  <div class="spinner-border" role="status"></div>
+}
+

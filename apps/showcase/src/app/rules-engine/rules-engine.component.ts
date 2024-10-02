@@ -27,7 +27,8 @@ import {
   UnaryOperator
 } from '@o3r/rules-engine';
 import { firstValueFrom } from 'rxjs';
-import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService, RulesEnginePresComponent } from '../../components/index';
+import { RulesEnginePresComponent } from '../../components/showcase/rules-engine';
+import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities';
 import { environment } from '../../environments/environment.development';
 import { TripFactsService } from '../../facts/index';
 import { duringSummer } from '../../operators/index';

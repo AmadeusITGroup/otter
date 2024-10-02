@@ -3,7 +3,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { filter, map, Observable, share, shareReplay, Subscription } from 'rxjs';
-import { SideNavLinksGroup } from '../components/index';
+import { SideNavLinksGroup } from '../components/utilities/sidenav';
 
 @O3rComponent({ componentType: 'Component' })
 @Component({

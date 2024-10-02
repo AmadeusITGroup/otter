@@ -13,7 +13,7 @@ import {
   switchMap
 } from 'rxjs';
 import { withLatestFrom } from 'rxjs/operators';
-import { createTerminalStream, doesFolderExist, killTerminal, makeProcessWritable } from './webcontainer.helpers';
+import { createTerminalStream, killTerminal, makeProcessWritable } from './webcontainer.helpers';
 
 @Injectable({
   providedIn: 'root'
@@ -154,7 +154,7 @@ export class WebContainerRunner {
    * @param projectFolder
    * @param override allow to mount files and override a project already mounted on the web container
    */
-  public async runProject(files: FileSystemTree, commands: string[], projectFolder: string, override = false) {
+  public async runProject(files: FileSystemTree | null, commands: string[], projectFolder: string) {
     const instance = await this.instancePromise;
     // Ensure boot is done and instance is ready for use
     this.shell.cwd.next(projectFolder);
@@ -167,7 +167,7 @@ export class WebContainerRunner {
     if (this.watcher) {
       this.watcher.close();
     }
-    if (override || !(await doesFolderExist(projectFolder, instance))) {
+    if (files) {
       await instance.mount({[projectFolder]: {directory: files}});
     }
     this.treeUpdateCallback();

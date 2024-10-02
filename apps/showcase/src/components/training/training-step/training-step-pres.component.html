@@ -1,0 +1,17 @@
+<div class="d-flex h-100 gap-5">
+  @if (instructions) {
+    <div class="instructions h-100 col overflow-auto">
+      <h2>{{title}}</h2>
+      <div [innerHTML]="instructions"></div>
+    </div>
+  }
+  @if (project) {
+    <div class="d-flex h-100 overflow-hidden col">
+      <code-editor-view
+        class="d-flex flex-column justify-content-stretch w-100 flex-fill"
+        [project]="project"
+        [editorMode]="editorMode"
+      ></code-editor-view>
+    </div>
+  }
+</div>
