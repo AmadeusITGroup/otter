@@ -29,11 +29,15 @@
     "@angular/common": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
     "@angular/core": "~18.2.0",
+    "@o3r/telemetry": "workspace:^",
     "@schematics/angular": "~18.2.0",
     "typescript": "~5.5.4"
   },
   "peerDependenciesMeta": {
     "@angular/cli": {
+      "optional": true
+    },
+    "@o3r/telemetry": {
       "optional": true
     }
   },

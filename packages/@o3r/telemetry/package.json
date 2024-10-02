@@ -16,6 +16,7 @@
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "dependencies": {
+    "minimist": "^1.2.6",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
@@ -26,6 +27,15 @@
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "rxjs": {
       "optional": true
     }
   },
@@ -40,6 +50,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.14.1",
     "@typescript-eslint/parser": "^7.14.1",
