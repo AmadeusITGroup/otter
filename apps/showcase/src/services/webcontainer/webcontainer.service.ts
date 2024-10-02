@@ -27,7 +27,6 @@ export class WebContainerService {
   /**
    * Get the Monaco file tree from the given root path
    * @param rootPath
-   * @private
    */
   private async getMonacoTree(rootPath: string): Promise<MonacoTreeElement[]> {
     const instance = await this.runner.instancePromise;
@@ -90,8 +89,6 @@ export class WebContainerService {
   /**
    * Checks if the folder exists at the root of the WebContainer instance
    * @param folderName
-   * @param instance
-   * @private
    */
   public async doesFolderExist(folderName: string) {
     try {
@@ -104,11 +101,11 @@ export class WebContainerService {
   }
 
   /**
-   * Log the file tree of the current instance (for debugging purposes)
+   * Get the file tree of the current instance (for debugging purposes)
    */
-  public async logTree() {
+  public async getTree() {
     const instance = await this.runner.instancePromise;
     // eslint-disable-next-line no-console
-    console.log(await getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY));
+    return getFilesTreeFromContainer(instance, EXCLUDED_FILES_OR_DIRECTORY);
   }
 }

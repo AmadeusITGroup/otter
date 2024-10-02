@@ -113,6 +113,10 @@
     "source-and-schematics": [
       "source",
       "schematics"
+    ],
+    "source-and-structure": [
+      "source",
+      "{projectRoot}/dist/structure/**/*"
     ]
   },
   "targetDefaults": {
@@ -361,9 +365,6 @@
         "{projectRoot}/LICENSE"
       ],
       "outputs": ["{projectRoot}/packaged-action"]
-    },
-    "copy-training-assets": {
-      "cache": true
     }
   },
   "generators": {

@@ -1,13 +1,13 @@
-import {lstat, readdir, readFile, writeFile} from 'node:fs/promises';
+import {lstat, mkdir, readdir, readFile, writeFile} from 'node:fs/promises';
 import {type FileSystem, getFilesTree} from '@o3r/training-tools';
-import {join, resolve} from 'node:path';
+import {join, parse, resolve} from 'node:path';
 import {program} from 'commander';
 
 program
   .description('Extract folder structure')
   .requiredOption('--files <files>', 'List of files and folder to extract in addition to the path')
+  .requiredOption('-o, --output <output>', 'Output file path')
   .option('-r, --root <root>', 'Root of the extraction')
-  .option('-o, --output <output>', 'Output folder path')
   .parse(process.argv);
 
 const options: any = program.opts();
@@ -23,7 +23,12 @@ void (async () => {
     readdir: readdir,
     readFile: readFile
   } as FileSystem);
-  const targetPath = join(cwd, options.output || 'folder-structure.json');
   const content = JSON.stringify(folderStructure);
+
+  const targetPath = options.output.replace(/\\/g, "/");
+  const parsedPath = parse(options.output);
+  if (parsedPath.dir) {
+    await mkdir(parsedPath.dir, {recursive: true});
+  }
   await writeFile(targetPath, content);
 })();

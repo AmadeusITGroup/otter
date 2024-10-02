@@ -51,11 +51,10 @@
       "executor": "@angular-devkit/build-angular:application",
       "inputs": [
         "source",
-        "^source",
+        "^source-and-structure",
         "{projectRoot}/dev-resources",
         "{projectRoot}/training-assets",
-        "{projectRoot}/*.metadata.json",
-        "packages/@o3r/training-sdk/dist/*-structure.json"
+        "{projectRoot}/*.metadata.json"
       ],
       "options": {
         "outputPath": "apps/showcase/dist",
@@ -93,9 +92,9 @@
             "output": "/assets/"
           },
           {
-            "glob": "*-structure.json",
-            "input": "packages/@o3r/training-sdk/dist",
-            "output": "/assets/@o3r/training-sdk"
+            "glob": "*.json",
+            "input": "packages/@o3r/training-sdk/dist/structure",
+            "output": "/assets/@o3r/training-sdk/structure"
           }
         ],
         "styles": [
@@ -145,7 +144,8 @@
         "generate-theme",
         "generate-dark-theme",
         "generate-horizon-theme",
-        "copy-training-assets"
+        "copy-training-assets",
+        "prepare-training"
       ]
     },
     "serve": {
@@ -161,7 +161,9 @@
       },
       "dependsOn": [
         "^build-builders",
-        "^build"
+        "^build",
+        "copy-training-assets",
+        "prepare-training"
       ]
     },
     "serve-app": {
@@ -380,7 +382,26 @@
       },
       "dependsOn": ["^build-builders"]
     },
+    "prepare-training": {
+      "cache": true,
+      "executor": "nx:run-script",
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json",
+        "{projectRoot}/src/assets/**/exercise/**",
+        "{projectRoot}/src/assets/**/solution/**",
+        "{projectRoot}/scripts/prepare-training-exercises/*.cjs"
+      ],
+      "outputs": [
+        "{projectRoot}/src/assets/**/solution.json",
+        "{projectRoot}/src/assets/**/exercise.json"
+      ],
+      "options": {
+        "script": "prepare-training"
+      }
+    },
     "copy-training-assets": {
+      "cache": true,
       "executor": "nx:run-script",
       "inputs": [
         "global",
