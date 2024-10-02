@@ -8557,6 +8557,7 @@ __metadata:
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
     "@swc-node/register": "npm:^1.9.2"
     "@swc/core": "npm:~1.7.0"
+    "@swc/helpers": "npm:~0.5.0"
     "@types/eslint": "npm:~9.6.0"
     "@types/estree": "npm:^1.0.5"
     "@types/jest": "npm:~29.5.2"
