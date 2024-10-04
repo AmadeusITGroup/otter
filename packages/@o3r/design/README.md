@@ -48,7 +48,7 @@ The following configurations are available:
 | **metadataIgnorePrivate**   | false          | Ignore the private variable in the metadata generation.                                                                              |
 | **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                                  |
 | **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
-| **templateFile**            | *null*         | Path to a template file to apply as default configuration to a Design Token extension.                                               |
+| **templateFile**            | *null*         | Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension.                 |
 | **prefix**                  | *null*         | Prefix to append to generated variables.                                                                                             |
 | **prefixPrivate**           | *null*         | Prefix to append to generated private variables.                                                                                     |
 | **watch**                   | false          | Enable Watch mode.                                                                                                                   |
