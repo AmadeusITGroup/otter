@@ -73,9 +73,7 @@ export class RulesEngineRunnerService implements OnDestroy {
 
     this.subscription.add(
       this.events$.pipe(filter(() => this.enabled)).subscribe(async (events) => {
-        this.logger.debug('Start Rules Engine action executed');
         await this.executeActions(events);
-        this.logger.debug('All Rules Engine actions executed');
       })
     );
   }
