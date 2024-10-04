@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import type { CliWrapper } from '@o3r/telemetry';
 import { isAbsolute, normalize, resolve } from 'node:path';
 import { existsSync } from 'node:fs';
 import { parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
@@ -8,7 +9,7 @@ import * as minimist from 'minimist';
 
 const args = minimist(process.argv.splice(2));
 
-void (async () => {
+const run = async () => {
   const renderDesignTokenOptions: DesignTokenRendererOptions = {};
 
   const output = args.o || args.output;
@@ -38,4 +39,15 @@ void (async () => {
   }, new Map());
 
   await renderDesignTokens(tokens, renderDesignTokenOptions);
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/design:build-design-token')();
 })();

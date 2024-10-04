@@ -73,7 +73,7 @@ void (async () => {
     const { createCliWithMetrics } = await import('@o3r/telemetry');
     wrapper = createCliWithMetrics;
   } catch {
-    // Do not throw if `@o3r/telemetry` is not installedx
+    // Do not throw if `@o3r/telemetry` is not installed
   }
   return wrapper(cliFn, '@o3r/workspace:set-version', { logger, preParsedOptions: options })();
 })();
