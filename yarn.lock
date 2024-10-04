@@ -9929,7 +9929,6 @@ __metadata:
     memfs: ~4.12.0
     minimist: ^1.2.6
     pid-from-port: ^1.1.3
-    semver: ^7.5.2
     unionfs: ~4.5.1
   peerDependenciesMeta:
     "@angular-devkit/schematics":
