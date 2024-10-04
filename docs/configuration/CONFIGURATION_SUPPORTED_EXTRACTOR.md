@@ -46,7 +46,7 @@ For an up-to-date documentation, run `ng help @o3r/components:extractor`
 __Note:__ This options will not search for the duplicate configurations in libraries.
 
 The __strict mode__ option should be used for production builds, it will throw an error if something not supported by the
-cms is found in the config. You can set it to `false` to allow the generation of metadata including the unknown types to
+CMS is found in the config. You can set it to `false` to allow the generation of metadata including the unknown types to
 ease issues fixing, and with the errors logged as warnings.
 
 Here is an example on a library

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration for a specific package name. Need to pass the package manager as the first parameter (yarn, npm) and the full package name as the second parameter.",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg1}}"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "{{arg0}} install",
+          "{{arg0}} run swagger:generate"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ]
+      }
+    }
+  ]
+}

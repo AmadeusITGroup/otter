@@ -5,14 +5,15 @@ import {
   Input,
   OnDestroy,
   OnInit,
+  type Signal,
   ViewEncapsulation
 } from '@angular/core';
 import {Store} from '@ngrx/store';
+import {sendOtterMessage} from '@o3r/core';
 import {BehaviorSubject, ReplaySubject, sample, Subject, Subscription} from 'rxjs';
 import {distinctUntilChanged, filter, map, switchMap} from 'rxjs/operators';
-import {PlaceholderTemplateStore, selectSortedTemplates} from '../../stores/placeholder-template';
+import {type PlaceholderMode, PlaceholderTemplateStore, selectPlaceholderTemplateMode, selectSortedTemplates} from '../../stores/placeholder-template';
 import {PlaceholderLoadingStatus, PlaceholderLoadingStatusMessage} from './placeholder.interface';
-import {sendOtterMessage} from '@o3r/core';
 
 /**
  * Placeholder component that is bind to the PlaceholderTemplateStore to display a template based on its ID
@@ -22,16 +23,20 @@ import {sendOtterMessage} from '@o3r/core';
  */
 @Component({
   selector: 'o3r-placeholder',
-  template: '<ng-content *ngIf="isPending; else displayTemplate"></ng-content>' +
-    '<ng-template #displayTemplate><div [innerHTML]="template"></div></ng-template>',
+  templateUrl: './placeholder.template.html',
+  styleUrl: './placeholder.style.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    '[class.debug]': `mode() === 'debug'`
+  }
 })
 export class PlaceholderComponent implements OnInit, OnDestroy {
 
   private readonly subscription = new Subscription();
 
-  private readonly id$ = new BehaviorSubject<string | undefined>(undefined);
+  public readonly id$ = new BehaviorSubject<string | undefined>(undefined);
 
   private readonly afterViewInit$ = new Subject<void>();
 
@@ -43,6 +48,8 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
   /** Generated HTML template */
   public template?: string;
 
+  public mode: Signal<PlaceholderMode>;
+
   /** template identify */
   @Input()
   public set id(value: string) {
@@ -50,6 +57,7 @@ export class PlaceholderComponent implements OnInit, OnDestroy {
   }
 
   constructor(private readonly store: Store<PlaceholderTemplateStore>, private readonly cd: ChangeDetectorRef) {
+    this.mode = this.store.selectSignal(selectPlaceholderTemplateMode);
   }
 
   /** @inheritdoc */

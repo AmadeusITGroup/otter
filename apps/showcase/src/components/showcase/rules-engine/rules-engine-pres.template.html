@@ -6,7 +6,7 @@
     <div class="col-8 container p-3">
       <div class="card-bod d-flex flex-column h-100">
         <div class="row card-title flex-fill d-flex align-items-center m-auto">
-          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative">
+          <h2 class="bg-body-tertiary text-secondary border border-light-subtle border-3 bubble py-3 px-5 position-relative w-auto m-auto">
             @if (form.value.destination) {
               {{ translations.welcomeWithCityName | o3rTranslate: { cityName: (translations.cityName + '.' + form.value.destination) | o3rTranslate }  }}
             } @else {

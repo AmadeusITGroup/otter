@@ -11,8 +11,10 @@
         [class.error]="execution.type === 'RulesetExecutionError'"
         (click)="toggleExpansion(execution.executionId, 'ruleset')">
         <div><span [title]="'This ruleset has been evaluated ' + execution.executionCounter + ' time(s)'">{{execution.executionCounter}}</span> - {{execution.rulesetName | titlecase }}
-          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponent as linkedComponent">
-            {{linkedComponent.name}} {{linkedComponent.library}}
+          <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.linkedComponents?.or || execution.rulesetInformation?.linkedComponent">
+            <ng-container *ngFor="let lc of (execution.rulesetInformation?.linkedComponents?.or || [execution.rulesetInformation.linkedComponent]); last as isLast">
+              <div>{{lc.name}} {{lc.library}} <span *ngIf="!isLast"> OR </span></div>
+            </ng-container>
           </div>
           <div class="ruleset-panel-subtitle" *ngIf="execution.rulesetInformation?.validityRange as validityRange">
             Date range: {{validityRange.from}} - {{validityRange.to}}
@@ -56,7 +58,7 @@
                 <div>
                   <ng-container *ngIf="ruleEvaluation.error">
                     <span class="ruleset-panel-category-title">Error:</span>
-                    <pre class="ruleset-panel-category-body error">{{ruleEvaluation.error | json}}</pre>
+                    <pre class="ruleset-panel-category-body error">{{ruleEvaluation.error | o3rJsonOrString}}</pre>
                   </ng-container>
                   <ng-container [ngTemplateOutlet]="inputs"
                                 [ngTemplateOutletContext]="{

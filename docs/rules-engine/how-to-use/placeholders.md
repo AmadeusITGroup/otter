@@ -96,7 +96,7 @@ And then in the angular.json:
 ```
 
 ## Supported features (check how-it-works section for more details)
-* HTML limited to angular sanitizer supported behavior
+* HTML limited to Angular sanitizer supported behavior
 * URLs (relative ones will be processed to add the `dynamic-media-path`)
 * Facts references
 

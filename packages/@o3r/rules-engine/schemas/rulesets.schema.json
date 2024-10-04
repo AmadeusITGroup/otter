@@ -51,23 +51,23 @@
           "additionalItems": false
         },
         "linkedComponent": {
-          "type": "object",
+          "$ref": "#/definitions/LinkedComponent",
           "description": "Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription",
+          "deprecated": true
+        },
+        "linkedComponents": {
+          "type": "object",
+          "description": "Components linked to the ruleset. If defined, the rulest is not active by default",
           "properties": {
-            "library": {
-              "type": "string",
-              "description": "Name of the component library"
-            },
-            "name": {
-              "type": "string",
-              "description": "Name of the component"
+            "or": {
+              "type": "array",
+              "description": "List of components which will activate the ruleset. If at least one component from the list has subscribed, the ruleset will be active",
+              "items": {
+                "$ref": "#/definitions/LinkedComponent"
+              }
             }
           },
-          "additionalItems": false,
-          "required": [
-            "library",
-            "name"
-          ]
+          "additionalItems": true
         }
       },
       "additionalItems": false,
@@ -383,6 +383,25 @@
             "value"
           ]
         }
+      ]
+    },
+    "LinkedComponent": {
+      "type": "object",
+      "description": "Component linked to the ruleset, if set it will disable the ruleset execution per default, waiting to a subscription",
+      "properties": {
+        "library": {
+          "type": "string",
+          "description": "Name of the component library"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the component"
+        }
+      },
+      "additionalItems": false,
+      "required": [
+        "library",
+        "name"
       ]
     }
   }

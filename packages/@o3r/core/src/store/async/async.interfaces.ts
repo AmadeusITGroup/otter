@@ -70,14 +70,14 @@ export interface SetAsyncStoreItemActionPayload<T> extends SetActionPayload<T>, 
 export interface UpdateAsyncStoreItemEntitiesActionPayload<T extends object, K extends keyof T> extends UpdateEntitiesActionPayload<T, K>, Partial<AsyncRequest> {}
 
 /** Payload to update entities actions from async with a field ID */
-export interface UpdateAsyncStoreItemEntitiesActionPayloadWithId<T extends {id: string}> extends UpdateEntitiesActionPayloadWithId<T>, Partial<AsyncRequest> {}
+export interface UpdateAsyncStoreItemEntitiesActionPayloadWithId<T extends {id: string | number}> extends UpdateEntitiesActionPayloadWithId<T>, Partial<AsyncRequest> {}
 
 /** Payload to update entity actions from async */
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface UpdateAsyncStoreItemEntityActionPayload<T extends object, K extends keyof T> extends UpdateEntityActionPayload<T, K>, Partial<AsyncRequest> {}
 
 /** Payload to update entity actions from async with a field ID */
-export interface UpdateAsyncStoreItemEntityActionPayloadWithId<T extends {id: string}> extends UpdateEntityActionPayloadWithId<T>, Partial<AsyncRequest> {}
+export interface UpdateAsyncStoreItemEntityActionPayloadWithId<T extends {id: string | number}> extends UpdateEntityActionPayloadWithId<T>, Partial<AsyncRequest> {}
 
 /** Payload to set/upsert entities actions from async */
 // eslint-disable-next-line @typescript-eslint/ban-types

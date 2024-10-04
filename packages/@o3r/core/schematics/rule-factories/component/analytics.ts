@@ -14,6 +14,7 @@ export const getAddAnalyticsRules = (
   '@o3r/analytics',
   'analytics-to-component',
   {
+    ...options,
     skipLinter: options.skipLinter,
     activateDummy: options.activateDummy
   }

@@ -116,7 +116,7 @@ export class RulesEngineDevtoolsConsoleService implements DevtoolsServiceInterfa
   }
 
   /**
-   * Retrieve the ruleset information (rules, linkedComponent, validity range etc.) for a ruleset id
+   * Retrieve the ruleset information (rules, linkedComponents, validity range etc.) for a ruleset id
    * @param rulesetId
    */
   public async getRulesetInformation(rulesetId: string) {

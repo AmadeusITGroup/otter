@@ -47,7 +47,7 @@ ng add @o3r/localization
 
 ## How to use
 
-We provide in [library](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) an angular module called **LocalizationModule** which comes with translations loader.
+We provide in [library](https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/localization/src/tools/localization.module.ts) an Angular module called **LocalizationModule** which comes with translations loader.
 
 - **In your AppModule** you need to **import** the **LocalizationModule** and **TranslateModule**. The LocalizationModule could be imported calling `forRoot` with a custom configuration **factory** to specify the language of the application. This configuration is of type **LocalizationConfiguration** and describes your endpoint URL, supported locales, list of RTL languages, the language of your application and your fallback language.
 
@@ -236,7 +236,7 @@ As a result "**hello bold**" will be printed inside the span element.
 
 ### How to localize a date, decimal and currency
 
-Use angular built-in [DatePipe](https://angular.io/api/common/DatePipe), [DecimalPipe](https://angular.io/api/common/DecimalPipe) and [CurrencyPipe](https://angular.io/api/common/CurrencyPipe) and pass it current locale as the last parameter. The locale is read from **this.localizationService.getCurrentLanguage()**. To be able to use translateService, your component container should take benefit of dependency injection to get LocalizationService as parameter of constructor as well.
+Use Angular built-in [DatePipe](https://angular.io/api/common/DatePipe), [DecimalPipe](https://angular.io/api/common/DecimalPipe) and [CurrencyPipe](https://angular.io/api/common/CurrencyPipe) and pass it current locale as the last parameter. The locale is read from **this.localizationService.getCurrentLanguage()**. To be able to use translateService, your component container should take benefit of dependency injection to get LocalizationService as parameter of constructor as well.
 
 For example if you want to localize simpleHeader component you will start by injecting TranslateService to the constuctor of simple-header-pres.component.ts
 Your component also needs to implement Translatable interface which forces you to declare translations property. This property requires 3 decorators (`@Input() and @Localization(url)`. This will let you override localization keys from template and give some default localization to your component if you don't have your own to start with.

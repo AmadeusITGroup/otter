@@ -1,6 +1,11 @@
-import { DirEntry, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+import { DirEntry, noop, Rule, SchematicContext, type TaskId, Tree } from '@angular-devkit/schematics';
 import { dirname, join } from 'node:path';
 import { EslintFixTask, LinterOptions } from '../../tasks/index';
+
+interface ApplyEslintFixOption extends LinterOptions {
+  /** List of task to wait to run the linter */
+  dependencyTaskIds?: TaskId[];
+}
 
 /**
  * Apply EsLint fix
@@ -9,7 +14,7 @@ import { EslintFixTask, LinterOptions } from '../../tasks/index';
  * @param extension List of file extensions to lint
  * @param options Linter options
  */
-export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], options?: LinterOptions): Rule {
+export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], options?: ApplyEslintFixOption): Rule {
   try {
     require.resolve('eslint/package.json');
   } catch {
@@ -71,7 +76,8 @@ You can consider to run later the following command to add otter linter rules: n
           undefined,
           eslintFile,
           linterOptions
-        )
+        ),
+        options?.dependencyTaskIds
       );
     }
 

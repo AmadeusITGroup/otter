@@ -155,16 +155,12 @@
         "{projectRoot}/dist/assets/**",
         "{projectRoot}/dist/manifest.json",
         "{projectRoot}/dist/devtools.html"
-      ]
-    },
-    "prepare-publish": {
-      "executor": "nx:run-script",
-      "options": {
-        "script": "prepare:publish"
-      },
-      "outputs": [
-        "{projectRoot}/dist/package.json",
-        "{projectRoot}/dist/manifest.json"
+      ],
+      "inputs": [
+        "global",
+        "{projectRoot}/src/assets/**",
+        "{projectRoot}/src/manifest.json",
+        "{projectRoot}/src/devtools.html"
       ]
     },
     "publish-extension": {
