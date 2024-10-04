@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "type": "object",
+  "$id": "LocalizationMigrationMetadataCheckBuilderSchema",
+  "title": "Check localization migration metadata builder",
+  "description": "Check localization migration metadata builder",
+  "properties": {
+    "migrationDataPath": {
+      "type": ["string", "array"],
+      "items": {
+        "type": "string"
+      },
+      "description": "Glob of the migration files to use."
+    },
+    "granularity": {
+      "type": "string",
+      "description": "Granularity of the migration check.",
+      "default": "minor",
+      "enum": [
+        "major",
+        "minor"
+      ]
+    },
+    "allowBreakingChanges": {
+      "type": "boolean",
+      "description": "Are breaking changes allowed.",
+      "default": false
+    },
+    "packageManager": {
+      "type": "string",
+      "description": "Override of the package manager, otherwise it will be determined from the project."
+    },
+    "metadataPath": {
+      "type": "string",
+      "description": "Path of the localization metadata file.",
+      "default": "./localisation.metadata.json"
+    }
+  },
+  "additionalProperties": false,
+  "required": ["migrationDataPath"]
+}

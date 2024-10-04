@@ -2,6 +2,10 @@ import type { ConnectContentMessage, DevtoolsCommonOptions, MessageDataTypes, Ot
 
 export interface ApplicationDevtoolsServiceOptions extends DevtoolsCommonOptions {
   /**
+   * Application name
+   */
+  appName?: string;
+  /**
    * CSS classname applied to an HTML tag to hide it, ignore it, in the e2e visual testing process
    */
   e2eIgnoreClass?: string;
@@ -23,6 +27,10 @@ export interface SessionInformation {
 
 /** Information relative loaded application */
 export interface ApplicationInformation {
+  /**
+   * Application name
+   */
+  appName: string;
   /** Application Version */
   appVersion: string;
   /**
@@ -50,8 +58,23 @@ export interface ToggleVisualTestingMessage extends OtterMessageContent<'toggleV
 export interface ApplicationInformationContentMessage extends ApplicationInformation, OtterMessageContent<'applicationInformation'> {
 }
 
+/** State selection message */
+export interface StateSelectionContentMessage extends OtterMessageContent<'stateSelection'> {
+  /** Name of the state */
+  stateName: string;
+  /** Color of the state */
+  stateColor: string;
+  /** Contrast color of the state */
+  stateColorContrast: string;
+}
+
+/** Unselect state message */
+export interface UnselectStateContentMessage extends OtterMessageContent<'unselectState'> {}
+
 type ApplicationMessageContents =
   | ApplicationInformationContentMessage
+  | StateSelectionContentMessage
+  | UnselectStateContentMessage
   | ToggleVisualTestingMessage;
 
 /** List of possible DataTypes for Application messages */
@@ -70,7 +93,9 @@ export type AvailableApplicationMessageContents =
 export const isApplicationMessage = (message: any): message is AvailableApplicationMessageContents => {
   return message && (
     message.dataType === 'toggleVisualTesting' ||
+    message.dataType === 'stateSelection' ||
     message.dataType === 'applicationInformation' ||
+    message.dataType === 'unselectState' ||
     message.dataType === 'requestMessages' ||
     message.dataType === 'connect');
 };

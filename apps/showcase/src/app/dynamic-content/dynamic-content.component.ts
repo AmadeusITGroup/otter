@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
 import { DynamicContentModule } from '@o3r/dynamic-content';
@@ -23,6 +23,8 @@ import { CopyTextPresComponent, DynamicContentPresComponent, IN_PAGE_NAV_PRES_DI
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DynamicContentComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
@@ -32,10 +34,6 @@ export class DynamicContentComponent implements AfterViewInit {
   public codeDataDynamicContentPath = `<body data-dynamiccontentpath="${this.bodyDynamicContentPath || ''}">
   ...
 </body>`;
-
-  constructor(
-    private readonly inPageNavPresService: InPageNavPresService
-  ) {}
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

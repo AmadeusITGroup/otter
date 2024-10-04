@@ -21,7 +21,7 @@
     "test-int": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r//eslint-config-otter/testing/jest.config.it.js"
+        "jestConfig": "packages/@o3r/eslint-config-otter/testing/jest.config.it.js"
       }
     },
     "lint": {

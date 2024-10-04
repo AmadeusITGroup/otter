@@ -42,7 +42,7 @@
         "packages/@ama-sdk/create"
       ],
       "@ama-sdk/schematics": [
-        "packages/@ama-sdk/schematics"
+        "packages/@ama-sdk/schematics/src/public_api"
       ],
       "@ama-sdk/showcase-sdk": [
         "packages/@ama-sdk/showcase-sdk/src"
