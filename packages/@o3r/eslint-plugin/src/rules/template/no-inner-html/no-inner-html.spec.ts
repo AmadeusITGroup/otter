@@ -15,7 +15,11 @@ ruleTester.run(name, noInnerHTMLRule as any /* workaround for 5.9.0 breaking cha
       output: validHTML,
       errors: [
         {
-          messageId: 'error'
+          messageId: 'error',
+          suggestions: [{
+            messageId: 'fix',
+            output: validHTML
+          }]
         }
       ]
     },
@@ -24,7 +28,11 @@ ruleTester.run(name, noInnerHTMLRule as any /* workaround for 5.9.0 breaking cha
       output: validHTML,
       errors: [
         {
-          messageId: 'error'
+          messageId: 'error',
+          suggestions: [{
+            messageId: 'fix',
+            output: validHTML
+          }]
         }
       ]
     }

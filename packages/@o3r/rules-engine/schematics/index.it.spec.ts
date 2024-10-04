@@ -36,7 +36,11 @@ describe('ng add rules-engine', () => {
     ];
     expectedAddedFiles.forEach((file) => expect(diff.added).toContain(file));
     expect(diff.added.length).toBe(expectedAddedFiles.length + 9); // TODO define what are the remaining added files
-    expect(diff.modified.length).toBe(6); // TODO define what are these modified files
+    const expectedModifiedFiles = [
+      'apps/test-app/src/app/app.config.ts'
+    ];
+    expectedModifiedFiles.forEach((file) => expect(diff.modified).toContain(file));
+    expect(diff.modified.length).toBe(expectedModifiedFiles.length + 7); // TODO define what are these modified files
 
     [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
@@ -64,7 +68,7 @@ describe('ng add rules-engine', () => {
     expect(diff.modified).toContain('angular.json');
     expect(diff.modified).toContain('package.json');
     expect(diff.modified).toContain('libs/test-lib/package.json');
-    expect(diff.modified.length).toBe(4);
+    expect(diff.modified.length).toBe(5);
 
     [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
       expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);

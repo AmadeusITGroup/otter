@@ -53,7 +53,7 @@ describe('new otter application', () => {
     );
     await addImportToAppModule(applicationPath, 'TestServiceBaseModule', 'src/services/test-service');
 
-    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:page', 'test-page', '--app-routing-module-path', 'apps/test-app/src/app/app-routing.module.ts', ...appNameOptions]},
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:page', 'test-page', ...appNameOptions]},
       execAppOptions
     );
 
@@ -117,6 +117,8 @@ describe('new otter application', () => {
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/services').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/store').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
     expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/styling').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+
+    expect(diff.modified).toContainEqual(expect.stringMatching(new RegExp(path.posix.join(relativeApplicationPath, 'src/app/app.routes.ts').replace(/[\\/]+/g, '[\\\\/]'))));
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
 

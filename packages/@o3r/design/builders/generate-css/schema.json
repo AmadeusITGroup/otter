@@ -1,9 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema",
-  "$id": "ngAddSchematicsSchema",
-  "title": "Add Otter Design",
-  "description": "ngAdd Otter Design",
+  "$id": "generateCssSchematicsSchema",
+  "title": "Generate the style from Design Token",
+  "description": "Generate the style from Design Token",
   "properties": {
+    "variableType": {
+      "type": "string",
+      "enum": [
+        "css",
+        "sass"
+      ],
+      "default": "css",
+      "description": "Type of the variables to generate for a Design Token."
+    },
     "designTokenFilePatterns": {
       "description": "Path patterns to the Design Token JSON files (it supports Node dependency paths).",
       "oneOf": [
@@ -45,13 +54,17 @@
       "default": false,
       "description": "Determine if the process should stop in case of Token duplication"
     },
+    "templateFile": {
+      "type": "string",
+      "description": "Path to a template file to apply as default configuration to a Design Token extension"
+    },
     "prefix": {
       "type": "string",
-      "description": "Prefix to happen to generated variables"
+      "description": "Prefix to append to generated variables"
     },
     "prefixPrivate": {
       "type": "string",
-      "description": "Prefix to happen to generated Sass variables if generated"
+      "description": "Prefix to append to generated private variables"
     },
     "renderPrivateVariableTo": {
       "type": "string",

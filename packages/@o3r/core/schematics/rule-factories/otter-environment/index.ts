@@ -56,18 +56,9 @@ export function updateOtterEnvironmentAdapter(
         }
       });
 
-      // force dist/ output folder for production build
-      if (workspaceProject.architect && workspaceProject.architect.build) {
-        workspaceProject.architect.build.configurations ||= {};
-        workspaceProject.architect.build.configurations.production ||= {};
-        workspaceProject.architect.build.configurations.production.outputPath ||= join(workspaceProject.root, 'dist');
-
-        if (workspaceProject.architect.build.configurations.options &&
-            workspaceProject.architect.build.configurations.options.outputPath &&
-            /^dist([/].+)?/i.test(workspaceProject.architect.build.configurations.options.outputPath)) {
-          workspaceProject.architect.build.configurations.options.outputPath ||= join(workspaceProject.root, 'dist-dev');
-        }
-
+      // override angular's dist/webapp output path with apps/webapp/dist
+      if (workspaceProject.architect?.build?.options?.outputPath) {
+        workspaceProject.architect.build.options.outputPath = join(workspaceProject.root, 'dist');
       }
 
       workspace.projects[options.projectName!] = workspaceProject;

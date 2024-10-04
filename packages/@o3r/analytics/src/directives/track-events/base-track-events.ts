@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Renderer2} from '@angular/core';
+import {Directive, ElementRef, OnDestroy, Renderer2} from '@angular/core';
 import {Subscription} from 'rxjs';
 
 import {
@@ -11,7 +11,7 @@ import {
 import {EventTrackService} from '../../services/event-track';
 
 @Directive()
-export abstract class BaseTrackEvents {
+export abstract class BaseTrackEvents implements OnDestroy {
   /**
    * Custom object to be stored when the click event is captured
    */
