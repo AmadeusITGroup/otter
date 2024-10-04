@@ -7,7 +7,7 @@ import type { PackageJson } from 'type-fest';
  * @param pattern
  */
 export function getPeerDepWithPattern(packageJsonPath: string, pattern: RegExp | string[] = /^@(otter|o3r|ama-sdk)/) {
-  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
   const packageName = packageJsonContent.name;
   const packageVersion = packageJsonContent.version;
   const optionalPackages = Object.entries(packageJsonContent.peerDependenciesMeta || {})
@@ -55,7 +55,7 @@ export function getO3rPeerDeps(packageJsonPath: string, filterBasics = true, pac
  * @param packagePattern Pattern of the package name to look in the packages generator dependencies.
  */
 export function getO3rGeneratorDeps(packageJsonPath: string, packagePattern = /^@(?:o3r|ama-sdk)/) {
-  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+  const packageJsonContent: PackageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
   const packageName = packageJsonContent.name;
   const packageVersion = packageJsonContent.version;
   const optionalPackages = Object.entries(packageJsonContent.generatorDependencies || {})

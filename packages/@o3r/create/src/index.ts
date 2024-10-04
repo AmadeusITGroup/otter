@@ -9,10 +9,10 @@ import type { PackageJson } from 'type-fest';
 
 
 const { properties } = JSON.parse(
-  readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf-8' })
+  readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf8' })
 ) as { properties: Record<string, { alias?: string }> };
 const { version, dependencies, devDependencies } = JSON.parse(
-  readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf-8' })
+  readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf8' })
 ) as PackageJson;
 
 const optionsList = [
@@ -201,7 +201,7 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
 
   const packageJsonPath = resolve(cwd, 'package.json');
   const packageJson: PackageJson = JSON.parse(
-    readFileSync(packageJsonPath, { encoding: 'utf-8' })
+    readFileSync(packageJsonPath, { encoding: 'utf8' })
       // Replace the ^ with ~ to use the same minor version for angular packages as @angular/cli
       .replace(/(@(?:angular|schematics).*)\^/g, '$1~')
   );

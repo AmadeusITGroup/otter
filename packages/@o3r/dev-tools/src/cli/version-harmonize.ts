@@ -4,7 +4,7 @@
 import { blue, bold, green, grey } from 'chalk';
 import { program } from 'commander';
 import * as globby from 'globby';
-import { promises as fs } from 'node:fs';
+import { promises as fs, readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import * as semver from 'semver';
 import type { PackageJson } from 'type-fest';
@@ -114,7 +114,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
   }
 
   for (const packageJsonPath of packageJsonPaths) {
-    const packageJson: PackageJson = JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf-8' }));
+    const packageJson: PackageJson = JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf8' }));
     logger.info(`Update packageManager from ${bold(packageJson.packageManager)} to ${bold(packageManager)} in ${bold(packageJson.name)} ${grey(`(${path.relative(process.cwd(), packageJsonPath)})`)}`);
     packageJson.packageManager = packageManager;
     await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
@@ -124,7 +124,7 @@ const updatePackageJsonPackageManager = async (packageJsonPaths: string[], packa
 void (async () => {
   // eslint-disable-next-line max-len
   logger.warn('This script is deprecated and will be removed in v12, please use the linter rule @o3r/json-dependency-versions-harmonize instead (documentation available https://github.com/AmadeusITGroup/otter/blob/main/docs/linter/eslint-plugin/rules/json-dependency-versions-harmonize.md)');
-  const monorepoPackage: PackageJson = require(options.monorepo);
+  const monorepoPackage: PackageJson = JSON.parse(readFileSync(options.monorepo, { encoding: 'utf8' }));
   const { workspaces, packageManager } = monorepoPackage;
   const packageJsonPatterns = (Array.isArray(workspaces) ? workspaces : (workspaces && workspaces.packages))?.map((packagePath) => path.posix.join(packagePath, 'package.json'));
 

@@ -17,7 +17,7 @@ import type { PackageJson } from 'type-fest';
  */
 export function updatePlaywright(options: NgAddPackageOptions, dependencies: Record<string, DependencyToAdd>): Rule {
   const corePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-  const ownPackageJson = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf-8' })) as PackageJson & { generatorDependencies: Record<string, string> };
+  const ownPackageJson = JSON.parse(fs.readFileSync(corePackageJsonPath, { encoding: 'utf8' })) as PackageJson & { generatorDependencies: Record<string, string> };
   dependencies['@playwright/test'] = {
     inManifest: [{
       range: ownPackageJson.devDependencies!['@playwright/test'],

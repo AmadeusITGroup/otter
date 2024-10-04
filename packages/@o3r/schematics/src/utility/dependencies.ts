@@ -11,7 +11,7 @@ import type { PackageJson } from 'type-fest';
  * @returns The version range value retrieved from the provided package.json file
  */
 export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger: logging.LoggerApi): Record<T, string> {
-  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'})) as PackageJson & { generatorDependencies: Record<string, string> };
+  const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf8'})) as PackageJson & { generatorDependencies: Record<string, string> };
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
     acc[packageName] =
       packageJsonContent.generatorDependencies?.[packageName] ||

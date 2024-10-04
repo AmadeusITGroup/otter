@@ -20,7 +20,7 @@ describe('Design Token generator', () => {
   let exampleVariable!: DesignTokenSpecification;
 
   beforeAll(async () => {
-    exampleVariable = {document: JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), {encoding: 'utf-8'}))};
+    exampleVariable = {document: JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), {encoding: 'utf8'}))};
   });
 
   describe('CSS renderer', () => {
@@ -174,7 +174,7 @@ describe('Design Token generator', () => {
     };
 
     beforeAll(async () => {
-      metadataSchema = JSON.parse(await fs.readFile(resolve(__dirname, '../../../../styling/schemas/style.metadata.schema.json'), { encoding: 'utf-8' }));
+      metadataSchema = JSON.parse(await fs.readFile(resolve(__dirname, '../../../../styling/schemas/style.metadata.schema.json'), { encoding: 'utf8' }));
     });
 
     test('should render valid metadata', async () => {

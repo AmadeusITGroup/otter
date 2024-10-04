@@ -65,6 +65,8 @@
     "json",
     "yaml"
   ],
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.mode": "all",
   "nxConsole.generatorAllowlist": [
     "@o3r/core:*"
   ],

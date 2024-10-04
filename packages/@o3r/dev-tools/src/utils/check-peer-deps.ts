@@ -1,6 +1,7 @@
 import * as path from 'node:path';
 import { PackageJson } from 'type-fest';
 import { satisfies } from 'semver';
+import { readFileSync } from 'node:fs';
 
 /**
  * Interface containing a npm package name, needed version and optionally found version
@@ -24,7 +25,8 @@ export interface PackageVersion {
 export function getPackagesToInstallOrUpdate(packageName: string) {
   let installedPackage: PackageJson;
   try {
-    installedPackage = require(`${packageName}${path.posix.sep}package.json`);
+    const packageJsonNamePath = require.resolve(`${packageName}${path.posix.sep}package.json`);
+    installedPackage = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' }));
   } catch (err) {
     throw new Error(`The provided package is not installed: ${packageName}`);
   }
@@ -45,7 +47,8 @@ export function getPackagesToInstallOrUpdate(packageName: string) {
   Object.entries(peerDependenciesMap).forEach(([pName, pVersion]) => {
     let installedPackageVersion: string | undefined;
     try {
-      installedPackageVersion = require(`${pName}${path.posix.sep}package.json`).version;
+      const packageJsonNamePath = require.resolve(`${pName}${path.posix.sep}package.json`);
+      installedPackageVersion = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' })).version;
     } catch (err) {
       packagesToInstall.push({ packageName: pName, version: pVersion! });
     }

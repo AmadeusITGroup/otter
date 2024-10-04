@@ -1,4 +1,4 @@
-import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
+import { ApplicationRef, Injectable, OnDestroy, signal } from '@angular/core';
 import type { Dictionary } from '@ngrx/entity';
 import type { ConfigurationModel } from '@o3r/configuration';
 import { otterMessageType } from '@o3r/core';
@@ -80,6 +80,7 @@ export class ChromeExtensionConnectionService implements OnDestroy {
   private backgroundPageConnection?: chrome.runtime.Port;
   private readonly messageSubject = new ReplaySubject<AvailableMessageContents>(1);
   private readonly subscription = new Subscription();
+  private readonly isDisconnected = signal(false);
 
   /** Stream of messages received from the service worker */
   public message$ = this.messageSubject.asObservable();
@@ -103,9 +104,14 @@ export class ChromeExtensionConnectionService implements OnDestroy {
 
   /** Initialize connection to the service worker to dialog with the page */
   public activate() {
+    this.isDisconnected.set(false);
     this.backgroundPageConnection = chrome.runtime.connect();
     // eslint-disable-next-line @typescript-eslint/require-await
     this.backgroundPageConnection.onMessage.addListener(async (message) => this.messageSubject.next(message.content));
+
+    this.backgroundPageConnection.onDisconnect.addListener(() => {
+      this.isDisconnected.set(true);
+    });
 
     this.sendMessage('inject', {scriptToInject});
   }
@@ -116,6 +122,9 @@ export class ChromeExtensionConnectionService implements OnDestroy {
    * @param content
    */
   public sendMessage<T extends AvailableMessageContents>(dataType: T['dataType'], content: Omit<T, 'dataType'>): void {
+    if (this.isDisconnected()) {
+      this.activate();
+    }
     this.backgroundPageConnection?.postMessage({
       content: {
         ...content,

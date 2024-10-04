@@ -1,0 +1,76 @@
+{
+  "name": "new-version",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@o3r/new-version/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": ["compile", "build-builders"]
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    },
+    "compile": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "main": "packages/@o3r/new-version/src/public_api.ts",
+        "tsConfig": "packages/@o3r/new-version/tsconfig.build.json",
+        "outputPath": "packages/@o3r/new-version/dist",
+        "assets": ["packages/@o3r/new-version/configs/*.json"],
+        "clean": false
+      }
+    },
+    "lint": {
+      "options": {
+        "eslintConfig": "packages/@o3r/new-version/.eslintrc.js",
+        "lintFilePatterns": ["packages/@o3r/new-version/src/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/new-version/jest.config.js"
+      }
+    },
+    "test-int": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@o3r/new-version/testing/jest.config.it.js"
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@o3r/new-version/dist"
+      }
+    },
+    "documentation": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "compodoc"
+      }
+    }
+  },
+  "tags": ["tools"]
+}

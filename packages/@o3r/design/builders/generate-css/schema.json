@@ -40,6 +40,11 @@
       "type": "string",
       "description": "If specified, all the generated CSS variable will be generated in the given file. Otherwise, the output file will be determined based on the Variable parameters."
     },
+    "metadataIgnorePrivate": {
+      "type": "boolean",
+      "default": false,
+      "description": "Ignore the private variable in the metadata generation."
+    },
     "rootPath": {
       "type": "string",
       "description": "Root path used to determine the CSS file to edit if specified by the o3rTargetFile token extension. It will default to the Design Token file folder."
@@ -55,8 +60,18 @@
       "description": "Determine if the process should stop in case of Token duplication"
     },
     "templateFile": {
-      "type": "string",
-      "description": "Path to a template file to apply as default configuration to a Design Token extension"
+      "description": "Path to a template file(s) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      ]
     },
     "prefix": {
       "type": "string",
