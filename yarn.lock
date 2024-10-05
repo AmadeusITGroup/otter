@@ -6208,16 +6208,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ng-select/ng-select@npm:~13.8.0":
-  version: 13.8.2
-  resolution: "@ng-select/ng-select@npm:13.8.2"
+"@ng-select/ng-select@npm:~13.9.0":
+  version: 13.9.0
+  resolution: "@ng-select/ng-select@npm:13.9.0"
   dependencies:
     tslib: "npm:^2.3.1"
   peerDependencies:
     "@angular/common": ^18.0.0
     "@angular/core": ^18.0.0
     "@angular/forms": ^18.0.0
-  checksum: 10/89a4a4d2b851fc9a31eb7cde1ec0020429a359727015284859286087c7d4f1e6ac9aa0958c84822cd6892b3763dc52e597ed418b9f14f492d4c291da2b56647c
+  checksum: 10/a7adbd284b9224e74872d421ffe0507c2c2130acca8dc7c0380ebc25cb9e8e54574939489ea9aeb46ef8708893829796c19f5524fe6649847d38556a3c28094f
   languageName: node
   linkType: hard
 
@@ -7431,7 +7431,7 @@ __metadata:
     "@angular/router": "npm:~18.2.0"
     "@design-factory/design-factory": "npm:~18.0.3"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.8.0"
+    "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/store": "npm:~18.0.0"
     "@nx/eslint-plugin": "npm:~19.5.0"
@@ -7450,7 +7450,7 @@ __metadata:
     "@popperjs/core": "npm:^2.11.5"
     "@schematics/angular": "npm:~18.2.0"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
-    "@types/chrome": "npm:^0.0.272"
+    "@types/chrome": "npm:^0.0.273"
     "@types/color": "npm:^3.0.6"
     "@types/jest": "npm:~29.5.2"
     "@types/tinycolor2": "npm:^1.4.6"
@@ -8538,7 +8538,7 @@ __metadata:
     "@compodoc/compodoc": "npm:^1.1.19"
     "@design-factory/design-factory": "npm:~18.0.3"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.8.0"
+    "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/effects": "npm:~18.0.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/router-store": "npm:~18.0.0"
@@ -9389,7 +9389,7 @@ __metadata:
     "@design-factory/design-factory": "npm:~18.0.3"
     "@formatjs/intl-numberformat": "npm:~8.10.0"
     "@ng-bootstrap/ng-bootstrap": "npm:^17.0.0"
-    "@ng-select/ng-select": "npm:~13.8.0"
+    "@ng-select/ng-select": "npm:~13.9.0"
     "@ngrx/effects": "npm:~18.0.0"
     "@ngrx/entity": "npm:~18.0.0"
     "@ngrx/store": "npm:~18.0.0"
@@ -12645,13 +12645,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chrome@npm:^0.0.272":
-  version: 0.0.272
-  resolution: "@types/chrome@npm:0.0.272"
+"@types/chrome@npm:^0.0.273":
+  version: 0.0.273
+  resolution: "@types/chrome@npm:0.0.273"
   dependencies:
     "@types/filesystem": "npm:*"
     "@types/har-format": "npm:*"
-  checksum: 10/2a79b708f3ba980b4c671d5f93c72c1dce749ab71dcc5d5db2e38ea5bb4312da51ec2de6a173bfe7b7e1bb260c4732462b52d91e36d68eef0186992a44421d21
+  checksum: 10/85b8fe4d72ee291111479a778349e39a0ff8c725930d33d0a3e70e5b6e3801ec0403433ea22f10991db6c664aff212a50f986a2de4e0f6a623a1d4ad337cadc6
   languageName: node
   linkType: hard
 
