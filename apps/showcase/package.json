@@ -45,7 +45,7 @@
     "@design-factory/design-factory": "~18.0.3",
     "@formatjs/intl-numberformat": "~8.10.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
-    "@ng-select/ng-select": "~13.8.0",
+    "@ng-select/ng-select": "~13.9.0",
     "@ngrx/effects": "~18.0.0",
     "@ngrx/entity": "~18.0.0",
     "@ngrx/store": "~18.0.0",
