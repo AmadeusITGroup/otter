@@ -1,7 +1,10 @@
 import { MockAdapter } from '../../fwk/index';
 import { FetchPluginContext, RequestOptions } from '../core/index';
 
-/** Mock Fetch Plugin options */
+/**
+ * Mock Fetch Plugin options
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export interface MockInterceptFetchParameters {
   /** List of mocks to be used */
   adapter: MockAdapter;

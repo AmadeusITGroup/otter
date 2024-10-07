@@ -46,10 +46,11 @@ export interface MetadataTokenDefinitionRendererOptions {
  */
 export const getMetadataTokenDefinitionRenderer = (options?: MetadataTokenDefinitionRendererOptions): TokenDefinitionRenderer => {
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
-  const tokenValueRenderer = options?.tokenValueRenderer || getMetadataTokenValueRenderer({ tokenVariableNameRenderer });
+  const ignorePrivateVariable = options?.ignorePrivateVariable;
+  const tokenValueRenderer = options?.tokenValueRenderer || getMetadataTokenValueRenderer({ tokenVariableNameRenderer, ignorePrivateVariable });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
-    if (options?.ignorePrivateVariable && isO3rPrivateVariable(variable)) {
+    if (ignorePrivateVariable && isO3rPrivateVariable(variable)) {
       return undefined;
     }
     const variableValue = tokenValueRenderer(variable, variableSet);

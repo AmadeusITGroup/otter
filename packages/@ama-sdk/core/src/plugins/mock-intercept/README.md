@@ -25,6 +25,9 @@ const baseConfig = new ApiFetchClient({
 
 ## Mock intercept fetch plugin
 
+> [!WARNING]
+> This package is now exposed by [@ama-sdk/client-fetch](https://npmjs.com/package/@ama-sdk/client-fetch). It will be removed from this package in v13.
+
 The mock mechanism provides, via the `getResponse` function, a way to completely override the fetch response. To apply the mock at FetchAPI level, we provide the `MockInterceptFetch`.
 It will work with the `MockInterceptRequest` on the same mock set.
 

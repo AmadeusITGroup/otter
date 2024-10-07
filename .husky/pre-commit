@@ -1,1 +1,3 @@
 yarn lint-staged
+yarn run package-github-actions:affected --base=HEAD
+git add tools/github-actions/*/packaged-action/**

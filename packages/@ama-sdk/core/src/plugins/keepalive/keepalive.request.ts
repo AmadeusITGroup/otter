@@ -2,6 +2,7 @@ import {PluginRunner, RequestOptions, RequestPlugin} from '../core';
 
 /**
  * Plugin to add the keepalive flag to the request
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class KeepaliveRequest implements RequestPlugin {
 

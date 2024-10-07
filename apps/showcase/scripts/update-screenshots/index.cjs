@@ -8,6 +8,9 @@ const playwrightVersion = require('@playwright/test/package.json').version;
 const childProcess = require('node:child_process');
 const os = require('node:os');
 const path = require('node:path');
+const minimist = require('minimist');
+
+const argv = minimist(process.argv.slice(2));
 
 const absolutePathFromRoot = path.resolve(__dirname, '..', '..', '..', '..');
 
@@ -25,11 +28,11 @@ const ipAddresses = [
   ...Object.values(os.networkInterfaces())
     .flat()
     .filter((net) => net.family === 'IPv4' && net.address !== '127.0.0.1')
-    .map((net) => `http://${net.address}:8080`)
+    .map((net) => `http://${net.address}:${argv.port || '8080'}`)
 ];
 
 // Command to create the docker container and run the script
-const script = 'docker';
+const script = argv.docker || 'docker';
 const args = [
   'run',
   '-it',

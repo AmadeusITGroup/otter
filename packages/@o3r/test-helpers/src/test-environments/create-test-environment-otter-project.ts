@@ -99,6 +99,7 @@ export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOption
     if (options.globalFolderPath) {
       packageManagerExec({script: 'ng', args: ['config', 'cli.cache.path', path.join(options.globalFolderPath, '.angular', 'cache')]}, execAppOptions);
     }
+    packageManagerInstall(execAppOptions);
 
     return Promise.resolve();
   }, { lockFilePath: path.join(options.cwd, `${options.appDirectory}-ongoing.lock`), ...options });
