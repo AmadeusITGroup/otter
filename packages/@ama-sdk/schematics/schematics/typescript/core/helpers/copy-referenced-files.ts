@@ -1,6 +1,6 @@
 import { existsSync } from 'node:fs';
 import { copyFile, mkdir, readFile, rm } from 'node:fs/promises';
-import { dirname, join, normalize, posix, relative, resolve, sep } from 'node:path';
+import { dirname, isAbsolute, join, normalize, posix, relative, resolve, sep } from 'node:path';
 
 const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
 
@@ -13,8 +13,11 @@ function extractRefPaths(specContent: string, basePath: string): string[] {
   const refs = specContent.match(refMatcher);
   return refs ?
     refs
-      .map((capture) => capture.replace(refMatcher, '$1').replace(/['"]/g, ''))
-      .filter((refPath) => refPath.startsWith('.'))
+      .map((capture) => capture.replace(refMatcher, '$1')
+        .replace(/['"]/g, '')
+        .trim()
+      )
+      .filter((refPath) => refPath && !isAbsolute(refPath) && !/^https?:\//.test(refPath))
       .map((refPath) => join(basePath, refPath))
     : [];
 }
