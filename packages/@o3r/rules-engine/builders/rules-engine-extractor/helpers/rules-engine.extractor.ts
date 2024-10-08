@@ -263,7 +263,6 @@ export class RulesEngineExtractor {
         if (!operatorDeclarations.length) {
           return;
         }
-
         operatorDeclarations.forEach((declaration) => {
           const operatorType = declaration.type.typeName.getText(source);
           const commentParsedDeclaration = this.commentParser.parseConfigDocFromNode(source, declaration);
@@ -291,9 +290,9 @@ export class RulesEngineExtractor {
               nbValues: 1
             };
           }
-
-          declaration.type.typeArguments?.forEach((argType, idx) => {
-            const operand = idx === 0 ? 'leftOperand' : 'rightOperand';
+          const operands: ('leftOperand' | 'rightOperand')[] = ['leftOperand', 'rightOperand'];
+          declaration.type.typeArguments?.slice(0, 2).forEach((argType, idx) => {
+            const operand = operands[idx];
             const operandObject = operator[operand]!;
 
             operandObject.nbValues = this.getTypeNbValue(argType);
