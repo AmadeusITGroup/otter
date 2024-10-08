@@ -63,6 +63,16 @@ To ease the process, we are providing a set of:
 - [Linters configuration](./packages/@o3r/eslint-config-otter/README.md)
 - [Component generator](./packages/@o3r/core/README.md#generators) (and more)
 
+### DevTools to create new Otter monorepo elements
+
+To help developers create new items in the Otter monorepo, several scripts have been provided at root level to accelerate development:
+
+- Create a new scope: `yarn create:scope <scope-name>`
+- Create a new package: `yarn ng g library @<scope-name>/<library-name>`
+
+> [!NOTE]
+> The dependencies of the monorepo need to be installed (thanks to the command `yarn install`) before running the scripts.
+
 ## Code review process
 
 After submitting a pull request, you will receive feedback from the Otter team. The review process will continue until the pull request is ready to be merged.

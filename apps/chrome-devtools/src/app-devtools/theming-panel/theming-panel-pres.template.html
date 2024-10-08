@@ -3,7 +3,7 @@
     <div class="mb-4 d-flex gap-4 justify-content-between">
       <div class="input-group">
         <label class="input-group-text" for="search-styling">
-          <i class="mx-1 icon-search" aria-label="Search"></i>
+          <i class="mx-1 fa-search" aria-label="Search"></i>
         </label>
         <input class="form-control" formControlName="search" type="text" id="search-styling" placeholder="Search for styling variable" />
       </div>
@@ -33,7 +33,7 @@
                 </div>
                 <label class="form-label text-nowrap fw-semibold my-0 ms-4" [for]="group.name">{{ group.name }}</label>
                 @if (themingActiveStateOverrides()[group.defaultVariable.name] || themingLocalStateOverrides()[group.defaultVariable.name]) {
-                  <i class="form-text text-warning icon-undo position-absolute end-0 me-10"
+                  <i class="form-text text-warning fa-undo position-absolute end-0 me-10"
                     [ngbTooltip]="
                       activeStateName() && themingActiveStateOverrides()[group.defaultVariable.name] !== themingLocalStateOverrides()[group.defaultVariable.name]
                       ? 'Reset all colors of ' + group.name + ' to the ones of ' + activeStateName()
@@ -97,7 +97,7 @@
                             </ng-template>
                             <input [id]="variable.name" type="text" class="form-control w-100 pe-6" [formControlName]="variable.name" [ngbTypeahead]="variableSearch | memoize : variable" [resultTemplate]="resultTemplate" />
                             @if (themingActiveStateOverrides()[variable.name] || themingLocalStateOverrides()[variable.name]) {
-                              <i class="form-text text-warning icon-undo position-absolute end-0 me-3"
+                              <i class="form-text text-warning fa-undo position-absolute end-0 me-3"
                                 [ngbTooltip]="
                                   activeStateName() && themingActiveStateOverrides()[variable.name] !== themingLocalStateOverrides()[variable.name]
                                     ? 'Reset value to the one from ' + activeStateName() + ': ' + (themingActiveStateOverrides()[variable.name] || variable.defaultValue)

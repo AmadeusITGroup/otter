@@ -57,4 +57,30 @@ describe('getCssTokenValueRenderer', () => {
     expect(debug).toHaveBeenCalledWith(expect.stringContaining('var(--does-not-exist)'));
     expect(result).toBe('var(--does-not-exist)');
   });
+
+  describe('with extension value override', () => {
+    test('should not override non-numeric value', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-color-unit-ratio-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('#000');
+    });
+
+    test('should override numeric value and add unit', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-number-unit-ratio-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('5px'); // default value: 2
+    });
+
+    test('should override numeric value and unit', () => {
+      const renderer = getCssTokenValueRenderer();
+      const variable = designTokens.get('example.var-unit-override');
+
+      const result = renderer(variable, designTokens);
+      expect(result).toBe('5rem'); // default value: 2px
+    });
+  });
 });

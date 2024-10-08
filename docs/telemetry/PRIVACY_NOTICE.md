@@ -36,6 +36,6 @@ Usage analytics may include the following information:
 ## How to withdraw your consent?
 
 To withdraw your consent, you can either:
-- set `config.o3rMetrics` to false in your `package.json` to disable the consent for the whole project; or
+- set `config.o3r.telemetry` to false in your `package.json` to disable the consent for the whole project; or
 - set `O3R_METRICS` to `false` in your environment variables in your machine; or
 - By calling the builder/schematic with `--no-o3r-metrics`.

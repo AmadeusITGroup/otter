@@ -16,13 +16,19 @@ import {BaseApiClientOptions} from '../fwk/core/base-api-constructor';
 import {CanceledCallError, EmptyResponseError, ResponseJSONParseError} from '../fwk/errors';
 import {ReviverType} from '../fwk/Reviver';
 
-/** @see BaseApiClientOptions */
+/**
+ * @see BaseApiClientOptions
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
   /** List of plugins to apply to the fetch call */
   fetchPlugins: FetchPlugin[];
 }
 
-/** @see BaseApiConstructor */
+/**
+ * @see BaseApiConstructor
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export interface BaseApiFetchClientConstructor extends PartialExcept<BaseApiFetchClientOptions, 'basePath'> {
 }
 
@@ -34,7 +40,10 @@ const DEFAULT_OPTIONS: Omit<BaseApiFetchClientOptions, 'basePath'> = {
   disableFallback: false
 };
 
-/** Client to process the call to the API using Fetch API */
+/**
+ * Client to process the call to the API using Fetch API
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
+ */
 export class ApiFetchClient implements ApiClient {
 
   /** @inheritdoc */
@@ -117,7 +126,15 @@ export class ApiFetchClient implements ApiClient {
 
       const loadedPlugins: (PluginAsyncRunner<Response, FetchCall> & PluginAsyncStarter)[] = [];
       if (this.options.fetchPlugins) {
-        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({url, options, fetchPlugins: loadedPlugins, controller, apiClient: this, logger: this.options.logger})));
+        loadedPlugins.push(...this.options.fetchPlugins.map((plugin) => plugin.load({
+          url,
+          options,
+          fetchPlugins: loadedPlugins,
+          controller,
+          apiClient: this,
+          logger: this.options.logger,
+          apiName
+        })));
       }
 
       const canStart = await Promise.all(loadedPlugins.map((plugin) => !plugin.canStart || plugin.canStart()));

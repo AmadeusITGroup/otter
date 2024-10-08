@@ -6,12 +6,6 @@ import * as path from 'node:path';
 
 const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
 
-const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
-  logger.error(`[ERROR]: Adding @o3r/design has failed.
-You need to install '@o3r/schematics' to be able to use the o3r design package. Please run 'ng add @o3r/schematics'.`);
-  throw reason;
-};
-
 /**
  * Add Otter design to an Angular Project
  * @param options
@@ -50,6 +44,17 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
  * @param options
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
-  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
-  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  const missingSchematicDependencyMessage = 'Missing @o3r/schematics';
+  try {
+    const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(() => { throw new Error(missingSchematicDependencyMessage); });
+    return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+  } catch (err) {
+    if (err instanceof Error && err.message === missingSchematicDependencyMessage) {
+      logger.warn(`[WARNING]: The run of the ng-add schematics of @o3r/design has failed, the setup of default features will not be done.
+The failure is due to miss of the package '@o3r/schematics'.
+To get benefit of the setup scripts, please run 'ng add @o3r/schematics' before.`);
+    } else {
+      throw err;
+    }
+  }
 };

@@ -352,6 +352,15 @@
     },
     "i18n": {
       "cache": true
+    },
+    "package-github-action": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "{projectRoot}/action.yml",
+        "{projectRoot}/LICENSE"
+      ],
+      "outputs": ["{projectRoot}/packaged-action"]
     }
   },
   "generators": {

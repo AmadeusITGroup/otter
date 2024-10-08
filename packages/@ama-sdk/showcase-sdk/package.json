@@ -59,11 +59,15 @@
     "tslib": "^2.6.2"
   },
   "peerDependenciesMeta": {
+    "@ama-sdk/client-fetch": {
+      "optional": true
+    },
     "isomorphic-fetch": {
       "optional": true
     }
   },
   "devDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "@ama-sdk/schematics": "workspace:^",
     "@angular-devkit/core": "~18.2.0",
@@ -111,6 +115,7 @@
     "typescript": "~5.5.4"
   },
   "peerDependencies": {
+    "@ama-sdk/client-fetch": "workspace:^",
     "@ama-sdk/core": "workspace:^",
     "isomorphic-fetch": "~3.0.0"
   },

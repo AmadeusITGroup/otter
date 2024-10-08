@@ -3,6 +3,7 @@ import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
 
 /**
  * Performance metric mark associated to a call.
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface Mark {
   /**
@@ -51,6 +52,7 @@ type CrossPlatformPerformance = {
 
 /**
  * Options for this plugin.
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export interface PerformanceMetricOptions {
   /**
@@ -84,6 +86,7 @@ export interface PerformanceMetricOptions {
 
 /**
  * Performance metric plugin.
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class PerformanceMetricPlugin implements FetchPlugin {
   /**

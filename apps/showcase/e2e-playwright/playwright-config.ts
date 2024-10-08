@@ -24,8 +24,11 @@ const config = defineConfig({
     screenshot: 'only-on-failure',
     trace: 'retain-on-failure',
     ...process.env.USE_MOCKS ? {
-      launchOptions: { proxy: {server: 'per-context'}, args: ['--remote-debugging-port=9222']},
-      proxy: {server: 'http://localhost:4200'},
+      launchOptions: {
+        proxy: {server: 'http://localhost:4747'},
+        args: ['--remote-debugging-port=9222', '--ignore-certificate-errors']
+      },
+      proxy: {server: 'http://localhost:4747'},
       serviceWorkers: 'block',
       ignoreHTTPSErrors: true
     } : {
@@ -44,7 +47,7 @@ const config = defineConfig({
     ...process.env.USE_MOCKS ? [{
       command: `yarn kassette -c ${path.join(__dirname, 'kassette.config.js')}`,
       cwd: path.join(__dirname, '..'),
-      port: 4200,
+      port: 4747,
       timeout: 120 * 1000,
       reuseExistingServer: !process.env.CI
     }] : []

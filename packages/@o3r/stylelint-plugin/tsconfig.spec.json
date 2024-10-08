@@ -4,8 +4,7 @@
     "composite": true,
     "outDir": "test",
     "rootDir": ".",
-    "allowImportingTsExtensions": true,
-    "noEmit": true
+    "allowImportingTsExtensions": true
   },
   "include": [
     "./src/**/*.spec.ts",

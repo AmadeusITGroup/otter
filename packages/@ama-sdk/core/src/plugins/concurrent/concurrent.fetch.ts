@@ -2,6 +2,7 @@ import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
 
 /**
  * Plugin to limit the number of concurrent call
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class ConcurrentFetch implements FetchPlugin {
 

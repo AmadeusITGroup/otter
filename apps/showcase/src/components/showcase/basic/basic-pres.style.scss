@@ -1,10 +1,10 @@
 @mixin style {
 
   .bubble {
-    border-radius: var(--bs-border-radius-xl);
+    border-radius: var(--df-border-radius-xl);
 
     div {
-      transform: translate(calc(-50% - var(--bs-border-width)/2), -50%) rotate(-45deg) ;
+      transform: translate(calc(-50% - var(--df-border-width)/2), -50%) rotate(-45deg) ;
       width: 1em;
       height: 1em;
     }

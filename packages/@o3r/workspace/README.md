@@ -14,7 +14,7 @@ This packages provides several [Schematics](#schematics) and [CLIs](#scripts) us
 
 ## Schematics
 
-Otter framework provides a set of code generators based on [angular schematics](https://angular.io/guide/schematics).
+Otter framework provides a set of code generators based on [Angular schematics](https://angular.io/guide/schematics).
 
 | Schematics                 | Description                                                                   | How to use                        |
 | -------------------------- | ----------------------------------------------------------------------------- | --------------------------------- |
