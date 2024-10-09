@@ -19,7 +19,7 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 };
 
 /**
- * Compare the Token Variable by name
+ * Compare Token variable by name
  * @param a first token variable
  * @param b second token variable
  */

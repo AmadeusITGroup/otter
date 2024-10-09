@@ -27,7 +27,7 @@ describe('getSassTokenDefinitionRenderer', () => {
     expect(result).toBe('$example-var1: test-value;');
   });
 
-  test('should happen default when expecting override', () => {
+  test('should append default when expecting override', () => {
     const tokenValueRenderer = jest.fn().mockReturnValue('test-value');
     const renderer = getSassTokenDefinitionRenderer({ tokenValueRenderer });
     const variable = designTokens.get('example.var-expect-override');

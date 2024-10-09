@@ -10,7 +10,7 @@
     "generate-style": {
       "implementation": "./builders/generate-style/",
       "schema": "./builders/generate-style/schema.json",
-      "description": "Generate Style from Design Token files"
+      "description": "Generate style from Design Token files"
     },
     "generate-jsonschema": {
       "implementation": "./builders/generate-jsonschema/",

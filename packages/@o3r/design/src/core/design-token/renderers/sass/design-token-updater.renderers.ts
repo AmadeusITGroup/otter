@@ -6,7 +6,7 @@ export interface SassStyleContentUpdaterOptions extends Exclude<CssStyleContentU
 }
 
 /**
- * Retrieve a Content Updater function for SASS generator
+ * Retrieve a content updater function for SASS generator
  * @param options
  */
 export const getSassStyleContentUpdater = (options?: SassStyleContentUpdaterOptions): DesignContentFileUpdater => {

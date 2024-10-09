@@ -38,7 +38,7 @@
     },
     "output": {
       "type": "string",
-      "description": "Path to generate the metadata for CMS. The Metadata will be generated only if the file path is specified"
+      "description": "Path to generate the Metadata for CMS. The Metadata will be generated only if the file path is specified"
     },
     "defaultStyleFile": {
       "type": "string",
@@ -47,12 +47,12 @@
     },
     "metadataOutput": {
       "type": "string",
-      "description": "If specified, all the generated CSS variable will be generated in the given file. Otherwise, the output file will be determined based on the Variable parameters."
+      "description": "If specified, all the generated CSS variables will be generated in the given file. Otherwise, the output file will be determined based on the variable parameters."
     },
     "metadataIgnorePrivate": {
       "type": "boolean",
       "default": false,
-      "description": "Ignore the private variable in the metadata generation."
+      "description": "Ignore private variables in the metadata generation."
     },
     "rootPath": {
       "type": "string",
@@ -61,15 +61,15 @@
     "watch": {
       "type": "boolean",
       "default": false,
-      "description": "Enable Watch mode"
+      "description": "Enable watch mode"
     },
     "failOnDuplicate": {
       "type": "boolean",
       "default": false,
-      "description": "Determine if the process should stop in case of Token duplication"
+      "description": "Determine if the process should stop in case of Design Token duplication"
     },
     "templateFile": {
-      "description": "Path to a template file(s) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
+      "description": "Path to template file(s) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
       "oneOf": [
         {
           "type": "string"
@@ -96,7 +96,7 @@
         "scss",
         "sass"
       ],
-      "description": "Generate the Private Variable to the given language (if not specified, in case of CSS, the variable will be ignored in generated style)"
+      "description": "Generate the private variable in the given language (if not specified, in case of CSS, the variable will be ignored in the generated style)"
     },
     "failOnMissingReference": {
       "type": "boolean",

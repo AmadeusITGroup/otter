@@ -10,7 +10,7 @@ import type { Logger } from '@o3r/core';
 /** Options for {@link getSassTokenValueRenderer} */
 export interface SassTokenValueRendererOptions {
   /**
-   * Renderer for the name of the CSS Variable (without initial --)
+   * Renderer for the name of the CSS variable (without initial --)
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
 

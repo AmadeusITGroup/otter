@@ -22,7 +22,7 @@ import { writeFile } from 'node:fs/promises';
 export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRenderer | undefined , options: GenerateStyleSchematicsSchema, context: BuilderContext): DesignTokenRendererOptions => {
 
   /**
-   * Function to determine files to update based on Token
+   * Function to determine files to update based on the Design Token
    * @param token
    */
   const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
@@ -57,7 +57,7 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
     logger
   }) : undefined;
 
-  /** File content updater based on selected language */
+  /** Update of file content based on selected language */
   const styleContentUpdater = ((language) => {
     switch (language) {
       case 'css': {

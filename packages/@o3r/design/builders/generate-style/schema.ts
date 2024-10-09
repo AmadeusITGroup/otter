@@ -5,8 +5,8 @@ export type AvailableLanguage = 'css' | 'sass' | 'scss';
 
 export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
   /**
-   * Language defined to generate the styling to
-   * Note: This will drive the default comportment of {@link variableType} and {@link variableReferenceType}
+   * Language defined to generate the styling
+   * Note: This will drive the default behavior of {@link variableType} and {@link variableReferenceType}
    */
   language: AvailableLanguage;
 
@@ -26,15 +26,15 @@ export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
   metadataOutput?: string;
 
   /**
-   * Ignore the private variable in the metadata generation
+   * Ignore private variables in the metadata generation
    */
   metadataIgnorePrivate?: boolean;
 
   /**
-   * Output file where generate the CSS
+   * Output file where to generate the CSS
    *
-   * If specified, all the generated CSS variable will be generated in the given file.
-   * Otherwise, the output file will be determined based on the Variable parameters
+   * If specified, all the generated CSS variables will be generated in the given file.
+   * Otherwise, the output file will be determined based on the variable parameters
    */
   output?: string;
 
@@ -44,22 +44,22 @@ export interface GenerateStyleSchematicsSchema extends SchematicOptionObject {
   /** Enable Watch mode */
   watch?: boolean;
 
-  /** Root path of files where the CSS will be generated */
+  /** Root path of the files where the CSS will be generated */
   rootPath?: string;
 
-  /** Determine if the process should stop in case of Token duplication */
+  /** Determine if the process should stop in case of Design Token duplication */
   failOnDuplicate?: boolean;
 
-  /** Prefix to happen to generated variables */
+  /** Prefix to append to generated variables */
   prefix?: string;
 
   /**
-   * Generate the Private Variable to the given language
-   * Note: if not provided, the private variable will not be rendered on CSS language.
+   * Generate the private variable in the given language
+   * Note: if not provided, the private variable will not be rendered in the CSS language.
    */
   renderPrivateVariableTo?: Exclude<AvailableLanguage, 'css'>;
 
-  /** Prefix to happen to generated private variables */
+  /** Prefix to append to generated private variables */
   prefixPrivate?: string;
 
   /** Determine if the builder should fail if a missing Design Token reference is detected */
