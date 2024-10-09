@@ -16,6 +16,14 @@
     "postbuild": "cpy package.json dist/",
     "prepare:publish": "prepare-publish ./dist"
   },
+  "peerDependencies": {
+    "@o3r/telemetry": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@o3r/telemetry": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@ama-sdk/core": "workspace:*",
     "@ama-sdk/schematics": "workspace:*",
