@@ -20,7 +20,7 @@
     "prepare:build:builders": "yarn cpy 'builders/**/schema.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && generate-cjs-manifest",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && generate-cjs-manifest",
     "build": "yarn nx build design",
     "postbuild": "yarn copy:schemas && patch-package-json-main"
   },
