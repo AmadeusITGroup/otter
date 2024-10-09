@@ -1,4 +1,4 @@
-import type { ActiveRulesetsEvent, AvailableRulesets, DebugEvent, Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../../../engine';
+import type { DebugEvent, Ruleset, RulesetExecutionErrorEvent, RulesetExecutionEvent } from '../../../engine';
 import type { RulesetExecutionDebug, RulesetExecutionStatus } from '../ruleset-history/ruleset-history-pres.component';
 
 /**
@@ -24,8 +24,8 @@ export const getStatus = (rulesetExecution: RulesetExecutionErrorEvent | Ruleset
  * @param rulesetMap
  */
 export const rulesetReportToHistory = (events: DebugEvent[], rulesetMap: Record<string, Ruleset>): RulesetExecutionDebug[] => {
-  const availableRulesets = (events.filter(e => e.type === 'AvailableRulesets').reverse()[0] as AvailableRulesets)?.availableRulesets || [];
-  const lastActiveRulesets = (events.filter(e => e.type === 'ActiveRulesets').reverse()[0] as ActiveRulesetsEvent)?.rulesets || [];
+  const availableRulesets = (events.filter(e => e.type === 'AvailableRulesets').reverse()[0])?.availableRulesets || [];
+  const lastActiveRulesets = (events.filter(e => e.type === 'ActiveRulesets').reverse()[0])?.rulesets || [];
 
   return availableRulesets
     .filter((ruleset) => !!ruleset)

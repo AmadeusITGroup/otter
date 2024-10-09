@@ -4,6 +4,7 @@ import {
   addImportToModuleFile,
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
+  getAppModuleFilePath,
   getDestinationPath,
   getModuleIndex,
   getWorkspaceConfig,
@@ -209,8 +210,37 @@ function ngGeneratePageFn(options: NgGeneratePageSchematicsSchema): Rule {
       import: `./${indexFilePath.replace(/[\\/]/g, '/')}`,
       module: `${pageName}${options.standalone ? 'Component' : 'Module'}`
     };
+    if (options.appRoutingModulePath) {
+      return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);
+    }
+    const appModuleFilePath = getAppModuleFilePath(tree, context, options.projectName);
+    if (appModuleFilePath) {
+      const text = tree.readText(appModuleFilePath);
+      const match = text.match(/(provideRouter|RouterModule\.forRoot)\((\s*)?(?<routeVarName>[^,\s)]*)/);
+      const routeVariableName = match?.groups?.routeVarName;
+      if (routeVariableName) {
+        const sourceFile = ts.createSourceFile(
+          appModuleFilePath,
+          text,
+          ts.ScriptTarget.ES2015,
+          true
+        );
+        const importStatement = sourceFile.statements.find((statement): statement is ts.ImportDeclaration =>
+          ts.isImportDeclaration(statement)
+          && !!statement?.moduleSpecifier
+          && ts.isStringLiteral(statement.moduleSpecifier)
+          && !!statement.importClause?.namedBindings
+          && ts.isNamedImports(statement.importClause.namedBindings)
+          && statement.importClause.namedBindings.elements.some((element) => element.name.escapedText === routeVariableName)
+        );
+        const importRouteVariablePath = (importStatement?.moduleSpecifier as ts.StringLiteral | undefined)?.text;
+        // If importRouteVariablePath is undefined it is because the variable is defined in this file
+        const appRoutingModulePath = importRouteVariablePath ? path.join(path.dirname(appModuleFilePath), `${importRouteVariablePath}.ts`) : appModuleFilePath;
 
-    return insertRoute(tree, context, options.appRoutingModulePath, route, options.standalone);
+        return insertRoute(tree, context, appRoutingModulePath, route, options.standalone);
+      }
+    }
+    throw new O3rCliError('No routes definition found. Please use the option `appRoutingModulePath` to specify the path of the routes definition.');
   };
 
   return chain([

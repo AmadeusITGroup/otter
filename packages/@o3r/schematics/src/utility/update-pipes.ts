@@ -32,7 +32,7 @@ const applyChanges = (
           if (pipeReplacementInfo[pipeName].new.import) {
             tree.overwrite(
               fileWithImports,
-              tree.readText(fileWithImports).replaceAll(importModuleRegexp, pipeReplacementInfo[pipeName].new.import!)
+              tree.readText(fileWithImports).replaceAll(importModuleRegexp, pipeReplacementInfo[pipeName].new.import)
             );
           }
           tree.overwrite(

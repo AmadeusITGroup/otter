@@ -16,5 +16,5 @@ export const selectPlaceholderRequestEntities = createSelector(selectPlaceholder
 export const selectPlaceholderRequestEntityUsage = (rawUrl: string) => createSelector(
   selectPlaceholderRequestState,
   (state) => {
-    return state?.entities[rawUrl] ? state?.entities[rawUrl]!.used : undefined;
+    return state?.entities[rawUrl] ? state.entities[rawUrl].used : undefined;
   });

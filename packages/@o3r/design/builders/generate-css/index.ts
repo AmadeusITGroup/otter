@@ -1,5 +1,6 @@
 import type { GenerateCssSchematicsSchema } from './schema';
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
+import type { BuilderWrapper } from '@o3r/telemetry';
 import {
   getCssTokenDefinitionRenderer,
   getCssTokenValueRenderer,
@@ -10,18 +11,28 @@ import {
   renderDesignTokens,
   tokenVariableNameSassRenderer
 } from '../../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
+import type { DesignTokenGroupTemplate, DesignTokenRendererOptions, DesignTokenVariableSet, DesignTokenVariableStructure, TokenKeyRenderer } from '../../src/public_api';
 import { resolve } from 'node:path';
 import * as globby from 'globby';
 import { EOL } from 'node:os';
+import { readFile } from 'node:fs/promises';
+
+const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
+  let wrapper: BuilderWrapper = (fn) => fn;
+  try {
+    const { createBuilderWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createBuilderWithMetrics;
+  } catch {}
+  return wrapper(builderFn)(opts, ctx);
+};
 
 /**
  * Generate CSS from Design Token files
  * @param options
  */
-export default createBuilder<GenerateCssSchematicsSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetricsIfInstalled(async (options, context): Promise<BuilderOutput> => {
   const designTokenFilePatterns = Array.isArray(options.designTokenFilePatterns) ? options.designTokenFilePatterns : [options.designTokenFilePatterns];
-  const determineCssFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
+  const determineFileToUpdate = options.output ? () => resolve(context.workspaceRoot, options.output!) :
     (token: DesignTokenVariableStructure) => {
       if (token.extensions.o3rTargetFile) {
         return token.context?.basePath && !options.rootPath ?
@@ -38,7 +49,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
     logger
   });
   const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
-    determineFileToUpdate: determineCssFileToUpdate,
+    determineFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
       tokenVariableNameRenderer,
       privateDefinitionRenderer: options.renderPrivateVariableTo === 'sass' ? sassRenderer : undefined,
@@ -46,6 +57,15 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         tokenVariableNameRenderer,
         unregisteredReferenceRenderer: options.failOnMissingReference ? (refName) => { throw new Error(`The Design Token ${refName} is not registered`); } : undefined
       }),
+      logger
+    }),
+    logger
+  };
+
+  const renderDesignTokenOptionsSass: DesignTokenRendererOptions = {
+    determineFileToUpdate,
+    tokenDefinitionRenderer: getSassTokenDefinitionRenderer({
+      tokenVariableNameRenderer: (v) => (options?.prefix || '') + tokenVariableNameSassRenderer(v),
       logger
     }),
     logger
@@ -59,6 +79,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   };
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
+    const template = options.templateFile ? JSON.parse(await readFile(resolve(context.workspaceRoot, options.templateFile), { encoding: 'utf-8' })) as DesignTokenGroupTemplate : undefined;
     const files = (await globby(designTokenFilePatterns, { cwd: context.workspaceRoot, absolute: true }));
 
     const inDependencies = designTokenFilePatterns
@@ -75,7 +96,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file)}))))
+      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file, { specificationContext: { template } })}))))
         .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
@@ -92,13 +113,13 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
       await renderDesignTokens(tokens, renderDesignTokenOptions);
       return { success: true };
     } catch (err) {
-      return { success: false, error: `${err as any}` };
+      return { success: false, error: String(err) };
     }
   };
 
   const executeMultiRenderer = async (): Promise<BuilderOutput> => {
     return (await Promise.allSettled<Promise<BuilderOutput>[]>([
-      execute(renderDesignTokenOptionsCss),
+      execute(options.variableType === 'sass' ? renderDesignTokenOptionsSass : renderDesignTokenOptionsCss),
       ...(options.metadataOutput ? [execute(renderDesignTokenOptionsMetadata)] : [])
     ])).reduce((acc, res) => {
       if (res.status === 'fulfilled') {
@@ -124,7 +145,10 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
   } else {
     try {
       await import('chokidar')
-        .then((chokidar) => chokidar.watch(designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p))))
+        .then((chokidar) => chokidar.watch([
+          ...designTokenFilePatterns.map((p) => resolve(context.workspaceRoot, p)),
+          ...(options.templateFile ? [resolve(context.workspaceRoot, options.templateFile)] : [])
+        ]))
         .then((watcher) => watcher.on('all', async () => {
           const res = await executeMultiRenderer();
 
@@ -134,7 +158,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(async (options, contex
         }));
       return { success: true };
     } catch (err) {
-      return { success: false, error: `${err as any}` };
+      return { success: false, error: String(err) };
     }
   }
-});
+}));
