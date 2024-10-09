@@ -8,7 +8,6 @@ import { BehaviorSubject } from 'rxjs';
  * @param instance
  * @param excludedFilesOrDirectories
  * @param path
- * @private
  */
 export async function getFilesTreeFromContainer(instance: WebContainer, excludedFilesOrDirectories: string[] = [], path = '/') {
   return await getFilesTree([{
@@ -21,7 +20,6 @@ export async function getFilesTreeFromContainer(instance: WebContainer, excluded
  * Kill a terminal process and clear its content
  * @param terminalSubject
  * @param processSubject
- * @private
  */
 export function killTerminal(terminalSubject: BehaviorSubject<Terminal | null>, processSubject: BehaviorSubject<WebContainerProcess | null>) {
   processSubject.value?.kill();
@@ -50,6 +48,8 @@ export const createTerminalStream = (terminal: Terminal, cb?: (data: string) => 
  */
 export const makeProcessWritable = (process: WebContainerProcess, terminal: Terminal) => {
   const input = process.input.getWriter();
-  terminal.onData((data) => input.write(data));
+  terminal.onData((data) => {
+    return input.write(data);
+  });
   return input;
 };

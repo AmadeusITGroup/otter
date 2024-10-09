@@ -197,11 +197,4 @@ export class CodeEditorViewComponent implements OnDestroy, OnChanges {
   public ngOnDestroy() {
     this.webContainerService.runner.killContainer();
   }
-
-  /**
-   * Log web container file tree for the project folder in the console
-   */
-  public logTree() {
-    void this.webContainerService.logTree();
-  }
 }
