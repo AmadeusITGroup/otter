@@ -20,6 +20,8 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 
 /**
  * Compare the Token Variable by name
+ * @param a first token variable
+ * @param b second token variable
  */
 export const compareVariableByName = (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure): number => a.getKey().localeCompare(b.getKey());
 
@@ -50,8 +52,8 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
     .reduce((acc, designToken) => {
       const filePath = determineFileToUpdate(designToken);
       const variable = tokenDefinitionRenderer(designToken, variableSet);
+      acc[filePath] ||= [];
       if (variable) {
-        acc[filePath] ||= [];
         acc[filePath].push(variable);
       }
       return acc;
@@ -60,6 +62,9 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
   await Promise.all(
     Object.entries(updates).map(async ([file, vars]) => {
       const styleContent = existsFile(file) ? await readFile(file) : '';
+      if (!existsFile(file) && !vars.length) {
+        return;
+      }
       const newStyleContent = styleContentUpdater(vars, file, styleContent);
       await writeFile(file, newStyleContent);
     })
