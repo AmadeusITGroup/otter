@@ -618,6 +618,11 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
+  peerDependencies:
+    "@o3r/telemetry": "workspace:^"
+  peerDependenciesMeta:
+    "@o3r/telemetry":
+      optional: true
   bin:
     create: ./index.js
   languageName: unknown
@@ -7947,6 +7952,11 @@ __metadata:
     tslib: "npm:^2.6.2"
     type-fest: "npm:^4.10.2"
     typescript: "npm:~5.5.4"
+  peerDependencies:
+    "@o3r/telemetry": "workspace:^"
+  peerDependenciesMeta:
+    "@o3r/telemetry":
+      optional: true
   bin:
     create: ./index.js
   languageName: unknown

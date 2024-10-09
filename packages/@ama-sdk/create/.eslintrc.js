@@ -20,7 +20,7 @@ module.exports = {
       'files': ['package.json'],
       'rules': {
         '@o3r/json-dependency-versions-harmonize': ['error', {
-          'ignoredPackages': ['@o3r/build-helpers', '@o3r/telemetry'],
+          'ignoredPackages': ['@o3r/build-helpers'],
           ignoredDependencies: ['yarn'],
           'alignPeerDependencies': false
         }]
