@@ -1,7 +1,7 @@
 import { AsyncPipe, formatDate } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, effect, inject, input, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { configSignal, ConfigurationBaseService, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
+import { configSignal, DynamicConfigurableWithSignal, O3rConfig } from '@o3r/configuration';
 import { O3rComponent } from '@o3r/core';
 import { DatePickerInputPresComponent } from '../../utilities';
 import { CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, ConfigurationPresConfig } from './configuration-pres.config';
@@ -19,14 +19,17 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ConfigurationPresComponent implements DynamicConfigurableWithSignal<ConfigurationPresConfig> {
-  private readonly configurationService = inject(ConfigurationBaseService, { optional: true });
   private readonly fb = inject(FormBuilder);
 
   /** Input configuration to override the default configuration of the component */
   public config = input<Partial<ConfigurationPresConfig>>();
   /** Configuration signal based on the input and the stored configuration */
   @O3rConfig()
-  public configSignal = configSignal(this.config, CONFIGURATION_PRES_CONFIG_ID, CONFIGURATION_PRES_DEFAULT_CONFIG, this.configurationService);
+  public configSignal = configSignal(
+      this.config,
+      CONFIGURATION_PRES_CONFIG_ID,
+      CONFIGURATION_PRES_DEFAULT_CONFIG
+    );
 
   public destinations = computed(() => this.configSignal().destinations);
   public shouldProposeRoundTrip = computed(() => this.configSignal().shouldProposeRoundTrip);

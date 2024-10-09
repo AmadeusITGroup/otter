@@ -3,10 +3,11 @@ const getJestProjectConfig = require('./jest.config.ut').getJestProjectConfig;
 
 /**
  * @param rootDir {string}
+ * @param options.tsconfig {string}
  * @returns {import('ts-jest/dist/types').JestConfigWithTsJest}
  */
-module.exports.getJestConfig = (rootDir) => ({
-  ...getJestProjectConfig(rootDir, false),
+module.exports.getJestConfig = (rootDir, options) => ({
+  ...getJestProjectConfig(rootDir, false, options),
   rootDir: '..',
   setupFilesAfterEnv: null,
   testPathIgnorePatterns: [

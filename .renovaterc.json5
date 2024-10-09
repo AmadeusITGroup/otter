@@ -22,6 +22,8 @@
     "main",
     "/^release\\/.*-next$/"
   ],
+  "minimumReleaseAge": "5 days",
+  "internalChecksFilter": "strict",
   "packageRules": [
     {
       "matchPackageNames": [

@@ -88,9 +88,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         }
       }
 
-      const installPlaywright = options.enablePlaywright !== undefined && projectType === 'application' ?
-        options.enablePlaywright :
-        await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
+      let installPlaywright = false;
+      if (projectType === 'application') {
+        installPlaywright = options.enablePlaywright !== undefined ?
+          options.enablePlaywright :
+          await askConfirmation('Do you want to setup Playwright test framework for E2E?', true);
+      }
 
       const rules = [
         updateFixtureConfig(options),

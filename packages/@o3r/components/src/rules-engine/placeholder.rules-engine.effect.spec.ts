@@ -1,6 +1,6 @@
 import {TestBed} from '@angular/core/testing';
 import {provideMockActions} from '@ngrx/effects/testing';
-import type {TypedAction} from '@ngrx/store/src/models';
+import type {Action} from '@ngrx/store';
 import {UpdateAsyncStoreItemEntityActionPayloadWithId} from '@o3r/core';
 import {firstValueFrom, of, ReplaySubject, Subject, Subscription} from 'rxjs';
 import type {
@@ -122,7 +122,7 @@ describe('Rules Engine Effects', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & TypedAction<'[PlaceholderRequest] update entity'>;
+      & Action<'[PlaceholderRequest] update entity'>;
     expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<img src=\'fakeUrl\'> <div>This is a test with a success</div><span>Outstanding fact</span>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
@@ -169,7 +169,7 @@ describe('Rules Engine Effects', () => {
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & TypedAction<'[PlaceholderRequest] update entity'>;
+      & Action<'[PlaceholderRequest] update entity'>;
     expect(result.type).toBe('[PlaceholderRequest] update entity');
     expect(result.entity.renderedTemplate).toBe('<div>User phone 1234 and email test@mail.com</div>');
     expect(result.entity.unknownTypeFound).toBeFalsy();
@@ -194,7 +194,7 @@ describe('Rules Engine Effects', () => {
     factsStream.myFact.next('ignored');
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     const result = (await firstValueFrom(setPlaceholderEffect$)) as UpdateAsyncStoreItemEntityActionPayloadWithId<PlaceholderRequestModel>
-      & TypedAction<'[PlaceholderRequest] update entity'>;
+      & Action<'[PlaceholderRequest] update entity'>;
     expect(result.entity.unknownTypeFound).toBeTruthy();
     expect(result.entity.renderedTemplate).toBe('<div><%= test %></div>');
   });

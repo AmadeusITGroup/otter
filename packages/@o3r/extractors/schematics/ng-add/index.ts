@@ -4,6 +4,10 @@ import * as path from 'node:path';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 
+const dependenciesToInstall = [
+  'semver'
+];
+
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/extractors has failed.
 If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the localization package. Please run 'ng add @o3r/core' .
@@ -16,8 +20,17 @@ Otherwise, use the error message as guidance.`);
  * @param options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-  return async (tree) => {
-    const { getPackageInstallConfig, getProjectNewDependenciesTypes, setupDependencies, getO3rPeerDeps, getWorkspaceConfig } = await import('@o3r/schematics');
+  return async (tree, context) => {
+    const {
+      getExternalDependenciesVersionRange,
+      getPackageInstallConfig,
+      getProjectNewDependenciesTypes,
+      setupDependencies,
+      getO3rPeerDeps,
+      getWorkspaceConfig
+    } = await import('@o3r/schematics');
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
@@ -31,6 +44,14 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, true, !!options.exactO3rVersion));
+    Object.entries(getExternalDependenciesVersionRange(dependenciesToInstall, packageJsonPath, context.logger)).forEach(([dep, range]) => {
+      dependencies[dep] = {
+        inManifest: [{
+          range,
+          types: [NodeDependencyType.Dev]
+        }]
+      };
+    });
     return chain([
       setupDependencies({
         projectName: options.projectName,
