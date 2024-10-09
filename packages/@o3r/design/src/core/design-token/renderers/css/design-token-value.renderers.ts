@@ -56,7 +56,7 @@ export const getCssTokenValueRenderer = (options?: CssTokenValueRendererOptions)
 
   const defaultUnregisteredReferenceRenderer = (variableName: string, _variableSet: Map<string, DesignTokenVariableStructure>): string => {
     const cssVarName = `var(--${variableName.replace(/[. ]+/g, '-')})`;
-    options?.logger?.debug?.(`Variable "${variableName}" not is registered, it will be renderer as "${cssVarName}"`);
+    options?.logger?.debug?.(`Variable "${variableName}" is not registered, it will be rendered as "${cssVarName}"`);
     return cssVarName;
   };
 

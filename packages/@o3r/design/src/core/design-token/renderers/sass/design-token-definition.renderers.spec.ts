@@ -51,6 +51,6 @@ describe('getSassTokenDefinitionRenderer', () => {
     expect(variable).toBeDefined();
     expect(tokenValueRenderer).toHaveBeenCalledTimes(1);
     expect(result).toBeDefined();
-    expect(result).toBe('/// @access private\n$_example-var1-private: var(--example-var1-private, #000);');
+    expect(result).toBe('/// @access private\n$_example-var1-private: #000;');
   });
 });

@@ -35,7 +35,7 @@ describe('getSassTokenValueRenderer', () => {
     expect(result).toBe('$example-var1');
   });
 
-  test('should render valid Scss var of not print value', () => {
+  test('should render valid Scss var and not print value', () => {
     const renderer = getSassTokenValueRenderer();
     const variable = designTokens.get('example.color2');
 

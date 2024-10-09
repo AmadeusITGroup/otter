@@ -43,6 +43,15 @@ export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructu
 export type UnregisteredTokenReferenceRenderer = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
 
 /**
+ * Function rendering the Design Token Reference not registered
+ * @param referenceName Name of the un registered variable
+ * @param variableSet Complete list of the parsed Design Token
+ * @deprecated duplicate of {@link UnregisteredTokenReferenceRender}, will be removed on v13
+ */
+// eslint-disable-next-line no-use-before-define
+export type UnregisteredTokenReferenceRender = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+
+/**
  * Function rendering the Design Token Reference
  * @param tokenStructure Parsed Design Token
  * @param variableSet Complete list of the parsed Design Token

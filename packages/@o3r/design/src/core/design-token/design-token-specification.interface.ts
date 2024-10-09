@@ -40,7 +40,7 @@ export interface DesignTokenGroupExtensions {
    */
   o3rRatio?: number;
   /**
-   * Indicate that the token expect to be overridden by external rules
+   * Indicate that the token is expected to be overridden by external rules
    */
   o3rExpectOverride?: boolean;
 }

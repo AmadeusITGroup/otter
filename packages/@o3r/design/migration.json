@@ -1,5 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
   "schematics": {
+    "migration-v11_3": {
+      "version": "11.3.0-rc.3",
+      "description": "Updates of @o3r/design to v11.3.*",
+      "factory": "./schematics/ng-update/index#updateV11_3"
+    }
   }
 }

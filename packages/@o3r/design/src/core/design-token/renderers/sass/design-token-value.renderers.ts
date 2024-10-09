@@ -10,18 +10,18 @@ import type { Logger } from '@o3r/core';
 /** Options for {@link getSassTokenValueRenderer} */
 export interface SassTokenValueRendererOptions {
   /**
-   * Renderer the name of the CSS Variable (without initial --)
+   * Renderer for the name of the CSS Variable (without initial --)
    */
   tokenVariableNameRenderer?: TokenKeyRenderer;
 
   /**
-   * Render for the reference to Design Token
+   * Renderer for the reference to Design Token
    */
   referenceRenderer?: TokenReferenceRenderer;
 
   /**
-   * Render for the reference to unregistered Design Token
-   * Note: the default renderer display a warning message when called
+   * Renderer for the reference to unregistered Design Token
+   * Note: the default renderer displays a warning message when called
    */
   unregisteredReferenceRenderer?: UnregisteredTokenReferenceRenderer;
 

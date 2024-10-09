@@ -61,8 +61,9 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
 
   await Promise.all(
     Object.entries(updates).map(async ([file, vars]) => {
-      const styleContent = existsFile(file) ? await readFile(file) : '';
-      if (!existsFile(file) && !vars.length) {
+      const isFileExisting = existsFile(file);
+      const styleContent = isFileExisting ? await readFile(file) : '';
+      if (!isFileExisting && !vars.length) {
         return;
       }
       const newStyleContent = styleContentUpdater(vars, file, styleContent);
