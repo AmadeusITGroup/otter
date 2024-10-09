@@ -75,7 +75,7 @@ export function updateAdditionalModules(options: { projectName?: string | undefi
     }
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
     );
 
     addImportToModuleFile(

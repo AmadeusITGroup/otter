@@ -1,0 +1,15 @@
+module.exports = {
+  'root': true,
+  'parserOptions': {
+    'tsconfigRootDir': __dirname,
+    'project': [
+      '<%= projectTsConfig %>.json',
+      'tsconfig.spec.json',
+      'tsconfig.eslint.json'
+    ],
+    'sourceType': 'module'
+  },
+  'extends': [
+    '<%= rootRelativePath %>/.eslintrc.js'
+  ]
+};

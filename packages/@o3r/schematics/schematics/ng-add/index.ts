@@ -10,10 +10,10 @@ import type { NgAddSchematicsSchema } from './schema';
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const schematicsDependencies = ['@angular-devkit/architect', '@angular-devkit/schematics', '@angular-devkit/core', '@schematics/angular', 'globby'];
-  return async () => {
+  return async (_, context) => {
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const { getExternalDependenciesVersionRange, setupDependencies } = await import('@o3r/schematics');
-    const dependencies = Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath)).reduce((acc, [dep, range]) => {
+    const dependencies = Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath, context.logger)).reduce((acc, [dep, range]) => {
       acc[dep] = {
         inManifest: [{
           range,
@@ -22,7 +22,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       };
       return acc;
     }, {} as Record<string, DependencyToAdd>);
-    Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath))
+    Object.entries(getExternalDependenciesVersionRange(schematicsDependencies, packageJsonPath, context.logger))
       .forEach(([dep, range]) => {
         dependencies[dep] = {
           inManifest: [{

@@ -61,8 +61,9 @@ export function updateStore(
   /**
    * Change package.json with the new dependencies
    * @param tree
+   * @param context
    */
-  const updatePackageJson: Rule = (tree: Tree) => {
+  const updatePackageJson: Rule = (tree: Tree, context: SchematicContext) => {
     const workspaceConfig = getWorkspaceConfig(tree);
     const workspaceProject = options.projectName && workspaceConfig?.projects?.[options.projectName] || undefined;
 
@@ -70,7 +71,7 @@ export function updateStore(
     const corePeerDeps = [ngrxEntityDep, ngrxStoreDep];
     const dependenciesList = projectType === 'application' ? [...corePeerDeps, ...appDeps] : [...corePeerDeps];
 
-    Object.entries(getExternalDependenciesVersionRange(dependenciesList, corePackageJsonPath)).forEach(([dep, range]) => {
+    Object.entries(getExternalDependenciesVersionRange(dependenciesList, corePackageJsonPath, context.logger)).forEach(([dep, range]) => {
       options.dependenciesSetupConfig.dependencies[dep] = {
         inManifest: [{
           range,
@@ -109,7 +110,7 @@ export function updateStore(
     const { moduleIndex } = getModuleIndex(sourceFile, sourceFileContent);
 
     const addImportToModuleFile = (name: string, file: string, moduleFunction?: string) => additionalRules.push(
-      addRootImport(options.projectName!, ({code, external}) => code`${external(name, file)}${moduleFunction}`)
+      addRootImport(options.projectName!, ({code, external}) => code`\n${external(name, file)}${moduleFunction}`)
     );
 
     const insertImportToModuleFile = (name: string, file: string, isDefault?: boolean) =>

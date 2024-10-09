@@ -18,11 +18,11 @@ export interface LocalizationMetadataAsMap {
 
 /** Localization structure */
 export interface LocalizationJsonValue {
-  /** Localtion Description */
+  /** Localization Description */
   description: string;
   /** Determine if the item can have multiple extensions */
   dictionary?: boolean;
-  /** Determine if the value has to be overriden */
+  /** Determine if the value has to be overridden */
   referenceData?: boolean;
   /** Localization default value */
   defaultValue?: string;
@@ -36,6 +36,10 @@ export interface LocalizationJsonValue {
 export interface LocalizationJsonFile {
   [key: string]: LocalizationJsonValue;
 }
+
+type LocalizationJsonFileContent = LocalizationJsonFile & {
+  '$schema'?: string;
+};
 
 /** Localization file mapping */
 export interface LocalizationFileMap {
@@ -142,16 +146,20 @@ export class LocalizationExtractor {
    * Read a localization file
    * @param locFile Path to the localization file
    */
-  private readLocalizationFile(locFile: string) {
-    return new Promise<LocalizationJsonFile>((resolve, reject) => fs.readFile(locFile, 'utf8', (err, data) => err ? reject(err) : resolve(JSON.parse(data))));
+  private async readLocalizationFile(locFile: string): Promise<LocalizationJsonFile> {
+    const content: LocalizationJsonFileContent = JSON.parse(await fs.promises.readFile(locFile, { encoding: 'utf-8' }));
+    if (content.$schema) {
+      delete content.$schema;
+    }
+    return content;
   }
 
   /**
    * Read a metadata file
    * @param metadataFile Path to the metadata file
    */
-  private readMetadataFile(metadataFile: string) {
-    return new Promise<LocalizationMetadata>((resolve, reject) => fs.readFile(metadataFile, 'utf8', (err, data) => err ? reject(err) : resolve(JSON.parse(data))));
+  private async readMetadataFile(metadataFile: string): Promise<LocalizationMetadata> {
+    return JSON.parse(await fs.promises.readFile(metadataFile, { encoding: 'utf-8' }));
   }
 
   /**

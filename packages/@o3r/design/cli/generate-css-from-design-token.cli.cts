@@ -2,8 +2,8 @@
 
 import { isAbsolute, normalize, resolve } from 'node:path';
 import { existsSync } from 'node:fs';
-import { parseDesignTokenFile, renderDesignTokens } from '@o3r/design';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '@o3r/design';
+import { parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
+import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '../src/public_api';
 import * as minimist from 'minimist';
 
 const args = minimist(process.argv.splice(2));

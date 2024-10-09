@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "NgUseConfigSignalSchematicsSchema",
+  "title": "Migrate from configuration observable to signal",
+  "description": "Migrate from configuration observable to signal",
+  "properties": {
+    "path": {
+      "type": "string",
+      "description": "Path to the component"
+    },
+    "skipLinter": {
+      "type": "boolean",
+      "description": "Skip the linter process",
+      "default": false
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "path"
+  ]
+}

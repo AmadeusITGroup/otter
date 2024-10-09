@@ -141,7 +141,7 @@ export class OtterRulesEngineDevtools {
   }
 
   /**
-   * Retrieve the ruleset information (rules, linkedComponent, validity range etc.) for a ruleset id
+   * Retrieve the ruleset information (rules, linkedComponents, validity range etc.) for a ruleset id
    * @param rulesetId
    */
   public getRulesetInformation(rulesetId: string): Promise<Ruleset | undefined> {

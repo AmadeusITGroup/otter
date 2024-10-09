@@ -25,7 +25,7 @@ describe('new otter application', () => {
     const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
     const relativeProjectPath = path.relative(workspacePath, projectPath);
     const projectNameOptions = ['--project-name', projectName];
-    packageManagerExec({script: 'ng', args: ['add', `@o3r/core@${o3rVersion}`, '--preset', 'all', ...projectNameOptions, '--skip-confirmation']}, execAppOptions);
+    expect(() => packageManagerExec({ script: 'ng', args: ['add', `@o3r/core@${o3rVersion}`, '--preset', 'all', ...projectNameOptions, '--skip-confirmation'] }, execAppOptions)).not.toThrow();
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
 
     packageManagerExec({script: 'ng', args: ['g', '@o3r/core:store-entity-async', '--store-name', 'test-entity-async', '--model-name', 'Bound', '--model-id-prop-name', 'id', ...projectNameOptions]},

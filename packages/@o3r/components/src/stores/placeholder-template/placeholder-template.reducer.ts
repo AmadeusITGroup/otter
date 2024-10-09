@@ -16,7 +16,9 @@ export const placeholderTemplateAdapter = createEntityAdapter<PlaceholderTemplat
 /**
  * PlaceholderTemplate Store initial value
  */
-export const placeholderTemplateInitialState: PlaceholderTemplateState = placeholderTemplateAdapter.getInitialState();
+export const placeholderTemplateInitialState: PlaceholderTemplateState = placeholderTemplateAdapter.getInitialState({
+  mode: 'normal'
+});
 
 /**
  * List of basic actions for PlaceholderTemplate Store
@@ -30,6 +32,12 @@ export const placeholderTemplateReducerFeatures: ReducerTypes<PlaceholderTemplat
       return state;
     }
     return placeholderTemplateAdapter.removeOne(id, state);
+  }),
+  on(actions.togglePlaceholderModeTemplate, (state, payload) => {
+    return {
+      ...state,
+      mode: payload.mode
+    };
   })
 ];
 

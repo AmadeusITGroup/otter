@@ -1,8 +1,8 @@
 import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../plugins';
 import type { ApiTypes } from '../fwk/api';
 import { extractQueryParams, filterUndefinedValues, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { PartialExcept } from '../fwk/api.interface';
-import type { ApiClient } from '../fwk/core/api-client';
+import type { Api, PartialExcept } from '../fwk/api.interface';
+import type { ApiClient, RequestOptionsParameters } from '../fwk/core/api-client';
 import type { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 
 /** @see BaseApiClientOptions */
@@ -25,7 +25,9 @@ const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
  * Determine if the given value is a promise
  * @param value The value to test
  */
-const isPromise = <T>(value: T | Promise<T>): value is Promise<T> => value && typeof (value as any).then === 'function';
+// NOTE: the `extends unknown` is required for ESM build with TSC
+// eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
+const isPromise = <T extends unknown>(value: T | Promise<T>): value is Promise<T> => value instanceof Promise;
 
 /**
  * The Beacon API client is an implementation of the API Client using the Navigator Beacon API.
@@ -58,27 +60,20 @@ export class ApiBeaconClient implements ApiClient {
   }
 
   /** @inheritdoc */
-  public prepareOptions(url: string, method: string, queryParams: { [key: string]: string }, headers: { [key: string]: string }, body?: RequestBody,
-    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata): Promise<RequestOptions> {
+  public getRequestOptions(options: RequestOptionsParameters): Promise<RequestOptions> {
 
-    if (method.toUpperCase() !== 'POST') {
-      throw new Error(`Unsupported method: ${method}. The beacon API only supports POST.`);
+    if (options.method.toUpperCase() !== 'POST') {
+      throw new Error(`Unsupported method: ${options.method}. The beacon API only supports POST.`);
     }
 
-    const options: RequestOptions = {
-      method,
-      headers: new Headers(filterUndefinedValues(headers)),
-      body,
-      queryParams: filterUndefinedValues(queryParams),
-      basePath: url,
-      tokenizedOptions,
-      metadata
+    let opts: RequestOptions = {
+      ...options,
+      headers: new Headers(filterUndefinedValues(options.headers)),
+      queryParams: filterUndefinedValues(options.queryParams)
     };
-
-    let opts = options;
     if (this.options.requestPlugins) {
       for (const plugin of this.options.requestPlugins) {
-        const changedOpt = plugin.load({logger: this.options.logger}).transform(opts);
+        const changedOpt = plugin.load({ logger: this.options.logger, apiName: options.api?.apiName }).transform(opts);
         if (isPromise(changedOpt)) {
           throw new Error(`Request plugin ${plugin.constructor.name} has async transform method. Only sync methods are supported with the Beacon client.`);
         } else {
@@ -88,6 +83,21 @@ export class ApiBeaconClient implements ApiClient {
     }
 
     return Promise.resolve(opts);
+  }
+
+  /** @inheritdoc */
+  public prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
+    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata, api?: Api) {
+    return this.getRequestOptions({
+      headers,
+      method,
+      basePath: url,
+      queryParams,
+      body,
+      metadata,
+      tokenizedOptions,
+      api
+    });
   }
 
   /** @inheritdoc */

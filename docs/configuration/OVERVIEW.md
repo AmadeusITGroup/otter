@@ -1,31 +1,31 @@
 # Configuration mechanism
 
 The aim of this document is to help developers to implement configuration inside components, in order to be compliant
-with __cms architecture__. This will give the possibility to __Business Analyst__ to configure the
+with __CMS architecture__. This will give the possibility to __Business Analyst__ to configure the
 application/components.
 
 ## Component config types
 
 ```
-        
+
     store config
         │                                                               Input config
-        │                                                               (from parent)                                    
+        │                                                               (from parent)
         │                   Component default config                          │
         │                      (in config.ts file)                            │
         │                               │                                     │
         │       overrides               │                                     │
         └──────────────────────────────>│                                     │
-                                        │                                     │ 
+                                        │                                     │
     global config                       │                                     │
-  (no common props)                     │                                     │ 
-        │                               │                                     │ 
-        │                               │                                     │   
-        │       merge                   │                                     │ 
+  (no common props)                     │                                     │
+        │                               │                                     │
+        │                               │                                     │
+        │       merge                   │                                     │
         └──────────────────────────────>│                                     │
                                         │                                     │
-                                        │                                     │ 
-                                        │           overrides                 │  
+                                        │                                     │
+                                        │           overrides                 │
                                         │<────────────────────────────────────
                                         │
                                         ↓
@@ -51,7 +51,7 @@ A component will have to handle different types of configurations.
 ### Global config
 
 - The common configuration is the one used in multiple components (it can be a date format, price display, type of input
-  form fields from an angular material input element ...)
+  form fields from an Angular material input element ...)
 - A common configuration is defined in every library. The application common configuration (__global config__) will be
   the result of the __merge of all common__ configurations.
 - The common configuration is __not overridden__ at component type (there will be no properties with the same name in
@@ -99,12 +99,12 @@ __No need of rebuild/redeploy the app__
 
 - At __library__ level we have the config for components (__blocks, components, elements__).
 
-A block component class should implement __Block__ interface from __@o3r/core__ to be identified by cms adapter
+A block component class should implement __Block__ interface from __@o3r/core__ to be identified by CMS adapter
 
 - At application level:
 
 __Page config__ - each page component class should implement __Page__ interface available in __@o3r/core__ in order to
-be identified by cms adapter
+be identified by CMS adapter
 
 __Application config__
 The application can have 2 types of configs depending on the use cases: __pre-bootstrap__ and __runtime (
@@ -113,23 +113,23 @@ post-bootstrap)__ config
 Pre-bootstrap config
 
 - Defined in one interface which will extend __AppBuildConfiguration__ interface available in __@o3r/core__ in order
-  to be identified by cms adapter
-- PreBootstrap config object is used for configurations needed before loading the angular app component, and it will be
-  injected by the cms in the index.html body tag data-bootstrapconfig as a data attribute
+  to be identified by CMS adapter
+- PreBootstrap config object is used for configurations needed before loading the Angular app component, and it will be
+  injected by the CMS in the index.html body tag data-bootstrapconfig as a data attribute
 
 Runtime config
 
 - Defined in one interface which will extend __AppRuntimeConfiguration__  interface available in __@o3r/core__ in order to
-  be identified by cms adapter
-- The object defined here is used as configuration for the application ( ex: angular material form field appearance
+  be identified by CMS adapter
+- The object defined here is used as configuration for the application ( ex: Angular material form field appearance
   global on the app)
 
 ## Examples
 
 ### Default config
 
-Possible example of default config file for a component.  
-You can have a look at [configuration types supported by cms extractor](./CONFIGURATION_SUPPORTED_EXTRACTOR.md) for more
+Possible example of default config file for a component.
+You can have a look at [configuration types supported by CMS extractor](./CONFIGURATION_SUPPORTED_EXTRACTOR.md) for more
 details about the types.
 
 ```typescript
@@ -169,7 +169,7 @@ export const MY_DEFAULT_CONFIG: MyConfig = {
 ### Component file (*.component.ts)
 
 Here is an example of configuration in the component, note that dynamicConfig$ is there for the configuration service
-and config$ for the configuration store  
+and config$ for the configuration store
 This part is already handled by our [component generator](../core/OTTER_ANGULAR_TOOLS.md) if you are use it to generate your
 components
 
@@ -193,7 +193,7 @@ export class MyComponent implements DynamicConfigurable<MyConfig> {
     // The configuration service is used here to do the merge between the default config with the config from store
     @Optional() configurationService?: ConfigurationBaseService
   ) {
-    // Register the component config (default) in the store. ConfigurationObserver is used to get the config stream. 
+    // Register the component config (default) in the store. ConfigurationObserver is used to get the config stream.
     // The configService will do the merge between the default config (MY_DEFAULT_CONFIG) and possible config which is already in the store for this component identified by (MY_CONFIG_ID)
     this.dynamicConfig$ = new ConfigurationObserver<MyConfig>(MY_CONFIG_ID, MY_DEFAULT_CONFIG, configurationService);
     this.config$ = this.dynamicConfig$.asObservable();
@@ -309,7 +309,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   // As mentioned above, we have to merge common configs coming from libraries and to pass the result as global config to the store
-  // The config service has a method which is doing this 
+  // The config service has a method which is doing this
   private registerDefaultGlobalConfig() {
     // Compute the global config based on all common configuration from libraries
     const global = {...AREA_1_CONFIG_DEFAULT, ...AREA_2_CONFIG_DEFAULT};
@@ -331,7 +331,7 @@ __Default configuration__ for a component type is the one taken from the .config
 
 __Static configuration__ is the one injected in the index.html of the application.
 
-- It's the configuration which is modified inside the cms or by hand (implementation teams)
+- It's the configuration which is modified inside the CMS or by hand (implementation teams)
   - It will be injected as a data attribute on the body tag (data-staticconfig). At bootstrap, the value from the data
     attribute will be read and the store updated.
 - It will override the default configuration
@@ -352,8 +352,8 @@ __Input config__
 
 __Config priorities__ for a component:
 
-- the highest priority is the one passed as input from a parent component  
-- the second priority is the priority by component type set in the store  
+- the highest priority is the one passed as input from a parent component
+- the second priority is the priority by component type set in the store
 - the lowest priority is the default config set on component (in the config.ts file of the component)
 
 ## Runtime debugging

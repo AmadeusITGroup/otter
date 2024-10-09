@@ -208,7 +208,7 @@ Here is an example:
 // angular.json
   ...
   "extract-rules-engine": {
-    "executor": "@o3r/rules-engine:extractor", // otter cms adapters builder
+    "executor": "@o3r/rules-engine:extractor", // otter CMS adapters builder
     "options": {
       "tsConfig": "./tsconfig.cms.json", // ts config file used by the builder
       "libraries": [ // libraries containing facts included in the app
@@ -238,12 +238,12 @@ Now that the new builder step is added, it has to be referenced in the `package.
 The rules-engine extractor will generate metadata files with your facts type definition with reference to the schema json
 file for your more complex interface.
 It will parse your project and its node_modules files to identify your facts' schemas.
-If your project contains sub-entries generated via the otter angular builder (otterBuilder), the schema generator will not
+If your project contains sub-entries generated via the otter Angular builder (otterBuilder), the schema generator will not
 know how to find the files located in the sub-entries as they are not part of your module index.ts nor part of your
 node_modules.
 
 If you find yourself in this situation, you can specifically include additional paths to parse references to other module
-sub-entries in the cms tsconfig file.
+sub-entries in the CMS tsconfig file.
 
 ```JSON
 // tsconfig.cms.json

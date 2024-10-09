@@ -64,27 +64,53 @@ npx -p @angular/cli ng add @ama-sdk/core
 
 ### How to use?
 
-The typescript generator provides 2 generators:
+The typescript generator provides 3 generators:
 
 - **shell**: To generate the "shell" of an SDK package
-- **core**: To (re)generate the SDK based on a specified Swagger spec
+- **core**: To (re)generate the SDK based on a specified OpenApi specification
 - **create**: To create a new SDK from scratch (i.e. chain **shell** and **core**)
 
-To generate the `shell` you can run:
+You can generate the `shell` in an existing monorepo with the command:
 
 ```shell
-yarn schematics @ama-sdk/schematics:typescript-shell
+#Monorepo with Otter:
+yarn ng g sdk sdkName
+
+# Monorepo without Otter;
+yarn schematics @o3r/workspace:sdk sdkName
 ```
 
-If you use `Yarn2+`, you can use the following `scripts` in `package.json`:
+or from scratch, with the NPM initializer:
 
-```json
-    "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
-    "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml",
-    "upgrade:repository": "yarn schematics @ama-sdk/schematics:typescript-shell",
+```shell
+npm create @ama-sdk typescript <project-name>
 ```
 
-Use `generate` to (re)generate your SDK based on the content of `./swagger-spec.yaml` (make sure you have this file at the root of your project) and `upgrade:repository` to regenerate the structure of your project.
+The generated package comes with the following script in the package.json:
+
+```json5
+{
+  // ...
+  "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./openapi-spec.yaml",
+  "upgrade:repository": "yarn schematics @ama-sdk/schematics:typescript-shell"
+}
+```
+
+> [!NOTE]
+> Use `generate` to (re)generate your SDK based on the content of `./openapi-spec.yaml` (make sure you have this file at the root of your project) and `upgrade:repository` to regenerate the structure of your project.
+
+> [!TIP]
+> The `--spec-path` parameter supports YAML and JSON file formats based on the file system path or remote URL.
+
+If you use `Yarn2+` with PnP, you can modify the following `scripts` in `package.json` to generate the SDK based on specifications in a dependency package:
+
+```json5
+{
+  // ...
+  "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
+  "generate": "yarn schematics @ama-sdk/schematics:typescript-core --spec-path $(yarn resolve @my/dep/spec-file.yaml)",
+}
+```
 
 #### Light SDK
 
@@ -130,14 +156,15 @@ yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.y
 
 It is possible to configure the SDK code generation by passing parameters to the generator command line to override the default configuration values.
 The available parameters are:
+
 - `--spec-path`: Path to the swagger specification used to generate the SDK
 - `--spec-config-path`: Path to the spec generation configuration
 - `--global-property`: Comma separated string of options to give to the openapi-generator-cli
 - `--output-path`: Output path for the generated SDK
 - `--generator-custom-path`: Path to a custom generator
 
-Also, another parameter is available called OpenAPI Normalizer which transforms the input OpenAPI specification (which may not perfectly conform) to make it workable 
-with OpenAPI Generator. There are several rules that are supported which can be found [here](https://openapi-generator.tech/docs/customization/#openapi-normalizer). 
+Also, another parameter is available called OpenAPI Normalizer which transforms the input OpenAPI specification (which may not perfectly conform) to make it workable
+with OpenAPI Generator. There are several rules that are supported which can be found [here](https://openapi-generator.tech/docs/customization/#openapi-normalizer).
 
 This parameter can be passed with `--openapi-normalizer` followed by the rules to be enabled in OpenAPI normalizer in the form of `RULE_1=true,RULE_2=original`.
 
@@ -157,7 +184,7 @@ There is also a possibility to configure the SDK code generation in `openapitool
       "example-sdk": { // any name you like (can be referenced using --generator-key)
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./swagger-spec.yaml"
+        "inputSpec": "./swagger-spec.yaml" // supports YAML and JSON formats, based on the file system path or remote URL
       }
     }
   }
@@ -174,7 +201,7 @@ The properties `generatorName`, `output`, and `inputSpec` are required and addit
 [here](https://github.com/OpenAPITools/openapi-generator-cli/blob/master/apps/generator-cli/src/config.schema.json)). For example, we can add the previously
 described global properties `stringifyDate` and  `allowModelExtension`:
 
-```json
+```json5
 {
   "$schema": "https://raw.githubusercontent.com/OpenAPITools/openapi-generator-cli/master/apps/generator-cli/src/config.schema.json",
   "generator-cli": {
@@ -184,7 +211,7 @@ described global properties `stringifyDate` and  `allowModelExtension`:
       "example-sdk": {
         "generatorName": "typescriptFetch",
         "output": ".",
-        "inputSpec": "./swagger-spec.yaml",
+        "inputSpec": "./openapi-spec.yaml", // or "./openapi-spec.json" according to the specification format
         "globalProperty": {
           "stringifyDate": true,
           "allowModelExtension": true
@@ -215,6 +242,18 @@ yarn schematics @ama-sdk/schematics:typescript-core --generator-key example-sdk 
 > The values provided by the parameter `--global-property` will actually be merged with the values of `globalProperty` from
 > `openapitools.json` (rather than override them like the other properties).
 
+### Migration
+
+To help to apply changes on the Shell part of the SDK repository, a `migrate` schematic is exposed:
+
+```shell
+yarn schematics @ama-sdk/schematics:migrate --from 10.0.0 [--to 11.0.0]
+```
+
+> [!NOTE]
+> - The `--from` parameter is mandatory to provide the version of the original `@ama-sdk/schematics` package from which the rules should be run.
+> - The *optional* `--to` parameter allows to indicate a version until which the rules should be run. The current installed version will be used if not provided.
+
 ### Debug
 
 The OpenApi generator extracts an enhanced JSON data model from the specification YAML and uses this data model to feed the templates to generate the code.
@@ -228,7 +267,7 @@ You can use global property options to pass one or both of the following options
 Example:
 
 ```shell
-yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./swagger-spec.yaml --global-property debugModels,debugOperations
+yarn schematics @ama-sdk/schematics:typescript-core --spec-path ./openapi-spec.yaml --global-property debugModels,debugOperations
 ```
 
 You can also use npx instead of yarn in the command.

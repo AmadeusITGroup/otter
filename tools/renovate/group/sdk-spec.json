@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Add the input packageName to the specs upgrade group",
+  "packageRules": [
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "groupName": "Swagger Specification upgrade",
+      "groupSlug": "spec-upgrade"
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchBaseBranches": [
+        "master",
+        "main"
+      ],
+      "rangeStrategy": "bump"
+    },
+    {
+      "matchPackageNames": [
+        "{{arg0}}"
+      ],
+      "matchBaseBranches": [
+        "/^release/.*/"
+      ],
+      "rangeStrategy": "patch"
+    }
+  ]
+}

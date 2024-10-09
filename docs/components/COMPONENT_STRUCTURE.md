@@ -158,7 +158,7 @@ There is a dedicated [fixtures documentation](./FIXTURES.md) to explain in detai
 
 ### Unit test (`*.spec.ts`)
 
-Unit test for the component using angular TestBed suite.
+Unit test for the component using Angular TestBed suite.
 
 ### Integration test (`*.int-spec.ts`)
 
@@ -181,10 +181,10 @@ Template of the component.
 
 ### Component class (`*.component.ts`)
 
-This is the core of a component. Here is where you have the angular decorators for the component itself.
+This is the core of a component. Here is where you have the Angular decorators for the component itself.
 By default, it implements Configurable with generic of the class defined in my `.config.ts`, as explained in [Configuration](#configuration) .
 It also implements the context, defined in `.context.ts`, as explained in [Context](#context).
-We are compliant with angular best practice, and we enforce rules using ts-linter.
+We are compliant with Angular best practice, and we enforce rules using ts-linter.
 
 ### Module (`*.module.ts`)
 

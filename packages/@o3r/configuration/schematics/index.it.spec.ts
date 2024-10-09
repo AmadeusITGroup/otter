@@ -27,9 +27,17 @@ describe('new otter application with configuration', () => {
     packageManagerExec({script: 'ng', args: ['g', '@o3r/configuration:add-config', '--path', componentPath]}, execAppOptions);
     await addImportToAppModule(projectPath, 'TestComponentModule', 'src/components/test-component');
 
+    packageManagerExec({script: 'ng', args: ['g', '@o3r/core:component', 'test-signal', '--project-name', projectName, '--use-otter-config', 'false']}, execAppOptions);
+    packageManagerExec({
+      script: 'ng',
+      args: ['g', '@o3r/configuration:add-config', '--path', path.join(relativeProjectPath, 'src/components/test-signal/test-signal.component.ts'), '--use-signal']
+    }, execAppOptions);
+    await addImportToAppModule(projectPath, 'TestSignalModule', 'src/components/test-signal');
+
     const diff = getGitDiff(workspacePath);
     expect(diff.modified).toContain('package.json');
     expect(diff.added).toContain(path.join(relativeProjectPath, 'src/components/test-component/test-component.config.ts').replace(/[\\/]+/g, '/'));
+    expect(diff.added).toContain(path.join(relativeProjectPath, 'src/components/test-signal/test-signal.config.ts').replace(/[\\/]+/g, '/'));
 
     if (untouchedProjectPath) {
       const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
