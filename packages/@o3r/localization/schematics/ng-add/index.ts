@@ -32,7 +32,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getO3rPeerDeps,
       getExternalDependenciesVersionRange,
       registerPackageCollectionSchematics,
-      setupSchematicsDefaultParams
+      setupSchematicsParamsForProject
     } = await import('@o3r/schematics');
     const {updateI18n, updateLocalization} = await import('../localization-base');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
@@ -73,12 +73,12 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       }),
       updateCmsAdapter(options),
       registerPackageCollectionSchematics(packageJson),
-      setupSchematicsDefaultParams({
+      setupSchematicsParamsForProject({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component*': {
           useLocalization: true
         }
-      }),
+      }, options.projectName),
       registerDevtoolRule
     ]);
   };

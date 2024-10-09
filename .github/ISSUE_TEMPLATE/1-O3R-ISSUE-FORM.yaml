@@ -1,7 +1,7 @@
 name: Bug Report on @o3r
 description: File a bug report on @o3r scope
 title: "[Bug]: "
-labels: ["bug", "o3r"]
+labels: ["bug", "o3r", "triage"]
 body:
   - type: markdown
     attributes:

@@ -141,6 +141,10 @@
     @return $meta-theme;
   }
 
+  @if (map.has-key($meta-theme, value) and map.has-key($meta-theme, details)) {
+    @return _meta-theme-to-material(map.get($meta-theme, value), $root-name, $enable-css-var);
+  }
+
   @else {
     $ret: $meta-theme;
 

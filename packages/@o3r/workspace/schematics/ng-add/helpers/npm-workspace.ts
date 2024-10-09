@@ -2,7 +2,7 @@ import { chain } from '@angular-devkit/schematics';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import { SchematicsException } from '@angular-devkit/schematics';
 import type { PackageJson } from 'type-fest';
-import { DEFAULT_ROOT_FOLDERS, isNxContext, setupSchematicsDefaultParams, WorkspaceLayout, WorkspaceSchematics } from '@o3r/schematics';
+import { DEFAULT_ROOT_FOLDERS, isNxContext, setupSchematicsParamsForProject, WorkspaceLayout, WorkspaceSchematics } from '@o3r/schematics';
 
 /**
  * Update root package.json to include workspaces
@@ -20,7 +20,7 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
     }
 
     const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
-
+    rootPackageJsonObject.version = '0.0.0-placeholder';
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     rootPackageJsonObject.workspaces = [...new Set(Object.values(directories).map(d => `${d}/*`).concat(rootPackageJsonObject.workspaces as string[] || []))];
 
@@ -29,7 +29,7 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
   };
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  const updateAngularJson = setupSchematicsDefaultParams({ '*:*': directories } as WorkspaceSchematics);
+  const updateAngularJson = setupSchematicsParamsForProject({ '*:*': directories } as WorkspaceSchematics);
 
   const updateNxWorkspaceLayout = (tree: Tree, _context: SchematicContext) => {
     const nxJson = tree.readJson('/nx.json') as any;

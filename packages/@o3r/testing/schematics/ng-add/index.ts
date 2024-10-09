@@ -11,7 +11,7 @@ import {
   O3rCliError,
   registerPackageCollectionSchematics,
   removePackages, setupDependencies,
-  setupSchematicsDefaultParams
+  setupSchematicsParamsForProject
 } from '@o3r/schematics';
 import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
@@ -103,7 +103,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           ngAddToRun: depsInfo.o3rPeerDeps
         }),
         registerPackageCollectionSchematics(packageJson),
-        setupSchematicsDefaultParams({
+        setupSchematicsParamsForProject({
           // eslint-disable-next-line @typescript-eslint/naming-convention
           '@o3r/core:component': {
             useComponentFixtures: undefined
@@ -116,7 +116,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
           '@o3r/core:component-presenter': {
             useComponentFixtures: undefined
           }
-        })
+        }, options.projectName)
       ];
 
       if (installJest) {
