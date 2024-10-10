@@ -8,8 +8,11 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      'jest/no-conditional-expect': 'warn',
-      'jest/no-done-callback': 'warn'
+      'jest/expect-expect': 'error',
+      'jest/no-commented-out-tests': 'error',
+      'jest/no-conditional-expect': 'error',
+      'jest/no-disabled-tests': 'error',
+      'jest/no-done-callback': 'error'
     }
   }
 ];

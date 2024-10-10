@@ -11,7 +11,7 @@ const o3rTemplateRecommended = (plugin) => [
     name: '@o3r/template-recommended',
     files: ['**/*.html'],
     rules: {
-      '@o3r/template-async-number-limitation': 'warn'
+      '@o3r/template-async-number-limitation': 'error'
     }
   }
 ];

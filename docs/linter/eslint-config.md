@@ -29,3 +29,7 @@ Then the CLI can be called as following:
 ```shell
 yarn eslint --global fast
 ```
+
+## Warnings
+
+When a rule is set to `warn` in our config, it will be set to `error` on the next major.

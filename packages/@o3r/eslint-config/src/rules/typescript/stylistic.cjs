@@ -25,7 +25,7 @@ const config = [
         }
       ],
       '@stylistic/key-spacing': [
-        'warn',
+        'error',
         {
           beforeColon: false,
           afterColon: true
@@ -70,13 +70,13 @@ const config = [
         'always'
       ],
       '@stylistic/semi-spacing': [
-        'warn',
+        'error',
         {
           before: false,
           after: true
         }
       ],
-      '@stylistic/space-unary-ops': 'warn',
+      '@stylistic/space-unary-ops': 'error',
       '@stylistic/spaced-comment': [
         'error',
         'always',
