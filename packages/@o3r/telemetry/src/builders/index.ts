@@ -41,7 +41,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
       const builderName = context.builder.name as string;
       context.logger.info(`${builderName} run in ${duration}ms`);
       const environment = await getEnvironmentInfo();
-      const data: BuilderMetricData = {
+      const data = {
         environment,
         duration,
         builder: {
@@ -58,7 +58,7 @@ export const createBuilderWithMetrics: BuilderWrapper = (builderFn, sendData = d
           )
         },
         error
-      };
+      } as const satisfies BuilderMetricData;
       context.logger.debug(JSON.stringify(data, null, 2));
       const packageJsonPath = path.join(context.currentDirectory, 'package.json');
       const packageJson = existsSync(packageJsonPath) ? JSON.parse(readFileSync(packageJsonPath, 'utf-8')) : {};

@@ -143,12 +143,12 @@ export class PerformanceMetricPlugin implements FetchPlugin {
     const markId = v4();
     const perfMark = this.performance?.mark(this.getPerformanceTag('start', markId)) || undefined;
     const startTime = perfMark?.startTime ?? this.getTime();
-    const mark: Mark = {
+    const mark = {
       markId,
       url,
       requestOptions,
       startTime
-    };
+    } as const satisfies Mark;
     this.openMarks[markId] = mark;
     if (this.onMarkOpen) {
       void this.onMarkOpen(mark);

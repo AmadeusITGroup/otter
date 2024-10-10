@@ -25,11 +25,11 @@ export interface BaseApiBeaconClientOptions extends BaseApiClientOptions {
 export interface BaseApiBeaconClientConstructor extends PartialExcept<Omit<BaseApiBeaconClientOptions, 'replyPlugins'>, 'basePath'> {
 }
 
-const DEFAULT_OPTIONS: Omit<BaseApiBeaconClientOptions, 'basePath'> = {
+const DEFAULT_OPTIONS = {
   replyPlugins: [] as never[],
   requestPlugins: [],
   enableTokenization: false
-};
+} as const satisfies Partial<BaseApiBeaconClientOptions>;
 
 /**
  * Determine if the given value is a promise

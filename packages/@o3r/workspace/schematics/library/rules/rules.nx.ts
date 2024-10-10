@@ -85,7 +85,7 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & {packageJsonN
     }
 
     const o3rCorePackageJsonPath = path.resolve(__dirname, '..', '..', '..', 'package.json');
-    const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath)!.toString());
+    const o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> } = JSON.parse(readFileSync(o3rCorePackageJsonPath).toString());
     const otterVersion = o3rCorePackageJson.dependencies!['@o3r/schematics'];
 
     const templateNx = apply(url('./templates/nx'), [
@@ -119,12 +119,12 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & {packageJsonN
 
   const nxCliUpdate: Rule = (tree, context) => {
     const mem: Record<string, Buffer | null> = savePreCommandContent(tree);
-    const config: Record<string, any> = {
+    const config = {
       name: options.name,
       importPath: options.packageJsonName,
       buildable: true,
       publishable: true
-    };
+    } as const;
     return chain([
       (t, c) => externalSchematic('@nx/angular', 'library', config)(t, c),
       restoreFiles(mem),

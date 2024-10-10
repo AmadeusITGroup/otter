@@ -29,7 +29,7 @@ export interface RulesEnginePresConfig extends Configuration {
   shouldProposeRoundTrip: boolean;
 }
 
-export const RULES_ENGINE_PRES_DEFAULT_CONFIG: RulesEnginePresConfig = {
+export const RULES_ENGINE_PRES_DEFAULT_CONFIG = {
   inXDays: 7,
   destinations: [
     { cityCode: 'LON', available: true },
@@ -37,6 +37,6 @@ export const RULES_ENGINE_PRES_DEFAULT_CONFIG: RulesEnginePresConfig = {
     { cityCode: 'NYC', available: false }
   ],
   shouldProposeRoundTrip: false
-};
+} as const satisfies RulesEnginePresConfig;
 
 export const RULES_ENGINE_PRES_CONFIG_ID = computeItemIdentifier('RulesEnginePresConfig', 'showcase');

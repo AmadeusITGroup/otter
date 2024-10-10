@@ -20,11 +20,11 @@ export class SwaggerJavaGenerator extends CodeGenerator<JavaGeneratorTaskOptions
       if (!generatorOptions) {
         return Promise.reject('Missing options');
       }
-      const spawnOptions: SpawnOptions = {
+      const spawnOptions = {
         stdio: 'inherit',
         shell: true,
         cwd: rootDirectory
-      };
+      } as const satisfies SpawnOptions;
       const codegenPath = path.join(generatorOptions.targetFolder, `${generatorOptions.codegenLanguage}-${generatorOptions.codegenFileName}`);
       const cliPath = path.resolve(__dirname, '..', '..', 'resources', generatorOptions.cliFilename);
 

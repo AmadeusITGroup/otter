@@ -27,7 +27,7 @@ export enum PaletteVariant {
 export const DEFAULT_PALETTE_VARIANT: PaletteVariant = PaletteVariant.V500;
 
 /* eslint-disable @typescript-eslint/naming-convention */
-const SATURATION_VALUES: Record<PaletteVariant, number> = {
+const SATURATION_VALUES = {
   '50': 0.91,
   '100': 0.98,
   '200': 0.96,
@@ -42,9 +42,9 @@ const SATURATION_VALUES: Record<PaletteVariant, number> = {
   'A200': 1,
   'A400': 1,
   'A700': 1
-};
+} as const satisfies Record<PaletteVariant, number>;
 
-const LIGHTNESS_VALUES: Record<PaletteVariant, number> = {
+const LIGHTNESS_VALUES = {
   '50': 0.12,
   '100': 0.3,
   '200': 0.5,
@@ -59,7 +59,7 @@ const LIGHTNESS_VALUES: Record<PaletteVariant, number> = {
   'A200': 0.64,
   'A400': 0.49,
   'A700': 0.44
-};
+} as const satisfies Record<PaletteVariant, number>;
 /* eslint-enable @typescript-eslint/naming-convention */
 
 /**

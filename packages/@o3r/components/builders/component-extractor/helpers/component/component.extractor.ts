@@ -264,10 +264,10 @@ export class ComponentExtractor {
         } else {
           throw new O3rCliError(message);
         }
-        const configWithoutIncompatibleProperties: ComponentConfigOutput = {
+        const configWithoutIncompatibleProperties = {
           ...config,
           properties: propertiesWithDefaultValue
-        };
+        } as const satisfies ComponentConfigOutput;
         return acc.concat(configWithoutIncompatibleProperties);
       }
 
