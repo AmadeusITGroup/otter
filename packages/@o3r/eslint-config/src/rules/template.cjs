@@ -10,6 +10,10 @@ const configArray = [
     files: ['**/*.html'],
     ...config
   })),
+  ...angular.configs.templateAccessibility.map((config) => ({
+    files: ['**/*.html'],
+    ...config
+  })),
   ...o3rConfig(o3r)
 ];
 
