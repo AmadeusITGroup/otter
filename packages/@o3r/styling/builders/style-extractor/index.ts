@@ -21,10 +21,13 @@ export * from './schema';
  */
 const defaultLibraryName = (currentDir: string = process.cwd()) => {
   const packageJsonPath = path.resolve(currentDir, 'package.json');
-  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8'})).name as string;
+  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8'})).name as string;
 };
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+  context.logger.warn('The extraction of style metadata is deprecated, we encourage to generate it from Design Token via the "generate-css" builder');
+  context.logger.warn('Use the following command to install the builder: "ng add @o3r/design"');
+  context.logger.warn('Get more information on https://www.npmjs.com/package/@o3r/design');
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
@@ -115,7 +118,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       try {
         validateJson(
           cssMetadata,
-          require(path.resolve(__dirname, '..', '..', 'schemas', 'style.metadata.schema.json')),
+          JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', '..', 'schemas', 'style.metadata.schema.json'), { encoding: 'utf8' })),
           'The output of style metadata is not valid regarding the json schema, please check the details below : \n'
         );
 

@@ -1,8 +1,8 @@
 import { Context, promiseSpawn } from '@ama-terasu/core';
-import { existsSync, promises as fs } from 'node:fs';
+import { existsSync, promises as fs, readFileSync } from 'node:fs';
 import * as path from 'node:path';
 
-const { peerDependencies } = require(path.resolve(__dirname, '..', 'package.json'));
+const { peerDependencies } = JSON.parse(readFileSync(path.resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'}));
 
 /** Option to create an application */
 export interface CreateApplicationOptions {
@@ -78,7 +78,7 @@ export const createApplication = async (context: Context, options: CreateApplica
     updateStyleTask.start();
     const stylingFile = path.resolve(cwd, 'src/styles.scss');
     if (existsSync(stylingFile)) {
-      const style = (await fs.readFile(stylingFile, { encoding: 'utf-8' }))
+      const style = (await fs.readFile(stylingFile, { encoding: 'utf8' }))
         .replace('// @include mat-core', '@include mat-core')
         .replace('// @include angular-material-typography', '@include angular-material-typography')
         .replace('// @include angular-material-theme', '@include angular-material-theme');

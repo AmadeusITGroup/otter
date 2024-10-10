@@ -87,6 +87,7 @@ The package exposes 3 renderers:
 - **CSS** renderer generating CSS variables according to the specification *(default renderer)*
 - **Sass** renderer generating Sass variables according to the specification
 - **Metadata** renderer creating the [style metadata](https://github.com/AmadeusITGroup/otter/tree/main/packages/@o3r/styling/schemas/style.metadata.schema.json) file compatible with the Otter CMS solution
+- **DesignToken** renderer creating a new single file Design Token if the apply of [Template](#template-feature) on it and formatting based on the give options.
 
 ### Example of Code Generator usage
 

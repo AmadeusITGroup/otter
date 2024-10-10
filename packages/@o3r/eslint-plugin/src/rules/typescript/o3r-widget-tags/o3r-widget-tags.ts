@@ -47,8 +47,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
     fixable: 'code',
     type: 'problem',
     docs: {
-      description: 'Ensures that @o3rWidget and @o3rWidgetParam are used with correct value',
-      recommended: 'strict'
+      description: 'Ensures that @o3rWidget and @o3rWidgetParam are used with a correct value'
     },
     schema: [
       {

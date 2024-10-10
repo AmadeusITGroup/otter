@@ -1,7 +1,8 @@
 import { sync as globbySync } from 'globby';
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { dirname, normalize, relative, resolve } from 'node:path';
 import { getJestProjects as workspaceGetJestProjects } from '@o3r/workspace';
+import type { TsConfigJson } from 'type-fest';
 
 /**
  * Get the list of Jest Projects in the workspace
@@ -25,10 +26,14 @@ const findParentPackageJson = (directory: string, rootDir?: string): string | un
     return undefined;
   }
   const packageJsonPath = resolve(parentFolder, 'package.json');
-  if (!existsSync(packageJsonPath) || !(require(packageJsonPath).workspaces)) {
+  if (!existsSync(packageJsonPath)) {
     return findParentPackageJson(parentFolder, rootDir);
   }
-  return globbySync(require(packageJsonPath).workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true})
+  const workspaces = JSON.parse(readFileSync(packageJsonPath, { encoding: 'utf8' })).workspaces;
+  if (!workspaces) {
+    return findParentPackageJson(parentFolder, rootDir);
+  }
+  return globbySync(workspaces, { cwd: parentFolder, onlyFiles: false, absolute: true})
     .some((workspacePath) => normalize(workspacePath) === rootDir) ? packageJsonPath : findParentPackageJson(parentFolder, rootDir);
 };
 
@@ -48,9 +53,9 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
     console.warn(`${testingTsconfigPath} not found`);
     return {};
   }
-  const { compilerOptions } = require(testingTsconfigPath) as { compilerOptions: { paths: { [key: string]: string[] } } };
+  const { compilerOptions } = JSON.parse(readFileSync(testingTsconfigPath, { encoding: 'utf8' })) as TsConfigJson;
   const relativePath = relative(rootDir, workspacePath);
-  return Object.entries(compilerOptions.paths).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
+  return Object.entries(compilerOptions?.paths || {}).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
     const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/[*]/g, '$1')}`.replace(/\/{2,}/g, '/'));
     acc['^' + keyPath.replace(/[*]/g, '(.*)') + '$'] = relativeModulePath;
     return acc;

@@ -23,7 +23,7 @@ const destFolder = resolve(__dirname, '..', 'cli');
  * @param dodoVersion
  */
 const downloadDodoCli = async () => {
-  const dodoVersion: string = JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf-8' })).dodo.version;
+  const dodoVersion: string = JSON.parse(await fs.readFile(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })).dodo.version;
   const platformName = osMap[platform];
 
   if (!platformName) {

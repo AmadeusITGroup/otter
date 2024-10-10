@@ -90,7 +90,7 @@ if (opts.username && password) {
 const name: string = opts.artifactName;
 const artifactGroupId: string = opts.artifactGroupId;
 
-let version: string = opts.usePackageVersion ? require(path.resolve(process.cwd(), 'package.json')).version : opts.artifactVersion;
+let version: string = opts.usePackageVersion ? JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'package.json'), { encoding: 'utf8' })).version : opts.artifactVersion;
 
 const filePath = opts.out || `./built/${name}.jar`;
 fse.ensureDirSync(path.resolve(process.cwd(), path.dirname(filePath)));

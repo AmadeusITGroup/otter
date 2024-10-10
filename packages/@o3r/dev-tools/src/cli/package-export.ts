@@ -55,7 +55,7 @@ files.push(
 );
 
 const packageJsonFile = path.resolve(process.cwd(), packageJsonPath || 'package.json');
-const packageJson: {[x: string]: any} = require(packageJsonFile);
+const packageJson: { [x: string]: any } = JSON.parse(fs.readFileSync(packageJsonFile, { encoding: 'utf8' }));
 
 files.push(
   // Keep the patterns already defined in package.json

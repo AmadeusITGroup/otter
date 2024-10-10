@@ -58,39 +58,21 @@ describe('New module generator', () => {
     expect(tree.files.length).toBeGreaterThanOrEqual(9);
   });
 
-  // Skip relative to nx generator issue
-  // TODO: re-enable when Nx Alias conflict is fixed
+  // TODO: Should be re-enable when the following issue #2066 is fixed
   describe.skip('in NX monorepo', () => {
-    it('should generate Nx specific files', async () => {
-      initialTree.create('nx.json', '{}');
-      initialTree.create('package.json', '{ "version": "0.0.0-test" }');
-      const nxPackageJson = require.resolve('@nx/angular/package.json');
-      const nxWorkspacePackageJson = require.resolve('@nx/workspace/package.json');
-      const angularPackageJson = require.resolve('@schematics/angular/package.json');
-      const runner = new SchematicTestRunner('schematics', collectionPath);
-      runner.registerCollection('@nx/angular', path.resolve(path.dirname(nxPackageJson), require(nxPackageJson).schematics));
-      runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
-      runner.registerCollection('@nx/workspace', path.resolve(path.dirname(nxWorkspacePackageJson), require(nxWorkspacePackageJson).schematics));
-      const tree = await runner.runExternalSchematic('schematics', 'library', {
-        path: 'packages-test',
-        name: '@my/new-module',
-        skipLinter: true
-      }, initialTree);
-
-      expect(tree.exists('/packages-test/my-new-module/project.json')).toBe(true);
-      expect(tree.readContent('/packages-test/my-new-module/project.json')).toContain('"name": "my-new-module');
-    });
-
     it('should generate Nx project.json with given name', async () => {
-      initialTree.create('nx.json', '{}');
+      initialTree.create('nx.json', '{"workspaceLayout": { "libsDir": "packages-test" } }');
+      initialTree.create('angular.json', '{"version": 1, "projects": {} }');
       initialTree.create('package.json', '{ "version": "0.0.0-test" }');
+      initialTree.create('/packages-test/my-new-module/package.json', '{ "version": "0.0.0-test" }');
+      initialTree.create('/packages-test/my-new-module/ng-package.json', '{  }');
       const nxPackageJson = require.resolve('@nx/angular/package.json');
       const nxWorkspacePackageJson = require.resolve('@nx/workspace/package.json');
       const angularPackageJson = require.resolve('@schematics/angular/package.json');
       const runner = new SchematicTestRunner('schematics', collectionPath);
-      runner.registerCollection('@nx/angular', path.resolve(path.dirname(nxPackageJson), require(nxPackageJson).schematics));
+      runner.registerCollection('@nx/angular', path.resolve(path.dirname(nxPackageJson), require(nxPackageJson).generators));
       runner.registerCollection('@schematics/angular', path.resolve(path.dirname(angularPackageJson), require(angularPackageJson).schematics));
-      runner.registerCollection('@nx/workspace', path.resolve(path.dirname(nxWorkspacePackageJson), require(nxWorkspacePackageJson).schematics));
+      runner.registerCollection('@nx/workspace', path.resolve(path.dirname(nxWorkspacePackageJson), require(nxWorkspacePackageJson).generators));
       const tree = await runner.runExternalSchematic('schematics', 'library', {
         path: 'packages-test',
         name: '@my/new-module',

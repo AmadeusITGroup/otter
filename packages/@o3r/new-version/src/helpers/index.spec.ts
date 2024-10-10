@@ -1,4 +1,4 @@
-import {formatGitTagsOutput} from './helpers';
+import {formatGitTagsOutput} from './index';
 
 describe('helpers', () => {
   it('formatGitBranchOutput', () => {
@@ -6,4 +6,3 @@ describe('helpers', () => {
     expect(formatGitTagsOutput(fakeOutput)).toEqual(['0.10.0', '3.1.5', '3.2.4', '3.2.5.0', 'whatever', '3.3.0-alpha.0']);
   });
 });
-

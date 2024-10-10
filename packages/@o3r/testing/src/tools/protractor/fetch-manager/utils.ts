@@ -31,7 +31,7 @@ export async function initFetchManager() {
     path.resolve(
       process.cwd(), 'node_modules', '@o3r', 'testing', 'tools', 'protractor', 'fetch-manager',
       '_fetch-manager.js'),
-    {encoding: 'utf-8'});
+    {encoding: 'utf8'});
   await browser.executeScript(fetchManager);
   await browser.executeScript('window.fetchManager.getInstance().init();');
 }

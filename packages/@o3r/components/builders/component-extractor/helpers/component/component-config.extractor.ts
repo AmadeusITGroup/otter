@@ -1,6 +1,6 @@
 import { logging } from '@angular-devkit/core';
 import type { ConfigProperty, ConfigPropertyTypes, ConfigType, NestedConfiguration } from '@o3r/components';
-import { CategoryDescription } from '@o3r/core';
+import type { CategoryDescription, ItemIdentifier } from '@o3r/core';
 import { ConfigDocParser } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import { readFileSync } from 'node:fs';
@@ -63,7 +63,7 @@ export class ComponentConfigExtractor {
   public readonly DEFAULT_UNKNOWN_TYPE = 'unknown';
 
   /** Parser of configuration doc */
-  private configDocParser: ConfigDocParser;
+  private readonly configDocParser: ConfigDocParser;
 
   /**
    * @param libraryName
@@ -75,10 +75,10 @@ export class ComponentConfigExtractor {
    * @param libraries
    */
   constructor(
-    private libraryName: string,
-    private strictMode: boolean,
+    private readonly libraryName: string,
+    private readonly strictMode: boolean,
     public source: ts.SourceFile,
-    private logger: logging.LoggerApi,
+    private readonly logger: logging.LoggerApi,
     public filePath: string,
     public checker: ts.TypeChecker,
     public libraries: string[] = []
@@ -129,7 +129,7 @@ export class ComponentConfigExtractor {
    * @param source
    */
   private getTypeFromNode(node: ts.Node | undefined, configurationWrapper?: ConfigurationInformationWrapper, source: ts.SourceFile = this.source):
-    {type: ConfigPropertyTypes; ref?: {library: string; name: string}; choices?: string[]} {
+    {type: ConfigPropertyTypes; ref?: ItemIdentifier; choices?: string[]} {
     const nestedConfiguration = configurationWrapper?.nestedConfiguration;
     const enumTypesAlias = configurationWrapper?.unionTypeStringLiteral;
     if (!node) {

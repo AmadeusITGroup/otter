@@ -28,7 +28,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       getPackageInstallConfig
     } = await import('@o3r/schematics');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
     const depsInfo = getO3rPeerDeps(packageJsonPath);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {

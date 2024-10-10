@@ -22,13 +22,13 @@ describe('Update ThrowOnUndefined helper', () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateThrowOnUndefinedCalls(), initialTree));
 
-    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), {encoding: 'utf-8'}));
+    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.ts.template'), {encoding: 'utf8'}));
   });
 
   it('should update fixture files', async () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateThrowOnUndefinedCalls(), initialTree));
 
-    expect(tree.readText('/src/mock.fixture.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.result.ts.template'), { encoding: 'utf-8' }));
+    expect(tree.readText('/src/mock.fixture.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'fixture.mocks.result.ts.template'), { encoding: 'utf8' }));
   });
 });
