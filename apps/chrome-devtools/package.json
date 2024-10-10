@@ -36,8 +36,8 @@
     "@angular/cli": "~18.2.0",
     "@angular/compiler": "~18.2.0",
     "@angular/compiler-cli": "~18.2.0",
-    "@nx/eslint-plugin": "~19.5.0",
-    "@nx/jest": "~19.5.0",
+    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/jest": "~19.8.0",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
@@ -71,7 +71,7 @@
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
     "minimist": "^1.2.6",
-    "nx": "~19.5.0",
+    "nx": "~19.8.0",
     "rimraf": "^5.0.1",
     "tsc-watch": "^6.0.4",
     "typescript": "~5.5.4"
@@ -108,6 +108,6 @@
     "rxjs": "^7.8.1",
     "tinycolor2": "^1.6.0",
     "tslib": "^2.6.2",
-    "zone.js": "~0.14.2"
+    "zone.js": "~0.15.0"
   }
 }
