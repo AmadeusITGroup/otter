@@ -137,12 +137,12 @@ export function nxGenerateModule(options: NgGenerateModuleSchema & { packageJson
 
   const nxCliUpdate: Rule = (tree, context) => {
     const mem: Record<string, Buffer | null> = savePreCommandContent(tree);
-    const config: Record<string, any> = {
+    const config = {
       name: options.name,
       importPath: options.packageJsonName,
       buildable: true,
       publishable: true
-    };
+    } as const;
     return chain([
       (t, c) => externalSchematic('@nx/angular', 'library', config)(t, c),
       restoreFiles(mem),

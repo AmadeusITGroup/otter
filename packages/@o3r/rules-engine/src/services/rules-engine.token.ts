@@ -16,7 +16,7 @@ export interface RulesEngineServiceOptions {
 }
 
 /** Default Rules engine options */
-export const DEFAULT_RULES_ENGINE_OPTIONS: RulesEngineServiceOptions = {
+export const DEFAULT_RULES_ENGINE_OPTIONS: Readonly<RulesEngineServiceOptions> = {
   dryRun: false,
   debug: false
-};
+} as const;

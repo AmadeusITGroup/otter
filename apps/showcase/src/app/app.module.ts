@@ -91,14 +91,14 @@ import {
   AppComponent,
 } from './app.component';
 
-const runtimeChecks: Partial<RuntimeChecks> = {
+const runtimeChecks = {
   strictActionImmutability: false,
   strictActionSerializability: false,
   strictActionTypeUniqueness: !isDevMode(),
   strictActionWithinNgZone: !isDevMode(),
   strictStateImmutability: !isDevMode(),
   strictStateSerializability: false
-};
+} as const satisfies Partial<RuntimeChecks>;
 
 registerLocaleData(localeEN, 'en-GB');
 registerLocaleData(localeFR, 'fr-FR');

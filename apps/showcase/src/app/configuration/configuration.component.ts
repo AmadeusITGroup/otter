@@ -33,7 +33,7 @@ import {
   ConfigurationPresConfig,
 } from '../../components/showcase/configuration/configuration-pres.config';
 
-const CONFIG_OVERRIDE: ConfigurationPresConfig = {
+const CONFIG_OVERRIDE = {
   inXDays: 30,
   destinations: [
     { cityName: 'Manchester', available: true },
@@ -41,7 +41,7 @@ const CONFIG_OVERRIDE: ConfigurationPresConfig = {
     { cityName: 'Dallas', available: true }
   ],
   shouldProposeRoundTrip: true
-};
+} as const satisfies ConfigurationPresConfig;
 
 @O3rComponent({ componentType: 'Page' })
 @Component({

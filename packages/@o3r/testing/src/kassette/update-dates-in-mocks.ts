@@ -43,7 +43,7 @@ export interface UpdateDatesInMocksOptions {
  */
 export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<UpdateDatesInMocksOptions> = {}) {
   const plainDateLength = 'YYYY-MM-DDThh:mm:ss'.length;
-  const options: UpdateDatesInMocksOptions = {
+  const options = {
     mode: 'day-offset',
     extractor: /\b(\d{4}-\d{2}-\d{2})[^"]*/g,
     converter: {
@@ -56,7 +56,7 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
       }
     },
     ...inputOptions
-  };
+  } as const satisfies UpdateDatesInMocksOptions;
   const todayTime = Temporal.Now.plainDateISO();
 
   // Update request
