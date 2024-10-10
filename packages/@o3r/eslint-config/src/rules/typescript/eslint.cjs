@@ -119,7 +119,7 @@ const config = [
       'sort-imports': [
         'error',
         {
-          allowSeparatedGroups: true,
+          allowSeparatedGroups: false,
           ignoreDeclarationSort: true,
           ignoreCase: true
         }
