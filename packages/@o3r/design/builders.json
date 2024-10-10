@@ -2,9 +2,15 @@
   "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/architect/src/builders-schema.json",
   "builders": {
     "generate-css": {
+      "deprecated": "Use 'generate-style' instead, will be removed in v13",
       "implementation": "./builders/generate-css/",
       "schema": "./builders/generate-css/schema.json",
       "description": "Generate CSS from Design Token files"
+    },
+    "generate-style": {
+      "implementation": "./builders/generate-style/",
+      "schema": "./builders/generate-style/schema.json",
+      "description": "Generate style from Design Token files"
     },
     "generate-jsonschema": {
       "implementation": "./builders/generate-jsonschema/",
