@@ -14,6 +14,6 @@ export const placeholderTemplateStorageDeserializer = (rawObject: any) => {
   return storeObject;
 };
 
-export const placeholderTemplateStorageSync: Serializer<PlaceholderTemplateState> = {
+export const placeholderTemplateStorageSync = {
   deserialize: placeholderTemplateStorageDeserializer
-};
+} as const satisfies Serializer<PlaceholderTemplateState>;

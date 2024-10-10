@@ -46,8 +46,8 @@ const isMigrationConfigurationDataMatch = (config: ComponentConfigOutput, migrat
 /**
  * Comparator used to compare one version of config metadata with another
  */
-export const configMetadataComparator: MetadataComparator<ComponentConfigOutput, MigrationConfigData, ComponentConfigOutput[]> = {
+export const configMetadataComparator = {
   getArray: getConfigurationArray,
   getIdentifier: getConfigurationPropertyName,
   isMigrationDataMatch: isMigrationConfigurationDataMatch
-};
+} as const satisfies MetadataComparator<ComponentConfigOutput, MigrationConfigData, ComponentConfigOutput[]>;

@@ -59,7 +59,7 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
     logger.info(`Updated ${file.toString()} with Design Token content.`);
     return res;
   };
-  const renderDesignTokenOptionsCss: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsCss = {
     writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getCssTokenDefinitionRenderer({
@@ -72,9 +72,9 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
       logger
     }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
-  const renderDesignTokenOptionsSass: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsSass = {
     writeFile: writeFileWithLogger,
     determineFileToUpdate,
     tokenDefinitionRenderer: getSassTokenDefinitionRenderer({
@@ -82,14 +82,14 @@ export default createBuilder<GenerateCssSchematicsSchema>(createBuilderWithMetri
       logger
     }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
-  const renderDesignTokenOptionsMetadata: DesignTokenRendererOptions = {
+  const renderDesignTokenOptionsMetadata = {
     determineFileToUpdate: () => resolve(context.workspaceRoot, options.metadataOutput!),
     styleContentUpdater: getMetadataStyleContentUpdater(),
     tokenDefinitionRenderer: getMetadataTokenDefinitionRenderer({ tokenVariableNameRenderer, ignorePrivateVariable: options.metadataIgnorePrivate }),
     logger
-  };
+  } as const satisfies DesignTokenRendererOptions;
 
   const execute = async (renderDesignTokenOptions: DesignTokenRendererOptions): Promise<BuilderOutput> => {
     let template: DesignTokenGroupTemplate | undefined;

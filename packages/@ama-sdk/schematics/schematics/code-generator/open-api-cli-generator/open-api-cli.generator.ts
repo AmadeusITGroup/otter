@@ -86,11 +86,11 @@ export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
       if (!generatorOptions) {
         return Promise.reject('Missing options to run open api generator');
       }
-      const spawnOptions: SpawnOptions = {
+      const spawnOptions = {
         stdio: 'inherit',
         shell: true,
         cwd: rootDirectory
-      };
+      } as const satisfies SpawnOptions;
       if (generatorOptions.generatorVersion) {
         await this.runInstallOpenApiGenerator(generatorOptions.generatorVersion, spawnOptions);
       }

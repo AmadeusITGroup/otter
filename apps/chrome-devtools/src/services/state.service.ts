@@ -189,11 +189,11 @@ export class StateService {
         ...(override ? undefined : state.stylingVariables),
         ...changes.stylingVariables
       }).filter((entry): entry is [string, string] => entry[1] !== null));
-      const stateOverrides: StateOverride = {
+      const stateOverrides = {
         configurations: Object.keys(configurationOverrides).length ? configurationOverrides : undefined,
         localizations: Object.keys(localizationOverrides || {}).length ? localizationOverrides : undefined,
         stylingVariables: Object.keys(stylingOverrides).length ? stylingOverrides : undefined
-      };
+      } satisfies StateOverride;
       return {
         ...state,
         ...stateOverrides

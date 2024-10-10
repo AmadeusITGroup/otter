@@ -18,13 +18,11 @@ import {
 import {
   CurrentTimeFactsService,
   dateInNextMinutes,
-  Operator,
   Rule,
   RulesEngineDevtoolsModule,
   RulesEngineRunnerModule,
   RulesEngineRunnerService,
-  Ruleset,
-  UnaryOperator
+  Ruleset
 } from '@o3r/rules-engine';
 import { firstValueFrom } from 'rxjs';
 import { CopyTextPresComponent, IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavLink, InPageNavLinkDirective, InPageNavPresService, RulesEnginePresComponent } from '../../components/index';
@@ -88,8 +86,8 @@ export class RulesEngineComponent implements AfterViewInit {
     this.rulesEngineService.actionHandlers.add(inject(ConfigurationRulesEngineActionHandler));
     this.rulesEngineService.actionHandlers.add(inject(AssetRulesEngineActionHandler));
     this.rulesEngineService.actionHandlers.add(inject(LocalizationRulesEngineActionHandler));
-    this.rulesEngineService.engine.upsertOperators([duringSummer] as UnaryOperator[]);
-    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes] as Operator[]);
+    this.rulesEngineService.engine.upsertOperators([duringSummer]);
+    this.rulesEngineService.engine.upsertOperators([dateInNextMinutes]);
     inject(TripFactsService).register();
     const currentTimeFactsService = inject(CurrentTimeFactsService);
     currentTimeFactsService.register();

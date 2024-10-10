@@ -34,13 +34,13 @@ export interface BaseApiFetchClientOptions extends BaseApiClientOptions {
 export interface BaseApiFetchClientConstructor extends PartialExcept<BaseApiFetchClientOptions, 'basePath'> {
 }
 
-const DEFAULT_OPTIONS: Omit<BaseApiFetchClientOptions, 'basePath'> = {
+const DEFAULT_OPTIONS = {
   replyPlugins: [new ReviverReply(), new ExceptionReply()],
   fetchPlugins: [],
   requestPlugins: [],
   enableTokenization: false,
   disableFallback: false
-};
+} as const satisfies Partial<BaseApiFetchClientOptions>;
 
 /** Client to process the call to the API using Fetch API */
 export class ApiFetchClient implements ApiClient {

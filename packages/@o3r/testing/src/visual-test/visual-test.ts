@@ -23,13 +23,13 @@ export interface VisualTestMessage {
 }
 
 /** Error messages in case of visual testing failure */
-export const visualTestMessages: VisualTestMessage = {
+export const visualTestMessages = {
   imagesSize: 'Image sizes do not match for:',
   diffMessage: 'Diff between images is greater than threshold for:',
   baseImgNotFound: 'Base screenshot file not found:',
   success: 'Visual test successful',
   generateMode: 'Run in generate screenshot mode'
-};
+} as const satisfies VisualTestMessage;
 
 /**
  * Object returned by a visual test operation

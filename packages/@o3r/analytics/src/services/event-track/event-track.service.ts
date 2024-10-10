@@ -8,12 +8,12 @@ import { CustomEventMarks, CustomEventPayload, EventTiming, FirstLoadDataPayload
 import { defaultEventTrackConfiguration, EVENT_TRACK_SERVICE_CONFIGURATION, EventTrackConfiguration } from './event-track.configuration';
 
 /** The initial value of the performance measurements */
-export const performanceMarksInitialState: PerfEventPayload = {
+export const performanceMarksInitialState = {
   page: '',
   perceived: {},
   serverCalls: [],
   customMarks: []
-};
+} as const satisfies PerfEventPayload;
 
 /**
  * Service to expose the tracked events as streams. Also provide a way to activate/deactivate the tracking
@@ -227,7 +227,7 @@ export class EventTrackService {
    */
   public async addCustomMark(label: string) {
     const timing = await this.getTiming();
-    const customMark: CustomEventMarks = {label, timing};
+    const customMark = {label, timing} as const satisfies CustomEventMarks;
     const perf = { ...this.performancePayload, customMarks: this.performancePayload.customMarks.concat(customMark) };
     this.performancePayload = perf;
   }
@@ -276,7 +276,7 @@ export class EventTrackService {
       return -1;
     }
     const startTime = Math.round(window.performance.now());
-    const customMark: CustomEventMarks = {label, timing: {startTime}};
+    const customMark = {label, timing: {startTime}} as const satisfies CustomEventMarks;
     const perf = { ...this.performancePayload, customMarks: this.performancePayload.customMarks.concat(customMark) };
     this.performancePayload = perf;
     return this.performancePayload.customMarks.length - 1;

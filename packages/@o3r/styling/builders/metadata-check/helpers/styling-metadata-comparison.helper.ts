@@ -21,8 +21,8 @@ const isMigrationCssVariableDataMatch = (cssVariable: CssVariable, migrationData
 /**
  * Comparator used to compare one version of styling metadata with another
  */
-export const stylingMetadataComparator: MetadataComparator<CssVariable, MigrationStylingData, CssMetadata> = {
+export const stylingMetadataComparator = {
   getArray: getCssVariablesArray,
   getIdentifier: getCssVariableName,
   isMigrationDataMatch: isMigrationCssVariableDataMatch
-};
+} as const satisfies MetadataComparator<CssVariable, MigrationStylingData, CssMetadata>;

@@ -10,7 +10,7 @@ import {updateOpenApiVersionInProject} from '../ng-update/typescript/v10.3/updat
 import { updateV11_4 as updateV114 } from '../ng-update/typescript';
 
 /* eslint-disable @typescript-eslint/naming-convention */
-const tsMigrationMap: MigrationRulesMap = {
+const tsMigrationMap = {
   '~10.3.2': updateOpenApiVersionInProject(),
   '11.0.*': [
     updateRegenScript
@@ -18,7 +18,7 @@ const tsMigrationMap: MigrationRulesMap = {
   '11.4.0-alpha.0': [
     updateV114
   ]
-};
+} as const satisfies MigrationRulesMap;
 /* eslint-enable @typescript-eslint/naming-convention */
 /**
  * Facilitate the migration of a version to another by the run of migration rules

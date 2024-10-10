@@ -135,14 +135,14 @@ export class SdkPresComponent {
    * Call the API to create a new pet
    */
   public async create() {
-    const pet: Pet = {
+    const pet = {
       id: this.getNextId(),
       name: this.petName(),
       category: {name: 'otter'},
       tags: [{name: 'otter'}],
       status: 'available',
       photoUrls: this.petName() ? [this.petImage()] : []
-    };
+    } as const satisfies Pet;
     this.isLoading.set(true);
     await this.petStoreApi.addPet({
       // eslint-disable-next-line @typescript-eslint/naming-convention
@@ -152,7 +152,7 @@ export class SdkPresComponent {
       const filePath = `${this.baseUrl}${pet.photoUrls[0]}`;
       const blob = await (await fetch(filePath)).blob();
       await this.petStoreApi.uploadFile({
-        petId: pet.id!,
+        petId: pet.id,
         body: new File([blob], filePath, {type: blob.type})
       });
     }

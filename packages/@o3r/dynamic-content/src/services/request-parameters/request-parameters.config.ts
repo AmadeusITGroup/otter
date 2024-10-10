@@ -39,9 +39,9 @@ export interface RequestParametersConfig {
   postParamsValue: string;
 }
 
-export const defaultRequestParametersConfig: RequestParametersConfig = {
+export const defaultRequestParametersConfig = {
   storage: (typeof window !== 'undefined') ? window.sessionStorage : undefined,
   strategy: StorageStrategy.Rehydrate,
   queryParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.query || '{}',
   postParamsValue: typeof document !== 'undefined' && document.body && document.body.dataset && document.body.dataset.post || '{}'
-};
+} as const satisfies RequestParametersConfig;

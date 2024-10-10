@@ -24,7 +24,7 @@ export interface CreateTestEnvironmentBlankOptions extends CreateWithLockOptions
  * @param inputOptions
  */
 export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTestEnvironmentBlankOptions>) {
-  const options: CreateTestEnvironmentBlankOptions = {
+  const options = {
     appDirectory: 'test-app',
     cwd: process.cwd(),
     globalFolderPath: process.cwd(),
@@ -32,15 +32,15 @@ export async function createTestEnvironmentBlank(inputOptions: Partial<CreateTes
     lockTimeout: 10 * 60 * 1000,
     replaceExisting: true,
     ...inputOptions
-  };
+  } as const satisfies CreateTestEnvironmentBlankOptions;
   await createWithLock(async () => {
     const appFolderPath = path.join(options.cwd, options.appDirectory);
-    const execAppOptions: ExecSyncOptions = {
+    const execAppOptions = {
       cwd: appFolderPath,
       stdio: 'inherit',
       // eslint-disable-next-line @typescript-eslint/naming-convention
       env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
-    };
+    } as const satisfies ExecSyncOptions;
 
     // Prepare folder
     if (existsSync(appFolderPath)) {

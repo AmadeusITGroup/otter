@@ -20,7 +20,7 @@ function ngGenerateSimpleAsyncStoreFn(options: NgGenerateSimpleAsyncStoreSchemat
     options.modelName = options.modelName?.trim();
 
     // Add extra formatted properties
-    const formattedProperties: Partial<ExtraFormattedProperties> = {
+    const formattedProperties = {
       isAsync: true,
       isEntity: false,
       storeName: strings.classify(options.storeName),
@@ -31,7 +31,7 @@ function ngGenerateSimpleAsyncStoreFn(options: NgGenerateSimpleAsyncStoreSchemat
       payloadModelName: options.sdkPackage ? options.modelName : strings.classify(options.storeName),
       reviverModelName: `revive${options.modelName}`,
       fileName: strings.dasherize(options.storeName)
-    };
+    } as const satisfies Partial<ExtraFormattedProperties>;
     let currentStoreIndex = '';
     const barrelPath = path.join(destination, options.storeName, 'index.ts');
     if (tree.exists(barrelPath)) {

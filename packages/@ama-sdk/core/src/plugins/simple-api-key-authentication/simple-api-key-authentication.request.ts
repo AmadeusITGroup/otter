@@ -18,10 +18,10 @@ export interface SimpleApiKeyAuthenticationRequestOptions {
 /**
  * Default values of optional parameters
  */
-const DEFAULT_OPTION: SimpleApiKeyAuthenticationRequestOptions = {
+const DEFAULT_OPTION = {
   apiKeyHeader: 'x-api-key',
   contextHeader: 'ama-ctx'
-};
+} as const satisfies SimpleApiKeyAuthenticationRequestOptions;
 
 /**
  * Plugin to handle the Simple API key authentication with Apigee.

@@ -26,7 +26,7 @@ type Command =
   | 'workspaceExec'
   | 'workspaceRun';
 
-const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[command in Command]: string[]}} = {
+const PACKAGE_MANAGERS_CMD = {
   npm: {
     add: ['npm', 'install'],
     ci: ['npm', 'ci'],
@@ -53,7 +53,7 @@ const PACKAGE_MANAGERS_CMD: {[packageManager in SupportedPackageManagers]: {[com
     workspaceExec: ['yarn', 'workspace'],
     workspaceRun: ['yarn', 'workspace']
   }
-};
+} as const satisfies Record<SupportedPackageManagers, Record<Command, string[]>>;
 
 type CommandArguments = {
   /** Script to run or execute */

@@ -4,7 +4,7 @@ import { type playwrightLighthouseConfig } from 'playwright-lighthouse';
 import { AppFixtureComponent } from '../../src/app/app.fixture';
 
 const baseUrl = process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/';
-const lighthouseConfig: playwrightLighthouseConfig = {
+const lighthouseConfig = {
   thresholds: {
     performance: 35,
     accessibility: 100,
@@ -21,7 +21,7 @@ const lighthouseConfig: playwrightLighthouseConfig = {
     directory: 'playwright-reports/lighthouse'
   },
   port: 9222
-};
+} as const satisfies playwrightLighthouseConfig;
 
 const performAudit = async (name: string, page: Page | string, testInfo: TestInfo) => {
   const { playAudit } = await import('playwright-lighthouse');

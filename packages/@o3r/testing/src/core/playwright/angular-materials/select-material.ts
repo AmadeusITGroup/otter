@@ -16,7 +16,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
     const options = this.sourceElement.page.locator('mat-option');
     await options.first().waitFor({state: 'attached', timeout});
     if ((await options.count()) >= index + 1) {
-      const selectedOption: PlaywrightSourceElement = {element: options.nth(index), page: this.sourceElement.page};
+      const selectedOption = {element: options.nth(index), page: this.sourceElement.page} as const satisfies PlaywrightSourceElement;
       const option = new O3rElement(selectedOption);
       return option.click();
     } else {
@@ -31,7 +31,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
     await options.first().waitFor({state: 'attached', timeout});
     const optionsCount = await options.count();
     for (let i = 0; i < optionsCount; i++) {
-      const selectedOption: PlaywrightSourceElement = {element: options.nth(i), page: this.sourceElement.page};
+      const selectedOption = {element: options.nth(i), page: this.sourceElement.page} as const satisfies PlaywrightSourceElement;
       const option = new O3rElement(selectedOption);
       if (await option.getAttribute('ng-reflect-value') === value) {
         return option.click();
@@ -47,7 +47,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
     await options.first().waitFor({state: 'attached', timeout});
     const optionsCount = await options.count();
     for (let i = 0; i < optionsCount; i++) {
-      const selectedOption: PlaywrightSourceElement = {element: options.nth(i), page: this.sourceElement.page};
+      const selectedOption = {element: options.nth(i), page: this.sourceElement.page} as const satisfies PlaywrightSourceElement;
       const option = new O3rElement(selectedOption);
       if (await option.getText() === label) {
         return option.click();

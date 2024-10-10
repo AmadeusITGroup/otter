@@ -43,18 +43,18 @@ export class GenericApi implements Api {
    */
   public async request<T>(requestOptions: GenericRequestOptions<T>): Promise<T> {
     const metadataHeaderAccept = requestOptions.metadata?.headerAccept || 'application/json';
-    const headers: { [key: string]: string | undefined } = {
+    const headers = {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       'Content-Type': requestOptions.metadata?.headerContentType || 'application/json',
       // eslint-disable-next-line @typescript-eslint/naming-convention
       ...(metadataHeaderAccept ? { 'Accept': metadataHeaderAccept } : {})
-    };
+    } as const satisfies RequestOptionsParameters['headers'];
 
-    const requestParameters: RequestOptionsParameters = {
+    const requestParameters = {
       api: this,
       headers,
       ...requestOptions
-    };
+    } as const satisfies RequestOptionsParameters;
     const options = await this.client.getRequestOptions(requestParameters);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 

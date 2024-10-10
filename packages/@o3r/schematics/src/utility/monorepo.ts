@@ -53,16 +53,16 @@ export const LIBRARIES_FOLDER_NAME = 'libs';
 export const APPLICATIONS_FOLDER_NAME = 'apps';
 
 /** Default directories for generated apps/libs inside a monorepo */
-export const DEFAULT_ROOT_FOLDERS: WorkspaceLayout = {
+export const DEFAULT_ROOT_FOLDERS = {
   libsDir: LIBRARIES_FOLDER_NAME,
   appsDir: APPLICATIONS_FOLDER_NAME
-};
+} as const satisfies WorkspaceLayout;
 
 /** Root folders map for apps/libs inside a monorepo */
-export const BASE_ROOT_FOLDERS_MAP: Record<WorkspaceProject['projectType'], keyof WorkspaceLayout> = {
+export const BASE_ROOT_FOLDERS_MAP = {
   library: 'libsDir',
   application: 'appsDir'
-};
+} as const satisfies Record<WorkspaceProject['projectType'], keyof WorkspaceLayout>;
 
 /**
  * Retrieve the project base root generation folder, based on the given projectType.

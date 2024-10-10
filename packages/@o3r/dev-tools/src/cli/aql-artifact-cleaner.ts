@@ -84,7 +84,7 @@ const isDownloadedTimeValueDefined = !!programOptions.lastDownloadedTimeValue;
 const downloadedTimeValue: number = programOptions.lastDownloadedTimeValue;
 const property: string = programOptions.property;
 const propertyValue: string = programOptions.propertyValue;
-const options: Options = {
+const options = {
   headers: authHeader,
   uri: url,
   body: `items.find(
@@ -103,7 +103,7 @@ const options: Options = {
   .include("name","repo","path","created","size")
   .sort({"$desc" : ["created"]}).offset(${offset})
   .limit(10000)`
-};
+} as const satisfies Options;
 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
 logger.debug(`AQL search executed : ${options.body}`);
 logger.info(`Url called : ${url}`);

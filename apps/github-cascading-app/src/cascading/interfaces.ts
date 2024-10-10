@@ -64,7 +64,7 @@ export type CheckConclusion = 'cancelled' | 'neutral' | 'success' | 'failure' | 
 /**
  * Default configuration
  */
-export const DEFAULT_CONFIGURATION: Readonly<CascadingConfiguration> = {
+export const DEFAULT_CONFIGURATION = {
   ignoredPatterns: [] as string[],
   defaultBranch: '',
   cascadingBranchesPattern: '^releases?/\\d+\\.\\d+',
@@ -73,4 +73,4 @@ export const DEFAULT_CONFIGURATION: Readonly<CascadingConfiguration> = {
   labels: [] as string[],
   pullRequestTitle: '[cascading] from $origin to $target',
   branchNamePrefix: 'cascading'
-} as const;
+} as const satisfies Readonly<CascadingConfiguration>;

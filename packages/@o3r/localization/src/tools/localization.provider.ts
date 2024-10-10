@@ -20,8 +20,8 @@ export function createTranslateLoader(localizationConfiguration: LocalizationCon
 /**
  * TranslateLoader provider, using framework's TranslationsLoader class
  */
-export const translateLoaderProvider: FactoryProvider = {
+export const translateLoaderProvider = {
   provide: TranslateLoader,
   useFactory: createTranslateLoader,
   deps: [LOCALIZATION_CONFIGURATION_TOKEN, [new Optional(), LoggerService], [new Optional(), DynamicContentService]]
-};
+} as const satisfies FactoryProvider;

@@ -15,14 +15,14 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const workspaceRootPath = workspaceProject?.root || '.';
     const srcBasePath = workspaceProject?.sourceRoot || posix.join(workspaceRootPath, 'src');
     const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
-    const taskOptions: GenerateCssSchematicsSchema = {
+    const taskOptions = {
       defaultStyleFile: themeFile,
       templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [
         posix.join(srcBasePath, 'style', '*.json'),
         posix.join(srcBasePath, '**', '*.theme.json')
       ]
-    };
+    } as const satisfies GenerateCssSchematicsSchema;
     const taskParameters = {
       builder: '@o3r/design:generate-css',
       options: taskOptions,

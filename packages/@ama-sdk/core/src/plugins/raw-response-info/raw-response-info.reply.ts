@@ -45,13 +45,13 @@ export class RawResponseInfoReply<V = {[key: string]: any} | undefined> implemen
       transform: (data: V) => {
         if (!context.response) { return data; }
 
-        const responseInfo: RawResponseReply = {
+        const responseInfo = {
           responseInfo: {
             ...context.response,
             apiType: context.apiType,
             apiName: context.apiName
           }
-        };
+        } as const satisfies RawResponseReply;
 
         return data ? Object.assign(data, responseInfo) : responseInfo as V & RawResponseReply;
       }

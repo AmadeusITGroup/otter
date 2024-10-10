@@ -40,7 +40,7 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
     const targetPath = path.posix.resolve('/', options.path || defaultRoot, cleanName);
     const extendedOptions = { ...options, targetPath, name: cleanName, packageJsonName: packageJsonName };
 
-    const dependencies: Record<string, DependencyToAdd> = {
+    const dependencies = {
       // eslint-disable-next-line @typescript-eslint/naming-convention
       '@o3r/core': {
         inManifest: [
@@ -51,7 +51,7 @@ function generateModuleFn(options: NgGenerateModuleSchema): Rule {
         ],
         ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
       }
-    };
+    } as const satisfies Record<string, DependencyToAdd>;
 
     return chain([
       isNx ? nxGenerateModule(extendedOptions) : ngGenerateModule(extendedOptions),
