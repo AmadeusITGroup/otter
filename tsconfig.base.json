@@ -220,6 +220,9 @@
       "@o3r/third-party": [
         "packages/@o3r/third-party/src"
       ],
+      "@o3r/training-sdk": [
+        "packages/@o3r/training-sdk/src"
+      ],
       "@o3r/training-tools": [
         "packages/@o3r/training-tools/src/public_api"
       ],

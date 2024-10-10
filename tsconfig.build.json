@@ -53,6 +53,7 @@
       "@o3r/testing": ["packages/@o3r/testing/dist", "packages/@o3r/testing/src/public_api"],
       "@o3r/testing/*": ["packages/@o3r/testing/dist/*", "packages/@o3r/testing/src/*"],
       "@o3r/third-party": ["packages/@o3r/third-party/dist", "packages/@o3r/third-party/src/public_api"],
+      "@o3r/training-sdk": ["packages/@o3r/training-tools/dist", "packages/@o3r/training-tools/src/index"],
       "@o3r/training-tools": ["packages/@o3r/training-tools/dist", "packages/@o3r/training-tools/src/public_api"],
       "@o3r/workspace": ["packages/@o3r/workspace/dist"]
     }
