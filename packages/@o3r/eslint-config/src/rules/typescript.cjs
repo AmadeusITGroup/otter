@@ -2,15 +2,18 @@ const eslint = require('@eslint/js');
 const o3r = require('@o3r/eslint-plugin');
 const stylistic = require('@stylistic/eslint-plugin');
 const angular = require('angular-eslint');
+const importPlugin = require('eslint-plugin-import');
 const jsdoc = require('eslint-plugin-jsdoc');
 const typescript = require('typescript-eslint');
 const unicorn = require('eslint-plugin-unicorn');
 const angularConfigOverrides = require('./typescript/eslint-angular.cjs');
 const typescriptConfigOverrides = require('./typescript/eslint-typescript.cjs');
 const eslintConfigOverrides = require('./typescript/eslint.cjs');
+const importConfig = require('./typescript/import.cjs');
 const jsdocConfigOverrides = require('./typescript/jsdoc.cjs');
 const otterConfig = require('./typescript/otter.cjs');
 const preferArrowConfig = require('./typescript/prefer-arrow.cjs');
+const sortExportAll = require('./typescript/sort-export-all.cjs');
 const stylisticConfig = require('./typescript/stylistic.cjs');
 const unicornConfig = require('./typescript/unicorn.cjs');
 
@@ -79,6 +82,16 @@ const configArray = [
     ...unicorn.configs['flat/recommended']
   },
   ...(getJestConfig('recommended')),
+  {
+    // Name added for debugging purpose with @eslint/config-inspector
+    name: 'import/recommended',
+    ...importPlugin.flatConfigs.recommended
+  },
+  {
+    // Name added for debugging purpose with @eslint/config-inspector
+    name: 'import/typescript',
+    ...importPlugin.flatConfigs.typescript
+  },
   // All recommended first as the order has an importance
   ...eslintConfigOverrides,
   ...typescriptConfigOverrides,
@@ -88,6 +101,8 @@ const configArray = [
   ...preferArrowConfig,
   ...stylisticConfig,
   ...unicornConfig,
+  ...importConfig,
+  ...sortExportAll,
   ...otterConfig(o3r),
   {
     name: '@o3r/typescript/language-options',

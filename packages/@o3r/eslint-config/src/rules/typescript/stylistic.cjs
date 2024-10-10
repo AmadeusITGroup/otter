@@ -56,7 +56,15 @@ const config = [
         }
       ],
       '@stylistic/no-extra-semi': 'error',
-      '@stylistic/no-multiple-empty-lines': 'off',
+      '@stylistic/no-multiple-empty-lines': 'error',
+      '@stylistic/object-curly-newline': [
+        'error',
+        {
+          ImportDeclaration: 'always',
+          ExportDeclaration: 'always'
+        }
+      ],
+      '@stylistic/object-property-newline': 'error',
       '@stylistic/quotes': [
         'error',
         'single',
