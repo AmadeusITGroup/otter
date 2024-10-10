@@ -43,8 +43,8 @@ const config = [
       'unicorn/prefer-string-raw': 'off',
       'unicorn/prefer-string-replace-all': 'off',
       'unicorn/prevent-abbreviations': 'off',
-      'unicorn/switch-case-braces': 'warn',
-      'unicorn/text-encoding-identifier-case': 'warn'
+      'unicorn/switch-case-braces': 'error',
+      'unicorn/text-encoding-identifier-case': 'error'
     }
   }
 ];

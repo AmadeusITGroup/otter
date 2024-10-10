@@ -23,7 +23,7 @@ const getJestConfig = (type) => {
   try {
     require.resolve('jest');
     return type === 'overrides'
-      ? require('./rules/typescript/jest.js').default
+      ? require('./typescript/jest.cjs')
       : [{
         // Name added for debugging purpose with @eslint/config-inspector
         name: 'jest/flat-recommended',

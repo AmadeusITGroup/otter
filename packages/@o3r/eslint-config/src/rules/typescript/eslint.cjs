@@ -78,7 +78,7 @@ const config = [
       'no-inner-declarations': 'error',
       'no-invalid-this': 'off',
       'no-iterator': 'error',
-      'no-loop-func': 'warn',
+      'no-loop-func': 'error',
       'no-multi-str': 'error',
       'no-new-native-nonconstructor': 'error',
       'no-new-wrappers': 'error',
