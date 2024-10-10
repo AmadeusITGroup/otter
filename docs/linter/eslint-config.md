@@ -1,12 +1,37 @@
 # Otter ESLint Configuration
 
-This package provides three different ESLint configuration:
+## Otter ESLint Flat Configuration
+
+`@o3r/eslint-config` provides two differents ESLint configuration:
+
+- **default** (imported via *@o3r/eslint-config*) : Default Otter ESLint configurations used for any JS and TS files.
+- **template** (imported via *@o3r/eslint-config/template*) : Otter ESLint configuration to be applied to Otter based Angular templates.
+
+Example of configuration:
+```javascript
+import o3rConfig from '@o3r/eslint-config';
+
+export default [
+  ...o3rConfig,
+  {
+    name: 'my-project-rules',
+    rules: {
+      // ...
+    }
+  }
+];
+```
+
+
+## Otter ESLint Legacy Configuration
+
+`@o3r/eslint-config-otter` provides three different ESLint configuration:
 
 - **default** (imported via *@o3r/eslint-config-otter*) : Default Otter ESLint configurations used for any JS and TS files.
 - **template** (imported via *@o3r/eslint-config-otter/template*) : Otter ESLint configuration to be applied to Otter based Angular templates.
 - **fast** (imported via *@o3r/eslint-config-otter/fast*) : Configuration based on `default` where the most time-consuming rules had been disabled to accelerate the execution.
 
-## Switch from the Default to Fast configuration
+### Switch from the Default to Fast configuration
 
 It's possible to switch a configuration to another by passing a `global` argument to the ESLint CLI.
 

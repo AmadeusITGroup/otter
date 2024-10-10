@@ -7,6 +7,7 @@ const config = [
     files: [
       '**/*.{c,m,}{t,j}s'
     ],
+    // TODO review all rules set to off
     rules: {
       'unicorn/better-regex': 'off',
       'unicorn/catch-error-name': [
