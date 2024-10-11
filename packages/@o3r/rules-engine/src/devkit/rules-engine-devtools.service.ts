@@ -31,7 +31,7 @@ export class OtterRulesEngineDevtools {
     private readonly rulesEngineService: RulesEngineRunnerService,
     @Optional() @Inject(OTTER_RULES_ENGINE_DEVTOOLS_OPTIONS) options: RulesEngineDevtoolsServiceOptions) {
 
-    const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS).rulesEngineStackLimit;
+    const eventsStackLimit = (options || OTTER_RULES_ENGINE_DEVTOOLS_DEFAULT_OPTIONS as RulesEngineDevtoolsServiceOptions).rulesEngineStackLimit;
     this.rulesEngineEvents$ = this.rulesEngineService.engine.engineDebug?.debugEvents$.pipe(
       scan((previousEvents, currentEvent) => {
         const stack = eventsStackLimit && previousEvents.length === eventsStackLimit ? previousEvents.slice(1) : previousEvents;

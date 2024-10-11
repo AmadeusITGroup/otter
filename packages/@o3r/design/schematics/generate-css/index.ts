@@ -21,13 +21,13 @@ function generateCssFn(options: GenerateCssSchematicsSchema): Rule {
 
         return options.defaultStyleFile;
       };
-    const renderDesignTokenOptions: DesignTokenRendererOptions = {
+    const renderDesignTokenOptions = {
       readFile,
       writeFile,
       existsFile,
       determineFileToUpdate,
       logger: context.logger
-    };
+    } as const satisfies DesignTokenRendererOptions;
 
     const { globInTree } = await import('@o3r/schematics');
 

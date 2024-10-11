@@ -44,12 +44,12 @@ export const createSchematicWithMetrics: SchematicWrapper =
         options,
         interactive: context.interactive
       };
-      const data: SchematicMetricData = {
+      const data = {
         environment,
         schematic,
         duration,
         error
-      };
+      } as const satisfies SchematicMetricData;
       context.logger.debug(JSON.stringify(data, null, 2));
       const packageJson = (tree.exists('/package.json') ? tree.readJson('/package.json') : {}) as JsonObject;
       const shouldSendData = !!(

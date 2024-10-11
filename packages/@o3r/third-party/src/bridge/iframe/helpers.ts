@@ -3,11 +3,11 @@ import { IFrameBridgeOptions, InternalIframeMessage } from './contracts';
 /**
  * Default options for an IFrameBridge
  */
-export const IFRAME_BRIDGE_DEFAULT_OPTIONS: IFrameBridgeOptions = {
+export const IFRAME_BRIDGE_DEFAULT_OPTIONS = {
   handshakeTries: 10,
   handshakeTimeout: 200,
   messageWithResponseTimeout: 1000
-};
+} as const satisfies IFrameBridgeOptions;
 
 /**
  * Verifies if a message respects the format expected by an IFrameBridge

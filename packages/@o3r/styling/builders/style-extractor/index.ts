@@ -31,7 +31,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
   context.reportRunning();
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
-  const sassLogger: Logger = {
+  const sassLogger = {
     debug: (message, {span}) => context.logger.debug(`${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`),
     warn: (message, {deprecation, span, stack}) => {
       let log: string = deprecation ? `Deprecated function used${EOL}` : '';
@@ -41,7 +41,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
       log += `${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`;
       context.logger.warn(log);
     }
-  };
+  } as const satisfies Logger;
 
   const cssVariableExtractor = new CssVariableExtractor({ logger: sassLogger }, options);
 

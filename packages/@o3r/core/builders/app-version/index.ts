@@ -6,15 +6,15 @@ import { AppVersionBuilderSchema } from './schema';
 
 export * from './schema';
 
-const PACKAGE_JSON_NOT_FOUND: BuilderOutput = {
+const PACKAGE_JSON_NOT_FOUND = {
   error: 'package.json not found',
   success: false
-};
+} as const satisfies BuilderOutput;
 
-const PACKAGE_JSON_INCORRECT: BuilderOutput = {
+const PACKAGE_JSON_INCORRECT = {
   error: 'package.json incorrect',
   success: false
-};
+} as const satisfies BuilderOutput;
 
 /** Maximum number of steps */
 const STEP_NUMBER = 2;

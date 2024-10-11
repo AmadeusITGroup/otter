@@ -59,12 +59,12 @@ export async function prepareTestEnv(folderName: string, options?: PrepareTestEn
 
   JSON.parse(readFileSync(path.join(rootFolderPath, 'packages', '@o3r', 'core', 'package.json')).toString());
   const yarnVersion: string = yarnVersionParam || getYarnVersionFromRoot(rootFolderPath);
-  const execAppOptions: ExecSyncOptions = {
+  const execAppOptions = {
     cwd: workspacePath,
     stdio: 'inherit',
     // eslint-disable-next-line @typescript-eslint/naming-convention
     env: {...process.env, NODE_OPTIONS: '', CI: 'true'}
-  };
+  } as const satisfies ExecSyncOptions;
 
   const packageManagerConfig = {
     yarnVersion,

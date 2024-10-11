@@ -186,11 +186,11 @@ const createNgProject = () => {
 
 const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
-  const spawnSyncOpts: SpawnSyncOptionsWithBufferEncoding = {
+  const spawnSyncOpts = {
     stdio: 'inherit',
     shell: true,
     cwd
-  };
+  } as const satisfies SpawnSyncOptionsWithBufferEncoding;
   const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const mandatoryDependencies = [
     '@angular-devkit/schematics',

@@ -20,14 +20,14 @@ function ngGenerateSimpleSyncStoreFn(options: NgGenerateSimpleSyncStoreSchematic
     options.storeName = options.storeName?.trim();
 
     // Add extra formatted properties
-    const formattedProperties: Partial<ExtraFormattedProperties> = {
+    const formattedProperties = {
       isAsync: false,
       isEntity: false,
       storeName: strings.classify(options.storeName),
       cStoreName: strings.camelize(options.storeName),
       scuStoreName: strings.underscore(options.storeName).toUpperCase(),
       fileName: strings.dasherize(options.storeName)
-    };
+    } as const satisfies Partial<ExtraFormattedProperties> ;
     let currentStoreIndex = '';
     const barrelPath = path.join(destination, options.storeName, 'index.ts');
     if (tree.exists(barrelPath)) {

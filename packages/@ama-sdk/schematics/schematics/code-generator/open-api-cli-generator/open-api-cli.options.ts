@@ -60,7 +60,7 @@ export type OpenApiCliOptions = CodegenTaskOptions & {
 /**
  * Default options to run our custom typescript generator
  */
-export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
+export const defaultTypescriptGeneratorOptions = {
   generatorVersion: '',
   generatorName: 'typescriptFetch',
   generatorCustomPath: path.join(__dirname, '..', '..', 'typescript', 'core', 'openapi-codegen-typescript', 'target', 'typescriptFetch-openapi-generator.jar'),
@@ -70,4 +70,4 @@ export const defaultTypescriptGeneratorOptions: OpenApiCliOptions = {
   globalProperty: '',
   generatorKey: '',
   openapiNormalizer: ''
-};
+} as const satisfies OpenApiCliOptions;
