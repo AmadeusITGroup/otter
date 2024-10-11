@@ -23,7 +23,8 @@ const config = [
           type: 'element',
           style: 'kebab-case'
         }
-      ]
+      ],
+      '@angular-eslint/use-lifecycle-interface': 'error'
     }
   }
 ];
