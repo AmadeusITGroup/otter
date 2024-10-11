@@ -12,6 +12,7 @@ import { browser } from 'protractor';
  * flow with `initFetchManager()`
  *
  * You can ignore the waiting of fetchs by setting `browser.ignoreSynchronization` to `true`
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function waitForOtterStable() {
   await browser.waitForAngular();
@@ -25,6 +26,7 @@ export async function waitForOtterStable() {
 /**
  * This function initiliaze the FetchManager. Set `window.fetch` variable with a custom behaviour in order to count the
  * fetch calls.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function initFetchManager() {
   const fetchManager = fs.readFileSync(
@@ -38,6 +40,7 @@ export async function initFetchManager() {
 
 /**
  * This function stops the FetchManager. Reset `window.fetch` variable with its native behaviour.
+ * @deprecated Will be removed in v13, please use Playwright instead
  */
 export async function stopFetchManager() {
   await browser.executeScript('window.fetchManager.getInstance().stop();');

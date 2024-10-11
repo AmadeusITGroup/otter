@@ -18,6 +18,7 @@ type ImpervaCaptchaMessageData = {
  * Today, only the stop and restart of the timer is supported which match the following events:
  * - stop: stop the timeout timer
  * - start: reset the timer and restart it
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export type TimeoutStatus = 'timeoutStopped' | 'timeoutStarted';
 

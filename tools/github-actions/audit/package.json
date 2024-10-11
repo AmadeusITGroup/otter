@@ -16,8 +16,15 @@
   ],
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/exec": "^1.1.1",
+    "@actions/exec": "^1.1.1"
+  },
+  "peerDependencies": {
     "audit-types": "~0.6.0"
+  },
+  "peerDependenciesMeta": {
+    "audit-types": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~18.3.0",

@@ -1,9 +1,4 @@
-@use './style/design-factory-custom' as design-factory with (
-  $prefix: bs-,
-  $df-spinner-circumference: 2rem,
-  $font-path: '@design-factory/design-factory/assets/fonts',
-  $utilities-bg: ()
-);
+@use '@design-factory/design-factory/design-factory.css';
 @import "highlight.js/styles/github.css";
 @import "./style/theme.scss";
 
@@ -12,7 +7,7 @@ code {
 }
 
 header {
-  font-family: design-factory.$headings-font-family;
+  font-family: var(--df-body-font-family);
 }
 
 h1 {
