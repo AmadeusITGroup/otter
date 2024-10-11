@@ -23,10 +23,6 @@ You need to install '@o3r/schematics' package to be able to use the eslint-confi
   throw reason;
 };
 
-/**
- * Add Otter eslint-config to an Angular Project
- * @param options
- */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
@@ -36,6 +32,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       'eslint',
       'eslint-import-resolver-typescript',
       'eslint-plugin-import',
+      '@eslint-community/eslint-plugin-eslint-comments',
       'eslint-plugin-sort-export-all',
       'eslint-plugin-import-newlines',
       'eslint-plugin-unused-imports',
@@ -57,7 +54,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     } = await import('@o3r/schematics');
     const depsInfo = getO3rPeerDeps(path.resolve(__dirname, '..', '..', 'package.json'), true, /^@(?:o3r|ama-sdk|eslint-)/);
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // eslint-disable-next-line @typescript-eslint/naming-convention -- Type from dynamic import
     const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
     const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
     const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
@@ -97,7 +94,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
 
 /**
  * Add Otter eslint-config to an Angular Project
- * @param options
+ * @param options Options for the schematic
  */
 export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
   const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));

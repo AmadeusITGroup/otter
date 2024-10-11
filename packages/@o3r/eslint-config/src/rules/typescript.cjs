@@ -1,4 +1,5 @@
 const eslint = require('@eslint/js');
+const comments = require('@eslint-community/eslint-plugin-eslint-comments/configs');
 const o3r = require('@o3r/eslint-plugin');
 const stylistic = require('@stylistic/eslint-plugin');
 const angular = require('angular-eslint');
@@ -6,6 +7,7 @@ const importPlugin = require('eslint-plugin-import');
 const jsdoc = require('eslint-plugin-jsdoc');
 const unicorn = require('eslint-plugin-unicorn');
 const typescript = require('typescript-eslint');
+const commentsConfigOverrides = require('./typescript/comments.cjs');
 const angularConfigOverrides = require('./typescript/eslint-angular.cjs');
 const typescriptConfigOverrides = require('./typescript/eslint-typescript.cjs');
 const eslintConfigOverrides = require('./typescript/eslint.cjs');
@@ -94,8 +96,10 @@ const configArray = [
     name: 'import/typescript',
     ...importPlugin.flatConfigs.typescript
   },
+  comments.recommended,
   // All recommended first as the order has an importance
   ...eslintConfigOverrides,
+  ...commentsConfigOverrides,
   ...typescriptConfigOverrides,
   ...angularConfigOverrides,
   ...jsdocConfigOverrides,
