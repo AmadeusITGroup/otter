@@ -1,10 +1,9 @@
-import globals from 'globals';
+import o3rTemplate from '@o3r/eslint-config/template';
 import nxPlugin from '@nx/eslint-plugin';
 import o3rConfig from '@o3r/eslint-config';
-import o3rTemplate from '@o3r/eslint-config/template';
 import o3rPlugin from '@o3r/eslint-plugin';
+import globals from 'globals';
 import jsonParser from 'jsonc-eslint-parser';
-import yamlParser from 'yaml-eslint-parser';
 
 export default [
   ...o3rConfig,
@@ -22,8 +21,7 @@ export default [
       '**/packaged-action/',
       '.pnp.js',
       '.vscode',
-      '**/src/**/package.json',
-      '!.yarnrc.yml'
+      '**/src/**/package.json'
     ]
   },
   {
@@ -52,13 +50,6 @@ export default [
     files: ['**/*.json'],
     languageOptions: {
       parser: jsonParser
-    }
-  },
-  {
-    name: '@o3r/parser/yaml',
-    files: ['**/*.y{a,}ml'],
-    languageOptions: {
-      parser: yamlParser
     }
   },
   {

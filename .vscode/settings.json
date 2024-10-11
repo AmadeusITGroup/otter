@@ -90,5 +90,6 @@
   "files.trimTrailingWhitespace": true,
   "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
-  "typescript.tsserver.experimental.useVsCodeWatcher": false
+  "typescript.tsserver.experimental.useVsCodeWatcher": false,
+  "editor.foldingImportsByDefault": true
 }

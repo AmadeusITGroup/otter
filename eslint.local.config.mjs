@@ -1,6 +1,11 @@
+import {
+  dirname,
+} from 'node:path';
+import {
+  fileURLToPath,
+} from 'node:url';
 import o3rPlugin from '@o3r/eslint-plugin';
-import { dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import yamlParser from 'yaml-eslint-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 // __dirname is not defined in ES module scope
@@ -17,6 +22,14 @@ export default [
       }
     }
   },
+  {
+    name: '@o3r/parser/yaml',
+    files: ['**/*.y{a,}ml'],
+    languageOptions: {
+      parser: yamlParser
+    }
+  },
+
   {
     name: '@o3r/framework/yarnrc',
     files: ['.yarnrc.yml'],

@@ -12,7 +12,9 @@ const config = [
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/comma-dangle': [
         'error',
-        'never'
+        {
+          imports: 'always-multiline'
+        }
       ],
       '@stylistic/indent': [
         'error',
@@ -56,7 +58,7 @@ const config = [
         }
       ],
       '@stylistic/no-extra-semi': 'error',
-      '@stylistic/no-multiple-empty-lines': 'off',
+      '@stylistic/no-multiple-empty-lines': 'error',
       '@stylistic/quotes': [
         'error',
         'single',

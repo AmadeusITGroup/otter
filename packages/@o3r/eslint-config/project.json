@@ -39,7 +39,7 @@
       },
       "dependsOn": [],
       "inputs": [
-        "{projectRoot}/rules/**/*",
+        "{projectRoot}/src/**/*",
         "!{projectRoot}/**/*.spec.ts"
       ]
     },

@@ -1,22 +1,27 @@
+import * as path from 'node:path';
 import {
   applyToSubtree,
   chain,
   noop,
   type Rule,
   type SchematicContext,
-  type Tree
+  type Tree,
 } from '@angular-devkit/schematics';
-import * as path from 'node:path';
-import { updateVscode } from './vscode/index';
-import type { NgAddSchematicsSchema } from './schema';
-import { updateEslintConfig } from './eslint/index';
+import {
+  updateEslintConfig,
+} from './eslint/index';
+import type {
+  NgAddSchematicsSchema,
+} from './schema';
+import {
+  updateVscode,
+} from './vscode/index';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/eslint-config has failed.
 You need to install '@o3r/schematics' package to be able to use the eslint-config package. Please run 'ng add @o3r/schematics' .`);
   throw reason;
 };
-
 
 /**
  * Add Otter eslint-config to an Angular Project
@@ -29,6 +34,11 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       '@stylistic/eslint-plugin',
       'angular-eslint',
       'eslint',
+      'eslint-import-resolver-typescript',
+      'eslint-plugin-import',
+      'eslint-plugin-sort-export-all',
+      'eslint-plugin-import-newlines',
+      'eslint-plugin-unused-imports',
       'eslint-plugin-jsdoc',
       'eslint-plugin-prefer-arrow',
       'eslint-plugin-unicorn',
