@@ -62,9 +62,9 @@
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@ngrx/entity": "~18.0.0",
     "@ngrx/store": "~18.0.0",
-    "@nx/eslint": "~19.8.0",
-    "@nx/eslint-plugin": "~19.8.0",
-    "@nx/js": "~19.8.0",
+    "@nx/eslint": "~20.0.3",
+    "@nx/eslint-plugin": "~20.0.3",
+    "@nx/js": "~20.0.3",
     "@o3r/build-helpers": "workspace:^",
     "@o3r/core": "workspace:^",
     "@o3r/eslint-config-otter": "workspace:^",
@@ -91,12 +91,12 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "nx": "~19.8.0",
+    "nx": "~20.0.3",
     "rxjs": "^7.8.1",
     "ts-jest": "~29.2.0",
     "ts-node": "~10.9.2",
     "typescript": "~5.5.4",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.14.10"
   },
   "schematics": "./collection.json",
   "engines": {

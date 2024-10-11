@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "@angular-eslint/eslint-plugin": "~18.3.0",
-    "@nx/eslint-plugin": "~19.8.0",
+    "@nx/eslint-plugin": "~20.0.3",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/node": "^20.0.0",
@@ -51,7 +51,7 @@
     "eslint-plugin-jsdoc": "~48.11.0",
     "eslint-plugin-prefer-arrow": "~1.2.3",
     "eslint-plugin-unicorn": "^54.0.0",
-    "nx": "~19.8.0",
+    "nx": "~20.0.3",
     "typescript": "~5.5.4"
   }
 }

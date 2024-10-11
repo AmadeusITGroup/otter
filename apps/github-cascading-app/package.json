@@ -35,10 +35,10 @@
     "@angular/core": "~18.2.0",
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
-    "@nx/eslint": "~19.8.0",
-    "@nx/eslint-plugin": "~19.8.0",
-    "@nx/jest": "~19.8.0",
-    "@nx/js": "~19.8.0",
+    "@nx/eslint": "~20.0.3",
+    "@nx/eslint-plugin": "~20.0.3",
+    "@nx/jest": "~20.0.3",
+    "@nx/js": "~20.0.3",
     "@o3r/eslint-config-otter": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
@@ -64,13 +64,13 @@
     "jest-preset-angular": "~14.2.0",
     "jsonc-eslint-parser": "~2.4.0",
     "nock": "^13.0.5",
-    "nx": "~19.8.0",
+    "nx": "~20.0.3",
     "rxjs": "^7.8.1",
     "smee-client": "^2.0.0",
     "ts-jest": "~29.2.0",
     "tslib": "^2.6.2",
     "typescript": "~5.5.4",
-    "zone.js": "~0.15.0"
+    "zone.js": "~0.14.10"
   },
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
