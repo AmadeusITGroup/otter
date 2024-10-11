@@ -34,6 +34,7 @@
   "devDependencies": {
     "@ama-terasu/core": "workspace:^",
     "@angular-eslint/eslint-plugin": "~18.3.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",
     "@o3r/build-helpers": "workspace:^",

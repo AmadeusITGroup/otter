@@ -78,6 +78,7 @@
     "@angular/compiler": "~18.2.0",
     "@commitlint/cli": "^19.0.0",
     "@commitlint/config-conventional": "^19.0.0",
+    "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint-plugin": "~19.5.0",
     "@nx/jest": "~19.5.0",
     "@o3r/eslint-config": "workspace:^",
