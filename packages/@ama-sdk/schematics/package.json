@@ -63,7 +63,7 @@
     "@angular-devkit/schematics-cli": "^18.0.5",
     "@angular/cli": "~18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@openapitools/openapi-generator-cli": "~2.13.0",
+    "@openapitools/openapi-generator-cli": "~2.14.0",
     "@schematics/angular": "~18.2.0"
   },
   "dependencies": {
@@ -90,7 +90,7 @@
     "@o3r/schematics": "workspace:^",
     "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@openapitools/openapi-generator-cli": "~2.13.0",
+    "@openapitools/openapi-generator-cli": "~2.14.0",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin-ts": "~2.4.0",
     "@types/jest": "~29.5.2",
