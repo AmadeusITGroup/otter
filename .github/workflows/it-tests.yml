@@ -26,7 +26,7 @@ jobs:
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - name: Setup verdaccio once for all tests
@@ -41,7 +41,7 @@ jobs:
         run: zip -r verdaccio.zip ./.verdaccio
         shell: bash
       - name: Publish verdaccio storage
-        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
+        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         with:
           name: verdaccio
           path: verdaccio.zip
@@ -63,7 +63,7 @@ jobs:
       ENFORCED_PACKAGE_MANAGER: ${{ matrix.packageManager }}
       PREPARE_TEST_ENV_TYPE: ${{ matrix.testEnvironment }}
     steps:
-      - uses: actions/checkout@d632683dd7b4114ad314bca15554477dd762a938 # v4.2.0
+      - uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
       - uses: ./tools/github-actions/download-build-output
       - uses: ./tools/github-actions/setup
       - shell: bash
@@ -77,7 +77,7 @@ jobs:
         run: echo "currentMonth=$(date +'%Y-%m')" >> $GITHUB_ENV
         shell: bash
       - name: Cache test-app yarn
-        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+        uses: actions/cache@3624ceb22c1c5a301c8db4169662070a689d9ea8 # v4.1.1
         with:
           path: |
             .cache/test-app
@@ -120,13 +120,13 @@ jobs:
         shell: bash
       - name: Publish generated tests environment on failure
         if: failure() && steps.it-tests.conclusion == 'failure'
-        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
+        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         with:
           name: it-tests-${{ matrix.os }}-${{ matrix.packageManager }}
           path: it-tests.zip
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@50769540e7f4bd5e21e526ee35c689e35e0d6874 # v4.4.0
+        uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
         with:
           name: it-reports-${{ matrix.os }}-${{ matrix.packageManager }}
           path: 'packages/**/dist-test/it-report.xml'

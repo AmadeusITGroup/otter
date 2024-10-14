@@ -1,5 +1,5 @@
 import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
-import type { GenerateCssSchematicsSchema } from '../../../builders/generate-css/schema';
+import type { GenerateStyleSchematicsSchema } from '../../../builders/generate-style/schema';
 import { posix } from 'node:path';
 
 /**
@@ -15,7 +15,8 @@ export const registerGenerateCssBuilder = (projectName?: string, taskName = 'gen
     const workspaceRootPath = workspaceProject?.root || '.';
     const srcBasePath = workspaceProject?.sourceRoot || posix.join(workspaceRootPath, 'src');
     const themeFile = posix.join(srcBasePath, 'style', 'theme.scss');
-    const taskOptions: GenerateCssSchematicsSchema = {
+    const taskOptions: GenerateStyleSchematicsSchema = {
+      language: 'css',
       defaultStyleFile: themeFile,
       templateFile: posix.join(workspaceRootPath, 'design-token.template.json'),
       designTokenFilePatterns: [

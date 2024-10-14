@@ -39,6 +39,10 @@ export interface DesignTokenGroupExtensions {
    * In case of complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it.
    */
   o3rRatio?: number;
+  /**
+   * Indicate that the token is expected to be overridden by external rules
+   */
+  o3rExpectOverride?: boolean;
 }
 
 /** Design Token Extension fields supported by the default renderer */
