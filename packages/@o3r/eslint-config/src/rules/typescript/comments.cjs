@@ -8,7 +8,12 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
-      '@eslint-community/eslint-comments/require-description': 'error'
+      '@eslint-community/eslint-comments/require-description': [
+        'error',
+        {
+          ignore: ['eslint-enable']
+        }
+      ]
     }
   }
 ];

@@ -91,5 +91,12 @@
   "files.trimFinalNewlines": false,
   "otter.extract.styling.prefix": "o3r",
   "typescript.tsserver.experimental.useVsCodeWatcher": false,
-  "editor.foldingImportsByDefault": true
+  "editor.foldingImportsByDefault": true,
+  "eslint.rules.customizations": [
+    { "rule": "@stylistic/*", "fixable": true, "severity": "off" },
+    { "rule": "!@stylistic/*", "fixable": true, "severity": "info" }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
 }
