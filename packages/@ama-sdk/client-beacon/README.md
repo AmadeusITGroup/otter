@@ -5,7 +5,7 @@
 
 This package exposes the **Api Beacon Client** from an SDK based on [@ama-sdk/core](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core).
 
-This package contains all the [Beacon Plugins](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/client-beacon/src/plugins), helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
+This package contains helpers and object definitions to dialog with an API following the `ama-sdk` architecture.
 
 > [!TIP]
 > Please refer to the [SDK initializer](https://www.npmjs.com/package/@ama-sdk/create) package for getting started with an API client SDK based on `ama-sdk` architecture.
