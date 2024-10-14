@@ -43,7 +43,10 @@
           "fonts": true
         },
         "buildOptimizer": true,
-        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "styles": [
           {
             "inject": true,
@@ -92,7 +95,10 @@
           "fonts": true
         },
         "buildOptimizer": true,
-        "polyfills": "apps/chrome-devtools/src/polyfills.ts",
+        "polyfills": [
+          "zone.js",
+          "@angular/localize/init"
+        ],
         "styles": [
           {
             "inject": true,
