@@ -9,6 +9,7 @@ import { coerce, Range, satisfies } from 'semver';
 import type { PackageJson } from 'type-fest';
 import type { MetadataComparator, MigrationData, MigrationFile, MigrationMetadataCheckBuilderOptions } from './metadata-comparator.interface';
 import { getFilesFromRegistry, getLatestMigrationMetadataFile, getLocalMetadataFile, getVersionRangeFromLatestVersion } from './metadata-files.helper';
+import type { CmsMetadataData } from '../../interfaces';
 
 function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
   lastMetadataFile: MetadataFile,
@@ -134,13 +135,31 @@ Detection of package manager runner will fallback on the one used to execute the
   context.logger.info(`Fetching ${packageLocator} from the registry.`);
   const packageJsonFileName = 'package.json';
   const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath, packageJsonFileName], packageManager, context.workspaceRoot);
+  const previousPackageJson = JSON.parse(previousFile[packageJsonFileName]) as PackageJson & {cmsMetadata: CmsMetadataData};
+  context.logger.info(`Successfully fetched ${packageLocator} with version ${previousPackageJson.version}.`);
 
-  context.logger.info(`Resolved metadata from version ${JSON.parse(previousFile[packageJsonFileName]).version}.`);
+  let metadata: MetadataFile;
+  if (previousFile[options.metadataPath]) {
+    metadata = JSON.parse(previousFile[options.metadataPath]) as MetadataFile;
+    context.logger.info(`Resolved metadata from "${options.metadataPath}".`);
+  } else {
+    const previousMetadataEntryFromPackageJson = previousPackageJson.cmsMetadata?.[options.packageJsonEntry];
+    if (previousMetadataEntryFromPackageJson) {
+      const previousFileFromPackageJson = await getFilesFromRegistry(packageLocator, [previousMetadataEntryFromPackageJson], packageManager, context.workspaceRoot);
+      metadata = JSON.parse(previousFileFromPackageJson[previousMetadataEntryFromPackageJson]) as MetadataFile;
+      context.logger.info(`Resolved metadata from "${previousMetadataEntryFromPackageJson}".`);
+    } else {
+      return {
+        success: false,
+        error: `Couldn't find previous metadata file from "${options.metadataPath}".
+          Make sure the path is correct or that the field 'cmsMetadata.${options.packageJsonEntry}' is set in your package.json`
+      };
+    }
+  }
 
   const metadataPathInWorkspace = posix.join(projectRoot, options.metadataPath);
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);
 
-  const metadata = JSON.parse(previousFile[options.metadataPath]) as MetadataFile;
 
   const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, comparator);
 
