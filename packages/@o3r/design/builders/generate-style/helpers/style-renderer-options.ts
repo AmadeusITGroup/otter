@@ -10,6 +10,8 @@ import {
   getSassStyleContentUpdater,
   getSassTokenDefinitionRenderer,
   getSassTokenValueRenderer,
+  getTokenSorterByName,
+  getTokenSorterByRef,
   type SassTokenDefinitionRendererOptions,
   type SassTokenValueRendererOptions,
   type TokenKeyRenderer,
@@ -122,8 +124,23 @@ export const getStyleRendererOptions = (tokenVariableNameRenderer: TokenKeyRende
     }
   })(options.variableType || options.language);
 
+  /** Sorting strategy of variables based on selected language */
+  const tokenListTransforms = ((language) => {
+    switch (language) {
+      case 'scss':
+      case 'sass': {
+        return [getTokenSorterByName, getTokenSorterByRef];
+      }
+      case 'css':
+      default: {
+        return [getTokenSorterByName];
+      }
+    }
+  })(options.variableType || options.language);
+
   /** Option to be used by the style renderer */
   return {
+    tokenListTransforms,
     writeFile: writeFileWithLogger,
     styleContentUpdater,
     determineFileToUpdate,

@@ -1,6 +1,9 @@
 {
   "$schema": "../../schemas/design-token.schema.json",
   "example": {
+    "post-ref": {
+      "$value": "{example.var1}"
+    },
     "var1": {
       "$type": "color",
       "$value": "#000"
