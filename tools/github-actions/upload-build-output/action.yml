@@ -11,7 +11,7 @@ runs:
   steps:
     - run: zip -q -r ${{ inputs.artifactName }}.zip . -i "apps/*/dist/*" "packages/*/dist/*" -x "*/node_modules/*" ".cache/*"
       shell: bash
-    - uses: actions/upload-artifact@84480863f228bb9747b473957fcc9e309aa96097 # v4.4.2
+    - uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
       with:
         name: ${{ inputs.artifactName }}
         path: ${{ inputs.artifactName }}.zip
