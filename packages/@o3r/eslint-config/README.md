@@ -19,3 +19,20 @@ Recommended ESLint configuration for an Otter project with [ESLint FlatConfig](h
 ```shell
 ng add @o3r/eslint-config
 ```
+
+## How to use
+
+Example of configuration:
+```javascript
+import o3rConfig from '@o3r/eslint-config';
+
+export default [
+  ...o3rConfig,
+  {
+    name: 'my-project-rules',
+    rules: {
+      // ...
+    }
+  }
+];
+```

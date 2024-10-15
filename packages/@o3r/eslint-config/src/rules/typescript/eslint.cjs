@@ -1,3 +1,6 @@
+const eslint = require('@eslint/js');
+const { convertWarningsToErrors } = require('../utils.cjs');
+
 /**
  * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigArray}
  */
@@ -8,6 +11,7 @@ const config = [
       '**/*.{c,m,}{t,j}s'
     ],
     rules: {
+      ...convertWarningsToErrors(eslint.configs.recommended),
       'camelcase': 'error',
       'complexity': 'off',
       'constructor-super': 'error',
@@ -66,10 +70,8 @@ const config = [
       'no-bitwise': 'error',
       'no-caller': 'error',
       'no-console': 'error',
-      'no-delete-var': 'error',
       'no-dupe-args': 'error',
       'no-dupe-keys': 'error',
-      'no-duplicate-case': 'error',
       'no-empty': 'off',
       'no-empty-function': 'off',
       'no-eval': 'error',
@@ -93,7 +95,6 @@ const config = [
       'no-setter-return': 'error',
       'no-shadow': 'off',
       'no-this-before-super': 'error',
-      'no-throw-literal': 'error',
       'no-undef': 'error',
       'no-undef-init': 'error',
       'no-underscore-dangle': [
