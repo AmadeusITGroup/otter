@@ -72,7 +72,10 @@ jobs:
           releaseBranchRegExp: 'release\/(0|[1-9]\d*)\.(0|[1-9]\d*)(\.0-(?:next|prerelease|rc))?$'
       - name: Create release
         if: github.event_name != 'pull_request' && github.event_name != 'merge_group'
-        run: gh release create v${{ steps.newVersion.outputs.nextVersionTag }} --generate-notes ${{ contains( steps.newVersion.outputs.nextVersionTag, '-' ) && '--prerelease' || '' }} --target ${{ github.ref_name }}
+        uses: ./tools/github-actions/release
+        with:
+          version: ${{ steps.newVersion.outputs.nextVersionTag }}
+          target: ${{ github.ref_name }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
