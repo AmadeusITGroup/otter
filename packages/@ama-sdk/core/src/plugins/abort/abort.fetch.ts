@@ -23,6 +23,7 @@ const isPromise = (result: boolean | void | Promise<void> | Promise<boolean>): r
 /**
  * Abort callback
  * Returns `true` to abort a request (or access directly to the controller to cancel fetch request)
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @example Immediate abort on URL match
  * ```typescript
  * const abortCondition: AbortCallback = ({url}) => url.endsWith('pet');

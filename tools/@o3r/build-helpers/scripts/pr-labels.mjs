@@ -1,6 +1,7 @@
 import { EOL } from 'node:os';
 import { spawnSync } from 'node:child_process';
-import { promises as fs, existsSync } from 'node:fs';
+import { promises as fs, existsSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import minimist from 'minimist'
 
@@ -13,42 +14,48 @@ const defaultConfig = {
   ignoreProjectForLabels: []
 };
 
+/** @type {Record<string, RegExp[]>} */
+const messageTagMaps = {
+  enhancement: [
+    /^feat(ures?)?\b/
+  ],
+  bug: [
+    /^(bug)?fix(es)?\b/
+  ],
+  'breaking change': [
+    /\bbreaking([\- ]changes?)?\b/
+  ],
+  documentation: [
+    /\bdoc(s|umentation)?\b/,
+    /\breadme\b/i
+  ],
+  deprecate: [
+    /^deprecate\b/
+  ]
+};
+
 /**
  * Get labels from the git log output command
  *
  * @param {string} targetBranch
- * @return {Promise<string[]>}
+ * @return {string[]}
  */
-async function getLabelsFromMessage(targetBranch, config) {
+function getLabelsFromMessage(targetBranch, config) {
   if (!config.enableCommitMessageLabel) {
     return [];
   }
 
-  const commitLabels = [];
+  /** @type {Set<string>} */const commitLabels = new Set();
   const commitMessages = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--pretty=%B'], { encoding: 'utf-8', shell: true }).stdout.trim() || '';
   const lines = commitMessages?.split(EOL) || [];
 
-  lines.forEach((line) => {
-    if (line.match(/^feat(ures?)?\b/)) {
-      commitLabels.push('enhancement');
-    } else if (line.match(/^(bug)?fix(es)?\b/)) {
-      commitLabels.push('bug');
-    }
+  lines.forEach((line) =>
+    Object.entries(messageTagMaps)
+      .filter(([, regExps]) => regExps.some((r) => r.test(line)))
+      .forEach(([tag]) => commitLabels.add(tag))
+  );
 
-    if (line.match(/\bbreaking([- ]changes?)?\b/)) {
-      commitLabels.push('breaking change');
-    }
-
-    const docRegExps = [
-      /\bdoc(s|umentation)?\b/,
-      /\breadme\b/i
-    ];
-    if (docRegExps.some((docRegExp) => docRegExp.test(line))) {
-      commitLabels.push('documentation');
-    }
-  });
-
-  return commitLabels;
+  return [...commitLabels];
 }
 
 /**
@@ -65,28 +72,25 @@ async function getLabelsFromProjects(targetBranch, config) {
   const /** @type {string[]} */ listTouchedFiles = spawnSync('git', ['log', `${targetBranch}..HEAD`, '--name-only', '--pretty=format:""'], { encoding: 'utf-8', shell: true }).stdout.trim()
     .split(EOL)
     .map((file) => file.replace(/\\/g, '/')) || [];
-  const commitMessages = spawnSync('yarn', ['nx', 'show', 'projects', '--affected', `--base=${targetBranch}`], { encoding: 'utf-8', shell: true }).stdout.trim() || '';
-  const lines = commitMessages?.split(EOL).filter((line) => !!line) || [];
-  const labels = [];
-  // console.log(lines);
 
-  for(const projectName of lines) {
-    const projectString = spawnSync('yarn', ['nx', 'show', 'project', projectName, '--json'], { encoding: 'utf-8', shell: true }).stdout.trim();
-    try {
-      const project = JSON.parse(projectString);
-      if (listTouchedFiles.some((file) => file.startsWith(project.root))) {
-        const packageJson = join(project.root, 'package.json');
-        const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
-        if (!packageName) {
-          process.stderr.write(`No package name found for ${projectName}${EOL}`);
-          continue;
-        }
-        if (!config.ignoredProjects.includes(packageName)) {
-          labels.push(`${config.projectLabelPrefix}${packageName}`);
-        }
+  const tempDirPath = join(tmpdir(), 'pr-labels');
+  const graphJsonPath = join(tempDirPath, 'graph.json')
+  spawnSync('yarn', ['nx', 'graph', '--file', graphJsonPath], { encoding: 'utf-8', shell: true });
+  const { graph } = JSON.parse(await fs.readFile(graphJsonPath, { encoding: 'utf-8' }));
+  rmSync(tempDirPath, { recursive: true });
+  const projects = Object.entries(graph.nodes);
+  const labels = [];
+  for(const [projectName, { data: project }] of projects) {
+    if (listTouchedFiles.some((file) => file.startsWith(project.root))) {
+      const packageJson = join(project.root, 'package.json');
+      const /** @type {string | undefined} */ packageName = JSON.parse(await fs.readFile(packageJson, { encoding: 'utf-8' })).name;
+      if (!packageName) {
+        process.stderr.write(`No package name found for ${projectName}${EOL}`);
+        continue;
       }
-    } catch(e) {
-      process.stderr.write(`Failed to analyze ${projectName}${EOL}`);
+      if (!config.ignoredProjects.includes(packageName)) {
+        labels.push(`${config.projectLabelPrefix}${packageName}`);
+      }
     }
   }
 
@@ -121,7 +125,7 @@ void(async () => {
 
   const config = await getConfig();
   const target = `remotes/origin/${args.target}`;
-  const labelFromMessage = await getLabelsFromMessage(target, config);
+  const labelFromMessage = getLabelsFromMessage(target, config);
   const labelFromProject =  !config.ignoreProjectForLabels.some((label) => labelFromMessage.includes(label)) ?
     await getLabelsFromProjects(target, config) :
     [];

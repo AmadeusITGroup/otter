@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.build.json",
+  "compilerOptions": {
+    "sourceMap": true,
+    "incremental": true,
+    "composite": true,
+    "rootDir": "src",
+    "module": "CommonJS",
+    "tsBuildInfoFile": "./build/tsconfig.tsbuildinfo",
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["**/*.spec.ts"]
+}

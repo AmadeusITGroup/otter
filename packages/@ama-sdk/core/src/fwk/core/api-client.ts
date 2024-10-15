@@ -28,6 +28,7 @@ export interface RequestOptionsParameters {
 
 /**
  * API Client used by the SDK's APIs to call the server
+ * The list of official clients is available in @ama-sdk/core {@link https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/core/README.md#available-api-client|readme}
  */
 export interface ApiClient {
 

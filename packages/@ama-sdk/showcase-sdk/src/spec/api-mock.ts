@@ -1,4 +1,5 @@
-import { ApiClient, ApiFetchClient, BaseApiFetchClientConstructor, isApiClient } from '@ama-sdk/core';
+import { ApiClient, isApiClient } from '@ama-sdk/core';
+import { ApiFetchClient, BaseApiFetchClientConstructor } from '@ama-sdk/client-fetch';
 
 import * as api from '../api';
 

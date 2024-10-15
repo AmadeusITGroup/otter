@@ -72,7 +72,7 @@ A component will have to handle different types of configurations.
 ## How to set up the configuration service
 
 We support two ways of setting up the configuration service (`ConfigurationBaseService`). It can be at the bootstrap of the
-application for a static configuration or at any time during application execution for a dynamic configuration. 
+application for a static configuration or at any time during application execution for a dynamic configuration.
 
 ### Static configuration (override)
 
@@ -89,7 +89,7 @@ components when they are instantiated.
 
 ### Dynamic configuration
 
-- The default configuration is extracted by __@o3r/components:extractor__ and bundled in a JSON file. You may have a CMS (your own or a plugin) 
+- The default configuration is extracted by __@o3r/components:extractor__ and bundled in a JSON file. You may have a CMS (your own or a plugin)
   that would take this configuration metadata as an input. For example, if you have a CMS plugin, you can expose the JSON file in this plugin.
 
 - In the configuration UI, the Business Analyst will modify the configuration of components which will be exposed (in the server) as dynamic content of the app.
@@ -170,7 +170,7 @@ The configuration should extend the interface of the configuration that is suppo
 > The Otter VSCode extension offers a command to add configuration to an existing component. To do so, right-click a component file (ending with *.component.ts),
 > select "Enrich Otter component", then the option "Add configuration to component".
 
-It can also contain nested configurations which need to extend `NestedConfiguration`. 
+It can also contain nested configurations which need to extend `NestedConfiguration`.
 This interface is part of the @o3r/core package, with only primitive types allowed inside (string | boolean | number) or an array of primitive types.
 
 OPTIONAL types are NOT supported and will be ignored by the extractor.
@@ -445,7 +445,6 @@ export class MyComponent implements DynamicConfigurableWithSignal<MyConfig> {
   public readonly configSignal = configSignal(this.config, MY_CONFIG_ID, MY_DEFAULT_CONFIG, this.configurationService);
 }
 ```
-
 ### Application
 
 To use the configuration mechanism, the first step is to inject the configuration module into our application module.

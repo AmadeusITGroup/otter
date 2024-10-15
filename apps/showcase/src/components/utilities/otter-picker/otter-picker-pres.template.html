@@ -10,7 +10,7 @@
     <button ngbDropdownItem (click)="selectOtter('')">None</button>
     @for (otter of otters; track $index) {
       <button ngbDropdownItem (click)="selectOtter(otter)">
-        <img [src]="baseUrl+otter" width="45" height="45" />
+        <img [src]="baseUrl+otter" width="45" height="45" loading="lazy" />
       </button>
     }
   </div>

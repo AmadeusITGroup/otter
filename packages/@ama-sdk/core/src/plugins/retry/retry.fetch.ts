@@ -5,6 +5,7 @@ import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
  * Function to run to determine if we need to retry the call
  * @param numberOfRetry
  * @param condition
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  * @example
  * ```typescript
  * const condition = async (context: FetchPluginContext, data?: Response, error?: Error) => {
@@ -26,6 +27,7 @@ export type RetryConditionType = (context: FetchPluginContext, data?: Response, 
 
 /**
  * Plugin to Retry a fetch call
+ * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class RetryFetch implements FetchPlugin {
   /** Number of retry */

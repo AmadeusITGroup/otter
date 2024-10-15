@@ -9,13 +9,13 @@ import {
 import { isImported } from '@schematics/angular/utility/ast-utils';
 import { addRootImport, addRootProvider } from '@schematics/angular/utility';
 import * as ts from 'typescript';
+import type { NgAddSchematicsSchema } from '../../ng-add/schema';
 
 /**
  * Update app.module file with api manager, if needed
  * @param options
- * @param options.projectName
  */
-export function updateApiDependencies(options: {projectName?: string | undefined}): Rule {
+export function updateApiDependencies(options: NgAddSchematicsSchema): Rule {
 
   const updateAppModule: Rule = (tree: Tree, context: SchematicContext) => {
     const additionalRules: Rule[] = [];
@@ -61,7 +61,8 @@ export function updateApiDependencies(options: {projectName?: string | undefined
 
     addImportToModuleFile('ApiManagerModule', '@o3r/apis-manager');
 
-    insertBeforeModule(`
+    if (!options.skipCodeSample) {
+      insertBeforeModule(`
 export function apiManagerFactory(): ApiManager {
   const apiClient = new ApiFetchClient({
     basePath: PROXY_SERVER,
@@ -71,10 +72,11 @@ export function apiManagerFactory(): ApiManager {
   return new ApiManager(apiClient);
 }`);
 
-    addProviderToModuleFile('API_TOKEN', '@o3r/apis-manager', 'useFactory: apiManagerFactory');
+      addProviderToModuleFile('API_TOKEN', '@o3r/apis-manager', 'useFactory: apiManagerFactory');
+      insertImportToModuleFile('ApiFetchClient', '@ama-sdk/client-fetch', false);
+    }
 
     insertImportToModuleFile('ApiManager', '@o3r/apis-manager', false);
-    insertImportToModuleFile('ApiFetchClient', '@ama-sdk/core', false);
     insertImportToModuleFile('ApiKeyRequest', '@ama-sdk/core', false);
 
     tree.commitUpdate(recorder);
