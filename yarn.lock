@@ -15498,6 +15498,7 @@ __metadata:
     "@o3r/eslint-config-otter": "workspace:~"
     "@o3r/eslint-plugin": "workspace:~"
     "@stylistic/eslint-plugin-ts": "npm:~2.4.0"
+    "@types/jest": "npm:~29.5.2"
     "@types/node": "npm:^20.0.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.14.1"
     "@typescript-eslint/parser": "npm:^7.14.1"
@@ -15509,7 +15510,11 @@ __metadata:
     eslint-plugin-jsdoc: "npm:~48.11.0"
     eslint-plugin-prefer-arrow: "npm:~1.2.3"
     eslint-plugin-unicorn: "npm:^54.0.0"
+    jest: "npm:~29.7.0"
+    jest-junit: "npm:~16.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
+    ts-jest: "npm:~29.2.0"
+    tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
   peerDependencies:
     audit-types: ~0.6.0
@@ -21132,6 +21137,7 @@ __metadata:
     eslint-plugin-unicorn: "npm:^54.0.0"
     jsonc-eslint-parser: "npm:~2.4.0"
     semver: "npm:^7.5.2"
+    tslib: "npm:^2.6.2"
     typescript: "npm:~5.5.4"
   languageName: unknown
   linkType: soft
