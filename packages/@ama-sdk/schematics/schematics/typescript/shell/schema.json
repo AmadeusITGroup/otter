@@ -23,6 +23,24 @@
       "type": "string",
       "description": "Directory where to generate the SDK"
     },
+    "specPackageName": {
+      "type": "string",
+      "description": "The npm package name where the spec file can be fetched"
+    },
+    "specPackageRegistry": {
+      "type": "string",
+      "description": "The npm registry where the spec file can be fetched"
+    },
+    "specPackagePath": {
+      "type": "string",
+      "description": "The path inside the package where to find the spec file",
+      "default": "openapi.yml"
+    },
+    "specPackageVersion": {
+      "type": "string",
+      "description": "The version to target for the npm package where the spec file can be fetched",
+      "default": "latest"
+    },
     "skipInstall": {
       "type": "boolean",
       "description": "Skip NPM install",

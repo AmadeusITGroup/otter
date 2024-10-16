@@ -1,3 +1,5 @@
+import type { OpenApiToolsConfiguration, OpenApiToolsGenerator, PathObject } from '@ama-sdk/core';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
 import {
   apply,
   chain,
@@ -11,56 +13,21 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import type { PathObject } from '@ama-sdk/core';
 import { existsSync, readFileSync } from 'node:fs';
 import * as path from 'node:path';
 import { URL } from 'node:url';
 import * as semver from 'semver';
+import type { JsonObject } from 'type-fest';
 
 import { OpenApiCliOptions } from '../../code-generator/open-api-cli-generator/open-api-cli.options';
 import { treeGlob } from '../../helpers/tree-glob';
 import { NgGenerateTypescriptSDKCoreSchematicsSchema } from './schema';
 import { OpenApiCliGenerator } from '../../code-generator/open-api-cli-generator/open-api-cli.generator';
+import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-referenced-files';
 import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
 const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
-
-// TODO: Change to `open-api` when #1735 is done
-/** Name of the specification file copied locally (without extension) */
-export const LOCAL_SPEC_FILENAME = 'swagger-spec';
-/** Extension of the Specification file in YAML format */
-export const SPEC_YAML_EXTENSION = 'yaml';
-// TODO: Change to `json` when #1735 is done
-/** Extension of the Specification file in JSON format */
-export const SPEC_JSON_EXTENSION = 'yaml';
-
-interface OpenApiToolsGenerator {
-  /** Location of the OpenAPI spec, as URL or file */
-  inputSpec: string;
-  /** Output path for the generated SDK */
-  output: string;
-  /** Generator to use */
-  generatorName: string;
-  /** Path to configuration file. It can be JSON or YAML */
-  config?: string;
-  /** Sets specified global properties */
-  globalProperty?: string | Record<string, any>;
-}
-
-interface OpenApiToolsGeneratorObject {
-  [generatorName: string]: OpenApiToolsGenerator;
-}
-
-interface OpenApiToolsGeneratorCli {
-  version: string;
-  generators: OpenApiToolsGeneratorObject;
-}
-
-interface OpenApiToolsConfiguration {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  'generator-cli': OpenApiToolsGeneratorCli;
-}
 
 const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
 
@@ -92,7 +59,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
   // read openapitools.json
   if (tree.exists(openApiToolsPath)) {
     try {
-      openApiToolsJson = (tree.readJson(openApiToolsPath) as any as OpenApiToolsConfiguration);
+      openApiToolsJson = tree.readJson(openApiToolsPath) as JsonObject & OpenApiToolsConfiguration;
     } catch (e: any) {
       context.logger.warn(`File ${openApiToolsPath} could not be parsed. Error message:\n${e}`);
     }
@@ -186,8 +153,20 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     let specContent!: string;
     if (URL.canParse(generatorOptions.specPath) && (new URL(generatorOptions.specPath)).protocol.startsWith('http')) {
       specContent = await (await fetch(generatorOptions.specPath)).text();
+      specContent = updateLocalRelativeRefs(specContent, path.dirname(generatorOptions.specPath));
     } else {
-      specContent = readFileSync(generatorOptions.specPath, {encoding: 'utf-8'}).toString();
+      const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory ?
+        generatorOptions.specPath : path.join(options.directory, generatorOptions.specPath);
+      specContent = readFileSync(specPath, {encoding: 'utf-8'}).toString();
+
+      if (path.relative(process.cwd(), specPath).startsWith('..')) {
+        // TODO would be better to create files on tree instead of FS
+        // https://github.com/AmadeusITGroup/otter/issues/2078
+        const newRelativePath = await copyReferencedFiles(specPath, './spec-local-references');
+        if (newRelativePath) {
+          specContent = updateLocalRelativeRefs(specContent, newRelativePath);
+        }
+      }
     }
 
     try {
@@ -198,7 +177,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     }
     const defaultFileName = `${LOCAL_SPEC_FILENAME}.${isJson ? SPEC_JSON_EXTENSION : SPEC_YAML_EXTENSION}`;
     specDefaultPath = path.posix.join(targetPath, defaultFileName);
-    generatorOptions.specPath = specDefaultPath;
+    generatorOptions.specPath = defaultFileName;
 
     if (tree.exists(specDefaultPath)) {
       tree.overwrite(specDefaultPath, specContent);
@@ -259,7 +238,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     const adaptDefaultFile: Rule = () => {
       const openApiToolsPath = path.posix.join(targetPath, 'openapitools.json');
       if (tree.exists(openApiToolsPath)) {
-        const openApiTools: any = tree.readJson(openApiToolsPath);
+        const openApiTools = tree.readJson(openApiToolsPath) as JsonObject & OpenApiToolsConfiguration;
         const generators = openApiTools['generator-cli']?.generators;
         if (generators) {
           Object.keys(generators)

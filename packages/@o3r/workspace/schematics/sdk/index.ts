@@ -1,6 +1,14 @@
 import { apply, chain, externalSchematic, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, strings, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import { createSchematicWithMetricsIfInstalled, getPackageManager, getPackagesBaseRootFolder, getWorkspaceConfig, isNxContext, O3rCliError } from '@o3r/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getPackageManager,
+  getPackagesBaseRootFolder,
+  getWorkspaceConfig,
+  isNxContext,
+  NpmExecTask,
+  O3rCliError
+} from '@o3r/schematics';
 import { NgGenerateSdkSchema } from './schema';
 import { ngRegisterProjectTasks } from './rules/rules.ng';
 import { nxRegisterProjectTasks } from './rules/rules.nx';
@@ -39,7 +47,9 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
     ]), MergeStrategy.Overwrite);
 
     const packageManager = getPackageManager({ workspaceConfig });
-
+    const specExtension = options.specPackagePath ? path.extname(options.specPackagePath) : '.yaml';
+    // TODO: Change `swagger-spec` to `openapi` in v11 (ref: #1745)
+    const specPath = options.specPackageName ? `swagger-spec${specExtension}` : options.specPath;
     return chain([
       externalSchematic('@ama-sdk/schematics', 'typescript-shell', {
         ...options,
@@ -49,26 +59,29 @@ function generateSdkFn(options: NgGenerateSdkSchema): Rule {
         packageManager,
         skipInstall: !!options.specPath || options.skipInstall
       }),
-      packageManager === 'yarn' ? (t) => {
-        const yarnrcPath = path.posix.join(targetPath, '.yarnrc.yml');
-        // delete yarnrc created by sdk shell generator standalone
-        if (tree.exists(yarnrcPath)) {
-          tree.delete(yarnrcPath);
-        }
-        return t;
-      } : noop,
       isNx ? nxRegisterProjectTasks(options, targetPath, cleanName) : ngRegisterProjectTasks(options, targetPath, cleanName),
       updateTsConfig(targetPath, projectName, scope),
       cleanStandaloneFiles(targetPath),
       addModuleSpecificFiles(),
-      options.specPath ? (_host: Tree, c: SchematicContext) => {
-        const installTaskId = c.addTask(new NodePackageInstallTask());
+      specPath ? (_host: Tree, c: SchematicContext) => {
+        const installTask = c.addTask(new NodePackageInstallTask());
+        const specUpgradeTask = options.specPackageName ? [
+          c.addTask(new NpmExecTask('amasdk-update-spec-from-npm', [
+            options.specPackageName,
+            ...options.specPackagePath ? ['--package-path', options.specPackagePath] : [],
+            // TODO: Change `swagger-spec` to `openapi` in v11 (ref: #1745)
+            '--output', path.join(process.cwd(), targetPath, `swagger-spec${specExtension}`)
+          ], targetPath), [installTask])
+        ] : [];
         c.addTask(new RunSchematicTask('@ama-sdk/schematics', 'typescript-core', {
           ...options,
-          specPath: options.specPath,
+          specPath,
           directory: targetPath,
           packageManager
-        }), [installTaskId]);
+        }), [
+          installTask,
+          ...specUpgradeTask
+        ]);
       } : noop
     ])(tree, context);
   };

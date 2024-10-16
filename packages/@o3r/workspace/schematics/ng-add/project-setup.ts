@@ -28,6 +28,7 @@ export const prepareProject = (options: NgAddSchematicsSchema): Rule => {
     'angular.ng-template'
   ];
   const dependenciesToInstall = [
+    '@ama-sdk/core',
     '@ama-sdk/schematics'
   ];
   const ownSchematicsFolder = path.resolve(__dirname, '..');

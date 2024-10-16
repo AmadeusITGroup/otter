@@ -19,10 +19,10 @@ You need to install '@o3r/schematics' to be able to use the o3r apis-manager pac
 export function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree) => {
-    const { getPackageInstallConfig, setupDependencies, setupSchematicsDefaultParams } = await import('@o3r/schematics');
+    const { getPackageInstallConfig, setupDependencies, setupSchematicsParamsForProject } = await import('@o3r/schematics');
     return chain([
       registerGenerateCssBuilder(),
-      setupSchematicsDefaultParams({
+      setupSchematicsParamsForProject({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component': {
           useOtterDesignToken: true
@@ -35,7 +35,7 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
         '*:*': {
           useOtterDesignToken: true
         }
-      }),
+      }, options.projectName),
       setupDependencies({
         projectName: options.projectName,
         dependencies: getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion)

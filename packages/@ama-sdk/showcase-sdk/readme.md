@@ -1,6 +1,9 @@
 # Showcase SDK
 
-### Based on Swagger spec 1.0.17
+>Note:
+This package is intended for **testing purposes only**. It is not suitable for production use.
+
+### Based on openapi specs 3.0.2
 
 The SDK contains 2 different parts:
 
