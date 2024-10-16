@@ -87,8 +87,7 @@ export function toBeVisuallySimilar() {
  * It will create a file for the passed screenshot object.
  * The path of the new file will be calculated using the parameters
  * Ex: ./dist-screenshots\OWBooking\windows_chrome_91\fare-page-after-click-on-continue-0.png
- *     distScreenshotsDir/scenarionName/device/filenameWithoutExtension.png
- *
+ * distScreenshotsDir/scenarionName/device/filenameWithoutExtension.png
  * @param screenshot The screenshot object captured. Ex: for protractor - browser.takeScreenshot()
  * @param scenarioName E2e Scenario class name
  * @param device Details of the platform on which the test is run. If there are spaces the helper will do the concatenation. Ex: `Windows 10 chrome 89`
@@ -109,7 +108,6 @@ export function saveScreenshot(screenshot: string, scenarioName: string, device:
 /**
  * Write the 3 images (base/new/diff) on the reports folder
  * The path inside the reports forlder will be calculated using the parameters
- *
  * @param pathToScenarioReport Path where the scenario report is saved inside reports folder
  * @param screenshotsDirName Name of the directory which will contain the 3 images
  * @param diff diff image
@@ -132,7 +130,6 @@ export function writeScreenshotsDiff(pathToScenarioReport: string, screenshotsDi
 
 /**
  * Compare images helper function. If the comparison fails the 3 images (base/new/diff) will be written inside the reports folder of the actual scenario
- *
  * @param screenshot Actual captured screenshot object
  * @param baseImagePath The path to the base screenshot
  * @param threshold The diff between base screenshot and the current one should not be bigger than this value.
@@ -172,7 +169,6 @@ export function compareScreenshot(screenshot: string, baseImagePath: string, thr
 
 /**
  * Helper function to perform a visual test operation
- *
  * @param screenshotObj Ex: for protractor browser.takeScreenshot()
  * @param filenameWithoutExtension file name to save the screenshot - .png will be added at the end
  * @param device os followed by browser version - ex: `Windows 10 chrome 89`

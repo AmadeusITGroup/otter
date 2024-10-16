@@ -4,7 +4,6 @@ import type { RulesetExecutionDebug, RulesetExecutionStatus } from '../ruleset-h
 /**
  * Compute the status of the execution depending on its execution event type, the output and whether the execution
  * is still active
- *
  * @param rulesetExecution
  * @param isActive
  */
@@ -21,7 +20,6 @@ export const getStatus = (rulesetExecution: RulesetExecutionErrorEvent | Ruleset
 
 /**
  * Transform the output of the debug reports into the model for the ruleset history debug panel
- *
  * @param events
  * @param rulesetMap
  */

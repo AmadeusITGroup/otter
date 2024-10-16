@@ -5,7 +5,8 @@ This package contains the Visual Studio Code extension for Otter framework.
 ## Intellisense
 
 In VS Code, you benefit of intellisense for:
- - Configuration metadata tags in the JSDoc (for now, only @o3rWidget and @o3rWidgetParam)
+
+- Configuration metadata tags in the JSDoc (for now, only @o3rWidget and @o3rWidgetParam)
 
 ## Available commands
 
@@ -36,6 +37,7 @@ The following commands are currently available:
 All these commands are also available in the command panel.
 
 The ones which add feature to component are available in the command panel only if the active editor is the component file with some exceptions:
+
 - `Otter: Add theming to component` available when the style file is open
 - `Otter: Add localization key to component` avaibable when the template is open and a text is selected
 
@@ -46,4 +48,5 @@ The ones which add feature to component are available in the command panel only 
 | Otter: Extract SCSS property to o3r.variable       | Extract a SCSS property into a o3r.variable                 | Command panel only                              |
 | Otter: Extract all SCSS properties to o3r.variable | Extract all the SCSS properties of a file into o3r.variable | Right-click when selecting code in styling file |
 
-> **Node**: Check [extract styling documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/vscode-extension/EXTRACT_STYLING.md)
+> [!TIP]
+> Check [extract styling documentation](https://github.com/AmadeusITGroup/otter/tree/main/docs/vscode-extension/EXTRACT_STYLING.md)

@@ -9,6 +9,9 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Stable Version](https://img.shields.io/npm/v/@o3r/stylelint-plugin?style=for-the-badge)](https://www.npmjs.com/package/@o3r/stylelint-plugin)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/stylelint-plugin?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/stylelint-plugin)
+
 In-house stylint plugins to use in your own eslint configuration
 
 ## How to install
@@ -17,7 +20,8 @@ In-house stylint plugins to use in your own eslint configuration
 ng add @o3r/styling-plugin
 ```
 
-> **Warning**: this module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
+> [!WARNING]
+> This module requires [@o3r/core](https://www.npmjs.com/package/@o3r/core) to be installed.
 
 ## Rules
 

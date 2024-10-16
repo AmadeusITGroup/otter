@@ -9,7 +9,15 @@ This package is an [Otter Framework Module](https://github.com/AmadeusITGroup/ot
 
 ## Description
 
+[![Status](https://img.shields.io/badge/status-deprecated-red?style=for-the-badge)](https://www.npmjs.com/package/@o3r/storybook)
+[![Stable Version](https://img.shields.io/npm/v/@o3r/storybook?style=for-the-badge)](https://www.npmjs.com/package/@o3r/storybook)
+[![Bundle Size](https://img.shields.io/bundlephobia/min/@o3r/storybook?color=green&style=for-the-badge)](https://www.npmjs.com/package/@o3r/storybook)
+
 The Otter Framework provides several tools for Otter based projects.
+
+> [!CAUTION]
+> **Deprecated package**
+> `@o3r/storybook` package is deprecated and will no longer be updated as of Otter v12.
 
 ## Description
 

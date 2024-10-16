@@ -1,8 +1,0 @@
-{
-    "replacementPatterns": [
-      {
-        "pattern": "/%40",
-        "replacement": "/@"
-      }
-    ]
-}

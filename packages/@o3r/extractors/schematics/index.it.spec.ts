@@ -1,27 +1,34 @@
+/**
+ * Test environment exported by O3rEnvironment, must be first line of the file
+ * @jest-environment @o3r/test-helpers/jest-environment
+ * @jest-environment-o3r-app-folder test-app-extractors
+ */
+const o3rEnvironment = globalThis.o3rEnvironment;
+
 import {
   getDefaultExecSyncOptions,
+  getGitDiff,
   packageManagerExec,
   packageManagerInstall,
-  packageManagerRun,
-  prepareTestEnv,
-  setupLocalRegistry
+  packageManagerRunOnProject
 } from '@o3r/test-helpers';
-
-const appName = 'test-app-extractors';
-const o3rVersion = '999.0.0';
-const execAppOptions = getDefaultExecSyncOptions();
-let appFolderPath: string;
+import * as path from 'node:path';
 
 describe('new otter application with extractors', () => {
-  setupLocalRegistry();
-  beforeAll(async () => {
-    appFolderPath = await prepareTestEnv(appName, 'angular-with-o3r-core');
-    execAppOptions.cwd = appFolderPath;
-  });
   test('should add extractors to existing application', () => {
-    packageManagerExec(`ng add --skip-confirmation @o3r/extractors@${o3rVersion}`, execAppOptions);
+    const { workspacePath, projectName, isInWorkspace, untouchedProjectPath, o3rVersion } = o3rEnvironment.testEnvironment;
+    const execAppOptions = {...getDefaultExecSyncOptions(), cwd: workspacePath};
+    packageManagerExec({script: 'ng', args: ['add', `@o3r/extractors@${o3rVersion}`, '--skip-confirmation', '--project-name', projectName]}, execAppOptions);
+
+    const diff = getGitDiff(workspacePath);
+    expect(diff.modified).toContain('package.json');
+
+    if (untouchedProjectPath) {
+      const relativeUntouchedProjectPath = path.relative(workspacePath, untouchedProjectPath);
+      expect(diff.all.filter((file) => new RegExp(relativeUntouchedProjectPath.replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBe(0);
+    }
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    expect(() => packageManagerRun('build', execAppOptions)).not.toThrow();
+    expect(() => packageManagerRunOnProject(projectName, isInWorkspace, {script: 'build'}, execAppOptions)).not.toThrow();
   });
 });

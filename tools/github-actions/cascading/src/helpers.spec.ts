@@ -6,15 +6,15 @@ describe('helpers', () => {
     expect(sortBranches(['release/1.2', 'release/2.2', 'release/3.2'])).toEqual(['release/1.2', 'release/2.2', 'release/3.2']);
     expect(sortBranches(['release/1.2', 'release/0.1', 'release/3.1', 'release/0.4']))
       .toEqual(['release/0.1', 'release/0.4', 'release/1.2', 'release/3.1']);
-    expect(sortBranches(['release/3.0.0-next', 'release/2.5.0-alpha', 'release/1.2', 'release/2.4', 'release/0.1']))
-      .toEqual(['release/0.1', 'release/1.2', 'release/2.4', 'release/2.5.0-alpha', 'release/3.0.0-next']);
+    expect(sortBranches(['release/3.0.0-next', 'release/3.0.0-prerelease', 'release/2.5.0-prerelease', 'release/1.2', 'release/2.4', 'release/0.1']))
+      .toEqual(['release/0.1', 'release/1.2', 'release/2.4', 'release/2.5.0-prerelease', 'release/3.0.0-next', 'release/3.0.0-prerelease']);
   });
 
   it('formatGitBranchOutput', () => {
     const fakeOutput = '  remotes/origin/test/3.2 \n remotes/origin/release/0.1.0-test \n remotes/origin/release/0.1-test \n ' +
       'remotes/origin/feature/whatever \n  remotes/origin/release/0.1  \n remotes/origin/release/1.2  \n remotes/origin/bugfix/whatever  ' +
-      '\r\n remotes/origin/release/2.4 \n remotes/origin/release/2.5.0-alpha    \r\n remotes/origin/release/3.0.0-next';
-    expect(extractBranchesFromGitOutput(fakeOutput)).toEqual(['release/0.1', 'release/1.2', 'release/2.4', 'release/2.5.0-alpha', 'release/3.0.0-next']);
+      '\r\n remotes/origin/release/2.4 \n remotes/origin/release/2.5.0-prerelease    \r\n remotes/origin/release/3.0.0-rc  \r\n remotes/origin/release/3.0.0-next';
+    expect(extractBranchesFromGitOutput(fakeOutput)).toEqual(['release/0.1', 'release/1.2', 'release/2.4', 'release/2.5.0-prerelease', 'release/3.0.0-rc', 'release/3.0.0-next']);
   });
 
   it('Extract packages name from multiline package json content', () => {

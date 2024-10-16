@@ -6,8 +6,8 @@ import { delay, map, shareReplay, startWith, Subject, Subscription, switchMap } 
   providedIn: 'root'
 })
 export class InPageNavPresService implements OnDestroy {
-  private subscription = new Subscription();
-  private linksSubject = new Subject<QueryList<InPageNavLink>>();
+  private readonly subscription = new Subscription();
+  private readonly linksSubject = new Subject<QueryList<InPageNavLink>>();
 
   /** Observable of links */
   public links$ = this.linksSubject.pipe(

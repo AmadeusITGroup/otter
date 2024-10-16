@@ -1,6 +1,7 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
   findMethodByName,
   fixStringLiterals,
   generateBlockStatementsFromString,
@@ -46,10 +47,9 @@ const checkRulesEngine = (componentPath: string | null | undefined) => (tree: Tr
 
 /**
  * Generate the code to enable rules-engine on a component
- *
  * @param options
  */
-export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineToComponentSchematicsSchema): Rule {
+function ngGenerateRulesEngineToComponentFn(options: NgGenerateRulesEngineToComponentSchematicsSchema): Rule {
 
   const generateFiles: Rule = (tree: Tree, _context: SchematicContext) => {
     const componentPath = options.path!;
@@ -60,12 +60,12 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
         importNames: ['inject', 'OnInit', 'OnDestroy']
       },
       {
-        from: '@o3r/configuration',
-        importNames: ['computeConfigurationName']
+        from: '@o3r/core',
+        importNames: ['computeItemIdentifier']
       },
       {
         from: '@o3r/rules-engine',
-        importNames: ['RulesEngineService']
+        importNames: ['RulesEngineRunnerService']
       }
     ];
     let sourceFile = ts.createSourceFile(
@@ -114,8 +114,8 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
               .concat(ts.getModifiers(node) || []);
 
             const propertiesToAdd = generateClassElementsFromString(`
-              private readonly componentName = computeConfigurationName('${node.name?.escapedText as string}', '${projectName}');
-              private rulesEngineService = inject(RulesEngineService, {optional: true});
+              private readonly componentName = computeItemIdentifier('${node.name?.escapedText as string}', '${projectName}');
+              private readonly rulesEngineService = inject(RulesEngineRunnerService, {optional: true});
             `);
 
             const newNgOnInit = getSimpleUpdatedMethod(node, factory, 'ngOnInit', generateBlockStatementsFromString(`
@@ -166,3 +166,10 @@ export function ngGenerateRulesEngineToComponent(options: NgGenerateRulesEngineT
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+
+/**
+ * Generate the code to enable rules-engine on a component
+ * @param options
+ */
+export const ngGenerateRulesEngineToComponent = createSchematicWithMetricsIfInstalled(ngGenerateRulesEngineToComponentFn);

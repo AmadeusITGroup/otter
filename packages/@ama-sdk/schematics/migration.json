@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/angular/angular-cli/master/packages/angular_devkit/schematics/collection-schema.json",
+  "schematics": {
+    "migration-v10_0": {
+      "version": "10.0.0-alpha.0",
+      "description": "Updates of @ama-sdk/schematics to v10.0.*",
+      "factory": "./schematics/ng-update/index#updateV10_0"
+    }
+  }
+}

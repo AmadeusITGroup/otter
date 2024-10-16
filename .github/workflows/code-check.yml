@@ -21,18 +21,20 @@ on:
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
+permissions:
+  contents: read
+
 jobs:
-  # TODO: Activate on Otter v10. It is disabled because broken links are due to the new major breaking changes
-  # markdown-link-check:
-  #   runs-on: ubuntu-latest
-  #   continue-on-error: true
-  #   steps:
-  #   - uses: actions/checkout@master
-  #   - uses: gaurav-nelson/github-action-markdown-link-check@v1
-  #     with:
-  #       base-branch: 'main'
-  #       config-file: '.github/markdown.links.config.json'
-  #       folder-path: 'packages/,apps/,tools/'
+  markdown-link-check:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+    - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+    - uses: gaurav-nelson/github-action-markdown-link-check@d53a906aa6b22b8979d33bc86170567e619495ec # v1.0.15
+      with:
+        base-branch: 'main'
+        config-file: '.github/markdown-links.config.json'
+        folder-path: 'packages/,apps/,tools/'
 
   test:
     strategy:
@@ -43,7 +45,7 @@ jobs:
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
@@ -52,7 +54,7 @@ jobs:
         with:
           install-jdk: 'true'
       - name: Cache Jest
-        uses: actions/cache@v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         env:
           hash: ${{ hashFiles('package.json', 'tsconfig.base.json', 'tsconfig.build.json', 'nx.json') }}
         with:
@@ -63,15 +65,16 @@ jobs:
             ${{ runner.os }}-jest
             ${{ runner.os }}
       - name: Build swagger generator
-        run: yarn nx run ama-sdk-generator-sdk:build-swagger
+        run: yarn nx run ama-sdk-schematics:build-swagger
       - name: Test
         env:
           testCmd: ${{ inputs.affected && format('test:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'test'}}
           NODE_OPTIONS: ${{ runner.os == 'Windows' && '--max_old_space_size=4096' || '' }}
-        run: yarn ${{ env.testCmd }} --output-style=stream
+        run: yarn ${{ env.testCmd }}
       - name: Publish tests reports
         if: always()
-        uses: actions/upload-artifact@v3
+        # TODO upgrade to v4 when https://github.com/AmadeusITGroup/otter/issues/1198 is fixed
+        uses: actions/upload-artifact@a8a3f3ad30e3422c9c7b888a15615d19a852ae32 # v3.1.3
         with:
           name: ut-reports-${{ matrix.os }}
           path: |
@@ -83,13 +86,13 @@ jobs:
     env:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: ${{ inputs.affected && '0' || '1' }}
       - name: Setup
         uses: ./tools/github-actions/setup
       - name: Cache Eslint
-        uses: actions/cache@v3
+        uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
         with:
           path: .cache/eslint
           key: ${{ runner.os }}-eslint-${{ hashFiles('yarn.lock') }}
@@ -97,8 +100,6 @@ jobs:
             ${{ runner.os }}-eslint-${{ env.hash }}
             ${{ runner.os }}-eslint
             ${{ runner.os }}
-      - name: Dependency Check
-        run: yarn in-source-dep-check --fail-on-error
       - name: Lint
         env:
           lintCmd: ${{ inputs.affected && format('lint:affected --base=remotes/origin/{0}', github.base_ref || github.ref_name) || 'lint'}}

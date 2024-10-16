@@ -23,7 +23,8 @@ The Otter module will automatically register its Devtool service if the followin
 }
 ```
 
-> **Note**: This options is set by the `--with-devtool` options of the `ng add @o3r/core` command.
+> [!NOTE]
+> This options is set by the `--with-devtool` options of the `ng add @o3r/core` command.
 
 ## How to enable manually the extension support in your application
 
@@ -37,6 +38,7 @@ import { ComponentsDevtoolsModule } from '@o3r/components';
 import { ConfigurationDevtoolsModule } from '@o3r/configuration';
 import { LocalizationDevtoolsModule } from '@o3r/localization';
 import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
+import { StylingDevtoolsModule } from '@o3r/styling';
 
 @NgModule({
   imports: [
@@ -44,7 +46,8 @@ import { RulesEngineDevtoolsModule } from '@o3r/rules-engine';
     ConfigurationDevtoolsModule,
     ComponentsDevtoolsModule,
     LocalizationDevtoolsModule,
-    RulesEngineDevtoolsModule
+    RulesEngineDevtoolsModule,
+    StylingDevtoolsModule
   ]
 })
 export class AppModule {
@@ -60,6 +63,7 @@ import { ComponentsDevtoolsMessageService } from '@o3r/components';
 import { ConfigurationDevtoolsMessageService } from '@o3r/configuration';
 import { LocalizationDevtoolsMessageService } from '@o3r/localization';
 import { RulesEngineDevtoolsMessageService } from '@o3r/rules-engine';
+import { StylingDevtoolsMessageService } from '@o3r/styling';
 
 @Component({
   selector: 'app'
@@ -70,7 +74,9 @@ export class AppComponent {
     componentsDevtoolsMessageService: ComponentsDevtoolsMessageService,
     configurationMessageService: ConfigurationDevtoolsMessageService,
     localizationMessageService: LocalizationDevtoolsMessageService,
-    rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService) {
+    rulesEngineDevtoolsMessageService: RulesEngineDevtoolsMessageService,
+    stylingDevtoolsMessageService: StylingDevtoolsMessageService
+  ) {
     if (environment.DEBUG_MODE) {
       // It is strongly recommended to activate the Otter Devtools services only in the development mode
       applicationDevtoolsMessageService.activate();
@@ -78,12 +84,31 @@ export class AppComponent {
       configurationMessageService.activate();
       localizationMessageService.activate();
       rulesEngineDevtoolsMessageService.activate();
+      stylingDevtoolsMessageService.activate();
     }
   }
 }
 ```
 
-> **Note**: The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS` (example: `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`).
+> [!TIP]
+> The services can be also activated at bootstrap time by providing `isActivatedOnBootstrap: true` to their dedicated token `OTTER_<module>_DEVTOOLS_OPTIONS` (example: `{provide: 'OTTER_CONFIGURATION_DEVTOOLS_OPTIONS', useValue: {isActivatedOnBootstrap: true}}`). The services need to be injected in the application.
+> `platformBrowserDynamic().bootstrapModule(AppModule).then((m) => runInInjectionContext(m.injector, () => inject(ConfigurationDevtoolsConsoleService)))`
+
+### How to enable more features by providing metadata files
+
+In your `angular.json` or `project.json`, you can specify `assets` in the options of `@angular-devkit/build-angular:application`.
+```json
+{
+  "glob": "**/*.metadata.json",
+  "input": "path/to/your/app",
+  "output": "/metadata"
+}
+```
+> [!CAUTION]
+> We recommend to add this asset entry only for the development configuration.
+
+> [!NOTE]
+> For the showcase application, we are exposing the metadata in production mode, to be able to showcase the chrome extension features easily.
 
 ## How to install the extension
 

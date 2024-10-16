@@ -2,13 +2,13 @@
 import { getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { Dictionary } from '@ngrx/entity';
-import { Configuration } from '@o3r/core';
+import type { Configuration } from '@o3r/core';
 import {
   clearConfigurationEntities, updateConfigurationEntities, updateConfigurationEntity, upsertConfigurationEntities,
   upsertConfigurationEntity
 } from './configuration.actions';
 import { configurationAdapter, configurationInitialState, configurationReducer } from './configuration.reducer';
-import { ConfigurationModel } from './configuration.state';
+import type { ConfigurationModel } from './configuration.state';
 
 interface MyConfigToTest extends Configuration {
   fieldNumber: number;

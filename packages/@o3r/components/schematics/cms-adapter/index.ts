@@ -1,15 +1,13 @@
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getPackageManagerRunner, getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
+import { createSchematicWithMetricsIfInstalled, getPackageManagerRunner, getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
 import * as path from 'node:path';
-
 
 /**
  * Update CMS adapter tools
  * @param options @see RuleFactory.options
  * @param options.projectName
- * @param rootPath @see RuleFactory.rootPath
  */
-export function updateCmsAdapter(options: { projectName?: string | undefined }): Rule {
+function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule {
   if (!options.projectName) {
     return noop;
   }
@@ -78,3 +76,11 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }):
     editAngularJson
   ]);
 }
+
+
+/**
+ * Update CMS adapter tools
+ * @param options @see RuleFactory.options
+ * @param options.projectName
+ */
+export const updateCmsAdapter = createSchematicWithMetricsIfInstalled(updateCmsAdapterFn);

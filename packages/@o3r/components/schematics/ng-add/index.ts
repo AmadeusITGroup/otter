@@ -4,64 +4,88 @@ import * as fs from 'node:fs';
 import { updateCmsAdapter } from '../cms-adapter';
 import type { NgAddSchematicsSchema } from './schema';
 import { registerDevtools } from './helpers/devtools-registration';
+import type { DependencyToAdd } from '@o3r/schematics';
+
+const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
+  logger.error(`[ERROR]: Adding @o3r/components has failed.
+If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the components package. Please run 'ng add @o3r/core' .
+Otherwise, use the error message as guidance.`);
+  throw reason;
+};
 
 /**
  * Add Otter components to an Angular Project
  * @param options
  */
-export function ngAdd(options: NgAddSchematicsSchema): Rule {
+function ngAddFn(options: NgAddSchematicsSchema): Rule {
   /* ng add rules */
   return async (tree: Tree, context: SchematicContext) => {
-    try {
-      const {
-        getDefaultOptionsForSchematic,
-        getO3rPeerDeps,
-        getProjectNewDependenciesType,
-        getWorkspaceConfig,
-        ngAddPackages,
-        ngAddPeerDependencyPackages,
-        removePackages,
-        registerPackageCollectionSchematics
-      } = await import('@o3r/schematics');
-      // eslint-disable-next-line @typescript-eslint/naming-convention
-      const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
-      options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
-      const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
-      const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
-      const depsInfo = getO3rPeerDeps(packageJsonPath);
-      if (options.enableMetadataExtract) {
-        depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
-      }
-
-      const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-      const workingDirectory = workspaceProject?.root || '.';
-      const dependencyType = getProjectNewDependenciesType(workspaceProject);
-      const rule = chain([
-        removePackages(['@otter/components']),
-        ngAddPackages(depsInfo.o3rPeerDeps, {
-          skipConfirmation: true,
-          version: depsInfo.packageVersion,
-          parentPackageInfo: depsInfo.packageName,
-          projectName: options.projectName,
-          dependencyType,
-          workingDirectory
-        }),
-        ngAddPeerDependencyPackages(['chokidar'], packageJsonPath, NodeDependencyType.Dev, {...options, workingDirectory, skipNgAddSchematicRun: true}, '@o3r/components - install builder dependency'),
-        registerPackageCollectionSchematics(packageJson),
-        ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
-        await registerDevtools(options)
-      ]);
-
-      context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
-      context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/COMPONENT_STRUCTURE.md#Runtime-debugging');
-
-      return () => rule(tree, context);
-    } catch (e) {
-      // components needs o3r/core as peer dep. o3r/core will install o3r/schematics
-      context.logger.error(`[ERROR]: Adding @o3r/components has failed.
-      If the error is related to missing @o3r dependencies you need to install '@o3r/core' to be able to use the components package. Please run 'ng add @o3r/core' .
-      Otherwise, use the error message as guidance.`);
-      throw (e);
+    const {
+      getDefaultOptionsForSchematic,
+      getO3rPeerDeps,
+      getProjectNewDependenciesTypes,
+      getWorkspaceConfig,
+      setupDependencies,
+      removePackages,
+      registerPackageCollectionSchematics,
+      getPackageInstallConfig
+    } = await import('@o3r/schematics');
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { NodeDependencyType } = await import('@schematics/angular/utility/dependencies');
+    options = {...getDefaultOptionsForSchematic(getWorkspaceConfig(tree), '@o3r/components', 'ng-add', options), ...options};
+    const packageJsonPath = path.resolve(__dirname, '..', '..', 'package.json');
+    const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
+    const depsInfo = getO3rPeerDeps(packageJsonPath);
+    if (options.enableMetadataExtract) {
+      depsInfo.o3rPeerDeps = [...depsInfo.o3rPeerDeps , '@o3r/extractors'];
     }
+
+    const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
+    const dependencies = depsInfo.o3rPeerDeps.reduce((acc, dep) => {
+      acc[dep] = {
+        inManifest: [{
+          range: `${options.exactO3rVersion ? '' : '~'}${depsInfo.packageVersion}`,
+          types: getProjectNewDependenciesTypes(workspaceProject)
+        }],
+        ngAddOptions: { exactO3rVersion: options.exactO3rVersion }
+      };
+      return acc;
+    }, getPackageInstallConfig(packageJsonPath, tree, options.projectName, false, !!options.exactO3rVersion));
+    const devDependencies: Record<string, DependencyToAdd> = {
+      chokidar: {
+        inManifest: [{
+          range: packageJson.peerDependencies.chokidar,
+          types: [NodeDependencyType.Dev]
+        }]
+      }
+    };
+    const rule = chain([
+      removePackages(['@otter/components']),
+      setupDependencies({
+        projectName: options.projectName,
+        dependencies: {
+          ...dependencies,
+          ...devDependencies
+        },
+        ngAddToRun: depsInfo.o3rPeerDeps
+      }),
+      registerPackageCollectionSchematics(packageJson),
+      ...(options.enableMetadataExtract ? [updateCmsAdapter(options)] : []),
+      await registerDevtools(options)
+    ]);
+
+    context.logger.info(`The package ${depsInfo.packageName!} comes with a debug mechanism`);
+    context.logger.info('Get more information on the following page: https://github.com/AmadeusITGroup/otter/tree/main/docs/components/COMPONENT_STRUCTURE.md#Runtime-debugging');
+
+    return () => rule(tree, context);
   };
 }
+
+/**
+ * Add Otter components to an Angular Project
+ * @param options
+ */
+export const ngAdd = (options: NgAddSchematicsSchema): Rule => async (_, { logger }) => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics').catch(reportMissingSchematicsDep(logger));
+  return createSchematicWithMetricsIfInstalled(ngAddFn)(options);
+};

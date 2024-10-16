@@ -24,7 +24,6 @@ export class RulesetHistoryPresComponent {
    * Reflects the state of each ruleset expanded elements.
    * Each ruleset entry contains a list of subpanel that can be collapsed or expanded.
    * Ruleset whole panel status is store the 'ruleset' entry.
-   *
    * @example
    * Expanded ruleset with rule overview collapsed:
    * {'rulesetId': {'ruleset' : true, 'ruleOverview': false}}
@@ -39,11 +38,10 @@ export class RulesetHistoryPresComponent {
   @Input()
   public executionDurationFormat = '1.3-3';
 
-  constructor(private cd: ChangeDetectorRef) {}
+  constructor(private readonly cd: ChangeDetectorRef) {}
 
   /**
    * Toggle a ruleset subpanel
-   *
    * @param ruleId
    * @param subpanel element to collapse. 'ruleset' will toggle the whole panel but won't reset the subpanels states.
    */

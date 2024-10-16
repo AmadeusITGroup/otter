@@ -1,5 +1,5 @@
 import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { validateJson } from '@o3r/extractors';
+import { createBuilderWithMetricsIfInstalled, validateJson } from '@o3r/extractors';
 import { O3rCliError } from '@o3r/schematics';
 import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
@@ -11,7 +11,7 @@ import { validators } from './validations';
 
 export * from './schema';
 
-export default createBuilder<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
+export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   const localizationExtractor = new LocalizationExtractor(path.resolve(context.workspaceRoot, options.tsConfig), context.logger, options);
@@ -205,4 +205,4 @@ export default createBuilder<LocalizationExtractorBuilderSchema>(async (options,
       tsWatcher.on('error', (err) => reject(err));
     });
   }
-});
+}));

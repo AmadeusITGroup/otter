@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import {
   getAnalyticEvents as devkitGetAnalyticEvents,
@@ -15,13 +16,14 @@ import type {
 import type { RulesetExecutionDebug } from '@o3r/rules-engine';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, startWith } from 'rxjs/operators';
+import { AppConnectionComponent } from '../components/app-connection/app-connection.component';
+import { OtterComponentComponent } from '../components/otter-component/otter-component.component';
 import { RulesetHistoryService } from '../services/ruleset-history.service';
 import { ChromeExtensionConnectionService } from '../services/connection.service';
 
 /**
  * Retrieve component information
  * of the component selected in the Elements panel of Chrome DevTools
- *
  * @param getTranslations Function to retrieve translations
  * @param getAnalyticEvents Function to retrieve analytic events
  */
@@ -58,7 +60,13 @@ function getSelectedComponentInfo(getTranslations: typeof devkitGetTranslations,
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    OtterComponentComponent,
+    AppConnectionComponent,
+    AsyncPipe
+  ]
 })
 export class AppComponent {
   /** Configuration value stream */
@@ -67,16 +75,16 @@ export class AppComponent {
   /** List of ruleset executions stream */
   public rulesetExecutions$: Observable<RulesetExecutionDebug[]>;
 
-  private selectedComponentInfo = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
+  private readonly selectedComponentInfo = new BehaviorSubject<OtterLikeComponentInfo | undefined>(undefined);
 
-  private updateSelectedComponentInfoCallback = this.updateSelectedComponentInfo.bind(this);
+  private readonly updateSelectedComponentInfoCallback = this.updateSelectedComponentInfo.bind(this);
 
   public selectedComponentInfo$ = this.selectedComponentInfo.asObservable();
 
   constructor(
     connectionService: ChromeExtensionConnectionService,
     rulesetHistoryService: RulesetHistoryService,
-    private cd: ChangeDetectorRef
+    private readonly cd: ChangeDetectorRef
   ) {
     this.requestSelectedComponentInfo();
 

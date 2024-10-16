@@ -35,6 +35,11 @@
       "description": "Do not install dependency packages.",
       "type": "boolean",
       "default": false
+    },
+    "exactO3rVersion": {
+      "type": "boolean",
+      "description": "Use a pinned version for otter packages",
+      "default": false
     }
   },
   "required": ["name"],

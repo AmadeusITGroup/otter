@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.build",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "incremental": true,
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "rootDir": "src",
+    "tsBuildInfoFile": "build/.tsbuildinfo"
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": [
+    "**/*.spec.ts"
+  ]
+}

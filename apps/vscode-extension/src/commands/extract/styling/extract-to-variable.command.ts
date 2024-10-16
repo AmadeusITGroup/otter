@@ -4,7 +4,6 @@ import { generateVariableName, insertVariable, isPropertyValue } from './helpers
 /**
  * Extract a single prop/value scss line to an otter variable
  * The active cursor needs to be on the line you want to refactor
- *
  * @param _context
  */
 export function extractToVariable(_context: ExtensionContext) {

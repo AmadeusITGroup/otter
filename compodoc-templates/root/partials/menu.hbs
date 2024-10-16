@@ -79,8 +79,8 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                 </li>
                 {{#if additionalPages}}
                     <li class="chapter additional">
-                        <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#additional-pages"'
-                            : 'data-target="#xs-additional-pages"' }>
+                        <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#additional-pages"'
+                            : 'data-bs-target="#xs-additional-pages"' }>
                             <span class="icon ion-ios-book"></span>
                             <span>{{includesName}}</span>
                             <span class="icon {{#isNotToggle 'additionalPages'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
@@ -91,8 +91,8 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                     {{#compare depth "===" 1 }}
                                     <li class="chapter inner">
                                         <a data-type="chapter-link" href="{{path}}/{{filename}}.html" data-context-id="additional">
-                                            <div class="menu-toggler linked" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#additional-page-{{id}}"' : 'data-target="#xs-additional-page-{{id}}"' }>
+                                            <div class="menu-toggler linked" data-bs-toggle="collapse" ${ isNormalMode ?
+                                            'data-bs-target="#additional-page-{{id}}"' : 'data-bs-target="#xs-additional-page-{{id}}"' }>
                                                 <span class="link-name">{{ name }}</span>
                                                 <span class="icon ion-ios-arrow-down"></span>
                                             </div>
@@ -117,15 +117,15 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                 {{/if}}
                 ${packages.length > 0
                   ? `<li class="chapter package">
-                      <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ? 'data-target="#package-pages"'
-                        : 'data-target="#xs-package-pages"' }>
+                      <div class="simple menu-toggler" data-bs-toggle="collapse" ${ isNormalMode ? 'data-bs-target="#package-pages"'
+                        : 'data-bs-target="#xs-package-pages"' }>
                         <span class="icon ion-ios-book"></span>
                         <span>Packages</span>
                         <span class="icon {{#isNotToggle 'packagePages'}}ion-ios-arrow-up{{else}}ion-ios-arrow-down{{/isNotToggle}}"></span>
                       </div>
                       <ul class="links collapse {{#isNotToggle 'packagePages'}}in{{/isNotToggle}}" ${ isNormalMode ? 'id="package-pages"' : 'id="xs-package-pages"' }>
                         ${packages.map((p) => `<li class="link">
-                            <a href="./${p.path}/index.html" data-type="index-link">${p.name}</a>
+                            <a href="${p.path}/index.html" data-type="index-link">${p.name}</a>
                           </li>`).join('')}
                       </ul>
                     </li>`

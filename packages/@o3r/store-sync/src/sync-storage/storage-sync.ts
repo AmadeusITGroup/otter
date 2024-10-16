@@ -5,7 +5,6 @@ import type { StorageKeyConfiguration, StorageKeys, SyncStorageConfig, SyncStora
 
 /**
  * Reviver the date from a JSON field if the string is matching iso format. Return the same value otherwise
- *
  * @param _key JSON item key name
  * @param value JSON item value
  */
@@ -18,7 +17,6 @@ export const dateReviver = (_key: string, value: any) => {
 
 /**
  * Dummy reviver returning the value of the field as it is
- *
  * @param _key JSON item key name
  * @param value JSON item value
  */
@@ -33,7 +31,6 @@ const checkIsBrowserEnv = () => {
 
 /**
  * Validate the keys structure of the registered stores
- *
  * @param keys map of store to synchronize
  */
 const validateStateKeys = (keys: StorageKeys) => {
@@ -55,7 +52,6 @@ const validateStateKeys = (keys: StorageKeys) => {
 
 /**
  * Rehydrate the state of the whole application store
- *
  * @param keys Keys of the store to rehydrate
  * @param storage storage when getting the data from
  * @param storageKeySerializer storage key transform function
@@ -159,7 +155,6 @@ function createStateSlice(existingSlice: any, filter: (string | number | Storage
 /**
  * Update the state of the store after reviving from storage
  * Note: this function is mainly use for internal process of store synchronization
- *
  * @param state store state
  * @param keys key of the store
  * @param storage storage to use for the synchronization
@@ -290,7 +285,6 @@ const defaultMergeReducer = (state: any, rehydratedState: any, action: any) => {
 
 /**
  * Local and Session storage synchronization helper
- *
  * @param config
  */
 export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
@@ -336,7 +330,7 @@ export const syncStorage = (config: SyncStorageConfig) => (reducer: any) => {
 
     // Merge the store state with the rehydrated state using
     // either a user-defined reducer or the default.
-    nextState = mergeReducer!(nextState, rehydratedState, action);
+    nextState = mergeReducer(nextState, rehydratedState, action);
 
     nextState = reducer(nextState, action);
 

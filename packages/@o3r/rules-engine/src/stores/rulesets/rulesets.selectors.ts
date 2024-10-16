@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { computeConfigurationName } from '@o3r/configuration';
+import { computeItemIdentifier } from '@o3r/core';
 import type { Ruleset } from '../../engine';
 import { rulesetsAdapter } from './rulesets.reducer';
 import { RULESETS_STORE_NAME, RulesetsState } from './rulesets.state';
@@ -26,7 +26,6 @@ export const selectRulesetsStorePendingStatus = createSelector(selectRulesetsSta
 
 /**
  * Check if the given value is a valid date
- *
  * @param d
  */
 const isValidDate = (d: any) => !isNaN(d) && d instanceof Date;
@@ -78,7 +77,7 @@ export const selectRuleSetLinkComponents = createSelector(
         if (!ruleSet.linkedComponent) {
           return acc;
         }
-        const configName = computeConfigurationName(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library);
+        const configName = computeItemIdentifier(ruleSet.linkedComponent.name, ruleSet.linkedComponent.library);
         acc[configName] ||= [];
         acc[configName].push(ruleSet.id);
         return acc;

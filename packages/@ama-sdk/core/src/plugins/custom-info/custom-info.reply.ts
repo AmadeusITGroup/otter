@@ -7,14 +7,12 @@ export class CustomInfoReply<G = {[key: string]: any}, V extends {[key: string]:
 
   /**
    * Builds your plugin
-   *
    * @param customInfo the custom information to inject in the reply
    */
-  constructor(private customInfo: G) {}
+  constructor(private readonly customInfo: G) {}
 
   /**
    * Checks if the reply has a customInfo node
-   *
    * @param reply
    */
   // eslint-disable-next-line no-use-before-define

@@ -115,11 +115,12 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
  * Compute the reviver to use in case the success response code returned by the API does not match the API
  * Fallback to the lowest status code's reviver.
  * Does not try to match non-successful responses as error are handled separately
- *
  * @param revivers
  * @param endpoint
  * @param response
  * @param options
+ * @param options.disableFallback
+ * @param options.log
  */
 export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>, response: Pick<Response, 'ok' | 'status'> | undefined,
   // eslint-disable-next-line no-console

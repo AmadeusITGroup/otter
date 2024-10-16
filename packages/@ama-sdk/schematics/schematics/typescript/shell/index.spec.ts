@@ -25,10 +25,6 @@ const baseFileList = [
   '/openapitools.json',
   '/package.json',
   '/configs/tsconfig.test.json',
-  '/scripts/clear-index.js',
-  '/scripts/files-pack.js',
-  '/scripts/override-readme.js',
-  '/scripts/restore-readme.js',
   '/src/api/index.ts',
   '/src/api/fixtures.jest.ts',
   '/src/index.ts',
@@ -54,9 +50,6 @@ const baseFileList = [
   '/src/spec/index.ts',
   '/src/spec/mock-factory/index.ts',
   '/testing/tsconfig.spec.json',
-  '/.husky/commit-msg',
-  '/.husky/pre-commit',
-  '/.husky/.gitignore',
   '/tsconfigs/esm2020/tsconfig.jest.json',
   '/tsconfigs/esm2020/tsconfig.json',
   '/tsconfigs/esm2020/tsconfig.source.json',
@@ -82,7 +75,7 @@ describe('Typescript Shell Generator', () => {
       skipInstall: true,
       packageManager: 'npm'
     }, Tree.empty());
-  }, 15000);
+  });
 
   it('should generate basic SDK package', () => {
     expect(yarnTree.files.sort()).toEqual(baseFileList.sort());
@@ -101,5 +94,22 @@ describe('Typescript Shell Generator', () => {
   it('should use npm as package manager if specified', () => {
     expect(npmTree.readContent('/package.json')).toContain('npm exec');
     expect(npmTree.readContent('/package.json')).not.toContain('yarn exec');
+  });
+
+  it('should generate correct openapitools.json', () => {
+    const openApiTools = JSON.parse(yarnTree.readContent('/openapitools.json'));
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    expect(openApiTools['generator-cli'].generators).toEqual(expect.objectContaining({'test-scope-test-sdk': expect.anything()}));
+  });
+
+  it('should work with no package scope', async () => {
+    const runner = new SchematicTestRunner('@ama-sdk/schematics', collectionPath);
+    const tree = await runner.runSchematic('typescript-shell', {
+      package: 'test-sdk',
+      skipInstall: true,
+      packageManager: 'npm'
+    }, Tree.empty());
+    const {name} = JSON.parse(tree.readContent('/package.json'));
+    expect(name).toEqual('test-sdk');
   });
 });

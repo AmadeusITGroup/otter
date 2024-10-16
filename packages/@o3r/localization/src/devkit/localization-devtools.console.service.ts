@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
-import { ApplicationRef, Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
 import type { ContextualizationDataset, DevtoolsServiceInterface, WindowWithDevtools } from '@o3r/core';
-import { lastValueFrom, Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { LocalizationService } from '../tools';
+import { Subscription } from 'rxjs';
 import { LocalizationContextualizationDevtools, LocalizationDevtoolsServiceOptions } from './localization-devkit.interface';
 import { OtterLocalizationDevtools } from './localization-devtools.service';
 import { OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from './localization-devtools.token';
@@ -16,9 +14,7 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
 
   constructor(
     private readonly localizationDevtools: OtterLocalizationDevtools,
-    private readonly localizationService: LocalizationService,
-    private readonly appRef: ApplicationRef,
-    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
+    @Optional() @Inject(OTTER_LOCALIZATION_DEVTOOLS_OPTIONS) private readonly options: LocalizationDevtoolsServiceOptions = OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS
   ) {
     if (
       this.options.isActivatedOnBootstrap
@@ -45,9 +41,15 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
   /**
    * @inheritdoc
    */
+  public isTranslationDeactivationEnabled(): boolean | Promise<boolean> {
+    return this.localizationDevtools.isTranslationDeactivationEnabled();
+  }
+
+  /**
+   * @inheritdoc
+   */
   public showLocalizationKeys(value?: boolean): void | Promise<void> {
     this.localizationDevtools.showLocalizationKeys(value);
-    this.appRef.tick();
   }
 
   /**
@@ -63,8 +65,7 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
    */
   public async switchLanguage(language: string): Promise<{ previous: string; requested: string; current: string }> {
     const previous = this.localizationDevtools.getCurrentLanguage();
-    await lastValueFrom(this.localizationService.useLanguage(language));
-    this.appRef.tick();
+    await this.localizationDevtools.switchLanguage(language);
     const current = this.localizationDevtools.getCurrentLanguage();
     return {
       requested: language,
@@ -84,24 +85,13 @@ export class LocalizationDevtoolsConsoleService implements DevtoolsServiceInterf
    * @inheritdoc
    */
   public updateLocalizationKeys(keyValues: { [key: string]: string }, language?: string): void | Promise<void> {
-    this.localizationService.getTranslateService().setTranslation(
-      language || this.localizationDevtools.getCurrentLanguage(),
-      keyValues,
-      true
-    );
+    return this.localizationDevtools.updateLocalizationKeys(keyValues, language);
   }
 
   /**
    * @inheritdoc
    */
-  public async reloadLocalizationKeys(language?: string) {
-    const lang = language || this.localizationDevtools.getCurrentLanguage();
-    const initialLocs = await lastValueFrom(
-      this.localizationService
-        .getTranslateService()
-        .reloadLang(lang)
-        .pipe(take(1))
-    );
-    return this.updateLocalizationKeys(initialLocs, lang);
+  public reloadLocalizationKeys(language?: string) {
+    return this.localizationDevtools.reloadLocalizationKeys(language);
   }
 }

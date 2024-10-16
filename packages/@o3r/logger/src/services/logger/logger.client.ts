@@ -7,7 +7,6 @@ import { Action, MetaReducer } from '@ngrx/store';
 export interface LoggerClient extends Logger {
   /**
    * Identify a user.
-   *
    * @param uid Unique identifier for the current user
    * @param vars Addition information about the user
    */
@@ -15,7 +14,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log custom event.
-   *
    * @param name Name of the event to log
    * @param properties Additional properties
    */
@@ -38,7 +36,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log an error.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -46,7 +43,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log a warning.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -54,7 +50,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log a message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -62,7 +57,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log a message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */
@@ -70,7 +64,6 @@ export interface LoggerClient extends Logger {
 
   /**
    * Log a debug message.
-   *
    * @param message Message to log
    * @param optionalParams Optional parameters to log
    */

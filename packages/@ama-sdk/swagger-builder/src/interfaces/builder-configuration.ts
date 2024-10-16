@@ -55,7 +55,6 @@ export interface BuilderConfiguration {
    * Tree-shaking strategy to be used
    * - 'bottom-up': start from definitions and recursively remove all unreferenced
    * - 'top-down': start from paths and only keep deeply accessible definitions
-   *
    * @default 'bottom-up'
    */
   treeShakingStrategy?: TreeShakingStrategy;

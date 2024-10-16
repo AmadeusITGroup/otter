@@ -28,7 +28,6 @@ const walkThroughDir = (
 
 /**
  * Glob function for schematics tree
- *
  * @param tree File tree
  * @param pattern Pattern to match files or folders
  */

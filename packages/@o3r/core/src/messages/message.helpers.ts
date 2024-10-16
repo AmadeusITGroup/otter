@@ -3,7 +3,6 @@ import { applicationMessageTarget, ContentMessageData, FilterMessageToApplicatio
 
 /**
  * Determine if a message should be handle by the application
- *
  * @param message Message to analyze
  */
 export const isToAppOtterMessage = <T extends OtterMessage>(message?: T): message is FilterMessageToApplication<T & {to: 'app'}> => {
@@ -12,7 +11,6 @@ export const isToAppOtterMessage = <T extends OtterMessage>(message?: T): messag
 
 /**
  * Determine if a message is emitted by an Otter tool
- *
  * @param message Message to analyze
  */
 export const isOtterMessage = <T extends OtterMessageContent>(message: any): message is OtterMessage<T> => {
@@ -21,7 +19,6 @@ export const isOtterMessage = <T extends OtterMessageContent>(message: any): mes
 
 /**
  * Send an Otter Message
- *
  * @param dataType Type of the message
  * @param content content of the message
  * @param preStringify determine if the message should JSON.stringify before being send (will use the default mechanism otherwise)
@@ -42,7 +39,6 @@ export function filterMessageContent<T extends Event | MessageEvent>(): (source$
 export function filterMessageContent<T extends Event | MessageEvent, S extends OtterMessageContent>(predicate: (message: any) => message is S): (source$: Observable<T>) => Observable<S>;
 /**
  * Filter the Otter message that should be handle by the application and returns it content
- *
  * @param predicate condition to filter the message
  * @returns content of the message
  */

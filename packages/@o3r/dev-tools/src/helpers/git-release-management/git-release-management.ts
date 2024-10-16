@@ -9,7 +9,7 @@ const exec = util.promisify(require('node:child_process').exec);
 
 /**
  * Computes current alpha or next branch based on a semver
- *
+ * @deprecated will be removed in Otter v12.
  * @param  version
  * @returns {string} current alpha or next branch
  */
@@ -20,7 +20,7 @@ export function getCurrentAlphaOrNextBranch(version: SemVer) {
 
 /**
  * Computes current release candidate branch based on a semver
- *
+ * @deprecated will be removed in Otter v12.
  * @param  version
  * @returns {string} current RC branch
  */
@@ -30,7 +30,7 @@ export function getCrtRcBranch(version: SemVer) {
 
 /**
  * Deletes a given branch
- *
+ * @deprecated will be removed in Otter v12.
  * @param {string} branch the branch to be deleted
  * @param logger
  */
@@ -50,7 +50,7 @@ export async function deleteBranch(branch: string, logger: winston.Logger) {
 
 /**
  * Checkout a given branch
- *
+ * @deprecated will be removed in Otter v12.
  * @param {string} branch the branch to be checked out
  * @param logger
  */
@@ -66,7 +66,7 @@ export async function checkoutBranch(branch: string, logger: winston.Logger) {
 
 /**
  * Checkout the current alpha branch
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -78,7 +78,7 @@ export async function checkoutCurrentAlphaOrNextBranch(version: SemVer, logger: 
 /**
  * Update the renovate base branch to the next alpha branch
  * Workaround until https://github.com/renovatebot/renovate/issues/5027 is provided
- *
+ * @deprecated will be removed in Otter v12.
  * @param branchName
  * @param renovatePath
  * @param logger
@@ -107,7 +107,7 @@ export async function updateRenovateBaseBranch(branchName: string, renovatePath:
 
 /**
  * Create a rc branch based on a version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -125,7 +125,7 @@ export async function createRcBranch(version: SemVer, logger: winston.Logger) {
 
 /**
  * Create an alpha branch for the next release based on a version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  * @param renovatePath
@@ -148,7 +148,7 @@ export async function createNextAlphaBranch(version: SemVer, logger: winston.Log
 
 /**
  * Create a -next branch for the next major release based on a version
- *
+ * @deprecated will be removed in Otter v12.
  * @param  version
  * @param logger
  * @param renovatePath
@@ -170,7 +170,7 @@ export async function createNextMajorBranch(version: SemVer, logger: winston.Log
 
 /**
  * Deletes the alpha branch for a given version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -181,7 +181,7 @@ export async function deleteCurrentAlphaOrNextBranch(version: SemVer, logger: wi
 
 /**
  * Checkout the current RC branch
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -192,7 +192,7 @@ export async function checkoutCrtRcBranch(version: SemVer, logger: winston.Logge
 
 /**
  * Commits the content of the change-logs folder in order to prepare the new release.
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  */
 export async function commitChangeLogs(version: SemVer) {
@@ -202,7 +202,7 @@ export async function commitChangeLogs(version: SemVer) {
 
 /**
  * Create a release branch based on a version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -220,7 +220,7 @@ export async function createReleaseBranch(version: SemVer, logger: winston.Logge
 
 /**
  * Deletes the previous release branch for a given version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */
@@ -231,7 +231,7 @@ export async function deletePreviousReleaseBranch(version: SemVer, logger: winst
 
 /**
  * Deletes the current RC branch for a given version
- *
+ * @deprecated will be removed in Otter v12.
  * @param version
  * @param logger
  */

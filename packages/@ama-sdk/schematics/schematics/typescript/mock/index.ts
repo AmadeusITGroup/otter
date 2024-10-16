@@ -12,7 +12,6 @@ import {
   url
 } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-
 import {NgGenerateMockSchematicsSchema} from './schema';
 
 
@@ -46,7 +45,6 @@ function plurialize(singular: string): string {
 
 /**
  * returns the folder name
- *
  * @param modelName
  */
 export function getDasherizeModelName(modelName: string): string {
@@ -55,10 +53,9 @@ export function getDasherizeModelName(modelName: string): string {
 
 /**
  * Add mock
- *
  * @param options
  */
-export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {
+function ngGenerateMockFn(options: NgGenerateMockSchematicsSchema): Rule {
   const dasherizeModelName = getDasherizeModelName(options.apiModel);
 
   const generateRootBarrel: Rule = (tree: Tree) => {
@@ -99,3 +96,12 @@ export function ngGenerateMock(options: NgGenerateMockSchematicsSchema): Rule {
 
   return chain(rules);
 }
+
+/**
+ * Add mock
+ * @param options
+ */
+export const ngGenerateMock = (options: NgGenerateMockSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateMockFn)(options);
+};

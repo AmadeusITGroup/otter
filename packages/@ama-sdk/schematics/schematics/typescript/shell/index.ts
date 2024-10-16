@@ -17,9 +17,10 @@ import {readPackageJson} from '../../helpers/read-package';
 import type {NgGenerateTypescriptSDKShellSchematicsSchema} from './schema';
 
 /**
+ * Generate Typescript SDK shell
  * @param options
  */
-export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
+function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKShellSchematicsSchema): Rule {
 
   const installRule = (_tree: Tree, context: SchematicContext) => {
     const workingDirectory = options.directory ? (isAbsolute(options.directory) ? relative(process.cwd(), options.directory) : options.directory) : '.';
@@ -43,10 +44,14 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       'eslint-plugin-prefer-arrow': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-prefer-arrow'],
       'eslint-plugin-unicorn': amaSdkSchematicsPackageJson.devDependencies!['eslint-plugin-unicorn'],
       'isomorphic-fetch': amaSdkSchematicsPackageJson.devDependencies!['isomorphic-fetch'],
+      'cpy-cli': amaSdkSchematicsPackageJson.devDependencies!['cpy-cli'],
       'jest': amaSdkSchematicsPackageJson.devDependencies!.jest,
       'ts-jest': amaSdkSchematicsPackageJson.devDependencies!['ts-jest'],
+      'globby': amaSdkSchematicsPackageJson.devDependencies!.globby,
       'typescript': amaSdkSchematicsPackageJson.devDependencies!.typescript,
-      '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli']
+      '@openapitools/openapi-generator-cli': amaSdkSchematicsPackageJson.devDependencies!['@openapitools/openapi-generator-cli'],
+      '@stylistic/eslint-plugin-ts': amaSdkSchematicsPackageJson.devDependencies!['@stylistic/eslint-plugin-ts'],
+      'rxjs': amaSdkSchematicsPackageJson.dependencies!.rxjs
     };
     const openApiSupportedVersion = typeof amaSdkSchematicsPackageJson.openApiSupportedVersion === 'string' &&
       amaSdkSchematicsPackageJson.openApiSupportedVersion.replace(/\^|~/, '');
@@ -63,6 +68,8 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
       projectDescription: options.description,
       packageManager: getPackageManagerName(options.packageManager),
       projectHosting: options.hosting,
+      exactO3rVersion: options.exactO3rVersion,
+      sdkCoreRange: `${options.exactO3rVersion ? '' : '~'}${amaSdkSchematicsPackageJson.version}`,
       sdkCoreVersion: amaSdkSchematicsPackageJson.version,
       angularVersion: amaSdkSchematicsPackageJson.dependencies!['@angular-devkit/core'],
       angularEslintVersion: amaSdkSchematicsPackageJson.devDependencies!['@angular-eslint/eslint-plugin'],
@@ -105,3 +112,12 @@ export function ngGenerateTypescriptSDK(options: NgGenerateTypescriptSDKShellSch
     ...(options.skipInstall ? [] : [installRule])
   ]);
 }
+
+/**
+ * Generate Typescript SDK shell
+ * @param options
+ */
+export const ngGenerateTypescriptSDK = (options: NgGenerateTypescriptSDKShellSchematicsSchema) => async () => {
+  const { createSchematicWithMetricsIfInstalled } = await import('@o3r/schematics');
+  return createSchematicWithMetricsIfInstalled(ngGenerateTypescriptSDKFn)(options);
+};

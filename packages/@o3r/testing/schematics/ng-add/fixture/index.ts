@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getTestFramework, getWorkspaceConfig } from '@o3r/schematics';
 
 import * as ts from 'typescript';
 
@@ -8,22 +7,22 @@ import * as ts from 'typescript';
  * Add fixture configuration
  * @param options @see RuleFactory.options
  * @param options.projectName
- * @param registerUnitTestFixturePaths should add path mapping for unit test fixtures
  * @param options.testingFramework
  */
-export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework?: string | null | undefined }, registerUnitTestFixturePaths: boolean): Rule {
+export function updateFixtureConfig(options: { projectName?: string | null | undefined; testingFramework?: string | null | undefined }): Rule {
 
   const oldPaths = ['@otter/testing/core', '@otter/testing/core/*'];
   /**
    * Update test tsconfig
    * @param tree
-   * @param _context
+   * @param context
    */
-  const updateTestTsconfig: Rule = (tree: Tree, context: SchematicContext) => {
+  const updateTestTsconfig: Rule = async (tree: Tree, context: SchematicContext) => {
+    const { getTestFramework, getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
 
     if (!workspaceProject) {
-      return tree;
+      return;
     }
 
     const testTarget = workspaceProject.architect && workspaceProject.architect.test;
@@ -59,7 +58,7 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       tree.overwrite(tsconfig, JSON.stringify(tsconfigFile, null, 2));
     }
 
-    return tree;
+    return;
   };
 
   /**
@@ -90,11 +89,6 @@ export function updateFixtureConfig(options: { projectName?: string | null | und
       }
       return acc;
     }, {});
-
-    if (registerUnitTestFixturePaths) {
-      configWithPath.content.compilerOptions.paths['@o3r/testing/core'] = ['node_modules/@o3r/testing/core/angular'];
-      configWithPath.content.compilerOptions.paths['@o3r/testing/core/*'] = ['node_modules/@o3r/testing/core/angular/*'];
-    }
 
     tree.overwrite(configWithPath.tsconfig, JSON.stringify(configWithPath.content, null, 2));
 

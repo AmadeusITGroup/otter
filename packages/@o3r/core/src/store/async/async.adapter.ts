@@ -7,7 +7,6 @@ export interface AsyncStoreItemAdapter {
   /**
    * Adds a request to an AsyncStoreItem.
    * If the item had a failure and no ongoing requests, sets it's failure status back to false
-   *
    * @param item
    * @param requestId
    */
@@ -17,7 +16,6 @@ export interface AsyncStoreItemAdapter {
    * Updates an AsyncStoreItem when a request has resolved.
    * Removes it from its requestIds array.
    * If no requestId provided, the method returns the current status of the AsyncStoreItem
-   *
    * @param item
    * @param requestId
    */
@@ -26,7 +24,6 @@ export interface AsyncStoreItemAdapter {
   /**
    * Updates an AsyncStoreItem when a request has failed.
    * Removes it from its requestIds array and set its failure status.
-   *
    * @param item
    * @param requestId
    */
@@ -34,7 +31,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Add AsyncStoreItem properties (with initial values) to the given entity
-   *
    * @param entityItem
    * @returns Given item improved with AsyncStoreItem properties
    */
@@ -43,7 +39,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Extract only AsyncStoreItem properties from the given entity
-   *
    * @param entityItem   A model containing AsyncStoreItem properties
    * @returns Object containing only AsyncStoreItem properties
    */
@@ -51,21 +46,18 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Clear AsyncStoreItem properties from the given entity
-   *
    * @param entityItem A model containing AsyncStoreItem properties
    */
   clearAsyncStoreItem<T extends AsyncStoreItem>(entityItem: T): T;
 
   /**
    * Merges an AsyncStoreItem collection into one item that gives an overall status.
-   *
    * @param items
    */
   merge(...items: (AsyncStoreItem | undefined)[]): AsyncStoreItem;
 
   /**
    * Add a request to the given subResource of an EntityStatus object
-   *
    * @param status
    * @param subResource
    * @param requestId
@@ -74,7 +66,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Resolve a request on the given subResource of an EntityStatus object
-   *
    * @param status
    * @param subResource
    * @param requestId
@@ -83,7 +74,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Fail a request to the given subResource of an EntityStatus object
-   *
    * @param status
    * @param subResource
    * @param requestId
@@ -92,7 +82,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Reset the failure status of the given subResource of an EntityStatus object
-   *
    * @param status
    * @param subResource
    */
@@ -100,7 +89,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Reset the failure status of the given AsyncStoreItem to false
-   *
    * @param entityItem
    * @returns AsyncStoreItem with the updated failure status
    */
@@ -108,7 +96,6 @@ export interface AsyncStoreItemAdapter {
 
   /**
    * Set the pending status of the given AsyncStoreItem to true
-   *
    * @param entityItem
    * @returns AsyncStoreItem with the updated pending status
    */

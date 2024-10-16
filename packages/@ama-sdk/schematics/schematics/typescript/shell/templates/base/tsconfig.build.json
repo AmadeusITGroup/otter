@@ -21,24 +21,6 @@
     "composite": true,
     "declaration": true,
     "declarationMap": false,
-    "rootDir": "./src",
-    "baseUrl": ".",
-    "paths": {
-      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/helpers/*": [
-        "./src/helpers/*"
-      ],
-      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/helpers": [
-        "./src/helpers/index"
-      ],
-      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>": [
-        "./src/index"
-      ],
-      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/*": [
-        "./src/*"
-      ],
-      "<% if (projectName) { %>@<%=projectName%>/<% } %><%=projectPackageName%>/spec": [
-        "./src/spec/index"
-      ]
-    }
+    "rootDir": "./src"
   }
 }

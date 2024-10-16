@@ -14,4 +14,7 @@ export interface NgAddSchematicsSchema extends SchematicOptionObject {
 
   /** Do not initialize a git repository. */
   skipGit: boolean;
+
+  /** Use a pinned version for otter packages */
+  exactO3rVersion?: boolean;
 }

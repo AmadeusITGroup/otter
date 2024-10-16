@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "RulesActionUpdateAssetBlock",
+  "type": "object",
+  "description": "Content of action that updates the assets",
+  "properties": {
+    "actionType": {
+      "type": "string",
+      "description": "Action Type",
+      "const": "UPDATE_ASSET"
+    },
+    "asset": {
+      "type": "string",
+      "description": "asset to update"
+    },
+    "value": {
+      "type": "string"
+    }
+  },
+  "additionalItems": false,
+  "required": [
+    "actionType",
+    "asset",
+    "value"
+  ]
+}

@@ -6,11 +6,12 @@ export class <%= classify(scenarioName) %> extends BaseScenario {
     test.describe.serial('Empty <%= classify(scenarioName) %> tests', () => {
       test('Empty test', async ({ page }) => {
         await page.goto(this.targetUrl);
-        await expect(page).toHaveTitle('TestApp');
+        await expect(page.locator('body')).toBeAttached();
       });
     });
   }
 
+  /** @inheritDoc */
   public performFlow() {
     this.<%= camelize(scenarioName) %>();
   }

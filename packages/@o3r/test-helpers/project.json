@@ -10,6 +10,10 @@
       "outputs": [
         "{projectRoot}/dist/package.json"
       ],
+      "inputs": [
+        "global",
+        "{projectRoot}/package.json"
+      ],
       "options": {
         "script": "postbuild"
       },
@@ -23,12 +27,8 @@
       "options": {
         "main": "packages/@o3r/test-helpers/src/public_api.ts",
         "tsConfig": "packages/@o3r/test-helpers/tsconfig.build.json",
-        "outputPath": "packages/@o3r/test-helpers/dist",
-        "clean": false
-      },
-      "dependsOn": [
-        "^build"
-      ]
+        "outputPath": "packages/@o3r/test-helpers/dist"
+      }
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -43,13 +43,6 @@
       }
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/test-helpers/.eslintrc.js",
         "lintFilePatterns": [
@@ -61,8 +54,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/test-helpers/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/test-helpers/jest.config.js"
       }
     }
   },

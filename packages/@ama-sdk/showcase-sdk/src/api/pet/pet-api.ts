@@ -1,7 +1,5 @@
 import { ApiResponse } from '../../models/base/api-response/index';
-import { reviveApiResponse } from '../../models/base/api-response/api-response.reviver';
 import { Pet } from '../../models/base/pet/index';
-import { revivePet } from '../../models/base/pet/pet.reviver';
 import { Api, ApiClient, ApiTypes, computePiiParameterTokens, isJsonMimeType, RequestBody, RequestMetadata } from '@ama-sdk/core';
 
 export type FindPetsByStatusStatusEnum = 'available' | 'pending' | 'sold';
@@ -103,7 +101,7 @@ export class PetApi implements Api {
 
   /**
    * Initialize your interface
-   * @param apiClient
+   *
    * @params apiClient Client used to process call to the API
    */
   constructor(apiClient: ApiClient) {
@@ -114,7 +112,6 @@ export class PetApi implements Api {
    * Add a new pet to the store
    * Add a new pet to the store
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async addPet(data: AddPetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<AddPetRequestData>(data, [] as never[]);
@@ -137,14 +134,14 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: revivePet } , 'addPet');
+    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'addPet');
     return ret;
   }
 
   /**
    * Deletes a pet
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async deletePet(data: DeletePetRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<string> {
     const getParams = this.client.extractQueryParams<DeletePetRequestData>(data, [] as never[]);
@@ -163,7 +160,7 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'DELETE', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: undefined } , 'deletePet');
+    const ret = this.client.processCall<string>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'deletePet');
     return ret;
   }
 
@@ -171,7 +168,6 @@ export class PetApi implements Api {
    * Finds Pets by status
    * Multiple status values can be provided with comma separated strings
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async findPetsByStatus(data: FindPetsByStatusRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
     data.status = data.status !== undefined ? data.status : 'available';
@@ -190,7 +186,7 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: revivePet } , 'findPetsByStatus');
+    const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByStatus');
     return ret;
   }
 
@@ -198,7 +194,6 @@ export class PetApi implements Api {
    * Finds Pets by tags
    * Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async findPetsByTags(data: FindPetsByTagsRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet[]> {
     const getParams = this.client.extractQueryParams<FindPetsByTagsRequestData>(data, ['tags']);
@@ -216,7 +211,7 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: revivePet } , 'findPetsByTags');
+    const ret = this.client.processCall<Pet[]>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'findPetsByTags');
     return ret;
   }
 
@@ -224,7 +219,6 @@ export class PetApi implements Api {
    * Find pet by ID
    * Returns a single pet
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async getPetById(data: GetPetByIdRequestData, metadata?: RequestMetadata<string, 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<GetPetByIdRequestData>(data, [] as never[]);
@@ -242,7 +236,7 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'GET', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: revivePet } , 'getPetById');
+    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'getPetById');
     return ret;
   }
 
@@ -250,7 +244,6 @@ export class PetApi implements Api {
    * Update an existing pet
    * Update an existing pet by Id
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async updatePet(data: UpdatePetRequestData, metadata?: RequestMetadata<'application/json' | 'application/xml' | 'application/x-www-form-urlencoded', 'application/xml' | 'application/json'>): Promise<Pet> {
     const getParams = this.client.extractQueryParams<UpdatePetRequestData>(data, [] as never[]);
@@ -273,14 +266,14 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'PUT', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: revivePet } , 'updatePet');
+    const ret = this.client.processCall<Pet>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'updatePet');
     return ret;
   }
 
   /**
    * Updates a pet in the store with form data
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async updatePetWithForm(data: UpdatePetWithFormRequestData, metadata?: RequestMetadata<string, string>): Promise<never> {
     const getParams = this.client.extractQueryParams<UpdatePetWithFormRequestData>(data, ['name', 'status']);
@@ -304,8 +297,8 @@ export class PetApi implements Api {
 
   /**
    * uploads an image
+   *
    * @param data Data to provide to the API call
-   * @param metadata
    */
   public async uploadFile(data: UploadFileRequestData, metadata?: RequestMetadata<'application/octet-stream', 'application/json'>): Promise<ApiResponse> {
     const getParams = this.client.extractQueryParams<UploadFileRequestData>(data, ['additionalMetadata']);
@@ -328,7 +321,7 @@ export class PetApi implements Api {
     const options = await this.client.prepareOptions(basePathUrl, 'POST', getParams, headers, body || undefined, tokenizedOptions, metadata);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
-    const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, { 200: reviveApiResponse } , 'uploadFile');
+    const ret = this.client.processCall<ApiResponse>(url, options, ApiTypes.DEFAULT, PetApi.apiName, undefined, 'uploadFile');
     return ret;
   }
 

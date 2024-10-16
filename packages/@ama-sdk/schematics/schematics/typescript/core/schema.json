@@ -7,7 +7,6 @@
     "specPath": {
       "type": "string",
       "description": "Path to the swagger/open-api specification used to generate the SDK",
-      "x-prompt": "Path to the swagger / open-api spec",
       "$default": {
         "$source": "argv",
         "index": 0
@@ -32,10 +31,23 @@
     "globalProperty": {
       "type": "string",
       "description": "Comma separated string of options to give to the openapi-generator-cli"
+    },
+    "generatorKey": {
+      "type": "string",
+      "description": "Run generator by key (from openapitools.json)"
+    },
+    "outputPath": {
+      "type": "string",
+      "description": "Output path for the generated SDK"
+    },
+    "generatorCustomPath": {
+      "type": "string",
+      "description": "Path to a custom generator"
+    },
+    "openapiNormalizer": {
+      "type": "string",
+      "description": "Specifies the rules to be enabled in OpenAPI normalizer"
     }
   },
-  "additionalProperties": true,
-  "required": [
-    "specPath"
-  ]
+  "additionalProperties": true
 }

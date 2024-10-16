@@ -1,18 +1,15 @@
 import { strings } from '@angular-devkit/core';
 import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix } from '@o3r/schematics';
-import * as ts from 'typescript';
+import { applyEsLintFix, createSchematicWithMetricsIfInstalled, findLastNodeOfKind, getDestinationPath } from '@o3r/schematics';
 import * as path from 'node:path';
-
-import { findLastNodeOfKind, getDestinationPath } from '@o3r/schematics';
+import * as ts from 'typescript';
 import { NgGenerateStoreActionSchematicsSchema } from './schema';
 
 /**
- * add an Action to an Otter Store
- *
+ * Add an Action to an Otter Store
  * @param options
  */
-export function ngGenerateStoreAction(options: NgGenerateStoreActionSchematicsSchema): Rule {
+function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema): Rule {
 
   /**
    * Compute action name based on action type and given name
@@ -193,3 +190,9 @@ ${actionDefinitionTemplate}`;
     options.skipLinter ? noop() : applyEsLintFix()
   ]);
 }
+
+/**
+ * Add an Action to an Otter Store
+ * @param options
+ */
+export const ngGenerateStoreAction = createSchematicWithMetricsIfInstalled(ngGenerateStoreActionFn);

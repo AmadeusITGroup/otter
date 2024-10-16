@@ -1,29 +1,17 @@
 name: 'Setup'
 description: 'Setup for Otter Library'
 
-inputs:
-  enable-build-cache:
-    description: 'Enable Cache'
-    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
-    required: false
-    default: 'false'
-  cache-build-identifier:
-    description: 'Custom identifier to build cache key'
-    deprecationMessage: 'The build cache is now handle only by Nx Cloud, this option will not have any effect anymore'
-    required: false
-    default: 'global'
-
 runs:
   using: "composite"
   steps:
-    - uses: actions/setup-node@v3
+    - uses: actions/setup-node@60edb5dd545a775178f52524783378180af0d1f8 # v4.0.2
       with:
-        node-version: 18
+        node-version: 20
     - name: Enable Corepack
       shell: bash
       run: corepack enable
     - name: Cache dependencies
-      uses: actions/cache@v3
+      uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
       with:
         path: |
           ~/.cache/ms-playwright

@@ -18,7 +18,6 @@ export class O3rElement implements ElementProfile {
    * Returns the text content of the DOM node.
    * Prioritizes .innerText, but fallbacks on .textContent in case the former is undefined in order
    * to support JSDOM.
-   *
    * @protected
    */
   protected get text(): string | undefined {

@@ -10,8 +10,8 @@ The references can be used inside a `yaml` file via the `$ref` instruction or in
 
 Example inside argument:
 
-```bash
-$ swagger-builder @api/public-swagger-spec ./spec/my-override.yaml
+```shell
+swagger-builder @api/public-swagger-spec ./spec/my-override.yaml
 
 # Will merge the Swagger specification from the @api/public-swagger-spec package with a local yaml file
 ```

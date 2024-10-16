@@ -4,25 +4,25 @@ import { catchError, delay, filter, finalize, pairwise, startWith, switchMap, ta
 import { isIdentifiedCallAction } from './async.helpers';
 import { AsyncRequest, ExtractFromApiActionPayloadType, FromApiActionPayload } from './async.interfaces';
 
+/**
+ * Determine if the given parameter is a Promise
+ * @param object
+ */
+const isPromise = <U>(object: U | Promise<U>): object is Promise<U> => object && typeof object === 'object' && typeof (object as any).then !== 'undefined';
 
 /**
  * Custom operator to use instead of SwitchMap with effects based on FromApi actions.
  * It makes sure to emit an action when the inner subscription is unsubscribed in order to keep the store up-to-date with pending information.
- *
  * @param successHandler function that returns the action to emit in case the FromApi call is a success
  * @param errorHandler function that returns the action to emit in case the FromApi call fails
  * @param cancelRequestActionFactory function that returns the action to emit in case the FromApi action is 'cancelled' because a new action was received by the switchMap
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function fromApiEffectSwitchMap<
-    T extends FromApiActionPayload<any>,
-    S extends ExtractFromApiActionPayloadType<T>,
-    U extends Action,
-    V extends Action | never,
-    W extends Action | never>(
-  successHandler: (result: S, action: T) => U | Observable<U>,
-  errorHandler?: (error: any, action: T) => Observable<V>,
-  cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
+export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S extends ExtractFromApiActionPayloadType<T>, U extends Action, V extends Action, W extends Action>(
+    successHandler: (result: S, action: T) => U | Observable<U> | Promise<U>,
+    errorHandler?: (error: any, action: T) => Observable<V>,
+    cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W): OperatorFunction<T, U | V | W> {
+
   const pendingRequestIdsContext: Record<string, boolean> = {};
 
   return (source$) => source$.pipe(
@@ -47,7 +47,7 @@ export function fromApiEffectSwitchMap<
         tap(cleanStack),
         switchMap((result) => {
           const success = successHandler(result, action);
-          return isObservable(success) ? success : of(success);
+          return isObservable(success) ? success : (isPromise(success) ? success : of(success));
         }),
         catchError((error) => {
           cleanStack();
@@ -68,9 +68,9 @@ export function fromApiEffectSwitchMap<
 export function fromApiEffectSwitchMapById<T extends FromApiActionPayload<any> & { id: string },
   S extends ExtractFromApiActionPayloadType<T>,
   U extends Action,
-  V extends Action | never,
-  W extends Action | never>(
-  successHandler: (result: S, action: T) => U | Observable<U>,
+  V extends Action,
+  W extends Action>(
+  successHandler: (result: S, action: T) => U | Observable<U> | Promise<U>,
   errorHandler?: (error: any, action: T) => Observable<V>,
   cancelRequestActionFactory?: (props: AsyncRequest, action: T) => W,
   cleanUpTimer?: number

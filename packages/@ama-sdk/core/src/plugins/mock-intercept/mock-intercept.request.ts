@@ -10,7 +10,6 @@ export class MockInterceptRequest implements RequestPlugin {
 
   /**
    * Creates a new instance of the plugin
-   *
    * @param options configuration options for the plugin
    */
   constructor(options: Partial<MockInterceptRequestParameters> & MockInterceptFetchParameters) {

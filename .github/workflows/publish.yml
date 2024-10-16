@@ -49,6 +49,9 @@ on:
 env:
   NX_SKIP_NX_CACHE: ${{ inputs.skipNxCache }}
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -56,11 +59,11 @@ jobs:
       NX_CLOUD_ACCESS_TOKEN: ${{ secrets.NX_CLOUD_ACCESS_TOKEN }}
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
     permissions:
-      packages: write
       contents: read
+      # Needed to publish with provenance
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 2
           ref: ${{ inputs.gitRef }}
@@ -89,7 +92,7 @@ jobs:
       APP_PATH: 'apps/github-cascading-app/dist'
     environment: 'cascading-app'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -110,7 +113,7 @@ jobs:
         env:
           PUBLISH_PROFILE: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_8996AC226FB9456EA73A6B8439B12946 || secrets.CASCADING_AZURE_APP_PUBLISH_PROFILE }}
         if: env.PUBLISH_PROFILE != null && (github.base_ref == 'main' || github.ref_name == 'main')
-        uses: Azure/functions-action@v1
+        uses: Azure/functions-action@238dc3c45bb1b04e5d16ff9e75cddd1d86753bd6 # v1.5.1
         with:
           app-name: 'github-cascading'
           slot-name: 'production'
@@ -120,11 +123,9 @@ jobs:
   publish-extensions:
     runs-on: ubuntu-latest
     environment: ${{inputs.isPullRequest && 'development' || 'production'}}
-    permissions:
-      packages: write
-      contents: read
+    needs: [publish]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 2
       - uses: ./tools/github-actions/download-build-output
@@ -140,7 +141,7 @@ jobs:
           CHROME_REFRESH_TOKEN: ${{ secrets.CHROME_REFRESH_TOKEN }}
       - name: Expose Chrome extension artifact
         if: '!inputs.prerelease'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
         with:
           name: chrome-extension
           path: apps/chrome-devtools/chrome-extension.zip

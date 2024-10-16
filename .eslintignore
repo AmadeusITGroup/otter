@@ -12,3 +12,4 @@ generated-doc/
 /.vscode
 /tools/github-actions/*/packaged-action/
 /**/src/**/package.json
+!/.yarnrc.yml

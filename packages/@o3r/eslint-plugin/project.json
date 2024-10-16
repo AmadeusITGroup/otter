@@ -4,20 +4,17 @@
   "projectType": "library",
   "sourceRoot": "packages/@o3r/eslint-plugin/src",
   "prefix": "o3r",
+  "implicitDependencies": [
+    "!test-helpers"
+  ],
   "targets": {
     "build": {
       "executor": "nx:run-script",
-      "outputs": [
-        "{projectRoot}/dist/package.json"
-      ],
+      "outputs": ["{projectRoot}/dist/package.json"],
       "options": {
         "script": "postbuild"
       },
-      "dependsOn": [
-        "^build",
-        "build-builders",
-        "compile"
-      ]
+      "dependsOn": ["^build", "build-builders", "compile"]
     },
     "prepare-build-builders": {
       "executor": "nx:run-script",
@@ -30,7 +27,10 @@
       "options": {
         "script": "build:builders"
       },
-      "dependsOn": []
+      "dependsOn": [
+        "prepare-build-builders",
+        "compile"
+      ]
     },
     "compile": {
       "executor": "@nx/js:tsc",
@@ -38,21 +38,12 @@
         "main": "packages/@o3r/eslint-plugin/src/public_api.ts",
         "tsConfig": "packages/@o3r/eslint-plugin/tsconfig.build.json",
         "outputPath": "packages/@o3r/eslint-plugin/dist",
-        "assets": [
-          "packages/@o3r/eslint-plugin/schemas/*.json"
-        ],
+        "assets": ["packages/@o3r/eslint-plugin/schemas/*.json"],
         "clean": false
       },
       "dependsOn": []
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "packages/@o3r/eslint-plugin/.eslintrc.js",
         "lintFilePatterns": [
@@ -64,8 +55,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "packages/@o3r/eslint-plugin/jest.config.js",
-        "silent": true
+        "jestConfig": "packages/@o3r/eslint-plugin/jest.config.js"
       }
     },
     "prepare-publish": {

@@ -1,13 +1,19 @@
 <nav>
-    <nav class="nav nav-pills flex-column" [attr.aria-label]="group.label || null" [class.sub-group]="group.label" *ngFor="let group of linksGroups">
-      <div class="nav-group" *ngIf="group.label">{{group.label}}</div>
-      <a class="nav-link" *ngFor="let link of group.links"
-          [class.active]="activeUrl === link.url"
-          [routerLinkActive]="activeUrl === link.url ? 'active' : ''"
-          ariaCurrentWhenActive="page"
-          [routerLink]="link.url"
-        >
-          {{ link.label }}
-        </a>
-    </nav>
+    @for (group of linksGroups; track $index) {
+      <nav class="nav nav-pills flex-column" [attr.aria-label]="group.label || null" [class.sub-group]="group.label">
+        @if (group.label) {
+          <div class="nav-group">{{group.label}}</div>
+        }
+        @for (link of group.links; track $index) {
+          <a class="nav-link"
+              [class.active]="activeUrl === link.url"
+              [routerLinkActive]="activeUrl === link.url ? 'active' : ''"
+              ariaCurrentWhenActive="page"
+              [routerLink]="link.url"
+            >
+              {{ link.label }}
+          </a>
+        }
+      </nav>
+    }
 </nav>

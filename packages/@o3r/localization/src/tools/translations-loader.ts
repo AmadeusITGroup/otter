@@ -21,13 +21,12 @@ const JSON_EXT = '.json';
  */
 @Injectable()
 export class TranslationsLoader implements TranslateLoader {
-  constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private localizationConfiguration: LocalizationConfiguration,
+  constructor(@Inject(LOCALIZATION_CONFIGURATION_TOKEN) private readonly localizationConfiguration: LocalizationConfiguration,
               @Optional() private readonly logger?: LoggerService,
-              @Optional() private dynamicContentService?: DynamicContentService) {}
+              @Optional() private readonly dynamicContentService?: DynamicContentService) {}
 
   /**
    * Download a language bundle file
-   *
    * @param  url Url to the bundle file
    */
   private downloadLanguageBundle$(url: string) {
@@ -98,11 +97,10 @@ export class TranslationsLoader implements TranslateLoader {
 
   /**
    *
-   * Fetches localization bundles from published folder (internal to application)
+   *Fetches localization bundles from published folder (internal to application)
    *
-   * 1. try to load lang from local
-   * 2. if 1 fails try to load fallback lang but only if it's different from lang in 1
-   *
+   *1. try to load lang from local
+   *2. if 1 fails try to load fallback lang but only if it's different from lang in 1
    * @param lang - language of the bundle
    * @param fallbackLanguage - fallback language in case bundle in language not found
    */

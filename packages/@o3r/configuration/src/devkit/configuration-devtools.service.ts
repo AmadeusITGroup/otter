@@ -24,7 +24,7 @@ export class OtterConfigurationDevtools {
 
   constructor(
     protected store: Store<ConfigurationStore>,
-    private appRef: ApplicationRef,
+    private readonly appRef: ApplicationRef,
     @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
 
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
@@ -50,11 +50,10 @@ export class OtterConfigurationDevtools {
 
   /**
    * Get configuration name based on input information
-   *
-   * @param selector Selector for a component configuration. It can be a string in the form library#componentName (i.e: @refx/shared-components#HeaderContComponent)
-   * or an object with the component and library names (i.e: {library:"@refx/shared-components", componentName:'HeaderContComponent'})
+   * @param selector Selector for a component configuration. It can be a string in the form library#componentName (i.e: @my-lib/shared-components#HeaderContComponent)
+   * or an object with the component and library names (i.e: {library:"@my-lib/shared-components", componentName:'HeaderContComponent'})
    * @param isFallbackName Determine if the name requested is a fallback name
-   * @returns string in the format library#componentName (i.e: "@refx/shared-components#HeaderContComponent")
+   * @returns string in the format library#componentName (i.e: "@my-lib/shared-components#HeaderContComponent")
    */
   public getComponentConfigName(selector: string | { library?: string; componentName: string }, isFallbackName = false) {
     if (!isFallbackName) {
@@ -84,7 +83,6 @@ export class OtterConfigurationDevtools {
 
   /**
    * Set a specified value of a component configuration
-   *
    * @param selector Selector for a component configuration
    * @param configProperty Name of the configuration property to set
    * @param configValue Value of the configuration property to set
@@ -101,9 +99,8 @@ export class OtterConfigurationDevtools {
 
   /**
    * Get the configuration for a specific component
-   *
-   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: @refx/shared-components#HeaderPresConfig)
-   * or an object with the configuration and library names (i.e: {library:"@refx/shared-components", componentName:'HeaderPresConfig'})
+   * @param selector Selector for a component configuration. It can be a string in the form library#configurationName (i.e: @my-lib/shared-components#HeaderPresConfig)
+   * or an object with the configuration and library names (i.e: {library:"@my-lib/shared-components", componentName:'HeaderPresConfig'})
    */
   public getCurrentConfigurationFor(selector: string | { library?: string; componentName: string }): Promise<Configuration> {
     return firstValueFrom(
@@ -129,7 +126,6 @@ export class OtterConfigurationDevtools {
 
   /**
    * Load a json configuration
-   *
    * @param configurations configurations to load
    */
   public loadConfiguration(configurations: string | CustomConfig<Configuration>[]): void {

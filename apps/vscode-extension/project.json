@@ -6,41 +6,26 @@
   "prefix": "o3r",
   "targets": {
     "build": {
-      "executor": "nx:noop",
-      "dependsOn": [
-        "compile"
-      ]
+      "executor": "nx:run-script",
+      "options": {
+        "script": "postbuild"
+      },
+      "outputs": [
+        "{projectRoot}/dist/package.json",
+        "{projectRoot}/dist/README.md",
+        "{projectRoot}/dist/assets",
+        "{projectRoot}/dist/.vscodeignore"
+      ],
+      "dependsOn": ["compile"]
     },
     "compile": {
-      "executor": "@nx/js:tsc",
+      "executor": "nx:run-script",
       "options": {
-        "main": "apps/vscode-extension/src/extension.ts",
-        "tsConfig": "apps/vscode-extension/tsconfig.build.json",
-        "outputPath": "apps/vscode-extension/dist",
-        "assets": [
-          "apps/vscode-extension/assets/**",
-          "apps/vscode-extension/README.md",
-          {
-            "glob": "LICENSE",
-            "input": ".",
-            "output": "."
-          }
-        ]
+        "script": "build:esbuild"
       },
-      "configurations": {
-        "watch": {
-          "watch": true
-        }
-      }
+      "outputs": ["{projectRoot}/dist/src/extension.js"]
     },
     "lint": {
-      "executor": "@nx/linter:eslint",
-      "configurations": {
-        "ci": {
-          "quiet": true,
-          "cacheLocation": ".cache/eslint"
-        }
-      },
       "options": {
         "eslintConfig": "apps/vscode-extension/.eslintrc.js",
         "lintFilePatterns": [
@@ -52,8 +37,7 @@
     "test": {
       "executor": "@nx/jest:jest",
       "options": {
-        "jestConfig": "apps/vscode-extension/jest.config.js",
-        "silent": true
+        "jestConfig": "apps/vscode-extension/jest.config.js"
       }
     },
     "prepare-publish": {
@@ -65,12 +49,10 @@
     "publish-extension": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx @vscode/vsce publish",
+        "command": "npm install && npx @vscode/vsce publish",
         "cwd": "apps/vscode-extension/dist"
       },
-      "dependsOn": [
-        "prepare-publish"
-      ]
+      "dependsOn": ["prepare-publish"]
     }
   },
   "tags": []
