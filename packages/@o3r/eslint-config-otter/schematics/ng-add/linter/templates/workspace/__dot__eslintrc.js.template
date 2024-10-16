@@ -1,0 +1,48 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable quote-props */
+
+module.exports = {
+  'parser': require.resolve('@typescript-eslint/parser'),
+  'parserOptions': {
+    'tsconfigRootDir': __dirname,
+    'ecmaVersion': 12
+  },
+  'env': {
+    'browser': true,
+    'node': true,
+    'es6': true,
+    'jasmine': true
+  },
+  'overrides': [
+    {
+      'files': [
+        '*.{m,c,}{t,j}s'
+      ],
+      'parser': require.resolve('@typescript-eslint/parser'),
+      'extends': ['@o3r/eslint-config-otter'].map(require.resolve)
+    },
+    {
+      'parser': require.resolve('jsonc-eslint-parser'),
+      'files': [
+        '**/*.json'
+      ]
+    },
+    {
+      'files': [
+        '**/package.json'
+      ],
+      'plugins': [
+        '@o3r'
+      ],
+      'rules': {
+        '@o3r/json-dependency-versions-harmonize': ['error', {
+          ignoredPackages: [],
+          alignPeerDependencies: false
+        }]
+      }
+    }
+  ],
+  'extends': [
+    '@o3r/eslint-config-otter'
+  ].map(require.resolve)
+};

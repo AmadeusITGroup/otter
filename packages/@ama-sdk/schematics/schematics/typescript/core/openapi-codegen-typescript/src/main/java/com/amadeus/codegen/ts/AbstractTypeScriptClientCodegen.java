@@ -99,6 +99,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     typeMapping.put("boolean", "boolean");
     typeMapping.put("string", "string");
     typeMapping.put("int", "number");
+    typeMapping.put("Integer", "number");
     typeMapping.put("float", "number");
     typeMapping.put("number", "number");
     typeMapping.put("long", "number");
@@ -173,21 +174,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       return camelize(fragment, camelizeOption);
     }
   }
-
-  @Override
-  public void processOpts() {
-    super.processOpts();
-
-    if (additionalProperties.containsKey(CodegenConstants.MODEL_PROPERTY_NAMING)) {
-      setModelPropertyNaming((String) additionalProperties.get(CodegenConstants.MODEL_PROPERTY_NAMING));
-    }
-
-    if (additionalProperties.containsKey(CodegenConstants.SUPPORTS_ES6)) {
-      setSupportsES6(Boolean.valueOf((String) additionalProperties.get(CodegenConstants.SUPPORTS_ES6)));
-      additionalProperties.put("supportsES6", getSupportsES6());
-    }
-  }
-
 
   @Override
   public CodegenType getTag() {
@@ -336,10 +322,8 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return super.getTypeDeclaration(p);
   }
 
-  //  TODO check logic here, the way of handling stuff changed :(
   @Override
   public String getSchemaType(Schema schema) {
-    // TODO test this use case as we can get much more type
     String swaggerType = super.getSchemaType(schema);
     String type = null;
     if (typeMapping.containsKey(swaggerType)) {
@@ -368,23 +352,9 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
     return camelize(sanitizeName(operationId), CamelizeOption.LOWERCASE_FIRST_CHAR);
   }
 
-  public void setModelPropertyNaming(String naming) {
-    if ("original".equals(naming) || "camelCase".equals(naming) ||
-      "PascalCase".equals(naming) || "snake_case".equals(naming)) {
-      this.modelPropertyNaming = naming;
-    } else {
-      throw new IllegalArgumentException("Invalid model property naming '" +
-        naming + "'. Must be 'original', 'camelCase', " +
-        "'PascalCase' or 'snake_case'");
-    }
-  }
-
-  public String getModelPropertyNaming() {
-    return this.modelPropertyNaming;
-  }
 
   public String getNameUsingModelPropertyNaming(String name) {
-    switch (CodegenConstants.MODEL_PROPERTY_NAMING_TYPE.valueOf(getModelPropertyNaming())) {
+    switch (CodegenConstants.MODEL_PROPERTY_NAMING_TYPE.valueOf(this.modelPropertyNaming)) {
       case original:
         return name;
       case camelCase:
@@ -548,11 +518,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       property.datatypeWithEnum = "Date";
       property.baseType = "Date";
     }
-    if (model.name.indexOf("_allOf") > -1 && model.discriminator != null) {
-      property.vendorExtensions.put("x-exposed-classname", model.classname.replace("AllOf", ""));
-    } else {
-      property.vendorExtensions.put("x-exposed-classname", model.classname);
-    }
+    property.vendorExtensions.put("x-exposed-classname", model.classname);
   }
 
   /**
@@ -570,9 +536,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       CodegenModel model = modelMap.getModel();
       if (model.isEnum) {
         nonObjectModels.add(toModelName(model.name));
-      }
-      if (model.name.endsWith("_allOf")) {
-        model.vendorExtensions.put("x-intermediate-class", model.getDiscriminator() == null ? "composition" : "inheritance");
       }
     }
 
@@ -662,16 +625,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       List<ModelMap> modelMaps = modelsMap.getModels();
       for (ModelMap _modelMap : modelMaps) {
         CodegenModel model = _modelMap.getModel();
-        // Codegen doesn't handle well allOf and discriminator in swagger spec v2
-        // Fix to pass discriminator to the original model which has generated a technical AllOf parent
-        if ("inheritance".equals(model.vendorExtensions.get("x-intermediate-class"))) {
-          String classname = model.classname;
-          CodegenModel child = ModelUtils.getModelByName(classname.substring(0, classname.length() - 5), objs);
-          if (child != null) {
-            child.discriminator = model.discriminator;
-            child.vendorExtensions.put("x-discriminator-subtypes", model.vendorExtensions.get("x-discriminator-subtypes"));
-          }
-        }
         boolean nonObjectDefinition = false;
         ArrayList<List<CodegenProperty>> group = new ArrayList<List<CodegenProperty>>();
         group.add(model.allVars);
@@ -695,32 +648,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       }
     }
     objs = super.postProcessAllModels(objs);
-    // Post process to remove all the references to intermediate models
-    List<String> intermediateCompositionModels = objs.values().stream()
-      .map(value -> getCodegenModel(value))
-      .filter(model -> "composition".equals(model.vendorExtensions.get("x-intermediate-class")))
-      .map(model -> model.getClassname())
-      .filter(className -> className != null)
-      .collect(Collectors.toList());
-
-    if (intermediateCompositionModels.size() > 0) {
-      objs = objs.entrySet().stream()
-        .filter(entry ->
-          intermediateCompositionModels.indexOf(getCodegenModel(entry.getValue()).getClassname()) == -1
-        ).map(entry -> {
-          ModelsMap modelsMap = entry.getValue();
-          List<ModelMap> models = modelsMap.getModels().stream()
-            .filter(modelMap -> intermediateCompositionModels.indexOf(modelMap.getModel().getClassname()) == -1)
-            .map(modelMap -> {
-              CodegenModel model = modelMap.getModel();
-              modelMap.setModel(stripIntermediateModel(model, intermediateCompositionModels));
-              return modelMap;
-            })
-            .collect(Collectors.toList());
-          modelsMap.setModels(models);
-          return entry;
-        }).collect(Collectors.toMap(entry -> entry.getKey(), entry -> entry.getValue()));
-    }
     for (Map.Entry<String, ModelsMap> entry : objs.entrySet()) {
       entry.setValue(this.postProcessImports(entry.getValue()));
     }
@@ -764,42 +691,6 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
       }
     }
     return null;
-  }
-
-  /**
-   * Clear all the references to intermediate models from the model
-   *
-   * @param model
-   * @param intermediateModels
-   * @return reference to the model
-   */
-  private CodegenModel stripIntermediateModel(CodegenModel model, List<String> intermediateModels) {
-    List<CodegenModel> interfaceModelList = model.getInterfaceModels();
-    if (interfaceModelList != null) {
-      List<CodegenModel> interfaceModels = interfaceModelList.stream()
-        .filter(interfaceModel -> intermediateModels.indexOf(interfaceModel.getClassname()) == -1)
-        .collect(Collectors.toList());
-      model.setInterfaceModels(interfaceModels);
-    }
-    List<String> interfaceList = model.getInterfaces();
-    if (interfaceList != null) {
-      model.setInterfaces(interfaceList.stream()
-        .filter(interfaceName -> intermediateModels.indexOf(interfaceName) == -1)
-        .collect(Collectors.toList())
-      );
-    }
-    CodegenComposedSchemas composedSchema = model.getComposedSchemas();
-    if (composedSchema != null && composedSchema.getAllOf() != null) {
-      List<CodegenProperty> filteredAllOf = composedSchema.getAllOf().stream()
-        .filter(allOfProp -> intermediateModels.indexOf(allOfProp.baseType) == -1)
-        .collect(Collectors.toList());
-      model.setComposedSchemas(new CodegenComposedSchemas(filteredAllOf, composedSchema.getOneOf(), composedSchema.getAnyOf(), composedSchema.getNot()));
-    }
-    Set<String> filteredAllOf = model.allOf.stream()
-      .filter(name -> intermediateModels.indexOf(name) == -1)
-      .collect(Collectors.toSet());
-    model.allOf = filteredAllOf;
-    return model;
   }
 
   /**
@@ -1011,7 +902,7 @@ public abstract class AbstractTypeScriptClientCodegen extends DefaultCodegen imp
   @Override
   public String toInstantiationType(Schema schema) {
     if (ModelUtils.isMapSchema(schema)) {
-      Schema additionalProperties = getAdditionalProperties(schema);
+      Schema additionalProperties = ModelUtils.getAdditionalProperties(schema);
       String inner = this.getSchemaType(additionalProperties);
       return (String) "Record<string, " + inner + ">";
     } else {

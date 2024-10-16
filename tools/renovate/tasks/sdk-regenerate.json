@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger SDK regeneration on @ama-sdk update. Need to pass the package manager as a parameter (yarn, npm).",
+  "packageRules": [
+    {
+      "matchPackagePrefixes": [
+        "@ama-sdk"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "{{arg0}} install",
+          "{{arg0}} run schematics @ama-sdk/schematics:migrate -- --from={{{currentVersion}}} --to={{{newVersion}}}",
+          "{{arg0}} run swagger:generate"
+        ],
+        "fileFilters": [
+          "!**/.{npmrc,yarnrc*}"
+        ],
+        "executionMode": "branch"
+      }
+    }
+  ]
+}

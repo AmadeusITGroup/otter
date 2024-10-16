@@ -5,6 +5,11 @@
       "version": "10.0.0-alpha.0",
       "description": "Updates of @ama-sdk/schematics to v10.0.*",
       "factory": "./schematics/ng-update/index#updateV10_0"
+    },
+    "migration-v10_3": {
+      "version": "10.3.0-alpha.0",
+      "description": "Updates of @ama-sdk/schematics to v10.3.*",
+      "factory": "./schematics/ng-update/index#updateV10_3"
     }
   }
 }

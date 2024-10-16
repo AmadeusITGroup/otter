@@ -112,4 +112,14 @@ test.describe('Lighthouse tests', () => {
     await performAudit('sdk-generator', page);
     await page.close();
   });
+
+  test('placeholder', async ({context}) => {
+    const page = await context.newPage();
+    await page.goto(baseUrl);
+    const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
+    await appFixture.navigateToPlaceholder();
+    await page.waitForURL('**/placeholder');
+    await performAudit('placeholder', page);
+    await page.close();
+  });
 });

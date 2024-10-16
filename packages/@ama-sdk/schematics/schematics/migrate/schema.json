@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "MigrateSchematicsSchema",
+  "title": "Execute migration scripts between 2 versions",
+  "description": "Schematics to migrate from a specific version to another one",
+  "properties": {
+    "from": {
+      "type": "string",
+      "description": "Starting version from which the migration scripts are executed",
+      "x-prompt": "What was the original version before migration?"
+    },
+    "to": {
+      "type": "string",
+      "description": "Version of the package to migrate to (will use the current version if not specified)"
+    },
+    "projectName": {
+      "type": "string",
+      "description": "Project name (in case it is applied to a module from an Angular Project)",
+      "$default": {
+        "$source": "projectName"
+      }
+    }
+  },
+  "additionalProperties": true,
+  "required": [
+    "from"
+  ]
+}

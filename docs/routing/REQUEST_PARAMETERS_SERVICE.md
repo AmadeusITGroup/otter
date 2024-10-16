@@ -1,8 +1,8 @@
 # RequestParameters Service
 
 # Purpose
-This service is meant to be used to retain your request / post parameters. It is not a ngrx store. It is an angular service which set a configured storage values
-`_query` and `_post`, reading from 
+This service is meant to be used to retain your request / post parameters. It is not a ngrx store. It is an Angular service which set a configured storage values
+`_query` and `_post`, reading from
 
 # Configuration
 
@@ -23,7 +23,7 @@ Query parameters value you want to provide to the service
 Post parameters value you want to provide to the service
 
 # How to use
-In your application, in the root module import `RequestParametersModule.forRoot()` and then inject `RequestParametersService` as a standard angular service. 
+In your application, in the root module import `RequestParametersModule.forRoot()` and then inject `RequestParametersService` as a standard Angular service.
 Using the default configuration:
 ```typescript
 import {RequestParametersModule} from '@o3r/dynamic-content';

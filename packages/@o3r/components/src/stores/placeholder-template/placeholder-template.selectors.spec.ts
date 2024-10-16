@@ -26,7 +26,8 @@ describe('selectPlaceholderRenderedTemplates', () => {
             }
           ]
         }
-      }
+      },
+      mode: 'normal'
     };
     placeholderRequestState = {
       requestIds: [],

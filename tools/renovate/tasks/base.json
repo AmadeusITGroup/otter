@@ -1,0 +1,47 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Trigger post install scripts when updating package manager",
+  "packageRules": [
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "matchPackageNames": [
+        "npm"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "npm install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      },
+      "rangeStrategy": "auto",
+      "groupName": "Package manager",
+      "groupSlug": "package-manager"
+    },
+    {
+      "matchDepTypes": [
+        "packageManager"
+      ],
+      "matchPackageNames": [
+        "yarn"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "yarn install"
+        ],
+        "executionMode": "branch",
+        "fileFilters": [
+          "packages/**/package.json",
+          "packages/**/package.json.template",
+          "package.json"
+        ]
+      }
+    }
+  ]
+}

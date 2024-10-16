@@ -34,9 +34,9 @@ export interface LocalStateModel {
 }
 
 /**
- * Adds a string `id` to the given type
+ * Adds an `id` to the given type
  */
-export type Idfy<T> = T & {id: string};
+export type Idfy<T> = T & {id: string | number};
 
 /**
  * Payload to update actions
@@ -75,7 +75,7 @@ export interface UpdateEntitiesActionPayload<T, K extends keyof T> {
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntitiesActionPayloadWithId<T extends {id: string}> {
+export interface UpdateEntitiesActionPayloadWithId<T extends {id: string | number}> {
   entities: keep<T, 'id'>[];
 }
 
@@ -85,7 +85,7 @@ export interface UpdateEntityActionPayload<T, K extends keyof T> {
 }
 
 /** Payload to update entities actions with a field ID */
-export interface UpdateEntityActionPayloadWithId<T extends {id: string}> {
+export interface UpdateEntityActionPayloadWithId<T extends {id: string | number}> {
   entity: keep<T, 'id'>;
 }
 
@@ -101,7 +101,7 @@ export interface SetEntityActionPayload<T> {
 
 /** Payload to fail entities actions */
 export interface FailEntitiesActionPayload<T> extends FailActionPayload<T> {
-  ids?: string[];
+  ids?: (string | number)[];
 }
 
 /**

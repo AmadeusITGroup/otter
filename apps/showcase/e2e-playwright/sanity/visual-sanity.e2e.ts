@@ -61,5 +61,11 @@ test.describe.serial('Sanity test', () => {
       await waitForPetStore;
       await expect(page).toHaveScreenshot([browserName, 'sdk-generator.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
     });
+
+    await test.step('placeholder', async () => {
+      await appFixture.navigateToPlaceholder();
+      await page.waitForURL('**/placeholder');
+      await expect(page).toHaveScreenshot([browserName, 'placeholder.png'], {fullPage: true, mask: [page.locator('.visual-testing-ignore')]});
+    });
   });
 });

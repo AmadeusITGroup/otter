@@ -12,6 +12,12 @@
       "factory": "./schematics/configuration-to-component/index#ngAddConfig",
       "schema": "./schematics/configuration-to-component/schema.json",
       "aliases": ["add-config"]
+    },
+    "use-config-signal": {
+      "description": "Migrate from configuration observable to signal",
+      "factory": "./schematics/use-config-signal/index#ngUseConfigSignal",
+      "schema": "./schematics/use-config-signal/schema.json",
+      "aliases": ["migrate-to-signal-config"]
     }
   }
 }

@@ -68,8 +68,8 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
     }
 
     const options = {
-      path,
-      ...schematicOptions
+      ...schematicOptions,
+      path
     };
 
     return applyRule ? chain([

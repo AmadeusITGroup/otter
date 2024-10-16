@@ -12,6 +12,7 @@ const appRoutes: Routes = [
   {path: 'home', loadComponent: () => import('./home/index').then((m) => m.HomeComponent), title: 'Otter Showcase - Home'},
   {path: 'run-app-locally', loadComponent: () => import('./run-app-locally/index').then((m) => m.RunAppLocallyComponent), title: 'Otter Showcase - Run App Locally'},
   {path: 'sdk', loadComponent: () => import('./sdk/index').then((m) => m.SdkComponent), title: 'Otter Showcase - SDK'},
+  {path: 'placeholder', loadComponent: () => import('./placeholder/index').then((m) => m.PlaceholderComponent), title: 'Otter Showcase - Placeholder'},
   {path: '**', redirectTo: '/home', pathMatch: 'full'}
 ];
 

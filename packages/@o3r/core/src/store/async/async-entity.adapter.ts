@@ -11,7 +11,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which has failed
    */
-  failRequestMany<V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: string[], requestId?: string): V;
+  failRequestMany<V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string): V;
 
   /**
    * Adds AsyncStoreItem property to the global store, or the entity if it already exists, when a request is triggered.
@@ -19,7 +19,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param id          Id of the entity to update
    * @param requestId   Id of the request which is triggered
    */
-  addRequestOne<V extends EntityState<T> & AsyncStoreItem>(state: V, id: string | null | undefined, requestId: string): V;
+  addRequestOne<V extends EntityState<T> & AsyncStoreItem>(state: V, id: string | number | null | undefined, requestId: string): V;
 
   /**
    * Adds AsyncStoreItem properties for each entity matching the given ids, when a request is triggered
@@ -27,7 +27,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param ids          Ids of the entity to be updated with AsyncStoreItem properties
    * @param requestId    Id of request which is triggered
    */
-  addRequestMany<V extends EntityState<T>>(state: V, ids: string[], requestId: string): V;
+  addRequestMany<V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V;
 
   /**
    * Updates the state with the given entity. Update the global or the current entity's status if it exists.
@@ -35,7 +35,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param entity       Payload item;
    * @param requestId    Id of request which has resolved if any
    */
-  resolveRequestOne<V extends EntityState<T> & AsyncStoreItem>(state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<'id', string>, requestId?: string): V;
+  resolveRequestOne<V extends EntityState<T> & AsyncStoreItem>(state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<'id', string | number>, requestId?: string): V;
 
   /**
    * Updates the state with the given entity. Update the global or the current entity's status if it exists.
@@ -44,7 +44,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param requestId    Id of request which has resolved if any
    * @param idProperty   Property of the entity containing its unique identifier
    */
-  resolveRequestOne<V extends EntityState<T> & AsyncStoreItem, W extends keyof T>(state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string>, requestId?: string, idProperty?: W): V;
+  resolveRequestOne<V extends EntityState<T> & AsyncStoreItem, W extends keyof T>(state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty?: W): V;
 
   /**
    * Updates the state with the given entities. Updates also AsyncStoreItem properties of each entity, when a request is resolved.
@@ -52,7 +52,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param entities     Payload items;
    * @param requestId    Id of request which has resolved if any
    */
-  resolveRequestMany<V extends EntityState<T>>(state: V, entities: (Partial<T> & Record<'id', string>)[], requestId?: string): V;
+  resolveRequestMany<V extends EntityState<T>>(state: V, entities: (Partial<T> & Record<'id', string | number>)[], requestId?: string): V;
 
   /**
    * Updates the state with the given entities. Updates also AsyncStoreItem properties of each entity, when a request is resolved.
@@ -61,7 +61,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
    * @param requestId    Id of request which has resolved if any
    * @param idProperty   Property of the entity containing its unique identifier
    */
-  resolveRequestMany<V extends EntityState<T>, W extends keyof T>(state: V, entities: (Partial<T> & Record<W, string>)[], requestId?: string, idProperty?: W): V;
+  resolveRequestMany<V extends EntityState<T>, W extends keyof T>(state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty?: W): V;
 }
 
 /**
@@ -70,7 +70,7 @@ export interface EntityAsyncRequestAdapter<T extends AsyncStoreItem> extends Ent
  */
 export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapter: EntityAdapter<T>): EntityAsyncRequestAdapter<T> {
 
-  const addRequestOne: <V extends EntityState<T> & AsyncStoreItem>(state: V, id: string | null | undefined, requestId: string) => V = (state, id, requestId) => {
+  const addRequestOne: <V extends EntityState<T> & AsyncStoreItem>(state: V, id: string | number | null | undefined, requestId: string) => V = (state, id, requestId) => {
     const currentEntity = typeof id !== 'undefined' && id !== null && state.entities[id];
     if (currentEntity) {
       const changes = asyncStoreItemAdapter.addRequest(asyncStoreItemAdapter.extractAsyncStoreItem(currentEntity), requestId);
@@ -79,8 +79,8 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
     return asyncStoreItemAdapter.addRequest(state, requestId);
   };
 
-  const addRequestMany: <V extends EntityState<T>>(state: V, ids: string[], requestId: string) => V =
-    <V extends EntityState<T>>(state: V, ids: string[], requestId: string): V =>
+  const addRequestMany: <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string) => V =
+    <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V =>
       adapter.updateMany(ids.filter((id) => !!state.entities[id]).map((id) => ({
         id,
         changes: asyncStoreItemAdapter.addRequest(asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[id]!), requestId)
@@ -88,8 +88,9 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
       ), state);
 
   const resolveRequestOne: <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id' = 'id'>
-  (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string>, requestId?: string, idProperty?: W) => V =
-    <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id'>(state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string>, requestId?: string, idProperty: W = 'id' as W): V => {
+    (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty?: W) => V =
+    <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id'>
+      (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty: W = 'id' as W): V => {
       let newEntity;
       const currentEntity = state.entities[entity[idProperty]];
       if (currentEntity) {
@@ -101,16 +102,19 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
       return adapter.upsertOne(newEntity as T, state);
     };
 
-  const resolveRequestMany: <V extends EntityState<T>, W extends keyof T | 'id' = 'id'>(state: V, entities: (Partial<T> & Record<W, string>)[], requestId?: string, idProperty?: W) => V =
-    <V extends EntityState<T>, W extends keyof T | 'id'>(state: V, entities: (Partial<T> & Record<W, string>)[], requestId?: string, idProperty: W = 'id' as W): V =>
-      adapter.updateMany(entities.filter((entity) => !!state.entities[entity[idProperty]]).map((entity) => {
-        const model = {...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[entity[idProperty]]!)};
-        return {id: entity[idProperty], changes: asyncStoreItemAdapter.resolveRequest(model, requestId)};
-      }
-      ), state);
+  const resolveRequestMany: <V extends EntityState<T>, W extends keyof T | 'id' = 'id'>
+    (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty?: W) => V =
+    <V extends EntityState<T>, W extends keyof T | 'id'>
+      (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty: W = 'id' as W): V =>
+        adapter.updateMany(
+          entities.filter((entity) => !!state.entities[entity[idProperty]]).map((entity) => {
+            const model = {...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[entity[idProperty]]!)};
+            return {id: entity[idProperty], changes: asyncStoreItemAdapter.resolveRequest(model, requestId)} as Update<T>;
+          }
+          ), state);
 
-  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: string[], requestId?: string) => V =
-    <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: string[] = [], requestId?: string): V => {
+  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string) => V =
+    <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: (string | number)[] = [], requestId?: string): V => {
       if (ids.length && !ids.some((id) => state.entities[id] === undefined)) {
         return adapter.updateMany(ids.map((id) => ({
           id,

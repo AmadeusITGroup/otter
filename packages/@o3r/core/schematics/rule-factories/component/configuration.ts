@@ -14,6 +14,7 @@ export const getAddConfigurationRules = (
   '@o3r/configuration',
   'configuration-to-component',
   {
+    ...options,
     skipLinter: options.skipLinter,
     projectName: options.projectName,
     exposeComponent: !!options.componentStructure && options.componentStructure !== 'full'

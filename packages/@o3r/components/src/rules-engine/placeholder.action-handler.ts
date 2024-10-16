@@ -36,7 +36,6 @@ export class PlaceholderRulesEngineActionHandler implements OnDestroy, RulesEngi
     private readonly injector: Injector,
     @Optional() translateService?: LocalizationService
   ) {
-
     const lang$ = translateService ? translateService.getTranslateService().onLangChange.pipe(
       map(({ lang }) => lang),
       startWith(translateService.getCurrentLanguage()),
