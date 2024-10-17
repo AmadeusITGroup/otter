@@ -3,7 +3,7 @@ import { getCssTokenDefinitionRenderer } from './css/design-token-definition.ren
 import { getCssStyleContentUpdater } from './css/design-token-updater.renderers';
 import { existsSync, promises as fs } from 'node:fs';
 import { isAbsolute, resolve } from 'node:path';
-import type { DesignTokenRendererOptions } from './design-token.renderer.interface';
+import type { DesignTokenRendererOptions, TokenListTransform } from './design-token.renderer.interface';
 
 /**
  * Retrieve the function that determines which file to update for a given token
@@ -19,9 +19,66 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 };
 
 /**
- * Compare the Token Variable by name
+ * Compare Token variable by name
+ * @param a first token variable
+ * @param b second token variable
+ * @deprecated use {@link getTokenSorterByName} instead. Will be removed in v13.
  */
 export const compareVariableByName = (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure): number => a.getKey().localeCompare(b.getKey());
+
+/**
+ * Sort Token variable by name using the local alphabetical order
+ * @param _variableSet Complete set of the parsed Design Token
+ */
+export const getTokenSorterByName: TokenListTransform = (_variableSet) => (tokens) => tokens.sort((a, b) => a.getKey().localeCompare(b.getKey()));
+
+
+/**
+ * Reorganize the Tokens to ensure that all the Tokens with references have they references definition before in the order
+ * @param variableSet Complete set of the parsed Design Token
+ */
+export const getTokenSorterByRef: TokenListTransform = (variableSet) => {
+  /**
+   * Get the maximum number of reference levels for a Design Token, following its references
+   * @param token Design Token
+   * @param level Value of the current level
+   * @param mem Memory of the visited node
+   */
+  const getReferenceLevel = (token: DesignTokenVariableStructure, level = 0, mem: DesignTokenVariableStructure[] = []): number => {
+    const children = token.getReferencesNode(variableSet);
+    if (children.length === 0 || mem.includes(token)) {
+      return level;
+    } else {
+      level++;
+      mem = [...mem, token];
+      return Math.max(...children.map((child) => getReferenceLevel(child, level, mem)));
+    }
+  };
+
+  return (tokens) => {
+    const limit = Math.max(...tokens.map((t) => getReferenceLevel(t)));
+    let sortToken = [...tokens];
+    for (let i = 0; i < limit + 1; i++) {
+      let hasChanged = false;
+      const tmpSortToken: DesignTokenVariableStructure[] = [];
+      for (const token of sortToken) {
+        const firstRef = tmpSortToken.findIndex((t) => t.getReferences(variableSet).includes(token.tokenReferenceName));
+        if (firstRef > -1) {
+          tmpSortToken.splice(firstRef, 0, token);
+          hasChanged = true;
+        } else {
+          tmpSortToken.push(token);
+        }
+      }
+      sortToken = tmpSortToken;
+      if (!hasChanged) {
+        break;
+      }
+    }
+
+    return sortToken;
+  };
+};
 
 /**
  * Process the parsed Design Token variables and render them according to the given options and renderers
@@ -45,21 +102,36 @@ export const renderDesignTokens = async (variableSet: DesignTokenVariableSet, op
   const determineFileToUpdate = options?.determineFileToUpdate || computeFileToUpdatePath();
   const tokenDefinitionRenderer = options?.tokenDefinitionRenderer || getCssTokenDefinitionRenderer();
   const styleContentUpdater = options?.styleContentUpdater || getCssStyleContentUpdater();
-  const updates = Array.from(variableSet.values())
-    .sort(options?.variableSortComparator || compareVariableByName)
+  const tokenPerFile = Array.from(variableSet.values())
     .reduce((acc, designToken) => {
       const filePath = determineFileToUpdate(designToken);
-      const variable = tokenDefinitionRenderer(designToken, variableSet);
-      if (variable) {
-        acc[filePath] ||= [];
-        acc[filePath].push(variable);
-      }
+      acc[filePath] ||= [];
+      acc[filePath].push(designToken);
       return acc;
-    }, {} as Record<string, string[]>);
+    }, {} as Record<string, DesignTokenVariableStructure[]>);
+
+  const updates = Object.fromEntries(
+    Object.entries(tokenPerFile)
+      .map(([file, designTokens]) => {
+        designTokens = options?.variableSortComparator ? designTokens.sort(options.variableSortComparator) : designTokens;
+        designTokens = (options?.tokenListTransforms?.map((transform) => transform(variableSet)) || [getTokenSorterByName(variableSet)])
+          .reduce((acc, transform) => transform(acc), designTokens);
+        return [
+          file,
+          designTokens
+            .map((designToken) => tokenDefinitionRenderer(designToken, variableSet))
+            .filter((variable): variable is string => !!variable)
+        ];
+      })
+  );
 
   await Promise.all(
     Object.entries(updates).map(async ([file, vars]) => {
-      const styleContent = existsFile(file) ? await readFile(file) : '';
+      const isFileExisting = existsFile(file);
+      const styleContent = isFileExisting ? await readFile(file) : '';
+      if (!isFileExisting && !vars.length) {
+        return;
+      }
       const newStyleContent = styleContentUpdater(vars, file, styleContent);
       await writeFile(file, newStyleContent);
     })

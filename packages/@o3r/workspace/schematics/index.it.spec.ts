@@ -126,5 +126,6 @@ describe('new otter workspace', () => {
     expect(() => packageManagerRun({script: 'lint'}, execAppOptions)).not.toThrow();
     expect(rootPackageJson.workspaces).toContain('libs/*');
     expect(rootPackageJson.workspaces).toContain('apps/*');
+    expect(existsSync(path.join(workspacePath, '.renovaterc.json'))).toBe(true);
   });
 });

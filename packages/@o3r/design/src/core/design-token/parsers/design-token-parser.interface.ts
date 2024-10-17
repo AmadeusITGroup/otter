@@ -26,28 +26,39 @@ export interface NodeReference {
 export type TokenValueRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, enforceReferenceRendering?: boolean) => string;
 
 /**
- * Function rendering the Design Token Reference
+ * Function rendering the Design Token reference
  * @param tokenStructure Parsed Design Token
+ * @param variableSet Complete list of the parsed Design Token
+ * @param defaultValue Default value to use if the reference is made to an undefined variable
+ */
+// eslint-disable-next-line no-use-before-define
+export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>, defaultValue?: string) => string;
+
+/**
+ * Function rendering the Design Token reference not registered
+ * @param referenceName Name of the un registered variable
  * @param variableSet Complete list of the parsed Design Token
  */
 // eslint-disable-next-line no-use-before-define
-export type TokenReferenceRender = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+export type UnregisteredTokenReferenceRenderer = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
 
 /**
- * Function rendering the Design Token Reference not registered
+ * Function rendering the Design Token reference not registered
  * @param referenceName Name of the un registered variable
  * @param variableSet Complete list of the parsed Design Token
+ * @deprecated duplicate of {@link UnregisteredTokenReferenceRender}, will be removed on v13
  */
 // eslint-disable-next-line no-use-before-define
 export type UnregisteredTokenReferenceRender = (referenceName: string, variableSet: Map<string, DesignTokenVariableStructure>) => string;
 
 /**
- * Function rendering the Design Token Reference
+ * Function rendering the Design Token reference
  * @param tokenStructure Parsed Design Token
  * @param variableSet Complete list of the parsed Design Token
+ * @deprecated duplicate of {@link TokenReferenceRenderer}, will be removed on v13
  */
 // eslint-disable-next-line no-use-before-define
-export type TokenReferenceRenderer = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
+export type TokenReferenceRender = (tokenStructure: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => string;
 
 
 /**

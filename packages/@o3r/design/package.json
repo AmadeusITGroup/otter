@@ -20,7 +20,7 @@
     "prepare:build:builders": "yarn cpy 'builders/**/schema.json' dist/builders && yarn cpy '{builders,collection,migration}.json' dist && yarn cpy 'schematics/**/schema.json' dist/schematics && yarn copy:templates",
     "prepare:publish": "prepare-publish ./dist",
     "build:source": "tsc -b tsconfig.build.json && yarn cpy package.json dist/",
-    "build:builders": "tsc -b tsconfig.builders.json --pretty && yarn copy:templates && generate-cjs-manifest",
+    "build:builders": "tsc -b tsconfig.builders.json --pretty && generate-cjs-manifest",
     "build": "yarn nx build design",
     "postbuild": "yarn copy:schemas && patch-package-json-main"
   },
@@ -99,7 +99,7 @@
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/preset-typescript": "~7.25.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@nx/eslint": "~19.5.0",

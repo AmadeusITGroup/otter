@@ -1,0 +1,84 @@
+{
+  "name": "ama-sdk-client-angular",
+  "$schema": "https://raw.githubusercontent.com/nrwl/nx/master/packages/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "packages/@ama-sdk/client-angular/src",
+  "prefix": "o3r",
+  "targets": {
+    "build": {
+      "executor": "nx:run-script",
+      "outputs": ["{projectRoot}/dist/package.json"],
+      "options": {
+        "script": "postbuild"
+      },
+      "dependsOn": [
+        "build-builders",
+        "compile",
+        "build-esm2015",
+        "build-cjs"
+      ]
+    },
+    "build-esm2015": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:esm2015"
+      }
+    },
+    "build-cjs": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:cjs"
+      }
+    },
+    "compile": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:esm2020"
+      },
+      "outputs": ["{projectRoot}/dist/src"]
+    },
+    "lint": {
+      "options": {
+        "eslintConfig": "packages/@ama-sdk/client-angular/.eslintrc.js",
+        "lintFilePatterns": [
+          "packages/@ama-sdk/client-angular/src/**/*.ts",
+          "packages/@ama-sdk/client-angular/package.json"
+        ]
+      },
+      "dependsOn": [
+        "build"
+      ]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "packages/@ama-sdk/client-angular/jest.config.js"
+      }
+    },
+    "prepare-publish": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:publish"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish packages/@ama-sdk/client-angular/dist"
+      }
+    },
+    "prepare-build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "prepare:build:builders"
+      }
+    },
+    "build-builders": {
+      "executor": "nx:run-script",
+      "options": {
+        "script": "build:builders"
+      }
+    }
+  },
+  "tags": []
+}

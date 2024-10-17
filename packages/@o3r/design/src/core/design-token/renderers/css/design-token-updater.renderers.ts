@@ -24,6 +24,12 @@ export interface CssStyleContentUpdaterOptions {
    * @default {@see AUTO_GENERATED_END}
    */
   endTag?: string;
+
+  /**
+   * Generate the variable in a :root scope in first generation
+   * @default true
+   */
+  scopeOnNewFile?: boolean;
 }
 
 /**
@@ -33,6 +39,7 @@ export interface CssStyleContentUpdaterOptions {
 export const getCssStyleContentUpdater = (options?: CssStyleContentUpdaterOptions): DesignContentFileUpdater => {
   const startTag = options?.startTag || AUTO_GENERATED_START;
   const endTag = options?.endTag || AUTO_GENERATED_END;
+  const scopeOnNewFile = options?.scopeOnNewFile ?? true;
 
   /** Regexp to replace the content between the detected tags. It also handle possible inputted special character sanitization */
   const regexToReplace = new RegExp(`${startTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}(:?(.|[\n\r])*)${endTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}`);
@@ -41,7 +48,7 @@ export const getCssStyleContentUpdater = (options?: CssStyleContentUpdaterOption
     if (styleContent.indexOf(startTag) >= 0 && styleContent.indexOf(endTag) >= 0) {
       return styleContent.replace(regexToReplace, generateVars(variables, startTag, endTag));
     } else {
-      return styleContent + '\n' + generateVars(variables, startTag, endTag, true);
+      return styleContent + '\n' + generateVars(variables, startTag, endTag, scopeOnNewFile);
     }
   };
 };

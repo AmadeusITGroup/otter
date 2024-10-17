@@ -8,4 +8,6 @@ properties:
   category:
     $ref: './split-spec.yaml#/components/schemas/Category'
   category2:
+    $ref: 'split-spec.yaml#/components/schemas/Category'
+  category3:
       $ref: '../spec-chunk4/spec-chunk4.yaml#/components/schemas/Category'

@@ -1,9 +1,25 @@
 {
   "$schema": "../../schemas/design-token.schema.json",
   "example": {
+    "post-ref": {
+      "$value": "{example.var1}"
+    },
     "var1": {
       "$type": "color",
       "$value": "#000"
+    },
+    "var-expect-override": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "o3rExpectOverride": true
+      }
+    },
+    "var-ref-expect-override": {
+      "$value": "{example.var1}",
+      "$extensions": {
+        "o3rExpectOverride": true
+      }
     },
     "var-color-unit-ratio-override": {
       "$type": "color",

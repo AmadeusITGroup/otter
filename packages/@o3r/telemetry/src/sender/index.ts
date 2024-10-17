@@ -9,6 +9,7 @@ export interface BaseMetricData {
   /** Error message */
   error?: string;
 }
+
 export interface BuilderMetricData extends BaseMetricData {
   /** Builder information */
   builder: {
@@ -40,10 +41,20 @@ export interface SchematicMetricData extends BaseMetricData {
   };
 }
 
+export interface CliMetricData extends BaseMetricData {
+  /** CLI information */
+  cli: {
+    /** Name of the CLI */
+    name: string;
+    /** CLI options */
+    options?: any;
+  };
+}
+
 /**
  * Different kinds of metrics
  */
-export type MetricData = BuilderMetricData | SchematicMetricData;
+export type MetricData = BuilderMetricData | SchematicMetricData | CliMetricData;
 
 /**
  * Function sending metrics to the server

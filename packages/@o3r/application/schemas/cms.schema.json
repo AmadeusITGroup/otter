@@ -5,6 +5,9 @@
   "title": "Schema of CMS application configuration",
   "description": "Schema used to indicate the configuration to the CMS when the application is loaded by it",
   "additionalProperties": false,
+  "required": [
+    "localisationsFolder"
+  ],
   "properties": {
     "assetsFolder": {
       "type": "string",
@@ -20,7 +23,8 @@
       "description": "An array of the CSS files which are used by placeholders at runtime. These files will be used in the placeholder editor",
       "items": {
         "type": "string"
-      }
+      },
+      "default": []
     },
     "defaultLanguage": {
       "type": "string",
@@ -29,11 +33,33 @@
     },
     "functionalContentsFolder": {
       "type": "string",
-      "description": "The relative path to the functional contents metadata folder to import"
+      "description": "The relative path to the functional contents metadata folder to import",
+      "default": "functional-contents-metadata"
+    },
+    "features": {
+      "type": "object",
+      "description": "Set of additional CMS features that can be activated or deactivated for the application",
+      "properties": {
+        "themingCssOverrideEnabled": {
+          "type": "boolean",
+          "description": "Specifies that the blueprint supports theming CSS file customization",
+          "default": false
+        },
+        "themingCssVariablesEnabled": {
+          "type": "boolean",
+          "description": "Specifies that the blueprint supports theming CSS variables customization",
+          "default": true
+        }
+      }
     },
     "migrationScriptFolder": {
       "type": "string",
-      "description": "The relative path to the migration scripts"
+      "description": "The relative path to the migration scripts",
+      "default": "migration-scripts"
+    },
+    "migrationScriptVersionDependency": {
+      "type": "string",
+      "description": "Name of the package dependency to get the current blueprint version from. If the dependency is not found, the field version in the package.json will be used instead if defined. If not defined, no migration script will be executed"
     }
   }
 }

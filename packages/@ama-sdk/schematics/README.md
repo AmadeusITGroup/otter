@@ -132,6 +132,10 @@ If your specification file includes dates, there are multiple options for the ge
   For more information related to these types, check out this [documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
   This can be done by adding `--global-property stringifyDate=false` to the generator command or by adding the global property
 to the `openapitools.json`.
+> [!NOTE]
+> An extra type to manage special timezone use cases can be used at property level thanks to the
+> `x-local-timezone` vendor. 
+> Please check out the [date documentation](https://github.com/AmadeusITGroup/otter/tree/main/packages/%40ama-sdk/schematics/schematics/typescript/shell/templates/base#manage-dates).
 
 Example to use `Date`:
 

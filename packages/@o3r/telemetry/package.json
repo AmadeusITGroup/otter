@@ -11,11 +11,12 @@
   "scripts": {
     "build": "yarn nx build telemetry",
     "postbuild": "patch-package-json-main",
-    "prepare:build:builders": "yarn run cpy 'collection.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
+    "prepare:build:builders": "yarn run cpy '{collection,migration}.json' dist && yarn run cpy 'schematics/**/*.json' dist/schematics",
     "prepare:publish": "prepare-publish ./dist",
     "build:builders": "tsc -b tsconfig.builders.json --pretty"
   },
   "dependencies": {
+    "minimist": "^1.2.6",
     "tslib": "^2.6.2"
   },
   "peerDependencies": {
@@ -26,6 +27,15 @@
   },
   "peerDependenciesMeta": {
     "@angular-devkit/architect": {
+      "optional": true
+    },
+    "@angular-devkit/core": {
+      "optional": true
+    },
+    "@angular-devkit/schematics": {
+      "optional": true
+    },
+    "rxjs": {
       "optional": true
     }
   },
@@ -41,6 +51,7 @@
     "@o3r/eslint-plugin": "workspace:^",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",
+    "@types/minimist": "^1.2.2",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",

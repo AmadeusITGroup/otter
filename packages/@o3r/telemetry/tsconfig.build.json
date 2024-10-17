@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "module": "CommonJS",
     "rootDir": "src",
-    "tsBuildInfoFile": "build/.tsbuildinfo"
+    "tsBuildInfoFile": "build/.tsbuildinfo",
+    "esModuleInterop": true
   },
   "include": ["src/**/*.ts"],
   "exclude": [

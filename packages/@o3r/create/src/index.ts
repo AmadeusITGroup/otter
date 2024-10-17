@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import type { CliWrapper } from '@o3r/telemetry';
 import { spawnSync, type SpawnSyncOptionsWithBufferEncoding } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -281,6 +282,21 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';
 
 console.info(logo);
-createNgProject();
-prepareWorkspace(projectFolder, packageManager);
-addOtterFramework(projectFolder, packageManager);
+
+const run = () => {
+  createNgProject();
+  prepareWorkspace(projectFolder, packageManager);
+  addOtterFramework(projectFolder, packageManager);
+};
+
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@o3r/create:create')();
+})();

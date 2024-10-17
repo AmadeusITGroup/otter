@@ -108,7 +108,7 @@
     "@o3r/core": "workspace:^",
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
-    "@playwright/test": "~1.47.0",
+    "@playwright/test": "~1.48.0",
     "@schematics/angular": "~18.2.0",
     "pixelmatch": "^5.2.1",
     "pngjs": "^7.0.0",
@@ -162,7 +162,7 @@
     }
   },
   "dependencies": {
-    "esbuild": "~0.23.0",
+    "esbuild": "~0.24.0",
     "module-from-string": "^3.2.0",
     "tslib": "^2.6.2"
   },
@@ -181,7 +181,7 @@
     "@angular/platform-browser": "~18.2.0",
     "@angular/platform-browser-dynamic": "~18.2.0",
     "@babel/core": "~7.25.0",
-    "@babel/preset-typescript": "~7.24.0",
+    "@babel/preset-typescript": "~7.25.0",
     "@compodoc/compodoc": "^1.1.19",
     "@eslint-community/eslint-plugin-eslint-comments": "^4.4.0",
     "@material/slider": "^14.0.0",
@@ -195,7 +195,7 @@
     "@o3r/localization": "workspace:^",
     "@o3r/schematics": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@playwright/test": "~1.47.0",
+    "@playwright/test": "~1.48.0",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",

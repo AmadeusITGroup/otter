@@ -33,25 +33,30 @@ Otter Design module provides a set of code generators based on [Angular schemati
 
 Otter Design module provides a set of builders based on [Angular builders](https://angular.io/guide/cli-builder).
 
-### generate-css
+### generate-style
 
-The `generate-css` builder can generate CSS and CMS Metadata based on given Design Token Json files.
+The `generate-style` builder can generate CSS and CMS Metadata based on given Design Token Json files.
 The following configurations are available:
 
-| Options                     | Default Value  | Description                                                                                                                          |
-| --------------------------- | -------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| **designTokenFilePatterns** | [] *Require*   | Path patterns to the Design Token JSON files. <br /> Files in dependencies are supported and resolved with Node Resolver.            |
-| **variableType**            | `'css'`        | Type of the variables to generate for a Design Token.                                                                                |
-| **output**                  | *null*         | Output file where the CSS will be generated. <br /> The path specified in `o3rTargetFile` will be ignore if this option is specified |
-| **defaultStyleFile**        | src/theme.scss | File path to generate the variable if not determined by the specifications                                                           |
-| **metadataOutput**          | *null*         | Path to generate the metadata for the CMS. <br /> The metadata will be generated only if the file path is specified.                 |
-| **metadataIgnorePrivate**   | false          | Ignore the private variable in the metadata generation.                                                                              |
-| **rootPath**                | *null*         | Root path of files where the CSS will be generated.                                                                                  |
-| **failOnDuplicate**         | false          | Determine if the process should stop in case of Token duplication.                                                                   |
-| **templateFile**            | *null*         | Path to a template file to apply as default configuration to a Design Token extension.                                               |
-| **prefix**                  | *null*         | Prefix to append to generated variables.                                                                                             |
-| **prefixPrivate**           | *null*         | Prefix to append to generated private variables.                                                                                     |
-| **watch**                   | false          | Enable Watch mode.                                                                                                                   |
+| Options                     | Default Value      | Description                                                                                                                                  |
+| --------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| **language**                | `'css'` *Required* | Default styling language to generate to the given Design Token. *(`css`, `scss` and `sass` are available)*                                   |
+| **designTokenFilePatterns** | `[]` *Required*    | Path patterns to the Design Token JSON files. <br /> Files in dependencies are supported and resolved with Node Resolver.                    |
+| **variableType**            | *null*             | Type of the variables to generate for a Design Token.                                                                                        |
+| **output**                  | *null*             | Output file where the CSS will be generated. <br /> The path specified in `o3rTargetFile` will be ignored if this option is specified        |
+| **defaultStyleFile**        | `'src/theme.scss'` | File path to generate the variable if not determined by the specifications                                                                   |
+| **metadataOutput**          | *null*             | Path to generate the metadata for the CMS. <br /> The metadata will be generated only if the file path is specified.                         |
+| **metadataIgnorePrivate**   | false              | Ignore private variables in the metadata generation.                                                                                         |
+| **rootPath**                | *null*             | Root path of files where the CSS will be generated.                                                                                          |
+| **failOnDuplicate**         | false              | Determine if the process should stop in case of Token duplication.                                                                           |
+| **templateFile**            | *null*             | Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension.                         |
+| **prefix**                  | *null*             | Prefix to append to generated variables.                                                                                                     |
+| **prefixPrivate**           | *null*             | Prefix to append to generated private variables.                                                                                             |
+| **renderPrivateVariableTo** | *null*             | Generate the private variable in the given language (if not specified, in case of CSS, the variable will be ignored in the generated style). |
+| **watch**                   | false              | Enable watch mode.                                                                                                                           |
+
+> [!NOTE]
+> The document of the deprecated builder `generate-css` is available on [this page](https://github.com/AmadeusITGroup/otter/blob/main/docs/design/DEPRECATE_GENERATE_CSS.md).
 
 ### generate-jsonschema
 
@@ -92,15 +97,16 @@ It comes with the following options:
 
 To enhance the features of default Design Token standard and provide additional information to renderers, the [$extensions](https://tr.designtokens.org/format/#extensions) properties has been enhanced by Otter Tooling with the following options:
 
-| Extension property | Supporting Renderers                                     | Description                                                                                                                                                                                                                                                                      |
-| ------------------ | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **o3rTargetFile**  | `css`, `sass`                                            | Information regarding the path to file where the token requests to be generated                                                                                                                                                                                                  |
-| **o3rPrivate**     | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Determine if the token is flagged as private                                                                                                                                                                                                                                     |
-| **o3rImportant**   | `css`                                                    | Determine if the token should be flagged as important when generated                                                                                                                                                                                                             |
-| **o3rScope**       | `css`, `sass`                                            | Scope to apply to the generated variable                                                                                                                                                                                                                                         |
-| **o3rMetadata**    | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Additional information to provide to the metadata if generated                                                                                                                                                                                                                   |
-| **o3rUnit**        | `css`, `sass`, `metadata`, `design-token`                | Convert a numeric value from the specified unit to the new unit. It will add a unit to the token with type "number" for which the unit is not specified.<br />In case of complex type (such as shadow, transition, etc...), the unit will be applied to all numeric types in it. |
-| **o3rRatio**       | `css`, `sass`, `metadata`, `design-token`                | Ratio to apply to previous value. The ratio will be applied only on token with "number" type or on the first numbers determined in "string" like types.<br />In case of complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it. |
+| Extension property    | Supporting Renderers                                     | Description                                                                                                                                                                                                                                                                        |
+| --------------------- | -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **o3rTargetFile**     | `css`, `sass`                                            | Information regarding the path to the file where the token will be generated                                                                                                                                                                                                       |
+| **o3rPrivate**        | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Determine if the token is flagged as private                                                                                                                                                                                                                                       |
+| **o3rImportant**      | `css`                                                    | Determine if the token should be flagged as important when generated                                                                                                                                                                                                               |
+| **o3rScope**          | `css`, `sass`                                            | Scope to apply to the generated variable                                                                                                                                                                                                                                           |
+| **o3rMetadata**       | `css`, `sass`, `json-schema`, `metadata`, `design-token` | Additional information to provide to the metadata if generated                                                                                                                                                                                                                     |
+| **o3rUnit**           | `css`, `sass`, `metadata`, `design-token`                | Convert a numeric value from the specified unit to the new unit. It will add a unit to the token with type "number" for which the unit is not specified.<br />In case of a complex type (such as shadow, transition, etc...), the unit will be applied to all numeric types in it. |
+| **o3rRatio**          | `css`, `sass`, `metadata`, `design-token`                | Ratio to apply to previous value. The ratio will only be applied to a token of type "number" or to the first numbers determined in "string" types.<br />In case of a complex type (such as shadow, transition, etc...), the ratio will be applied to all numeric types in it.      |
+| **o3rExpectOverride** | `css`, `sass`                                            | Indicate that the token is expected to be overridden by external rules.                                                                                                                                                                                                            |
 
 > [!NOTE]
 > In case of implementation of custom renderer, additional properties dedicated to this renderer can be added following Design Token Extensions [guidelines](https://tr.designtokens.org/format/#extensions).

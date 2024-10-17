@@ -29,7 +29,7 @@
     },
     "output": {
       "type": "string",
-      "description": "Path to generate the metadata for CMS. The Metadata will be generated only if the file path is specified"
+      "description": "Path to generate the Metadata for CMS. The Metadata will be generated only if the file path is specified"
     },
     "defaultStyleFile": {
       "type": "string",
@@ -43,7 +43,7 @@
     "metadataIgnorePrivate": {
       "type": "boolean",
       "default": false,
-      "description": "Ignore the private variable in the metadata generation."
+      "description": "Ignore the private variable in the Metadata generation."
     },
     "rootPath": {
       "type": "string",
@@ -60,7 +60,7 @@
       "description": "Determine if the process should stop in case of Token duplication"
     },
     "templateFile": {
-      "description": "Path to a template file(s) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
+      "description": "Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension. In case of multiple files, the JSON will be deeply merged in the order defined by the list.",
       "oneOf": [
         {
           "type": "string"
@@ -86,7 +86,7 @@
       "enum": [
         "sass"
       ],
-      "description": "Generate the Private Variable to the given language (the variable is not generated if not specified)"
+      "description": "Generate the private variable to the given language (the variable is not generated if not specified)"
     },
     "failOnMissingReference": {
       "type": "boolean",

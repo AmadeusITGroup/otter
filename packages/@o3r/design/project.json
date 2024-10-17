@@ -25,7 +25,7 @@
         "script": "build:source"
       },
       "inputs": [
-        "{projectRoot}/cli/*.cts",
+        "cli",
         "source",
         "^source"
       ]

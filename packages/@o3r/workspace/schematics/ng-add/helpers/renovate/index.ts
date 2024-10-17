@@ -1,5 +1,5 @@
 import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTemplateFolder } from '@o3r/schematics';
+import { getPackageManager, getTemplateFolder } from '@o3r/schematics';
 
 /**
  * Add renovate configuration to Otter application
@@ -13,7 +13,8 @@ export function generateRenovateConfig(rootPath: string): Rule {
     }
     const templateSource = apply(url(getTemplateFolder(rootPath, __dirname)), [
       template({
-        dot: '.'
+        dot: '.',
+        packageManager: getPackageManager()
       }),
       renameTemplateFiles()
     ]);

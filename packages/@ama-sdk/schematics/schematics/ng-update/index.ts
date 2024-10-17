@@ -6,7 +6,8 @@ import {
   updateV10_0 as tsUpdateV10_0,
   updateV10_1 as tsUpdateV10_1,
   updateV10_3 as tsUpdateV10_3,
-  updateV11_0 as tsUpdateV11_0
+  updateV11_0 as tsUpdateV11_0,
+  updateV11_4 as tsUpdateV11_4
 } from './typescript';
 import { isTypescriptSdk } from '../helpers/is-typescript-project';
 
@@ -56,6 +57,19 @@ export function updateV11_0(): Rule {
   return (tree, context) => {
     if (isTypescriptSdk(tree)) {
       return tsUpdateV11_0()(tree, context);
+    }
+
+    return tree;
+  };
+}
+
+/**
+ * update of Otter library V11.4
+ */
+export function updateV11_4(): Rule {
+  return (tree, context) => {
+    if (isTypescriptSdk(tree)) {
+      return tsUpdateV11_4()(tree, context);
     }
 
     return tree;

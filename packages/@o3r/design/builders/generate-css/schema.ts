@@ -38,7 +38,7 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Prefix to happen to generated variables */
   prefix?: string;
 
-  /** Generate the Private Variable to the given language */
+  /** Generate the private variable to the given language */
   renderPrivateVariableTo?: 'sass';
 
   /** Prefix to happen to generated private variables */
@@ -50,6 +50,6 @@ export interface GenerateCssSchematicsSchema extends SchematicOptionObject {
   /** Type of the variables to generate for a Design Token */
   variableType?: 'css' | 'sass';
 
-  /** Path to a template file to apply as default configuration to a Design Token extension */
+  /** Path to a template file (or a list of template files) to apply as default configuration to a Design Token extension */
   templateFile?: string | string[];
 }

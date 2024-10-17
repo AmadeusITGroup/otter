@@ -7,7 +7,11 @@
 *.jar binary
 *.ico binary
 
-# Ignore Packaged Github Actions from the repository language detection
-tools/github-actions/*/packaged-action/** linguist-vendored
+# Ignored files from the repository language detection
 .yarn/** linguist-vendored
 *.jar linguist-vendored
+
+# Generated files
+tools/github-actions/*/packaged-action/** linguist-generated
+packages/@ama-sdk/showcase-sdk/src/api/** linguist-generated
+packages/@ama-sdk/showcase-sdk/src/models/base/** linguist-generated

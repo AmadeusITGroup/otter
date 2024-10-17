@@ -4,6 +4,7 @@
  * Update the OpenAPI spec from an NPM package
  */
 
+import type { CliWrapper } from '@o3r/telemetry';
 import * as minimist from 'minimist';
 import { existsSync } from 'node:fs';
 import { createRequire } from 'node:module';
@@ -42,7 +43,7 @@ if (!packageName) {
   process.exit(-1);
 }
 
-void (async () => {
+const run = async () => {
   let specSourcePath;
   const appRequire = createRequire(posix.join(process.cwd(), 'package.json'));
   const packageJsonPath = appRequire.resolve(`${packageName}/package.json`);
@@ -79,4 +80,15 @@ void (async () => {
 
   logger.info(`Updating spec file from "${specSourcePath}" to "${specDestinationPath}" (CWD: "${process.cwd()}")`);
   await copyFile(specSourcePath, specDestinationPath);
+};
+
+void (async () => {
+  let wrapper: CliWrapper = (fn: any) => fn;
+  try {
+    const { createCliWithMetrics } = await import('@o3r/telemetry');
+    wrapper = createCliWithMetrics;
+  } catch {
+    // Do not throw if `@o3r/telemetry` is not installed
+  }
+  return wrapper(run, '@ama-sdk/schematics:update-spec-from-npm')();
 })();

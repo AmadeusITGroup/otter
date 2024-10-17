@@ -1,0 +1,15 @@
+name: Create a new GitHub Release
+description: Creates a new GitHub Release for a given version
+inputs:
+  version:
+    description: 'The version to create the release for'
+    required: true
+  target:
+    description: 'The branch to target'
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Create release
+      shell: bash
+      run: gh release create v${{ inputs.version }} --generate-notes ${{ contains( inputs.version, '-' ) && '--prerelease' || '' }} --target ${{ inputs.target }}
