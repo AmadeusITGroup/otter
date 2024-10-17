@@ -20,6 +20,8 @@ export const computeFileToUpdatePath = (root = process.cwd(), defaultFile = 'sty
 
 /**
  * Compare the Token Variable by name
+ * @param a
+ * @param b
  */
 export const compareVariableByName = (a: DesignTokenVariableStructure, b: DesignTokenVariableStructure): number => a.getKey().localeCompare(b.getKey());
 

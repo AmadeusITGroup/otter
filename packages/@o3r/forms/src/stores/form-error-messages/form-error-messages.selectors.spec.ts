@@ -19,7 +19,7 @@ describe('FormErrorMessages Selectors', () => {
 
     expect(selectors.selectAllElementErrors.projector(formErrors)).toEqual([elementError1, elementError2, elementError3]);
     expect(selectors.selectAllElementErrors.projector([])).toEqual([]);
-    expect(selectors.selectAllElementErrors.projector(undefined)).toEqual([]);
+    expect(selectors.selectAllElementErrors.projector()).toEqual([]);
   });
 
   it('should provide all the error message objetcs', () => {
@@ -27,6 +27,6 @@ describe('FormErrorMessages Selectors', () => {
 
     expect(selectors.selectAllErrorMessageObjects.projector(elementErrors)).toEqual([errorMessageObject1, errorMessageObject2, errorMessageObject3, errorMessageObject4]);
     expect(selectors.selectAllErrorMessageObjects.projector([])).toEqual([]);
-    expect(selectors.selectAllErrorMessageObjects.projector(undefined)).toEqual([]);
+    expect(selectors.selectAllErrorMessageObjects.projector()).toEqual([]);
   });
 });

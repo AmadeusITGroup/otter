@@ -35,7 +35,7 @@ function plurialize(singular: string): string {
   if (endsWith(singular, ['data', 'ies', 'es', 's'], ['us', 'ss'])) {
     return singular;
   } else if (endsWith(singular, ['y'], ['ay', 'ey'])) {
-    return `${singular.substring(0, singular.length - 1)}ies`;
+    return `${singular.slice(0, Math.max(0, singular.length - 1))}ies`;
   } else if (endsWith(singular, ['us', 'ss', 'ch', 'sh'])) {
     return `${singular}es`;
   } else {

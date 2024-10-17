@@ -61,6 +61,7 @@ export class EventTrackService {
   private get performancePayload() {
     return this._performancePayload;
   }
+
   /** Performance payload object */
   private set performancePayload(value: PerfEventPayload) {
     if (this.isPerfTrackingActive) {

@@ -18,10 +18,10 @@ export class ConfigurationDevtoolsMessageService implements OnDestroy, DevtoolsS
   private readonly sendMessage = sendOtterMessage<AvailableConfigurationMessageContents>;
 
   constructor(
-      private readonly store: Store<ConfigurationStore>,
-      private readonly logger: LoggerService,
-      private readonly configurationDevtools: OtterConfigurationDevtools,
-      @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
+    private readonly store: Store<ConfigurationStore>,
+    private readonly logger: LoggerService,
+    private readonly configurationDevtools: OtterConfigurationDevtools,
+    @Optional() @Inject(OTTER_CONFIGURATION_DEVTOOLS_OPTIONS) private readonly options: ConfigurationDevtoolsServiceOptions) {
 
     this.options = { ...OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, ...options };
 

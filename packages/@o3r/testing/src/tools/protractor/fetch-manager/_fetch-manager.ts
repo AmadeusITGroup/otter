@@ -29,7 +29,7 @@
           return [args[0], args[1]];
         },
         (error) => {
-          return Promise.reject(error);
+          throw error;
         });
       promise = promise.then(() => nativeFetch(...args));
       promise = promise.then(
@@ -39,7 +39,7 @@
         },
         (error) => {
           ref.nbCurrentFetch--;
-          return Promise.reject(error);
+          throw error;
         });
       return promise;
     }

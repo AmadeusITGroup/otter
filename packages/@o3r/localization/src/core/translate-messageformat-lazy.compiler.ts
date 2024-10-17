@@ -65,8 +65,8 @@ export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
   public compileTranslations(translations: {[x: string]: any}, lang: string) {
     type CompiledTranslationMap = {[key in keyof typeof translations]: (params: any) => string};
 
-    const compilingStrategy = this.config.enableCache ?
-      (acc: CompiledTranslationMap, key: string) => {
+    const compilingStrategy = this.config.enableCache
+      ? (acc: CompiledTranslationMap, key: string) => {
         acc[key] = (params: any) => {
           const cached = this.cache[`${lang}_${key}`];
           if (cached) {
@@ -78,9 +78,9 @@ export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
           return newCachedItem.format(params) as string;
         };
         return acc;
-      } :
+      }
 
-      (acc: CompiledTranslationMap, key: string) => {
+      : (acc: CompiledTranslationMap, key: string) => {
         acc[key] = (params: any) => new IntlMessageFormat(translations[key], lang, undefined, this.config).format(params) as string;
         return acc;
       };

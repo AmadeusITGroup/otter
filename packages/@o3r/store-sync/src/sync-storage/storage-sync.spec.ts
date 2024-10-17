@@ -5,24 +5,20 @@ import { StorageKeys, SyncStorageConfig } from './interfaces';
 import { dateReviver, rehydrateApplicationState, syncStateUpdate, syncStorage } from './storage-sync';
 
 class TypeB {
-  constructor(public afield: string) { }
+  constructor(public afield: string) {}
 }
 
 class TypeA {
   public static reviver(key: string, value: any): any {
     if (typeof value === 'object') {
-      if (value.afield) {
-        return new TypeB(value.afield);
-      } else {
-        return new TypeA(value.astring, value.anumber, value.aboolean, value.adate, value.aclass);
-      }
+      return value.afield ? new TypeB(value.afield) : new TypeA(value.astring, value.anumber, value.aboolean, value.adate, value.aclass);
     }
     return dateReviver(key, value);
   }
 
   public static replacer(key: string, value: any) {
     if (key === 'anumber' || key === 'aboolean' || key === 'adate') {
-      return undefined;
+      return;
     }
     return value;
   }
@@ -36,12 +32,12 @@ class TypeA {
   }
 
   constructor(
-    public astring: string = undefined,
-    public anumber: number = undefined,
-    public aboolean: boolean = undefined,
-    public adate: Date = undefined,
-    public aclass: TypeB = undefined
-  ) { }
+    public astring: string,
+    public anumber: number,
+    public aboolean: boolean,
+    public adate: Date,
+    public aclass: TypeB
+  ) {}
 }
 
 class MockStorage implements Storage {
@@ -49,15 +45,19 @@ class MockStorage implements Storage {
   public clear(): void {
     throw new Error('Not Implemented');
   }
+
   public getItem(key: string): string | null {
     return (this as any)[key] ? (this as any)[key] : null;
   }
+
   public key(_index: number): string | null {
     throw new Error('Not Implemented');
   }
+
   public removeItem(key: string): void {
     (this as any)[key] = undefined;
   }
+
   public setItem(key: string, data: string): void {
     (this as any)[key] = data;
   }
@@ -68,13 +68,13 @@ const mockStorageKeySerializer = (key: string | number) => {
 };
 
 describe('ngrxLocalStorage', () => {
-  const t1 = new TypeA('Testing', 3.14159, true, new Date('1968-11-16T12:30:00Z'), new TypeB('Nested Class'));
+  const t1 = new TypeA('Testing', 3.141_59, true, new Date('1968-11-16T12:30:00Z'), new TypeB('Nested Class'));
 
   const t1Json = JSON.stringify(t1);
 
   const t1Filtered = new TypeA('Testing', undefined, undefined, undefined, new TypeB('Nested Class'));
 
-  const t1Simple = { astring: 'Testing', adate: '1968-11-16T12:30:00.000Z', anumber: 3.14159, aboolean: true };
+  const t1Simple = { astring: 'Testing', adate: '1968-11-16T12:30:00.000Z', anumber: 3.141_59, aboolean: true };
 
   const initialState = { state: t1 };
 
@@ -118,12 +118,12 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
 
-    syncStateUpdate(featureInitialState, featureKeys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, featureKeys, s, skr, false);
 
     const raw = s.getItem('featureState');
     expect(raw).toEqual(featureInitialStateJson);
 
-    const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(featureInitialStateJson);
 
     expect(t1 instanceof TypeA).toBeTruthy();
@@ -153,12 +153,12 @@ describe('ngrxLocalStorage', () => {
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
 
-    syncStateUpdate(initialFeatureStatePrimitiveStr, featureKeys, s, skr, false, undefined, undefined);
+    syncStateUpdate(initialFeatureStatePrimitiveStr, featureKeys, s, skr, false);
 
     const raw = s.getItem('featureState');
     expect(raw).toEqual(primitiveStr);
 
-    const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true);
     expect(finalState).toEqual(primitiveStr);
   });
 
@@ -188,12 +188,12 @@ describe('ngrxLocalStorage', () => {
       const s = new MockStorage();
       const skr = mockStorageKeySerializer;
 
-      syncStateUpdate(initialFeatureStatePrimitiveBool, featureKeys, s, skr, false, undefined, undefined);
+      syncStateUpdate(initialFeatureStatePrimitiveBool, featureKeys, s, skr, false);
 
       const raw = s.getItem('featureState');
       expect(JSON.parse(raw)).toEqual(primitiveBool);
 
-      const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true, undefined);
+      const finalState: any = rehydrateApplicationState(featureKeys, s, skr, true);
       expect(finalState).toEqual(primitiveBool);
     });
   });
@@ -225,12 +225,12 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ 'feature': {filter: ['astring', 'aclass'], syncForFeature: true} }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
     const raw = s.getItem('feature');
     expect(raw).toEqual(JSON.stringify(t1Filtered));
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(JSON.stringify(t1Filtered));
 
     expect(t1 instanceof TypeA).toBeTruthy();
@@ -281,9 +281,7 @@ describe('ngrxLocalStorage', () => {
       [{ feature1: {filter: ['slice11', 'slice12'], syncForFeature: true} }],
       s,
       skr,
-      false,
-      undefined,
-      undefined
+      false
     );
 
     syncStateUpdate(
@@ -291,9 +289,7 @@ describe('ngrxLocalStorage', () => {
       [{ feature2: {filter: ['slice21', 'slice22'], syncForFeature: true} }],
       s,
       skr,
-      false,
-      undefined,
-      undefined
+      false
     );
 
     const raw1 = s.getItem('feature1');
@@ -327,9 +323,9 @@ describe('ngrxLocalStorage', () => {
 
     const keys = [{ 'feature': {reviver: TypeA.reviver, syncForFeature: true} }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
 
     expect(JSON.stringify(finalState)).toEqual(JSON.stringify(featureInitialState));
     expect(finalState instanceof TypeA).toBeTruthy();
@@ -359,9 +355,9 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ 'feature': { reviver: TypeA.reviver, syncForFeature: true } }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(JSON.stringify(featureInitialState));
     expect(finalState instanceof TypeA).toBeTruthy();
     expect(finalState.aclass instanceof TypeB).toBeTruthy();
@@ -393,12 +389,12 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ filtered: { filter: ['astring', 'aclass'], syncForFeature: true } }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
     const raw = s.getItem('filtered');
     expect(raw).toEqual(JSON.stringify(t1Filtered));
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(JSON.stringify(t1Filtered));
     expect(t1 instanceof TypeA).toBeTruthy();
     expect(finalState instanceof TypeA).toBeFalsy();
@@ -428,9 +424,9 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ replacer: { reviver: TypeA.replacer, syncForFeature: true } }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(JSON.stringify(t1Filtered));
 
     expect(t1 instanceof TypeA).toBeTruthy();
@@ -475,7 +471,7 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ replacer: { replacer: ['astring', 'adate', 'anumber'], space: 2, syncForFeature: true } }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
     // We want to validate the space parameter, but don't want to trip up on OS specific newlines, so filter the newlines out and
     //  compare against the literal string.
@@ -484,7 +480,7 @@ describe('ngrxLocalStorage', () => {
       '{  "astring": "Testing",  "adate": "1968-11-16T12:30:00.000Z",  "anumber": 3.14159}'
     );
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
 
     expect(JSON.stringify(finalState)).toEqual(
       '{"astring":"Testing","adate":"1968-11-16T12:30:00.000Z","anumber":3.14159}'
@@ -517,9 +513,9 @@ describe('ngrxLocalStorage', () => {
     const skr = mockStorageKeySerializer;
     const keys = [{ state: { serialize: TypeA.serialize, deserialize: TypeA.deserialize, syncForFeature: true } }];
 
-    syncStateUpdate(featureInitialState, keys, s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, keys, s, skr, false);
 
-    const finalState: any = rehydrateApplicationState(keys, s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState(keys, s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(featureInitialStateJson);
     expect(finalState instanceof TypeA).toBeTruthy();
     expect(finalState.aclass instanceof TypeB).toBeTruthy();
@@ -545,14 +541,14 @@ describe('ngrxLocalStorage', () => {
     // This tests that the state slice is removed when the state it's undefined for a feature state
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, true, undefined, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, true);
 
     // do update
     let raw = s.getItem('state');
     expect(raw).toEqual(t1Json);
 
     // ensure that it's erased
-    syncStateUpdate(featureUndefinedState, ['state'], s, skr, true, undefined, undefined);
+    syncStateUpdate(featureUndefinedState, ['state'], s, skr, true);
     raw = s.getItem('state');
     expect(raw).toBeFalsy();
   });
@@ -577,14 +573,14 @@ describe('ngrxLocalStorage', () => {
     // This tests that the state slice is keeped when the state it's undefined
     const s = new MockStorage();
     const skr = mockStorageKeySerializer;
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false);
 
     // do update
     let raw = s.getItem('state');
     expect(raw).toEqual(t1Json);
 
     // test update doesn't erase when it's undefined
-    syncStateUpdate(featureUndefinedState, ['state'], s, skr, false, undefined, undefined);
+    syncStateUpdate(featureUndefinedState, ['state'], s, skr, false);
     raw = s.getItem('state');
     expect(raw).toEqual(t1Json);
   });
@@ -609,9 +605,9 @@ describe('ngrxLocalStorage', () => {
     const featureInitalState = {...t1Simple};
     const skr = mockStorageKeySerializer;
 
-    syncStateUpdate(t1Simple, [{'state': {syncForFeature: true}}], s, skr, false, undefined, undefined);
+    syncStateUpdate(t1Simple, [{'state': {syncForFeature: true}}], s, skr, false);
 
-    const finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, false, undefined);
+    const finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, false);
     expect(finalState).toEqual(featureInitalState);
   });
 
@@ -635,12 +631,12 @@ describe('ngrxLocalStorage', () => {
     // This tests that storage key serializer are working.
     const s = new MockStorage();
     const skr = (key: string | number) => `this_key${key}`;
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, undefined, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false);
 
     const raw = s.getItem('1232342');
     expect(raw).toBeNull();
 
-    const finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true, undefined);
+    const finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(featureInitialStateJson);
 
     expect(t1 instanceof TypeA).toBeTruthy();
@@ -699,12 +695,12 @@ describe('ngrxLocalStorage', () => {
       return false;
     };
 
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, shouldNotSyncSelector, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, shouldNotSyncSelector);
 
     let raw = s.getItem('state');
     expect(raw).toEqual(null);
 
-    let finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true, undefined);
+    let finalState: any = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true);
     expect(JSON.stringify(finalState)).toEqual('{}');
 
     // Selector should error - so still no sync
@@ -712,7 +708,7 @@ describe('ngrxLocalStorage', () => {
       return state.doesNotExist;
     };
 
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, errorSelector, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, errorSelector);
 
     raw = s.getItem('state');
     expect(raw).toEqual(null);
@@ -722,12 +718,12 @@ describe('ngrxLocalStorage', () => {
       return true;
     };
 
-    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, shouldSyncSelector, undefined);
+    syncStateUpdate(featureInitialState, [{'state': {syncForFeature: true}}], s, skr, false, shouldSyncSelector);
 
     raw = s.getItem('state');
     expect(raw).toEqual(t1Json);
 
-    finalState = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true, undefined);
+    finalState = rehydrateApplicationState([{'state': {syncForFeature: true}}], s, skr, true);
     expect(JSON.stringify(finalState)).toEqual(featureInitialStateJson);
   });
 

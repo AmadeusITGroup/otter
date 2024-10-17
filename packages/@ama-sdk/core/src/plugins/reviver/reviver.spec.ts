@@ -45,7 +45,7 @@ describe('Reviver Reply Plugin', () => {
       response: {} as any
     });
 
-    const transformedData = await runner.transform(undefined);
+    const transformedData = await runner.transform();
 
     expect(transformedData).toEqual({});
   });

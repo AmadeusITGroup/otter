@@ -25,7 +25,7 @@ export default createRule({
         const importedModules = node.specifiers.filter((specifier) => specifier.local.name.endsWith('Module'));
         const importPath = node.source.value?.toString();
 
-        if (importedModules.length && importPath && importPath.startsWith('.') && !importPath.endsWith('.module') && !importPath.endsWith('index')) {
+        if (importedModules.length > 0 && importPath && importPath.startsWith('.') && !importPath.endsWith('.module') && !importPath.endsWith('index')) {
           const dirname = path.dirname(context.getFilename());
           const importTarget = path.resolve(dirname, importPath);
 
@@ -41,28 +41,32 @@ export default createRule({
           context.report({
             node,
             messageId: 'error',
-            fix: !indexFileExist ? undefined : (fixer) => {
-              return fixer.replaceText(
-                node.source,
-                node.source.raw
-                  .replace(importPath, newIndexFilePath)
-              );
-            },
-            suggest: !indexFileExist ? undefined : [
-              {
-                messageId: 'indexFile',
-                fix: (fixer) => {
-                  return fixer.replaceText(
-                    node.source,
-                    node.source.raw
-                      .replace(importPath, newIndexFilePath)
-                  );
-                },
-                data: {
-                  newIndexFilePath
-                }
+            fix: indexFileExist
+              ? (fixer) => {
+                return fixer.replaceText(
+                  node.source,
+                  node.source.raw
+                    .replace(importPath, newIndexFilePath)
+                );
               }
-            ]
+              : undefined,
+            suggest: indexFileExist
+              ? [
+                {
+                  messageId: 'indexFile',
+                  fix: (fixer) => {
+                    return fixer.replaceText(
+                      node.source,
+                      node.source.raw
+                        .replace(importPath, newIndexFilePath)
+                    );
+                  },
+                  data: {
+                    newIndexFilePath
+                  }
+                }
+              ]
+              : undefined
           });
         }
       }

@@ -30,8 +30,8 @@ describe('new otter application with Design', () => {
     expect(diff.added).toContain(path.posix.join('apps', appName, 'src/style/theme.scss'));
     expect(diff.added).toContain(path.posix.join('apps', appName, 'design-token.template.json'));
 
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
   });
 });

@@ -16,17 +16,17 @@ program
   .description('[DEPRECATED] Get an artifact from an Artifact repository manager')
   .requiredOption('--registry <url>', 'Registry URL. It is ignored for Azure Artifacts.')
   .option('--repository-manager <manager>', `Artifact repository manager. Supported managers are ${SUPPORTED_REPOSITORY_MANAGERS.join(', ')}`, 'JFrog')
-  .option('--organization <organization>', 'Azure Artifacts organization', undefined)
-  .option('--project <project>', 'Azure Artifacts project', undefined)
-  .option('--feed <feed>', 'Azure Artifacts feed', undefined)
-  .option('-a, --artifact-name <name>', 'Artifact name', undefined)
-  .option('-v, --artifact-version <version>', 'Artifact version', undefined)
-  .option('-g, --artifact-group-id <group>', 'Artifact group id', undefined)
+  .option('--organization <organization>', 'Azure Artifacts organization')
+  .option('--project <project>', 'Azure Artifacts project')
+  .option('--feed <feed>', 'Azure Artifacts feed')
+  .option('-a, --artifact-name <name>', 'Artifact name')
+  .option('-v, --artifact-version <version>', 'Artifact version')
+  .option('-g, --artifact-group-id <group>', 'Artifact group id')
   .option('-r, --artifact-repos <repositories>', 'Artifact repositories', (repos: string) => repos.split(','), [])
   .option('-u, --username <username>', 'Artifactory username', 'mvn-readonly')
   .option('-p, --password <password>', 'Artifactory user password')
-  .option('--password_env_var <password_env_var>', 'Artifactory user password environment var', undefined)
-  .option('-o, --out <path>', 'Output file name (default: ./built/${name}.jar)', undefined)
+  .option('--password_env_var <password_env_var>', 'Artifactory user password environment var')
+  .option('-o, --out <path>', 'Output file name (default: ./built/${name}.jar)')
   .option('--silent', 'Prevent exit code 1 if artifact not found (Usage example : dep-checker with post-install scripts', false)
   .option('--verbose', 'Display debug log message')
   .option('--use-package-version', 'Use the package version as artifact version')
@@ -112,7 +112,7 @@ async function retrieveArtifactFromJFrog() {
 
   url += (url.endsWith('/') ? '' : '/') + `api/search/gavc?a=${name}&g=${artifactGroupId}`;
 
-  if (opts.artifactRepos && opts.artifactRepos.length) {
+  if (opts.artifactRepos && opts.artifactRepos.length > 0) {
     url += `&repos=${(opts.artifactRepos as string[]).join(',')}`;
   }
 
@@ -122,7 +122,7 @@ async function retrieveArtifactFromJFrog() {
   let responseSearch;
   try {
     responseSearch = await request.get(url, options).promise();
-  } catch (err) {
+  } catch {
     logger.warn('First call to get artifact information failed, retries');
     responseSearch = await request.get(url, options).promise();
   }
@@ -141,7 +141,7 @@ async function retrieveArtifactFromJFrog() {
       return 0;
     });
 
-  if (uris.length) {
+  if (uris.length > 0) {
     const artifactUrl = uris[0];
     logger.info(`Call to ${artifactUrl}`);
     const gavcResponse: string = await request.get(artifactUrl, options).promise();
@@ -180,7 +180,7 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
   const normalizedArtifactName = `${artifactGroupId}:${artifactName}`.toLowerCase();
   for (const pckg of packages) {
     if (pckg.normalizedName === artifactName || pckg.normalizedName === normalizedArtifactName) {
-      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find(v => v.isLatest);
+      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find((v) => v.isLatest);
       if (!latestVersion) {
         throw new Error(`No latest version found for ${artifactName}`);
       }
@@ -196,13 +196,13 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-      // eslint-disable-next-line max-len
+
       const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
 
-    // eslint-disable-next-line max-len
+
     url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 
     logger.info(`Call to ${url}`);

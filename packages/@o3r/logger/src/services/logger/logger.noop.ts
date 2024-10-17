@@ -9,7 +9,7 @@ import type { LoggerClient } from './logger.client';
 export const noopLogger: LoggerClient = {
   identify: () => {},
   event: () => {},
-  getSessionURL: () => undefined,
+  getSessionURL: () => {},
   stopRecording: () => {},
   resumeRecording: () => {},
   error: console.error,

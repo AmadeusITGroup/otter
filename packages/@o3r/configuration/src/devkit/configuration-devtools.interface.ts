@@ -56,10 +56,10 @@ export type AvailableConfigurationMessageContents =
  */
 export const isConfigurationMessage = (message: any): message is AvailableConfigurationMessageContents => {
   return message && (
-    message.dataType === 'configurations' ||
-    message.dataType === 'updateConfig' ||
-    message.dataType === 'requestMessages' ||
-    message.dataType === 'connect');
+    message.dataType === 'configurations'
+    || message.dataType === 'updateConfig'
+    || message.dataType === 'requestMessages'
+    || message.dataType === 'connect');
 };
 
 /**

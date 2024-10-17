@@ -20,7 +20,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
       const option = new O3rElement(selectedOption);
       return option.click();
     } else {
-      return Promise.reject(`Option with index ${index} not found in select element.`);
+      throw `Option with index ${index} not found in select element.`;
     }
   }
 
@@ -37,7 +37,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
         return option.click();
       }
     }
-    return Promise.reject(`Option with value ${value} not found in select element.`);
+    throw `Option with value ${value} not found in select element.`;
   }
 
   /** @inheritdoc */
@@ -54,7 +54,7 @@ export class MatSelect extends O3rElement implements MatSelectProfile {
       }
     }
 
-    return Promise.reject(`Option with label ${label} not found in select element.`);
+    throw `Option with label ${label} not found in select element.`;
   }
 
   /** @inheritDoc */

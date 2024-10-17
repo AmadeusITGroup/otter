@@ -1,6 +1,5 @@
 import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { WorkspaceProject } from '@o3r/schematics';
-import { getWorkspaceConfig, readPackageJson } from '@o3r/schematics';
+import { getWorkspaceConfig, readPackageJson, WorkspaceProject } from '@o3r/schematics';
 import type { PackageJson } from 'type-fest';
 
 /**

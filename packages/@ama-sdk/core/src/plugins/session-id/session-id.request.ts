@@ -107,13 +107,13 @@ export class SessionIdRequest implements RequestPlugin {
    */
   public generateRequestId() {
     const requestCountKey = this.sessionIdHeader + '-Request-Count';
-    let requestCount = NaN;
+    let requestCount = Number.NaN;
 
     // Check if we already have a request count in the shared memory or session storage
     if (SessionIdRequest.sharedMemory[requestCountKey] !== undefined) {
       requestCount = SessionIdRequest.sharedMemory[requestCountKey];
     } else if (typeof sessionStorage !== 'undefined') {
-      requestCount = +(sessionStorage.getItem(requestCountKey) || NaN);
+      requestCount = +(sessionStorage.getItem(requestCountKey) || Number.NaN);
     }
 
     // If the request count is not defined yet or if it has been corrupted somehow, we start at 0.

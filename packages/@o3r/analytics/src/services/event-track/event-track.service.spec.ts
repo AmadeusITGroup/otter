@@ -17,6 +17,7 @@ class MockRouter {
       observer.complete();
     }, 100);
   });
+
   public url = '/test';
 }
 

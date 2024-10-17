@@ -104,7 +104,7 @@ export class ApiFetchClient implements ApiClient {
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes, apiName: string, revivers: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined },
     operationId?: string): Promise<T>;
   public async processCall<T>(url: string, options: RequestOptions, apiType: ApiTypes | string, apiName: string,
-    revivers?: ReviverType<T> | undefined | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
+    revivers?: ReviverType<T> | { [statusCode: number]: ReviverType<T> | undefined }, operationId?: string): Promise<T> {
 
     let response: Response | undefined;
     let asyncResponse: Promise<Response>;
@@ -154,11 +154,7 @@ export class ApiFetchClient implements ApiClient {
 
       body = await response.text();
     } catch (e: any) {
-      if (e instanceof CanceledCallError) {
-        exception = e;
-      } else {
-        exception = new EmptyResponseError(e.message || 'Fail to Fetch', undefined, {apiName, operationId, url, origin});
-      }
+      exception = e instanceof CanceledCallError ? e : new EmptyResponseError(e.message || 'Fail to Fetch', undefined, {apiName, operationId, url, origin});
     }
 
     try {
@@ -168,8 +164,8 @@ export class ApiFetchClient implements ApiClient {
     }
     // eslint-disable-next-line no-console
     const reviver = getResponseReviver(revivers, response, operationId, {disableFallback: this.options.disableFallback, log: console.error});
-    const replyPlugins = this.options.replyPlugins ?
-      this.options.replyPlugins.map((plugin) => plugin.load<T>({
+    const replyPlugins = this.options.replyPlugins
+      ? this.options.replyPlugins.map((plugin) => plugin.load<T>({
         dictionaries: root && root.dictionaries,
         response,
         reviver,
@@ -180,7 +176,8 @@ export class ApiFetchClient implements ApiClient {
         url,
         origin,
         logger: this.options.logger
-      })) : [];
+      }))
+      : [];
 
     let parsedData = root;
     for (const pluginRunner of replyPlugins) {

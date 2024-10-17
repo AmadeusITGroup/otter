@@ -41,7 +41,7 @@ export class MaxDateValidator implements Validator, OnChanges {
 
   /** @inheritDoc */
   public validate(c: AbstractControl): ValidationErrors | null {
-    return this.maxdate != null ? this.validator(c) : null;
+    return this.maxdate == null ? null : this.validator(c);
   }
 
   /** @inheritDoc */

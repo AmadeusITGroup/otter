@@ -51,7 +51,7 @@ export const getMetadataTokenDefinitionRenderer = (options?: MetadataTokenDefini
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     if (ignorePrivateVariable && isO3rPrivateVariable(variable)) {
-      return undefined;
+      return;
     }
     const variableValue = tokenValueRenderer(variable, variableSet);
     return `"${(JSON.parse(variableValue) as CssVariable).name}": ${variableValue}`;

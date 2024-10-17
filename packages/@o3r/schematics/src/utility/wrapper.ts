@@ -84,11 +84,13 @@ For more details and instructions on how to change these settings, see https://g
   const subtreeDirectory = context.schematic.description.name === 'typescript-shell' ? (opts as any).directory.split(path.posix.sep).join(path.sep) ?? '' : '';
 
   const rule = chain([
-    typeof shouldInstallTelemetry !== 'undefined' ? applyToSubtree(subtreeDirectory, [setupO3rMetricsInPackageJson(!!shouldInstallTelemetry)]) : noop(),
+    typeof shouldInstallTelemetry === 'undefined' ? noop() : applyToSubtree(subtreeDirectory, [setupO3rMetricsInPackageJson(!!shouldInstallTelemetry)]),
     schematicFn(opts),
-    shouldInstallTelemetry ? applyToSubtree(subtreeDirectory, [
-      setupTelemetry({ workingDirectory: subtreeDirectory || undefined, runNgAdd: !subtreeDirectory, exactO3rVersion: (opts as any).exactO3rVersion })
-    ]) : noop(),
+    shouldInstallTelemetry
+      ? applyToSubtree(subtreeDirectory, [
+        setupTelemetry({ workingDirectory: subtreeDirectory || undefined, runNgAdd: !subtreeDirectory, exactO3rVersion: (opts as any).exactO3rVersion })
+      ])
+      : noop(),
     typeof shouldInstallTelemetry !== 'undefined' && subtreeDirectory ? applyToSubtree(subtreeDirectory, [setupO3rMetricsInPackageJson(shouldInstallTelemetry)]) : noop()
   ]);
   return wrapper(() => rule)(opts);

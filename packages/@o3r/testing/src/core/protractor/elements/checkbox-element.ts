@@ -15,7 +15,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
   public async check(value = true, associatedLabel?: O3rElement) {
     const currentValue = await this.isChecked();
     if (currentValue === value) {
-      return Promise.resolve();
+      return;
     }
 
     return associatedLabel ? associatedLabel.click() : this.click();

@@ -6,7 +6,7 @@ import type { Spec } from 'swagger-schema-official';
  * @param refPath Reference path
  */
 export function isOuterRefPath(refPath: string) {
-  return !(/^#/.test(refPath));
+  return !(refPath.startsWith('#'));
 }
 
 /**

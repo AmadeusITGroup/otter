@@ -84,7 +84,7 @@ export function getDiscriminatorLinks(spec: any): DiscriminatorRefs {
       };
     })
     .reduce<{ [model: string]: string[] }>((acc, {definitionName, refs}) => {
-      if (refs.length) {
+      if (refs.length > 0) {
         acc[definitionName] = refs;
       }
       return acc;

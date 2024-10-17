@@ -36,9 +36,9 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       );
       const dapiSdkCodeImports = sourceFile.statements.filter((node): node is ts.ImportDeclaration =>
         ts.isImportDeclaration(node)
-        && !!node.moduleSpecifier.getText().match(/['"]@dapi\/sdk-core['"]/)
+        && !!/['"]@dapi\/sdk-core['"]/.test(node.moduleSpecifier.getText())
       );
-      if (dapiSdkCodeImports.length) {
+      if (dapiSdkCodeImports.length > 0) {
         const recorder = tree.beginUpdate(file);
         dapiSdkCodeImports.forEach((imp) => {
           recorder.remove(imp.moduleSpecifier.getStart(), imp.moduleSpecifier.getWidth());
@@ -58,7 +58,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
     context.addTask(new NodePackageInstallTask({
       workingDirectory,
       packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)
-        // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+
         .map(([dependency, version]) => `${dependency}@${version || 'latest'}`)
         .join(' '),
       hideOutput: false,

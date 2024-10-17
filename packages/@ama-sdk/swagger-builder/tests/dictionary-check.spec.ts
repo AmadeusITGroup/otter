@@ -7,7 +7,7 @@ describe('Swagger Dictionary Check', () => {
   it('should fail if a dictionary is missing', async () => {
     const resourceFolder = path.join(resourcePath, 'resource1');
     const report = await checkDictionaries([path.join(resourceFolder, 'spec.yaml')]);
-    const hasFailed = !!Object.keys(report).length;
+    const hasFailed = Object.keys(report).length > 0;
 
     expect(hasFailed).toBeTruthy();
   });
@@ -15,7 +15,7 @@ describe('Swagger Dictionary Check', () => {
   it('should succeed if no missing dictionary', async () => {
     const resourceFolder = path.join(resourcePath, 'resource2');
     const report = await checkDictionaries([path.join(resourceFolder, 'spec.yaml')]);
-    const hasFailed = !!Object.keys(report).length;
+    const hasFailed = Object.keys(report).length > 0;
 
     expect(hasFailed).toBeFalsy();
   });

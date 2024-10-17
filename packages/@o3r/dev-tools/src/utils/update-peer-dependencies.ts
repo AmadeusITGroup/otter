@@ -89,10 +89,11 @@ export async function updatePeerDependencies(dependencies: string[] = [], packag
       }
 
       const infoOutput: PackageInfo | PackageInfo[] = JSON.parse(execOutput);
-      const packageInfo = Array.isArray(infoOutput) ?
-        infoOutput.reduce((latestPackage, currentPackage) =>
+      const packageInfo = Array.isArray(infoOutput)
+        ? infoOutput.reduce((latestPackage, currentPackage) =>
           semver.gt(latestPackage.version, currentPackage.version) ? latestPackage : currentPackage
-        ) : infoOutput;
+        )
+        : infoOutput;
 
       logger.debug(JSON.stringify(packageInfo, undefined, 2));
 
@@ -104,7 +105,7 @@ export async function updatePeerDependencies(dependencies: string[] = [], packag
       // aggregate the requested version + the package peer dependencies as a base we will use to update our package.json
       return {
         [dependency.packageName]: dependency.version,
-        ...(packageInfo.peerDependencies || {})
+        ...packageInfo.peerDependencies
       };
     } catch (error: any) {
       logger.error(`Failed retrieving information for package: ${dependency.packageName}`);

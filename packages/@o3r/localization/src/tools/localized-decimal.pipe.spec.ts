@@ -58,10 +58,10 @@ describe('LocalizedDecimalPipe', () => {
   });
 
   it('should display the date using the current locale', () => {
-    expect(pipe.transform(10000)).toBe('10 000');
+    expect(pipe.transform(10_000)).toBe('10 000');
     localizationService.useLanguage('en');
 
-    expect(pipe.transform(10000)).toBe('10,000');
+    expect(pipe.transform(10_000)).toBe('10,000');
   });
 
   it('should mark for check when the language changes', () => {

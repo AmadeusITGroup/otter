@@ -70,8 +70,7 @@ export class AbortFetch implements FetchPlugin {
    * Abort Fetch plugin
    * @param abortCallback Condition that should be passed to start the call
    */
-  constructor(public abortCallback: AbortCallback) {
-  }
+  constructor(public abortCallback: AbortCallback) {}
 
 
   /** @inheritDoc */

@@ -18,7 +18,7 @@ export class CapacitorRehydraterModule {
     return {
       ngModule: CapacitorRehydraterModule,
       providers: [
-        { provide: STORAGE_SYNC_OPTIONS , useValue: options }
+        { provide: STORAGE_SYNC_OPTIONS, useValue: options }
       ]
     };
   }

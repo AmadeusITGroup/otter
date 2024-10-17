@@ -14,8 +14,8 @@ describe('Concurrent Fetch Plugin', () => {
 
   it('should retrieve the fetchcall in the pool', () => {
     const plugin = new ConcurrentFetch(3);
-    const call = new Promise<any>((resolve) => setTimeout(() => resolve(undefined), 1000));
-    const test = new Promise<any>((resolve) => setTimeout(() => resolve(undefined), 1000));
+    const call = new Promise<any>((resolve) => setTimeout(() => resolve(), 1000));
+    const test = new Promise<any>((resolve) => setTimeout(() => resolve(), 1000));
 
     void plugin.load({} as any).transform(call);
     void plugin.load({} as any).transform(call);

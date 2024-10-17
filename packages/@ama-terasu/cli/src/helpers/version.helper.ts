@@ -10,7 +10,7 @@ import { isInstalled, ModuleDiscovery } from './module.helper';
  * @returns the package version or undefined if not found
  */
 export const getPackageFormattedVersion = (pck: ModuleDiscovery): string => {
-  const officialMark = pck.isOfficialModule ? `${chalk.blue(String.fromCharCode(0x00AE))} ` : '';
+  const officialMark = pck.isOfficialModule ? `${chalk.blue(String.fromCharCode(0x00_AE))} ` : '';
   if (isInstalled(pck)) {
     const isOutdated = pck.version && pck.version !== pck.package.version;
     return `${pck.name}${officialMark}: ${(isOutdated ? chalk.yellow : chalk.green).bold(pck.package.version)}${isOutdated ? chalk.grey.italic(` (${pck.version!} available)`) : ''}`;
@@ -35,7 +35,7 @@ export const getPackageVersion = (cliModules: ModuleDiscovery[]) => {
     .map((modName) => getPackageFormattedVersion(modName))
     .filter((line): line is string => !!line);
 
-  if (modules.length) {
+  if (modules.length > 0) {
     lines.push(
       formatTitle('Modules'),
       ...modules,

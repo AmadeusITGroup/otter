@@ -38,6 +38,6 @@ export class O3rRadioGroup extends O3rGroup<O3rRadioElement> implements RadioGro
       }
     }
 
-    return undefined;
+    return;
   }
 }

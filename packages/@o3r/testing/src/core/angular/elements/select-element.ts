@@ -23,7 +23,7 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
       await this.setValue(value);
       this.sourceElement.triggerEventHandler('change', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     } else {
-      return Promise.reject(`Option with index ${index} not found in select element.`);
+      throw `Option with index ${index} not found in select element.`;
     }
   }
 
@@ -34,7 +34,7 @@ export class O3rSelectElement extends O3rElement implements SelectElementProfile
       await this.setValue(option.nativeElement.value);
       return this.sourceElement.triggerEventHandler('change', { target: this.sourceElement.nativeElement, preventDefault: () => {}, stopPropagation: () => {} });
     } else {
-      return Promise.reject(`Option with value '${value}' not found in select element.`);
+      throw `Option with value '${value}' not found in select element.`;
     }
   }
 }

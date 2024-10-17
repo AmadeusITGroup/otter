@@ -100,8 +100,7 @@ export abstract class Cascading {
    * @param username User name used for git commands
    * @param email Email used for git commands
    */
-  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {
-  }
+  constructor(public logger: BaseLogger, public username = 'Auto Cascading', public email = 'cascading@otter.com') {}
 
   /**
    * Parse Pull Request context from the body
@@ -283,7 +282,9 @@ export abstract class Cascading {
     this.logger.debug(`Run trigger to cascading PR from ${cascadingBranch}`);
     const openPr = await this.findOpenPullRequest(cascadingBranch, targetBranch);
 
-    if (!openPr) {
+    if (openPr) {
+      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
+    } else {
       this.logger.debug(`Will recreate the branch ${cascadingBranch}`);
       try {
         await this.deleteBranch(cascadingBranch);
@@ -293,8 +294,6 @@ export abstract class Cascading {
         this.logger.debug(JSON.stringify(error, null, 2));
       }
       return this.createPullRequestWithMessage(cascadingBranch, currentBranch, targetBranch, config, true);
-    } else {
-      return this.updatePullRequestWithNewMessage(openPr, openPr.context || { bypassReviewers: config.bypassReviewers, currentBranch, targetBranch, isConflicting: false });
     }
   }
 
@@ -412,17 +411,17 @@ export abstract class Cascading {
   public async branchToReevaluateCascading(pullRequest: Pick<CascadingPullRequestInfo, 'id' | 'body'>) {
     if (!(await this.isCascadingPullRequest(pullRequest.id))) {
       this.logger.info(`The PR ${pullRequest.id} is not a cascading PR.`);
-      return undefined;
+      return;
     }
     const context = pullRequest.body && this.retrieveContext(pullRequest.body);
     if (!context || !context.isConflicting) {
       this.logger.info(`The PR ${pullRequest.id} did not report conflict, a cascading re-trigger is not required`);
-      return undefined;
+      return;
     }
 
     if (!this.isAllowingCascadingRetrigger(pullRequest.body)) {
       this.logger.info(`The retrigger of cascading is cancelled for the PR ${pullRequest.id}`);
-      return undefined;
+      return;
     }
 
     return context.currentBranch;

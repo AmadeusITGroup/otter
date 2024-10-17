@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable camelcase */
+
 
 /**
  * File stored on the pCloudy cloud.

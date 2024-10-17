@@ -19,7 +19,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
 
   const execute = async (isFirstLoad = true, files?: { libs?: string[]; locs?: string[]; extraFiles?: string[] }): Promise<BuilderOutput> => {
     /** Maximum number of steps */
-    const STEP_NUMBER = !isFirstLoad && files ? (files.libs && files.libs.length ? 1 : 0) + (files.locs && files.locs.length ? 1 : 0) + 2 : 4;
+    const STEP_NUMBER = !isFirstLoad && files ? (files.libs && files.libs.length > 0 ? 1 : 0) + (files.locs && files.locs.length > 0 ? 1 : 0) + 2 : 4;
     let stepValue = 0;
 
     try {
@@ -67,10 +67,10 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
       context.reportProgress(STEP_NUMBER, stepValue++, 'Check translations string validation');
       const translationsWithIssue = metadata
         .filter((metadataItem) =>
-          !!metadataItem.value &&
-          validators.reduce<boolean>((isInvalid, validator) => isInvalid || !validator(metadataItem.value!), false)
+          !!metadataItem.value
+          && validators.reduce<boolean>((isInvalid, validator) => isInvalid || !validator(metadataItem.value!), false)
         );
-      if (translationsWithIssue.length) {
+      if (translationsWithIssue.length > 0) {
         throw new O3rCliError(`The following translations are invalid: ${translationsWithIssue.map((translation) => translation.key).join(', ')}`);
       }
 
@@ -93,7 +93,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
       // Write metadata file
       try {
         await fs.promises.mkdir(path.dirname(path.resolve(context.workspaceRoot, options.outputFile)), { recursive: true });
-      } catch { }
+      } catch {}
       await new Promise<void>((resolve, reject) =>
         fs.writeFile(
           path.resolve(context.workspaceRoot, options.outputFile),
@@ -136,12 +136,9 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
     return result;
   };
 
-  const initialExtraLocs = options.extraFilePatterns.length ? globbySync(options.extraFilePatterns, { cwd: context.currentDirectory }) : [];
+  const initialExtraLocs = options.extraFilePatterns.length > 0 ? globbySync(options.extraFilePatterns, { cwd: context.currentDirectory }) : [];
 
-  if (!options.watch) {
-    return execute(true, { extraFiles: initialExtraLocs, libs: options.libraries });
-
-  } else {
+  if (options.watch) {
     let currentProcess: Promise<unknown> | undefined = generateWithReport(execute(true, { extraFiles: initialExtraLocs, libs: options.libraries }))
       .then(() => currentProcess = undefined);
 
@@ -170,25 +167,25 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
 
     metadataWatcher
       .on('all', async (eventName, filePath) => {
-        if (!currentProcess) {
+        if (currentProcess) {
+          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
+        } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
           currentProcess = generateWithReport(execute(false, {libs: [filePath]}));
           await currentProcess;
           currentProcess = undefined;
-        } else {
-          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         }
       });
 
     watcher
       .on('all', async (eventName, filePath) => {
-        if (!currentProcess) {
+        if (currentProcess) {
+          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
+        } else {
           context.logger.debug(`Refreshed for action ${eventName} on ${filePath}`);
           currentProcess = generateWithReport(execute(false, { locs: [filePath] }));
           await currentProcess;
           currentProcess = undefined;
-        } else {
-          context.logger.debug(`Ignored action ${eventName} on ${filePath}`);
         }
       });
 
@@ -204,5 +201,8 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationExt
       metadataWatcher.on('error', (err) => reject(err));
       tsWatcher.on('error', (err) => reject(err));
     });
+  } else {
+    return execute(true, { extraFiles: initialExtraLocs, libs: options.libraries });
+
   }
 }));

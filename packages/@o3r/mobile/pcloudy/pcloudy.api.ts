@@ -27,7 +27,6 @@ export class PCloudyApi {
 
   /**
    * Perform POST call to the API - Cannot be used to upload a file
-   *
    * @param endpoint
    * @param body
    * @private
@@ -36,7 +35,7 @@ export class PCloudyApi {
     const token = await this.token$;
     this.logger.debug('Request to ' + this.server + endpoint, body);
     if (!token) {
-      throw Error('No token of authentication detected, please start with authentication');
+      throw new Error('No token of authentication detected, please start with authentication');
     }
     const {result} = await (await fetch(
       `${this.server}${endpoint}`, {
@@ -45,7 +44,7 @@ export class PCloudyApi {
         body: JSON.stringify({...body, token})
       })).json() as { result: PCloudyResponse<T> };
     if (result.code !== 200) {
-      throw Error(`Call to ${this.server}${endpoint} failed with error code ${result?.error || 'undefined'}`);
+      throw new Error(`Call to ${this.server}${endpoint} failed with error code ${result?.error || 'undefined'}`);
     }
     this.logger.debug(`Successful response received from ${this.server}${endpoint}`, result);
     return result;
@@ -54,7 +53,6 @@ export class PCloudyApi {
   /**
    * Authenticate using your account username and apiKey
    * You can find them on your pCloudy account
-   *
    * @param username
    * @param apiKey
    */
@@ -63,7 +61,7 @@ export class PCloudyApi {
     const {result} = await (
       await fetch(`${this.server}/api/access`, {
         headers: {
-          // eslint-disable-next-line @typescript-eslint/naming-convention
+
           Authorization: 'Basic ' + Buffer.from(username + ':' + apiKey).toString('base64')
         }
       })).json() as { result: { code: number; token: string } };
@@ -71,13 +69,12 @@ export class PCloudyApi {
       this.logger.debug('User has been successfully authenticated', result);
       return result.token;
     } else {
-      throw Error(`Invalid response for ${this.server}/authentication - code ${result?.code}`);
+      throw new Error(`Invalid response for ${this.server}/authentication - code ${result?.code}`);
     }
   }
 
   /**
    * Fetch the list of available devices to book for your automation or manual use
-   *
    * @param devicePlatform
    * @param availabilityDuration
    */
@@ -93,7 +90,6 @@ export class PCloudyApi {
   // Manual testing
   /**
    * Book a device for manual testing.
-   *
    * @param device
    * @param bookDuration
    * @returns the reservation id that can be used to relinquish or to retrieve the url to access the device
@@ -108,7 +104,6 @@ export class PCloudyApi {
 
   /**
    * Install an application previously uploaded on pCloudy {@link uploadApp} on a device booked for manual testing
-   *
    * @param rid Reservation ID returned by the {@link bookDevice} method
    * @param appFileName Name (with extension) under which your application has been uploaded
    */
@@ -123,7 +118,6 @@ export class PCloudyApi {
 
   /**
    * Retrieve the url to perform manual testing on a pCloudy device
-   *
    * @param rid Reservation id returned by {@link bookDevice}
    */
   public async getDevicePageUrl(rid: number): Promise<string> {
@@ -134,7 +128,6 @@ export class PCloudyApi {
   // Apps management
   /**
    * Retrieve the list of applications uploaded under your username on pCloudy
-   *
    * @param devicePlatform android or ios - used to filter our irrelevant applications
    * @param limit maximum application returned
    */
@@ -150,7 +143,6 @@ export class PCloudyApi {
   /**
    * Upload an application on pCloudy under its filename
    * If an application is already on pCloudy, will save it under a different name
-   *
    * @param filePath
    * @returns file name in the cloud
    */
@@ -158,7 +150,7 @@ export class PCloudyApi {
     const token = await this.token$;
     const formData = new FormData();
     if (!fs.existsSync(filePath)) {
-      throw Error(`${filePath} does not exist`);
+      throw new Error(`${filePath} does not exist`);
     }
     Object.entries({
       token,
@@ -176,7 +168,7 @@ export class PCloudyApi {
         })
     )?.json() as { result: { error?: string; file: string } };
     if (result?.error) {
-      throw Error(`Failed to upload the file - ${result.error}`);
+      throw new Error(`Failed to upload the file - ${result.error}`);
     }
     this.logger.debug(`Successful response receive from ${this.server}/api/upload_file`, result);
     return result?.file;
@@ -184,7 +176,6 @@ export class PCloudyApi {
 
   /**
    * Delete an application from pCloudy
-   *
    * @param filename
    */
   public async deleteApp(filename: string) {
@@ -198,7 +189,6 @@ export class PCloudyApi {
   /**
    * Sign your iOS application under pCloudy signing mechanism
    * This step is mandatory to install your .ipa files on pCloudy device
-   *
    * @param filename
    * @returns the token to follow the process
    */
@@ -211,7 +201,6 @@ export class PCloudyApi {
 
   /**
    * Check the progress of the re-signing performed in {@link resignIosApp}
-   *
    * @param filename
    * @param resignToken
    */
@@ -226,7 +215,6 @@ export class PCloudyApi {
   /**
    * Download the pCloudy re-signed app to the pCloudy cloud.
    * Make it available for installation on pCloudy device
-   *
    * @param filename of the original app
    * @param resignToken returned by {@link resignIosApp}
    */

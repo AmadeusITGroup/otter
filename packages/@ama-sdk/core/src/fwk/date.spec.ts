@@ -3,7 +3,7 @@ import { utils } from './date';
 describe('DateTime', () => {
 
   it('should support timestamp', () => {
-    const ts = (new Date()).getTime();
+    const ts = Date.now();
     const dateUtils = new utils.DateTime(ts);
 
     expect(dateUtils.getTime()).toEqual(ts);
@@ -75,7 +75,7 @@ describe('DateTime', () => {
 describe('Date', () => {
 
   it('should support timestamp', () => {
-    const ts = (new Date()).getTime();
+    const ts = Date.now();
     const dateUtils = new utils.Date(ts);
 
     expect(dateUtils.getTime()).toEqual(ts);

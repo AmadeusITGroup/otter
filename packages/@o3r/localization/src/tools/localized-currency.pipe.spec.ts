@@ -60,10 +60,10 @@ describe('LocalizedCurrencyPipe', () => {
   it('should display the date using the currency locale', () => {
     const defaultPipe = new CurrencyPipe('fr');
 
-    expect(pipe.transform(10000)).toBe(defaultPipe.transform(10000));
+    expect(pipe.transform(10_000)).toBe(defaultPipe.transform(10_000));
     localizationService.useLanguage('en');
 
-    expect(pipe.transform(10000)).toBe('$10,000.00');
+    expect(pipe.transform(10_000)).toBe('$10,000.00');
   });
 
   it('should mark for check when the language changes', () => {

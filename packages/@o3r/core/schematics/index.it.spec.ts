@@ -105,8 +105,8 @@ describe('new otter application', () => {
 
     const diff = getGitDiff(execAppOptions.cwd);
 
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     // Expect created files inside `test-app` project
@@ -139,7 +139,7 @@ describe('new otter application', () => {
     try {
       const pid = await getPidFromPort(devServerPort);
       execSync(process.platform === 'win32' ? `taskkill /f /t /pid ${pid}` : `kill -15 ${pid}`, { stdio: 'inherit' });
-    } catch (e) {
+    } catch {
       // http-server already off
     }
   });

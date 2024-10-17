@@ -6,7 +6,7 @@ import type { SupportedPackageManagers } from '@o3r/schematics';
  * Get the Package Manager
  * @param enforcedNpmManager package manager to enforce
  */
-export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers | '' | undefined | null): SupportedPackageManagers {
+export function getPackageManagerName(enforcedNpmManager?: SupportedPackageManagers | '' | null): SupportedPackageManagers {
   return enforcedNpmManager || (process.env?.npm_execpath?.includes('yarn') ? 'yarn' : 'npm');
 }
 

@@ -58,7 +58,7 @@ export class IframeBridge {
         return;
       } catch {}
     }
-    return Promise.reject('Handshake failed.');
+    throw 'Handshake failed.';
   }
 
   private _sendMessage(message: IframeMessage, messageId?: string) {

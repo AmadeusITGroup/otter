@@ -37,10 +37,10 @@ export function updateBuildersNames(): Rule {
       '@otter/ng-tools:pattern-replacement': '@o3r/core:pattern-replacement'
     };
 
-    projectsInAngularJson.forEach(projectName => {
+    projectsInAngularJson.forEach((projectName) => {
       const workspaceProject = workspace.projects[projectName];
       if (workspaceProject.architect) {
-        Object.keys(workspaceProject.architect).forEach(architectName => {
+        Object.keys(workspaceProject.architect).forEach((architectName) => {
           const builderName: keyof typeof buildersMappingFromV7 = workspaceProject.architect![architectName].builder;
           if (buildersMappingFromV7[builderName]) {
             workspaceProject.architect![architectName].builder = buildersMappingFromV7[builderName];

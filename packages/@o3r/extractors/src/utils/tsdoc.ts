@@ -15,7 +15,7 @@ export function getInlineTextFromDocNode(docNode: DocNode): string {
       break;
     }
     const renderedChild = getInlineTextFromDocNode(childNode);
-    if (renderedChild.length) {
+    if (renderedChild.length > 0) {
       result += ' ' + renderedChild;
     }
   }
@@ -42,7 +42,7 @@ export function getInlineSummaryFromDocComment(docComment: DocComment): string {
  * @param tagName
  */
 export function getInlineBlockTagContentFromDocComment(docComment: DocComment, tagName: string): string | undefined {
-  const blockTag = docComment.customBlocks.find(block => block.blockTag.tagName === tagName);
+  const blockTag = docComment.customBlocks.find((block) => block.blockTag.tagName === tagName);
   return blockTag && getInlineTextFromDocNode(blockTag.content);
 }
 
@@ -54,8 +54,8 @@ export function getInlineBlockTagContentFromDocComment(docComment: DocComment, t
 export function getTsDocTextFromNode(source: ts.SourceFile, node: ts.Node): string | undefined {
   const fullText = source.getFullText();
   const commentRanges = ts.getLeadingCommentRanges(fullText, node.getFullStart());
-  if (commentRanges && commentRanges.length) {
-    const jsDocRange = commentRanges[commentRanges.length - 1];
+  if (commentRanges && commentRanges.length > 0) {
+    const jsDocRange = commentRanges.at(-1);
     return fullText.slice(jsDocRange.pos, jsDocRange.end);
   }
 }

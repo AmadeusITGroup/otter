@@ -50,7 +50,7 @@ export type MetricData = BuilderMetricData | SchematicMetricData;
  * @param data Metrics to report
  * @param logger Optional logger to provide to the function
  */
-export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void } | undefined) => Promise<void>;
+export type SendDataFn = (data: MetricData, logger?: { error: (msg: string) => void }) => Promise<void>;
 
 /**
  * Send metric to a Amadeus Log Server

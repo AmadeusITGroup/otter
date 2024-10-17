@@ -25,7 +25,7 @@ const findCompodocrcConfig = async (compodocGlobFiles) => {
       return;
     }
   }).filter((config) => !!config);
-}
+};
 
 void (async () => {
   const menuTemplateFile = path.resolve(process.cwd(), argv.menuTemplateFile || 'compodoc-templates/root/partials/menu.hbs');

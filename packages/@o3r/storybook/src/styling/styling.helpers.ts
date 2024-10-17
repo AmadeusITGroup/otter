@@ -29,7 +29,7 @@ export function setCssVariable(variableName: string, value: string, styleElement
 :root {
   ${variableName}: ${value};
 }`;
-    document.head.appendChild(newStyleElement);
+    document.head.append(newStyleElement);
   }
 }
 
@@ -125,7 +125,7 @@ export function applyStyle(style: StyleConfigs, props: any, theme?: Record<strin
   const regexp = new RegExp(`^${STYLING_PREFIX}`);
   Object.keys(style.argTypes)
     .forEach((variable) =>
-      setCssVariable(`--${variable.replace(regexp, '')}`, style.argTypes[variable].defaultValue !== props[variable] ? props[variable] : style.rawValues[variable])
+      setCssVariable(`--${variable.replace(regexp, '')}`, style.argTypes[variable].defaultValue === props[variable] ? style.rawValues[variable] : props[variable])
     );
 }
 
@@ -135,7 +135,7 @@ export function applyStyle(style: StyleConfigs, props: any, theme?: Record<strin
  */
 export function getThemeVariables(metadata: CssMetadata = getStyleMetadata()) {
   return Object.entries(metadata.variables)
-    .filter(([_, data]) => data.tags && data.tags.indexOf('theme') > -1)
+    .filter(([_, data]) => data.tags && data.tags.includes('theme'))
     .reduce<Record<string, string>>((acc, [name, data]) => {
       acc[name] = data.defaultValue;
       return acc;

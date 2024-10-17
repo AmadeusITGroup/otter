@@ -31,9 +31,7 @@ interface SassCalculation extends Value {
 export class CssVariableExtractor {
   private readonly cache: Record<string, URL> = {};
 
-  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {
-
-  }
+  constructor(public defaultSassOptions?: StringOptions<'sync'>, private readonly builderOptions?: Pick<StyleExtractorBuilderSchema, 'ignoreInvalidValue'>) {}
 
   /**
    * Parse the CSS variable as reported
@@ -44,7 +42,11 @@ export class CssVariableExtractor {
     const defaultValue = value.trim();
     const res = defaultValue.match(/^var\( *([^,)]*) *(?:, *([^,()]*(\(.*\))?))*\)$/);
     const ret: CssVariable = { name, defaultValue };
-    if (!res) {
+    if (res) {
+      ret.references = [
+        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
+      ];
+    } else {
       let findRef = defaultValue;
       let ref: RegExpExecArray | null;
       const references: Record<string, CssVariable> = {};
@@ -56,13 +58,9 @@ export class CssVariableExtractor {
           findRef = findRef.replace(ref[0], '');
         }
       } while (ref);
-      if (Object.keys(references).length) {
+      if (Object.keys(references).length > 0) {
         ret.references = Object.values(references);
       }
-    } else {
-      ret.references = [
-        this.parseCssVariable(res[1].replace(/^--/, ''), res[2])
-      ];
     }
     return ret;
   }
@@ -145,14 +143,11 @@ export class CssVariableExtractor {
           const packagePath = path.dirname(packageJsonPath);
           const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' }));
           let computedPathUrl;
-          if (subEntry !== '.' && packageJson.exports?.[subEntry]) {
-            computedPathUrl = path.join(packagePath, packageJson.exports[subEntry].sass ||
-              packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css ||
-              packageJson.exports[subEntry].default);
-          }
-          else {
-            computedPathUrl = path.join(packagePath, cleanedUrl.replace(moduleName, ''));
-          }
+          computedPathUrl = subEntry !== '.' && packageJson.exports?.[subEntry]
+            ? path.join(packagePath, packageJson.exports[subEntry].sass
+            || packageJson.exports[subEntry].scss || packageJson.exports[subEntry].css
+            || packageJson.exports[subEntry].default)
+            : path.join(packagePath, cleanedUrl.replace(moduleName, ''));
           const fileUrl = pathToFileURL(computedPathUrl);
           this.cache[url] = fileUrl;
           return fileUrl;
@@ -239,7 +234,7 @@ export class CssVariableExtractor {
               }
             }
             parsedValue = parsedValueItems.join(' ');
-            if (invalidIndexes.length) {
+            if (invalidIndexes.length > 0) {
               const message = `Invalid value in the list (indexes: ${invalidIndexes.join(', ')}) for variable ${varName.text}.`;
               if (this.builderOptions?.ignoreInvalidValue ?? true) {
                 console.warn(`${message} It will be ignored.`);
@@ -249,18 +244,18 @@ export class CssVariableExtractor {
             }
           } else if (CssVariableExtractor.isSassCalculation(varValue)) {
             parsedValue = `calc(${varValue.$arguments[0]})`;
-          } else if (!varValue.realNull) {
-            if (!details) {
-              console.warn(`The value "null" of ${varName.text} is available only for details override`);
-              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
-            }
-          } else {
+          } else if (varValue.realNull) {
             const message = `Invalid value for variable ${varName.text}.`;
             if (this.builderOptions?.ignoreInvalidValue ?? true) {
               console.warn(`${message} It will be ignored.`);
               return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid value`);
             } else {
               throw new O3rCliError(message);
+            }
+          } else {
+            if (!details) {
+              console.warn(`The value "null" of ${varName.text} is available only for details override`);
+              return new SassString(`[METADATA:VARIABLE] ${varName.text} : invalid Null value`);
             }
           }
 

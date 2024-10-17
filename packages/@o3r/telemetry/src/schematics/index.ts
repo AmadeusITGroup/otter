@@ -21,8 +21,8 @@ export type SchematicWrapper = <S>(schematicFn: SchematicWrapperFn<S>, sendData?
  * @param schematicFn
  * @param sendData
  */
-export const createSchematicWithMetrics: SchematicWrapper =
-  (schematicFn, sendData = defaultSendData) => (options) => async (tree, context) => {
+export const createSchematicWithMetrics: SchematicWrapper
+  = (schematicFn, sendData = defaultSendData) => (options) => async (tree, context) => {
     const startTime = Math.floor(performance.now());
     let error: any;
     try {

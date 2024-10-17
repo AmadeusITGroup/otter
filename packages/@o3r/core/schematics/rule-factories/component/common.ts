@@ -6,7 +6,6 @@ import type { PackageJson } from 'type-fest';
 /**
  * Ask questions to get rules to execute
  * or throw if the package is not installed
- *
  * @param path file path
  * @param optionName name of the option to setup
  * @param defaultApplyRule should the rule be applied by default
@@ -69,22 +68,26 @@ export const askQuestionsToGetRulesOrThrowIfPackageNotAvailable = (
       path
     };
 
-    return applyRule ? chain([
-      packageName !== '@o3r/core'
-        ? externalSchematic(packageName, schematicName, options)
-        : schematic(schematicName, options),
-      ...(alwaysApplyRule !== 'ask-again' ? [
-        setupSchematicsParamsForProject(
-          schematicsNameToUpdate.reduce((acc: Record<string, SchematicOptionObject>, schematicToUpdateName) => {
-            acc[schematicToUpdateName] = {
-              [optionName]: alwaysApplyRule === 'yes'
-            };
-            return acc;
-          }, {}),
-          options.projectName
-        )
-      ] : [])
-    ]) : noop;
+    return applyRule
+      ? chain([
+        packageName === '@o3r/core'
+          ? schematic(schematicName, options)
+          : externalSchematic(packageName, schematicName, options),
+        ...(alwaysApplyRule === 'ask-again'
+          ? []
+          : [
+            setupSchematicsParamsForProject(
+              schematicsNameToUpdate.reduce((acc: Record<string, SchematicOptionObject>, schematicToUpdateName) => {
+                acc[schematicToUpdateName] = {
+                  [optionName]: alwaysApplyRule === 'yes'
+                };
+                return acc;
+              }, {}),
+              options.projectName
+            )
+          ])
+      ])
+      : noop;
   };
 };
 

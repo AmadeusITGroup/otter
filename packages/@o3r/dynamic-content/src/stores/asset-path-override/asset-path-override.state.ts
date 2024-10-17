@@ -3,7 +3,7 @@
  */
 export interface AssetPathOverrideState {
   /** Mapping of asset path (key) and its override (value)*/
-  assetPathOverrides: Record<string,string>;
+  assetPathOverrides: Record<string, string>;
 }
 
 /**

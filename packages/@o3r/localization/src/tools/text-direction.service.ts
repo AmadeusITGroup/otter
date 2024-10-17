@@ -30,7 +30,7 @@ export class TextDirectionService {
       return this.subscription;
     }
     this.subscription = this.translateService.onLangChange.subscribe((event: LangChangeEvent) => {
-      const direction = this.configuration.rtlLanguages.indexOf(event.lang.split('-')[0]) > -1 ? 'rtl' : 'ltr';
+      const direction = this.configuration.rtlLanguages.includes(event.lang.split('-')[0]) ? 'rtl' : 'ltr';
       this.renderer.setAttribute(document.body, 'dir', direction);
       this.directionality.change.emit(direction);
     });

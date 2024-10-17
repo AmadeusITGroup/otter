@@ -31,6 +31,5 @@ export class NgrxStoreRouterEffect {
     )
   );
 
-  constructor(protected actions$: Actions) {
-  }
+  constructor(protected actions$: Actions) {}
 }

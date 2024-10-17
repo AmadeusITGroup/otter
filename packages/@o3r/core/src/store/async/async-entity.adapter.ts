@@ -79,8 +79,8 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
     return asyncStoreItemAdapter.addRequest(state, requestId);
   };
 
-  const addRequestMany: <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string) => V =
-    <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V =>
+  const addRequestMany: <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string) => V
+    = <V extends EntityState<T>>(state: V, ids: (string | number)[], requestId: string): V =>
       adapter.updateMany(ids.filter((id) => !!state.entities[id]).map((id) => ({
         id,
         changes: asyncStoreItemAdapter.addRequest(asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[id]!), requestId)
@@ -88,9 +88,9 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
       ), state);
 
   const resolveRequestOne: <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id' = 'id'>
-    (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty?: W) => V =
-    <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id'>
-      (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty: W = 'id' as W): V => {
+  (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty?: W) => V
+    = <V extends EntityState<T> & AsyncStoreItem, W extends keyof T | 'id'>
+    (state: V, entity: EntityWithoutAsyncStoreItem<T> & Record<W, string | number>, requestId?: string, idProperty: W = 'id' as W): V => {
       let newEntity;
       const currentEntity = state.entities[entity[idProperty]];
       if (currentEntity) {
@@ -103,19 +103,19 @@ export function createEntityAsyncRequestAdapter<T extends AsyncStoreItem>(adapte
     };
 
   const resolveRequestMany: <V extends EntityState<T>, W extends keyof T | 'id' = 'id'>
-    (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty?: W) => V =
-    <V extends EntityState<T>, W extends keyof T | 'id'>
-      (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty: W = 'id' as W): V =>
-        adapter.updateMany(
-          entities.filter((entity) => !!state.entities[entity[idProperty]]).map((entity) => {
-            const model = {...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[entity[idProperty]]!)};
-            return {id: entity[idProperty], changes: asyncStoreItemAdapter.resolveRequest(model, requestId)} as Update<T>;
-          }
-          ), state);
+  (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty?: W) => V
+    = <V extends EntityState<T>, W extends keyof T | 'id'>
+    (state: V, entities: (Partial<T> & Record<W, string | number>)[], requestId?: string, idProperty: W = 'id' as W): V =>
+      adapter.updateMany(
+        entities.filter((entity) => !!state.entities[entity[idProperty]]).map((entity) => {
+          const model = {...entity, ...asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[entity[idProperty]]!)};
+          return {id: entity[idProperty], changes: asyncStoreItemAdapter.resolveRequest(model, requestId)} as Update<T>;
+        }
+        ), state);
 
-  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string) => V =
-    <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: (string | number)[] = [], requestId?: string): V => {
-      if (ids.length && !ids.some((id) => state.entities[id] === undefined)) {
+  const failRequestMany: <V extends EntityState<T> & AsyncStoreItem>(state: V, ids?: (string | number)[], requestId?: string) => V
+    = <V extends EntityState<T> & AsyncStoreItem>(state: V, ids: (string | number)[] = [], requestId?: string): V => {
+      if (ids.length > 0 && !ids.some((id) => state.entities[id] === undefined)) {
         return adapter.updateMany(ids.map((id) => ({
           id,
           changes: asyncStoreItemAdapter.failRequest(asyncStoreItemAdapter.extractAsyncStoreItem(state.entities[id]!), requestId)

@@ -66,7 +66,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
         const presetRunner = await presets[preset]({ projectName: forwardOptions.projectName, forwardOptions });
         const externalPresetRunner = externalPresets ? await getExternalPreset(externalPresets, t, c)?.({ projectName: forwardOptions.projectName, forwardOptions }) : undefined;
         const modules = [...new Set([...(presetRunner.modules || []), ...(externalPresetRunner?.modules || [])])];
-        if (modules.length) {
+        if (modules.length > 0) {
           c.logger.info(`The following modules will be installed: ${modules.join(', ')}`);
           if (c.interactive && !await askConfirmation('Would you like to process to the setup of these modules?', true)) {
             return;

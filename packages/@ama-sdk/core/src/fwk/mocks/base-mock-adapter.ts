@@ -17,10 +17,10 @@ export abstract class BaseMockAdapter implements MockAdapter {
     protected pathObjects: PathObject[] | (() => PathObject[] | Promise<PathObject[]>),
     mockMap: MockMap | (() => Promise<MockMap>)
   ) {
-    if (typeof mockMap !== 'function') {
-      this.mocks = mockMap;
-    } else {
+    if (typeof mockMap === 'function') {
       this.mockFactory = mockMap;
+    } else {
+      this.mocks = mockMap;
     }
   }
 

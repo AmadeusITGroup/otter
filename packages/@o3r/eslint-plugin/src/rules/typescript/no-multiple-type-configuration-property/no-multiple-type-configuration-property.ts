@@ -49,7 +49,7 @@ export default createRule<[Required<NoMultipleTypeConfigurationPropertyOption>, 
 
       if (
         node.types.every((type) => type.type === TSESTree.AST_NODE_TYPES.TSLiteralType && type.literal.type === TSESTree.AST_NODE_TYPES.Literal)
-        && [...(new Set((node.types as TSESTree.TSLiteralType[]).map((literalType) => typeof (literalType.literal as TSESTree.Literal).value)))].length === 1
+        && new Set((node.types as TSESTree.TSLiteralType[]).map((literalType) => typeof (literalType.literal as TSESTree.Literal).value)).size === 1
       ) {
         return; // Only the same literal type
       }

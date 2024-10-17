@@ -38,13 +38,15 @@ export function setupSchematicsParamsForProject(schematicsDefaultParams: Record<
     }
     Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
       workspace.schematics ||= {};
-      workspace.schematics[schematicName] = overrideValue ? {
-        ...workspace.schematics[schematicName],
-        ...defaultParams
-      } : {
-        ...defaultParams,
-        ...workspace.schematics[schematicName]
-      };
+      workspace.schematics[schematicName] = overrideValue
+        ? {
+          ...workspace.schematics[schematicName],
+          ...defaultParams
+        }
+        : {
+          ...defaultParams,
+          ...workspace.schematics[schematicName]
+        };
     });
 
     if (projectName && workspace.projects[projectName]) {
@@ -52,13 +54,15 @@ export function setupSchematicsParamsForProject(schematicsDefaultParams: Record<
       Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
         project.schematics ||= {};
         if (project.schematics[schematicName]) {
-          project.schematics[schematicName] = overrideValue ? {
-            ...project.schematics[schematicName],
-            ...defaultParams
-          } : {
-            ...defaultParams,
-            ...project.schematics[schematicName]
-          };
+          project.schematics[schematicName] = overrideValue
+            ? {
+              ...project.schematics[schematicName],
+              ...defaultParams
+            }
+            : {
+              ...defaultParams,
+              ...project.schematics[schematicName]
+            };
         }
       });
     }
@@ -82,24 +86,28 @@ export function setupSchematicsDefaultParams(schematicsDefaultParams: Record<str
     }
     workspace.schematics ||= {};
     Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
-      workspace.schematics![schematicName] = overrideValue ? {
-        ...workspace.schematics![schematicName],
-        ...defaultParams
-      } : {
-        ...defaultParams,
-        ...workspace.schematics![schematicName]
-      };
+      workspace.schematics![schematicName] = overrideValue
+        ? {
+          ...workspace.schematics![schematicName],
+          ...defaultParams
+        }
+        : {
+          ...defaultParams,
+          ...workspace.schematics![schematicName]
+        };
     });
     Object.values(workspace.projects).forEach((project) => {
       Object.entries(schematicsDefaultParams).forEach(([schematicName, defaultParams]) => {
         if (project.schematics?.[schematicName]) {
-          project.schematics[schematicName] = overrideValue ? {
-            ...project.schematics[schematicName],
-            ...defaultParams
-          } : {
-            ...defaultParams,
-            ...project.schematics[schematicName]
-          };
+          project.schematics[schematicName] = overrideValue
+            ? {
+              ...project.schematics[schematicName],
+              ...defaultParams
+            }
+            : {
+              ...defaultParams,
+              ...project.schematics[schematicName]
+            };
         }
       });
     });

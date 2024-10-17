@@ -32,11 +32,7 @@ export class LocalizedDatePipe extends DatePipe implements OnDestroy, PipeTransf
   public transform(
     value: Date | string | number | null | undefined, format = 'mediumDate', timezone?: string,
     locale?: string): string | null {
-    if (this.localizationService.showKeys) {
-      return format;
-    } else {
-      return super.transform(value, format, timezone, locale || this.localizationService.getCurrentLanguage());
-    }
+    return this.localizationService.showKeys ? format : super.transform(value, format, timezone, locale || this.localizationService.getCurrentLanguage());
   }
 
   public ngOnDestroy(): void {

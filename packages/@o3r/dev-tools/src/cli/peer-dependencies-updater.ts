@@ -16,7 +16,7 @@ program
   .option('--verbose', 'Display debug log message')
   .option('--silent', 'Do not exit with error in case of metadata fetch error')
   .action((actionDependencies: string[] = []) => {
-    // eslint-disable-next-line no-import-assign
+
     dependencies = actionDependencies;
   })
   .parse(process.argv);

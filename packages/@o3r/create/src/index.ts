@@ -15,9 +15,9 @@ const { version, dependencies, devDependencies } = JSON.parse(
   readFileSync(resolve(__dirname, 'package.json'), { encoding: 'utf8' })
 ) as PackageJson;
 
-const optionsList = [
+const optionsList = new Set([
   'yarn-version'
-];
+]);
 
 const logo = `
 
@@ -154,7 +154,7 @@ const exitProcessIfErrorInSpawnSync = (exitCode: number, {error, status}: Return
 };
 
 const schematicsCliOptions: any[][] = Object.entries(argv)
-  .filter(([key]) => key !== '_' && !optionsList.includes(key))
+  .filter(([key]) => key !== '_' && !optionsList.has(key))
   .map(([key, value]) => value === true && [key] || value === false && key.length > 1 && [`no-${key}`] || [key, value])
   .map(([key, value]) => {
     const optionKey = key.length > 1 ? `--${key}` : `-${key}`;
@@ -271,7 +271,7 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
       shell: true,
       env: exactO3rVersion && projectPackageManager === 'npm' ? {
         ...process.env,
-        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         NPM_CONFIG_SAVE_EXACT: 'true'
       } : undefined
     }

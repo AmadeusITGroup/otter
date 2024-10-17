@@ -38,10 +38,6 @@ export const getCssStyleContentUpdater = (options?: CssStyleContentUpdaterOption
   const regexToReplace = new RegExp(`${startTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}(:?(.|[\n\r])*)${endTag.replace(SANITIZE_TAG_INPUTS_REGEXP, '\\$&')}`);
 
   return (variables, _file, styleContent = '') => {
-    if (styleContent.indexOf(startTag) >= 0 && styleContent.indexOf(endTag) >= 0) {
-      return styleContent.replace(regexToReplace, generateVars(variables, startTag, endTag));
-    } else {
-      return styleContent + '\n' + generateVars(variables, startTag, endTag, true);
-    }
+    return styleContent.includes(startTag) && styleContent.includes(endTag) ? styleContent.replace(regexToReplace, generateVars(variables, startTag, endTag)) : styleContent + '\n' + generateVars(variables, startTag, endTag, true);
   };
 };

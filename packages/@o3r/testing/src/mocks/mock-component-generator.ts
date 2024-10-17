@@ -9,7 +9,7 @@ import * as ts from 'typescript';
  * @param source Typescript source file
  */
 function isInputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator {
-  return ts.isDecorator(node) && /^@Input/.test(node.getText(source));
+  return ts.isDecorator(node) && node.getText(source).startsWith('@Input');
 }
 
 /**
@@ -18,7 +18,7 @@ function isInputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator
  * @param source Typescript source file
  */
 function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorator {
-  return ts.isDecorator(node) && /^@Output/.test(node.getText(source));
+  return ts.isDecorator(node) && node.getText(source).startsWith('@Output');
 }
 
 /**
@@ -141,9 +141,9 @@ export function generateMockComponent<T extends unknown = Record<string, unknown
       Object.keys(outputs)
         .forEach((outputName) => (this as any)[outputName] = new EventEmitter<any>());
       if (config && config.isControlValueAccessor) {
-        this.writeValue = () => { };
-        this.registerOnChange = () => { };
-        this.registerOnTouched = () => { };
+        this.writeValue = () => {};
+        this.registerOnChange = () => {};
+        this.registerOnTouched = () => {};
       }
     }
   };
@@ -153,14 +153,16 @@ export function generateMockComponent<T extends unknown = Record<string, unknown
     selector: getSelector(source, source) || '',
     inputs,
     outputs,
-    ...(config && config.isControlValueAccessor) ? {
-      providers: [
-        {
-          provide: NG_VALUE_ACCESSOR,
-          useExisting: forwardRef(() => mock),
-          multi: true
-        }
-      ]
-    } : {}
+    ...(config && config.isControlValueAccessor)
+      ? {
+        providers: [
+          {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => mock),
+            multi: true
+          }
+        ]
+      }
+      : {}
   })(mock) as Type<T>;
 }

@@ -13,19 +13,18 @@ import {
   Tree,
   url
 } from '@angular-devkit/schematics';
-import { getPropertyFromDecoratorFirstArgument, O3rCliError } from '@o3r/schematics';
-import {
-  addCommentsOnClassProperties,
-  addImportsRule,
+import { addCommentsOnClassProperties, addImportsRule,
   addInterfaceToClassTransformerFactory,
   applyEsLintFix,
   askConfirmationToConvertComponent,
   createSchematicWithMetricsIfInstalled,
   generateClassElementsFromString,
   getO3rComponentInfoOrThrowIfNotFound,
+  getPropertyFromDecoratorFirstArgument,
   isNgClassDecorator,
   isO3rClassComponent,
   NoOtterComponent,
+  O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
 import { addImportToModule } from '@schematics/angular/utility/ast-utils';
@@ -127,23 +126,25 @@ export function ngAddAnalyticsFn(options: NgAddAnalyticsSchematicsSchema): Rule 
                   const ngDecorator = (ts.getDecorators(node) || []).find(isNgClassDecorator)!;
                   const importInitializer = standalone ? getPropertyFromDecoratorFirstArgument(ngDecorator, 'imports') : undefined;
                   const importsList = importInitializer && ts.isArrayLiteralExpression(importInitializer) ? [...importInitializer.elements] : [];
-                  const newNgDecorator = standalone ? factory.updateDecorator(
-                    ngDecorator,
-                    factory.updateCallExpression(
-                      ngDecorator.expression,
-                      ngDecorator.expression.expression,
-                      ngDecorator.expression.typeArguments,
-                      [
-                        factory.createObjectLiteralExpression([
-                          ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
-                          factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
-                            importsList.concat(factory.createIdentifier('TrackEventsModule')),
-                            true
-                          ))
-                        ], true)
-                      ]
+                  const newNgDecorator = standalone
+                    ? factory.updateDecorator(
+                      ngDecorator,
+                      factory.updateCallExpression(
+                        ngDecorator.expression,
+                        ngDecorator.expression.expression,
+                        ngDecorator.expression.typeArguments,
+                        [
+                          factory.createObjectLiteralExpression([
+                            ...(ngDecorator.expression.arguments[0] as ts.ObjectLiteralExpression).properties.filter((prop) => prop.name?.getText() !== 'imports'),
+                            factory.createPropertyAssignment('imports', factory.createArrayLiteralExpression(
+                              importsList.concat(factory.createIdentifier('TrackEventsModule')),
+                              true
+                            ))
+                          ], true)
+                        ]
+                      )
                     )
-                  ) : ngDecorator;
+                    : ngDecorator;
 
 
                   const newModifiers = (ts.getDecorators(node) || []).filter((decorator) => !isNgClassDecorator(decorator))

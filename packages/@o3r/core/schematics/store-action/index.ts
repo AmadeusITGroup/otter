@@ -13,7 +13,6 @@ function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema)
 
   /**
    * Compute action name based on action type and given name
-   *
    * @param aType
    * @param aName
    */
@@ -24,7 +23,6 @@ function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema)
 
   /**
    * Edit .actions.ts file
-   *
    * @param actionFilePath
    * @param tree
    * @param context
@@ -42,32 +40,40 @@ function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema)
     let actionDefinitionTemplate = '';
     let payloadType = '';
     switch (options.actionType) {
-      case 'set':
+      case 'set': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<object /* TODO: Define type */>());`;
         break;
-      case 'set-entities':
+      }
+      case 'set-entities': {
         payloadType = `Set${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName}  = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'upsert-entities':
+      }
+      case 'upsert-entities': {
         payloadType = `Set${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'update':
+      }
+      case 'update': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<Partial<object /* TODO: Define type */>>());`;
         break;
-      case 'update-entities':
+      }
+      case 'update-entities': {
         payloadType = `Update${options.isCallAction ? 'AsyncStoreItem' : ''}EntitiesActionPayload`;
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<${payloadType}<object /* TODO: Define type */>>());`;
         break;
-      case 'clear':
+      }
+      case 'clear': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName});`;
         break;
-      case 'fail':
+      }
+      case 'fail': {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<{error: any}>());`;
         break;
-      default:
+      }
+      default: {
         actionDefinitionTemplate = `export const ${actionName} = createAction(${labelName}, props<object /* TODO: Define type */>());`;
+      }
     }
 
     const labelTemplate = `const ${labelName} = '${actionId}';`;
@@ -117,7 +123,6 @@ ${actionDefinitionTemplate}`;
 
   /**
    * Edit .reducer.ts file
-   *
    * @param reducerFilePath
    * @param tree
    * @param context
@@ -162,7 +167,6 @@ ${actionDefinitionTemplate}`;
 
   /**
    * Create a new action in an existing store
-   *
    * @param tree
    * @param context
    */

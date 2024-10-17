@@ -117,7 +117,7 @@ export async function createRcBranch(version: SemVer, logger: winston.Logger) {
   try {
     await exec(`git show-branch remotes/origin/${rcBranch}`);
     logger.info(`${rcBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating release candidate branch ${rcBranch}.`);
     await exec(`git checkout -b ${rcBranch}`);
     await exec(`git push --set-upstream origin ${rcBranch}`);
@@ -137,7 +137,7 @@ export async function createNextAlphaBranch(version: SemVer, logger: winston.Log
   try {
     await exec(`git show-branch remotes/origin/${alphaBranch}`);
     logger.info(`${alphaBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating alpha branch ${alphaBranch}.`);
     await exec(`git checkout -b ${alphaBranch}`);
     if (renovatePath) {
@@ -159,7 +159,7 @@ export async function createNextMajorBranch(version: SemVer, logger: winston.Log
   try {
     await exec(`git show-branch remotes/origin/${nextBranchName}`);
     logger.info(`${nextBranchName} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating -next branch for next major version ${nextBranchName}.`);
     await exec(`git checkout -b ${nextBranchName}`);
     if (renovatePath) {
@@ -212,7 +212,7 @@ export async function createReleaseBranch(version: SemVer, logger: winston.Logge
   try {
     await exec(`git show-branch remotes/origin/${releaseBranch}`);
     logger.info(`${releaseBranch} already exists.`);
-  } catch (e) {
+  } catch {
     logger.info(`Creating release branch ${releaseBranch}.`);
     await exec(`git checkout -b ${releaseBranch}`);
     await exec(`git push --set-upstream origin ${releaseBranch}`);

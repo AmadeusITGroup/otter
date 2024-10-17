@@ -44,7 +44,7 @@ export class MaxValidator implements Validator, OnChanges {
 
   /** @inheritDoc */
   public validate(c: AbstractControl): ValidationErrors | null {
-    return this.max != null ? this.validator(c) : null;
+    return this.max == null ? null : this.validator(c);
   }
 
   /** @inheritDoc */

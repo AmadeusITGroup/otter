@@ -126,13 +126,13 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                     && classElement.name.escapedText.toString() === 'subscriptions'
                   );
 
-                  /* eslint-disable indent */
+
                   const propertiesToAdd = generateClassElementsFromString(`
                     private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
                     private bridge?: IframeBridge;
-                    ${!hasSubscriptions ? 'private subscriptions: Subscription[] = [];' : ''}
+                    ${hasSubscriptions ? '' : 'private subscriptions: Subscription[] = [];'}
                   `);
-                  /* eslint-disable indent */
+
 
                   const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
                   const nativeElem = this.frame().nativeElement;
@@ -166,7 +166,7 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                   const newMembers = node.members
                     .filter((classElement) => !(
                       findMethodByName('ngAfterViewInit')(classElement)
-                    || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
+                      || (!hasSubscriptions && findMethodByName('ngOnDestroy')(classElement))
                     ))
                     .concat(
                       propertiesToAdd,
