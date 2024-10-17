@@ -17,7 +17,8 @@ const getLocalizationArray = (content: LocalizationMetadata) => content;
 
 const getLocalizationName = (localization: JSONLocalization) => localization.key;
 
-const isMigrationLocalizationDataMatch = (localization: JSONLocalization, migrationData: MigrationLocalizationMetadata) => getLocalizationName(localization) === migrationData.key;
+const isMigrationLocalizationDataMatch = (localization: JSONLocalization, migrationData: MigrationLocalizationMetadata, metadataType: string) =>
+  metadataType === 'LOCALIZATION' && getLocalizationName(localization) === migrationData.key;
 
 
 /**

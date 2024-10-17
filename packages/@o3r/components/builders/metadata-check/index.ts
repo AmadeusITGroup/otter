@@ -4,5 +4,5 @@ import { configMetadataComparator } from './helpers/config-metadata-comparison.h
 import type { ConfigMigrationMetadataCheckBuilderSchema } from './schema';
 
 export default createBuilder<ConfigMigrationMetadataCheckBuilderSchema>(createBuilderWithMetricsIfInstalled((options, context): Promise<BuilderOutput> => {
-  return checkMetadataBuilder(options, context, configMetadataComparator);
+  return checkMetadataBuilder({...options, packageJsonEntry: 'configurationFilePath'}, context, configMetadataComparator);
 }));
