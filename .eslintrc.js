@@ -60,7 +60,7 @@ module.exports = {
       ],
       'rules': {
         '@o3r/json-dependency-versions-harmonize': ['error', {
-          ignoredPackages: ['@o3r/build-helpers'],
+          ignoredPackages: ['@o3r/build-helpers', '@o3r/workspace-helpers'],
           alignPeerDependencies: false,
           alignEngines: true
         }],
@@ -81,7 +81,7 @@ module.exports = {
       ],
       'rules': {
         '@o3r/json-dependency-versions-harmonize': ['error', {
-          ignoredPackages: ['@o3r/build-helpers'],
+          ignoredPackages: ['@o3r/build-helpers', '@o3r/workspace-helpers'],
           ignoredDependencies: ['npm'],
           alignPeerDependencies: false,
           alignEngines: true

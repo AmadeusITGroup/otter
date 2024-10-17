@@ -1,7 +1,7 @@
 {
-  "name": "@o3r/build-helpers",
+  "name": "@o3r/workspace-helpers",
   "version": "0.0.0-placeholder",
-  "description": "Build helpers",
+  "description": "Workspace helpers",
   "type": "module",
   "private": true,
   "keywords": [
@@ -13,20 +13,12 @@
     "scripts/*.mjs"
   ],
   "bin": {
-    "clear-package-json-dev-dependencies": "./scripts/clear-package-json-dev-dependencies.mjs",
-    "cp-assets": "./scripts/cp-assets.mjs",
-    "cp-build": "./scripts/cp-build.mjs",
-    "cp-package-json": "./scripts/cp-package-json.mjs",
     "create-monorepo-scope": "./scripts/create-monorepo-scope.mjs",
     "doc-links": "./scripts/doc-links.mjs",
-    "generate-cjs-manifest": "./scripts/generate-cjs-manifest.mjs",
-    "patch-package-json-exports": "./scripts/patch-package-json-exports.mjs",
-    "patch-package-json-main": "./scripts/patch-package-json-main.mjs",
     "pr-labels": "./scripts/pr-labels.mjs",
     "prepare-doc-root-menu-template": "./scripts/prepare-doc-root-menu-template.mjs",
-    "prepare-publish": "./scripts/prepare-publish.mjs",
-    "update-doc-summary": "./scripts/update-doc-summary.mjs",
-    "update-package": "./scripts/update-package.mjs"
+    "report-deprecates": "./scripts/report-deprecates.mjs",
+    "update-doc-summary": "./scripts/update-doc-summary.mjs"
   },
   "dependencies": {
     "globby": "^14.0.0",
