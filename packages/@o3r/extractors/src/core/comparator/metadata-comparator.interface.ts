@@ -29,8 +29,9 @@ export interface MetadataComparator<MetadataItem, MigrationMetadataItem, Metadat
    * Returns true if a migration item matches a metadata item.
    * @param metadataItem Metadata item
    * @param migrationItem Migration item
+   * @param metadataType Type of the metadata
    */
-  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem) => boolean;
+  isMigrationDataMatch: (metadataItem: MetadataItem, migrationItem: MigrationMetadataItem, metadataType: string) => boolean;
 }
 
 /**

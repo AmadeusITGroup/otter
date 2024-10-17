@@ -33,7 +33,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
         continue;
       }
 
-      const migrationMetadataValue = migrationData.find((metadata) => comparator.isMigrationDataMatch(lastValue, metadata.before));
+      const migrationMetadataValue = migrationData.find((metadata) => metadata.before && comparator.isMigrationDataMatch(lastValue, metadata.before, metadata.contentType));
 
       if (!migrationMetadataValue) {
         errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but is not documented in the migration document`));
@@ -41,7 +41,7 @@ function checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(
       }
 
       if (migrationMetadataValue.after) {
-        const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!));
+        const isNewValueInNewMetadata = newMetadataArray.some((newValue) => comparator.isMigrationDataMatch(newValue, migrationMetadataValue.after!, migrationMetadataValue.contentType));
         if (!isNewValueInNewMetadata) {
           errors.push(new Error(`Property ${comparator.getIdentifier(lastValue)} has been modified but the new property is not present in the new metadata`));
           continue;
