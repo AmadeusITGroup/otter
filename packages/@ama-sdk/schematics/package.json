@@ -63,7 +63,7 @@
     "@angular-devkit/schematics-cli": "^18.0.5",
     "@angular/cli": "~18.2.0",
     "@o3r/schematics": "workspace:^",
-    "@openapitools/openapi-generator-cli": "~2.13.0",
+    "@openapitools/openapi-generator-cli": "~2.14.0",
     "@schematics/angular": "~18.2.0"
   },
   "dependencies": {
@@ -89,8 +89,9 @@
     "@o3r/build-helpers": "workspace:^",
     "@o3r/eslint-plugin": "workspace:^",
     "@o3r/schematics": "workspace:^",
+    "@o3r/telemetry": "workspace:^",
     "@o3r/test-helpers": "workspace:^",
-    "@openapitools/openapi-generator-cli": "~2.13.0",
+    "@openapitools/openapi-generator-cli": "~2.14.0",
     "@schematics/angular": "~18.2.0",
     "@stylistic/eslint-plugin": "~2.7.0",
     "@types/jest": "~29.5.2",
@@ -147,7 +148,7 @@
     "tsc-watch": "^6.0.4",
     "yaml-eslint-parser": "^1.2.2"
   },
-  "openApiSupportedVersion": "~7.8.0",
+  "openApiSupportedVersion": "~7.9.0",
   "engines": {
     "node": "^18.19.1 || ^20.11.1 || >=22.0.0"
   }

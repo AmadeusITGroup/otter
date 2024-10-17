@@ -132,7 +132,10 @@ Detection of package manager runner will fallback on the one used to execute the
 
   const packageLocator = `${packageJson.name as string}@${previousVersion}`;
   context.logger.info(`Fetching ${packageLocator} from the registry.`);
-  const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath], packageManager, context.workspaceRoot);
+  const packageJsonFileName = 'package.json';
+  const previousFile = await getFilesFromRegistry(packageLocator, [options.metadataPath, packageJsonFileName], packageManager, context.workspaceRoot);
+
+  context.logger.info(`Resolved metadata from version ${JSON.parse(previousFile[packageJsonFileName]).version}.`);
 
   const metadataPathInWorkspace = posix.join(projectRoot, options.metadataPath);
   const newFile = getLocalMetadataFile<MetadataFile>(metadataPathInWorkspace);

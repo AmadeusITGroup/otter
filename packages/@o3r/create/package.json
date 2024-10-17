@@ -17,6 +17,14 @@
     "postbuild": "cpy package.json dist/",
     "prepare:publish": "prepare-publish ./dist"
   },
+  "peerDependencies": {
+    "@o3r/telemetry": "workspace:^"
+  },
+  "peerDependenciesMeta": {
+    "@o3r/telemetry": {
+      "optional": true
+    }
+  },
   "dependencies": {
     "@angular/cli": "~18.2.0",
     "@schematics/angular": "~18.2.0",
