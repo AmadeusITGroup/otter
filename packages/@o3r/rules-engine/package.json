@@ -49,7 +49,7 @@
     "@schematics/angular": "~17.3.0",
     "globby": "^11.1.0",
     "jasmine": "^5.0.0",
-    "jsonpath-plus": "^8.0.0",
+    "jsonpath-plus": ">= 8.0.0",
     "rxjs": "^7.8.1",
     "typescript": "~5.4.2",
     "typescript-json-schema": "~0.63.0"
@@ -142,7 +142,7 @@
     "jest-junit": "~16.0.0",
     "jest-preset-angular": "~14.1.0",
     "jsonc-eslint-parser": "~2.4.0",
-    "jsonpath-plus": "^8.0.0",
+    "jsonpath-plus": "~10.0.0",
     "memfs": "~4.9.0",
     "nx": "~18.3.0",
     "pid-from-port": "^1.1.3",
