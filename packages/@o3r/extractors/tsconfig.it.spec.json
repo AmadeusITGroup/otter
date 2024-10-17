@@ -1,0 +1,6 @@
+{
+  "extends": "./tsconfig.spec",
+  "compilerOptions": {
+    "esModuleInterop": true
+  }
+}

@@ -2,7 +2,7 @@ import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics'
 import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
-import { getPackageManager, getWorkspaceConfig, OTTER_ITEM_TYPES, readPackageJson, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
+import { getPackageManager, getWorkspaceConfig, OTTER_ITEM_TYPES, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import { join, posix } from 'node:path';
 
 /**
@@ -11,7 +11,6 @@ import { join, posix } from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  * @param options.projectName
  * @param options.enableStorybook
- * @param options.enablePlaywright
  * @param options.enableStyling
  * @param options.enableAnalytics
  * @param options.workingDirectory
@@ -42,15 +41,10 @@ export function updateOtterEnvironmentAdapter(
       return tree;
     }
 
-    const packageJson = readPackageJson(tree, workspaceProject);
-    const scope = packageJson.name!.split('/')[0];
-
     workspace.cli = workspace.cli || {};
+    workspaceProject.schematics ||= {};
 
     if (workspaceProject.projectType === 'application') {
-      if (!workspaceProject.schematics) {
-        workspaceProject.schematics = {};
-      }
 
       OTTER_ITEM_TYPES.forEach((item) => {
         const path = TYPES_DEFAULT_FOLDER[item].app;
@@ -81,11 +75,11 @@ export function updateOtterEnvironmentAdapter(
       workspace.cli.packageManager ||= getPackageManager() as PackageManager;
 
       OTTER_ITEM_TYPES.forEach((item) => {
-        const path = TYPES_DEFAULT_FOLDER[item].lib ? `modules/${scope}/${TYPES_DEFAULT_FOLDER[item].lib!}` : null;
+        const path = TYPES_DEFAULT_FOLDER[item].lib;
         if (path) {
-          workspace.schematics![`${item}*`] = {
-            path,
-            ...(workspace.schematics![item] || {})
+          workspaceProject.schematics![item] = {
+            path: posix.join(workspaceProject.root, path),
+            ...(workspaceProject.schematics![item] || {})
           };
         }
       });

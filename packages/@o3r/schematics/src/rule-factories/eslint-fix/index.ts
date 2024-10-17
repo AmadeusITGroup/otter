@@ -1,4 +1,4 @@
-import { DirEntry, noop, Rule, SchematicContext, type TaskId, Tree } from '@angular-devkit/schematics';
+import { DirEntry, noop, type Rule, SchematicContext, type TaskId, type Tree } from '@angular-devkit/schematics';
 import { dirname, join } from 'node:path';
 import { EslintFixTask, LinterOptions } from '../../tasks/index';
 

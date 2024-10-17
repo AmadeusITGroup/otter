@@ -4,9 +4,9 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { NgbAccordionModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigurationModel } from '@o3r/configuration';
 import { combineLatest, Observable } from 'rxjs';
-import { filter, map, startWith } from 'rxjs/operators';
+import { map, startWith } from 'rxjs/operators';
 import { ConfigFormComponent } from '../../components/config-form/config-form.component';
-import { ChromeExtensionConnectionService, isConfigurationsMessage } from '../../services/connection.service';
+import { ChromeExtensionConnectionService, filterAndMapMessage, isConfigurationsMessage } from '../../services/connection.service';
 
 @Component({
   selector: 'o3r-config-panel-pres',
@@ -37,9 +37,10 @@ export class ConfigPanelPresComponent {
       }
     );
     const configs$ = connectionService.message$.pipe(
-      filter(isConfigurationsMessage),
-      map((message) => Object.values(message.configurations)
-        .filter((config): config is ConfigurationModel => !!config)
+      filterAndMapMessage(
+        isConfigurationsMessage,
+        (message) => Object.values(message.configurations)
+          .filter((config): config is ConfigurationModel => !!config)
       )
     );
     this.filteredConfigs$ = combineLatest([

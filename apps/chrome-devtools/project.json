@@ -154,13 +154,15 @@
       "outputs": [
         "{projectRoot}/dist/assets/**",
         "{projectRoot}/dist/manifest.json",
-        "{projectRoot}/dist/devtools.html"
+        "{projectRoot}/dist/devtools.html",
+        "{projectRoot}/dist/options.html"
       ],
       "inputs": [
         "global",
         "{projectRoot}/src/assets/**",
         "{projectRoot}/src/manifest.json",
-        "{projectRoot}/src/devtools.html"
+        "{projectRoot}/src/devtools.html",
+        "{projectRoot}/src/options.html"
       ]
     },
     "publish-extension": {

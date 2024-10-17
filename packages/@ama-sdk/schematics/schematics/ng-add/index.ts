@@ -1,4 +1,4 @@
-import type { OpenApiToolsConfiguration } from '@ama-sdk/core';
+import type { OpenApiToolsConfiguration } from '../helpers/open-api-tools-configuration';
 import { isJsonObject } from '@angular-devkit/core';
 import { chain, externalSchematic, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';

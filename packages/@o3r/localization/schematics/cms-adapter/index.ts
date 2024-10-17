@@ -15,7 +15,6 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
   /**
    * Add cms extractors builder into the angular.json
    * @param tree
-   * @param _context
    * @param context
    */
   const editAngularJson = (tree: Tree, context: SchematicContext) => {
@@ -38,6 +37,12 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
         libraries: []
       }
     };
+    workspaceProject.architect['check-localization-migration-metadata'] ||= {
+      builder: '@o3r/localization:check-localization-migration-metadata',
+      options: {
+        migrationDataPath: 'migration-scripts/dist/MIGRATION-*.json'
+      }
+    };
 
     workspace.projects[options.projectName!] = workspaceProject;
     tree.overwrite('/angular.json', JSON.stringify(workspace, null, 2));
@@ -47,7 +52,6 @@ function updateCmsAdapterFn(options: { projectName?: string | undefined }): Rule
   /**
    * Add cms extractors scripts into the package.json
    * @param tree
-   * @param _context
    * @param context
    */
   const addExtractorsScripts = (tree: Tree, context: SchematicContext) => {

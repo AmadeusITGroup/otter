@@ -1,5 +1,4 @@
 import type { Tree } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
 import * as ts from 'typescript';
 import { DecoratorWithArg, getPropertyFromDecoratorFirstArgument, isDecoratorWithArg } from './ast';
 import { O3rCliError } from './error';
@@ -34,7 +33,8 @@ export const isO3rClassComponent = (classDeclaration: ts.ClassDeclaration) =>
   isNgClassComponent(classDeclaration)
   && (ts.getDecorators(classDeclaration) || []).some(isO3rClassDecorator);
 
-export const askConfirmationToConvertComponent = () => askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
+export const askConfirmationToConvertComponent = async () =>
+  (await import('@angular/cli/src/utilities/prompt')).askConfirmation('Component found is not an Otter component. Would you like to convert it?', true);
 
 export class NoOtterComponent extends Error {
   constructor(componentPath: string) {

@@ -57,7 +57,7 @@ describe('Migrate to config signal-based', () => {
 
     expect(componentFileContent).toContain('DynamicConfigurableWithSignal<MyConfig>');
     expect(componentFileContent).toContain('public config = input<Partial<MyConfig>>()');
-    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, MY_CONFIG_CONFIG_ID, MY_CONFIG_DEFAULT_CONFIG, this.configurationService)');
+    expect(componentFileContent).toContain('public readonly configSignal = configSignal(this.config, MY_CONFIG_CONFIG_ID, MY_CONFIG_DEFAULT_CONFIG)');
     expect(componentFileContent).toContain('public readonly config$ = toObservable(this.configSignal)');
 
     expect(componentFileContent).not.toContain('public config$: Observable<MyConfig>');

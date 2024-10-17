@@ -1,15 +1,34 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, forwardRef, inject, Input, Pipe, type PipeTransform, signal, ViewEncapsulation } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CloseInputDatePickerDirective, DfDatePickerModule, DfInputIconDirective } from '@design-factory/design-factory';
-import { NgbCalendar, NgbCalendarHebrew, NgbDate, NgbDatepickerI18n, NgbDatepickerI18nHebrew, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCalendar, NgbCalendarHebrew, NgbDate, NgbDatepickerI18n, NgbDatepickerI18nHebrew, type NgbDateStruct, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
 import { DatePickerInputHebrewPresContext } from './date-picker-input-hebrew-pres.context';
+
+@Pipe({
+  name: 'getDayNumerals',
+  standalone: true
+})
+export class GetDayNumeralsPipe implements PipeTransform {
+  public readonly i18n = inject(NgbDatepickerI18n);
+
+  public transform(date: NgbDateStruct) {
+    return this.i18n.getDayNumerals(date);
+  }
+}
 
 @O3rComponent({ componentType: 'ExposedComponent' })
 @Component({
   selector: 'o3r-date-picker-input-pres-new-design',
   standalone: true,
-  imports: [FormsModule, CloseInputDatePickerDirective, NgbInputDatepicker, DfInputIconDirective, DfDatePickerModule],
+  imports: [
+    FormsModule,
+    GetDayNumeralsPipe,
+    CloseInputDatePickerDirective,
+    NgbInputDatepicker,
+    DfInputIconDirective,
+    DfDatePickerModule
+  ],
   templateUrl: './date-picker-input-hebrew-pres.template.html',
   styleUrls: ['./date-picker-input-hebrew-pres.style.scss'],
   providers: [
@@ -42,8 +61,7 @@ export class DatePickerHebrewInputPresComponent implements ControlValueAccessor,
   @Input()
   public id!: string;
 
-  constructor(private readonly calendar: NgbCalendar, public i18n: NgbDatepickerI18n) {
-  }
+  private readonly calendar = inject(NgbCalendar);
 
   public dayTemplateData = (date: NgbDate) => {
     return {

@@ -40,6 +40,14 @@ export interface Mark {
    */
   endTime?: number;
 }
+/** Performance object supporting NodeJs Performance and Web Performance reporting  */
+type CrossPlatformPerformance = {
+  /** @see Performance.mark */
+  mark: (...x: Parameters<Performance['mark']>) => ReturnType<Performance['mark']> | void;
+
+  /** @see Performance.measure */
+  measure: (measureName: string, startOrMeasureOptions?: string, endMark?: string) => ReturnType<Performance['measure']> | void;
+};
 
 /**
  * Options for this plugin.
@@ -48,12 +56,30 @@ export interface PerformanceMetricOptions {
   /**
    * Callback function to be called when a mark is closed.
    */
-  onMarkComplete: (mark: Mark) => void;
+  onMarkComplete: (mark: Mark) => void | Promise<void>;
 
   /**
    * Callback function to be called when a mark is closed with an error.
    */
-  onMarkError: (mark: Mark) => void;
+  onMarkError: (mark: Mark) => void | Promise<void>;
+
+  /**
+   * Callback function called when a mark is opened.
+   */
+  onMarkOpen: (mark: Mark) => void | Promise<void>;
+
+  /**
+   * Instance of the performance reporter to use for performance measurements.
+   * @default window.performance on browser only, undefined on node
+   */
+  performance: CrossPlatformPerformance;
+
+  /**
+   * Retrieve the performance tag name
+   * @param status status of the call
+   * @param markId Mark ID
+   */
+  getPerformanceTag: (status: string, markId: string) => string;
 }
 
 /**
@@ -63,32 +89,50 @@ export class PerformanceMetricPlugin implements FetchPlugin {
   /**
    * Callback function called when a mark is closed.
    */
-  public onMarkComplete?: (mark: Mark) => void;
+  public onMarkComplete?: (mark: Mark) => void | Promise<void>;
 
   /**
    * Callback function called when a mark is closed with an error.
    */
-  public onMarkError?: (mark: Mark) => void;
+  public onMarkError?: (mark: Mark) => void | Promise<void>;
+
+  /**
+   * Callback function called when a mark is opened.
+   */
+  public onMarkOpen?: (mark: Mark) => void | Promise<void>;
 
   /**
    * Opened marks.
    */
-  protected openMarks: {[markId: string]: Mark} = {};
+  protected readonly openMarks: {[markId: string]: Mark} = {};
 
   /**
-   * Method used to get the current time.
-   * Date.now() is used by default, but we fall back on window.performance.now() if available.
+   * Performance reporter to use for performance measurements.
+   * @default window.performance on browser only, undefined on node
+   */
+  protected readonly performance;
+
+  /**
+   * Method used to get the current time as default implementation if no Performance API available.
+   * Date.now() is used by default.
    */
   protected getTime: () => number = Date.now;
 
   constructor(options?: Partial<PerformanceMetricOptions>) {
+    this.getPerformanceTag = options?.getPerformanceTag || this.getPerformanceTag;
+    this.performance = options?.performance || (typeof window !== 'undefined' ? window.performance : undefined);
     this.onMarkComplete = options ? options.onMarkComplete : this.onMarkComplete;
     this.onMarkError = options ? options.onMarkError : this.onMarkError;
-
-    if (typeof window !== 'undefined' && !!window.performance && !!window.performance.now) {
-      this.getTime = () => window.performance.now();
-    }
+    this.onMarkOpen = options ? options.onMarkOpen : this.onMarkOpen;
   }
+
+  /**
+   * Retrieve the performance tag name
+   * @param status status of the call
+   * @param markId Mark ID
+   */
+  protected getPerformanceTag = (status: string, markId: string) => `sdk:${status}:${markId}`;
+
 
   /**
    * Opens a mark associated to a call.
@@ -97,15 +141,18 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    */
   public openMark(url: string, requestOptions: RequestInit) {
     const markId = v4();
-    this.openMarks = {
-      ...this.openMarks,
-      [markId]: {
-        markId,
-        url,
-        requestOptions,
-        startTime: this.getTime()
-      }
+    const perfMark = this.performance?.mark(this.getPerformanceTag('start', markId)) || undefined;
+    const startTime = perfMark?.startTime ?? this.getTime();
+    const mark: Mark = {
+      markId,
+      url,
+      requestOptions,
+      startTime
     };
+    this.openMarks[markId] = mark;
+    if (this.onMarkOpen) {
+      void this.onMarkOpen(mark);
+    }
     return markId;
   }
 
@@ -115,15 +162,18 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    * @param response Response of the call associated to the mark to close
    */
   public closeMark(markId: string, response: Response) {
+    const perfMark = this.performance?.mark(this.getPerformanceTag('end', markId)) || undefined;
+    const endTime = perfMark?.startTime ?? this.getTime();
+    this.performance?.measure(this.getPerformanceTag('measure', markId), this.getPerformanceTag('start', markId), this.getPerformanceTag('end', markId));
     const mark = this.openMarks[markId];
     if (!mark) {
       return;
     }
     if (this.onMarkComplete) {
-      this.onMarkComplete({
+      void this.onMarkComplete({
         ...mark,
         response,
-        endTime: this.getTime()
+        endTime
       });
     }
     delete this.openMarks[markId];
@@ -135,15 +185,18 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    * @param error Optional error of the call associated to the mark to close
    */
   public closeMarkWithError(markId: string, error: Error | undefined) {
+    const perfMark = this.performance?.mark(this.getPerformanceTag('error', markId)) || undefined;
+    const endTime = perfMark?.startTime ?? this.getTime();
+    this.performance?.measure(this.getPerformanceTag('measure', markId), this.getPerformanceTag('start', markId), this.getPerformanceTag('error', markId));
     const mark = this.openMarks[markId];
     if (!mark) {
       return;
     }
     if (this.onMarkError) {
-      this.onMarkError({
+      void this.onMarkError({
         ...mark,
         error,
-        endTime: this.getTime()
+        endTime
       });
     }
     delete this.openMarks[markId];

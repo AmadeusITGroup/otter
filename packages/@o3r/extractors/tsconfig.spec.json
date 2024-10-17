@@ -4,6 +4,7 @@
     "composite": true,
     "outDir": "test",
     "rootDir": ".",
+    "esModuleInterop": false
   },
   "include": [
     "**/*.spec.ts"

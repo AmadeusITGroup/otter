@@ -1,5 +1,5 @@
 import { Clipboard, ClipboardModule } from '@angular/cdk/clipboard';
-import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
 import { O3rComponent } from '@o3r/core';
 import { HighlightModule } from 'ngx-highlightjs';
 
@@ -28,7 +28,7 @@ export class CopyTextPresComponent {
 
   public defaultLanguages = ['bash', 'css', 'html', 'json', 'typescript'] as const;
 
-  constructor(private readonly clipboard: Clipboard) {}
+  private readonly clipboard = inject(Clipboard);
 
   /**
    * Copy the text into the clipboard

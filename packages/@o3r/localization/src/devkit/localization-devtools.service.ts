@@ -53,7 +53,10 @@ export class OtterLocalizationDevtools {
    * Switch the current language to the specified value
    * @param language new language to switch to
    */
-  public async switchLanguage(language: string) {
+  public async switchLanguage(language: string | undefined) {
+    if (!language) {
+      return;
+    }
     await lastValueFrom(this.localizationService.useLanguage(language));
     this.appRef.tick();
   }

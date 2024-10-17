@@ -77,7 +77,7 @@
     $tags: list.join($tags, map.get($details, 'tags'));
   }
   $palette-with-details: (
-    value: mat.define-palette($palette),
+    value: mat.m2-define-palette($palette),
     details: map.merge(
       $details,
       (
@@ -112,11 +112,11 @@
   );
 
   @if ($is-dark-theme) {
-    $mat-theme: mat.define-dark-theme($theme-color);
+    $mat-theme: mat.m2-define-dark-theme($theme-color);
   }
 
   @else {
-    $mat-theme: mat.define-light-theme($theme-color);
+    $mat-theme: mat.m2-define-light-theme($theme-color);
   }
 
   @return map.merge($mat-theme, (

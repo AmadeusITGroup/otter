@@ -22,7 +22,7 @@ export function updateCmsJsonFile(): Rule {
     });
 
     Object.entries(filesToUpdate).forEach(([path, contentObj]) => {
-      contentObj.$schema = 'https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/application/schemas/cms.json';
+      contentObj.$schema = 'https://github.com/AmadeusITGroup/otter/blob/main/packages/@o3r/application/schemas/cms.schema.json';
       tree.overwrite(path, JSON.stringify(contentObj, null, 2));
     });
     return tree;

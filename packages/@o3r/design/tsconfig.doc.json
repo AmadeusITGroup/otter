@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.doc",
+  "extends": "../../../tsconfig.doc",
   "exclude": [
     "**/*.spec.ts",
     "**/*reducer.ts",

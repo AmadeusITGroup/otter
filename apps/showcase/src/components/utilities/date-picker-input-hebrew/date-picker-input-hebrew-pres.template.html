@@ -2,7 +2,7 @@
 <div class="input-group" [dfCloseInputDatePicker]="dp">
   <input [id]="id"
         #dpin
-        class="form-control visual-testing-ignore"
+        class="form-control"
         placeholder="YYYY-MM-DD"
         [ngModel]="selectedDate()"
         (ngModelChange)="selectDate($event)"
@@ -35,6 +35,6 @@
        [class.df-datepicker-date-focused]="focused"
        [class.df-datepicker-date-selected]="selected">
     <div class="gregorian-num">{{ data.gregorian.day + '/' + (data.gregorian.month) }}</div>
-    <div class="hebrew-num">{{ i18n.getDayNumerals(date) }}</div>
+    <div class="hebrew-num">{{ date | getDayNumerals }}</div>
   </div>
 </ng-template>

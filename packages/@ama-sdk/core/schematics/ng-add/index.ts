@@ -54,10 +54,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
   const addMandatoryPeerDeps: Rule = async (tree, context) => {
     const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');
     const workingDirectory = options?.projectName && getWorkspaceConfig(tree)?.projects[options.projectName]?.root || '.';
-    const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'), [
-      'chokidar',
-      'minimist'
-    ]);
+    const peerDepToInstall = getPeerDepWithPattern(path.resolve(__dirname, '..', '..', 'package.json'));
     context.addTask(new NodePackageInstallTask({
       workingDirectory,
       packageName: Object.entries(peerDepToInstall.matchingPackagesVersions)

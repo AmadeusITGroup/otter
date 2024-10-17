@@ -1,5 +1,5 @@
 import type { LoggerApi } from '@angular-devkit/core/src/logger';
-import { SchematicContext, Tree } from '@angular-devkit/schematics';
+import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
 import { satisfies } from 'semver';
 import type { PackageJson } from 'type-fest';

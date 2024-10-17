@@ -1,4 +1,4 @@
-import { Rule } from '@angular-devkit/schematics';
+import type { Rule } from '@angular-devkit/schematics';
 import { insertImport } from '@schematics/angular/utility/ast-utils';
 import { applyToUpdateRecorder, type Change } from '@schematics/angular/utility/change';
 import * as ts from 'typescript';

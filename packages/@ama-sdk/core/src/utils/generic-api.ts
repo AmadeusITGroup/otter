@@ -55,9 +55,7 @@ export class GenericApi implements Api {
       headers,
       ...requestOptions
     };
-    const options = this.client.getRequestOptions ?
-      await this.client.getRequestOptions(requestParameters) :
-      await this.client.prepareOptions(requestParameters.basePath, requestParameters.method, requestParameters.queryParams || {}, requestParameters.headers);
+    const options = await this.client.getRequestOptions(requestParameters);
     const url = this.client.prepareUrl(options.basePath, options.queryParams);
 
     const ret = this.client.processCall<T>(url, options, ApiTypes.DEFAULT, requestOptions.api!.apiName, requestOptions.revivers, requestOptions.operationId);

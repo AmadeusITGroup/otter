@@ -96,3 +96,7 @@ for the original `ngrx-store-localstorage` due to a module resolution issue.
 
 Hence, if you use the `metaReducers` configuration in the `StoreModule`, we recommend using our override of the `mergeReducer` when setting up the `StorageSync` in your application
 (as shown in the usage example above).
+
+# Package link
+
+[Link to the `@o3r/store-sync` package](https://github.com/AmadeusITGroup/otter/blob/main/packages/%40o3r/store-sync/README.md).

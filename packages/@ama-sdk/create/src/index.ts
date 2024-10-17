@@ -4,7 +4,7 @@
 import { execSync, spawnSync } from 'node:child_process';
 import { dirname, extname, join, parse, relative, resolve } from 'node:path';
 import * as minimist from 'minimist';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/core';
+import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
 
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
 const binPath = resolve(require.resolve('@angular-devkit/schematics-cli/package.json'), '../bin/schematics.js');

@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, inject, QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { O3rComponent } from '@o3r/core';
 import { InPageNavLink, InPageNavLinkDirective, InPageNavPresService } from '../../components/utilities/in-page-nav';
 import { IN_PAGE_NAV_PRES_DIRECTIVES, InPageNavPresComponent } from '../../components/utilities/in-page-nav/in-page-nav-pres.component';
@@ -18,12 +18,11 @@ import { CopyTextPresComponent } from '../../components/utilities/copy-text/copy
   imports: [RouterModule, InPageNavPresComponent, AsyncPipe, IN_PAGE_NAV_PRES_DIRECTIVES, ComponentReplacementPresComponent, CopyTextPresComponent]
 })
 export class ComponentReplacementComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
 
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
-
-  constructor(private readonly inPageNavPresService: InPageNavPresService) { }
 
   public ngAfterViewInit() {
     this.inPageNavPresService.initialize(this.inPageNavLinkDirectives);

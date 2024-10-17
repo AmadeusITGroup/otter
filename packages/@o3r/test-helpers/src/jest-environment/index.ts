@@ -4,7 +4,7 @@ import { TestEnvironment as NodeTestEnvironment } from 'jest-environment-node';
 import { execSync } from 'node:child_process';
 import pidFromPort from 'pid-from-port';
 import { rm } from 'node:fs/promises';
-import path from 'node:path';
+import { join } from 'node:path';
 import { prepareTestEnv, type PrepareTestEnvType } from '../prepare-test-env';
 
 /**
@@ -17,7 +17,7 @@ declare global {
   var o3rEnvironment: {testEnvironment: TestEnvironment};
 }
 
-const rootFolder = path.join(__dirname, '..', '..', '..', '..');
+const rootFolder = join(__dirname, '..', '..', '..', '..');
 
 /**
  * Custom Jest environment used to manage test environments with Verdaccio setup

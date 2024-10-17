@@ -1,4 +1,4 @@
-import { RuleTester } from '@angular-eslint/utils';
+import { RuleTester } from '@angular-eslint/test-utils';
 import noInnerHTMLRule, { name } from './no-inner-html';
 
 const ruleTester = new RuleTester({

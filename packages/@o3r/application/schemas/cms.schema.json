@@ -30,6 +30,10 @@
     "functionalContentsFolder": {
       "type": "string",
       "description": "The relative path to the functional contents metadata folder to import"
+    },
+    "migrationScriptFolder": {
+      "type": "string",
+      "description": "The relative path to the migration scripts"
     }
   }
 }

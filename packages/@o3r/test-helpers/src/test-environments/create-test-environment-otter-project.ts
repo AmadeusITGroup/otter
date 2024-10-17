@@ -13,11 +13,16 @@ import {
   setPackagerManagerConfig
 } from '../utilities';
 
-export interface CreateTestEnvironmentOtterProjectWithAppOptions extends CreateWithLockOptions, PackageManagerConfig {
+export interface CreateTestEnvironmentOtterProjectWithAppAndLibOptions extends CreateWithLockOptions, PackageManagerConfig {
   /**
-   * Name of the app to generate
+   * Name of the application to generate
    */
-  projectName: string;
+  appName: string;
+
+  /**
+   * Name of the library to generate
+   */
+  libName: string;
 
   /**
    * Working directory
@@ -42,9 +47,10 @@ const o3rVersion = '~999';
  * The lock will automatically expire after 10 minutes if the creation of the app failed for whatever reason
  * @param inputOptions
  */
-export async function createTestEnvironmentOtterProjectWithApp(inputOptions: Partial<CreateTestEnvironmentOtterProjectWithAppOptions>) {
-  const options: CreateTestEnvironmentOtterProjectWithAppOptions = {
-    projectName: 'test-app',
+export async function createTestEnvironmentOtterProjectWithAppAndLib(inputOptions: Partial<CreateTestEnvironmentOtterProjectWithAppAndLibOptions>) {
+  const options: CreateTestEnvironmentOtterProjectWithAppAndLibOptions = {
+    appName: 'test-app',
+    libName: 'test-lib',
     appDirectory: 'test-app',
     o3rVersion,
     cwd: process.cwd(),
@@ -83,8 +89,10 @@ export async function createTestEnvironmentOtterProjectWithApp(inputOptions: Par
       writeFileSync(gitIgnorePath, gitIgnore.replace(/\/(dist|node_modules)/g, '$1'));
     }
     packageManagerInstall(execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'application', 'dont-modify-me']}, execAppOptions);
-    packageManagerExec({script: 'ng', args: ['g', 'application', options.projectName]}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['g', 'application', 'untouched-app']}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['g', 'application', options.appName]}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['g', 'library', 'untouched-lib']}, execAppOptions);
+    packageManagerExec({script: 'ng', args: ['g', 'library', options.libName]}, execAppOptions);
 
 
     packageManagerExec({script: 'ng', args: ['config', 'cli.cache.environment', 'all']}, execAppOptions);

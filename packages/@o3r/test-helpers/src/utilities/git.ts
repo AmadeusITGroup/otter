@@ -31,7 +31,7 @@ export function getGitDiff(workingDirectory?: string, baseBranch = 'after-init')
   const trackedFiles = execFileSync('git', ['diff', '--name-status', baseBranch], execOptions).split('\n');
   const indexedFiles = execFileSync('git', ['diff', '--cached', '--name-status', baseBranch], execOptions).split('\n');
   const extractFile = (line: string) => line.replace(/^[ADM]\s*/, '');
-  const cleanList = (list: string[]) => [...new Set(list.filter((file) => !!file))];
+  const cleanList = (list: string[]) => [...new Set(list.filter((file) => !!file).map(filePath => filePath.replace(/[\\/]+/g, '/')))];
   const added = cleanList([...untrackedFiles, ...[...trackedFiles, ...indexedFiles].filter((line) => /^A/.test(line)).map(extractFile)]);
   const modified = cleanList([...trackedFiles, ...indexedFiles].filter((line) => /^M/.test(line)).map(extractFile));
   const deleted = cleanList([...trackedFiles, ...indexedFiles].filter((line) => /^D/.test(line)).map(extractFile));

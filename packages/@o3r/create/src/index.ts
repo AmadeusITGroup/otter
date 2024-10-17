@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'node:child_process';
+import { spawnSync, type SpawnSyncOptionsWithBufferEncoding } from 'node:child_process';
 import { join, resolve } from 'node:path';
 import { readFileSync, writeFileSync } from 'node:fs';
 import * as minimist from 'minimist';
+import { quote } from 'shell-quote';
 import type { PackageJson } from 'type-fest';
 
 
@@ -94,13 +95,24 @@ if (!args.some((a) => a.startsWith('--preset'))) {
 
 args.push('--no-create-application');
 
+const supportedPackageManager = ['npm', 'yarn'];
+const supportedPackageManagerRegExp = new RegExp(`^(${supportedPackageManager.join('|')})$`);
+
 const argv = minimist(args);
 const packageManagerEnv = process.env.npm_config_user_agent?.split('/')[0];
-let defaultPackageManager = 'npm';
-if (packageManagerEnv && ['npm', 'yarn'].includes(packageManagerEnv)) {
+let defaultPackageManager = supportedPackageManager[0];
+if (packageManagerEnv && supportedPackageManager.includes(packageManagerEnv)) {
   defaultPackageManager = packageManagerEnv;
 }
-const packageManager = argv['package-manager'] || defaultPackageManager;
+const argvPackageManager = argv['package-manager'];
+let packageManager = supportedPackageManagerRegExp.test(argvPackageManager) ? argv['package-manager'] : defaultPackageManager;
+if (argvPackageManager && supportedPackageManagerRegExp.test(argvPackageManager)) {
+  packageManager = argvPackageManager;
+} else if (argvPackageManager) {
+  // eslint-disable-next-line no-console
+  console.error(`The package manager option supports only npm and yarn, you provided "${argvPackageManager}"`);
+  process.exit(-1);
+}
 const exactO3rVersion = !!argv['exact-o3r-version'];
 
 if (argv._.length === 0) {
@@ -124,6 +136,13 @@ const isNgNewOptions = (arg: string) => {
   return true;
 };
 
+const NG_NEW_ERROR_CODE = 1;
+const YARN_SET_VERSION_ERROR_CODE = 2;
+const ADD_O3R_CORE_ERROR_CODE = 3;
+const NPM_CONFIG_REGISTRY_ERROR_CODE = 4;
+const YARN_CONFIG_REGISTRY_ERROR_CODE = 5;
+const INSTALL_PROCESS_ERROR_CODE = 6;
+
 const exitProcessIfErrorInSpawnSync = (exitCode: number, {error, status}: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
     if (error) {
@@ -146,14 +165,31 @@ const createNgProject = () => {
   const options = schematicsCliOptions
     .filter(([key]) => isNgNewOptions(key))
     .flat();
-  exitProcessIfErrorInSpawnSync(1, spawnSync(`"${process.execPath}"`, [binPath, 'new', ...argv._, ...options], {
-    stdio: 'inherit',
-    shell: true
-  }));
+  exitProcessIfErrorInSpawnSync(
+    NG_NEW_ERROR_CODE,
+    spawnSync(
+      `"${process.execPath}"`,
+      [
+        binPath,
+        'new',
+        ...argv._.map((arg) => arg && quote([arg])),
+        ...options.map((opt) => opt && quote([opt]))
+      ],
+      {
+        stdio: 'inherit',
+        shell: true
+      }
+    )
+  );
 };
 
 const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm') => {
   const cwd = resolve(process.cwd(), relativeDirectory);
+  const spawnSyncOpts: SpawnSyncOptionsWithBufferEncoding = {
+    stdio: 'inherit',
+    shell: true,
+    cwd
+  };
   const runner = process.platform === 'win32' ? `${projectPackageManager}.cmd` : projectPackageManager;
   const mandatoryDependencies = [
     '@angular-devkit/schematics',
@@ -191,18 +227,33 @@ const prepareWorkspace = (relativeDirectory = '.', projectPackageManager = 'npm'
   writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
   if (projectPackageManager === 'yarn') {
-    exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['set', 'version', argv['yarn-version'] || 'stable'], {
-      stdio: 'inherit',
-      shell: true,
-      cwd
-    }));
+    const yarnVersion = quote([argv['yarn-version'] || 'stable']);
+    exitProcessIfErrorInSpawnSync(YARN_SET_VERSION_ERROR_CODE, spawnSync(
+      runner,
+      ['set', 'version', yarnVersion],
+      spawnSyncOpts
+    ));
   }
 
-  exitProcessIfErrorInSpawnSync(2, spawnSync(runner, ['install'], {
-    stdio: 'inherit',
-    shell: true,
-    cwd
-  }));
+  const registry = process.env.npm_config_registry || (argv.registry && quote([argv.registry]));
+
+  if (registry) {
+    // Need to add this even for yarn because `ng add` only reads registry from .npmrc
+    exitProcessIfErrorInSpawnSync(NPM_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
+      runner,
+      ['config', 'set', '-L', 'project', 'registry', registry],
+      spawnSyncOpts
+    ));
+    if (projectPackageManager === 'yarn') {
+      exitProcessIfErrorInSpawnSync(YARN_CONFIG_REGISTRY_ERROR_CODE, spawnSync(
+        runner,
+        ['config', 'set', 'npmRegistryServer', registry],
+        spawnSyncOpts
+      ));
+    }
+  }
+
+  exitProcessIfErrorInSpawnSync(INSTALL_PROCESS_ERROR_CODE, spawnSync(runner, ['install'], spawnSyncOpts));
 };
 
 const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm') => {
@@ -211,16 +262,20 @@ const addOtterFramework = (relativeDirectory = '.', projectPackageManager = 'npm
   const options = schematicsCliOptions
     .flat();
 
-  exitProcessIfErrorInSpawnSync(3, spawnSync(runner, ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options], {
-    stdio: 'inherit',
-    cwd,
-    shell: true,
-    env: exactO3rVersion && projectPackageManager === 'npm' ? {
-      ...process.env,
-      // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-      NPM_CONFIG_SAVE_EXACT: 'true'
-    } : undefined
-  }));
+  exitProcessIfErrorInSpawnSync(ADD_O3R_CORE_ERROR_CODE, spawnSync(
+    runner,
+    ['exec', 'ng', 'add', `@o3r/core@${exactO3rVersion ? '' : '~'}${version}`, ...(projectPackageManager === 'npm' ? ['--'] : []), ...options],
+    {
+      stdio: 'inherit',
+      cwd,
+      shell: true,
+      env: exactO3rVersion && projectPackageManager === 'npm' ? {
+        ...process.env,
+        // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+        NPM_CONFIG_SAVE_EXACT: 'true'
+      } : undefined
+    }
+  ));
 };
 
 const projectFolder = argv._[0]?.replaceAll(' ', '-').toLowerCase() || '.';

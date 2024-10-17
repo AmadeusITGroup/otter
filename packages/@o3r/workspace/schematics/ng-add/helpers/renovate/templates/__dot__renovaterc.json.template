@@ -14,9 +14,6 @@
   "enabledManagers": [
     "npm"
   ],
-  "npm": {
-    "stabilityDays": 0
-  },
   "labels": [
     "upgrade"
   ],

@@ -321,7 +321,6 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
             importNames: [
               'configSignal',
               'O3rConfig',
-              'ConfigurationBaseService',
               'DynamicConfigurableWithSignal'
             ]
           },
@@ -349,12 +348,10 @@ export function ngAddConfigFn(options: NgAddConfigSchematicsSchema): Rule {
               const visit = (node: ts.Node): ts.Node => {
                 if (ts.isClassDeclaration(node) && isO3rClassComponent(node)) {
                   const propertiesToAdd = generateClassElementsFromString(`
-  private readonly configurationService = inject(ConfigurationBaseService);
-
   public config = input<Partial<${properties.componentConfig}>>();
 
   @O3rConfig()
-  public readonly configSignal = configSignal(this.config, ${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG, this.configurationService);`);
+  public readonly configSignal = configSignal(this.config, ${properties.configKey}_CONFIG_ID, ${properties.configKey}_DEFAULT_CONFIG);`);
 
                   const decorators = ts.getDecorators(node)!;
                   const o3rDecorator = decorators.find(isO3rClassDecorator)!;

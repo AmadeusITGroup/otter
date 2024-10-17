@@ -1,5 +1,5 @@
 import { formatDate } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { O3rComponent } from '@o3r/core';
 import { Localization, LocalizationModule, LocalizationService, Translatable } from '@o3r/localization';
@@ -22,25 +22,24 @@ const ONE_DAY_IN_MS = 24 * 60 * 60 * 1000;
   ]
 })
 export class LocalizationPresComponent implements Translatable<LocalizationPresTranslation>, OnDestroy {
+  private readonly localizationService = inject(LocalizationService);
+
   /**
    * Form group
    */
-  public form: FormGroup<{ destination: FormControl<string | null>; outboundDate: FormControl<string | null> }>;
+  public form: FormGroup<{ destination: FormControl<string | null>; outboundDate: FormControl<string | null> }> = inject(FormBuilder).group({
+    destination: new FormControl<string | null>(null),
+    outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS))
+  });
 
   /** Localization of the component*/
   @Input()
   @Localization('./localization-pres.localization.json')
-  public translations: LocalizationPresTranslation;
+  public translations: LocalizationPresTranslation = translations;
 
   private readonly subscription = new Subscription();
 
-  constructor(localizationService: LocalizationService, fb: FormBuilder) {
-    this.form = fb.group({
-      destination: new FormControl<string | null>(null),
-      outboundDate: new FormControl<string | null>(this.formatDate(Date.now() + 7 * ONE_DAY_IN_MS))
-    });
-    this.translations = translations;
-
+  constructor() {
     this.subscription.add(
       this.form.controls.destination.valueChanges.subscribe((value) => {
         let language = 'en-GB';
@@ -54,7 +53,7 @@ export class LocalizationPresComponent implements Translatable<LocalizationPresT
             break;
           }
         }
-        localizationService.useLanguage(language);
+        this.localizationService.useLanguage(language);
       })
     );
   }

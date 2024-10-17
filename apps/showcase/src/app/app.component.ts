@@ -1,4 +1,4 @@
-import { Component, OnDestroy, TemplateRef } from '@angular/core';
+import { Component, inject, OnDestroy, TemplateRef } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NgbOffcanvas, NgbOffcanvasRef } from '@ng-bootstrap/ng-bootstrap';
 import { O3rComponent } from '@o3r/core';
@@ -48,11 +48,11 @@ export class AppComponent implements OnDestroy {
 
   private readonly subscriptions = new Subscription();
 
-  constructor(
-    router: Router,
-    private readonly offcanvasService: NgbOffcanvas
-  ) {
-    const onNavigationEnd$ = router.events.pipe(
+  private readonly router = inject(Router);
+  private readonly offcanvasService = inject(NgbOffcanvas);
+
+  constructor() {
+    const onNavigationEnd$ = this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       share()
     );

@@ -17,12 +17,12 @@
         </div>
         <h3 class="row card-text mt-auto ms-1 h5">{{ translations.question | o3rTranslate }}</h3>
         <form class="row g-2" [formGroup]="form">
-          <div class="col-12 col-xl-6" [class.col-xl-12]="(config$ | async)?.shouldProposeRoundTrip">
+          <div class="col-12 col-xl-6" [class.col-xl-12]="configSignal().shouldProposeRoundTrip">
             <div class="input-group">
               <label class="input-group-text w-50" for="destination">{{ translations.destinationLabel | o3rTranslate }}</label>
               <select class="form-select" id="destination" formControlName="destination">
                 <option disabled selected value>{{ translations.destinationPlaceholder | o3rTranslate }}</option>
-                @for (destination of (config$ | async)?.destinations; track destination.cityCode) {
+                @for (destination of configSignal().destinations; track destination.cityCode) {
                   <option [disabled]="!destination.available" [value]="destination.cityCode">
                     {{ (translations.cityName + '.' + destination.cityCode) | o3rTranslate }}
                   </option>
@@ -36,7 +36,7 @@
               <o3r-date-picker-input-pres [id]="'date-outbound'" class="w-50" formControlName="outboundDate"></o3r-date-picker-input-pres>
             </div>
           </div>
-          @if ((config$ | async)?.shouldProposeRoundTrip) {
+          @if (configSignal().shouldProposeRoundTrip) {
             <div class="col-12 col-xl-6">
               <div class="input-group">
                 <label for="date-inbound" class="input-group-text w-50">{{ translations.returnLabel | o3rTranslate }}</label>

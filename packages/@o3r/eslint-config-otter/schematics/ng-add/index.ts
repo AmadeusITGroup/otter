@@ -23,6 +23,7 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       '@stylistic/eslint-plugin-ts',
       '@typescript-eslint/parser',
       '@typescript-eslint/eslint-plugin',
+      '@typescript-eslint/utils',
       'eslint-plugin-jest',
       'eslint-plugin-jsdoc',
       'eslint-plugin-prefer-arrow',

@@ -1,8 +1,8 @@
-import {RequestBody, RequestMetadata, RequestOptions, TokenizedOptions} from '../../plugins/index';
-import {ApiTypes} from '../api';
+import type { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../../plugins/index';
+import type { ApiTypes } from '../api';
 import type { Api } from '../api.interface';
-import {ReviverType} from '../Reviver';
-import {BaseApiClientOptions} from './base-api-constructor';
+import type { ReviverType } from '../Reviver';
+import type { BaseApiClientOptions } from './base-api-constructor';
 
 /** Parameters to the request the call options */
 export interface RequestOptionsParameters {
@@ -22,9 +22,8 @@ export interface RequestOptionsParameters {
   method: NonNullable<RequestInit['method']>;
   /**
    * API initializing the call
-   * @todo this field will be turned as mandatory in v11
    */
-  api?: Api;
+  api: Api;
 }
 
 /**
@@ -43,17 +42,9 @@ export interface ApiClient {
   extractQueryParams<T extends { [key: string]: any }>(data: T, names: (keyof T)[]): { [p in keyof T]: string; };
 
   /**
-   * Prepare Options
-   * @deprecated use getRequestOptions instead, will be removed in v11
-   */
-  prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
-    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata): Promise<RequestOptions>;
-
-  /**
    * Retrieve the option to process the HTTP Call
-   * @todo turn this function mandatory when `prepareOptions` will be removed
    */
-  getRequestOptions?(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
+  getRequestOptions(requestOptionsParameters: RequestOptionsParameters): Promise<RequestOptions>;
 
   /**
    * prepares the url to be called
@@ -93,7 +84,7 @@ export function isApiClient(client: any): client is ApiClient {
   return client &&
     !!client.options &&
     typeof client.extractQueryParams === 'function' &&
-    typeof client.prepareOptions === 'function' &&
+    typeof client.getRequestOptions === 'function' &&
     typeof client.prepareUrl === 'function' &&
     typeof client.processFormData === 'function' &&
     typeof client.processCall === 'function';

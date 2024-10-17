@@ -1,10 +1,10 @@
 import type { HttpClient, HttpResponse } from '@angular/common/http';
-import { RequestBody, RequestMetadata, RequestOptions, TokenizedOptions } from '../plugins/core/index';
+import type { RequestOptions, TokenizedOptions } from '../plugins/core/index';
 import { ExceptionReply } from '../plugins/exception';
 import { ReviverReply } from '../plugins/reviver';
 import { ApiTypes } from '../fwk/api';
 import { extractQueryParams, filterUndefinedValues, getResponseReviver, prepareUrl, processFormData, tokenizeRequestOptions } from '../fwk/api.helpers';
-import type { Api, PartialExcept } from '../fwk/api.interface';
+import type { PartialExcept } from '../fwk/api.interface';
 import type { ApiClient,RequestOptionsParameters } from '../fwk/core/api-client';
 import { BaseApiClientOptions } from '../fwk/core/base-api-constructor';
 import { EmptyResponseError } from '../fwk/errors';
@@ -66,21 +66,6 @@ export class ApiAngularClient implements ApiClient {
     }
 
     return opts;
-  }
-
-  /** @inheritdoc */
-  public async prepareOptions(url: string, method: string, queryParams: { [key: string]: string | undefined }, headers: { [key: string]: string | undefined }, body?: RequestBody,
-    tokenizedOptions?: TokenizedOptions, metadata?: RequestMetadata, api?: Api) {
-    return this.getRequestOptions({
-      headers,
-      method,
-      basePath: url,
-      queryParams,
-      body,
-      metadata,
-      tokenizedOptions,
-      api
-    });
   }
 
   /** @inheritdoc */

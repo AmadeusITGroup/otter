@@ -2,8 +2,18 @@ import { ApplicationRef, Injectable, OnDestroy } from '@angular/core';
 import type { Dictionary } from '@ngrx/entity';
 import type { ConfigurationModel } from '@o3r/configuration';
 import { otterMessageType } from '@o3r/core';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { debounceTime, filter, map } from 'rxjs/operators';
+import {type Observable, of, ReplaySubject, Subscription} from 'rxjs';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  shareReplay,
+  startWith,
+  take,
+  timeout
+} from 'rxjs/operators';
 import type { AvailableMessageContents } from './message.interface';
 
 import type { ApplicationInformationContentMessage } from '@o3r/application';
@@ -45,6 +55,23 @@ export const isConfigurationsMessage = (data?: AvailableMessageContents): data i
 export const isSelectedComponentInfoMessage = (data?: AvailableMessageContents): data is SelectedComponentInfoMessage => data?.dataType === 'selectedComponentInfo';
 
 /**
+ * Operator to filter and map an `AvailableMessageContents`
+ * @param filterFn
+ * @param mapFn
+ */
+export const filterAndMapMessage = <T extends AvailableMessageContents, R>(
+  filterFn: (message: AvailableMessageContents) => message is T,
+  mapFn: (message: T) => R
+) => (message$: Observable<AvailableMessageContents>) => message$.pipe(
+    filter(filterFn),
+    map(mapFn),
+    distinctUntilChanged(),
+    shareReplay({ refCount: true, bufferSize: 1 })
+  );
+
+export type AppState = 'loading' | 'timeout' | 'connected';
+
+/**
  * Service to communicate with the current tab
  */
 @Injectable({ providedIn: 'root' })
@@ -56,6 +83,15 @@ export class ChromeExtensionConnectionService implements OnDestroy {
 
   /** Stream of messages received from the service worker */
   public message$ = this.messageSubject.asObservable();
+  /** Stream the state of the extension connection to the Otter application*/
+  public appState$ = this.message$.pipe(
+    map(() => 'connected' as AppState),
+    take(1),
+    startWith('loading' as AppState),
+    timeout(3000),
+    catchError(() => of('timeout' as AppState))
+  );
+
 
   private readonly configurations = new ReplaySubject<Dictionary<ConfigurationModel>>(1);
   public configurations$ = this.configurations.asObservable();

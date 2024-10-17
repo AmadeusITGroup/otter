@@ -21,7 +21,7 @@ export function ngAddFn(options: NgAddSchematicsSchema): Rule {
   return async (tree) => {
     const { getPackageInstallConfig, setupDependencies, setupSchematicsParamsForProject } = await import('@o3r/schematics');
     return chain([
-      registerGenerateCssBuilder(),
+      registerGenerateCssBuilder(options.projectName),
       setupSchematicsParamsForProject({
         // eslint-disable-next-line @typescript-eslint/naming-convention
         '@o3r/core:component': {

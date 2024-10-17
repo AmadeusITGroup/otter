@@ -12,7 +12,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
   return async (tree: Tree, context: SchematicContext) => {
     const { getTemplateFolder, getWorkspaceConfig } = await import('@o3r/schematics');
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
-    if (!workspaceProject) {
+    if (!workspaceProject || workspaceProject.projectType === 'library') {
       return noop;
     }
 

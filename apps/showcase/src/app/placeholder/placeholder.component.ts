@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { type AfterViewInit, ChangeDetectionStrategy, Component, type QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
+import { type AfterViewInit, ChangeDetectionStrategy, Component, inject, type QueryList, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { O3rComponent } from '@o3r/core';
 import { PlaceholderRulesEngineActionHandler, PlaceholderRulesEngineActionModule } from '@o3r/components/rules-engine';
@@ -31,22 +31,19 @@ import { TripFactsService } from '../../facts';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PlaceholderComponent implements AfterViewInit {
+  private readonly inPageNavPresService = inject(InPageNavPresService);
+  private readonly dynamicContentService = inject(DynamicContentService);
+  private readonly store = inject(Store<RulesetsStore>);
+
   @ViewChildren(InPageNavLinkDirective)
   private readonly inPageNavLinkDirectives!: QueryList<InPageNavLink>;
   public links$ = this.inPageNavPresService.links$;
 
-  constructor(
-    private readonly inPageNavPresService: InPageNavPresService,
-    private readonly tripFactsService: TripFactsService,
-    private readonly store: Store<RulesetsStore>,
-    private readonly dynamicContentService: DynamicContentService,
-    rulesEngine: RulesEngineRunnerService,
-    placeholderRulesEngineActionHandler: PlaceholderRulesEngineActionHandler
-  ) {
-    // We recommend to do the 3 next lines in the AppComponent
+  constructor() {
+    // We recommend to do the next lines in the AppComponent
     // Here we do it for the sake of the example
-    this.tripFactsService.register();
-    rulesEngine.actionHandlers.add(placeholderRulesEngineActionHandler);
+    inject(TripFactsService).register();
+    inject(RulesEngineRunnerService).actionHandlers.add(inject(PlaceholderRulesEngineActionHandler));
     void this.loadRuleSet();
   }
 

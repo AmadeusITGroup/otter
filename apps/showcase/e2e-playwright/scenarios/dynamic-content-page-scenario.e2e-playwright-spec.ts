@@ -5,6 +5,7 @@ import { DynamicContentFixtureComponent } from '../../src/app/dynamic-content/dy
 
 test.describe.serial('Test dynamic content page', () => {
   test('Go to dynamic content and play with override button', async ({ page }) => {
+    await page.clock.install({ time: new Date('2000-01-01T00:00:00') });
     await page.goto(process.env.PLAYWRIGHT_TARGET_URL || 'http://localhost:4200/');
     const appFixture = new AppFixtureComponent(new O3rElement({element: page.locator('app-root'), page}));
 

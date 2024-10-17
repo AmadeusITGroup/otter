@@ -1,4 +1,4 @@
-import { convertAnnotatedSourceToFailureCase, RuleTester } from '@angular-eslint/utils';
+import { convertAnnotatedSourceToFailureCase, RuleTester } from '@angular-eslint/test-utils';
 import templateAsyncNumberLimitation, { name } from './template-async-number-limitation';
 
 const ruleTester = new RuleTester({

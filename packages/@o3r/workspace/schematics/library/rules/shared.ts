@@ -45,8 +45,6 @@ export function updatePackageDependenciesFactory(
       '@angular/core': packageJson.peerDependencies['@angular/common'],
       '@angular/platform-browser': packageJson.peerDependencies['@angular/common'],
       '@angular/platform-browser-dynamic': packageJson.peerDependencies['@angular/common'],
-      '@o3r/core': otterVersion,
-      '@o3r/eslint-plugin': otterVersion,
       '@schematics/angular': o3rCorePackageJson.peerDependencies!['@schematics/angular'],
       '@types/jest': o3rCorePackageJson.generatorDependencies!['@types/jest'],
       '@typescript-eslint/eslint-plugin': o3rCorePackageJson.generatorDependencies!['@typescript-eslint/parser'],

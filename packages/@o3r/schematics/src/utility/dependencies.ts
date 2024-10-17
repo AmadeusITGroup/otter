@@ -4,14 +4,13 @@ import { logging } from '@angular-devkit/core';
 import type { PackageJson } from 'type-fest';
 
 /**
- * TODO make logger parameter mandatory in v11 and remove the console fallback.
  * Method to extract the provided package version range from a package.json file
  * @param packageNames list of package we want to retrieve the version
  * @param packageJsonPath Path to the package.json to refer to
  * @param logger logger
  * @returns The version range value retrieved from the provided package.json file
  */
-export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger?: logging.LoggerApi): Record<T, string> {
+export function getExternalDependenciesVersionRange<T extends string>(packageNames: T[], packageJsonPath: string, logger: logging.LoggerApi): Record<T, string> {
   const packageJsonContent = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'})) as PackageJson & { generatorDependencies: Record<string, string> };
   return packageNames.reduce((acc: Partial<Record<T, string>>, packageName) => {
     acc[packageName] =
@@ -20,7 +19,7 @@ export function getExternalDependenciesVersionRange<T extends string>(packageNam
       packageJsonContent.dependencies?.[packageName] ||
       packageJsonContent.devDependencies?.[packageName];
     if (!acc[packageName]) {
-      (logger || console).warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
+      logger.warn(`Unable to retrieve version for ${packageName} in ${packageJsonPath}. Version set to "latest".`);
       acc[packageName] = 'latest';
     }
     return acc;
