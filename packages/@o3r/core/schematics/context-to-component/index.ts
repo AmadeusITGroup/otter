@@ -40,7 +40,6 @@ const checkContext = (componentPath: string, tree: Tree) => {
 
 /**
  * Add context to an existing component
- *
  * @param options
  */
 export function ngAddContextFn(options: NgAddConfigSchematicsSchema): Rule {

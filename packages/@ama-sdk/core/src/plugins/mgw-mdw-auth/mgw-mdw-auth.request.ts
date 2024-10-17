@@ -149,7 +149,7 @@ export class MicroGatewayMiddlewareAuthenticationRequest implements RequestPlugi
    */
   constructor(options: MicroGatewayMiddlewareAuthenticationRequestConstructor) {
     if (typeof window !== 'undefined') {
-      throw new Error('The plugin can only be used in a NodeJS context');
+      throw new TypeError('The plugin can only be used in a NodeJS context');
     }
     this.applicationId = options.applicationId;
     this.expIntervalInSec = options.expIntervalInSec;

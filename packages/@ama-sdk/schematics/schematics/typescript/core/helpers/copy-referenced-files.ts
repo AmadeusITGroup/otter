@@ -11,8 +11,8 @@ const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
  */
 function extractRefPaths(specContent: string, basePath: string): string[] {
   const refs = specContent.match(refMatcher);
-  return refs ?
-    refs
+  return refs
+    ? refs
       .map((capture) => capture.replace(refMatcher, '$1').replace(/['"]/g, ''))
       .filter((refPath) => refPath.startsWith('.'))
       .map((refPath) => join(basePath, refPath))
@@ -49,11 +49,11 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
  * @param newBaseRelativePath
  */
 export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath: string) {
-  const formatPath = (inputPath:string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
+  const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
   return specContent.replace(refMatcher, (match, ref: string) => {
     const refPath = ref.replace(/['"]/g, '');
-    return refPath.startsWith('.') ?
-      match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
+    return refPath.startsWith('.')
+      ? match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
       : match;
   });
 }
@@ -67,7 +67,7 @@ export async function copyReferencedFiles(specFilePath: string, outputDirectory:
   const dedupe = (paths: string[]) => ([...new Set(paths)]);
   const allRefPaths = await extractRefPathRecursive(specFilePath, specFilePath, new Set());
   const refPaths = dedupe(allRefPaths);
-  if (refPaths.length) {
+  if (refPaths.length > 0) {
     if (existsSync(outputDirectory)) {
       await rm(outputDirectory, { recursive: true });
     }

@@ -36,7 +36,7 @@ export function impervaProtectionRetrieverFactory(protectionTimeout: number, tok
   let protection: ImpervaProtection;
 
   if (typeof window === 'undefined') {
-    throw new Error('impervaProtectionRetrieverFactory should be used in a browser context.');
+    throw new TypeError('impervaProtectionRetrieverFactory should be used in a browser context.');
   }
 
   const getProtection = () => {
@@ -65,7 +65,7 @@ If the application runs on a domain that is not protected by Imperva, this plugi
 
     try {
       return await protection.token(tokenTimeout);
-    } catch (e) {
+    } catch {
       (logger || console).error('[SDK][Plug-in][BotProtectionFingerprintRequest] Timeout: no Token was received in time.');
       return;
     }
@@ -78,7 +78,7 @@ If the application runs on a domain that is not protected by Imperva, this plugi
  */
 export interface AkamaiObject {
   /** Method exposed by akamai to get telemetry */
-  // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   get_telemetry: () => string;
 }
 
@@ -88,7 +88,7 @@ export interface AkamaiObject {
  * @param bmakOpt BMak object from Akamai. Default to `window.bmak` on browser if not provided.
  */
 export function akamaiTelemetryRetrieverFactory(bmakOpt?: AkamaiObject): BotProtectionFingerprintRetriever {
-  const bmak = bmakOpt || (typeof window !== 'undefined' ? window.bmak : undefined);
+  const bmak = bmakOpt || (typeof window === 'undefined' ? undefined : window.bmak);
   return () => {
     if (!bmak || !(typeof bmak.get_telemetry === 'function')) {
       return;

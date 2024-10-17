@@ -75,13 +75,13 @@ if (argv['spec-package-name']) {
 }
 
 const commonSchematicArgs = [
-  argv.debug !== undefined ? `--debug=${argv.debug as string}` : '--debug=false', // schematics enable debug mode per default when using schematics with relative path
+  argv.debug === undefined ? '--debug=false' : `--debug=${argv.debug as string}`, // schematics enable debug mode per default when using schematics with relative path
   ...(name ? ['--name', name] : []),
   '--package', pck,
   '--package-manager', packageManager,
   ...(argv['exact-o3r-version'] ? ['--exact-o3r-version'] : []),
-  ...(typeof argv['dry-run'] !== 'undefined' ? [`--${!argv['dry-run'] || argv['dry-run'] === 'false' ? 'no-' : ''}dry-run`] : []),
-  ...(typeof argv['o3r-metrics'] !== 'undefined' ? [`--${!argv['o3r-metrics'] || argv['o3r-metrics'] === 'false' ? 'no-' : ''}o3r-metrics`] : [])
+  ...(typeof argv['dry-run'] === 'undefined' ? [] : [`--${!argv['dry-run'] || argv['dry-run'] === 'false' ? 'no-' : ''}dry-run`]),
+  ...(typeof argv['o3r-metrics'] === 'undefined' ? [] : [`--${!argv['o3r-metrics'] || argv['o3r-metrics'] === 'false' ? 'no-' : ''}o3r-metrics`])
 ];
 
 const resolveTargetDirectory = resolve(process.cwd(), targetDirectory);
@@ -109,25 +109,29 @@ const run = () => {
         ? [{ runner, args: ['set', 'version', getYarnVersion()], cwd: resolveTargetDirectory }]
         : []
     ),
-    ...(argv['spec-package-name'] ? [{
-      runner,
-      args: [
-        'exec',
-        'amasdk-update-spec-from-npm',
-        argv['spec-package-name'],
-        ...packageManager === 'npm' ? ['--'] : [],
-        '--package-path', argv['spec-package-path']
-      ],
-      cwd: resolveTargetDirectory
-    }] : []),
-    ...((argv['spec-path'] || argv['spec-package-name']) ? [{
-      args: [
-        binPath,
-        `${schematicsPackage}:typescript-core`,
-        ...coreSchematicArgs
-      ],
-      cwd: resolveTargetDirectory
-    }] : [])
+    ...(argv['spec-package-name']
+      ? [{
+        runner,
+        args: [
+          'exec',
+          'amasdk-update-spec-from-npm',
+          argv['spec-package-name'],
+          ...packageManager === 'npm' ? ['--'] : [],
+          '--package-path', argv['spec-package-path']
+        ],
+        cwd: resolveTargetDirectory
+      }]
+      : []),
+    ...((argv['spec-path'] || argv['spec-package-name'])
+      ? [{
+        args: [
+          binPath,
+          `${schematicsPackage}:typescript-core`,
+          ...coreSchematicArgs
+        ],
+        cwd: resolveTargetDirectory
+      }]
+      : [])
   ];
 
   const errors = steps

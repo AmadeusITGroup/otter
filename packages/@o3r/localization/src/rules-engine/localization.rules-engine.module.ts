@@ -10,5 +10,4 @@ import { LocalizationRulesEngineActionHandler } from './localization.handler-act
     LocalizationRulesEngineActionHandler
   ]
 })
-export class LocalizationRulesEngineActionModule {
-}
+export class LocalizationRulesEngineActionModule {}

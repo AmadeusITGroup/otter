@@ -99,7 +99,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const dependencyTypesWithInterest = [...options.dependencyTypes!, ...(options.alignEngines ? [enginesField] : [])];
     const bestRanges = workspace && getBestRanges(dependencyTypesWithInterest, workspace.packages.filter(({ content }) => !content.name || !options.ignoredPackages!.includes(content.name)));
     const ignoredDependencies = options.ignoredDependencies!.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
-    const dependencyTypes = [...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])];
+    const dependencyTypes = new Set([...dependencyTypesWithInterest, ...(options.alignResolutions ? resolutionsFields : [])]);
 
     if (parserServices.isJSON) {
       return {
@@ -107,7 +107,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
         'JSONExpressionStatement': (node: AST.JSONExpressionStatement) => {
           if (node.expression.type === 'JSONObjectExpression') {
             const deps = node.expression.properties
-              .filter(({ key }) => dependencyTypes.includes(key.type === 'JSONLiteral' ? key.value.toString() : key.name));
+              .filter(({ key }) => dependencyTypes.has(key.type === 'JSONLiteral' ? key.value.toString() : key.name));
             if (deps.length > 0 && bestRanges) {
               deps
                 .map((depGroup) => depGroup.value)
@@ -115,9 +115,9 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
                 .forEach((depGroup) => {
                   const report = (name: string, resolvedName: string, dep: AST.JSONProperty, range: string | undefined, bestRange: string | undefined) => {
                     if (bestRange && bestRange !== range) {
-                      if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range &&
-                        (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies' &&
-                        semver.subset(bestRange, range)) {
+                      if (!options.alignPeerDependencies && depGroup.parent.type === 'JSONProperty' && range
+                        && (depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name) === 'peerDependencies'
+                        && semver.subset(bestRange, range)) {
                         return;
                       }
                       context.report({
@@ -143,8 +143,8 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
                   };
 
                   depGroup.properties.forEach((dependencyNode) => {
-                    const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty' &&
-                      resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
+                    const isResolutionsField = options.alignResolutions && depGroup.parent.type === 'JSONProperty'
+                      && resolutionsFields.includes(depGroup.parent.key.type === 'JSONLiteral' ? depGroup.parent.key.value.toString() : depGroup.parent.key.name);
 
                     const getNodeDetails = (dep: AST.JSONProperty): void => {
                       const name = dep.key.type === 'JSONLiteral' ? dep.key.value.toString() : dep.key.name;

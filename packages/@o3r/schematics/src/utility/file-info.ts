@@ -69,7 +69,7 @@ export function getModuleIndex(sourceFile: ts.SourceFile, sourceContent: string)
  * @param context
  * @param projectName
  */
-export function getFileInfo(tree: Tree, context: SchematicContext, projectName?: string | undefined) {
+export function getFileInfo(tree: Tree, context: SchematicContext, projectName?: string) {
   const fileInfo: FileInfo = {
     moduleFilePath: undefined,
     sourceFile: undefined,

@@ -29,9 +29,9 @@ export class FetchCacheRequest implements RequestPlugin {
   constructor(fetchCache?: RequestCache, cacheControl?: string, shouldAddCacheControlHeaders?: boolean) {
     this.fetchCache = fetchCache;
     this.cacheControl = cacheControl;
-    this.shouldAddCacheControlHeaders = typeof shouldAddCacheControlHeaders !== 'undefined'
-      ? shouldAddCacheControlHeaders
-      : (typeof fetch === 'undefined' || (fetch as any).polyfill);
+    this.shouldAddCacheControlHeaders = typeof shouldAddCacheControlHeaders === 'undefined'
+      ? (typeof fetch === 'undefined' || (fetch as any).polyfill)
+      : shouldAddCacheControlHeaders;
   }
 
   public load(): PluginRunner<RequestOptions, RequestOptions> {

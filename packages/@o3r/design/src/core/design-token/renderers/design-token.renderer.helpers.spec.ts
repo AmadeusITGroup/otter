@@ -5,7 +5,7 @@ import type { DesignTokenSpecification } from '../design-token-specification.int
 import { isO3rPrivateVariable } from './design-token.renderer.helpers';
 import type { DesignTokenVariableSet } from '../parsers';
 
-describe('isO3rPrivateVariable' , () => {
+describe('isO3rPrivateVariable', () => {
   let exampleVariable!: DesignTokenSpecification;
   let designTokens!: DesignTokenVariableSet;
 

@@ -24,7 +24,7 @@ export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstall
 
   setFileSystem(new NodeJSFileSystem());
 
-  // eslint-disable-next-line no-console
+
   const buildResultCode = main(args);
 
   context.reportProgress(1, STEP_NUMBER, 'Handle package.json.');

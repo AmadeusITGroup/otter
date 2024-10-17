@@ -68,10 +68,10 @@ export function updateImportsInFile(
       // We retrieve all the symbols listed in the import statement
       const namedImport = imp.importClause?.namedBindings;
       const isTypeOnlyImport = !!imp.importClause && ts.isTypeOnlyImportDeclaration(imp.importClause);
-      const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport) ?
-        namedImport.elements.map((element) =>
-          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom})) :
-        [];
+      const imports: ExtractedImport[] = namedImport && ts.isNamedImports(namedImport)
+        ? namedImport.elements.map((element) =>
+          ({symbol: element.getText(), isTypeOnlyImport, location: importFrom}))
+        : [];
 
       // And associate them to the Otter package
       oldImportedSymbolsPerPackage[otterPackage].push(...imports);
@@ -89,11 +89,7 @@ export function updateImportsInFile(
     importsFromOldPackage.forEach((importSymbol) => {
 
       let newPackageNameImport;
-      if (renamedPackages[oldPackageName]) {
-        newPackageNameImport = importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]);
-      } else {
-        newPackageNameImport = mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
-      }
+      newPackageNameImport = renamedPackages[oldPackageName] ? importSymbol.location.replace(oldPackageName, renamedPackages[oldPackageName]) : mapImports[oldPackageName]?.[importSymbol.symbol]?.newPackage;
 
       const importFrom = newPackageNameImport || importSymbol.location;
       if (!newPackageNameImport) {
@@ -120,7 +116,7 @@ export function updateImportsInFile(
       .filter(([_, value]) => value.newValue)
       .map(([key, value]) => [key, value.newValue!])
   ));
-  if (Object.keys(valuesToReplace).length) {
+  if (Object.keys(valuesToReplace).length > 0) {
     const matcher = new RegExp(Object.keys(valuesToReplace).map((oldValue) => `\\b${escapeRegExp(oldValue)}\\b`).join('|'), 'g');
     const replacer = (match: string) => valuesToReplace[match];
     fileContent = fileContent.replace(matcher, replacer);

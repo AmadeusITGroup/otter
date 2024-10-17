@@ -13,6 +13,6 @@ export abstract class ExtendedValidator implements Validator {
   public validate(control: AbstractControl): ValidationErrors | null {
     const errors = Object.assign({}, ...this.validators.map((validatorFunctions) => validatorFunctions(control)));
 
-    return Object.keys(errors).length ? errors : null;
+    return Object.keys(errors).length > 0 ? errors : null;
   }
 }

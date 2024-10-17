@@ -31,9 +31,9 @@ export function cleanStandaloneFiles(targetPath: string): Rule {
     (tree) => {
       const packageJson = tree.readJson(posix.join(targetPath, 'package.json')) as PackageJson;
       if (packageJson.scripts) {
-        const excludedScripts = ['postinstall', 'set:version'];
+        const excludedScripts = new Set(['postinstall', 'set:version']);
         packageJson.scripts = Object.fromEntries(
-          Object.entries(packageJson.scripts).filter(([scriptName]) => !excludedScripts.includes(scriptName))
+          Object.entries(packageJson.scripts).filter(([scriptName]) => !excludedScripts.has(scriptName))
         );
       }
       if (packageJson.devDependencies) {

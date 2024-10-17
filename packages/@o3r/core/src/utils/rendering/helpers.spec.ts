@@ -1,7 +1,7 @@
 import { TestScheduler } from 'rxjs/testing';
 import { lazyArray } from './rendering.helpers';
 
-/* eslint-disable space-in-parens */
+
 describe('Rendering helpers', () => {
   let testScheduler: TestScheduler;
 
@@ -51,7 +51,7 @@ describe('Rendering helpers', () => {
         const stream = cold('-a--------------', { a: [1, 2, 3, 4]});
 
         expectObservable(stream.pipe(lazyArray())
-        ).toBe('             ---a--b', { a: [1, 2], b: [1, 2 ,3, 4]});
+        ).toBe('             ---a--b', { a: [1, 2], b: [1, 2, 3, 4]});
       });
     });
 
@@ -69,7 +69,7 @@ describe('Rendering helpers', () => {
           stream.pipe(
             lazyArray(delay, elementsAtOnce)
           )
-        ).toBe('             ------a-----b', { a: [1, 2, 3], b: [1, 2, 3 ,4]});
+        ).toBe('             ------a-----b', { a: [1, 2, 3], b: [1, 2, 3, 4]});
       });
     });
   });

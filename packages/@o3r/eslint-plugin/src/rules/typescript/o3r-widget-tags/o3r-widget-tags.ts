@@ -111,7 +111,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || !comment.value.length) {
+        if (!comment || comment.value.length === 0) {
           return;
         }
 
@@ -138,7 +138,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
           .map((match) => match[1].trim());
 
         if (!widgetType) {
-          if (widgetParameterTexts.length) {
+          if (widgetParameterTexts.length > 0) {
             const fix: TSESLint.ReportFixFunction = (fixer) => {
               return fixer.replaceTextRange(
                 comment.range,
@@ -289,7 +289,7 @@ export default createRule<[Readonly<O3rWidgetTagsRuleOption>, ...any], O3rWidget
           try {
             const value = JSON.parse(textValue);
             if (supportedTypeForParam.type.endsWith('[]')) {
-              if (Array.isArray(value) && value.every((element) => typeof element === supportedTypeForParam.type.substring(0, -2))) {
+              if (Array.isArray(value) && value.every((element) => typeof element === supportedTypeForParam.type.slice(0, 0))) {
                 continue;
               }
             } else if (typeof value === supportedTypeForParam.type) {

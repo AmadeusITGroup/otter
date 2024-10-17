@@ -18,7 +18,7 @@ export class SwaggerJavaGenerator extends CodeGenerator<JavaGeneratorTaskOptions
     const rootDirectory = factoryOptions.rootDirectory || process.cwd();
     return async (generatorOptions?: JavaGeneratorTaskOptions) => {
       if (!generatorOptions) {
-        return Promise.reject('Missing options');
+        throw 'Missing options';
       }
       const spawnOptions: SpawnOptions = {
         stdio: 'inherit',

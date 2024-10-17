@@ -18,7 +18,7 @@ import type { createSchematicWithMetricsIfInstalled } from '@o3r/schematics';
  */
 export function ngAddDesignTokenFn(options: NgAddDesignTokenSchematicsSchema): Rule {
   const fileName = basename(options.path.endsWith('.json') ? options.path : `${options.path}.json`);
-  const name = fileName.slice(0, fileName.indexOf('.') > -1 ? fileName.indexOf('.') : undefined);
+  const name = fileName.slice(0, fileName.includes('.') ? fileName.indexOf('.') : undefined);
 
   const createDesignTokenFilesRule: Rule = mergeWith(apply(url('./templates'), [
     template({

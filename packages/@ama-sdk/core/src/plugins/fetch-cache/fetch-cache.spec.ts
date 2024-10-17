@@ -16,7 +16,7 @@ describe('Fetch API cache Request Plugin', () => {
   it('cache should be set correctly', async () => {
     const options: RequestOptions = {headers: new Headers(), basePath: 'http://test.com/truc', method: 'get'};
     const plugin = new FetchCacheRequest('force-cache');
-    const cache = (await plugin.load().transform(options)).cache;
+    const {cache} = await plugin.load().transform(options);
 
     expect(cache).toBe('force-cache');
   });

@@ -45,9 +45,7 @@ export class CascadingProbot extends Cascading {
 
     if (configFileValidResponses.length > 1) {
       this.logger.warn(`Several configuration files have been found (${configFileValidResponses.map((c) => c?.path).join(', ')}). The files will be ignored.`);
-    } else if (!configFileResponse) {
-      this.logger.warn('No remote Configuration found, the default configuration will be used');
-    } else {
+    } else if (configFileResponse) {
       try {
         const configFileResponseWithContent: { content?: string; encoding?: 'utf8' | 'utf-8' | 'base64' } = configFileResponse as unknown as any;
         const parsedConfig = configFileResponseWithContent.content && JSON.parse(Buffer.from(configFileResponseWithContent.content, configFileResponseWithContent.encoding || 'base64').toString());
@@ -62,6 +60,8 @@ export class CascadingProbot extends Cascading {
         this.logger.warn('Failed to parse the configuration, the default configuration will be used');
         this.logger.warn(JSON.stringify(error, null, 2));
       }
+    } else {
+      this.logger.warn('No remote Configuration found, the default configuration will be used');
     }
 
     const config = {

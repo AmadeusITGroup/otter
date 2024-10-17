@@ -57,12 +57,12 @@ export class LocalizationService {
    * @returns selected language if supported, fallback language otherwise.
    */
   private checkFallbackLocalesMap<T extends string | undefined>(language: T) {
-    if (language && this.configuration.supportedLocales.indexOf(language) === -1) {
+    if (language && !this.configuration.supportedLocales.includes(language)) {
       const closestSupportedLanguageCode = this.getFirstClosestSupportedLanguageCode(language);
       const fallbackForLanguage = this.getFallbackMapLangCode(language);
-      const fallbackStrategyDebug = fallbackForLanguage && ' associated fallback language ' ||
-        closestSupportedLanguageCode && ' closest supported language ' ||
-        this.configuration.fallbackLanguage && ' configured default language ';
+      const fallbackStrategyDebug = fallbackForLanguage && ' associated fallback language '
+        || closestSupportedLanguageCode && ' closest supported language '
+        || this.configuration.fallbackLanguage && ' configured default language ';
       const fallbackLang = fallbackForLanguage || closestSupportedLanguageCode || this.configuration.fallbackLanguage || language;
       if (language !== fallbackLang) {
         this.logger.debug(`Non supported languages ${language} will fallback to ${fallbackStrategyDebug} ${fallbackLang}`);
@@ -185,7 +185,7 @@ export class LocalizationService {
     if (!this.configuration.enableTranslationDeactivation) {
       throw new Error('Translation deactivation is not enabled. Please set the LocalizationConfiguration property "enableTranslationDeactivation" accordingly.');
     }
-    const newValue = value !== undefined ? value : !this.showKeys;
+    const newValue = value === undefined ? !this.showKeys : value;
     this._showKeys$.next(newValue);
   }
 
@@ -201,14 +201,12 @@ export class LocalizationService {
    * @param requestedKey Original translation key
    */
   public getKey(requestedKey: string) {
-    if (this.keyMapping$) {
-      return this.keyMapping$.pipe(
+    return this.keyMapping$
+      ? this.keyMapping$.pipe(
         map((keyMapping) => keyMapping && keyMapping[requestedKey] || requestedKey),
         distinctUntilChanged()
-      );
-    } else {
-      return of(requestedKey);
-    }
+      )
+      : of(requestedKey);
   }
 
   /**

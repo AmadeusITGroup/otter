@@ -1,3 +1,4 @@
+export * from './Reviver';
 export * from './api';
 export * from './api.helpers';
 export * from './api.interface';
@@ -7,4 +8,3 @@ export * from './errors';
 export * from './ignore-enum.type';
 export * from './logger';
 export * from './mocks/index';
-export * from './Reviver';

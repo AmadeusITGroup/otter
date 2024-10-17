@@ -1,6 +1,5 @@
-import { chain } from '@angular-devkit/schematics';
+import { chain, SchematicsException } from '@angular-devkit/schematics';
 import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { SchematicsException } from '@angular-devkit/schematics';
 import type { PackageJson } from 'type-fest';
 import { DEFAULT_ROOT_FOLDERS, getPackageManager, isNxContext, setupSchematicsParamsForProject, WorkspaceLayout, WorkspaceSchematics } from '@o3r/schematics';
 import type { MonorepoManager } from '../schema';
@@ -22,8 +21,8 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
 
     const rootPackageJsonObject = tree.readJson(rootPackageJsonPath) as PackageJson;
     rootPackageJsonObject.version = '0.0.0-placeholder';
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    rootPackageJsonObject.workspaces = [...new Set(Object.values(directories).map(d => `${d}/*`).concat(rootPackageJsonObject.workspaces as string[] || []))];
+
+    rootPackageJsonObject.workspaces = [...new Set(Object.values(directories).map((d) => `${d}/*`).concat(rootPackageJsonObject.workspaces as string[] || []))];
 
     tree.overwrite(rootPackageJsonPath, JSON.stringify(rootPackageJsonObject, null, 2));
     return tree;

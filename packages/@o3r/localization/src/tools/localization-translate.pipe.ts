@@ -32,7 +32,7 @@ export class O3rLocalizationTranslatePipe extends TranslatePipe implements PipeT
   protected lastResolvedKey?: string;
 
   constructor(protected readonly localizationService: LocalizationService, translateService: TranslateService, protected readonly changeDetector: ChangeDetectorRef,
-              @Inject(LOCALIZATION_CONFIGURATION_TOKEN) protected readonly localizationConfig: LocalizationConfiguration) {
+    @Inject(LOCALIZATION_CONFIGURATION_TOKEN) protected readonly localizationConfig: LocalizationConfiguration) {
     super(translateService, changeDetector);
 
     if (localizationConfig.enableTranslationDeactivation) {

@@ -95,8 +95,8 @@ const options: Options = {
           {"$and":[{"path":{"$match":"${path}"}}, {"path":{"$nmatch":"*.npm*"}}]},
           {"name":{"$match":"${filename}"}},
           ${ (!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : '' }
-          {"created":{"$before":"${ageInDays}d"}}${ !shouldConsiderDownloadedTime ? ',' : ''}
-          ${ !shouldConsiderDownloadedTime ? `{"$or":[{"stat.downloaded": {"$before":"${ isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}` : '' }
+          {"created":{"$before":"${ageInDays}d"}}${ shouldConsiderDownloadedTime ? '' : ','}
+          ${ shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${ isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}` }
         ]
     }
   )
@@ -104,7 +104,7 @@ const options: Options = {
   .sort({"$desc" : ["created"]}).offset(${offset})
   .limit(10000)`
 };
-// eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
 logger.debug(`AQL search executed : ${options.body}`);
 logger.info(`Url called : ${url}`);
 

@@ -79,15 +79,15 @@ export async function encryptPayload(iv: Uint8Array, key: CryptoKey, payload: Ui
     aesParams.additionalData = additionalAuthenticatedData;
   }
 
-  if (typeof window.msCrypto !== 'undefined') {
+  if (typeof window.msCrypto === 'undefined') {
+    const aesOutput = await window.crypto.subtle.encrypt(aesParams, key, payload);
+    ciphertext = aesOutput.slice(0, -authenticationTagLength / 8);
+    authenticationTag = aesOutput.slice(-authenticationTagLength / 8);
+  } else {
     // AES will output a tag so we cast to avoid unnecessary runtime check
     const aesOutput = await promisifyMsCrypto(window.msCrypto.subtle.encrypt(aesParams, key, payload)) as {ciphertext: ArrayBuffer; tag: ArrayBuffer};
     ciphertext = aesOutput.ciphertext;
     authenticationTag = aesOutput.tag;
-  } else {
-    const aesOutput = await window.crypto.subtle.encrypt(aesParams, key, payload);
-    ciphertext = aesOutput.slice(0, -authenticationTagLength / 8);
-    authenticationTag = aesOutput.slice(-authenticationTagLength / 8);
   }
   return {ciphertext, authenticationTag};
 }

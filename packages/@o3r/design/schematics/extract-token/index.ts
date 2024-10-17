@@ -22,12 +22,12 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
     const startTag = typeof options.includeTags === 'boolean' ? AUTO_GENERATED_START : options.includeTags.startTag;
     const endTag = typeof options.includeTags === 'boolean' ? AUTO_GENERATED_END : options.includeTags.endTag;
-    const indexToInsertStart = content.substring(0, start).lastIndexOf('\n') + 1;
-    const indexToInsertEnd = content.substring(end).indexOf('\n') + end + 1;
+    const indexToInsertStart = content.slice(0, Math.max(0, start)).lastIndexOf('\n') + 1;
+    const indexToInsertEnd = content.slice(Math.max(0, end)).indexOf('\n') + end + 1;
 
-    return `${content.substring(0, indexToInsertStart)}${startTag}\n` +
-      content.substring(indexToInsertStart, indexToInsertEnd) +
-      `${endTag}\n${content.substring(indexToInsertEnd) }`;
+    return `${content.slice(0, Math.max(0, indexToInsertStart))}${startTag}\n`
+      + content.substring(indexToInsertStart, indexToInsertEnd)
+      + `${endTag}\n${content.slice(Math.max(0, indexToInsertEnd)) }`;
   };
 
   return async (tree, context) => {
@@ -73,12 +73,12 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
             const targetNodeValue = targetNode as any as DesignToken;
             targetNodeValue.$description = variable.description;
-            targetNodeValue.$type = !variable.type || variable.type === 'string' ?
-              (isNaN(+variable.defaultValue) ? undefined : 'number') :
-              variable.type;
-            targetNodeValue.$value = targetNodeValue.$type === 'number' ?
-              +variable.defaultValue :
-              valueWithVariable;
+            targetNodeValue.$type = !variable.type || variable.type === 'string'
+              ? (isNaN(+variable.defaultValue) ? undefined : 'number')
+              : variable.type;
+            targetNodeValue.$value = targetNodeValue.$type === 'number'
+              ? +variable.defaultValue
+              : valueWithVariable;
             targetNodeValue.$extensions ||= {};
             targetNodeValue.$extensions.o3rMetadata ||= {};
             targetNodeValue.$extensions.o3rMetadata.category = variable.category;
@@ -89,7 +89,7 @@ function extractTokenFn(options: ExtractTokenSchematicsSchema): Rule {
 
         Object.values(tokenSpecification)
           .forEach((node) => {
-            const designTokenNode = (node as DesignTokenNode);
+            const designTokenNode = node as DesignTokenNode;
             designTokenNode.$extensions ||= {};
             designTokenNode.$extensions.o3rPrivate = isPrivate;
             designTokenNode.$extensions.o3rTargetFile = posix.join('.', posix.basename(file));

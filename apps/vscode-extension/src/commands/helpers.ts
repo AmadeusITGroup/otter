@@ -66,7 +66,7 @@ export const getPackageScriptRunner = async (): Promise<string> => {
 
 const toSnakeCase = (str: string) => str
   .match(/[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+/g)
-  ?.map(x => x.toLowerCase())
+  ?.map((x) => x.toLowerCase())
   .join('-') || '';
 
 /**
@@ -80,7 +80,7 @@ export const stringifyOptions = (options: Record<string, any> = {}, excludedOpti
       opt === optionName
       || opt.startsWith(`--${toSnakeCase(optionName)}=`)
     ))
-    // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
     .map(([optionName, optionValue]) => `--${toSnakeCase(optionName)}="${optionValue}"`);
 };
 

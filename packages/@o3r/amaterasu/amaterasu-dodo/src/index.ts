@@ -1,4 +1,4 @@
-/* eslint-disable no-shadow */
+
 import { AmaCliModule } from '@ama-terasu/core';
 import { spawn } from 'node:child_process';
 import { platform } from 'node:process';
@@ -32,7 +32,7 @@ const downloadDodoCli = async () => {
 
   try {
     await fs.mkdir(destFolder, { recursive: true });
-  } catch (e) {
+  } catch {
     // ignored
   }
 
@@ -84,7 +84,7 @@ module.exports = {
       instance.stderr.setEncoding('utf8');
       instance.stdout.pipe(process.stdout);
       instance.stderr.pipe(process.stderr);
-      instance.on('close', (code) => process.exit(code !== null ? code : 0));
+      instance.on('close', (code) => process.exit(code === null ? 0 : code));
     } catch (err) {
       const logger = baseContext.getContext(config).logger;
       logger.debug(err);

@@ -63,7 +63,7 @@ function getPackageManagerForRegistry(options?: PackageManagerOptions): Supporte
   if (!packageManagerInfo.version) {
     return undefined;
   }
-  return packageManagerInfo.name === 'yarn' && !packageManagerInfo.version.match(/^1\./) ? 'yarn' : 'npm';
+  return packageManagerInfo.name === 'yarn' && !/^1\./.test(packageManagerInfo.version) ? 'yarn' : 'npm';
 }
 
 /**
@@ -141,7 +141,7 @@ Detection of package manager runner will fallback on the one used to execute the
 
   const errors = checkMetadataFile<MetadataItem, MigrationMetadataItem, MetadataFile>(metadata, newFile, migrationData.changes, options.allowBreakingChanges, comparator);
 
-  if (errors.length) {
+  if (errors.length > 0) {
     return {
       success: false,
       error: errors.map(({ message }) => message).join(EOL)

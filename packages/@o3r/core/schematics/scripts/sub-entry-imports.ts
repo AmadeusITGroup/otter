@@ -13,16 +13,16 @@ const outputJsonPath = path.resolve(__dirname, `${moduleName}-mapping.json`);
 
 // Build a list of the index files of every sub-entry
 const subEntries = fs.readdirSync(moduleFolderPath, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => ({
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => ({
     indexFile: path.join(moduleFolderPath, dirent.name, 'index.ts').replace(/\\/g, '/'),
     name: dirent.name
   }));
 
 // Build a list of the fixture.ts file of every sub-entry (today only applicable to services)
 const fixtureFiles = fs.readdirSync(moduleFolderPath, { withFileTypes: true })
-  .filter(dirent => dirent.isDirectory())
-  .map(dirent => ({
+  .filter((dirent) => dirent.isDirectory())
+  .map((dirent) => ({
     indexFile: path.join(moduleFolderPath, dirent.name, 'fixtures.ts').replace(/\\/g, '/'),
     name: dirent.name
   }))

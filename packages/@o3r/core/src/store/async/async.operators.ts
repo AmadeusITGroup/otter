@@ -31,7 +31,7 @@ export function fromApiEffectSwitchMap<T extends FromApiActionPayload<any>, S ex
         pendingRequestIdsContext[action.requestId] = true;
       }
     }),
-    startWith(undefined),
+    startWith(),
     pairwise(),
     switchMap(([previousAction, action]) => {
       if (!action) {

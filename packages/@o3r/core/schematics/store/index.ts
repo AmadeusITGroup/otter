@@ -13,16 +13,21 @@ function ngGenerateStoreFn(options: NgGenerateStoreSchematicsSchema): Rule {
       return acc;
     }, {});
   switch (options.storeType) {
-    case 'simple-sync':
+    case 'simple-sync': {
       return schematic('store-simple-sync', parameterToChildSchematics);
-    case 'simple-async':
+    }
+    case 'simple-async': {
       return schematic('store-simple-async', parameterToChildSchematics);
-    case 'entity-async':
+    }
+    case 'entity-async': {
       return schematic('store-entity-async', parameterToChildSchematics);
-    case 'entity-sync':
+    }
+    case 'entity-sync': {
       return schematic('store-entity-sync', parameterToChildSchematics);
-    default:
+    }
+    default: {
       return schematic('store-entity-async', parameterToChildSchematics);
+    }
   }
 }
 

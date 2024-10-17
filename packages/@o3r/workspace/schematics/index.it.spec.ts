@@ -27,8 +27,8 @@ describe('new otter workspace', () => {
     ).not.toThrow();
 
     const diff = getGitDiff(execAppOptions.cwd);
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -48,8 +48,8 @@ describe('new otter workspace', () => {
     ]}, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(execAppOptions.cwd);
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
     expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
     expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
@@ -73,8 +73,8 @@ describe('new otter workspace', () => {
     ]}, execAppOptions)).not.toThrow();
 
     const diff = getGitDiff(execAppOptions.cwd);
-    untouchedProjectsPaths.forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    untouchedProjectsPaths.forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
     expect(diff.added).toContain(path.posix.join(sdkPath, 'open-api.yaml'));
     expect(diff.added).toContain(path.posix.join(sdkPath, 'src', 'models', 'base', 'category', 'category.ts'));
@@ -107,7 +107,7 @@ describe('new otter workspace', () => {
       'testing/setup-jest.ts'];
     expect(() => packageManagerExec({ script: 'ng', args: ['g', 'library', libName] }, execAppOptions)).not.toThrow();
     expect(existsSync(path.join(workspacePath, 'project'))).toBe(false);
-    generatedLibFiles.forEach(file => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
+    generatedLibFiles.forEach((file) => expect(existsSync(path.join(inLibraryPath, file))).toBe(true));
     expect(() => packageManagerRunOnProject(libName, true, { script: 'build' }, execAppOptions)).not.toThrow();
   });
 
@@ -117,7 +117,7 @@ describe('new otter workspace', () => {
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const execAppOptions = {...defaultOptions, cwd: workspacePath, env: {...defaultOptions.env, NX_CLOUD_ACCESS_TOKEN: ''}};
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
-    const rootPackageJson = JSON.parse(await fs.readFile(path.join(workspacePath, 'package.json'), 'utf-8')) as PackageJson;
+    const rootPackageJson = JSON.parse(await fs.readFile(path.join(workspacePath, 'package.json'), 'utf8')) as PackageJson;
     expect(rootPackageJson.scripts).toHaveProperty('build', 'lerna run build');
     expect(rootPackageJson.scripts).toHaveProperty('test', 'lerna run test');
     expect(rootPackageJson.scripts).toHaveProperty('lint', 'lerna run lint');

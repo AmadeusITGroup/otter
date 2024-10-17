@@ -1,5 +1,5 @@
 import { DirEntry, noop, type Rule, SchematicContext, type TaskId, type Tree } from '@angular-devkit/schematics';
-import { dirname, join, extname } from 'node:path';
+import { dirname, extname, join } from 'node:path';
 import { EslintFixTask, LinterOptions } from '../../tasks/index';
 
 interface ApplyEslintFixOption extends LinterOptions {
@@ -30,7 +30,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
   return (tree: Tree, context: SchematicContext) => {
     const filesToBeLint = tree.actions
       .filter((a) => a.kind !== 'd' && extension.includes(extname(a.path)))
-      .map((action) => action.path.substring(1));
+      .map((action) => action.path.slice(1));
 
     if (tree.root.subfiles.some((f) => /eslint\.config\.{m,c,}[tj]s/.test(f))) {
       context.addTask(
@@ -62,7 +62,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
     do {
       eslintRcFile = dir.subfiles.find((f) => f.startsWith('.eslintrc'));
       if (eslintRcFile) {
-        eslintRcFile = join(dir.path.substring(1), eslintRcFile);
+        eslintRcFile = join(dir.path.slice(1), eslintRcFile);
         break;
       }
 
@@ -76,10 +76,10 @@ You can consider to run later the following command to add otter linter rules: n
     }
 
     const files = new Set(
-      filesToBeLint.filter((filePath) => filePath.startsWith(dir.path.substring(1)))
+      filesToBeLint.filter((filePath) => filePath.startsWith(dir.path.slice(1)))
     );
 
-    if (files.size) {
+    if (files.size > 0) {
       context.addTask(
         new EslintFixTask(
           Array.from(files),

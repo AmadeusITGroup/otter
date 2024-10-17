@@ -40,18 +40,18 @@ function ngAddFunctionsToFixtureFn(options: NgAddFunctionsToFixtureSchematicsSch
         sourceFile.forEachChild((node) => {
           if (ts.isInterfaceDeclaration(node)) {
             const methodSignatures = node.getChildren().filter(ts.isMethodSignature);
-            const lastMethodSignature = methodSignatures[methodSignatures.length - 1];
+            const lastMethodSignature = methodSignatures.at(-1);
             const posForSignature = lastMethodSignature ? lastMethodSignature.end + 1 : node.end - 1;
             recorder.insertLeft(posForSignature, codeForInterface);
           } else if (ts.isClassDeclaration(node)) {
             if (index === 0) {
               const propDeclarations = node.members.filter(ts.isPropertyDeclaration);
-              const lastPropDecl = propDeclarations[propDeclarations.length - 1];
+              const lastPropDecl = propDeclarations.at(-1);
               const posForSelectorProp = lastPropDecl ? lastPropDecl.end + 1 : node.end - 1;
               recorder.insertLeft(posForSelectorProp, codeForSelectorProp);
             }
             const methodDeclarations = node.getChildren().filter(ts.isMethodDeclaration);
-            const lastMethodDecl = methodDeclarations[methodDeclarations.length - 1];
+            const lastMethodDecl = methodDeclarations.at(-1);
             const posForImplem = lastMethodDecl ? lastMethodDecl.end + 1 : node.end - 1;
             recorder.insertLeft(posForImplem, codeForImplem);
           }

@@ -28,7 +28,7 @@ import { copyReferencedFiles, updateLocalRelativeRefs } from './helpers/copy-ref
 import { generateOperationFinderFromSingleFile } from './helpers/path-extractor';
 
 const JAVA_OPTIONS = ['specPath', 'specConfigPath', 'globalProperty', 'outputPath'];
-const OPEN_API_TOOLS_OPTIONS = ['generatorName', 'output', 'inputSpec', 'config', 'globalProperty'];
+const OPEN_API_TOOLS_OPTIONS = new Set(['generatorName', 'output', 'inputSpec', 'config', 'globalProperty']);
 
 const getRegexpTemplate = (regexp: RegExp) => `new RegExp('${regexp.toString().replace(/\/(.*)\//, '$1').replace(/\\\//g, '/')}')`;
 
@@ -124,7 +124,7 @@ const getGeneratorOptions = (tree: Tree, context: SchematicContext, options: NgG
 
   // log warning of options that won't be taken into account if generator key and other options are provided in the command
   if (options.generatorKey && openApiToolsJsonGenerator && JAVA_OPTIONS.some((optionName) => typeof options[optionName] !== 'undefined')) {
-    Object.keys(openApiToolsJsonGenerator).filter((option) => !OPEN_API_TOOLS_OPTIONS.includes(option))
+    Object.keys(openApiToolsJsonGenerator).filter((option) => !OPEN_API_TOOLS_OPTIONS.has(option))
       .forEach((ignoredOption) => context.logger.warn(`Option ${ignoredOption} from ${openApiToolsPath} will not be taken into account`));
   }
   return {
@@ -156,8 +156,9 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
       specContent = await (await fetch(generatorOptions.specPath)).text();
       specContent = updateLocalRelativeRefs(specContent, path.dirname(generatorOptions.specPath));
     } else {
-      const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory ?
-        generatorOptions.specPath : path.join(options.directory, generatorOptions.specPath);
+      const specPath = path.isAbsolute(generatorOptions.specPath) || !options.directory
+        ? generatorOptions.specPath
+        : path.join(options.directory, generatorOptions.specPath);
       specContent = readFileSync(specPath, {encoding: 'utf8'}).toString();
 
       if (path.relative(process.cwd(), specPath).startsWith('..')) {
@@ -173,7 +174,7 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
     try {
       JSON.parse(specContent);
       isJson = true;
-    } catch (e) {
+    } catch {
       isJson = false;
     }
     const defaultFileName = `${LOCAL_SPEC_FILENAME}.${isJson ? SPEC_JSON_EXTENSION : SPEC_YAML_EXTENSION}`;
@@ -253,12 +254,13 @@ function ngGenerateTypescriptSDKFn(options: NgGenerateTypescriptSDKCoreSchematic
 
     const runGeneratorRule: Rule = () => {
       return (new OpenApiCliGenerator(options)).getGeneratorRunSchematic(
-        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined)) ?
-          {
+        (options.generatorKey && JAVA_OPTIONS.every((optionName) => options[optionName] === undefined))
+          ? {
             generatorKey: options.generatorKey,
             ...(generatorOptions.generatorVersion ? {generatorVersion: generatorOptions.generatorVersion} : {}),
             ...(options.openapiNormalizer ? {openapiNormalizer: options.openapiNormalizer} : {})
-          } : generatorOptions,
+          }
+          : generatorOptions,
         {rootDirectory: options.directory || undefined}
       );
     };

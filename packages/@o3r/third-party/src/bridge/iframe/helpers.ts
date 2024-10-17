@@ -14,10 +14,10 @@ export const IFRAME_BRIDGE_DEFAULT_OPTIONS: IFrameBridgeOptions = {
  * @param message
  */
 export function isSupportedMessage(message: any): message is InternalIframeMessage {
-  return typeof message === 'object' &&
-    !!message.action &&
-    !!message.version &&
-    !!message.channelId;
+  return typeof message === 'object'
+    && !!message.action
+    && !!message.version
+    && !!message.channelId;
 }
 
 /**

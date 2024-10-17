@@ -23,7 +23,7 @@ export class YamlFormatter implements Formatter {
 
     await fs.promises.mkdir(this.cwd, {recursive: true});
     await fs.promises.writeFile(this.filePath, content);
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info(`Swagger spec generated: ${this.filePath}`);
   }
 
@@ -43,7 +43,7 @@ export class YamlFormatter implements Formatter {
     }, null, 2);
 
     await fs.promises.writeFile(path.resolve(this.cwd, 'package.json'), content);
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info(`Artifact generated for ${this.filePath}`);
   }
 }

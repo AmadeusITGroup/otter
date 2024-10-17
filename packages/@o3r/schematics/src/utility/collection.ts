@@ -25,8 +25,7 @@ export function registerCollectionSchematics(workspace: WorkspaceSchema, collect
  * @param options
  * @param options.projectName
  */
-export function getDefaultOptionsForSchematic
-  <T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options?: { projectName?: string | undefined }): T {
+export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*'] = WorkspaceSchematics['*:*']>(workspace: WorkspaceSchema | null, collection: string, schematicName: string, options?: { projectName?: string | undefined }): T {
   if (!workspace) {
     return {} as T;
   }
@@ -63,5 +62,5 @@ export function getSchematicOptions<T extends WorkspaceSchematics['*:*'] = Works
     .sort(([a], [b]) => ((a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0)))
     .reduce((acc, [, opts]) => ({ ...acc, ...opts }), {} as any);
 
-  return options && Object.keys(options).length ? options : config.schematics?.['*:*'];
+  return options && Object.keys(options).length > 0 ? options : config.schematics?.['*:*'];
 }

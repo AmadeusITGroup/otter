@@ -12,9 +12,9 @@ function base64EncodeUnicode(str: string) {
   // encodeURI escape all non-ASCII characters but we don't want to escape latin non-ascii characters
   // (charCode between 128 and 255).
   return window.btoa(encodeURI(str)
-    .replace(/%C2%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(parseInt('0x' + p1, 16)))
-    .replace(/%C3%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(parseInt('0xc0', 16) + parseInt('0x' + p1, 16) - parseInt('0x80', 16)))
-    .replace(/%([0-9A-F]{2})/g, (_match, p1: string) => String.fromCharCode(parseInt('0x' + p1, 16))));
+    .replace(/%C2%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16)))
+    .replace(/%C3%([89AB][0-9A-F])/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0xc0', 16) + Number.parseInt('0x' + p1, 16) - Number.parseInt('0x80', 16)))
+    .replace(/%([0-9A-F]{2})/g, (_match, p1: string) => String.fromCharCode(Number.parseInt('0x' + p1, 16))));
 }
 
 /**
@@ -141,7 +141,7 @@ export function createJwtEncoder() {
  */
 export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = false) {
   const base64Encoder = createBase64UrlEncoder();
-  const stringEncoder = typeof window.TextEncoder !== 'undefined' ? new TextEncoder() : new Encoder();
+  const stringEncoder = typeof window.TextEncoder === 'undefined' ? new Encoder() : new TextEncoder();
 
   return async ({ publicKey, keyId }: { publicKey: Promise<CryptoKey> | CryptoKey; keyId: string }, jwePayload: Record<string, unknown>, publicProperties: string[]) => {
     const jweHeader: Record<string, unknown> = {
@@ -150,7 +150,7 @@ export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = fals
       typ: 'JWE',
       kid: keyId
     };
-    publicProperties.forEach(property => {
+    publicProperties.forEach((property) => {
       if (jwePayload[property]) {
         jweHeader[property] = jwePayload[property];
       }
@@ -170,10 +170,10 @@ export function createJweEncoder(aesTagLengthInBits = 128, useHeaderAsAAD = fals
       useHeaderAsAAD ? stringEncoder.encode(serializedHeader) : undefined
     );
 
-    return serializedHeader + '.' +
-      base64Encoder(ab2str(wrappedCek)) + '.' +
-      base64Encoder(ab2str(iv.buffer)) + '.' +
-      base64Encoder(ab2str(ciphertext)) + '.' +
-      base64Encoder(ab2str(authenticationTag));
+    return serializedHeader + '.'
+      + base64Encoder(ab2str(wrappedCek)) + '.'
+      + base64Encoder(ab2str(iv.buffer)) + '.'
+      + base64Encoder(ab2str(ciphertext)) + '.'
+      + base64Encoder(ab2str(authenticationTag));
   };
 }

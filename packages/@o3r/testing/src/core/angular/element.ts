@@ -22,7 +22,7 @@ export class O3rElement implements ElementProfile {
    */
   protected get text(): string | undefined {
     const element = this.sourceElement.nativeElement;
-    return element ? (element.innerText !== undefined ? element.innerText : element.textContent) : undefined;
+    return element ? (element.innerText === undefined ? element.textContent : element.innerText) : undefined;
   }
 
   /** @inheritdoc */

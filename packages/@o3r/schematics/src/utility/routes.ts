@@ -22,9 +22,9 @@ export interface Route {
  */
 function hasRoutePath(route: ts.ObjectLiteralExpression, path: string): boolean {
   return route.properties.some((property) =>
-    property.kind === ts.SyntaxKind.PropertyAssignment &&
-    (property.name as ts.Identifier).text === 'path' &&
-    (property.initializer as ts.Identifier).text === path
+    property.kind === ts.SyntaxKind.PropertyAssignment
+    && (property.name as ts.Identifier).text === 'path'
+    && (property.initializer as ts.Identifier).text === path
   );
 }
 
@@ -73,7 +73,7 @@ export function getRoutesDeclaration(tree: Tree, context: SchematicContext, appR
     .map((declarations) => declarations.filter(isRoutesDeclaration))
     .reduce((declaration, declarations) =>
       declarations.length > 0 ? declarations[0] : declaration,
-      null as ts.VariableDeclaration | null
+    null as ts.VariableDeclaration | null
     );
 }
 
@@ -121,9 +121,9 @@ export function insertRoute(tree: Tree, context: SchematicContext, appRoutingMod
 
   if (routes) {
     const noStarRoutes = routes.filter((r) => !hasRoutePath(r, '**'));
-    const index = noStarRoutes.length >= 1 ? noStarRoutes[noStarRoutes.length - 1].end : routes.end;
+    const index = noStarRoutes.length > 0 ? noStarRoutes.at(-1).end : routes.end;
     const routeString = `{path: '${route.path}', load${standalone ? 'Component' : 'Children'}: () => import('${route.import}').then((m) => m.${route.module})}`;
-    const content = noStarRoutes.length >= 1 ? `,\n${routeString}` : routeString;
+    const content = noStarRoutes.length > 0 ? `,\n${routeString}` : routeString;
 
     const recorder = tree.beginUpdate(appRoutingModulePath);
     recorder.insertLeft(index, content);

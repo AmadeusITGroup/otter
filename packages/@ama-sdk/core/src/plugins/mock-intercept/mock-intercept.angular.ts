@@ -27,21 +27,23 @@ export class MockInterceptAngular implements AngularPlugin {
             await this.options.adapter.initialize();
 
             let originalCall = call;
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
             if (!context.options.headers || !(context.options.headers instanceof Headers) || !(context.options.headers as Headers).has(CUSTOM_MOCK_OPERATION_ID_HEADER)) {
               return originalCall;
             }
 
             if (typeof this.options.delayTiming !== 'undefined') {
-              const delayTime = typeof this.options.delayTiming === 'number' ? this.options.delayTiming : await this.options.delayTiming({
-                ...context,
-                fetchPlugins: [],
-                options: context.requestOptions
-              });
+              const delayTime = typeof this.options.delayTiming === 'number'
+                ? this.options.delayTiming
+                : await this.options.delayTiming({
+                  ...context,
+                  fetchPlugins: [],
+                  options: context.requestOptions
+                });
               originalCall = originalCall.pipe(delay(delayTime));
             }
 
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+
             const operationId = (context.options.headers as Headers).get(CUSTOM_MOCK_OPERATION_ID_HEADER)!;
             try {
               const mock = this.options.adapter.getLatestMock(operationId);

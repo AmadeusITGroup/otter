@@ -122,17 +122,17 @@ export function addTagToSpecObj(swaggerSpec: Partial<Spec>, tag: any): any {
     return;
   }
 
-  if (!swaggerSpec.tags) {
-    swaggerSpec.tags = [
-      tag
-    ];
-  } else {
+  if (swaggerSpec.tags) {
     const idx = (swaggerSpec.tags as any[]).findIndex((t) => t.name === tag.name);
     if (idx < 0) {
       swaggerSpec.tags.push(tag);
     } else {
       swaggerSpec.tags[idx] = tag;
     }
+  } else {
+    swaggerSpec.tags = [
+      tag
+    ];
   }
 
   return swaggerSpec;
@@ -153,11 +153,7 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
     return { finalName: itemName, swaggerSpec };
   }
 
-  if (!swaggerSpec[nodeType]) {
-    swaggerSpec[nodeType] = {
-      [itemName]: item
-    } as any;
-  } else {
+  if (swaggerSpec[nodeType]) {
     if (!(swaggerSpec[nodeType] as any)[itemName]) {
       (swaggerSpec[nodeType] as any)[itemName] = item;
     } else if (!ignoreConflict) {
@@ -165,6 +161,10 @@ export function addItemToSpecObj(swaggerSpec: Partial<Spec>, nodeType: keyof Spe
       console.warn(`The ${nodeType} "${itemName}"${swaggerPath ? ` from "${swaggerPath}"` : ''} is conflicting, "${newItemName}" will be used instead.`);
       return addItemToSpecObj(swaggerSpec, nodeType, newItemName, { ...item, [X_VENDOR_CONFLICT_TAG]: true}, swaggerPath);
     }
+  } else {
+    swaggerSpec[nodeType] = {
+      [itemName]: item
+    } as any;
   }
 
   return { finalName: itemName, swaggerSpec };
@@ -243,6 +243,6 @@ export async function getCurrentArtifactVersion(): Promise<string | undefined> {
  * @param pattern Pattern to test
  */
 export function isGlobPattern(pattern: string) {
-  return pattern.indexOf('*') >= 0 ||
-    pattern.indexOf('{') >= 0;
+  return pattern.includes('*')
+    || pattern.includes('{');
 }

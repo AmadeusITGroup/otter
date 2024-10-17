@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { Cascading } from './cascading';
 import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, DEFAULT_CONFIGURATION, PullRequestContext } from './interfaces';
 import { render } from 'ejs';

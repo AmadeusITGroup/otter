@@ -13,6 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 /**
  *
+ * @param folderPath
  */
 function generateFolderMdFiles(folderPath) {
   return readdir(folderPath)
@@ -30,7 +31,7 @@ function generateFolderMdFiles(folderPath) {
           await writeFile(
             path.join(folderPath, `${subFolderName}.md`),
             `# ${
-              subFolderName.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, m => m.toUpperCase())
+              subFolderName.replace(/-/g, ' ').replace(/(^\w|\s\w)/g, (m) => m.toUpperCase())
             }\n\n${
               subFiles.map((f) => `- [${f.replace('.md', '')}](./${subFolderName}/${f})`).join('\n')
             }\n`,
@@ -42,7 +43,6 @@ function generateFolderMdFiles(folderPath) {
 
 /**
  * Generate CompoDoc summary object
- *
  * @param {string} folderPath Path to the folder containing MarkDown files
  * @returns {Promise<any[]>}
  */

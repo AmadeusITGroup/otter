@@ -32,6 +32,6 @@ export class MatAutocomplete extends O3rElement implements MatAutocompleteProfil
       return this.sourceElement.element.press('Tab');
     }
 
-    return Promise.reject('Element with selector .mat-option, mat-option not found.');
+    throw 'Element with selector .mat-option, mat-option not found.';
   }
 }

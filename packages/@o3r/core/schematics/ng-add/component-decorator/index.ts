@@ -57,10 +57,10 @@ export const updateComponentDecorators: Rule = async (tree: Tree) => {
         recorder.insertLeft(node.getStart(), `@O3rComponent({\n  componentType: '${componentType}'\n})\n`);
         const dynamicConfigObserver = node.members.find((member) =>
           ts.isPropertyDeclaration(member)
-            && member.type
-            && ts.isTypeReferenceNode(member.type)
-            && ts.isIdentifier(member.type.typeName)
-            && member.type.typeName.escapedText === 'ConfigurationObserver'
+          && member.type
+          && ts.isTypeReferenceNode(member.type)
+          && ts.isIdentifier(member.type.typeName)
+          && member.type.typeName.escapedText === 'ConfigurationObserver'
         );
         if (dynamicConfigObserver) {
           const importConfigObserverChange = insertImport(source, filePath, 'ConfigObserver', '@o3r/configuration');
@@ -74,8 +74,8 @@ export const updateComponentDecorators: Rule = async (tree: Tree) => {
           .reduce((acc: ts.Decorator[], member) => acc.concat(ts.canHaveDecorators(member) ? ts.getDecorators(member) || [] : []), [])
           .find((decorator) =>
             ts.isCallExpression(decorator.expression)
-              && ts.isIdentifier(decorator.expression.expression)
-              && decorator.expression.expression.escapedText === 'InputMerge'
+            && ts.isIdentifier(decorator.expression.expression)
+            && decorator.expression.expression.escapedText === 'InputMerge'
           );
         if (inputMergeDecorator) {
           const inputMergeDecoratorRemovePos = computeRemovePosition(inputMergeDecorator);

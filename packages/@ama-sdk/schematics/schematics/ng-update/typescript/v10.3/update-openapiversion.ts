@@ -67,7 +67,7 @@ export const updateOpenApiVersionInProject = (): Rule => {
     }
     return chain(
       pathsPackageJson.map((pathPackageJson) =>
-        overwriteOpenApiVersion(pathPackageJson.at(pathPackageJson.length - 1) === '/' ? pathPackageJson.trim() : pathPackageJson)
+        overwriteOpenApiVersion(pathPackageJson.at(-1) === '/' ? pathPackageJson.trim() : pathPackageJson)
       )
     );
   };

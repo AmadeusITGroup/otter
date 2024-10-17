@@ -32,8 +32,8 @@ describe('new otter application with apis-manager', () => {
       isYarnTest ? 'yarn.lock' : 'package-lock.json'
     ].sort());
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
   });
 });

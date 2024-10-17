@@ -29,8 +29,7 @@ export class ConfigurationBaseService {
 
   private readonly extendedConfiguration: {[key: string]: boolean} = {};
 
-  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {
-  }
+  constructor(private readonly store: Store<ConfigurationStore & ConfigOverrideStore>) {}
 
   /**
    * Update a specific component config or add it to the store if does not exist
@@ -57,7 +56,7 @@ export class ConfigurationBaseService {
   public getConfigFromBodyTag<T extends Configuration>(configTagName = 'staticconfig') {
     const bootstrapConfigString = document.body.dataset[configTagName];
     const customConfigObject: CustomConfig<T>[] = bootstrapConfigString ? JSON.parse(bootstrapConfigString) : [];
-    if (customConfigObject.length) {
+    if (customConfigObject.length > 0) {
       this.computeConfiguration(customConfigObject);
     }
   }
@@ -114,7 +113,7 @@ export class ConfigurationBaseService {
    */
   public getConfig<T extends Configuration>(id: string): Observable<T> {
     const globalConfig$ = this.store.pipe(select(selectGlobalConfiguration));
-    const componentConfig$ = id !== globalConfigurationId ? this.store.pipe(select(selectConfigurationForComponent({ id }))) : of({});
+    const componentConfig$ = id === globalConfigurationId ? of({}) : this.store.pipe(select(selectConfigurationForComponent({ id })));
     const overrideConfig$ = this.store.pipe(select(selectComponentOverrideConfig(id)));
 
     return combineLatest([globalConfig$, componentConfig$, overrideConfig$]).pipe(

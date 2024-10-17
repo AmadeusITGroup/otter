@@ -4,10 +4,9 @@
  * Update the Typescript SDK Package to expose the sub modules
  */
 
-import { copyFileSync, mkdirSync } from 'node:fs';
+import { copyFileSync, promises as fs, mkdirSync } from 'node:fs';
 import * as minimist from 'minimist';
 import * as path from 'node:path';
-import { promises as fs } from 'node:fs';
 import * as globby from 'globby';
 import type { PackageJson } from 'type-fest';
 
@@ -79,8 +78,8 @@ void (async () => {
 
   // Move files into the dist folder
   const copies = files.map(async ({glob, cwdForCopy}) => {
-    return watch ?
-      import('chokidar')
+    return watch
+      ? import('chokidar')
         .then((chokidar) => chokidar.watch(glob, {cwd: baseDir}))
         .then((watcher) => watcher.on('all', async (event, file) => {
           if (event !== 'unlink' && event !== 'unlinkDir') {
@@ -89,8 +88,8 @@ void (async () => {
               await updateExports();
             }
           }
-        })) :
-      globby.sync(glob)
+        }))
+      : globby.sync(glob)
         .forEach((file) => copyToDist(file, cwdForCopy));
   });
   await Promise.all(copies);

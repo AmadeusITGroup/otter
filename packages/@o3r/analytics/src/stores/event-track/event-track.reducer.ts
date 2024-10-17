@@ -86,11 +86,7 @@ function isTTIComputed(component: HeroComponent): boolean {
   if (component.measureSelf && !component.hasBeenLogged) {
     return false;
   }
-  if (component.children && component.children.length > 0) {
-    return component.children.every((child) => isTTIComputed(child));
-  } else {
-    return component.TTI > 0;
-  }
+  return component.children && component.children.length > 0 ? component.children.every((child) => isTTIComputed(child)) : component.TTI > 0;
 }
 
 /**

@@ -39,8 +39,8 @@ export function updatePlaywright(options: NgAddPackageOptions, dependencies: Rec
     if (tree.exists(gitignorePath)) {
       let gitignore = tree.readText(gitignorePath);
       if (!gitignore.includes('dist*') && !gitignore.includes('dist-e2e-playwright') && !gitignore.includes('playwright-reports')) {
-        gitignore +=
-          `
+        gitignore
+          += `
 # Playwright
 dist-e2e-playwright
 playwright-reports

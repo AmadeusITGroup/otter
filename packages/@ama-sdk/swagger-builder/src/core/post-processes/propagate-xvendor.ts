@@ -47,7 +47,7 @@ export class PropagateXvendor implements PostProcess {
 
   /** @inheritdoc */
   public execute(swaggerSpec: any) {
-    // eslint-disable-next-line no-console, no-restricted-syntax
+    // eslint-disable-next-line no-console
     console.info('Propagate flag: ' + this.vendorExtToPropagate);
     return {
       ...swaggerSpec,

@@ -43,12 +43,12 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
     mode: 'day-offset',
     extractor: /\b(\d{4}-\d{2}-\d{2})[^"]*/g,
     converter: {
-      fromDate: (date) => date.toString().substring(0, plainDateLength),
+      fromDate: (date) => date.toString().slice(0, Math.max(0, plainDateLength)),
       toDate: (input) => {
         input = input.replace(/\.\d+/, '').replace(/Z/, '+00:00');
-        return input.length > plainDateLength ?
-          Temporal.ZonedDateTime.from(`${input.replace(/(\.\d+)/, '')}[${input.replace(/^.*(\+\d{2}:\d{2}).*$/, '$1') || '+00:00'}]`) :
-          Temporal.PlainDate.from(input);
+        return input.length > plainDateLength
+          ? Temporal.ZonedDateTime.from(`${input.replace(/(\.\d+)/, '')}[${input.replace(/^.*(\+\d{2}:\d{2}).*$/, '$1') || '+00:00'}]`)
+          : Temporal.PlainDate.from(input);
       }
     },
     ...inputOptions
@@ -82,7 +82,7 @@ export async function updateDatesInMocks(mock: IMock, inputOptions: Partial<Upda
   if (/get|post/.test(mock.request.method) && (await mock.hasLocalMock())) {
     const localPayload = (await mock.readLocalPayload())?.payload;
     if (localPayload && localPayload.data.creationDateTime) {
-      const referenceTime = Temporal.PlainDate.from(localPayload.data.creationDateTime.toISOString().substring(0, 10));
+      const referenceTime = Temporal.PlainDate.from(localPayload.data.creationDateTime.toISOString().slice(0, 10));
       const timeOffset = Temporal.PlainDate.from(referenceTime).until(todayTime, {smallestUnit: 'days', largestUnit: 'days'});
       if (timeOffset.days !== 0) {
         mock.setMode('manual');

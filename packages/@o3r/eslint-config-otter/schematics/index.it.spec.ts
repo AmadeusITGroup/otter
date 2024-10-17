@@ -36,8 +36,8 @@ describe('ng add eslint-config', () => {
       'apps/test-app/tsconfig.eslint.json'
     ]);
 
-    [libraryPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [libraryPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();
@@ -65,8 +65,8 @@ describe('ng add eslint-config', () => {
       'libs/test-lib/tsconfig.eslint.json'
     ].sort());
 
-    [applicationPath, ...untouchedProjectsPaths].forEach(untouchedProject => {
-      expect(diff.all.some(file => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
+    [applicationPath, ...untouchedProjectsPaths].forEach((untouchedProject) => {
+      expect(diff.all.some((file) => file.startsWith(path.posix.relative(workspacePath, untouchedProject)))).toBe(false);
     });
 
     expect(() => packageManagerInstall(execAppOptions)).not.toThrow();

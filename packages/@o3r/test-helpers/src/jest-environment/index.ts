@@ -62,7 +62,7 @@ export class JestEnvironmentO3r extends NodeTestEnvironment {
   private async startVerdaccio() {
     try {
       await pidFromPort(4873);
-    } catch (ex) {
+    } catch {
       this.shouldHandleVerdaccio = true;
       execSync('yarn verdaccio:start', {cwd: rootFolder, stdio: 'inherit'});
       execSync('yarn verdaccio:publish', {cwd: rootFolder, stdio: 'inherit'});

@@ -16,7 +16,7 @@ export class O3rRadioElement extends O3rElement implements RadioElementProfile {
     const currentValue = await this.isChecked();
     if (currentValue === value) {
       console.warn(`O3rRadioElement is already ${value ? 'checked' : 'unchecked'}`);
-      return Promise.resolve();
+      return;
     }
 
     return this.click();

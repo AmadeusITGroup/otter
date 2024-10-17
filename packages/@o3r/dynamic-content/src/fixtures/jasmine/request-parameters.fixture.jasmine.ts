@@ -10,7 +10,7 @@ export class RequestParametersServiceFixture implements InterfaceOf<RequestParam
   public post: {[key: string]: string} = {};
   public config: RequestParametersConfig = {
     strategy: StorageStrategy.Rehydrate,
-    storage: (typeof window !== 'undefined') ? window.sessionStorage : undefined,
+    storage: (typeof window === 'undefined') ? undefined : window.sessionStorage,
     queryParamsValue: '{}',
     postParamsValue: '{}'
   };

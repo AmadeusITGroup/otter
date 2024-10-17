@@ -16,8 +16,8 @@ describe('Renovate Bot generator', () => {
     const organizationName = 'test-orga';
     const runner = new SchematicTestRunner('schematics', collectionPath);
     const tree = await runner.runExternalSchematic('schematics', 'renovate-bot', {
-        organizationName
-      }, initialTree);
+      organizationName
+    }, initialTree);
 
     expect(tree.files.length).toEqual(2);
     expect(tree.readContent('/.renovate/config.js')).toContain(`https://dev.azure.com/${organizationName}`);

@@ -25,7 +25,7 @@ export class LogRocketClient implements LoggerClient {
       network: {
         requestSanitizer: (request: Request) => {
           // if the url contains '/purchase/orders'
-          if (request.url.toLowerCase().indexOf('/purchase/orders') !== -1) {
+          if (request.url.toLowerCase().includes('/purchase/orders')) {
             // scrub out the body
             return {...request, body: ''};
           }

@@ -62,14 +62,14 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || !comment.value.length) {
+        if (!comment || comment.value.length === 0) {
           return;
         }
 
         const { loc, value: docText } = comment;
         const categories = Array.from(docText.matchAll(/@o3rCategory (\w+)/g)).map((match) => match[1]);
 
-        if (categories.length < 1) {
+        if (categories.length === 0) {
           return;
         } else if (categories.length > 1) {
           return context.report({
@@ -126,13 +126,13 @@ export default createRule<Readonly<[O3rCategoriesTagsRuleOption, ...any]>, Messa
         const sourceCode = context.getSourceCode();
         const comment = getNodeComment(node, sourceCode);
 
-        if (!comment || !comment.value.length) {
+        if (!comment || comment.value.length === 0) {
           return;
         }
 
         const { loc, value: docText } = comment;
         const categories = Array.from(docText.matchAll(/@o3rCategories (\w+)/g)).map((match) => match[1]);
-        if (categories.length < 1) {
+        if (categories.length === 0) {
           return;
         }
         if (!isExtendingConfiguration(node, options.supportedInterfaceNames)) {

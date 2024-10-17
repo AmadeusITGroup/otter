@@ -46,7 +46,7 @@ export const rule = (primary: any, _secondaryOptions: Record<string, any>, conte
 
       const isAutoFixing = context.fix;
       root.walkDecls((decl: PostCSS.Declaration) => {
-        if (decl.value.indexOf('.variable') === -1) {
+        if (!decl.value.includes('.variable')) {
           return; // Nothing to do with this node - continue
         }
 

@@ -4,7 +4,7 @@ import * as path from 'node:path';
 import type { PackageJson } from 'type-fest';
 
 /** Current package version (format: <major>.<minor>)*/
-const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson).version?.split('.').slice(0,2).join('.') || '0.0';
+const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson).version?.split('.').slice(0, 2).join('.') || '0.0';
 
 /** ESLint rule generator */
 // eslint-disable-next-line new-cap

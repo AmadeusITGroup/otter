@@ -56,7 +56,7 @@ For more details and instructions on how to change these settings, see https://g
         const pmr = getPackageManagerRunner(packageJson);
 
         try {
-          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf-8')).version;
+          const version = JSON.parse(await promises.readFile(path.join(__dirname, '..', '..', 'package.json'), 'utf8')).version;
           execFileSync(`${pmr} ng add @o3r/telemetry@${version}`);
         } catch {
           ctx.logger.warn('Failed to install `@o3r/telemetry`.');

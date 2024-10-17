@@ -7,7 +7,7 @@ import type { PackageJson } from 'type-fest';
 import type { WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
 
 function findFilesInTreeRec(memory: Set<FileEntry>, directory: DirEntry, fileMatchesCriteria: (file: string) => boolean, ignoreDirectories: string[]) {
-  if (ignoreDirectories.some(i => directory.path.split(path.posix.sep).includes(i))) {
+  if (ignoreDirectories.some((i) => directory.path.split(path.posix.sep).includes(i))) {
     return memory;
   }
 
@@ -110,7 +110,7 @@ export function getTemplateFolder(rootPath: string, currentPath: string, templat
  * @param recursive determine if the function will walk through the sub folders
  */
 export function getAllFilesInTree(tree: Tree, basePath = '/', excludes: string[] = [], recursive = true): string[] {
-  if (excludes.length && excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
+  if (excludes.some((e) => minimatch(basePath, e, {dot: true}))) {
     return [];
   }
   return [

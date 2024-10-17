@@ -35,7 +35,7 @@ describe('Typescript Core Generator', () => {
     const tree = await runner.runSchematic('typescript-core', {
       specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.yaml')
     }, baseTree);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-redundant-type-constituents
+
     const content = tree.readJson('/openapitools.json') as JsonObject & OpenApiToolsConfiguration;
 
     expect(content['generator-cli'].generators['test-sdk-sdk'].inputSpec.endsWith(`${LOCAL_SPEC_FILENAME}.${SPEC_YAML_EXTENSION}`)).toBe(true);
@@ -47,7 +47,7 @@ describe('Typescript Core Generator', () => {
     const tree = await runner.runSchematic('typescript-core', {
       specPath: path.join(__dirname, '..', '..', '..', 'testing', 'MOCK_swagger.json')
     }, baseTree);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-redundant-type-constituents
+
     const content = tree.readJson('/openapitools.json') as JsonObject & OpenApiToolsConfiguration;
 
     expect(content['generator-cli'].generators['test-sdk-sdk'].inputSpec.endsWith(`${LOCAL_SPEC_FILENAME}.${SPEC_JSON_EXTENSION}`)).toBe(true);

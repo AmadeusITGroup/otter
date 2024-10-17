@@ -79,10 +79,10 @@ const getLocalizationInformation = (componentPath: string, tree: Tree) => {
       constructor.body.statements.forEach((statement) => {
         if (
           ts.isExpressionStatement(statement)
-            && ts.isBinaryExpression(statement.expression)
-            && ts.isPropertyAccessExpression(statement.expression.left)
-            && statement.expression.left.name.escapedText.toString() === translationsVariableName
-            && ts.isIdentifier(statement.expression.right)
+          && ts.isBinaryExpression(statement.expression)
+          && ts.isPropertyAccessExpression(statement.expression.left)
+          && statement.expression.left.name.escapedText.toString() === translationsVariableName
+          && ts.isIdentifier(statement.expression.right)
         ) {
           defaultTranslationVariableName = statement.expression.right.escapedText.toString();
         }
@@ -136,17 +136,19 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
         throw new KeyAlreadyExists(properties.keyValue, localizationJsonPath);
       }
       const translationFileContent = tree.readText(translationsPath);
-      if (translationFileContent.match(new RegExp(`${properties.keyName}:`))) {
+      if (new RegExp(`${properties.keyName}:`).test(translationFileContent)) {
         throw new KeyAlreadyExists(properties.keyName, translationsPath);
       }
 
       const updateLocalizationFileRule: Rule = () => {
         (localizationJson as any)[properties.keyValue] = {
-          ...(properties.dictionnary ? {
-            dictionnary: true
-          } : {
-            defaultValue: properties.defaultValue
-          }),
+          ...(properties.dictionnary
+            ? {
+              dictionnary: true
+            }
+            : {
+              defaultValue: properties.defaultValue
+            }),
           description: properties.description
         };
         tree.overwrite(localizationJsonPath, JSON.stringify(localizationJson, null, 2));
@@ -166,7 +168,7 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
           const visit = (node: ts.Node): ts.Node => {
             if (
               ts.isInterfaceDeclaration(node)
-            && node.name.escapedText.toString() === translationsVariableType
+              && node.name.escapedText.toString() === translationsVariableType
             ) {
               return factory.updateInterfaceDeclaration(
                 node,
@@ -186,11 +188,11 @@ export function ngAddLocalizationKeyFn(options: NgAddLocalizationKeySchematicsSc
             }
             if (
               ts.isVariableDeclaration(node)
-            && node.type && ts.isTypeReferenceNode(node.type)
-            && ts.isIdentifier(node.type.typeName)
-            && node.type.typeName.escapedText.toString() === translationsVariableType
-            && node.initializer
-            && ts.isObjectLiteralExpression(node.initializer)
+              && node.type && ts.isTypeReferenceNode(node.type)
+              && ts.isIdentifier(node.type.typeName)
+              && node.type.typeName.escapedText.toString() === translationsVariableType
+              && node.initializer
+              && ts.isObjectLiteralExpression(node.initializer)
             ) {
               return factory.updateVariableDeclaration(
                 node,

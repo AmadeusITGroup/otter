@@ -12,9 +12,9 @@ export const STORAGE_SYNC_OPTIONS = new InjectionToken<Partial<StorageSyncOption
 export class CapacitorRehydrater {
   private readonly options: StorageSyncOptions;
   constructor(
-      private readonly store: Store<any>,
-      @Inject(STORAGE_SYNC_OPTIONS) options: Partial<StorageSyncOptions>,
-      private readonly logger: LoggerService
+    private readonly store: Store<any>,
+    @Inject(STORAGE_SYNC_OPTIONS) options: Partial<StorageSyncOptions>,
+    private readonly logger: LoggerService
   ) {
     this.options = { keys: [], ...options };
   }

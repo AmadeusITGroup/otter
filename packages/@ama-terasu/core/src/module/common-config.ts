@@ -48,7 +48,7 @@ export const EXTRA_COMMON_OPTIONS = {
 } as const;
 
 /** Common options */
-// eslint-disable-next-line no-unused-vars
+
 export const MODULE_OPTIONS: { [X in keyof typeof EXTRA_COMMON_OPTIONS]: DefaultOptions } = {
   azureToken: {
     alias: 'A',

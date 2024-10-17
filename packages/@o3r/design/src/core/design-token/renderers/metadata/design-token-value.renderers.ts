@@ -48,9 +48,9 @@ export const getMetadataTokenValueRenderer = (options?: MetadataTokenValueRender
       name: variable.getKey(tokenVariableNameRenderer),
       defaultValue: cssValueRenderer(variable, variableSet),
       description: variable.description,
-      references: (!options?.ignorePrivateVariable ? references : resolvePrivateReferences(references, variableSet))
+      references: (options?.ignorePrivateVariable ? resolvePrivateReferences(references, variableSet) : references)
         .map((node) => JSON.parse(renderer(node, variableSet))),
-      type: cssType !== 'color' ? 'string' : 'color',
+      type: cssType === 'color' ? 'color' : 'string',
       ...variable.extensions.o3rMetadata
     };
 

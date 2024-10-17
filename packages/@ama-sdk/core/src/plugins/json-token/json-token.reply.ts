@@ -25,16 +25,16 @@ export class JsonTokenReply<V = {[key: string]: any} | undefined> implements Rep
 
         if (context.response.headers.has('Authorization')) {
           const token = context.response.headers.get('Authorization') as string;
-          if (typeof sessionStorage !== 'undefined') {
-            sessionStorage.setItem(this.storageTokenKey, token);
-          } else {
+          if (typeof sessionStorage === 'undefined') {
             this.sharedMemory[this.storageTokenKey] = token;
+          } else {
+            sessionStorage.setItem(this.storageTokenKey, token);
           }
         } else {
-          if (typeof sessionStorage !== 'undefined') {
-            sessionStorage.removeItem(this.storageTokenKey);
-          } else {
+          if (typeof sessionStorage === 'undefined') {
             this.sharedMemory[this.storageTokenKey] = undefined;
+          } else {
+            sessionStorage.removeItem(this.storageTokenKey);
           }
         }
 

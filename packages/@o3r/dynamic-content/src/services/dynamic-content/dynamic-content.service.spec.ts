@@ -17,8 +17,7 @@ describe('DynamicContentService', () => {
     beforeEach(async () => {
       try {
         delete document.body.dataset.cmsassetspath;
-      } catch {
-      }
+      } catch {}
       await TestBed.configureTestingModule({
         providers: [
           DynamicContentService,
@@ -80,8 +79,7 @@ describe('DynamicContentService', () => {
           document.body.dataset.dynamiccontentpath = 'my-default-content-path/';
           try {
             delete document.body.dataset.cmsassetspath;
-          } catch {
-          }
+          } catch {}
 
           await TestBed.configureTestingModule({
             imports: [DynamicContentModule]
@@ -102,8 +100,7 @@ describe('DynamicContentService', () => {
           try {
             delete document.body.dataset.dynamiccontentpath;
             delete document.body.dataset.cmsassetspath;
-          } catch {
-          }
+          } catch {}
         });
 
         beforeEach(async () => {
@@ -138,8 +135,7 @@ describe('DynamicContentService', () => {
         document.body.dataset.dynamiccontentpath = 'my-default-content-path';
         try {
           delete document.body.dataset.cmsassetspath;
-        } catch {
-        }
+        } catch {}
 
         await TestBed.configureTestingModule({
           imports: [DynamicContentModule.forRoot({ content: 'my-custom-path'})]
@@ -166,8 +162,7 @@ describe('DynamicContentService', () => {
         document.body.dataset.dynamiccontentpath = 'my-default-content-path';
         try {
           delete document.body.dataset.cmsassetspath;
-        } catch {
-        }
+        } catch {}
 
         await TestBed.configureTestingModule({
           imports: [DynamicContentModule.forRoot({content: 'my-custom-path'})]

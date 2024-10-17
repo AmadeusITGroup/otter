@@ -27,19 +27,19 @@ export function getPackagesToInstallOrUpdate(packageName: string) {
   try {
     const packageJsonNamePath = require.resolve(`${packageName}${path.posix.sep}package.json`);
     installedPackage = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' }));
-  } catch (err) {
+  } catch {
     throw new Error(`The provided package is not installed: ${packageName}`);
   }
 
   const packagesToInstall: PackageVersion[] = [];
   const packagesWrongVersion: PackageVersion[] = [];
 
-  const optionalPackages = Object.entries(installedPackage.peerDependenciesMeta || {})
+  const optionalPackages = new Set(Object.entries(installedPackage.peerDependenciesMeta || {})
     .filter(([, dep]) => dep?.optional)
-    .map(([depName]) => depName);
+    .map(([depName]) => depName));
   const peerDependenciesMap = Object.entries(installedPackage.peerDependencies || {})
     .reduce<Partial<Record<string, string>>>((acc, [name, val]) => {
-      if (!optionalPackages.includes(name)) {
+      if (!optionalPackages.has(name)) {
         acc[name] = val;
       }
       return acc;
@@ -49,7 +49,7 @@ export function getPackagesToInstallOrUpdate(packageName: string) {
     try {
       const packageJsonNamePath = require.resolve(`${pName}${path.posix.sep}package.json`);
       installedPackageVersion = JSON.parse(readFileSync(packageJsonNamePath, { encoding: 'utf8' })).version;
-    } catch (err) {
+    } catch {
       packagesToInstall.push({ packageName: pName, version: pVersion! });
     }
     if (installedPackageVersion && !satisfies(installedPackageVersion, pVersion!)) {

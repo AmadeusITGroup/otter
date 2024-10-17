@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
-import {PreloadingStrategy, Route} from '@angular/router';
-import {NavigationEnd, Router} from '@angular/router';
+import {NavigationEnd, PreloadingStrategy, Route, Router} from '@angular/router';
 import {Observable, of} from 'rxjs';
 import {filter, switchMap} from 'rxjs/operators';
 
@@ -21,7 +20,7 @@ export function hasPreloadingOnDemand(data: any): data is O3rOnDemandPreloadingD
     return false;
   }
 
-  return (Array.isArray(data.preloadOn) && !!data.preloadOn.length)
+  return (Array.isArray(data.preloadOn) && data.preloadOn.length > 0)
     || data.preloadOn === '*'
     || data.preloadOn instanceof RegExp;
 }
@@ -42,7 +41,7 @@ export class O3rOnNavigationPreloadingStrategy implements PreloadingStrategy {
    * @url url URL of current page
    */
   private isUrlMatchingPreloadConfig(data: any, url: string): boolean {
-    return (Array.isArray(data.preloadOn) && data.preloadOn.indexOf(url) !== -1)
+    return (Array.isArray(data.preloadOn) && data.preloadOn.includes(url))
       || (data.preloadOn instanceof RegExp && data.preloadOn.test(url));
   }
 

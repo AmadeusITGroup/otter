@@ -43,7 +43,7 @@ export class O3rCheckboxElement extends O3rElement implements CheckboxElementPro
       const currentValue = await this.isChecked();
       if (currentValue === value) {
         console.warn(`Checkbox is already ${currentValue ? 'checked' : 'unchecked'}`);
-        return Promise.resolve();
+        return;
       }
       return labelElement.click();
     }

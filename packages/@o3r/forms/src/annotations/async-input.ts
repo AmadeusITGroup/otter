@@ -26,10 +26,7 @@ export function AsyncInput(privateFieldName?: string) {
           return this[privateStreamField];
         },
         set: function (this: any, value: Observable<any> | undefined) {
-          if (!value) {
-            this[privateStreamField] = value;
-            this[privateSubjectField] = value;
-          } else {
+          if (value) {
             if (this[privateSubjectField]) {
               this[privateSubjectField].next(value);
             } else {
@@ -40,6 +37,9 @@ export function AsyncInput(privateFieldName?: string) {
                 switchMap((stream$: Observable<any>) => stream$)
               );
             }
+          } else {
+            this[privateStreamField] = value;
+            this[privateSubjectField] = value;
           }
         },
         enumerable: true,

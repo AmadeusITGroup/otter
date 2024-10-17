@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/restrict-template-expressions */
+
 import { relative } from 'node:path';
 import * as vscode from 'vscode';
 import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../../helpers';
@@ -9,9 +9,9 @@ const executeSchematic = async (componentPath: string, schematicName: string, ge
   const schematicDefaultOptions = await getSchematicDefaultOptions(schematicName);
   const options = [
     ...(
-      !extraOptions.some((opt) => opt.startsWith('--path='))
-        ? [`--path="${componentPath}"`]
-        : []
+      extraOptions.some((opt) => opt.startsWith('--path='))
+        ? []
+        : [`--path="${componentPath}"`]
     ),
     ...stringifyOptions(schematicDefaultOptions, extraOptions),
     ...extraOptions
@@ -29,22 +29,22 @@ export const findPathAndExecuteSchematic = (schematicName: string, getExtraOptio
   async (targetResource: vscode.Uri | undefined) => {
     let componentPath = targetResource ? vscode.workspace.asRelativePath(targetResource.path) : '';
     if (!componentPath) {
-      if (vscode.window.activeTextEditor?.document.fileName) {
-        componentPath = relative(
+      componentPath = vscode.window.activeTextEditor?.document.fileName
+        ? relative(
           vscode.workspace.workspaceFolders?.[0]?.uri?.fsPath || '.',
           vscode.window.activeTextEditor.document.fileName
-        );
-      } else {
-        componentPath = await vscode.window.showInputBox({
+        )
+        : await vscode.window.showInputBox({
           placeHolder: '/src/component/my-component/my-component.component.ts',
           validateInput: (value) => {
-            return !value ? {
-              message: 'Path is required',
-              severity: vscode.InputBoxValidationSeverity.Error
-            } : null;
+            return value
+              ? null
+              : {
+                message: 'Path is required',
+                severity: vscode.InputBoxValidationSeverity.Error
+              };
           }
         }) || '';
-      }
       if (!componentPath) {
         await vscode.window.showErrorMessage('Path is required');
         return;

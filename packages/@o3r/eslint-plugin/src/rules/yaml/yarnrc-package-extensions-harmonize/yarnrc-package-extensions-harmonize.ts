@@ -83,9 +83,9 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
     const parserServices = getYamlParserServices(context);
     const dirname = path.dirname(context.getFilename());
     const workspace = findWorkspacePackageJsons(dirname);
-    const bestRanges = workspace ?
-      getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name))) :
-      {};
+    const bestRanges = workspace
+      ? getBestRanges(options.dependencyTypesInPackages, workspace.packages.filter(({ content }) => !content.name || !options.excludePackages.includes(content.name)))
+      : {};
     const ignoredDependencies = options.ignoredDependencies.map((dep) => new RegExp(dep.replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*')));
 
     if (parserServices.isYAML) {
@@ -98,7 +98,7 @@ export default createRule<[Options, ...any], 'versionUpdate' | 'error'>({
             const parent = node.parent.parent && node.parent.parent.type === 'YAMLPair' && getStaticYAMLValue(node.parent.parent.key!)?.toString();
             const baseNode = node.parent.parent.parent.parent?.parent?.parent;
             const isCorrectNode = baseNode && baseNode.type === 'YAMLPair' && getStaticYAMLValue(baseNode.key!)?.toString() === 'packageExtensions';
-            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.some((t) => t === parent)) {
+            if (isCorrectNode && semver.validRange(range) && parent && options.yarnrcDependencyTypes.includes(parent)) {
               const depName = node.key && getStaticYAMLValue(node.key)?.toString();
               if (!depName || !bestRanges[depName] || ignoredDependencies.some((ignore) => ignore.test(depName))) {
                 return;

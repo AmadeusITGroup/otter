@@ -37,7 +37,7 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -61,7 +61,7 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -84,7 +84,7 @@ describe('Design Token generator', () => {
       const tokenVariableNameRenderer: TokenKeyRenderer = (variable) => prefix + variable.tokenReferenceName.replace(/\./g, '-');
       const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({tokenVariableNameRenderer});
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         tokenDefinitionRenderer,
@@ -113,7 +113,7 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -140,7 +140,7 @@ describe('Design Token generator', () => {
         privateDefinitionRenderer: getSassTokenDefinitionRenderer()
       });
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -151,7 +151,7 @@ describe('Design Token generator', () => {
 
       expect(result).not.toContain(expectedSassVar);
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -185,7 +185,7 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-      // eslint-disable-next-line @typescript-eslint/await-thenable
+
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,

@@ -149,10 +149,13 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
                       constructorDeclaration,
                       ts.getModifiers(constructorDeclaration) || [],
                       constructorDeclaration.parameters,
-                      constructorDeclaration.body ? factory.updateBlock(
-                        constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
-                      ) : factory.createBlock(localizationConstructorBlockStatements, true)
-                    ) : factory.createConstructorDeclaration(
+                      constructorDeclaration.body
+                        ? factory.updateBlock(
+                          constructorDeclaration.body, constructorDeclaration.body.statements.concat(localizationConstructorBlockStatements)
+                        )
+                        : factory.createBlock(localizationConstructorBlockStatements, true)
+                    )
+                    : factory.createConstructorDeclaration(
                       [],
                       [],
                       factory.createBlock(localizationConstructorBlockStatements, true)
@@ -276,9 +279,11 @@ export function ngAddLocalizationFn(options: NgAddLocalizationSchematicsSchema):
           const changes = [new InsertChange(specFilePath, lastImport?.getEnd() || 0, `
 const localizationConfiguration = {language: 'en'};
 const mockTranslations = {
-  en: {${options.activateDummy ? `
+  en: {${options.activateDummy
+    ? `
     '${properties.componentSelector}.dummyLoc1': 'Dummy 1'
-  ` : ''}}
+  `
+    : ''}}
 };
 const mockTranslationsCompilerProvider: Provider = {
   provide: TranslateCompiler,

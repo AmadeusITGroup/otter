@@ -62,7 +62,7 @@ export function deepFill<T extends { [x: string]: any }>(base: T, source?: { [x:
     return deepFill(base, base, additionalMappers);
   }
   if (!isObject(base, additionalMappers)) {
-    return immutablePrimitive(typeof source !== 'undefined' ? source : base, additionalMappers);
+    return immutablePrimitive(typeof source === 'undefined' ? base : source, additionalMappers);
   }
   const newObj = {...base};
   for (const key in base) {

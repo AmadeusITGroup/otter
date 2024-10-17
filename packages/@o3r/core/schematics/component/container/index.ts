@@ -111,12 +111,14 @@ function ngGenerateComponentContainerFn(options: NgGenerateComponentContainerSch
         skipTests: false,
         standalone: options.standalone,
         ...(
-          options.standalone ? {
-            skipImport: true
-          } : {
-            module: `${properties.name}.module.ts`,
-            export: true
-          }
+          options.standalone
+            ? {
+              skipImport: true
+            }
+            : {
+              module: `${properties.name}.module.ts`,
+              export: true
+            }
         ),
         flat: true
       }),
@@ -281,7 +283,7 @@ class Mock${properties.presenterComponentName} {}
 
   return chain([
     generateFiles,
-    !fullStructureRequested ? options.skipLinter ? noop() : applyEsLintFix() : noop()
+    fullStructureRequested ? noop() : (options.skipLinter ? noop() : applyEsLintFix())
   ]);
 }
 

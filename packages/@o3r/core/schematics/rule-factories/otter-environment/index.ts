@@ -51,7 +51,7 @@ export function updateOtterEnvironmentAdapter(
         if (path) {
           workspaceProject.schematics![item] = {
             path: posix.join(workspaceProject.root, path),
-            ...(workspaceProject.schematics![item] || {})
+            ...workspaceProject.schematics![item]
           };
         }
       });
@@ -70,7 +70,7 @@ export function updateOtterEnvironmentAdapter(
         if (path) {
           workspaceProject.schematics![item] = {
             path: posix.join(workspaceProject.root, path),
-            ...(workspaceProject.schematics![item] || {})
+            ...workspaceProject.schematics![item]
           };
         }
       });
