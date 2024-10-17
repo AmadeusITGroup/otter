@@ -1,0 +1,9 @@
+/src/api
+/src/models/base
+/src/spec/api-mocks.ts
+/src/spec/operation-adapter.ts
+/dist
+/build
+/scripts
+/jest.config.js
+/.eslintrc.js

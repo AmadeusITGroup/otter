@@ -1,0 +1,131 @@
+{
+  "name": "@o3r/training-sdk",
+  "private": true,
+  "version": "0.0.0-placeholder",
+  "description": "training-sdk - SDK",
+  "source": "src/index.ts",
+  "main": "cjs/index.js",
+  "module": "esm2020/index.js",
+  "node": "cjs/index.js",
+  "es2020": "esm2020/index.js",
+  "esm2020": "esm2020/index.js",
+  "es2015": "esm2015/index.js",
+  "esm2015": "esm2015/index.js",
+  "types": "index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    "./package.json": {
+      "default": "./package.json"
+    },
+    "./structure/src.json": {
+      "default": "./structure/src.json"
+    },
+    "./structure/spec.json": {
+      "default": "./structure/src.json"
+    },
+    ".": {
+      "main": "./cjs/index.js",
+      "module": "./esm2020/index.js",
+      "es2020": "./esm2020/index.js",
+      "esm2020": "./esm2020/index.js",
+      "node": "./cjs/index.js",
+      "default": "./esm2020/index.js",
+      "typings": "./index.d.ts",
+      "import": "./esm2020/index.js",
+      "require": "./esm2020/index.js"
+    }
+  },
+  "scripts": {
+    "schematics": "schematics",
+    "clean": "rimraf test/ test-dev/ dist/ dist-dev/ dist-test/ build/",
+    "lint:ci": "eslint \"**/*[jt]s\" --quiet --format junit --output-file ./dist-lint/result.xml",
+    "lint": "eslint \"**/*[jt]s\" --cache",
+    "start": "tsc-watch -b tsconfigs/esm2020 --noClear --onFirstSuccess \\\"yarn run files:pack --watch\\\"",
+    "extract": "yarn run extract-src && yarn run extract-openapi",
+    "extract-src": "o3r-extract-folder-structure --files \"src\" -o dist/structure/src.json",
+    "extract-openapi": "o3r-extract-folder-structure --files \"./open-api.yaml\" -o dist/structure/spec.json",
+    "build": "yarn run build:cjs && yarn run build:esm2015 && yarn run build:esm2020 && yarn run files:pack",
+    "build:cjs": "swc src -d dist/cjs -C module.type=commonjs -q --strip-leading-paths",
+    "build:esm2015": "swc src -d dist/esm2015 -C module.type=es6 -q --strip-leading-paths",
+    "build:esm2020": "tsc -b tsconfigs/esm2020",
+    "set:version": "npm version",
+    "resolve": "node -e 'process.stdout.write(require.resolve(process.argv[1]));'",
+    "generate": "schematics ../../@ama-sdk/schematics:typescript-core --no-dry-run",
+    "spec:regen": "yarn run generate --generator-key ama-sdk-training-sdk && amasdk-clear-index",
+    "spec:upgrade": "yarn run spec:regen",
+    "files:pack": "amasdk-files-pack",
+    "test": "jest --passWithNoTests",
+    "publish:package": "npm publish ./dist",
+    "generate:mock": "schematics @ama-sdk/schematics:mock",
+    "tools:changelog": "commit-and-tag-version"
+  },
+  "dependencies": {
+    "@swc/helpers": "~0.5.0",
+    "tslib": "^2.6.2"
+  },
+  "peerDependenciesMeta": {
+    "isomorphic-fetch": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@ama-sdk/core": "workspace:^",
+    "@ama-sdk/schematics": "workspace:^",
+    "@angular-devkit/core": "~18.2.0",
+    "@angular-devkit/schematics": "~18.2.0",
+    "@angular-devkit/schematics-cli": "^18.0.5",
+    "@angular-eslint/eslint-plugin": "~18.3.0",
+    "@angular-eslint/eslint-plugin-template": "~18.3.0",
+    "@angular-eslint/utils": "~18.3.0",
+    "@angular/cli": "~18.2.0",
+    "@angular/compiler": "~18.2.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
+    "@nx/eslint-plugin": "~19.5.0",
+    "@o3r/eslint-config-otter": "workspace:^",
+    "@o3r/eslint-plugin": "workspace:^",
+    "@o3r/schematics": "workspace:^",
+    "@o3r/training-tools": "workspace:^",
+    "@openapitools/openapi-generator-cli": "~2.13.0",
+    "@schematics/angular": "~18.2.0",
+    "@stylistic/eslint-plugin-ts": "~2.4.0",
+    "@swc/cli": "~0.4.0",
+    "@swc/core": "~1.7.0",
+    "@types/jest": "~29.5.2",
+    "@types/node": "^20.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.14.1",
+    "@typescript-eslint/parser": "^7.14.1",
+    "@typescript-eslint/utils": "^7.14.1",
+    "commit-and-tag-version": "^12.0.0",
+    "cpy-cli": "^5.0.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-jest": "~28.8.0",
+    "eslint-plugin-jsdoc": "~48.11.0",
+    "eslint-plugin-prefer-arrow": "~1.2.3",
+    "eslint-plugin-unicorn": "^54.0.0",
+    "globby": "^11.1.0",
+    "isomorphic-fetch": "~3.0.0",
+    "jest": "~29.7.0",
+    "jest-junit": "~16.0.0",
+    "lint-staged": "^15.0.0",
+    "minimist": "^1.2.6",
+    "rimraf": "^5.0.1",
+    "rxjs": "^7.8.1",
+    "ts-jest": "~29.2.0",
+    "tsc-watch": "^6.0.4",
+    "typescript": "~5.5.4",
+    "yaml-eslint-parser": "^1.2.2"
+  },
+  "peerDependencies": {
+    "@ama-sdk/core": "workspace:^",
+    "isomorphic-fetch": "~3.0.0"
+  },
+  "engines": {
+    "node": "^18.19.1 || ^20.11.1 || >=22.0.0",
+    "npm": "",
+    "yarn": ">=2.0.0 <5.0.0"
+  },
+  "config": {
+    "o3rMetrics": false
+  }
+}
