@@ -148,7 +148,7 @@ export default createBuilder<AggregateMigrationScriptsSchema>(createBuilderWithM
 
     stepNumber++;
     context.reportProgress(stepNumber, STEPS.length, STEPS[stepNumber - 1]);
-    const libResolver = options.librariesDirectory ? (lib: string) => posix.join(options.librariesDirectory!, lib) : require.resolve.bind(require);
+    const libResolver = options.librariesDirectory ? (lib: string) => posix.join(options.librariesDirectory, lib) : require.resolve.bind(require);
     const librariesVersions = getLibrariesVersions(migrationFiles);
     if (Object.keys(librariesVersions).length < 1) {
       return {
