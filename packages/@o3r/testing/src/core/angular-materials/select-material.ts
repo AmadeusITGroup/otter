@@ -1,6 +1,12 @@
-import { TranspilationPurposeOnlyError } from '../../errors/index';
-import { O3rElement } from '../element';
-import { SelectElementProfile } from '../elements';
+import {
+  TranspilationPurposeOnlyError
+} from '../../errors/index';
+import {
+  O3rElement
+} from '../element';
+import {
+  SelectElementProfile
+} from '../elements';
 
 /**
  * Interface to describe the material select elements that are used inside a fixture.

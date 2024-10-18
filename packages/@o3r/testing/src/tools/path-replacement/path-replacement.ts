@@ -1,9 +1,16 @@
 /* eslint-disable no-undef */
-import { TransformOptions, transformSync } from 'esbuild';
 import * as fs from 'node:fs';
-import { Module } from 'node:module';
-import { requireFromString } from 'module-from-string';
+import {
+  Module
+} from 'node:module';
 import * as path from 'node:path';
+import {
+  TransformOptions,
+  transformSync
+} from 'esbuild';
+import {
+  requireFromString
+} from 'module-from-string';
 /**
  * Switch to the needed implementation of core testing, when running e2e tests
  * transforms ESM into CJS when needed
@@ -57,6 +64,5 @@ export function adjustPath(frameworkName: 'playwright' | 'protractor', customTra
 
       return modulesCache[filePath];
     }
-
   } as NodeJS.Require;
 }

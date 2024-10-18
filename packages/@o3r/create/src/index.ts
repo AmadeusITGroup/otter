@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 
-import { spawnSync, type SpawnSyncOptionsWithBufferEncoding } from 'node:child_process';
-import { join, resolve } from 'node:path';
-import { readFileSync, writeFileSync } from 'node:fs';
+import {
+  spawnSync,
+  type SpawnSyncOptionsWithBufferEncoding
+} from 'node:child_process';
+import {
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
+import {
+  join,
+  resolve
+} from 'node:path';
 import * as minimist from 'minimist';
-import { quote } from 'shell-quote';
-import type { PackageJson } from 'type-fest';
-
+import {
+  quote
+} from 'shell-quote';
+import type {
+  PackageJson
+} from 'type-fest';
 
 const { properties } = JSON.parse(
   readFileSync(require.resolve('@schematics/angular/ng-new/schema').replace(/\.js$/, '.json'), { encoding: 'utf8' })
@@ -143,7 +155,7 @@ const NPM_CONFIG_REGISTRY_ERROR_CODE = 4;
 const YARN_CONFIG_REGISTRY_ERROR_CODE = 5;
 const INSTALL_PROCESS_ERROR_CODE = 6;
 
-const exitProcessIfErrorInSpawnSync = (exitCode: number, {error, status}: ReturnType<typeof spawnSync>) => {
+const exitProcessIfErrorInSpawnSync = (exitCode: number, { error, status }: ReturnType<typeof spawnSync>) => {
   if (error || status !== 0) {
     if (error) {
       // eslint-disable-next-line no-console

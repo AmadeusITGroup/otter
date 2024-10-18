@@ -1,8 +1,20 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
-import { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getCssTokenValueRenderer } from './design-token-value.renderers';
-import type { Logger } from '@o3r/core';
+import type {
+  Logger
+} from '@o3r/core';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
+import {
+  isO3rPrivateVariable
+} from '../design-token.renderer.helpers';
+import {
+  TokenDefinitionRenderer
+} from '../design-token.renderer.interface';
+import {
+  getCssTokenValueRenderer
+} from './design-token-value.renderers';
 
 /** Options for {@link CssTokenDefinitionRendererOptions} */
 export interface CssTokenDefinitionRendererOptions {

@@ -1,5 +1,11 @@
-import { v4 } from 'uuid';
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  v4
+} from 'uuid';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../core';
 
 /**
  * Performance metric mark associated to a call.
@@ -107,7 +113,7 @@ export class PerformanceMetricPlugin implements FetchPlugin {
   /**
    * Opened marks.
    */
-  protected readonly openMarks: {[markId: string]: Mark} = {};
+  protected readonly openMarks: { [markId: string]: Mark } = {};
 
   /**
    * Performance reporter to use for performance measurements.
@@ -135,7 +141,6 @@ export class PerformanceMetricPlugin implements FetchPlugin {
    * @param markId Mark ID
    */
   protected getPerformanceTag = (status: string, markId: string) => `sdk:${status}:${markId}`;
-
 
   /**
    * Opens a mark associated to a call.

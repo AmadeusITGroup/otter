@@ -1,16 +1,27 @@
-import type { GenerateJsonSchemaSchematicsSchema } from './schema';
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import type { BuilderWrapper } from '@o3r/telemetry';
+import {
+  resolve
+} from 'node:path';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import type {
+  BuilderWrapper
+} from '@o3r/telemetry';
+import * as globby from 'globby';
+import type {
+  DesignTokenVariableSet,
+  DesignTokenVariableStructure
+} from '../../src/public_api';
 import {
   getJsonSchemaStyleContentUpdater,
   getJsonSchemaTokenDefinitionRenderer,
   parseDesignTokenFile,
   renderDesignTokens
 } from '../../src/public_api';
-import type { DesignTokenVariableSet, DesignTokenVariableStructure } from '../../src/public_api';
-import { resolve } from 'node:path';
-import * as globby from 'globby';
-
+import type {
+  GenerateJsonSchemaSchematicsSchema
+} from './schema';
 
 const createBuilderWithMetricsIfInstalled: BuilderWrapper = (builderFn) => async (opts, ctx) => {
   let wrapper: BuilderWrapper = (fn) => fn;
@@ -45,8 +56,8 @@ export default createBuilder<GenerateJsonSchemaSchematicsSchema>(createBuilderWi
 
     try {
       const duplicatedToken: DesignTokenVariableStructure[] = [];
-      const tokens = (await Promise.all(files.map(async (file) => ({file, parsed: await parseDesignTokenFile(file)}))))
-        .reduce<DesignTokenVariableSet>((acc, {file, parsed}) => {
+      const tokens = (await Promise.all(files.map(async (file) => ({ file, parsed: await parseDesignTokenFile(file) }))))
+        .reduce<DesignTokenVariableSet>((acc, { file, parsed }) => {
           parsed.forEach((variable, key) => {
             if (acc.has(key)) {
               context.logger[options.failOnDuplicate ? 'error' : 'warn'](`A duplication of the variable ${key} is found in ${file}`);

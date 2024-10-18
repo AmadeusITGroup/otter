@@ -1,4 +1,7 @@
-import type { Api, ApiClient } from '@ama-sdk/core';
+import type {
+  Api,
+  ApiClient
+} from '@ama-sdk/core';
 
 /**
  * Api manager is responsible to provide an api configuration to a service factory, so that it could instantiate an API
@@ -15,7 +18,7 @@ export class ApiManager {
    * @warning This should not be used to get the ApiClient for an API, the function getConfiguration() should be used instead
    */
   public get registeredApiConfigurations() {
-    return {...this.apiConfigurations} as const;
+    return { ...this.apiConfigurations } as const;
   }
 
   /**

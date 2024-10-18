@@ -1,5 +1,9 @@
-import { EntityState } from '@ngrx/entity';
-import { FormError } from '../../core/index';
+import {
+  EntityState
+} from '@ngrx/entity';
+import {
+  FormError
+} from '../../core/index';
 
 /**
  * FormError model

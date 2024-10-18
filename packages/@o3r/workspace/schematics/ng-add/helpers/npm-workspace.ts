@@ -1,8 +1,26 @@
-import { chain, SchematicsException } from '@angular-devkit/schematics';
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import { DEFAULT_ROOT_FOLDERS, getPackageManager, isNxContext, setupSchematicsParamsForProject, WorkspaceLayout, WorkspaceSchematics } from '@o3r/schematics';
-import type { MonorepoManager } from '../schema';
+import {
+  chain,
+  SchematicsException
+} from '@angular-devkit/schematics';
+import type {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  DEFAULT_ROOT_FOLDERS,
+  getPackageManager,
+  isNxContext,
+  setupSchematicsParamsForProject,
+  WorkspaceLayout,
+  WorkspaceSchematics
+} from '@o3r/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import type {
+  MonorepoManager
+} from '../schema';
 
 /**
  * Update root package.json to include workspaces
@@ -11,9 +29,7 @@ import type { MonorepoManager } from '../schema';
  * @param directories workspaces directories to include in package.json
  */
 export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_ROOT_FOLDERS): Rule {
-
   const updatePackageJson = (tree: Tree, _context: SchematicContext) => {
-
     const rootPackageJsonPath = '/package.json';
     if (!tree.exists(rootPackageJsonPath)) {
       throw new SchematicsException('Root package.json does not exist');
@@ -46,7 +62,6 @@ export function addWorkspacesToProject(directories: WorkspaceLayout = DEFAULT_RO
       isNxContext(tree) ? updateNxWorkspaceLayout : updateAngularJson
     ]);
   };
-
 }
 
 /**

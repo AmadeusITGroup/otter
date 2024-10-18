@@ -1,10 +1,22 @@
 #!/usr/bin/env node
 
-import { isAbsolute, normalize, resolve } from 'node:path';
-import { existsSync } from 'node:fs';
-import { parseDesignTokenFile, renderDesignTokens } from '../src/public_api';
-import type { DesignTokenRendererOptions, DesignTokenVariableSet } from '../src/public_api';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  isAbsolute,
+  normalize,
+  resolve
+} from 'node:path';
 import * as minimist from 'minimist';
+import {
+  parseDesignTokenFile,
+  renderDesignTokens
+} from '../src/public_api';
+import type {
+  DesignTokenRendererOptions,
+  DesignTokenVariableSet
+} from '../src/public_api';
 
 const args = minimist(process.argv.splice(2));
 

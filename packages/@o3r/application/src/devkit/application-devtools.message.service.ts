@@ -1,9 +1,30 @@
-import { DOCUMENT } from '@angular/common';
-import { inject, Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { DevtoolsServiceInterface, filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { isVisualTestingEnabled, prepareVisualTesting, toggleVisualTestingRender } from '@o3r/testing/visual-test/utils';
-import { fromEvent, Subscription } from 'rxjs';
+import {
+  DOCUMENT
+} from '@angular/common';
+import {
+  inject,
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional
+} from '@angular/core';
+import {
+  DevtoolsServiceInterface,
+  filterMessageContent,
+  sendOtterMessage
+} from '@o3r/core';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  isVisualTestingEnabled,
+  prepareVisualTesting,
+  toggleVisualTestingRender
+} from '@o3r/testing/visual-test/utils';
+import {
+  fromEvent,
+  Subscription
+} from 'rxjs';
 import {
   type ApplicationDevtoolsServiceOptions,
   type ApplicationMessageDataTypes,
@@ -11,8 +32,13 @@ import {
   isApplicationMessage,
   type StateSelectionContentMessage
 } from './application-devkit.interface';
-import { OtterApplicationDevtools } from './application-devtools.service';
-import { OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_APPLICATION_DEVTOOLS_OPTIONS } from './application-devtools.token';
+import {
+  OtterApplicationDevtools
+} from './application-devtools.service';
+import {
+  OTTER_APPLICATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_APPLICATION_DEVTOOLS_OPTIONS
+} from './application-devtools.token';
 
 const OTTER_STATE_RIBBON_ID = 'otter-devtools-state-ribbon';
 

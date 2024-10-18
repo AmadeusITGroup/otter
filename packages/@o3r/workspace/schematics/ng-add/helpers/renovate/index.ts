@@ -1,5 +1,17 @@
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTemplateFolder } from '@o3r/schematics';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  getTemplateFolder
+} from '@o3r/schematics';
 
 /**
  * Add renovate configuration to Otter application

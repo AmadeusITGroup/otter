@@ -1,16 +1,30 @@
-import { strings } from '@angular-devkit/core';
-import { chain, noop, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { applyEsLintFix, createSchematicWithMetricsIfInstalled, findLastNodeOfKind, getDestinationPath } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  chain,
+  noop,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  applyEsLintFix,
+  createSchematicWithMetricsIfInstalled,
+  findLastNodeOfKind,
+  getDestinationPath
+} from '@o3r/schematics';
 import * as ts from 'typescript';
-import { NgGenerateStoreActionSchematicsSchema } from './schema';
+import {
+  NgGenerateStoreActionSchematicsSchema
+} from './schema';
 
 /**
  * Add an Action to an Otter Store
  * @param options
  */
 function ngGenerateStoreActionFn(options: NgGenerateStoreActionSchematicsSchema): Rule {
-
   /**
    * Compute action name based on action type and given name
    * @param aType
@@ -128,7 +142,6 @@ ${actionDefinitionTemplate}`;
    * @param context
    */
   const editReducerFile = (reducerFilePath: string, tree: Tree, context: SchematicContext) => {
-
     const actionType = options.actionType.replace('-custom-', '');
     const name = (actionType ? computeActionName(actionType, options.actionName) : options.actionName) + (options.isCallAction ? '-from-api' : '');
     const actionName = strings.camelize(name);

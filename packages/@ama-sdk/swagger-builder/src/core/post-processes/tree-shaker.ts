@@ -1,12 +1,20 @@
-import { findReferences, getDefinitionsDeeplyAccessibleFromPaths, getDiscriminatorLinks, getTags } from '../../helpers/spec-parser';
-import { PostProcess } from './post-process.interface';
-import { TreeShakingStrategy } from '../../interfaces/builder-configuration';
+import {
+  findReferences,
+  getDefinitionsDeeplyAccessibleFromPaths,
+  getDiscriminatorLinks,
+  getTags
+} from '../../helpers/spec-parser';
+import {
+  TreeShakingStrategy
+} from '../../interfaces/builder-configuration';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to Tree shake the final Swagger specification
  */
 export class TreeShaker implements PostProcess {
-
   /**
    * Remove all tags not accessible from paths
    * @param spec
@@ -66,13 +74,12 @@ export class TreeShaker implements PostProcess {
 
   /** @inheritdoc */
   public async execute(swaggerSpec: any, treeShakingStrategy: TreeShakingStrategy = 'bottom-up'): Promise<any> {
-    const spec = {...swaggerSpec};
+    const spec = { ...swaggerSpec };
     this.removeUnusedTags(spec);
     await this.removeUnusedParameters(spec);
     if ('bottom-up' === treeShakingStrategy) {
       await this.removeUnusedDefinitionsBottomUpStrategy(spec);
-    }
-    else if ('top-down' === treeShakingStrategy) {
+    } else if ('top-down' === treeShakingStrategy) {
       await this.removeUnusedDefinitionsTopDownStrategy(spec);
     }
     return spec;

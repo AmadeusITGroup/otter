@@ -1,12 +1,35 @@
-import { chain, externalSchematic, noop, Rule, Schematic, SchematicContext } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  mkdirSync,
+  readFileSync,
+  writeFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import type { PackageJson } from 'type-fest';
-import type { NgAddPackageOptions } from '../../tasks/index';
-import { getPackageManager } from '../../utility/index';
+import {
+  chain,
+  externalSchematic,
+  noop,
+  Rule,
+  Schematic,
+  SchematicContext
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import {
+  lastValueFrom
+} from 'rxjs';
+import type {
+  PackageJson
+} from 'type-fest';
+import type {
+  NgAddPackageOptions
+} from '../../tasks/index';
+import {
+  getPackageManager
+} from '../../utility/index';
 
 /**
  * Install via `ng add` a list of npm packages.

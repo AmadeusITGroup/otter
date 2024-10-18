@@ -1,8 +1,17 @@
-
-import { dirname, relative, resolve} from 'node:path';
-import type { ExtensionContext } from 'vscode';
+import {
+  dirname,
+  relative,
+  resolve
+} from 'node:path';
+import type {
+  ExtensionContext
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions
+} from '../helpers';
 
 /**
  * Generate new Otter Module command

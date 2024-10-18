@@ -1,5 +1,19 @@
-import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { posix } from 'node:path';
+import {
+  posix
+} from 'node:path';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 
 /**
  * Add or update the Linter configuration
@@ -8,7 +22,6 @@ import { posix } from 'node:path';
  * @param rootPath @see RuleFactory.rootPath
  */
 export function updateLinterConfigs(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
-
   /**
    * Update or create the eslint.json file
    * @param tree
@@ -110,7 +123,7 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
       options: {
         eslintConfig: `${workspaceProject.root}/.eslintrc.js`,
         lintFilePatterns: [
-          `${workspaceProject.sourceRoot || posix.join(workspaceProject.root, 'src') }/**/*.ts`
+          `${workspaceProject.sourceRoot || posix.join(workspaceProject.root, 'src')}/**/*.ts`
         ]
       }
     };
@@ -147,7 +160,6 @@ export function updateLinterConfigs(options: { projectName?: string | null | und
     } else {
       context.logger.warn(`No file found under '${mainTsPath}'. Linter errors may occur and should be fixed by hand.`);
     }
-
   };
   return chain([
     updateTslintExtend,

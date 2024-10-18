@@ -1,9 +1,17 @@
 import {
   commands,
-  ExtensionContext, languages } from 'vscode';
-import { extractAllToVariable } from './commands/extract/styling/extract-all-to-variable.command';
-import { extractToVariable } from './commands/extract/styling/extract-to-variable.command';
-import { generateComponentGenerateCommand } from './commands/generate/component.command';
+  ExtensionContext,
+  languages
+} from 'vscode';
+import {
+  extractAllToVariable
+} from './commands/extract/styling/extract-all-to-variable.command';
+import {
+  extractToVariable
+} from './commands/extract/styling/extract-to-variable.command';
+import {
+  generateComponentGenerateCommand
+} from './commands/generate/component.command';
 import {
   generateAddAnalyticsToComponentCommand,
   generateAddConfigurationToComponentCommand,
@@ -16,16 +24,35 @@ import {
   generateAddThemingToComponentCommand,
   generateConvertComponentCommand
 } from './commands/generate/enrich-component';
-import { generateFixtureGenerateCommand } from './commands/generate/fixture.command';
-import { generateModuleGenerateCommand } from './commands/generate/module.command';
-import { generateServiceGenerateCommand } from './commands/generate/service.command';
-import { generateStoreGenerateCommand } from './commands/generate/store.command';
-import { wrapCommandWhenExplorerContext } from './commands/helpers';
-import { generateModuleAddCommand } from './commands/module/add-module.command';
-import { configurationCompletionItemProvider, configurationCompletionTriggerChar } from './intellisense/configuration';
-import { stylingCompletionItemProvider, stylingCompletionTriggerChar } from './intellisense/styling';
-import { designTokenCompletionItemAndHoverProviders } from './intellisense/design-token';
-
+import {
+  generateFixtureGenerateCommand
+} from './commands/generate/fixture.command';
+import {
+  generateModuleGenerateCommand
+} from './commands/generate/module.command';
+import {
+  generateServiceGenerateCommand
+} from './commands/generate/service.command';
+import {
+  generateStoreGenerateCommand
+} from './commands/generate/store.command';
+import {
+  wrapCommandWhenExplorerContext
+} from './commands/helpers';
+import {
+  generateModuleAddCommand
+} from './commands/module/add-module.command';
+import {
+  configurationCompletionItemProvider,
+  configurationCompletionTriggerChar
+} from './intellisense/configuration';
+import {
+  designTokenCompletionItemAndHoverProviders
+} from './intellisense/design-token';
+import {
+  stylingCompletionItemProvider,
+  stylingCompletionTriggerChar
+} from './intellisense/styling';
 
 /**
  * Function to register commands.

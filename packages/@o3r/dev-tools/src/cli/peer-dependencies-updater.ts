@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
 import * as path from 'node:path';
+import {
+  program
+} from 'commander';
 import * as winston from 'winston';
-import { updatePeerDependencies } from '../utils/update-peer-dependencies';
+import {
+  updatePeerDependencies
+} from '../utils/update-peer-dependencies';
 
 const pathingCalculation = (value: string) => path.resolve(process.cwd(), value);
 
@@ -16,11 +20,9 @@ program
   .option('--verbose', 'Display debug log message')
   .option('--silent', 'Do not exit with error in case of metadata fetch error')
   .action((actionDependencies: string[] = []) => {
-
     dependencies = actionDependencies;
   })
   .parse(process.argv);
-
 
 const opts = program.opts();
 

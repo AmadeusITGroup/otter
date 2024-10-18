@@ -1,10 +1,11 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to validate a given Swagger spec
  */
 export class ResolveDiscriminator implements PostProcess {
-
   private readonly captureDefinitionRegExp = /#\/definitions\/(.*)/;
 
   private resolveDiscriminator(definitionName: string, definition: any, processedDefs: any, discriminator?: string) {
@@ -12,7 +13,7 @@ export class ResolveDiscriminator implements PostProcess {
       // Looked up discriminator found at definition level.
       if (discriminator === definition.discriminator) {
         // Delete the discriminator in this case
-        processedDefs[definitionName] = {...definition};
+        processedDefs[definitionName] = { ...definition };
         delete processedDefs[definitionName].discriminator;
         // eslint-disable-next-line no-console
         console.info('Discriminator ' + discriminator + ' removed from ' + definitionName);
@@ -23,7 +24,7 @@ export class ResolveDiscriminator implements PostProcess {
           if (!allOfLine.discriminator) {
             return allOfLine;
           }
-          const newLine = {...definition.allOf};
+          const newLine = { ...definition.allOf };
           delete newLine.discriminator;
           // eslint-disable-next-line no-console
           console.info('Discriminator ' + discriminator + ' removed the AllOf of ' + definitionName);
@@ -50,7 +51,7 @@ export class ResolveDiscriminator implements PostProcess {
   }
 
   private processDefinitions(definitions: any): any {
-    const result = {...definitions};
+    const result = { ...definitions };
     Object.entries(result as [string, any]).forEach(([definitionName, definition]) => {
       this.resolveDiscriminator(definitionName, definition, result);
     });

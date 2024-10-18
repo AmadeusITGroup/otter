@@ -1,4 +1,6 @@
-import { strings } from '@angular-devkit/core';
+import {
+  strings
+} from '@angular-devkit/core';
 
 /**
  * Returns all elements from the provided component name path

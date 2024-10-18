@@ -1,5 +1,12 @@
-import { lstatSync } from 'node:fs';
-import { basename, dirname, posix, relative } from 'node:path';
+import {
+  lstatSync
+} from 'node:fs';
+import {
+  basename,
+  dirname,
+  posix,
+  relative
+} from 'node:path';
 import * as vscode from 'vscode';
 
 /**

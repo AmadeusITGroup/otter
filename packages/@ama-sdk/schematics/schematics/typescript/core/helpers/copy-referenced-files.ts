@@ -1,6 +1,21 @@
-import { existsSync } from 'node:fs';
-import { copyFile, mkdir, readFile, rm } from 'node:fs/promises';
-import { dirname, join, normalize, posix, relative, resolve, sep } from 'node:path';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  copyFile,
+  mkdir,
+  readFile,
+  rm
+} from 'node:fs/promises';
+import {
+  dirname,
+  join,
+  normalize,
+  posix,
+  relative,
+  resolve,
+  sep
+} from 'node:path';
 
 const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
 
@@ -30,7 +45,7 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
   if (!visited.has(resolvedFilePath)) {
     visited.add(resolvedFilePath);
 
-    const specContent = await readFile(specFilePath, {encoding: 'utf8'});
+    const specContent = await readFile(specFilePath, { encoding: 'utf8' });
     const refPaths = extractRefPaths(specContent, relative(dirname(referenceFilePath), dirname(specFilePath)));
     const recursiveRefPaths = await Promise.all(
       refPaths.map((refPath) => extractRefPathRecursive(join(dirname(referenceFilePath), refPath), referenceFilePath, visited))

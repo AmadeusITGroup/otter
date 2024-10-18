@@ -1,12 +1,18 @@
-import type { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getPackageManager, WorkspaceSchema } from '@o3r/schematics';
+import type {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+  WorkspaceSchema
+} from '@o3r/schematics';
 
 /**
  * Update git ignore of the repository
  * @param workspaceConfig
  */
 export function updateGitIgnore(workspaceConfig?: WorkspaceSchema | null): Rule {
-
   return (tree: Tree, _context: SchematicContext) => {
     // update gitignore
     if (tree.exists('/.gitignore')) {
@@ -22,7 +28,7 @@ ${folderToExclude}
         `;
         }
       });
-      const packageManager = getPackageManager({workspaceConfig});
+      const packageManager = getPackageManager({ workspaceConfig });
       if (packageManager === 'yarn') {
         gitignore += `
 
@@ -49,5 +55,4 @@ ${folderToExclude}
     }
     return tree;
   };
-
 }

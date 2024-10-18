@@ -1,5 +1,10 @@
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
+import type {
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Remove the list of given packages from package.json
@@ -8,7 +13,6 @@ import type { PackageJson } from 'type-fest';
  */
 export function removePackages(packagesToRemove: string[], packageJsonPath = '/package.json') {
   return (tree: Tree, _context: SchematicContext) => {
-
     const filterDeps = (acc: Record<string, string | undefined> = {}, [pName, pVersion]: [string, string | undefined]) => {
       if (!packagesToRemove.includes(pName)) {
         acc[pName] = pVersion;

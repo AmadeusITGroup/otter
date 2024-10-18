@@ -1,10 +1,14 @@
-import { FetchCall, FetchPlugin, FetchPluginContext } from '../core';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../core';
 
 /**
  * Callback function type
  * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
-export type CallbackFunction<T> = (context: FetchPluginContext & {data: T | undefined}, fetchCall: FetchCall, response?: Response) => void;
+export type CallbackFunction<T> = (context: FetchPluginContext & { data: T | undefined }, fetchCall: FetchCall, response?: Response) => void;
 
 /**
  * Result of the condition function
@@ -67,7 +71,6 @@ export type CanStartConditionFunction<T = any> = (context: FetchPluginContext) =
  * ```
  */
 export class WaitForFetch<T = any> implements FetchPlugin {
-
   /** Condition to wait to start the call */
   public canStartCondition: CanStartConditionFunction<T>;
 
@@ -88,7 +91,6 @@ export class WaitForFetch<T = any> implements FetchPlugin {
     this.timeout = timeout;
     this.callback = callback;
   }
-
 
   /** @inheritDoc */
   public load(context: FetchPluginContext) {
@@ -143,5 +145,4 @@ export class WaitForFetch<T = any> implements FetchPlugin {
       }
     };
   }
-
 }

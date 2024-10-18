@@ -1,4 +1,7 @@
-import type { BootstrapConfig, Dataset } from '../../core/application/dgp.interfaces';
+import type {
+  BootstrapConfig,
+  Dataset
+} from '../../core/application/dgp.interfaces';
 
 /**
  * Pad number
@@ -9,7 +12,6 @@ export function padNumber(val: number, digits = 2): string {
   const str = `${val}`;
   return '0'.repeat(Math.max(0, digits - str.length)) + str;
 }
-
 
 /**
  * Returns TRUE if bootstrap config environment is production FALSE otherwise

@@ -1,14 +1,23 @@
-import {CodeGenerator} from '../code-generator';
-import {spawn, SpawnOptions} from 'node:child_process';
-import {defaultTypescriptGeneratorOptions, OpenApiCliOptions} from './open-api-cli.options';
+import {
+  spawn,
+  SpawnOptions
+} from 'node:child_process';
 import * as path from 'node:path';
-import { getPackageManagerName } from '../../helpers/node-install';
+import {
+  getPackageManagerName
+} from '../../helpers/node-install';
+import {
+  CodeGenerator
+} from '../code-generator';
+import {
+  defaultTypescriptGeneratorOptions,
+  OpenApiCliOptions
+} from './open-api-cli.options';
 
 /**
  * Manage the schematic to generate a sdk using the @openapitools/openapi-generator-cli
  */
 export class OpenApiCliGenerator extends CodeGenerator<OpenApiCliOptions> {
-
   protected readonly packageManager: 'npm' | 'yarn';
   protected get packageManagerRunner(): 'npx' | 'yarn' {
     return this.packageManager === 'npm' ? 'npx' : 'yarn';

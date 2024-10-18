@@ -1,19 +1,40 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { CmsMetadataData, createBuilderWithMetricsIfInstalled, getLibraryCmsMetadata, validateJson } from '@o3r/extractors';
-import { isO3rClassComponent } from '@o3r/schematics';
-import type { CssMetadata } from '@o3r/styling';
-import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
-import { sync as globbySync } from 'globby';
+import {
+  EOL
+} from 'node:os';
 import * as path from 'node:path';
-import { EOL } from 'node:os';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import {
+  CmsMetadataData,
+  createBuilderWithMetricsIfInstalled,
+  getLibraryCmsMetadata,
+  validateJson
+} from '@o3r/extractors';
+import {
+  isO3rClassComponent
+} from '@o3r/schematics';
+import type {
+  CssMetadata
+} from '@o3r/styling';
+import * as chokidar from 'chokidar';
+import {
+  sync as globbySync
+} from 'globby';
+import type {
+  Logger
+} from 'sass';
 import * as ts from 'typescript';
-import { CssVariableExtractor } from './helpers/index';
-import { StyleExtractorBuilderSchema } from './schema';
-import type { Logger } from 'sass';
+import {
+  CssVariableExtractor
+} from './helpers/index';
+import {
+  StyleExtractorBuilderSchema
+} from './schema';
 
 export * from './schema';
-
 
 /**
  * Get the library name from package.json
@@ -21,7 +42,7 @@ export * from './schema';
  */
 const defaultLibraryName = (currentDir: string = process.cwd()) => {
   const packageJsonPath = path.resolve(currentDir, 'package.json');
-  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8'})).name as string;
+  return JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf8' })).name as string;
 };
 
 export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
@@ -32,8 +53,8 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
   const libraryName = options.name || defaultLibraryName(context.currentDirectory);
 
   const sassLogger: Logger = {
-    debug: (message, {span}) => context.logger.debug(`${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`),
-    warn: (message, {deprecation, span, stack}) => {
+    debug: (message, { span }) => context.logger.debug(`${span ? `${span.url?.toString() || ''}:${span.start.line}:${span.start.column}: ` : ''}${message}`),
+    warn: (message, { deprecation, span, stack }) => {
       let log: string = deprecation ? `Deprecated function used${EOL}` : '';
       if (stack) {
         log += `${stack}${EOL}`;
@@ -51,7 +72,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     /** Maximum number of steps */
     const STEP_NUMBER = files.length + 1;
     /** List of SCSS files for which the extraction failed */
-    const hasFailedFiles: {file: string; error: Error}[] = [];
+    const hasFailedFiles: { file: string; error: Error }[] = [];
     /** Copy of previous metadata file generated */
     const initialPreviousMetadata = { ...previousMetadata };
     /** CSS Metadata file to write */
@@ -73,12 +94,12 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
             const componentDeclaration = componentSourceFile.statements.find((s): s is ts.ClassDeclaration => ts.isClassDeclaration(s) && isO3rClassComponent(s));
             const componentName: string | undefined = componentDeclaration?.name?.escapedText.toString();
             if (componentName) {
-              return variables.map((variable) => ({ ...variable, component: { library: libraryName, name: componentName }}));
+              return variables.map((variable) => ({ ...variable, component: { library: libraryName, name: componentName } }));
             }
           }
           return variables;
         } catch (error: any) {
-          hasFailedFiles.push({file, error});
+          hasFailedFiles.push({ file, error });
           return [];
         }
       }))
@@ -106,7 +127,6 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
         // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         error: hasFailedFiles.reduce((acc, errorCss) => acc + '\n' + errorCss.file + '\n' + errorCss.error, '')
       };
-
     } else {
       context.reportProgress(STEP_NUMBER - 1, STEP_NUMBER, 'Read libraries Metadata');
       // extract library metadata if a library has been specified
@@ -229,6 +249,5 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<StyleExtractorB
     );
   } else {
     return execute(getAllFiles());
-
   }
 }));

@@ -1,4 +1,6 @@
-import {InjectionToken} from '@angular/core';
+import {
+  InjectionToken
+} from '@angular/core';
 
 /**
  * Injection token for the rootpath of dynamic content

@@ -1,7 +1,13 @@
-
-import type { ExtensionContext } from 'vscode';
+import type {
+  ExtensionContext
+} from 'vscode';
 import * as vscode from 'vscode';
-import { getCurrentFolder, getPackageScriptRunner, getSchematicDefaultOptions, stringifyOptions } from '../helpers';
+import {
+  getCurrentFolder,
+  getPackageScriptRunner,
+  getSchematicDefaultOptions,
+  stringifyOptions
+} from '../helpers';
 
 /**
  * Generate component command

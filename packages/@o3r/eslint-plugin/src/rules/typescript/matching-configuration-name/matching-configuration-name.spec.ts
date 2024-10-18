@@ -1,5 +1,7 @@
 import typescriptParser from '@typescript-eslint/parser';
-import { RuleTester } from '@typescript-eslint/rule-tester';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
 import matchingConfigurationNameRule from './matching-configuration-name';
 
 const ruleTester = new RuleTester({
@@ -11,8 +13,6 @@ const ruleTester = new RuleTester({
     }
   }
 });
-
-
 
 ruleTester.run('matching-configuration-name', matchingConfigurationNameRule, {
   valid: [{

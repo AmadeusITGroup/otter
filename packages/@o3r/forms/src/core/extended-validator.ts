@@ -1,4 +1,9 @@
-import {AbstractControl, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {
+  AbstractControl,
+  ValidationErrors,
+  Validator,
+  ValidatorFn
+} from '@angular/forms';
 
 export abstract class ExtendedValidator implements Validator {
   /**

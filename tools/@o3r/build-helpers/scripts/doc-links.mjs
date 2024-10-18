@@ -10,7 +10,6 @@ const rootGenerated = path.join(libRoot, argv['generated-doc']);
 const additionalDocGenerated = path.resolve(rootGenerated, 'additional-documentation');
 const rootSource = path.join(libRoot, argv.docs);
 
-
 /**
  * Get the list of files with the given extension from given folder
  * and its subfloders if isRecursive is true
@@ -48,7 +47,7 @@ const mdRegex = /\.md("?)$/;
  * @param filePath
  */
 function replaceMdLinks(filePath) {
-  const oldContent = fs.readFileSync(filePath, {encoding: 'utf8'});
+  const oldContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
   const newContent = oldContent.replace(linkRegexGMI, (match, group1, group2) => {
     if (mdRegex.test(group2)) {
@@ -58,7 +57,7 @@ function replaceMdLinks(filePath) {
   });
 
   if (oldContent !== newContent) {
-    fs.writeFileSync(filePath, newContent, {encoding: 'utf-8'});
+    fs.writeFileSync(filePath, newContent, { encoding: 'utf-8' });
 
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
     console.log(`Links modified in: ${filePath}`);
@@ -71,7 +70,7 @@ function replaceMdLinks(filePath) {
  * @returns the list of broken file paths from the checked file
  */
 function checkInternalLinks(filePath) {
-  const fileContent = fs.readFileSync(filePath, {encoding: 'utf8'});
+  const fileContent = fs.readFileSync(filePath, { encoding: 'utf8' });
 
   const wrongUrls = [];
   const matches = fileContent.matchAll(linkRegexG);
@@ -112,6 +111,3 @@ if (Object.keys(wrongPaths).length > 0) {
   });
   throw new Error('Documentation files contain broken links' + stringBuilder);
 }
-
-
-

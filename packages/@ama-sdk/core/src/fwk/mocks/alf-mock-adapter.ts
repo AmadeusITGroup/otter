@@ -1,7 +1,16 @@
-import { MockMap } from './base-mock-adapter';
-import { getOperationId, getPath } from './helpers';
-import { PathObject } from './path-object';
-import { SequentialMockAdapter } from './sequential-mock-adapter';
+import {
+  MockMap
+} from './base-mock-adapter';
+import {
+  getOperationId,
+  getPath
+} from './helpers';
+import {
+  PathObject
+} from './path-object';
+import {
+  SequentialMockAdapter
+} from './sequential-mock-adapter';
 
 /**
  * a new call is detected thanks to the timestamp printed by ALF on a new line, ex: "2021/12/16 18:21:28.312472 "

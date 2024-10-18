@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -31,11 +36,17 @@ import {
   O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
-import { addImportToModule } from '@schematics/angular/utility/ast-utils';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
-import { basename, dirname, posix } from 'node:path';
+import {
+  addImportToModule
+} from '@schematics/angular/utility/ast-utils';
+import {
+  applyToUpdateRecorder,
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import type { NgAddLocalizationSchematicsSchema } from './schema';
+import type {
+  NgAddLocalizationSchematicsSchema
+} from './schema';
 
 const localizationProperties = [
   'translations'

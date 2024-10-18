@@ -1,6 +1,12 @@
-import { Serializer } from '@o3r/core';
-import { configOverrideInitialState } from './config-override.reducer';
-import { ConfigOverrideState } from './config-override.state';
+import {
+  Serializer
+} from '@o3r/core';
+import {
+  configOverrideInitialState
+} from './config-override.reducer';
+import {
+  ConfigOverrideState
+} from './config-override.state';
 
 /**
  * Deserializer

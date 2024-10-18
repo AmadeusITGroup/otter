@@ -1,8 +1,11 @@
-import { RequestOptions } from '../core/request-plugin';
-import { ApiKeyRequest } from './api-key.request';
+import {
+  RequestOptions
+} from '../core/request-plugin';
+import {
+  ApiKeyRequest
+} from './api-key.request';
 
 describe('Api Key Request Plugin', () => {
-
   let options: RequestOptions;
 
   beforeEach(() => {
@@ -29,5 +32,4 @@ describe('Api Key Request Plugin', () => {
 
     expect(options.headers.append).toHaveBeenCalledWith('testKey', 'test');
   });
-
 });

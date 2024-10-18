@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule
+  chain,
+  Rule
 } from '@angular-devkit/schematics';
-import { getWorkspaceConfig, WorkspaceSchematics } from '@o3r/schematics';
+import {
+  getWorkspaceConfig,
+  WorkspaceSchematics
+} from '@o3r/schematics';
 
 const generatorsMappingFromV7 = {
   '@otter/ng-tools:component': '@o3r/core:component',
@@ -39,7 +43,6 @@ function updateGeneratorsPackage(schematicsToUpdate: WorkspaceSchematics) {
  * Update otter generators names
  */
 export function updateOtterGeneratorsNames(): Rule {
-
   /**
    * Change otter generators names into angular.json
    * @param tree

@@ -1,11 +1,22 @@
-import { Configuration } from '@o3r/core';
-import { BehaviorSubject, Observable, Observer } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
-import { getConfiguration } from '../core';
-import { ConfigurationBaseService } from '../services/configuration/configuration.base.service';
+import {
+  Configuration
+} from '@o3r/core';
+import {
+  BehaviorSubject,
+  Observable,
+  Observer
+} from 'rxjs';
+import {
+  shareReplay
+} from 'rxjs/operators';
+import {
+  getConfiguration
+} from '../core';
+import {
+  ConfigurationBaseService
+} from '../services/configuration/configuration.base.service';
 
 export class ConfigurationObserver<T extends Configuration> implements Observer<Partial<T> | undefined> {
-
   /** Inner observable */
   private readonly observable: Observable<T>;
 

@@ -1,3 +1,4 @@
+import * as path from 'node:path';
 import {
   apply,
   chain,
@@ -21,19 +22,38 @@ import {
   getComponentFolderName,
   getComponentName,
   getComponentSelectorWithoutSuffix,
-  getDestinationPath, getInputComponentName,
-  getLibraryNameFromPath, getWorkspaceConfig
+  getDestinationPath,
+  getInputComponentName,
+  getLibraryNameFromPath,
+  getWorkspaceConfig
 } from '@o3r/schematics';
-import * as path from 'node:path';
-import { getAddAnalyticsRules } from '../../rule-factories/component/analytics';
-import { getAddConfigurationRules } from '../../rule-factories/component/configuration';
-import { getAddContextRules } from '../../rule-factories/component/context';
-import { getAddFixtureRules } from '../../rule-factories/component/fixture';
-import { getAddLocalizationRules } from '../../rule-factories/component/localization';
-import { getAddThemingRules } from '../../rule-factories/component/theming';
-import { getAddDesignTokenRules } from '../../rule-factories/component/design-token';
-import { NgGenerateComponentSchematicsSchema } from '../schema';
-import { ComponentStructureDef } from '../structures.types';
+import {
+  getAddAnalyticsRules
+} from '../../rule-factories/component/analytics';
+import {
+  getAddConfigurationRules
+} from '../../rule-factories/component/configuration';
+import {
+  getAddContextRules
+} from '../../rule-factories/component/context';
+import {
+  getAddDesignTokenRules
+} from '../../rule-factories/component/design-token';
+import {
+  getAddFixtureRules
+} from '../../rule-factories/component/fixture';
+import {
+  getAddLocalizationRules
+} from '../../rule-factories/component/localization';
+import {
+  getAddThemingRules
+} from '../../rule-factories/component/theming';
+import {
+  NgGenerateComponentSchematicsSchema
+} from '../schema';
+import {
+  ComponentStructureDef
+} from '../structures.types';
 
 export const PRESENTER_FOLDER = 'presenter';
 
@@ -65,7 +85,6 @@ const getTemplateProperties = (options: NgGenerateComponentSchematicsSchema, com
  * @param options
  */
 function ngGenerateComponentPresenterFn(options: NgGenerateComponentSchematicsSchema): Rule {
-
   const fullStructureRequested = options.componentStructure === 'full';
 
   const generateFiles = (tree: Tree, _context: SchematicContext) => {

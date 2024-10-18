@@ -1,7 +1,17 @@
-import type { DesignTokenVariableStructure, TokenKeyRenderer, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import type { CssVariable } from '@o3r/styling';
-import { getCssTokenValueRenderer } from '../css';
-import { isO3rPrivateVariable } from '../design-token.renderer.helpers';
+import type {
+  CssVariable
+} from '@o3r/styling';
+import type {
+  DesignTokenVariableStructure,
+  TokenKeyRenderer,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
+import {
+  getCssTokenValueRenderer
+} from '../css';
+import {
+  isO3rPrivateVariable
+} from '../design-token.renderer.helpers';
 
 /** Options for {@link getMetadataTokenValueRenderer} */
 export interface MetadataTokenValueRendererOptions {
@@ -39,7 +49,7 @@ const resolvePrivateReferences = (refs: DesignTokenVariableStructure[], variable
  */
 export const getMetadataTokenValueRenderer = (options?: MetadataTokenValueRendererOptions): TokenValueRenderer => {
   const tokenVariableNameRenderer = options?.tokenVariableNameRenderer;
-  const cssValueRenderer = options?.cssValueRenderer || getCssTokenValueRenderer({tokenVariableNameRenderer});
+  const cssValueRenderer = options?.cssValueRenderer || getCssTokenValueRenderer({ tokenVariableNameRenderer });
 
   const renderer = (variable: DesignTokenVariableStructure, variableSet: Map<string, DesignTokenVariableStructure>) => {
     const cssType = variable.getType(variableSet);

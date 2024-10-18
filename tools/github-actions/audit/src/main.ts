@@ -1,7 +1,14 @@
-import * as core from '@actions/core';
-import {getExecOutput} from '@actions/exec';
 import * as os from 'node:os';
-import type { GitHubAdvisoryId, NPMAuditReportV1, Severity } from 'audit-types';
+import * as core from '@actions/core';
+import {
+  getExecOutput
+} from '@actions/exec';
+import type {
+  GitHubAdvisoryId,
+  NPMAuditReportV1,
+  Severity
+} from 'audit-types';
+
 type Audit = NPMAuditReportV1.Audit;
 type Advisory = NPMAuditReportV1.Advisory;
 
@@ -84,7 +91,7 @@ function computeYarn4Report(response: string, severityThreshold: Severity): Otte
       : currentReport.highestSeverityFound;
     currentReport.nbVulnerabilities += 1;
     return currentReport;
-  }, {nbVulnerabilities: 0, errors: [], warnings: []} as OtterAuditReport);
+  }, { nbVulnerabilities: 0, errors: [], warnings: [] } as OtterAuditReport);
 }
 
 /**
@@ -110,26 +117,25 @@ function computeYarn3Report(response: string, severityThreshold: Severity): Otte
     .reduce<OtterAuditReport>((currentVulnerabilities, advisory: Advisory) => {
       core.info(`${severities.indexOf(severityThreshold)} - ${severities.indexOf(advisory.severity)}`);
       if (severities.indexOf(severityThreshold) <= severities.indexOf(advisory.severity)) {
-        currentVulnerabilities.errors.push({severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name});
+        currentVulnerabilities.errors.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
       } else {
-        currentVulnerabilities.warnings.push({severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name});
+        currentVulnerabilities.warnings.push({ severity: advisory.severity, overview: advisory.overview, moduleName: advisory.module_name });
       }
       return currentVulnerabilities;
-    }, {errors: [], warnings: [], nbVulnerabilities, highestSeverityFound} as OtterAuditReport);
+    }, { errors: [], warnings: [], nbVulnerabilities, highestSeverityFound } as OtterAuditReport);
 }
 
 async function run(): Promise<void> {
-
   try {
     const severityConfig = core.getInput('severity') as Severity;
     const allWorkspaces = core.getInput('allWorkspaces') === 'true';
     const recursive = core.getInput('recursive') === 'true';
     const environment = core.getInput('environment');
-    const versionOutput = await getExecOutput('yarn --version', [], {cwd: process.env.GITHUB_WORKSPACE});
+    const versionOutput = await getExecOutput('yarn --version', [], { cwd: process.env.GITHUB_WORKSPACE });
     const version = Number.parseInt(versionOutput.stdout.split('.')[0], 10);
     const command = `yarn npm audit --environment ${environment} ${allWorkspaces ? '--all ' : ''}${recursive ? '--recursive ' : ''}--json`;
 
-    const {stdout: report, stderr: err} = await getExecOutput(command, [], {cwd: process.env.GITHUB_WORKSPACE, ignoreReturnCode: true});
+    const { stdout: report, stderr: err } = await getExecOutput(command, [], { cwd: process.env.GITHUB_WORKSPACE, ignoreReturnCode: true });
     core.warning(err);
     core.setOutput('reportJSON', report);
     const reportData: OtterAuditReport = version >= 4 ? computeYarn4Report(report, severityConfig) : computeYarn3Report(report, severityConfig);

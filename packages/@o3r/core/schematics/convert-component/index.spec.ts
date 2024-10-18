@@ -1,14 +1,17 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 
 const ngComponentPath = 'src/components/angular/angular.component.ts';
 
 describe('Convert component generator', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {

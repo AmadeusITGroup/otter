@@ -1,21 +1,39 @@
-import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import * as path from 'node:path';
 import * as fs from 'node:fs';
-import type {PackageJson} from 'type-fest';
-import { createSchematicWithMetricsIfInstalled, findConfigFileRelativePath, getPackageManagerRunner } from '@o3r/schematics';
-import { NgGenerateUpdateSchematicsSchema } from './schema';
+import * as path from 'node:path';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  findConfigFileRelativePath,
+  getPackageManagerRunner
+} from '@o3r/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  NgGenerateUpdateSchematicsSchema
+} from './schema';
 
 /**
  * Rule factory to include `ng add` skeleton
  * @param options
  */
 function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
-
   const targetPath = options.path ? path.posix.join('/', options.path) : '/';
   const packageJsonPath = path.posix.join(targetPath, 'package.json');
 
   return (tree: Tree, context: SchematicContext) => {
-
     // register scripts
     if (tree.exists(packageJsonPath)) {
       const packageJson: PackageJson = JSON.parse(tree.read(packageJsonPath)!.toString());
@@ -38,10 +56,10 @@ function updateTemplatesFn(options: NgGenerateUpdateSchematicsSchema): Rule {
       packageJson.peerDependencies['@angular-devkit/core'] = angularVersion;
       packageJson.peerDependencies['@o3r/schematics'] = otterVersion;
       packageJson.peerDependenciesMeta ||= {};
-      packageJson.peerDependenciesMeta['@angular-devkit/schematics'] = {optional: true};
+      packageJson.peerDependenciesMeta['@angular-devkit/schematics'] = { optional: true };
       packageJson.peerDependenciesMeta['@angular-devkit/core'] = { optional: true };
       packageJson.peerDependenciesMeta['@schematics/angular'] = { optional: true };
-      packageJson.peerDependenciesMeta['@o3r/schematics'] = {optional: true};
+      packageJson.peerDependenciesMeta['@o3r/schematics'] = { optional: true };
       packageJson.devDependencies['@angular-devkit/schematics'] = angularVersion;
       packageJson.devDependencies['@angular-devkit/core'] = angularVersion;
       packageJson.devDependencies['@o3r/schematics'] = otterVersion;

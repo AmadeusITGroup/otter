@@ -1,6 +1,13 @@
-import type { DesignTokenVariableStructure, TokenValueRenderer } from '../../parsers/design-token-parser.interface';
-import type { TokenDefinitionRenderer } from '../design-token.renderer.interface';
-import { getDesignTokenTokenValueRenderer } from './design-token-value.renderers';
+import type {
+  DesignTokenVariableStructure,
+  TokenValueRenderer
+} from '../../parsers/design-token-parser.interface';
+import type {
+  TokenDefinitionRenderer
+} from '../design-token.renderer.interface';
+import {
+  getDesignTokenTokenValueRenderer
+} from './design-token-value.renderers';
 
 /** Options for {@link getDesignTokenTokenDefinitionRenderer} */
 export interface DesignTokenTokenDefinitionRendererOptions {

@@ -1,8 +1,11 @@
-import { mergeDesignTokenTemplates } from './design-token-template.helpers';
-import type { DesignTokenGroupTemplate } from '../..';
+import type {
+  DesignTokenGroupTemplate
+} from '../..';
+import {
+  mergeDesignTokenTemplates
+} from './design-token-template.helpers';
 
 describe('mergeDesignTokenTemplates function', () => {
-
   it('should merge object', () => {
     const templateA: DesignTokenGroupTemplate = {
       field1: {
@@ -56,5 +59,4 @@ describe('mergeDesignTokenTemplates function', () => {
     expect(result.field1.field2).toBeDefined();
     expect(result.field1.field2.$extensions.o3rPrivate).toBe(false);
   });
-
 });

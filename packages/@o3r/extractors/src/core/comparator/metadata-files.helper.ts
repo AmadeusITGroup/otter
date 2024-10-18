@@ -1,7 +1,16 @@
-import { O3rCliError, type SupportedPackageManagers } from '@o3r/schematics';
-import { readFileSync } from 'node:fs';
-import { basename } from 'node:path';
-import type { MigrationCheckGranularity } from './metadata-comparator.interface';
+import {
+  readFileSync
+} from 'node:fs';
+import {
+  basename
+} from 'node:path';
+import {
+  O3rCliError,
+  type SupportedPackageManagers
+} from '@o3r/schematics';
+import type {
+  MigrationCheckGranularity
+} from './metadata-comparator.interface';
 
 /**
  * Returns a file from an npm package.
@@ -10,7 +19,7 @@ import type { MigrationCheckGranularity } from './metadata-comparator.interface'
  * @param packageManager Name of the package manager to use
  * @param cwd working directory
  */
-export async function getFilesFromRegistry(packageRef: string, filePaths: string[], packageManager: SupportedPackageManagers, cwd = process.cwd()): Promise<{[key: string]: string}> {
+export async function getFilesFromRegistry(packageRef: string, filePaths: string[], packageManager: SupportedPackageManagers, cwd = process.cwd()): Promise<{ [key: string]: string }> {
   const npmFileExtractor = await import(packageManager === 'npm'
     ? './package-managers-extractors/npm-file-extractor.helper'
     : './package-managers-extractors/yarn2-file-extractor.helper'
@@ -31,13 +40,13 @@ export function getLocalMetadataFile<T>(metadataPath: string): T {
  * Given a path to a folder and a name pattern, returns the content of the file with the latest version in its name.
  * @param migrationDataFiles Migration data files paths
  */
-export async function getLatestMigrationMetadataFile(migrationDataFiles: string[]): Promise<{version: string; path: string} | undefined> {
-  let latestVersionFile: {version: string; path: string} | undefined;
+export async function getLatestMigrationMetadataFile(migrationDataFiles: string[]): Promise<{ version: string; path: string } | undefined> {
+  let latestVersionFile: { version: string; path: string } | undefined;
   for (const filePath of migrationDataFiles) {
     const version = /\d+(?:\.\d+)*/.exec(basename(filePath))?.[0];
     if (version) {
       const { gt } = await import('semver');
-      latestVersionFile = !latestVersionFile || gt(version, latestVersionFile.version) ? {version, path: filePath} : latestVersionFile;
+      latestVersionFile = !latestVersionFile || gt(version, latestVersionFile.version) ? { version, path: filePath } : latestVersionFile;
     }
   }
   return latestVersionFile;

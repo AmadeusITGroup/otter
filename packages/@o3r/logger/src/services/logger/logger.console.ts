@@ -1,6 +1,12 @@
 /* eslint-disable no-console */
-import { Action, ActionReducer, MetaReducer } from '@ngrx/store';
-import type { LoggerClient } from './logger.client';
+import {
+  Action,
+  ActionReducer,
+  MetaReducer
+} from '@ngrx/store';
+import type {
+  LoggerClient
+} from './logger.client';
 
 /**
  * Console logger used to display the logs in the browser console

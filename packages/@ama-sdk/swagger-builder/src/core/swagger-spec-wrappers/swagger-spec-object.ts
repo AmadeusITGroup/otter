@@ -1,6 +1,14 @@
-import type { Schema, Spec } from 'swagger-schema-official';
-import type { AvailableSwaggerSpecTargets, SwaggerSpec } from './swagger-spec.interface';
-import { sanitizeDefinition } from './utils';
+import type {
+  Schema,
+  Spec
+} from 'swagger-schema-official';
+import type {
+  AvailableSwaggerSpecTargets,
+  SwaggerSpec
+} from './swagger-spec.interface';
+import {
+  sanitizeDefinition
+} from './utils';
 
 export class SwaggerSpecObject implements SwaggerSpec {
   /** @inheritdoc */

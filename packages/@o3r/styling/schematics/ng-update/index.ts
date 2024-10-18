@@ -1,8 +1,13 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable camelcase */
 
-import { chain, Rule } from '@angular-devkit/schematics';
-import { updateScssImports } from './v10.0/update-scss-imports';
+import {
+  chain,
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  updateScssImports
+} from './v10.0/update-scss-imports';
 
 /**
  * update of Otter library V10.0

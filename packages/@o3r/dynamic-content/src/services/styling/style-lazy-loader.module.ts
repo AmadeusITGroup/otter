@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
-import { DynamicContentModule } from '../dynamic-content/index';
+import {
+  NgModule
+} from '@angular/core';
+import {
+  DynamicContentModule
+} from '../dynamic-content/index';
 
 @NgModule({
   imports: [DynamicContentModule]

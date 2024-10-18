@@ -1,12 +1,37 @@
-import { ChangeDetectorRef } from '@angular/core';
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
-import { Observable, of } from 'rxjs';
-import { LocalizationTranslatePipe, O3rLocalizationTranslatePipe } from './localization-translate.pipe';
-import { createLocalizationConfiguration, LocalizationModule } from './localization.module';
-import { LocalizationService } from './localization.service';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  ChangeDetectorRef
+} from '@angular/core';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+import {
+  Observable,
+  of
+} from 'rxjs';
+import {
+  LocalizationTranslatePipe,
+  O3rLocalizationTranslatePipe
+} from './localization-translate.pipe';
+import {
+  createLocalizationConfiguration,
+  LocalizationModule
+} from './localization.module';
+import {
+  LocalizationService
+} from './localization.service';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 
 const translations: any = {
   en: {
@@ -44,9 +69,9 @@ describe('LocalizationTranslatePipe', () => {
     it('should throw when trying to deactivate the translation', async () => {
       await TestBed.configureTestingModule({
         imports: [
-          LocalizationModule.forRoot(() => ({language: 'en'})),
+          LocalizationModule.forRoot(() => ({ language: 'en' })),
           TranslateModule.forRoot({
-            loader: {provide: TranslateLoader, useClass: FakeLoader}
+            loader: { provide: TranslateLoader, useClass: FakeLoader }
           })
         ],
         providers: [LocalizationService]
@@ -69,16 +94,16 @@ describe('LocalizationTranslatePipe', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
           imports: [
-            LocalizationModule.forRoot(() => ({language: 'en'})),
+            LocalizationModule.forRoot(() => ({ language: 'en' })),
             TranslateModule.forRoot({
-              loader: {provide: TranslateLoader, useClass: FakeLoader}
+              loader: { provide: TranslateLoader, useClass: FakeLoader }
             })
           ],
           providers: [
             LocalizationService,
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
-              useFactory: () => createLocalizationConfiguration({enableTranslationDeactivation: true})
+              useFactory: () => createLocalizationConfiguration({ enableTranslationDeactivation: true })
             }]
         }).compileComponents();
 
@@ -113,7 +138,7 @@ describe('LocalizationTranslatePipe', () => {
       beforeEach(async () => {
         await TestBed.configureTestingModule({
           imports: [
-            LocalizationModule.forRoot(() => ({language: 'en'})),
+            LocalizationModule.forRoot(() => ({ language: 'en' })),
             TranslateModule.forRoot({
               loader: {
                 provide: TranslateLoader,
@@ -125,7 +150,7 @@ describe('LocalizationTranslatePipe', () => {
             LocalizationService,
             {
               provide: LOCALIZATION_CONFIGURATION_TOKEN,
-              useFactory: () => createLocalizationConfiguration({debugMode: true, enableTranslationDeactivation: true})
+              useFactory: () => createLocalizationConfiguration({ debugMode: true, enableTranslationDeactivation: true })
             }
           ]
         }).compileComponents();

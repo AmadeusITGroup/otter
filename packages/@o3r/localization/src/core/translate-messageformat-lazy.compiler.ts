@@ -1,6 +1,16 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { TranslateCompiler } from '@ngx-translate/core';
-import { IntlMessageFormat, Options } from 'intl-messageformat';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional
+} from '@angular/core';
+import {
+  TranslateCompiler
+} from '@ngx-translate/core';
+import {
+  IntlMessageFormat,
+  Options
+} from 'intl-messageformat';
 
 /**
  * Options for Lazy Message Format compiler
@@ -36,7 +46,6 @@ export const MESSAGE_FORMAT_CONFIG = new InjectionToken<LazyMessageFormatConfig>
  */
 @Injectable()
 export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
-
   /** Configuration */
   private readonly config: LazyMessageFormatConfig;
 
@@ -62,8 +71,8 @@ export class TranslateMessageFormatLazyCompiler extends TranslateCompiler {
   }
 
   /** @inheritDoc */
-  public compileTranslations(translations: {[x: string]: any}, lang: string) {
-    type CompiledTranslationMap = {[key in keyof typeof translations]: (params: any) => string};
+  public compileTranslations(translations: { [x: string]: any }, lang: string) {
+    type CompiledTranslationMap = { [key in keyof typeof translations]: (params: any) => string };
 
     const compilingStrategy = this.config.enableCache
       ? (acc: CompiledTranslationMap, key: string) => {

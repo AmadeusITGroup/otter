@@ -1,6 +1,13 @@
-import type { Spec } from 'swagger-schema-official';
-import { SwaggerSpec } from './swagger-spec.interface';
-import { getYamlFullPath, isOuterRefPath } from './utils';
+import type {
+  Spec
+} from 'swagger-schema-official';
+import {
+  SwaggerSpec
+} from './swagger-spec.interface';
+import {
+  getYamlFullPath,
+  isOuterRefPath
+} from './utils';
 
 export abstract class SwaggerSpecFile implements SwaggerSpec {
   /** Determine if the YAML file has been loaded */

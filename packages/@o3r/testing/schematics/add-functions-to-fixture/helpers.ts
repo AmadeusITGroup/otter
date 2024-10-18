@@ -1,4 +1,7 @@
-import { MethodType, returnType } from './models';
+import {
+  MethodType,
+  returnType
+} from './models';
 
 const getMethodName = (selector: string, method: MethodType) => {
   // PascalCase converter

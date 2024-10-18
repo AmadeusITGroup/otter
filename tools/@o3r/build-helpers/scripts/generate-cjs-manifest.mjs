@@ -2,9 +2,12 @@
  * Generate a basic package.json file, in the specific folders, with explicity type defined to 'commonjs'
  */
 
-import minimist from 'minimist';
-import { existsSync, promises as fs } from 'node:fs';
+import {
+  existsSync,
+  promises as fs
+} from 'node:fs';
 import * as path from 'node:path';
+import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 
@@ -21,14 +24,14 @@ void (async () => {
     }
 
     if (existsSync(packageJsonPath)) {
-      const packageJson = JSON.parse(await fs.readFile(packageJsonPath, {encoding: 'utf8'}));
+      const packageJson = JSON.parse(await fs.readFile(packageJsonPath, { encoding: 'utf8' }));
       if (packageJson.type && !/commonjs/i.test(packageJson.type)) {
         throw new Error(`The file ${packageJsonPath} already exists and has a different type`);
       }
       packageJson.type = 'commonjs';
       await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2));
     } else {
-      await fs.writeFile(packageJsonPath, JSON.stringify({type: 'commonjs'}, null, 2));
+      await fs.writeFile(packageJsonPath, JSON.stringify({ type: 'commonjs' }, null, 2));
     }
   });
 

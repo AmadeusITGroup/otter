@@ -1,14 +1,21 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import { updateConfigurationExtractorCategories } from './configuration-extractor-categories';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  lastValueFrom
+} from 'rxjs';
+import {
+  updateConfigurationExtractorCategories
+} from './configuration-extractor-categories';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', '..', 'migration.json');
 
 describe('Update categories in configuration extractor', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -22,7 +29,7 @@ describe('Update categories in configuration extractor', () => {
     const runner = new SchematicTestRunner('migrations', collectionPath);
     const tree = await lastValueFrom(runner.callRule(updateConfigurationExtractorCategories(), initialTree));
 
-    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.ts.template'), {encoding: 'utf8'}));
+    expect(tree.readText('/src/mock.component.ts')).toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'config.mocks.ts.template'), { encoding: 'utf8' }));
   });
 
   it('should update config files', async () => {

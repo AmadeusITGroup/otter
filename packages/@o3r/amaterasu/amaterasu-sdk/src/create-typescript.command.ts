@@ -1,7 +1,15 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Context, promiseSpawn } from '@ama-terasu/core';
-import { promises as fs, readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  promises as fs,
+  readFileSync
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import {
+  Context,
+  promiseSpawn
+} from '@ama-terasu/core';
 
 /** Option to create an application */
 export interface CreateTypescriptSdkOptions {
@@ -30,7 +38,7 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
   const cwd = resolve(process.cwd(), options.path);
   const inPackageCwd = resolve(cwd, 'SDK');
   const npmClient = options.yarn ? 'yarn' : 'npm';
-  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), {encoding: 'utf8'})) as {version: string | undefined};
+  const { version } = JSON.parse(readFileSync(resolve(__dirname, '..', 'package.json'), { encoding: 'utf8' })) as { version: string | undefined };
 
   const npmrcFile = 'tmp.npmrc';
   const deps = {
@@ -55,13 +63,13 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     Promise.all([
       fs.unlink(resolve(cwd, npmrcFile)),
       fs.unlink(resolve(cwd, 'package.json')),
-      fs.rm(resolve(cwd, 'node_modules'), {force: true, recursive: true})
+      fs.rm(resolve(cwd, 'node_modules'), { force: true, recursive: true })
     ]),
     'Setup material removed'
   );
 
   await context.getSpinner(`Installing dependencies with ${npmClient}...`).fromPromise(
-    promiseSpawn(`${npmClient} install`, {cwd: inPackageCwd, stderrLogger: logger.debug, logger}),
+    promiseSpawn(`${npmClient} install`, { cwd: inPackageCwd, stderrLogger: logger.debug, logger }),
     `NPM Dependency installed (with ${npmClient})`
   );
 
@@ -72,7 +80,7 @@ export const createTypescriptSdk = async (context: Context, options: CreateTypes
     );
 
     await context.getSpinner('Generating SDK based on specification...').fromPromise(
-      promiseSpawn(`${npmClient} run swagger:regen`, {cwd: inPackageCwd, stderrLogger: logger.debug, logger}),
+      promiseSpawn(`${npmClient} run swagger:regen`, { cwd: inPackageCwd, stderrLogger: logger.debug, logger }),
       `SDK Code generated (in ${resolve(inPackageCwd, 'src')})`
     );
   }

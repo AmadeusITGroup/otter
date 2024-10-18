@@ -1,17 +1,44 @@
-import { NpmRegistryPackage, NPMRegistrySearchResponse, OTTER_MODULE_KEYWORD, OTTER_MODULE_PREFIX, OTTER_MODULE_SUPPORTED_SCOPES, OtterModuleTag } from './modules.constants';
-import type { IncomingMessage } from 'node:http';
-import type { JsonObject, PackageJson } from 'type-fest';
-import type { logging } from '@angular-devkit/core';
-import { findClosestPackageJson } from '../utility/package-version';
-import { satisfies } from 'semver';
-import { get } from 'node:https';
-import { EOL } from 'node:os';
+import {
+  execFile
+} from 'node:child_process';
 import * as fs from 'node:fs';
+import type {
+  IncomingMessage
+} from 'node:http';
+import {
+get
+} from 'node:https'
+import {
+EOL
+} from 'node:os'
 import * as path from 'node:path';
 import { promisify } from 'node:util';
-import { execFile } from 'node:child_process';
+import type {
+  logging
+} from '@angular-devkit/core';
 import * as chalk from 'chalk';
-import { getPackageManager, type PackageManagerOptions } from '../utility/index';
+import {
+  satisfies
+} from 'semver';
+import type {
+  JsonObject,
+  PackageJson
+} from 'type-fest';
+import {
+  getPackageManager,
+  type PackageManagerOptions
+} from '../utility/index';
+import {
+  findClosestPackageJson
+} from '../utility/package-version';
+import {
+  NpmRegistryPackage,
+  NPMRegistrySearchResponse,
+  OTTER_MODULE_KEYWORD,
+  OTTER_MODULE_PREFIX,
+  OTTER_MODULE_SUPPORTED_SCOPES,
+  OtterModuleTag
+} from './modules.constants';
 
 const DEFAULT_NPM_REGISTRY = 'registry.npmjs.org';
 

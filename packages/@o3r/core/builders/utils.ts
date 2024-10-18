@@ -1,4 +1,6 @@
-import type { BuilderWrapper } from '@o3r/telemetry';
+import type {
+  BuilderWrapper
+} from '@o3r/telemetry';
 
 const noopBuilderWrapper: BuilderWrapper = (fn) => fn;
 

@@ -1,5 +1,9 @@
-import { CpuInfo } from 'node:os';
-import type { Logger } from '@o3r/core';
+import {
+  CpuInfo
+} from 'node:os';
+import type {
+  Logger
+} from '@o3r/core';
 
 /** Map of timings */
 export type Timing = { [key: string]: number[] };

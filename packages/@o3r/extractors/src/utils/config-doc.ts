@@ -1,8 +1,21 @@
-import { DocComment, TSDocConfiguration, TSDocParser, TSDocTagDefinition, TSDocTagSyntaxKind } from '@microsoft/tsdoc';
-import type { CategoryDescription, ConfigPropertyWidget, ConfigPropertyWidgetParameters } from '@o3r/core';
+import {
+  DocComment,
+  TSDocConfiguration,
+  TSDocParser,
+  TSDocTagDefinition,
+  TSDocTagSyntaxKind
+} from '@microsoft/tsdoc';
+import type {
+  CategoryDescription,
+  ConfigPropertyWidget,
+  ConfigPropertyWidgetParameters
+} from '@o3r/core';
 import * as ts from 'typescript';
-import { getInlineBlockTagContentFromDocComment, getInlineSummaryFromDocComment, getTsDocTextFromNode } from './tsdoc';
-
+import {
+  getInlineBlockTagContentFromDocComment,
+  getInlineSummaryFromDocComment,
+  getTsDocTextFromNode
+} from './tsdoc';
 
 /** Configuration information extracted from the TSDoc */
 export interface ConfigDocInformation {
@@ -75,7 +88,6 @@ export function getWidgetInformationFromDocComment(docText: string): ConfigPrope
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         acc[paramName] = JSON.parse(valueText);
       } catch (e: any) {
-
         throw new Error(`Invalid JSON format:  ${valueText}\n${e.toString()}`);
       }
 
@@ -153,11 +165,11 @@ export function getCategoriesFromDocText(docComment: string): CategoryDescriptio
       if (firstSpaceIndex === -1) {
         const categoryName = category;
         const categoryLabel = category.charAt(0).toUpperCase() + category.slice(1);
-        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
+        categoriesWithDescription.push({ name: categoryName, label: categoryLabel });
       } else {
         const categoryName = category.slice(0, firstSpaceIndex);
         const categoryLabel = category.slice(firstSpaceIndex + 1);
-        categoriesWithDescription.push({name: categoryName, label: categoryLabel});
+        categoriesWithDescription.push({ name: categoryName, label: categoryLabel });
       }
     }
   }

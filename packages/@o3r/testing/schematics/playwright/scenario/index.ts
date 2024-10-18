@@ -1,7 +1,27 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { createSchematicWithMetricsIfInstalled, getDestinationPath, getWorkspaceConfig, O3rCliError } from '@o3r/schematics';
-import { NgGeneratePlaywrightScenarioSchematicsSchema } from './schema';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  createSchematicWithMetricsIfInstalled,
+  getDestinationPath,
+  getWorkspaceConfig,
+  O3rCliError
+} from '@o3r/schematics';
+import {
+  NgGeneratePlaywrightScenarioSchematicsSchema
+} from './schema';
 
 /**
  * Add a Playwright scenario to an Otter project

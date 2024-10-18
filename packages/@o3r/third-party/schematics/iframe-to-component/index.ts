@@ -1,4 +1,8 @@
 import {
+  dirname,
+  posix
+} from 'node:path';
+import {
   chain,
   externalSchematic,
   noop,
@@ -23,9 +27,10 @@ import {
   O3rCliError,
   sortClassElement
 } from '@o3r/schematics';
-import { dirname, posix } from 'node:path';
 import * as ts from 'typescript';
-import type { NgAddIframeSchematicsSchema } from './schema';
+import type {
+  NgAddIframeSchematicsSchema
+} from './schema';
 
 const iframeProperties = [
   'frame',
@@ -88,7 +93,6 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
           }
         ]),
         () => {
-
           const sourceFile = ts.createSourceFile(
             options.path,
             tree.readText(options.path),
@@ -126,13 +130,11 @@ export function ngAddIframeFn(options: NgAddIframeSchematicsSchema): Rule {
                     && classElement.name.escapedText.toString() === 'subscriptions'
                   );
 
-
                   const propertiesToAdd = generateClassElementsFromString(`
                     private frame = viewChild.required<ElementRef<HTMLIFrameElement>>('frame');
                     private bridge?: IframeBridge;
                     ${hasSubscriptions ? '' : 'private subscriptions: Subscription[] = [];'}
                   `);
-
 
                   const newNgAfterViewInit = getSimpleUpdatedMethod(node, factory, 'ngAfterViewInit', generateBlockStatementsFromString(`
                   const nativeElem = this.frame().nativeElement;

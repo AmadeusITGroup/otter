@@ -1,4 +1,6 @@
-import type { Output } from '@o3r/core';
+import type {
+  Output
+} from '@o3r/core';
 
 /**
  * Represents a converter from Output to a ISchema

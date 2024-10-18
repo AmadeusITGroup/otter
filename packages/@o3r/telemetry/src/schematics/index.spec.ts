@@ -1,3 +1,17 @@
+import {
+  callRule,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  lastValueFrom
+} from 'rxjs';
+import {
+  createSchematicWithMetrics,
+  SchematicWrapper
+} from './index';
+
 jest.mock('../environment/index', () => {
   const original = jest.requireActual('../environment/index');
   return {
@@ -16,10 +30,6 @@ jest.mock('node:perf_hooks', () => {
     }
   };
 });
-
-import { callRule, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { lastValueFrom } from 'rxjs';
-import { createSchematicWithMetrics, SchematicWrapper } from './index';
 
 let context: SchematicContext;
 let debug: jest.Mock;
@@ -86,7 +96,9 @@ describe('createSchematicWithMetricsIfInstalled', () => {
 
   it('should throw the original error and log the error in the data', async () => {
     const error = new Error('error example');
-    const rule = jest.fn(() => { throw error; });
+    const rule = jest.fn(() => {
+      throw error;
+    });
 
     const originalSchematic = jest.fn((_opts: any): Rule => rule);
     const schematic = createSchematicWithMetrics(originalSchematic);

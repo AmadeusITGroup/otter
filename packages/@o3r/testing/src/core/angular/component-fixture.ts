@@ -1,12 +1,26 @@
 /* eslint-disable new-cap */
-import {By} from '@angular/platform-browser';
-import {FixtureUsageError} from '../../errors/index';
-import type {ComponentFixtureProfile} from '../component-fixture';
-import {withTimeout} from '../helpers';
-import {O3rElement, O3rElementConstructor} from './element';
-import {O3rGroup, O3rGroupConstructor} from './group';
+import {
+  By
+} from '@angular/platform-browser';
+import {
+  FixtureUsageError
+} from '../../errors/index';
+import type {
+  ComponentFixtureProfile
+} from '../component-fixture';
+import {
+  withTimeout
+} from '../helpers';
+import {
+  O3rElement,
+  O3rElementConstructor
+} from './element';
+import {
+  O3rGroup,
+  O3rGroupConstructor
+} from './group';
 
-export type {ComponentFixtureProfile, Constructable, FixtureWithCustom} from '../component-fixture';
+export type { ComponentFixtureProfile, Constructable, FixtureWithCustom } from '../component-fixture';
 
 /**
  * Implementation of the fixture dedicated to angular, hence using angular testing framework.
@@ -209,7 +223,7 @@ export class O3rComponentFixture<V extends O3rElement = O3rElement> implements C
 
   /** @inheritdoc */
   public getSubComponents(): Promise<{ [componentName: string]: ComponentFixtureProfile[] }> {
-    return Promise.resolve({block: [this]});
+    return Promise.resolve({ block: [this] });
   }
 
   /** @inheritDoc */

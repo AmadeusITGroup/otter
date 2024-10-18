@@ -1,6 +1,12 @@
-import { NodePackageName } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
-import type { SupportedPackageManagers } from '@o3r/schematics';
+import {
+  NodePackageInstallTask
+} from '@angular-devkit/schematics/tasks';
+import {
+  NodePackageName
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import type {
+  SupportedPackageManagers
+} from '@o3r/schematics';
 
 /**
  * Get the Package Manager
@@ -33,7 +39,6 @@ export class DevInstall extends NodePackageInstallTask {
     this.packageManager = getPackageManagerName(options?.packageManager);
   }
 
-
   /** @inheritdoc */
   public toConfiguration() {
     return {
@@ -59,7 +64,6 @@ export class NpmInstall extends NodePackageInstallTask {
     super(options as any);
     this.packageManager = getPackageManagerName(options?.packageManager);
   }
-
 
   /** @inheritdoc */
   public toConfiguration() {

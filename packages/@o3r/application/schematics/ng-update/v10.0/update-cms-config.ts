@@ -1,5 +1,9 @@
-import type { Rule } from '@angular-devkit/schematics';
-import { basename } from 'node:path';
+import {
+  basename
+} from 'node:path';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
 
 /**
  * Update Otter cms.json in an Angular Project

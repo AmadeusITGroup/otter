@@ -1,7 +1,18 @@
-import {DatePipe} from '@angular/common';
-import {ChangeDetectorRef, OnDestroy, Pipe, PipeTransform} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {LocalizationService} from './localization.service';
+import {
+  DatePipe
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationService
+} from './localization.service';
 
 /**
  * Native angular DatePipe taking the current lang into consideration

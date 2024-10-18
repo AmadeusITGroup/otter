@@ -1,16 +1,18 @@
-import { RequestOptions } from '../core';
+import {
+  RequestOptions
+} from '../core';
 import {
   akamaiTelemetryRetrieverFactory,
   BotProtectionFingerprintRequest,
-  BotProtectionFingerprintRetriever, ImpervaProtection, impervaProtectionRetrieverFactory
+  BotProtectionFingerprintRetriever,
+  ImpervaProtection,
+  impervaProtectionRetrieverFactory
 } from './bot-protection-fingerprint.request';
 
 declare let global: any;
 
 describe('BotProtectionFingerprint', () => {
-
   describe('Retrievers', () => {
-
     describe('impervaProtectionRetrieverFactory', () => {
       let consoleMock;
       let windowBackup: any;
@@ -44,13 +46,11 @@ describe('BotProtectionFingerprint', () => {
       });
 
       afterEach(() => {
-
         global.window = windowBackup;
         consoleMock.mockReset();
       });
 
       it('Should return undefined and log if no Protection object is received.', async () => {
-
         const promise = retriever();
         await jest.runAllTimersAsync();
         expect(await promise).toBeUndefined();
@@ -92,7 +92,6 @@ describe('BotProtectionFingerprint', () => {
         // eslint-disable-next-line no-console
         expect(console.error).not.toHaveBeenCalled();
       });
-
     });
 
     describe('akamaiTelemetryRetrieverFactory', () => {
@@ -100,22 +99,25 @@ describe('BotProtectionFingerprint', () => {
         expect(akamaiTelemetryRetrieverFactory()()).toBeUndefined();
         expect(akamaiTelemetryRetrieverFactory({} as any)()).toBeUndefined();
         // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
-        expect(akamaiTelemetryRetrieverFactory({get_telemetry: 'test'} as any)()).toBeUndefined();
+        expect(akamaiTelemetryRetrieverFactory({ get_telemetry: 'test' } as any)()).toBeUndefined();
       });
 
       it('Should return telemetry', () => {
         // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
-        expect(akamaiTelemetryRetrieverFactory({get_telemetry: () => { return 'telemetryValue';}})()).toBe('telemetryValue');
+        expect(akamaiTelemetryRetrieverFactory({ get_telemetry: () => {
+          return 'telemetryValue';
+        } })()).toBe('telemetryValue');
         global.window = {};
         // eslint-disable-next-line @typescript-eslint/naming-convention,camelcase
-        global.window.bmak = {get_telemetry: () => { return 'telemetryValue2';}};
+        global.window.bmak = { get_telemetry: () => {
+          return 'telemetryValue2';
+        } };
 
         expect(akamaiTelemetryRetrieverFactory()()).toBe('telemetryValue2');
         global.window = undefined;
       });
     });
   });
-
 
   describe('Plug-in', () => {
     let mockedRequest: RequestOptions;
@@ -215,7 +217,6 @@ describe('BotProtectionFingerprint', () => {
         pollOnlyOnce: false
       }).load();
 
-
       let promise = plugin.transform(mockedRequest);
       await jest.runAllTimersAsync();
       await promise;
@@ -252,6 +253,5 @@ describe('BotProtectionFingerprint', () => {
 
       expect(fingerprintRetriever).toHaveBeenCalledTimes(6);
     });
-
   });
 });

@@ -1,10 +1,13 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
 
 /**
  * Plugin to change the request url
  */
 export class UrlRewriteRequest implements RequestPlugin {
-
   private readonly urlRewriter: (url: string) => string | Promise<string>;
 
   /**
@@ -23,5 +26,4 @@ export class UrlRewriteRequest implements RequestPlugin {
       }
     };
   }
-
 }

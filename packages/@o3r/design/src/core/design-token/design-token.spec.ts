@@ -1,4 +1,20 @@
 import {
+  promises as fs
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import {
+  validate
+} from 'jsonschema';
+import type {
+  DesignTokenSpecification
+} from './design-token-specification.interface';
+import {
+  parseDesignToken,
+  TokenKeyRenderer
+} from './parsers/index';
+import {
   computeFileToUpdatePath,
   DesignTokenRendererOptions,
   getCssStyleContentUpdater,
@@ -8,11 +24,6 @@ import {
   getSassTokenDefinitionRenderer,
   renderDesignTokens
 } from './renderers/index';
-import { parseDesignToken, TokenKeyRenderer } from './parsers/index';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from './design-token-specification.interface';
-import { validate } from 'jsonschema';
 
 describe('Design Token generator', () => {
   const AUTO_GENERATED_START = '/* --- BEGIN THEME Test --- */';
@@ -20,13 +31,12 @@ describe('Design Token generator', () => {
   let exampleVariable!: DesignTokenSpecification;
 
   beforeAll(async () => {
-    exampleVariable = {document: JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), {encoding: 'utf8'}))};
+    exampleVariable = { document: JSON.parse(await fs.readFile(resolve(__dirname, '../../../testing/mocks/design-token-theme.json'), { encoding: 'utf8' })) };
   });
 
   describe('CSS renderer', () => {
-
     const renderDesignTokensOptions = {
-      styleContentUpdater: getCssStyleContentUpdater({startTag: AUTO_GENERATED_START, endTag: AUTO_GENERATED_END})
+      styleContentUpdater: getCssStyleContentUpdater({ startTag: AUTO_GENERATED_START, endTag: AUTO_GENERATED_END })
     };
 
     test('should render variable in CSS', async () => {
@@ -36,7 +46,6 @@ describe('Design Token generator', () => {
       const existsFile = jest.fn().mockReturnValue(true);
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
-
 
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
@@ -61,7 +70,6 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -82,8 +90,7 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
       const tokenVariableNameRenderer: TokenKeyRenderer = (variable) => prefix + variable.tokenReferenceName.replace(/\./g, '-');
-      const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({tokenVariableNameRenderer});
-
+      const tokenDefinitionRenderer = getCssTokenDefinitionRenderer({ tokenVariableNameRenderer });
 
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
@@ -113,7 +120,6 @@ describe('Design Token generator', () => {
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
 
-
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -140,7 +146,6 @@ describe('Design Token generator', () => {
         privateDefinitionRenderer: getSassTokenDefinitionRenderer()
       });
 
-
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
         determineFileToUpdate,
@@ -150,7 +155,6 @@ describe('Design Token generator', () => {
       });
 
       expect(result).not.toContain(expectedSassVar);
-
 
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,
@@ -184,7 +188,6 @@ describe('Design Token generator', () => {
       const existsFile = jest.fn().mockReturnValue(true);
       const determineFileToUpdate = computeFileToUpdatePath('.');
       const designToken = parseDesignToken(exampleVariable);
-
 
       await renderDesignTokens(designToken, {
         ...renderDesignTokensOptions,

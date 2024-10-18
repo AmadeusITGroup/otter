@@ -1,7 +1,18 @@
-import { DecimalPipe } from '@angular/common';
-import {ChangeDetectorRef, OnDestroy, Pipe, PipeTransform} from '@angular/core';
-import {Subscription} from 'rxjs';
-import {LocalizationService} from './localization.service';
+import {
+  DecimalPipe
+} from '@angular/common';
+import {
+  ChangeDetectorRef,
+  OnDestroy,
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationService
+} from './localization.service';
 
 /**
  * Native angular DecimalPipe taking the current lang into consideration

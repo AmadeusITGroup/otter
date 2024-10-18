@@ -1,5 +1,10 @@
-import { MockAdapter } from '../../fwk/index';
-import { FetchPluginContext, RequestOptions } from '../core/index';
+import {
+  MockAdapter
+} from '../../fwk/index';
+import {
+  FetchPluginContext,
+  RequestOptions
+} from '../core/index';
 
 /**
  * Mock Fetch Plugin options

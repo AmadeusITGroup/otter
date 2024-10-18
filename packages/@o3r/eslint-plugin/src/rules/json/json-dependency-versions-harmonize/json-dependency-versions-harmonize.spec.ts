@@ -1,10 +1,15 @@
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { RuleTester } from '@typescript-eslint/rule-tester';
-import jsonParser from 'jsonc-eslint-parser';
 import * as path from 'node:path';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
+import jsonParser from 'jsonc-eslint-parser';
+import jsonDependencyVersionsHarmonize from './json-dependency-versions-harmonize';
 
 const virtualFileSystem = useVirtualFileSystem();
-import jsonDependencyVersionsHarmonize from './json-dependency-versions-harmonize';
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -39,11 +44,11 @@ const fakeFolder = path.resolve('/fake-folder');
 const packageToLint = path.join(fakeFolder, 'local', 'packages', 'my-package', 'package.json');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
   await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
 
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), {recursive: true});
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), { recursive: true });
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), { recursive: true });
   await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 
   await virtualFileSystem.promises.writeFile(packageToLint, '{}');

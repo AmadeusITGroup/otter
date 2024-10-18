@@ -1,4 +1,6 @@
-import { StorybookStoryConfiguration } from '../types';
+import {
+  StorybookStoryConfiguration
+} from '../types';
 
 /** Configuration argument name prefix */
 export const CONFIGURATION_PREFIX = 'config-';

@@ -1,18 +1,58 @@
-import { BidiModule, Directionality } from '@angular/cdk/bidi';
-import { CommonModule, CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
-import { InjectionToken, LOCALE_ID, ModuleWithProviders, NgModule, Optional } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { DynamicContentModule } from '@o3r/dynamic-content';
-import { DEFAULT_LOCALIZATION_CONFIGURATION, LocalizationConfiguration } from '../core';
-import { LocalizationTranslateDirective } from './localization-translate.directive';
-import { LocalizationTranslatePipe, O3rLocalizationTranslatePipe } from './localization-translate.pipe';
-import { LocalizationService } from './localization.service';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
-import { LocalizedCurrencyPipe } from './localized-currency.pipe';
-import { LocalizedDatePipe } from './localized-date.pipe';
-import { LocalizedDecimalPipe } from './localized-decimal.pipe';
-import { TextDirectionService } from './text-direction.service';
-import { TextDirectionality } from './text-directionality.service';
+import {
+  BidiModule,
+  Directionality
+} from '@angular/cdk/bidi';
+import {
+  CommonModule,
+  CurrencyPipe,
+  DatePipe,
+  DecimalPipe
+} from '@angular/common';
+import {
+  InjectionToken,
+  LOCALE_ID,
+  ModuleWithProviders,
+  NgModule,
+  Optional
+} from '@angular/core';
+import {
+  TranslateModule
+} from '@ngx-translate/core';
+import {
+  DynamicContentModule
+} from '@o3r/dynamic-content';
+import {
+  DEFAULT_LOCALIZATION_CONFIGURATION,
+  LocalizationConfiguration
+} from '../core';
+import {
+  LocalizationTranslateDirective
+} from './localization-translate.directive';
+import {
+  LocalizationTranslatePipe,
+  O3rLocalizationTranslatePipe
+} from './localization-translate.pipe';
+import {
+  LocalizationService
+} from './localization.service';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
+import {
+  LocalizedCurrencyPipe
+} from './localized-currency.pipe';
+import {
+  LocalizedDatePipe
+} from './localized-date.pipe';
+import {
+  LocalizedDecimalPipe
+} from './localized-decimal.pipe';
+import {
+  TextDirectionService
+} from './text-direction.service';
+import {
+  TextDirectionality
+} from './text-directionality.service';
 
 /**
  * creates LocalizationConfiguration, which is used if the application
@@ -41,12 +81,12 @@ export const CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN = new InjectionToken<Partia
   imports: [TranslateModule, BidiModule, DynamicContentModule, CommonModule],
   exports: [TranslateModule, O3rLocalizationTranslatePipe, LocalizationTranslatePipe, LocalizationTranslateDirective, LocalizedDatePipe, LocalizedDecimalPipe, LocalizedCurrencyPipe],
   providers: [
-    {provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]]},
-    {provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService]},
-    {provide: Directionality, useClass: TextDirectionality},
-    {provide: DatePipe, useClass: LocalizedDatePipe},
-    {provide: DecimalPipe, useClass: LocalizedDecimalPipe},
-    {provide: CurrencyPipe, useClass: LocalizedCurrencyPipe},
+    { provide: LOCALIZATION_CONFIGURATION_TOKEN, useFactory: createLocalizationConfiguration, deps: [[new Optional(), CUSTOM_LOCALIZATION_CONFIGURATION_TOKEN]] },
+    { provide: LOCALE_ID, useFactory: localeIdNgBridge, deps: [LocalizationService] },
+    { provide: Directionality, useClass: TextDirectionality },
+    { provide: DatePipe, useClass: LocalizedDatePipe },
+    { provide: DecimalPipe, useClass: LocalizedDecimalPipe },
+    { provide: CurrencyPipe, useClass: LocalizedCurrencyPipe },
     TextDirectionService
   ]
 })

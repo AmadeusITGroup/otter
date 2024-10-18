@@ -1,9 +1,22 @@
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { WorkspaceLayout, WorkspaceProject, WorkspaceSchema } from '../interfaces/index';
-import { getSchematicOptions } from './collection';
-import type { PackageJson } from 'type-fest';
-import { getWorkspaceConfig } from './loaders';
+import type {
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import type {
+  WorkspaceLayout,
+  WorkspaceProject,
+  WorkspaceSchema
+} from '../interfaces/index';
+import {
+  getSchematicOptions
+} from './collection';
+import {
+  getWorkspaceConfig
+} from './loaders';
 
 /**
  * Find the relative path to a configuration file at the monorepo root
@@ -78,7 +91,6 @@ export function getPackagesBaseRootFolder(tree: Tree, context: SchematicContext,
   const nxExplicitDir = configName && isNxContext(tree) && (tree.readJson('/nx.json') as any)?.workspaceLayout[configName];
 
   const schematicConfigDir = configName && getSchematicOptions(config, context)?.[configName];
-
 
   return schematicConfigDir || nxExplicitDir || ((projectType && configName) ? DEFAULT_ROOT_FOLDERS[configName] : '.');
 }

@@ -1,4 +1,6 @@
-import type {BaseLogger} from './cascading';
+import type {
+  BaseLogger
+} from './cascading';
 
 /**
  * Sort branches according to semantic versioning
@@ -63,7 +65,7 @@ export function extractPackages(diffOutput: string): { oldPackages: string[]; ne
     oldPackages.push(...extractPackageLine(regexpResult[1]));
     newPackages.push(...extractPackageLine(regexpResult[2]));
   });
-  return {oldPackages, newPackages};
+  return { oldPackages, newPackages };
 }
 
 /**
@@ -94,14 +96,14 @@ export function extractPackageChanges<T extends BaseLogger>(gitDiffResult: strin
       const filename = filenameResults && filenameResults[0];
       if (filename) {
         if (filename.includes('package.json')) {
-          result.packageChanges.push({file: filename, ...extractPackages(fileDiff)});
+          result.packageChanges.push({ file: filename, ...extractPackages(fileDiff) });
         } else {
           result.yarnLockFile = filename;
         }
       }
     }
     return result;
-  }, {packageChanges: []});
+  }, { packageChanges: [] });
 }
 
 /**

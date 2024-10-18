@@ -1,6 +1,14 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { mapImportLocalizationMocks } from './localization-imports-map';
-import { updateImports } from '@o3r/schematics';
+import {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  updateImports
+} from '@o3r/schematics';
+import {
+  mapImportLocalizationMocks
+} from './localization-imports-map';
 
 /**
  * update of o3r localization imports mocks

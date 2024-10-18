@@ -1,17 +1,24 @@
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes
+} from '@ngrx/store';
 import * as actions from './config-override.actions';
-import {ConfigOverrideState} from './config-override.state';
+import {
+  ConfigOverrideState
+} from './config-override.state';
 
 /**
  * ConfigOverride Store initial value
  */
-export const configOverrideInitialState: ConfigOverrideState = {configOverrides: {}};
+export const configOverrideInitialState: ConfigOverrideState = { configOverrides: {} };
 
 /**
  *  List of basic actions for ConfigOverride Store
  */
 export const configOverrideReducerFeatures: ReducerTypes<ConfigOverrideState, ActionCreator[]>[] = [
-  on(actions.setConfigOverride, (_state, payload) => ({...payload.state}))
+  on(actions.setConfigOverride, (_state, payload) => ({ ...payload.state }))
 ];
 
 /**

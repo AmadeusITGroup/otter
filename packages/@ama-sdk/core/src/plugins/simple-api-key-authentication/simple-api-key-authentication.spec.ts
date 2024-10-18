@@ -1,6 +1,12 @@
-import { RequestOptions } from '../core/request-plugin';
-import { SimpleApiKeyAuthenticationRequest } from './simple-api-key-authentication.request';
-import {createBase64UrlDecoder} from '../../utils/json-token';
+import {
+  createBase64UrlDecoder
+} from '../../utils/json-token';
+import {
+  RequestOptions
+} from '../core/request-plugin';
+import {
+  SimpleApiKeyAuthenticationRequest
+} from './simple-api-key-authentication.request';
 
 const base64UrlDecoder = createBase64UrlDecoder();
 
@@ -14,12 +20,11 @@ function returnInSequence<T>(...values: T[]) {
 }
 
 describe('Api Key Request Plugin', () => {
-
   let options: RequestOptions;
 
   beforeEach(() => {
     const headers = new Headers();
-    options = {headers, basePath: 'http://test.com', method: 'get'};
+    options = { headers, basePath: 'http://test.com', method: 'get' };
   });
 
   it('Static API key should be added to the default header.', async () => {

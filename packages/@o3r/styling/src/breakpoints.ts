@@ -1,4 +1,6 @@
-import { Breakpoints } from '@angular/cdk/layout';
+import {
+  Breakpoints
+} from '@angular/cdk/layout';
 
 /**
  * Angular CDK Breakpoints to detect devices

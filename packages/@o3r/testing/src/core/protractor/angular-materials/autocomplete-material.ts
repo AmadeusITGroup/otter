@@ -1,8 +1,16 @@
-import {By, element, ElementFinder} from 'protractor';
-import {MatAutocompleteProfile} from '../../angular-materials';
-import {O3rElement} from '../element';
+import {
+  By,
+  element,
+  ElementFinder
+} from 'protractor';
+import {
+  MatAutocompleteProfile
+} from '../../angular-materials';
+import {
+  O3rElement
+} from '../element';
 
-export {SelectElementProfile} from '../../elements';
+export { SelectElementProfile } from '../../elements';
 
 /**
  * Implementation dedicated to Protractor.

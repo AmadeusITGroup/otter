@@ -5,7 +5,9 @@ import type {
   OtterMessageContent,
   RequestMessagesContentMessage
 } from '@o3r/core';
-import { CssVariable } from '../core/index';
+import {
+  CssVariable
+} from '../core/index';
 
 /**
  * Styling devtools service options

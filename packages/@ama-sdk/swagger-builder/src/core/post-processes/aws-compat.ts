@@ -1,10 +1,11 @@
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to Convert the spec to a AWS compatible spec
  */
 export class AwsCompatConverter implements PostProcess {
-
   /**
    * Determine if the field need to be kept
    * @param field Field name
@@ -56,5 +57,4 @@ export class AwsCompatConverter implements PostProcess {
   public async execute(swaggerSpec: any) {
     return this.removeInvalidFields(swaggerSpec);
   }
-
 }

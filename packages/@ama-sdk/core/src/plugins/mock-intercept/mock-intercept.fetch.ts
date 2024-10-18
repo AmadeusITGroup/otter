@@ -1,6 +1,17 @@
-import { FetchCall, FetchPlugin, FetchPluginContext, PluginAsyncRunner, PluginAsyncStarter } from '../core';
-import { CUSTOM_MOCK_OPERATION_ID_HEADER, MockInterceptFetchParameters } from './mock-intercept.interface';
-import { MockInterceptRequest } from './mock-intercept.request';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext,
+  PluginAsyncRunner,
+  PluginAsyncStarter
+} from '../core';
+import {
+  CUSTOM_MOCK_OPERATION_ID_HEADER,
+  MockInterceptFetchParameters
+} from './mock-intercept.interface';
+import {
+  MockInterceptRequest
+} from './mock-intercept.request';
 
 /**
  * Plugin to mock and intercept the fetch of SDK
@@ -10,11 +21,9 @@ import { MockInterceptRequest } from './mock-intercept.request';
  * @deprecated Use the one exposed by {@link @ama-sdk/client-fetch}, will be removed in v13
  */
 export class MockInterceptFetch implements FetchPlugin {
-
   constructor(protected options: MockInterceptFetchParameters) {}
 
   public load(context: FetchPluginContext): PluginAsyncRunner<Response, Promise<Response>> & PluginAsyncStarter {
-
     if (!context.apiClient.options.requestPlugins.some((plugin) => plugin instanceof MockInterceptRequest)) {
       throw new Error('MockInterceptFetch plugin should be used only with the MockInterceptRequest plugin');
     }
@@ -46,7 +55,6 @@ export class MockInterceptFetch implements FetchPlugin {
 
           const response = mock.getResponse();
           return responsePromise.then(() => response);
-
         } catch {
           (context.logger || console).error(`Failed to retrieve the latest mock for Operation ID ${operationId}, fallback to default mock`);
           return responsePromise;
@@ -54,5 +62,4 @@ export class MockInterceptFetch implements FetchPlugin {
       }
     };
   }
-
 }

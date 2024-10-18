@@ -1,9 +1,26 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { basename, dirname, join } from 'node:path';
+import {
+  basename,
+  dirname,
+  join
+} from 'node:path';
+import {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { DecoratorWithArg, isDecoratorWithArg } from './ast';
-import { getO3rComponentInfoOrThrowIfNotFound, isNgClassComponent, isNgClassDecorator } from './component';
-import { findFilesInTree } from './loaders';
+import {
+  DecoratorWithArg,
+  isDecoratorWithArg
+} from './ast';
+import {
+  getO3rComponentInfoOrThrowIfNotFound,
+  isNgClassComponent,
+  isNgClassDecorator
+} from './component';
+import {
+  findFilesInTree
+} from './loaders';
 
 /** Dictionary of pipes to be updated */
 export type PipeReplacementInfo = Record<string, { new: { name: string; import?: string }; import: string }>;

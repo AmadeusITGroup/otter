@@ -1,5 +1,9 @@
-import { TSESTree } from '@typescript-eslint/utils';
-import { createRule } from '../../utils';
+import {
+  TSESTree
+} from '@typescript-eslint/utils';
+import {
+  createRule
+} from '../../utils';
 
 const nameDeterminingFunctionNames = ['computeItemIdentifier', 'computeConfigurationName'];
 

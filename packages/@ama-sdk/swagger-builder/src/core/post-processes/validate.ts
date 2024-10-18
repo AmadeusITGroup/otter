@@ -1,11 +1,12 @@
 import SwaggerParser from '@apidevtools/swagger-parser';
-import { PostProcess } from './post-process.interface';
+import {
+  PostProcess
+} from './post-process.interface';
 
 /**
  * Post Process to validate a given Swagger spec
  */
 export class Validator implements PostProcess {
-
   /**
    * Create a copy of the given Swagger Spec
    * @param currentNode Current node
@@ -47,5 +48,4 @@ export class Validator implements PostProcess {
       process.exit(1);
     }
   }
-
 }

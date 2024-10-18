@@ -1,6 +1,19 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, move, noop, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
 import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 
 /**
  * Added styling support
@@ -55,9 +68,7 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
     const rule = mergeWith(templateSource, MergeStrategy.Overwrite);
 
     return rule;
-
   };
-
 }
 
 /**
@@ -67,7 +78,6 @@ export function updateThemeFiles(rootPath: string, options: { projectName?: stri
  * @returns
  */
 export function removeV7OtterAssetsInAngularJson(options: { projectName?: string | null | undefined }): Rule {
-
   return async (tree: Tree, context: SchematicContext) => {
     const { writeAngularJson, getWorkspaceConfig } = await import('@o3r/schematics');
     const workspace = getWorkspaceConfig(tree);

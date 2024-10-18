@@ -1,7 +1,12 @@
 #!/usr/bin/env node
 
-import { program } from 'commander';
-import { Headers, Options } from 'request';
+import {
+  program
+} from 'commander';
+import {
+  Headers,
+  Options
+} from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
 
@@ -94,9 +99,9 @@ const options: Options = {
           {"repo": {"$eq":"${repository}"}},
           {"$and":[{"path":{"$match":"${path}"}}, {"path":{"$nmatch":"*.npm*"}}]},
           {"name":{"$match":"${filename}"}},
-          ${ (!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : '' }
-          {"created":{"$before":"${ageInDays}d"}}${ shouldConsiderDownloadedTime ? '' : ','}
-          ${ shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${ isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}` }
+          ${(!!property && !!propertyValue) ? `{"@${property}":{"$eq":"${propertyValue}"}},` : ''}
+          {"created":{"$before":"${ageInDays}d"}}${shouldConsiderDownloadedTime ? '' : ','}
+          ${shouldConsiderDownloadedTime ? '' : `{"$or":[{"stat.downloaded": {"$before":"${isDownloadedTimeValueDefined ? downloadedTimeValue : ageInDays}d"}}, {"stat.downloads":{"$eq":null}}]}`}
         ]
     }
   )
@@ -132,4 +137,3 @@ void (async () => {
     }
   }
 })();
-

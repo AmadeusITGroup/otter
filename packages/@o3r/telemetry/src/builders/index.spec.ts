@@ -1,3 +1,19 @@
+import {
+  Architect,
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import {
+  TestingArchitectHost
+} from '@angular-devkit/architect/testing';
+import {
+  schema
+} from '@angular-devkit/core';
+import {
+  BuilderWrapper,
+  createBuilderWithMetrics
+} from './index';
+
 jest.mock('../environment/index', () => {
   const original = jest.requireActual('../environment/index');
   return {
@@ -16,11 +32,6 @@ jest.mock('node:perf_hooks', () => {
     }
   };
 });
-
-import { Architect, BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { TestingArchitectHost } from '@angular-devkit/architect/testing';
-import { schema } from '@angular-devkit/core';
-import { BuilderWrapper, createBuilderWithMetrics } from './index';
 
 describe('Builder with metrics', () => {
   let architect: Architect;
@@ -49,7 +60,9 @@ describe('Builder with metrics', () => {
 
   it('should throw the same error as the original one', async () => {
     const error = new Error('error example');
-    const originalBuilderFn = jest.fn((): BuilderOutput => { throw error; });
+    const originalBuilderFn = jest.fn((): BuilderOutput => {
+      throw error;
+    });
     const builder = createBuilder(createBuilderWithMetrics(originalBuilderFn));
     architectHost.addBuilder('.:builder', builder);
     const options = { example: 'test' };

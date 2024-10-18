@@ -1,5 +1,11 @@
-import {ClientFactsRequestPlugin, createJwtFactsEncoder, PublicFacts} from './client-facts.request';
-import {RequestOptions} from '../core';
+import {
+  RequestOptions
+} from '../core';
+import {
+  ClientFactsRequestPlugin,
+  createJwtFactsEncoder,
+  PublicFacts
+} from './client-facts.request';
 
 const defaultFacts: PublicFacts = {
   foo: 'one',
@@ -18,7 +24,6 @@ const jwtFactsEncoder = createJwtFactsEncoder();
 const defaultHeader = 'ama-client-facts';
 
 describe('Client Facts request plugin', () => {
-
   let options: RequestOptions;
   let specificOptions: RequestOptions;
 
@@ -74,12 +79,12 @@ describe('Client Facts request plugin', () => {
       initialGlobalFacts: defaultFacts
     });
 
-    plugin.setGlobalFacts({foo: 'bar'});
+    plugin.setGlobalFacts({ foo: 'bar' });
 
     const newOptions = await plugin.load().transform(options);
 
     expect(newOptions.headers.has(defaultHeader)).toBeTruthy();
-    expect(newOptions.headers.get(defaultHeader)).toEqual(jwtFactsEncoder({foo: 'bar'}));
+    expect(newOptions.headers.get(defaultHeader)).toEqual(jwtFactsEncoder({ foo: 'bar' }));
   });
 
   it('Should allow to return facts only for specific requests thanks to factories', async () => {
@@ -127,7 +132,7 @@ describe('Client Facts request plugin', () => {
     const newSpecificOptions = await plugin.load().transform(specificOptions);
 
     expect(newSpecificOptions.headers.has(defaultHeader)).toBeTruthy();
-    expect(newSpecificOptions.headers.get(defaultHeader)).toEqual(jwtFactsEncoder({...defaultFacts, ...specificFacts}));
+    expect(newSpecificOptions.headers.get(defaultHeader)).toEqual(jwtFactsEncoder({ ...defaultFacts, ...specificFacts }));
   });
 
   it('Factories should be allowed to be asynchronous and return a Promise of facts', async () => {

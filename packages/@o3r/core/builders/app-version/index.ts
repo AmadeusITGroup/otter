@@ -1,8 +1,15 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createBuilderWithMetricsIfInstalled } from '../utils';
-import { AppVersionBuilderSchema } from './schema';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import {
+  createBuilderWithMetricsIfInstalled
+} from '../utils';
+import {
+  AppVersionBuilderSchema
+} from './schema';
 
 export * from './schema';
 
@@ -26,7 +33,7 @@ export default createBuilder<AppVersionBuilderSchema>(createBuilderWithMetricsIf
   if (!fs.existsSync(packageJsonFile)) {
     return PACKAGE_JSON_NOT_FOUND;
   }
-  const packageJson = await fs.promises.readFile(packageJsonFile, {encoding: 'utf8'});
+  const packageJson = await fs.promises.readFile(packageJsonFile, { encoding: 'utf8' });
   let version: string;
   try {
     version = JSON.parse(packageJson).version;

@@ -1,7 +1,16 @@
-import type { Serializer } from '@o3r/core';
-import { createAction, props } from '@ngrx/store';
-import type { StorageSyncOptions } from './interfaces';
-import type { SyncStorageConfig } from '../sync-storage';
+import {
+  createAction,
+  props
+} from '@ngrx/store';
+import type {
+  Serializer
+} from '@o3r/core';
+import type {
+  SyncStorageConfig
+} from '../sync-storage';
+import type {
+  StorageSyncOptions
+} from './interfaces';
 
 /**
  * Defines if an object is a Serializer

@@ -1,5 +1,12 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, SnippetString } from 'vscode';
-import { ESLint } from 'eslint';
+import {
+  ESLint
+} from 'eslint';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  SnippetString
+} from 'vscode';
 
 interface ConfigurationTags {
   /** @see CompletionItem.documentation */

@@ -1,7 +1,16 @@
-import { chain } from '@angular-devkit/schematics';
-import { defaultPresetRuleFactory } from './helpers';
-import type { PresetOptions } from './preset.interface';
-import { setupSchematicsParamsForProject, WorkspaceSchematics } from '@o3r/schematics';
+import {
+  chain
+} from '@angular-devkit/schematics';
+import {
+  setupSchematicsParamsForProject,
+  WorkspaceSchematics
+} from '@o3r/schematics';
+import {
+  defaultPresetRuleFactory
+} from './helpers';
+import type {
+  PresetOptions
+} from './preset.interface';
 
 /**
  * Preset Installing all the Otter modules

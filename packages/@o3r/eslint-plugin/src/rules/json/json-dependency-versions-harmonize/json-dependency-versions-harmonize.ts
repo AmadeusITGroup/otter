@@ -1,9 +1,19 @@
 import * as path from 'node:path';
+import type {
+  AST
+} from 'jsonc-eslint-parser';
 import * as semver from 'semver';
-import { createRule } from '../../utils';
-import { getJsoncParserServices } from '../utils';
-import type { AST } from 'jsonc-eslint-parser';
-import { findWorkspacePackageJsons, getBestRange, getBestRanges } from './version-harmonize';
+import {
+  createRule
+} from '../../utils';
+import {
+  getJsoncParserServices
+} from '../utils';
+import {
+  findWorkspacePackageJsons,
+  getBestRange,
+  getBestRanges
+} from './version-harmonize';
 
 interface Options {
   /** List of package name to ignore when determining the dependencies versions */

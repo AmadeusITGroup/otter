@@ -1,4 +1,3 @@
-
 /**
  * Determine if the given item is a promise
  * @param item Item to check

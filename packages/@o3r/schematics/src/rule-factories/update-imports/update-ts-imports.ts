@@ -1,6 +1,13 @@
-import { Rule } from '@angular-devkit/schematics';
+import {
+  Rule
+} from '@angular-devkit/schematics';
 import * as ts from 'typescript';
-import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, ImportsMapping, updateImportsInFile } from '../../utility/index';
+import {
+  getFilesWithExtensionFromTree,
+  getSourceFilesFromWorkspaceProjects,
+  ImportsMapping,
+  updateImportsInFile
+} from '../../utility/index';
 
 /**
  * Update imports based on mapping
@@ -9,7 +16,6 @@ import { getFilesWithExtensionFromTree, getSourceFilesFromWorkspaceProjects, Imp
  * @param fromRoot Perform on all files in project
  */
 export function updateImports(mapImports: ImportsMapping = {}, renamedPackages: Record<string, string> = {}, fromRoot = false): Rule {
-
   return (tree, context) => {
     const files = fromRoot ? getFilesWithExtensionFromTree(tree, 'ts') : getSourceFilesFromWorkspaceProjects(tree);
 

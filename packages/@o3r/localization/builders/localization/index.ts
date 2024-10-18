@@ -1,21 +1,45 @@
-import { BuilderContext, BuilderOutput, createBuilder, Target } from '@angular-devkit/architect';
-import { LogEntry } from '@angular-devkit/core/src/logger';
-import { createBuilderWithMetricsIfInstalled } from '@o3r/extractors';
-import type { JSONLocalization } from '@o3r/localization';
-import { O3rCliError } from '@o3r/schematics';
 import * as fs from 'node:fs';
-import { sync as globbySync } from 'globby';
 import * as path from 'node:path';
-import { firstValueFrom, from, merge } from 'rxjs';
-import { filter } from 'rxjs/operators';
-import type { LocalizationExtractorBuilderSchema } from '../localization-extractor/schema';
-import { LocalizationBuilderSchema } from './schema';
+import {
+  BuilderContext,
+  BuilderOutput,
+  createBuilder,
+  Target
+} from '@angular-devkit/architect';
+import {
+  LogEntry
+} from '@angular-devkit/core/src/logger';
+import {
+  createBuilderWithMetricsIfInstalled
+} from '@o3r/extractors';
+import type {
+  JSONLocalization
+} from '@o3r/localization';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import {
+  sync as globbySync
+} from 'globby';
+import {
+  firstValueFrom,
+  from,
+  merge
+} from 'rxjs';
+import {
+  filter
+} from 'rxjs/operators';
+import type {
+  LocalizationExtractorBuilderSchema
+} from '../localization-extractor/schema';
+import {
+  LocalizationBuilderSchema
+} from './schema';
 
 /** Maximum number of steps */
 const STEP_NUMBER = 5;
 /** File System debounce time */
 const FS_DEBOUNCE_TIME = 200;
-
 
 /**
  * Get the list of translation files provided in the current package
@@ -54,8 +78,8 @@ function getAppTranslationFiles(languages: string[], assets: string | string[], 
  */
 function checkUnusedTranslation(
   language: string,
-  defaultBundle: {[k: string]: string},
-  customTranslations: {[k: string]: string},
+  defaultBundle: { [k: string]: string },
+  customTranslations: { [k: string]: string },
   context: BuilderContext,
   metaData: JSONLocalization[],
   failIfMissingMetadata: boolean
@@ -81,7 +105,7 @@ function checkUnusedTranslation(
  * Note: it is used to remove $schema potentially added by the customization
  * @param translationBundle Translation bundle
  */
-function sanitizeLocalization(translationBundle: {[k: string]: string}) {
+function sanitizeLocalization(translationBundle: { [k: string]: string }) {
   delete translationBundle.$schema;
   return translationBundle;
 }
@@ -90,9 +114,9 @@ function sanitizeLocalization(translationBundle: {[k: string]: string}) {
  * Load all the translation files in the given array and created a single Object that associated to each key its localized value.
  * @param files
  */
-export function loadTranslations(files: string[]): {[k: string]: string} {
+export function loadTranslations(files: string[]): { [k: string]: string } {
   const translationList = files.map((file) => sanitizeLocalization(JSON.parse(fs.readFileSync(file).toString())));
-  return translationList.reduce<{[k: string]: string}>((acc, translation) => Object.assign(acc, translation), {});
+  return translationList.reduce<{ [k: string]: string }>((acc, translation) => Object.assign(acc, translation), {});
 }
 
 /**
@@ -109,7 +133,6 @@ export function getTranslationsForLanguage(
   defaultLanguageMapping: Record<string, string>,
   memory: Record<string, Record<string, string>>,
   dependencyPath: Set<string> = new Set()): Record<string, string> {
-
   if (memory[language]) {
     return memory[language];
   }
@@ -169,7 +192,6 @@ function getBundlesPerLanguages(
   ignoreReferenceIfNotDefault: boolean,
   failIfMissingMetadata: boolean
 ) {
-
   const bundles: Record<string, Record<string, string>> = {};
   const memory: Record<string, Record<string, string>> = {};
   for (const language of languages) {
@@ -261,7 +283,7 @@ function processMetadata(metadata: JSONLocalization[]) {
     }
   });
 
-  return {defaultTranslations, keyReferences, dictionaryReferences};
+  return { defaultTranslations, keyReferences, dictionaryReferences };
 }
 
 /**
@@ -271,7 +293,7 @@ function processMetadata(metadata: JSONLocalization[]) {
  */
 function startMetadataGenerator(localizationExtractorTarget: Target, context: BuilderContext) {
   const logger = context.logger.createChild('Metadata Logger');
-  const extractorBuild = context.scheduleTarget(localizationExtractorTarget, {watch: true}, {logger});
+  const extractorBuild = context.scheduleTarget(localizationExtractorTarget, { watch: true }, { logger });
   return firstValueFrom(
     merge(
       logger.pipe(),
@@ -293,7 +315,7 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
   if (!metaDataExists) {
     context.logger.warn(`The file ${localizationMetaDataFile} does not exist, the extractor will be run`);
     context.reportProgress(2, STEP_NUMBER, 'Generating Localization metadata file');
-    const extractorBuild = await context.scheduleTarget(localizationExtractorTarget, {watch: false});
+    const extractorBuild = await context.scheduleTarget(localizationExtractorTarget, { watch: false });
     const extractorBuildResult = await extractorBuild.result;
     if (extractorBuildResult.success) {
       metaDataExists = fs.existsSync(localizationMetaDataFile);
@@ -309,17 +331,16 @@ async function checkMetadata(localizationMetaDataFile: string, localizationExtra
   }
 }
 
-
 export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBuilderSchema>(async (options, context): Promise<BuilderOutput> => {
   context.reportRunning();
 
   // Load Targets to get build options
   context.reportProgress(0, STEP_NUMBER, 'Checking required options');
   let [project, target, configuration] = options.browserTarget.split(':');
-  const browserTarget = {project, target, configuration};
+  const browserTarget = { project, target, configuration };
 
   [project, target, configuration] = options.localizationExtracterTarget.split(':');
-  const localizationExtractorTarget = {project, target, configuration};
+  const localizationExtractorTarget = { project, target, configuration };
 
   const [browserTargetRawOptions, localizationExtracterTargetRawOptions, browserTargetBuilder, localizationExtracterTargetBuilder] = await Promise.all([
     context.getTargetOptions(browserTarget),
@@ -328,7 +349,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
     context.getBuilderNameForTarget(localizationExtractorTarget)
   ]);
   const [browserTargetOptions, localizationExtracterTargetOptions] = await Promise.all([
-    context.validateOptions<{outputPath: string | {base: string; browser?: string}}>(browserTargetRawOptions, browserTargetBuilder),
+    context.validateOptions<{ outputPath: string | { base: string; browser?: string } }>(browserTargetRawOptions, browserTargetBuilder),
     context.validateOptions<LocalizationExtractorBuilderSchema>(localizationExtracterTargetRawOptions, localizationExtracterTargetBuilder)
   ]);
   let browserTargetOptionsOutputPath: string;
@@ -363,16 +384,16 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
   const execute = (languageToRegenerate?: string): BuilderOutput => {
     /** Localization metadata */
     context.reportProgress(1, STEP_NUMBER, 'Checking Metadata');
-    const metaData = JSON.parse(fs.readFileSync(localizationMetaDataFile, {encoding: 'utf8'})) as JSONLocalization[];
+    const metaData = JSON.parse(fs.readFileSync(localizationMetaDataFile, { encoding: 'utf8' })) as JSONLocalization[];
 
     context.reportProgress(3, STEP_NUMBER, 'Loading translation files');
     /** List of translation files provided in the current package */
     const appTranslationFiles = options.assets?.length ? getAppTranslationFiles(options.locales, options.assets, context) : {};
 
     /** Mapping between the language and the custom translation of the package */
-    const fileMapping = languageToRegenerate ? {[languageToRegenerate]: appTranslationFiles[languageToRegenerate]} : appTranslationFiles;
+    const fileMapping = languageToRegenerate ? { [languageToRegenerate]: appTranslationFiles[languageToRegenerate] } : appTranslationFiles;
 
-    const {defaultTranslations, keyReferences, dictionaryReferences} = processMetadata(metaData);
+    const { defaultTranslations, keyReferences, dictionaryReferences } = processMetadata(metaData);
 
     context.reportProgress(4, STEP_NUMBER, 'Merging translations');
     try {
@@ -397,7 +418,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
       // Write translation files
       const writingFolder = options.outputPath || outputPath || '.';
       if (!fs.existsSync(writingFolder)) {
-        fs.mkdirSync(writingFolder, {recursive: true});
+        fs.mkdirSync(writingFolder, { recursive: true });
       }
 
       Object.entries(bundles).forEach(([language, bundle]) => {
@@ -419,7 +440,7 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
 
   /** Timeout to handle nodejs issue (#1970) */
   // eslint-disable-next-line no-undef
-  const fsTimeout: {[file: string]: NodeJS.Timeout | number | null} = {};
+  const fsTimeout: { [file: string]: NodeJS.Timeout | number | null } = {};
 
   /**
    * Run a translation generation and report the result
@@ -512,6 +533,5 @@ export default createBuilder(createBuilderWithMetricsIfInstalled<LocalizationBui
       return metaDataGeneration;
     }
     return execute();
-
   }
 }));

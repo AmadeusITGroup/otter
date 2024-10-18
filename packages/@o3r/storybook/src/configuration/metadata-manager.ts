@@ -1,4 +1,6 @@
-import type { ComponentConfigOutput } from '@o3r/components';
+import type {
+  ComponentConfigOutput
+} from '@o3r/components';
 
 declare global {
   interface Window {

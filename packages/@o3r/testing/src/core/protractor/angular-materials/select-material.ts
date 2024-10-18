@@ -1,7 +1,16 @@
-import {By, element, ElementFinder} from 'protractor';
-import {MatSelectProfile} from '../../angular-materials';
-import {O3rElement} from '../element';
-export {SelectElementProfile} from '../../elements';
+import {
+  By,
+  element,
+  ElementFinder
+} from 'protractor';
+import {
+  MatSelectProfile
+} from '../../angular-materials';
+import {
+  O3rElement
+} from '../element';
+
+export { SelectElementProfile } from '../../elements';
 
 /**
  * Implementation dedicated to Protractor.

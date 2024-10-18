@@ -1,7 +1,26 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { getTemplateFolder, getWorkspaceConfig, ignorePatterns } from '@o3r/schematics';
 import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  getTemplateFolder,
+  getWorkspaceConfig,
+  ignorePatterns
+} from '@o3r/schematics';
 
 /**
  * Update CMS adapter tools
@@ -20,7 +39,6 @@ export function updateCmsAdapter(options: { projectName?: string | undefined }, 
    * @param context
    */
   const generateTsConfig = (tree: Tree, context: SchematicContext) => {
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     const projectRoot = path.posix.join('/', workspaceProject?.root || '');
     const pathTsconfigCms = path.posix.join(projectRoot, 'tsconfig.cms.json');

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-
-
-import { program } from 'commander';
+import {
+  program
+} from 'commander';
 import * as winston from 'winston';
 
 program
@@ -79,7 +79,7 @@ void (async () => {
   for (const uri of uris) {
     logger.info(`Deleting ${uri}...`);
     if (!opts.dryRun) {
-      const response = await fetch(uri, {...options, method: 'DELETE'});
+      const response = await fetch(uri, { ...options, method: 'DELETE' });
       logger.info(response);
     }
   }

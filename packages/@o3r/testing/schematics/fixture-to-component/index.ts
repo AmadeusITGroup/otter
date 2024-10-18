@@ -1,4 +1,9 @@
 import {
+  basename,
+  dirname,
+  posix
+} from 'node:path';
+import {
   apply,
   chain,
   externalSchematic,
@@ -22,10 +27,14 @@ import {
   NoOtterComponent,
   O3rCliError
 } from '@o3r/schematics';
-import { applyToUpdateRecorder, InsertChange } from '@schematics/angular/utility/change';
-import { basename, dirname, posix } from 'node:path';
+import {
+  applyToUpdateRecorder,
+  InsertChange
+} from '@schematics/angular/utility/change';
 import * as ts from 'typescript';
-import type { NgAddFixtureSchematicsSchema } from './schema';
+import type {
+  NgAddFixtureSchematicsSchema
+} from './schema';
 
 const checkFixture = (componentPath: string, tree: Tree, baseFileName: string) => {
   const files = [

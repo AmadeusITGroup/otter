@@ -1,4 +1,7 @@
-import { IFrameBridgeOptions, InternalIframeMessage } from './contracts';
+import {
+  IFrameBridgeOptions,
+  InternalIframeMessage
+} from './contracts';
 
 /**
  * Default options for an IFrameBridge

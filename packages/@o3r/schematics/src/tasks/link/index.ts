@@ -1,6 +1,14 @@
-import { TaskConfiguration, TaskConfigurationGenerator } from '@angular-devkit/schematics';
-import { NodePackageName, NodePackageTaskOptions } from '@angular-devkit/schematics/tasks/package-manager/options';
-import { getPackageManager } from '../../utility/package-manager-runner';
+import {
+  TaskConfiguration,
+  TaskConfigurationGenerator
+} from '@angular-devkit/schematics';
+import {
+  NodePackageName,
+  NodePackageTaskOptions
+} from '@angular-devkit/schematics/tasks/package-manager/options';
+import {
+  getPackageManager
+} from '../../utility/package-manager-runner';
 
 export class NodePackageLinkTask implements TaskConfigurationGenerator<NodePackageTaskOptions> {
   public quiet = true;

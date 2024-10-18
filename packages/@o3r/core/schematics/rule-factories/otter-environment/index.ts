@@ -1,9 +1,25 @@
-import { chain, Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import type { PackageManager } from '@angular/cli/lib/config/workspace-schema';
+import {
+  join,
+  posix
+} from 'node:path';
+import type {
+  PackageManager
+} from '@angular/cli/lib/config/workspace-schema';
+import {
+  chain,
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  getPackageManager,
+  getWorkspaceConfig,
+  OTTER_ITEM_TYPES,
+  registerCollectionSchematics,
+  TYPES_DEFAULT_FOLDER
+} from '@o3r/schematics';
 import generateEnvironments from '@schematics/angular/environments/index';
 import * as ts from 'typescript';
-import { getPackageManager, getWorkspaceConfig, OTTER_ITEM_TYPES, registerCollectionSchematics, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
-import { join, posix } from 'node:path';
 
 /**
  * Update Otter environment variable for schematics
@@ -26,7 +42,6 @@ export function updateOtterEnvironmentAdapter(
   },
   _rootPath: string
 ): Rule {
-
   /**
    * Add Configuration for schematics
    * @param tree
@@ -45,7 +60,6 @@ export function updateOtterEnvironmentAdapter(
     workspaceProject.schematics ||= {};
 
     if (workspaceProject.projectType === 'application') {
-
       OTTER_ITEM_TYPES.forEach((item) => {
         const path = TYPES_DEFAULT_FOLDER[item].app;
         if (path) {
@@ -74,7 +88,6 @@ export function updateOtterEnvironmentAdapter(
           };
         }
       });
-
     }
     registerCollectionSchematics(workspace, '@o3r/core');
     workspace.cli.analytics = false;
@@ -100,7 +113,6 @@ export function updateOtterEnvironmentAdapter(
    * @param context
    */
   const generateEnvironmentFiles = (tree: Tree, context: SchematicContext) => {
-
     const workspace = getWorkspaceConfig(tree);
     const workspaceProject = options.projectName ? workspace?.projects[options.projectName] : undefined;
     if (!workspace || !workspaceProject) {
@@ -116,7 +128,7 @@ export function updateOtterEnvironmentAdapter(
     const envBasePath = posix.join(workspaceProject.root, 'src', 'environments');
     const envDevFilePath = posix.join(envBasePath, 'environment.development.ts');
     if (!tree.exists(envDevFilePath)) {
-      return generateEnvironments({project: projectName})(tree, context);
+      return generateEnvironments({ project: projectName })(tree, context);
     }
     return tree;
   };

@@ -1,13 +1,27 @@
-
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { ConfigurationState } from '../stores';
-import { ConfigurationDevtoolsConsoleService } from './configuration-devtools.console.service';
-import { OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_CONFIGURATION_DEVTOOLS_OPTIONS } from './configuration-devtools.token';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  MockStore,
+  provideMockStore
+} from '@ngrx/store/testing';
+import {
+  ConfigurationState
+} from '../stores';
+import {
+  ConfigurationDevtoolsConsoleService
+} from './configuration-devtools.console.service';
+import {
+  OTTER_CONFIGURATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_CONFIGURATION_DEVTOOLS_OPTIONS
+} from './configuration-devtools.token';
 
 describe('Configuration DevTools console', () => {
-
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
     teardown: { destroyAfterEach: false }
   }));
@@ -69,7 +83,7 @@ describe('Configuration DevTools console', () => {
     const consoleLog = jest.spyOn(console, 'log').mockImplementation();
     await service.displayCurrentConfigurationFor('@scope/package#componentTest');
 
-    expect(consoleLog).toHaveBeenCalledWith({configEx1: 'test', configEx2: true});
+    expect(consoleLog).toHaveBeenCalledWith({ configEx1: 'test', configEx2: true });
   });
 
   it('should set new configuration', () => {

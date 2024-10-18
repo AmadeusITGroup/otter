@@ -1,7 +1,19 @@
-import { EOL, tmpdir } from 'node:os';
-import { spawnSync } from 'node:child_process';
-import { existsSync, promises as fs, rmSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import {
+  spawnSync
+} from 'node:child_process';
+import {
+  existsSync,
+  promises as fs,
+  rmSync
+} from 'node:fs';
+import {
+  EOL,
+  tmpdir
+} from 'node:os';
+import {
+  join,
+  resolve
+} from 'node:path';
 import minimist from 'minimist';
 
 /** Default configuration */
@@ -107,7 +119,7 @@ async function getConfig() {
     return defaultConfig;
   }
 
-  const config = JSON.parse(await fs.readFile(configPath, {encoding: 'utf-8'}));
+  const config = JSON.parse(await fs.readFile(configPath, { encoding: 'utf-8' }));
 
   return {
     ...defaultConfig,
@@ -120,7 +132,6 @@ void (async () => {
   if (!args.target) {
     throw new Error('No Target provided');
   }
-
 
   const config = await getConfig();
   const target = `remotes/origin/${args.target}`;

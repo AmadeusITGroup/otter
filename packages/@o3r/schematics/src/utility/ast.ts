@@ -1,5 +1,7 @@
+import {
+  findNodes
+} from '@schematics/angular/utility/ast-utils';
 import * as ts from 'typescript';
-import { findNodes } from '@schematics/angular/utility/ast-utils';
 
 /**
  * Find the first node with the specific syntax kind
@@ -56,7 +58,7 @@ export function parseImportsFromFile(sourceFile: ts.SourceFile) {
       ? namedImport.elements.map((element) => element.getText())
       : [];
 
-    return {node: imp, symbols: imports, module: importFrom};
+    return { node: imp, symbols: imports, module: importFrom };
   });
 }
 

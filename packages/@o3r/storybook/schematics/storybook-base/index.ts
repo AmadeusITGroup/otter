@@ -1,12 +1,32 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
-import { addPackageJsonDependency, getPackageJsonDependency, NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as ts from 'typescript';
-import { readFileSync } from 'node:fs';
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { getPackageManagerRunner, getTemplateFolder, getWorkspaceConfig } from '@o3r/schematics';
-
-
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
+import {
+  getPackageManagerRunner,
+  getTemplateFolder,
+  getWorkspaceConfig
+} from '@o3r/schematics';
+import {
+  addPackageJsonDependency,
+  getPackageJsonDependency,
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import * as ts from 'typescript';
 
 /**
  * Add Storybook to Otter application
@@ -16,8 +36,6 @@ import { getPackageManagerRunner, getTemplateFolder, getWorkspaceConfig } from '
  */
 export function updateStorybook(options: { projectName?: string | null | undefined }, rootPath: string): Rule {
   return (tree: Tree, context: SchematicContext) => {
-
-
     const workspaceProject = options.projectName ? getWorkspaceConfig(tree)?.projects[options.projectName] : undefined;
     if (!workspaceProject) {
       context.logger.warn('No project found, the update of storybook will be skipped');
@@ -49,7 +67,6 @@ export function updateStorybook(options: { projectName?: string | null | undefin
         tree.overwrite('/tsconfig.json', JSON.stringify(tsconfig, null, 2));
       }
     }
-
 
     let localizationMetadata = '../localisation.metadata.json';
     let configMetadata = '../component.config.metadata.json';

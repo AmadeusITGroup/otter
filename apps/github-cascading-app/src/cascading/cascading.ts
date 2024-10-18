@@ -1,7 +1,22 @@
-import { coerce, compare, parse, valid } from 'semver';
-import { BaseLogger, CascadingConfiguration, CascadingPullRequestInfo, CheckConclusion, PullRequestContext } from './interfaces';
-import { renderFile } from 'ejs';
-import { resolve } from 'node:path';
+import {
+  resolve
+} from 'node:path';
+import {
+  renderFile
+} from 'ejs';
+import {
+  coerce,
+  compare,
+  parse,
+  valid
+} from 'semver';
+import {
+  BaseLogger,
+  CascadingConfiguration,
+  CascadingPullRequestInfo,
+  CheckConclusion,
+  PullRequestContext
+} from './interfaces';
 
 /** Mark of the template to determine if the users cancelled the cascading retrigger */
 export const CANCEL_RETRIGGER_CASCADING_MARK = '!cancel re-cascading!';
@@ -170,7 +185,7 @@ export abstract class Cascading {
           };
         }
       })
-      .filter(({branch, semver}) => {
+      .filter(({ branch, semver }) => {
         if (semver === null) {
           this.logger.warn(`Failed to parse the branch ${branch}, it will be skipped from cascading`);
           return false;
@@ -187,7 +202,7 @@ export abstract class Cascading {
         return compare(branchObjectA.semver, branchObjectB.semver);
       });
 
-    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({branch}) => branch), null, 2));
+    this.logger.debug('Discovered following branches to cascade ' + JSON.stringify(branchesToCascade.map(({ branch }) => branch), null, 2));
     return branchesToCascade;
   }
 

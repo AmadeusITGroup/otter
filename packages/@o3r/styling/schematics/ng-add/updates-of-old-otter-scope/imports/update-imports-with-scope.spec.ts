@@ -1,14 +1,21 @@
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { lastValueFrom } from 'rxjs';
-import { updateSassImports } from '@o3r/schematics';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  updateSassImports
+} from '@o3r/schematics';
+import {
+  lastValueFrom
+} from 'rxjs';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', '..', 'collection.json');
 
 describe('Update Styling imports', () => {
-
   let initialTree: Tree;
 
   beforeEach(() => {
@@ -22,7 +29,6 @@ describe('Update Styling imports', () => {
     const tree = await lastValueFrom(runner.callRule(updateSassImports('o3r'), initialTree));
 
     expect(tree.read('/packages/@o3r/styling/schematics/ng-add/updates-of-old-otter-scope/imports/mocks/old.scss').toString('utf8'))
-      .toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'new.scss.result'), {encoding: 'utf8'}));
+      .toBe(fs.readFileSync(path.resolve(__dirname, 'mocks', 'new.scss.result'), { encoding: 'utf8' }));
   });
-
 });

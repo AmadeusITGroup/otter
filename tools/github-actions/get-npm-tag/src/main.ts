@@ -1,19 +1,27 @@
 import * as core from '@actions/core';
-import { getOctokit } from '@actions/github';
-import {clean, compare, major, prerelease, valid} from 'semver';
+import {
+  getOctokit
+} from '@actions/github';
+import {
+  clean,
+  compare,
+  major,
+  prerelease,
+  valid
+} from 'semver';
 
 async function run(): Promise<void> {
   try {
     const isPreRelease = core.getInput('is-prerelease') === 'true';
-    const version = core.getInput('version', {required: true});
-    const [owner, repo] = core.getInput('repository', {required: true}).split('/');
+    const version = core.getInput('version', { required: true });
+    const [owner, repo] = core.getInput('repository', { required: true }).split('/');
 
     if (!valid(version)) {
       core.setFailed(`Invalid version (version: ${version})`);
       return;
     }
 
-    const releaseResponse = await getOctokit(core.getInput('token', {required: true})).rest.repos.listReleases({
+    const releaseResponse = await getOctokit(core.getInput('token', { required: true })).rest.repos.listReleases({
       owner,
       repo
     });

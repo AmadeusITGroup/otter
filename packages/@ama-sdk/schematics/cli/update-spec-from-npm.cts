@@ -4,21 +4,40 @@
  * Update the OpenAPI spec from an NPM package
  */
 
+import {
+  existsSync
+} from 'node:fs';
+import {
+  copyFile,
+  readFile
+} from 'node:fs/promises';
+import {
+  createRequire
+} from 'node:module';
+import {
+  extname,
+  posix
+} from 'node:path';
+import type {
+  OpenApiToolsConfiguration,
+  OpenApiToolsGenerator
+} from '@ama-sdk/schematics';
+import {
+  LOCAL_SPEC_FILENAME,
+  SPEC_JSON_EXTENSION,
+  SPEC_YAML_EXTENSION
+} from '@ama-sdk/schematics';
 import * as minimist from 'minimist';
-import { existsSync } from 'node:fs';
-import { createRequire } from 'node:module';
-import { extname, posix } from 'node:path';
-import { copyFile, readFile } from 'node:fs/promises';
-import type { PackageJson } from 'type-fest';
-import type { OpenApiToolsConfiguration, OpenApiToolsGenerator } from '@ama-sdk/schematics';
-import { LOCAL_SPEC_FILENAME, SPEC_JSON_EXTENSION, SPEC_YAML_EXTENSION } from '@ama-sdk/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
 
 const argv = minimist(process.argv.slice(2));
 const packageName = argv._[0];
 const { help, output, 'package-path': packagePath, quiet } = argv;
 const openApiConfigDefaultPath = './openapitools.json';
 const noop = () => undefined;
-const logger = quiet ? {error: noop, warn: noop, log: noop, info: noop, debug: noop} : console;
+const logger = quiet ? { error: noop, warn: noop, log: noop, info: noop, debug: noop } : console;
 const SPEC_YML_EXTENSION = 'yml';
 const DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE = 'openapi';
 
@@ -49,7 +68,7 @@ void (async () => {
   if (packagePath) {
     specSourcePath = packageJsonPath.replace(/package.json$/, packagePath);
   } else {
-    const packageJson = JSON.parse(await readFile(packageJsonPath, {encoding: 'utf8'})) as PackageJson;
+    const packageJson = JSON.parse(await readFile(packageJsonPath, { encoding: 'utf8' })) as PackageJson;
     const exportMatcher = new RegExp(`^\\./${DEFAULT_SPEC_EXPORT_PATH_IN_NPM_MODULE}\\.(?:${supportedExtensions.join('|')})$`);
     const matchingExport = packageJson.exports && Object.keys(packageJson.exports).find((exportPath) => exportMatcher.test(exportPath));
     if (matchingExport) {
@@ -69,7 +88,7 @@ void (async () => {
     }
     specDestinationPath = `./${LOCAL_SPEC_FILENAME}${specSourceExtension}`;
     if (existsSync(openApiConfigDefaultPath)) {
-      const openApiConfig = JSON.parse(await readFile(openApiConfigDefaultPath, {encoding: 'utf8'})) as OpenApiToolsConfiguration;
+      const openApiConfig = JSON.parse(await readFile(openApiConfigDefaultPath, { encoding: 'utf8' })) as OpenApiToolsConfiguration;
       const generators: OpenApiToolsGenerator[] = Object.values(openApiConfig['generator-cli']?.generators ?? {});
       if (generators.length === 1 && generators[0].inputSpec && extname(generators[0].inputSpec) === specSourceExtension) {
         specDestinationPath = generators[0].inputSpec;

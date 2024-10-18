@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {
-  chain, Rule
+  chain,
+  Rule
 } from '@angular-devkit/schematics';
-import { getWorkspaceConfig } from '@o3r/schematics';
+import {
+  getWorkspaceConfig
+} from '@o3r/schematics';
 
 /**
  * Update otter builders names
  */
 export function updateBuildersNames(): Rule {
-
   /**
    * Change otter builders names into angular.json
    * @param tree

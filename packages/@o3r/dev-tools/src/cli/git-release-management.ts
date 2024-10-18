@@ -1,7 +1,12 @@
 #!/usr/bin/env node
-import { program } from 'commander';
+import {
+  program
+} from 'commander';
+import {
+  parse,
+  SemVer
+} from 'semver';
 import * as winston from 'winston';
-import {parse, SemVer} from 'semver';
 import {
   checkoutCrtRcBranch,
   checkoutCurrentAlphaOrNextBranch,

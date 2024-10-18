@@ -1,10 +1,24 @@
-import type { LoggerApi } from '@angular-devkit/core/src/logger';
-import type { SchematicContext, Tree } from '@angular-devkit/schematics';
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import { satisfies } from 'semver';
-import type { PackageJson } from 'type-fest';
-import { getPackageManager, O3rCliError } from '../../utility/index';
-import { readFileSync } from 'node:fs';
+import type {
+  LoggerApi
+} from '@angular-devkit/core/src/logger';
+import type {
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  satisfies
+} from 'semver';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  getPackageManager,
+  O3rCliError
+} from '../../utility/index';
 
 /** Interface containing a npm package name, needed version and optionally found version */
 interface PackageVersion {
@@ -15,7 +29,6 @@ interface PackageVersion {
   /** Npm package installed version found */
   foundVersion?: string;
 }
-
 
 /**
  * Check if the first level of peer deps of a given package are installed.
@@ -66,7 +79,6 @@ function getPackagesToInstallOrUpdate(packageName: string) {
  * @param logger
  */
 function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, angularJsonString?: string | null) {
-
   const packageManager = getPackageManager({ workspaceConfig: angularJsonString });
   const { packagesToInstall, packagesWrongVersion } = getPackagesToInstallOrUpdate(packageName);
 
@@ -91,7 +103,6 @@ function checkPackagesToInstallOrUpdate(packageName: string, logger: LoggerApi, 
   if (packagesToInstall.length === 0 && packagesWrongVersion.length === 0) {
     logger.info(`The package ${packageName} has all peer deps installed.\n`);
   }
-
 }
 
 /**

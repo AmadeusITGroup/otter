@@ -1,6 +1,20 @@
-import { apply, chain, MergeStrategy, mergeWith, move, renameTemplateFiles, type Rule, template, url } from '@angular-devkit/schematics';
-import type { GenerateCssSchematicsSchema } from '../../../builders/generate-css/schema';
-import { posix } from 'node:path';
+import {
+  posix
+} from 'node:path';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  type Rule,
+  template,
+  url
+} from '@angular-devkit/schematics';
+import type {
+  GenerateCssSchematicsSchema
+} from '../../../builders/generate-css/schema';
 
 /**
  * Register the Design Token CSS generator

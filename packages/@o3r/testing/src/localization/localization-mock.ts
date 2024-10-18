@@ -1,7 +1,22 @@
-import { ModuleWithProviders, NgModule, Pipe, PipeTransform, Provider } from '@angular/core';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { LocalizationConfiguration, LocalizationModule, LocalizationTranslatePipe } from '@o3r/localization';
-import { of } from 'rxjs';
+import {
+  ModuleWithProviders,
+  NgModule,
+  Pipe,
+  PipeTransform,
+  Provider
+} from '@angular/core';
+import {
+  TranslateLoader,
+  TranslateModule
+} from '@ngx-translate/core';
+import {
+  LocalizationConfiguration,
+  LocalizationModule,
+  LocalizationTranslatePipe
+} from '@o3r/localization';
+import {
+  of
+} from 'rxjs';
 
 const defaultLocalizationConfiguration: Partial<LocalizationConfiguration> = {
   supportedLocales: ['en'],

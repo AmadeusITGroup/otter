@@ -1,5 +1,11 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
-import {EVENT_TRACK_STORE_NAME, EventTrackState} from './event-track.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  EVENT_TRACK_STORE_NAME,
+  EventTrackState
+} from './event-track.state';
 
 /** Select EventTrack State */
 export const selectEventTrackState = createFeatureSelector<EventTrackState>(EVENT_TRACK_STORE_NAME);

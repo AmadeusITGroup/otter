@@ -1,5 +1,10 @@
-import { SchematicContext, type Tree } from '@angular-devkit/schematics';
-import { askConfirmation } from '@angular/cli/src/utilities/prompt';
+import {
+  askConfirmation
+} from '@angular/cli/src/utilities/prompt';
+import {
+  SchematicContext,
+  type Tree
+} from '@angular-devkit/schematics';
 
 /**
  * If the ESLint FlatConfig is used in the repository

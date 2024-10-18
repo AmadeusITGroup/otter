@@ -1,5 +1,10 @@
-import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import {
+  existsSync
+} from 'node:fs';
+import {
+  readFile,
+  writeFile
+} from 'node:fs/promises';
 import * as path from 'node:path';
 
 /**
@@ -15,7 +20,7 @@ export async function addImportToAppModule(appFolderPath: string, moduleName: st
     // assume standalone component
     appModuleFilePath = path.join(appFolderPath, 'src/app/app.component.ts');
   }
-  const appModule = await readFile(appModuleFilePath, {encoding: 'utf8'});
+  const appModule = await readFile(appModuleFilePath, { encoding: 'utf8' });
   const relativeModulePath = path.relative(path.dirname(appModuleFilePath), path.join(appFolderPath, modulePath)).replace(/\\+/g, '/');
   await writeFile(appModuleFilePath, `import { ${moduleName} } from '${relativeModulePath}';\n${
     appModule.replace(/(imports:\s*\[\s*)/, `$1\n    ${moduleName},`)
@@ -28,6 +33,6 @@ export async function addImportToAppModule(appFolderPath: string, moduleName: st
  */
 export async function fixAngularVersion(appFolderPath: string) {
   const workspacePackageJsonPath = path.join(appFolderPath, 'package.json');
-  const packageJsonString = await readFile(workspacePackageJsonPath, {encoding: 'utf8'});
+  const packageJsonString = await readFile(workspacePackageJsonPath, { encoding: 'utf8' });
   await writeFile(workspacePackageJsonPath, packageJsonString.replace(/(@(?:angular|schematics).*)\^/g, '$1~'));
 }

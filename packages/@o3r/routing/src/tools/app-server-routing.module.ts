@@ -1,6 +1,14 @@
-import { APP_BASE_HREF } from '@angular/common';
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import type { BuildTimeProperties } from '@o3r/core';
+import {
+  APP_BASE_HREF
+} from '@angular/common';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import type {
+  BuildTimeProperties
+} from '@o3r/core';
 
 /**
  * AppBaseHref factory function
@@ -34,7 +42,7 @@ export class AppServerRoutingModule {
     return {
       ngModule: AppServerRoutingModule,
       providers: [
-        {provide: ENVIRONMENT_CONFIG_TOKEN, useValue: config},
+        { provide: ENVIRONMENT_CONFIG_TOKEN, useValue: config },
         {
           provide: APP_BASE_HREF,
           useFactory: appBaseHrefFactory,

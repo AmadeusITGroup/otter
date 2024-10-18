@@ -1,9 +1,19 @@
+import {
+  promises as fs
+} from 'node:fs';
+import {
+  resolve
+} from 'node:path';
+import type {
+  DesignTokenSpecification
+} from '../../design-token-specification.interface';
+import type {
+  DesignTokenVariableSet
+} from '../../parsers';
 import * as parser from '../../parsers/design-token.parser';
-import { promises as fs } from 'node:fs';
-import { resolve } from 'node:path';
-import type { DesignTokenSpecification } from '../../design-token-specification.interface';
-import type { DesignTokenVariableSet } from '../../parsers';
-import { getDesignTokenStyleContentUpdater } from './design-token-updater.renderers';
+import {
+  getDesignTokenStyleContentUpdater
+} from './design-token-updater.renderers';
 
 describe('getDesignTokenStyleContentUpdater', () => {
   let exampleVariable!: DesignTokenSpecification;

@@ -1,7 +1,17 @@
-import { getTestBed, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
-import { EventType } from '@angular/router';
-import { provideMockActions } from '@ngrx/effects/testing';
+import {
+  getTestBed,
+  TestBed
+} from '@angular/core/testing';
+import {
+  BrowserDynamicTestingModule,
+  platformBrowserDynamicTesting
+} from '@angular/platform-browser-dynamic/testing';
+import {
+  EventType
+} from '@angular/router';
+import {
+  provideMockActions
+} from '@ngrx/effects/testing';
 import {
   BaseRouterStoreState,
   ROUTER_NAVIGATED,
@@ -9,10 +19,15 @@ import {
   RouterNavigatedAction,
   RouterRequestAction
 } from '@ngrx/router-store';
-
-import { ReplaySubject, Subject, Subscription } from 'rxjs';
+import {
+  ReplaySubject,
+  Subject,
+  Subscription
+} from 'rxjs';
 import * as actions from '../routing-guard.actions';
-import { NgrxStoreRouterEffect } from './ngrx-store-router.effect';
+import {
+  NgrxStoreRouterEffect
+} from './ngrx-store-router.effect';
 
 describe('Routing guard effects', () => {
   beforeAll(() => getTestBed().platform || TestBed.initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
@@ -39,7 +54,6 @@ describe('Routing guard effects', () => {
 
   describe('for ROUTER_REQUEST action from NgRx/router-store', () => {
     it('should clear the list of entities', (done) => {
-
       const routerNavigationRequest: RouterRequestAction<BaseRouterStoreState> = {
         type: ROUTER_REQUEST,
         payload: {
@@ -66,7 +80,6 @@ describe('Routing guard effects', () => {
     });
 
     it('should ignore imperative requests', (done) => {
-
       const routerNavigationRequest: RouterRequestAction<BaseRouterStoreState> = {
         type: ROUTER_REQUEST,
         payload: {
@@ -100,7 +113,6 @@ describe('Routing guard effects', () => {
 
   describe('for ROUTER_NAVIGATED action from NgRx/router-store', () => {
     it('should clear the list of entities', (done) => {
-
       const routerNavigated: RouterNavigatedAction<BaseRouterStoreState> = {
         type: ROUTER_NAVIGATED,
         payload: {

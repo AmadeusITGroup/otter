@@ -1,5 +1,6 @@
-import { EnvironmentMetricData } from '../environment';
-
+import {
+  EnvironmentMetricData
+} from '../environment';
 
 export interface BaseMetricData {
   /** Environment information */

@@ -1,7 +1,17 @@
-import { CompletionItem, CompletionItemKind, CompletionItemProvider, HoverProvider } from 'vscode';
-import { type DesignTokenVariableSet, type DesignTokenVariableStructure, getCssTokenValueRenderer, parseDesignTokenFile } from '@o3r/design';
-import * as vscode from 'vscode';
 import * as path from 'node:path';
+import {
+  type DesignTokenVariableSet,
+  type DesignTokenVariableStructure,
+  getCssTokenValueRenderer,
+  parseDesignTokenFile
+} from '@o3r/design';
+import {
+  CompletionItem,
+  CompletionItemKind,
+  CompletionItemProvider,
+  HoverProvider
+} from 'vscode';
+import * as vscode from 'vscode';
 
 type DesignTokenCache = {
   lastExtractionTimestamp: number;

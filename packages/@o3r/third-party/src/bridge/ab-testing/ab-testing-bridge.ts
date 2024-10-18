@@ -1,7 +1,11 @@
+import type {
+  Logger
+} from '@o3r/core';
 import {
-  BehaviorSubject, distinctUntilChanged, Observable
+  BehaviorSubject,
+  distinctUntilChanged,
+  Observable
 } from 'rxjs';
-import type {Logger} from '@o3r/core';
 
 /**
  * Shared interface with the A/B testing provider
@@ -85,8 +89,7 @@ export class AbTestBridge<T> implements AbTestBridgeInterface<T> {
     if ((window as any)[this.options.bridgeName]) {
       this.log(`An instance of ${this.options.bridgeName} already exists. This AbTestBridge instance will be ignored`);
     } else {
-
-      (window as any)[this.options.bridgeName] = {start: this.start.bind(this), stop: this.stop.bind(this)};
+      (window as any)[this.options.bridgeName] = { start: this.start.bind(this), stop: this.stop.bind(this) };
     }
     document.dispatchEvent(new CustomEvent(this.options.readyEventName));
   }

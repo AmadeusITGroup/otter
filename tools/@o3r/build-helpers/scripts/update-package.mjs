@@ -12,8 +12,7 @@ import minimist from 'minimist';
 
 const argv = minimist(process.argv.slice(2));
 const packageJsonPath = path.resolve(process.cwd(), argv._[0]);
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, {encoding: 'utf-8'}));
-
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, { encoding: 'utf-8' }));
 
 Object.entries(argv)
   .filter((item) => item[0] !== '_')
@@ -24,4 +23,4 @@ Object.entries(argv)
     refPackageField[field] = item[1];
   });
 
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), {encoding: 'utf-8'});
+fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2), { encoding: 'utf-8' });

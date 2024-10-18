@@ -1,4 +1,6 @@
-import type { Rule } from '@angular-devkit/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
 
 const renovatePresets = [
   'github>AmadeusITGroup/otter//tools/renovate/base',

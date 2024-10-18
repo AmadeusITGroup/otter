@@ -1,5 +1,10 @@
-import type { Logger } from '@o3r/core';
-import { Action, MetaReducer } from '@ngrx/store';
+import {
+  Action,
+  MetaReducer
+} from '@ngrx/store';
+import type {
+  Logger
+} from '@o3r/core';
 
 /**
  * Third party client interface.
@@ -10,7 +15,7 @@ export interface LoggerClient extends Logger {
    * @param uid Unique identifier for the current user
    * @param vars Addition information about the user
    */
-  identify(uid: string, vars?: {[key: string]: string}): void;
+  identify(uid: string, vars?: { [key: string]: string }): void;
 
   /**
    * Log custom event.

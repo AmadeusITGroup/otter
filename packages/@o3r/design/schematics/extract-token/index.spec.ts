@@ -1,13 +1,25 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { extractToken } from './index';
-import { firstValueFrom } from 'rxjs';
-import type { CssVariable } from '@o3r/styling';
-import { validate } from 'jsonschema';
 import * as fs from 'node:fs';
-import { resolve } from 'node:path';
+import {
+  resolve
+} from 'node:path';
+import {
+  callRule,
+  Tree
+} from '@angular-devkit/schematics';
+import type {
+  CssVariable
+} from '@o3r/styling';
+import {
+  validate
+} from 'jsonschema';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  extractToken
+} from './index';
 
 describe('Extract Token schematic', () => {
-
   let initialTree: Tree;
 
   const initialSassFile = `

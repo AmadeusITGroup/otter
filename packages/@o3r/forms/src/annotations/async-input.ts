@@ -1,5 +1,10 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  Observable
+} from 'rxjs';
+import {
+  switchMap
+} from 'rxjs/operators';
 
 /**
  * Decorator for @Input property

@@ -1,6 +1,20 @@
-import {utils} from '@ama-sdk/core';
-import {Directive, forwardRef, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {AbstractControl, NG_VALIDATORS, ValidationErrors, Validator, ValidatorFn} from '@angular/forms';
+import {
+  utils
+} from '@ama-sdk/core';
+import {
+  Directive,
+  forwardRef,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
+import {
+  AbstractControl,
+  NG_VALIDATORS,
+  ValidationErrors,
+  Validator,
+  ValidatorFn
+} from '@angular/forms';
 
 /**
  * A directive which installs the `MinDateValidator` for any `formControlName,
@@ -56,7 +70,7 @@ export class MinDateValidator implements Validator, OnChanges {
   public static minDate(minDate: utils.Date | null): ValidatorFn {
     const result = (control: AbstractControl): ValidationErrors | null => {
       if (control.value instanceof utils.Date) {
-        return minDate && control.value.getTime() < minDate.getTime() ? {mindate: {requiredDate: minDate, actualDate: control.value}} : null;
+        return minDate && control.value.getTime() < minDate.getTime() ? { mindate: { requiredDate: minDate, actualDate: control.value } } : null;
       }
 
       return null;

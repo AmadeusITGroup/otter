@@ -1,6 +1,15 @@
-import type { LoggerApi } from '@angular-devkit/core/src/logger';
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { intersects, Range, validRange } from 'semver';
+import type {
+  LoggerApi
+} from '@angular-devkit/core/src/logger';
+import {
+  chain,
+  type Rule
+} from '@angular-devkit/schematics';
+import {
+  intersects,
+  Range,
+  validRange
+} from 'semver';
 
 /** Create the migration  */
 interface MigrateRuleRunnerOptions {

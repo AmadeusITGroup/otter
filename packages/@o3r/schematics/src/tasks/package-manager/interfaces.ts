@@ -1,4 +1,6 @@
-import type { Tree } from '@angular-devkit/schematics';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
 
 /**
  * Duplication of the interface not exposed by the @angular-devkit/schematics

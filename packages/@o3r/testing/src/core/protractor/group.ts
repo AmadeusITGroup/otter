@@ -1,7 +1,12 @@
-import { GroupProfile } from '../group';
-import { ElementProfile, O3rElement } from './element';
+import {
+  GroupProfile
+} from '../group';
+import {
+  ElementProfile,
+  O3rElement
+} from './element';
 
-export {GroupProfile} from '../group';
+export { GroupProfile } from '../group';
 
 /**
  * Constructor of a O3rGroup
@@ -15,7 +20,6 @@ export type O3rGroupConstructor<T extends GroupProfile<V>, V extends ElementProf
  * @deprecated Will be removed in v13, please use Playwright instead
  */
 export class O3rGroup<T extends O3rElement> implements GroupProfile<T> {
-
   /** @inheritDoc */
   public get items(): T[] {
     return this.sourceElement;

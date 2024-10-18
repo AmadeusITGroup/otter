@@ -4,16 +4,22 @@
  * Update the Typescript SDK Package to expose the sub modules
  */
 
-import { copyFileSync, promises as fs, mkdirSync } from 'node:fs';
-import * as minimist from 'minimist';
+import {
+  copyFileSync,
+  promises as fs,
+  mkdirSync
+} from 'node:fs';
 import * as path from 'node:path';
 import * as globby from 'globby';
-import type { PackageJson } from 'type-fest';
+import * as minimist from 'minimist';
+import type {
+  PackageJson
+} from 'type-fest';
 
 const argv = minimist(process.argv.slice(2));
 const distFolder = argv.dist || 'dist';
 const baseDir = argv.cwd && path.resolve(process.cwd(), argv.cwd) || process.cwd();
-const {help, watch, noExports} = argv;
+const { help, watch, noExports } = argv;
 
 if (help) {
   // eslint-disable-next-line no-console
@@ -27,16 +33,16 @@ if (help) {
 }
 
 const files = [
-  {glob: 'README.md', cwdForCopy: baseDir},
-  {glob: 'LICENSE', cwdForCopy: baseDir},
-  {glob: 'package.json', cwdForCopy: baseDir},
-  {glob: 'src/**/package.json', cwdForCopy: path.join(baseDir, 'src')}
+  { glob: 'README.md', cwdForCopy: baseDir },
+  { glob: 'LICENSE', cwdForCopy: baseDir },
+  { glob: 'package.json', cwdForCopy: baseDir },
+  { glob: 'src/**/package.json', cwdForCopy: path.join(baseDir, 'src') }
 ];
 
 /**  Update package.json exports */
 const updateExports = async () => {
   const packageJson = JSON.parse(await fs.readFile(path.join(baseDir, 'package.json'), { encoding: 'utf8' }));
-  const packageJsonFiles = globby.sync(path.posix.join(distFolder, '*', '**', 'package.json'), {absolute: true});
+  const packageJsonFiles = globby.sync(path.posix.join(distFolder, '*', '**', 'package.json'), { absolute: true });
   packageJson.exports = packageJson.exports || {};
   for (const packageJsonFile of packageJsonFiles) {
     try {
@@ -65,22 +71,21 @@ const updateExports = async () => {
 };
 
 void (async () => {
-
   const copyToDist = (file: string, cwdForCopy: string) => {
     const distFile = path.resolve(baseDir, distFolder, path.relative(cwdForCopy, file));
     // eslint-disable-next-line no-console
     console.log(`${file} copied to ${distFile}`);
     try {
-      mkdirSync(path.dirname(distFile), {recursive: true});
+      mkdirSync(path.dirname(distFile), { recursive: true });
     } catch { /* ignore error */ }
     return copyFileSync(file, distFile);
   };
 
   // Move files into the dist folder
-  const copies = files.map(async ({glob, cwdForCopy}) => {
+  const copies = files.map(async ({ glob, cwdForCopy }) => {
     return watch
       ? import('chokidar')
-        .then((chokidar) => chokidar.watch(glob, {cwd: baseDir}))
+        .then((chokidar) => chokidar.watch(glob, { cwd: baseDir }))
         .then((watcher) => watcher.on('all', async (event, file) => {
           if (event !== 'unlink' && event !== 'unlinkDir') {
             copyToDist(file, cwdForCopy);

@@ -1,6 +1,12 @@
-import { chain, noop, type Rule } from '@angular-devkit/schematics';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  noop,
+  type Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/apis-manager has failed.

@@ -1,4 +1,6 @@
-import type { ItemIdentifier } from '@o3r/core';
+import type {
+  ItemIdentifier
+} from '@o3r/core';
 
 /** Metadata information added in the design token extension for Metadata extraction */
 export interface DesignTokenMetadata {
@@ -44,7 +46,6 @@ export interface DesignTokenGroupExtensions {
 /** Design Token Extension fields supported by the default renderer */
 export interface DesignTokenExtensions extends DesignTokenGroupExtensions {
 }
-
 
 interface DesignTokenBase<T> {
   /** Value of the Token */
@@ -200,7 +201,6 @@ type DesignTokenTypeTypographyValue = {
   fontWeight: DesignTokenTypeFontWeightValue;
   lineHeight: string | number;
 };
-
 
 /** Design Token Typography */
 export interface DesignTokenTypeTypography extends DesignTokenBase<DesignTokenTypeTypographyValue> {

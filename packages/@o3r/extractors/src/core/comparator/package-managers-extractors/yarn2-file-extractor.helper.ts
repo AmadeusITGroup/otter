@@ -1,4 +1,10 @@
 import {
+  join
+} from 'node:path';
+import {
+  O3rCliError
+} from '@o3r/schematics';
+import {
   Cache,
   Configuration,
   Descriptor,
@@ -14,10 +20,10 @@ import {
   structUtils,
   ThrowReport
 } from '@yarnpkg/core';
-import { npath } from '@yarnpkg/fslib';
+import {
+  npath
+} from '@yarnpkg/fslib';
 import yarnNpmPlugin from '@yarnpkg/plugin-npm';
-import { join } from 'node:path';
-import { O3rCliError } from '@o3r/schematics';
 
 // Class copied from https://github.com/yarnpkg/berry/blob/master/packages/yarnpkg-core/sources/MultiResolver.ts
 // because it is not exposed in @yarnpkg/core
@@ -141,7 +147,6 @@ function getDescriptorFromReference(packageReference: string) {
 }
 
 async function fetchPackage(project: Project, descriptor: Descriptor): Promise<FetchResult> {
-
   const cache = await Cache.find(project.configuration);
   const report = new ThrowReport();
   const multiResolver = new MultiResolver(

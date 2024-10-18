@@ -1,16 +1,26 @@
-import { createSelector } from '@ngrx/store';
-import { Configuration } from '@o3r/core';
-import { configurationAdapter } from './configuration.reducer';
-import { CONFIGURATION_STORE_NAME, ConfigurationState, globalConfigurationId } from './configuration.state';
+import {
+  createSelector
+} from '@ngrx/store';
+import {
+  Configuration
+} from '@o3r/core';
+import {
+  configurationAdapter
+} from './configuration.reducer';
+import {
+  CONFIGURATION_STORE_NAME,
+  ConfigurationState,
+  globalConfigurationId
+} from './configuration.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = configurationAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = configurationAdapter.getSelectors();
 
 /**
  * Select Configuration State
  * Note: the usage of createSelector is to avoid warning printing because of potentially undefined feature store
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-export const selectConfigurationState = createSelector<{[CONFIGURATION_STORE_NAME]: ConfigurationState }, [state: ConfigurationState | undefined], ConfigurationState | undefined>(
+export const selectConfigurationState = createSelector<{ [CONFIGURATION_STORE_NAME]: ConfigurationState }, [state: ConfigurationState | undefined], ConfigurationState | undefined>(
   (state) => state[CONFIGURATION_STORE_NAME],
   (state) => state
 );
@@ -32,7 +42,7 @@ export const selectConfigurationTotal = createSelector(selectConfigurationState,
  * @param props property of the selector
  * @param props.id id of the component
  */
-export const selectConfigurationForComponent = <T extends Configuration>(props: {id: string}) =>
+export const selectConfigurationForComponent = <T extends Configuration>(props: { id: string }) =>
   createSelector(selectConfigurationEntities, (entities) => (entities?.[props.id] || {}) as Configuration as T);
 
 /**

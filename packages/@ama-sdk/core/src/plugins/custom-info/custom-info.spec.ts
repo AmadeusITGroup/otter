@@ -1,8 +1,11 @@
-import {ApiTypes} from '../../fwk/api';
-import {CustomInfoReply} from './custom-info.reply';
+import {
+  ApiTypes
+} from '../../fwk/api';
+import {
+  CustomInfoReply
+} from './custom-info.reply';
 
 describe('Custom info reply plugin', () => {
-
   it('should add the content of the custom information in the reply', async () => {
     const customInfo = {
       key: 'value',
@@ -28,10 +31,10 @@ describe('Custom info reply plugin', () => {
   });
 
   it('should merge the contents of the two custom info', async () => {
-    const customInfo1 = {key0: 'dummy', key1: 'value'};
+    const customInfo1 = { key0: 'dummy', key1: 'value' };
     const plugin1 = new CustomInfoReply(customInfo1);
 
-    const customInfo2 = {key1: 'override', key2: 42};
+    const customInfo2 = { key1: 'override', key2: 42 };
     const plugin2 = new CustomInfoReply(customInfo2);
 
     const runner1 = plugin1.load({
@@ -55,14 +58,14 @@ describe('Custom info reply plugin', () => {
 
   it('should invalidate custom info', () => {
     const plugin = new CustomInfoReply({});
-    const data = {originalData: 'OK'};
+    const data = { originalData: 'OK' };
 
     expect(plugin.hasCustomInfo(data)).toBeFalsy();
   });
 
   it('should validate custom info', () => {
     const plugin = new CustomInfoReply({});
-    const data = {originalData: 'OK', customInfo: {a: 'b'}};
+    const data = { originalData: 'OK', customInfo: { a: 'b' } };
 
     expect(plugin.hasCustomInfo(data)).toBeTruthy();
   });

@@ -1,4 +1,6 @@
-import type {Translation} from '../interfaces';
+import type {
+  Translation
+} from '../interfaces';
 
 /** Type of component */
 export type ComponentType = 'Block' | 'Page' | 'ExposedComponent' | 'Component';
@@ -37,7 +39,7 @@ export const otterComponentInfoPropertyName = '__otter-info__';
 export function O3rComponent(info: OtterComponentInfoToProvide) {
   return <T extends new (...args: any[]) => object>(constructor: T) => {
     const componentName = constructor.name;
-    constructor.prototype[otterComponentInfoPropertyName] = {...info, componentName};
+    constructor.prototype[otterComponentInfoPropertyName] = { ...info, componentName };
     return constructor;
   };
 }

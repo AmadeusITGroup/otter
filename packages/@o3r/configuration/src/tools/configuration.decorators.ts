@@ -1,6 +1,13 @@
-import { Configuration, otterComponentInfoPropertyName } from '@o3r/core';
-import { ConfigurationObserver } from './configuration.observer';
-import type { ConfigurationSignal } from './configuration.signal';
+import {
+  Configuration,
+  otterComponentInfoPropertyName
+} from '@o3r/core';
+import {
+  ConfigurationObserver
+} from './configuration.observer';
+import type {
+  ConfigurationSignal
+} from './configuration.signal';
 
 const decorator = (target: any, key: string) => {
   const privateField = `_${key}`;

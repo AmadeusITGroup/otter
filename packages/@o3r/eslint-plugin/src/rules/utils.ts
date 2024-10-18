@@ -1,7 +1,15 @@
-import { ESLintUtils, TSESLint, TSESTree } from '@typescript-eslint/utils';
-import { readFileSync } from 'node:fs';
+import {
+  readFileSync
+} from 'node:fs';
 import * as path from 'node:path';
-import type { PackageJson } from 'type-fest';
+import {
+  ESLintUtils,
+  TSESLint,
+  TSESTree
+} from '@typescript-eslint/utils';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /** Current package version (format: <major>.<minor>)*/
 const version = (JSON.parse(readFileSync(path.resolve(__dirname, '..', '..', 'package.json'), { encoding: 'utf-8' })) as PackageJson).version?.split('.').slice(0, 2).join('.') || '0.0';
@@ -46,4 +54,4 @@ export const getNodeComment = (node: TSESTree.Node, sourceCode: TSESLint.SourceC
  * Wraps `commentValue` into a comment
  * @param commentValue
  */
-export const createCommentString = (commentValue: string) => `/*${ commentValue.replace(/\*\//g, '*\\/') }*/`;
+export const createCommentString = (commentValue: string) => `/*${commentValue.replace(/\*\//g, '*\\/')}*/`;

@@ -1,15 +1,24 @@
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  ngAddLocalizationKeyFn
+} from './index';
+
 jest.mock('node:readline', () => ({
   createInterface: () => ({
     question: jest.fn((_query, cb) => cb('mockInputUser')) as any,
     close: jest.fn()
   })
 }));
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import { firstValueFrom } from 'rxjs';
-import { ngAddLocalizationKeyFn } from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', 'collection.json');
 const emptyO3rComponentPath = '/src/components/empty/empty.component.ts';

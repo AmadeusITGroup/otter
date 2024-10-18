@@ -1,5 +1,9 @@
-import {TokenizedOptions} from '../plugins/core/request-plugin';
-import type {ReviverType} from './Reviver';
+import {
+  TokenizedOptions
+} from '../plugins/core/request-plugin';
+import type {
+  ReviverType
+} from './Reviver';
 
 /**
  * prepares the url to be called
@@ -57,7 +61,6 @@ export function filterUndefinedValues(object?: { [key: string]: string | undefin
  * @param type
  */
 export function processFormData(data: any, type: string): FormData | string {
-
   let encodedData: FormData | string;
 
   /* eslint-disable guard-for-in */
@@ -102,7 +105,7 @@ export function computePiiParameterTokens(piiParameterNames: string[]): { [key: 
  */
 export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { [key: string]: string }, piiParamTokens: { [key: string]: string }, data: any): TokenizedOptions {
   const values: Record<string, string> = {};
-  const tokenizedQueryParams = {...queryParameters};
+  const tokenizedQueryParams = { ...queryParameters };
   Object.entries(piiParamTokens).filter(([parameterName, _token]) => data[parameterName] !== undefined).forEach(([parameterName, token]) => {
     if (tokenizedQueryParams[parameterName]) {
       tokenizedQueryParams[parameterName] = token;
@@ -110,7 +113,7 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
     values[token] = data[parameterName];
   });
 
-  return {values, url: tokenizedUrl, queryParams: tokenizedQueryParams};
+  return { values, url: tokenizedUrl, queryParams: tokenizedQueryParams };
 }
 
 /**
@@ -126,7 +129,7 @@ export function tokenizeRequestOptions(tokenizedUrl: string, queryParameters: { 
  */
 export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverType<T> | undefined } | undefined | ReviverType<T>, response: Pick<Response, 'ok' | 'status'> | undefined,
   // eslint-disable-next-line no-console
-  endpoint?: string, options: { disableFallback?: boolean; log?: (...args: any[]) => void } = {disableFallback: false, log: console.error}): ReviverType<T> | undefined {
+  endpoint?: string, options: { disableFallback?: boolean; log?: (...args: any[]) => void } = { disableFallback: false, log: console.error }): ReviverType<T> | undefined {
   const logPrefix = `API status code error for ${endpoint || 'unknown'} endpoint`;
   const logMsg = options.log || (() => {});
   if (!response || !response.ok) {
@@ -153,7 +156,7 @@ export function getResponseReviver<T>(revivers: { [statusCode: number]: ReviverT
       acc.reviver = reviver;
     }
     return acc;
-  }, {statusCode: Number.MAX_SAFE_INTEGER, reviver: undefined});
+  }, { statusCode: Number.MAX_SAFE_INTEGER, reviver: undefined });
   const fallbackLog = Number.MAX_SAFE_INTEGER === fallback.statusCode ? 'No fallback found' : `Fallback to ${fallback.statusCode}'s reviver`;
   logMsg(`${logPrefix} - Unknown ${response.status || 'undefined'} code returned by the API - ${fallbackLog}`);
   return fallback.reviver;

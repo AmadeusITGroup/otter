@@ -90,7 +90,6 @@ function stringToCodePoints(s: string) {
 
   // 5. While i < n:
   while (i < n) {
-
     // 1. Let c be the code unit in S at index i.
     const c = s.charCodeAt(i);
 
@@ -219,7 +218,6 @@ export class Encoder {
 
     // 5. Run these substeps while count is greater than 0:
     while (count > 0) {
-
       // 1. Set temp to code point >> (6 × (count − 1)).
       // eslint-disable-next-line no-bitwise
       const temp = codePoint >> (6 * (count - 1));
@@ -259,8 +257,7 @@ export class Encoder {
       }
       if (Array.isArray(result)) {
         output.push(...result);
-      }
-      else {
+      } else {
         output.push(result);
       }
     }
@@ -271,5 +268,3 @@ export class Encoder {
     return new Uint8Array(output);
   }
 }
-
-

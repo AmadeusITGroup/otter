@@ -1,6 +1,12 @@
-import type { JsonObject } from '@angular-devkit/core';
-import type { Rule } from '@angular-devkit/schematics';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  JsonObject
+} from '@angular-devkit/core';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 /**
  * Add Otter telemetry to an Otter Project

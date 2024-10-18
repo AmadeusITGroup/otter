@@ -1,4 +1,7 @@
-import type { DesignTokenGroupExtensions, DesignTokenGroupTemplate } from '../design-token-specification.interface';
+import type {
+  DesignTokenGroupExtensions,
+  DesignTokenGroupTemplate
+} from '../design-token-specification.interface';
 
 /**
  * Merge TemplateB into TemplateA
@@ -9,7 +12,6 @@ export const mergeDesignTokenTemplates = <
   A extends DesignTokenGroupExtensions = DesignTokenGroupExtensions,
   B extends DesignTokenGroupExtensions = DesignTokenGroupExtensions>
 (templateA: DesignTokenGroupTemplate<A>, templateB: DesignTokenGroupTemplate<B>): DesignTokenGroupTemplate<A | B> => {
-
   const entries = Object.entries(templateB);
   const template = {
     ...templateA,

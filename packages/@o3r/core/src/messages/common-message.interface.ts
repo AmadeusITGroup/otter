@@ -1,4 +1,6 @@
-import type { OtterMessageContent } from './message.interfaces';
+import type {
+  OtterMessageContent
+} from './message.interfaces';
 
 /** Extension connection notification message content */
 export interface ConnectContentMessage extends OtterMessageContent<'connect'> {

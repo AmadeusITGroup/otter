@@ -1,9 +1,25 @@
-import { Directionality } from '@angular/cdk/bidi';
-import { Inject, Injectable, Renderer2, RendererFactory2 } from '@angular/core';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
-import { LocalizationConfiguration } from '../core';
-import { LOCALIZATION_CONFIGURATION_TOKEN } from './localization.token';
+import {
+  Directionality
+} from '@angular/cdk/bidi';
+import {
+  Inject,
+  Injectable,
+  Renderer2,
+  RendererFactory2
+} from '@angular/core';
+import {
+  LangChangeEvent,
+  TranslateService
+} from '@ngx-translate/core';
+import {
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationConfiguration
+} from '../core';
+import {
+  LOCALIZATION_CONFIGURATION_TOKEN
+} from './localization.token';
 
 /**
  * Service for handling the text direction based on the LocalizationConfiguration

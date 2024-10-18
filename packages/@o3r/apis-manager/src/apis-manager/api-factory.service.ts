@@ -1,7 +1,20 @@
-import type { Api, ApiClient, ApiName } from '@ama-sdk/core';
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { ApiManager } from './api-manager';
-import { API_TOKEN } from './api-manager.token';
+import type {
+  Api,
+  ApiClient,
+  ApiName
+} from '@ama-sdk/core';
+import {
+  Inject,
+  Injectable,
+  InjectionToken,
+  Optional
+} from '@angular/core';
+import {
+  ApiManager
+} from './api-manager';
+import {
+  API_TOKEN
+} from './api-manager.token';
 
 /** Type of the Class of an SDK Api */
 export type ApiClassType<T extends Api = Api> = (new (client: ApiClient) => T) & ApiName;
@@ -13,7 +26,6 @@ export const INITIAL_APIS_TOKEN = new InjectionToken<(Api | ApiClassType)[]>('In
 
 @Injectable()
 export class ApiFactoryService {
-
   /** Map of loaded APIs */
   private loadedApis: Record<string, Api> = {};
 

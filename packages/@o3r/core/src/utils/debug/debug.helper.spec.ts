@@ -17,23 +17,21 @@ describe('debug helper', () => {
 
   describe('isProductionEnvironment', () => {
     it('should return true as environment is production', () => {
-      const document = {body: {dataset: {bootstrapconfig: '{"environment": "prod"}'}}};
+      const document = { body: { dataset: { bootstrapconfig: '{"environment": "prod"}' } } };
 
       expect(isProductionEnvironment(document.body.dataset)).toBeTruthy();
     });
 
     it('should return false if environment is not production', () => {
-      const document = {body: {dataset: {bootstrapconfig: '{"environment": "dev"}'}}};
+      const document = { body: { dataset: { bootstrapconfig: '{"environment": "dev"}' } } };
 
       expect(isProductionEnvironment(document.body.dataset)).toBeFalsy();
     });
 
     it('should return false if no bootstrapconfig', () => {
-      const document = {body: {dataset: {}}};
+      const document = { body: { dataset: {} } };
 
       expect(isProductionEnvironment(document.body.dataset)).toBeFalsy();
     });
   });
 });
-
-

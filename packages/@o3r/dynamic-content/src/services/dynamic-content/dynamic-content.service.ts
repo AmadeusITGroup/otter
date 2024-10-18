@@ -1,9 +1,28 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { of } from 'rxjs';
-import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
-import { AssetPathOverrideStore, selectAssetPathOverride } from '../../stores/index';
-import { CMS_ASSETS_PATH_TOKEN, DYNAMIC_CONTENT_BASE_PATH_TOKEN } from './dynamic-content.token';
+import {
+  Inject,
+  Injectable,
+  Optional
+} from '@angular/core';
+import {
+  select,
+  Store
+} from '@ngrx/store';
+import {
+  of
+} from 'rxjs';
+import {
+  distinctUntilChanged,
+  map,
+  shareReplay
+} from 'rxjs/operators';
+import {
+  AssetPathOverrideStore,
+  selectAssetPathOverride
+} from '../../stores/index';
+import {
+  CMS_ASSETS_PATH_TOKEN,
+  DYNAMIC_CONTENT_BASE_PATH_TOKEN
+} from './dynamic-content.token';
 
 const MEDIA_FOLDER_NAME = 'assets';
 
@@ -71,7 +90,7 @@ export class DynamicContentService {
       map((entities) => assetPath && entities && entities[assetPath] ? entities[assetPath] : assetPath),
       map((finalAssetPath) => this.getMediaPath(finalAssetPath)),
       distinctUntilChanged(),
-      shareReplay({bufferSize: 1, refCount: true})
+      shareReplay({ bufferSize: 1, refCount: true })
     );
   }
 }

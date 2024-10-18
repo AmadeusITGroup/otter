@@ -1,13 +1,14 @@
-import { RetryFetch } from './retry.fetch';
+import {
+  RetryFetch
+} from './retry.fetch';
 
 describe('Retry Fetch Plugin', () => {
-
   it('should not retry on success', async () => {
     const condition = jest.fn().mockReturnValue(true);
     const plugin = new RetryFetch(1, condition);
 
-    const runner = plugin.load({url: 'http://www.test.com', fetchPlugins: []} as any);
-    const call = Promise.resolve({text: 'test', ok: true});
+    const runner = plugin.load({ url: 'http://www.test.com', fetchPlugins: [] } as any);
+    const call = Promise.resolve({ text: 'test', ok: true });
 
     const res = runner.transform(call as any);
 
@@ -15,21 +16,20 @@ describe('Retry Fetch Plugin', () => {
 
     const ret = await res;
 
-    expect(ret).toEqual({text: 'test', ok: true} as any);
+    expect(ret).toEqual({ text: 'test', ok: true } as any);
   });
 
   it('should not retry if refused by the condition', async () => {
     const conditionFalsy = jest.fn().mockReturnValue(false);
     const plugin = new RetryFetch(3, conditionFalsy);
 
-    const runner = plugin.load({url: 'http://www.test.com', fetchPlugins: []} as any);
-    const call = Promise.resolve({text: 'test', ok: false, clone: () => ({})});
+    const runner = plugin.load({ url: 'http://www.test.com', fetchPlugins: [] } as any);
+    const call = Promise.resolve({ text: 'test', ok: false, clone: () => ({}) });
 
     const res = runner.transform(call as any);
     await res;
 
     expect(conditionFalsy).toHaveBeenCalledTimes(1);
-
   });
 
   it('should retry on fetch rejection', async () => {
@@ -37,9 +37,9 @@ describe('Retry Fetch Plugin', () => {
     const plugin = new RetryFetch(2, condition);
     const runners: any[] = [];
 
-    const runner = plugin.load({url: 'not an url', fetchPlugins: runners} as any);
+    const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.reject({text: 'test', ok: true});
+    const call = Promise.reject({ text: 'test', ok: true });
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);
@@ -54,9 +54,9 @@ describe('Retry Fetch Plugin', () => {
     const plugin = new RetryFetch(2, condition, () => delay);
     const runners: any[] = [];
 
-    const runner = plugin.load({url: 'not an url', fetchPlugins: runners} as any);
+    const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.reject({text: 'test', ok: true});
+    const call = Promise.reject({ text: 'test', ok: true });
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);
@@ -72,9 +72,9 @@ describe('Retry Fetch Plugin', () => {
     const plugin = new RetryFetch(3, condition);
     const runners: any[] = [];
 
-    const runner = plugin.load({url: 'not an url', fetchPlugins: runners} as any);
+    const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.resolve({text: 'test', ok: false});
+    const call = Promise.resolve({ text: 'test', ok: false });
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);
@@ -89,9 +89,9 @@ describe('Retry Fetch Plugin', () => {
     const plugin = new RetryFetch(3, condition, () => delay);
     const runners: any[] = [];
 
-    const runner = plugin.load({url: 'not an url', fetchPlugins: runners} as any);
+    const runner = plugin.load({ url: 'not an url', fetchPlugins: runners } as any);
     runners.push(runner);
-    const call = Promise.resolve({text: 'test', ok: false});
+    const call = Promise.resolve({ text: 'test', ok: false });
 
     const callback = jest.fn();
     runner.transform(call as any).catch(callback);
@@ -101,5 +101,4 @@ describe('Retry Fetch Plugin', () => {
     expect(callback).toHaveBeenCalledWith(expect.objectContaining({}));
     expect(condition).toHaveBeenCalledTimes(3);
   });
-
 });

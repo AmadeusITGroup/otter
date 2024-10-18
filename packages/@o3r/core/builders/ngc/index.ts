@@ -1,12 +1,24 @@
-import { BuilderOutput, createBuilder } from '@angular-devkit/architect';
-import { main } from '@angular/compiler-cli/src/main';
-import * as ts from 'typescript';
-import { NodeJSFileSystem, setFileSystem } from '@angular/compiler-cli/src/ngtsc/file_system';
-import * as chokidar from 'chokidar';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { createBuilderWithMetricsIfInstalled } from '../utils';
-import { NgcBuilderSchema } from './schema';
+import {
+  main
+} from '@angular/compiler-cli/src/main';
+import {
+  NodeJSFileSystem,
+  setFileSystem
+} from '@angular/compiler-cli/src/ngtsc/file_system';
+import {
+  BuilderOutput,
+  createBuilder
+} from '@angular-devkit/architect';
+import * as chokidar from 'chokidar';
+import * as ts from 'typescript';
+import {
+  createBuilderWithMetricsIfInstalled
+} from '../utils';
+import {
+  NgcBuilderSchema
+} from './schema';
 
 export * from './schema';
 
@@ -24,14 +36,13 @@ export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstall
 
   setFileSystem(new NodeJSFileSystem());
 
-
   const buildResultCode = main(args);
 
   context.reportProgress(1, STEP_NUMBER, 'Handle package.json.');
 
   const handlePackageJson = (distPath: string) => {
     const packageJsonFile = path.resolve(context.currentDirectory, 'package.json');
-    const packageJsonString = fs.readFileSync(packageJsonFile, {encoding: 'utf8'});
+    const packageJsonString = fs.readFileSync(packageJsonFile, { encoding: 'utf8' });
     const packageJson = JSON.parse(packageJsonString);
     if (packageJson.otterBuilder && packageJson.otterBuilder.entryPoint && (typeof packageJson.otterBuilder.entryPoint === 'string')) {
       const barrelName = path.parse(packageJson.otterBuilder.entryPoint).name;
@@ -47,7 +58,7 @@ export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstall
   const tsConfigFile = path.resolve(context.currentDirectory, options.tsConfig);
 
   try {
-    const tsConfig = ts.readConfigFile(tsConfigFile, (pathFile) => fs.readFileSync(pathFile, {encoding: 'utf8'})).config;
+    const tsConfig = ts.readConfigFile(tsConfigFile, (pathFile) => fs.readFileSync(pathFile, { encoding: 'utf8' })).config;
     const dist = tsConfig.compilerOptions.outDir;
     handlePackageJson(dist);
     if (options.watch) {
@@ -55,10 +66,9 @@ export default createBuilder<NgcBuilderSchema>(createBuilderWithMetricsIfInstall
     }
     if (buildResultCode > 0) {
       context.logger.error(`ngc build failed with code ${buildResultCode}.`);
-      return options.watch ? new Promise((resolve) => process.once('SIGINT', () => resolve({success: false}))) : {success: false};
+      return options.watch ? new Promise((resolve) => process.once('SIGINT', () => resolve({ success: false }))) : { success: false };
     }
-    return options.watch ? new Promise((resolve) => process.once('SIGINT', () => resolve({success: true}))) : {success: true};
-
+    return options.watch ? new Promise((resolve) => process.once('SIGINT', () => resolve({ success: true }))) : { success: true };
   } catch (e: any) {
     context.logger.error(e);
     return {

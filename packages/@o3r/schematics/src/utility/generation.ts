@@ -1,8 +1,18 @@
-import type { JsonValue } from '@angular-devkit/core';
-import type { Tree } from '@angular-devkit/schematics';
-import { O3rCliError } from './error';
-import { getWorkspaceConfig } from './loaders';
-import { getDefaultOptionsForSchematic } from './collection';
+import type {
+  JsonValue
+} from '@angular-devkit/core';
+import type {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  getDefaultOptionsForSchematic
+} from './collection';
+import {
+  O3rCliError
+} from './error';
+import {
+  getWorkspaceConfig
+} from './loaders';
 
 /** Type of generated item */
 export type GeneratedItemType =
@@ -26,17 +36,17 @@ export const OTTER_ITEM_TYPES: GeneratedItemType[] = [
 ];
 
 /** List of the default destination paths for each generated entity */
-export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: {app?: string; lib?: string} } = {
+export const TYPES_DEFAULT_FOLDER: { [key in GeneratedItemType]: { app?: string; lib?: string } } = {
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:component': {app: 'src/components', lib: 'src/components'},
+  '@o3r/core:component': { app: 'src/components', lib: 'src/components' },
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:page': {app: 'src/app'},
+  '@o3r/core:page': { app: 'src/app' },
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:service': {app: 'src/services', lib: 'src/services'},
+  '@o3r/core:service': { app: 'src/services', lib: 'src/services' },
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:store': {app: 'src/store', lib: 'src/store'},
+  '@o3r/core:store': { app: 'src/store', lib: 'src/store' },
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  '@o3r/core:schematics-update': {app: 'src/schematics', lib: 'src/schematics'},
+  '@o3r/core:schematics-update': { app: 'src/schematics', lib: 'src/schematics' },
   // eslint-disable-next-line @typescript-eslint/naming-convention
   '@o3r/testing:playwright-scenario': { app: 'e2e-playwright/scenarios' },
   // eslint-disable-next-line @typescript-eslint/naming-convention

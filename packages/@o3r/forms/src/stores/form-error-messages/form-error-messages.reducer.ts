@@ -1,8 +1,18 @@
-import {createEntityAdapter, EntityAdapter} from '@ngrx/entity';
-import {ActionCreator, createReducer, on, ReducerTypes} from '@ngrx/store';
+import {
+  createEntityAdapter,
+  EntityAdapter
+} from '@ngrx/entity';
+import {
+  ActionCreator,
+  createReducer,
+  on,
+  ReducerTypes
+} from '@ngrx/store';
 import * as actions from './form-error-messages.actions';
-
-import {FormErrorMessagesState, FormErrorModel} from './form-error-messages.state';
+import {
+  FormErrorMessagesState,
+  FormErrorModel
+} from './form-error-messages.state';
 
 /**
  * FormErrorMessages Store adapter

@@ -1,4 +1,3 @@
-
 /**
  * Common extra properties that are needed for all the Otter based store generations
  */

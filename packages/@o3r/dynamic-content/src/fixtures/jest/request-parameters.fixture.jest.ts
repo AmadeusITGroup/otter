@@ -1,14 +1,20 @@
-import type { InterfaceOf } from '@o3r/core';
-import type { RequestParametersConfig, RequestParametersService } from '@o3r/dynamic-content';
-import { StorageStrategy } from '@o3r/dynamic-content';
-
+import type {
+  InterfaceOf
+} from '@o3r/core';
+import type {
+  RequestParametersConfig,
+  RequestParametersService
+} from '@o3r/dynamic-content';
+import {
+  StorageStrategy
+} from '@o3r/dynamic-content';
 
 /**
  * Fixture file for requestParameters service
  */
 export class RequestParametersServiceFixture implements InterfaceOf<RequestParametersService> {
-  public query: {[key: string]: string} = {};
-  public post: {[key: string]: string} = {};
+  public query: { [key: string]: string } = {};
+  public post: { [key: string]: string } = {};
   public config: RequestParametersConfig = {
     strategy: StorageStrategy.Rehydrate,
     storage: (typeof window === 'undefined') ? undefined : window.sessionStorage,

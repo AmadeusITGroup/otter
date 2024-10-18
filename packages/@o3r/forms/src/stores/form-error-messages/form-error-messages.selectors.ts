@@ -1,9 +1,20 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ElementError, ErrorMessageObject } from '../../core/index';
-import { formErrorMessagesAdapter } from './form-error-messages.reducer';
-import { FORM_ERROR_MESSAGES_STORE_NAME, FormErrorMessagesState } from './form-error-messages.state';
+import {
+  createFeatureSelector,
+  createSelector
+} from '@ngrx/store';
+import {
+  ElementError,
+  ErrorMessageObject
+} from '../../core/index';
+import {
+  formErrorMessagesAdapter
+} from './form-error-messages.reducer';
+import {
+  FORM_ERROR_MESSAGES_STORE_NAME,
+  FormErrorMessagesState
+} from './form-error-messages.state';
 
-const {selectIds, selectEntities, selectAll, selectTotal} = formErrorMessagesAdapter.getSelectors();
+const { selectIds, selectEntities, selectAll, selectTotal } = formErrorMessagesAdapter.getSelectors();
 
 /** Select FormErrorMessages State */
 export const selectFormErrorMessagesState = createFeatureSelector<FormErrorMessagesState>(FORM_ERROR_MESSAGES_STORE_NAME);

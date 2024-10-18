@@ -1,5 +1,11 @@
-import {ResponseTimeoutError} from '../../fwk/errors';
-import {FetchCall, FetchPlugin, FetchPluginContext} from '../core';
+import {
+  ResponseTimeoutError
+} from '../../fwk/errors';
+import {
+  FetchCall,
+  FetchPlugin,
+  FetchPluginContext
+} from '../core';
 
 /**
  * Representation of an Imperva Captcha message
@@ -78,7 +84,6 @@ export const impervaCaptchaEventHandlerFactory: TimeoutPauseEventHandlerFactory<
  * Plugin to fire an exception on timeout
  */
 export class TimeoutFetch implements FetchPlugin {
-
   /** Fetch timeout (in millisecond) */
   public timeout: number;
   private timerSubscription: ((pauseStatus: TimeoutStatus) => void)[] = [];

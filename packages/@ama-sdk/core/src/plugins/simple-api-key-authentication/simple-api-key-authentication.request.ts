@@ -1,5 +1,11 @@
-import { PluginRunner, RequestOptions, RequestPlugin } from '../core';
-import {createJwtEncoder} from '../../utils/json-token';
+import {
+  createJwtEncoder
+} from '../../utils/json-token';
+import {
+  PluginRunner,
+  RequestOptions,
+  RequestPlugin
+} from '../core';
 
 /**
  * Optional parameters of the plugin
@@ -111,12 +117,11 @@ export class SimpleApiKeyAuthenticationRequest implements RequestPlugin {
   public load(): PluginRunner<RequestOptions, RequestOptions> {
     return {
       transform: async (data: RequestOptions) => {
-
         data.headers.set(this.options.apiKeyHeader, typeof this.apiKey === 'string' ? this.apiKey : await this.apiKey());
         if (this.options.officeId) {
           // create ama-ctx
           const officeId = typeof this.options.officeId === 'string' ? this.options.officeId : await this.options.officeId();
-          data.headers.set(this.options.contextHeader, this.jwtEncoder({oid: officeId}));
+          data.headers.set(this.options.contextHeader, this.jwtEncoder({ oid: officeId }));
         }
 
         return data;

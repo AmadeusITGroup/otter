@@ -1,6 +1,16 @@
-import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
-import { getWorkspaceConfig, readPackageJson, WorkspaceProject } from '@o3r/schematics';
-import type { PackageJson } from 'type-fest';
+import {
+  Rule,
+  SchematicContext,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  getWorkspaceConfig,
+  readPackageJson,
+  WorkspaceProject
+} from '@o3r/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Package.json updates to include o3r ng update script
@@ -10,7 +20,6 @@ import type { PackageJson } from 'type-fest';
  * @param projectType
  */
 export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersion?: string, projectType?: WorkspaceProject['projectType']): Rule {
-
   const ngUpdateScript = (tree: Tree, packageJsonObj: PackageJson, packageJsonPath = '/package.json') => {
     if (!packageJsonObj.scripts) {
       packageJsonObj.scripts = {};
@@ -45,5 +54,4 @@ export function o3rBasicUpdates(pName: string | null | undefined, _o3rCoreVersio
       });
     return tree;
   };
-
 }

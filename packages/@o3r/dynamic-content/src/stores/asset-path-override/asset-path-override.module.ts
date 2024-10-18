@@ -1,8 +1,20 @@
-import { InjectionToken, ModuleWithProviders, NgModule } from '@angular/core';
-import { Action, ActionReducer, StoreModule } from '@ngrx/store';
-
-import { assetPathOverrideReducer } from './asset-path-override.reducer';
-import { ASSET_PATH_OVERRIDE_STORE_NAME, AssetPathOverrideState } from './asset-path-override.state';
+import {
+  InjectionToken,
+  ModuleWithProviders,
+  NgModule
+} from '@angular/core';
+import {
+  Action,
+  ActionReducer,
+  StoreModule
+} from '@ngrx/store';
+import {
+  assetPathOverrideReducer
+} from './asset-path-override.reducer';
+import {
+  ASSET_PATH_OVERRIDE_STORE_NAME,
+  AssetPathOverrideState
+} from './asset-path-override.state';
 
 /** Token of the AssetPathOverride reducer */
 export const ASSET_PATH_OVERRIDE_REDUCER_TOKEN = new InjectionToken<ActionReducer<AssetPathOverrideState, Action>>('Feature AssetPathOverride Reducer');

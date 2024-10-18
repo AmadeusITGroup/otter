@@ -1,14 +1,31 @@
-import { strings } from '@angular-devkit/core';
-import { apply, MergeStrategy, mergeWith, move, renameTemplateFiles, Rule, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as fs from 'node:fs';
+import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  MergeStrategy,
+  mergeWith,
+  move,
+  renameTemplateFiles,
+  Rule,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   type DependencyToAdd,
   getWorkspaceConfig,
   NgAddPackageOptions
 } from '@o3r/schematics';
-import { NodeDependencyType } from '@schematics/angular/utility/dependencies';
-import * as path from 'node:path';
-import * as fs from 'node:fs';
-import type { PackageJson } from 'type-fest';
+import {
+  NodeDependencyType
+} from '@schematics/angular/utility/dependencies';
+import type {
+  PackageJson
+} from 'type-fest';
 
 /**
  * Add Playwright to Otter application

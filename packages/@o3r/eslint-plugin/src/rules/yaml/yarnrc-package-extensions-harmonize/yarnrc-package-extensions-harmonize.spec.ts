@@ -1,10 +1,15 @@
-import { cleanVirtualFileSystem, useVirtualFileSystem } from '@o3r/test-helpers';
-import { RuleTester } from '@typescript-eslint/rule-tester';
-import yamlParser from 'yaml-eslint-parser';
 import * as path from 'node:path';
+import {
+  cleanVirtualFileSystem,
+  useVirtualFileSystem
+} from '@o3r/test-helpers';
+import {
+  RuleTester
+} from '@typescript-eslint/rule-tester';
+import yamlParser from 'yaml-eslint-parser';
+import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
 
 const virtualFileSystem = useVirtualFileSystem();
-import yamlDependencyVersionsHarmonize from './yarnrc-package-extensions-harmonize';
 
 const ruleTester = new RuleTester({
   languageOptions: {
@@ -31,7 +36,6 @@ const packageJson2 = {
     myOtherDep: '~2.0.0'
   }
 };
-
 
 const yamlToUpdate = `
 nodeLinker: pnp
@@ -63,16 +67,15 @@ packageExtensions:
       "myDep": ~1.0.0
 `;
 
-
 const fakeFolder = path.resolve('/fake-folder');
 const packageToLint = path.join(fakeFolder, 'local', '.yarnrc.yml');
 
 beforeAll(async () => {
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local'), { recursive: true });
   await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'package.json'), JSON.stringify(packageJsonWorkspace));
 
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), {recursive: true});
-  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), {recursive: true});
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package'), { recursive: true });
+  await virtualFileSystem.promises.mkdir(path.join(fakeFolder, 'local', 'packages', 'my-package-2'), { recursive: true });
   await virtualFileSystem.promises.writeFile(path.join(fakeFolder, 'local', 'packages', 'my-package-2', 'package.json'), JSON.stringify(packageJson2));
 });
 

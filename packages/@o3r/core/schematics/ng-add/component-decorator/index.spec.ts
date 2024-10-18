@@ -1,8 +1,19 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { firstValueFrom } from 'rxjs';
-import { updateComponentDecorators } from './index';
+import {
+  readFileSync
+} from 'node:fs';
+import {
+  join
+} from 'node:path';
+import {
+  callRule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  updateComponentDecorators
+} from './index';
 
 describe('Update component decorators', () => {
   it('should update component decorators', async () => {

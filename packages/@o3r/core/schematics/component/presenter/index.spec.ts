@@ -1,10 +1,21 @@
-import { strings } from '@angular-devkit/core';
-import { Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { getComponentSelectorWithoutSuffix, TYPES_DEFAULT_FOLDER } from '@o3r/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { PRESENTER_FOLDER } from './index';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  getComponentSelectorWithoutSuffix,
+  TYPES_DEFAULT_FOLDER
+} from '@o3r/schematics';
+import {
+  PRESENTER_FOLDER
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 
@@ -18,7 +29,6 @@ function getGeneratedComponentPath(componentName: string, fileName: string, comp
 }
 
 describe('Component presenter', () => {
-
   let initialTree: Tree;
   let runner: SchematicTestRunner;
 

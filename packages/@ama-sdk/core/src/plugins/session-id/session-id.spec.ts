@@ -1,5 +1,9 @@
-import { RequestOptions } from '../core/request-plugin';
-import { SessionIdRequest } from './session-id.request';
+import {
+  RequestOptions
+} from '../core/request-plugin';
+import {
+  SessionIdRequest
+} from './session-id.request';
 
 describe('Session ID Request Plugin', () => {
   let options: RequestOptions;

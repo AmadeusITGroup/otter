@@ -1,11 +1,36 @@
-import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
-import { filterMessageContent, sendOtterMessage } from '@o3r/core';
-import { LoggerService } from '@o3r/logger';
-import { firstValueFrom, fromEvent, Subscription } from 'rxjs';
-import { LocalizationService } from '../tools';
-import { type AvailableLocalizationMessageContents, LocalizationDevtoolsServiceOptions, type LocalizationMessageDataTypes } from './localization-devkit.interface';
-import { OtterLocalizationDevtools } from './localization-devtools.service';
-import { OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS, OTTER_LOCALIZATION_DEVTOOLS_OPTIONS } from './localization-devtools.token';
+import {
+  Inject,
+  Injectable,
+  OnDestroy,
+  Optional
+} from '@angular/core';
+import {
+  filterMessageContent,
+  sendOtterMessage
+} from '@o3r/core';
+import {
+  LoggerService
+} from '@o3r/logger';
+import {
+  firstValueFrom,
+  fromEvent,
+  Subscription
+} from 'rxjs';
+import {
+  LocalizationService
+} from '../tools';
+import {
+  type AvailableLocalizationMessageContents,
+  LocalizationDevtoolsServiceOptions,
+  type LocalizationMessageDataTypes
+} from './localization-devkit.interface';
+import {
+  OtterLocalizationDevtools
+} from './localization-devtools.service';
+import {
+  OTTER_LOCALIZATION_DEVTOOLS_DEFAULT_OPTIONS,
+  OTTER_LOCALIZATION_DEVTOOLS_OPTIONS
+} from './localization-devtools.token';
 
 const isLocalizationMessage = (message: any): message is AvailableLocalizationMessageContents => {
   return message && (
@@ -24,7 +49,6 @@ const isLocalizationMessage = (message: any): message is AvailableLocalizationMe
 
 @Injectable()
 export class LocalizationDevtoolsMessageService implements OnDestroy {
-
   private readonly subscriptions = new Subscription();
 
   private readonly sendMessage = sendOtterMessage<AvailableLocalizationMessageContents>;

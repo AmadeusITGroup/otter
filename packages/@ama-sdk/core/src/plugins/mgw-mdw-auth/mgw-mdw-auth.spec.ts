@@ -1,6 +1,16 @@
-import { base64EncodeUrl, createBase64Decoder, createBase64UrlDecoder, createBase64UrlEncoder } from '../../utils/json-token';
-import { RequestOptions } from '../core';
-import { hmacSHA256, sha256 } from './mgw-mdw-auth.helpers';
+import {
+  base64EncodeUrl,
+  createBase64Decoder,
+  createBase64UrlDecoder,
+  createBase64UrlEncoder
+} from '../../utils/json-token';
+import {
+  RequestOptions
+} from '../core';
+import {
+  hmacSHA256,
+  sha256
+} from './mgw-mdw-auth.helpers';
 import {
   JsonTokenPayload,
   MicroGatewayMiddlewareAuthenticationRequest,
@@ -40,7 +50,6 @@ const hmacSHA256NodeImplementation = (value: string, secretKey: string) => {
 };
 
 describe('JSON auth token request plugin', () => {
-
   beforeEach(() => {
     options = {
       basePath: `${baseUrl}${routePath}`,
@@ -128,7 +137,6 @@ describe('JSON auth token request plugin', () => {
     const payload: JsonTokenPayload = JSON.parse(base64URLDecoder(tokenParts[1]));
     const signature = tokenParts[2];
 
-
     const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat + routePath)));
 
     const message = `${base64UrlEncoder(JSON.stringify(header))}.${base64UrlEncoder(JSON.stringify(payload))}`;
@@ -148,7 +156,6 @@ describe('JSON auth token request plugin', () => {
     const tokenParts = token.split('.');
     const header = JSON.parse(base64URLDecoder(tokenParts[0]));
     const payload: JsonTokenPayload = JSON.parse(base64URLDecoder(tokenParts[1]));
-
 
     const secretKey = await sha256(jsonAuthTokenOptions.apiKey + (await sha256(jsonAuthTokenOptions.secret + payload.jti + payload.iat + routePath)));
 

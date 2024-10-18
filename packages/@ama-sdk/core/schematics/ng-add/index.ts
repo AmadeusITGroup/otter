@@ -1,8 +1,15 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
-import { NodePackageInstallTask } from '@angular-devkit/schematics/tasks';
 import * as path from 'node:path';
+import {
+  chain,
+  type Rule
+} from '@angular-devkit/schematics';
+import {
+  NodePackageInstallTask
+} from '@angular-devkit/schematics/tasks';
 import * as ts from 'typescript';
-import type { NgAddSchematicsSchema } from './schema';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @ama-sdk/core has failed.
@@ -17,15 +24,14 @@ const reportMissingSchematicsDep = (logger: { error: (message: string) => any })
  * @param options schema options
  */
 function ngAddFn(options: NgAddSchematicsSchema): Rule {
-
   const removeImports: Rule = async () => {
-    const {removePackages} = await import('@o3r/schematics');
+    const { removePackages } = await import('@o3r/schematics');
     return removePackages(['@dapi/sdk-core']);
   };
 
   /* ng add rules */
   const updateImports: Rule = async (tree) => {
-    const {getFilesInFolderFromWorkspaceProjectsInTree} = await import('@o3r/schematics');
+    const { getFilesInFolderFromWorkspaceProjectsInTree } = await import('@o3r/schematics');
     const files = getFilesInFolderFromWorkspaceProjectsInTree(tree, '', 'ts');
     files.forEach((file) => {
       const sourceFile = ts.createSourceFile(
@@ -49,7 +55,6 @@ function ngAddFn(options: NgAddSchematicsSchema): Rule {
       return tree;
     });
   };
-
 
   const addMandatoryPeerDeps: Rule = async (tree, context) => {
     const { getPeerDepWithPattern, getWorkspaceConfig } = await import('@o3r/schematics');

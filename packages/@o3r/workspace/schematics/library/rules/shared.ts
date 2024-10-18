@@ -1,8 +1,17 @@
 import * as path from 'node:path';
-import type { Rule } from '@angular-devkit/schematics';
-import type { PackageJson } from 'type-fest';
-import { NgGenerateModuleSchema } from '../schema';
-import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
+import type {
+  Rule
+} from '@angular-devkit/schematics';
+import {
+  getPackageManagerRunner,
+  getWorkspaceConfig
+} from '@o3r/schematics';
+import type {
+  PackageJson
+} from 'type-fest';
+import {
+  NgGenerateModuleSchema
+} from '../schema';
 
 /**
  * Generate rule to update generated package.json file
@@ -14,7 +23,7 @@ import { getPackageManagerRunner, getWorkspaceConfig } from '@o3r/schematics';
 export function updatePackageDependenciesFactory(
     targetPath: string,
     otterVersion: string,
-    o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string>},
+    o3rCorePackageJson: PackageJson & { generatorDependencies?: Record<string, string> },
     options: NgGenerateModuleSchema): Rule {
   return (tree) => {
     /* eslint-disable @typescript-eslint/naming-convention */

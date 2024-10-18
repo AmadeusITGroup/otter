@@ -1,14 +1,21 @@
 #!/usr/bin/env node
-import { program } from 'commander';
-import * as fse from 'fs-extra';
+import * as fs from 'node:fs';
 import * as http from 'node:http';
 import * as https from 'node:https';
-import * as fs from 'node:fs';
 import * as path from 'node:path';
-import { CookieJar, Headers } from 'request';
+import {
+  program
+} from 'commander';
+import * as fse from 'fs-extra';
+import {
+  CookieJar,
+  Headers
+} from 'request';
 import * as request from 'request-promise-native';
 import * as winston from 'winston';
-import { GavcResponse } from '../helpers/gavc-response';
+import {
+  GavcResponse
+} from '../helpers/gavc-response';
 
 const SUPPORTED_REPOSITORY_MANAGERS = ['JFrog', 'Azure Artifacts'];
 
@@ -79,7 +86,7 @@ if (!opts.artifactGroupId) {
 
 let url: string = opts.registry;
 const jar = request.jar();
-const options: {headers?: Headers; jar: CookieJar} = {jar};
+const options: { headers?: Headers; jar: CookieJar } = { jar };
 const password = opts.password || opts.password_env_var && process.env[opts.password_env_var];
 if (opts.username && password) {
   options.headers = {
@@ -102,7 +109,6 @@ fse.ensureDirSync(path.resolve(process.cwd(), path.dirname(filePath)));
 const reportError = (e: Error) => {
   logger.error(e);
 };
-
 
 /**
  * Download the specified Artifact on JFrog
@@ -128,7 +134,7 @@ async function retrieveArtifactFromJFrog() {
   }
   // eslint-disable-next-line no-console
   console.log(responseSearch);
-  const responseSearchObj: {results: {uri: string}[]} = JSON.parse(responseSearch);
+  const responseSearchObj: { results: { uri: string }[] } = JSON.parse(responseSearch);
   const uris = responseSearchObj.results
     .map((res) => res.uri)
     .filter((uri) => uri.endsWith('.jar'))
@@ -154,7 +160,7 @@ async function retrieveArtifactFromJFrog() {
     file.on('error', reportError);
 
     const cookieString = jar.getCookieString(url);
-    const httpOptions = {headers: options.headers ? {...options.headers, cookie: cookieString} : undefined};
+    const httpOptions = { headers: options.headers ? { ...options.headers, cookie: cookieString } : undefined };
 
     if (artifactUrl.startsWith('https')) {
       https.get(downloadUri, httpOptions, (response) => response.pipe(file)).on('error', reportError);
@@ -180,7 +186,7 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
   const normalizedArtifactName = `${artifactGroupId}:${artifactName}`.toLowerCase();
   for (const pckg of packages) {
     if (pckg.normalizedName === artifactName || pckg.normalizedName === normalizedArtifactName) {
-      const latestVersion = (pckg.versions as {isLatest: boolean; version: string}[]).find((v) => v.isLatest);
+      const latestVersion = (pckg.versions as { isLatest: boolean; version: string }[]).find((v) => v.isLatest);
       if (!latestVersion) {
         throw new Error(`No latest version found for ${artifactName}`);
       }
@@ -196,12 +202,10 @@ function getLatestVersion(packages: Record<string, any>[], artifactName: string)
 async function retrieveArtifactFromAzure() {
   try {
     if (version.startsWith('0.0.0')) {
-
       const res = await request.get(`https://feeds.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/packages?api-version=6.0-preview.1`, options).promise();
       version = getLatestVersion(JSON.parse(res).value, name);
     }
     logger.info(`Searching for ${name}@${version}`);
-
 
     url = `https://pkgs.dev.azure.com/${opts.organization as string}/${opts.project as string}/_apis/packaging/feeds/${opts.feed as string}/maven/${opts.artifactGroupId as string}/${name}/${version}/${name}-${version}.jar/content?api-version=6.0-preview.1`;
 

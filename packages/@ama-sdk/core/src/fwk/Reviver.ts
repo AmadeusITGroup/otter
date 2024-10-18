@@ -1,4 +1,6 @@
-import type { Logger } from './logger';
+import type {
+  Logger
+} from './logger';
 
 /** Options provided to the reviver */
 export interface ReviverOptions {
@@ -36,7 +38,9 @@ export type ReviverType<T, V extends { [key: string]: any } = { [key: string]: a
  * @param options Reviver options
  */
 export function reviveMap<T>(data: { [key: string]: any }, dictionaries: any = null, reviver: ReviverType<T>, options?: ReviverOptions) {
-  if (!data) { return undefined; }
+  if (!data) {
+    return undefined;
+  }
 
   const revived: { [key: string]: any } = {};
   for (const key in data) {
@@ -57,7 +61,9 @@ export function reviveMap<T>(data: { [key: string]: any }, dictionaries: any = n
  * @param options Reviver options
  */
 export function reviveArray<T>(data: any[], dictionaries: any = null, reviver: ReviverType<T>, options?: ReviverOptions) {
-  if (!data) { return undefined; }
+  if (!data) {
+    return undefined;
+  }
   for (let i = 0; i < data.length; i++) {
     data[i] = reviver(data[i], dictionaries, options);
   }
@@ -74,8 +80,10 @@ export function reviveArray<T>(data: any[], dictionaries: any = null, reviver: R
  * @returns Map of id : {revived dictionarized item}
  */
 export function reviveDictionarizedArray<T>(ids: string[], dictionary: any, reviver?: ReviverType<T>, options?: ReviverOptions) {
-  if (!ids) { return undefined; }
-  return ids.reduce<{[key: string]: T | undefined}>((map, id) => {
+  if (!ids) {
+    return undefined;
+  }
+  return ids.reduce<{ [key: string]: T | undefined }>((map, id) => {
     map[id] = reviver ? reviver(dictionary[id], dictionary, options) : dictionary[id];
     return map;
   }, {});

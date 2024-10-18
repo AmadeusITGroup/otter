@@ -1,5 +1,21 @@
-import { strings } from '@angular-devkit/core';
-import { apply, chain, MergeStrategy, mergeWith, move, noop, Rule, schematic, SchematicContext, template, Tree, url } from '@angular-devkit/schematics';
+import * as path from 'node:path';
+import {
+  strings
+} from '@angular-devkit/core';
+import {
+  apply,
+  chain,
+  MergeStrategy,
+  mergeWith,
+  move,
+  noop,
+  Rule,
+  schematic,
+  SchematicContext,
+  template,
+  Tree,
+  url
+} from '@angular-devkit/schematics';
 import {
   applyEsLintFix,
   createSchematicWithMetricsIfInstalled,
@@ -9,8 +25,9 @@ import {
   moduleHasSubEntryPoints,
   writeSubEntryPointPackageJson
 } from '@o3r/schematics';
-import * as path from 'node:path';
-import { NgGenerateComponentSchematicsSchema } from './schema';
+import {
+  NgGenerateComponentSchematicsSchema
+} from './schema';
 
 /**
  * Execute component container schematic with provided options
@@ -44,7 +61,6 @@ function generateComponentPresenter(options: NgGenerateComponentSchematicsSchema
  * @param options
  */
 function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Rule {
-
   const generateRootBarrel: Rule = (tree: Tree, _context: SchematicContext) => {
     const inputComponentName = getInputComponentName(options.componentName);
     const folderName = getComponentFolderName(inputComponentName);
@@ -95,7 +111,6 @@ function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Ru
     }
     default: {
       const generateFiles: Rule = (tree: Tree, context: SchematicContext) => {
-
         const inputComponentName = getInputComponentName(options.componentName);
         const folderName = getComponentFolderName(inputComponentName);
 
@@ -110,7 +125,6 @@ function ngGenerateComponentFn(options: NgGenerateComponentSchematicsSchema): Ru
           }),
           move(componentDestination)
         ]), MergeStrategy.Overwrite)(tree, context);
-
       };
 
       return chain([

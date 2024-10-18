@@ -1,7 +1,12 @@
-import { chain, type Rule } from '@angular-devkit/schematics';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
-import type { NgAddSchematicsSchema } from './schema';
+import {
+  chain,
+  type Rule
+} from '@angular-devkit/schematics';
+import type {
+  NgAddSchematicsSchema
+} from './schema';
 
 const reportMissingSchematicsDep = (logger: { error: (message: string) => any }) => (reason: any) => {
   logger.error(`[ERROR]: Adding @o3r/third-party has failed.

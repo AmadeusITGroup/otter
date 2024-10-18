@@ -1,9 +1,11 @@
-import { getCssStyleContentUpdater } from './design-token-updater.renderers';
+import {
+  getCssStyleContentUpdater
+} from './design-token-updater.renderers';
 
 describe('getCssStyleContentUpdater', () => {
   const startTag = '/* test start */';
   const endTag = '/* end start */';
-  const cssUpdaterOptions = { startTag, endTag};
+  const cssUpdaterOptions = { startTag, endTag };
 
   test('should render CSS Values', () => {
     const renderer = getCssStyleContentUpdater(cssUpdaterOptions);

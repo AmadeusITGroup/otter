@@ -1,5 +1,10 @@
-import yargs, { ArgumentsCamelCase, Argv } from 'yargs';
-import { hideBin } from 'yargs/helpers';
+import yargs, {
+  ArgumentsCamelCase,
+  Argv
+} from 'yargs';
+import {
+  hideBin
+} from 'yargs/helpers';
 
 /** global CLI options */
 export const yargsAmaCli = yargs(hideBin(process.argv))

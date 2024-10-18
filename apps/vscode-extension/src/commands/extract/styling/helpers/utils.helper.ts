@@ -1,8 +1,21 @@
-import { Position, Selection, TextDocument, TextEditorEdit, TextLine, workspace } from 'vscode';
-import { basename } from 'node:path';
-import { EOL } from 'node:os';
-import {regExp} from './regex.helper';
+import {
+  EOL
+} from 'node:os';
+import {
+  basename
+} from 'node:path';
+import {
+  Position,
+  Selection,
+  TextDocument,
+  TextEditorEdit,
+  TextLine,
+  workspace
+} from 'vscode';
 import * as vscode from 'vscode';
+import {
+  regExp
+} from './regex.helper';
 
 /**
  * Sanitize the selector

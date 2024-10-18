@@ -1,13 +1,21 @@
-import { callRule, Tree } from '@angular-devkit/schematics';
-import { SchematicTestRunner } from '@angular-devkit/schematics/testing';
-import { firstValueFrom } from 'rxjs';
 import * as path from 'node:path';
-import { updateOrAddTsconfigEslint } from './index';
+import {
+  callRule,
+  Tree
+} from '@angular-devkit/schematics';
+import {
+  SchematicTestRunner
+} from '@angular-devkit/schematics/testing';
+import {
+  firstValueFrom
+} from 'rxjs';
+import {
+  updateOrAddTsconfigEslint
+} from './index';
 
 const collectionPath = path.join(__dirname, '..', '..', '..', 'collection.json');
 const tsconfigEslintPath = 'tsconfig.eslint.json';
 const context = { description: { path: __dirname } };
-
 
 describe('update tsconfig', () => {
   it('should create a tsconfig eslint', async () => {
@@ -45,6 +53,3 @@ describe('update tsconfig', () => {
     }));
   });
 });
-
-
-
