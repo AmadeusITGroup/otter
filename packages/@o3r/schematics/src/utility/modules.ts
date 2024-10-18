@@ -24,7 +24,7 @@ import { getWorkspaceConfig } from './loaders';
 export function getAppModuleFilePath(tree: Tree, context: SchematicContext, projectName?: string | null) {
   const workspaceProject = projectName ? getWorkspaceConfig(tree)?.projects[projectName] : undefined;
   // exit if not an application
-  if (!workspaceProject) {
+  if (!workspaceProject || workspaceProject.projectType !== 'application') {
     context.logger.debug('Aborted. App module file path will be searched only in application project.');
     return undefined;
   }

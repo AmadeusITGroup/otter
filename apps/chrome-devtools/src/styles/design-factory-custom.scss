@@ -111,3 +111,6 @@
 .df-modal-open {
   overflow: hidden;
 }
+.ng-dirty.ng-invalid {
+  @extend .is-invalid;
+}
