@@ -24,7 +24,7 @@ export class MultiSuccessChecker implements Checker {
           method,
           responses: Object.entries(node.responses as Record<string, any>).reduce((responses, [status, response]) => {
             const ref: string = response?.schema?.$ref || (response?.schema ? `custom-${status}` : 'no-content');
-            if (/2[0-9]{2}/.test(status)) {
+            if (/2\d{2}/.test(status)) {
               responses[status] = ref;
             }
             return responses;

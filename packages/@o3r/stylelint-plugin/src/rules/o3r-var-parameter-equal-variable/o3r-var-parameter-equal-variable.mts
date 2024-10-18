@@ -10,7 +10,7 @@ import {
 } from '../../utils/get-namespaced-rule-name.mjs';
 
 const { utils } = stylelint;
-const o3rImportRegexp = new RegExp(/^@use ['"]@o3r\/styling['"] as (.*);/m);
+const o3rImportRegexp = new RegExp(/^@use ["']@o3r\/styling["'] as (.*);/m);
 /**
  * Scoped rule name
  */

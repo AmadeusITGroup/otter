@@ -6,7 +6,7 @@ import {
   getFilesWithExtensionFromTree
 } from '@o3r/schematics';
 
-const matchingRegex = /(Configuration)<\s*['"](?:strict|legacy)['"]\s*>/g;
+const matchingRegex = /(Configuration)<\s*["'](?:strict|legacy)["']\s*>/g;
 
 /**
  * Rule to update the configuration declaration

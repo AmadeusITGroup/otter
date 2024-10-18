@@ -68,8 +68,8 @@ export const getJestModuleNameMapper = (rootDir: string, testingTsconfigPath?: s
   const { compilerOptions } = JSON.parse(readFileSync(testingTsconfigPath, { encoding: 'utf8' })) as TsConfigJson;
   const relativePath = relative(rootDir, workspacePath);
   return Object.entries(compilerOptions?.paths || {}).reduce<Record<string, any>>((acc, [keyPath, mapPaths]) => {
-    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/[*]/g, '$1')}`.replace(/\/{2,}/g, '/'));
-    acc['^' + keyPath.replace(/[*]/g, '(.*)') + '$'] = relativeModulePath;
+    const relativeModulePath = mapPaths.map((mapPath) => `<rootDir>/${relativePath.replace(/\\+/g, '/') || ''}/${mapPath.replace(/\*/g, '$1')}`.replace(/\/{2,}/g, '/'));
+    acc['^' + keyPath.replace(/\*/g, '(.*)') + '$'] = relativeModulePath;
     return acc;
   }, {});
 };

@@ -44,7 +44,7 @@ let files: string[] = [];
 files.push(
   // List the folders in the src/ folder
   ...globbySync('*/', { cwd: path.resolve(process.cwd(), opts.sourceFolder), dot: true, onlyDirectories: true })
-    .map((folder) => folder.replace(/[\\/]$/i, '') + '/')
+    .map((folder) => folder.replace(/[/\\]$/i, '') + '/')
 );
 
 files.push(
@@ -67,7 +67,7 @@ files.push(
 
 // remove duplicate RegExps
 files = files.reduce((acc, file) => {
-  const reg = new RegExp('^' + file.replace(/\\*\./ig, '\\.').replace(/\\*\*/ig, '[^\\/]*') + '$');
+  const reg = new RegExp('^' + file.replace(/\\*\./gi, '\\.').replace(/\\*\*/gi, '[^\\/]*') + '$');
   return acc.filter((f) => f === file || !reg.test(f));
 }, [...files]);
 

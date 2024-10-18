@@ -60,8 +60,8 @@ globbySync(options.include, { cwd: process.cwd() })
   }))
   .forEach((pathWithContent: { path: string; content: string }) => {
     const newContent = pathWithContent.content
-      .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[.+?^${}()|[\]\\]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
-      .replace(/"workspace:([~^]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
+      .replace(new RegExp('"([~^]?)' + (options.placeholder as string).replace(/[$()+.?[\\\]^{|}]/g, '\\$&').replace(/\\*\./g, '\\.') + '"', 'g'), `"$1${replaceVersion}"`)
+      .replace(/"workspace:([^~]?)[^"]*"(,?)$/gm, `"$1${replaceVersion}"$2`);
     if (newContent === pathWithContent.content) {
       logger.debug(`No change in ${pathWithContent.path}`);
     } else {

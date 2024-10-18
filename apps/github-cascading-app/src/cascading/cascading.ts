@@ -123,7 +123,7 @@ export abstract class Cascading {
    * @returns {undefined} if the context is not found
    */
   protected retrieveContext(content: string): PullRequestContext | undefined {
-    const match = content.match(/<!--\s*(\{.*?\})\s*-->/s);
+    const match = content.match(/<!--\s*({.*?})\s*-->/s);
     if (!match || !match[1]) {
       this.logger.warn('Failed to parse ');
       return;

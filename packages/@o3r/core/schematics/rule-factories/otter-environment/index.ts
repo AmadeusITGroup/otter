@@ -154,7 +154,7 @@ export function updateOtterEnvironmentAdapter(
     const envDefaultFilePath = posix.join(envBasePath, 'environment.ts');
     const addProductionBoolean = (envFilePath: string, value: boolean) => {
       let envContent = tree.readText(envFilePath);
-      if (!/production['"]?:\s*(true|false)/.test(envContent)) {
+      if (!/production["']?:\s*(true|false)/.test(envContent)) {
         envContent = envContent.replace(/(const environment = {)/, `$1\n  production: ${String(value)},\n`);
         tree.overwrite(envFilePath, envContent);
       }

@@ -45,7 +45,7 @@ export function getDefaultOptionsForSchematic<T extends WorkspaceSchematics['*:*
     }
 
     return Object.entries<Record<string, string>>(schematics)
-      .filter(([key, _]) => new RegExp(key.replace(/[*]/g, '.*')).test(`${collection}:${schematicName}`))
+      .filter(([key, _]) => new RegExp(key.replace(/\*/g, '.*')).test(`${collection}:${schematicName}`))
       .sort(([a], [b]) => (a.match(/\*/g)?.length || 0) - (b.match(/\*/g)?.length || 0))
       .map(([_, value]) => value)
       .reduce((config, value) => ({ ...config, ...value }), acc);

@@ -1,6 +1,6 @@
 export * from './ast';
-export * from './collection';
 export * from './builder';
+export * from './collection';
 export * from './component';
 export * from './dependencies';
 export * from './environment';

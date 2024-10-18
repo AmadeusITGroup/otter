@@ -46,7 +46,7 @@ if (sdkType !== 'typescript') {
 }
 
 const fullPackage = argv._[1];
-const packageMatch = /^(?:@([^@/]+)\/)?([^@/]+)$/.exec(fullPackage);
+const packageMatch = /^(?:@([^/@]+)\/)?([^/@]+)$/.exec(fullPackage);
 if (!packageMatch) {
   console.error('Invalid package name');
   process.exit(-3);

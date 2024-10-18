@@ -17,14 +17,14 @@ export const updateOpenApiVersionInProject = (): Rule => {
   const overwriteOpenApiVersion = (pathOfWorkspace: string): Rule => {
     return (tree, context) => {
       const packageJson = tree.readText(`${pathOfWorkspace}/package.json`);
-      const amaSdkTypescriptUsage = packageJson.match(/@ama-sdk\/schematics:typescript-core.*",?$/mg);
+      const amaSdkTypescriptUsage = packageJson.match(/@ama-sdk\/schematics:typescript-core.*",?$/gm);
       if (!amaSdkTypescriptUsage) {
         context.logger.info(`Skipping ng-update for ${pathOfWorkspace} as it does not use @ama-sdk/schematics:typescript-core`);
         return tree;
       }
       const openapitoolsPaths: string[] = [];
       amaSdkTypescriptUsage.forEach((script) => {
-        const openapiToolsPath = new RegExp(/@ama-sdk\/schematics:typescript-core.* --spec-config-path(?:=|\s+)["']?(?:\.\/)?([a-zA-Z-/.0-9_]*\.json)/).exec(script);
+        const openapiToolsPath = new RegExp(/@ama-sdk\/schematics:typescript-core.* --spec-config-path(?:=|\s+)["']?(?:\.\/)?([\w./-]*\.json)/).exec(script);
         if (openapiToolsPath?.length === 2) {
           openapitoolsPaths.push(`${pathOfWorkspace}/${openapiToolsPath[1]}`);
         }

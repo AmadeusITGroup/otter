@@ -29,7 +29,7 @@ export const updateScssImports = (): Rule => {
     files
       .map((file) => {
         const content = tree.readText(file);
-        const match = content.match(/@use +['"]@o3r\/styling['"] +as +(.*);/);
+        const match = content.match(/@use +["']@o3r\/styling["'] +as +(.*);/);
         const importName = match?.[1];
         if (!importName) {
           return {

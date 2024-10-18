@@ -46,7 +46,7 @@ export function applyEsLintFix(_prootPath = '/', extension: string[] = ['ts'], o
       .filter((a) => a.kind !== 'd' && extension.includes(extname(a.path)))
       .map((action) => action.path.substring(1));
 
-    if (tree.root.subfiles.some((f) => /eslint\.config\.{m,c,}[tj]s/.test(f))) {
+    if (tree.root.subfiles.some((f) => /eslint\.config\.{m,c,}[jt]s/.test(f))) {
       context.addTask(
         new EslintFixTask(
           Array.from(filesToBeLint),

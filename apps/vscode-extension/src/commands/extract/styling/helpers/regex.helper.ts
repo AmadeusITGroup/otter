@@ -4,11 +4,11 @@ export const regExp = {
   /**
    * Match the whole css selectors excluding imports, variables and comments
    */
-  css: /.*{(.|[\r\n])*;/g,
+  css: /.*{(.|[\n\r])*;/g,
   /**
    * Retrieves all selectors attributes without the content. Only the name with the opening bracket
    */
-  allSelectors: /(?:\s?&?\.?)([^\s]*)(?:\s?)(?:{)/g,
+  allSelectors: /\s?&?\.?(\S*)\s?{/g,
   /**
    * Trim and sanitize all the characters matching
    * `.` `*` `,` ` ` `~` `+` `\` `=` `_` `^` `$` `"` `'` `:` `(` `)` `#` `{` `}` `&`

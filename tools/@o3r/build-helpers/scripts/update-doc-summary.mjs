@@ -53,7 +53,7 @@ function generateSummary(folderPath) {
         .filter((file) => /\.?md$/i.test(path.extname(file)))
         .map((file) => ({
           title: path.basename(file, '.md').replace(/_/g, ' '),
-          file: path.relative(docsFolder, path.join(folderPath, file)).replace(/[\\/]/g, '/')
+          file: path.relative(docsFolder, path.join(folderPath, file)).replace(/[/\\]/g, '/')
         }));
 
       const folders = files

@@ -27,8 +27,8 @@ import type {
   ParentReference
 } from './design-token-parser.interface';
 
-const tokenReferenceRegExp = /\{([^}]+)\}/g;
-const splitValueNumericRegExp = /^([-+]?[0-9]+[.,]?[0-9]*)\s*([^\s.,;]+)?/;
+const tokenReferenceRegExp = /{([^}]+)}/g;
+const splitValueNumericRegExp = /^([+-]?\d+[,.]?\d*)\s*([^\s,.;]+)?/;
 
 const getTokenReferenceName = (tokenName: string, parents: string[]) => parents.join('.') + (parents.length > 0 ? '.' : '') + tokenName;
 const getExtensions = (nodes: NodeReference[], context: DesignTokenContext | undefined) => {
@@ -66,7 +66,7 @@ const applyConversion = (token: DesignTokenVariableStructure, value: string) => 
 };
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 const renderCssTypeStrokeStyleValue = (value: DesignTokenTypeStrokeStyleValue | string) => isTokenTypeStrokeStyleValueComplex(value) ? `${value.lineCap} ${value.dashArray.join(' ')}` : value;
-const sanitizeStringValue = (value: string) => value.replace(/[\\]/g, '\\\\').replace(/"/g, '\\"');
+const sanitizeStringValue = (value: string) => value.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
 const sanitizeKeyName = (name: string) => name.replace(/[ .]+/g, '-').replace(/[()[\]]+/g, '');
 const getCssRawValue = (variableSet: DesignTokenVariableSet, token: DesignTokenVariableStructure) => {
   const { node, getType } = token;
@@ -183,7 +183,7 @@ const walkThroughDesignTokenNodes = (
         return getReferences(this.getCssRawValue(variableSet));
       },
       getIsAlias: function (variableSet = mem) {
-        return this.getReferences(variableSet).length === 1 && typeof node.$value === 'string' && !!node.$value?.toString().match(/^\{[^}]*\}$/);
+        return this.getReferences(variableSet).length === 1 && typeof node.$value === 'string' && !!node.$value?.toString().match(/^{[^}]*}$/);
       },
       getReferencesNode: function (variableSet = mem) {
         return this.getReferences(variableSet)

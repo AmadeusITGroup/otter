@@ -3,7 +3,7 @@
  * @param gitOutput response from git command to format
  */
 export function formatGitTagsOutput(gitOutput: string) {
-  return gitOutput.split(/[\r\n\s]+/g)
+  return gitOutput.split(/\s+/g)
     .map((val) => val.replace('remotes/origin/', ''))
     .filter((val) => !!val);
 }

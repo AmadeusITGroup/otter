@@ -113,15 +113,15 @@ describe('new otter application', () => {
     });
 
     // Expect created files inside `test-app` project
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'e2e-playwright').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/app').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/components').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'e2e-playwright').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/app').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/components').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
 
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/services').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/store').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
-    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/styling').replace(/[\\/]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/services').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/store').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
+    expect(diff.added.filter((file) => new RegExp(path.posix.join(relativeApplicationPath, 'src/styling').replace(/[/\\]+/g, '[\\\\/]')).test(file)).length).toBeGreaterThan(0);
 
-    expect(diff.modified).toContainEqual(expect.stringMatching(new RegExp(path.posix.join(relativeApplicationPath, 'src/app/app.routes.ts').replace(/[\\/]+/g, '[\\\\/]'))));
+    expect(diff.modified).toContainEqual(expect.stringMatching(new RegExp(path.posix.join(relativeApplicationPath, 'src/app/app.routes.ts').replace(/[/\\]+/g, '[\\\\/]'))));
 
     expect(() => packageManagerRunOnProject(appName, isInWorkspace, { script: 'build' }, execAppOptions)).not.toThrow();
 

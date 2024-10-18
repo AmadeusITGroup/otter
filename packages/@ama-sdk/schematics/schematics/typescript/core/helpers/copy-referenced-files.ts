@@ -17,7 +17,7 @@ import {
   sep
 } from 'node:path';
 
-const refMatcher = /\B['"]?[$]ref['"]?\s*:\s*([^#\n]+)/g;
+const refMatcher = /\B["']?\$ref["']?\s*:\s*([^\n#]+)/g;
 
 /**
  * Extract the list of local references from a single spec file content
@@ -28,7 +28,7 @@ function extractRefPaths(specContent: string, basePath: string): string[] {
   const refs = specContent.match(refMatcher);
   return refs
     ? refs
-      .map((capture) => capture.replace(refMatcher, '$1').replace(/['"]/g, ''))
+      .map((capture) => capture.replace(refMatcher, '$1').replace(/["']/g, ''))
       .filter((refPath) => refPath.startsWith('.'))
       .map((refPath) => join(basePath, refPath))
     : [];
@@ -66,7 +66,7 @@ async function extractRefPathRecursive(specFilePath: string, referenceFilePath: 
 export function updateLocalRelativeRefs(specContent: string, newBaseRelativePath: string) {
   const formatPath = (inputPath: string) => (inputPath.startsWith('.') ? inputPath : `./${inputPath}`).replace(/\\+/g, '/');
   return specContent.replace(refMatcher, (match, ref: string) => {
-    const refPath = ref.replace(/['"]/g, '');
+    const refPath = ref.replace(/["']/g, '');
     return refPath.startsWith('.')
       ? match.replace(refPath, formatPath(normalize(posix.join(newBaseRelativePath.replaceAll(sep, posix.sep), refPath))))
       : match;

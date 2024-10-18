@@ -38,7 +38,7 @@ export default createRule({
           const indexPath = path.resolve(importTarget, 'index.ts');
           const indexFileExist = fs.existsSync(indexPath);
           const newIndexFilePath = path.join(importPath, 'index')
-            .replace(/[\\/]/g, '/')
+            .replace(/[/\\]/g, '/')
             .replace(/^([^.])/, './$1');
           context.report({
             node,

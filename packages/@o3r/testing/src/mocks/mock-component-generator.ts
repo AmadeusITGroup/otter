@@ -34,7 +34,7 @@ function isOutputNode(node: ts.Node, source: ts.SourceFile): node is ts.Decorato
  * @param source Typescript source file
  */
 function getIOName(currentNode: ts.Node, decorator: ts.Decorator, source: ts.SourceFile): string | undefined {
-  const nameInDecorator = decorator.getText(source).match(/@(Input|Ouput) *\( *(['"](.*)['"])? *\) */i);
+  const nameInDecorator = decorator.getText(source).match(/@(input|ouput) *\( *(["'](.*)["'])? *\) */i);
   if (nameInDecorator && nameInDecorator[3]) {
     return nameInDecorator[3];
   } else {
@@ -96,7 +96,7 @@ function getSelector(parentNode: ts.Node, source: ts.SourceFile, isInDecorator =
     if (isInDecorator && isInComponentConfig && ts.isIdentifier(node) && node.getText(source) === 'selector') {
       foundSelector = true;
     } else if (foundSelector && ts.isStringLiteral(node)) {
-      ret = node.getText(source).replace(/['"]/ig, '');
+      ret = node.getText(source).replace(/["']/gi, '');
     } else if (isInDecorator && ts.isIdentifier(node) && node.getText(source) === 'Component') {
       foundDecorator = true;
     } else if (isInDecorator && foundDecorator && ts.isObjectLiteralExpression(node)) {

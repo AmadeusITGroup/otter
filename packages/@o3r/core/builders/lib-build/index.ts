@@ -57,7 +57,7 @@ export default createBuilder<LibraryBuilderSchema>(createBuilderWithMetricsIfIns
         .map((file) => path.resolve(context.currentDirectory, file))
         .map(async (file) => {
           context.logger.debug(`Removing Jest reference from ${file}`);
-          const content = (await fs.readFile(file, { encoding: 'utf8' })).replace(/^\/\/\/ <reference types="jest" \/>$/m, '');
+          const content = (await fs.readFile(file, { encoding: 'utf8' })).replace(/^\/{3} <reference types="jest" \/>$/m, '');
           return fs.writeFile(file, content);
         })
     );

@@ -40,7 +40,7 @@ describe('Specs processing', () => {
 
   it('should copy the local files referenced in the spec', async () => {
     const baseRelativePath = await copyReferencedFiles(specFilePath, outputDirectory);
-    expect(baseRelativePath).toMatch(/^local-references[\\/]split-spec$/);
+    expect(baseRelativePath).toMatch(/^local-references[/\\]split-spec$/);
     expect(virtualFileSystem.existsSync(join(outputDirectory, 'split-spec/split-spec.yaml'))).toBe(true);
     expect(virtualFileSystem.existsSync(join(outputDirectory, 'split-spec/spec-chunk1.yaml'))).toBe(true);
     expect(virtualFileSystem.existsSync(join(outputDirectory, 'spec-chunk2.yaml'))).toBe(true);
